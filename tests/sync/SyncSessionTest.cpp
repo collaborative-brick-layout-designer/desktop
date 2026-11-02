@@ -227,6 +227,29 @@ TEST(SyncSession, TheCacheOpensTheLayoutOfflineAndKeepsOfflineEdits) {
     session.close();
 }
 
+// The copy on disk (layout.ydoc) holding bytes yrs can't take: it isn't
+// read, and the layout comes from the server as if there were no copy.
+TEST(SyncSession, RejectsMalformedDocumentsWithoutCrashing) {
+    QTemporaryDir cache;
+    QFile bad(QStringLiteral(BLD_SOURCE_DIR
+                             "/fixtures/fuzz-regressions/ydoc-clock-past-the-limit-after-a-gap.bin"));
+    ASSERT_TRUE(bad.open(QIODevice::ReadOnly));
+    QFile copy(cache.filePath(QStringLiteral("layout.ydoc")));
+    ASSERT_TRUE(copy.open(QIODevice::WriteOnly));
+    copy.write(bad.readAll());
+    copy.close();
+
+    FakeServer server;
+    sync::SyncSession session;
+    session.setCacheDir(cache.path());
+    session.open(server.url(), {}, false);
+    EXPECT_FALSE(session.loaded());
+    ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced; }));
+    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 45.0f; });
+    ASSERT_TRUE(waitFor([&] { return firstBrick(*session.currentMap()).orientation == 45.0f; }));
+    session.close();
+}
+
 TEST(SyncSession, TellsTheEditorWhenTheServerEndsIt) {
     FakeServer server;
     sync::SyncSession session;

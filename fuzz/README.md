@@ -20,7 +20,7 @@ AddressSanitizer and UndefinedBehaviorSanitizer:
 | `lif` | LDD `.lif` asset archives (every file read back) |
 | `layout_file` | native `.bld-layout` files (the zip, its layout, sidecar, background and parts) |
 | `studio` | Studio `.io` archives |
-| `ydoc` | live-sync documents (Yjs updates through `sync::UpdateGuard` into yrs: `summarizeDoc`, `SyncDoc::applyUpdate`), seeds `fixtures/sync/*.ydoc` and `fixtures/fuzz-regressions/ydoc-*` |
+| `ydoc` | live-sync documents (Yjs updates through `sync::UpdateGuard` into yrs: `summarizeDoc`, `SyncDoc::applyUpdate`, whole and cut in two as a document and an update to it), seeds `fixtures/sync/*.ydoc` and `fixtures/fuzz-regressions/ydoc-*` |
 | `sync_message` | y-websocket messages from the server (`sync::protocol::decode`) |
 
 Run them all (60 s each by default):

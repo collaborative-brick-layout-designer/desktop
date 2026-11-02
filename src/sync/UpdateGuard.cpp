@@ -65,6 +65,7 @@ public:
             quint64 blocks = 0;
             if (!count(blocks, 2, "blocks")) return false;  // each: info byte and at least one more
             if (!varUint(client_) || !varUint(clock_)) return false; // client id, first clock
+            if (!clockInRange(clock_, 0)) return false;
             if (clocks_ && !clocks_->firstClock.contains(client_)) clocks_->firstClock.insert(client_, clock_);
             for (quint64 b = 0; b < blocks; ++b)
                 if (!block()) return false;
@@ -77,7 +78,7 @@ public:
         if (!count(clients, 2, "clients")) return false;  // each: client id, clock
         for (quint64 c = 0; c < clients; ++c) {
             quint64 client = 0, clock = 0;
-            if (!varUint(client) || !varUint(clock)) return false;
+            if (!varUint(client) || !varUint(clock) || !clockInRange(clock, 0)) return false;
             if (svClocks_) svClocks_->insert(client, clock);
         }
         return true;
@@ -158,16 +159,25 @@ private:
         return true;
     }
 
+    // Whether `length` clocks from `clock` end within kMaxClock (UpdateGuard.h).
+    bool clockInRange(quint64 clock, quint64 length) {
+        if (clock > kMaxClock || length > kMaxClock - clock)
+            return fail(QStringLiteral("a clock is past %1").arg(kMaxClock));
+        return true;
+    }
+
     // Where the next block of the client being read starts, and its length.
-    void place(quint64 length) {
+    bool place(quint64 length) {
+        if (!clockInRange(clock_, length)) return false;
         if (shape_ && length > 0) shape_->blocks[client_].push_back({ clock_, length });
         clock_ += length;
+        return true;
     }
 
     bool id(std::vector<Id>* into) {
         quint64 client = 0;
         quint64 clock = 0;
-        if (!varUint(client) || !varUint(clock)) return false;
+        if (!varUint(client) || !varUint(clock) || !clockInRange(clock, 0)) return false;
         if (shape_ && into) into->push_back({ client, clock });
         return true;
     }
@@ -181,9 +191,11 @@ private:
             // looking up a clock after an empty GC block (block_store.rs).
             quint64 length = 0;
             if (!varUint(length)) return false;
-            if (info == kGc) place(length);
-            else clock_ += length;
-            return length > 0 || fail(QStringLiteral("it holds an empty block"));
+            if (length == 0) return fail(QStringLiteral("it holds an empty block"));
+            if (info == kGc) return place(length);
+            if (!clockInRange(clock_, length)) return false;
+            clock_ += length;
+            return true;
         }
         const bool cantCopyParentInfo = (info & (kHasOrigin | kHasRightOrigin)) == 0;
         if ((info & kHasOrigin) && !id(shape_ ? &shape_->origins : nullptr)) return false; // origin id
@@ -192,13 +204,11 @@ private:
         if (cantCopyParentInfo) {
             quint64 parentInfo = 0;
             if (!varUint(parentInfo)) return false;
-            if (parentInfo == 1 ? !text() : !(skipVarUint() && skipVarUint())) return false;  // root name, or id
+            if (parentInfo == 1 ? !text() : !id(nullptr)) return false; // root name, or id
             if ((info & kHasParentSub) && !text()) return false;                            // map key
         }
         quint64 length = 0;
-        if (!content(info & 0x0f, length)) return false;
-        place(length);
-        return true;
+        return content(info & 0x0f, length) && place(length);
     }
 
     // `length`: how many clocks the content takes.
@@ -207,14 +217,14 @@ private:
         switch (ref) {
         case 1:  // deleted: a length
             return varUint(length);
-        case 2: {  // JSON: yrs reads count + 1 strings
+        case 2: { // JSON: yrs reads count + 1 strings, and takes as many clocks
             quint64 n = 0;
             if (!varUint(n)) return false;
             if (n >= static_cast<quint64>(left()))
                 return fail(QStringLiteral("it claims %1 JSON values with %2 bytes left").arg(n + 1).arg(left()));
             for (quint64 i = 0; i <= n; ++i)
                 if (!text()) return false;
-            length = n;
+            length = n + 1;
             return true;
         }
         case 3:  // binary
@@ -315,7 +325,7 @@ private:
             for (quint64 r = 0; r < ranges; ++r) {
                 quint64 clock = 0;
                 quint64 length = 0;
-                if (!varUint(clock) || !varUint(length)) return false;
+                if (!varUint(clock) || !varUint(length) || !clockInRange(clock, length)) return false;
                 if (shape_) shape_->deleted.push_back({ client, clock, length });
             }
         }

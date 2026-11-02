@@ -218,6 +218,67 @@
       "hex": "010107002801046d657461017801770361006200",
       "refused": true,
       "contains": "NUL"
+    },
+    {
+      "what": "fuzz-regressions/ydoc-clock-past-the-limit.bin",
+      "kind": "update",
+      "hex": "03018080960096010002018080960096ffffffff01000200000000000000000400",
+      "refused": true,
+      "contains": "clock"
+    },
+    {
+      "what": "fuzz-regressions/ydoc-clock-past-the-limit-after-a-gap.bin",
+      "kind": "update",
+      "hex": "0103070000010afffdffff0f00010107010001",
+      "refused": true,
+      "contains": "clock"
+    },
+    {
+      "what": "a GC block ending at the last clock (2147483647)",
+      "kind": "update",
+      "hex": "010107feffffff07000100",
+      "refused": false
+    },
+    {
+      "what": "a GC block starting at the last clock",
+      "kind": "update",
+      "hex": "010107ffffffff07000100",
+      "refused": true,
+      "contains": "clock"
+    },
+    {
+      "what": "an item placed after a clock past the last",
+      "kind": "update",
+      "hex": "0101070088058080808008017e00",
+      "refused": true,
+      "contains": "clock"
+    },
+    {
+      "what": "JSON content ending past the last clock (yrs reads count + 1 values)",
+      "kind": "update",
+      "hex": "010107feffffff072201046d6574610178010131013200",
+      "refused": true,
+      "contains": "clock"
+    },
+    {
+      "what": "a deleted range ending past the last clock",
+      "kind": "update",
+      "hex": "00010701feffffff0702",
+      "refused": true,
+      "contains": "clock"
+    },
+    {
+      "what": "a state vector at the last clock",
+      "kind": "stateVector",
+      "hex": "0107ffffffff07",
+      "refused": false
+    },
+    {
+      "what": "a state vector past the last clock",
+      "kind": "stateVector",
+      "hex": "01078080808008",
+      "refused": true,
+      "contains": "clock"
     }
   ],
   "gridSize": {

@@ -222,3 +222,78 @@ TEST(UpdateGuard, FuzzRegressionsAreRefusedQuickly) {
         EXPECT_LT(t.elapsed(), 2000);
     }
 }
+
+namespace {
+
+// One client (7) with one GC block of `length` at `clock`, and no deletions.
+QByteArray gcAt(quint64 clock, quint64 length = 1) {
+    return varUint(1) + varUint(1) + varUint(7) + varUint(clock) + QByteArray(1, '\0') + varUint(length)
+           + varUint(0);
+}
+
+} // namespace
+
+// Clocks past kMaxClock, in every place an update or a state vector holds
+// one, are refused; up to it they pass. yrs 0.28 panics (aborting the app)
+// on some of them, alone or after a block it already has.
+TEST(UpdateGuard, RejectsMalformedDocumentsWithoutCrashing) {
+    constexpr quint64 kLast = sync::guard::kMaxClock;
+    EXPECT_EQ(sync::guard::checkUpdate(gcAt(kLast - 1)), QString());
+    EXPECT_EQ(sync::guard::checkUpdate(gcAt(0, kLast)), QString());
+    EXPECT_EQ(sync::guard::checkStateVector(varUint(1) + varUint(7) + varUint(kLast)), QString());
+
+    struct Case {
+        const char* what;
+        QByteArray bytes;
+    };
+    const Case updates[] = {
+        { "a block starting at the last clock", gcAt(kLast) },
+        { "a block running past it", gcAt(kLast - 1, 2) },
+        { "a block at 2^32 + 5", gcAt((quint64{ 1 } << 32) + 5) },
+        { "the fuzz find", readFixture(QStringLiteral("fuzz-regressions/ydoc-clock-past-the-limit.bin")) },
+        { "the same after a gap",
+          readFixture(QStringLiteral("fuzz-regressions/ydoc-clock-past-the-limit-after-a-gap.bin")) },
+        { "an item placed after a clock past it",
+          varUint(1) + varUint(1) + varUint(7) + varUint(0) + QByteArray("\x88", 1) + varUint(5)
+              + varUint(kLast + 1) + varUint(1) + QByteArray("\x7e", 1) + varUint(0) },
+        { "an item inside a type at a clock past it",
+          varUint(1) + varUint(1) + varUint(7) + varUint(0) + QByteArray("\x08", 1) + varUint(0) + varUint(5)
+              + varUint(kLast + 1) + varUint(1) + QByteArray("\x7e", 1) + varUint(0) },
+        { "JSON content running past it (yrs reads one value more than the count)",
+          varUint(1) + varUint(1) + varUint(7) + varUint(kLast - 1) + QByteArray("\x22", 1) + varUint(1)
+              + varString("meta") + varString("x") + varUint(1) + varString("1") + varString("2")
+              + varUint(0) },
+        { "a deleted range running past it",
+          varUint(0) + varUint(1) + varUint(7) + varUint(1) + varUint(kLast - 1) + varUint(2) },
+    };
+    for (const Case& c : updates) {
+        SCOPED_TRACE(c.what);
+        ASSERT_FALSE(c.bytes.isEmpty());
+        EXPECT_TRUE(sync::guard::checkUpdate(c.bytes).contains(QLatin1String("clock")))
+            << sync::guard::checkUpdate(c.bytes).toStdString();
+
+        QString err;
+        EXPECT_FALSE(sync::summarizeDoc(c.bytes, &err));
+        EXPECT_TRUE(err.startsWith(QLatin1String("refused"))) << err.toStdString();
+        err.clear();
+        EXPECT_FALSE(sync::docToJson(c.bytes, &err));
+        EXPECT_TRUE(err.startsWith(QLatin1String("refused"))) << err.toStdString();
+
+        // A document that already has blocks of client 7 (yrs went wrong
+        // working out the gap after them) stays as it was.
+        sync::SyncDoc d;
+        ASSERT_TRUE(d.applyUpdate(gcAt(0)));
+        const QByteArray before = d.encodeState();
+        err.clear();
+        EXPECT_FALSE(d.applyUpdate(c.bytes, &err));
+        EXPECT_TRUE(err.startsWith(QLatin1String("refused"))) << err.toStdString();
+        EXPECT_EQ(d.encodeState(), before);
+    }
+
+    // A state vector (sync step 1) with one is answered with everything.
+    const QByteArray sv = varUint(1) + varUint(7) + varUint(kLast + 1);
+    EXPECT_TRUE(sync::guard::checkStateVector(sv).contains(QLatin1String("clock")));
+    sync::SyncDoc d;
+    ASSERT_TRUE(d.applyUpdate(readFixture(QStringLiteral("sync/tight-corner.ydoc"))));
+    EXPECT_EQ(d.diffSince(sv), d.encodeState());
+}
