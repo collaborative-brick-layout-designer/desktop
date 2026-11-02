@@ -11,6 +11,8 @@
 
 #include <gtest/gtest.h>
 
+#include <QFile>
+
 using namespace bld;
 using namespace bld::synctest;
 using namespace std::chrono_literals;
@@ -170,6 +172,61 @@ TEST(SyncClient, EndsTheSessionWhenTheResyncCantBeReadEither) {
     // No retry follows.
     waitFor([] { return false; }, 200);
     EXPECT_EQ(server.authHeaders.size(), 1u);
+}
+
+// Bytes yrs can't take (a clock past UpdateGuard's kMaxClock) in each
+// message from the server: an update is dropped and the layout asked for
+// again, a state vector is answered with everything, and a resync that
+// holds them ends the session with the reason, the layout as it was.
+TEST(SyncClient, RejectsMalformedDocumentsWithoutCrashing) {
+    const auto fixture = [](const char* name) {
+        QFile f(QStringLiteral(BLD_SOURCE_DIR "/fixtures/fuzz-regressions/") + QLatin1String(name));
+        return f.open(QIODevice::ReadOnly) ? f.readAll() : QByteArray();
+    };
+    const QByteArray update = fixture("ydoc-clock-past-the-limit.bin");
+    const QByteArray resync = fixture("ydoc-clock-past-the-limit-after-a-gap.bin");
+    ASSERT_FALSE(update.isEmpty());
+    ASSERT_FALSE(resync.isEmpty());
+
+    FakeServer server;
+    sync::SyncDoc local;
+    sync::SyncClient client(local);
+    client.setReconnectDelays(20ms, 20ms);
+    int finalCode = 0;
+    QString finalReason;
+    QObject::connect(&client, &sync::SyncClient::closedForGood, [&](int c, const QString& r) {
+        finalCode = c;
+        finalReason = r;
+    });
+    client.open(server.url(), {});
+    ASSERT_TRUE(waitFor([&] { return client.status() == sync::SyncClient::Status::Synced; }));
+    const QJsonObject before = local.toJson();
+
+    const size_t step1s = server.step1s.size();
+    server.sendRaw(protocol::encode(Kind::Update, update));
+    ASSERT_TRUE(waitFor([&] { return server.step1s.size() > step1s; }));
+    EXPECT_EQ(server.step1s.back(), QByteArray(1, '\0'));
+    waitFor([] { return false; }, 100);
+    EXPECT_EQ(local.toJson(), before);
+    EXPECT_EQ(client.status(), sync::SyncClient::Status::Synced);
+
+    // Sync step 1 with a clock past the limit: answered, still live.
+    QByteArray sv("\x01\x07", 2);
+    sv += QByteArray("\x80\x80\x80\x80\x08", 5); // 2^31
+    server.sendRaw(protocol::encode(Kind::SyncStep1, sv));
+    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 30.0f; });
+    ASSERT_TRUE(
+        waitFor([&] { return firstBrick(*sync::mapFromDocJson(local.toJson())).orientation == 30.0f; }));
+    EXPECT_EQ(finalCode, 0);
+    const QJsonObject edited = local.toJson();
+
+    server.step2Override = resync;
+    server.sendRaw(protocol::encode(Kind::Update, update));
+    ASSERT_TRUE(waitFor([&] { return finalCode != 0; }));
+    EXPECT_EQ(finalCode, sync::kUnreadableUpdateCode);
+    EXPECT_EQ(finalReason, QStringLiteral("unreadable_update"));
+    EXPECT_FALSE(sync::liveCloseText(finalCode, finalReason).isEmpty());
+    EXPECT_EQ(local.toJson(), edited);
 }
 
 // A message over the size limit: Qt drops it unread and closes; the

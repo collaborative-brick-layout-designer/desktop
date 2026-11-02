@@ -38,18 +38,19 @@
 
 #include <QApplication>
 #include <QBuffer>
-#include <QDir>
-#include <QInputDialog>
-#include <QKeySequence>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QDir>
 #include <QElapsedTimer>
+#include <QFile>
 #include <QFrame>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QImage>
+#include <QInputDialog>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QKeySequence>
 #include <QLabel>
 #include <QLineEdit>
 #include <QListWidget>
@@ -61,8 +62,8 @@
 #include <QStandardPaths>
 #include <QTabWidget>
 #include <QTcpServer>
-#include <QTemporaryDir>
 #include <QTcpSocket>
+#include <QTemporaryDir>
 #include <QTimer>
 #include <QToolButton>
 #include <QUndoStack>
@@ -355,6 +356,25 @@ TEST(ModuleDoc, ANewVersionReplacesWhatTheServerHeld) {
     EXPECT_FALSE(sync::mapFromModuleSnapshot(QByteArray("nonsense"), &error));
     EXPECT_FALSE(error.isEmpty());
     EXPECT_TRUE(sync::moduleSnapshotFor(*smaller, QByteArray("nonsense")).isEmpty());
+}
+
+// A snapshot from the server holding bytes yrs can't take (a clock past
+// UpdateGuard's kMaxClock): refused with a reason, for the message the
+// window shows, both when opening it and when saving a new version on top.
+TEST(ModuleDoc, RejectsMalformedDocumentsWithoutCrashing) {
+    for (const char* name :
+         { "ydoc-clock-past-the-limit.bin", "ydoc-clock-past-the-limit-after-a-gap.bin" }) {
+        SCOPED_TRACE(name);
+        QFile f(QStringLiteral(BLD_SOURCE_DIR "/fixtures/fuzz-regressions/") + QLatin1String(name));
+        ASSERT_TRUE(f.open(QIODevice::ReadOnly));
+        const QByteArray bytes = f.readAll();
+        QString error;
+        EXPECT_FALSE(sync::mapFromModuleSnapshot(bytes, &error));
+        EXPECT_TRUE(error.contains(QLatin1String("clock"))) << error.toStdString();
+        error.clear();
+        EXPECT_TRUE(sync::moduleSnapshotFor(*sampleModule(1), bytes, &error).isEmpty());
+        EXPECT_TRUE(error.contains(QLatin1String("clock"))) << error.toStdString();
+    }
 }
 
 // ---------- The tabs ----------------------------------------------------------

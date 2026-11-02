@@ -16,6 +16,8 @@
 // - values nested deeper than kMaxNesting;
 // - content kinds yrs can't read, or a layout never holds (weak links);
 // - strings with a NUL character in them (yffi panics on those);
+// - a clock (where a change sits in its editor's run of changes) past
+//   kMaxClock;
 // - more work to apply than kMaxUpdateWork (SyncDoc::applyUpdate, with
 //   updateWork).
 //
@@ -37,6 +39,13 @@ constexpr qsizetype kMaxUpdateBytes = 64 * kMiB;
 // How deep values (lists and objects in a layout's JSON) may nest. The web's
 // layout model nests 5 deep.
 constexpr int kMaxNesting = 256;
+
+// The highest clock read, in blocks (to their end), the ids they point at,
+// deleted ranges and state vectors. yrs 0.28 keeps clocks as 32-bit numbers
+// and works out the gap before a block with signed 32-bit arithmetic, which
+// goes wrong (and panics) past this. A clock counts one editor's changes in
+// one session: real layouts stay far below it.
+constexpr quint64 kMaxClock = 0x7fff'ffff;
 
 // Where an update's blocks start, by client, and whether it skips any
 // (a Skip block: a gap in one client's run).
