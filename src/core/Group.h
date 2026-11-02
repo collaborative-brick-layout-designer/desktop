@@ -11,6 +11,8 @@ namespace bld::core {
 // and linked by GUID via each item's <MyGroup> element.
 struct Group : LayerItem {
     QString partNumber;  // empty for user-created groups, non-empty for library meta-groups
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const Group&) const = default;
 };
 
 }

@@ -189,10 +189,7 @@ void MapView::pasteClipboard() {
     // guid. Explicitly re-select only the pasted bricks so the user's
     // "pasted bricks are active" expectation survives any future restore.
     emit layersChanged();
-    QList<QGraphicsItem*> pick;
-    for (QGraphicsItem* it : scene()->items())
-        if (isBrickItem(it) && newGuids.contains(it->data(kBrickDataGuid).toString())) pick.append(it);
-    selectItems(pick);
+    selectParts(newGuids);
 }
 
 void MapView::duplicateSelection() {

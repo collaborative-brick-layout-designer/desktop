@@ -40,7 +40,7 @@ class QUndoStack;
 namespace bld::core    { class Map; class LayerGrid; }
 namespace bld::edit    { class FlexMove; }
 namespace bld::parts   { class PartsLibrary; }
-namespace bld::rendering { class SceneBuilder; }
+#include "../rendering/SceneBuilder.h"
 
 namespace bld::ui {
 
@@ -53,9 +53,19 @@ public:
     ~MapView() override;
 
     void loadMap(std::unique_ptr<core::Map> map);
+    // A newer copy of the same layout (the live server's): the view keeps its
+    // zoom, scroll and pick, and redraws only what changed.
+    void updateMap(std::unique_ptr<core::Map> map);
     // Budget whose limitation (when on) placement and paste respect.
     void setBudget(class BudgetSession* budget) { budget_ = budget; }
-    void rebuildScene();  // re-run SceneBuilder against current map (after edits)
+    void rebuildScene();  // re-run SceneBuilder against current map, every item made again
+    // After an edit (an undo-stack step, a newer live copy): draws again only
+    // what changed (SceneBuilder::update), or everything when the change is
+    // structural. Keeps the pick, the pick index and the module state.
+    void refreshScene();
+    // How many times the scene was built whole, and drawn again in part (tests).
+    int sceneBuilds() const { return sceneBuilds_; }
+    int sceneUpdates() const { return sceneUpdates_; }
 
     // The loading card over the map (LoadingCard.h). "Opening layout…",
     // painted at once; loadMap() takes it from there.
@@ -476,6 +486,23 @@ private:
     int lastStackIndex_ = 0;
     int lastStackCount_ = 0;
     void pickPartsBroughtBack();
+    // What the last refreshScene() did in part (unset after a whole build).
+    std::optional<QSet<QString>> lastPartsAdded_, lastPartsRemoved_;
+    int sceneBuilds_ = 0;
+    int sceneUpdates_ = 0;
+    // Drops what points at scene items (drags, previews) before a rebuild.
+    void dropLiveState();
+    // Patches the pick index after an update of the scene drawn from `before`.
+    void patchPickIndex(const rendering::SceneBuilder::Change& change, const core::Map* before);
+    // What the module flags and dimming were applied for (the edited module,
+    // and the modules when one is edited or pinned): a change redraws all.
+    struct ModuleState {
+        QString editing;
+        std::vector<core::Module> modules;
+        bool operator==(const ModuleState&) const = default;
+    };
+    ModuleState moduleState() const;
+    ModuleState appliedModuleState_;
 
     std::vector<BrickOriginSnapshot> dragStart_;
     std::vector<RulerDragSnapshot>   rulerDragStart_;
@@ -670,7 +697,7 @@ private:
     std::vector<edit::SetUpdate> setUpdates_;
     class SetUpdatesBar* updatesBar_ = nullptr;
     // Item flags and dimming for Edit module and pinned modules, after a build.
-    void applyModuleState();
+    void applyModuleState(const QList<QGraphicsItem*>* only = nullptr);
     // Modules picked whole (or only the edited one's parts): called from
     // the scene's selectionChanged. `before` is the selection before.
     void shapeModuleSelection();
@@ -728,6 +755,8 @@ private:
     int pickIndexBuilds_ = 0;
     int bendHandleRefreshes_ = 0;
     const PickIndex& pickIndex();
+    // The pick index's groups for one sheet.
+    void indexSheet(PickIndex& index, int layerIndex) const;
     // The guids of the parts picked now.
     QSet<QString> pickedParts();
     int gridLinesDrawn_ = 0;

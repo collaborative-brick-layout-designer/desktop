@@ -45,6 +45,8 @@ struct Module {
     // Fields a newer build (or the web) wrote that this one doesn't know,
     // kept so reading and writing the module again doesn't lose them.
     QJsonObject extras;
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const Module&) const = default;
 };
 
 // A copy of `m` holding `members` (Duplicate or paste of one whole module,

@@ -12,6 +12,7 @@
 #include <QPointF>
 
 #include <algorithm>
+#include <optional>
 #include <cmath>
 #include <vector>
 
@@ -39,6 +40,11 @@ struct WorldConn {
 
 // BlueBrick's arePositionsEqual: within half a stud on each axis.
 constexpr double kTolStuds = 0.5;
+// A bucket's key, one integer (hashed far faster than a pair).
+quint64 bucketKey(int x, int y) {
+    return (static_cast<quint64>(static_cast<quint32>(x)) << 32) | static_cast<quint32>(y);
+}
+
 QPair<int, int> bucketOf(QPointF p) {
     // Clamped: a corrupt file can put a brick anywhere (or at NaN), and
     // converting an out-of-range double to int is undefined.
@@ -81,7 +87,31 @@ void rebuildConnectivity(Map& map, parts::PartsLibrary& lib) {
     // used to keep its connection ids, so links named the wrong part (and a
     // bend followed them round in a circle). A repeat gets a new id; the
     // links are made again from positions below anyway.
+    // Each part's metadata once per part number (a lookup copies it), and
+    // its picture offset once per turn: this runs after every edit.
+    QHash<QString, std::optional<parts::PartMetadata>> metas;
+    const auto metaOf = [&](const QString& part) -> const parts::PartMetadata* {
+        auto it = metas.constFind(part);
+        if (it == metas.constEnd()) it = metas.insert(part, lib.metadata(part));
+        return it->has_value() ? &**it : nullptr;
+    };
+    QHash<QPair<QString, float>, QPointF> offsets;
+    const auto offsetOf = [&](const Brick& b) {
+        const QPair<QString, float> key(b.partNumber, b.orientation);
+        auto it = offsets.constFind(key);
+        if (it == offsets.constEnd()) it = offsets.insert(key, lib.imageOffset(b.partNumber, b.orientation));
+        return *it;
+    };
+    // (Sized up front: growing these tables was a good part of the time.)
     QSet<QString> ids;
+    {
+        qsizetype n = 0;
+        for (auto& layerPtr : map.layers())
+            if (layerPtr && layerPtr->kind() == LayerKind::Brick)
+                for (const auto& brick : static_cast<LayerBrick&>(*layerPtr).bricks)
+                    n += static_cast<qsizetype>(brick.connections.size());
+        ids.reserve(n);
+    }
     for (auto& layerPtr : map.layers()) {
         if (!layerPtr || layerPtr->kind() != LayerKind::Brick) continue;
         for (auto& brick : static_cast<LayerBrick&>(*layerPtr).bricks)
@@ -100,16 +130,17 @@ void rebuildConnectivity(Map& map, parts::PartsLibrary& lib) {
         auto& layer = static_cast<LayerBrick&>(*layerPtr);
 
         QHash<QString, QString> previous;  // connection guid -> old partner connection guid
+        previous.reserve(static_cast<qsizetype>(layer.bricks.size() * 2));
         std::vector<WorldConn> all;
         all.reserve(layer.bricks.size() * 2);
         for (auto& brick : layer.bricks) {
-            const auto meta = lib.metadata(brick.partNumber);
+            const parts::PartMetadata* meta = metaOf(brick.partNumber);
             if (!meta) continue;
             const int n = meta->connections.size();
             while (static_cast<int>(brick.connections.size()) < n) brick.connections.push_back({});
             // Connection positions are relative to the sprite centre, which
             // is off the displayArea centre for parts with an XML hull.
-            const QPointF centre = brick.displayArea.center() + lib.imageOffset(brick.partNumber, brick.orientation);
+            const QPointF centre = brick.displayArea.center() + offsetOf(brick);
             for (int i = 0; i < n; ++i) {
                 auto& cp = brick.connections[i];
                 // <LinkedTo> in a .bbm names the partner's connection, so
@@ -127,8 +158,12 @@ void rebuildConnectivity(Map& map, parts::PartsLibrary& lib) {
         // the FIRST free connection of the same type (in the same order) at
         // an equal position. Buckets make that O(N) without changing which
         // one wins: the lowest index among the candidates.
-        QHash<QPair<int, int>, std::vector<int>> bucket;
-        for (int i = 0; i < static_cast<int>(all.size()); ++i) bucket[bucketOf(all[i].worldPos)].push_back(i);
+        QHash<quint64, std::vector<int>> bucket;
+        bucket.reserve(static_cast<qsizetype>(all.size()));
+        for (int i = 0; i < static_cast<int>(all.size()); ++i) {
+            const auto b = bucketOf(all[i].worldPos);
+            bucket[bucketKey(b.first, b.second)].push_back(i);
+        }
 
         for (int i = 0; i < static_cast<int>(all.size()); ++i) {
             auto& a = all[i];
@@ -137,7 +172,7 @@ void rebuildConnectivity(Map& map, parts::PartsLibrary& lib) {
             int bestJ = -1;
             for (int dx = -1; dx <= 1; ++dx) {
                 for (int dy = -1; dy <= 1; ++dy) {
-                    const auto it = bucket.constFind({ ab.first + dx, ab.second + dy });
+                    const auto it = bucket.constFind(bucketKey(ab.first + dx, ab.second + dy));
                     if (it == bucket.constEnd()) continue;
                     for (int j : *it) {
                         if (j == i || (bestJ >= 0 && j >= bestJ)) continue;
@@ -159,9 +194,9 @@ void rebuildConnectivity(Map& map, parts::PartsLibrary& lib) {
             // connection being linked still counts as free). Only new links
             // trigger the hand-over.
             const bool isNew = previous.value(ca.guid) != cb.guid;
-            if (isNew) if (const auto m = lib.metadata(a.brick->partNumber)) onLinked(*a.brick, a.connIdx, *m);
+            if (isNew) if (const auto* m = metaOf(a.brick->partNumber)) onLinked(*a.brick, a.connIdx, *m);
             ca.linkedToId = cb.guid;
-            if (isNew) if (const auto m = lib.metadata(b.brick->partNumber)) onLinked(*b.brick, b.connIdx, *m);
+            if (isNew) if (const auto* m = metaOf(b.brick->partNumber)) onLinked(*b.brick, b.connIdx, *m);
             cb.linkedToId = ca.guid;
         }
 

@@ -29,6 +29,8 @@ struct RulerItemBase : LayerItem {
     int       unit = 0;              // Tools.Distance.Unit enum as int
     FontSpec  measureFont;
     ColorSpec measureFontColor = ColorSpec::fromKnown(QColor(Qt::black), QStringLiteral("Black"));
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const RulerItemBase&) const = default;
 };
 
 struct LinearRuler : RulerItemBase {
@@ -38,12 +40,16 @@ struct LinearRuler : RulerItemBase {
     QString attachedBrick2Id;
     float   offsetDistance = 0.0f;
     bool    allowOffset = false;
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const LinearRuler&) const = default;
 };
 
 struct CircularRuler : RulerItemBase {
     QPointF center;
     float   radius = 0.0f;
     QString attachedBrickId;
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const CircularRuler&) const = default;
 };
 
 }

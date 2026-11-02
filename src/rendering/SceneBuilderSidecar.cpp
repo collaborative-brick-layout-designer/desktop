@@ -21,6 +21,7 @@
 #include "../core/Venue.h"
 
 #include <QBrush>
+#include <QHash>
 #include <QFont>
 #include <QFontMetricsF>
 #include <QGraphicsItem>
@@ -271,7 +272,7 @@ void SceneBuilder::addAnchoredLabels(const core::Map& map) {
     // World-anchored labels go directly to the scene; brick/group/module
     // anchors become children of their target so Qt transform inheritance
     // moves them for free.
-    LayerSink sink{ scene_, worldLabelItems_, 100000.0, true };
+    LayerSink sink{ scene_, worldLabelItems_, 100000.0, labelsShown_ };
 
     for (const auto& lbl : map.sidecar.anchoredLabels) {
         auto* t = new QGraphicsSimpleTextItem(lbl.text);
@@ -286,6 +287,9 @@ void SceneBuilder::addAnchoredLabels(const core::Map& map) {
         t->setData(kBrickDataLayerIndex, -1);
         t->setData(kBrickDataGuid,       lbl.id);
         t->setData(kBrickDataKind,       QStringLiteral("label"));
+        t->setVisible(labelsShown_);
+        labelItems_.append(t);  // in the labels' order (SceneBuilder::update)
+        ++drawnTotal_;
 
         if (lbl.kind == core::AnchorKind::Brick) {
             auto it = brickByGuid_.constFind(lbl.targetId);
@@ -302,9 +306,10 @@ void SceneBuilder::addAnchoredLabels(const core::Map& map) {
 }
 
 void SceneBuilder::setLabelsVisible(bool visible) {
-    // Brick labels are children of their brick, so walk the scene.
-    for (QGraphicsItem* it : scene_.items())
-        if (it->data(kBrickDataKind).toString() == QLatin1String("label")) it->setVisible(visible);
+    // Every label, those on a part (its children) too.
+    if (labelsShown_ == visible) return;  // (new labels are made so)
+    labelsShown_ = visible;
+    for (QGraphicsItem* it : std::as_const(labelItems_)) it->setVisible(visible);
 }
 
 void SceneBuilder::addModuleLabels(const core::Map& map, bool posed) {
@@ -338,19 +343,26 @@ void SceneBuilder::addModuleLabels(const core::Map& map, bool posed) {
         for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks)
             partsPx.emplace_back(b.displayArea.x() * k, b.displayArea.y() * k, b.displayArea.width() * k, b.displayArea.height() * k);
     }
-    for (const auto& mod : map.sidecar.modules) {
-        QRectF studs;
-        bool partlyHidden = false;
+    // Each module's box and whether some of it is hidden, in one walk over
+    // the parts (not one per module: frames are drawn again after edits).
+    const auto& mods = map.sidecar.modules;
+    QMultiHash<QString, std::size_t> moduleOf;  // part guid -> modules it is in
+    for (std::size_t m = 0; m < mods.size(); ++m)
+        for (const QString& g : mods[m].memberIds) moduleOf.insert(g, m);
+    std::vector<QRectF> boxes(mods.size());
+    std::vector<char> hidden(mods.size(), 0);
+    if (!moduleOf.isEmpty())
         for (const auto& L : map.layers()) {
             if (!L || L->kind() != core::LayerKind::Brick) continue;
-            for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks) {
-                if (!mod.memberIds.contains(b.guid)) continue;
-                if (L->visible) studs = studs.united(b.displayArea);
-                else partlyHidden = true;
-            }
+            for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks)
+                for (auto it = moduleOf.constFind(b.guid); it != moduleOf.cend() && it.key() == b.guid; ++it) {
+                    if (L->visible) boxes[*it] = boxes[*it].united(b.displayArea);
+                    else hidden[*it] = 1;
+                }
         }
-        colorInput.push_back({ mod.id, studs });
-        if (!studs.isEmpty()) shown.push_back({ &mod, studs, partlyHidden });
+    for (std::size_t m = 0; m < mods.size(); ++m) {
+        colorInput.push_back({ mods[m].id, boxes[m] });
+        if (!boxes[m].isEmpty()) shown.push_back({ &mods[m], boxes[m], hidden[m] != 0 });
     }
     // Each module's own default color; names placed together.
     const QHash<QString, QString> colors = posed ? settledModuleColors_ : moduleColors(colorInput);

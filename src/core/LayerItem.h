@@ -18,6 +18,8 @@ struct LayerItem {
     QString guid;           // id attribute on the start tag
     QRectF  displayArea;    // bounding box in studs
     QString myGroupId;      // empty if not grouped
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const LayerItem&) const = default;
 };
 
 }

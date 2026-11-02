@@ -3,6 +3,7 @@ find_package(Qt6 6.8 REQUIRED COMPONENTS Test)
 
 add_executable(bld_ui_tests
     MapViewTest.cpp
+    LiveRedrawTest.cpp
     RotateOracleTest.cpp
     ImportPipelineTest.cpp
     ImportReplaceTest.cpp

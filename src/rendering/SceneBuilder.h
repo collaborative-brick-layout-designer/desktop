@@ -1,8 +1,17 @@
 #pragma once
 
+#include <functional>
 #include <optional>
+#include <vector>
 
 #include "ModuleLabels.h"
+#include "../core/AnchoredLabel.h"
+#include "../core/Brick.h"
+#include "../core/Group.h"
+#include "../core/LayerRuler.h"
+#include "../core/Module.h"
+#include "../core/TextCell.h"
+#include "../core/Venue.h"
 
 #include <QColor>
 #include <QHash>
@@ -12,13 +21,14 @@
 #include <QRectF>
 #include <QSet>
 #include <QString>
+#include <QStringList>
 #include <QVector>
 
 class QGraphicsItem;
 class QGraphicsScene;
 
 namespace bld::core { class Layer; class Map; }
-namespace bld::parts { class PartsLibrary; }
+namespace bld::parts { class PartsLibrary; struct PartMetadata; }
 
 namespace bld::rendering {
 
@@ -48,6 +58,43 @@ public:
 
     void build(const core::Map& map);
     void clear();
+
+    // What update() changed in the scene.
+    struct Change {
+        // Items deleted (their pointers are only good as keys now) and made:
+        // parts, text, ruler pieces, area cells and labels (a label on a part
+        // is its child).
+        QList<QGraphicsItem*> removed;
+        QList<QGraphicsItem*> added;
+        // Parts drawn now that weren't, and parts no longer drawn.
+        QSet<QString> partsAdded;
+        QSet<QString> partsRemoved;
+        // Part sheets (by index) whose parts came, went or changed group,
+        // or whose groups changed.
+        QSet<int> sheetsRegrouped;
+        // Things drawn again: a part, text cell, ruler, area cell or label
+        // each count one (the perf tests count work, not time).
+        int redrawn = 0;
+        // Things taken away.
+        int erased = 0;
+        bool nothing() const { return redrawn == 0 && erased == 0 && !overlays; }
+        // Module frames, circuits, the venue or labels were drawn again.
+        bool overlays = false;
+    };
+    // Draws again only what differs between `map` and what was drawn last:
+    // the parts, text, rulers and area cells that changed, came or went,
+    // and what is drawn from them (module frames, circuits, labels). An
+    // item Qt moved (a drag) without the layout changing is put back too.
+    // Unset, with nothing done, when the change is structural (sheets
+    // added, removed or reordered, a sheet's look, a setting every part
+    // reads, or nothing drawn yet): build() then.
+    std::optional<Change> update(const core::Map& map);
+    // Whether `brick` on sheet `layerIndex` is drawn as it is (update()
+    // would leave it).
+    bool drawnAsIs(int layerIndex, const core::Brick& brick) const;
+    // Things (parts, text cells, rulers, area cells, labels) drawn since
+    // this builder was made, by build() and update() (tests).
+    quint64 drawnTotal() const { return drawnTotal_; }
 
     // Venue label size in scene px; unset reads Preferences (venue/labelPx).
     // The Venue Designer sets it from the zoom so labels read the same at any scale.
@@ -85,8 +132,9 @@ public:
     const QList<QPair<QString, QRectF>>& moduleAnnotationRects() const { return moduleAnnotationRects_; }
 
     // Moves on whenever parts', rulers', text's or labels' items are made
-    // or deleted (build, clear, rulers following a drag): what MapView's
-    // pick index was built from is gone then.
+    // or deleted wholesale (build, clear, rulers following a drag): what
+    // MapView's pick index was built from is gone then. update() leaves it:
+    // its Change says which items came and went.
     quint64 generation() const { return generation_; }
 
     // Module names cut short to fit (the whole name shows on hover, as a
@@ -105,6 +153,91 @@ private:
     QVector<QPointF> venueHandles_;
     double venueHandleHalfPx_ = 0;
     void addLayer(const core::Layer& layer, int layerIndex);
+    void clearLayer(int layerIndex);
+
+    // What each sheet was drawn from, so update() redraws only what differs:
+    // a thing (part, text cell, ruler) by guid, with its items, its place in
+    // the sheet's z order and what it was drawn from.
+    template <class Stored>
+    struct Thing {
+        QList<QGraphicsItem*> items;
+        double  z = 0;
+        quint64 seen = 0;  // the update that last found it on the sheet
+        Stored  model;
+    };
+    // A ruler and where its ends were (they follow parts).
+    struct RulerDrawn {
+        core::LayerRuler::AnyRuler ruler;
+        QPointF end1, end2;
+    };
+    struct LayerDrawn {
+        bool    present = false;
+        core::LayerKind kind = core::LayerKind::Grid;
+        QString guid;
+        int     transparency = 100;
+        bool    hullsShown = false;
+        QRgb    hullColor = 0;
+        int     hullThickness = 1;
+        int     areaCellSize = 0;
+        bool    visible = true;  // the sheet's Visible when drawn
+        bool    shown = true;    // whether its items show now (setLayerVisible)
+        double  baseZ = 0;
+        QList<QGraphicsItem*> items;  // every item of the sheet (visibility, clear)
+        QHash<QString, Thing<core::Brick>>    bricks;
+        QHash<QString, Thing<core::TextCell>> texts;
+        QHash<QString, Thing<RulerDrawn>>     rulers;
+        // An area cell's item and color.
+        QHash<QPoint, QPair<QGraphicsItem*, QRgb>> cells;
+        std::vector<core::Group> groups;
+    };
+    // Draws again the things on a sheet that differ from `models` (`Hooks`
+    // knows how to tell and to draw one); false when two have one guid.
+    template <class Model, class Stored, class Hooks>
+    bool diffThings(LayerDrawn& d, QHash<QString, Thing<Stored>>& things, const std::vector<Model>& models,
+                    Hooks& hooks, Change& change, QSet<QGraphicsItem*>& gone);
+    // A sheet drawn again whole (two things with one guid).
+    void redrawLayer(const core::Layer& layer, int layerIndex, Change& change);
+    std::vector<LayerDrawn> layers_;
+    // Settings every part reads (connection points, hulls, elevation).
+    struct PartLook {
+        bool alwaysShowConns = false;
+        bool hulls = false;
+        bool elevation = false;
+        bool electric = false;  // View > Electric circuits (shown or not, the parts look the same)
+        bool operator==(const PartLook& o) const {
+            return alwaysShowConns == o.alwaysShowConns && hulls == o.hulls && elevation == o.elevation;
+        }
+    };
+    PartLook partLook_;
+    PartLook readPartLook() const;
+    QGraphicsItem* makeBrickItem(const core::Brick& brick, const core::Layer& layer, int layerIndex,
+                                 QHash<QString, QString>& resolvedKeys);
+    void decorateBrickItem(QGraphicsItem* item, const core::Brick& brick, const core::Layer& layer,
+                           const parts::PartMetadata* meta);
+    // Moves and turns a part's item to `brick` and draws its children
+    // again; false when it must be made anew (another part, no picture).
+    bool redrawBrickInPlace(QGraphicsItem* item, const core::Brick& brick, const core::Layer& layer);
+    // Puts the sheet's things in z order (their order on the sheet): new
+    // ones between their neighbours, or all again when the order changed.
+    template <class Stored>
+    void orderSheet(LayerDrawn& d, QHash<QString, Thing<Stored>>& things,
+                    const std::function<QString(int)>& guidAt, const std::vector<double>& zs);
+    // Deletes the labels on a part's item (they're drawn again after).
+    void takeLabelsOff(QGraphicsItem* partItem);
+    bool labelsDirty_ = false;
+    quint64 epoch_ = 0;
+    void clearLabels();
+    void clearVenue();
+    void clearModuleLabels();
+    void clearElectric();
+    QPointF brickCentre(const core::Brick& b) const;
+    std::optional<core::Venue> drawnVenue_;
+    std::vector<core::AnchoredLabel> drawnLabels_;
+    std::vector<core::Module> drawnModules_;
+    QList<QGraphicsItem*> labelItems_;  // every label item, world ones and those on parts
+    bool labelsShown_ = true;
+    bool built_ = false;
+    quint64 drawnTotal_ = 0;
     void addVenue(const core::Map& map);
     void addAnchoredLabels(const core::Map& map);
     // `posed`: parts are being dragged: names keep the places (and modules
@@ -114,7 +247,6 @@ private:
 
     QGraphicsScene& scene_;
     parts::PartsLibrary& parts_;
-    QHash<int, QList<QGraphicsItem*>> itemsByLayer_;  // layer index -> direct scene items
     QHash<QString, QGraphicsItem*>    brickByGuid_;   // brick.guid -> QGraphicsItem*
     // brick.guid -> brick world centre in STUDS. Precomputed once per build
     // so ruler rendering (and any other cross-item feature) can resolve

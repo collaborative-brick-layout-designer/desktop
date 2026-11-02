@@ -356,7 +356,7 @@ void MainWindow::replaceWithLibrary(const QString& moduleId, core::Map& library,
     for (auto& batch : batches) batch.targetLayerGuid = sheetFor(batch.layerName);
     const QString name = mod->name;
     mapView_->undoStack()->push(new edit::ReplaceModulePartsCommand(*map, moduleId, std::move(batches), libraryId, version));
-    mapView_->rebuildScene();
+    mapView_->refreshScene();
     modulesPanel_->setMap(map);
     statusBar()->showMessage(tr("Updated “%1” from the Module library").arg(name), 5000);
 }

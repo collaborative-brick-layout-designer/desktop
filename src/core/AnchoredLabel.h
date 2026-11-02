@@ -28,6 +28,8 @@ struct AnchoredLabel {
     QPointF    offset;           // in target's local coord system (studs)
     float      offsetRotation = 0.0f;  // degrees
     double     minZoom = 0.0;    // optional visibility cutoff (0 = always visible)
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const AnchoredLabel&) const = default;
 };
 
 }

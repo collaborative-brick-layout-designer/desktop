@@ -12,6 +12,8 @@ struct FontSpec {
     float   sizePt = 8.25f;
     // C# FontStyle flag-enum rendered as `ToString()`: "Regular", "Bold", "Bold, Italic", etc.
     QString styleString = QStringLiteral("Regular");
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const FontSpec&) const = default;
 };
 
 }

@@ -14,6 +14,8 @@ namespace bld::core {
 struct ConnectionPoint {
     QString guid;
     QString linkedToId;  // empty means unlinked (free connection)
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const ConnectionPoint&) const = default;
 };
 
 // Vanilla <Brick id="GUID">.
@@ -23,6 +25,8 @@ struct Brick : LayerItem {
     int     activeConnectionPointIndex = 0;
     float   altitude = 0.0f;                     // v3+
     std::vector<ConnectionPoint> connections;    // count stored as attribute on write
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const Brick&) const = default;
 };
 
 }
