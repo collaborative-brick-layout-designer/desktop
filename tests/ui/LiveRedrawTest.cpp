@@ -5,12 +5,14 @@
 // at the end prints milliseconds per edit when BLD_BENCH is set.
 
 #include "ui/MapView.h"
+#include "core/AnchoredLabel.h"
 #include "core/LayerBrick.h"
 #include "core/LayerRuler.h"
 #include "core/LayerText.h"
 #include "core/Map.h"
 #include "edit/Connectivity.h"
 #include "edit/EditCommands.h"
+#include "edit/LabelCommands.h"
 #include "edit/RulerCommands.h"
 #include "parts/BrickPlacement.h"
 #include "parts/PartsLibrary.h"
@@ -449,6 +451,46 @@ TEST(LiveRedraw, APartMovedToAnotherSheetIsDrawnThereOnce) {
     f.view->undoStack()->undo();
     EXPECT_EQ(f.view->sceneBuilds(), f.builds);
     EXPECT_EQ(partItem(*f.view->scene(), guid)->data(ui::detail::kBrickDataLayerIndex).toInt(), f.sheet);
+}
+
+// A label on a part: it moves with the part (it is the part's child), and
+// when the part goes and comes back (delete, Undo) the label is drawn
+// again on it, and a pick of it still works.
+TEST(LiveRedraw, ALabelOnAPartFollowsItThroughDeleteAndUndo) {
+    Fixture f;
+    if (!f.open(1000)) GTEST_SKIP() << "fordyce-2026.bbm missing";
+    const QString guid = f.copied(60).guid;
+    core::AnchoredLabel label;
+    label.id = QStringLiteral("label-on-part");
+    label.text = QStringLiteral("Station");
+    label.kind = core::AnchorKind::Brick;
+    label.targetId = guid;
+    f.view->undoStack()->push(new edit::AddAnchoredLabelCommand(f.map(), label));
+    const auto labelItem = [&]() -> QGraphicsItem* {
+        for (QGraphicsItem* it : f.view->scene()->items())
+            if (ui::detail::isLabelItem(it) && it->data(ui::detail::kBrickDataGuid).toString() == label.id) return it;
+        return nullptr;
+    };
+    ASSERT_NE(labelItem(), nullptr);
+    EXPECT_EQ(labelItem()->parentItem(), partItem(*f.view->scene(), guid));
+    f.move(guid, QPointF(8, 0));
+    EXPECT_EQ(labelItem()->parentItem(), partItem(*f.view->scene(), guid)) << "it moves with the part";
+
+    f.view->selectParts({ guid });
+    f.view->deleteSelected();
+    ASSERT_NE(labelItem(), nullptr) << "a label whose part is gone stays on the map";
+    EXPECT_EQ(labelItem()->parentItem(), nullptr);
+    labelItem()->setSelected(true);  // its glow, from the pick index
+    QApplication::processEvents();
+    f.mark();
+    f.view->undoStack()->undo();
+    EXPECT_EQ(f.view->sceneBuilds(), f.builds);
+    ASSERT_NE(labelItem(), nullptr);
+    EXPECT_EQ(labelItem()->parentItem(), partItem(*f.view->scene(), guid)) << "back on its part";
+    f.view->deselectAll();
+    labelItem()->setSelected(true);
+    QApplication::processEvents();
+    EXPECT_TRUE(labelItem()->isSelected());
 }
 
 // A part Qt moved (a drag) with the layout unchanged goes back where it is.

@@ -816,6 +816,7 @@ void SceneBuilder::takeLabelsOff(QGraphicsItem* partItem) {
     for (QGraphicsItem* child : partItem->childItems()) {
         if (child->data(kBrickDataKind).toString() != QLatin1String("label")) continue;
         labelItems_.removeOne(child);
+        labelsTakenOff_ << child;  // (update() reports it gone)
         delete child;
         labelsDirty_ = true;
     }
@@ -1197,6 +1198,7 @@ std::optional<SceneBuilder::Change> SceneBuilder::update(const core::Map& map) {
     QCoreApplication::sendPostedEvents(&scene_, QEvent::MetaCall);
     ++epoch_;
     labelsDirty_ = false;
+    labelsTakenOff_.clear();
     Change change;
     // Qt moves picked items in a drag: one that isn't where its part, text
     // or ruler is drawn (the drag ended without changing the layout) is
@@ -1287,6 +1289,8 @@ std::optional<SceneBuilder::Change> SceneBuilder::update(const core::Map& map) {
         if (regrouped) change.sheetsRegrouped.insert(li);
     }
     const bool partsChanged = change.redrawn > 0 || change.erased > 0;
+    change.removed += labelsTakenOff_;
+    labelsTakenOff_.clear();
 
     for (size_t i = 0; i < layers.size(); ++i) {
         const core::Layer& L = *layers[i];

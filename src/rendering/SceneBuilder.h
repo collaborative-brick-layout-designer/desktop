@@ -225,6 +225,7 @@ private:
     // Deletes the labels on a part's item (they're drawn again after).
     void takeLabelsOff(QGraphicsItem* partItem);
     bool labelsDirty_ = false;
+    QList<QGraphicsItem*> labelsTakenOff_;  // deleted with their part this update
     quint64 epoch_ = 0;
     void clearLabels();
     void clearVenue();
