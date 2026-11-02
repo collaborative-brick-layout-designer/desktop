@@ -4,7 +4,6 @@
 // The tests count the items made and removed (never wall time); the bench
 // at the end prints milliseconds per edit when BLD_BENCH is set.
 
-#include "ui/MapView.h"
 #include "core/AnchoredLabel.h"
 #include "core/LayerBrick.h"
 #include "core/LayerRuler.h"
@@ -18,6 +17,7 @@
 #include "parts/PartsLibrary.h"
 #include "rendering/SceneBuilder.h"
 #include "saveload/BbmReader.h"
+#include "ui/MapView.h"
 #include "ui/MapViewInternal.h"
 
 #include <gtest/gtest.h>
@@ -65,7 +65,8 @@ core::LayerBrick* biggestBrickLayer(core::Map& map, int* index = nullptr) {
 int brickCount(const core::Map& map) {
     int n = 0;
     for (const auto& L : map.layers())
-        if (L->kind() == core::LayerKind::Brick) n += static_cast<int>(static_cast<const core::LayerBrick&>(*L).bricks.size());
+        if (L->kind() == core::LayerKind::Brick)
+            n += static_cast<int>(static_cast<const core::LayerBrick&>(*L).bricks.size());
     return n;
 }
 
@@ -301,7 +302,8 @@ TEST(LiveRedraw, APickedSetMovedStaysPickedWhole) {
     set.clear();
     QString groupId;
     for (const auto& b : f.layer().bricks)
-        if (!b.myGroupId.isEmpty() && b.guid.endsWith(QLatin1String("-c1")) && groupId.isEmpty()) groupId = b.myGroupId;
+        if (!b.myGroupId.isEmpty() && b.guid.endsWith(QLatin1String("-c1")) && groupId.isEmpty())
+            groupId = b.myGroupId;
     for (const auto& b : f.layer().bricks)
         if (b.myGroupId == groupId) set.insert(b.guid);
     ASSERT_GE(set.size(), 2);
@@ -320,9 +322,7 @@ TEST(LiveRedraw, APickedSetMovedStaysPickedWhole) {
         if (ui::detail::isBrickItem(it)) picked.insert(it->data(ui::detail::kBrickDataGuid).toString());
     EXPECT_EQ(picked, set) << "the set stays picked";
     for (const auto& b : f.layer().bricks)
-        if (set.contains(b.guid)) {
-            EXPECT_EQ(partItem(*f.view->scene(), b.guid)->pos(), drawnAt(b));
-        }
+        if (set.contains(b.guid)) { EXPECT_EQ(partItem(*f.view->scene(), b.guid)->pos(), drawnAt(b)); }
     EXPECT_EQ(f.view->pickIndexBuilds(), f.indexBuilds);
 }
 
@@ -372,7 +372,8 @@ TEST(LiveRedraw, RulersAndFreeEndsFollowAMovedPart) {
     }
     parts::placement::placeByImageCentre(pair[0], QPointF(-2000, -2000), f.parts);
     // The second's first end on the first's second end.
-    parts::placement::placeByConnection(pair[1], 0, parts::placement::connectionWorld(pair[0], 1, f.parts), f.parts);
+    parts::placement::placeByConnection(pair[1], 0, parts::placement::connectionWorld(pair[0], 1, f.parts),
+                                        f.parts);
     f.layer();
     const int sheet = f.sheet;
     f.view->undoStack()->push(new edit::AddBricksCommand(f.map(), sheet, pair));
@@ -384,9 +385,9 @@ TEST(LiveRedraw, RulersAndFreeEndsFollowAMovedPart) {
     core::Brick* a = find(QStringLiteral("straight-0"));
     core::Brick* b = find(QStringLiteral("straight-1"));
     ASSERT_TRUE(a && b);
-    ASSERT_TRUE(std::any_of(b->connections.begin(), b->connections.end(),
-                            [](const core::ConnectionPoint& c) { return !c.linkedToId.isEmpty(); }))
-        << "the straights should be joined";
+    ASSERT_TRUE(std::any_of(b->connections.begin(), b->connections.end(), [](const core::ConnectionPoint& c) {
+        return !c.linkedToId.isEmpty();
+    })) << "the straights should be joined";
     const QString ga = a->guid, gb = b->guid;
     // A ruler from part a to nowhere.
     int rl = -1;
@@ -403,7 +404,8 @@ TEST(LiveRedraw, RulersAndFreeEndsFollowAMovedPart) {
     const int dotsBefore = connDots(partItem(*f.view->scene(), gb));
     f.mark();
     const QPointF from = a->displayArea.topLeft();
-    f.view->undoStack()->push(new edit::MoveBricksCommand(f.map(), { { { sheet, ga }, from, from + QPointF(0, 40) } }));
+    f.view->undoStack()->push(
+        new edit::MoveBricksCommand(f.map(), { { { sheet, ga }, from, from + QPointF(0, 40) } }));
     // a, its old neighbour b (a free end now) and the ruler.
     EXPECT_EQ(f.drawnSince(), 3u);
     EXPECT_EQ(f.view->sceneBuilds(), f.builds);
@@ -430,7 +432,8 @@ TEST(LiveRedraw, APartMovedToAnotherSheetIsDrawnThereOnce) {
     const QString guid = f.copied(50).guid;
     int other = -1;
     for (int i = 0; i < static_cast<int>(f.map().layers().size()); ++i)
-        if (f.map().layers()[static_cast<size_t>(i)]->kind() == core::LayerKind::Brick && i != f.sheet) other = i;
+        if (f.map().layers()[static_cast<size_t>(i)]->kind() == core::LayerKind::Brick && i != f.sheet)
+            other = i;
     if (other < 0) GTEST_SKIP() << "one part sheet only";
     f.view->selectParts({ guid });
     f.mark();
@@ -468,7 +471,8 @@ TEST(LiveRedraw, ALabelOnAPartFollowsItThroughDeleteAndUndo) {
     f.view->undoStack()->push(new edit::AddAnchoredLabelCommand(f.map(), label));
     const auto labelItem = [&]() -> QGraphicsItem* {
         for (QGraphicsItem* it : f.view->scene()->items())
-            if (ui::detail::isLabelItem(it) && it->data(ui::detail::kBrickDataGuid).toString() == label.id) return it;
+            if (ui::detail::isLabelItem(it) && it->data(ui::detail::kBrickDataGuid).toString() == label.id)
+                return it;
         return nullptr;
     };
     ASSERT_NE(labelItem(), nullptr);
@@ -480,7 +484,7 @@ TEST(LiveRedraw, ALabelOnAPartFollowsItThroughDeleteAndUndo) {
     f.view->deleteSelected();
     ASSERT_NE(labelItem(), nullptr) << "a label whose part is gone stays on the map";
     EXPECT_EQ(labelItem()->parentItem(), nullptr);
-    labelItem()->setSelected(true);  // its glow, from the pick index
+    labelItem()->setSelected(true); // its glow, from the pick index
     QApplication::processEvents();
     f.mark();
     f.view->undoStack()->undo();
@@ -610,7 +614,8 @@ TEST(LiveRedrawBench, MillisecondsPerEdit) {
             const QPointF at = b.displayArea.topLeft();
             const QString guid = b.guid;
             move.push_back(msOf([&] {
-                view.undoStack()->push(new edit::MoveBricksCommand(m, { { { li, guid }, at, at + QPointF(8, 0) } }));
+                view.undoStack()->push(
+                    new edit::MoveBricksCommand(m, { { { li, guid }, at, at + QPointF(8, 0) } }));
             }));
             undo.push_back(msOf([&] { view.undoStack()->undo(); }));
             connectivity.push_back(msOf([&] { edit::rebuildConnectivity(m, parts); }));
@@ -634,11 +639,12 @@ TEST(LiveRedrawBench, MillisecondsPerEdit) {
             view.deselectAll();
             view.undoStack()->clear();
         }
-        std::printf("[bench] %d parts (%d scene items): move %.2f ms, undo %.2f ms, remote edit %.2f ms, "
-                    "paste 100 %.2f ms, undo paste %.2f ms | whole connectivity %.2f ms, whole scene build %.2f ms\n",
-                    brickCount(*view.currentMap()), static_cast<int>(view.scene()->items().size()), median(move),
-                    median(undo), median(remote), median(paste), median(pasteUndo), median(connectivity),
-                    median(build));
+        std::printf(
+            "[bench] %d parts (%d scene items): move %.2f ms, undo %.2f ms, remote edit %.2f ms, "
+            "paste 100 %.2f ms, undo paste %.2f ms | whole connectivity %.2f ms, whole scene build %.2f ms\n",
+            brickCount(*view.currentMap()), static_cast<int>(view.scene()->items().size()), median(move),
+            median(undo), median(remote), median(paste), median(pasteUndo), median(connectivity),
+            median(build));
         std::fflush(stdout);
     }
 }
@@ -660,7 +666,8 @@ TEST(LiveRedrawBench, ManyMovesForAProfiler) {
         const QPointF at = b.displayArea.topLeft();
         const QString guid = b.guid;
         ms.push_back(msOf([&] {
-            s.view.undoStack()->push(new edit::MoveBricksCommand(m, { { { li, guid }, at, at + QPointF(8, 0) } }));
+            s.view.undoStack()->push(
+                new edit::MoveBricksCommand(m, { { { li, guid }, at, at + QPointF(8, 0) } }));
         }));
         if (rep % 2) s.view.undoStack()->undo();
     }

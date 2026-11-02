@@ -132,8 +132,7 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
             if (isBrickItem(only)) {
                 auto* prop = menu.addAction(tr("Properties..."));
                 connect(prop, &QAction::triggered, [this, li, guid]{
-                    if (editBrickDialog(this, *map_, li, guid, parts_, *undoStack_))
-                        refreshScene();
+                    if (editBrickDialog(this, *map_, li, guid, parts_, *undoStack_)) refreshScene();
                 });
                 // BlueBrick's Use as Model: pick this part in the parts list.
                 const QString partNumber = only->data(rendering::SceneBuilder::kBrickPartRole).toString();
@@ -151,14 +150,12 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
             } else if (isRulerItem(only)) {
                 auto* prop = menu.addAction(tr("Properties..."));
                 connect(prop, &QAction::triggered, [this, li, guid]{
-                    if (editRulerDialog(this, *map_, li, guid, *undoStack_))
-                        refreshScene();
+                    if (editRulerDialog(this, *map_, li, guid, *undoStack_)) refreshScene();
                 });
             } else if (isTextItem(only)) {
                 auto* prop = menu.addAction(tr("Properties..."));
                 connect(prop, &QAction::triggered, [this, li, guid]{
-                    if (editTextDialog(this, *map_, li, guid, *undoStack_))
-                        refreshScene();
+                    if (editTextDialog(this, *map_, li, guid, *undoStack_)) refreshScene();
                 });
             }
         }

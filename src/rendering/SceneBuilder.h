@@ -4,7 +4,6 @@
 #include <optional>
 #include <vector>
 
-#include "ModuleLabels.h"
 #include "../core/AnchoredLabel.h"
 #include "../core/Brick.h"
 #include "../core/Group.h"
@@ -12,6 +11,7 @@
 #include "../core/Module.h"
 #include "../core/TextCell.h"
 #include "../core/Venue.h"
+#include "ModuleLabels.h"
 
 #include <QColor>
 #include <QHash>
@@ -28,7 +28,10 @@ class QGraphicsItem;
 class QGraphicsScene;
 
 namespace bld::core { class Layer; class Map; }
-namespace bld::parts { class PartsLibrary; struct PartMetadata; }
+namespace bld::parts {
+class PartsLibrary;
+struct PartMetadata;
+} // namespace bld::parts
 
 namespace bld::rendering {
 
@@ -158,12 +161,11 @@ private:
     // What each sheet was drawn from, so update() redraws only what differs:
     // a thing (part, text cell, ruler) by guid, with its items, its place in
     // the sheet's z order and what it was drawn from.
-    template <class Stored>
-    struct Thing {
+    template <class Stored> struct Thing {
         QList<QGraphicsItem*> items;
-        double  z = 0;
-        quint64 seen = 0;  // the update that last found it on the sheet
-        Stored  model;
+        double z = 0;
+        quint64 seen = 0; // the update that last found it on the sheet
+        Stored model;
     };
     // A ruler and where its ends were (they follow parts).
     struct RulerDrawn {
@@ -171,21 +173,21 @@ private:
         QPointF end1, end2;
     };
     struct LayerDrawn {
-        bool    present = false;
+        bool present = false;
         core::LayerKind kind = core::LayerKind::Grid;
         QString guid;
-        int     transparency = 100;
-        bool    hullsShown = false;
-        QRgb    hullColor = 0;
-        int     hullThickness = 1;
-        int     areaCellSize = 0;
-        bool    visible = true;  // the sheet's Visible when drawn
-        bool    shown = true;    // whether its items show now (setLayerVisible)
-        double  baseZ = 0;
-        QList<QGraphicsItem*> items;  // every item of the sheet (visibility, clear)
-        QHash<QString, Thing<core::Brick>>    bricks;
+        int transparency = 100;
+        bool hullsShown = false;
+        QRgb hullColor = 0;
+        int hullThickness = 1;
+        int areaCellSize = 0;
+        bool visible = true; // the sheet's Visible when drawn
+        bool shown = true;   // whether its items show now (setLayerVisible)
+        double baseZ = 0;
+        QList<QGraphicsItem*> items; // every item of the sheet (visibility, clear)
+        QHash<QString, Thing<core::Brick>> bricks;
         QHash<QString, Thing<core::TextCell>> texts;
-        QHash<QString, Thing<RulerDrawn>>     rulers;
+        QHash<QString, Thing<RulerDrawn>> rulers;
         // An area cell's item and color.
         QHash<QPoint, QPair<QGraphicsItem*, QRgb>> cells;
         std::vector<core::Group> groups;
@@ -203,7 +205,7 @@ private:
         bool alwaysShowConns = false;
         bool hulls = false;
         bool elevation = false;
-        bool electric = false;  // View > Electric circuits (shown or not, the parts look the same)
+        bool electric = false; // View > Electric circuits (shown or not, the parts look the same)
         bool operator==(const PartLook& o) const {
             return alwaysShowConns == o.alwaysShowConns && hulls == o.hulls && elevation == o.elevation;
         }
@@ -225,7 +227,7 @@ private:
     // Deletes the labels on a part's item (they're drawn again after).
     void takeLabelsOff(QGraphicsItem* partItem);
     bool labelsDirty_ = false;
-    QList<QGraphicsItem*> labelsTakenOff_;  // deleted with their part this update
+    QList<QGraphicsItem*> labelsTakenOff_; // deleted with their part this update
     quint64 epoch_ = 0;
     void clearLabels();
     void clearVenue();
@@ -235,7 +237,7 @@ private:
     std::optional<core::Venue> drawnVenue_;
     std::vector<core::AnchoredLabel> drawnLabels_;
     std::vector<core::Module> drawnModules_;
-    QList<QGraphicsItem*> labelItems_;  // every label item, world ones and those on parts
+    QList<QGraphicsItem*> labelItems_; // every label item, world ones and those on parts
     bool labelsShown_ = true;
     bool built_ = false;
     quint64 drawnTotal_ = 0;

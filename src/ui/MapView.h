@@ -58,7 +58,7 @@ public:
     void updateMap(std::unique_ptr<core::Map> map);
     // Budget whose limitation (when on) placement and paste respect.
     void setBudget(class BudgetSession* budget) { budget_ = budget; }
-    void rebuildScene();  // re-run SceneBuilder against current map, every item made again
+    void rebuildScene(); // re-run SceneBuilder against current map, every item made again
     // After an edit (an undo-stack step, a newer live copy): draws again only
     // what changed (SceneBuilder::update), or everything when the change is
     // structural. Keeps the pick, the pick index and the module state.

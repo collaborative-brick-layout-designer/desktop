@@ -21,7 +21,6 @@
 #include "../core/Venue.h"
 
 #include <QBrush>
-#include <QHash>
 #include <QFont>
 #include <QFontMetricsF>
 #include <QGraphicsItem>
@@ -31,11 +30,12 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
 #include <QGraphicsSimpleTextItem>
+#include <QGuiApplication>
+#include <QHash>
 #include <QPainterPath>
+#include <QPalette>
 #include <QPen>
 #include <QPolygonF>
-#include <QGuiApplication>
-#include <QPalette>
 #include <QSettings>
 #include <QTransform>
 
@@ -288,7 +288,7 @@ void SceneBuilder::addAnchoredLabels(const core::Map& map) {
         t->setData(kBrickDataGuid,       lbl.id);
         t->setData(kBrickDataKind,       QStringLiteral("label"));
         t->setVisible(labelsShown_);
-        labelItems_.append(t);  // in the labels' order (SceneBuilder::update)
+        labelItems_.append(t); // in the labels' order (SceneBuilder::update)
         ++drawnTotal_;
 
         if (lbl.kind == core::AnchorKind::Brick) {
@@ -307,7 +307,7 @@ void SceneBuilder::addAnchoredLabels(const core::Map& map) {
 
 void SceneBuilder::setLabelsVisible(bool visible) {
     // Every label, those on a part (its children) too.
-    if (labelsShown_ == visible) return;  // (new labels are made so)
+    if (labelsShown_ == visible) return; // (new labels are made so)
     labelsShown_ = visible;
     for (QGraphicsItem* it : std::as_const(labelItems_)) it->setVisible(visible);
 }
@@ -346,7 +346,7 @@ void SceneBuilder::addModuleLabels(const core::Map& map, bool posed) {
     // Each module's box and whether some of it is hidden, in one walk over
     // the parts (not one per module: frames are drawn again after edits).
     const auto& mods = map.sidecar.modules;
-    QMultiHash<QString, std::size_t> moduleOf;  // part guid -> modules it is in
+    QMultiHash<QString, std::size_t> moduleOf; // part guid -> modules it is in
     for (std::size_t m = 0; m < mods.size(); ++m)
         for (const QString& g : mods[m].memberIds) moduleOf.insert(g, m);
     std::vector<QRectF> boxes(mods.size());
@@ -355,7 +355,8 @@ void SceneBuilder::addModuleLabels(const core::Map& map, bool posed) {
         for (const auto& L : map.layers()) {
             if (!L || L->kind() != core::LayerKind::Brick) continue;
             for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks)
-                for (auto it = moduleOf.constFind(b.guid); it != moduleOf.cend() && it.key() == b.guid; ++it) {
+                for (auto it = moduleOf.constFind(b.guid); it != moduleOf.cend() && it.key() == b.guid;
+                     ++it) {
                     if (L->visible) boxes[*it] = boxes[*it].united(b.displayArea);
                     else hidden[*it] = 1;
                 }

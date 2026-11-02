@@ -12,8 +12,8 @@
 #include <QPointF>
 
 #include <algorithm>
-#include <optional>
 #include <cmath>
+#include <optional>
 #include <vector>
 
 namespace bld::edit {
@@ -130,7 +130,7 @@ void rebuildConnectivity(Map& map, parts::PartsLibrary& lib) {
         auto& layer = static_cast<LayerBrick&>(*layerPtr);
 
         QHash<QString, QString> previous;  // connection guid -> old partner connection guid
-        previous.reserve(static_cast<qsizetype>(layer.bricks.size() * 2));
+        previous.reserve(static_cast<qsizetype>(layer.bricks.size()) * 2);
         std::vector<WorldConn> all;
         all.reserve(layer.bricks.size() * 2);
         for (auto& brick : layer.bricks) {
@@ -194,9 +194,11 @@ void rebuildConnectivity(Map& map, parts::PartsLibrary& lib) {
             // connection being linked still counts as free). Only new links
             // trigger the hand-over.
             const bool isNew = previous.value(ca.guid) != cb.guid;
-            if (isNew) if (const auto* m = metaOf(a.brick->partNumber)) onLinked(*a.brick, a.connIdx, *m);
+            if (isNew)
+                if (const auto* m = metaOf(a.brick->partNumber)) onLinked(*a.brick, a.connIdx, *m);
             ca.linkedToId = cb.guid;
-            if (isNew) if (const auto* m = metaOf(b.brick->partNumber)) onLinked(*b.brick, b.connIdx, *m);
+            if (isNew)
+                if (const auto* m = metaOf(b.brick->partNumber)) onLinked(*b.brick, b.connIdx, *m);
             cb.linkedToId = ca.guid;
         }
 

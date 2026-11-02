@@ -308,7 +308,8 @@ void MapView::indexSheet(PickIndex& index, int i) const {
     for (const auto& b : BL.bricks) {
         if (b.myGroupId.isEmpty()) continue;
         auto top = topOfGroup.constFind(b.myGroupId);
-        if (top == topOfGroup.constEnd()) top = topOfGroup.insert(b.myGroupId, core::topGroup(BL, b.myGroupId));
+        if (top == topOfGroup.constEnd())
+            top = topOfGroup.insert(b.myGroupId, core::topGroup(BL, b.myGroupId));
         if (top->isEmpty()) continue;
         sheet.topsOf.insert(b.guid, *top);
         sheet.partsIn[*top] << b.guid;
@@ -329,11 +330,11 @@ void MapView::patchPickIndex(const rendering::SceneBuilder::Change& change, cons
     for (QGraphicsItem* it : change.removed) {
         const auto found = index.items.constFind(it);
         if (found == index.items.constEnd()) continue;
-        const PickIndex::Item item = *found;
-        index.items.erase(found);
+        const PickIndex::Item& item = *found;
         if (item.kind == PickIndex::Kind::Brick) drop(index.bricks, item.guid, it);
         else if (item.kind == PickIndex::Kind::Ruler) drop(index.rulers, item.guid, it);
         else index.glowing.removeOne(it);
+        index.items.erase(found); // (last: `item` is in it)
     }
     for (QGraphicsItem* it : change.added) {
         const PickIndex::Item item = index.itemOf(it);
@@ -476,11 +477,13 @@ void MapView::updateMap(std::unique_ptr<core::Map> map) {
     // (when no part changed, the links are the ones drawn).
     for (core::Brick* b : changed) {
         const auto fp = parts_.footprint(b->partNumber, b->orientation);
-        if (fp && (std::abs(fp->size.width() - b->displayArea.width()) > 0.01
-                   || std::abs(fp->size.height() - b->displayArea.height()) > 0.01))
+        if (fp
+            && (std::abs(fp->size.width() - b->displayArea.width()) > 0.01
+                || std::abs(fp->size.height() - b->displayArea.height()) > 0.01))
             parts::placement::placeByImageCentre(*b, b->displayArea.center(), parts_);
     }
-    if (!changed.empty() || map->layers().size() != map_->layers().size()) edit::rebuildConnectivity(*map, parts_);
+    if (!changed.empty() || map->layers().size() != map_->layers().size())
+        edit::rebuildConnectivity(*map, parts_);
     const core::Map* before = map_.get();
     std::unique_ptr<core::Map> old = std::move(map_);
     map_ = std::move(map);
@@ -669,7 +672,7 @@ void MapView::refreshScene() {
         const QSignalBlocker quiet(scene());
         change = builder_->update(*map_);
     }
-    if (!change) return rebuildScene();  // structural: nothing was done
+    if (!change) return rebuildScene(); // structural: nothing was done
     ++sceneUpdates_;
     patchPickIndex(*change, map_.get());
     lastPartsAdded_ = change->partsAdded;
@@ -680,7 +683,7 @@ void MapView::refreshScene() {
     refreshSetUpdates();
     // The pick's rules (groups, modules), the outline and the bend handles,
     // which may point at items drawn again.
-    if (hadPick || !scene()->selectedItems().isEmpty()) emit scene()->selectionChanged();
+    if (hadPick || !scene()->selectedItems().isEmpty()) emit scene() -> selectionChanged();
     refreshSelectionOverlay();
     viewport()->update();
     emit selectionChanged();

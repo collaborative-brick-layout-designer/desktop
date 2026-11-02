@@ -8,19 +8,19 @@
 #include "core/Map.h"
 
 #include <QDateTime>
-#include <QJsonObject>
 #include <QEvent>
 #include <QGraphicsItem>
 #include <QGraphicsPolygonItem>
 #include <QGraphicsRectItem>
 #include <QGraphicsSimpleTextItem>
+#include <QJsonObject>
 #include <QMouseEvent>
 #include <QScrollBar>
 #include <QSet>
 #include <QTimer>
 
-#include <algorithm>
 #include <QUndoStack>
+#include <algorithm>
 
 namespace bld::ui {
 
@@ -106,15 +106,17 @@ void LiveLayout::drawPeers() {
     // Bricks by id, for selection outlines: where a drag here has them now.
     // (Only when someone has parts picked: it walks every part.)
     QHash<QString, QRectF> bricks;
-    const bool anyPicked = std::any_of(session_.peers().cbegin(), session_.peers().cend(), [](const QJsonObject& state) {
-        return !sync::presence::peerFrom(state).brickIds.isEmpty();
-    });
-    if (anyPicked) view_.withLivePose([&bricks](const core::Map& map) {
-        for (const auto& layer : map.layers())
-            if (layer->kind() == core::LayerKind::Brick)
-                for (const auto& b : static_cast<const core::LayerBrick&>(*layer).bricks)
-                    bricks.insert(b.guid, b.displayArea);
-    });
+    const bool anyPicked =
+        std::any_of(session_.peers().cbegin(), session_.peers().cend(), [](const QJsonObject& state) {
+            return !sync::presence::peerFrom(state).brickIds.isEmpty();
+        });
+    if (anyPicked)
+        view_.withLivePose([&bricks](const core::Map& map) {
+            for (const auto& layer : map.layers())
+                if (layer->kind() == core::LayerKind::Brick)
+                    for (const auto& b : static_cast<const core::LayerBrick&>(*layer).bricks)
+                        bricks.insert(b.guid, b.displayArea);
+        });
     const double px = detail::studToPx();
     const auto add = [this](QGraphicsItem* it) {
         it->setZValue(1e9);

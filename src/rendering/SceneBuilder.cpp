@@ -111,10 +111,10 @@ void addTextCell(const core::TextCell& cell, LayerSink& sink, int layerIndex) {
     tr.translate(-at.width / 2.0, -at.height / 2.0);
     t->setTransform(tr);
     t->setFlag(QGraphicsItem::ItemIsSelectable, true);
-    t->setFlag(QGraphicsItem::ItemIsMovable,    true);  // BlueBrick MoveText
+    t->setFlag(QGraphicsItem::ItemIsMovable, true); // BlueBrick MoveText
     t->setData(kBrickDataLayerIndex, layerIndex);
-    t->setData(kBrickDataGuid,       cell.guid);
-    t->setData(kBrickDataKind,       QStringLiteral("text"));
+    t->setData(kBrickDataGuid, cell.guid);
+    t->setData(kBrickDataKind, QStringLiteral("text"));
     sink.add(t);
 }
 
@@ -138,7 +138,6 @@ QGraphicsItem* addAreaCell(const core::AreaCell& cell, double sizePx, int transp
     sink.add(r);
     return r;
 }
-
 
 QString formatDistance(double studs, int unit) {
     // Upstream Tools/Distance.cs Unit enum:
@@ -194,7 +193,8 @@ std::pair<QPointF, QPointF> rulerEnds(const core::LayerRuler::AnyRuler& any,
 }
 
 // One ruler's pieces, with its ends at `end1` and `end2` (rulerEnds).
-void addRuler(const core::LayerRuler::AnyRuler& any, LayerSink& sink, int layerIndex, QPointF end1, QPointF end2) {
+void addRuler(const core::LayerRuler::AnyRuler& any, LayerSink& sink, int layerIndex, QPointF end1,
+              QPointF end2) {
     if (any.kind == core::RulerKind::Linear) {
         const auto& r = any.linear;
         // Resolve each endpoint: attached → brick centre, unattached → stored point.
@@ -208,7 +208,7 @@ void addRuler(const core::LayerRuler::AnyRuler& any, LayerSink& sink, int layerI
         // away from the anchors. When AllowOffset is off, offsetP == anchor.
         QPointF offsetP1 = anchor1, offsetP2 = anchor2;
         const QPointF dir = anchor2 - anchor1;
-        const double  len = std::hypot(dir.x(), dir.y());
+        const double len = std::hypot(dir.x(), dir.y());
         // Perpendicular-offset vector: vanilla BlueBrick computes this
         // as (Uy, -Ux) where U is the unit vector along the ruler line
         // (LayerRulerItem.cs updateDisplayData line 877). Our previous
@@ -237,17 +237,16 @@ void addRuler(const core::LayerRuler::AnyRuler& any, LayerSink& sink, int layerI
             // frozen-at-creation distance between stored points.
             const QPointF delta = p2Stud - p1Stud;
             const double distStuds = std::hypot(delta.x(), delta.y());
-            const QString text = r.displayUnit
-                ? formatDistance(distStuds, r.unit)
-                : QString::number(distStuds, 'f', 2);
+            const QString text =
+                r.displayUnit ? formatDistance(distStuds, r.unit) : QString::number(distStuds, 'f', 2);
             const QPointF midPx = (offsetP1 + offsetP2) / 2.0;
 
             // Keep the label readable: if the ruler's line angle would
             // rotate the text upside-down (90° < |angle| ≤ 180°), flip
             // by 180° so it stays right-reading. Upstream uses the same
             // "always readable" convention.
-            double angleDeg = std::atan2(offsetP2.y() - offsetP1.y(),
-                                          offsetP2.x() - offsetP1.x()) * 180.0 / M_PI;
+            double angleDeg =
+                std::atan2(offsetP2.y() - offsetP1.y(), offsetP2.x() - offsetP1.x()) * 180.0 / M_PI;
             if (angleDeg > 90.0 || angleDeg < -90.0) angleDeg += 180.0;
 
             // Build label sized proportionally to the ruler's length.
@@ -280,10 +279,10 @@ void addRuler(const core::LayerRuler::AnyRuler& any, LayerSink& sink, int layerI
             // so refreshSelectionOverlay can union all pieces into one
             // highlight rather than outlining each segment separately.
             seg2->setFlag(QGraphicsItem::ItemIsSelectable, true);
-            seg2->setFlag(QGraphicsItem::ItemIsMovable,    true);
+            seg2->setFlag(QGraphicsItem::ItemIsMovable, true);
             seg2->setData(kBrickDataLayerIndex, layerIndex);
-            seg2->setData(kBrickDataGuid,       r.guid);
-            seg2->setData(kBrickDataKind,       QStringLiteral("ruler"));
+            seg2->setData(kBrickDataGuid, r.guid);
+            seg2->setData(kBrickDataKind, QStringLiteral("ruler"));
             selectableLine = seg1;
 
             // Label centred on midPx, rotated to match the (possibly
@@ -298,15 +297,14 @@ void addRuler(const core::LayerRuler::AnyRuler& any, LayerSink& sink, int layerI
             tr.translate(-bb.width() / 2.0, -bb.height() / 2.0);
             t->setTransform(tr);
             t->setFlag(QGraphicsItem::ItemIsSelectable, true);
-            t->setFlag(QGraphicsItem::ItemIsMovable,    true);
+            t->setFlag(QGraphicsItem::ItemIsMovable, true);
             t->setData(kBrickDataLayerIndex, layerIndex);
-            t->setData(kBrickDataGuid,       r.guid);
-            t->setData(kBrickDataKind,       QStringLiteral("ruler"));
+            t->setData(kBrickDataGuid, r.guid);
+            t->setData(kBrickDataKind, QStringLiteral("ruler"));
             sink.add(t);
         } else {
             // Single solid line from offsetP1 to offsetP2.
-            auto* line = new QGraphicsLineItem(offsetP1.x(), offsetP1.y(),
-                                                offsetP2.x(), offsetP2.y());
+            auto* line = new QGraphicsLineItem(offsetP1.x(), offsetP1.y(), offsetP2.x(), offsetP2.y());
             line->setPen(mainPen);
             sink.add(line);
             selectableLine = line;
@@ -316,10 +314,10 @@ void addRuler(const core::LayerRuler::AnyRuler& any, LayerSink& sink, int layerI
         // proxy so right-click / double-click → Properties works.
         if (selectableLine) {
             selectableLine->setFlag(QGraphicsItem::ItemIsSelectable, true);
-            selectableLine->setFlag(QGraphicsItem::ItemIsMovable,    true);
+            selectableLine->setFlag(QGraphicsItem::ItemIsMovable, true);
             selectableLine->setData(kBrickDataLayerIndex, layerIndex);
-            selectableLine->setData(kBrickDataGuid,       r.guid);
-            selectableLine->setData(kBrickDataKind,       QStringLiteral("ruler"));
+            selectableLine->setData(kBrickDataGuid, r.guid);
+            selectableLine->setData(kBrickDataKind, QStringLiteral("ruler"));
             selectableLine->setData(SceneBuilder::kRulerBandRole, QLineF(offsetP1, offsetP2));
             selectableLine->setData(SceneBuilder::kRulerThicknessRole, static_cast<double>(r.lineThickness));
         }
@@ -332,8 +330,7 @@ void addRuler(const core::LayerRuler::AnyRuler& any, LayerSink& sink, int layerI
         // centred on each endpoint, perpendicular to the ruler
         // direction. Matches the `needToDrawArrowForSmallDistance`
         // branch of LayerRulerItem.cs::draw.
-        const double lenStuds = std::hypot(p2Stud.x() - p1Stud.x(),
-                                            p2Stud.y() - p1Stud.y());
+        const double lenStuds = std::hypot(p2Stud.x() - p1Stud.x(), p2Stud.y() - p1Stud.y());
         const bool drawEndCaps = !r.displayDistance && lenStuds < 4.0 && len > 0.001;
         if (drawEndCaps) {
             // Perpendicular unit vector (same sign as vanilla's
@@ -345,16 +342,17 @@ void addRuler(const core::LayerRuler::AnyRuler& any, LayerSink& sink, int layerI
             capPen.setWidthF(std::max(0.5f, r.guidelineThickness));
             capPen.setCosmetic(true);
             QList<qreal> dashes;
-            for (float d : r.guidelineDashPattern) if (d > 0) dashes.append(d);
+            for (float d : r.guidelineDashPattern)
+                if (d > 0) dashes.append(d);
             if (dashes.size() >= 2) capPen.setDashPattern(dashes);
-            auto addCap = [&](QPointF p){
+            auto addCap = [&](QPointF p) {
                 const QPointF a = p + perp * capPx;
                 const QPointF b = p - perp * capPx;
                 auto* cap = new QGraphicsLineItem(a.x(), a.y(), b.x(), b.y());
                 cap->setPen(capPen);
                 cap->setData(kBrickDataLayerIndex, layerIndex);
-                cap->setData(kBrickDataGuid,       r.guid);
-                cap->setData(kBrickDataKind,       QStringLiteral("ruler"));
+                cap->setData(kBrickDataGuid, r.guid);
+                cap->setData(kBrickDataKind, QStringLiteral("ruler"));
                 sink.add(cap);
             };
             addCap(offsetP1);
@@ -369,9 +367,10 @@ void addRuler(const core::LayerRuler::AnyRuler& any, LayerSink& sink, int layerI
             gpen.setWidthF(std::max(0.5f, r.guidelineThickness));
             gpen.setCosmetic(true);
             QList<qreal> dashes;
-            for (float d : r.guidelineDashPattern) if (d > 0) dashes.append(d);
+            for (float d : r.guidelineDashPattern)
+                if (d > 0) dashes.append(d);
             if (dashes.size() >= 2) gpen.setDashPattern(dashes);
-            else                     gpen.setStyle(Qt::DashLine);
+            else gpen.setStyle(Qt::DashLine);
 
             auto* g1 = new QGraphicsLineItem(anchor1.x(), anchor1.y(), offsetP1.x(), offsetP1.y());
             auto* g2 = new QGraphicsLineItem(anchor2.x(), anchor2.y(), offsetP2.x(), offsetP2.y());
@@ -387,18 +386,16 @@ void addRuler(const core::LayerRuler::AnyRuler& any, LayerSink& sink, int layerI
             // green = attached to a brick.
             constexpr double kAnchorRadiusPx = 4.0;
             auto addAnchorMarker = [&](QPointF p, bool attached) {
-                auto* dot = new QGraphicsEllipseItem(
-                    p.x() - kAnchorRadiusPx, p.y() - kAnchorRadiusPx,
-                    kAnchorRadiusPx * 2, kAnchorRadiusPx * 2);
+                auto* dot = new QGraphicsEllipseItem(p.x() - kAnchorRadiusPx, p.y() - kAnchorRadiusPx,
+                                                     kAnchorRadiusPx * 2, kAnchorRadiusPx * 2);
                 QPen pen(QColor(40, 40, 40));
                 pen.setWidthF(1.5);
                 pen.setCosmetic(true);
                 dot->setPen(pen);
-                dot->setBrush(QBrush(attached ? QColor(30, 180, 60)
-                                               : QColor(240, 140, 30)));
+                dot->setBrush(QBrush(attached ? QColor(30, 180, 60) : QColor(240, 140, 30)));
                 dot->setData(kBrickDataLayerIndex, layerIndex);
-                dot->setData(kBrickDataGuid,       r.guid);
-                dot->setData(kBrickDataKind,       QStringLiteral("ruler"));
+                dot->setData(kBrickDataGuid, r.guid);
+                dot->setData(kBrickDataKind, QStringLiteral("ruler"));
                 sink.add(dot);
             };
             addAnchorMarker(anchor1, !r.attachedBrick1Id.isEmpty());
@@ -411,33 +408,31 @@ void addRuler(const core::LayerRuler::AnyRuler& any, LayerSink& sink, int layerI
         const QPointF cStud = end1;
         const QPointF cPx(studToPx(cStud.x()), studToPx(cStud.y()));
 
-        auto* el = new QGraphicsEllipseItem(
-            cPx.x() - rPx, cPx.y() - rPx, 2 * rPx, 2 * rPx);
+        auto* el = new QGraphicsEllipseItem(cPx.x() - rPx, cPx.y() - rPx, 2 * rPx, 2 * rPx);
         QPen pen(r.color.color);
         pen.setWidthF(r.lineThickness);
         el->setPen(pen);
         el->setBrush(Qt::NoBrush);
         el->setFlag(QGraphicsItem::ItemIsSelectable, true);
-        el->setFlag(QGraphicsItem::ItemIsMovable,    true);
+        el->setFlag(QGraphicsItem::ItemIsMovable, true);
         el->setData(kBrickDataLayerIndex, layerIndex);
-        el->setData(kBrickDataGuid,       r.guid);
-        el->setData(kBrickDataKind,       QStringLiteral("ruler"));
+        el->setData(kBrickDataGuid, r.guid);
+        el->setData(kBrickDataKind, QStringLiteral("ruler"));
         el->setData(SceneBuilder::kRulerBandRole, el->rect());
         el->setData(SceneBuilder::kRulerThicknessRole, static_cast<double>(r.lineThickness));
         sink.add(el);
 
         // Radius label to the right of centre.
         if (r.displayDistance) {
-            const QString text = r.displayUnit
-                ? formatDistance(r.radius, r.unit)
-                : QString::number(r.radius, 'f', 2);
-            addRulerLabel(sink, text, QPointF(cPx.x() + rPx, cPx.y()), 0.0,
-                          r.measureFont, r.measureFontColor);
+            const QString text =
+                r.displayUnit ? formatDistance(r.radius, r.unit) : QString::number(r.radius, 'f', 2);
+            addRulerLabel(sink, text, QPointF(cPx.x() + rPx, cPx.y()), 0.0, r.measureFont,
+                          r.measureFontColor);
         }
     }
 }
 
-}  // namespace
+} // namespace
 
 SceneBuilder::PartLook SceneBuilder::readPartLook() const {
     // Scene-level render toggles every part reads, under view/ and
@@ -473,7 +468,10 @@ QGraphicsItem* SceneBuilder::makeBrickItem(const core::Brick& brick, const core:
             key.clear();
             const QString needle = brick.partNumber.toLower() + QLatin1Char('.');
             for (const QString& candidate : lib.keys()) {
-                if (candidate.toLower().startsWith(needle)) { key = candidate; break; }
+                if (candidate.toLower().startsWith(needle)) {
+                    key = candidate;
+                    break;
+                }
             }
         }
         resolved = resolvedKeys.insert(brick.partNumber, key);
@@ -482,10 +480,8 @@ QGraphicsItem* SceneBuilder::makeBrickItem(const core::Brick& brick, const core:
     std::optional<parts::PartMetadata> meta;
     if (!partKey.isEmpty()) meta = lib.metadata(partKey);
 
-    const QRectF areaPx(studToPx(brick.displayArea.x()),
-                        studToPx(brick.displayArea.y()),
-                        studToPx(brick.displayArea.width()),
-                        studToPx(brick.displayArea.height()));
+    const QRectF areaPx(studToPx(brick.displayArea.x()), studToPx(brick.displayArea.y()),
+                        studToPx(brick.displayArea.width()), studToPx(brick.displayArea.height()));
     const QPointF centerPx = areaPx.center();
 
     QGraphicsItem* item = nullptr;
@@ -518,11 +514,11 @@ QGraphicsItem* SceneBuilder::makeBrickItem(const core::Brick& brick, const core:
             // scale the pixmap item by (kPixelsPerStud / partPxPerStud)
             // to land at the correct stud footprint. Vanilla 8-px
             // parts get scale 1.0 (no-op).
-            const int authoredPxPerStud = (meta->pxPerStud > 0)
-                ? meta->pxPerStud : SceneBuilder::kPixelsPerStud;
+            const int authoredPxPerStud =
+                (meta->pxPerStud > 0) ? meta->pxPerStud : SceneBuilder::kPixelsPerStud;
             if (authoredPxPerStud != SceneBuilder::kPixelsPerStud) {
                 const double s = static_cast<double>(SceneBuilder::kPixelsPerStud)
-                               / static_cast<double>(authoredPxPerStud);
+                                 / static_cast<double>(authoredPxPerStud);
                 p->setScale(s);
             }
             p->setRotation(brick.orientation);
@@ -532,7 +528,8 @@ QGraphicsItem* SceneBuilder::makeBrickItem(const core::Brick& brick, const core:
             // rotation, so this is a scene-space shift that also
             // carries the connection dots and hull outline.
             const QPointF offset = lib.imageOffset(partKey, brick.orientation);
-            if (!offset.isNull()) p->setTransform(QTransform::fromTranslate(offset.x() * kPx, offset.y() * kPx));
+            if (!offset.isNull())
+                p->setTransform(QTransform::fromTranslate(offset.x() * kPx, offset.y() * kPx));
             p->setPos(centerPx);
             // Drawn in the sheet's order, like BlueBrick: Bring to Front
             // works whatever the altitude (an altitude edit sorts the
@@ -544,8 +541,8 @@ QGraphicsItem* SceneBuilder::makeBrickItem(const core::Brick& brick, const core:
         // A part the library doesn't know: vanilla's red cross and part
         // number (UnknownPart.h), turned with the brick. The clear rect
         // takes the clicks and moves like a part.
-        const UnknownPartLook look = unknownPartLook(brick.partNumber, brick.displayArea.width(),
-                                                     brick.displayArea.height());
+        const UnknownPartLook look =
+            unknownPartLook(brick.partNumber, brick.displayArea.width(), brick.displayArea.height());
         auto* r =
             new QGraphicsRectItem(QRectF(-look.width / 2.0, -look.height / 2.0, look.width, look.height));
         r->setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
@@ -558,11 +555,11 @@ QGraphicsItem* SceneBuilder::makeBrickItem(const core::Brick& brick, const core:
     }
 
     item->setFlag(QGraphicsItem::ItemIsSelectable, true);
-    item->setFlag(QGraphicsItem::ItemIsMovable,    true);
+    item->setFlag(QGraphicsItem::ItemIsMovable, true);
     item->setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
     item->setData(kBrickDataLayerIndex, layerIndex);
-    item->setData(kBrickDataGuid,       brick.guid);
-    item->setData(kBrickDataKind,       QStringLiteral("brick"));
+    item->setData(kBrickDataGuid, brick.guid);
+    item->setData(kBrickDataKind, QStringLiteral("brick"));
     item->setData(SceneBuilder::kBrickPartRole, partKey);
 
     decorateBrickItem(item, brick, L, meta ? &*meta : nullptr);
@@ -575,8 +572,8 @@ void SceneBuilder::decorateBrickItem(QGraphicsItem* item, const core::Brick& bri
                                      const parts::PartMetadata* meta) {
     parts::PartsLibrary& lib = parts_;
     const bool alwaysShowConns = partLook_.alwaysShowConns;
-    const bool displayHulls    = partLook_.hulls || L.hull.displayHulls;
-    const bool displayElev     = partLook_.elevation;
+    const bool displayHulls = partLook_.hulls || L.hull.displayHulls;
+    const bool displayElev = partLook_.elevation;
     const QRectF areaPx(studToPx(brick.displayArea.x()), studToPx(brick.displayArea.y()),
                         studToPx(brick.displayArea.width()), studToPx(brick.displayArea.height()));
     const QPointF centerPx = areaPx.center();
@@ -596,9 +593,9 @@ void SceneBuilder::decorateBrickItem(QGraphicsItem* item, const core::Brick& bri
         // The active connection (brick.activeConnectionPointIndex)
         // gets a bigger, brighter gold marker so the user can see at
         // a glance which end will lead the next snap.
-        constexpr double kDotRadiusPx       = 10.0;
-        constexpr double kActiveRadiusPx    = 13.0;
-        const int nConns    = meta->connections.size();
+        constexpr double kDotRadiusPx = 10.0;
+        constexpr double kActiveRadiusPx = 13.0;
+        const int nConns = meta->connections.size();
         const int activeIdx = brick.activeConnectionPointIndex;
         for (int ci = 0; ci < nConns; ++ci) {
             const auto& c = meta->connections[ci];
@@ -617,18 +614,15 @@ void SceneBuilder::decorateBrickItem(QGraphicsItem* item, const core::Brick& bri
                 c.type.toInt(&ok);
                 if (!ok) continue;
             }
-            const bool linked =
-                ci < static_cast<int>(brick.connections.size())
-                && !brick.connections[ci].linkedToId.isEmpty();
+            const bool linked = ci < static_cast<int>(brick.connections.size())
+                                && !brick.connections[ci].linkedToId.isEmpty();
             if (linked) continue;
             const bool isActive = (ci == activeIdx);
             const double r = isActive ? kActiveRadiusPx : kDotRadiusPx;
             const QPointF localPx(c.position.x() * kPx, c.position.y() * kPx);
-            auto* dot = new QGraphicsEllipseItem(
-                localPx.x() - r, localPx.y() - r, r * 2, r * 2, item);
-            const QColor fill = isActive
-                ? QColor(255, 215, 0)              // gold for active
-                : colorForConnectionType(c.type);   // type color (red) for other free
+            auto* dot = new QGraphicsEllipseItem(localPx.x() - r, localPx.y() - r, r * 2, r * 2, item);
+            const QColor fill = isActive ? QColor(255, 215, 0)             // gold for active
+                                         : colorForConnectionType(c.type); // type color (red) for other free
             QPen pen(isActive ? QColor(30, 30, 30) : QColor(255, 255, 255));
             pen.setWidthF(isActive ? 3.0 : 2.5);
             pen.setCosmetic(true);
@@ -656,9 +650,7 @@ void SceneBuilder::decorateBrickItem(QGraphicsItem* item, const core::Brick& bri
         if (!hullStuds.isEmpty()) {
             QPolygonF hullPx;
             hullPx.reserve(hullStuds.size());
-            for (const QPointF& p : hullStuds) {
-                hullPx.append(QPointF(p.x() * kPx, p.y() * kPx));
-            }
+            for (const QPointF& p : hullStuds) { hullPx.append(QPointF(p.x() * kPx, p.y() * kPx)); }
             auto* poly = new QGraphicsPolygonItem(hullPx);
             poly->setBrush(Qt::NoBrush);
             // Attach to the brick item so the polygon rotates along
@@ -700,7 +692,6 @@ void SceneBuilder::decorateBrickItem(QGraphicsItem* item, const core::Brick& bri
         alt->setZValue(brick.altitude + 0.6);
         alt->setData(kBrickDataKind, QStringLiteral("partDecor"));
     }
-
 }
 
 bool SceneBuilder::redrawBrickInPlace(QGraphicsItem* item, const core::Brick& brick, const core::Layer& L) {
@@ -720,13 +711,13 @@ bool SceneBuilder::redrawBrickInPlace(QGraphicsItem* item, const core::Brick& br
     }
     p->setRotation(brick.orientation);
     const QPointF offset = parts_.imageOffset(partKey, brick.orientation);
-    p->setTransform(offset.isNull() ? QTransform() : QTransform::fromTranslate(offset.x() * kPx, offset.y() * kPx));
+    p->setTransform(offset.isNull() ? QTransform()
+                                    : QTransform::fromTranslate(offset.x() * kPx, offset.y() * kPx));
     p->setPos(QPointF(studToPx(brick.displayArea.center().x()), studToPx(brick.displayArea.center().y())));
     decorateBrickItem(item, brick, L, &*meta);
     if (item->isSelected()) setConnectionDotsVisible(item, true);
     return true;
 }
-
 
 namespace {
 
@@ -775,7 +766,7 @@ QPointF brickPosPx(const core::Brick& b) {
     return QPointF(studToPx(b.displayArea.center().x()), studToPx(b.displayArea.center().y()));
 }
 
-}  // namespace
+} // namespace
 
 SceneBuilder::SceneBuilder(QGraphicsScene& scene, parts::PartsLibrary& parts)
     : scene_(scene), parts_(parts) {}
@@ -816,7 +807,7 @@ void SceneBuilder::takeLabelsOff(QGraphicsItem* partItem) {
     for (QGraphicsItem* child : partItem->childItems()) {
         if (child->data(kBrickDataKind).toString() != QLatin1String("label")) continue;
         labelItems_.removeOne(child);
-        labelsTakenOff_ << child;  // (update() reports it gone)
+        labelsTakenOff_ << child; // (update() reports it gone)
         delete child;
         labelsDirty_ = true;
     }
@@ -830,7 +821,7 @@ void SceneBuilder::clear() {
     // call on the scene) so removal stays linear.
     QCoreApplication::sendPostedEvents(&scene_, QEvent::MetaCall);
     ++generation_;
-    clearLabels();  // first: some are children of parts
+    clearLabels(); // first: some are children of parts
     for (auto& d : layers_) deleteItems(scene_, d.items);
     layers_.clear();
     brickByGuid_.clear();
@@ -911,7 +902,8 @@ void SceneBuilder::clearLayer(int layerIndex) {
     if (layerIndex < 0 || layerIndex >= static_cast<int>(layers_.size())) return;
     LayerDrawn& d = layers_[static_cast<size_t>(layerIndex)];
     for (auto it = d.bricks.cbegin(); it != d.bricks.cend(); ++it) {
-        if (!it->items.isEmpty() && brickByGuid_.value(it.key()) == it->items.front()) brickByGuid_.remove(it.key());
+        if (!it->items.isEmpty() && brickByGuid_.value(it.key()) == it->items.front())
+            brickByGuid_.remove(it.key());
         for (auto* item : it->items) takeLabelsOff(item);
     }
     deleteItems(scene_, d.items);
@@ -997,7 +989,8 @@ void SceneBuilder::addLayer(const core::Layer& L, int layerIndex) {
                 addRuler(any, one, layerIndex, ends.first, ends.second);
                 look(items, z += kOrderStep);
                 d.items += items;
-                d.rulers.insert(rulerGuid(any), Thing<RulerDrawn>{ items, z, epoch_, { any, ends.first, ends.second } });
+                d.rulers.insert(rulerGuid(any),
+                                Thing<RulerDrawn>{ items, z, epoch_, { any, ends.first, ends.second } });
                 ++drawnTotal_;
             }
             break;
@@ -1038,7 +1031,7 @@ void SceneBuilder::orderSheet(LayerDrawn& d, QHash<QString, Thing<Stored>>& thin
             fresh = true;
             continue;
         }
-        if (zs[static_cast<size_t>(k)] <= prev) return renumber();  // the order changed
+        if (zs[static_cast<size_t>(k)] <= prev) return renumber(); // the order changed
         prev = zs[static_cast<size_t>(k)];
     }
     if (!fresh) return;
@@ -1051,7 +1044,7 @@ void SceneBuilder::orderSheet(LayerDrawn& d, QHash<QString, Thing<Stored>>& thin
         int e = k;
         while (e < n && std::isnan(zs[static_cast<size_t>(e)])) ++e;
         const int run = e - k;
-        const double lo = k > 0 ? zs[static_cast<size_t>(k - 1)]
+        const double lo = k > 0   ? zs[static_cast<size_t>(k - 1)]
                           : e < n ? zs[static_cast<size_t>(e)] - (run + 1) * kOrderStep
                                   : d.baseZ;
         const double hi = e < n ? zs[static_cast<size_t>(e)] : lo + (run + 1) * kOrderStep;
@@ -1073,7 +1066,7 @@ bool SceneBuilder::diffThings(LayerDrawn& d, QHash<QString, Thing<Stored>>& thin
     const auto redrawInto = [&](Thing<Stored>& t, const Model& m) {
         ++change.redrawn;
         ++drawnTotal_;
-        if (hooks.inPlace(t, m)) {  // the same items, drawn again
+        if (hooks.inPlace(t, m)) { // the same items, drawn again
             hooks.replaced(t.model, m);
             t.model = hooks.store(m);
             return;
@@ -1109,7 +1102,7 @@ bool SceneBuilder::diffThings(LayerDrawn& d, QHash<QString, Thing<Stored>>& thin
             ++drawnTotal_;
             zs.push_back(t.z);
             things.insert(guid, std::move(t));
-                continue;
+            continue;
         }
         ++matched;
         found->seen = epoch;
@@ -1129,7 +1122,7 @@ bool SceneBuilder::diffThings(LayerDrawn& d, QHash<QString, Thing<Stored>>& thin
             }
             deleteItems(scene_, it->items);
             ++change.erased;
-                it = things.erase(it);
+            it = things.erase(it);
         }
     }
     // (Also when nothing changed: Bring to Front only reorders the sheet.)
@@ -1148,7 +1141,8 @@ void SceneBuilder::redrawLayer(const core::Layer& layer, int layerIndex, Change&
         if (it->isSelected()) picked.insert(it->data(kBrickDataGuid).toString());
     }
     for (auto it = old.bricks.cbegin(); it != old.bricks.cend(); ++it) change.partsRemoved.insert(it.key());
-    change.erased += static_cast<int>(old.bricks.size() + old.texts.size() + old.rulers.size() + old.cells.size());
+    change.erased +=
+        static_cast<int>(old.bricks.size() + old.texts.size() + old.rulers.size() + old.cells.size());
     clearLayer(layerIndex);
     addLayer(layer, layerIndex);
     LayerDrawn& d = layers_[static_cast<size_t>(layerIndex)];
@@ -1324,7 +1318,8 @@ std::optional<SceneBuilder::Change> SceneBuilder::update(const core::Map& map) {
                 void added(const core::TextCell&, Thing<core::TextCell>&) {}
                 void erasing(Thing<core::TextCell>&, bool) {}
             } hooks{ *this, d, li, opacity, displaced };
-            if (!diffThings(d, d.texts, static_cast<const core::LayerText&>(L).textCells, hooks, change, gone)) {
+            if (!diffThings(d, d.texts, static_cast<const core::LayerText&>(L).textCells, hooks, change,
+                            gone)) {
                 d.items.removeIf([&gone](QGraphicsItem* it) { return gone.contains(it); });
                 redrawLayer(L, li, change);
                 continue;
@@ -1361,7 +1356,8 @@ std::optional<SceneBuilder::Change> SceneBuilder::update(const core::Map& map) {
                 void added(const core::LayerRuler::AnyRuler&, Thing<RulerDrawn>&) {}
                 void erasing(Thing<RulerDrawn>&, bool) {}
             } hooks{ *this, d, li, opacity, displaced };
-            if (!diffThings(d, d.rulers, static_cast<const core::LayerRuler&>(L).rulers, hooks, change, gone)) {
+            if (!diffThings(d, d.rulers, static_cast<const core::LayerRuler&>(L).rulers, hooks, change,
+                            gone)) {
                 d.items.removeIf([&gone](QGraphicsItem* it) { return gone.contains(it); });
                 redrawLayer(L, li, change);
                 continue;
@@ -1434,7 +1430,7 @@ std::optional<SceneBuilder::Change> SceneBuilder::update(const core::Map& map) {
         clearVenue();
         addVenue(map);
         drawnVenue_ = map.sidecar.venue;
-        change.added += venueItems_;  // (Edit module makes them out of reach)
+        change.added += venueItems_; // (Edit module makes them out of reach)
         change.overlays = true;
     }
 
@@ -1482,13 +1478,11 @@ std::optional<SceneBuilder::Change> SceneBuilder::update(const core::Map& map) {
         refreshModuleLabels(map);
         change.overlays = true;
     }
-    if ((partsChanged || visibilityChanged)
-        && (!electricItems_.isEmpty() || partLook_.electric)) {
+    if ((partsChanged || visibilityChanged) && (!electricItems_.isEmpty() || partLook_.electric)) {
         clearElectric();
         addElectricCircuits(map);
         change.overlays = true;
     }
     return change;
 }
-
 }
