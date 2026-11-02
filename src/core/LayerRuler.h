@@ -22,6 +22,7 @@ public:
         // keep both allocated.
         LinearRuler   linear;
         CircularRuler circular;
+        bool operator==(const AnyRuler&) const = default;
     };
 
     std::vector<AnyRuler> rulers;

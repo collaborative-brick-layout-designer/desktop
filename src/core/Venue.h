@@ -30,6 +30,8 @@ struct VenueEdge {
     QString  label;
     bool estimated = false; // not measured yet
     QJsonObject extras{};
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const VenueEdge&) const = default;
 };
 
 enum class ObstacleKind { Other, Column, Stairs, Elevator, Counter, Railing };
@@ -40,6 +42,8 @@ struct VenueObstacle {
     ObstacleKind kind = ObstacleKind::Other;
     std::optional<double> upDegrees{}; // stairs: the way up
     QJsonObject extras{};
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const VenueObstacle&) const = default;
 };
 
 struct VenuePower {
@@ -49,6 +53,8 @@ struct VenuePower {
     double amps = 0.0; // 0 = not given
     double volts = 0.0;
     QJsonObject extras{};
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const VenuePower&) const = default;
 };
 
 struct VenueNote {
@@ -56,6 +62,8 @@ struct VenueNote {
     QString text;
     bool estimated = false;
     QJsonObject extras{};
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const VenueNote&) const = default;
 };
 
 struct VenueDimension {
@@ -63,6 +71,8 @@ struct VenueDimension {
     QString label;
     bool estimated = false;
     QJsonObject extras{};
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const VenueDimension&) const = default;
 };
 
 // Per-project venue definition. At most one venue per project.
@@ -77,5 +87,7 @@ struct Venue {
     QRectF layoutBoundsStuds;          // optional reserved layout footprint
     bool   enabled = true;
     QJsonObject extras{};
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const Venue&) const = default;
 };
 }

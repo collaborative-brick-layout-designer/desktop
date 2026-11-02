@@ -140,7 +140,7 @@ std::optional<QRectF> MapView::editedModuleFrameStuds() const {
     return box.adjusted(-p, -p, p, p);
 }
 
-void MapView::applyModuleState() {
+void MapView::applyModuleState(const QList<QGraphicsItem*>* only) {
     if (!map_ || !scene()) return;
     // The module being edited is gone (deleted here or by someone else).
     if (!editingModuleId_.isEmpty() && !core::findModule(map_->sidecar.modules, editingModuleId_)) {
@@ -152,7 +152,8 @@ void MapView::applyModuleState() {
     const bool editing = !editingModuleId_.isEmpty();
     const bool anyPinned = std::any_of(mods.begin(), mods.end(), [](const core::Module& m) { return m.pinned; });
     if (!editing && !anyPinned) return;
-    for (QGraphicsItem* it : scene()->items()) {
+    // After a build every item; after an update only those it made.
+    for (QGraphicsItem* it : only ? *only : scene()->items()) {
         if (isBrickItem(it)) {
             const QString g = it->data(kBrickDataGuid).toString();
             if (core::outsideEdit(g, mods, editingModuleId_)) {
@@ -336,12 +337,8 @@ void MapView::updatePlacedSets(const std::vector<edit::SetUpdate>& updates) {
     if (fresh.isEmpty()) return;
     // Join the new parts to the track around them where they line up.
     edit::rebuildConnectivity(*map_, parts_);
-    rebuildScene();
-    QList<QGraphicsItem*> pick;
-    for (QGraphicsItem* it : scene()->items())
-        if (detail::isBrickItem(it) && fresh.contains(it->data(detail::kBrickDataGuid).toString()))
-            pick.append(it);
-    selectItems(pick);
+    refreshScene();
+    selectParts(fresh);
     if (auto* mw = window())
         if (auto* sb = mw->findChild<QStatusBar*>())
             sb->showMessage(

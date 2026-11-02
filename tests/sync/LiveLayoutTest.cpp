@@ -12,6 +12,7 @@
 #include "edit/EditCommands.h"
 #include "edit/ModuleCommands.h"
 #include "parts/PartsLibrary.h"
+#include "rendering/SceneBuilder.h"
 #include "ui/MapView.h"
 #include "ui/MapViewInternal.h"
 
@@ -85,6 +86,67 @@ TEST(LiveLayout, EditsInTheViewReachTheServerAndUndoGoesThroughIt) {
     EXPECT_EQ(h.reloads, before + 1);
     EXPECT_EQ(firstBrick(*h.view.currentMap()).displayArea, original);
     ASSERT_TRUE(waitFor([&] { return firstBrickArea(h.server.doc) == original; }));
+}
+
+namespace {
+QGraphicsItem* partItem(ui::MapView& view, const QString& guid) {
+    for (QGraphicsItem* it : view.scene()->items())
+        if (ui::detail::isBrickItem(it) && it->data(ui::detail::kBrickDataGuid).toString() == guid) return it;
+    return nullptr;
+}
+QPointF drawnAt(const QRectF& studs) {
+    return studs.center() * rendering::SceneBuilder::kPixelsPerStud;
+}
+} // namespace
+
+// Someone else's edit, and our Undo through the shared layout, show on the
+// map where the part is now; the view draws only that part again (the
+// other parts keep their items) and keeps the zoom and the pick.
+TEST(LiveLayout, OthersEditsAndOurUndoShowOnTheMapDrawingOnlyThatPart) {
+    Harness h;
+    h.open();
+    h.view.scale(2, 2);
+    const QTransform zoom = h.view.transform();
+    const QString guid = firstBrick(*h.view.currentMap()).guid;
+    const QRectF original = firstBrick(*h.view.currentMap()).displayArea;
+    // Every other part's item, to see they stay.
+    QHash<QString, QGraphicsItem*> others;
+    for (QGraphicsItem* it : h.view.scene()->items())
+        if (ui::detail::isBrickItem(it) && it->data(ui::detail::kBrickDataGuid).toString() != guid)
+            others.insert(it->data(ui::detail::kBrickDataGuid).toString(), it);
+    ASSERT_FALSE(others.isEmpty());
+    h.view.selectParts({ others.cbegin().key() });
+    const int builds = h.view.sceneBuilds();
+    const quint64 drawn = h.view.builder()->drawnTotal();
+
+    // Another person moves the part.
+    h.server.remoteEdit([](core::Map& m) { firstBrick(m).displayArea.translate(4, 0); });
+    ASSERT_TRUE(
+        waitFor([&] { return firstBrick(*h.view.currentMap()).displayArea == original.translated(4, 0); }));
+    ASSERT_NE(partItem(h.view, guid), nullptr);
+    EXPECT_EQ(partItem(h.view, guid)->pos(), drawnAt(original.translated(4, 0))) << "the map shows it moved";
+    EXPECT_EQ(h.view.sceneBuilds(), builds) << "not the whole map";
+    EXPECT_GE(h.view.builder()->drawnTotal() - drawn, 1u);
+    EXPECT_LE(h.view.builder()->drawnTotal() - drawn, 3u)
+        << "the part, and at most the parts it was joined to";
+    int kept = 0;
+    for (auto it = others.cbegin(); it != others.cend(); ++it)
+        kept += partItem(h.view, it.key()) == it.value() ? 1 : 0;
+    EXPECT_GE(kept, static_cast<int>(others.size()) - 2);
+    EXPECT_EQ(h.view.transform(), zoom);
+    EXPECT_TRUE(partItem(h.view, others.cbegin().key())->isSelected()) << "the pick stays";
+
+    // We move it on, then Undo goes through the shared layout: back where
+    // the other person put it.
+    moveFirstBrick(h.view, 8);
+    ASSERT_TRUE(waitFor([&] { return firstBrickArea(h.server.doc) == original.translated(12, 0); }));
+    ASSERT_TRUE(waitFor([&] { return h.view.undoStack()->count() == 0; }));
+    EXPECT_EQ(partItem(h.view, guid)->pos(), drawnAt(original.translated(12, 0)));
+    ASSERT_TRUE(h.live.undo());
+    EXPECT_EQ(firstBrick(*h.view.currentMap()).displayArea, original.translated(4, 0));
+    EXPECT_EQ(partItem(h.view, guid)->pos(), drawnAt(original.translated(4, 0))) << "the map shows the undo";
+    EXPECT_EQ(h.view.sceneBuilds(), builds);
+    EXPECT_EQ(h.view.transform(), zoom);
 }
 
 TEST(LiveLayout, OthersChangesWaitWhileTheMouseIsDownAndKeepTheZoom) {

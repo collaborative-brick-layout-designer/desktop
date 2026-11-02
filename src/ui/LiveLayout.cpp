@@ -13,11 +13,14 @@
 #include <QGraphicsPolygonItem>
 #include <QGraphicsRectItem>
 #include <QGraphicsSimpleTextItem>
+#include <QJsonObject>
 #include <QMouseEvent>
 #include <QScrollBar>
 #include <QSet>
 #include <QTimer>
+
 #include <QUndoStack>
+#include <algorithm>
 
 namespace bld::ui {
 
@@ -99,15 +102,21 @@ void LiveLayout::drawPeers() {
             if (!peer.editingModule.isEmpty()) editing[peer.editingModule] << peer.name;
         }
     view_.setPeersEditing(editing);
-    if (!active_ || !view_.currentMap()) return;
+    if (!active_ || !view_.currentMap() || session_.peers().empty()) return;
     // Bricks by id, for selection outlines: where a drag here has them now.
+    // (Only when someone has parts picked: it walks every part.)
     QHash<QString, QRectF> bricks;
-    view_.withLivePose([&bricks](const core::Map& map) {
-        for (const auto& layer : map.layers())
-            if (layer->kind() == core::LayerKind::Brick)
-                for (const auto& b : static_cast<const core::LayerBrick&>(*layer).bricks)
-                    bricks.insert(b.guid, b.displayArea);
-    });
+    const bool anyPicked =
+        std::any_of(session_.peers().cbegin(), session_.peers().cend(), [](const QJsonObject& state) {
+            return !sync::presence::peerFrom(state).brickIds.isEmpty();
+        });
+    if (anyPicked)
+        view_.withLivePose([&bricks](const core::Map& map) {
+            for (const auto& layer : map.layers())
+                if (layer->kind() == core::LayerKind::Brick)
+                    for (const auto& b : static_cast<const core::LayerBrick&>(*layer).bricks)
+                        bricks.insert(b.guid, b.displayArea);
+        });
     const double px = detail::studToPx();
     const auto add = [this](QGraphicsItem* it) {
         it->setZValue(1e9);
@@ -246,32 +255,21 @@ void LiveLayout::reload() {
     QString error;
     auto map = session_.editorMap(&error);
     if (!map) return;
-    // Keep the view where it was, and the selection, across the reload.
-    const bool first = !reloadedOnce_;
-    const QTransform zoom = view_.transform();
-    const int h = view_.horizontalScrollBar()->value(), v = view_.verticalScrollBar()->value();
-    QSet<QString> selected;
-    for (QGraphicsItem* it : view_.scene()->selectedItems())
-        if (detail::isBrickItem(it)) selected.insert(it->data(detail::kBrickDataGuid).toString());
-
+    // The first copy fits the view; a newer one keeps the zoom, the scroll
+    // and the pick, and draws again only what changed.
     reloading_ = true;
-    view_.loadMap(std::move(map));
+    if (reloadedOnce_) view_.updateMap(std::move(map));
+    else view_.loadMap(std::move(map));
     reloading_ = false;
     reloadedOnce_ = true;
 
-    if (!first) {
-        view_.setTransform(zoom);
-        view_.horizontalScrollBar()->setValue(h);
-        view_.verticalScrollBar()->setValue(v);
-    }
     // After an undo or redo, the parts it brought back are picked instead.
     if (partsBeforeStep_) {
         QSet<QString> back = partGuidsOf(view_.currentMap());
         back.subtract(*partsBeforeStep_);
         partsBeforeStep_.reset();
-        if (!back.isEmpty()) selected = back;
+        if (!back.isEmpty()) view_.selectParts(back);
     }
-    if (!selected.isEmpty()) view_.selectParts(selected);
     drawPeers();
     emit mapReloaded();
     emit undoStateChanged();

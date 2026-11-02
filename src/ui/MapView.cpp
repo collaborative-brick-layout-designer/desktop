@@ -230,10 +230,10 @@ MapView::MapView(parts::PartsLibrary& parts, QWidget* parent)
         // away from its partner keeps the old link, which makes the
         // connection appear "occupied" to snap + display.
         edit::rebuildConnectivity(*map_, parts_);
-        // Go through rebuildScene() (not builder_->build directly) so an
-        // undo / redo fired mid-drag also drops the drag snapshots that
-        // point at the items the rebuild is about to delete.
-        rebuildScene();
+        // Only what the step changed is drawn again. Goes through
+        // refreshScene() (not the builder directly) so an undo / redo fired
+        // mid-drag also drops the drag snapshots that point at items.
+        refreshScene();
         pickPartsBroughtBack();
     });
 
@@ -292,23 +292,63 @@ const MapView::PickIndex& MapView::pickIndex() {
         }
     }
     if (!map_) return index;
-    for (int i = 0; i < static_cast<int>(map_->layers().size()); ++i) {
-        const auto& L = map_->layers()[static_cast<size_t>(i)];
-        if (!L || L->kind() != core::LayerKind::Brick) continue;
-        const auto& BL = static_cast<const core::LayerBrick&>(*L);
-        // Each group's outermost group, worked out once per group.
-        QHash<QString, QString> topOfGroup;
-        PickIndex::Sheet& sheet = index.sheets[i];
-        for (const auto& b : BL.bricks) {
-            if (b.myGroupId.isEmpty()) continue;
-            auto top = topOfGroup.constFind(b.myGroupId);
-            if (top == topOfGroup.constEnd()) top = topOfGroup.insert(b.myGroupId, core::topGroup(BL, b.myGroupId));
-            if (top->isEmpty()) continue;
-            sheet.topsOf.insert(b.guid, *top);
-            sheet.partsIn[*top] << b.guid;
+    for (int i = 0; i < static_cast<int>(map_->layers().size()); ++i) indexSheet(index, i);
+    return index;
+}
+
+void MapView::indexSheet(PickIndex& index, int i) const {
+    index.sheets.remove(i);
+    if (!map_ || i < 0 || i >= static_cast<int>(map_->layers().size())) return;
+    const auto& L = map_->layers()[static_cast<size_t>(i)];
+    if (!L || L->kind() != core::LayerKind::Brick) return;
+    const auto& BL = static_cast<const core::LayerBrick&>(*L);
+    // Each group's outermost group, worked out once per group.
+    QHash<QString, QString> topOfGroup;
+    PickIndex::Sheet& sheet = index.sheets[i];
+    for (const auto& b : BL.bricks) {
+        if (b.myGroupId.isEmpty()) continue;
+        auto top = topOfGroup.constFind(b.myGroupId);
+        if (top == topOfGroup.constEnd())
+            top = topOfGroup.insert(b.myGroupId, core::topGroup(BL, b.myGroupId));
+        if (top->isEmpty()) continue;
+        sheet.topsOf.insert(b.guid, *top);
+        sheet.partsIn[*top] << b.guid;
+    }
+}
+
+void MapView::patchPickIndex(const rendering::SceneBuilder::Change& change, const core::Map* before) {
+    PickIndex& index = pickIndex_;
+    // Not built for the scene as it was: the next pick builds it whole.
+    if (index.generation != builder_->generation() || index.map != before) return;
+    const auto drop = [](QHash<QString, QList<QGraphicsItem*>>& by, const QString& guid, QGraphicsItem* it) {
+        auto found = by.find(guid);
+        if (found == by.end()) return;
+        found->removeOne(it);
+        if (found->isEmpty()) by.erase(found);
+    };
+    // Gone first: a new item may have the address a deleted one had.
+    for (QGraphicsItem* it : change.removed) {
+        const auto found = index.items.constFind(it);
+        if (found == index.items.constEnd()) continue;
+        const PickIndex::Item& item = *found;
+        if (item.kind == PickIndex::Kind::Brick) drop(index.bricks, item.guid, it);
+        else if (item.kind == PickIndex::Kind::Ruler) drop(index.rulers, item.guid, it);
+        else index.glowing.removeOne(it);
+        index.items.erase(found); // (last: `item` is in it)
+    }
+    for (QGraphicsItem* it : change.added) {
+        const PickIndex::Item item = index.itemOf(it);
+        if (item.kind == PickIndex::Kind::Other) continue;
+        index.items.insert(it, item);
+        if (item.kind == PickIndex::Kind::Brick) index.bricks[item.guid] << it;
+        else if (item.kind == PickIndex::Kind::Ruler) {
+            if (!item.guid.isEmpty()) index.rulers[item.guid] << it;
+        } else {
+            index.glowing << it;
         }
     }
-    return index;
+    index.map = map_.get();
+    for (int i : change.sheetsRegrouped) indexSheet(index, i);
 }
 
 MapView::~MapView() {
@@ -382,8 +422,12 @@ void MapView::loadMap(std::unique_ptr<core::Map> map) {
     // correct from the start.
     edit::rebuildConnectivity(*map_, parts_);
     builder_->build(*map_);
+    ++sceneBuilds_;
+    lastPartsAdded_.reset();
+    lastPartsRemoved_.reset();
     applyViewFilter();
     applyModuleState();
+    appliedModuleState_ = moduleState();
     refreshModuleEditBar();
     // Give the view a much bigger scene rect than the current content so
     // the user can pan well outside the existing bricks to add new ones
@@ -403,6 +447,56 @@ void MapView::loadMap(std::unique_ptr<core::Map> map) {
     viewport()->update();
     finishLoading();
     emit selectionChanged();
+    emit mapLoaded();
+}
+
+void MapView::updateMap(std::unique_ptr<core::Map> map) {
+    if (!map_ || !map) return loadMap(std::move(map));
+    // The parts that differ from what is drawn: only they can need a
+    // picture read or an area fixed (a load does every part).
+    std::vector<core::Brick*> changed;
+    for (int i = 0; i < static_cast<int>(map->layers().size()); ++i) {
+        auto& L = map->layers()[static_cast<size_t>(i)];
+        if (L->kind() != core::LayerKind::Brick) continue;
+        for (auto& b : static_cast<core::LayerBrick&>(*L).bricks)
+            if (!builder_->drawnAsIs(i, b)) changed.push_back(&b);
+    }
+    // Pictures not read yet (a part placed elsewhere): read with the
+    // loading card, as a load does.
+    if (std::any_of(changed.begin(), changed.end(),
+                    [this](const core::Brick* b) { return !parts_.pixmapTried(b->partNumber.toLower()); })) {
+        const int generation = ++loadGeneration_;
+        if (!preloadPictures(*map) || generation != loadGeneration_) return;
+        finishLoading();
+    }
+    // The commands on the stack point into the map being replaced.
+    undoStack_->clear();
+    const QTransform zoom = transform();
+    const int h = horizontalScrollBar()->value(), v = verticalScrollBar()->value();
+    // Areas stale for the part's picture, and the links, as a load does them
+    // (when no part changed, the links are the ones drawn).
+    for (core::Brick* b : changed) {
+        const auto fp = parts_.footprint(b->partNumber, b->orientation);
+        if (fp
+            && (std::abs(fp->size.width() - b->displayArea.width()) > 0.01
+                || std::abs(fp->size.height() - b->displayArea.height()) > 0.01))
+            parts::placement::placeByImageCentre(*b, b->displayArea.center(), parts_);
+    }
+    if (!changed.empty() || map->layers().size() != map_->layers().size())
+        edit::rebuildConnectivity(*map, parts_);
+    const core::Map* before = map_.get();
+    std::unique_ptr<core::Map> old = std::move(map_);
+    map_ = std::move(map);
+    scene()->setBackgroundBrush(map_->backgroundColor.color);
+    // The pick index carries over (refreshScene() patches it).
+    if (pickIndex_.map == before) pickIndex_.map = map_.get();
+    // Undo's "parts brought back" starts again from this copy, as after a load.
+    partsAtLastStepMap_ = nullptr;
+    refreshScene();
+    old.reset();
+    setTransform(zoom);
+    horizontalScrollBar()->setValue(h);
+    verticalScrollBar()->setValue(v);
     emit mapLoaded();
 }
 
@@ -430,9 +524,10 @@ QSet<QString> partGuids(const core::Map& map) {
 } // namespace
 
 void MapView::selectParts(const QSet<QString>& guids) {
+    // Looked up in the pick index, not by walking every item.
+    const PickIndex& index = pickIndex();
     QList<QGraphicsItem*> pick;
-    for (QGraphicsItem* it : scene()->items())
-        if (isBrickItem(it) && guids.contains(it->data(kBrickDataGuid).toString())) pick.append(it);
+    for (const QString& guid : guids) pick += index.bricks.value(guid);
     selectItems(pick);
 }
 
@@ -458,26 +553,35 @@ void MapView::pickPartsBroughtBack() {
     const int count = undoStack_->count();
     // An undo goes back; a redo goes forward on a stack of the same size (a new step grows it).
     const bool undoOrRedo = index < lastStackIndex_ || (index > lastStackIndex_ && count == lastStackCount_);
-    QSet<QString> now = partGuids(*map_);
-    if (undoOrRedo && partsAtLastStepMap_ == map_.get()) {
-        QSet<QString> back = now;
+    if (lastPartsAdded_ && lastPartsRemoved_ && partsAtLastStepMap_ == map_.get()) {
+        // Drawn again in part: the parts that came and went, without
+        // walking every part.
+        QSet<QString> back = *lastPartsAdded_;
         back.subtract(partsAtLastStep_);
-        if (!back.isEmpty()) selectParts(back);
+        partsAtLastStep_.subtract(*lastPartsRemoved_);
+        partsAtLastStep_.unite(*lastPartsAdded_);
+        if (undoOrRedo && !back.isEmpty()) selectParts(back);
+    } else {
+        QSet<QString> now = partGuids(*map_);
+        if (undoOrRedo && partsAtLastStepMap_ == map_.get()) {
+            QSet<QString> back = now;
+            back.subtract(partsAtLastStep_);
+            if (!back.isEmpty()) selectParts(back);
+        }
+        partsAtLastStep_ = std::move(now);
     }
-    partsAtLastStep_ = std::move(now);
     partsAtLastStepMap_ = map_.get();
     lastStackIndex_ = index;
     lastStackCount_ = count;
 }
 
-void MapView::rebuildScene() {
-    if (!map_) return;
+void MapView::dropLiveState() {
     // SceneBuilder::build() deletes every QGraphicsItem* before
-    // repopulating the scene. Any raw pointers we're holding in drag
-    // snapshots (dragStart_ / rulerDragStart_ / labelDragStart_)
-    // become dangling the moment we call build(). If a drag is in
-    // progress when something triggers a rebuild (undo/redo, context
-    // menu action, tool op) the next mouseMove will segfault on
+    // repopulating the scene (update() the ones that changed). Any raw
+    // pointers we're holding in drag snapshots (dragStart_ /
+    // rulerDragStart_ / labelDragStart_) can dangle after it. If a drag is
+    // in progress when something triggers a rebuild (undo/redo, context
+    // menu action, tool op) the next mouseMove would segfault on
     // s.item->scenePos(). Cancel any in-flight drag here so callers
     // don't have to remember. Mid-drag rebuild → drag aborts cleanly.
     dragStart_.clear();
@@ -496,6 +600,14 @@ void MapView::rebuildScene() {
         dragPreviewKey_.clear();
     }
     clearRulerPreview();
+}
+
+void MapView::rebuildScene() {
+    if (!map_) return;
+    dropLiveState();
+    ++sceneBuilds_;
+    lastPartsAdded_.reset();
+    lastPartsRemoved_.reset();
 
     // Snapshot the currently-selected (layer, guid, kind) triples before
     // the rebuild wipes the scene so we can reselect the same logical
@@ -519,6 +631,7 @@ void MapView::rebuildScene() {
     builder_->build(*map_);
     applyViewFilter();
     applyModuleState();
+    appliedModuleState_ = moduleState();
     refreshModuleEditBar();
     refreshSetUpdates();
     // Reselect by (layer, guid, kind) — builds a quick index of the new
@@ -544,6 +657,47 @@ void MapView::rebuildScene() {
     refreshSelectionOverlay();
     viewport()->update();
     emit selectionChanged();
+}
+
+void MapView::refreshScene() {
+    if (!map_) return;
+    // The flags and dimming of Edit module and pinned modules are applied
+    // to every item: when they change, everything is drawn again.
+    if (moduleState() != appliedModuleState_) return rebuildScene();
+    dropLiveState();
+    const bool hadPick = !scene()->selectedItems().isEmpty();
+    std::optional<rendering::SceneBuilder::Change> change;
+    {
+        // Deleting a picked item says selectionChanged; it's said once, below.
+        const QSignalBlocker quiet(scene());
+        change = builder_->update(*map_);
+    }
+    if (!change) return rebuildScene(); // structural: nothing was done
+    ++sceneUpdates_;
+    patchPickIndex(*change, map_.get());
+    lastPartsAdded_ = change->partsAdded;
+    lastPartsRemoved_ = change->partsRemoved;
+    applyModuleState(&change->added);
+    applyViewFilter();
+    refreshModuleEditBar();
+    refreshSetUpdates();
+    // The pick's rules (groups, modules), the outline and the bend handles,
+    // which may point at items drawn again.
+    if (hadPick || !scene()->selectedItems().isEmpty()) emit scene() -> selectionChanged();
+    refreshSelectionOverlay();
+    viewport()->update();
+    emit selectionChanged();
+}
+
+MapView::ModuleState MapView::moduleState() const {
+    ModuleState state;
+    if (!map_) return state;
+    state.editing = editingModuleId_;
+    const auto& mods = map_->sidecar.modules;
+    if (!editingModuleId_.isEmpty()
+        || std::any_of(mods.begin(), mods.end(), [](const core::Module& m) { return m.pinned; }))
+        state.modules = mods;
+    return state;
 }
 
 void MapView::setViewFilter(std::optional<ViewFilter> filter) {
@@ -1895,11 +2049,8 @@ void MapView::addPartAtScenePos(const QString& partKey, QPointF sceneCenterPx, s
             // Set files carry positions, not links: link the joints (and
             // any snapped end) from where the parts sit.
             edit::rebuildConnectivity(*map_, parts_);
-            rebuildScene();
-            QList<QGraphicsItem*> pick;
-            for (QGraphicsItem* it : scene()->items())
-                if (isBrickItem(it) && placedGuids.contains(it->data(kBrickDataGuid).toString())) pick.append(it);
-            selectItems(pick);
+            refreshScene();
+            selectParts(placedGuids);
             if (auto* mw = window())
                 if (auto* sb = mw->findChild<QStatusBar*>())
                     sb->showMessage(tr("Placed set: %1 (%2 parts)").arg(setName).arg(count), 3000);
@@ -1936,13 +2087,7 @@ void MapView::addPartAtScenePos(const QString& partKey, QPointF sceneCenterPx, s
     // snap source. Clear prior selection so only the new piece is the
     // "current" one.
     scene()->clearSelection();
-    for (QGraphicsItem* it : scene()->items()) {
-        if (!isBrickItem(it)) continue;
-        if (it->data(kBrickDataLayerIndex).toInt() != targetLayer) continue;
-        if (it->data(kBrickDataGuid).toString() != newGuid) continue;
-        it->setSelected(true);
-        break;
-    }
+    for (QGraphicsItem* it : pickIndex().bricks.value(newGuid)) it->setSelected(true);
 
     if (auto* mw = window())
         if (auto* sb = mw->findChild<QStatusBar*>())
@@ -3118,11 +3263,10 @@ bool MapView::placeModule(core::Map& loaded, const QString& name, const QString&
             wantedLayers.insert(p.layerIndex);
         }
         QList<QGraphicsItem*> pick;
-        for (QGraphicsItem* it : scene()->items()) {
-            if (!isBrickItem(it)) continue;
-            if (!wantedLayers.contains(it->data(kBrickDataLayerIndex).toInt())) continue;
-            if (wantedGuids.contains(it->data(kBrickDataGuid).toString())) pick.append(it);
-        }
+        const PickIndex& index = pickIndex();
+        for (const QString& guid : std::as_const(wantedGuids))
+            for (QGraphicsItem* it : index.bricks.value(guid))
+                if (wantedLayers.contains(it->data(kBrickDataLayerIndex).toInt())) pick.append(it);
         selectItems(pick);
     }
     return true;
@@ -3273,10 +3417,8 @@ void MapView::deleteSelected() {
     // deleting / chaining without re-clicking.
     if (survivingNeighbor) {
         scene()->clearSelection();
-        for (QGraphicsItem* it : scene()->items()) {
-            if (!isBrickItem(it)) continue;
+        for (QGraphicsItem* it : pickIndex().bricks.value(survivingNeighbor->guid)) {
             if (it->data(kBrickDataLayerIndex).toInt() != survivingNeighbor->layerIndex) continue;
-            if (it->data(kBrickDataGuid).toString() != survivingNeighbor->guid) continue;
             it->setSelected(true);
             break;
         }

@@ -20,6 +20,8 @@ struct TextCell : LayerItem {
     ColorSpec     fontColor = ColorSpec::fromKnown(QColor(Qt::black), QStringLiteral("Black"));
     FontSpec      font;
     TextAlignment alignment = TextAlignment::Center;
+    // Change detection (SceneBuilder::update redraws only what differs).
+    bool operator==(const TextCell&) const = default;
 };
 
 }
