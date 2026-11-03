@@ -443,7 +443,8 @@ void follow(Kept<T>& kept, const QJsonArray& now, const Conv& conv, bool withIds
     std::unordered_map<QString, size_t> byId;
     bool indexed = false;
     size_t j = 0;
-    for (const QJsonValue& v : now) {
+    for (qsizetype i = 0; i < now.size(); ++i) {
+        const QJsonValue v = now.at(i);
         if (j < old.size() && went[j] == kNot && old[j].json == v) {
             take(j++);
             continue;
