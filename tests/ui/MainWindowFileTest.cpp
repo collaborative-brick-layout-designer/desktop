@@ -8,6 +8,8 @@
 #include "ui/MapViewInternal.h"
 #include "ui/UpdateCheck.h"
 
+#include "core/AnchoredLabel.h"
+#include "core/DrawnLimits.h"
 #include "core/LayerBrick.h"
 #include "core/Map.h"
 #include "import/LayoutFile.h"
@@ -20,32 +22,33 @@
 #include <gtest/gtest.h>
 
 #include <QAction>
-#include <QMenu>
-#include <QListWidget>
-#include <QGraphicsScene>
-#include <QGraphicsItem>
-#include <QContextMenuEvent>
-#include <QComboBox>
-#include <QDockWidget>
-#include <QLabel>
-#include <QToolButton>
 #include <QApplication>
 #include <QBuffer>
+#include <QComboBox>
+#include <QContextMenuEvent>
 #include <QDir>
+#include <QDockWidget>
 #include <QElapsedTimer>
-#include <QImage>
-#include <QSettings>
 #include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QGraphicsItem>
+#include <QGraphicsScene>
+#include <QGraphicsSimpleTextItem>
+#include <QImage>
+#include <QLabel>
 #include <QLineEdit>
+#include <QListWidget>
+#include <QMenu>
 #include <QMessageBox>
 #include <QPointer>
 #include <QPushButton>
+#include <QSettings>
 #include <QStandardPaths>
 #include <QTemporaryDir>
 #include <QTest>
 #include <QTimer>
+#include <QToolButton>
 #include <QUndoStack>
 
 #include <functional>
@@ -266,6 +269,38 @@ TEST_F(MainWindowFile, ExportingABbmLeavesOutWhatBlueBrickCannotHold) {
     // The layout is still the .bld-layout, venue and all.
     EXPECT_TRUE(window_->windowTitle().startsWith(QStringLiteral("lobby.bld-layout")))
         << window_->windowTitle().toStdString();
+}
+
+// A layout file holding a label with a huge font (any writer may put any
+// number there) opens, and the label draws at the largest size there is,
+// not one without end.
+TEST_F(MainWindowFile, ALabelWithAHugeFontOpensAndDrawsAtTheLimit) {
+    auto map = saveload::readBbm(bbm_).map;
+    ASSERT_TRUE(map);
+    core::AnchoredLabel huge;
+    huge.id = QStringLiteral("huge");
+    huge.text = QStringLiteral("Big sign");
+    huge.font.sizePt = 1e30f;
+    huge.offset = QPointF(10, 10);
+    map->sidecar.anchoredLabels.push_back(huge);
+    const QString file = dir_.filePath(QStringLiteral("huge-label.bld-layout"));
+    QString error;
+    ASSERT_TRUE(import::writeLayoutFile(*map, file, &error)) << error.toStdString();
+    ASSERT_TRUE(window_->openFile(file));
+
+    auto* view = window_->findChild<ui::MapView*>();
+    ASSERT_NE(view, nullptr);
+    ASSERT_NE(view->currentMap(), nullptr);
+    ASSERT_EQ(view->currentMap()->sidecar.anchoredLabels.size(), 1u);
+    EXPECT_EQ(view->currentMap()->sidecar.anchoredLabels[0].font.sizePt, core::limits::kFontSize.max);
+    const QGraphicsSimpleTextItem* drawn = nullptr;
+    for (QGraphicsItem* it : view->scene()->items())
+        if (ui::detail::isLabelItem(it)
+            && it->data(ui::detail::kBrickDataGuid).toString() == QStringLiteral("huge"))
+            drawn = dynamic_cast<const QGraphicsSimpleTextItem*>(it);
+    ASSERT_NE(drawn, nullptr) << "the label is on the map";
+    EXPECT_EQ(drawn->font().pointSize(), static_cast<int>(core::limits::kFontSize.max));
+    EXPECT_EQ(drawn->text(), QStringLiteral("Big sign"));
 }
 
 namespace {
