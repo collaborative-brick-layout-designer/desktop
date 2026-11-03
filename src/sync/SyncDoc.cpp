@@ -487,6 +487,10 @@ struct SyncDoc::Impl {
         changes.push_back(std::move(c));
     }
 
+    // Up to this many entries of an array are read one by one (each read
+    // walks the array); more, and the whole array is read once.
+    static constexpr std::size_t kFewEntries = 8;
+
     // An array's entries, each read once per absorb.
     using Entries = std::unordered_map<const Branch*, std::vector<Output>>;
     static const std::vector<Output>& entriesIn(Entries& memo, const Branch* arr, YTransaction* rt) {
@@ -532,7 +536,9 @@ struct SyncDoc::Impl {
 
     // One change into the kept JSON. False when the JSON and the document
     // don't line up, and the whole document must be read again.
-    bool absorbOne(const Change& c, YTransaction* rt, Entries& memo) {
+    // With `few` changes, an entry is read on its own (see below), not
+    // with every entry of its array.
+    bool absorbOne(const Change& c, YTransaction* rt, Entries& memo, bool few) {
         // Past 64 levels everything reads as null (DocJson.cpp).
         if (c.path.size() > 64) return true;
         // The changed type, found again from its root. When it isn't there
@@ -548,10 +554,15 @@ struct SyncDoc::Impl {
             if (seg.isKey) {
                 owned.reset(ymap_get(b, rt, seg.key.constData()));
                 v = owned.get();
-            } else {
-                const auto& list = entriesIn(memo, b, rt);
+            } else if (const auto read = memo.find(b); read != memo.end() || !few) {
+                const auto& list = read != memo.end() ? read->second : entriesIn(memo, b, rt);
                 if (seg.index >= list.size()) return true;
                 v = list[seg.index].get();
+            } else {
+                // One entry, on its own: yarray_get walks the array to it,
+                // which on 5,000 parts is far less than reading them all.
+                owned.reset(yarray_get(b, rt, seg.index));
+                v = owned.get();
             }
             if (!v || (v->tag != Y_MAP && v->tag != Y_ARRAY)) return true;
             isMap = v->tag == Y_MAP;
@@ -577,15 +588,25 @@ struct SyncDoc::Impl {
             if (!at.isArray()) return false;
             const QJsonArray old = at.toArray();
             at = QJsonValue();
-            const auto& now = entriesIn(memo, b, rt);
+            // The entries it gained, read on their own when they're few.
+            std::size_t gained = 0;
+            for (const auto& [tag, len] : c.delta)
+                if (tag == Y_EVENT_CHANGE_ADD) gained += len;
+            const std::vector<Output>* now =
+                memo.count(b) || gained > kFewEntries ? &entriesIn(memo, b, rt) : nullptr;
+            const std::size_t size = now ? now->size() : yarray_len(b);
             QJsonArray out;
             qsizetype from = 0;
             std::size_t to = 0;
             for (const auto& [tag, len] : c.delta) {
                 if (tag == Y_EVENT_CHANGE_ADD) {
-                    if (to + len > now.size()) return false;
-                    for (uint32_t k = 0; k < len; ++k) {
-                        out.append(detail::valueToJson(now[to++].get(), rt, depth));
+                    if (to + len > size) return false;
+                    for (uint32_t k = 0; k < len; ++k, ++to) {
+                        Output one;
+                        if (!now) one.reset(yarray_get(b, rt, static_cast<uint32_t>(to)));
+                        const YOutput* v = now ? (*now)[to].get() : one.get();
+                        if (!v) return false;
+                        out.append(detail::valueToJson(v, rt, depth));
                         added << out.last().toObject().value(QLatin1String("id")).toString();
                     }
                     continue;
@@ -599,7 +620,7 @@ struct SyncDoc::Impl {
                 }
             }
             for (; from < old.size(); ++from, ++to) out.append(old.at(from));
-            if (to != now.size()) return false;
+            if (to != size) return false;
             at = out;
             return true;
         };
@@ -709,8 +730,9 @@ struct SyncDoc::Impl {
         bool ok = true;
         {
             Entries memo;
+            const bool few = todo.size() <= kFewEntries;
             for (const Change& c : todo) {
-                ok = absorbOne(c, rt, memo);
+                ok = absorbOne(c, rt, memo, few);
                 if (!ok) break;
             }
         }
