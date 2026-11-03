@@ -1,23 +1,29 @@
 #pragma once
 
-// The ranges of the settings the map is drawn from (grid, area, ruler and
-// every sheet's own), kept when a layout is read: from a .bbm or
-// .bld-layout (saveload::readBbm) and from a live layout's document
-// (sync::mapFromDocJson). A value out of range is brought to the nearest
-// end; one that isn't a number (NaN, infinite) gets the default. Nothing a
-// layout made in either app holds is changed.
+// The ranges of the settings the map is drawn from (grid, area, ruler,
+// every sheet's own, and the anchored labels'), kept when a layout is read:
+// from a .bbm or .bld-layout (saveload::readBbm, and the labels wherever a
+// sidecar is read: saveload::sidecarFromJson) and from a live layout's
+// document (sync::mapFromDocJson). A value out of range is brought to the
+// nearest end; one that isn't a number (NaN, infinite) gets the default.
+// Nothing a layout made in either app holds is changed.
 //
 // Every range is inside what the server takes (fixtures/contracts/
 // update-guard.json › drawingSettings.limits, checked by ContractsTest), so
 // a value brought into range here, and written back to a live layout with
-// the next edit, is never refused.
+// the next edit, is never refused. (The server doesn't check the labels' at
+// all; the web draws their font sizes in the same range, labelFontPx.)
 
+#include <algorithm>
+#include <cmath>
 #include <limits>
+#include <type_traits>
 #include <vector>
 
 namespace bld::core {
 
 class Map;
+struct AnchoredLabel;
 
 namespace limits {
 
@@ -50,13 +56,31 @@ inline constexpr double kMinDashTotal = 0.01;
 inline constexpr Range<int> kRulerUnit{ 0, 5, 0 };
 inline constexpr Range<double> kRulerCoordinate{ -1e7, 1e7, 0.0 }; // studs: points, centre, offset
 inline constexpr Range<float> kRulerRadius{ 0.0f, 1e7f, 0.0f };    // studs
-// Fonts of the grid's cell index and the rulers' measure, in points.
+// Fonts of the grid's cell index, the rulers' measure and the anchored
+// labels, in points.
 inline constexpr Range<float> kFontSize{ 1.0f, 500.0f, 8.25f };
+// Anchored labels: where they sit (studs, x and y) as rulers' points; a turn
+// past ten full ones either way is taken round to under one (it draws the
+// same); the zoom below which one hides, 0 for always shown.
+inline constexpr Range<double> kLabelOffset{ -1e7, 1e7, 0.0 };
+inline constexpr float kMaxLabelTurn = 3600.0f; // degrees
+inline constexpr Range<double> kLabelMinZoom{ 0.0, 1e6, 0.0 };
+
+// `v` in range: the nearest end, or the default when it isn't a number.
+template <typename T> T inRange(T v, const Range<T>& r) {
+    if constexpr (std::is_floating_point_v<T>)
+        if (!std::isfinite(v)) return r.fallback;
+    return std::clamp(v, r.min, r.max);
+}
 
 } // namespace limits
 
 // Brings every drawn setting of `map` into its range (see above).
 void keepDrawnSettingsInRange(Map& map);
+
+// The same for one anchored label: its font size, offset, turn and zoom
+// cutoff.
+void keepLabelInRange(AnchoredLabel& label);
 
 // A dash pattern typed in the ruler dialog, as the server takes it: lengths
 // that aren't numbers dropped, each brought to 0..kMaxDash, at most

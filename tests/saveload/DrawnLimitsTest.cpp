@@ -4,7 +4,9 @@
 
 #include "saveload/BbmReader.h"
 #include "saveload/BbmWriter.h"
+#include "saveload/SidecarIO.h"
 
+#include "core/AnchoredLabel.h"
 #include "core/DrawnLimits.h"
 #include "core/LayerArea.h"
 #include "core/LayerGrid.h"
@@ -14,7 +16,10 @@
 #include <gtest/gtest.h>
 
 #include <QBuffer>
+#include <QJsonArray>
+#include <QJsonObject>
 
+#include <cmath>
 #include <functional>
 #include <limits>
 #include <memory>
@@ -208,4 +213,62 @@ TEST(DrawnLimits, AMapIsBroughtIntoRangeWhateverItHolds) {
     const auto& kept = static_cast<const core::LayerRuler&>(*m.layers()[1]).rulers;
     EXPECT_TRUE(kept[1].linear.guidelineDashPattern.empty());
     EXPECT_EQ(kept[2].linear.guidelineDashPattern, (std::vector<float>{ 0.0f, 2.0f }));
+}
+
+// Anchored labels, wherever a sidecar is read (a .bbm's, a .bld-layout's, a
+// live layout's): a font size, place, turn or zoom cutoff out of range is
+// brought into it; one in range reads as it was.
+TEST(DrawnLimits, AnchoredLabelsAreReadInRange) {
+    const auto label = [](double size, double x, double rot, double minZoom) {
+        return QJsonObject{ { QStringLiteral("id"), QStringLiteral("L") },
+                            { QStringLiteral("text"), QStringLiteral("Hello") },
+                            { QStringLiteral("font"),
+                              QJsonObject{ { QStringLiteral("family"), QStringLiteral("Arial") },
+                                           { QStringLiteral("size"), size },
+                                           { QStringLiteral("style"), QStringLiteral("Bold") } } },
+                            { QStringLiteral("kind"), 0 },
+                            { QStringLiteral("offset"),
+                              QJsonObject{ { QStringLiteral("x"), x }, { QStringLiteral("y"), 4.5 } } },
+                            { QStringLiteral("rot"), rot },
+                            { QStringLiteral("minZoom"), minZoom } };
+    };
+    const QJsonObject root{ { QStringLiteral("anchoredLabels"),
+                              QJsonArray{ label(1e9, 1e12, 1e9, -3), label(0.25, -1e12, -725, 2e9),
+                                          label(12.5, 30, 450, 0.5) } } };
+    core::Sidecar sc;
+    saveload::sidecarFromJson(root, sc);
+    ASSERT_EQ(sc.anchoredLabels.size(), 3u);
+    const auto& huge = sc.anchoredLabels[0];
+    EXPECT_EQ(huge.font.sizePt, 500.0f);
+    EXPECT_EQ(huge.offset, QPointF(1e7, 4.5));
+    EXPECT_LT(std::abs(huge.offsetRotation), 360.0f);
+    EXPECT_FLOAT_EQ(huge.offsetRotation, std::fmod(1e9f, 360.0f)) << "taken round: it draws the same";
+    EXPECT_EQ(huge.minZoom, 0.0);
+    const auto& tiny = sc.anchoredLabels[1];
+    EXPECT_EQ(tiny.font.sizePt, 1.0f);
+    EXPECT_EQ(tiny.offset, QPointF(-1e7, 4.5));
+    EXPECT_EQ(tiny.offsetRotation, -725.0f) << "ten turns or fewer stay as they are";
+    EXPECT_EQ(tiny.minZoom, 1e6);
+    const auto& fine = sc.anchoredLabels[2];
+    EXPECT_EQ(fine.font.sizePt, 12.5f);
+    EXPECT_EQ(fine.font.styleString, QStringLiteral("Bold"));
+    EXPECT_EQ(fine.offset, QPointF(30, 4.5));
+    EXPECT_EQ(fine.offsetRotation, 450.0f);
+    EXPECT_EQ(fine.minZoom, 0.5);
+}
+
+TEST(DrawnLimits, AnchoredLabelsThatArentNumbersGetTheDefaults) {
+    core::Map m;
+    core::AnchoredLabel label;
+    label.font.sizePt = std::numeric_limits<float>::quiet_NaN();
+    label.offset = QPointF(std::numeric_limits<double>::infinity(), 2);
+    label.offsetRotation = -std::numeric_limits<float>::infinity();
+    label.minZoom = std::numeric_limits<double>::quiet_NaN();
+    m.sidecar.anchoredLabels.push_back(label);
+    core::keepDrawnSettingsInRange(m);
+    const auto& kept = m.sidecar.anchoredLabels[0];
+    EXPECT_EQ(kept.font.sizePt, core::limits::kFontSize.fallback);
+    EXPECT_EQ(kept.offset, QPointF(0, 2));
+    EXPECT_EQ(kept.offsetRotation, 0.0f);
+    EXPECT_EQ(kept.minZoom, 0.0);
 }

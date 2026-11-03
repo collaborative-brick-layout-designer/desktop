@@ -15,6 +15,7 @@
 #include "VenueDraw.h"
 
 #include "../core/AnchoredLabel.h"
+#include "../core/DrawnLimits.h"
 #include "../core/LayerBrick.h"
 #include "../core/Map.h"
 #include "../core/Sidecar.h"
@@ -276,7 +277,10 @@ void SceneBuilder::addAnchoredLabels(const core::Map& map) {
 
     for (const auto& lbl : map.sidecar.anchoredLabels) {
         auto* t = new QGraphicsSimpleTextItem(lbl.text);
-        QFont f(mapFontFamily(), static_cast<int>(lbl.font.sizePt));
+        // (In range when read, core::keepLabelInRange; kept here too, as an
+        // int can't hold every float.)
+        QFont f(mapFontFamily(),
+                static_cast<int>(core::limits::inRange(lbl.font.sizePt, core::limits::kFontSize)));
         f.setBold(lbl.font.styleString.contains(QStringLiteral("Bold")));
         f.setItalic(lbl.font.styleString.contains(QStringLiteral("Italic")));
         t->setFont(f);

@@ -1,6 +1,7 @@
 #include "SidecarIO.h"
 #include "VenueJson.h"
 
+#include "../core/DrawnLimits.h"
 #include "../core/Sidecar.h"
 
 #include <QCryptographicHash>
@@ -88,6 +89,9 @@ core::AnchoredLabel decodeAnchored(const QJsonObject& o) {
     a.offset = decodePoint(o.value(QStringLiteral("offset")).toObject());
     a.offsetRotation = static_cast<float>(o.value(QStringLiteral("rot")).toDouble());
     a.minZoom = o.value(QStringLiteral("minZoom")).toDouble();
+    // Any writer may put any number there (a live layout's other people, a
+    // file): a font size out of range would draw a label without end.
+    core::keepLabelInRange(a);
     return a;
 }
 

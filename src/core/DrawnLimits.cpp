@@ -1,5 +1,7 @@
 #include "DrawnLimits.h"
 
+#include "AnchoredLabel.h"
+
 #include "LayerArea.h"
 #include "LayerGrid.h"
 #include "LayerRuler.h"
@@ -99,6 +101,16 @@ void keepDrawnSettingsInRange(Map& map) {
         default: break;
         }
     }
+    for (auto& label : map.sidecar.anchoredLabels) keepLabelInRange(label);
+}
+
+void keepLabelInRange(AnchoredLabel& label) {
+    keep(label.font.sizePt, limits::kFontSize);
+    keep(label.offset, limits::kLabelOffset);
+    float& turn = label.offsetRotation;
+    if (!std::isfinite(turn)) turn = 0.0f;
+    else if (std::abs(turn) > limits::kMaxLabelTurn) turn = std::fmod(turn, 360.0f);
+    keep(label.minZoom, limits::kLabelMinZoom);
 }
 
 std::vector<float> dashPatternInRange(const std::vector<float>& typed) {

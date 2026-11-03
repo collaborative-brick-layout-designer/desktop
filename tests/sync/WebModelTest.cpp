@@ -328,3 +328,32 @@ TEST(WebModel, ADrawnSettingNotThereReadsAsItsDefault) {
     EXPECT_EQ(docGrid(*map).transparency, core::limits::kTransparency.fallback);
     EXPECT_EQ(docArea(*map).areaCellSizeInStud, core::limits::kAreaCellSizeInStud.fallback);
 }
+
+// A label anchored in a live layout's sidecar (meta.cache) with a font size
+// out of range (any writer may put any number there) reads at the nearest
+// end, as from a file.
+TEST(WebModel, AnchoredLabelsInALiveLayoutAreKeptInRange) {
+    QJsonObject doc = drawnSampleDoc();
+    QJsonObject meta = doc.value(QStringLiteral("meta")).toObject();
+    const auto label = [](const QString& id, double size) {
+        return QJsonObject{ { QStringLiteral("id"), id },
+                            { QStringLiteral("text"), id },
+                            { QStringLiteral("font"),
+                              QJsonObject{ { QStringLiteral("family"), QStringLiteral("Arial") },
+                                           { QStringLiteral("size"), size } } },
+                            { QStringLiteral("kind"), 0 },
+                            { QStringLiteral("offset"),
+                              QJsonObject{ { QStringLiteral("x"), 1e15 }, { QStringLiteral("y"), 2 } } } };
+    };
+    meta[QStringLiteral("cache")] =
+        QJsonObject{ { QStringLiteral("anchoredLabels"), QJsonArray{ label(QStringLiteral("huge"), 1e30),
+                                                                     label(QStringLiteral("none"), -1) } } };
+    doc[QStringLiteral("meta")] = meta;
+    QString err;
+    const auto map = sync::mapFromDocJson(doc, &err);
+    ASSERT_TRUE(map) << err.toStdString();
+    ASSERT_EQ(map->sidecar.anchoredLabels.size(), 2u);
+    EXPECT_EQ(map->sidecar.anchoredLabels[0].font.sizePt, core::limits::kFontSize.max);
+    EXPECT_EQ(map->sidecar.anchoredLabels[0].offset, QPointF(core::limits::kLabelOffset.max, 2));
+    EXPECT_EQ(map->sidecar.anchoredLabels[1].font.sizePt, core::limits::kFontSize.min);
+}
