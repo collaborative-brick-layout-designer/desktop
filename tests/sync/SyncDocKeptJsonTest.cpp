@@ -13,6 +13,9 @@
 
 #include "SyncDoc.h"
 #include "WebModel.h"
+#include "WebModelWriter.h"
+
+#include "saveload/SidecarIO.h"
 
 #include "core/LayerArea.h"
 #include "core/LayerBrick.h"
@@ -72,6 +75,13 @@ std::unique_ptr<core::Map> mapOf(const sync::SyncDoc& doc) {
     auto map = sync::mapFromDocJson(doc.toJson(), &err);
     EXPECT_TRUE(map) << err.toStdString();
     return map;
+}
+
+// Two maps the same in everything the document holds.
+bool sameMap(const core::Map* a, const core::Map* b) {
+    if (!a || !b) return a == b;
+    return sync::docJsonFromMap(*a) == sync::docJsonFromMap(*b)
+           && saveload::sidecarToJson(a->sidecar) == saveload::sidecarToJson(b->sidecar);
 }
 
 template <typename T>
@@ -321,6 +331,9 @@ static void randomEdits(bool othersDelete) {
         ASSERT_TRUE(mine->applyUpdate(base));
         auto map = mapOf(*mine);
         std::deque<QByteArray> inbox;
+        // What a live session shows, converting only what changed: always
+        // the map a whole conversion gives.
+        sync::MapReader reader;
 
         // The web's layout, cut down to a few dozen parts a sheet so the
         // steps stay quick.
@@ -413,6 +426,8 @@ static void randomEdits(bool othersDelete) {
             }
             // (Compared as JSON values each step, as bytes at the end.)
             ASSERT_TRUE(mine->toJson() == mine->readWhole());
+            const QJsonObject now = mine->toJson();
+            ASSERT_TRUE(sameMap(reader.read(now).get(), sync::mapFromDocJson(now).get()));
         }
         // In step at the end, it reads what the server holds.
         ASSERT_TRUE(mine->applyUpdate(server.diffSince(mine->stateVector())));

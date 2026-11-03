@@ -211,7 +211,17 @@ void SyncSession::sendPresence() {
 }
 
 std::unique_ptr<core::Map> SyncSession::currentMap(QString* error) const {
-    return mapFromDocJson(doc_.toJson(), error);
+    // Only what changed since the last call is converted: on 5,000 parts,
+    // converting the whole layout took most of what a remote edit cost.
+    const QJsonObject json = doc_.toJson();
+    // Read whole again (its kept copy couldn't follow a change, SyncDoc.h):
+    // none of it is shared with what was read before, and comparing it
+    // entry by entry would cost more than converting it.
+    if (SyncDoc::wholeReads() != wholeReadsSeen_) {
+        wholeReadsSeen_ = SyncDoc::wholeReads();
+        reader_.clear();
+    }
+    return reader_.read(json, error);
 }
 
 std::unique_ptr<core::Map> SyncSession::editorMap(QString* error) const {

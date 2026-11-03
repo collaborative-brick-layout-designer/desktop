@@ -29,6 +29,7 @@
 #include "LayoutMerge.h"
 #include "SyncClient.h"
 #include "SyncDoc.h"
+#include "WebModel.h"
 
 #include <QObject>
 #include <QString>
@@ -134,6 +135,9 @@ private:
     QTimer* renew_ = nullptr;
     awareness::Peers peers_;
     SyncDoc doc_;
+    // The shared layout as a map, converting only what changed (currentMap).
+    mutable MapReader reader_;
+    mutable int wholeReadsSeen_ = -1;
     SyncClient client_;
     bool readOnly_ = false;
     bool loaded_ = false;

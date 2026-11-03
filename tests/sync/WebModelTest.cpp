@@ -357,3 +357,131 @@ TEST(WebModel, AnchoredLabelsInALiveLayoutAreKeptInRange) {
     EXPECT_EQ(map->sidecar.anchoredLabels[0].offset, QPointF(core::limits::kLabelOffset.max, 2));
     EXPECT_EQ(map->sidecar.anchoredLabels[1].font.sizePt, core::limits::kFontSize.min);
 }
+
+// MapReader (a live layout's map, converting only what changed) reads what
+// mapFromDocJson reads, whatever changes from one read to the next: parts
+// drawn by z, a part moved, a sheet listed twice, a ruler there twice, an
+// area sheet's offset, a sheet that becomes another kind, parts taken away
+// and added in front, a sheet it can't read.
+TEST(WebModel, AMapReaderReadsWhatAWholeReadReads) {
+    core::Map m;
+    auto bricks = std::make_unique<core::LayerBrick>();
+    bricks->guid = QStringLiteral("B");
+    for (int i = 0; i < 6; ++i) {
+        core::Brick b;
+        b.guid = QStringLiteral("b%1").arg(i);
+        b.partNumber = QStringLiteral("3001.8");
+        b.displayArea = QRectF(i * 4, 0, 4, 2);
+        b.connections = { { QStringLiteral("c%1").arg(i), {} } };
+        bricks->bricks.push_back(b);
+    }
+    m.layers().push_back(std::move(bricks));
+    auto text = std::make_unique<core::LayerText>();
+    text->guid = QStringLiteral("T");
+    for (int i = 0; i < 2; ++i) {
+        core::TextCell c;
+        c.guid = QStringLiteral("t%1").arg(i);
+        c.text = QStringLiteral("Note %1").arg(i);
+        text->textCells.push_back(c);
+    }
+    m.layers().push_back(std::move(text));
+    auto area = std::make_unique<core::LayerArea>();
+    area->guid = QStringLiteral("A");
+    for (int i = 0; i < 3; ++i) area->cells.push_back({ i, 2 * i, QColor(Qt::red) });
+    m.layers().push_back(std::move(area));
+    auto rulers = std::make_unique<core::LayerRuler>();
+    rulers->guid = QStringLiteral("R");
+    for (int i = 0; i < 2; ++i) {
+        core::LayerRuler::AnyRuler r;
+        r.linear.guid = QStringLiteral("r%1").arg(i);
+        r.linear.point2 = QPointF(10 + i, 0);
+        rulers->rulers.push_back(r);
+    }
+    m.layers().push_back(std::move(rulers));
+    QJsonObject doc = sync::docJsonFromMap(m);
+
+    sync::MapReader reader;
+    qint64 converted = 0; // by the reader, in the last check
+    const auto check = [&](const char* step) {
+        SCOPED_TRACE(step);
+        QString wholeError, readError;
+        const auto whole = sync::mapFromDocJson(doc, &wholeError);
+        const qint64 before = sync::MapReader::entriesConverted();
+        const auto read = reader.read(doc, &readError);
+        converted = sync::MapReader::entriesConverted() - before;
+        ASSERT_EQ(!whole, !read);
+        EXPECT_EQ(readError, wholeError);
+        if (whole) { EXPECT_EQ(sync::docJsonFromMap(*read), sync::docJsonFromMap(*whole)); }
+    };
+    const auto at = [](const char* a, const char* b, int i = -1) {
+        QStringList p{ QStringLiteral("layerData"), QString::fromLatin1(a), QString::fromLatin1(b) };
+        if (i >= 0) p << QString::number(i);
+        return p;
+    };
+    const auto value = [&doc](const QStringList& path) {
+        QJsonValue v = doc;
+        for (const QString& k : path) v = v.isArray() ? v.toArray().at(k.toInt()) : v.toObject().value(k);
+        return v;
+    };
+    const auto set = [&doc](const QStringList& path, const QJsonValue& v) {
+        doc = withValue(doc, path, v).toObject();
+    };
+
+    check("first read");
+    EXPECT_EQ(converted, 13);
+    check("nothing changed");
+    EXPECT_EQ(converted, 0) << "nothing converted again";
+
+    for (int i = 0; i < 6; ++i) {
+        QJsonObject b = value(at("B", "bricks", i)).toObject();
+        b[QStringLiteral("z")] = 6 - i;
+        set(at("B", "bricks", i), b);
+    }
+    check("drawn by z, back to front");
+    QJsonObject b2 = value(at("B", "bricks", 2)).toObject();
+    b2[QStringLiteral("displayArea")] = QJsonObject{ { QStringLiteral("x"), 99 },
+                                                     { QStringLiteral("y"), 1 },
+                                                     { QStringLiteral("width"), 4 },
+                                                     { QStringLiteral("height"), 2 } };
+    set(at("B", "bricks", 2), b2);
+    check("a part moved");
+    EXPECT_EQ(converted, 1) << "that part only";
+    b2[QStringLiteral("z")] = 100;
+    set(at("B", "bricks", 2), b2);
+    check("a part brought to the front");
+
+    QJsonArray layers = doc.value(QStringLiteral("layers")).toArray();
+    layers.append(QStringLiteral("T"));
+    doc[QStringLiteral("layers")] = layers;
+    check("a sheet listed twice");
+
+    QJsonArray rulerItems = value(at("R", "rulerItems")).toArray();
+    rulerItems.append(rulerItems.at(0));
+    set(at("R", "rulerItems"), rulerItems);
+    check("a ruler there twice");
+
+    set({ QStringLiteral("layerData"), QStringLiteral("A"), QStringLiteral("cellOffset") },
+        QJsonObject{ { QStringLiteral("x"), 5 }, { QStringLiteral("y"), -3 } });
+    check("the area sheet's offset");
+
+    QJsonArray parts = value(at("B", "bricks")).toArray();
+    parts.removeAt(3);
+    QJsonObject front = parts.at(0).toObject();
+    front[QStringLiteral("id")] = QStringLiteral("new");
+    front.remove(QStringLiteral("z"));
+    parts.prepend(front);
+    set(at("B", "bricks"), parts);
+    check("a part taken away, one added in front");
+
+    QJsonObject data = doc.value(QStringLiteral("layerData")).toObject();
+    data[QStringLiteral("B")] = data.value(QStringLiteral("T"));
+    doc[QStringLiteral("layerData")] = data;
+    check("a sheet that became another kind");
+
+    data[QStringLiteral("R")] = QJsonObject{ { QStringLiteral("type"), QStringLiteral("hologram") } };
+    const QJsonObject good = doc;
+    doc[QStringLiteral("layerData")] = data;
+    check("a sheet it can't read");
+    doc = good;
+    check("readable again");
+}
