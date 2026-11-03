@@ -335,7 +335,7 @@ TEST(SyncSession, AnAppTooOldForTheServerStopsForGood) {
     QObject::connect(&session, &sync::SyncSession::ended, [&](int code, const QString& why) { ended = { code, why }; });
     session.open(server.url(), {}, false);
     ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced; }));
-    server.dropAll(static_cast<QWebSocketProtocol::CloseCode>(4426), QStringLiteral("update_required"));
+    server.dropAll(4426, QStringLiteral("update_required"));
     ASSERT_TRUE(waitFor([&] { return ended.has_value(); }));
     EXPECT_EQ(ended->first, 4426);
     EXPECT_TRUE(sync::liveCloseText(4426, ended->second).contains(QStringLiteral("too old")));
@@ -517,7 +517,7 @@ TEST(SyncSession, ASessionTheServerEndsKeepsTheOfflineEditsOnDisk) {
     ASSERT_TRUE(session.offlineEdits());
     // Back on a new connection, then that one is ended.
     ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced; }));
-    server.dropAll(static_cast<QWebSocketProtocol::CloseCode>(4404), QStringLiteral("access_revoked"));
+    server.dropAll(4404, QStringLiteral("access_revoked"));
     ASSERT_TRUE(waitFor([&] { return ended == 1; }));
     EXPECT_EQ(session.status(), Status::Offline);
     session.close();

@@ -1155,7 +1155,7 @@ TEST_F(MainWindowLive, AccessTakenAwaySaysWhyInPlainWordsAndKeepsTheCopy) {
         press(QStringLiteral("OK"))(w);
     } } };
     closed.during([&] {
-        ws_.dropAll(static_cast<QWebSocketProtocol::CloseCode>(4404), QStringLiteral("access_revoked"));
+        ws_.dropAll(4404, QStringLiteral("access_revoked"));
         ASSERT_TRUE(waitFor([&] { return closed.done() && !live_->active(); }));
     });
     EXPECT_EQ(closed.unexpected, 0);
