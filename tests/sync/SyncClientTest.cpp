@@ -78,7 +78,7 @@ TEST(SyncClient, StopsWhenTheServerEndsTheSession) {
         QObject::connect(&client, &sync::SyncClient::closedForGood, [&](int c, const QString&) { finalCode = c; });
         client.open(server.url(), {});
         ASSERT_TRUE(waitFor([&] { return client.status() == sync::SyncClient::Status::Synced; }));
-        server.dropAll(static_cast<QWebSocketProtocol::CloseCode>(code), QStringLiteral("access_revoked"));
+        server.dropAll(code, QStringLiteral("access_revoked"));
         ASSERT_TRUE(waitFor([&] { return finalCode != 0; }));
         EXPECT_EQ(finalCode, code);
         EXPECT_EQ(client.status(), sync::SyncClient::Status::Offline);
@@ -103,7 +103,7 @@ TEST(SyncClient, StopsAtTheLiveEditorLimit) {
     });
     client.open(server.url(), {});
     ASSERT_TRUE(waitFor([&] { return client.status() == sync::SyncClient::Status::Synced; }));
-    server.dropAll(static_cast<QWebSocketProtocol::CloseCode>(4429), QStringLiteral("limit_reached"));
+    server.dropAll(4429, QStringLiteral("limit_reached"));
     ASSERT_TRUE(waitFor([&] { return finalCode != 0; }));
     EXPECT_EQ(finalCode, 4429);
     EXPECT_EQ(finalReason, QStringLiteral("limit_reached"));

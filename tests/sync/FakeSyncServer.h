@@ -33,6 +33,17 @@ inline QByteArray serverDoc() {
     return f.open(QIODevice::ReadOnly) ? f.readAll() : QByteArray();
 }
 
+// Closes `ws` with any close code, the server's own (4000 to 4999) too.
+// QWebSocket::close takes only a CloseCode, an enum with no fixed type whose
+// named values end at 1015, so 4404 held as one is out of its range: the one
+// conversion is left unchecked, and Qt sends the number as it is.
+#if defined(__GNUC__) || defined(__clang__)
+__attribute__((no_sanitize("enum")))
+#endif
+inline void closeWith(QWebSocket* ws, int code, const QString& reason) {
+    ws->close(static_cast<QWebSocketProtocol::CloseCode>(code), reason);
+}
+
 inline bool waitFor(const std::function<bool()>& done, int ms = 5000) {
     QElapsedTimer t;
     t.start();
@@ -110,8 +121,11 @@ public:
         for (QWebSocket* p : peers) p->sendBinaryMessage(message);
     }
 
-    void dropAll(QWebSocketProtocol::CloseCode code, const QString& reason = {}) {
-        for (QWebSocket* p : std::vector<QWebSocket*>(peers)) p->close(code, reason);
+    // `code` as an int: the server's own codes (4404, 4429) are outside
+    // CloseCode's named values, and UBSan flags any load of one as a
+    // CloseCode (see closeWith).
+    void dropAll(int code, const QString& reason = {}) {
+        for (QWebSocket* p : std::vector<QWebSocket*>(peers)) closeWith(p, code, reason);
     }
 
     sync::SyncDoc doc;
