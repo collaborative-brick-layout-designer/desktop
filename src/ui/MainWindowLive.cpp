@@ -145,6 +145,14 @@ void MainWindow::setupLiveMenu(QMenu* file) {
         if ((s == sync::SyncClient::Status::Synced || s == sync::SyncClient::Status::Connecting) && live_->active())
             liveRoleCheck_->start();
     });
+    // The server ended the sign-in while live: the layout stays open, and the
+    // notice offers to sign in again; after that it reconnects and sends the
+    // edits made meanwhile (they come back for review, as after offline).
+    connect(live_, &LiveLayout::signInEnded, this, [this] {
+        // Asking the server with the ended sign-in would only be refused again.
+        liveRolePoll_->stop();
+        liveSignInNeeded();
+    });
     connect(live_, &LiveLayout::ended, this, [this](const QString& reason) {
         if (prefsSync_) prefsSync_->stop();
         liveRolePoll_->stop();
