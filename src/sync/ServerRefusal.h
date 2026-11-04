@@ -71,4 +71,9 @@ QString describe(const ServerRefusal& r);
 // Empty when there's nothing better than the raw reason.
 QString liveCloseText(int code, const QString& reason);
 
+// The server closed a live layout because its sign-in ended (1008: the
+// token ran out or reached its longest, or it was signed out or removed on
+// the website). Signing in again carries on: the layout isn't closed for it.
+bool isSignInEnded(int code, const QString& reason);
+
 }  // namespace bld::sync

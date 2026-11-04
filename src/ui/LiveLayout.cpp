@@ -47,6 +47,18 @@ LiveLayout::LiveLayout(MapView& view, QObject* parent) : QObject(parent), view_(
                       "from the server again to view it live"));
     });
     connect(&session_, &sync::SyncSession::ended, this, [this](int code, const QString& reason) {
+        // Only the sign-in ended (it ran out, reached its longest, or was
+        // signed out on the website): the layout stays open and live here.
+        // Edits from now on are kept as offline edits (the connection is
+        // down), and go to the server for review once its owner signs in
+        // again, as after any time offline.
+        if (sync::isSignInEnded(code, reason)) {
+            if (!active_) return;
+            signedOut_ = true;
+            emit statusTextChanged(statusText());
+            emit signInEnded();
+            return;
+        }
         close();
         const QString friendly = sync::liveCloseText(code, reason);
         emit ended(friendly.isEmpty() ? reason : friendly);
@@ -170,6 +182,7 @@ void LiveLayout::open(const QUrl& socketUrl, const QString& token, bool readOnly
                       const QString& cacheDir) {
     title_ = title;
     active_ = true;
+    signedOut_ = false;
     reloadedOnce_ = false;
     view_.viewport()->installEventFilter(this);
     view_.viewport()->setMouseTracking(true);
@@ -183,6 +196,7 @@ void LiveLayout::close() {
     if (!active_) return;
     presenceTimer_->stop();
     active_ = false;
+    signedOut_ = false;
     drawPeers(); // clears them
     view_.viewport()->removeEventFilter(this);
     session_.holdRemoteChanges(false);
@@ -228,6 +242,11 @@ void LiveLayout::setReadOnly(bool readOnly) {
 QString LiveLayout::statusText() const {
     if (!active_) return {};
     QString s;
+    if (signedOut_) {
+        s = session_.unsyncedEdits() > 0 ? tr("Signed out, %n edit(s) kept", nullptr, session_.unsyncedEdits())
+                                         : tr("Signed out");
+        return session_.readOnly() ? tr("%1, view only").arg(s) : s;
+    }
     switch (session_.status()) {
     case sync::SyncClient::Status::Synced:
         s = session_.unsyncedEdits() > 0

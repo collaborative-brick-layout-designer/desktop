@@ -138,6 +138,11 @@ QString failureText(const ServerRefusal& r) {
     return tr("The server answered %1").arg(r.status);
 }
 
+bool isSignInEnded(int code, const QString& reason) {
+    return code == 1008 && (reason == QLatin1String("token_revoked") || reason == QLatin1String("session_revoked") ||
+                            reason == QLatin1String("unauthorized"));
+}
+
 QString liveCloseText(int code, const QString& reason) {
     if (code == 4415 && reason == QLatin1String("unreadable_doc"))
         return tr("this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new "
@@ -163,11 +168,10 @@ QString liveCloseText(int code, const QString& reason) {
     if (code == 4404 && (reason == QLatin1String("access_revoked") || reason == QLatin1String("not_found")))
         return tr("you can't open this layout any more: it was deleted, or its owner or a club admin changed who can "
                   "open it");
-    // The sign-in ended: signed out elsewhere, or the sign-in was removed on the website.
-    if (code == 1008 && (reason == QLatin1String("token_revoked") || reason == QLatin1String("session_revoked") ||
-                         reason == QLatin1String("unauthorized")))
-        return tr("your sign-in on this server ended (signed out elsewhere, or removed on the website). Sign in again "
-                  "(File › Servers…), then open the layout again");
+    // The sign-in ended: it ran out, or was signed out elsewhere or removed on the website.
+    if (isSignInEnded(code, reason))
+        return tr("your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the "
+                  "website). Sign in again (File › Servers…), then open the layout again");
     if (code == 4429 && reason == QLatin1String("limit_reached"))
         return tr("too many people have this layout open right now; try again in a little while");
     return {};

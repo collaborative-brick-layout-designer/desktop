@@ -561,6 +561,12 @@ TEST(ServerRefusal, ExplainsAnAccountBeingDeletedOrOnHold) {
 TEST(ServerRefusal, SaysWhyALiveLayoutEndedInPlainWords) {
     for (const char* reason : { "token_revoked", "session_revoked", "unauthorized" })
         EXPECT_TRUE(liveCloseText(1008, QLatin1String(reason)).contains(QStringLiteral("Sign in again"))) << reason;
+    // These end only the sign-in: the live layout stays open (LiveLayout, MainWindowLiveTest).
+    for (const char* reason : { "token_revoked", "session_revoked", "unauthorized" })
+        EXPECT_TRUE(isSignInEnded(1008, QLatin1String(reason))) << reason;
+    EXPECT_FALSE(isSignInEnded(4404, QStringLiteral("token_revoked")));
+    EXPECT_FALSE(isSignInEnded(1008, QStringLiteral("layout_merge_refused")));
+    EXPECT_FALSE(isSignInEnded(1008, QStringLiteral("account_restricted")));
     for (const char* reason : { "access_revoked", "not_found" })
         EXPECT_TRUE(liveCloseText(4404, QLatin1String(reason)).startsWith(QStringLiteral("you can't open this layout any more")))
             << reason;

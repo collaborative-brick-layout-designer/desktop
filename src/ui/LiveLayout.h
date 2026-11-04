@@ -45,6 +45,9 @@ public:
               const QString& cacheDir = {});
     void close();
     bool active() const { return active_; }
+    // The server ended the sign-in (sync::isSignInEnded): still open here,
+    // edits kept as offline edits until its owner signs in again.
+    bool signedOut() const { return signedOut_; }
     QString title() const { return title_; }
     bool readOnly() const { return session_.readOnly(); }
     // Our access changed while open: view only, or editor again
@@ -76,6 +79,9 @@ signals:
     void undoStateChanged();
     // The server ended the session (access revoked, layout deleted).
     void ended(const QString& reason);
+    // The server ended the sign-in, not the layout: it stays open, and its
+    // edits are sent once its owner signs in again (MainWindow::resumeLive).
+    void signInEnded();
     // Back in step with offline edits to resolve (SyncSession::resolveOffline).
     void offlineEditsReady();
     // One of this desktop's own edits went to the shared layout.
@@ -95,6 +101,7 @@ private:
     sync::SyncSession session_;
     QString title_;
     bool active_ = false;
+    bool signedOut_ = false;
     bool reloading_ = false;
     bool clearing_ = false;
     bool reloadedOnce_ = false;

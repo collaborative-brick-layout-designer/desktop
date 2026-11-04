@@ -1225,6 +1225,80 @@ TEST_F(MainWindowLive, ASignInThatRanOutSaysToSignInAgainAndKeepsTheEdits) {
     EXPECT_FALSE(notices->isShown(QStringLiteral("live-signin")));
 }
 
+// The server ends the sign-in while live: 1008 token_revoked, which it
+// sends when the token ran out, reached its longest (web #457: 180 days by
+// default, so a desktop in daily use meets it), or was removed on the
+// website. The layout used to close with a box saying to sign in and open
+// it again, and edits after that lived only in an unsaved copy. Now it
+// stays open and live: no box, the status says signed out, the notice says
+// to sign in again, edits meanwhile are kept, and Sign In... reconnects
+// with the new token and sends them for review.
+TEST_F(MainWindowLive, ASignInEndedByTheServerKeepsTheLayoutOpenAndSignInAgainSendsTheEdits) {
+    auto* notices = window_->findChild<ui::NoticeArea*>();
+    ASSERT_NE(notices, nullptr);
+    Answers none{ {} };
+    none.during([&] {
+        ws_.dropAll(QWebSocketProtocol::CloseCodePolicyViolated, QStringLiteral("token_revoked"));
+        ASSERT_TRUE(waitFor([&] { return notices->isShown(QStringLiteral("live-signin")); }));
+        // Time for a "Live layout closed" box to show, if one would.
+        waitFor([] { return false; }, 300);
+    });
+    EXPECT_EQ(none.unexpected, 0);
+    EXPECT_TRUE(live_->active());
+    EXPECT_TRUE(live_->signedOut());
+    EXPECT_TRUE(live_->statusText().startsWith(QStringLiteral("Signed out"))) << live_->statusText().toStdString();
+    EXPECT_TRUE(window_->windowTitle().contains(QStringLiteral("Live on"))) << window_->windowTitle().toStdString();
+    // It doesn't try again with the ended sign-in (the reconnect delay here is 50 ms).
+    const std::size_t connections = ws_.authHeaders.size();
+    waitFor([] { return false; }, 400);
+    EXPECT_EQ(ws_.authHeaders.size(), connections);
+
+    // An edit meanwhile is kept, as an offline edit.
+    core::Map& m = *view_->currentMap();
+    const QPointF at = brickAt(m, 0).displayArea.topLeft();
+    view_->undoStack()->push(new edit::MoveBricksCommand(m, { { brickRef(m, 0), at, at + QPointF(8, 0) } }));
+    ASSERT_TRUE(waitFor([&] { return session().offlineEdits().has_value(); }));
+    EXPECT_TRUE(live_->statusText().contains(QStringLiteral("kept"))) << live_->statusText().toStdString();
+
+    // Sign In...: back with a new token, in step, and the edit reviewed and applied.
+    window_->newToken = QStringLiteral("bld_pat_new");
+    QPushButton* signIn = nullptr;
+    for (auto* b : notices->card(QStringLiteral("live-signin"))->findChildren<QPushButton*>())
+        if (b->text() == QStringLiteral("Sign In...")) signIn = b;
+    ASSERT_NE(signIn, nullptr);
+    Answers answers{ { compare(QStringLiteral("Apply")) } };
+    answers.during([&] {
+        signIn->click();
+        ASSERT_TRUE(waitFor([&] { return answers.done() && !session().offlineEdits(); }, 8000));
+    });
+    EXPECT_EQ(answers.unexpected, 0);
+    EXPECT_EQ(window_->signIns, 1);
+    EXPECT_EQ(ws_.authHeaders.back(), QStringLiteral("Bearer bld_pat_new"));
+    ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 0) == original_.translated(8, 0); }));
+    EXPECT_FALSE(notices->isShown(QStringLiteral("live-signin")));
+    EXPECT_FALSE(live_->signedOut());
+    EXPECT_EQ(live_->statusText(), QStringLiteral("Connected"));
+}
+
+// Signed out elsewhere (a browser session's reason) or refused at the
+// handshake ("unauthorized") end the sign-in the same way; other 1008
+// reasons still close the layout (ARefusedMerge… above).
+TEST_F(MainWindowLive, EverySignInEndedReasonKeepsTheLayoutOpen) {
+    for (const char* reason : { "session_revoked", "unauthorized" }) {
+        window_->openLive({ http_.base(), QStringLiteral("bld_pat_test"), QStringLiteral("L1"),
+                           QStringLiteral("Show 2026"), false, serverInfo() });
+        ASSERT_TRUE(waitFor([&] { return session().status() == Status::Synced; })) << reason;
+        Answers none{ {} };
+        none.during([&] {
+            ws_.dropAll(QWebSocketProtocol::CloseCodePolicyViolated, QLatin1String(reason));
+            ASSERT_TRUE(waitFor([&] { return live_->signedOut(); })) << reason;
+            waitFor([] { return false; }, 200);
+        });
+        EXPECT_EQ(none.unexpected, 0) << reason;
+        EXPECT_TRUE(live_->active()) << reason;
+    }
+}
+
 // Journey 7: a desktop member's show day, one chain on one live layout.
 // Live edit → offline edit while someone else edits → back in step, the
 // compare window, Apply → both edits on the server → the Module library
