@@ -272,6 +272,9 @@ TEST_F(ActiveSheetTest, FadingTheOtherSheetsShowsOnScreenOnlyNeverInAPicture) {
     EXPECT_EQ(opacity(bricks), 1.0);
     EXPECT_EQ(opacity(tables), 1.0);
     const QImage plain = picture();
+    // BLD_SHOTS_DIR=<dir> also saves screenshots (for a PR).
+    const QString shots = qEnvironmentVariable("BLD_SHOTS_DIR");
+    if (!shots.isEmpty()) window_->grab().save(shots + QStringLiteral("/desktop-fade-off.png"));
     const int undoSteps = view_->undoStack()->count();
 
     // On: the sheet not being added to fades, and it is saved on this computer.
@@ -281,6 +284,14 @@ TEST_F(ActiveSheetTest, FadingTheOtherSheetsShowsOnScreenOnlyNeverInAPicture) {
     EXPECT_TRUE(QSettings().value(key).toBool());
     EXPECT_EQ(opacity(bricks), 1.0);
     EXPECT_DOUBLE_EQ(opacity(tables), ui::MapView::kFadedSheetOpacity);
+
+    if (!shots.isEmpty()) {
+        window_->grab().save(shots + QStringLiteral("/desktop-fade-on.png"));
+        button_->menu()->popup(button_->mapToGlobal(QPoint(0, button_->height())));
+        QApplication::processEvents();
+        button_->menu()->grab().save(shots + QStringLiteral("/desktop-fade-menu.png"));
+        button_->menu()->hide();
+    }
 
     // Switch sheets: the fade follows; the box stays ticked in the new menu.
     pick(QStringLiteral("Tables"));
