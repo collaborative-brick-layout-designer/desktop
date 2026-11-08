@@ -15,11 +15,12 @@ ActiveSheetButton::ActiveSheetButton(QWidget* parent) : QToolButton(parent) {
     setPopupMode(QToolButton::InstantPopup);
     setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     setMenu(new QMenu(this));
-    // A clear frame in the accent color, so it reads as the place new parts go.
+    // A clear frame in the accent color, so it reads as the place new parts go;
+    // tall enough for a finger in touch mode.
     setStyleSheet(QStringLiteral(
         "QToolButton#activeSheet { border: 2px solid palette(highlight); border-radius: 8px;"
         " background: palette(window); color: palette(window-text);"
-        " padding: 4px 20px 4px 8px; font-weight: 600; }"
+        " padding: 4px 20px 4px 8px; font-weight: 600; min-height: 22px; }"
         "QToolButton#activeSheet::menu-indicator { subcontrol-position: right center; right: 6px; }"));
     refresh(nullptr);
 }
