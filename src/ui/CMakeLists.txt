@@ -126,6 +126,9 @@ add_library(bld_ui STATIC
     theme/PanelHeader.cpp
     theme/PanelHeader.h
     theme/theme.qrc
+    theme/AppIcon.cpp
+    theme/AppIcon.h
+    theme/appicon.qrc
     tours/Tours.cpp
     tours/TourStrings.cpp
     tours/Tours.h
