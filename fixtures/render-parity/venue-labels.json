@@ -21,6 +21,66 @@
     }
   },
   "gridFade": "rgba(255,255,255,0.55)",
+  "canvas": {
+    "about": "The Venue Designer's canvas by app theme: background, 1 ft and 10 ft grid lines, and the fade over the grid inside the room (light's fade is gridFade).",
+    "light": {
+      "background": "rgb(255,255,255)",
+      "gridMinor": "rgb(238,240,243)",
+      "gridMajor": "rgb(213,218,225)",
+      "gridFade": "rgba(255,255,255,0.55)"
+    },
+    "dark": {
+      "background": "rgb(27,30,35)",
+      "gridMinor": "rgb(38,42,49)",
+      "gridMajor": "rgb(54,60,70)",
+      "gridFade": "rgba(27,30,35,0.55)"
+    }
+  },
+  "darkInk": {
+    "about": "onDarkCanvas: a venue color drawn on the dark canvas. A dark color (HSL lightness under 0.5) keeps its hue and gets lightness 1 - l; others stay.",
+    "cases": [
+      [
+        "rgb(30,30,30)",
+        "rgb(225,225,225)"
+      ],
+      [
+        "rgb(0,160,0)",
+        "rgb(95,255,95)"
+      ],
+      [
+        "rgb(0,0,200)",
+        "rgb(55,55,255)"
+      ],
+      [
+        "rgb(40,90,140)",
+        "rgb(115,165,215)"
+      ],
+      [
+        "rgb(120,120,120)",
+        "rgb(135,135,135)"
+      ],
+      [
+        "rgb(220,100,20)",
+        "rgb(235,115,35)"
+      ],
+      [
+        "rgba(60,60,60,0.75)",
+        "rgba(195,195,195,0.75)"
+      ],
+      [
+        "rgb(110,80,40)",
+        "rgb(215,185,145)"
+      ],
+      [
+        "rgb(255,255,255)",
+        "rgb(255,255,255)"
+      ],
+      [
+        "rgba(214,180,196,0.55)",
+        "rgba(214,180,196,0.55)"
+      ]
+    ]
+  },
   "cases": [
     {
       "name": "a plain room: outside, upright, vertical walls bottom to top",

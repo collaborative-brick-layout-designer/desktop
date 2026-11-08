@@ -4,13 +4,16 @@
 
 #include "ui/venue/VenueDesignerDialog.h"
 #include "ui/venue/VenueDesignerView.h"
+#include "rendering/SceneBuilder.h"
 
 #include <gtest/gtest.h>
 
 #include <QApplication>
 #include <QJsonObject>
 #include <QKeyEvent>
+#include <QPalette>
 #include <QPushButton>
+#include <QImage>
 #include <QTimer>
 
 using namespace bld;
@@ -122,4 +125,56 @@ TEST(VenueDesignerDialog, PictureForReview) {
     view->fit();
     QApplication::processEvents();
     dlg.grab().save(out + QStringLiteral("/desk-venue.png"));
+}
+
+// The canvas follows the app's theme: in the dark theme its background and
+// grid are dark and the walls are drawn light; back in the light theme it
+// is white with dark walls. It used to stay white in the dark theme.
+TEST(VenueDesignerDialog, TheCanvasFollowsTheTheme) {
+    const QPalette before = QApplication::palette();
+    QPalette night = before;
+    night.setColor(QPalette::Window, QColor(32, 34, 38));
+    night.setColor(QPalette::WindowText, QColor(230, 230, 230));
+    QApplication::setPalette(night);
+
+    ui::VenueDesignerDialog dlg(ev::emptyVenue(QStringLiteral("Hall")), QStringLiteral("test"), QStringLiteral("Save"),
+                                [](const core::Venue&) { return QString(); });
+    dlg.resize(1000, 700);
+    dlg.show();
+    auto* view = dlg.findChild<ui::VenueDesignerView*>();
+    ASSERT_TRUE(view);
+    type(dlg, QStringLiteral("r"));
+    emit view->pressed(QPointF(10 * FT, 10 * FT), false);
+    emit view->moved(QPointF(40 * FT, 30 * FT), false);
+    type(dlg, QStringLiteral("40'x20'"));
+    key(dlg, Qt::Key_Return);
+    key(dlg, Qt::Key_Escape);  // (a second Esc would ask to close the window)
+    QApplication::processEvents();
+    view->fit();
+    QApplication::processEvents();
+
+    // A point on the top wall, half way along, and the canvas's corner.
+    constexpr double kPx = rendering::SceneBuilder::kPixelsPerStud;
+    const QPoint wall = view->mapFromScene(QPointF(30 * FT, 10 * FT) * kPx);
+    const auto look = [&](bool dark) {
+        const QImage img = view->viewport()->grab().toImage();
+        ASSERT_TRUE(img.rect().contains(wall));
+        const QColor corner = img.pixelColor(2, 2);
+        const QColor ink = img.pixelColor(wall);
+        EXPECT_EQ(view->darkCanvas(), dark);
+        if (dark) {
+            EXPECT_LT(corner.lightness(), 70) << corner.name().toStdString();
+            EXPECT_GT(ink.lightness(), 170) << ink.name().toStdString();
+        } else {
+            EXPECT_GT(corner.lightness(), 225) << corner.name().toStdString();
+            EXPECT_LT(ink.lightness(), 80) << ink.name().toStdString();
+        }
+    };
+    look(true);
+
+    // Switching the theme with the designer open redraws it.
+    QApplication::setPalette(before.color(QPalette::Window).lightness() >= 128 ? before : QPalette(QColor(240, 240, 240)));
+    QApplication::processEvents();
+    look(false);
+    QApplication::setPalette(before);
 }

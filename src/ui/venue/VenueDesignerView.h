@@ -28,6 +28,9 @@ class VenueDesignerView : public QGraphicsView {
 public:
     explicit VenueDesignerView(QWidget* parent = nullptr);
     ~VenueDesignerView() override;
+    // The canvas follows the app's theme: dark background and grid, and
+    // the plan's dark colors drawn light.
+    bool darkCanvas() const;
 
     void setState(const edit::venue::DesignerState& state, const QImage& plan, QRectF planRectStuds,
                   double planOpacity);
@@ -55,6 +58,7 @@ protected:
     void wheelEvent(QWheelEvent* e) override;
     void leaveEvent(QEvent* e) override;
     void drawBackground(QPainter* painter, const QRectF& rect) override;
+    void changeEvent(QEvent* e) override;
 
 private:
     QPointF toStuds(QPoint viewPos) const;

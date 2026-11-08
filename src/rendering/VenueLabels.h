@@ -45,6 +45,16 @@ struct VenueLabelColors {
 VenueLabelColors venueLabelColors(bool dark);
 // Over the Venue Designer's grid inside the room, so the grid fades there.
 inline const QColor kVenueGridFade = QColor::fromRgbF(1.0f, 1.0f, 1.0f, 0.55f);
+// The Venue Designer's canvas by app theme: background, 1 ft and 10 ft grid
+// lines, and the fade over the grid inside the room (the web's
+// DESIGNER_CANVAS; render-parity venue-labels.json "canvas").
+struct VenueCanvasColors {
+    QColor background, gridMinor, gridMajor, gridFade;
+};
+inline VenueCanvasColors venueCanvasColors(bool dark) {
+    if (!dark) return { QColor(255, 255, 255), QColor(238, 240, 243), QColor(213, 218, 225), kVenueGridFade };
+    return { QColor(27, 30, 35), QColor(38, 42, 49), QColor(54, 60, 70), QColor::fromRgbF(27 / 255.0f, 30 / 255.0f, 35 / 255.0f, 0.55f) };
+}
 
 struct VenueLabel {
     int edge = -1;

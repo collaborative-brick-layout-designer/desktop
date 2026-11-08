@@ -94,6 +94,12 @@ public:
     const std::optional<ViewFilter>& viewFilter() const { return viewFilter_; }
     // The part of the map on screen now, in studs; unset with no map.
     std::optional<QRectF> screenRectStuds() const;
+    // What Fit (and opening a layout) shows, in scene px: everything drawn,
+    // plus the grid's column letters and row numbers when they sit next to
+    // it, so column A and row 1 are never cut off (the web's withGridLabels).
+    QRectF fitRect() const;
+    // Fit fitRect() in the view, with BlueBrick's 50 px margin.
+    void fitAll();
     // Fits `studs` into the window.
     void showRegionStuds(const QRectF& studs);
     rendering::SceneBuilder* builder() { return builder_.get(); }

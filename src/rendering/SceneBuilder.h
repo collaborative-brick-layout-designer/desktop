@@ -102,6 +102,9 @@ public:
     // Venue label size in scene px; unset reads Preferences (venue/labelPx).
     // The Venue Designer sets it from the zoom so labels read the same at any scale.
     void setVenueLabelPx(std::optional<double> px) { venueLabelPx_ = px; }
+    // The venue is drawn on a dark canvas (the Venue Designer in the dark
+    // theme): its dark colors are drawn light (venuedraw::onDarkCanvas).
+    void setVenueDarkCanvas(bool dark) { venueDarkCanvas_ = dark; }
     // The Venue Designer: the selected wall keeps its whole label, and
     // labels keep clear of the selection handles (studs; half size in px).
     void setVenueSelection(std::optional<int> edge, QVector<QPointF> handles, double handleHalfPx) {
@@ -152,6 +155,7 @@ public:
 
 private:
     std::optional<double> venueLabelPx_;
+    bool venueDarkCanvas_ = false;
     std::optional<int> venueSelectedEdge_;
     QVector<QPointF> venueHandles_;
     double venueHandleHalfPx_ = 0;
