@@ -2,13 +2,24 @@
 
 #include "ActiveSheet.h"
 #include "LayerPanel.h"
+#include "help/HelpButton.h"
 
 #include <QAction>
 #include <QActionGroup>
+#include <QCheckBox>
 #include <QEvent>
+#include <QHBoxLayout>
 #include <QMenu>
+#include <QSettings>
+#include <QWidgetAction>
 
 namespace bld::ui {
+
+namespace {
+const QString kFadeKey = QStringLiteral("view/fadeOtherSheets");
+}  // namespace
+
+bool ActiveSheetButton::fadeOtherSheetsSetting() { return QSettings().value(kFadeKey, false).toBool(); }
 
 ActiveSheetButton::ActiveSheetButton(QWidget* parent) : QToolButton(parent) {
     setObjectName(QStringLiteral("activeSheet"));
@@ -79,6 +90,25 @@ void ActiveSheetButton::refresh(const core::Map* map) {
         group->addAction(act);
         connect(act, &QAction::triggered, this, [this, i] { emit sheetPicked(i); });
     }
+    // Under the sheets: the fade, with its help.
+    m->addSeparator();
+    auto* row = new QWidget(m);
+    auto* rowLayout = new QHBoxLayout(row);
+    rowLayout->setContentsMargins(8, 2, 8, 2);
+    rowLayout->setSpacing(4);
+    auto* fade = new QCheckBox(tr("Fade other sheets while editing"), row);
+    fade->setObjectName(QStringLiteral("fadeOtherSheets"));
+    fade->setToolTip(tr("Draw every sheet but this one faded, so it stands out. Only on your screen."));
+    fade->setChecked(fadeOtherSheetsSetting());
+    rowLayout->addWidget(fade, 1);
+    rowLayout->addWidget(new help::HelpButton(QStringLiteral("sheets.fadeOthers"), row, fade));
+    auto* fadeAct = new QWidgetAction(m);
+    fadeAct->setDefaultWidget(row);
+    m->addAction(fadeAct);
+    connect(fade, &QCheckBox::toggled, this, [this](bool on) {
+        QSettings().setValue(kFadeKey, on);
+        emit fadeOtherSheetsToggled(on);
+    });
     emit changed();
 }
 

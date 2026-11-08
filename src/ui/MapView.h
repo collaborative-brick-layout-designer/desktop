@@ -93,6 +93,26 @@ public:
     };
     void setViewFilter(std::optional<ViewFilter> filter);
     const std::optional<ViewFilter>& viewFilter() const { return viewFilter_; }
+
+    // "Fade other sheets while editing": every sheet but the active one
+    // draws at kFadedSheetOpacity. A viewer preference (QSettings
+    // view/fadeOtherSheets), never in the layout and never synced. Call
+    // refreshSheetFade() when the active sheet changes.
+    static constexpr double kFadedSheetOpacity = 0.35;
+    void setFadeOtherSheets(bool on);
+    bool fadeOtherSheets() const { return fadeOtherSheets_; }
+    void refreshSheetFade();
+    // While one lives, every sheet draws at its own strength: a picture,
+    // PDF or print made from this view's scene never shows the fade.
+    class SheetFadeOff {
+    public:
+        explicit SheetFadeOff(MapView* view);
+        ~SheetFadeOff();
+        SheetFadeOff(const SheetFadeOff&) = delete;
+        SheetFadeOff& operator=(const SheetFadeOff&) = delete;
+    private:
+        MapView* view_;
+    };
     // The part of the map on screen now, in studs; unset with no map.
     std::optional<QRectF> screenRectStuds() const;
     // What Fit (and opening a layout) shows, in scene px: everything drawn,
@@ -490,6 +510,11 @@ private:
     std::unique_ptr<rendering::SceneBuilder> builder_;
     std::optional<ViewFilter> viewFilter_;
     void applyViewFilter();
+    bool fadeOtherSheets_ = false;
+    int sheetFadeOff_ = 0;  // SheetFadeOffs alive
+    bool sheetFadeShown_ = false;  // some item may be faded now
+    // Set each sheet's items to its fade; `only`: just these (new) items.
+    void applySheetFade(const QList<QGraphicsItem*>* only = nullptr);
     std::unique_ptr<QUndoStack> undoStack_;
     // Undo / redo pick the parts they bring back (BlueBrick): the parts on
     // the map after the last stack step, of which map, and where the stack was.

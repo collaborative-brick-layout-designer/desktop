@@ -563,6 +563,10 @@ void MainWindow::addActiveSheetControl() {
     fit();
     chip->show();
     connect(button, &ActiveSheetButton::sheetPicked, layerPanel_, &LayerPanel::setActiveRow);
+    // "Fade other sheets while editing" (off by default), kept on this computer only.
+    mapView_->setFadeOtherSheets(ActiveSheetButton::fadeOtherSheetsSetting());
+    connect(button, &ActiveSheetButton::fadeOtherSheetsToggled, mapView_, &MapView::setFadeOtherSheets);
+    connect(layerPanel_, &LayerPanel::activeLayerChanged, mapView_, &MapView::refreshSheetFade);
 
     // Everything that names the active sheet reads it again whenever the
     // sheets change: the Sheets panel is rebuilt (a pick, an add, a rename,
@@ -570,6 +574,7 @@ void MainWindow::addActiveSheetControl() {
     const auto sync = [this, button] {
         const core::Map* map = mapView_->currentMap();
         button->refresh(map);
+        mapView_->refreshSheetFade();
         // The Parts panel names the sheet its parts go on: "Parts → Tables".
         if (auto* header = qobject_cast<theme::PanelHeader*>(partsBrowser_->titleBarWidget())) {
             const int target = map ? placementLayer(*map) : -1;

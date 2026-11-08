@@ -209,6 +209,8 @@ void MainWindow::setupMenus() {
             s.setValue(electricKey, electricChk->isChecked());
             mapView_->rebuildScene();
         }
+        // The picture never shows "Fade other sheets while editing".
+        const MapView::SheetFadeOff unfaded(mapView_);
         const QImage img = views::renderSceneImage(*scene, bounds, QSize(width, height), opts);
         if (swapElectric) {
             s.setValue(electricKey, shownElectric);
@@ -280,6 +282,8 @@ void MainWindow::setupMenus() {
         }
         p.setRenderHint(QPainter::Antialiasing);
         p.setRenderHint(QPainter::SmoothPixmapTransform);
+        // The picture never shows "Fade other sheets while editing".
+        const MapView::SheetFadeOff unfaded(mapView_);
         scene->render(&p, QRectF(printer.pageLayout().paintRectPixels(printer.resolution())),
                       bounds, Qt::KeepAspectRatio);
         p.end();
@@ -328,6 +332,8 @@ void MainWindow::setupMenus() {
         const double tileStudH = pagePx.height() / pxPerStud;
         const int cols = std::max(1, static_cast<int>(std::ceil(sceneStudW / tileStudW)));
         const int rows = std::max(1, static_cast<int>(std::ceil(sceneStudH / tileStudH)));
+        // The picture never shows "Fade other sheets while editing".
+        const MapView::SheetFadeOff unfaded(mapView_);
 
         for (int row = 0; row < rows; ++row) {
             for (int col = 0; col < cols; ++col) {
