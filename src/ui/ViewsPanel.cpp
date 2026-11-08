@@ -1,4 +1,5 @@
 #include "ViewsPanel.h"
+#include "SheetNames.h"
 #include "ConfirmDialog.h"
 
 #include "SavedViews.h"
@@ -339,7 +340,7 @@ std::vector<std::pair<QString, QString>> ViewsPanel::sheetList() const {
     std::vector<std::pair<QString, QString>> out;
     if (!map_) return out;
     for (const auto& l : map_->layers())
-        if (l && l->kind() != core::LayerKind::Grid) out.emplace_back(l->guid, l->name);
+        if (l && l->kind() != core::LayerKind::Grid) out.emplace_back(l->guid, displaySheetName(l->name));
     return out;
 }
 

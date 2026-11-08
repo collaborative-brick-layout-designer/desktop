@@ -6,6 +6,7 @@
 // code and files keep their names.
 
 #include "MainWindow.h"
+#include "SheetNames.h"
 
 #include "ActiveSheet.h"
 #include "ActiveSheetButton.h"
@@ -403,7 +404,7 @@ void MainWindow::setupShell() {
                     count += static_cast<int>(static_cast<const core::LayerBrick&>(*L).bricks.size());
             const int i = map->selectedLayerIndex;
             if (i >= 0 && i < static_cast<int>(map->layers().size()) && map->layers()[i])
-                sheetName = map->layers()[i]->name;
+                sheetName = shownSheetName(*map->layers()[i]);
         }
         pieces->setText(count == 1 ? tr("1 piece") : tr("%1 pieces").arg(count));
         sheet->setText(sheetName.isEmpty() ? QString() : tr("Sheet: %1").arg(sheetName));
@@ -579,7 +580,7 @@ void MainWindow::addActiveSheetControl() {
         if (auto* header = qobject_cast<theme::PanelHeader*>(partsBrowser_->titleBarWidget())) {
             const int target = map ? placementLayer(*map) : -1;
             const core::Layer* L = target >= 0 ? map->layers()[target].get() : nullptr;
-            header->title()->setText(L ? tr("Parts → %1").arg(L->name.isEmpty() ? tr("(untitled)") : L->name)
+            header->title()->setText(L ? tr("Parts → %1").arg(shownSheetName(*L))
                                        : partsBrowser_->windowTitle());
         }
     };

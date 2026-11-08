@@ -1,4 +1,5 @@
 #include "LayerPanel.h"
+#include "SheetNames.h"
 
 #include "../core/Layer.h"
 #include "../core/Map.h"
@@ -296,11 +297,13 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
             connect(ren, &QAction::triggered, [this, index, item]{
                 bool ok = false;
                 // The sheet's own name (the row may show "(untitled)").
-                const QString def = item->data(Qt::UserRole).toString();
+                const QString current = item->data(Qt::UserRole).toString();
+                const QString def = displaySheetName(current);
                 const QString name = QInputDialog::getText(
                     this, tr("Rename sheet"), tr("Sheet name:"),
                     QLineEdit::Normal, def, &ok);
-                if (ok && !name.isEmpty()) emit renameLayerRequested(index, name);
+                if (!ok) return;
+                if (const QString next = renamedSheet(current, name); !next.isEmpty()) emit renameLayerRequested(index, next);
             });
             auto* up = menu.addAction(tr("Move Up"));
             connect(up, &QAction::triggered, [this, index]{ emit moveLayerRequested(index, +1); });
@@ -360,7 +363,7 @@ void LayerPanel::setMap(core::Map* map, rendering::SceneBuilder* builder) {
             // The row shows just the sheet's name, like the web's Sheets
             // panel; the kind is the icon, and the kind, number and
             // transparency are in the tooltip.
-            auto* item = new QListWidgetItem(layer->name.isEmpty() ? tr("(untitled)") : layer->name);
+            auto* item = new QListWidgetItem(shownSheetName(*layer));
             item->setData(Qt::UserRole, layer->name);
             item->setData(kKindRole, static_cast<int>(layer->kind()));
             item->setIcon(kindIcon(layer->kind(), list_));

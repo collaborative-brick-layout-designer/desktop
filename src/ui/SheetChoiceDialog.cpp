@@ -1,4 +1,5 @@
 #include "SheetChoiceDialog.h"
+#include "SheetNames.h"
 
 #include "../core/Layer.h"
 #include "../core/Map.h"
@@ -60,7 +61,7 @@ SheetChoiceDialog::SheetChoiceDialog(const core::Map& map, const QString& module
         for (int i = static_cast<int>(map.layers().size()) - 1; i >= 0; --i) {
             const auto* L = map.layers()[i].get();
             if (!L || L->kind() != core::LayerKind::Brick) continue;
-            const QString name = L->name.isEmpty() ? tr("untitled") : L->name;
+            const QString name = L->name.isEmpty() ? tr("untitled") : displaySheetName(L->name);
             box->addItem(i == picked ? tr("%1 (picked sheet)").arg(name) : name, L->guid);
             if (i == picked) box->setCurrentIndex(box->count() - 1);
         }
