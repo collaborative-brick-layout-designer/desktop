@@ -147,9 +147,15 @@ jobs:
         if: runner.os == 'Linux'
         shell: bash
         run: |
-          curl -fsSL --retry 3 -o "$RUNNER_TEMP/helpTexts.ts" \
-            https://raw.githubusercontent.com/collaborative-brick-layout-designer/web/main/apps/web/src/help/helpTexts.ts || true
-          echo "BLD_WEB_HELP_TEXTS=$RUNNER_TEMP/helpTexts.ts" >> "$GITHUB_ENV"
+          # help-texts.json is the one source; before the web moved its
+          # words there they were in helpTexts.ts, which the test still reads.
+          base=https://raw.githubusercontent.com/collaborative-brick-layout-designer/web/main/apps/web/src/help
+          if curl -fsSL --retry 3 -o "$RUNNER_TEMP/help-texts.json" "$base/help-texts.json"; then
+            echo "BLD_WEB_HELP_TEXTS=$RUNNER_TEMP/help-texts.json" >> "$GITHUB_ENV"
+          else
+            curl -fsSL --retry 3 -o "$RUNNER_TEMP/helpTexts.ts" "$base/helpTexts.ts" || true
+            echo "BLD_WEB_HELP_TEXTS=$RUNNER_TEMP/helpTexts.ts" >> "$GITHUB_ENV"
+          fi
 
       - name: Test
         run: ctest --test-dir build --build-config Release --output-on-failure --timeout 300

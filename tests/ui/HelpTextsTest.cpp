@@ -1,7 +1,8 @@
-// The help-text catalogue: the same keys and the same words as the web's
-// (apps/web/src/help/helpTexts.ts, whose key list is fixtures/
-// help-keys.txt), short texts fit a tooltip, and every key the UI uses
-// is in the catalogue.
+// The help-text catalogue: one source for both apps, help-texts.json (the
+// web's apps/web/src/help/help-texts.json word for word, read from a Qt
+// resource; its key list is fixtures/help-keys.txt), every string in it
+// marked for translation, short texts fit a tooltip, and every key the UI
+// uses is in the catalogue.
 
 #include "ui/help/HelpTexts.h"
 
@@ -10,6 +11,8 @@
 #include <QDir>
 #include <QDirIterator>
 #include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QRegularExpression>
 #include <QSet>
 
@@ -36,12 +39,58 @@ QStringList fixtureKeys() {
 
 // The web repo's catalogue, when it is checked out next to this one (or
 // named by BLD_WEB_HELP_TEXTS: CI fetches the web's file at main there, so
-// the comparison always runs in CI).
+// the comparison always runs in CI). Its help-texts.json, or the older
+// helpTexts.ts that held the words before it.
 QString webCatalogue() {
     const QString env = qEnvironmentVariable("BLD_WEB_HELP_TEXTS");
     if (!env.isEmpty()) return readFile(env);
+    const QString json = readFile(QStringLiteral(BLD_SOURCE_DIR
+                                  "/../collaborative-layout-designer-web/apps/web/src/help/help-texts.json"));
+    if (!json.isEmpty()) return json;
     return readFile(QStringLiteral(BLD_SOURCE_DIR
                                    "/../collaborative-layout-designer-web/apps/web/src/help/helpTexts.ts"));
+}
+
+// This app's copy of help-texts.json.
+QString ownCatalogue() { return readFile(QStringLiteral(BLD_SOURCE_DIR "/src/ui/help/help-texts.json")); }
+
+struct WebEntry {
+    QString key, title, shortText, more, learnMoreUrl;
+};
+
+// The entries of a help-texts.json, in the file's order.
+QList<WebEntry> jsonEntries(const QString& text) {
+    QList<WebEntry> out;
+    const QJsonObject all = QJsonDocument::fromJson(text.toUtf8()).object().value(QLatin1String("entries")).toObject();
+    static const QRegularExpression keyRe(QStringLiteral(R"re(^    "([^"]+)": \{)re"), QRegularExpression::MultilineOption);
+    for (auto it = keyRe.globalMatch(text); it.hasNext();) {
+        const QString key = it.next().captured(1);
+        const QJsonObject e = all.value(key).toObject();
+        out.push_back({ key, e.value(QLatin1String("title")).toString(), e.value(QLatin1String("short")).toString(),
+                        e.value(QLatin1String("more")).toString(), e.value(QLatin1String("learnMoreUrl")).toString() });
+    }
+    return out;
+}
+
+// The entries of the older helpTexts.ts, in its order.
+QList<WebEntry> tsEntries(const QString& ts) {
+    QList<WebEntry> out;
+    static const QRegularExpression entryRe(QStringLiteral(R"(^  '([^']+)': \{\n(.*?)^  \},)"),
+                                            QRegularExpression::MultilineOption
+                                                | QRegularExpression::DotMatchesEverythingOption);
+    static const QRegularExpression fieldRe(QStringLiteral(R"(^    (\w+): '([^']*)',)"),
+                                            QRegularExpression::MultilineOption);
+    for (auto it = entryRe.globalMatch(ts); it.hasNext();) {
+        const auto m = it.next();
+        QHash<QString, QString> fields;
+        for (auto f = fieldRe.globalMatch(m.captured(2)); f.hasNext();) {
+            const auto fm = f.next();
+            fields.insert(fm.captured(1), fm.captured(2));
+        }
+        out.push_back({ m.captured(1), fields.value(QStringLiteral("title")), fields.value(QStringLiteral("short")),
+                        fields.value(QStringLiteral("more")), fields.value(QStringLiteral("learnMoreUrl")) });
+    }
+    return out;
 }
 
 }  // namespace
@@ -109,38 +158,49 @@ TEST(HelpTexts, HasTheClubPermissionsAndSetSharingKeys) {
     EXPECT_EQ(sharing->shortText, QStringLiteral("Your own custom parts in a set come along when you share it."));
 }
 
-// Word for word against the web's helpTexts.ts, when it's there.
+// Word for word against the web's catalogue, when it's there.
 TEST(HelpTexts, MatchesTheWebCatalogueWordForWord) {
-    const QString ts = webCatalogue();
+    const QString web = webCatalogue();
     // Named but missing (CI's fetch failed) is a failure, never a skip.
     if (!qEnvironmentVariable("BLD_WEB_HELP_TEXTS").isEmpty()) {
-        ASSERT_FALSE(ts.isEmpty()) << "BLD_WEB_HELP_TEXTS names a file that can't be read";
+        ASSERT_FALSE(web.isEmpty()) << "BLD_WEB_HELP_TEXTS names a file that can't be read";
     }
-    if (ts.isEmpty()) GTEST_SKIP() << "the web repo's helpTexts.ts isn't checked out next to this one";
-    static const QRegularExpression entryRe(QStringLiteral(R"(^  '([^']+)': \{\n(.*?)^  \},)"),
-                                            QRegularExpression::MultilineOption
-                                                | QRegularExpression::DotMatchesEverythingOption);
-    static const QRegularExpression fieldRe(QStringLiteral(R"(^    (\w+): '([^']*)',)"),
-                                            QRegularExpression::MultilineOption);
+    if (web.isEmpty()) GTEST_SKIP() << "the web repo isn't checked out next to this one";
+    const bool json = web.trimmed().startsWith(QLatin1Char('{'));
+    if (json) {
+        EXPECT_EQ(web, ownCatalogue()) << "src/ui/help/help-texts.json must be the web's file byte for byte";
+    }
     QStringList webKeys;
-    for (auto it = entryRe.globalMatch(ts); it.hasNext();) {
-        const auto m = it.next();
-        const QString key = m.captured(1);
-        webKeys << key;
-        QHash<QString, QString> fields;
-        for (auto f = fieldRe.globalMatch(m.captured(2)); f.hasNext();) {
-            const auto fm = f.next();
-            fields.insert(fm.captured(1), fm.captured(2));
-        }
+    for (const WebEntry& w : json ? jsonEntries(web) : tsEntries(web)) {
+        webKeys << w.key;
         // The web's words; the desktop's own overrides are checked below.
-        const auto e = sharedHelpEntry(key);
-        ASSERT_TRUE(e) << key.toStdString();
-        EXPECT_EQ(e->title, fields.value(QStringLiteral("title"))) << key.toStdString();
-        EXPECT_EQ(e->shortText, fields.value(QStringLiteral("short"))) << key.toStdString();
-        EXPECT_EQ(e->more, fields.value(QStringLiteral("more"))) << key.toStdString();
-        EXPECT_EQ(e->learnMoreUrl, fields.value(QStringLiteral("learnMoreUrl"))) << key.toStdString();
+        const auto e = sharedHelpEntry(w.key);
+        ASSERT_TRUE(e) << w.key.toStdString();
+        EXPECT_EQ(e->title, w.title) << w.key.toStdString();
+        EXPECT_EQ(e->shortText, w.shortText) << w.key.toStdString();
+        EXPECT_EQ(e->more, w.more) << w.key.toStdString();
+        EXPECT_EQ(e->learnMoreUrl, w.learnMoreUrl) << w.key.toStdString();
     }
     EXPECT_EQ(webKeys, sharedHelpKeys());
+}
+
+// The shared words come from help-texts.json (one source), and every one of
+// them is marked for translation (HelpTextStrings.cpp).
+TEST(HelpTexts, TheSharedWordsComeFromHelpTextsJsonAndAreMarkedForTranslation) {
+    const QList<WebEntry> own = jsonEntries(ownCatalogue());
+    ASSERT_GT(own.size(), 50);
+    QStringList keys, strings;
+    for (const WebEntry& w : own) {
+        keys << w.key;
+        for (const QString& t : { w.title, w.shortText, w.more })
+            if (!strings.contains(t)) strings << t;
+        const auto e = sharedHelpEntry(w.key);
+        ASSERT_TRUE(e) << w.key.toStdString();
+        EXPECT_EQ(e->more, w.more) << w.key.toStdString();
+    }
+    EXPECT_EQ(keys, sharedHelpKeys());
+    EXPECT_EQ(sharedHelpStrings(), strings)
+        << "help-texts.json changed: run scripts/gen-help-strings.py to update HelpTextStrings.cpp";
 }
 
 // A shared key shows the web's words unless it is in the one override

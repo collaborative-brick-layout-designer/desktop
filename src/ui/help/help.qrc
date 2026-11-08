@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <!-- The help behind every "?" button: the same file as the web app's
+         apps/web/src/help/help-texts.json. -->
+    <qresource prefix="/bld/help">
+        <file>help-texts.json</file>
+    </qresource>
+</RCC>

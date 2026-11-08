@@ -1,6 +1,13 @@
 #include "HelpTexts.h"
 
 #include <QCoreApplication>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QRegularExpression>
+
+// help.qrc lives in a static library: register it before reading it.
+static void initHelpResources() { Q_INIT_RESOURCE(help); }
 
 namespace bld::ui::help {
 
@@ -15,477 +22,42 @@ struct Raw {
     const char* more;
 };
 
-// The web's catalogue (apps/web/src/help/helpTexts.ts), word for word and
-// in the same order. Change both together.
-constexpr Raw kShared[] = {
-    // Panels
-    { "panel.parts", "/help#getting-started",
-      QT_TRANSLATE_NOOP("HelpTexts", "Parts"),
-      QT_TRANSLATE_NOOP("HelpTexts", "All the pieces you can build with."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Search by name or number, or pick a group like track or plates. "
-                                     "The letters you type may have gaps: \"plt2\" finds \"plate2x4\". "
-                                     "Drag a part onto the map, or click it to drop it in the middle.") },
-    { "panel.sheets", "/help#sheets",
-      QT_TRANSLATE_NOOP("HelpTexts", "Sheets"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Sheets are see-through pages stacked on the map, to keep things "
-                                     "apart."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Put track on one sheet and buildings on another. Hide a sheet to "
-                                     "see under it, or lock it so nothing on it moves by accident. New "
-                                     "parts go on the sheet that is picked.") },
-    { "panel.partsList", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Parts list"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Every part this layout uses, with how many of each."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Use it to check what you need to bring to a show. If the layout has "
-                                     "a budget, parts over their limit are marked.") },
-    { "panel.modules", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Modules"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Groups of pieces kept together, so you can move or reuse them as "
-                                     "one."),
-      QT_TRANSLATE_NOOP("HelpTexts", "A module is like a table section: pick it to select everything in "
-                                     "it at once. Make a module from the parts you picked; it belongs to this "
-                                     "layout. To use it in other layouts, choose Save to Module library… from "
-                                     "its ⋯ menu.") },
-    { "panel.moduleLibrary", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Module library"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Modules saved to your account or your club, ready to drop in."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Drag a module from here onto the map to add a copy of it. Your "
-                                     "club’s modules are shared with everyone in the club. To change a module, "
-                                     "open it from Home: it opens on its own, and Save module keeps your changes.") },
-    { "panel.roomLibrary", "/help#room",
-      QT_TRANSLATE_NOOP("HelpTexts", "Venue library"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Venues saved to your account or your club."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Put a venue under your layout to check that it fits, with space to "
-                                     "walk around. Anyone in your club can use the club’s venues.") },
-    { "panel.views", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Views"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Saved views remember a part of the layout, so you can show it again "
-                                     "in one tap."),
-      QT_TRANSLATE_NOOP("HelpTexts", "A view can fit the whole layout or keep one area, and show only some "
-                                     "sheets. Share a picture of any view, or export a picture of every "
-                                     "view at once after a change.") },
-    // Top bar
-    { "topbar.saveStatus", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Saving"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Shows whether your changes are saved; everything saves by itself."),
-      QT_TRANSLATE_NOOP("HelpTexts", "“Saved” means the server has everything. If you go offline, keep "
-                                     "working: your changes are kept here and saved when you are back.") },
-    { "topbar.tasks", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Tasks"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Jump to what you want to do: build, draw the venue, add notes or see "
-                                     "the parts list."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Each task opens the panels you need for it. Nothing is lost when "
-                                     "you switch between them.") },
-    { "people.here", "/help#sharing",
-      QT_TRANSLATE_NOOP("HelpTexts", "People here now"),
-      QT_TRANSLATE_NOOP("HelpTexts", "The people working on this layout right now."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Everyone sees each other’s changes as they happen. A faded circle "
-                                     "means that person has stepped away for a bit.") },
-    // Toolbar and tool rail
-    { "toolbar.snap", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Snap"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Pieces jump to the nearest grid line, so rows stay straight."),
-      QT_TRANSLATE_NOOP("HelpTexts", "The number is how far apart the grid lines are, in studs; rulers, "
-                                     "labels, text and venue corners land on it too. Hold Alt (⌥ on a "
-                                     "Mac) to put those exactly where you let go, or pick “off” to place "
-                                     "everything where you drop it. Track ends still click together.") },
-    { "toolbar.rotateStep", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Turn step"),
-      QT_TRANSLATE_NOOP("HelpTexts", "How far a piece turns each time you press R."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Pick 90° for square turns, or a smaller step for curves and angles. "
-                                     "Shift+R turns the other way.") },
-    { "toolbar.paintColor", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Paint color"),
-      QT_TRANSLATE_NOOP("HelpTexts", "The color the Paint tool uses."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Pick a color here, then choose Paint and click on the map to "
-                                     "color an area. It paints the ground, not the pieces.") },
-    { "toolbar.panels", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Panels"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Show or hide the side panels."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Tick a panel to show it. You can also drag a panel by its handle to "
-                                     "move it, or float it over the map.") },
-    { "toolbar.activeSheet", "/help#sheets",
-      QT_TRANSLATE_NOOP("HelpTexts", "Adding to"),
-      QT_TRANSLATE_NOOP("HelpTexts", "The sheet new parts go on; click it to pick a different sheet."),
-      QT_TRANSLATE_NOOP("HelpTexts", "This is the active sheet, also marked Active in the Sheets panel. Parts "
-                                     "you place or drop go on it. If it is a text, area or ruler sheet, parts "
-                                     "go on a parts sheet instead, and you are told which.") },
-    { "sheets.fadeOthers", "/help#sheets",
-      QT_TRANSLATE_NOOP("HelpTexts", "Fade other sheets"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Draws every sheet but the one you’re adding to faded, so that one stands out."),
-      QT_TRANSLATE_NOOP("HelpTexts", "The sheet in Adding to stays at full strength, and the fade follows when you "
-                                     "pick another. It only changes what you see: pictures, PDFs and shared "
-                                     "pictures never show it, and it isn’t saved in the layout or sent to anyone "
-                                     "else.") },
-    { "tools.rail", "/help#shortcuts",
-      QT_TRANSLATE_NOOP("HelpTexts", "Tools"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Pick what a click on the map does."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Select moves pieces. Measure and Circle add a ruler you can keep on "
-                                     "the map. Venue and Obstacle draw the walls of the venue and things to "
-                                     "keep clear of.") },
-    // Status bar
-    { "status.sheet", "/help#sheets",
-      QT_TRANSLATE_NOOP("HelpTexts", "Current sheet"),
-      QT_TRANSLATE_NOOP("HelpTexts", "New parts go on this sheet."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Pick a different sheet in the Sheets panel to put new parts there "
-                                     "instead. Each sheet keeps its own parts.") },
-    { "status.room", "/help#room",
-      QT_TRANSLATE_NOOP("HelpTexts", "Venue check"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Says whether the layout fits the venue, with space to walk around."),
-      QT_TRANSLATE_NOOP("HelpTexts", "It checks for pieces outside the walls, on top of obstacles, or too "
-                                     "close to leave a walkway. Point at it to see what needs fixing.") },
-    { "status.budget", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Budget"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Says whether the layout stays within the parts you have."),
-      QT_TRANSLATE_NOOP("HelpTexts", "A budget is how many of each part you own. “Over” means the layout "
-                                     "uses more of some part than you have.") },
-    // Dialogs in the editor
-    { "dialog.budget", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Budget"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Set how many of each part you have, so the layout never uses more."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Type a number next to a part to set its limit. Save the budget to a "
-                                     "file to use it again, or open one a friend made.") },
-    { "dialog.sheetOptions", "/help#sheets",
-      QT_TRANSLATE_NOOP("HelpTexts", "Sheet options"),
-      QT_TRANSLATE_NOOP("HelpTexts", "The name and look of this sheet."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Make a sheet see-through to show what is under it. Hidden and "
-                                     "locked sheets stay in the layout; they just can’t be seen or "
-                                     "changed.") },
-    { "dialog.label", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Labels"),
-      QT_TRANSLATE_NOOP("HelpTexts", "A label is a note pinned to a piece, and it moves with it."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Use labels to name a station or a street. If the piece moves, its "
-                                     "label moves too.") },
-    { "dialog.measure", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Measure"),
-      QT_TRANSLATE_NOOP("HelpTexts", "A ruler on the map that shows a real distance."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Rulers stay on the map until you delete them, so others can see "
-                                     "them too. Change its color, or show the length in studs, metres or "
-                                     "feet.") },
-    { "dialog.exportImage", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Export or print"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Make a picture of the layout to share or print."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Pick the part of the map and the size. Printing can spread a big "
-                                     "layout over several pages.") },
-    { "dialog.exportPartList", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Export the parts list"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Save the list of parts as a file, for shopping or packing."),
-      QT_TRANSLATE_NOOP("HelpTexts", "HTML has pictures and opens in a browser. CSV opens in a "
-                                     "spreadsheet.") },
-    { "dialog.moduleLook", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Module look"),
-      QT_TRANSLATE_NOOP("HelpTexts", "This module’s own outline and name colors, and whether its name "
-                                     "shows."),
-      QT_TRANSLATE_NOOP("HelpTexts", "With Same color on, the outline and the name change together. Reset "
-                                     "to default brings back the light blue. Long names wrap, get smaller, "
-                                     "and are only cut short when nothing else fits.") },
-    { "module.edit", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Edit module"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Change this module part by part; the rest of the layout waits, dimmed."),
-      QT_TRANSLATE_NOOP("HelpTexts", "A module moves as one piece until you edit it: then new parts you drop in "
-                                     "join it, and a part dragged outside it asks whether to leave. Done, Esc or "
-                                     "a click outside goes back to the whole layout. Pin in place stops the whole "
-                                     "module moving, but you can still edit it.") },
-    { "module.make", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Make a module"),
-      QT_TRANSLATE_NOOP("HelpTexts", "The parts you picked become one module in this layout."),
-      QT_TRANSLATE_NOOP("HelpTexts", "A module moves as one piece, shows its name on the map and is listed in the "
-                                     "Modules panel. It stays in this layout only. To use it in other layouts "
-                                     "too, tick Also save to my Module library, or later choose Save to Module "
-                                     "library… from its ⋯ menu.") },
-    { "module.library", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Modules in the Module library"),
-      QT_TRANSLATE_NOOP("HelpTexts", "A module saved to the Module library stays linked to it."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Save to Module library… puts a copy in your modules or a club’s; modules you "
-                                     "add from the Module library are linked too. After changing it in a layout, "
-                                     "Update Module library version makes that the next version, with a note on "
-                                     "what changed. When the Module library has a newer version, Update from "
-                                     "Module library brings it in where the module sits, and asks first if you "
-                                     "changed it here.") },
-    { "module.sheets", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Module sheets"),
-      QT_TRANSLATE_NOOP("HelpTexts", "A module keeps the sheets its parts were on, like Track and Buildings."),
-      QT_TRANSLATE_NOOP("HelpTexts", "When you add it to a layout, each sheet’s parts go on the layout’s sheet with "
-                                     "the same name. If the layout has no sheet by that name, you choose where they "
-                                     "go: the picked sheet, or a new sheet with that name. Put everything on one "
-                                     "sheet saves the module with a single sheet instead.") },
-    { "set.about", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Sets"),
-      QT_TRANSLATE_NOOP("HelpTexts", "A set is a group of parts saved together, to place again in one go."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Save selection as set keeps the parts you picked, as they sit, under one "
-                                     "name. Then you can place it in any layout as one group, and share it like one "
-                                     "of your own parts.") },
-    { "set.sharing", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Sharing a set"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Your own custom parts in a set come along when you share it."),
-      QT_TRANSLATE_NOOP("HelpTexts", "The people you invite also get the custom parts of yours that the set uses, so "
-                                     "it places properly for them, to look at and place but not change. Taking the "
-                                     "set back takes those parts back too, unless you shared them on their own.") },
-    { "set.moving", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Moving or copying a set to a club"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Your own custom parts in a set go to the club with it."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Everyone in the club can then place the set with all its parts. Moving takes your parts with "
-                                     "it, except any that another of your sets uses: those stay yours, and the club gets its own "
-                                     "copy; copying gives the club its own copy of each part, and yours stay as they are. Either way, "
-                                     "if the club already has a part with the same number, the set uses the club’s.") },
-    { "set.updates", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Set updates"),
-      QT_TRANSLATE_NOOP("HelpTexts", "A set you placed knows when the set changes, so you can bring in the new "
-                                     "version."),
-      QT_TRANSLATE_NOOP("HelpTexts", "When one of your custom sets (or one shared with you) gets new parts, has its "
-                                     "parts moved, or is renamed, or a custom set inside it changes, layouts that use "
-                                     "it say “Update available”. Update "
-                                     "puts the set’s new parts where the placed set is now, keeping its place and "
-                                     "turn, and joins them to the track around it where they fit. Nothing changes "
-                                     "until you choose Update, and Undo puts it back.") },
-    { "part.hidden", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Hidden parts"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Some parts are only used inside a set, so they’re hidden from the parts list."),
-      QT_TRANSLATE_NOOP("HelpTexts", "A building of a castle set, a cut track piece or one half of a flex track only "
-                                     "makes sense inside its set, so it isn’t listed or placed by itself (BlueBrick’s "
-                                     "“Not listed in library”), while the set places, moves and ungroups as usual. "
-                                     "Tick Show hidden parts, or right-click a set and choose Show its parts, to see "
-                                     "them. On your own parts, “Only used inside sets” in the part’s menu turns this "
-                                     "on or off.") },
-    // Opening
-    { "open.formats", "/help#opening",
-      QT_TRANSLATE_NOOP("HelpTexts", "Opening a file"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Open a layout file from this app, BlueBrick, TrackDesigner or 4DBrix."),
-      QT_TRANSLATE_NOOP("HelpTexts", "A layout file (.bld-layout) or a BlueBrick map (.bbm) opens with everything in "
-                                     "it. TrackDesigner (.tdl) and 4DBrix (.ncp) parts are matched to parts in the "
-                                     "library, and any that have no match are listed after opening. LDraw, BrickLink "
-                                     "Studio and LDD models are imported in the desktop app.") },
-    { "open.desktop", "/help#opening",
-      QT_TRANSLATE_NOOP("HelpTexts", "Models from other programs"),
-      QT_TRANSLATE_NOOP("HelpTexts", "LDraw, BrickLink Studio and LDD files are imported in the desktop app, then "
-                                     "saved here."),
-      QT_TRANSLATE_NOOP("HelpTexts", "The desktop app reads them, matches their parts to the library and lists the "
-                                     "ones it can’t match. It can also turn a model into a custom part. Then choose "
-                                     "File › Save to Server… and it shows up here.") },
-    // Downloading
-    { "download.formats", "/help#files",
-      QT_TRANSLATE_NOOP("HelpTexts", "Download as"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Save a copy of this layout on your computer."),
-      QT_TRANSLATE_NOOP("HelpTexts", "The layout file keeps everything and opens in this app or the "
-                                     "desktop app. The other choices are for other programs and may leave "
-                                     "some things out.") },
-    { "download.layout", "/help#files",
-      QT_TRANSLATE_NOOP("HelpTexts", "Layout file"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Everything in one file: parts, sheets, venue, labels and modules."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Pick this to keep a backup or to open the layout in the desktop "
-                                     "app. Nothing is left out.") },
-    { "download.bbm", "/help#files",
-      QT_TRANSLATE_NOOP("HelpTexts", "BlueBrick map"),
-      QT_TRANSLATE_NOOP("HelpTexts", "For people who still use the old BlueBrick program."),
-      QT_TRANSLATE_NOOP("HelpTexts", "BlueBrick can’t hold everything this app can, so the venue, labels, "
-                                     "modules and background picture are left out. Your layout here keeps "
-                                     "them.") },
-    // Share and people
-    { "share.roles", "/help#sharing",
-      QT_TRANSLATE_NOOP("HelpTexts", "Viewer or editor"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Editors can change the layout; viewers can only look."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Invite people by email. They get a link to join, and can see "
-                                     "changes as they happen. You can change their role or remove them "
-                                     "later.") },
-    { "share.people", "/help#sharing",
-      QT_TRANSLATE_NOOP("HelpTexts", "People"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Everyone who can open this layout."),
-      QT_TRANSLATE_NOOP("HelpTexts", "The owner decides who else can see or change the layout. Anyone "
-                                     "here can open it from their own list of layouts.") },
-    { "share.pending", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Waiting to join"),
-      QT_TRANSLATE_NOOP("HelpTexts", "People you invited who haven’t joined yet."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Invites stop working after a while. Cancel one if you sent it to "
-                                     "the wrong address.") },
-    { "share.transfer", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Give it to someone else"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Hand this layout to another person or to your club."),
-      QT_TRANSLATE_NOOP("HelpTexts", "The new owner decides who can see and change it. Give it to your "
-                                     "club so it stays with the club, not with one person.") },
-    { "share.publicLink", "/help#sharing",
-      QT_TRANSLATE_NOOP("HelpTexts", "Public link"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Anyone with the link can look at the layout, without signing in."),
-      QT_TRANSLATE_NOOP("HelpTexts", "They can look but not change anything. Turn the link off and it "
-                                     "stops working straight away.") },
-    { "share.history", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "History"),
-      QT_TRANSLATE_NOOP("HelpTexts", "What happened to this layout, and when: who opened, shared or saved "
-                                     "a copy of it."),
-      QT_TRANSLATE_NOOP("HelpTexts", "It helps you see who has been working on the layout. It doesn’t "
-                                     "list every piece that moved.") },
-    { "share.picture", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Share a picture"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Send a picture of the layout to anyone, even people without an "
-                                     "account."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Pick the whole layout, what is on screen, or a saved view. On a phone "
-                                     "it opens your share menu; on a computer it saves the picture or "
-                                     "copies it.") },
-    { "share.exportAllViews", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Export all views"),
-      QT_TRANSLATE_NOOP("HelpTexts", "One picture of every saved view, all in one zip file."),
-      QT_TRANSLATE_NOOP("HelpTexts", "After you change the layout, do it again to get fresh pictures with "
-                                     "the same names. The size you pick is remembered.") },
-    // Settings
-    { "settings.sync", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Where settings are kept"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Signed in, your settings follow you to any computer."),
-      QT_TRANSLATE_NOOP("HelpTexts", "They are kept with your account on this server. Signed out, they "
-                                     "are kept in this browser only.") },
-    { "settings.color", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Color"),
-      QT_TRANSLATE_NOOP("HelpTexts", "The color of buttons and highlights; your bricks keep their own "
-                                     "colors."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Pick the one you like best. It only changes how the app looks for "
-                                     "you.") },
-    { "settings.largeText", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Bigger text and buttons"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Makes words and buttons larger and easier to hit."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Handy on a small screen or if reading is tiring. The map zoom "
-                                     "doesn’t change.") },
-    { "settings.helpIcons", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Help buttons"),
-      QT_TRANSLATE_NOOP("HelpTexts", "The small round question marks, like this one."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Turn them off once you know your way around. You can turn them back "
-                                     "on here or from the Help menu.") },
-    { "settings.tours", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Tours"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Short guided walks through the app."),
-      QT_TRANSLATE_NOOP("HelpTexts", "A tour points at the real buttons, one step at a time. Press “Show "
-                                     "tours again” to see the ones you have already finished.") },
-    { "settings.connectionSnap", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Snap strength"),
-      QT_TRANSLATE_NOOP("HelpTexts", "How strongly a part you drag pulls onto a matching connection nearby."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Gentle pulls only when the ends are close and lets go once you move away; "
-                                     "Strong reaches further; Off never pulls, and the grid still lines parts up. "
-                                     "Hold Alt (Option on a Mac) while dragging to place one part without "
-                                     "snapping.") },
-    // The venue designer
-    { "room.tools", "/help#room",
-      QT_TRANSLATE_NOOP("HelpTexts", "Drawing tools"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Pick what to draw: walls, doors, columns, power points and more."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Click on the drawing to place things. While drawing, type a length "
-                                     "and press Enter to make it exact.") },
-    { "room.units", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Units"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Show lengths in feet and inches, metres or studs."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Change it any time: the venue stays the same size. A stud is 8 mm, "
-                                     "the width of one LEGO bump.") },
-    { "room.snap", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Snap"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Lines jump to corners, walls and straight angles as you draw."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Turn it off to draw freely. Hold Shift while drawing to go at any "
-                                     "angle for a moment.") },
-    { "room.floorPlan", "/help#room",
-      QT_TRANSLATE_NOOP("HelpTexts", "Floor plan"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Put a picture of the venue’s plan underneath, and trace over it."),
-      QT_TRANSLATE_NOOP("HelpTexts", "A photo or a drawing both work. Scale it by clicking two points you "
-                                     "know the real distance between.") },
-    { "room.calibrate", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Scale the floor plan"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Make the picture the right size by measuring one known distance."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Click Calibrate, then click two points on the picture, like the "
-                                     "ends of a wall. Type the real distance between them and the picture "
-                                     "is scaled to fit.") },
-    { "room.show", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Show"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Hide parts of the drawing to see the rest more clearly."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Hiding something only hides it here. It is still part of the venue.") },
-    { "room.walkway", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Walkway"),
-      QT_TRANSLATE_NOOP("HelpTexts", "The space to leave clear around the layout for people to walk."),
-      QT_TRANSLATE_NOOP("HelpTexts", "The venue check warns you when the layout comes closer than this to "
-                                     "a wall or an obstacle. It starts at about 90 cm.") },
-    { "room.estimates", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Estimates"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Lengths you guessed and still need to measure."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Mark a length as an estimate when you don’t know it yet. Measure it "
-                                     "at the hall later and type in the real number.") },
-    // Parts That Differ
-    { "partsDiffer.about", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Parts that differ"),
-      QT_TRANSLATE_NOOP("HelpTexts", "This file has its own version of some parts the server already has."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Maybe someone changed a part’s picture. Compare the two and choose "
-                                     "which one to use.") },
-    { "partsDiffer.choice", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Which to use"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Keep the server’s part, use the file’s, or keep both."),
-      QT_TRANSLATE_NOOP("HelpTexts", "“Use the file’s” replaces the part for everyone on this server. "
-                                     "“Keep both” adds the file’s under a new number, and only this "
-                                     "layout uses it.") },
-
-    // Yours and your clubs'
-    { "owners.filter", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Whose things"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Show everything you can use, only your own, or one club’s."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Your own things and your clubs’ things sit in one list, each marked "
-                                     "with who owns it. Pick a club to see just its things; new things are "
-                                     "saved there too unless you choose otherwise. With a club picked, "
-                                     "you can also see who is in it and the roles they hold.") },
-
-    // Joining a club
-    { "club.whoCanJoin", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Who can join"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Choose how new people get into the club."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Invite only: people join with an invite from an admin. Ask to join: "
-                                     "people send a request and an admin says yes or no. Open: anyone "
-                                     "signed in can join straight away, as a member.") },
-    { "club.listed", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Show in the club list"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Let people find the club under Find a club."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Everyone signed in sees its name, its description and how many "
-                                     "members it has. Leave it off to keep the club hidden, so only people "
-                                     "you invite know about it.") },
-    { "club.requests", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Requests to join"),
-      QT_TRANSLATE_NOOP("HelpTexts", "People who asked to join the club, waiting for an admin."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Approve to make them a member. Decline to say no; they aren’t told, "
-                                     "and they can ask again later.") },
-    { "club.roles", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Roles in the club"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Roles decide what people can do in the club, and someone can hold several."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Every club starts with Admin, Manager, Member and Viewer, and its admins can "
-                                     "change them or add their own, such as Track crew. Someone with several roles "
-                                     "can do everything those roles allow. A layout or module shared with someone "
-                                     "still works on top of their roles.") },
-    { "club.permissions", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "What a role allows"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Tick what people with this role may do in the club."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Everyone in the club can view its things. The other boxes add to that: editing "
-                                     "layouts, adding modules or parts, inviting people and so on. Changes reach "
-                                     "people at once, even in a layout they have open.") },
-    { "club.find", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Find a club"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Clubs that chose to be listed here, for anyone to find."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Join an open club straight away, or ask to join and wait for an "
-                                     "admin to say yes. Some clubs take new members by invite only.") },
-    { "catalog.featured", "/help#collections",
-      QT_TRANSLATE_NOOP("HelpTexts", "Featured"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Collections the site’s moderators picked as a good place to start."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Open one to see what’s in it, then add one item or Add all to copy everything to you or your club. Below them, each kind of thing has its own row: See all opens the whole list, which you can search and sort.") },
-    { "catalog.collections", "/help#collections",
-      QT_TRANSLATE_NOOP("HelpTexts", "Collections"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Sets of modules and parts that go well together, like “Starter town”."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Open one to see what’s in it, then add one item or Add all to copy everything to you or your club. Anyone signed in can make a collection.") },
-    { "catalog.yourCollections", "/help#collections",
-      QT_TRANSLATE_NOOP("HelpTexts", "Your collections"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Collections you made: private ones only you see, public ones are in the catalog."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Make one with New collection, or use “Add to a collection…” on any module or part. A public collection’s title, description and cover are checked by a moderator first; each item is checked on its own.") },
-    { "catalog.clubCollections", "/help#collections",
-      QT_TRANSLATE_NOOP("HelpTexts", "Your clubs’ collections"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Collections your clubs made: every member sees them, and members with the Send to the catalog permission change them."),
-      QT_TRANSLATE_NOOP("HelpTexts", "A club can keep a collection to itself, like its show standards, or share it with everyone in the catalog under the club’s name. Pinned ones come first.") },
-    { "club.trusted", "/help#collections",
-      QT_TRANSLATE_NOOP("HelpTexts", "Trusted club"),
-      QT_TRANSLATE_NOOP("HelpTexts", "A trusted club checks what it shares itself, instead of the site’s moderators."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Members with the Send to the catalog permission review it: what they share under the club’s name goes public at once, and what other members share waits in the club’s own review. The site’s moderators can still see and take down anything, and can stop trusting a club.") },
-    { "collection.audience", "/help#collections",
-      QT_TRANSLATE_NOOP("HelpTexts", "Who can see this"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Private is only you or your club’s members; Everyone puts it in the public catalog after a check."),
-      QT_TRANSLATE_NOOP("HelpTexts", "A moderator checks a public collection’s title, description and cover first. Adding or moving items never needs a check, but your own modules and parts are each checked before they show publicly.") },
-    { "account.publicName", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Your name"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Other people see this name, so pick one you are happy to share; your email stays private."),
-      QT_TRANSLATE_NOOP("HelpTexts", "It shows in club member lists, next to your cursor when you edit with others, and on things you share in the public catalog. You can change it any time on your Profile page.") },
+// The shared entries: help-texts.json, the web's file word for word (a Qt
+// resource, help.qrc), read once. HelpTextStrings.cpp marks the same
+// strings for lupdate; helpEntry() translates them as it hands them out.
+struct SharedEntry {
+    QString key;
+    QByteArray title;
+    QByteArray shortText;
+    QByteArray more;
+    QString learnMoreUrl;
 };
+
+const QList<SharedEntry>& sharedEntries() {
+    static const QList<SharedEntry> entries = [] {
+        QList<SharedEntry> out;
+        initHelpResources();
+        QFile f(QStringLiteral(":/bld/help/help-texts.json"));
+        if (!f.open(QIODevice::ReadOnly)) return out;
+        // The order of the keys is the catalogue's order, so read the
+        // object's keys as they stand in the file, not sorted.
+        const QByteArray bytes = f.readAll();
+        const QJsonObject all = QJsonDocument::fromJson(bytes).object().value(QLatin1String("entries")).toObject();
+        static const QRegularExpression keyRe(QStringLiteral(R"re(^    "([^"]+)": \{)re"), QRegularExpression::MultilineOption);
+        QStringList keys;
+        for (auto it = keyRe.globalMatch(QString::fromUtf8(bytes)); it.hasNext();) keys << it.next().captured(1);
+        if (keys.size() != all.size()) keys = all.keys();  // laid out some other way: sorted, but complete
+        for (const QString& key : keys) {
+            const QJsonObject e = all.value(key).toObject();
+            out.push_back({ key, e.value(QLatin1String("title")).toString().toUtf8(),
+                            e.value(QLatin1String("short")).toString().toUtf8(),
+                            e.value(QLatin1String("more")).toString().toUtf8(),
+                            e.value(QLatin1String("learnMoreUrl")).toString() });
+        }
+        return out;
+    }();
+    return entries;
+}
 
 // Controls only the desktop app has.
 constexpr Raw kDesktopOnly[] = {
@@ -646,8 +218,9 @@ HelpEntry withOverride(HelpEntry e, const Override& o) {
 }  // namespace
 
 std::optional<HelpEntry> sharedHelpEntry(const QString& key) {
-    for (const Raw& r : kShared)
-        if (key == QLatin1String(r.key)) return translated(r);
+    const auto tr = [](const QByteArray& s) { return QCoreApplication::translate("HelpTexts", s.constData()); };
+    for (const SharedEntry& e : sharedEntries())
+        if (e.key == key) return HelpEntry{ tr(e.title), tr(e.shortText), tr(e.more), e.learnMoreUrl };
     return std::nullopt;
 }
 
@@ -664,7 +237,7 @@ std::optional<HelpEntry> helpEntry(const QString& key) {
 
 QStringList sharedHelpKeys() {
     QStringList keys;
-    for (const Raw& r : kShared) keys << QString::fromLatin1(r.key);
+    for (const SharedEntry& e : sharedEntries()) keys << e.key;
     return keys;
 }
 

@@ -2,9 +2,11 @@
 
 // The help behind every "?" button (HelpButton), in plain words for club
 // members: a title, `shortText` (one sentence, shown on hover) and `more`
-// (two or three, shown on click). The web app's apps/web/src/help/
-// helpTexts.ts has the same keys and the same words; fixtures/help-keys.txt
-// is its key list, and HelpTextsTest keeps the two in step. A few keys
+// (two or three, shown on click). The shared words have one source:
+// help-texts.json, the web app's apps/web/src/help/help-texts.json byte for
+// byte (a Qt resource here; HelpTextStrings.cpp marks its strings for
+// translation). fixtures/help-keys.txt is its key list, and HelpTextsTest
+// keeps them in step. A few keys
 // are for controls only the desktop has (desktopOnlyHelpKeys()), and a
 // few shared keys say something different on the desktop, where the
 // web's words would be wrong here (desktopOverriddenHelpKeys()).
@@ -43,5 +45,8 @@ QStringList sharedHelpKeys();
 QStringList desktopOnlyHelpKeys();
 // Shared keys whose words the desktop changes (one list, in HelpTexts.cpp).
 QStringList desktopOverriddenHelpKeys();
+// Every title, short and more text in help-texts.json, as marked for
+// translation (HelpTextStrings.cpp, made by scripts/gen-help-strings.py).
+QStringList sharedHelpStrings();
 
 }  // namespace bld::ui::help
