@@ -22,4 +22,17 @@ inline int placementLayer(const core::Map& map) {
     return -1;
 }
 
+// The sheet a file opens on, the same rule as the web: the sheet saved as
+// selected when it holds parts, else the topmost parts sheet. -1 when the
+// map has no parts sheet (the saved one is kept then).
+inline int startingSheet(const core::Map& map) {
+    const auto& layers = map.layers();
+    const int n = static_cast<int>(layers.size());
+    const int saved = map.selectedLayerIndex;
+    if (saved >= 0 && saved < n && layers[saved] && layers[saved]->kind() == core::LayerKind::Brick) return saved;
+    for (int i = n - 1; i >= 0; --i)
+        if (layers[i] && layers[i]->kind() == core::LayerKind::Brick) return i;
+    return -1;
+}
+
 }  // namespace bld::ui

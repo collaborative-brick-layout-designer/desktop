@@ -12,6 +12,7 @@
 #include <QImage>
 #include <QListWidget>
 #include <QPalette>
+#include <QPushButton>
 
 using namespace bld;
 
@@ -38,7 +39,9 @@ struct PanelOnMap {
         panel.setMap(&map, nullptr);
     }
 
-    QListWidgetItem* row(int i) { return panel.findChild<QListWidget*>()->item(i); }
+    QListWidget* list() { return panel.findChild<QListWidget*>(); }
+    // The row of the map's layer `i` (the list shows the top sheet first).
+    QListWidgetItem* row(int i) { return list()->item(list()->count() - 1 - i); }
 };
 
 // The lightness of the icon's drawn (opaque) pixels.
@@ -100,4 +103,35 @@ TEST(LayerPanel, KindIconsFollowTheTheme) {
     const int bright = iconLightness(t.row(2));
     EXPECT_LT(dark, 60);
     EXPECT_GT(bright, 200);
+}
+
+// The top sheet is listed first, like the web's Sheets panel and drawing
+// apps, and picking, ▲ / ▼ and the signals all use the map's own order.
+TEST(LayerPanel, ListsTheTopSheetFirst) {
+    PanelOnMap t;
+    QListWidget* list = t.list();
+    ASSERT_EQ(list->count(), 4);
+    EXPECT_EQ(list->item(0)->text(), QStringLiteral("(untitled)"));
+    EXPECT_EQ(list->item(1)->text(), QStringLiteral("Buildings"));
+    EXPECT_EQ(list->item(2)->text(), QStringLiteral("Track"));
+    EXPECT_EQ(list->item(3)->text(), QStringLiteral("Grid"));
+    // The active sheet (layer 1, "Track") is the current row, and currentRow() is its layer index.
+    EXPECT_EQ(list->currentItem()->text(), QStringLiteral("Track"));
+    EXPECT_EQ(t.panel.currentRow(), 1);
+    // Picking a row makes its layer active, by the layer's index.
+    int active = -1;
+    QObject::connect(&t.panel, &ui::LayerPanel::activeLayerChanged, [&](int i) { active = i; });
+    list->setCurrentRow(1);
+    EXPECT_EQ(active, 2);
+    EXPECT_EQ(t.map.selectedLayerIndex, 2);
+    // ▲ asks to move that layer up the map's order (+1), which is up the list.
+    int moved = -1, by = 0;
+    QObject::connect(&t.panel, &ui::LayerPanel::moveLayerRequested, [&](int i, int d) { moved = i; by = d; });
+    QPushButton* up = nullptr;
+    for (auto* b : t.panel.findChildren<QPushButton*>())
+        if (b->text() == QString::fromUtf8("\u25B2")) up = b;
+    ASSERT_NE(up, nullptr);
+    up->click();
+    EXPECT_EQ(moved, 2);
+    EXPECT_EQ(by, +1);
 }

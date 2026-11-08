@@ -182,6 +182,30 @@ TEST_F(MainWindowFile, AboutLinksToTheSourceOfBothApps) {
     EXPECT_TRUE(text.contains(QStringLiteral("https://github.com/collaborative-brick-layout-designer/web\"")));
 }
 
+// A file opens on the same sheet as on the web: the one saved as selected
+// when it takes parts, else the topmost parts sheet. Fordyce was saved with
+// "rulers" selected, so both apps open it on "Tracks".
+TEST_F(MainWindowFile, OpensOnTheSavedSheetOrTheTopmostPartsSheet) {
+    const QString fordyce = kCorpus + QStringLiteral("/fordyce-2026.bbm");
+    ASSERT_TRUE(window_->openFile(fordyce));
+    const core::Map* map = window_->findChild<ui::MapView*>()->currentMap();
+    ASSERT_GE(map->selectedLayerIndex, 0);
+    EXPECT_EQ(map->layers()[map->selectedLayerIndex]->name, QStringLiteral("Tracks"));
+    // A saved sheet that takes parts is kept.
+    QFile f(fordyce);
+    ASSERT_TRUE(f.open(QIODevice::ReadOnly));
+    QByteArray bytes = f.readAll();
+    bytes.replace("<SelectedLayerIndex>4</SelectedLayerIndex>", "<SelectedLayerIndex>1</SelectedLayerIndex>");
+    const QString copy = dir_.filePath(QStringLiteral("fordyce-tables.bbm"));
+    QFile out(copy);
+    ASSERT_TRUE(out.open(QIODevice::WriteOnly));
+    out.write(bytes);
+    out.close();
+    ASSERT_TRUE(window_->openFile(copy));
+    map = window_->findChild<ui::MapView*>()->currentMap();
+    EXPECT_EQ(map->layers()[map->selectedLayerIndex]->name, QStringLiteral("Tables"));
+}
+
 // An edit made right after another is autosaved within seconds too, not
 // left for the minute tick.
 TEST_F(MainWindowFile, AutosaveTakesInEveryEditOfABurst) {

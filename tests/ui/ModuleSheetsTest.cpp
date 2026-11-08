@@ -293,7 +293,7 @@ TEST_F(ModuleSheetsView, AHiddenSheetDashesTheFrameAndEditModuleCanShowIt) {
     EXPECT_EQ(view_->moduleEditBar()->sheetsHint(),
               QStringLiteral("This module uses 2 sheets. New parts go on <b>Track</b> (the picked sheet)."));
     EXPECT_FALSE(view_->moduleEditBar()->showSheetsButton()->isVisibleTo(view_->moduleEditBar()));
-    list->item(1)->setCheckState(Qt::Unchecked);
+    list->item(list->count() - 1 - 1)->setCheckState(Qt::Unchecked);  // layer 1 (the top sheet is listed first)
 
     ASSERT_NE(frame(), nullptr);
     EXPECT_TRUE(frame()->data(rendering::kModulePartlyHiddenRole).toBool());

@@ -5,6 +5,7 @@
 // bodies across translation units.
 
 #include "MainWindow.h"
+#include "ActiveSheet.h"
 #include "../edit/Sets.h"
 #include "help/HelpButton.h"
 #include "help/SourceLinks.h"
@@ -217,6 +218,8 @@ bool MainWindow::openFile(const QString& path) {
 void MainWindow::showLoadedMap(std::unique_ptr<core::Map> map, const QString& path, const QStringList& warnings) {
     const int layerCount = static_cast<int>(map->layers().size());
     const int nbItems = map->nbItems;
+    // Open on a sheet that takes parts, by the rule both apps share.
+    if (const int start = startingSheet(*map); start >= 0) map->selectedLayerIndex = start;
     clearActiveView();
     mapView_->loadMap(std::move(map));
     layerPanel_->setMap(mapView_->currentMap(), mapView_->builder());

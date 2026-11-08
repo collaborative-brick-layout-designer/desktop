@@ -33,6 +33,7 @@ public:
     void setMap(core::Map* map, rendering::SceneBuilder* builder);
 
     // Currently-selected layer row, or -1 if none.
+    // The current sheet's layer index (not its row: the list shows the top sheet first).
     int currentRow() const;
 
     // The kind in plain words, e.g. "Parts sheet" for a brick layer.
@@ -72,6 +73,9 @@ protected:
     bool eventFilter(QObject* watched, QEvent* e) override;
 
 private:
+    // List row <-> layer index (the list shows the top sheet first).
+    int indexOfRow(int row) const;
+    int rowOfIndex(int index) const;
     QListWidget* list_ = nullptr;
     rendering::SceneBuilder* builder_ = nullptr;
     core::Map* map_ = nullptr;
