@@ -535,6 +535,55 @@ TEST_F(MainWindowFile, ShellHasTaskTabsSheetsAndThePieceCount) {
     EXPECT_NE(action(*window_, QStringLiteral("Send to &Back")), nullptr);
 }
 
+// The status bar's piece count is every part on every sheet (as the web
+// counts), and it follows an open, a delete, an undo and a remote edit. It
+// used to stay at "0 pieces" after opening a file.
+TEST_F(MainWindowFile, ThePieceCountFollowsOpenEditUndoAndRemoteEdits) {
+    auto* pieces = window_->findChild<QLabel*>(QStringLiteral("PiecesLabel"));
+    auto* sheet = window_->findChild<QLabel*>(QStringLiteral("SheetLabel"));
+    ASSERT_NE(pieces, nullptr);
+    ASSERT_NE(sheet, nullptr);
+    auto* view = window_->findChild<ui::MapView*>();
+    ASSERT_NE(view, nullptr);
+    const auto bricks = [&] {
+        int n = 0;
+        for (const auto& L : view->currentMap()->layers())
+            if (L && L->kind() == core::LayerKind::Brick)
+                n += static_cast<int>(static_cast<const core::LayerBrick&>(*L).bricks.size());
+        return n;
+    };
+
+    ASSERT_TRUE(window_->openFile(bbm_));
+    QCoreApplication::processEvents();
+    EXPECT_EQ(pieces->text(), QStringLiteral("304 pieces"));
+    EXPECT_TRUE(sheet->text().startsWith(QStringLiteral("Sheet: "))) << sheet->text().toStdString();
+
+    // Delete what the current sheet holds, then undo it.
+    view->selectAll();
+    view->deleteSelected();
+    QCoreApplication::processEvents();
+    const int left = bricks();
+    ASSERT_LT(left, 304);
+    EXPECT_EQ(pieces->text(), QStringLiteral("%1 pieces").arg(left));
+    view->undoStack()->undo();
+    QCoreApplication::processEvents();
+    EXPECT_EQ(pieces->text(), QStringLiteral("304 pieces"));
+
+    // A remote edit takes one part away.
+    auto remote = saveload::readBbm(bbm_).map;
+    ASSERT_TRUE(remote);
+    for (auto& L : remote->layers())
+        if (L && L->kind() == core::LayerKind::Brick) {
+            auto& list = static_cast<core::LayerBrick&>(*L).bricks;
+            if (list.empty()) continue;
+            list.pop_back();
+            break;
+        }
+    view->updateMap(std::move(remote));
+    QCoreApplication::processEvents();
+    EXPECT_EQ(pieces->text(), QStringLiteral("303 pieces"));
+}
+
 // BlueBrick's Use as Model: right-click a part on the map and choose Use as
 // Model; the parts list shows and picks that part.
 TEST(MainWindowUseAsModel, RightClickAPartToPickItInThePartsList) {

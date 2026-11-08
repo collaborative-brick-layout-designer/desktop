@@ -404,6 +404,10 @@ void MainWindow::setupShell() {
         sheet->parentWidget()->setVisible(!sheetName.isEmpty());
     };
     connect(mapView_->undoStack(), &QUndoStack::indexChanged, this, refresh);
+    // Opening a file, a new layout and a remote edit put a new map in the
+    // view: the undo stack doesn't move when it was already empty, so the
+    // count stayed at the last layout's (0 after starting up).
+    connect(mapView_, &MapView::mapLoaded, this, refresh);
     connect(mapView_, &MapView::layersChanged, this, refresh);
     connect(layerPanel_, &LayerPanel::activeLayerChanged, this, refresh);
     QTimer::singleShot(0, this, refresh);
