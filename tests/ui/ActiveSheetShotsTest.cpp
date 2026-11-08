@@ -82,19 +82,27 @@ TEST(ActiveSheetShots, PicturesForReview) {
     for (int i = 0; i < list->count(); ++i)
         if (list->item(i)->text() == QStringLiteral("Tables")) list->setCurrentRow(i);
     const ui::theme::Accent accent = ui::theme::accent(QString::fromLatin1(ui::theme::kDefaultAccent));
-    for (const auto mode : { ui::theme::Mode::Light, ui::theme::Mode::Dark }) {
+    const auto useTheme = [&](ui::theme::Mode mode) {
         QApplication::setPalette(ui::theme::buildPalette(mode, accent));
         qApp->setStyleSheet(ui::theme::buildStyleSheet(mode, accent));
         QTest::qWait(500);
         // A new theme draws the part pictures again.
         t.restart();
         while (loadingParts() && t.elapsed() < 180000) QTest::qWait(200);
-        ASSERT_FALSE(loadingParts());
         QTest::qWait(300);
-        const QString name = mode == ui::theme::Mode::Dark ? QStringLiteral("dark") : QStringLiteral("light");
+        return mode == ui::theme::Mode::Dark ? QStringLiteral("dark") : QStringLiteral("light");
+    };
+    // The plain pictures first, before anything is dragged or placed.
+    for (const auto mode : { ui::theme::Mode::Light, ui::theme::Mode::Dark }) {
+        const QString name = useTheme(mode);
+        ASSERT_FALSE(loadingParts());
         window.grab().save(out + QStringLiteral("/desk-%1-%2.png").arg(tag, name));
+    }
 #if __has_include("ui/ActiveSheetButton.h")
-        // A part dragged over the map, and a part placed on a hidden sheet.
+    // A part dragged over the map, and a part placed on a hidden sheet.
+    for (const auto mode : { ui::theme::Mode::Light, ui::theme::Mode::Dark }) {
+        const QString name = useTheme(mode);
+        ASSERT_FALSE(loadingParts());
         QMimeData mime;
         mime.setData(QByteArray(ui::PartsBrowser::kPartMimeType), QByteArray("2865.8"));
         const QPoint at = view->viewport()->rect().center();
@@ -115,8 +123,8 @@ TEST(ActiveSheetShots, PicturesForReview) {
         list->item(tables)->setCheckState(Qt::Checked);
         window.notices()->hideNotice(QStringLiteral("sheet.hidden"));
         QTest::qWait(200);
-#endif
     }
+#endif
     qApp->setStyleSheet(QString());
     QStandardPaths::setTestModeEnabled(false);
 }
