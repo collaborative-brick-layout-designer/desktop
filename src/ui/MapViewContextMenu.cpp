@@ -10,6 +10,7 @@
 // stays focused on drag / paint / selection plumbing rather than menu wiring.
 
 #include "MapView.h"
+#include "SheetNames.h"
 #include "../core/ModuleEdit.h"
 #include "../core/ModuleLook.h"
 #include "../edit/ModuleCommands.h"
@@ -196,7 +197,7 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
                 for (int i = static_cast<int>(layers.size()) - 1; i >= 0; --i) {
                     if (layers[i]->kind() != core::LayerKind::Brick) continue;
                     if (from.size() == 1 && from.contains(i)) continue;
-                    auto* a = sheets->addAction(layers[i]->name);
+                    auto* a = sheets->addAction(shownSheetName(*layers[i]));
                     connect(a, &QAction::triggered, [this, i]{ moveSelectionToSheet(i); });
                 }
                 if (!sheets->isEmpty()) sheets->addSeparator();

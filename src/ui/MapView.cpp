@@ -1,4 +1,5 @@
 #include "MapView.h"
+#include "SheetNames.h"
 #include "ActiveSheet.h"
 
 #include <QSignalBlocker>
@@ -2892,7 +2893,7 @@ void MapView::showDropTargetHint() {
         return;
     }
 
-    const QString name = layers[target]->name;
+    const QString name = shownSheetName(*layers[target]);
     const bool isActive = (target == map_->selectedLayerIndex);
     const QString msg = isActive
         ? tr("Drop onto: %1 (active sheet)").arg(name)
@@ -2915,7 +2916,7 @@ void MapView::showDropTag(QPoint viewportPos) {
     }
     const int target = placementLayer(*map_);
     const core::Layer* L = target >= 0 ? map_->layers()[target].get() : nullptr;
-    const QString name = L ? (L->name.isEmpty() ? tr("(untitled)") : L->name) : QString();
+    const QString name = L ? shownSheetName(*L) : QString();
     const bool hidden = L && !L->visible;
     dropTag_->setText(!L ? tr("→ no parts sheet") : hidden ? tr("→ %1 (hidden)").arg(name) : tr("→ %1").arg(name));
     // Accent pill; amber when the sheet is hidden.

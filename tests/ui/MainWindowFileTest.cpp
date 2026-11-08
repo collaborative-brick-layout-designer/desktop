@@ -6,6 +6,7 @@
 #include "ui/PartDifferencesDialog.h"
 #include "ui/PartsBrowser.h"
 #include "ui/MapViewInternal.h"
+#include "ui/SheetNames.h"
 #include "ui/UpdateCheck.h"
 
 #include "core/AnchoredLabel.h"
@@ -261,6 +262,51 @@ TEST_F(MainWindowFile, StatusBarNamesTheFileWithThePathAsTooltip) {
     EXPECT_EQ(bar->toolTip(), QDir::toNativeSeparators(bbm_));
     bar->showMessage(QStringLiteral("Something else"));
     EXPECT_TRUE(bar->toolTip().isEmpty());
+}
+
+// BlueBrick's untouched "Layer 1" shows as "Sheet 1", but the map keeps
+// "Layer 1": the .bbm written from the opened map names it "Layer 1", and a
+// read-then-write of the file is byte for byte the file.
+TEST_F(MainWindowFile, BlueBricksLayerOneShowsAsSheetOneAndTheBbmKeepsIt) {
+    QFile original(bbm_);
+    ASSERT_TRUE(original.open(QIODevice::ReadOnly));
+    const QByteArray bytes = original.readAll();
+    ASSERT_TRUE(bytes.contains("<Name>Layer 1</Name>"));
+    ASSERT_TRUE(window_->openFile(bbm_));
+    auto* list = window_->findChild<QListWidget*>(QStringLiteral("sheetList"));
+    ASSERT_NE(list, nullptr);
+    QStringList shown;
+    for (int i = 0; i < list->count(); ++i) shown << list->item(i)->text();
+    EXPECT_TRUE(shown.contains(QStringLiteral("Sheet 1"))) << shown.join(QStringLiteral(", ")).toStdString();
+    EXPECT_FALSE(shown.contains(QStringLiteral("Layer 1")));
+    const core::Map* map = window_->findChild<ui::MapView*>()->currentMap();
+    const QString again = dir_.filePath(QStringLiteral("again.bbm"));
+    ASSERT_TRUE(saveload::writeBbm(*map, again).ok);
+    QFile b(again);
+    ASSERT_TRUE(b.open(QIODevice::ReadOnly));
+    const QByteArray written = b.readAll();
+    EXPECT_TRUE(written.contains("<Name>Layer 1</Name>"));
+    EXPECT_FALSE(written.contains("Sheet 1"));
+    // The reader and writer alone (what export runs on) give the file back byte for byte.
+    auto read = saveload::readBbm(bbm_);
+    ASSERT_TRUE(read.ok());
+    QBuffer buf;
+    ASSERT_TRUE(buf.open(QIODevice::WriteOnly));
+    ASSERT_TRUE(saveload::writeBbm(*read.map, buf).ok);
+    EXPECT_TRUE(buf.data() == bytes) << "a read-then-write of the .bbm differs from the file";
+}
+
+TEST(SheetNames, OnlyTheUntouchedDefaultIsShownAsSheet) {
+    EXPECT_EQ(ui::displaySheetName(QStringLiteral("Layer 1")), QStringLiteral("Sheet 1"));
+    EXPECT_EQ(ui::displaySheetName(QStringLiteral("Layer 12")), QStringLiteral("Sheet 12"));
+    EXPECT_EQ(ui::displaySheetName(QStringLiteral("Layer 1 old")), QStringLiteral("Layer 1 old"));
+    EXPECT_EQ(ui::displaySheetName(QStringLiteral("layer 1")), QStringLiteral("layer 1"));
+    EXPECT_EQ(ui::displaySheetName(QStringLiteral("Tracks")), QStringLiteral("Tracks"));
+    // A rename box left at the shown default saves nothing.
+    EXPECT_TRUE(ui::renamedSheet(QStringLiteral("Layer 1"), QStringLiteral("Sheet 1")).isEmpty());
+    EXPECT_TRUE(ui::renamedSheet(QStringLiteral("Layer 1"), QStringLiteral(" Layer 1 ")).isEmpty());
+    EXPECT_TRUE(ui::renamedSheet(QStringLiteral("Layer 1"), QString()).isEmpty());
+    EXPECT_EQ(ui::renamedSheet(QStringLiteral("Layer 1"), QStringLiteral("Baseplates")), QStringLiteral("Baseplates"));
 }
 
 // An edit made right after another is autosaved within seconds too, not

@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "SheetNames.h"
 #include "ConfirmDialog.h"
 #include "LoadingCard.h"
 #include "SheetChoiceDialog.h"
@@ -173,7 +174,7 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
         dlg.setWindowTitle(tr("Sheet options"));
         auto* form = new QFormLayout(&dlg);
         form->addRow(help::headingWithHelp(tr("Sheet options"), QStringLiteral("dialog.sheetOptions"), &dlg));
-        auto* nameE = new QLineEdit(layer.name, &dlg);
+        auto* nameE = new QLineEdit(displaySheetName(layer.name), &dlg);
         form->addRow(tr("Name:"), nameE);
         auto* alphaSpin = new QSpinBox(&dlg);
         alphaSpin->setRange(0, 100); alphaSpin->setSuffix(QStringLiteral(" %"));
@@ -258,8 +259,8 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
         connect(bb, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);
         if (dlg.exec() != QDialog::Accepted) return;
         mapView_->undoStack()->beginMacro(tr("Sheet options"));
-        if (nameE->text() != layer.name) {
-            mapView_->undoStack()->push(new edit::RenameLayerCommand(*map, idx, nameE->text()));
+        if (const QString next = renamedSheet(layer.name, nameE->text()); !next.isEmpty()) {
+            mapView_->undoStack()->push(new edit::RenameLayerCommand(*map, idx, next));
         }
         if (alphaSpin->value() != layer.transparency) {
             mapView_->undoStack()->push(new edit::SetLayerTransparencyCommand(*map, idx, alphaSpin->value()));
@@ -616,7 +617,7 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
         const QList<int> sheets = mapView_->selectedSheets();
         const core::Map* map = mapView_->currentMap();
         if (sheets.size() == 1 && map && sheets[0] >= 0 && sheets[0] < static_cast<int>(map->layers().size()))
-            text += tr(" · on sheet “%1”").arg(map->layers()[sheets[0]]->name);
+            text += tr(" · on sheet “%1”").arg(shownSheetName(*map->layers()[sheets[0]]));
         else if (sheets.size() > 1)
             text += tr(" · on %n sheet(s)", nullptr, static_cast<int>(sheets.size()));
         selLabel->setText(text);

@@ -1,4 +1,5 @@
 #include "ActiveSheetButton.h"
+#include "SheetNames.h"
 
 #include "ActiveSheet.h"
 #include "LayerPanel.h"
@@ -54,7 +55,7 @@ void ActiveSheetButton::refresh(const core::Map* map) {
     const int n = static_cast<int>(layers.size());
     const int active = map->selectedLayerIndex;
     const core::Layer* a = active >= 0 && active < n ? layers[active].get() : nullptr;
-    const auto nameOf = [](const core::Layer& l) { return l.name.isEmpty() ? ActiveSheetButton::tr("(untitled)") : l.name; };
+    const auto nameOf = [](const core::Layer& l) { return shownSheetName(l); };
     if (!a) {
         setText(tr("Adding to: %1").arg(none));
         setIcon(QIcon());
