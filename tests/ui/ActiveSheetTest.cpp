@@ -86,6 +86,8 @@ protected:
 
     core::Map& map() { return *view_->currentMap(); }
     QListWidget* list() { return panel_->findChild<QListWidget*>(QStringLiteral("sheetList")); }
+    // The list's row for the map's layer `index` (the top sheet is listed first).
+    int rowOf(int index) { return list()->count() - 1 - index; }
     int sheet(const QString& name) {
         for (int i = 0; i < static_cast<int>(map().layers().size()); ++i)
             if (map().layers()[i]->name == name) return i;
@@ -168,7 +170,7 @@ TEST_F(ActiveSheetTest, TheButtonThePanelAndThePartsTitleAgreeAndFollowEveryChan
     EXPECT_EQ(partsOn(sheet(QStringLiteral("Bricks"))), 0);
 
     // A click in the Sheets panel: the button follows.
-    list()->setCurrentRow(sheet(QStringLiteral("Bricks")));
+    list()->setCurrentRow(rowOf(sheet(QStringLiteral("Bricks"))));
     QApplication::processEvents();
     allSay(QStringLiteral("Bricks"), QStringLiteral("Bricks"));
 
@@ -214,7 +216,7 @@ TEST_F(ActiveSheetTest, PlacingOnAHiddenSheetSaysSoAndOffersToShowIt) {
     show->click();
     QApplication::processEvents();
     EXPECT_TRUE(map().layers()[bricks]->visible);
-    EXPECT_EQ(list()->item(bricks)->checkState(), Qt::Checked);
+    EXPECT_EQ(list()->item(rowOf(bricks))->checkState(), Qt::Checked);
     EXPECT_EQ(button_->text(), QStringLiteral("Adding to: Bricks"));
     EXPECT_FALSE(window_->notices()->isShown(QStringLiteral("sheet.hidden")));
 }
@@ -331,4 +333,19 @@ TEST_F(ActiveSheetTest, FadingTheOtherSheetsShowsOnScreenOnlyNeverInAPicture) {
     EXPECT_EQ(opacity(tables), 1.0);
     EXPECT_EQ(picture(), plain);
     QSettings().remove(key);
+}
+
+// The "Adding to" menu and the Sheets panel both list the top sheet first,
+// as the web does.
+TEST_F(ActiveSheetTest, TheMenuAndThePanelListTheTopSheetFirst) {
+    QStringList menuNames;
+    for (QAction* a : button_->menu()->actions())
+        if (a->isCheckable()) menuNames << a->text();
+    QStringList panelNames;
+    for (int i = 0; i < list()->count(); ++i) panelNames << list()->item(i)->data(Qt::UserRole).toString();
+    QStringList mapTopFirst;
+    for (int i = static_cast<int>(map().layers().size()) - 1; i >= 0; --i) mapTopFirst << map().layers()[i]->name;
+    EXPECT_EQ(panelNames, mapTopFirst);
+    ASSERT_EQ(menuNames.size(), mapTopFirst.size());
+    for (int i = 0; i < menuNames.size(); ++i) EXPECT_TRUE(menuNames[i].startsWith(mapTopFirst[i])) << i;
 }

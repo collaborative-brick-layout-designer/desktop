@@ -74,9 +74,9 @@ void ActiveSheetButton::refresh(const core::Map* map) {
         else
             setToolTip(tr("New parts go on “%1”. Click to pick another sheet.").arg(nameOf(*a)));
     }
-    // The menu lists the sheets in the Sheets panel's order.
+    // The menu lists the sheets in the Sheets panel's order: the top sheet first.
     auto* group = new QActionGroup(m);
-    for (int i = 0; i < n; ++i) {
+    for (int i = n - 1; i >= 0; --i) {
         const core::Layer* l = layers[i].get();
         if (!l) continue;
         QString label = nameOf(*l);

@@ -200,15 +200,15 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
     });
     connect(delBtn, &QPushButton::clicked, this, [this]{
         const int row = list_->currentRow();
-        if (row >= 0) emit deleteLayerRequested(row);
+        if (row >= 0) emit deleteLayerRequested(indexOfRow(row));
     });
     connect(upBtn, &QPushButton::clicked, this, [this]{
         const int row = list_->currentRow();
-        if (row >= 0) emit moveLayerRequested(row, +1);
+        if (row >= 0) emit moveLayerRequested(indexOfRow(row), +1);
     });
     connect(dnBtn, &QPushButton::clicked, this, [this]{
         const int row = list_->currentRow();
-        if (row >= 0) emit moveLayerRequested(row, -1);
+        if (row >= 0) emit moveLayerRequested(indexOfRow(row), -1);
     });
 
     list_ = new QListWidget(host);
@@ -232,7 +232,7 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
     });
     connect(list_, &QListWidget::itemChanged, this, [this](QListWidgetItem* item) {
         if (!builder_) return;
-        const int idx = list_->row(item);
+        const int idx = indexOfRow(list_->row(item));
         const bool visible = item->checkState() == Qt::Checked;
         builder_->setLayerVisible(idx, visible);
         // Also persist on the underlying Layer so a later scene rebuild
@@ -251,14 +251,15 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
     // vanilla BlueBrick uses Map.selectedLayerIndex for new-item placements.
     connect(list_, &QListWidget::currentRowChanged, this, [this](int row){
         if (row >= 0 && map_) {
-            map_->selectedLayerIndex = row;
-            emit activeLayerChanged(row);
+            const int index = indexOfRow(row);
+            map_->selectedLayerIndex = index;
+            emit activeLayerChanged(index);
             // Re-render the panel so the active row renders bold.
             setMap(map_, builder_);
         }
     });
     connect(list_, &QListWidget::itemDoubleClicked, this, [this](QListWidgetItem* item){
-        if (item) emit layerOptionsRequested(list_->row(item));
+        if (item) emit layerOptionsRequested(indexOfRow(list_->row(item)));
     });
 
     connect(list_, &QWidget::customContextMenuRequested, this, [this](const QPoint& pos) {
@@ -267,6 +268,7 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
 
         if (item) {
             const int row = list_->row(item);
+            const int index = indexOfRow(row);
             const bool visible = (item->checkState() == Qt::Checked);
             auto* setActive = menu.addAction(tr("Make Active Sheet"));
             connect(setActive, &QAction::triggered, [this, row]{
@@ -289,24 +291,24 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
             });
             menu.addSeparator();
             auto* opts = menu.addAction(tr("Sheet options..."));
-            connect(opts, &QAction::triggered, [this, row]{ emit layerOptionsRequested(row); });
+            connect(opts, &QAction::triggered, [this, index]{ emit layerOptionsRequested(index); });
             auto* ren = menu.addAction(tr("Rename..."));
-            connect(ren, &QAction::triggered, [this, row, item]{
+            connect(ren, &QAction::triggered, [this, index, item]{
                 bool ok = false;
                 // The sheet's own name (the row may show "(untitled)").
                 const QString def = item->data(Qt::UserRole).toString();
                 const QString name = QInputDialog::getText(
                     this, tr("Rename sheet"), tr("Sheet name:"),
                     QLineEdit::Normal, def, &ok);
-                if (ok && !name.isEmpty()) emit renameLayerRequested(row, name);
+                if (ok && !name.isEmpty()) emit renameLayerRequested(index, name);
             });
             auto* up = menu.addAction(tr("Move Up"));
-            connect(up, &QAction::triggered, [this, row]{ emit moveLayerRequested(row, +1); });
+            connect(up, &QAction::triggered, [this, index]{ emit moveLayerRequested(index, +1); });
             auto* dn = menu.addAction(tr("Move Down"));
-            connect(dn, &QAction::triggered, [this, row]{ emit moveLayerRequested(row, -1); });
+            connect(dn, &QAction::triggered, [this, index]{ emit moveLayerRequested(index, -1); });
             menu.addSeparator();
             auto* del = menu.addAction(tr("Delete sheet"));
-            connect(del, &QAction::triggered, [this, row]{ emit deleteLayerRequested(row); });
+            connect(del, &QAction::triggered, [this, index]{ emit deleteLayerRequested(index); });
             menu.addSeparator();
         }
 
@@ -337,7 +339,13 @@ bool LayerPanel::eventFilter(QObject* watched, QEvent* e) {
     return QDockWidget::eventFilter(watched, e);
 }
 
-int LayerPanel::currentRow() const { return list_->currentRow(); }
+int LayerPanel::currentRow() const { return indexOfRow(list_->currentRow()); }
+
+// The list shows the top sheet first, like the web and drawing apps: row 0
+// is the last layer in the map (drawn on top). Signals and the map always
+// use the layer's index; only the list's rows run the other way.
+int LayerPanel::indexOfRow(int row) const { return row < 0 ? -1 : list_->count() - 1 - row; }
+int LayerPanel::rowOfIndex(int index) const { return index < 0 || index >= list_->count() ? -1 : list_->count() - 1 - index; }
 
 void LayerPanel::setMap(core::Map* map, rendering::SceneBuilder* builder) {
     builder_ = builder;
@@ -345,8 +353,9 @@ void LayerPanel::setMap(core::Map* map, rendering::SceneBuilder* builder) {
     list_->blockSignals(true);
     list_->clear();
     if (map) {
-        int i = 0;
-        for (const auto& layer : map->layers()) {
+        const auto& layers = map->layers();
+        for (int i = static_cast<int>(layers.size()) - 1; i >= 0; --i) {
+            const auto& layer = layers[i];
             const bool isActive = (i == map->selectedLayerIndex);
             // The row shows just the sheet's name, like the web's Sheets
             // panel; the kind is the icon, and the kind, number and
@@ -377,35 +386,32 @@ void LayerPanel::setMap(core::Map* map, rendering::SceneBuilder* builder) {
             item->setToolTip(tip.join(QLatin1Char('\n')));
             item->setData(Qt::AccessibleDescriptionRole, friendlyKindName(layer->kind()));
             list_->addItem(item);
-            ++i;
         }
-        if (map->selectedLayerIndex >= 0 && map->selectedLayerIndex < list_->count()) {
-            list_->setCurrentRow(map->selectedLayerIndex);
-        }
+        if (const int row = rowOfIndex(map->selectedLayerIndex); row >= 0) list_->setCurrentRow(row);
     }
     list_->blockSignals(false);
     emit refreshed();
 }
 
 void LayerPanel::setActiveRow(int index) {
-    if (index >= 0 && index < list_->count()) list_->setCurrentRow(index);
+    if (const int row = rowOfIndex(index); row >= 0) list_->setCurrentRow(row);
 }
 
 void LayerPanel::setSheetVisible(int index, bool visible) {
-    if (index >= 0 && index < list_->count())
-        list_->item(index)->setCheckState(visible ? Qt::Checked : Qt::Unchecked);
+    if (const int row = rowOfIndex(index); row >= 0)
+        list_->item(row)->setCheckState(visible ? Qt::Checked : Qt::Unchecked);
 }
 
 void LayerPanel::flashRow(int index) {
-    const auto mark = [this](int row, bool on) {
-        if (row >= 0 && row < list_->count()) list_->item(row)->setData(kFlashRole, on);
+    const auto mark = [this](int sheet, bool on) {
+        if (const int row = rowOfIndex(sheet); row >= 0) list_->item(row)->setData(kFlashRole, on);
     };
     list_->blockSignals(true);
     mark(flashRow_, false);
     flashRow_ = index;
     mark(index, true);
     list_->blockSignals(false);
-    if (index >= 0 && index < list_->count()) list_->scrollToItem(list_->item(index));
+    if (const int row = rowOfIndex(index); row >= 0) list_->scrollToItem(list_->item(row));
     const int seq = ++flashSeq_;
     QTimer::singleShot(4000, this, [this, seq, mark] {
         if (seq != flashSeq_) return;
