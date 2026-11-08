@@ -102,6 +102,12 @@ constexpr Raw kShared[] = {
       QT_TRANSLATE_NOOP("HelpTexts", "Show or hide the side panels."),
       QT_TRANSLATE_NOOP("HelpTexts", "Tick a panel to show it. You can also drag a panel by its handle to "
                                      "move it, or float it over the map.") },
+    { "toolbar.activeSheet", "/help#sheets",
+      QT_TRANSLATE_NOOP("HelpTexts", "Adding to"),
+      QT_TRANSLATE_NOOP("HelpTexts", "The sheet new parts go on; click it to pick a different sheet."),
+      QT_TRANSLATE_NOOP("HelpTexts", "This is the active sheet, also marked Active in the Sheets panel. Parts "
+                                     "you place or drop go on it. If it is a text, area or ruler sheet, parts "
+                                     "go on a parts sheet instead, and you are told which.") },
     { "tools.rail", "/help#shortcuts",
       QT_TRANSLATE_NOOP("HelpTexts", "Tools"),
       QT_TRANSLATE_NOOP("HelpTexts", "Pick what a click on the map does."),

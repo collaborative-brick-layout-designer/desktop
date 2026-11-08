@@ -47,7 +47,7 @@ QString webCatalogue() {
 
 TEST(HelpTexts, HasTheWebsKeysInTheSameOrder) {
     const QStringList fixture = fixtureKeys();
-    ASSERT_EQ(fixture.size(), 77);
+    ASSERT_EQ(fixture.size(), 78);
     EXPECT_EQ(sharedHelpKeys(), fixture);
 }
 

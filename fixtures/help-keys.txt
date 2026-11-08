@@ -15,6 +15,7 @@ toolbar.snap
 toolbar.rotateStep
 toolbar.paintColor
 toolbar.panels
+toolbar.activeSheet
 tools.rail
 status.sheet
 status.room
