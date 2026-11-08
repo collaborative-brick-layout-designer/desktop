@@ -11,6 +11,8 @@
 #include "core/AnchoredLabel.h"
 #include "core/DrawnLimits.h"
 #include "core/LayerBrick.h"
+#include "core/LayerGrid.h"
+#include "rendering/SceneBuilder.h"
 #include "core/Map.h"
 #include "import/LayoutFile.h"
 #include "parts/PartsLibrary.h"
@@ -582,6 +584,47 @@ TEST_F(MainWindowFile, ThePieceCountFollowsOpenEditUndoAndRemoteEdits) {
     view->updateMap(std::move(remote));
     QCoreApplication::processEvents();
     EXPECT_EQ(pieces->text(), QStringLiteral("303 pieces"));
+}
+
+// Opening a layout and Fit show the grid's column letters and row numbers
+// whole: column A and row 1 sit in the grid's first row and column, above
+// and left of the parts, and used to be cut off at the top of the map.
+TEST_F(MainWindowFile, OpeningAndFitKeepTheGridLettersOnScreen) {
+    window_->resize(1440, 900);
+    window_->show();
+    QCoreApplication::processEvents();
+    ASSERT_TRUE(window_->openFile(bbm_));
+    QCoreApplication::processEvents();
+    auto* view = window_->findChild<ui::MapView*>();
+    ASSERT_NE(view, nullptr);
+    const core::LayerGrid* grid = nullptr;
+    for (const auto& L : view->currentMap()->layers())
+        if (L && L->kind() == core::LayerKind::Grid) grid = static_cast<const core::LayerGrid*>(L.get());
+    ASSERT_NE(grid, nullptr);
+    ASSERT_TRUE(grid->displayCellIndex);
+    const double px = rendering::SceneBuilder::kPixelsPerStud;
+    const double cell = grid->gridSizeInStud * px;
+    const double glyph = grid->cellIndexFont.sizePt * 4.0 / 3.0 * px;  // as drawCellIndices sizes it
+    const QPoint c = grid->cellIndexCorner;
+    // "A" and "1": centred in their cells, a glyph high.
+    const auto glyphAt = [&](int col, int row) {
+        const QPointF centre((col + 0.5) * cell, (row + 0.5) * cell);
+        return QRectF(centre - QPointF(glyph / 2, glyph / 2), QSizeF(glyph, glyph));
+    };
+    const auto shown = [&] { return view->mapToScene(view->viewport()->rect()).boundingRect(); };
+    const auto expectLabelsShown = [&] {
+        EXPECT_TRUE(shown().contains(glyphAt(c.x() + 1, c.y()))) << "column A";
+        EXPECT_TRUE(shown().contains(glyphAt(c.x(), c.y() + 1))) << "row 1";
+    };
+    expectLabelsShown();
+
+    view->scale(3, 3);
+    view->centerOn(view->scene()->itemsBoundingRect().center());
+    QCoreApplication::processEvents();
+    EXPECT_FALSE(shown().contains(glyphAt(c.x() + 1, c.y())));
+    QMetaObject::invokeMethod(window_.get(), "onFitToView", Qt::DirectConnection);
+    QCoreApplication::processEvents();
+    expectLabelsShown();
 }
 
 // BlueBrick's Use as Model: right-click a part on the map and choose Use as

@@ -435,7 +435,7 @@ void MapView::loadMap(std::unique_ptr<core::Map> map) {
     // is well beyond any realistic train-club layout. Without this the
     // sceneRect defaulted to the items bounding box and pan stopped at
     // the last brick.
-    const QRectF content = scene()->itemsBoundingRect();
+    const QRectF content = fitRect();
     const double kPadPx = 50000.0;
     const QRectF bigRect = content.isEmpty()
         ? QRectF(-kPadPx, -kPadPx, kPadPx * 2, kPadPx * 2)
@@ -716,6 +716,40 @@ void MapView::applyViewFilter() {
     }
     builder_->setLabelsVisible(!viewFilter_ || viewFilter_->labels);
     viewport()->update();
+}
+
+QRectF MapView::fitRect() const {
+    QRectF r = scene()->itemsBoundingRect();
+    if (!map_ || r.isEmpty() || (viewFilter_ && !viewFilter_->grid)) return r;
+    for (const auto& layer : map_->layers()) {
+        if (!layer || layer->kind() != core::LayerKind::Grid || !layer->visible) continue;
+        const auto& g = static_cast<const core::LayerGrid&>(*layer);
+        // The grid drawn is the first visible one (drawBackground).
+        if (!g.displayCellIndex) break;
+        const double cell = std::max(1, g.gridSizeInStud) * rendering::SceneBuilder::kPixelsPerStud;
+        // A label row far from the content is left out, so a stray origin
+        // never shrinks the layout to a speck.
+        const double reach = 2 * cell;
+        const QPoint c = g.cellIndexCorner;
+        const double rowTop = c.y() * cell, rowBottom = rowTop + cell;
+        if (rowBottom >= r.top() - reach && rowTop <= r.bottom() + reach) {
+            r.setTop(std::min(r.top(), rowTop));
+            r.setBottom(std::max(r.bottom(), rowBottom));
+        }
+        const double colLeft = c.x() * cell, colRight = colLeft + cell;
+        if (colRight >= r.left() - reach && colLeft <= r.right() + reach) {
+            r.setLeft(std::min(r.left(), colLeft));
+            r.setRight(std::max(r.right(), colRight));
+        }
+        break;
+    }
+    return r;
+}
+
+void MapView::fitAll() {
+    const QRectF r = fitRect();
+    if (r.isEmpty()) return;
+    fitInView(r.adjusted(-50, -50, 50, 50), Qt::KeepAspectRatio);
 }
 
 std::optional<QRectF> MapView::screenRectStuds() const {

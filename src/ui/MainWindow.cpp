@@ -1039,9 +1039,8 @@ void MainWindow::onZoomIn()  { mapView_->scale(1.2, 1.2); }
 void MainWindow::onZoomOut() { mapView_->scale(1 / 1.2, 1 / 1.2); }
 
 void MainWindow::onFitToView() {
-    if (!mapView_->currentMap() || mapView_->scene()->itemsBoundingRect().isEmpty()) return;
-    mapView_->fitInView(mapView_->scene()->itemsBoundingRect().adjusted(-50, -50, 50, 50),
-                         Qt::KeepAspectRatio);
+    if (!mapView_->currentMap()) return;
+    mapView_->fitAll();
 }
 
 void MainWindow::showUpdateNotice(const ReleaseInfo& release) {
