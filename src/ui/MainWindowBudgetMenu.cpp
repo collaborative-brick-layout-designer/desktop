@@ -6,6 +6,7 @@
 #include "BudgetDialog.h"
 #include "BudgetSession.h"
 #include "MapView.h"
+#include "help/HelpTexts.h"
 
 #include <QAction>
 #include <QCheckBox>
@@ -59,14 +60,28 @@ bool MainWindow::saveBudget(bool askForName) {
 void MainWindow::setupBudgetMenu() {
     auto* menu = menuBar()->addMenu(tr("&Budget"));
 
+    // Nothing in the menu works until a budget exists, so it starts by
+    // saying what one is.
+    auto* whatAct = menu->addAction(tr("What's a &Budget?"));
+    whatAct->setObjectName(QStringLiteral("act.budget.what"));
+    whatAct->setToolTip(tr("What a budget is and how to start one"));
+    connect(whatAct, &QAction::triggered, this, [this] {
+        const auto entry = help::helpEntry(QStringLiteral("status.budget"));
+        const QString text = entry ? entry->shortText + QStringLiteral("\n\n") + entry->more : QString();
+        QMessageBox::information(this, tr("What's a budget?"),
+                                 text + QStringLiteral("\n\n") + tr("Choose Budget › New Budget to start one."));
+    });
+    menu->addSeparator();
     auto* newAct = menu->addAction(tr("&New Budget"));
+    newAct->setToolTip(tr("Start a budget: how many of each part you have"));
     connect(newAct, &QAction::triggered, this, [this] {
         if (!maybeSaveBudget()) return;
         budget_->create();
         statusBar()->showMessage(
             tr("New budget started. Budget › Edit Budget sets how many of each part you have."), 6000);
     });
-    auto* openAct = menu->addAction(tr("&Open Budget..."));
+    auto* openAct = menu->addAction(tr("&Open Budget…"));
+    openAct->setToolTip(tr("Open a budget file: how many of each part you have"));
     connect(openAct, &QAction::triggered, this, [this]{
         if (!maybeSaveBudget()) return;
         const QString path = QFileDialog::getOpenFileName(this, tr("Open budget"), budget_->filePath(), budgetFilter());
@@ -74,7 +89,7 @@ void MainWindow::setupBudgetMenu() {
         QString err;
         if (!budget_->open(path, &err)) QMessageBox::warning(this, tr("Open budget"), err);
     });
-    auto* mergeAct = menu->addAction(tr("&Import and Merge Budget..."));
+    auto* mergeAct = menu->addAction(tr("&Import and Merge Budget…"));
     mergeAct->setToolTip(tr("Add the limits of another budget file to the current budget"));
     connect(mergeAct, &QAction::triggered, this, [this]{
         const QString path = QFileDialog::getOpenFileName(this, tr("Import and merge budget"),
@@ -90,7 +105,8 @@ void MainWindow::setupBudgetMenu() {
     menu->addSeparator();
     auto* saveAct = menu->addAction(tr("&Save Budget"));
     connect(saveAct, &QAction::triggered, this, [this]{ saveBudget(false); });
-    auto* saveAsAct = menu->addAction(tr("Save Budget &As..."));
+    auto* saveAsAct = menu->addAction(tr("Save Budget &As…"));
+    saveAsAct->setToolTip(tr("Save this budget under a new name"));
     connect(saveAsAct, &QAction::triggered, this, [this]{ saveBudget(true); });
     menu->addSeparator();
 
@@ -120,7 +136,8 @@ void MainWindow::setupBudgetMenu() {
         if (yes) numbersAct->setChecked(true);
     });
     menu->addSeparator();
-    auto* editAct = menu->addAction(tr("&Edit Budget..."));
+    auto* editAct = menu->addAction(tr("&Edit Budget…"));
+    editAct->setToolTip(tr("Set how many of each part you have"));
     connect(editAct, &QAction::triggered, this, [this]{
         if (!mapView_->currentMap() || !budget_->exists()) return;
         auto* dlg = new BudgetDialog(*mapView_->currentMap(), *budget_, this);

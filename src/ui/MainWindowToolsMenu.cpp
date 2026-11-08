@@ -48,10 +48,10 @@ void MainWindow::setupToolsMenu() {
     // models lives in Import.)
     auto* partsMenu = tools->addMenu(tr("&Parts"));
     partsMenu->setObjectName(QStringLiteral("menu.tools.parts"));
-    auto* dlAct = partsMenu->addAction(tr("&Get More Parts..."));
+    auto* dlAct = partsMenu->addAction(tr("&Get More Parts…"));
     dlAct->setObjectName(QStringLiteral("act.parts.getMore"));
     dlAct->setToolTip(tr("Find part packs online and add them to your parts"));
-    auto* zipAct = partsMenu->addAction(tr("Add Parts from a &Zip..."));
+    auto* zipAct = partsMenu->addAction(tr("Add Parts from a &Zip…"));
     zipAct->setObjectName(QStringLiteral("act.parts.addZip"));
     zipAct->setToolTip(tr("Add a folder of parts sent as a zip, such as a Brick Track Designer export"));
     connect(zipAct, &QAction::triggered, this, [this] {
@@ -66,7 +66,7 @@ void MainWindow::setupToolsMenu() {
                 this, tr("Add Parts from a Zip"),
                 tr("No parts were added from %1.\n\n%2").arg(QFileInfo(zip).fileName(), error));
     });
-    auto* libAct = partsMenu->addAction(tr("Parts &Folders..."));
+    auto* libAct = partsMenu->addAction(tr("Parts &Folders…"));
     libAct->setObjectName(QStringLiteral("act.parts.folders"));
     libAct->setToolTip(tr("Choose the folders on this computer your parts come from"));
     connect(libAct, &QAction::triggered, this, &MainWindow::onManageLibraries);
@@ -78,31 +78,36 @@ void MainWindow::setupToolsMenu() {
 
     auto* importMenu = tools->addMenu(tr("&Import"));
     const auto addImport = [this, importMenu](const QString& label, const QString& title,
-                                              const QString& filter) {
+                                              const QString& filter, const QString& tip) {
         auto* act = importMenu->addAction(label);
+        act->setToolTip(tip);
         connect(act, &QAction::triggered, this, [this, title, filter]{
             const QString in = QFileDialog::getOpenFileName(this, title, {}, filter);
             if (!in.isEmpty()) importModelFile(in);
         });
     };
-    addImport(tr("&LDraw (.ldr / .dat / .mpd)..."), tr("Import LDraw file"),
-              tr("LDraw (*.ldr *.dat *.mpd);;All files (*)"));
-    addImport(tr("&Studio (.io)..."), tr("Import Studio .io"),
-              tr("Studio (*.io);;All files (*)"));
-    addImport(tr("L&DD (.lxf / .lxfml)..."), tr("Import LDD file"),
-              tr("LDD (*.lxf *.lxfml);;All files (*)"));
+    addImport(tr("&LDraw (.ldr / .dat / .mpd)…"), tr("Import LDraw file"),
+              tr("LDraw (*.ldr *.dat *.mpd);;All files (*)"),
+              tr("Turn an LDraw model into a part you can place"));
+    addImport(tr("&Studio (.io)…"), tr("Import Studio .io"),
+              tr("Studio (*.io);;All files (*)"),
+              tr("Turn a BrickLink Studio model into a part you can place"));
+    addImport(tr("L&DD (.lxf / .lxfml)…"), tr("Import LDD file"),
+              tr("LDD (*.lxf *.lxfml);;All files (*)"),
+              tr("Turn a LEGO Digital Designer model into a part you can place"));
     importMenu->addSeparator();
-    auto* batchAct = importMenu->addAction(tr("&Batch Import..."));
+    auto* batchAct = importMenu->addAction(tr("&Batch Import…"));
     batchAct->setToolTip(tr("Turn many LDraw / Studio / LDD files into custom parts at once"));
     connect(batchAct, &QAction::triggered, this, &MainWindow::onBatchImport);
-    auto* reimportAct = importMenu->addAction(tr("&Re-import Changed Parts..."));
+    auto* reimportAct = importMenu->addAction(tr("&Re-import Changed Parts…"));
     reimportAct->setToolTip(tr("Re-import every imported part whose original file changed since, "
                                 "and find the ones whose file has moved"));
     connect(reimportAct, &QAction::triggered, this, &MainWindow::onReimportChangedParts);
 
     // Part list (BlueBrick's part usage export): HTML, text or CSV.
     auto* partListMenu = tools->addMenu(tr("Part &List"));
-    auto* partListAct = partListMenu->addAction(tr("&Export Part List..."));
+    auto* partListAct = partListMenu->addAction(tr("&Export Part List…"));
+    partListAct->setToolTip(tr("Save the list of parts in this layout to a file"));
     connect(partListAct, &QAction::triggered, this, &MainWindow::onExportPartList);
     partListMenu->addSeparator();
     for (const auto& [label, key, def] : { std::tuple{ tr("&Split by Sheet"), "partList/splitPerLayer", false },

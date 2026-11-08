@@ -498,7 +498,7 @@
     </message>
     <message>
         <location filename="../src/ui/PreferencesDialog.cpp" line="72"/>
-        <source>...</source>
+        <source>…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -656,7 +656,7 @@
         <location filename="../src/ui/PreferencesDialog.cpp" line="251"/>
         <location filename="../src/ui/PreferencesDialog.cpp" line="307"/>
         <location filename="../src/ui/PreferencesDialog.cpp" line="503"/>
-        <source>Browse...</source>
+        <source>Browse…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -671,7 +671,7 @@
     </message>
     <message>
         <location filename="../src/ui/PreferencesDialog.cpp" line="270"/>
-        <source>Add...</source>
+        <source>Add…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -701,7 +701,7 @@
     </message>
     <message>
         <location filename="../src/ui/PreferencesDialog.cpp" line="331"/>
-        <source>Download LDraw library automatically...</source>
+        <source>Download LDraw library automatically…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -721,7 +721,7 @@
     </message>
     <message>
         <location filename="../src/ui/PreferencesDialog.cpp" line="365"/>
-        <source>Downloading LDraw library...</source>
+        <source>Downloading LDraw library…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -746,7 +746,7 @@
     </message>
     <message>
         <location filename="../src/ui/PreferencesDialog.cpp" line="420"/>
-        <source>Extracting %1 files...</source>
+        <source>Extracting %1 files…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1079,7 +1079,7 @@
     </message>
     <message>
         <location filename="../src/ui/DownloadCenterDialog.cpp" line="236"/>
-        <source>Searching...</source>
+        <source>Searching…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1237,7 +1237,7 @@
     <message>
         <location filename="../src/ui/ImportPipeline.cpp" line="91"/>
         <location filename="../src/ui/ImportPipeline.cpp" line="187"/>
-        <source>Importing %1...</source>
+        <source>Importing %1…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1550,12 +1550,12 @@
     </message>
     <message>
         <location filename="../src/ui/LayerPanel.cpp" line="176"/>
-        <source>Sheet options...</source>
+        <source>Sheet options…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/LayerPanel.cpp" line="178"/>
-        <source>Rename...</source>
+        <source>Rename…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1608,7 +1608,7 @@
     </message>
     <message>
         <location filename="../src/ui/LibraryPathsDialog.cpp" line="33"/>
-        <source>Add...</source>
+        <source>Add…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2195,7 +2195,7 @@ Target path:
     </message>
     <message>
         <location filename="../src/ui/MainWindowBudgetMenu.cpp" line="65"/>
-        <source>&amp;Open Budget...</source>
+        <source>&amp;Open Budget…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2206,7 +2206,7 @@ Target path:
     </message>
     <message>
         <location filename="../src/ui/MainWindowBudgetMenu.cpp" line="73"/>
-        <source>&amp;Import and Merge Budget...</source>
+        <source>&amp;Import and Merge Budget…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2232,7 +2232,7 @@ Target path:
     </message>
     <message>
         <location filename="../src/ui/MainWindowBudgetMenu.cpp" line="89"/>
-        <source>Save Budget &amp;As...</source>
+        <source>Save Budget &amp;As…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2282,7 +2282,7 @@ Target path:
     </message>
     <message>
         <location filename="../src/ui/MainWindowBudgetMenu.cpp" line="119"/>
-        <source>&amp;Edit Budget...</source>
+        <source>&amp;Edit Budget…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2636,12 +2636,12 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowImport.cpp" line="204"/>
-        <source>Otherwise a copy is saved with a -2, -3 ... suffix</source>
+        <source>Otherwise a copy is saved with a -2, -3 … suffix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindowImport.cpp" line="217"/>
-        <source>Importing...</source>
+        <source>Importing…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2651,7 +2651,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowImport.cpp" line="229"/>
-        <source>Importing %1 (%2 of %3)...</source>
+        <source>Importing %1 (%2 of %3)…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2704,7 +2704,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMapMenu.cpp" line="49"/>
-        <source>Background &amp;Color...</source>
+        <source>Background &amp;Color…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2714,7 +2714,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMapMenu.cpp" line="62"/>
-        <source>Background &amp;Image...</source>
+        <source>Background &amp;Image…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2730,7 +2730,7 @@ Restore it?</source>
     <message>
         <location filename="../src/ui/MainWindowMapMenu.cpp" line="71"/>
         <location filename="../src/ui/MainWindowMenus.cpp" line="122"/>
-        <source>...</source>
+        <source>…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2785,7 +2785,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMapMenu.cpp" line="128"/>
-        <source>General &amp;Info...</source>
+        <source>General &amp;Info…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2825,7 +2825,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMapMenu.cpp" line="160"/>
-        <source>Draw &amp;Outline...</source>
+        <source>Draw &amp;Outline…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2840,7 +2840,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMapMenu.cpp" line="170"/>
-        <source>Draw Outline by &amp;Dimensions...</source>
+        <source>Draw Outline by &amp;Dimensions…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2855,7 +2855,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMapMenu.cpp" line="201"/>
-        <source>Add &amp;Obstacle...</source>
+        <source>Add &amp;Obstacle…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2880,7 +2880,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMapMenu.cpp" line="215"/>
-        <source>&amp;Edit Venue Properties...</source>
+        <source>&amp;Edit Venue Properties…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2900,7 +2900,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMapMenu.cpp" line="241"/>
-        <source>Venue &amp;library...</source>
+        <source>Venue &amp;library…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2910,7 +2910,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMapMenu.cpp" line="248"/>
-        <source>Load Venue from &amp;File...</source>
+        <source>Load Venue from &amp;File…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2940,8 +2940,8 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="84"/>
-        <source>&amp;Open...</source>
-        <translation>&amp;Åpne...</translation>
+        <source>&amp;Open…</source>
+        <translation>&amp;Åpne…</translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="88"/>
@@ -2955,12 +2955,12 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="96"/>
-        <source>Save &amp;As...</source>
-        <translation>Lagre &amp;som...</translation>
+        <source>Save &amp;As…</source>
+        <translation>Lagre &amp;som…</translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="101"/>
-        <source>Export as &amp;Image...</source>
+        <source>Export as &amp;Image…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3043,7 +3043,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="207"/>
-        <source>Export as P&amp;DF...</source>
+        <source>Export as P&amp;DF…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3068,7 +3068,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="254"/>
-        <source>&amp;Print...</source>
+        <source>&amp;Print…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3148,7 +3148,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="353"/>
-        <source>&amp;Find &amp;&amp; Replace...</source>
+        <source>&amp;Find &amp;&amp; Replace…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3309,7 +3309,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="434"/>
-        <source>&amp;Text...</source>
+        <source>&amp;Text…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3330,7 +3330,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="444"/>
-        <source>&amp;Anchored Label...</source>
+        <source>&amp;Anchored Label…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3345,8 +3345,8 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="479"/>
-        <source>&amp;Preferences...</source>
-        <translation>Innstillinger...</translation>
+        <source>&amp;Preferences…</source>
+        <translation>Innstillinger…</translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="495"/>
@@ -3450,22 +3450,22 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="571"/>
-        <source>&amp;Group Selection as Module...</source>
+        <source>&amp;Group Selection as Module…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="573"/>
-        <source>&amp;Import .bbm as Module...</source>
+        <source>&amp;Import .bbm as Module…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="575"/>
-        <source>&amp;Save Selection as Module...</source>
+        <source>&amp;Save Selection as Module…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="577"/>
-        <source>Save Selection as &amp;Set...</source>
+        <source>Save Selection as &amp;Set…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3485,12 +3485,12 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="607"/>
-        <source>&amp;About Collaborative Brick Layout Designer...</source>
+        <source>&amp;About Collaborative Brick Layout Designer…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="609"/>
-        <source>About &amp;Qt...</source>
+        <source>About &amp;Qt…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3500,7 +3500,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowToolsMenu.cpp" line="45"/>
-        <source>Manage Parts &amp;Libraries...</source>
+        <source>Manage Parts &amp;Libraries…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3515,7 +3515,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowToolsMenu.cpp" line="60"/>
-        <source>&amp;LDraw (.ldr / .dat / .mpd)...</source>
+        <source>&amp;LDraw (.ldr / .dat / .mpd)…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3530,7 +3530,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowToolsMenu.cpp" line="62"/>
-        <source>&amp;Studio (.io)...</source>
+        <source>&amp;Studio (.io)…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3545,7 +3545,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowToolsMenu.cpp" line="64"/>
-        <source>L&amp;DD (.lxf / .lxfml)...</source>
+        <source>L&amp;DD (.lxf / .lxfml)…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3560,7 +3560,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowToolsMenu.cpp" line="67"/>
-        <source>&amp;Batch Import...</source>
+        <source>&amp;Batch Import…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3570,7 +3570,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowToolsMenu.cpp" line="70"/>
-        <source>&amp;Re-import Changed Parts...</source>
+        <source>&amp;Re-import Changed Parts…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3585,7 +3585,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowToolsMenu.cpp" line="76"/>
-        <source>&amp;Export Part List...</source>
+        <source>&amp;Export Part List…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3600,7 +3600,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowToolsMenu.cpp" line="89"/>
-        <source>&amp;Download Additional Parts...</source>
+        <source>&amp;Download Additional Parts…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3767,12 +3767,12 @@ Restore it?</source>
         <location filename="../src/ui/MapViewContextMenu.cpp" line="120"/>
         <location filename="../src/ui/MapViewContextMenu.cpp" line="126"/>
         <location filename="../src/ui/MapViewContextMenu.cpp" line="132"/>
-        <source>Properties...</source>
+        <source>Properties…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/MapViewContextMenu.cpp" line="140"/>
-        <source>Edit Text...</source>
+        <source>Edit Text…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3842,7 +3842,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MapViewContextMenu.cpp" line="192"/>
-        <source>Add Text Here...</source>
+        <source>Add Text Here…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4008,7 +4008,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/ModulesPanel.cpp" line="99"/>
-        <source>Move...</source>
+        <source>Move…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4038,7 +4038,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/ModulesPanel.cpp" line="125"/>
-        <source>Rename...</source>
+        <source>Rename…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4154,7 +4154,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/PartsBrowser.cpp" line="172"/>
-        <source>Re-import from Source...</source>
+        <source>Re-import from Source…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4164,7 +4164,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/PartsBrowser.cpp" line="182"/>
-        <source>Delete imported part...</source>
+        <source>Delete imported part…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

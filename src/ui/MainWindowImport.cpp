@@ -521,7 +521,7 @@ void MainWindow::onBatchImport() {
 
     const ImportSettings settings = currentImportSettings();
     const QString author = mapView_->currentMap() ? mapView_->currentMap()->author : QString();
-    QProgressDialog progress(tr("Importing..."), tr("Cancel"), 0, static_cast<int>(files.size()), this);
+    QProgressDialog progress(tr("Importing…"), tr("Cancel"), 0, static_cast<int>(files.size()), this);
     progress.setWindowModality(Qt::WindowModal);
     progress.setMinimumDuration(0);
     // Shown now, not from its timer: that timer would fire while a name
@@ -536,7 +536,7 @@ void MainWindow::onBatchImport() {
     QStringList done, failed, replaced;
     for (int i = 0; i < files.size() && !token.requested(); ++i) {
         const QString name = QFileInfo(files[i]).fileName();
-        progress.setLabelText(tr("Importing %1 (%2 of %3)...").arg(name).arg(i + 1).arg(files.size()));
+        progress.setLabelText(tr("Importing %1 (%2 of %3)…").arg(name).arg(i + 1).arg(files.size()));
         progress.setValue(i);
         const PreparedPart part = prepareImport(files[i], settings, parts_, runHeavy);
         if (token.requested()) break;

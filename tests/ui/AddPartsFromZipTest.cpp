@@ -117,7 +117,7 @@ protected:
 TEST_F(AddPartsFromZip, TheMenuItemSitsWithTheOtherPartsActions) {
     auto* act = window_->findChild<QAction*>(QStringLiteral("act.parts.addZip"));
     ASSERT_TRUE(act);
-    EXPECT_EQ(act->text(), QStringLiteral("Add Parts from a &Zip..."));
+    EXPECT_EQ(act->text(), QStringLiteral("Add Parts from a &Zip…"));
     auto* menu = window_->findChild<QMenu*>(QStringLiteral("menu.tools.parts"));
     ASSERT_TRUE(menu);
     EXPECT_TRUE(menu->actions().contains(act));

@@ -27,6 +27,7 @@
 #include <QFileInfo>
 #include <QHBoxLayout>
 #include <QIcon>
+#include <QPainter>
 #include <QKeySequence>
 #include <QLabel>
 #include <QLineF>
@@ -141,7 +142,8 @@ PartsBrowser::PartsBrowser(parts::PartsLibrary& lib, QWidget* parent)
     row->addWidget(category_, 1);
 
     filter_ = new QLineEdit(host);
-    filter_->setPlaceholderText(tr("Fuzzy filter — e.g. \"plt2\" matches \"plate2x4\""));
+    filter_->setPlaceholderText(tr("Search parts (name or number)"));
+    filter_->setAccessibleName(tr("Search parts (name or number)"));
     row->addWidget(filter_, 2);
     col->addLayout(row);
     catalogLink_ = new QPushButton(tr("Browse the catalog on the web…"), host);
@@ -367,13 +369,13 @@ void PartsBrowser::showPartMenu(const QPoint& pos) {
     if (meta && meta->importSource) {
         menu.addSeparator();
         // Moved or deleted, it still asks: the next step offers to find it.
-        auto* again = menu.addAction(tr("Re-import from Original File..."));
+        auto* again = menu.addAction(tr("Re-import from Original File…"));
         again->setObjectName(QStringLiteral("act.part.reimport"));
         const bool there = QFileInfo::exists(meta->importSource->path);
         again->setToolTip(there ? tr("Read %1 again").arg(QDir::toNativeSeparators(meta->importSource->path))
                                 : tr("The original file has moved. You can choose where it is now."));
         connect(again, &QAction::triggered, this, [this, key]{ emit reimportRequested(key); });
-        auto* other = menu.addAction(tr("Replace with Another File..."));
+        auto* other = menu.addAction(tr("Replace with Another File…"));
         other->setObjectName(QStringLiteral("act.part.replace"));
         other->setToolTip(tr("Use a different model for this part. Its number stays the same, so every "
                              "layout that uses it shows the new one."));
@@ -385,7 +387,7 @@ void PartsBrowser::showPartMenu(const QPoint& pos) {
     if (meta && !ownSet && !meta->xmlFilePath.isEmpty()
         && meta->xmlFilePath.contains(QStringLiteral("/imports/"))) {
         menu.addSeparator();
-        auto* del = menu.addAction(tr("Delete imported part..."));
+        auto* del = menu.addAction(tr("Delete imported part…"));
         del->setObjectName(QStringLiteral("act.part.delete"));
         connect(del, &QAction::triggered, this, [this, key, meta]{
             DeleteWording w = ConfirmDialog::customPartWording();
@@ -517,7 +519,7 @@ void PartsBrowser::addSetActions(QMenu& menu, const QString& key) {
     const QString xmlPath = meta->xmlFilePath;
     const QString picture = meta->gifFilePath;
     menu.addSeparator();
-    auto* rename = menu.addAction(tr("Rename set..."));
+    auto* rename = menu.addAction(tr("Rename set…"));
     rename->setObjectName(QStringLiteral("act.set.rename"));
     rename->setToolTip(tr("Give the set a new name. Layouts that use it don’t change."));
     connect(rename, &QAction::triggered, this, [this, key, name, xmlPath] {
@@ -547,7 +549,7 @@ void PartsBrowser::addSetActions(QMenu& menu, const QString& key) {
         if (*copy && dialog.alsoOnServer() && (*copy)->rename) (*copy)->rename(typed);
         emit ownSetsChanged();
     });
-    auto* del = menu.addAction(tr("Delete set..."));
+    auto* del = menu.addAction(tr("Delete set…"));
     del->setObjectName(QStringLiteral("act.set.delete"));
     connect(del, &QAction::triggered, this, [this, key, name, xmlPath, picture] {
         deleteHereAndThere(key, name, ConfirmDialog::setWording(), findServerSet, [this, xmlPath, picture] {
@@ -629,7 +631,17 @@ QString partTooltip(const parts::PartMetadata& meta, const QString& key, const Q
 QIcon PartsBrowser::partIcon(const QPixmap& picture, int size, qreal dpr) {
     if (picture.isNull() || size <= 0) return {};
     dpr = std::max<qreal>(1.0, dpr);
-    QPixmap pm = picture.scaled(QSize(size, size) * dpr, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    const QSize box = QSize(size, size) * dpr;
+    const QPixmap scaled = picture.scaled(box, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    // Centred in a square of the full size, so every cell in the grid has its
+    // picture in the same box and its name on the same line: a long thin part
+    // no longer leaves its name high up and a gap under the row.
+    QPixmap pm(box);
+    pm.fill(Qt::transparent);
+    {
+        QPainter painter(&pm);
+        painter.drawPixmap((box.width() - scaled.width()) / 2, (box.height() - scaled.height()) / 2, scaled);
+    }
     pm.setDevicePixelRatio(dpr);
     return QIcon(pm);
 }

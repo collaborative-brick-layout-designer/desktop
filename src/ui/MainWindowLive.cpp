@@ -68,19 +68,19 @@ void MainWindow::setupLiveMenu(QMenu* file) {
     statusBar()->addPermanentWidget(liveStatus_);
 
     file->addSeparator();
-    auto* serversAct = file->addAction(tr("Ser&vers..."));
+    auto* serversAct = file->addAction(tr("Ser&vers…"));
     serversAct->setObjectName(QStringLiteral("manageServers"));
     serversAct->setToolTip(tr("Your servers: add one, sign in, or pick your Main one"));
     connect(serversAct, &QAction::triggered, this, &MainWindow::onManageServers);
     // Everything on the server in one window (it replaced Connect to Server…
     // and Download Venues from Server…).
-    auto* openFromServer = file->addAction(tr("Open from &Server..."));
+    auto* openFromServer = file->addAction(tr("Open from &Server…"));
     openFromServer->setObjectName(QStringLiteral("file.openFromServer"));
     openFromServer->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_O));
     openFromServer->setToolTip(tr("Your layouts, venues, modules and parts on the server, and your clubs'"));
     connect(openFromServer, &QAction::triggered, this, [this] { showServerWindow(); });
     // The other way: the open layout onto a server, yours or a club's (it replaced Publish to Server…).
-    auto* saveToServer = file->addAction(tr("Save &to Server..."));
+    auto* saveToServer = file->addAction(tr("Save &to Server…"));
     saveToServer->setObjectName(QStringLiteral("file.saveToServer"));
     saveToServer->setToolTip(tr("Put this layout on a server, yours or a club's, and keep editing it live"));
     connect(saveToServer, &QAction::triggered, this, &MainWindow::onPublishToServer);
@@ -110,7 +110,7 @@ void MainWindow::setupLiveMenu(QMenu* file) {
     partsDownloadCard_ = new LoadingCard(mapView_, LoadingCard::Place::Bottom);
     partsDownloadCard_->setObjectName(QStringLiteral("partsDownloadCard"));
     connect(partsDownloadCard_, &QObject::destroyed, this, [this] { partsDownloadCard_ = nullptr; });
-    reviewOfflineAct_ = file->addAction(tr("Review &Offline Changes..."));
+    reviewOfflineAct_ = file->addAction(tr("Review &Offline Changes…"));
     reviewOfflineAct_->setToolTip(tr("Compare what you changed offline with the server's layout"));
     reviewOfflineAct_->setEnabled(false);
     connect(reviewOfflineAct_, &QAction::triggered, this, &MainWindow::onReviewOfflineEdits);
@@ -372,7 +372,7 @@ void MainWindow::liveSignInNeeded() {
         tr("Your sign-in to %1 has run out, so your changes can't reach the server. They're kept here, and sent "
            "once you sign in again.")
             .arg(liveServerName()),
-        { NoticeAction{ tr("Sign In..."),
+        { NoticeAction{ tr("Sign In…"),
                         // Not inside the notice's own click.
                         [this] { QTimer::singleShot(0, this, [this] { signInToLiveServer(); }); }, true } });
 }
@@ -517,7 +517,7 @@ void MainWindow::offerPlacedParts() {
                                           .arg(names.join(QStringLiteral(", "))),
                                 QMessageBox::NoButton, this);
     box->setAttribute(Qt::WA_DeleteOnClose);
-    auto* uploadBtn = box->addButton(tr("Upload..."), QMessageBox::AcceptRole);
+    auto* uploadBtn = box->addButton(tr("Upload…"), QMessageBox::AcceptRole);
     box->addButton(tr("Not Now"), QMessageBox::RejectRole);
     liveOfferOpen_ = true;
     connect(box, &QMessageBox::finished, this, [this, box, uploadBtn, parts] {
@@ -785,7 +785,7 @@ void MainWindow::saveOfflineAsNew(const sync::merge::Snapshot& mine) {
     });
     // Empty organisation: the user's own layouts.
     api->publishLayout(title, bbm.data(), sidecar, QString());
-    statusBar()->showMessage(tr("Publishing your version as \"%1\"...").arg(title), 5000);
+    statusBar()->showMessage(tr("Publishing your version as \"%1\"…").arg(title), 5000);
 }
 
 void MainWindow::showBrick(const QString& guid) {

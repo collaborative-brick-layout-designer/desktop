@@ -38,7 +38,7 @@ ModulesPanel::ModulesPanel(QWidget* parent)
     createBtn->setToolTip(tr("Make the picked parts one module in this layout"));
     auto* importBtn = new QPushButton(tr("Import…"), host);
     importBtn->setToolTip(tr("Import a .bbm file as a module"));
-    auto* saveLibBtn = new QPushButton(tr("Save to Module library..."), host);
+    auto* saveLibBtn = new QPushButton(tr("Save to Module library…"), host);
     saveLibBtn->setObjectName(QStringLiteral("modulesSaveToLibrary"));
     saveLibBtn->setToolTip(tr("Save a copy of the selected module to your Module library or a club's, to use in other layouts"));
     saveLibBtn->setEnabled(false);
@@ -136,7 +136,7 @@ void ModulesPanel::fillMenu(QMenu& menu, const QString& id) {
     connect(pinAct, &QAction::triggered, [this, id, pinned]{ emit pinRequested(id, !pinned); });
 
     menu.addSeparator();
-    auto* moveAct = menu.addAction(tr("Move..."));
+    auto* moveAct = menu.addAction(tr("Move…"));
     moveAct->setEnabled(!pinned);
     if (pinned) moveAct->setToolTip(tr("Pinned in place: unpin it to move it"));
     connect(moveAct, &QAction::triggered, [this, id]{
@@ -165,13 +165,13 @@ void ModulesPanel::fillMenu(QMenu& menu, const QString& id) {
     }
 
     menu.addSeparator();
-    auto* renameAct = menu.addAction(tr("Rename..."));
+    auto* renameAct = menu.addAction(tr("Rename…"));
     connect(renameAct, &QAction::triggered, [this, id]{ emit renameRequested(id); });
     auto* showName = menu.addAction(tr("Show name"));
     showName->setCheckable(true);
     showName->setChecked(!mod || mod->showName);
     connect(showName, &QAction::toggled, [this, id](bool on){ emit showNameRequested(id, on); });
-    auto* look = menu.addAction(tr("Colors..."));
+    auto* look = menu.addAction(tr("Colors…"));
     connect(look, &QAction::triggered, [this, id]{ emit lookRequested(id); });
     auto* cloneAct = menu.addAction(tr("Duplicate"));
     connect(cloneAct, &QAction::triggered, [this, id]{ emit cloneRequested(id); });

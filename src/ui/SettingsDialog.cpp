@@ -350,7 +350,7 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
     auto* buttons = new QHBoxLayout;
     buttons->setContentsMargins(4 * kSpacing, 2 * kSpacing, 4 * kSpacing, 2 * kSpacing);
     if (openMoreOptions) {
-        auto* more = new QPushButton(tr("More options..."), this);
+        auto* more = new QPushButton(tr("More options…"), this);
         more->setObjectName(QStringLiteral("moreOptions"));
         more->setToolTip(tr("Language, folders, parts folders, import and editing defaults"));
         more->setAutoDefault(false);

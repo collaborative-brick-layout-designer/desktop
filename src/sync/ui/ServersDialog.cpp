@@ -63,10 +63,10 @@ ServersDialog::ServersDialog(TokenStore& tokens, std::function<void(const QUrl&)
     col->addWidget(empty_);
 
     auto* buttons = new QHBoxLayout();
-    auto* addBtn = new QPushButton(tr("Add a Server..."), this);
+    auto* addBtn = new QPushButton(tr("Add a Server…"), this);
     addBtn->setObjectName(QStringLiteral("addServer"));
     addBtn->setProperty("accent", true);
-    renameBtn_ = new QPushButton(tr("Rename..."), this);
+    renameBtn_ = new QPushButton(tr("Rename…"), this);
     renameBtn_->setObjectName(QStringLiteral("renameServer"));
     removeBtn_ = new QPushButton(tr("Remove"), this);
     removeBtn_->setObjectName(QStringLiteral("removeServer"));

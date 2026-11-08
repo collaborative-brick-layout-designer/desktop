@@ -42,7 +42,7 @@ struct CancelToken {
 //
 // Usage:
 //
-//   bool ok = ui::runBackground(parent, tr("Loading model..."),
+//   bool ok = ui::runBackground(parent, tr("Loading model…"),
 //       [&](ui::CancelToken& cancel){
 //           result1 = stage1();
 //           if (cancel.requested()) return;

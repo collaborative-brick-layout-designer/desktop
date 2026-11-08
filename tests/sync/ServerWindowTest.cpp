@@ -1025,12 +1025,12 @@ protected:
 TEST_F(ServerWindowMain, FileOpenFromServerReplacesConnectAndDownloadVenuesAndTheToolbarOpensItToo) {
     QAction* act = window_->findChild<QAction*>(QStringLiteral("file.openFromServer"));
     ASSERT_TRUE(act);
-    EXPECT_EQ(act->text(), QStringLiteral("Open from &Server..."));
+    EXPECT_EQ(act->text(), QStringLiteral("Open from &Server…"));
     EXPECT_EQ(act->shortcut(), QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_O));
     QStringList file;
     for (QAction* a : window_->menuBar()->actions().first()->menu()->actions()) file << a->text();
-    EXPECT_FALSE(file.contains(QStringLiteral("&Connect to Server...")));
-    EXPECT_FALSE(file.contains(QStringLiteral("Download &Venues from Server...")));
+    EXPECT_FALSE(file.contains(QStringLiteral("&Connect to Server…")));
+    EXPECT_FALSE(file.contains(QStringLiteral("Download &Venues from Server…")));
     // Nothing else claims the shortcut.
     int claims = 0;
     for (QAction* a : window_->findChildren<QAction*>()) claims += a->shortcut() == act->shortcut();
@@ -1102,11 +1102,11 @@ TEST_F(ServerWindowMain, AVenueGoesToTheVenueLibraryAndAModuleCopyToTheModuleLib
 TEST_F(ServerWindowMain, FileSaveToServerReplacesPublishAndUploadMyParts) {
     QStringList file;
     for (QAction* a : window_->menuBar()->actions().first()->menu()->actions()) file << a->text();
-    EXPECT_TRUE(file.contains(QStringLiteral("Save &to Server...")));
-    EXPECT_FALSE(file.contains(QStringLiteral("&Publish to Server...")));
-    EXPECT_FALSE(file.contains(QStringLiteral("&Upload My Parts to Server...")));
+    EXPECT_TRUE(file.contains(QStringLiteral("Save &to Server…")));
+    EXPECT_FALSE(file.contains(QStringLiteral("&Publish to Server…")));
+    EXPECT_FALSE(file.contains(QStringLiteral("&Upload My Parts to Server…")));
     // Right after Open from Server.
-    EXPECT_EQ(file.indexOf(QStringLiteral("Save &to Server...")), file.indexOf(QStringLiteral("Open from &Server...")) + 1);
+    EXPECT_EQ(file.indexOf(QStringLiteral("Save &to Server…")), file.indexOf(QStringLiteral("Open from &Server…")) + 1);
 }
 
 TEST_F(ServerWindowMain, AVenueGoesToTheServerFromTheVenueLibraryAsYoursOrAClubs) {

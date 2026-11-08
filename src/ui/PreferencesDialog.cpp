@@ -82,7 +82,7 @@ QWidget* buildGeneralTab(QDialog* parent) {
     // Template file for File > New — vanilla "use default template" parity.
     auto* tplEdit = new QLineEdit(
         s.value(QStringLiteral("general/newMapTemplate")).toString(), w);
-    auto* tplBrowse = new QPushButton(QObject::tr("..."), w);
+    auto* tplBrowse = new QPushButton(QObject::tr("…"), w);
     // (The row's label names the row, not these two: a screen reader says these.)
     tplEdit->setAccessibleName(QObject::tr("File > New template"));
     tplBrowse->setAccessibleName(QObject::tr("Choose the template file"));
@@ -267,7 +267,7 @@ QWidget* buildLibraryTab(QDialog* parent) {
     auto* moduleDirLabel = new QLabel(QObject::tr("Module library folder:"), w);
     auto* moduleDirEdit = new QLineEdit(w);
     moduleDirEdit->setText(s.value(QStringLiteral("modules/libraryPath")).toString());
-    auto* moduleBrowse = new QPushButton(QObject::tr("Browse..."), w);
+    auto* moduleBrowse = new QPushButton(QObject::tr("Browse…"), w);
     moduleDirLabel->setBuddy(moduleDirEdit);  // what a screen reader calls the field
     moduleBrowse->setAccessibleName(QObject::tr("Choose the module library folder"));
     QObject::connect(moduleBrowse, &QPushButton::clicked, w, [moduleDirEdit, w]{
@@ -288,7 +288,7 @@ QWidget* buildLibraryTab(QDialog* parent) {
     s.endGroup();
     libVbox->addWidget(list);
     auto* btnRow = new QHBoxLayout();
-    auto* addBtn = new QPushButton(QObject::tr("Add..."), libBox);
+    auto* addBtn = new QPushButton(QObject::tr("Add…"), libBox);
     auto* rmBtn  = new QPushButton(QObject::tr("Remove"), libBox);
     btnRow->addWidget(addBtn); btnRow->addWidget(rmBtn);
     btnRow->addWidget(new help::HelpButton(QStringLiteral("prefs.partLibraries"), libBox, libBox));
@@ -327,7 +327,7 @@ QWidget* buildImportTab(QDialog* parent) {
 
     auto buildPicker = [w](const QString& settingsKey, const QString& browseTitle) {
         auto* edit = new QLineEdit(QSettings().value(settingsKey).toString(), w);
-        auto* btn  = new QPushButton(QObject::tr("Browse..."), w);
+        auto* btn  = new QPushButton(QObject::tr("Browse…"), w);
         // Several "Browse..." on one page: each says which folder it picks.
         edit->setAccessibleName(browseTitle);
         btn->setAccessibleName(QObject::tr("Choose the folder: %1").arg(browseTitle));
@@ -354,7 +354,7 @@ QWidget* buildImportTab(QDialog* parent) {
     // resulting `ldraw/` directory. Saves the user the maintenance of
     // tracking the LDraw release page themselves.
     auto* autoBtn = new QPushButton(
-        QObject::tr("Download LDraw library automatically..."), w);
+        QObject::tr("Download LDraw library automatically…"), w);
     autoBtn->setToolTip(QObject::tr(
         "Fetches library.ldraw.org/library/updates/complete.zip (~140 MB), "
         "extracts under your app-data folder, and configures the path. "
@@ -388,7 +388,7 @@ QWidget* buildImportTab(QDialog* parent) {
         // setValue() we never block. The cancel button is wired
         // before the network reply gets to processEvents-blocking
         // state so the user can always escape.
-        QProgressDialog dlg(QObject::tr("Downloading LDraw library..."),
+        QProgressDialog dlg(QObject::tr("Downloading LDraw library…"),
                              QObject::tr("Cancel"), 0, 100, w);
         dlg.setWindowModality(Qt::WindowModal);
         dlg.setMinimumDuration(0);
@@ -443,7 +443,7 @@ QWidget* buildImportTab(QDialog* parent) {
         const auto& entries = zip.entries();
         dlg.setRange(0, entries.size());
         dlg.setValue(0);
-        dlg.setLabelText(QObject::tr("Extracting %1 files...").arg(entries.size()));
+        dlg.setLabelText(QObject::tr("Extracting %1 files…").arg(entries.size()));
         QApplication::processEvents();
 
         QDir dst(destRoot);
@@ -526,7 +526,7 @@ QWidget* buildImportTab(QDialog* parent) {
     // keeps a much larger one up to date.
     auto* xmlEdit = new QLineEdit(QSettings().value(QStringLiteral("import/lddLdrawXml")).toString(), w);
     xmlEdit->setPlaceholderText(QObject::tr("optional newer ldraw.xml, e.g. from slswww.free.fr/ldraw.xml"));
-    auto* xmlBtn = new QPushButton(QObject::tr("Browse..."), w);
+    auto* xmlBtn = new QPushButton(QObject::tr("Browse…"), w);
     xmlEdit->setAccessibleName(QObject::tr("LDD to LDraw mapping file"));
     xmlBtn->setAccessibleName(QObject::tr("Choose the LDD to LDraw mapping file"));
     QObject::connect(xmlBtn, &QPushButton::clicked, w, [xmlEdit, w]{

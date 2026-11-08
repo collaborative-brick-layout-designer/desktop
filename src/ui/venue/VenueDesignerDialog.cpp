@@ -155,7 +155,7 @@ VenueDesignerDialog::VenueDesignerDialog(core::Venue initial, const QString& sub
     connect(redo_, &QPushButton::clicked, this, [this] { dispatch(ev::act::Redo{}); });
     header->addWidget(undo_);
     header->addWidget(redo_);
-    auto* planBtn = new QPushButton(tr("Floor plan..."), this);
+    auto* planBtn = new QPushButton(tr("Floor plan…"), this);
     connect(planBtn, &QPushButton::clicked, this, &VenueDesignerDialog::loadPlan);
     header->addWidget(planBtn);
     header->addWidget(new help::HelpButton(QStringLiteral("room.floorPlan"), this, planBtn));

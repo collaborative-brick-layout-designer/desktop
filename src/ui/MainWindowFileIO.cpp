@@ -6,6 +6,7 @@
 
 #include "MainWindow.h"
 #include "ActiveSheet.h"
+#include "StatusMessages.h"
 #include "../edit/Sets.h"
 #include "help/HelpButton.h"
 #include "help/SourceLinks.h"
@@ -159,9 +160,9 @@ bool MainWindow::openFile(const QString& path) {
         mapView_->undoStack()->setClean();
         cleanUndoIndex_ = 0;
         updateTitle();
-        statusBar()->showMessage(ldraw.warnings.isEmpty()
-            ? tr("Opened %1 — %2 sheets").arg(path).arg(layerCount)
-            : tr("Opened %1 — %2 sheets (%3)").arg(path).arg(layerCount).arg(ldraw.warnings.join(QStringLiteral("; "))));
+        showFileMessage(statusBar(), ldraw.warnings.isEmpty()
+            ? tr("Opened %1 — %2 sheets").arg(fileNameOf(path)).arg(layerCount)
+            : tr("Opened %1 — %2 sheets (%3)").arg(fileNameOf(path)).arg(layerCount).arg(ldraw.warnings.join(QStringLiteral("; "))), path);
         QSettings().setValue(QString::fromLatin1(kLastFileKey), path);
         pushRecentFile(path);
         return true;
@@ -229,10 +230,10 @@ void MainWindow::showLoadedMap(std::unique_ptr<core::Map> map, const QString& pa
     mapView_->undoStack()->setClean();
     cleanUndoIndex_ = 0;
     updateTitle();
-    const QString opened = tr("Opened %1 — %2 sheets, %3 items").arg(path).arg(layerCount).arg(nbItems);
-    statusBar()->showMessage(warnings.isEmpty()
+    const QString opened = tr("Opened %1 — %2 sheets, %3 items").arg(fileNameOf(path)).arg(layerCount).arg(nbItems);
+    showFileMessage(statusBar(), warnings.isEmpty()
                                  ? opened
-                                 : QStringLiteral("%1 (%2)").arg(opened, warnings.join(QStringLiteral("; "))));
+                                 : QStringLiteral("%1 (%2)").arg(opened, warnings.join(QStringLiteral("; "))), path);
     QSettings().setValue(QString::fromLatin1(kLastFileKey), path);
     pushRecentFile(path);
     makeSetsOfSetModules();
@@ -296,7 +297,7 @@ bool MainWindow::writeMapTo(const QString& path) {
         currentFilePath_ = path;
         mapView_->undoStack()->setClean();
         updateTitle();
-        statusBar()->showMessage(tr("Saved %1").arg(path), 3000);
+        showFileMessage(statusBar(), tr("Saved %1").arg(fileNameOf(path)), path, 3000);
         QSettings().setValue(QString::fromLatin1(kLastFileKey), path);
         pushRecentFile(path);
         QFile::remove(autosavePath());
@@ -314,7 +315,7 @@ bool MainWindow::writeMapTo(const QString& path) {
         currentFilePath_ = path;
         mapView_->undoStack()->setClean();
         updateTitle();
-        statusBar()->showMessage(tr("Saved %1").arg(path), 3000);
+        showFileMessage(statusBar(), tr("Saved %1").arg(fileNameOf(path)), path, 3000);
         QSettings().setValue(QString::fromLatin1(kLastFileKey), path);
         pushRecentFile(path);
         QFile::remove(autosavePath());
@@ -346,7 +347,7 @@ bool MainWindow::writeMapTo(const QString& path) {
     currentFilePath_ = path;
     mapView_->undoStack()->setClean();
     updateTitle();
-    statusBar()->showMessage(tr("Saved %1").arg(path), 3000);
+    showFileMessage(statusBar(), tr("Saved %1").arg(fileNameOf(path)), path, 3000);
     QSettings().setValue(QString::fromLatin1(kLastFileKey), path);
     pushRecentFile(path);
     // Manual save supersedes any autosave for the session.
@@ -513,7 +514,7 @@ void MainWindow::onExportBbm() {
         QMessageBox::warning(this, tr("Export failed"), res.error);
         return;
     }
-    statusBar()->showMessage(tr("Exported %1").arg(path), 4000);
+    showFileMessage(statusBar(), tr("Exported %1").arg(fileNameOf(path)), path, 4000);
 }
 
 bool MainWindow::onSaveAs() {
@@ -713,7 +714,7 @@ void MainWindow::onExportPartList() {
     }
     int kinds = 0, total = 0;
     for (const auto& g : groups) { kinds += static_cast<int>(g.rows.size()); total += g.total.count; }
-    statusBar()->showMessage(tr("Exported %1 part rows, %2 bricks, to %3").arg(kinds).arg(total).arg(path), 5000);
+    showFileMessage(statusBar(), tr("Exported %1 part rows, %2 bricks, to %3").arg(kinds).arg(total).arg(fileNameOf(path)), path, 5000);
 }
 
 void MainWindow::onAbout() {

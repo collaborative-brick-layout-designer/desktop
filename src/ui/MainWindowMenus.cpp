@@ -3,6 +3,7 @@
 // multiple translation units — MOC only needs the header.
 
 #include "MainWindow.h"
+#include "StatusMessages.h"
 #include "UpdateCheck.h"
 
 #include "FindDialog.h"
@@ -91,7 +92,8 @@ void MainWindow::setupMenus() {
     newAct->setShortcut(QKeySequence::New);
     connect(newAct, &QAction::triggered, this, &MainWindow::onNew);
 
-    auto* openAct = file->addAction(tr("&Open..."));
+    auto* openAct = file->addAction(tr("&Open…"));
+    openAct->setToolTip(tr("Open a layout file from this computer"));
     openAct->setObjectName(QStringLiteral("file.open"));
     openAct->setShortcut(QKeySequence::Open);
     connect(openAct, &QAction::triggered, this, &MainWindow::onOpen);
@@ -105,15 +107,17 @@ void MainWindow::setupMenus() {
     saveAct->setShortcut(QKeySequence::Save);
     connect(saveAct, &QAction::triggered, this, &MainWindow::onSave);
 
-    auto* saveAsAct = file->addAction(tr("Save &As..."));
+    auto* saveAsAct = file->addAction(tr("Save &As…"));
+    saveAsAct->setToolTip(tr("Save this layout under a new name or in a new place"));
     saveAsAct->setShortcut(QKeySequence::SaveAs);
     connect(saveAsAct, &QAction::triggered, this, &MainWindow::onSaveAs);
 
     file->addSeparator();
-    auto* exportBbmAct = file->addAction(tr("Export as &BlueBrick Map (.bbm)..."));
+    auto* exportBbmAct = file->addAction(tr("Export as &BlueBrick Map (.bbm)…"));
     exportBbmAct->setToolTip(tr("A copy BlueBrick can open, with what BlueBrick supports"));
     connect(exportBbmAct, &QAction::triggered, this, &MainWindow::onExportBbm);
-    auto* exportAct = file->addAction(tr("Export as &Image..."));
+    auto* exportAct = file->addAction(tr("Export as &Image…"));
+    exportAct->setToolTip(tr("Save the whole layout as a PNG or JPEG picture"));
     exportImageAct_ = exportAct;
     connect(exportAct, &QAction::triggered, this, [this]{
         if (!mapView_->currentMap()) return;
@@ -136,7 +140,7 @@ void MainWindow::setupMenus() {
             currentFilePath_.isEmpty()
                 ? s.value(QStringLiteral("export/path")).toString()
                 : QFileInfo(currentFilePath_).baseName() + QStringLiteral(".png"), &dlg);
-        auto* browseBtn = new QPushButton(tr("..."), &dlg);
+        auto* browseBtn = new QPushButton(tr("…"), &dlg);
         pathEdit->setAccessibleName(tr("Output file"));
         browseBtn->setAccessibleName(tr("Choose the output file"));
         browseBtn->setToolTip(tr("Choose the output file"));
@@ -227,7 +231,7 @@ void MainWindow::setupMenus() {
         s.setValue(QStringLiteral("export/watermark"),   watermarkChk->isChecked());
         s.setValue(QStringLiteral("export/transparent"), transparentChk->isChecked());
         s.setValue(QStringLiteral("export/antialias"),   antialiasChk->isChecked());
-        statusBar()->showMessage(tr("Exported %1x%2 to %3").arg(width).arg(height).arg(path), 5000);
+        showFileMessage(statusBar(), tr("Exported %1x%2 to %3").arg(width).arg(height).arg(fileNameOf(path)), path, 5000);
     });
 
     // A picture of the layout or a saved view, with no questions; the
@@ -241,7 +245,8 @@ void MainWindow::setupMenus() {
     exportViewsAct->setToolTip(tr("One picture of each saved view, in a folder"));
     connect(exportViewsAct, &QAction::triggered, this, [this] { exportAllViews(false); });
 
-    auto* pdfAct = file->addAction(tr("Export as P&DF..."));
+    auto* pdfAct = file->addAction(tr("Export as P&DF…"));
+    pdfAct->setToolTip(tr("Save the layout as a PDF, ready to print or send"));
     connect(pdfAct, &QAction::triggered, this, [this]{
         if (!mapView_->currentMap()) return;
         auto* scene = mapView_->scene();
@@ -287,10 +292,11 @@ void MainWindow::setupMenus() {
         scene->render(&p, QRectF(printer.pageLayout().paintRectPixels(printer.resolution())),
                       bounds, Qt::KeepAspectRatio);
         p.end();
-        statusBar()->showMessage(tr("Exported PDF to %1").arg(path), 5000);
+        showFileMessage(statusBar(), tr("Exported PDF to %1").arg(fileNameOf(path)), path, 5000);
     });
 
-    auto* printAct = file->addAction(tr("&Print..."));
+    auto* printAct = file->addAction(tr("&Print…"));
+    printAct->setToolTip(tr("Print the layout on paper"));
     printAct->setShortcut(QKeySequence::Print);
     connect(printAct, &QAction::triggered, this, [this]{
         if (!mapView_->currentMap()) return;
@@ -394,7 +400,8 @@ void MainWindow::setupMenus() {
     connect(del, &QAction::triggered, [this]{ mapView_->deleteSelected(); });
 
     edit->addSeparator();
-    auto* findAct = edit->addAction(tr("&Find && Replace..."));
+    auto* findAct = edit->addAction(tr("&Find && Replace…"));
+    findAct->setToolTip(tr("Find parts by number or name, and swap them for another part"));
     findAct->setShortcut(QKeySequence::Find);
     connect(findAct, &QAction::triggered, this, [this]{
         auto* dlg = new FindDialog(*mapView_, this);
@@ -475,7 +482,8 @@ void MainWindow::setupMenus() {
 
     // Insert submenu — BLD additions for items BlueBrick doesn't have.
     auto* insertMenu = edit->addMenu(tr("&Insert"));
-    auto* addTextAct = insertMenu->addAction(tr("&Text..."));
+    auto* addTextAct = insertMenu->addAction(tr("&Text…"));
+    addTextAct->setToolTip(tr("Write a note on the map"));
     addTextAct->setShortcut(QKeySequence(tr("Ctrl+T")));
     connect(addTextAct, &QAction::triggered, this, [this]{
         if (!mapView_->currentMap()) return;
@@ -485,7 +493,8 @@ void MainWindow::setupMenus() {
             QLineEdit::Normal, {}, &ok);
         if (ok && !text.isEmpty()) mapView_->addTextAtViewCenter(text);
     });
-    auto* addLabel = insertMenu->addAction(tr("&Anchored Label..."));
+    auto* addLabel = insertMenu->addAction(tr("&Anchored Label…"));
+    addLabel->setToolTip(tr("A label that stays next to the part it is attached to"));
     addLabel->setShortcut(QKeySequence(tr("Ctrl+L")));
     connect(addLabel, &QAction::triggered, this, [this]{
         auto* map = mapView_->currentMap();
@@ -519,13 +528,14 @@ void MainWindow::setupMenus() {
     });
 
     edit->addSeparator();
-    auto* settingsAct = edit->addAction(tr("&Settings..."));
+    auto* settingsAct = edit->addAction(tr("&Settings…"));
     settingsAct->setObjectName(QStringLiteral("action.settings"));
     settingsAct->setShortcut(QKeySequence::Preferences);
     settingsAct->setMenuRole(QAction::PreferencesRole);
     settingsAct->setToolTip(tr("Light or dark, color, bigger text, Expert mode and help buttons"));
     connect(settingsAct, &QAction::triggered, this, &MainWindow::openSettings);
-    auto* prefsAct = edit->addAction(tr("&Preferences..."));
+    auto* prefsAct = edit->addAction(tr("&Preferences…"));
+    prefsAct->setToolTip(tr("Change how the app looks and works"));
     prefsAct->setMenuRole(QAction::NoRole);
     preferencesAct_ = prefsAct;
     connect(prefsAct, &QAction::triggered, this, [this]{
@@ -628,14 +638,15 @@ void MainWindow::setupMenus() {
     setupBudgetMenu();
 
     auto* modules = menuBar()->addMenu(tr("&Modules"));
-    auto* createModAct = modules->addAction(tr("&Make a Module..."));
+    auto* createModAct = modules->addAction(tr("&Make a Module…"));
     createModAct->setObjectName(QStringLiteral("makeModule"));
     createModAct->setToolTip(tr("Make the picked parts one module in this layout. To use it in other layouts, "
                                 "choose Save to Module library... from its menu."));
     connect(createModAct, &QAction::triggered, this, &MainWindow::onMakeModule);
-    auto* importModAct = modules->addAction(tr("&Import .bbm as Module..."));
+    auto* importModAct = modules->addAction(tr("&Import .bbm as Module…"));
+    importModAct->setToolTip(tr("Bring a BlueBrick file into this layout as one module"));
     connect(importModAct, &QAction::triggered, this, &MainWindow::onImportBbmAsModule);
-    auto* saveSetAct = modules->addAction(tr("Save Selection as &Set..."));
+    auto* saveSetAct = modules->addAction(tr("Save Selection as &Set…"));
     saveSetAct->setObjectName(QStringLiteral("modules.saveSet"));
     saveSetAct->setToolTip(tr("Save the picked parts as a set in your parts, to place again in one go"));
     connect(saveSetAct, &QAction::triggered, this, &MainWindow::onSaveSelectionAsSet);
@@ -695,12 +706,15 @@ void MainWindow::setupMenus() {
         store.update(p);
     });
     help->addSeparator();
-    auto* updateAct = help->addAction(tr("Check for &Updates..."));
+    auto* updateAct = help->addAction(tr("Check for &Updates…"));
+    updateAct->setToolTip(tr("See whether a newer version of the app is out"));
     connect(updateAct, &QAction::triggered, this, [this]{ updates_->checkNow(); });
     help->addSeparator();
-    auto* aboutAct = help->addAction(tr("&About Collaborative Brick Layout Designer..."));
+    auto* aboutAct = help->addAction(tr("&About Collaborative Brick Layout Designer…"));
+    aboutAct->setToolTip(tr("Version, credits and where the source code lives"));
     connect(aboutAct, &QAction::triggered, this, &MainWindow::onAbout);
-    auto* aboutQtAct = help->addAction(tr("About &Qt..."));
+    auto* aboutQtAct = help->addAction(tr("About &Qt…"));
+    aboutQtAct->setToolTip(tr("The Qt toolkit this app is built with"));
     connect(aboutQtAct, &QAction::triggered, qApp, &QApplication::aboutQt);
 }
 

@@ -290,9 +290,9 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
                 }
             });
             menu.addSeparator();
-            auto* opts = menu.addAction(tr("Sheet options..."));
+            auto* opts = menu.addAction(tr("Sheet options…"));
             connect(opts, &QAction::triggered, [this, index]{ emit layerOptionsRequested(index); });
-            auto* ren = menu.addAction(tr("Rename..."));
+            auto* ren = menu.addAction(tr("Rename…"));
             connect(ren, &QAction::triggered, [this, index, item]{
                 bool ok = false;
                 // The sheet's own name (the row may show "(untitled)").
