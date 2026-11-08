@@ -221,7 +221,7 @@ protected:
     sync::SyncSession& session() { return live_->session(); }
     QAction* reviewAction() {
         for (QAction* a : window_->findChildren<QAction*>())
-            if (a->text() == QStringLiteral("Review &Offline Changes...")) return a;
+            if (a->text() == QStringLiteral("Review &Offline Changes…")) return a;
         return nullptr;
     }
 
@@ -288,7 +288,7 @@ TEST_F(MainWindowLive, LaterKeepsThemForReviewOfflineChangesAndDiscardLeavesTheS
 
 TEST_F(MainWindowLive, ReplaceServerWithMineAsksThenPutsMyVersionInPlace) {
     editOffline();
-    Answers answers{ { compare(QStringLiteral("Replace Server with Mine...")),
+    Answers answers{ { compare(QStringLiteral("Replace Server with Mine…")),
                        box(QStringLiteral("in place of the server's"), QStringLiteral("Yes")) } };
     answers.during([&] { ASSERT_TRUE(waitFor([&] { return answers.done() && !session().offlineEdits(); })); });
     EXPECT_EQ(answers.unexpected, 0);
@@ -299,7 +299,7 @@ TEST_F(MainWindowLive, ReplaceServerWithMineAsksThenPutsMyVersionInPlace) {
 
 TEST_F(MainWindowLive, ReplaceServerCanBeCancelledAtTheConfirmation) {
     editOffline();
-    Answers answers{ { compare(QStringLiteral("Replace Server with Mine...")),
+    Answers answers{ { compare(QStringLiteral("Replace Server with Mine…")),
                        box(QStringLiteral("in place of the server's"), QStringLiteral("No")),
                        compare(QStringLiteral("Later")) } };
     answers.during([&] { ASSERT_TRUE(waitFor([&] { return answers.done(); })); });
@@ -366,7 +366,7 @@ TEST_F(MainWindowLive, SaveMineAsANewLayoutPublishesItAndLeavesTheLiveOne) {
                 QJsonObject{ { QStringLiteral("id"), QStringLiteral("L2") },
                              { QStringLiteral("title"), QStringLiteral("Show 2026 (offline copy)") } });
     editOffline();
-    Answers answers{ { compare(QStringLiteral("Save Mine as a New Layout...")),
+    Answers answers{ { compare(QStringLiteral("Save Mine as a New Layout…")),
                        box(QStringLiteral("saved as \"Show 2026 (offline copy)\""), QStringLiteral("OK")) } };
     answers.during([&] { ASSERT_TRUE(waitFor([&] { return answers.done() && !session().offlineEdits(); })); });
     EXPECT_EQ(answers.unexpected, 0);
@@ -392,7 +392,7 @@ TEST_F(MainWindowLive, SaveMineAsANewLayoutPublishesItAndLeavesTheLiveOne) {
 TEST_F(MainWindowLive, AFailedSaveAsNewKeepsTheOfflineEdits) {
     http_.reply("/api/layouts", 500, QJsonObject{ { QStringLiteral("error"), QStringLiteral("disk full") } });
     editOffline();
-    Answers answers{ { compare(QStringLiteral("Save Mine as a New Layout...")),
+    Answers answers{ { compare(QStringLiteral("Save Mine as a New Layout…")),
                        box(QStringLiteral("disk full"), QStringLiteral("OK")) } };
     answers.during([&] { ASSERT_TRUE(waitFor([&] { return answers.done(); })); });
     EXPECT_EQ(answers.unexpected, 0);
@@ -483,7 +483,7 @@ TEST_F(MainWindowLiveMyPart, TheUploadDialogOpensOnceTheOfferBoxHasClosed) {
     waitForCatalog();
     bool boxFinishedReturned = false;
     bool dialogSeen = false;
-    const auto answerBox = box(QStringLiteral("MYPART.1 isn't on the server yet"), QStringLiteral("Upload..."));
+    const auto answerBox = box(QStringLiteral("MYPART.1 isn't on the server yet"), QStringLiteral("Upload…"));
     Answers answers{ { [&](QWidget* w) {
                           // Connected after the window's own handler, so this runs once that has returned.
                           QObject::connect(qobject_cast<QMessageBox*>(w), &QMessageBox::finished,
@@ -508,7 +508,7 @@ TEST_F(MainWindowLiveMyPart, TheUploadDialogOpensOnceTheOfferBoxHasClosed) {
 TEST_F(MainWindowLiveMyPart, UploadSendsThePartToTheServer) {
     http_.reply("/api/custom-parts", 201, QJsonObject{ { QStringLiteral("id"), QStringLiteral("p1") } });
     waitForCatalog();
-    Answers answers{ { box(QStringLiteral("MYPART.1 isn't on the server yet"), QStringLiteral("Upload...")),
+    Answers answers{ { box(QStringLiteral("MYPART.1 isn't on the server yet"), QStringLiteral("Upload…")),
                        press(QStringLiteral("Save to server")) } };
     answers.during([&] {
         place(400);
@@ -1211,7 +1211,7 @@ TEST_F(MainWindowLive, ASignInThatRanOutSaysToSignInAgainAndKeepsTheEdits) {
     http_.upgrade = [this](QTcpSocket* s) { ws_.take(s); };
     QPushButton* signIn = nullptr;
     for (auto* b : notices->card(QStringLiteral("live-signin"))->findChildren<QPushButton*>())
-        if (b->text() == QStringLiteral("Sign In...")) signIn = b;
+        if (b->text() == QStringLiteral("Sign In…")) signIn = b;
     ASSERT_NE(signIn, nullptr);
     Answers answers{ { compare(QStringLiteral("Apply")) } };
     answers.during([&] {
@@ -1264,7 +1264,7 @@ TEST_F(MainWindowLive, ASignInEndedByTheServerKeepsTheLayoutOpenAndSignInAgainSe
     window_->newToken = QStringLiteral("bld_pat_new");
     QPushButton* signIn = nullptr;
     for (auto* b : notices->card(QStringLiteral("live-signin"))->findChildren<QPushButton*>())
-        if (b->text() == QStringLiteral("Sign In...")) signIn = b;
+        if (b->text() == QStringLiteral("Sign In…")) signIn = b;
     ASSERT_NE(signIn, nullptr);
     Answers answers{ { compare(QStringLiteral("Apply")) } };
     answers.during([&] {

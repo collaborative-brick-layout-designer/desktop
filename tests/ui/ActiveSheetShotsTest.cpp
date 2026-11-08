@@ -67,7 +67,7 @@ TEST(ActiveSheetShots, PicturesForReview) {
     ASSERT_EQ(missing, 0);
     // The Parts panel shows the tables, with every picture loaded.
     for (auto* edit : window.findChildren<QLineEdit*>())
-        if (edit->placeholderText().startsWith(QStringLiteral("Fuzzy filter"))) edit->setText(QStringLiteral("table"));
+        if (edit->placeholderText().startsWith(QStringLiteral("Search parts"))) edit->setText(QStringLiteral("table"));
     const auto loadingParts = [&window] {
         for (auto* label : window.findChildren<QLabel*>())
             if (label->isVisible() && label->text().startsWith(QStringLiteral("Loading part pictures"))) return true;

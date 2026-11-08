@@ -1,6 +1,6 @@
 // Edit > Settings...: shows the current settings, every change goes
 // straight to the store, the note names the connected server's host, and
-// "More options..." opens Preferences. No Expert mode switch.
+// "More options…" opens Preferences. No Expert mode switch.
 
 #include "ui/SettingsDialog.h"
 #include "ui/theme/AppPrefs.h"

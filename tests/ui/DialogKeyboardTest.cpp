@@ -416,7 +416,7 @@ TEST_F(DialogKeyboard, EveryMenuDialog) {
                     continue;
                 }
                 const QString text = a->text();
-                if (!(text.endsWith(QStringLiteral("...")) || text.endsWith(QChar(0x2026))) || !a->isEnabled()) continue;
+                if (!text.endsWith(QChar(0x2026)) || !a->isEnabled()) continue;
                 if (std::any_of(skip.cbegin(), skip.cend(), [&](const QString& k) { return text.contains(k); })) continue;
                 current = top->text().remove(QLatin1Char('&')) + QStringLiteral(" > ") + QString(text).remove(QLatin1Char('&'));
                 a->trigger();

@@ -49,7 +49,8 @@ namespace bld::ui {
 
 void MainWindow::setupMapMenu() {
     auto* mapMenu = menuBar()->addMenu(tr("&Map"));
-    auto* bgAct = mapMenu->addAction(tr("Background &Color..."));
+    auto* bgAct = mapMenu->addAction(tr("Background &Color…"));
+    bgAct->setToolTip(tr("Pick the color behind the layout"));
     connect(bgAct, &QAction::triggered, this, [this]{
         auto* m = mapView_->currentMap();
         if (!m) return;
@@ -61,7 +62,7 @@ void MainWindow::setupMapMenu() {
             *m, core::ColorSpec::fromArgb(c)));
         mapView_->scene()->setBackgroundBrush(c);
     });
-    auto* bgImgAct = mapMenu->addAction(tr("Background &Image..."));
+    auto* bgImgAct = mapMenu->addAction(tr("Background &Image…"));
     bgImgAct->setToolTip(tr("A picture shown under the layout, such as a floor plan. It's kept with the layout in this app; BlueBrick doesn't show it."));
     connect(bgImgAct, &QAction::triggered, this, [this]{
         auto* m = mapView_->currentMap();
@@ -70,7 +71,7 @@ void MainWindow::setupMapMenu() {
         dlg.setWindowTitle(tr("Background image"));
         auto* form = new QFormLayout(&dlg);
         auto* pathEdit = new QLineEdit(m->sidecar.backgroundImagePath, &dlg);
-        auto* browseBtn = new QPushButton(tr("..."), &dlg);
+        auto* browseBtn = new QPushButton(tr("…"), &dlg);
         auto* clearBtn  = new QPushButton(tr("Clear"), &dlg);
         pathEdit->setAccessibleName(tr("Image path"));
         browseBtn->setAccessibleName(tr("Choose the image"));
@@ -130,7 +131,8 @@ void MainWindow::setupMapMenu() {
         }
         mapView_->viewport()->update();
     });
-    auto* infoAct = mapMenu->addAction(tr("General &Info..."));
+    auto* infoAct = mapMenu->addAction(tr("General &Info…"));
+    infoAct->setToolTip(tr("Who made the layout, for which event, and notes about it"));
     generalInfoAct_ = infoAct;
     connect(infoAct, &QAction::triggered, this, [this]{
         auto* m = mapView_->currentMap();
@@ -164,7 +166,7 @@ void MainWindow::setupMapMenu() {
 
     mapMenu->addSeparator();
     auto* venueMenu = mapMenu->addMenu(tr("&Venue"));
-    auto* designerAct = venueMenu->addAction(tr("Open Venue &Designer..."));
+    auto* designerAct = venueMenu->addAction(tr("Open Venue &Designer…"));
     designerAct->setObjectName(QStringLiteral("map.roomDesigner"));
     designerAct->setToolTip(
         tr("Design this layout's venue: walls, doors, openings, columns, stairs, power, measurements."));
@@ -185,7 +187,7 @@ void MainWindow::setupMapMenu() {
         dlg.exec();
     });
     venueMenu->addSeparator();
-    auto* drawOutlineAct = venueMenu->addAction(tr("Draw &Outline..."));
+    auto* drawOutlineAct = venueMenu->addAction(tr("Draw &Outline…"));
     drawOutlineAct->setToolTip(tr("Click points on the map to build the venue outline. "
                                     "Right-click or Enter finishes; Escape cancels."));
     connect(drawOutlineAct, &QAction::triggered, this, [this]{
@@ -195,7 +197,7 @@ void MainWindow::setupMapMenu() {
             tr("Click points to outline the venue. Right-click / Enter to finish, Escape to cancel."),
             8000);
     });
-    auto* drawByDimsAct = venueMenu->addAction(tr("Draw Outline by &Dimensions..."));
+    auto* drawByDimsAct = venueMenu->addAction(tr("Draw Outline by &Dimensions…"));
     drawByDimsAct->setToolTip(tr("Build the venue outline by entering lengths + angles "
                                    "instead of clicking points on the map."));
     connect(drawByDimsAct, &QAction::triggered, this, [this]{
@@ -225,7 +227,7 @@ void MainWindow::setupMapMenu() {
             tr("Venue outline built from %1 segments").arg(poly.size()), 3000);
     });
 
-    auto* drawObstacleAct = venueMenu->addAction(tr("Add &Obstacle..."));
+    auto* drawObstacleAct = venueMenu->addAction(tr("Add &Obstacle…"));
     drawObstacleAct->setToolTip(tr("Click points to add an obstacle polygon (pillar, column)."));
     connect(drawObstacleAct, &QAction::triggered, this, [this]{
         if (!mapView_->currentMap() || !mapView_->currentMap()->sidecar.venue) {
@@ -239,7 +241,8 @@ void MainWindow::setupMapMenu() {
             8000);
     });
     venueMenu->addSeparator();
-    auto* editVenueAct = venueMenu->addAction(tr("&Edit Venue Properties..."));
+    auto* editVenueAct = venueMenu->addAction(tr("&Edit Venue Properties…"));
+    editVenueAct->setToolTip(tr("Change the room this layout is set up in"));
     connect(editVenueAct, &QAction::triggered, this, [this]{
         auto* m = mapView_->currentMap();
         if (!m) return;
@@ -270,14 +273,15 @@ void MainWindow::setupMapMenu() {
 
     venueMenu->addSeparator();
 
-    auto* showLibraryAct = venueMenu->addAction(tr("Venue &library..."));
+    auto* showLibraryAct = venueMenu->addAction(tr("Venue &library…"));
     showLibraryAct->setToolTip(tr("Open the Venue library panel to browse, load, or save venues."));
     connect(showLibraryAct, &QAction::triggered, this, [this]{
         venueLibraryPanel_->show();
         venueLibraryPanel_->raise();
     });
 
-    auto* loadVenueFileAct = venueMenu->addAction(tr("Load Venue from &File..."));
+    auto* loadVenueFileAct = venueMenu->addAction(tr("Load Venue from &File…"));
+    loadVenueFileAct->setToolTip(tr("Use a room saved as a .bld-venue file"));
     connect(loadVenueFileAct, &QAction::triggered, this, [this]{
         auto* m = mapView_->currentMap();
         if (!m) return;

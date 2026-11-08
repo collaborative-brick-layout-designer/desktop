@@ -31,7 +31,7 @@ LibraryPathsDialog::LibraryPathsDialog(QStringList initial, QWidget* parent)
     row->addWidget(list_, 1);
 
     auto* side = new QVBoxLayout();
-    auto* addBtn    = new QPushButton(tr("Add..."),    this);
+    auto* addBtn    = new QPushButton(tr("Add…"),    this);
     auto* removeBtn = new QPushButton(tr("Remove"),    this);
     auto* upBtn     = new QPushButton(tr("Move Up"),   this);
     auto* downBtn   = new QPushButton(tr("Move Down"), this);

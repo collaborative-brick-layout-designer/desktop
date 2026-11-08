@@ -95,7 +95,7 @@ PreparedPart fromLDrawGeometry(PreparedPart out, const import::LDrawReadResult& 
     import::LDrawMeshLoader loader(lib, palette);
     import::BakedModel baked;
     import::RasterizeResult rast;
-    const bool finished = runHeavy(Text::tr("Importing %1...").arg(QFileInfo(out.source).fileName()),
+    const bool finished = runHeavy(Text::tr("Importing %1…").arg(QFileInfo(out.source).fileName()),
         [&](CancelToken& cancel) {
             baked = import::bakeMeshFromLDraw(read, loader, palette);
             if (cancel.requested() || baked.mesh.tris.empty()) return;
@@ -193,7 +193,7 @@ PreparedPart fromLDDGeometry(PreparedPart out, const import::LDrawReadResult& re
     materials.loadFromBytes(assets.read(QStringLiteral("Materials.xml")));
     import::LDDLDrawBakedModel baked;
     import::RasterizeResult rast;
-    const bool finished = runHeavy(Text::tr("Importing %1...").arg(QFileInfo(out.source).fileName()),
+    const bool finished = runHeavy(Text::tr("Importing %1…").arg(QFileInfo(out.source).fileName()),
         [&](CancelToken& cancel) {
             import::LDDMeshBuilder builder;
             builder.setAssets(&assets);

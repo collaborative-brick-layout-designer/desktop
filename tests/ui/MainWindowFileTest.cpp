@@ -42,10 +42,13 @@
 #include <QLineEdit>
 #include <QListWidget>
 #include <QMenu>
+#include <QRegularExpression>
+#include <QMenuBar>
 #include <QMessageBox>
 #include <QPointer>
 #include <QPushButton>
 #include <QSettings>
+#include <QStatusBar>
 #include <QStandardPaths>
 #include <QTemporaryDir>
 #include <QTest>
@@ -206,6 +209,60 @@ TEST_F(MainWindowFile, OpensOnTheSavedSheetOrTheTopmostPartsSheet) {
     EXPECT_EQ(map->layers()[map->selectedLayerIndex]->name, QStringLiteral("Tables"));
 }
 
+// Every menu item that opens a window ("…") says in its tooltip what it
+// does, not just its own name again ("Save As": "Save As").
+TEST_F(MainWindowFile, MenuItemsThatOpenAWindowSayWhatTheyDo) {
+    QStringList bare;
+    std::function<void(QMenu*)> walk = [&](QMenu* menu) {
+        for (QAction* a : menu->actions()) {
+            if (a->menu()) { walk(a->menu()); continue; }
+            QString label = a->text();
+            label.remove(QRegularExpression(QStringLiteral("&(?!&)")));
+            label.replace(QStringLiteral("&&"), QStringLiteral("&"));
+            if (!label.endsWith(QChar(0x2026))) continue;
+            label.chop(1);
+            QString tip = a->toolTip();
+            tip.remove(QChar(0x2026));
+            if (tip.trimmed().isEmpty() || tip.trimmed() == label.trimmed()) bare << a->text();
+        }
+    };
+    for (QAction* top : window_->menuBar()->actions())
+        if (top->menu()) walk(top->menu());
+    EXPECT_TRUE(bare.isEmpty()) << bare.join(QStringLiteral(", ")).toStdString();
+}
+
+// The Budget menu, all greyed out until there is a budget, starts by saying
+// what a budget is.
+TEST_F(MainWindowFile, BudgetMenuSaysWhatABudgetIs) {
+    QAction* what = nullptr;
+    for (QAction* a : window_->findChildren<QAction*>())
+        if (a->objectName() == QStringLiteral("act.budget.what")) what = a;
+    ASSERT_NE(what, nullptr);
+    EXPECT_TRUE(what->isEnabled());
+    EXPECT_FALSE(what->toolTip().isEmpty());
+    // Triggering it opens a box that explains; close it straight away.
+    QTimer::singleShot(0, [] {
+        if (auto* box = qobject_cast<QMessageBox*>(QApplication::activeModalWidget())) {
+            EXPECT_TRUE(box->text().contains(QStringLiteral("how many of each part you own")));
+            box->accept();
+        }
+    });
+    what->trigger();
+}
+
+// The status bar names the opened file by its name, not its whole path
+// (which was cut off and showed internal folders); the path is the tooltip.
+TEST_F(MainWindowFile, StatusBarNamesTheFileWithThePathAsTooltip) {
+    ASSERT_TRUE(window_->openFile(bbm_));
+    QStatusBar* bar = window_->statusBar();
+    const QString name = QFileInfo(bbm_).fileName();
+    EXPECT_TRUE(bar->currentMessage().startsWith(QStringLiteral("Opened %1").arg(name))) << bar->currentMessage().toStdString();
+    EXPECT_FALSE(bar->currentMessage().contains(QFileInfo(bbm_).absolutePath()));
+    EXPECT_EQ(bar->toolTip(), QDir::toNativeSeparators(bbm_));
+    bar->showMessage(QStringLiteral("Something else"));
+    EXPECT_TRUE(bar->toolTip().isEmpty());
+}
+
 // An edit made right after another is autosaved within seconds too, not
 // left for the minute tick.
 TEST_F(MainWindowFile, AutosaveTakesInEveryEditOfABurst) {
@@ -282,7 +339,7 @@ TEST_F(MainWindowFile, ExportingABbmLeavesOutWhatBlueBrickCannotHold) {
     ASSERT_TRUE(window_->openFile(native));
 
     const QString exported = dir_.filePath(QStringLiteral("for-bluebrick.bbm"));
-    QAction* exportAct = action(*window_, QStringLiteral("Export as &BlueBrick Map (.bbm)..."));
+    QAction* exportAct = action(*window_, QStringLiteral("Export as &BlueBrick Map (.bbm)…"));
     ASSERT_NE(exportAct, nullptr);
     Answers answers{ { chooseFile(exported), click(QStringLiteral("Yes")) } };
     answers.during([&] { exportAct->trigger(); });
@@ -381,7 +438,7 @@ TEST_F(MainWindowFile, SavingALayoutCarriesTheUsersOwnParts) {
     ASSERT_TRUE(import::writeLayoutFile(*oneBrickOf(QStringLiteral("MYPART.1")), source, &error));
     ASSERT_TRUE(window_->openFile(source));
     const QString saved = dir_.filePath(QStringLiteral("saved.bld-layout"));
-    QAction* saveAs = action(*window_, QStringLiteral("Save &As..."));
+    QAction* saveAs = action(*window_, QStringLiteral("Save &As…"));
     ASSERT_NE(saveAs, nullptr);
     Answers answers{ { chooseFile(saved) } };
     answers.during([&] { saveAs->trigger(); });
@@ -555,8 +612,8 @@ TEST_F(MainWindowFile, ShellHasTaskTabsSheetsAndThePieceCount) {
     EXPECT_TRUE(pieces->text().endsWith(QStringLiteral("pieces"))) << pieces->text().toStdString();
     EXPECT_NE(window_->findChild<QLabel*>(QStringLiteral("ZoomLabel")), nullptr);
     // Everything the old toolbar did is still in the menus.
-    EXPECT_NE(action(*window_, QStringLiteral("&Settings...")), nullptr);
-    EXPECT_NE(action(*window_, QStringLiteral("&Preferences...")), nullptr);
+    EXPECT_NE(action(*window_, QStringLiteral("&Settings…")), nullptr);
+    EXPECT_NE(action(*window_, QStringLiteral("&Preferences…")), nullptr);
     EXPECT_NE(action(*window_, QStringLiteral("Cu&t")), nullptr);
     EXPECT_NE(action(*window_, QStringLiteral("Send to &Back")), nullptr);
 }

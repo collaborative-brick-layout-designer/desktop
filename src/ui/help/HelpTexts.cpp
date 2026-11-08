@@ -23,6 +23,7 @@ constexpr Raw kShared[] = {
       QT_TRANSLATE_NOOP("HelpTexts", "Parts"),
       QT_TRANSLATE_NOOP("HelpTexts", "All the pieces you can build with."),
       QT_TRANSLATE_NOOP("HelpTexts", "Search by name or number, or pick a group like track or plates. "
+                                     "The letters you type may have gaps: \"plt2\" finds \"plate2x4\". "
                                      "Drag a part onto the map, or click it to drop it in the middle.") },
     { "panel.sheets", "/help#sheets",
       QT_TRANSLATE_NOOP("HelpTexts", "Sheets"),

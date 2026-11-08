@@ -78,7 +78,7 @@ ConnectDialog::ConnectDialog(ServerApi& api, TokenStore& tokens, std::function<v
     QFont bold = yours->font();
     bold.setBold(true);
     yours->setFont(bold);
-    auto* manage = new QPushButton(tr("Manage Servers..."), addressPage);
+    auto* manage = new QPushButton(tr("Manage Servers…"), addressPage);
     manage->setObjectName(QStringLiteral("manageServers"));
     manage->setToolTip(tr("Add, rename or remove servers, sign in or out, and pick your Main one"));
     head->addWidget(yours);
@@ -168,7 +168,7 @@ ConnectDialog::ConnectDialog(ServerApi& api, TokenStore& tokens, std::function<v
     openBtn_->setEnabled(false);
     bottom->addWidget(signOut);
     // Clubs that let people find them are listed on the server's Clubs page.
-    auto* findClub = new QPushButton(tr("Find a Club on the Web..."), layoutsPage);
+    auto* findClub = new QPushButton(tr("Find a Club on the Web…"), layoutsPage);
     findClub->setObjectName(QStringLiteral("findClub"));
     findClub->setToolTip(tr("Open this server's Clubs page in your browser, to find a club and join it"));
     bottom->addWidget(bld::ui::help::withHelp(findClub, QStringLiteral("club.find"), layoutsPage));

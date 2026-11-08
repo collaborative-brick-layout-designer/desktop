@@ -130,7 +130,7 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
             const int li = only->data(kBrickDataLayerIndex).toInt();
             const QString guid = only->data(kBrickDataGuid).toString();
             if (isBrickItem(only)) {
-                auto* prop = menu.addAction(tr("Properties..."));
+                auto* prop = menu.addAction(tr("Properties…"));
                 connect(prop, &QAction::triggered, [this, li, guid]{
                     if (editBrickDialog(this, *map_, li, guid, parts_, *undoStack_)) refreshScene();
                 });
@@ -142,25 +142,25 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
                 // A part made from a model: swap in another model for it.
                 if (const auto meta = partNumber.isEmpty() ? std::nullopt : parts_.metadata(partNumber);
                     meta && meta->importSource) {
-                    auto* other = menu.addAction(tr("Replace with Another File..."));
+                    auto* other = menu.addAction(tr("Replace with Another File…"));
                     other->setObjectName(QStringLiteral("ctxReplaceImported"));
                     connect(other, &QAction::triggered, this,
                             [this, partNumber] { emit replaceImportedPartRequested(partNumber); });
                 }
             } else if (isRulerItem(only)) {
-                auto* prop = menu.addAction(tr("Properties..."));
+                auto* prop = menu.addAction(tr("Properties…"));
                 connect(prop, &QAction::triggered, [this, li, guid]{
                     if (editRulerDialog(this, *map_, li, guid, *undoStack_)) refreshScene();
                 });
             } else if (isTextItem(only)) {
-                auto* prop = menu.addAction(tr("Properties..."));
+                auto* prop = menu.addAction(tr("Properties…"));
                 connect(prop, &QAction::triggered, [this, li, guid]{
                     if (editTextDialog(this, *map_, li, guid, *undoStack_)) refreshScene();
                 });
             }
         }
         if (singleText) {
-            auto* edit = menu.addAction(tr("Edit Text..."));
+            auto* edit = menu.addAction(tr("Edit Text…"));
             connect(edit, &QAction::triggered, [this]{ editSelectedTextContent(); });
         }
 
@@ -236,7 +236,7 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
             menu.addSeparator();
             // Already one whole module: its own entries are at the top.
             if (!wholeModule || !editingModuleId_.isEmpty()) {
-                auto* make = menu.addAction(tr("Make a Module..."));
+                auto* make = menu.addAction(tr("Make a Module…"));
                 make->setObjectName(QStringLiteral("ctxMakeModule"));
                 connect(make, &QAction::triggered, this, &MapView::makeModuleRequested);
                 menu.addSeparator();
@@ -264,7 +264,7 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
             menu.addSeparator();
         }
         const QPointF scenePos = mapToScene(e->pos());
-        auto* addText = menu.addAction(tr("Add Text Here..."));
+        auto* addText = menu.addAction(tr("Add Text Here…"));
         connect(addText, &QAction::triggered, [this, scenePos]{
             if (!map_) return;
             bool ok = false;
@@ -389,7 +389,7 @@ bool MapView::addModuleMenu(QMenu& menu, const QString& clickedBrickGuid) {
             undoStack_->push(new edit::UpdateModuleCommand(*map_, core::withShowName(*m, !m->showName),
                                                            m->showName ? tr("Hide module name") : tr("Show module name")));
     });
-    menu.addAction(tr("Colors..."), this, [this, id] { emit moduleLookRequested(id); });
+    menu.addAction(tr("Colors…"), this, [this, id] { emit moduleLookRequested(id); });
     if (moduleLibraryInfo_) {
         menu.addSeparator();
         for (const auto& e : moduleLibraryInfo_(*mod).entries) {

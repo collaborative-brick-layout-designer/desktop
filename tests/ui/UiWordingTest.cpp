@@ -1,4 +1,4 @@
-// The words the user sees agree with the web app. Every tr("...") string in
+// The words the user sees agree with the web app. Every tr("…") string in
 // src/ is scanned:
 //   - a map is made of "sheets", never "layers" (the file format and the
 //     code still say Layer; the screen does not);
@@ -57,6 +57,16 @@ TEST(UiWordingTest, SaysSheetNotLayer) {
         if (layer.match(h.text).hasMatch()) bad.push_back(h);
     }
     EXPECT_TRUE(bad.isEmpty()) << "Say \"sheet\", as the web does:\n" << describe(bad).toStdString();
+}
+
+// Menu items and buttons that open a window end in one "…" character, never
+// three dots: the two were mixed ("Open..." next to "Share Picture…").
+TEST(UiWordingTest, EllipsisIsOneCharacter) {
+    QList<Hit> bad;
+    for (const Hit& h : trStrings()) {
+        if (h.text.contains(QLatin1String("..."))) bad.push_back(h);
+    }
+    EXPECT_TRUE(bad.isEmpty()) << "Use \"…\", not \"...\":\n" << describe(bad).toStdString();
 }
 
 TEST(UiWordingTest, LibraryCasingMatchesTheWeb) {

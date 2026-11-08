@@ -123,8 +123,8 @@ CompareDialog::CompareDialog(const QList<ItemChange>& changes, QWidget* parent)
     auto* buttons = new QDialogButtonBox(this);
     auto* apply = buttons->addButton(tr("Apply"), QDialogButtonBox::AcceptRole);
     auto* discard = buttons->addButton(tr("Discard My Changes"), QDialogButtonBox::DestructiveRole);
-    auto* replace = buttons->addButton(tr("Replace Server with Mine..."), QDialogButtonBox::ActionRole);
-    auto* saveNew = buttons->addButton(tr("Save Mine as a New Layout..."), QDialogButtonBox::ActionRole);
+    auto* replace = buttons->addButton(tr("Replace Server with Mine…"), QDialogButtonBox::ActionRole);
+    auto* saveNew = buttons->addButton(tr("Save Mine as a New Layout…"), QDialogButtonBox::ActionRole);
     auto* later = buttons->addButton(tr("Later"), QDialogButtonBox::RejectRole);
     apply->setDefault(true);
     later->setToolTip(tr("Keep your offline changes waiting; File > Review Offline Changes brings this back"));

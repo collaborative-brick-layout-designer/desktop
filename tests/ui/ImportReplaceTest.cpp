@@ -419,7 +419,7 @@ TEST_F(ImportReplace, BatchImportAsksAboutTakenNamesOnceWhenToldToDoTheSame) {
     // Tools › Import › Batch Import: the first taken name asks; "do the same" ticked, Replace.
     QAction* batchAct = nullptr;
     for (QAction* a : window_->findChildren<QAction*>())
-        if (a->text() == QStringLiteral("&Batch Import...")) batchAct = a;
+        if (a->text() == QStringLiteral("&Batch Import…")) batchAct = a;
     ASSERT_NE(batchAct, nullptr);
     Person me;
     me.buttons = { QStringLiteral("clashReplace") };

@@ -61,10 +61,10 @@ DownloadCenterDialog::DownloadCenterDialog(QString libraryRoot, QWidget* parent)
     // ---- Source selection group (mirrors LibraryPackageSourceForm) ----
     auto* srcGroup = new QGroupBox(tr("Search for parts packages from:"), this);
     auto* srcLayout = new QVBoxLayout(srcGroup);
-    cbOfficial_ = new QCheckBox(tr("Official LEGO part library"), srcGroup);
+    cbOfficial_ = new QCheckBox(tr("BlueBrick packs (Town, Train, Castle, BrickTracks, TrixBrix, …)"), srcGroup);
     cbOfficial_->setChecked(true);
     cbOfficial_->setToolTip(QString::fromLatin1(kOfficialUrl));
-    cbNonLego_ = new QCheckBox(tr("Non-LEGO part library (BrickTracks, 4DBrix, …)"), srcGroup);
+    cbNonLego_ = new QCheckBox(tr("Other toy brands (Plarail)"), srcGroup);
     cbNonLego_->setToolTip(QString::fromLatin1(kNonLegoUrl));
     cbCustom_ = new QCheckBox(tr("Unofficial location (custom URL)"), srcGroup);
     customUrl_ = new QLineEdit(srcGroup);
@@ -232,7 +232,7 @@ void DownloadCenterDialog::onSearchClicked() {
     candidates_->clear();
     downloadBtn_->setEnabled(false);
     searchBtn_->setEnabled(false);
-    statusLabel_->setText(tr("Searching..."));
+    statusLabel_->setText(tr("Searching…"));
     QApplication::processEvents();
 
     // Same regex BlueBrick uses on the directory listing's HTML body.

@@ -14,6 +14,7 @@
 #include <QElapsedTimer>
 #include <QJsonObject>
 #include <QIcon>
+#include <QImage>
 #include <QListWidget>
 #include <QPixmap>
 #include <QNativeGestureEvent>
@@ -198,8 +199,13 @@ TEST(PartIcon, PicturesAreSharpOnScaledScreens) {
         ASSERT_FALSE(icon.isNull());
         const QPixmap shown = icon.pixmap(QSize(48, 48), dpr);
         EXPECT_EQ(shown.width(), qRound(48 * dpr)) << "at " << dpr;
-        EXPECT_EQ(shown.height(), qRound(24 * dpr)) << "at " << dpr;
+        // Square, with the 2:1 picture centred in it: every cell lines up.
+        EXPECT_EQ(shown.height(), qRound(48 * dpr)) << "at " << dpr;
         EXPECT_DOUBLE_EQ(shown.devicePixelRatio(), dpr);
+        const QImage img = shown.toImage();
+        EXPECT_EQ(img.pixelColor(img.width() / 2, img.height() / 2), QColor(Qt::red)) << "at " << dpr;
+        EXPECT_EQ(img.pixelColor(img.width() / 2, 1).alpha(), 0) << "at " << dpr;
+        EXPECT_EQ(img.pixelColor(img.width() / 2, img.height() - 2).alpha(), 0) << "at " << dpr;
     }
     EXPECT_TRUE(bld::ui::PartsBrowser::partIcon(QPixmap(), 48, 2.0).isNull());
 }

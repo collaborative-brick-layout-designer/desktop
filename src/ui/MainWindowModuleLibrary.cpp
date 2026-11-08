@@ -190,7 +190,7 @@ void MainWindow::linkModule(const QString& moduleId, const QString& libraryId, i
 
 ModuleLibraryInfo MainWindow::moduleLibraryInfo(const core::Module& m) const {
     ModuleLibraryInfo info;
-    const ModuleLibraryEntry save{ QStringLiteral("save"), tr("Save to Module library..."), true,
+    const ModuleLibraryEntry save{ QStringLiteral("save"), tr("Save to Module library…"), true,
                                    tr("Save a copy to your Module library or a club's, to use in other layouts") };
     if (const auto link = edit::libraryLink(m)) {
         const bool ready = serverLibrary_ && serverLibrary_->state() == ServerLibrary::State::Ready;
@@ -202,7 +202,7 @@ ModuleLibraryInfo MainWindow::moduleLibraryInfo(const core::Module& m) const {
         }
         const int latest = sm->latestVersion;
         info.note = edit::libraryNote(link->version, latest);
-        info.entries << ModuleLibraryEntry{ QStringLiteral("publish"), tr("Update Module library version..."), sm->canEdit(),
+        info.entries << ModuleLibraryEntry{ QStringLiteral("publish"), tr("Update Module library version…"), sm->canEdit(),
                                             sm->canEdit() ? tr("Make this layout's copy version %1 of “%2”").arg(latest + 1).arg(sm->title)
                                                           : tr("You can't change “%1” in the Module library").arg(sm->title) };
         if (latest > 0 && (link->version == 0 || latest > link->version))
@@ -213,7 +213,7 @@ ModuleLibraryInfo MainWindow::moduleLibraryInfo(const core::Module& m) const {
     }
     if (const QString file = libraryFileOf(m); !file.isEmpty()) {
         info.note = tr("from %1").arg(QFileInfo(file).fileName());
-        info.entries << ModuleLibraryEntry{ QStringLiteral("publish"), tr("Update Module library file..."), true,
+        info.entries << ModuleLibraryEntry{ QStringLiteral("publish"), tr("Update Module library file…"), true,
                                             tr("Write this layout's copy over %1").arg(QFileInfo(file).fileName()) }
                      << ModuleLibraryEntry{ QStringLiteral("pull"), tr("Update from Module library file"), true,
                                             tr("Replace this module's parts with what %1 holds now").arg(QFileInfo(file).fileName()) }

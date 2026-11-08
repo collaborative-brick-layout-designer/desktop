@@ -119,7 +119,7 @@ TEST(ModulesPanel, TheMoreButtonOpensTheModuleMenuWithItsLook) {
         ASSERT_NE(menu, nullptr);
         for (QAction* a : menu->actions()) {
             if (a->text() == QStringLiteral("Show name")) checkedShown = a->isChecked();
-            if (a->text() == QStringLiteral("Colors...")) a->trigger();
+            if (a->text() == QStringLiteral("Colors…")) a->trigger();
         }
         menu->close();
     });
