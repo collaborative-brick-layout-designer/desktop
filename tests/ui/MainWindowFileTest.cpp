@@ -661,7 +661,7 @@ TEST_F(MainWindowFile, ShellHasTaskTabsSheetsAndThePieceCount) {
     EXPECT_NE(action(*window_, QStringLiteral("&Settings…")), nullptr);
     EXPECT_NE(action(*window_, QStringLiteral("&Preferences…")), nullptr);
     EXPECT_NE(action(*window_, QStringLiteral("Cu&t")), nullptr);
-    EXPECT_NE(action(*window_, QStringLiteral("Send to &Back")), nullptr);
+    EXPECT_NE(action(*window_, QStringLiteral("Send to &back")), nullptr);
 }
 
 // The status bar's piece count is every part on every sheet (as the web

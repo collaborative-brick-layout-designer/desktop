@@ -164,27 +164,34 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
     col->setContentsMargins(2, 2, 2, 2);
     col->setSpacing(2);
 
+    // Two rows, with words on the buttons ("Add sheet", not "+"), as on the web.
     auto* row = new QHBoxLayout();
     row->setSpacing(2);
     auto* showAll = new QPushButton(tr("Show all"), host);
     auto* hideOthers = new QPushButton(tr("Solo"), host);
     hideOthers->setToolTip(tr("Show only the selected sheet"));
-    auto* addBtn = new QPushButton(tr("+"), host);
+    auto* addBtn = new QPushButton(tr("Add sheet"), host);
+    addBtn->setObjectName(QStringLiteral("addSheet"));
     addBtn->setToolTip(tr("Add a new sheet"));
-    auto* delBtn = new QPushButton(tr("−"), host);
-    delBtn->setToolTip(tr("Delete the selected sheet"));
+    auto* delBtn = new QPushButton(tr("Remove sheet"), host);
+    delBtn->setObjectName(QStringLiteral("removeSheet"));
+    delBtn->setToolTip(tr("Remove the selected sheet"));
     auto* upBtn  = new QPushButton(tr("▲"), host);
     upBtn->setToolTip(tr("Move selected sheet up"));
     auto* dnBtn  = new QPushButton(tr("▼"), host);
     dnBtn->setToolTip(tr("Move selected sheet down"));
-    row->addWidget(showAll);
-    row->addWidget(hideOthers);
-    row->addStretch();
     row->addWidget(addBtn);
     row->addWidget(delBtn);
+    row->addStretch();
     row->addWidget(upBtn);
     row->addWidget(dnBtn);
     col->addLayout(row);
+    auto* row2 = new QHBoxLayout();
+    row2->setSpacing(2);
+    row2->addWidget(showAll);
+    row2->addWidget(hideOthers);
+    row2->addStretch();
+    col->addLayout(row2);
 
     connect(addBtn, &QPushButton::clicked, this, [this]{
         QMenu m(this);
@@ -310,7 +317,7 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
             auto* dn = menu.addAction(tr("Move Down"));
             connect(dn, &QAction::triggered, [this, index]{ emit moveLayerRequested(index, -1); });
             menu.addSeparator();
-            auto* del = menu.addAction(tr("Delete sheet"));
+            auto* del = menu.addAction(tr("Remove sheet"));
             connect(del, &QAction::triggered, [this, index]{ emit deleteLayerRequested(index); });
             menu.addSeparator();
         }

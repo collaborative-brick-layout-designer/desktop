@@ -15,7 +15,7 @@
     </message>
     <message>
         <location filename="../src/edit/EditCommands.cpp" line="60"/>
-        <source>Rotate %1 brick(s)</source>
+        <source>Turn %1 part(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -90,7 +90,7 @@
     </message>
     <message>
         <location filename="../src/edit/LayerCommands.cpp" line="67"/>
-        <source>Delete sheet</source>
+        <source>Remove sheet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -145,7 +145,7 @@
     </message>
     <message>
         <location filename="../src/edit/ModuleCommands.cpp" line="123"/>
-        <source>Rotate module %1°</source>
+        <source>Turn module %1°</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -300,7 +300,7 @@
     <message>
         <location filename="../src/ui/EditDialogs.cpp" line="108"/>
         <location filename="../src/ui/EditDialogs.cpp" line="335"/>
-        <source>Rotation:</source>
+        <source>Angle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -567,7 +567,7 @@
     </message>
     <message>
         <location filename="../src/ui/PreferencesDialog.cpp" line="145"/>
-        <source>Default rotation step:</source>
+        <source>Default turn step:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1321,22 +1321,22 @@
     </message>
     <message>
         <location filename="../src/ui/ImportPreviewDialog.cpp" line="124"/>
-        <source>Rotate ⟲</source>
+        <source>Turn ⟲</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/ImportPreviewDialog.cpp" line="125"/>
-        <source>Rotate ⟳</source>
+        <source>Turn ⟳</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/ImportPreviewDialog.cpp" line="126"/>
-        <source>Rotate the part 90° counter-clockwise</source>
+        <source>Turn the part 90° left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/ImportPreviewDialog.cpp" line="127"/>
-        <source>Rotate the part 90° clockwise</source>
+        <source>Turn the part 90° right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1470,7 +1470,7 @@
     </message>
     <message>
         <location filename="../src/ui/LayerPanel.cpp" line="65"/>
-        <source>Delete the selected sheet</source>
+        <source>Remove the selected sheet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1580,7 +1580,7 @@
     </message>
     <message>
         <location filename="../src/ui/LayerPanel.cpp" line="196"/>
-        <source>Delete sheet</source>
+        <source>Remove sheet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1902,22 +1902,22 @@ Target path:
     </message>
     <message>
         <location filename="../src/ui/MainWindow.cpp" line="749"/>
-        <source>Rotate CCW</source>
+        <source>Turn left</source>
         <translation>Girar en contra del sentido del reloj</translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindow.cpp" line="752"/>
-        <source>Rotate CW</source>
+        <source>Turn right</source>
         <translation>Girar en el sentido del reloj</translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindow.cpp" line="755"/>
-        <source>Send to Back</source>
+        <source>Send to back</source>
         <translation>Enviar al fondo</translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindow.cpp" line="758"/>
-        <source>Bring to Front</source>
+        <source>Bring to front</source>
         <translation>Traer al frente</translation>
     </message>
     <message>
@@ -2860,12 +2860,12 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="426"/>
-        <source>Rotate &amp;CCW</source>
+        <source>Turn &amp;left</source>
         <translation>Girar en contra del sentido del reloj</translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="421"/>
-        <source>Rotate C&amp;W</source>
+        <source>Turn &amp;right</source>
         <translation>Girar en el sentido del reloj</translation>
     </message>
     <message>
@@ -2890,7 +2890,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="404"/>
-        <source>Rotation &amp;Step</source>
+        <source>Turn &amp;step</source>
         <translation>Rotación</translation>
     </message>
     <message>
@@ -3042,7 +3042,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="398"/>
-        <source>Bring to &amp;Front</source>
+        <source>Bring to &amp;front</source>
         <translation>Traer al frente</translation>
     </message>
     <message>
@@ -3052,7 +3052,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MainWindowMenus.cpp" line="395"/>
-        <source>Send to &amp;Back</source>
+        <source>Send to &amp;back</source>
         <translation>Enviar al fondo</translation>
     </message>
     <message>
@@ -3777,22 +3777,22 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/MapViewContextMenu.cpp" line="144"/>
-        <source>Rotate CCW</source>
+        <source>Turn left</source>
         <translation>Girar en contra del sentido del reloj</translation>
     </message>
     <message>
         <location filename="../src/ui/MapViewContextMenu.cpp" line="147"/>
-        <source>Rotate CW</source>
+        <source>Turn right</source>
         <translation>Girar en el sentido del reloj</translation>
     </message>
     <message>
         <location filename="../src/ui/MapViewContextMenu.cpp" line="153"/>
-        <source>Bring to Front</source>
+        <source>Bring to front</source>
         <translation>Traer al frente</translation>
     </message>
     <message>
         <location filename="../src/ui/MapViewContextMenu.cpp" line="155"/>
-        <source>Send to Back</source>
+        <source>Send to back</source>
         <translation>Enviar al fondo</translation>
     </message>
     <message>
@@ -4028,7 +4028,7 @@ Restore it?</source>
     </message>
     <message>
         <location filename="../src/ui/ModulesPanel.cpp" line="117"/>
-        <source>Rotate</source>
+        <source>Turn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

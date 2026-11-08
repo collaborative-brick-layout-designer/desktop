@@ -169,10 +169,10 @@ ImportPreviewDialog::ImportPreviewDialog(PreparedPart part, const QStringList& c
     view_->setMinimumSize(360, 300);
     leftCol->addWidget(view_, 1);
     auto* tools = new QHBoxLayout();
-    auto* rotL = new QPushButton(tr("Rotate ⟲"), left);
-    auto* rotR = new QPushButton(tr("Rotate ⟳"), left);
-    rotL->setToolTip(tr("Rotate the part 90° counter-clockwise"));
-    rotR->setToolTip(tr("Rotate the part 90° clockwise"));
+    auto* rotL = new QPushButton(tr("Turn ⟲"), left);
+    auto* rotR = new QPushButton(tr("Turn ⟳"), left);
+    rotL->setToolTip(tr("Turn the part 90° left"));
+    rotR->setToolTip(tr("Turn the part 90° right"));
     auto* zoomOut = new QPushButton(tr("Zoom out"), left);
     auto* zoomIn  = new QPushButton(tr("Zoom in"), left);
     auto* fitBtn  = new QPushButton(tr("Fit"), left);

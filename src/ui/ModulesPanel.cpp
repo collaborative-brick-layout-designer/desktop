@@ -156,7 +156,7 @@ void ModulesPanel::fillMenu(QMenu& menu, const QString& id) {
         if (dlg.exec() == QDialog::Accepted)
             emit moveRequested(id, dx->value(), dy->value());
     });
-    auto* rotMenu = menu.addMenu(tr("Rotate"));
+    auto* rotMenu = menu.addMenu(tr("Turn"));
     rotMenu->setEnabled(!pinned);
     for (double deg : { -90.0, -45.0, 45.0, 90.0, 180.0 }) {
         auto* a = rotMenu->addAction(tr("%1°").arg(deg > 0 ? QStringLiteral("+") + QString::number(deg)

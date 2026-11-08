@@ -1881,7 +1881,7 @@ void MapView::rotateSelected(float degrees) {
     if (textTurns.empty() && rulerTurns.empty()) {
         undoStack_->push(new edit::RotateBricksCommand(*map_, std::move(rotates)));
     } else {
-        undoStack_->beginMacro(tr("Rotate"));
+        undoStack_->beginMacro(tr("Turn"));
         if (!rotates.empty()) undoStack_->push(new edit::RotateBricksCommand(*map_, std::move(rotates)));
         undoStack_->push(new edit::ReplaceAnnotationsCommand(*map_, std::move(textTurns), std::move(rulerTurns)));
         undoStack_->endMacro();

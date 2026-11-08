@@ -443,16 +443,16 @@ void MainWindow::setupMenus() {
     addNudge(tr("&Down"),  0.0,  1.0);
     addNudge(tr("&Left"), -1.0,  0.0);
     addNudge(tr("&Right"), 1.0,  0.0);
-    auto* toBackAct = transformMenu->addAction(tr("Send to &Back"));
+    auto* toBackAct = transformMenu->addAction(tr("Send to &back"));
     toBackAct->setShortcut(QKeySequence(tr("Ctrl+Shift+[")));
     connect(toBackAct, &QAction::triggered, [this]{ mapView_->sendSelectionToBack(); });
-    auto* toFrontAct = transformMenu->addAction(tr("Bring to &Front"));
+    auto* toFrontAct = transformMenu->addAction(tr("Bring to &front"));
     toFrontAct->setShortcut(QKeySequence(tr("Ctrl+Shift+]")));
     connect(toFrontAct, &QAction::triggered, [this]{ mapView_->bringSelectionToFront(); });
     transformMenu->addSeparator();
     // Rotation step picker — duplicates toolbar dropdown so it's reachable
     // without a mouse. Each entry sets the current rotation step.
-    auto* rotStepMenu = transformMenu->addMenu(tr("Rotation &Step"));
+    auto* rotStepMenu = transformMenu->addMenu(tr("Turn &step"));
     const std::vector<std::pair<QString, double>> rotStepOpts = {
         { tr("90°"),    90.0 },
         { tr("45°"),    45.0 },
@@ -469,12 +469,12 @@ void MainWindow::setupMenus() {
             s.setValue(QStringLiteral("rotationStepDegrees"), val); s.endGroup();
         });
     }
-    auto* rotCW = transformMenu->addAction(tr("Rotate C&W"));
+    auto* rotCW = transformMenu->addAction(tr("Turn &right"));
     rotCW->setShortcut(QKeySequence(tr("Shift+R")));
     connect(rotCW, &QAction::triggered, [this]{
         mapView_->rotateSelected(static_cast<float>(mapView_->rotationStepDegrees()));
     });
-    auto* rotCCW = transformMenu->addAction(tr("Rotate &CCW"));
+    auto* rotCCW = transformMenu->addAction(tr("Turn &left"));
     rotCCW->setShortcut(Qt::Key_R);
     connect(rotCCW, &QAction::triggered, [this]{
         mapView_->rotateSelected(static_cast<float>(-mapView_->rotationStepDegrees()));

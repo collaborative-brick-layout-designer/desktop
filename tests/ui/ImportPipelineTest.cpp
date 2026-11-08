@@ -182,7 +182,7 @@ TEST(ImportPreviewDialog, RotateAndDropConnection) {
     ASSERT_TRUE(list);
     list->item(0)->setCheckState(Qt::Unchecked);
     for (auto* b : dlg.findChildren<QPushButton*>()) {
-        if (b->text() == ui::ImportPreviewDialog::tr("Rotate ⟳")) b->click();
+        if (b->text() == ui::ImportPreviewDialog::tr("Turn ⟳")) b->click();
     }
     const auto r = dlg.result();
     EXPECT_EQ(r.widthStuds, 2);
