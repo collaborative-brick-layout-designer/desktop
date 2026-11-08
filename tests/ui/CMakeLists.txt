@@ -47,6 +47,7 @@ add_executable(bld_ui_tests
     OwnSetsTest.cpp
     RulerDialogTest.cpp
     DialogKeyboardTest.cpp
+    AppIconTest.cpp
 )
 
 target_compile_definitions(bld_ui_tests PRIVATE

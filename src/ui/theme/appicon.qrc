@@ -1,0 +1,15 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <!-- The app icon at every size, each rendered at exactly that size from
+         packaging/icons/source/logo.svg (packaging/icons/source/build-icons.sh). -->
+    <qresource prefix="/bld/appicon">
+        <file alias="16.png">../../../packaging/icons/png/brick-layout-designer-16.png</file>
+        <file alias="24.png">../../../packaging/icons/png/brick-layout-designer-24.png</file>
+        <file alias="32.png">../../../packaging/icons/png/brick-layout-designer-32.png</file>
+        <file alias="48.png">../../../packaging/icons/png/brick-layout-designer-48.png</file>
+        <file alias="64.png">../../../packaging/icons/png/brick-layout-designer-64.png</file>
+        <file alias="128.png">../../../packaging/icons/png/brick-layout-designer-128.png</file>
+        <file alias="256.png">../../../packaging/icons/brick-layout-designer.png</file>
+        <file alias="512.png">../../../packaging/icons/png/brick-layout-designer-512.png</file>
+    </qresource>
+</RCC>

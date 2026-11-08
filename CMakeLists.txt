@@ -205,6 +205,16 @@ else()
             DESTINATION "${CMAKE_INSTALL_DATADIR}/applications")
     install(FILES packaging/linux/brick-layout-designer.xml
             DESTINATION "${CMAKE_INSTALL_DATADIR}/mime/packages")
+    # The app icon at every size, each rendered at exactly that size, and
+    # the SVG it comes from (packaging/icons/source/build-icons.sh).
+    foreach(_px 16 24 32 48 64 128 512)
+        install(FILES packaging/icons/png/brick-layout-designer-${_px}.png
+                DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/${_px}x${_px}/apps"
+                RENAME brick-layout-designer.png)
+    endforeach()
     install(FILES packaging/icons/brick-layout-designer.png
             DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps")
+    install(FILES packaging/icons/source/logo.svg
+            DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps"
+            RENAME brick-layout-designer.svg)
 endif()

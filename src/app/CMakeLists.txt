@@ -21,17 +21,8 @@ if(WIN32)
 endif()
 
 if(APPLE)
-    # Build the .icns from the 256 px PNG with the stock macOS tools.
-    set(_bld_icns "${CMAKE_CURRENT_BINARY_DIR}/brick-layout-designer.icns")
-    add_custom_command(
-        OUTPUT "${_bld_icns}"
-        COMMAND "${CMAKE_COMMAND}"
-                -DSRC=${_bld_icons}/brick-layout-designer.png
-                -DOUT=${_bld_icns}
-                -P "${PROJECT_SOURCE_DIR}/packaging/macos/make-icns.cmake"
-        DEPENDS "${_bld_icons}/brick-layout-designer.png"
-                "${PROJECT_SOURCE_DIR}/packaging/macos/make-icns.cmake"
-        VERBATIM)
+    # The .icns is rendered with the other icons (packaging/icons/source/build-icons.sh).
+    set(_bld_icns "${_bld_icons}/brick-layout-designer.icns")
     target_sources(bld_app PRIVATE "${_bld_icns}")
     set_source_files_properties("${_bld_icns}" PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     set_target_properties(bld_app PROPERTIES

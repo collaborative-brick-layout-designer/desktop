@@ -53,6 +53,7 @@
 #include "../saveload/SetIO.h"
 #include "../saveload/SidecarIO.h"
 #include "TouchMode.h"
+#include "theme/AppIcon.h"
 #include "theme/PanelHeader.h"
 
 #include <QAction>
@@ -108,6 +109,8 @@ namespace bld::ui {
 MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     : QMainWindow(parent), parts_(parts) {
     resize(1400, 900);
+    // The logo, also in the About box, which takes its parent's icon.
+    setWindowIcon(theme::appIcon());
 
     // Scan every configured library path on startup so the PartsBrowser below
     // reflects the user's full set, not just the vendored submodule.

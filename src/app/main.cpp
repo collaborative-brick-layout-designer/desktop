@@ -1,6 +1,7 @@
 #include "../core/NameMigration.h"
 #include "../parts/PartsLibrary.h"
 #include "../ui/MainWindow.h"
+#include "../ui/theme/AppIcon.h"
 #include "../ui/theme/AppPrefs.h"
 #include "../ui/theme/ThemeManager.h"
 #include "../ui/AccessibleNames.h"
@@ -81,6 +82,9 @@ int main(int argc, char** argv) {
     QGuiApplication::setDesktopFileName(QStringLiteral("brick-layout-designer"));
 
     QApplication app(argc, argv);
+    // Every window's icon: the logo, with its small sizes drawn to whole
+    // pixels for the title bar and taskbar.
+    QApplication::setWindowIcon(bld::ui::theme::appIcon());
 
     // --version doubles as the packaging smoke test in CI: reaching it
     // proves the bundled Qt libraries and platform plugin all load.
