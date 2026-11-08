@@ -106,7 +106,11 @@ TEST(ActiveSheetShots, PicturesForReview) {
         QMimeData mime;
         mime.setData(QByteArray(ui::PartsBrowser::kPartMimeType), QByteArray("2865.8"));
         const QPoint at = view->viewport()->rect().center();
+        // Newer Qt wants a QPointF here; older Qt only has the QPoint form.
+        QT_WARNING_PUSH
+        QT_WARNING_DISABLE_DEPRECATED
         QDragEnterEvent enter(at, Qt::CopyAction, &mime, Qt::LeftButton, Qt::NoModifier);
+        QT_WARNING_POP
         QApplication::sendEvent(view->viewport(), &enter);
         QTest::qWait(300);
         window.grab().save(out + QStringLiteral("/desk-%1-%2-dragging.png").arg(tag, name));

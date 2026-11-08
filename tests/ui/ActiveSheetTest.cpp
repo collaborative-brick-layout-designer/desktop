@@ -179,7 +179,11 @@ TEST_F(ActiveSheetTest, ADraggedPartSaysWhereItWillLand) {
     QMimeData mime;
     mime.setData(QByteArray(ui::PartsBrowser::kPartMimeType), QByteArray("PL.7"));
     const QPoint at(200, 150);
+    // Newer Qt wants a QPointF here; older Qt only has the QPoint form.
+    QT_WARNING_PUSH
+    QT_WARNING_DISABLE_DEPRECATED
     QDragEnterEvent enter(at, Qt::CopyAction, &mime, Qt::LeftButton, Qt::NoModifier);
+    QT_WARNING_POP
     QApplication::sendEvent(view_->viewport(), &enter);
     auto* tag = view_->viewport()->findChild<QLabel*>(QStringLiteral("dropSheetTag"));
     ASSERT_NE(tag, nullptr);

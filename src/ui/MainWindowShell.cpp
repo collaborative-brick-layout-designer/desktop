@@ -588,8 +588,8 @@ void MainWindow::addActiveSheetControl() {
         if (!map || layers.isEmpty()) return;
         const auto& all = map->layers();
         const int n = static_cast<int>(all.size());
-        const auto nameOf = [this, &all](int i) {
-            return all[i]->name.isEmpty() ? tr("(untitled)") : all[i]->name;
+        const auto nameOf = [&all](int i) {
+            return all[i]->name.isEmpty() ? MainWindow::tr("(untitled)") : all[i]->name;
         };
         QStringList names;
         QList<int> hidden;
