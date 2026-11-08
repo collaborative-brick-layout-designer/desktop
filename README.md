@@ -36,6 +36,12 @@ A cross-platform maintainer fork of **[BlueBrick](https://github.com/Lswbanban/B
 natively on Windows, Linux, and macOS (Intel + Apple Silicon) with no .NET /
 Mono dependency.
 
+![The main window with a club show layout: tables, track and labels, the parts library and sheets on the right](docs/screenshots/editor.png)
+*A club show layout on its tables, with the parts library and the sheets beside it.*
+
+![A layout inside its venue: the hall's walls, doors, stairs and obstacles](docs/screenshots/venue.png)
+*Venues: the hall's walls, doors, stairs and obstacles around a layout, checked as you build.*
+
 ## Made with AI
 
 Much of this app's code, tests and documentation was written with the help
