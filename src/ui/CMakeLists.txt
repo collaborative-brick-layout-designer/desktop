@@ -6,6 +6,8 @@ add_library(bld_ui_common STATIC
     theme/AppPrefs.cpp
     theme/AppPrefs.h
     help/HelpTexts.cpp
+    help/HelpTextStrings.cpp
+    help/help.qrc
     help/HelpTexts.h
     help/HelpPages.cpp
     help/HelpPages.h
