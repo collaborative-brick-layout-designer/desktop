@@ -213,12 +213,12 @@ constexpr Raw kShared[] = {
                                      "it places properly for them, to look at and place but not change. Taking the "
                                      "set back takes those parts back too, unless you shared them on their own.") },
     { "set.moving", "",
-      QT_TRANSLATE_NOOP("HelpTexts", "Moving a set to a club"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Your own custom parts in a set move to the club with it."),
-      QT_TRANSLATE_NOOP("HelpTexts", "Everyone in the club can then place the set with all its parts. A part that "
-                                     "another of your sets also uses stays yours, so that set keeps working, and the "
-                                     "club gets its own copy of it. If the club already has a part with the same "
-                                     "number, the set uses the club’s.") },
+      QT_TRANSLATE_NOOP("HelpTexts", "Moving or copying a set to a club"),
+      QT_TRANSLATE_NOOP("HelpTexts", "Your own custom parts in a set go to the club with it."),
+      QT_TRANSLATE_NOOP("HelpTexts", "Everyone in the club can then place the set with all its parts. Moving takes your parts with "
+                                     "it, except any that another of your sets uses: those stay yours, and the club gets its own "
+                                     "copy; copying gives the club its own copy of each part, and yours stay as they are. Either way, "
+                                     "if the club already has a part with the same number, the set uses the club’s.") },
     { "set.updates", "",
       QT_TRANSLATE_NOOP("HelpTexts", "Set updates"),
       QT_TRANSLATE_NOOP("HelpTexts", "A set you placed knows when the set changes, so you can bring in the new "
@@ -411,7 +411,7 @@ constexpr Raw kShared[] = {
       QT_TRANSLATE_NOOP("HelpTexts", "Your own things and your clubs’ things sit in one list, each marked "
                                      "with who owns it. Pick a club to see just its things; new things are "
                                      "saved there too unless you choose otherwise. With a club picked, "
-                                     "Members… shows who is in it and the roles they hold.") },
+                                     "you can also see who is in it and the roles they hold.") },
 
     // Joining a club
     { "club.whoCanJoin", "",
@@ -463,12 +463,12 @@ constexpr Raw kShared[] = {
       QT_TRANSLATE_NOOP("HelpTexts", "Make one with New collection, or use “Add to a collection…” on any module or part. A public collection’s title, description and cover are checked by a moderator first; each item is checked on its own.") },
     { "catalog.clubCollections", "/help#collections",
       QT_TRANSLATE_NOOP("HelpTexts", "Your clubs’ collections"),
-      QT_TRANSLATE_NOOP("HelpTexts", "Collections your clubs made: every member sees them, and admins and managers change them."),
+      QT_TRANSLATE_NOOP("HelpTexts", "Collections your clubs made: every member sees them, and members with the Send to the catalog permission change them."),
       QT_TRANSLATE_NOOP("HelpTexts", "A club can keep a collection to itself, like its show standards, or share it with everyone in the catalog under the club’s name. Pinned ones come first.") },
     { "club.trusted", "/help#collections",
       QT_TRANSLATE_NOOP("HelpTexts", "Trusted club"),
-      QT_TRANSLATE_NOOP("HelpTexts", "A trusted club’s own admins and managers check what it shares, instead of the site’s moderators."),
-      QT_TRANSLATE_NOOP("HelpTexts", "What an admin or manager shares under the club’s name goes public at once; what a member shares waits in the club’s own review. The site’s moderators can still see and take down anything, and can stop trusting a club.") },
+      QT_TRANSLATE_NOOP("HelpTexts", "A trusted club checks what it shares itself, instead of the site’s moderators."),
+      QT_TRANSLATE_NOOP("HelpTexts", "Members with the Send to the catalog permission review it: what they share under the club’s name goes public at once, and what other members share waits in the club’s own review. The site’s moderators can still see and take down anything, and can stop trusting a club.") },
     { "collection.audience", "/help#collections",
       QT_TRANSLATE_NOOP("HelpTexts", "Who can see this"),
       QT_TRANSLATE_NOOP("HelpTexts", "Private is only you or your club’s members; Everyone puts it in the public catalog after a check."),
