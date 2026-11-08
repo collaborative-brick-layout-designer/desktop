@@ -24,6 +24,7 @@
 #include "rendering/MapText.h"
 #include "rendering/ModuleLabels.h"
 #include "rendering/UnknownPart.h"
+#include "rendering/VenueDraw.h"
 #include "rendering/VenueLabels.h"
 #include "core/Venue.h"
 #include "rendering/SceneBuilder.h"
@@ -39,6 +40,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QRegularExpression>
 #include <QSettings>
 #include <QTemporaryDir>
 
@@ -517,6 +519,26 @@ TEST(RenderParity, VenueWallLabelsMatchTheSharedDescription) {
         EXPECT_EQ(rgba(c.text), t[QLatin1String("text")].toString());
     }
     EXPECT_EQ(rgba(rendering::kVenueGridFade), spec[QLatin1String("gridFade")].toString());
+    // The Venue Designer's canvas by theme, and the plan's colors on the dark one.
+    for (const bool dark : { false, true }) {
+        const QJsonObject t = spec[QLatin1String("canvas")].toObject()[dark ? QLatin1String("dark") : QLatin1String("light")].toObject();
+        const auto c = rendering::venueCanvasColors(dark);
+        EXPECT_EQ(rgba(c.background), t[QLatin1String("background")].toString());
+        EXPECT_EQ(rgba(c.gridMinor), t[QLatin1String("gridMinor")].toString());
+        EXPECT_EQ(rgba(c.gridMajor), t[QLatin1String("gridMajor")].toString());
+        EXPECT_EQ(rgba(c.gridFade), t[QLatin1String("gridFade")].toString());
+    }
+    const auto parse = [](const QString& s) {
+        const QStringList n = QString(s).remove(QRegularExpression(QStringLiteral("[^0-9.,]"))).split(QLatin1Char(','));
+        QColor c(n[0].toInt(), n[1].toInt(), n[2].toInt());
+        if (n.size() > 3) c.setAlphaF(n[3].toFloat());
+        return c;
+    };
+    for (const QJsonValue& v : spec[QLatin1String("darkInk")].toObject()[QLatin1String("cases")].toArray()) {
+        const QJsonArray pair = v.toArray();
+        EXPECT_EQ(rgba(rendering::venuedraw::onDarkCanvas(parse(pair[0].toString()))), pair[1].toString())
+            << pair[0].toString().toStdString();
+    }
     for (const QJsonValue& v : spec[QLatin1String("cases")].toArray()) {
         const QJsonObject c = v.toObject();
         QVector<core::VenueEdge> edges;

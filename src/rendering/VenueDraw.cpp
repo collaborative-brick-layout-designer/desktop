@@ -82,4 +82,30 @@ QString estimatedText(const QString& s) {
     return s + QStringLiteral(" (est.)");
 }
 
+QColor onDarkCanvas(const QColor& color) {
+    const double r = color.red() / 255.0, g = color.green() / 255.0, b = color.blue() / 255.0;
+    const double mx = std::max({ r, g, b }), mn = std::min({ r, g, b });
+    const double l = (mx + mn) / 2;
+    if (l >= 0.5) return color;
+    const double d = mx - mn;
+    const double s = d == 0 ? 0 : d / (1 - std::abs(2 * l - 1));
+    double h = 0;
+    if (d != 0) {
+        if (mx == r) h = std::fmod((g - b) / d, 6.0);
+        else if (mx == g) h = (b - r) / d + 2;
+        else h = (r - g) / d + 4;
+    }
+    const double L = 1 - l;
+    const double c = (1 - std::abs(2 * L - 1)) * s;
+    const double x = c * (1 - std::abs(std::fmod(h, 2.0) - 1));
+    const double k = L - c / 2;
+    const int hi = static_cast<int>(std::floor(std::fmod(std::fmod(h, 6.0) + 6.0, 6.0)));
+    const double rgb[6][3] = { { c, x, 0 }, { x, c, 0 }, { 0, c, x }, { 0, x, c }, { x, 0, c }, { c, 0, x } };
+    // Rounded as JavaScript's Math.round (half up), as the web does.
+    const auto to = [k](double v) { return static_cast<int>(std::floor((v + k) * 255 + 0.5)); };
+    QColor out(to(rgb[hi][0]), to(rgb[hi][1]), to(rgb[hi][2]));
+    out.setAlpha(color.alpha());
+    return out;
+}
+
 } // namespace bld::rendering::venuedraw

@@ -48,6 +48,11 @@ inline QColor dimensionColor() {
 inline QColor estimateColor() {
     return { 120, 120, 120 };
 }
+// A venue color as drawn on a dark canvas (the Venue Designer in the dark
+// theme): a dark color (HSL lightness under 0.5) keeps its hue and gets
+// lightness 1 - l, so walls, outlines and text read light on dark; light
+// colors stay. Alpha is kept. The web's onDarkCanvas() is the same.
+QColor onDarkCanvas(const QColor& c);
 constexpr double kDimensionTickStuds = 5.0;
 constexpr double kDimensionLabelOffsetStuds = 8.0;
 struct DimensionGeometry {

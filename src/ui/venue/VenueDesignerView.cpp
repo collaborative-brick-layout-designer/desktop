@@ -11,6 +11,7 @@
 #include <QGraphicsPolygonItem>
 #include <QGraphicsRectItem>
 #include <QGraphicsSimpleTextItem>
+#include <QGuiApplication>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QScrollBar>
@@ -60,13 +61,27 @@ VenueDesignerView::VenueDesignerView(QWidget* parent)
     setMouseTracking(true);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setBackgroundBrush(Qt::white);
+    setBackgroundBrush(rendering::venueCanvasColors(darkCanvas()).background);
     setContextMenuPolicy(Qt::PreventContextMenu);
     setFocusPolicy(Qt::NoFocus);
 }
 
 VenueDesignerView::~VenueDesignerView() {
     builder_.reset();
+}
+
+bool VenueDesignerView::darkCanvas() const {
+    // As the wall labels' pills choose their colors (SceneBuilderSidecar).
+    return QGuiApplication::palette().color(QPalette::Window).lightness() < 128;
+}
+
+void VenueDesignerView::changeEvent(QEvent* e) {
+    QGraphicsView::changeEvent(e);
+    if (e->type() == QEvent::PaletteChange || e->type() == QEvent::ApplicationPaletteChange) {
+        setBackgroundBrush(rendering::venueCanvasColors(darkCanvas()).background);
+        redraw();
+        viewport()->update();
+    }
 }
 
 double VenueDesignerView::pixelsPerStud() const {
@@ -88,6 +103,7 @@ void VenueDesignerView::setState(const ev::DesignerState& s, const QImage& plan,
     // Labels about 13 px on screen at any zoom, as on the web; the selected
     // wall's label whole, and every label clear of the selection handles.
     builder_->setVenueLabelPx(13.0 / transform().m11());
+    builder_->setVenueDarkCanvas(darkCanvas());
     {
         std::optional<int> edge;
         QVector<QPointF> grips;
@@ -142,7 +158,7 @@ void VenueDesignerView::setState(const ev::DesignerState& s, const QImage& plan,
         if (room.size() >= 3) {
             auto* fade = new QGraphicsPolygonItem(room);
             fade->setPen(Qt::NoPen);
-            fade->setBrush(rendering::kVenueGridFade);
+            fade->setBrush(rendering::venueCanvasColors(darkCanvas()).gridFade);
             own(fade, -2e5);
         }
     }
@@ -327,12 +343,13 @@ void VenueDesignerView::leaveEvent(QEvent* e) {
 
 // Feet grid: 1 ft lines when at least 10 px apart, 10 ft lines always.
 void VenueDesignerView::drawBackground(QPainter* painter, const QRectF& rect) {
-    painter->fillRect(rect, Qt::white);
+    const rendering::VenueCanvasColors colors = rendering::venueCanvasColors(darkCanvas());
+    painter->fillRect(rect, colors.background);
     const double ftPx = kFt * kPx;
     const double step = pixelsPerStud() * kFt >= 10 ? ftPx : 10 * ftPx;
     if (rect.width() / step > 400) return;
     for (int major = 0; major < 2; ++major) {
-        painter->setPen(cosmetic(major ? QColor(213, 218, 225) : QColor(238, 240, 243), 1));
+        painter->setPen(cosmetic(major ? colors.gridMajor : colors.gridMinor, 1));
         const long x0 = std::lround(std::floor(rect.left() / step)),
                    x1 = std::lround(std::ceil(rect.right() / step));
         for (long i = x0; i <= x1; ++i) {

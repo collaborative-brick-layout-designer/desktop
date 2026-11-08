@@ -59,6 +59,8 @@ void SceneBuilder::addVenue(const core::Map& map) {
     // Venue items live directly in the scene at a fixed low z so they
     // render beneath every layer. Tracked in venueItems_ for cleanup.
     LayerSink sink{ scene_, venueItems_, -100000.0, true };
+    // On the Venue Designer's dark canvas, dark colors are drawn light.
+    const auto ink = [this](const QColor& c) { return venueDarkCanvas_ ? venuedraw::onDarkCanvas(c) : c; };
 
     // Walkway buffer: translucent band on the INSIDE of every non-Wall
     // edge (Door + Open). Walls are solid barriers so bricks can butt
@@ -104,16 +106,16 @@ void SceneBuilder::addVenue(const core::Map& map) {
         // as a bold border against bricks / grid, not a hairline.
         switch (edge.kind) {
             case core::EdgeKind::Wall:
-                pen.setColor(QColor(30, 30, 30));
+                pen.setColor(ink(QColor(30, 30, 30)));
                 pen.setWidthF(7.0);
                 break;
             case core::EdgeKind::Door:
-                pen.setColor(QColor(0, 160, 0));
+                pen.setColor(ink(QColor(0, 160, 0)));
                 pen.setStyle(Qt::DashLine);
                 pen.setWidthF(5.0);
                 break;
             case core::EdgeKind::Open:
-                pen.setColor(QColor(0, 0, 200));
+                pen.setColor(ink(QColor(0, 0, 200)));
                 pen.setStyle(Qt::DotLine);
                 pen.setWidthF(4.0);
                 break;
@@ -167,13 +169,15 @@ void SceneBuilder::addVenue(const core::Map& map) {
         QPolygonF poly;
         for (const auto& p : ob.polygon) poly << p * kPx;
         auto* item = new QGraphicsPolygonItem(poly);
-        const auto style = venuedraw::obstacleStyle(ob.kind);
+        auto style = venuedraw::obstacleStyle(ob.kind);
+        style.stroke = ink(style.stroke);
+        if (style.fill) style.fill = ink(*style.fill);
         QPen pen(style.stroke);
         pen.setCosmetic(true);
         pen.setWidthF(style.strokeWidthPx);
         item->setPen(pen);
         if (ob.kind == core::ObstacleKind::Other)
-            item->setBrush(QBrush(QColor(120, 120, 120, 100), Qt::BDiagPattern));
+            item->setBrush(QBrush(ink(QColor(120, 120, 120, 100)), Qt::BDiagPattern));
         else item->setBrush(style.fill ? QBrush(*style.fill) : QBrush(Qt::NoBrush));
         item->setFlag(QGraphicsItem::ItemIsSelectable, true);
         item->setData(kBrickDataLayerIndex, -1);
@@ -183,7 +187,7 @@ void SceneBuilder::addVenue(const core::Map& map) {
         if (ob.kind == core::ObstacleKind::Stairs) {
             const auto marks = venuedraw::stairMarks(ob.polygon, ob.upDegrees);
             lines(marks.treads, style.stroke, 1.0);
-            lines(marks.arrow, QColor(30, 30, 30), 2.0);
+            lines(marks.arrow, ink(QColor(30, 30, 30)), 2.0);
         } else if (ob.kind == core::ObstacleKind::Elevator) {
             lines(venuedraw::elevatorCross(ob.polygon), style.stroke, 1.0);
         }
@@ -192,7 +196,7 @@ void SceneBuilder::addVenue(const core::Map& map) {
     for (const auto& d : v.dimensions) {
         const auto g = venuedraw::dimensionGeometry(d.from, d.to);
         if (!g) continue;
-        const QColor c = d.estimated ? venuedraw::estimateColor() : venuedraw::dimensionColor();
+        const QColor c = ink(d.estimated ? venuedraw::estimateColor() : venuedraw::dimensionColor());
         lines({ g->line }, c, 1.5, d.estimated ? Qt::DashLine : Qt::SolidLine);
         lines({ g->ticks[0], g->ticks[1] }, c, 1.5);
         if (!d.label.isEmpty())
@@ -203,21 +207,21 @@ void SceneBuilder::addVenue(const core::Map& map) {
     for (const auto& p : v.power) {
         const double r = venuedraw::kPowerRadiusStuds * kPx;
         auto* dot = new QGraphicsEllipseItem(QRectF(p.pos * kPx - QPointF(r, r), QSizeF(2 * r, 2 * r)));
-        QPen pen(venuedraw::powerColor());
+        QPen pen(ink(venuedraw::powerColor()));
         pen.setCosmetic(true);
         pen.setWidthF(2.0);
         dot->setPen(pen);
-        dot->setBrush(p.floor ? venuedraw::powerColor() : QColor(Qt::white));
+        dot->setBrush(p.floor ? ink(venuedraw::powerColor()) : QColor(Qt::white));
         sink.add(dot);
         const QString t = venuedraw::powerText(p);
         if (!t.isEmpty())
             text(t, p.pos + QPointF(venuedraw::kPowerRadiusStuds * 1.4, 0), labelPx * 0.6,
-                 venuedraw::powerColor(), false, 0, false);
+                 ink(venuedraw::powerColor()), false, 0, false);
     }
 
     for (const auto& n : v.notes) {
         text(n.estimated ? venuedraw::estimatedText(n.text) : n.text, n.pos, labelPx * 0.8,
-             n.estimated ? venuedraw::estimateColor() : QColor(30, 30, 30), n.estimated, 0, false);
+             ink(n.estimated ? venuedraw::estimateColor() : QColor(30, 30, 30)), n.estimated, 0, false);
     }
     // Wall labels: pills just outside the room, upright, clear of each
     // other and of the selection handles (VenueLabels.h, as the web).
