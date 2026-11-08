@@ -64,7 +64,7 @@ void MoveBricksCommand::undo() {
 
 RotateBricksCommand::RotateBricksCommand(core::Map& map, std::vector<Entry> entries, QUndoCommand* parent)
     : QUndoCommand(parent), map_(map), entries_(std::move(entries)) {
-    setText(QObject::tr("Rotate %1 brick(s)").arg(entries_.size()));
+    setText(QObject::tr("Turn %1 part(s)").arg(entries_.size()));
 }
 
 void RotateBricksCommand::redo() {
@@ -461,7 +461,7 @@ core::LayerRuler::AnyRuler rotatedRuler(const core::LayerRuler::AnyRuler& ruler,
 ReplaceAnnotationsCommand::ReplaceAnnotationsCommand(core::Map& map, std::vector<TextEntry> texts,
                                                      std::vector<RulerEntry> rulers, QUndoCommand* parent)
     : QUndoCommand(parent), map_(map), texts_(std::move(texts)), rulers_(std::move(rulers)) {
-    setText(QObject::tr("Rotate"));
+    setText(QObject::tr("Turn"));
 }
 
 void ReplaceAnnotationsCommand::apply(bool forward) {

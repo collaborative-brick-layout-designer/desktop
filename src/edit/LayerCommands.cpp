@@ -64,7 +64,7 @@ void AddLayerCommand::undo() {
 
 DeleteLayerCommand::DeleteLayerCommand(core::Map& map, int index, QUndoCommand* parent)
     : QUndoCommand(parent), map_(map), index_(index) {
-    setText(QObject::tr("Delete sheet"));
+    setText(QObject::tr("Remove sheet"));
 }
 
 DeleteLayerCommand::~DeleteLayerCommand() = default;

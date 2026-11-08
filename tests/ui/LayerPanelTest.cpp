@@ -135,3 +135,14 @@ TEST(LayerPanel, ListsTheTopSheetFirst) {
     EXPECT_EQ(moved, 2);
     EXPECT_EQ(by, +1);
 }
+
+// The add and remove buttons say so in words, as on the web.
+TEST(LayerPanel, AddAndRemoveSheetSayItInWords) {
+    PanelOnMap t;
+    auto* add = t.panel.findChild<QPushButton*>(QStringLiteral("addSheet"));
+    auto* remove = t.panel.findChild<QPushButton*>(QStringLiteral("removeSheet"));
+    ASSERT_NE(add, nullptr);
+    ASSERT_NE(remove, nullptr);
+    EXPECT_EQ(add->text(), QStringLiteral("Add sheet"));
+    EXPECT_EQ(remove->text(), QStringLiteral("Remove sheet"));
+}

@@ -167,7 +167,7 @@ void MoveModuleCommand::undo() {
 RotateModuleCommand::RotateModuleCommand(core::Map& map, parts::PartsLibrary& lib, QString moduleId,
                                          double degrees, QUndoCommand* parent)
     : QUndoCommand(parent), map_(map), lib_(lib), moduleId_(std::move(moduleId)), degrees_(degrees) {
-    setText(QObject::tr("Rotate module %1°").arg(degrees_, 0, 'f', 1));
+    setText(QObject::tr("Turn module %1°").arg(degrees_, 0, 'f', 1));
 }
 
 void RotateModuleCommand::redo() {

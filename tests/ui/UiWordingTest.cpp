@@ -69,6 +69,33 @@ TEST(UiWordingTest, EllipsisIsOneCharacter) {
     EXPECT_TRUE(bad.isEmpty()) << "Use \"…\", not \"...\":\n" << describe(bad).toStdString();
 }
 
+// One vocabulary in both apps (docs/glossary.md): "turn", "club" and "web
+// address", never "rotate", "org" or "slug" (and "sheet", above). A domain
+// such as library.ldraw.org isn't the word "org".
+TEST(UiWordingTest, SaysTurnClubAndWebAddress) {
+    static const QRegularExpression banned(QStringLiteral(R"((?<![.\w])(rotat\w*|orgs?|slugs?)\b)"),
+                                           QRegularExpression::CaseInsensitiveOption);
+    QList<Hit> bad;
+    for (const Hit& h : trStrings()) {
+        if (banned.match(h.text).hasMatch()) bad.push_back(h);
+    }
+    EXPECT_TRUE(bad.isEmpty()) << "See docs/glossary.md:\n" << describe(bad).toStdString();
+}
+
+// The glossary is the same file in both repos.
+TEST(UiWordingTest, TheGlossaryIsThere) {
+    QFile f(QStringLiteral(BLD_SOURCE_DIR "/docs/glossary.md"));
+    ASSERT_TRUE(f.open(QIODevice::ReadOnly));
+    const QString text = QString::fromUtf8(f.readAll());
+    for (const char* word : { "Sheet", "Turn left / Turn right / Turn 90°", "Send to back / Bring to front", "Club", "Web address" }) {
+        EXPECT_TRUE(text.contains(QString::fromUtf8(word))) << word;
+    }
+    QFile web(QStringLiteral(BLD_SOURCE_DIR "/../collaborative-layout-designer-web/docs/glossary.md"));
+    if (web.open(QIODevice::ReadOnly)) {
+        EXPECT_EQ(QString::fromUtf8(web.readAll()), text) << "keep docs/glossary.md the same in both repos";
+    }
+}
+
 TEST(UiWordingTest, LibraryCasingMatchesTheWeb) {
     static const QRegularExpression wrong(QStringLiteral(R"(\b(Venue|Module) &?Library\b)"));
     QList<Hit> bad;

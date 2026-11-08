@@ -111,7 +111,7 @@ bool editBrickDialog(QWidget* parent, core::Map& map, int layerIndex,
     auto* rotSpin = new QDoubleSpinBox(&dlg);
     rotSpin->setRange(-360.0, 360.0); rotSpin->setDecimals(3); rotSpin->setSuffix(QStringLiteral("°"));
     rotSpin->setValue(brick->orientation);
-    form->addRow(QObject::tr("Rotation:"), rotSpin);
+    form->addRow(QObject::tr("Angle:"), rotSpin);
 
     auto* altSpin = new QDoubleSpinBox(&dlg);
     altSpin->setRange(-1e4, 1e4); altSpin->setDecimals(2);
@@ -361,7 +361,7 @@ bool editTextDialog(QWidget* parent, core::Map& map, int layerIndex,
     auto* orientSpin = new QDoubleSpinBox(&dlg);
     orientSpin->setRange(-360.0, 360.0); orientSpin->setSuffix(QStringLiteral("°"));
     orientSpin->setValue(cell->orientation);
-    form->addRow(QObject::tr("Rotation:"), orientSpin);
+    form->addRow(QObject::tr("Angle:"), orientSpin);
 
     auto* bb = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dlg);
     form->addRow(bb);

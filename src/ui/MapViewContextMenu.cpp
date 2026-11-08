@@ -165,26 +165,26 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
             connect(edit, &QAction::triggered, [this]{ editSelectedTextContent(); });
         }
 
-        auto* ccw = menu.addAction(tr("Rotate CCW"));
+        auto* ccw = menu.addAction(tr("Turn left"));
         connect(ccw, &QAction::triggered,
                 [this]{ rotateSelected(static_cast<float>(-rotationStepDegrees_)); });
-        auto* cw = menu.addAction(tr("Rotate CW"));
+        auto* cw = menu.addAction(tr("Turn right"));
         connect(cw, &QAction::triggered,
                 [this]{ rotateSelected(static_cast<float>(rotationStepDegrees_)); });
         menu.addSeparator();
 
         if (!onlyBrick && brickCount == 0) {
             // Text and rulers have a drawing order too (BlueBrick).
-            auto* bringFront = menu.addAction(tr("Bring to Front"));
+            auto* bringFront = menu.addAction(tr("Bring to front"));
             connect(bringFront, &QAction::triggered, [this]{ bringSelectionToFront(); });
-            auto* sendBack = menu.addAction(tr("Send to Back"));
+            auto* sendBack = menu.addAction(tr("Send to back"));
             connect(sendBack, &QAction::triggered, [this]{ sendSelectionToBack(); });
             menu.addSeparator();
         }
         if (onlyBrick) {
-            auto* bringFront = menu.addAction(tr("Bring to Front"));
+            auto* bringFront = menu.addAction(tr("Bring to front"));
             connect(bringFront, &QAction::triggered, [this]{ bringSelectionToFront(); });
-            auto* sendBack = menu.addAction(tr("Send to Back"));
+            auto* sendBack = menu.addAction(tr("Send to back"));
             connect(sendBack, &QAction::triggered, [this]{ sendSelectionToBack(); });
             // To another part sheet, on top of what's there.
             {

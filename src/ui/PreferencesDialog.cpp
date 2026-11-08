@@ -161,7 +161,7 @@ QWidget* buildEditionTab(QDialog* parent) {
     for (int i = 0; i < rotCombo->count(); ++i)
         if (qFuzzyCompare(rotCombo->itemData(i).toDouble(), curRot))
             rotCombo->setCurrentIndex(i);
-    form->addRow(QObject::tr("Default rotation step:"), help::withHelp(rotCombo, QStringLiteral("toolbar.rotateStep"), w));
+    form->addRow(QObject::tr("Default turn step:"), help::withHelp(rotCombo, QStringLiteral("toolbar.rotateStep"), w));
 
     QColor paintColor(s.value(QStringLiteral("paintColor"), QColor(0, 128, 0).name()).toString());
     auto* colorBtn = new QPushButton(w);

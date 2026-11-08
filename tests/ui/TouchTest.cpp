@@ -384,7 +384,7 @@ TEST_F(TouchTest, LongPressOpensTheContextMenuWithARing) {
     QTest::qWait(ui::MapView::kLongPressMs + 300);
     QTest::touchEvent(view_->viewport(), touchScreen()).release(0, at);
     EXPECT_TRUE(ringShown);
-    EXPECT_TRUE(actions.contains(QStringLiteral("Rotate CW"))) << actions.join(u',').toStdString();
+    EXPECT_TRUE(actions.contains(QStringLiteral("Turn right"))) << actions.join(u',').toStdString();
     EXPECT_EQ(selectedGuids(*view_->scene()), QStringList{ it->data(ui::detail::kBrickDataGuid).toString() });
 }
 
@@ -424,7 +424,7 @@ TEST_F(TouchTest, MenuOnAMissingPartsCrossIsForThatPart) {
     closer.start();
     QContextMenuEvent ce(QContextMenuEvent::Mouse, at, v.viewport()->mapToGlobal(at));
     QApplication::sendEvent(v.viewport(), &ce);
-    EXPECT_TRUE(actions.contains(QStringLiteral("Rotate CW"))) << actions.join(u',').toStdString();
+    EXPECT_TRUE(actions.contains(QStringLiteral("Turn right"))) << actions.join(u',').toStdString();
     EXPECT_EQ(selectedGuids(*v.scene()), QStringList{ part->data(ui::detail::kBrickDataGuid).toString() });
 }
 

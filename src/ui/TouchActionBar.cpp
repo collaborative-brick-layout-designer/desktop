@@ -27,8 +27,8 @@ TouchActionBar::TouchActionBar(QWidget* parent) : QWidget(parent) {
     row_->addWidget(placing_);
 
     selectionButtons_ = {
-        addButton(QStringLiteral("touchRotateLeft"), tr("Rotate left"), QStringLiteral("turnLeft")),
-        addButton(QStringLiteral("touchRotateRight"), tr("Rotate right"), QStringLiteral("turnRight")),
+        addButton(QStringLiteral("touchRotateLeft"), tr("Turn left"), QStringLiteral("turnLeft")),
+        addButton(QStringLiteral("touchRotateRight"), tr("Turn right"), QStringLiteral("turnRight")),
         addButton(QStringLiteral("touchDuplicate"), tr("Duplicate"), {}),
         addButton(QStringLiteral("touchModule"), tr("Module"), {}),
         addButton(QStringLiteral("touchDelete"), tr("Delete"), QStringLiteral("delete")),
