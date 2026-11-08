@@ -140,6 +140,17 @@ jobs:
         shell: bash
         run: scripts/ci/check-warnings.sh configure.log build.log
 
+      # The help texts must match the web's word for word: fetch the web's
+      # catalogue at main, so HelpTexts.MatchesTheWebCatalogueWordForWord
+      # runs here instead of skipping (a failed fetch fails that test).
+      - name: Fetch the web's help texts (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          curl -fsSL --retry 3 -o "$RUNNER_TEMP/helpTexts.ts" \
+            https://raw.githubusercontent.com/collaborative-brick-layout-designer/web/main/apps/web/src/help/helpTexts.ts || true
+          echo "BLD_WEB_HELP_TEXTS=$RUNNER_TEMP/helpTexts.ts" >> "$GITHUB_ENV"
+
       - name: Test
         run: ctest --test-dir build --build-config Release --output-on-failure --timeout 300
 

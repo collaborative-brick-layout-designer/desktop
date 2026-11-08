@@ -35,7 +35,8 @@ QStringList fixtureKeys() {
 }
 
 // The web repo's catalogue, when it is checked out next to this one (or
-// named by BLD_WEB_HELP_TEXTS).
+// named by BLD_WEB_HELP_TEXTS: CI fetches the web's file at main there, so
+// the comparison always runs in CI).
 QString webCatalogue() {
     const QString env = qEnvironmentVariable("BLD_WEB_HELP_TEXTS");
     if (!env.isEmpty()) return readFile(env);
@@ -111,6 +112,10 @@ TEST(HelpTexts, HasTheClubPermissionsAndSetSharingKeys) {
 // Word for word against the web's helpTexts.ts, when it's there.
 TEST(HelpTexts, MatchesTheWebCatalogueWordForWord) {
     const QString ts = webCatalogue();
+    // Named but missing (CI's fetch failed) is a failure, never a skip.
+    if (!qEnvironmentVariable("BLD_WEB_HELP_TEXTS").isEmpty()) {
+        ASSERT_FALSE(ts.isEmpty()) << "BLD_WEB_HELP_TEXTS names a file that can't be read";
+    }
     if (ts.isEmpty()) GTEST_SKIP() << "the web repo's helpTexts.ts isn't checked out next to this one";
     static const QRegularExpression entryRe(QStringLiteral(R"(^  '([^']+)': \{\n(.*?)^  \},)"),
                                             QRegularExpression::MultilineOption
