@@ -18,6 +18,8 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QPushButton>
+#include <QStyledItemDelegate>
+#include <QTimer>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -56,8 +58,77 @@ QString layerKindGlyph(core::LayerKind k) {
 
 constexpr int kKindRole = Qt::UserRole + 1;
 
+// The active sheet's row: filled with the accent color, a thick accent edge
+// on the left, its name bold and an "ACTIVE" badge on the right, so it never
+// reads as an ordinary pick. A flashed row gets an accent outline.
+class SheetRowDelegate : public QStyledItemDelegate {
+public:
+    using QStyledItemDelegate::QStyledItemDelegate;
+
+    void paint(QPainter* p, const QStyleOptionViewItem& option, const QModelIndex& index) const override {
+        const bool active = index.data(LayerPanel::kActiveRole).toBool();
+        const bool flash = index.data(LayerPanel::kFlashRole).toBool();
+        QStyleOptionViewItem opt(option);
+        initStyleOption(&opt, index);
+        const QColor accent = opt.palette.color(QPalette::Highlight);
+        if (active) {
+            // Our own fill instead of the style's selection look.
+            opt.state &= ~QStyle::State_Selected;
+            QColor fill = accent;
+            fill.setAlpha(90);
+            p->fillRect(opt.rect, fill);
+            p->fillRect(QRect(opt.rect.left(), opt.rect.top(), 4, opt.rect.height()), accent);
+            opt.font.setBold(true);
+            opt.rect.adjust(6, 0, -badgeWidth(opt) - 8, 0);
+        }
+        QStyledItemDelegate::paint(p, opt, index);
+        if (active) {
+            const QString text = LayerPanel::tr("ACTIVE");
+            QFont f = option.font;
+            f.setBold(true);
+            f.setPixelSize(10);
+            const int w = QFontMetrics(f).horizontalAdvance(text) + 12;
+            const int h = 16;
+            const QRect pill(option.rect.right() - w - 6, option.rect.center().y() - h / 2 + 1, w, h);
+            p->save();
+            p->setRenderHint(QPainter::Antialiasing);
+            p->setPen(Qt::NoPen);
+            p->setBrush(accent);
+            p->drawRoundedRect(pill, h / 2.0, h / 2.0);
+            p->setFont(f);
+            p->setPen(option.palette.color(QPalette::HighlightedText));
+            p->drawText(pill, Qt::AlignCenter, text);
+            p->restore();
+        }
+        if (flash) {
+            p->save();
+            p->setRenderHint(QPainter::Antialiasing);
+            p->setPen(QPen(accent, 2));
+            p->setBrush(Qt::NoBrush);
+            p->drawRoundedRect(QRectF(option.rect).adjusted(1, 1, -1, -1), 4, 4);
+            p->restore();
+        }
+    }
+
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override {
+        QSize s = QStyledItemDelegate::sizeHint(option, index);
+        s.setHeight(std::max(s.height(), 22));
+        return s;
+    }
+
+private:
+    static int badgeWidth(const QStyleOptionViewItem& opt) {
+        QFont f = opt.font;
+        f.setBold(true);
+        f.setPixelSize(10);
+        return QFontMetrics(f).horizontalAdvance(LayerPanel::tr("ACTIVE")) + 12;
+    }
+};
+
+}  // namespace
+
 // The kind's symbol in the list's text color, so it suits light and dark.
-QIcon kindIcon(core::LayerKind k, const QWidget* list) {
+QIcon LayerPanel::kindIcon(core::LayerKind k, const QWidget* list) {
     const qreal dpr = list->devicePixelRatioF();
     const int side = 16;
     QPixmap pm(QSize(side, side) * dpr);
@@ -73,8 +144,6 @@ QIcon kindIcon(core::LayerKind k, const QWidget* list) {
     p.end();
     return QIcon(pm);
 }
-
-}  // namespace
 
 QString LayerPanel::friendlyKindName(core::LayerKind k) {
     switch (k) {
@@ -146,6 +215,7 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
     list_->setObjectName(QStringLiteral("sheetList"));  // (touch mode's taller rows)
     list_->setContextMenuPolicy(Qt::CustomContextMenu);
     list_->installEventFilter(this);
+    list_->setItemDelegate(new SheetRowDelegate(list_));
     col->addWidget(list_);
 
     setWidget(host);
@@ -293,10 +363,15 @@ void LayerPanel::setMap(core::Map* map, rendering::SceneBuilder* builder) {
                        .arg(i)
                        .arg(QLatin1String(layerKindName(layer->kind())));
             if (layer->transparency < 100) tip << tr("Transparency: %1%").arg(layer->transparency);
+            item->setData(kActiveRole, isActive);
+            item->setData(kFlashRole, i == flashRow_);
             if (isActive) {
                 QFont f = item->font(); f.setBold(true); item->setFont(f);
-                item->setBackground(QColor(60, 120, 200, 60));
-                tip << tr("Active sheet: new items are placed here.");
+                tip << (layer->kind() == core::LayerKind::Brick
+                            ? tr("Active sheet: new parts are placed here.")
+                            : tr("Active sheet."));
+            } else {
+                tip << tr("Click to make this the active sheet.");
             }
             tip << tr("Double-click for sheet options.");
             item->setToolTip(tip.join(QLatin1Char('\n')));
@@ -309,6 +384,36 @@ void LayerPanel::setMap(core::Map* map, rendering::SceneBuilder* builder) {
         }
     }
     list_->blockSignals(false);
+    emit refreshed();
+}
+
+void LayerPanel::setActiveRow(int index) {
+    if (index >= 0 && index < list_->count()) list_->setCurrentRow(index);
+}
+
+void LayerPanel::setSheetVisible(int index, bool visible) {
+    if (index >= 0 && index < list_->count())
+        list_->item(index)->setCheckState(visible ? Qt::Checked : Qt::Unchecked);
+}
+
+void LayerPanel::flashRow(int index) {
+    const auto mark = [this](int row, bool on) {
+        if (row >= 0 && row < list_->count()) list_->item(row)->setData(kFlashRole, on);
+    };
+    list_->blockSignals(true);
+    mark(flashRow_, false);
+    flashRow_ = index;
+    mark(index, true);
+    list_->blockSignals(false);
+    if (index >= 0 && index < list_->count()) list_->scrollToItem(list_->item(index));
+    const int seq = ++flashSeq_;
+    QTimer::singleShot(4000, this, [this, seq, mark] {
+        if (seq != flashSeq_) return;
+        list_->blockSignals(true);
+        mark(flashRow_, false);
+        list_->blockSignals(false);
+        flashRow_ = -1;
+    });
 }
 
 }

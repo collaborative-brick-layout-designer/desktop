@@ -28,6 +28,8 @@ add_executable(bld_ui_tests
     RenderParityTest.cpp
     LoadingCardTest.cpp
     LayerPanelTest.cpp
+    ActiveSheetTest.cpp
+    ActiveSheetShotsTest.cpp
     ToursTest.cpp
     RecentFilesTest.cpp
     TouchTest.cpp

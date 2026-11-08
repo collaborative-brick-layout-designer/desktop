@@ -274,6 +274,8 @@ private:
     void showUpdateNotice(const struct ReleaseInfo& release);
 public:
     class NoticeArea* notices() const { return notices_; }
+    // "Adding to: <sheet>" on the toolbar, kept in step with the sheets.
+    void addActiveSheetControl();
     // After an import: a notice offering to send the new part `key` to
     // the server, one click away.
     void offerToSendImportedPart(const QString& key);

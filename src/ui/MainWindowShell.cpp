@@ -7,7 +7,10 @@
 
 #include "MainWindow.h"
 
+#include "ActiveSheet.h"
+#include "ActiveSheetButton.h"
 #include "LayerPanel.h"
+#include "NoticeArea.h"
 #include "MapView.h"
 #include "ModuleLibraryPanel.h"
 #include "ModulesPanel.h"
@@ -141,6 +144,9 @@ void MainWindow::setupShell() {
         if (a) connect(a, &QAction::changed, this, syncUndo);
     syncUndo();
     toolbar->addSeparator();
+
+    // "Adding to: <sheet>": which sheet new parts go on, and a menu to switch it.
+    addActiveSheetControl();
 
     // The drawing tools, one checked at a time.
     auto* tools = new QActionGroup(this);
@@ -527,6 +533,112 @@ void MainWindow::showWelcomeIfNew() {
 QString MainWindow::syncedHost() const {
     if (prefsSync_ && prefsSync_->active()) return prefsSync_->host();
     return {};
+}
+
+}  // namespace bld::ui
+
+namespace bld::ui {
+
+void MainWindow::addActiveSheetControl() {
+    // A chip over the map's top-left corner, right where parts land: the
+    // toolbar has no room left for it beside the task tabs, and the map is
+    // always there while editing (a status bar or panel can be hidden).
+    auto* chip = new QWidget(mapView_->viewport());
+    chip->setObjectName(QStringLiteral("activeSheetChip"));
+    auto* row = new QHBoxLayout(chip);
+    row->setContentsMargins(0, 0, 0, 0);
+    row->setSpacing(4);
+    // The chip follows its contents' size (a longer name, a new theme's font).
+    row->setSizeConstraint(QLayout::SetFixedSize);
+    auto* button = new ActiveSheetButton(chip);
+    row->addWidget(button);
+    row->addWidget(new help::HelpButton(QStringLiteral("toolbar.activeSheet"), chip, button));
+    chip->move(10, 10);
+    const auto fit = [chip] { chip->adjustSize(); chip->raise(); };
+    connect(button, &ActiveSheetButton::changed, chip, fit);
+    fit();
+    chip->show();
+    connect(button, &ActiveSheetButton::sheetPicked, layerPanel_, &LayerPanel::setActiveRow);
+
+    // Everything that names the active sheet reads it again whenever the
+    // sheets change: the Sheets panel is rebuilt (a pick, an add, a rename,
+    // a delete, a live edit), a sheet is shown or hidden, or an undo.
+    const auto sync = [this, button] {
+        const core::Map* map = mapView_->currentMap();
+        button->refresh(map);
+        // The Parts panel names the sheet its parts go on: "Parts → Tables".
+        if (auto* header = qobject_cast<theme::PanelHeader*>(partsBrowser_->titleBarWidget())) {
+            const int target = map ? placementLayer(*map) : -1;
+            const core::Layer* L = target >= 0 ? map->layers()[target].get() : nullptr;
+            header->title()->setText(L ? tr("Parts → %1").arg(L->name.isEmpty() ? tr("(untitled)") : L->name)
+                                       : partsBrowser_->windowTitle());
+        }
+    };
+    connect(layerPanel_, &LayerPanel::refreshed, this, sync);
+    connect(layerPanel_, &LayerPanel::layerVisibilityChanged, this, sync);
+    // An undo or redo (a rename, a delete, a new sheet): the panel too.
+    connect(mapView_->undoStack(), &QUndoStack::indexChanged, this, [this] {
+        layerPanel_->setMap(mapView_->currentMap(), mapView_->builder());
+    });
+    QTimer::singleShot(0, this, sync);
+
+    // Say where parts went when it could surprise.
+    connect(mapView_, &MapView::partsPlaced, this, [this](const QList<int>& layers, int picked, int count, bool pasted) {
+        const core::Map* map = mapView_->currentMap();
+        if (!map || layers.isEmpty()) return;
+        const auto& all = map->layers();
+        const int n = static_cast<int>(all.size());
+        const auto nameOf = [this, &all](int i) {
+            return all[i]->name.isEmpty() ? tr("(untitled)") : all[i]->name;
+        };
+        QStringList names;
+        QList<int> hidden;
+        for (int i : layers) {
+            if (i < 0 || i >= n || !all[i]) continue;
+            names << tr("“%1”").arg(nameOf(i));
+            if (!all[i]->visible) hidden << i;
+        }
+        if (names.isEmpty()) return;
+        const QString what = pasted ? (count == 1 ? tr("The pasted part") : tr("The pasted parts"))
+                                    : (count == 1 ? tr("Your part") : tr("The set"));
+        if (!hidden.isEmpty()) {
+            for (int i : hidden) layerPanel_->flashRow(i);
+            QStringList hiddenNames;
+            for (int i : hidden) hiddenNames << tr("“%1”").arg(nameOf(i));
+            const QString text = names.size() == 1
+                ? tr("%1 went on %2, which is hidden, so you can’t see %3.")
+                      .arg(what, names.front(), count == 1 ? tr("it") : tr("them"))
+                : tr("%1 went on %2. %3 %4 hidden, so you can’t see all of them.")
+                      .arg(what, names.join(QStringLiteral(", ")), hiddenNames.join(QStringLiteral(", ")),
+                           hidden.size() == 1 ? tr("is") : tr("are"));
+            notices_->showNotice(QStringLiteral("sheet.hidden"), tr("Hidden sheet"), text,
+                                 { NoticeAction{ hidden.size() == 1 ? tr("Show sheet") : tr("Show sheets"),
+                                                 [this, hidden] {
+                                                     for (int i : hidden) layerPanel_->setSheetVisible(i, true);
+                                                 },
+                                                 true } });
+            return;
+        }
+        if (pasted) {
+            for (int i : layers) layerPanel_->flashRow(i);
+            statusBar()->showMessage(tr("Pasted %1 → %2").arg(count == 1 ? tr("1 part") : tr("%1 parts").arg(count),
+                                                             names.join(QStringLiteral(", "))),
+                                     5000);
+            return;
+        }
+        // The picked sheet can't hold parts: they went on the first parts sheet.
+        if (picked >= 0 && picked < n && all[picked] && !layers.contains(picked)) {
+            layerPanel_->flashRow(layers.front());
+            notices_->showNotice(QStringLiteral("sheet.redirected"), tr("Placed on another sheet"),
+                                 tr("%1 went on %2, not “%3”: that is a %4, which can’t hold parts.")
+                                     .arg(what, names.front(), nameOf(picked),
+                                          LayerPanel::friendlyKindName(all[picked]->kind()).toLower()),
+                                 { NoticeAction{ tr("Make %1 active").arg(names.front()),
+                                                 [this, target = layers.front()] { layerPanel_->setActiveRow(target); },
+                                                 true },
+                                   NoticeAction{ tr("OK"), {}, false, true } });
+        }
+    });
 }
 
 }  // namespace bld::ui

@@ -149,9 +149,11 @@ void MapView::pasteClipboard() {
 
     undoStack_->beginMacro(tr("Paste (%1 parts across %2 sheet(s))")
                                .arg(clipboard_.size()).arg(layerOrder.size()));
+    QList<int> pastedOn;
     for (const QString& name : layerOrder) {
         const int li = findOrCreateLayer(name);
         if (li < 0) continue;
+        if (!pastedOn.contains(li)) pastedOn.append(li);
         auto& bricks = byLayer[name];
         // Pasted sets stay sets: their groups come along under new ids.
         core::LayerBrick source;
@@ -190,6 +192,7 @@ void MapView::pasteClipboard() {
     // "pasted bricks are active" expectation survives any future restore.
     emit layersChanged();
     selectParts(newGuids);
+    emit partsPlaced(pastedOn, map_->selectedLayerIndex, static_cast<int>(newGuids.size()), true);
 }
 
 void MapView::duplicateSelection() {

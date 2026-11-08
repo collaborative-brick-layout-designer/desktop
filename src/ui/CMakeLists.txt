@@ -53,6 +53,9 @@ add_library(bld_ui STATIC
     SnapFeel.h
     SelectionOverlay.cpp
     SelectionOverlay.h
+    ActiveSheet.h
+    ActiveSheetButton.cpp
+    ActiveSheetButton.h
     LayerPanel.cpp
     LayerPanel.h
     PartsBrowser.cpp

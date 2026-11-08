@@ -30,6 +30,7 @@
 class QDragLeaveEvent;
 class QNativeGestureEvent;
 class QPointingDevice;
+class QLabel;
 class QTimer;
 class QTouchEvent;
 class QVariantAnimation;
@@ -331,6 +332,11 @@ signals:
     void useAsModelRequested(const QString& partNumber);
     // "Replace with Another File" on an imported part's menu.
     void replaceImportedPartRequested(const QString& partNumber);
+    // Parts were placed (a drop, a click, a set) or pasted, onto these
+    // sheets; `pickedLayer` was the active sheet before. MainWindow says
+    // where they went when that could surprise (a hidden sheet, not the
+    // picked one).
+    void partsPlaced(const QList<int>& layers, int pickedLayer, int count, bool pasted);
 
 protected:
     // Touch (pinch, two-finger pan, tap, drag, long press) and trackpad
@@ -815,6 +821,9 @@ private:
     void updateSetDragPreview(const QString& setKey, QPointF cursorScenePx);
     void showDropTargetHint();
     void clearDropTargetHint();
+    // The "→ <sheet>" tag beside the pointer while a part is dragged over the map.
+    void showDropTag(QPoint viewportPos);
+    QLabel* dropTag_ = nullptr;
 };
 
 }

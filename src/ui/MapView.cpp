@@ -1,4 +1,5 @@
 #include "MapView.h"
+#include "ActiveSheet.h"
 
 #include <QSignalBlocker>
 #include "SheetChoiceDialog.h"
@@ -70,6 +71,7 @@
 #include <QFileInfo>
 #include <QScrollBar>
 #include <QStatusBar>
+#include <QLabel>
 #include <QPainter>
 #include <QPen>
 #include <QPixmap>
@@ -1988,20 +1990,9 @@ void MapView::addPartAtScenePos(const QString& partKey, QPointF sceneCenterPx, s
     // Use the active (selected) layer if it's a brick layer — matches
     // BlueBrick's selectedLayerIndex-driven placement. Fall back to the
     // first brick layer if the active one is a different type.
-    int targetLayer = -1;
-    if (map_->selectedLayerIndex >= 0 &&
-        map_->selectedLayerIndex < static_cast<int>(map_->layers().size()) &&
-        map_->layers()[map_->selectedLayerIndex]->kind() == core::LayerKind::Brick) {
-        targetLayer = map_->selectedLayerIndex;
-    } else {
-        for (int i = 0; i < static_cast<int>(map_->layers().size()); ++i) {
-            if (map_->layers()[i]->kind() == core::LayerKind::Brick) {
-                targetLayer = i;
-                break;
-            }
-        }
-    }
+    const int targetLayer = placementLayer(*map_);
     if (targetLayer < 0) return;
+    const int pickedLayer = map_->selectedLayerIndex;
 
     // Sets (PartKind::Group): placed as one BlueBrick group (a nested set
     // is a child group), never a module. The set's free ends snap like a
@@ -2054,6 +2045,7 @@ void MapView::addPartAtScenePos(const QString& partKey, QPointF sceneCenterPx, s
             if (auto* mw = window())
                 if (auto* sb = mw->findChild<QStatusBar*>())
                     sb->showMessage(tr("Placed set: %1 (%2 parts)").arg(setName).arg(count), 3000);
+            emit partsPlaced({ targetLayer }, pickedLayer, count, false);
             return;
         }
     }
@@ -2095,6 +2087,7 @@ void MapView::addPartAtScenePos(const QString& partKey, QPointF sceneCenterPx, s
                 connectionSnapped
                     ? tr("Connection snap: %1").arg(partKey)
                     : tr("Placed: %1").arg(partKey), 2000);
+    emit partsPlaced({ targetLayer }, pickedLayer, 1, false);
 }
 
 
@@ -2800,17 +2793,8 @@ void MapView::showDropTargetHint() {
     if (!sb) return;
 
     // Mirror addPartAtScenePos: active layer if brick, else first brick layer.
-    int target = -1;
     const auto& layers = map_->layers();
-    if (map_->selectedLayerIndex >= 0 &&
-        map_->selectedLayerIndex < static_cast<int>(layers.size()) &&
-        layers[map_->selectedLayerIndex]->kind() == core::LayerKind::Brick) {
-        target = map_->selectedLayerIndex;
-    } else {
-        for (int i = 0; i < static_cast<int>(layers.size()); ++i) {
-            if (layers[i]->kind() == core::LayerKind::Brick) { target = i; break; }
-        }
-    }
+    const int target = placementLayer(*map_);
 
     if (target < 0) {
         sb->showMessage(tr("No parts sheet — add one before dropping parts"), 0);
@@ -2828,6 +2812,30 @@ void MapView::showDropTargetHint() {
 void MapView::clearDropTargetHint() {
     if (auto* sb = window() ? window()->findChild<QStatusBar*>() : nullptr)
         sb->clearMessage();
+    if (dropTag_) dropTag_->hide();
+}
+
+void MapView::showDropTag(QPoint viewportPos) {
+    if (!map_) return;
+    if (!dropTag_) {
+        dropTag_ = new QLabel(viewport());
+        dropTag_->setObjectName(QStringLiteral("dropSheetTag"));
+        dropTag_->setAttribute(Qt::WA_TransparentForMouseEvents);
+    }
+    const int target = placementLayer(*map_);
+    const core::Layer* L = target >= 0 ? map_->layers()[target].get() : nullptr;
+    const QString name = L ? (L->name.isEmpty() ? tr("(untitled)") : L->name) : QString();
+    const bool hidden = L && !L->visible;
+    dropTag_->setText(!L ? tr("→ no parts sheet") : hidden ? tr("→ %1 (hidden)").arg(name) : tr("→ %1").arg(name));
+    // Accent pill; amber when the sheet is hidden.
+    dropTag_->setStyleSheet(hidden
+        ? QStringLiteral("QLabel { background: #7A4B00; color: #FFE2A8; border-radius: 9px; padding: 2px 9px; font-weight: 700; }")
+        : QStringLiteral("QLabel { background: palette(highlight); color: palette(highlighted-text); border-radius: 9px;"
+                         " padding: 2px 9px; font-weight: 700; }"));
+    dropTag_->adjustSize();
+    dropTag_->move(viewportPos + QPoint(18, 18));
+    dropTag_->show();
+    dropTag_->raise();
 }
 
 void MapView::dragEnterEvent(QDragEnterEvent* e) {
@@ -2843,6 +2851,7 @@ void MapView::dragEnterEvent(QDragEnterEvent* e) {
         const QString key = QString::fromUtf8(e->mimeData()->data(partMime));
         updateDragPreview(key, scenePos);
         showDropTargetHint();
+        showDropTag(e->position().toPoint());
         e->acceptProposedAction();
         return;
     }
@@ -2864,6 +2873,7 @@ void MapView::dragMoveEvent(QDragMoveEvent* e) {
     if (e->mimeData()->hasFormat(partMime)) {
         const QString key = QString::fromUtf8(e->mimeData()->data(partMime));
         updateDragPreview(key, scenePos);
+        showDropTag(e->position().toPoint());
         e->acceptProposedAction();
         return;
     }
