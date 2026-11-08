@@ -19,6 +19,7 @@
 #include <QImageReader>
 #include <QMessageBox>
 #include <QStandardPaths>
+#include <QTest>
 #include <QTimer>
 #include <QtEndian>
 
@@ -78,16 +79,26 @@ TEST(AppIcon, TheAboutBoxShowsTheLogo) {
         if (a->text().startsWith(QStringLiteral("&About Collaborative"))) about = a;
     ASSERT_NE(about, nullptr);
 
+    // Modal on Windows and Linux (the timer fires inside its loop), a
+    // window of its own on macOS (trigger() returns with it open).
     QImage shown;
     bool asked = false;
-    QTimer::singleShot(0, [&] {
-        auto* box = qobject_cast<QMessageBox*>(QApplication::activeModalWidget());
-        if (!box) return;
-        asked = true;
-        shown = box->iconPixmap().toImage();
-        box->accept();
-    });
+    const auto look = [&] {
+        for (QWidget* w : QApplication::topLevelWidgets()) {
+            auto* box = qobject_cast<QMessageBox*>(w);
+            if (!box || !box->isVisible()) continue;
+            asked = true;
+            shown = box->iconPixmap().toImage();
+            box->accept();
+            return;
+        }
+    };
+    QTimer::singleShot(0, look);
     about->trigger();
+    for (int i = 0; i < 100 && !asked; ++i) {
+        QTest::qWait(20);
+        if (!asked) look();
+    }
     ASSERT_TRUE(asked) << "no About box";
     // QMessageBox::about shows the window icon at up to 64 px: the 64 px PNG.
     ASSERT_EQ(shown.size() / shown.devicePixelRatio(), QSize(64, 64));
