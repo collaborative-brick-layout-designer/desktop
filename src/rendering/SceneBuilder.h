@@ -128,6 +128,12 @@ public:
     // Toggle the visibility of a layer (by index). Returns false if out of range.
     bool setLayerVisible(int layerIndex, bool visible);
 
+    // Every top-level item a sheet drew (empty for an index out of range).
+    QList<QGraphicsItem*> layerItems(int layerIndex) const {
+        if (layerIndex < 0 || layerIndex >= static_cast<int>(layers_.size())) return {};
+        return layers_[static_cast<size_t>(layerIndex)].items;
+    }
+
     // Show or hide every anchored label (World, Brick, Group and Module
     // labels), for a saved view with its labels off.
     void setLabelsVisible(bool visible);

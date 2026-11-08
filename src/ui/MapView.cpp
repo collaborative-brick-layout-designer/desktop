@@ -429,6 +429,7 @@ void MapView::loadMap(std::unique_ptr<core::Map> map) {
     lastPartsRemoved_.reset();
     applyViewFilter();
     applyModuleState();
+    applySheetFade();
     appliedModuleState_ = moduleState();
     refreshModuleEditBar();
     // Give the view a much bigger scene rect than the current content so
@@ -633,6 +634,7 @@ void MapView::rebuildScene() {
     builder_->build(*map_);
     applyViewFilter();
     applyModuleState();
+    applySheetFade();
     appliedModuleState_ = moduleState();
     refreshModuleEditBar();
     refreshSetUpdates();
@@ -680,6 +682,7 @@ void MapView::refreshScene() {
     lastPartsAdded_ = change->partsAdded;
     lastPartsRemoved_ = change->partsRemoved;
     applyModuleState(&change->added);
+    applySheetFade(&change->added);
     applyViewFilter();
     refreshModuleEditBar();
     refreshSetUpdates();
@@ -718,6 +721,60 @@ void MapView::applyViewFilter() {
     }
     builder_->setLabelsVisible(!viewFilter_ || viewFilter_->labels);
     viewport()->update();
+}
+
+namespace {
+// An item's opacity with no fade, kept while its sheet is faded.
+constexpr int kUnfadedOpacityKey = 0x5FADE;
+}  // namespace
+
+void MapView::setFadeOtherSheets(bool on) {
+    if (fadeOtherSheets_ == on) return;
+    fadeOtherSheets_ = on;
+    applySheetFade();
+}
+
+void MapView::refreshSheetFade() { applySheetFade(); }
+
+void MapView::applySheetFade(const QList<QGraphicsItem*>* only) {
+    if (!map_ || !builder_) return;
+    const bool on = fadeOtherSheets_ && sheetFadeOff_ == 0;
+    // Off, and nothing faded since: nothing to do (the usual case, after every edit).
+    if (!on && !sheetFadeShown_) return;
+    if (!only) sheetFadeShown_ = on;
+    const int active = map_->selectedLayerIndex;
+    QSet<QGraphicsItem*> pick;
+    if (only) pick = QSet<QGraphicsItem*>(only->begin(), only->end());
+    const int n = static_cast<int>(map_->layers().size());
+    for (int i = 0; i < n; ++i) {
+        const bool faded = on && active >= 0 && i != active;
+        for (QGraphicsItem* it : builder_->layerItems(i)) {
+            if (only && !pick.contains(it)) continue;
+            const QVariant kept = it->data(kUnfadedOpacityKey);
+            if (!faded) {
+                // Back to exactly what it was: a picture is pixel for pixel the unfaded one.
+                if (kept.isValid()) {
+                    it->setOpacity(kept.toDouble());
+                    it->setData(kUnfadedOpacityKey, QVariant());
+                }
+                continue;
+            }
+            const double base = kept.isValid() ? kept.toDouble() : it->opacity();
+            if (!kept.isValid()) it->setData(kUnfadedOpacityKey, base);
+            it->setOpacity(base * kFadedSheetOpacity);
+        }
+    }
+    viewport()->update();
+}
+
+MapView::SheetFadeOff::SheetFadeOff(MapView* view) : view_(view) {
+    if (!view_) return;
+    if (view_->sheetFadeOff_++ == 0) view_->applySheetFade();
+}
+
+MapView::SheetFadeOff::~SheetFadeOff() {
+    if (!view_) return;
+    if (--view_->sheetFadeOff_ == 0) view_->applySheetFade();
 }
 
 QRectF MapView::fitRect() const {

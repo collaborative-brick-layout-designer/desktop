@@ -108,6 +108,13 @@ constexpr Raw kShared[] = {
       QT_TRANSLATE_NOOP("HelpTexts", "This is the active sheet, also marked Active in the Sheets panel. Parts "
                                      "you place or drop go on it. If it is a text, area or ruler sheet, parts "
                                      "go on a parts sheet instead, and you are told which.") },
+    { "sheets.fadeOthers", "/help#sheets",
+      QT_TRANSLATE_NOOP("HelpTexts", "Fade other sheets"),
+      QT_TRANSLATE_NOOP("HelpTexts", "Draws every sheet but the one you’re adding to faded, so that one stands out."),
+      QT_TRANSLATE_NOOP("HelpTexts", "The sheet in Adding to stays at full strength, and the fade follows when you "
+                                     "pick another. It only changes what you see: pictures, PDFs and shared "
+                                     "pictures never show it, and it isn’t saved in the layout or sent to anyone "
+                                     "else.") },
     { "tools.rail", "/help#shortcuts",
       QT_TRANSLATE_NOOP("HelpTexts", "Tools"),
       QT_TRANSLATE_NOOP("HelpTexts", "Pick what a click on the map does."),

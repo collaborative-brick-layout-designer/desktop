@@ -16,6 +16,7 @@ toolbar.rotateStep
 toolbar.paintColor
 toolbar.panels
 toolbar.activeSheet
+sheets.fadeOthers
 tools.rail
 status.sheet
 status.room

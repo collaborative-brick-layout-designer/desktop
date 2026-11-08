@@ -2,7 +2,8 @@
 // on the toolbar, the Sheets panel's Active row and the Parts panel's
 // title agree and follow every change; a part dragged over the map says
 // where it will land; placing on a hidden sheet, or with a sheet active
-// that can't hold parts, says what happened.
+// that can't hold parts, says what happened. "Fade other sheets while
+// editing" fades the rest on screen only, never in a picture.
 
 #include "core/Layer.h"
 #include "core/LayerBrick.h"
@@ -18,11 +19,16 @@
 #include "ui/NoticeArea.h"
 #include "ui/PartsBrowser.h"
 #include "ui/UpdateCheck.h"
+#include "ui/SavedViews.h"
+#include "rendering/SceneBuilder.h"
 #include "ui/theme/PanelHeader.h"
 
 #include <gtest/gtest.h>
 
 #include <QAction>
+#include <QCheckBox>
+#include <QGraphicsItem>
+#include <QGraphicsScene>
 #include <QApplication>
 #include <QDragEnterEvent>
 #include <QFile>
@@ -230,4 +236,88 @@ TEST_F(ActiveSheetTest, APartWithATextSheetActiveGoesOnAPartsSheetAndSaysWhich) 
     make->click();
     QApplication::processEvents();
     allSay(QStringLiteral("Bricks"), QStringLiteral("Bricks"));
+}
+
+// "Fade other sheets while editing": off by default; on, every sheet but
+// the active one draws faded and the fade follows a switch; a picture made
+// from the map is pixel for pixel the unfaded one; it is kept on this
+// computer (QSettings), not in the layout.
+TEST_F(ActiveSheetTest, FadingTheOtherSheetsShowsOnScreenOnlyNeverInAPicture) {
+    const QString key = QStringLiteral("view/fadeOtherSheets");
+    QSettings().remove(key);
+    add(core::LayerKind::Brick, QStringLiteral("Tables"));
+    pick(QStringLiteral("Tables"));
+    view_->addPartAtScenePos(QStringLiteral("PL.7"), QPointF(64, 64));
+    pick(QStringLiteral("Bricks"));
+    view_->addPartAtScenePos(QStringLiteral("PL.7"), QPointF(256, 64));
+    const int bricks = sheet(QStringLiteral("Bricks"));
+    const int tables = sheet(QStringLiteral("Tables"));
+    const auto opacity = [this](int i) {
+        const auto items = view_->builder()->layerItems(i);
+        return items.isEmpty() ? -1.0 : items.front()->opacity();
+    };
+    const auto picture = [this] {
+        // Nothing picked: the pick's outline isn't what's compared.
+        view_->deselectAll();
+        QApplication::processEvents();
+        const QRectF bounds = view_->scene()->itemsBoundingRect().adjusted(-20, -20, 20, 20);
+        return ui::views::renderSceneImage(*view_->scene(), bounds, QSize(240, 120), {});
+    };
+    const auto box = [this] { return button_->menu()->findChild<QCheckBox*>(QStringLiteral("fadeOtherSheets")); };
+
+    // Off by default: nothing fades. The picture to compare with.
+    ASSERT_NE(box(), nullptr);
+    EXPECT_FALSE(box()->isChecked());
+    EXPECT_FALSE(view_->fadeOtherSheets());
+    EXPECT_EQ(opacity(bricks), 1.0);
+    EXPECT_EQ(opacity(tables), 1.0);
+    const QImage plain = picture();
+    const int undoSteps = view_->undoStack()->count();
+
+    // On: the sheet not being added to fades, and it is saved on this computer.
+    box()->setChecked(true);
+    QApplication::processEvents();
+    EXPECT_TRUE(view_->fadeOtherSheets());
+    EXPECT_TRUE(QSettings().value(key).toBool());
+    EXPECT_EQ(opacity(bricks), 1.0);
+    EXPECT_DOUBLE_EQ(opacity(tables), ui::MapView::kFadedSheetOpacity);
+
+    // Switch sheets: the fade follows; the box stays ticked in the new menu.
+    pick(QStringLiteral("Tables"));
+    EXPECT_DOUBLE_EQ(opacity(bricks), ui::MapView::kFadedSheetOpacity);
+    EXPECT_EQ(opacity(tables), 1.0);
+    EXPECT_TRUE(box()->isChecked());
+    // A new part on the faded sheet's neighbour: drawn at full strength on the active one.
+    view_->addPartAtScenePos(QStringLiteral("PL.7"), QPointF(64, 256));
+    QApplication::processEvents();
+    for (QGraphicsItem* it : view_->builder()->layerItems(sheet(QStringLiteral("Tables")))) EXPECT_EQ(it->opacity(), 1.0);
+    for (QGraphicsItem* it : view_->builder()->layerItems(sheet(QStringLiteral("Bricks"))))
+        EXPECT_DOUBLE_EQ(it->opacity(), ui::MapView::kFadedSheetOpacity);
+    view_->undoStack()->undo();
+    QApplication::processEvents();
+
+    // The screen's own drawing shows the fade (so the check below means something)...
+    EXPECT_NE(picture(), plain);
+    // ...but a picture, as Export picture, PDF and Print make it, is the same as with the fade off.
+    QImage faded;
+    {
+        const ui::MapView::SheetFadeOff off(view_);
+        faded = picture();
+    }
+    EXPECT_EQ(faded, plain);
+    // ...and the screen is faded again after it.
+    EXPECT_DOUBLE_EQ(opacity(bricks), ui::MapView::kFadedSheetOpacity);
+
+    // Not in the layout: turning it on and off made no edit.
+    EXPECT_EQ(view_->undoStack()->count(), undoSteps + 1);  // the part placed and undone above
+    EXPECT_EQ(view_->undoStack()->index(), undoSteps);
+
+    // Off: everything is back to full strength.
+    box()->setChecked(false);
+    QApplication::processEvents();
+    EXPECT_FALSE(QSettings().value(key).toBool());
+    EXPECT_EQ(opacity(bricks), 1.0);
+    EXPECT_EQ(opacity(tables), 1.0);
+    EXPECT_EQ(picture(), plain);
+    QSettings().remove(key);
 }
