@@ -55,6 +55,7 @@ add_executable(bld_ui_tests
     DialogKeyboardTest.cpp
     AppIconTest.cpp
     PlainWordsTest.cpp
+    PlainWordsShotsTest.cpp
 )
 
 target_compile_definitions(bld_ui_tests PRIVATE
