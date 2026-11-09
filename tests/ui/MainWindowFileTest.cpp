@@ -210,6 +210,21 @@ TEST_F(MainWindowFile, OpensOnTheSavedSheetOrTheTopmostPartsSheet) {
     EXPECT_EQ(map->layers()[map->selectedLayerIndex]->name, QStringLiteral("Tables"));
 }
 
+// Two files are the same, else the first line that differs (not a byte dump).
+static void expectSameLines(const QByteArray& got, const QByteArray& want) {
+    if (got == want) return;
+    const QList<QByteArray> a = got.split('\n'), b = want.split('\n');
+    for (qsizetype i = 0; i < std::max(a.size(), b.size()); ++i) {
+        const QByteArray x = i < a.size() ? a[i] : QByteArray("<end>"), y = i < b.size() ? b[i] : QByteArray("<end>");
+        if (x != y) {
+            ADD_FAILURE() << "line " << i + 1 << ": saved \"" << x.trimmed().toStdString() << "\", expected \""
+                          << y.trimmed().toStdString() << "\" (" << a.size() << " vs " << b.size() << " lines)";
+            return;
+        }
+    }
+    ADD_FAILURE() << "the files differ only in line endings";
+}
+
 // Opening a file never changes it: Fordyce opens adding to "Tracks", but
 // saving it untouched writes back its own saved sheet ("rulers"), byte for
 // byte. A sheet the user picks is saved.
@@ -237,7 +252,7 @@ TEST_F(MainWindowFile, OpeningAndSavingAnUntouchedFileChangesNothing) {
     bool saved = false;
     keep.during([&] { saved = invoke(*window_, "onSave"); });
     ASSERT_TRUE(saved);
-    EXPECT_EQ(readBack(), original);
+    expectSameLines(readBack(), original);
 
     // Pick "Tables" in the Sheets panel: that is saved.
     auto* list = window_->findChild<QListWidget*>(QStringLiteral("sheetList"));
@@ -258,7 +273,7 @@ TEST_F(MainWindowFile, OpeningAndSavingAnUntouchedFileChangesNothing) {
     QByteArray picked = original;
     picked.replace("<SelectedLayerIndex>4</SelectedLayerIndex>",
                    QStringLiteral("<SelectedLayerIndex>%1</SelectedLayerIndex>").arg(tables).toUtf8());
-    EXPECT_EQ(readBack(), picked);
+    expectSameLines(readBack(), picked);
 }
 
 // Every menu item that opens a window ("…") says in its tooltip what it
