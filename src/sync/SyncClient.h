@@ -15,6 +15,13 @@
 // yrs sees it) is logged and dropped, never half applied, and the client
 // asks the server once for the whole layout again. If that can't be read
 // either, the session ends with kUnreadableUpdateCode.
+//
+// A network that goes dead without closing anything (Wi-Fi gone, a laptop
+// asleep) is noticed by a ping every 15 s: with no answer and no message in
+// 10 s the connection counts as lost and is opened again, so edits wait as
+// offline edits and the status stops saying "Connected". While the layout's
+// first copy is still arriving (it can take minutes on a slow link, and the
+// answer waits behind it) a missing answer is given longer.
 
 #include <QByteArray>
 #include <QObject>
@@ -54,6 +61,10 @@ public:
 
     // Retry backoff: `initial`, doubling up to `max`.
     void setReconnectDelays(std::chrono::milliseconds initial, std::chrono::milliseconds max);
+    // How often to ping, how long to wait for the answer, and how long the
+    // first copy of the layout may take (tests shorten them).
+    void setKeepAlive(std::chrono::milliseconds every, std::chrono::milliseconds answerWithin,
+                      std::chrono::milliseconds firstSyncWithin);
     // For tests: the largest message accepted (UpdateGuard's limit otherwise).
     void setMaxMessageSize(quint64 bytes) { socket_.setMaxAllowedIncomingMessageSize(bytes); }
 
@@ -74,10 +85,17 @@ private:
     void onMessage(const QByteArray& message);
     void unreadableUpdate(bool syncStep2, const QString& why);
     void send(const QByteArray& message);
+    void ping();
+    void noAnswer();
+    void heard();
 
     SyncDoc& doc_;
     QWebSocket socket_;
     QTimer retry_;
+    QTimer ping_;
+    QTimer answer_;
+    // When this connection opened (for the first copy's longer wait).
+    std::chrono::steady_clock::time_point openedAt_{};
     QUrl url_;
     QString token_;
     Status status_ = Status::Offline;
@@ -89,6 +107,7 @@ private:
     std::chrono::milliseconds initialDelay_{ 1000 };
     std::chrono::milliseconds maxDelay_{ 30000 };
     std::chrono::milliseconds delay_{ 1000 };
+    std::chrono::milliseconds firstSyncWithin_{ std::chrono::minutes(5) };
 };
 
 }  // namespace bld::sync

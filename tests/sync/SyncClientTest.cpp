@@ -11,7 +11,10 @@
 
 #include <gtest/gtest.h>
 
+#include <QElapsedTimer>
 #include <QFile>
+#include <QTcpServer>
+#include <QTcpSocket>
 
 using namespace bld;
 using namespace bld::synctest;
@@ -253,4 +256,101 @@ TEST(SyncClient, AMessageOverTheSizeLimitReconnectsThenEnds) {
     ASSERT_TRUE(waitFor([&] { return finalCode != 0; }));
     EXPECT_EQ(finalCode, sync::kUnreadableUpdateCode);
     EXPECT_EQ(server.authHeaders.size(), 3u);
+}
+
+namespace {
+// A TCP link to `target` that can go dead: bytes stop flowing both ways and
+// nothing closes, as when Wi-Fi drops or a laptop sleeps.
+class DeadableLink : public QObject {
+public:
+    explicit DeadableLink(quint16 target) : target_(target) {
+        server_.listen(QHostAddress::LocalHost, 0);
+        connect(&server_, &QTcpServer::newConnection, this, [this] {
+            QTcpSocket* in = server_.nextPendingConnection();
+            auto* out = new QTcpSocket(in);
+            out->connectToHost(QHostAddress::LocalHost, target_);
+            connect(in, &QTcpSocket::readyRead, this, [this, in, out] {
+                const QByteArray b = in->readAll();
+                if (!dead) out->write(b);
+            });
+            connect(out, &QTcpSocket::readyRead, this, [this, in, out] {
+                const QByteArray b = out->readAll();
+                if (!dead) in->write(b);
+                if (dieAfterUpgrade && b.contains("101")) dead = true;
+            });
+            connect(in, &QTcpSocket::disconnected, out, &QTcpSocket::disconnectFromHost);
+            connect(out, &QTcpSocket::disconnected, in, &QTcpSocket::disconnectFromHost);
+        });
+    }
+    QUrl url() const {
+        return QUrl(QStringLiteral("ws://127.0.0.1:%1/ws/layout/L1").arg(server_.serverPort()));
+    }
+    bool dead = false;
+    // Goes dead right after the server's answer to the upgrade.
+    bool dieAfterUpgrade = false;
+
+private:
+    QTcpServer server_;
+    quint16 target_;
+};
+} // namespace
+
+// Full review area 4, Bug 13: a dead network used to leave the desktop
+// saying "Connected" for as long as it lasted.
+TEST(SyncClient, ADeadNetworkIsNoticedAndTheEditsArriveWhenItsBack) {
+    FakeServer server;
+    DeadableLink link(server.url().port());
+    sync::SyncDoc local;
+    sync::SyncClient client(local);
+    client.setReconnectDelays(50ms, 100ms);
+    client.setKeepAlive(100ms, 200ms, 5min);
+    client.open(link.url(), {});
+    ASSERT_TRUE(waitFor([&] { return client.status() == sync::SyncClient::Status::Synced; }));
+    // Pings are answered: it stays connected.
+    QElapsedTimer t;
+    t.start();
+    waitFor([&] { return t.elapsed() > 600; }, 1000);
+    EXPECT_EQ(client.status(), sync::SyncClient::Status::Synced);
+    EXPECT_EQ(server.authHeaders.size(), 1u);
+
+    link.dead = true;
+    ASSERT_TRUE(waitFor([&] { return client.status() != sync::SyncClient::Status::Synced; }, 2000));
+    // Edited meanwhile: an offline edit.
+    auto map = sync::mapFromDocJson(local.toJson());
+    firstBrick(*map).displayArea.translate(0, 40);
+    client.sendLocal(local.writeMap(*map));
+
+    link.dead = false;
+    ASSERT_TRUE(waitFor([&] { return firstBrickArea(server.doc) == firstBrick(*map).displayArea; }));
+    EXPECT_TRUE(waitFor([&] { return client.status() == sync::SyncClient::Status::Synced; }));
+}
+
+// While the first copy of a big layout is still arriving (the answer to a
+// ping waits behind it), a late answer doesn't start it over; past the
+// first copy's longer wait it does.
+TEST(SyncClient, TheFirstCopyMayTakeLongerThanAPing) {
+    for (const bool longWait : { true, false }) {
+        FakeServer server;
+        DeadableLink link(server.url().port());
+        link.dieAfterUpgrade = true;
+        sync::SyncDoc local;
+        sync::SyncClient client(local);
+        client.setReconnectDelays(50ms, 100ms);
+        client.setKeepAlive(100ms, 200ms, longWait ? 5min : 400ms);
+        client.open(link.url(), {});
+        ASSERT_TRUE(waitFor([&] { return client.status() == sync::SyncClient::Status::Syncing; }));
+        int startedOver = 0;
+        QObject::connect(&client, &sync::SyncClient::statusChanged, [&](sync::SyncClient::Status st) {
+            if (st == sync::SyncClient::Status::Connecting) ++startedOver;
+        });
+        QElapsedTimer t;
+        t.start();
+        waitFor([&] { return t.elapsed() > 1200; }, 1500);
+        if (longWait) {
+            EXPECT_EQ(startedOver, 0);
+            EXPECT_EQ(client.status(), sync::SyncClient::Status::Syncing);
+        } else {
+            EXPECT_GE(startedOver, 1);
+        }
+    }
 }
