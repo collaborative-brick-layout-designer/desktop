@@ -226,8 +226,8 @@ static void expectSameLines(const QByteArray& got, const QByteArray& want) {
 }
 
 // Opening a file never changes it: Fordyce opens adding to "Tracks", but
-// saving it untouched writes back its own saved sheet ("rulers"), byte for
-// byte. A sheet the user picks is saved.
+// saving it untouched writes back its own saved sheet ("rulers") and its
+// links, byte for byte. A sheet the user picks is saved.
 TEST_F(MainWindowFile, OpeningAndSavingAnUntouchedFileChangesNothing) {
     QFile f(kCorpus + QStringLiteral("/fordyce-2026.bbm"));
     ASSERT_TRUE(f.open(QIODevice::ReadOnly));
@@ -242,6 +242,11 @@ TEST_F(MainWindowFile, OpeningAndSavingAnUntouchedFileChangesNothing) {
         QFile in(copy);
         return in.open(QIODevice::ReadOnly) ? in.readAll() : QByteArray();
     };
+    // With the parts library, which knows the straights but not the
+    // BrickTracks curves they join: those links are kept too.
+    parts_.addSearchPath(QStringLiteral(BLD_PARTS_LIBRARY_ROOT));
+    parts_.scan();
+    ASSERT_TRUE(parts_.metadata(QStringLiteral("2865.8")));
     ASSERT_TRUE(window_->openFile(copy));
     auto* view = window_->findChild<ui::MapView*>();
     const core::Map* map = view->currentMap();

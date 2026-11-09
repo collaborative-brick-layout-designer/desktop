@@ -90,3 +90,34 @@ TEST(Connectivity, FarAwayOrBrokenCoordinatesAreSafe) {
     for (const auto& b : static_cast<core::LayerBrick&>(*map.layers()[0]).bricks)
         EXPECT_EQ(b.connections.size(), 2u);
 }
+
+// A known straight joined to a part the library lacks (a BrickTracks curve,
+// without that library): the curve's points can't be placed, so the link
+// stays as the file has it. Fordyce lost such links just by being opened.
+TEST(Connectivity, KeepsALinkToAPartTheLibraryDoesNotKnow) {
+    const QString root = QStringLiteral(BLD_SOURCE_DIR "/parts/BlueBrickParts/parts");
+    if (!QDir(root).exists()) GTEST_SKIP() << "BlueBrickParts submodule missing";
+    parts::PartsLibrary lib;
+    lib.addSearchPath(root);
+    lib.scan();
+    ASSERT_TRUE(lib.metadata(QStringLiteral("2865.8")));
+    ASSERT_FALSE(lib.metadata(QStringLiteral("BT R104.8")));
+    core::Map map;
+    auto layer = std::make_unique<core::LayerBrick>();
+    core::Brick straight;
+    straight.partNumber = QStringLiteral("2865.8");
+    straight.displayArea = QRectF(0, 0, 16, 8);
+    straight.connections = { { QStringLiteral("s0"), QString() }, { QStringLiteral("s1"), QStringLiteral("c0") } };
+    core::Brick curve;
+    curve.partNumber = QStringLiteral("BT R104.8");
+    curve.displayArea = QRectF(200, 200, 16, 16);
+    curve.connections = { { QStringLiteral("c0"), QStringLiteral("s1") }, { QStringLiteral("c1"), QString() } };
+    layer->bricks.push_back(straight);
+    layer->bricks.push_back(curve);
+    map.layers().push_back(std::move(layer));
+    edit::rebuildConnectivity(map, lib);
+    const auto& bricks = static_cast<core::LayerBrick&>(*map.layers()[0]).bricks;
+    EXPECT_EQ(bricks[0].connections[1].linkedToId, QStringLiteral("c0"));
+    EXPECT_EQ(bricks[1].connections[0].linkedToId, QStringLiteral("s1"));
+    EXPECT_TRUE(bricks[0].connections[0].linkedToId.isEmpty());
+}
