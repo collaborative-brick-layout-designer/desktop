@@ -82,6 +82,8 @@ public:
     static void setPictureProgressStepMs(int ms);
 
     core::Map* currentMap() { return map_.get(); }
+    // The parts library the map draws from (Find & Replace checks new part numbers against it).
+    parts::PartsLibrary& partsLibrary() { return parts_; }
 
     // What a saved view shows on this screen only (never saved in the
     // layout): exactly `sheets` (unset: every sheet as the layout has it),

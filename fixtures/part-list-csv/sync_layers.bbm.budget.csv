@@ -1,5 +1,5 @@
 Part,In Use,Color,Description,Budgeted,Missing,Part Usage %
-2865,440,Dark Gray,Rail 9V Straight,12,428,3,667
+2865,440,Dark Gray,Rail 9V Straight,12,428,3667
 3811,54,Tan,Baseplate 32 x 32,Unbudgeted,54,Unbudgeted
 3811,252,Green,Baseplate 32 x 32,Unbudgeted,252,Unbudgeted
 3811,3,Red,Baseplate 32 x 32,Unbudgeted,3,Unbudgeted
@@ -8,4 +8,4 @@ Part,In Use,Color,Description,Budgeted,Missing,Part Usage %
 BT R104,32,Dark Gray,,Unbudgeted,32,Unbudgeted
 BT R120,32,Dark Gray,,Unbudgeted,32,Unbudgeted
 TABLE96X190,23,,US Table 30" x 60",Unbudgeted,23,Unbudgeted
-Total,940,,,12,928,3,667
+Total,940,,,12,928,3667

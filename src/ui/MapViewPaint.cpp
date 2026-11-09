@@ -243,7 +243,7 @@ void MapView::drawForeground(QPainter* painter, const QRectF& rect) {
     // 1 stud = 8 mm per BlueBrick convention — show a human-friendly
     // secondary label in mm / m depending on magnitude.
     const double mm = bestStuds * 8.0;
-    QString primary  = QStringLiteral("%1 studs").arg(bestStuds, 0, 'f', 0);
+    QString primary  = (bestStuds == 1.0 ? tr("%1 stud") : tr("%1 studs")).arg(bestStuds, 0, 'f', 0);
     QString secondary;
     if (mm >= 1000) secondary = QStringLiteral("%1 m").arg(mm / 1000.0, 0, 'f', 2);
     else            secondary = QStringLiteral("%1 mm").arg(mm, 0, 'f', 0);

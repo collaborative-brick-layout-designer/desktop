@@ -16,6 +16,8 @@
 #include <algorithm>
 #include <QSettings>
 #include <QApplication>
+#include <QDateTime>
+#include <QStyle>
 #include <QCheckBox>
 #include <QClipboard>
 #include <QComboBox>
@@ -240,7 +242,20 @@ PartsBrowser::PartsBrowser(parts::PartsLibrary& lib, QWidget* parent)
     connect(category_, &QComboBox::currentTextChanged, this, [this](const QString&) { applyFilter(); });
     connect(filter_,   &QLineEdit::textChanged,        this, [this](const QString&) { applyFilter(); });
     connect(grid_, &QListWidget::itemActivated, this, [this](QListWidgetItem* it) {
-        if (it) emit partActivated(it->data(kPartKeyRole).toString());
+        if (!it) return;
+        const QString key = it->data(kPartKeyRole).toString();
+        // The double-click that started with a click that already added it.
+        if (key == clickPlacedKey_ && QDateTime::currentMSecsSinceEpoch() - clickPlacedAt_ < QApplication::doubleClickInterval() + 100) return;
+        emit partActivated(key);
+    });
+    // On an empty map one click adds the part (where a click already
+    // activates, the style's single-click setting, itemActivated does it).
+    connect(grid_, &QListWidget::itemClicked, this, [this](QListWidgetItem* it) {
+        if (!it || !mapIsEmpty || !mapIsEmpty()) return;
+        if (grid_->style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, nullptr, grid_)) return;
+        clickPlacedKey_ = it->data(kPartKeyRole).toString();
+        clickPlacedAt_ = QDateTime::currentMSecsSinceEpoch();
+        emit partActivated(clickPlacedKey_);
     });
 
     // Touch: tap a part, then the map; or drag it sideways out onto the

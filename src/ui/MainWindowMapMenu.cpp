@@ -148,7 +148,7 @@ void MainWindow::setupMapMenu() {
         commentE->setMinimumHeight(100);
         commentE->setTabChangesFocus(true);  // Tab goes on to OK, as in every other field
         form->addRow(tr("Author:"),  authorE);
-        form->addRow(tr("LUG:"),     lugE);
+        form->addRow(tr("Club (LUG):"), lugE);
         form->addRow(tr("Event:"),   eventE);
         form->addRow(tr("Date:"),    dateE);
         form->addRow(tr("Comment:"), commentE);
