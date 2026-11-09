@@ -865,6 +865,22 @@
         <source>(unnamed)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Found Studio&apos;s: %1</source>
+        <translation>Die van Studio gevonden: %1</translation>
+    </message>
+    <message>
+        <source>Using Studio&apos;s: %1</source>
+        <translation>Die van Studio wordt gebruikt: %1</translation>
+    </message>
+    <message>
+        <source>Use %1 for the layout&apos;s %2</source>
+        <translation>%1 gebruiken voor %2 van de layout</translation>
+    </message>
+    <message>
+        <source>Use Studio&apos;s LDraw library and mapping when these are left empty</source>
+        <translation>De LDraw-bibliotheek en koppeling van Studio gebruiken als deze velden leeg zijn</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::PartList</name>
@@ -1173,6 +1189,133 @@
         <source>Installed %1 package(s).</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>%1 — Included</source>
+        <translation>%1 — Inbegrepen</translation>
+    </message>
+    <message>
+        <source>%1 — Included (you have %2)</source>
+        <translation>%1 — Inbegrepen (je hebt %2)</translation>
+    </message>
+    <message>
+        <source>%1 — Installed</source>
+        <translation>%1 — Geïnstalleerd</translation>
+    </message>
+    <message>
+        <source>%1 is in use, so it couldn&apos;t be replaced.</source>
+        <translation>%1 is in gebruik en kon niet worden vervangen.</translation>
+    </message>
+    <message>
+        <source>%1 new, %2 update(s), %3 already included.</source>
+        <translation>%1 nieuw, %2 update(s), %3 al inbegrepen.</translation>
+    </message>
+    <message>
+        <source>%1 — Update %2 → %3</source>
+        <translation>%1 — Bijwerken %2 → %3</translation>
+    </message>
+    <message>
+        <source>%1 (version %2)</source>
+        <translation>%1 (versie %2)</translation>
+    </message>
+    <message>
+        <source>Cancel Download</source>
+        <translation>Download annuleren</translation>
+    </message>
+    <message>
+        <source>Cancelled.</source>
+        <translation>Geannuleerd.</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t make the folder %1.</source>
+        <translation>De map %1 kon niet worden gemaakt.</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t put it in %1.</source>
+        <translation>Kon het niet in %1 zetten.</translation>
+    </message>
+    <message>
+        <source>Couldn’t search:</source>
+        <translation>Zoeken lukte niet:</translation>
+    </message>
+    <message>
+        <source>Downloading %1 (%2 of %3)…</source>
+        <translation>%1 downloaden (%2 van %3)…</translation>
+    </message>
+    <message numerus="yes">
+        <source>Installed %n package(s).</source>
+        <translation>
+            <numerusform>%n pakket geïnstalleerd.</numerusform>
+            <numerusform>%n pakketten geïnstalleerd.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>It has a file that would go outside the parts folder (%1), so nothing was installed.</source>
+        <translation>Het bevat een bestand dat buiten de onderdelenmap zou komen (%1), dus er is niets geïnstalleerd.</translation>
+    </message>
+    <message>
+        <source>It&apos;s bigger than %1 MB, so it wasn&apos;t downloaded.</source>
+        <translation>Het is groter dan %1 MB, dus het is niet gedownload.</translation>
+    </message>
+    <message>
+        <source>It&apos;s damaged (%1), so nothing was installed.</source>
+        <translation>Het is beschadigd (%1), dus er is niets geïnstalleerd.</translation>
+    </message>
+    <message>
+        <source>It&apos;s too big, so it wasn&apos;t downloaded.</source>
+        <translation>Het is te groot, dus het is niet gedownload.</translation>
+    </message>
+    <message>
+        <source>(no version)</source>
+        <translation>(geen versie)</translation>
+    </message>
+    <message>
+        <source>Packages (the ones you already have say Included):</source>
+        <translation>Pakketten (die je al hebt tonen Inbegrepen):</translation>
+    </message>
+    <message>
+        <source>Packs of parts made for BlueBrick. Search, tick the ones you want, then install them.</source>
+        <translation>Onderdelenpakketten gemaakt voor BlueBrick. Zoek, vink aan wat je wilt en installeer ze.</translation>
+    </message>
+    <message>
+        <source>Some packages couldn&apos;t be installed:
+%1</source>
+        <translation>Sommige pakketten konden niet worden geïnstalleerd:
+%1</translation>
+    </message>
+    <message>
+        <source>The download isn&apos;t a package this app can read.</source>
+        <translation>De download is geen pakket dat de app kan lezen.</translation>
+    </message>
+    <message numerus="yes">
+        <source>The download stopped: nothing came for %n second(s).</source>
+        <translation>
+            <numerusform>De download is gestopt: %n seconde lang kwam er niets.</numerusform>
+            <numerusform>De download is gestopt: %n seconden lang kwam er niets.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The download was empty.</source>
+        <translation>De download was leeg.</translation>
+    </message>
+    <message>
+        <source>There&apos;s no room for it in %1.</source>
+        <translation>Er is geen ruimte voor in %1.</translation>
+    </message>
+    <message>
+        <source>There&apos;s no room for the download on this computer.</source>
+        <translation>Er is geen ruimte voor de download op deze computer.</translation>
+    </message>
+    <message>
+        <source>The rest were cancelled.</source>
+        <translation>De rest is geannuleerd.</translation>
+    </message>
+    <message numerus="yes">
+        <source>You already have all %n package(s).</source>
+        <translation>
+            <numerusform>Je hebt het pakket al.</numerusform>
+            <numerusform>Je hebt alle %n pakketten al.</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::FindDialog</name>
@@ -1285,6 +1428,46 @@
         <location filename="../src/ui/ImportPipeline.cpp" line="248"/>
         <source>Could not read %1: %2</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 (%n times)</source>
+        <translation>
+            <numerusform>%1 (%n keer)</numerusform>
+            <numerusform>%1 (%n keer)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>and %n more</source>
+        <translation>
+            <numerusform>en nog %n</numerusform>
+            <numerusform>en nog %n</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>A newer LDD → LDraw mapping (ldraw.xml) in Preferences › Import may know them.</source>
+        <translation>Een nieuwere LDD → LDraw-koppeling (ldraw.xml) in Voorkeuren › Importeren kent ze misschien.</translation>
+    </message>
+    <message>
+        <source>A newer LDraw library, set in Preferences › Import, may have them.</source>
+        <translation>Een nieuwere LDraw-bibliotheek, in te stellen in Voorkeuren › Importeren, heeft ze misschien.</translation>
+    </message>
+    <message>
+        <source>Couldn’t open %1.</source>
+        <translation>%1 kon niet worden geopend.</translation>
+    </message>
+    <message numerus="yes">
+        <source>LDD has no shape for %n brick(s), so they’re left out: %1.</source>
+        <translation>
+            <numerusform>LDD heeft geen vorm voor %n steen, dus die ontbreekt: %1.</numerusform>
+            <numerusform>LDD heeft geen vorm voor %n stenen, dus die ontbreken: %1.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s) aren’t in your LDraw library, so they’re left out of the picture: %1.</source>
+        <translation>
+            <numerusform>%n onderdeel staat niet in je LDraw-bibliotheek, dus het ontbreekt op de afbeelding: %1.</numerusform>
+            <numerusform>%n onderdelen staan niet in je LDraw-bibliotheek, dus ze ontbreken op de afbeelding: %1.</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -3758,6 +3941,17 @@ Sla het op als Collaborative Brick Layout Designer-layout (%3) om alles in één
 
 Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporteren als BlueBrick-kaart (.bbm)… kan altijd een .bbm-kopie maken.</translation>
     </message>
+    <message numerus="yes">
+        <source>Installed %n package(s); parts reloaded.</source>
+        <translation>
+            <numerusform>%n pakket geïnstalleerd; onderdelen opnieuw geladen.</numerusform>
+            <numerusform>%n pakketten geïnstalleerd; onderdelen opnieuw geladen.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Keep both copies of the layout&apos;s parts</source>
+        <translation>Beide versies van de onderdelen van de layout houden</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -4710,6 +4904,18 @@ This removes:
     <message>
         <source>What could be read is open. When you save over the file, the app first keeps a copy of it as it was, ending in .bak, so nothing is lost. Save to a new name to leave the file alone.</source>
         <translation>Wat gelezen kon worden, is geopend. Als je over het bestand opslaat, bewaart de app eerst een kopie zoals het was, eindigend op .bak, zodat er niets verloren gaat. Sla op onder een nieuwe naam om het bestand ongemoeid te laten.</translation>
+    </message>
+    <message>
+        <source>Get more parts</source>
+        <translation>Meer onderdelen</translation>
+    </message>
+    <message>
+        <source>Packs of parts for BlueBrick layouts, like trains, roads or Duplo.</source>
+        <translation>Onderdelenpakketten voor BlueBrick-layouts, zoals treinen, wegen of Duplo.</translation>
+    </message>
+    <message>
+        <source>Packs you already have say Included, and a newer version of one says Update. Installed packs go in your own parts folder and show in the Parts panel at once.</source>
+        <translation>Pakketten die je al hebt tonen Inbegrepen, een nieuwere versie toont Bijwerken. Geïnstalleerde pakketten komen in je eigen onderdelenmap en staan meteen in het paneel Onderdelen.</translation>
     </message>
 </context>
 <context>

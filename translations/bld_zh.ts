@@ -865,6 +865,22 @@
         <source>(unnamed)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Found Studio&apos;s: %1</source>
+        <translation>找到 Studio 的：%1</translation>
+    </message>
+    <message>
+        <source>Using Studio&apos;s: %1</source>
+        <translation>正在使用 Studio 的：%1</translation>
+    </message>
+    <message>
+        <source>Use %1 for the layout&apos;s %2</source>
+        <translation>用 %1 代替布局中的 %2</translation>
+    </message>
+    <message>
+        <source>Use Studio&apos;s LDraw library and mapping when these are left empty</source>
+        <translation>这些项留空时，使用 Studio 的 LDraw 零件库和对照表</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::PartList</name>
@@ -1173,6 +1189,130 @@
         <source>Installed %1 package(s).</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>%1 — Included</source>
+        <translation>%1 — 已包含</translation>
+    </message>
+    <message>
+        <source>%1 — Included (you have %2)</source>
+        <translation>%1 — 已包含（你有 %2）</translation>
+    </message>
+    <message>
+        <source>%1 — Installed</source>
+        <translation>%1 — 已安装</translation>
+    </message>
+    <message>
+        <source>%1 is in use, so it couldn&apos;t be replaced.</source>
+        <translation>%1 正在使用中，无法替换。</translation>
+    </message>
+    <message>
+        <source>%1 new, %2 update(s), %3 already included.</source>
+        <translation>%1 个新包，%2 个更新，%3 个已包含。</translation>
+    </message>
+    <message>
+        <source>%1 — Update %2 → %3</source>
+        <translation>%1 — 更新 %2 → %3</translation>
+    </message>
+    <message>
+        <source>%1 (version %2)</source>
+        <translation>%1（版本 %2）</translation>
+    </message>
+    <message>
+        <source>Cancel Download</source>
+        <translation>取消下载</translation>
+    </message>
+    <message>
+        <source>Cancelled.</source>
+        <translation>已取消。</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t make the folder %1.</source>
+        <translation>无法创建文件夹 %1。</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t put it in %1.</source>
+        <translation>无法放入 %1。</translation>
+    </message>
+    <message>
+        <source>Couldn’t search:</source>
+        <translation>无法搜索：</translation>
+    </message>
+    <message>
+        <source>Downloading %1 (%2 of %3)…</source>
+        <translation>正在下载 %1（第 %2 个，共 %3 个）…</translation>
+    </message>
+    <message numerus="yes">
+        <source>Installed %n package(s).</source>
+        <translation>
+            <numerusform>已安装 %n 个包。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>It has a file that would go outside the parts folder (%1), so nothing was installed.</source>
+        <translation>其中有文件会放到零件文件夹之外（%1），因此没有安装任何内容。</translation>
+    </message>
+    <message>
+        <source>It&apos;s bigger than %1 MB, so it wasn&apos;t downloaded.</source>
+        <translation>超过 %1 MB，因此没有下载。</translation>
+    </message>
+    <message>
+        <source>It&apos;s damaged (%1), so nothing was installed.</source>
+        <translation>文件已损坏（%1），因此没有安装任何内容。</translation>
+    </message>
+    <message>
+        <source>It&apos;s too big, so it wasn&apos;t downloaded.</source>
+        <translation>文件太大，因此没有下载。</translation>
+    </message>
+    <message>
+        <source>(no version)</source>
+        <translation>（无版本）</translation>
+    </message>
+    <message>
+        <source>Packages (the ones you already have say Included):</source>
+        <translation>包（已有的显示“已包含”）：</translation>
+    </message>
+    <message>
+        <source>Packs of parts made for BlueBrick. Search, tick the ones you want, then install them.</source>
+        <translation>为 BlueBrick 制作的零件包。搜索，勾选想要的，然后安装。</translation>
+    </message>
+    <message>
+        <source>Some packages couldn&apos;t be installed:
+%1</source>
+        <translation>部分包无法安装：
+%1</translation>
+    </message>
+    <message>
+        <source>The download isn&apos;t a package this app can read.</source>
+        <translation>下载的不是本应用能读取的包。</translation>
+    </message>
+    <message numerus="yes">
+        <source>The download stopped: nothing came for %n second(s).</source>
+        <translation>
+            <numerusform>下载已停止：%n 秒内没有收到任何数据。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The download was empty.</source>
+        <translation>下载内容为空。</translation>
+    </message>
+    <message>
+        <source>There&apos;s no room for it in %1.</source>
+        <translation>%1 中没有足够空间。</translation>
+    </message>
+    <message>
+        <source>There&apos;s no room for the download on this computer.</source>
+        <translation>这台电脑上没有足够空间存放下载内容。</translation>
+    </message>
+    <message>
+        <source>The rest were cancelled.</source>
+        <translation>其余的已取消。</translation>
+    </message>
+    <message numerus="yes">
+        <source>You already have all %n package(s).</source>
+        <translation>
+            <numerusform>你已经有全部 %n 个包。</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::FindDialog</name>
@@ -1285,6 +1425,42 @@
         <location filename="../src/ui/ImportPipeline.cpp" line="248"/>
         <source>Could not read %1: %2</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 (%n times)</source>
+        <translation>
+            <numerusform>%1（%n 次）</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>and %n more</source>
+        <translation>
+            <numerusform>以及另外 %n 个</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>A newer LDD → LDraw mapping (ldraw.xml) in Preferences › Import may know them.</source>
+        <translation>在 偏好设置 › 导入 中使用更新的 LDD → LDraw 对照表（ldraw.xml）也许能识别它们。</translation>
+    </message>
+    <message>
+        <source>A newer LDraw library, set in Preferences › Import, may have them.</source>
+        <translation>在 偏好设置 › 导入 中设置更新的 LDraw 零件库，也许会有它们。</translation>
+    </message>
+    <message>
+        <source>Couldn’t open %1.</source>
+        <translation>无法打开 %1。</translation>
+    </message>
+    <message numerus="yes">
+        <source>LDD has no shape for %n brick(s), so they’re left out: %1.</source>
+        <translation>
+            <numerusform>LDD 没有 %n 个积木的形状，因此省略了：%1。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s) aren’t in your LDraw library, so they’re left out of the picture: %1.</source>
+        <translation>
+            <numerusform>你的 LDraw 零件库中没有 %n 个零件，因此图片中省略了它们：%1。</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -3749,6 +3925,16 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
 
 如果你仍在其他程序中打开它，请保留为 %2；随时可以用 文件 › 导出为 BlueBrick 地图 (.bbm)… 制作一份 .bbm 副本。</translation>
     </message>
+    <message numerus="yes">
+        <source>Installed %n package(s); parts reloaded.</source>
+        <translation>
+            <numerusform>已安装 %n 个包；零件已重新载入。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Keep both copies of the layout&apos;s parts</source>
+        <translation>保留布局零件的两个版本</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -4701,6 +4887,18 @@ This removes:
     <message>
         <source>What could be read is open. When you save over the file, the app first keeps a copy of it as it was, ending in .bak, so nothing is lost. Save to a new name to leave the file alone.</source>
         <translation>能读取的部分已打开。当你覆盖保存该文件时，应用会先保留一份原样副本（以 .bak 结尾），所以不会丢失任何内容。若要保留原文件不变，请另存为新名称。</translation>
+    </message>
+    <message>
+        <source>Get more parts</source>
+        <translation>获取更多零件</translation>
+    </message>
+    <message>
+        <source>Packs of parts for BlueBrick layouts, like trains, roads or Duplo.</source>
+        <translation>BlueBrick 布局用的零件包，例如火车、道路或 Duplo。</translation>
+    </message>
+    <message>
+        <source>Packs you already have say Included, and a newer version of one says Update. Installed packs go in your own parts folder and show in the Parts panel at once.</source>
+        <translation>已有的包显示“已包含”，有更新版本的显示“更新”。安装的包放在你自己的零件文件夹里，并立即出现在零件面板中。</translation>
     </message>
 </context>
 <context>

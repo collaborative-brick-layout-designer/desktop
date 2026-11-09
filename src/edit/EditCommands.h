@@ -298,6 +298,24 @@ private:
     int refused_ = 0;
 };
 
+// Every brick and set of one part switches to another part number (the
+// layout's own copy kept beside yours, under a new number), as one undo step.
+class RenamePartCommand : public QUndoCommand {
+public:
+    RenamePartCommand(core::Map& map, QString from, QString to, QUndoCommand* parent = nullptr);
+    void undo() override;
+    void redo() override;
+    // How many bricks and sets it switched.
+    int count() const { return int(bricks_.size() + groups_.size()); }
+
+private:
+    core::Map& map_;
+    QString from_, to_;
+    std::vector<std::pair<int, QString>> bricks_; // (layer, guid), found on the first redo
+    std::vector<std::pair<int, QString>> groups_; // (layer, group id)
+    bool found_ = false;
+};
+
 // Append a batch of bricks to the given layer as a single undoable step. Used
 // by Paste / Duplicate so the user doesn't see N individual undo entries for
 // a single clipboard operation.

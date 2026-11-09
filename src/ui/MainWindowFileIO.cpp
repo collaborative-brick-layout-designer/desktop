@@ -12,13 +12,14 @@
 #include "help/SourceLinks.h"
 #include "BudgetSession.h"
 
+#include "../edit/EditCommands.h"
 #include "../edit/PartList.h"
 #include "../edit/VenueCommands.h"
 #include "../import/LayoutFile.h"
-#include "NoticeArea.h"
-#include "../import/mapformats/LDrawMap.h"
 #include "../import/mapformats/FourDBrixMap.h"
+#include "../import/mapformats/LDrawMap.h"
 #include "../import/mapformats/TrackDesignerMap.h"
+#include "NoticeArea.h"
 
 #include "LayerPanel.h"
 #include "LiveLayout.h"
@@ -194,10 +195,22 @@ bool MainWindow::openFile(const QString& path) {
         }
         // Before the map, so its bricks find their parts.
         auto taken = takeInLayoutParts(layout.partFiles);
+        QList<QPair<QString, QString>> renames;
         if (!taken.differing.isEmpty())
-            taken.notes << resolvePartDifferences(taken.differing, layout.partFiles, *layout.map);
+            taken.notes << resolvePartDifferences(taken.differing, layout.partFiles, &renames);
         showLoadedMap(std::move(layout.map), path, layout.warnings + taken.notes,
                       layout.partlyRead ? QStringList{ path } : QStringList());
+        // Keep both: the layout's bricks switch to the copy kept beside
+        // yours as an undo step, so the layout says it changed (and saving
+        // keeps the new number) instead of opening looking saved.
+        if (!renames.isEmpty() && mapView_->currentMap()) {
+            auto* stack = mapView_->undoStack();
+            stack->beginMacro(tr("Keep both copies of the layout's parts"));
+            for (const auto& [from, to] : std::as_const(renames))
+                stack->push(new edit::RenamePartCommand(*mapView_->currentMap(), from, to));
+            stack->endMacro();
+            updateTitle();
+        }
         keptManifest_ = layout.manifest;
         fileSource_ = layout.source;
         if (fileSource_) offerLayoutSource(*fileSource_);
@@ -482,8 +495,30 @@ MainWindow::LayoutPartsTaken MainWindow::takeInLayoutParts(const QMap<QString, Q
     return taken;
 }
 
-QStringList MainWindow::resolvePartDifferences(const QStringList& keys, const QMap<QString, QByteArray>& files,
-                                               core::Map& map) {
+QString MainWindow::matchingKeptCopy(const QString& key, const QMap<QString, QByteArray>& theirs) const {
+    // Their files by type (xml, gif, …) against each <number>-N<.color> copy.
+    QMap<QString, QByteArray> want;
+    for (auto it = theirs.constBegin(); it != theirs.constEnd(); ++it)
+        want.insert(QFileInfo(it.key()).suffix().toLower(), it.value());
+    const int dot = key.lastIndexOf(QLatin1Char('.'));
+    const bool hasColor = dot > 0 && dot < key.size() - 1;
+    const QString number = hasColor ? key.left(dot) : key;
+    const QString color = hasColor ? key.mid(dot) : QString();
+    for (int n = 2; n < 1000; ++n) {
+        const QString candidate = number + QLatin1Char('-') + QString::number(n) + color;
+        if (!parts_.metadata(candidate)) break;
+        QMap<QString, QByteArray> have;
+        const auto files = import::libraryFilesOfPart(parts_, candidate);
+        for (auto it = files.constBegin(); it != files.constEnd(); ++it)
+            have.insert(QFileInfo(it.key()).suffix().toLower(), it.value());
+        if (have == want) return candidate;
+    }
+    return {};
+}
+
+QStringList MainWindow::resolvePartDifferences(const QStringList& keys,
+                                               const QMap<QString, QByteArray>& files,
+                                               QList<QPair<QString, QString>>* renames) {
     QList<PartDifferencesDialog::Row> rows;
     for (const auto& key : keys)
         rows.append({ key, import::libraryFilesOfPart(parts_, key), import::filesOfPart(files, key) });
@@ -514,15 +549,24 @@ QStringList MainWindow::resolvePartDifferences(const QStringList& keys, const QM
             for (auto it = theirs.constBegin(); it != theirs.constEnd(); ++it)
                 if (it.key().endsWith(QLatin1String(".xml"), Qt::CaseInsensitive)) stem = QFileInfo(it.key()).completeBaseName();
             const bool set = stem.endsWith(QLatin1String(".set"), Qt::CaseInsensitive);
-            const QString newKey = import::unusedPartKey(key, parts_);
-            const QString xml = stem.isEmpty() ? QString()
-                : import::installPartAs(theirs, stem, newKey + (set ? QStringLiteral(".set") : QString()),
-                                        layoutPartsFolder());
-            if (xml.isEmpty() || registerImportedPart(xml).isEmpty()) {
-                failed << key;
-                continue;
+            // A copy kept the last time this layout was opened: the same
+            // again, so it's used instead of adding another -N copy each time.
+            const QString reuse = matchingKeptCopy(key, theirs);
+            QString newKey = reuse;
+            if (newKey.isEmpty()) {
+                newKey = import::unusedPartKey(key, parts_);
+                const QString xml =
+                    stem.isEmpty()
+                        ? QString()
+                        : import::installPartAs(theirs, stem,
+                                                newKey + (set ? QStringLiteral(".set") : QString()),
+                                                layoutPartsFolder());
+                if (xml.isEmpty() || registerImportedPart(xml).isEmpty()) {
+                    failed << key;
+                    continue;
+                }
             }
-            import::renamePartInMap(map, key, newKey);
+            if (renames) renames->append({ key, newKey });
             added << tr("%1 as %2").arg(key, newKey);
         } else {
             kept << key;

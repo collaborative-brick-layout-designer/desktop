@@ -617,6 +617,32 @@ TEST_F(MainWindowPartDifferences, KeepingBothSwitchesTheLayoutToTheNewNumber) {
     EXPECT_EQ(brickPart(), QStringLiteral("MYPART-2.1"));
 }
 
+// R5.KeepBothEveryOpen: each open made another -N copy, and the layout,
+// now using the new number, opened looking saved.
+TEST_F(MainWindowPartDifferences, KeepingBothIsAnUndoStepAndReusesTheCopy) {
+    for (int open = 0; open < 2; ++open) {
+        Answers answers{ { chooseForEachPart(QStringLiteral("Keep both")) } };
+        answers.during([&] { ASSERT_TRUE(window_->openFile(file_)); });
+        EXPECT_EQ(answers.unexpected, 0);
+        EXPECT_EQ(brickPart(), QStringLiteral("MYPART-2.1"));
+        // Not saved: the layout now differs from the file.
+        auto* stack = window_->findChild<ui::MapView*>()->undoStack();
+        EXPECT_FALSE(stack->isClean());
+        EXPECT_TRUE(window_->windowTitle().contains(QLatin1Char('*')))
+            << window_->windowTitle().toStdString();
+        // The second open finds the copy the first one kept.
+        EXPECT_FALSE(parts_.metadata(QStringLiteral("MYPART-3.1")));
+        EXPECT_EQ(QDir(layoutPartsDir()).entryList({ QStringLiteral("MYPART-*.xml") }, QDir::Files).size(),
+                  1);
+        // Undo puts the layout's own number back.
+        stack->undo();
+        EXPECT_EQ(brickPart(), QStringLiteral("MYPART.1"));
+        EXPECT_TRUE(stack->isClean());
+        // Open again without being asked to save first.
+        stack->setClean();
+    }
+}
+
 TEST_F(MainWindowPartDifferences, KeepAllMineChangesNothing) {
     Answers answers{ { [](QWidget* w) {
         auto* dialog = qobject_cast<ui::PartDifferencesDialog*>(w);

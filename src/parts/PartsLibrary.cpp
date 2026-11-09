@@ -1,16 +1,17 @@
 #include "PartsLibrary.h"
 
+#include <QDir>
 #include <QDirIterator>
 #include <QFile>
 #include <QFileInfo>
 #include <QImage>
-#include <QtMath>
 #include <QPainter>
 #include <QPainterPath>
 #include <QRegion>
 #include <QSet>
 #include <QTransform>
 #include <QXmlStreamReader>
+#include <QtMath>
 
 #include <algorithm>
 #include <cmath>
@@ -324,6 +325,41 @@ void PartsLibrary::addSearchPath(const QString& path) {
     if (!searchPaths_.contains(path)) searchPaths_.push_back(path);
 }
 
+void PartsLibrary::setSearchPaths(const QStringList& paths) {
+    searchPaths_.clear();
+    for (const QString& p : paths) addSearchPath(p);
+}
+
+QString PartsLibrary::packageVersion(const QString& packageDir) {
+    QFile f(packageDir + QStringLiteral("/config/About.txt"));
+    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) return {};
+    while (!f.atEnd()) {
+        const QString line = QString::fromUtf8(f.readLine()).trimmed();
+        if (line.startsWith(QLatin1String("version="), Qt::CaseInsensitive))
+            return line.mid(int(sizeof("version=") - 1)).trimmed();
+    }
+    return {};
+}
+
+int PartsLibrary::comparePackageVersions(const QString& a, const QString& b) {
+    if (a == b) return 0;
+    if (a.isEmpty()) return -1;
+    if (b.isEmpty()) return 1;
+    const QStringList pa = a.split(QLatin1Char('.')), pb = b.split(QLatin1Char('.'));
+    for (qsizetype i = 0; i < std::max(pa.size(), pb.size()); ++i) {
+        const QString x = i < pa.size() ? pa[i] : QStringLiteral("0");
+        const QString y = i < pb.size() ? pb[i] : QStringLiteral("0");
+        bool okX = false, okY = false;
+        const qlonglong nx = x.toLongLong(&okX), ny = y.toLongLong(&okY);
+        const int c = okX && okY ? (nx < ny   ? -1
+                                    : nx > ny ? 1
+                                              : 0)
+                                 : QString::compare(x, y, Qt::CaseInsensitive);
+        if (c != 0) return c < 0 ? -1 : 1;
+    }
+    return 0;
+}
+
 QString PartsLibrary::scanFile(const QString& xmlPath) {
     QFileInfo info(xmlPath);
     if (!info.exists() || !info.isFile()) return {};
@@ -409,12 +445,64 @@ QString PartsLibrary::scanFile(const QString& xmlPath) {
 
 int PartsLibrary::scan() {
     int added = 0;
-    for (const QString& root : std::as_const(searchPaths_)) {
-        QDirIterator it(root, { QStringLiteral("*.xml") }, QDir::Files, QDirIterator::Subdirectories);
+    const auto scanTree = [&](const QString& dir, bool recursive) {
+        QDirIterator it(dir, { QStringLiteral("*.xml") }, QDir::Files,
+                        recursive ? QDirIterator::Subdirectories : QDirIterator::NoIteratorFlags);
         while (it.hasNext()) {
             if (!scanFile(it.next()).isEmpty()) ++added;
         }
+    };
+    // The first part read under a name wins, so folders are read in order,
+    // except a parts package (a folder with config/About.txt) that is in more
+    // than one folder: its newest copy is read where the first copy is, so a
+    // newer Download Center pack takes over from the one the app came with.
+    // The older copies come last, for any part only they have.
+    struct Package {
+        QString dir;
+        QString version;
+    };
+    QHash<QString, Package> newest; // package folder name (case-folded) -> its newest copy
+    QHash<QString, int> copies;
+    QList<QStringList> packageDirs; // per search path, its package folders
+    for (const QString& root : std::as_const(searchPaths_)) {
+        QStringList dirs;
+        for (const QFileInfo& d : QDir(root).entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name)) {
+            const QString version = packageVersion(d.absoluteFilePath());
+            if (version.isEmpty()) continue;
+            const QString name = d.fileName().toLower();
+            dirs << d.absoluteFilePath();
+            ++copies[name];
+            const auto it = newest.constFind(name);
+            if (it == newest.constEnd() || comparePackageVersions(version, it->version) > 0)
+                newest.insert(name, { d.absoluteFilePath(), version });
+        }
+        packageDirs << dirs;
     }
+    QStringList later;
+    QSet<QString> placed;
+    for (qsizetype i = 0; i < searchPaths_.size(); ++i) {
+        const QString& root = searchPaths_[i];
+        const QStringList& packages = packageDirs[i];
+        if (packages.isEmpty()) {
+            scanTree(root, true);
+            continue;
+        }
+        scanTree(root, false);
+        for (const QFileInfo& d : QDir(root).entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name)) {
+            const QString path = d.absoluteFilePath();
+            const QString name = d.fileName().toLower();
+            if (!packages.contains(path) || copies.value(name) < 2) {
+                scanTree(path, true);
+                continue;
+            }
+            if (!placed.contains(name)) {
+                placed.insert(name);
+                scanTree(newest.value(name).dir, true);
+            }
+            if (path != newest.value(name).dir) later << path;
+        }
+    }
+    for (const QString& dir : std::as_const(later)) scanTree(dir, true);
     return added;
 }
 
@@ -798,11 +886,13 @@ QPolygonF PartsLibrary::hullPolygonStuds(const QString& key) {
     // Compute hull in pixel coords, then translate to part-local coords
     // centred on the pixmap (so hullPolygonStuds aligns with the brick
     // item's setPos(centerPx) + setOffset(-w/2,-h/2) rendering model)
-    // and divide by 8 px/stud.
+    // and divide by the sprite's own px/stud (32 for a hi-res import; it
+    // was always 8, which made those hulls 4 times too big).
     const auto hullPx = convexHull(pts);
     QPolygonF result;
     result.reserve(hullPx.size());
-    constexpr double kPxPerStud = 8.0;
+    const auto meta = metadata(lk);
+    const double kPxPerStud = meta && meta->pxPerStud > 0 ? double(meta->pxPerStud) : 8.0;
     for (const QPointF& p : hullPx) {
         result.append(QPointF((p.x() - w / 2.0) / kPxPerStud,
                               (p.y() - h / 2.0) / kPxPerStud));

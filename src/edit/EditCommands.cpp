@@ -488,6 +488,48 @@ void ReplaceAnnotationsCommand::redo() { apply(true); }
 
 void ReplaceAnnotationsCommand::undo() { apply(false); }
 
+// ----- RenamePartCommand -----
+
+RenamePartCommand::RenamePartCommand(core::Map& map, QString from, QString to, QUndoCommand* parent)
+    : QUndoCommand(parent), map_(map), from_(std::move(from)), to_(std::move(to)) {
+    setText(QObject::tr("Use %1 for the layout's %2").arg(to_, from_));
+    redo();
+    undo();
+}
+
+void RenamePartCommand::redo() {
+    for (int li = 0; li < static_cast<int>(map_.layers().size()); ++li) {
+        auto* L = brickLayer(map_, li);
+        if (!L) continue;
+        for (auto& b : L->bricks) {
+            if (found_ ? std::find(bricks_.begin(), bricks_.end(), std::pair{ li, b.guid }) == bricks_.end()
+                       : b.partNumber.compare(from_, Qt::CaseInsensitive) != 0)
+                continue;
+            if (!found_) bricks_.emplace_back(li, b.guid);
+            b.partNumber = to_;
+        }
+        for (auto& g : L->groups) {
+            if (found_ ? std::find(groups_.begin(), groups_.end(), std::pair{ li, g.guid }) == groups_.end()
+                       : g.partNumber.isEmpty() || g.partNumber.compare(from_, Qt::CaseInsensitive) != 0)
+                continue;
+            if (!found_) groups_.emplace_back(li, g.guid);
+            g.partNumber = to_;
+        }
+    }
+    found_ = true;
+}
+
+void RenamePartCommand::undo() {
+    for (const auto& [li, guid] : bricks_)
+        if (auto* L = brickLayer(map_, li))
+            for (auto& b : L->bricks)
+                if (b.guid == guid) b.partNumber = from_;
+    for (const auto& [li, id] : groups_)
+        if (auto* L = brickLayer(map_, li))
+            for (auto& g : L->groups)
+                if (g.guid == id) g.partNumber = from_;
+}
+
 // ----- EditBrickCommand -----
 
 EditBrickCommand::EditBrickCommand(core::Map& map, BrickRef ref, State before, State after,

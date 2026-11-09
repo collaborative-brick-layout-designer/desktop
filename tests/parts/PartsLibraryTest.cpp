@@ -4,8 +4,11 @@
 
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QImage>
+#include <QPolygonF>
 #include <QString>
+#include <QTemporaryDir>
 
 using namespace bld;
 
@@ -139,4 +142,96 @@ TEST(PartsLibrary, PartsOnlyUsedInsideSetsAreMarked) {
         ASSERT_TRUE(meta) << key;
         EXPECT_FALSE(meta->notListed) << key;
     }
+}
+
+// ---- Parts folders and packages (2026-11-09 review, area 5) -----------------
+
+namespace {
+
+void writeFile(const QString& path, const QByteArray& bytes) {
+    QDir().mkpath(QFileInfo(path).absolutePath());
+    QFile f(path);
+    ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+    f.write(bytes);
+}
+
+// A part <dir>/<stem>.xml + .png, its author telling the copies apart.
+void writePart(const QString& dir, const QString& stem, const QString& author, int pxPerStud = 0,
+               QSize size = QSize(16, 8)) {
+    QByteArray xml =
+        "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<part>\n\t<Author>" + author.toUtf8() + "</Author>\n";
+    if (pxPerStud > 0) xml += "\t<PixelsPerStud>" + QByteArray::number(pxPerStud) + "</PixelsPerStud>\n";
+    xml += "</part>\n";
+    writeFile(dir + QLatin1Char('/') + stem + QStringLiteral(".xml"), xml);
+    QImage image(size, QImage::Format_ARGB32);
+    image.fill(Qt::red);
+    ASSERT_TRUE(image.save(dir + QLatin1Char('/') + stem + QStringLiteral(".png")));
+}
+
+void writePackage(const QString& dir, const QString& version) {
+    writeFile(dir + QStringLiteral("/config/About.txt"), "name=Pack\nversion=" + version.toUtf8() + "\n");
+}
+
+} // namespace
+
+TEST(PartsLibrary, PackageVersionsCompareNumberByNumber) {
+    using L = parts::PartsLibrary;
+    EXPECT_GT(L::comparePackageVersions(QStringLiteral("1.3"), QStringLiteral("1.2")), 0);
+    EXPECT_GT(L::comparePackageVersions(QStringLiteral("1.10"), QStringLiteral("1.9")), 0);
+    EXPECT_GT(L::comparePackageVersions(QStringLiteral("1.8.5"), QStringLiteral("1.8")), 0);
+    EXPECT_EQ(L::comparePackageVersions(QStringLiteral("1.0"), QStringLiteral("1")), 0);
+    EXPECT_LT(L::comparePackageVersions(QString(), QStringLiteral("1.0")), 0);
+}
+
+// R5.RemovedFolderStillScanned: clear() kept every search path, so a folder
+// taken out of Parts Folders… stayed until a restart.
+TEST(PartsLibrary, SetSearchPathsReplacesTheFolders) {
+    QTemporaryDir a, b;
+    writePart(a.path(), QStringLiteral("APART.1"), QStringLiteral("A"));
+    writePart(b.path(), QStringLiteral("BPART.1"), QStringLiteral("B"));
+    parts::PartsLibrary lib;
+    lib.setSearchPaths({ a.path(), b.path() });
+    lib.scan();
+    ASSERT_TRUE(lib.metadata(QStringLiteral("APART.1")));
+    lib.clear();
+    lib.setSearchPaths({ b.path() });
+    lib.scan();
+    EXPECT_FALSE(lib.metadata(QStringLiteral("APART.1")));
+    EXPECT_TRUE(lib.metadata(QStringLiteral("BPART.1")));
+    EXPECT_EQ(lib.searchPaths(), QStringList{ b.path() });
+}
+
+// R5.NewerPackNeverWins: the bundled folder is read first and the first part
+// read wins, so a newer Download Center pack never took effect.
+TEST(PartsLibrary, ANewerCopyOfAPackageWins) {
+    QTemporaryDir bundled, downloads;
+    writePackage(bundled.filePath(QStringLiteral("Town")), QStringLiteral("1.2"));
+    writePart(bundled.filePath(QStringLiteral("Town")), QStringLiteral("HOUSE.1"), QStringLiteral("old"));
+    writePart(bundled.filePath(QStringLiteral("Town")), QStringLiteral("SHED.1"), QStringLiteral("old"));
+    writePackage(bundled.filePath(QStringLiteral("Castle")), QStringLiteral("1.1"));
+    writePart(bundled.filePath(QStringLiteral("Castle")), QStringLiteral("TOWER.1"),
+              QStringLiteral("bundled"));
+    writePackage(downloads.filePath(QStringLiteral("Town")), QStringLiteral("1.3"));
+    writePart(downloads.filePath(QStringLiteral("Town")), QStringLiteral("HOUSE.1"), QStringLiteral("new"));
+    // An older download than the bundled copy loses to it.
+    writePackage(downloads.filePath(QStringLiteral("Castle")), QStringLiteral("1.0"));
+    writePart(downloads.filePath(QStringLiteral("Castle")), QStringLiteral("TOWER.1"),
+              QStringLiteral("older"));
+    parts::PartsLibrary lib;
+    lib.setSearchPaths({ bundled.path(), downloads.path() });
+    lib.scan();
+    EXPECT_EQ(lib.metadata(QStringLiteral("HOUSE.1"))->author, QStringLiteral("new"));
+    // A part only the older copy has is still there.
+    EXPECT_EQ(lib.metadata(QStringLiteral("SHED.1"))->author, QStringLiteral("old"));
+    EXPECT_EQ(lib.metadata(QStringLiteral("TOWER.1"))->author, QStringLiteral("bundled"));
+}
+
+TEST(PartsLibrary, FoldersWithoutAPackageKeepTheirOrder) {
+    QTemporaryDir first, second;
+    writePart(first.filePath(QStringLiteral("Mine")), QStringLiteral("SAME.1"), QStringLiteral("first"));
+    writePart(second.filePath(QStringLiteral("Mine")), QStringLiteral("SAME.1"), QStringLiteral("second"));
+    parts::PartsLibrary lib;
+    lib.setSearchPaths({ first.path(), second.path() });
+    lib.scan();
+    EXPECT_EQ(lib.metadata(QStringLiteral("SAME.1"))->author, QStringLiteral("first"));
 }

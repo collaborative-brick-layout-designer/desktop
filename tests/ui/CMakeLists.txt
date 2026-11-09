@@ -37,6 +37,7 @@ add_executable(bld_ui_tests
     ToursTest.cpp
     RecentFilesTest.cpp
     TouchTest.cpp
+    PartsPacksTest.cpp
     PartsIconSizeTest.cpp
     PartsTooltipTest.cpp
     UiWordingTest.cpp
@@ -76,6 +77,7 @@ target_link_libraries(bld_ui_tests
         Qt6::Core
         Qt6::Gui
         Qt6::Widgets
+        Qt6::Network
         Qt6::Test
 )
 
