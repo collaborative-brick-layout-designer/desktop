@@ -764,8 +764,9 @@ TEST(LayoutFile, IgnoresASourceThatIsntWholeOrSensible) {
 TEST(LayoutFile, SavingTwiceGivesTheSameBytes) {
     QStringList fixtures;
     for (const char* dir : { "/fixtures/layouts", "/fixtures/bbm-corpus", "/fixtures/bluebrick-oracle" })
-        for (const QFileInfo& f : QDir(kSource + QLatin1String(dir))
-                                      .entryInfoList({ QStringLiteral("*.bld-layout"), QStringLiteral("*.bbm") }, QDir::Files))
+        for (const QFileInfo& f :
+             QDir(kSource + QLatin1String(dir))
+                 .entryInfoList({ QStringLiteral("*.bld-layout"), QStringLiteral("*.bbm") }, QDir::Files))
             fixtures << f.absoluteFilePath();
     ASSERT_GE(fixtures.size(), 20);
     QTemporaryDir dir;
@@ -809,8 +810,12 @@ TEST(LayoutFile, ModuleMembersAreWrittenInOrder) {
     sidecar.modules.push_back(m);
     const QJsonObject json = saveload::sidecarToJson(sidecar);
     QStringList members;
-    for (const auto& v : json.value(QStringLiteral("modules")).toArray()[0].toObject().value(QStringLiteral("members")).toArray())
+    for (const auto& v : json.value(QStringLiteral("modules"))
+                             .toArray()[0]
+                             .toObject()
+                             .value(QStringLiteral("members"))
+                             .toArray())
         members << v.toString();
-    EXPECT_EQ(members, (QStringList{ QStringLiteral("4"), QStringLiteral("7"), QStringLiteral("12"), QStringLiteral("30"),
-                                     QStringLiteral("100") }));
+    EXPECT_EQ(members, (QStringList{ QStringLiteral("4"), QStringLiteral("7"), QStringLiteral("12"),
+                                     QStringLiteral("30"), QStringLiteral("100") }));
 }

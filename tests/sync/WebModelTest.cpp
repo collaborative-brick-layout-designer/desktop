@@ -493,6 +493,10 @@ TEST(WebModel, AMapReaderReadsWhatAWholeReadReads) {
 TEST(WebModel, AlmostClearColorsKeepAllEightDigitsInTheDocument) {
     core::Map m;
     m.backgroundColor = core::ColorSpec::fromArgb(QColor::fromRgba(0x05ff0000u));
-    const QJsonObject bg = sync::docJsonFromMap(m).value(QStringLiteral("meta")).toObject().value(QStringLiteral("backgroundColor")).toObject();
+    const QJsonObject bg = sync::docJsonFromMap(m)
+                               .value(QStringLiteral("meta"))
+                               .toObject()
+                               .value(QStringLiteral("backgroundColor"))
+                               .toObject();
     EXPECT_EQ(bg.value(QStringLiteral("argb")).toString(), QStringLiteral("05ff0000"));
 }

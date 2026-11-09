@@ -155,8 +155,7 @@ std::vector<float> readFloatArray(QXmlStreamReader& r) {
             bool ok = false;
             const float v = r.readElementText().toFloat(&ok);
             out.push_back(ok ? v : 0.0f);
-        }
-        else r.skipCurrentElement();
+        } else r.skipCurrentElement();
     }
     return out;
 }

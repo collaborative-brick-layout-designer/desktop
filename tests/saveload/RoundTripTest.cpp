@@ -12,9 +12,9 @@
 #include <gtest/gtest.h>
 
 #include <QBuffer>
+#include <QByteArray>
 #include <limits>
 #include <utility>
-#include <QByteArray>
 
 using namespace bld;
 
@@ -515,7 +515,8 @@ TEST(RoundTrip, ControlCharactersInTextDoNotStopSaving) {
 TEST(RoundTrip, NotANumberIsWrittenAsDotNetDoesAndReadAsZero) {
     EXPECT_EQ(saveload::xml::formatFloat(std::numeric_limits<float>::quiet_NaN()), QStringLiteral("NaN"));
     EXPECT_EQ(saveload::xml::formatFloat(std::numeric_limits<float>::infinity()), QStringLiteral("Infinity"));
-    EXPECT_EQ(saveload::xml::formatFloat(-std::numeric_limits<float>::infinity()), QStringLiteral("-Infinity"));
+    EXPECT_EQ(saveload::xml::formatFloat(-std::numeric_limits<float>::infinity()),
+              QStringLiteral("-Infinity"));
     EXPECT_EQ(saveload::xml::formatDouble(std::numeric_limits<double>::quiet_NaN()), QStringLiteral("NaN"));
 
     core::Map original = makeSampleMap();
