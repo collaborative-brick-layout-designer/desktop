@@ -52,7 +52,7 @@ constexpr const char* kNonLegoUrl =
     "https://bluebrick.lswproject.com/download/packageOther/";
 
 constexpr int kMaxFetchBytes  = 4 * 1024 * 1024;    // search-page HTML cap
-constexpr qint64 kMaxPackageBytes = 100 * 1024 * 1024; // per-zip cap
+constexpr qint64 kMaxPackageBytes = qint64(100) * 1024 * 1024; // per-zip cap
 constexpr int kFetchTimeoutMs = 20000;
 constexpr int kStallTimeoutMs = 60000; // a download that receives nothing this long stops
 
@@ -154,9 +154,8 @@ DownloadCenterDialog::DownloadCenterDialog(QString libraryRoot, QStringList libr
     connect(closeBtn_, &QPushButton::clicked, this, [this] { installedCount_ > 0 ? accept() : reject(); });
 }
 
-DownloadCenterDialog::~DownloadCenterDialog() {
-    if (current_) current_->abort();
-}
+// A download still going is the network manager's child, so it goes with the dialog.
+DownloadCenterDialog::~DownloadCenterDialog() = default;
 
 void DownloadCenterDialog::cancelDownload() {
     cancelled_ = true;
@@ -394,7 +393,7 @@ bool DownloadCenterDialog::downloadAndInstall(const Package& pkg, QString* error
     const QString netMessage = rep->errorString();
     rep->deleteLater();
     current_ = nullptr;
-    const qint64 mb = maxPackageBytes_ / (1024 * 1024);
+    const qint64 mb = maxPackageBytes_ / (qint64(1024) * 1024);
     if (tooBig) {
         if (error)
             *error = mb > 0 ? tr("It's bigger than %1 MB, so it wasn't downloaded.").arg(mb)

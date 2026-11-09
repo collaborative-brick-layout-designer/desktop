@@ -2,7 +2,6 @@
 
 #include <QDialog>
 #include <QHash>
-#include <QPointer>
 #include <QString>
 #include <QStringList>
 #include <QVector>
@@ -94,7 +93,7 @@ private:
     bool downloading_ = false;
     bool cancelled_ = false;
     QNetworkAccessManager* nam_ = nullptr;
-    QPointer<QNetworkReply> current_;
+    QNetworkReply* current_ = nullptr;  // the download going, only while downloadAndInstall() runs
 
     // ---- Source selection ----
     QCheckBox*  cbOfficial_   = nullptr;
