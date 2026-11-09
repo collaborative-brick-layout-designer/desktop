@@ -34,6 +34,8 @@ public:
     void showNotice(const QString& id, const QString& title, const QString& text,
                     const QList<NoticeAction>& actions, const QString& details = {}, bool important = false);
     void hideNotice(const QString& id);
+    // A "?" on notice `id`'s title row, for the help entry `key`.
+    void addHelp(const QString& id, const QString& key);
     bool isShown(const QString& id) const;
     // The card for `id` (tests and screenshots), or nullptr.
     QFrame* card(const QString& id) const;

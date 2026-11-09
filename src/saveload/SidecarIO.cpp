@@ -4,6 +4,7 @@
 #include "../core/DrawnLimits.h"
 #include "../core/Sidecar.h"
 
+#include <QCoreApplication>
 #include <QCryptographicHash>
 #include <algorithm>
 #include <QDateTime>
@@ -64,8 +65,24 @@ QPointF decodePoint(const QJsonObject& o) {
     return { o.value(QStringLiteral("x")).toDouble(), o.value(QStringLiteral("y")).toDouble() };
 }
 
+const QStringList& knownLabelKeys() {
+    static const QStringList keys{ QStringLiteral("id"),     QStringLiteral("text"),     QStringLiteral("font"),
+                                   QStringLiteral("color"),  QStringLiteral("kind"),     QStringLiteral("targetId"),
+                                   QStringLiteral("offset"), QStringLiteral("rot"),      QStringLiteral("minZoom") };
+    return keys;
+}
+
+// The sidecar's own top-level fields; anything else is kept in `extras`.
+const QStringList& knownRootKeys() {
+    static const QStringList keys{ QStringLiteral("schemaVersion"),  QStringLiteral("bbmHashSha256"),
+                                   QStringLiteral("anchoredLabels"), QStringLiteral("modules"),
+                                   QStringLiteral("venue"),          QStringLiteral("backgroundImage"),
+                                   QStringLiteral("views"),          QStringLiteral("sets") };
+    return keys;
+}
+
 QJsonObject encodeAnchored(const core::AnchoredLabel& a) {
-    QJsonObject o;
+    QJsonObject o = a.extras;
     o[QStringLiteral("id")] = a.id;
     o[QStringLiteral("text")] = a.text;
     o[QStringLiteral("font")] = encodeFont(a.font);
@@ -92,6 +109,8 @@ core::AnchoredLabel decodeAnchored(const QJsonObject& o) {
     // Any writer may put any number there (a live layout's other people, a
     // file): a font size out of range would draw a label without end.
     core::keepLabelInRange(a);
+    for (auto it = o.constBegin(); it != o.constEnd(); ++it)
+        if (!knownLabelKeys().contains(it.key())) a.extras.insert(it.key(), it.value());
     return a;
 }
 
@@ -280,6 +299,12 @@ std::optional<core::SavedView> viewFromJson(const QJsonValue& raw) {
     return v;
 }
 
+QString newerSidecarWarning() {
+    return QCoreApplication::translate("bld::saveload::SidecarIO",
+                                       "The labels, modules and venue were saved by a newer version of the app. "
+                                       "Anything this version doesn't know is kept as it is, but isn't shown.");
+}
+
 QString sidecarPathFor(const QString& bbmPath) {
     return bbmPath + QStringLiteral(".bld");
 }
@@ -302,6 +327,7 @@ SidecarLoadResult readSidecar(const QString& cldPath, const QByteArray& bbmBytes
         return r;
     }
     sidecarFromJson(doc.object(), out);
+    r.newerVersion = out.fromNewerVersion();
 
     if (!bbmBytes.isEmpty() && !out.bbmContentHashSha256.isEmpty()) {
         r.hashMismatch = (sha256Hex(bbmBytes) != out.bbmContentHashSha256);
@@ -311,8 +337,9 @@ SidecarLoadResult readSidecar(const QString& cldPath, const QByteArray& bbmBytes
 }
 
 QJsonObject sidecarToJson(const core::Sidecar& sidecar) {
-    QJsonObject root;
-    root[QStringLiteral("schemaVersion")] = core::Sidecar::kSchemaVersion;
+    QJsonObject root = sidecar.extras;
+    // A newer build's file keeps its version: it is still that build's file.
+    root[QStringLiteral("schemaVersion")] = std::max(sidecar.schemaVersion, core::Sidecar::kSchemaVersion);
     root[QStringLiteral("bbmHashSha256")] = QString::fromUtf8(sidecar.bbmContentHashSha256);
 
     QJsonArray labels;
@@ -358,6 +385,9 @@ void sidecarFromJson(const QJsonObject& root, core::Sidecar& out) {
         if (auto view = viewFromJson(v)) out.views.push_back(std::move(*view));
 
     out.schemaVersion = root.value(QStringLiteral("schemaVersion")).toInt(core::Sidecar::kSchemaVersion);
+    out.extras = QJsonObject();
+    for (auto it = root.constBegin(); it != root.constEnd(); ++it)
+        if (!knownRootKeys().contains(it.key())) out.extras.insert(it.key(), it.value());
     out.bbmContentHashSha256 = root.value(QStringLiteral("bbmHashSha256")).toString().toUtf8();
 
     out.anchoredLabels.clear();

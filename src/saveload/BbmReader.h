@@ -19,6 +19,9 @@ struct LoadResult {
     // (saveload::renameSidecarIds), so its views, labels and modules still
     // point at the right sheets and bricks.
     QHash<QString, QString> renamedIds;
+    // Sheets of a kind this build can't read were left out (`error` says
+    // so): saving over the file would lose them.
+    int skippedSheets = 0;
     bool ok() const { return map != nullptr; }
 };
 

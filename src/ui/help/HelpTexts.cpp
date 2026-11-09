@@ -109,6 +109,21 @@ constexpr Raw kDesktopOnly[] = {
       QT_TRANSLATE_NOOP("HelpTexts", "Ticked, a part with no number in the budget can be used as often as "
                                      "you like. Unticked, it can’t be used at all until you give it a "
                                      "number.") },
+    // File › Recover Unsaved Work…, and the list shown at start
+    { "file.recover", "",
+      QT_TRANSLATE_NOOP("HelpTexts", "Recover unsaved work"),
+      QT_TRANSLATE_NOOP("HelpTexts", "Changes the app kept for you when it closed before you saved them."),
+      QT_TRANSLATE_NOOP("HelpTexts", "While you work, the app keeps a copy of your changes every few seconds. "
+                                     "If it closes before you save, they wait here. Recover opens the layout "
+                                     "with them, ready to save; Discard deletes them. Saving or closing "
+                                     "normally clears them.") },
+    // The card after opening a file that couldn't all be read
+    { "file.openProblems", "",
+      QT_TRANSLATE_NOOP("HelpTexts", "Opened with problems"),
+      QT_TRANSLATE_NOOP("HelpTexts", "Part of the file couldn't be read, or was changed by another program."),
+      QT_TRANSLATE_NOOP("HelpTexts", "What could be read is open. When you save over the file, the app "
+                                     "first keeps a copy of it as it was, ending in .bak, so nothing is lost. "
+                                     "Save to a new name to leave the file alone.") },
     { "prefs.newTemplate", "",
       QT_TRANSLATE_NOOP("HelpTexts", "New layout template"),
       QT_TRANSLATE_NOOP("HelpTexts", "A layout that every new layout starts from."),

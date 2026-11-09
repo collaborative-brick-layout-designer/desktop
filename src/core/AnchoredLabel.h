@@ -3,6 +3,7 @@
 #include "ColorSpec.h"
 #include "FontSpec.h"
 
+#include <QJsonObject>
 #include <QPointF>
 #include <QString>
 
@@ -28,6 +29,7 @@ struct AnchoredLabel {
     QPointF    offset;           // in target's local coord system (studs)
     float      offsetRotation = 0.0f;  // degrees
     double     minZoom = 0.0;    // optional visibility cutoff (0 = always visible)
+    QJsonObject extras;          // fields a newer build or the web added, kept as they are
     // Change detection (SceneBuilder::update redraws only what differs).
     bool operator==(const AnchoredLabel&) const = default;
 };

@@ -14,6 +14,9 @@ struct MapReadResult {
     std::unique_ptr<core::Map> map;
     QString     error;
     QStringList warnings;
+    // The file ends part way (cut off): what was read is open, and saving
+    // over the file would lose the rest, so the caller keeps a copy first.
+    bool partlyRead = false;
     bool ok() const { return map != nullptr; }
 };
 

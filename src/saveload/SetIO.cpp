@@ -1,4 +1,5 @@
 #include "SetIO.h"
+#include "XmlPrimitives.h"
 
 #include <QFile>
 #include <QFileInfo>
@@ -30,16 +31,16 @@ bool writeSetXml(const QString& filePath,
     w.writeStartElement(QStringLiteral("group"));
 
     if (!manifest.author.isEmpty())
-        w.writeTextElement(QStringLiteral("Author"), manifest.author);
+        w.writeTextElement(QStringLiteral("Author"), xml::cleanText(manifest.author));
 
     if (!manifest.name.isEmpty()) {
         w.writeStartElement(QStringLiteral("Description"));
-        w.writeTextElement(QStringLiteral("en"), manifest.name);
+        w.writeTextElement(QStringLiteral("en"), xml::cleanText(manifest.name));
         w.writeEndElement();  // Description
     }
 
     if (!manifest.sortingKey.isEmpty())
-        w.writeTextElement(QStringLiteral("SortingKey"), manifest.sortingKey);
+        w.writeTextElement(QStringLiteral("SortingKey"), xml::cleanText(manifest.sortingKey));
 
     w.writeTextElement(QStringLiteral("CanUngroup"),
                        manifest.canUngroup ? QStringLiteral("true")

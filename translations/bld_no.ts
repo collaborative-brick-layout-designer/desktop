@@ -3613,6 +3613,151 @@ Restore it?</source>
         <source>Installed %1 package(s); parts reloaded.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Later</source>
+        <translation>Senere</translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation>Vis</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation>Ikke nå</translation>
+    </message>
+    <message>
+        <source>%1 couldn&apos;t be opened.
+
+%2</source>
+        <translation>%1 kunne ikke åpnes.
+
+%2</translation>
+    </message>
+    <message>
+        <source>The labels, modules and venue saved beside it (%1) couldn&apos;t be read (%2).</source>
+        <translation>Etikettene, modulene og lokalet som er lagret ved siden av (%1), kunne ikke leses (%2).</translation>
+    </message>
+    <message>
+        <source>The map was changed in another program since its labels, modules and venue were saved, so some of them may not line up any more.</source>
+        <translation>Kartet ble endret i et annet program etter at etikettene, modulene og lokalet ble lagret, så noen av dem passer kanskje ikke lenger.</translation>
+    </message>
+    <message>
+        <source>Nothing is lost: when you save over it, a copy of the file as it was is kept first, ending in .bak.</source>
+        <translation>Ingenting går tapt: når du lagrer over den, tas det først vare på en kopi av filen slik den var, som slutter på .bak.</translation>
+    </message>
+    <message>
+        <source>%1 opened with problems</source>
+        <translation>%1 ble åpnet med problemer</translation>
+    </message>
+    <message>
+        <source>A copy of %1 couldn&apos;t be kept before saving over it, so nothing was saved. Use File › Save As… to save under a new name.</source>
+        <translation>Det var ikke mulig å ta vare på en kopi av %1 før den ble lagret over, så ingenting ble lagret. Bruk Fil › Lagre som… for å lagre med et nytt navn.</translation>
+    </message>
+    <message>
+        <source>A copy was kept</source>
+        <translation>En kopi ble tatt vare på</translation>
+    </message>
+    <message>
+        <source>What couldn&apos;t be read is kept as it was in %1, beside the file.</source>
+        <translation>Det som ikke kunne leses, er tatt vare på slik det var i %1, ved siden av filen.</translation>
+    </message>
+    <message>
+        <source>Saved with a problem</source>
+        <translation>Lagret med et problem</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but its labels, modules and venue (%2) couldn&apos;t be:
+%3</source>
+        <translation>%1 ble lagret, men ikke etikettene, modulene og lokalet (%2):
+%3</translation>
+    </message>
+    <message>
+        <source>saved views</source>
+        <translation>lagrede visninger</translation>
+    </message>
+    <message>
+        <source>which version each set came from</source>
+        <translation>hvilken versjon hvert sett kom fra</translation>
+    </message>
+    <message>
+        <source>Autosave failed</source>
+        <translation>Automatisk lagring mislyktes</translation>
+    </message>
+    <message>
+        <source>Your changes couldn&apos;t be kept for recovery: %1</source>
+        <translation>Endringene dine kunne ikke tas vare på for gjenoppretting: %1</translation>
+    </message>
+    <message>
+        <source>Autosave failed: %1</source>
+        <translation>Automatisk lagring mislyktes: %1</translation>
+    </message>
+    <message>
+        <source>Autosaved %1</source>
+        <translation>Automatisk lagret %1</translation>
+    </message>
+    <message>
+        <source>More unsaved work</source>
+        <translation>Mer ulagret arbeid</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more layout(s) with unsaved changes can be recovered any time from File › Recover Unsaved Work….</source>
+        <translation>
+            <numerusform>%n layout til med ulagrede endringer kan gjenopprettes når som helst fra Fil › Gjenopprett ulagret arbeid….</numerusform>
+            <numerusform>%n layouter til med ulagrede endringer kan gjenopprettes når som helst fra Fil › Gjenopprett ulagret arbeid….</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Recovery failed</source>
+        <translation>Gjenopprettingen mislyktes</translation>
+    </message>
+    <message>
+        <source>The unsaved changes to %1 couldn&apos;t be read: %2
+
+They are kept, so you can try again from File › Recover Unsaved Work….</source>
+        <translation>De ulagrede endringene i %1 kunne ikke leses: %2
+
+De er tatt vare på, så du kan prøve igjen fra Fil › Gjenopprett ulagret arbeid….</translation>
+    </message>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>Gjenopprett ulagret arbeid</translation>
+    </message>
+    <message>
+        <source>Another copy of the app is already recovering %1.</source>
+        <translation>En annen kopi av appen gjenoppretter allerede %1.</translation>
+    </message>
+    <message>
+        <source>Recovered the unsaved new layout. Save it to keep it.</source>
+        <translation>Den ulagrede nye layouten ble gjenopprettet. Lagre den for å beholde den.</translation>
+    </message>
+    <message>
+        <source>Recovered the unsaved changes to %1. Save to keep them.</source>
+        <translation>De ulagrede endringene i %1 ble gjenopprettet. Lagre for å beholde dem.</translation>
+    </message>
+    <message>
+        <source>Recover &amp;Unsaved Work…</source>
+        <translation>Gjenopprett ulagret &amp;arbeid…</translation>
+    </message>
+    <message>
+        <source>Changes the app kept when it closed before they were saved</source>
+        <translation>Endringer appen tok vare på da den lukket seg før de ble lagret</translation>
+    </message>
+    <message>
+        <source>%1 is a %2 file.
+
+Save it as a Collaborative Brick Layout Designer layout (%3) to keep everything in one file: labels, modules, the venue and the background image included.
+
+Keep it as %2 if you still open it in another program; File › Export as BlueBrick Map (.bbm)… can make a .bbm copy at any time.</source>
+        <translation>%1 er en %2-fil.
+
+Lagre den som en Collaborative Brick Layout Designer-layout (%3) for å ha alt i én fil: etiketter, moduler, lokalet og bakgrunnsbildet er med.
+
+Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Eksporter som BlueBrick-kart (.bbm)… kan lage en .bbm-kopi når som helst.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -4538,6 +4683,213 @@ This removes:
         <location filename="../src/ui/VenueLibraryPanel.cpp" line="274"/>
         <source>(could not read file)</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HelpTexts</name>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>Gjenopprett ulagret arbeid</translation>
+    </message>
+    <message>
+        <source>Changes the app kept for you when it closed before you saved them.</source>
+        <translation>Endringer appen tok vare på for deg da den lukket seg før du lagret dem.</translation>
+    </message>
+    <message>
+        <source>While you work, the app keeps a copy of your changes every few seconds. If it closes before you save, they wait here. Recover opens the layout with them, ready to save; Discard deletes them. Saving or closing normally clears them.</source>
+        <translation>Mens du jobber, tar appen vare på en kopi av endringene dine med noen sekunders mellomrom. Lukker den seg før du lagrer, venter de her. Gjenopprett åpner layouten med dem, klar til å lagres; Forkast sletter dem. Å lagre eller lukke som vanlig fjerner dem.</translation>
+    </message>
+    <message>
+        <source>Opened with problems</source>
+        <translation>Åpnet med problemer</translation>
+    </message>
+    <message>
+        <source>Part of the file couldn&apos;t be read, or was changed by another program.</source>
+        <translation>En del av filen kunne ikke leses, eller ble endret av et annet program.</translation>
+    </message>
+    <message>
+        <source>What could be read is open. When you save over the file, the app first keeps a copy of it as it was, ending in .bak, so nothing is lost. Save to a new name to leave the file alone.</source>
+        <translation>Det som kunne leses, er åpent. Når du lagrer over filen, tar appen først vare på en kopi av slik den var, som slutter på .bak, så ingenting går tapt. Lagre med et nytt navn for å la filen være som den er.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::import::MapFormats</name>
+    <message>
+        <source>The file is damaged at line %1, so it can&apos;t be opened safely.</source>
+        <translation>Filen er skadet på linje %1, så den kan ikke åpnes trygt.</translation>
+    </message>
+    <message>
+        <source>The file is cut off at line %1: what comes after it is missing. It may not have finished saving or copying.</source>
+        <translation>Filen stopper på linje %1: det som kommer etter, mangler. Den ble kanskje ikke ferdig lagret eller kopiert.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s) aren&apos;t in your parts library, so they were left out.</source>
+        <translation>
+            <numerusform>%n del finnes ikke i delebiblioteket ditt, så den ble utelatt.</numerusform>
+            <numerusform>%n deler finnes ikke i delebiblioteket ditt, så de ble utelatt.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Only TrackDesigner files of version %1 can be read.</source>
+        <translation>Bare TrackDesigner-filer av versjon %1 kan leses.</translation>
+    </message>
+    <message>
+        <source>The file is cut off before its first piece, so it can&apos;t be opened. It may not have finished saving or copying.</source>
+        <translation>Filen stopper før den første delen, så den kan ikke åpnes. Den ble kanskje ikke ferdig lagret eller kopiert.</translation>
+    </message>
+    <message>
+        <source>No part is mapped to these TrackDesigner pieces, so they were left out: %1</source>
+        <translation>Ingen del er koblet til disse TrackDesigner-delene, så de ble utelatt: %1</translation>
+    </message>
+    <message>
+        <source>The file is cut off part way through a piece: the pieces after it are missing. It may not have finished saving or copying.</source>
+        <translation>Filen stopper midt i en del: delene etter den mangler. Den ble kanskje ikke ferdig lagret eller kopiert.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::BbmReader</name>
+    <message numerus="yes">
+        <source>%n sheet(s) of a kind this version can&apos;t show were left out.</source>
+        <translation>
+            <numerusform>%n ark av en type denne versjonen ikke kan vise, ble utelatt.</numerusform>
+            <numerusform>%n ark av en type denne versjonen ikke kan vise, ble utelatt.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The map was saved by a newer BlueBrick (file version %1); this version reads up to %2.</source>
+        <translation>Kartet ble lagret av en nyere BlueBrick (filversjon %1); denne versjonen leser opptil %2.</translation>
+    </message>
+    <message>
+        <source>The file is cut off at line %1: it ends before the layout does. It may not have finished saving or copying. Nothing was changed.</source>
+        <translation>Filen stopper på linje %1: den slutter før layouten gjør det. Den ble kanskje ikke ferdig lagret eller kopiert. Ingenting ble endret.</translation>
+    </message>
+    <message>
+        <source>The file is damaged at line %1, column %2, so it can&apos;t be opened safely. Nothing was changed.</source>
+        <translation>Filen er skadet på linje %1, kolonne %2, så den kan ikke åpnes trygt. Ingenting ble endret.</translation>
+    </message>
+    <message>
+        <source>This isn&apos;t a BlueBrick map: it has no layout in it.</source>
+        <translation>Dette er ikke et BlueBrick-kart: det inneholder ingen layout.</translation>
+    </message>
+    <message>
+        <source>The file can&apos;t be opened: %1</source>
+        <translation>Filen kan ikke åpnes: %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::BbmWriter</name>
+    <message>
+        <source>The layout&apos;s details (author, club, event or comment) could not be written.</source>
+        <translation>Opplysningene om layouten (forfatter, klubb, arrangement eller kommentar) kunne ikke skrives.</translation>
+    </message>
+    <message>
+        <source>The sheet “%1” could not be written.</source>
+        <translation>Arket «%1» kunne ikke skrives.</translation>
+    </message>
+    <message>
+        <source>The layout could not be written.</source>
+        <translation>Layouten kunne ikke skrives.</translation>
+    </message>
+    <message>
+        <source>Only part of the layout could be written: the disk may be full.</source>
+        <translation>Bare en del av layouten kunne skrives: disken kan være full.</translation>
+    </message>
+    <message>
+        <source>The file can&apos;t be written: %1</source>
+        <translation>Filen kan ikke skrives: %1</translation>
+    </message>
+    <message>
+        <source>The file couldn&apos;t be saved: %1</source>
+        <translation>Filen kunne ikke lagres: %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::SidecarIO</name>
+    <message>
+        <source>The labels, modules and venue were saved by a newer version of the app. Anything this version doesn&apos;t know is kept as it is, but isn&apos;t shown.</source>
+        <translation>Etikettene, modulene og lokalet ble lagret av en nyere versjon av appen. Det denne versjonen ikke kjenner til, beholdes som det er, men vises ikke.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::Autosave</name>
+    <message>
+        <source>New layout</source>
+        <translation>Ny layout</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RecoverDialog</name>
+    <message>
+        <source>Discard</source>
+        <translation>Forkast</translation>
+    </message>
+    <message>
+        <source>Discard the unsaved changes to “%1”?</source>
+        <translation>Forkaste de ulagrede endringene i «%1»?</translation>
+    </message>
+    <message>
+        <source>The changes that were never saved are deleted.</source>
+        <translation>Endringene som aldri ble lagret, slettes.</translation>
+    </message>
+    <message>
+        <source>The file itself stays as it was last saved.</source>
+        <translation>Selve filen blir værende slik den sist ble lagret.</translation>
+    </message>
+    <message>
+        <source>Today %1</source>
+        <translation>I dag %1</translation>
+    </message>
+    <message>
+        <source>Yesterday %1</source>
+        <translation>I går %1</translation>
+    </message>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>Gjenopprett ulagret arbeid</translation>
+    </message>
+    <message>
+        <source>Unsaved work</source>
+        <translation>Ulagret arbeid</translation>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation>Ikke nå</translation>
+    </message>
+    <message>
+        <source>Keep them for later: File › Recover Unsaved Work…</source>
+        <translation>Ta vare på dem til senere: Fil › Gjenopprett ulagret arbeid…</translation>
+    </message>
+    <message>
+        <source>Delete the picked changes for good</source>
+        <translation>Slett de valgte endringene for godt</translation>
+    </message>
+    <message>
+        <source>Recover</source>
+        <translation>Gjenopprett</translation>
+    </message>
+    <message>
+        <source>Open the picked layout with its changes, ready to save</source>
+        <translation>Åpne den valgte layouten med endringene, klar til å lagres</translation>
+    </message>
+    <message>
+        <source>%1 — changes from %2</source>
+        <translation>%1 — endringer fra %2</translation>
+    </message>
+    <message>
+        <source>A new layout that was never saved</source>
+        <translation>En ny layout som aldri ble lagret</translation>
+    </message>
+    <message>
+        <source>There&apos;s no unsaved work to recover: everything was saved.</source>
+        <translation>Det finnes ikke noe ulagret arbeid å gjenopprette: alt ble lagret.</translation>
+    </message>
+    <message>
+        <source>The app closed before these changes were saved. Recover one to keep working on it, or discard what you don&apos;t need.</source>
+        <translation>Appen lukket seg før disse endringene ble lagret. Gjenopprett én for å jobbe videre med den, eller forkast det du ikke trenger.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Lukk</translation>
     </message>
 </context>
 </TS>

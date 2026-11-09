@@ -729,16 +729,23 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     // a save just completed so the user knows their work is being captured.
     // The transient status-bar message can be missed; a sticky label can't.
     auto* autosaveLabel = new QLabel(this);
+    autosaveLabel_ = autosaveLabel;
     autosaveLabel->setToolTip(tr("Last successful autosave time"));
     statusBar()->addPermanentWidget(autosaveLabel);
+    // performAutosave sets the label's words (or says it failed); the tick
+    // only flashes it.
     connect(autosaveTimer_, &QTimer::timeout, this, [this, autosaveLabel]{
         if (!mapView_->currentMap()) return;
         if (mapView_->undoStack()->isClean()) return;
-        autosaveLabel->setText(tr("Autosaved %1").arg(QTime::currentTime().toString("HH:mm")));
         autosaveLabel->setStyleSheet(QStringLiteral("QLabel{font-weight:600;}"));
         QTimer::singleShot(1500, autosaveLabel, [autosaveLabel]{
             autosaveLabel->setStyleSheet({});
         });
+    });
+    // Back as it was saved (a save, or undone back to it): the autosave of
+    // those changes isn't recovery any more.
+    connect(mapView_->undoStack(), &QUndoStack::cleanChanged, this, [this](bool clean) {
+        if (clean) autosave_.removeFile();
     });
     // Also update on the throttled save path so quick edits show the
     // freshest time without waiting for the 60 s tick.

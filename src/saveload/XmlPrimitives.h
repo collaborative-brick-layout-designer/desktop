@@ -52,6 +52,13 @@ std::vector<float> readFloatArray(QXmlStreamReader& r);
 
 // ---------- writers ----------
 
+// Text as XML can hold it. A character XML has no place for, such as a
+// pasted vertical tab, used to make every save fail: a vertical tab or form
+// feed becomes a new line, other control characters (and broken surrogate
+// halves, U+FFFE and U+FFFF) are dropped. Tabs and new lines stay. Every text
+// writer below cleans its text with this.
+QString cleanText(const QString& text);
+
 void writeBoolElement(QXmlStreamWriter& w, const QString& name, bool v);
 void writeIntElement(QXmlStreamWriter& w, const QString& name, int v);
 void writeFloatElement(QXmlStreamWriter& w, const QString& name, float v);

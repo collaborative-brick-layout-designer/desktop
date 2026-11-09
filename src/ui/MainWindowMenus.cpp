@@ -100,6 +100,10 @@ void MainWindow::setupMenus() {
 
     recentMenu_ = file->addMenu(tr("Open &Recent"));
     rebuildRecentMenu();
+    auto* recoverAct = file->addAction(tr("Recover &Unsaved Work…"));
+    recoverAct->setObjectName(QStringLiteral("file.recover"));
+    recoverAct->setToolTip(tr("Changes the app kept when it closed before they were saved"));
+    connect(recoverAct, &QAction::triggered, this, &MainWindow::onRecoverUnsavedWork);
     setupLiveMenu(file);
 
     file->addSeparator();

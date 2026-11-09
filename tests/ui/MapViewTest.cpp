@@ -24,6 +24,8 @@
 #include "ui/MapViewInternal.h"
 #include "ui/PartUsagePanel.h"
 
+#include "../ProcessStores.h"
+
 #include <gtest/gtest.h>
 #include <limits>
 #include <QElapsedTimer>
@@ -702,8 +704,8 @@ int main(int argc, char** argv) {
     if (qEnvironmentVariableIsEmpty("QT_QPA_PLATFORM")) qputenv("QT_QPA_PLATFORM", "offscreen");
     QApplication app(argc, argv);
     // Keep MapView's QSettings reads/writes away from the real app's store.
-    QCoreApplication::setOrganizationName(QStringLiteral("BrickLayoutDesignerTests"));
-    QCoreApplication::setApplicationName(QStringLiteral("bld_ui_tests"));
+    // A store of this process's own (ProcessStores.h), removed at the end.
+    const ProcessStores stores(QStringLiteral("bld_ui_tests"));
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

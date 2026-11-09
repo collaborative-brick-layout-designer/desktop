@@ -3613,6 +3613,151 @@ Restore it?</source>
         <source>&amp;Preferences…</source>
         <translation>&amp;Preferências…</translation>
     </message>
+    <message>
+        <source>Later</source>
+        <translation>Mais tarde</translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation>Mostrar</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation>Agora não</translation>
+    </message>
+    <message>
+        <source>%1 couldn&apos;t be opened.
+
+%2</source>
+        <translation>Não foi possível abrir %1.
+
+%2</translation>
+    </message>
+    <message>
+        <source>The labels, modules and venue saved beside it (%1) couldn&apos;t be read (%2).</source>
+        <translation>Não foi possível ler as etiquetas, os módulos e o local salvos ao lado (%1) (%2).</translation>
+    </message>
+    <message>
+        <source>The map was changed in another program since its labels, modules and venue were saved, so some of them may not line up any more.</source>
+        <translation>O mapa foi alterado em outro programa depois que as etiquetas, os módulos e o local foram salvos, então alguns podem não se alinhar mais.</translation>
+    </message>
+    <message>
+        <source>Nothing is lost: when you save over it, a copy of the file as it was is kept first, ending in .bak.</source>
+        <translation>Nada se perde: quando você salvar por cima, primeiro é guardada uma cópia do arquivo como era, terminada em .bak.</translation>
+    </message>
+    <message>
+        <source>%1 opened with problems</source>
+        <translation>%1 aberto com problemas</translation>
+    </message>
+    <message>
+        <source>A copy of %1 couldn&apos;t be kept before saving over it, so nothing was saved. Use File › Save As… to save under a new name.</source>
+        <translation>Não foi possível guardar uma cópia de %1 antes de salvar por cima, então nada foi salvo. Use Arquivo › Salvar como… para salvar com um novo nome.</translation>
+    </message>
+    <message>
+        <source>A copy was kept</source>
+        <translation>Uma cópia foi guardada</translation>
+    </message>
+    <message>
+        <source>What couldn&apos;t be read is kept as it was in %1, beside the file.</source>
+        <translation>O que não pôde ser lido fica como estava em %1, ao lado do arquivo.</translation>
+    </message>
+    <message>
+        <source>Saved with a problem</source>
+        <translation>Salvo com um problema</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but its labels, modules and venue (%2) couldn&apos;t be:
+%3</source>
+        <translation>%1 foi salvo, mas as etiquetas, os módulos e o local (%2) não:
+%3</translation>
+    </message>
+    <message>
+        <source>saved views</source>
+        <translation>as vistas salvas</translation>
+    </message>
+    <message>
+        <source>which version each set came from</source>
+        <translation>de qual versão veio cada set</translation>
+    </message>
+    <message>
+        <source>Autosave failed</source>
+        <translation>Falha no salvamento automático</translation>
+    </message>
+    <message>
+        <source>Your changes couldn&apos;t be kept for recovery: %1</source>
+        <translation>Não foi possível guardar suas alterações para recuperação: %1</translation>
+    </message>
+    <message>
+        <source>Autosave failed: %1</source>
+        <translation>Falha no salvamento automático: %1</translation>
+    </message>
+    <message>
+        <source>Autosaved %1</source>
+        <translation>Salvo automaticamente %1</translation>
+    </message>
+    <message>
+        <source>More unsaved work</source>
+        <translation>Mais trabalho não salvo</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more layout(s) with unsaved changes can be recovered any time from File › Recover Unsaved Work….</source>
+        <translation>
+            <numerusform>Mais %n layout com alterações não salvas pode ser recuperado a qualquer momento em Arquivo › Recuperar trabalho não salvo….</numerusform>
+            <numerusform>Mais %n layouts com alterações não salvas podem ser recuperados a qualquer momento em Arquivo › Recuperar trabalho não salvo….</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Recovery failed</source>
+        <translation>Falha na recuperação</translation>
+    </message>
+    <message>
+        <source>The unsaved changes to %1 couldn&apos;t be read: %2
+
+They are kept, so you can try again from File › Recover Unsaved Work….</source>
+        <translation>Não foi possível ler as alterações não salvas de %1: %2
+
+Elas foram mantidas, então você pode tentar de novo em Arquivo › Recuperar trabalho não salvo….</translation>
+    </message>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>Recuperar trabalho não salvo</translation>
+    </message>
+    <message>
+        <source>Another copy of the app is already recovering %1.</source>
+        <translation>Outra cópia do aplicativo já está recuperando %1.</translation>
+    </message>
+    <message>
+        <source>Recovered the unsaved new layout. Save it to keep it.</source>
+        <translation>O novo layout não salvo foi recuperado. Salve-o para mantê-lo.</translation>
+    </message>
+    <message>
+        <source>Recovered the unsaved changes to %1. Save to keep them.</source>
+        <translation>As alterações não salvas de %1 foram recuperadas. Salve para mantê-las.</translation>
+    </message>
+    <message>
+        <source>Recover &amp;Unsaved Work…</source>
+        <translation>Recuperar trabalho não &amp;salvo…</translation>
+    </message>
+    <message>
+        <source>Changes the app kept when it closed before they were saved</source>
+        <translation>Alterações que o aplicativo guardou quando fechou antes de serem salvas</translation>
+    </message>
+    <message>
+        <source>%1 is a %2 file.
+
+Save it as a Collaborative Brick Layout Designer layout (%3) to keep everything in one file: labels, modules, the venue and the background image included.
+
+Keep it as %2 if you still open it in another program; File › Export as BlueBrick Map (.bbm)… can make a .bbm copy at any time.</source>
+        <translation>%1 é um arquivo %2.
+
+Salve-o como layout do Collaborative Brick Layout Designer (%3) para manter tudo em um só arquivo: etiquetas, módulos, o local e a imagem de fundo incluídos.
+
+Mantenha-o como %2 se ainda o abre em outro programa; Arquivo › Exportar como mapa do BlueBrick (.bbm)… pode fazer uma cópia .bbm a qualquer momento.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -4538,6 +4683,213 @@ This removes:
         <location filename="../src/ui/VenueLibraryPanel.cpp" line="274"/>
         <source>(could not read file)</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HelpTexts</name>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>Recuperar trabalho não salvo</translation>
+    </message>
+    <message>
+        <source>Changes the app kept for you when it closed before you saved them.</source>
+        <translation>Alterações que o aplicativo guardou para você quando fechou antes de você salvá-las.</translation>
+    </message>
+    <message>
+        <source>While you work, the app keeps a copy of your changes every few seconds. If it closes before you save, they wait here. Recover opens the layout with them, ready to save; Discard deletes them. Saving or closing normally clears them.</source>
+        <translation>Enquanto você trabalha, o aplicativo guarda uma cópia das suas alterações a cada poucos segundos. Se ele fechar antes de você salvar, elas esperam aqui. Recuperar abre o layout com elas, pronto para salvar; Descartar as apaga. Salvar ou fechar normalmente as remove.</translation>
+    </message>
+    <message>
+        <source>Opened with problems</source>
+        <translation>Aberto com problemas</translation>
+    </message>
+    <message>
+        <source>Part of the file couldn&apos;t be read, or was changed by another program.</source>
+        <translation>Uma parte do arquivo não pôde ser lida ou foi alterada por outro programa.</translation>
+    </message>
+    <message>
+        <source>What could be read is open. When you save over the file, the app first keeps a copy of it as it was, ending in .bak, so nothing is lost. Save to a new name to leave the file alone.</source>
+        <translation>O que pôde ser lido está aberto. Quando você salvar por cima do arquivo, o aplicativo primeiro guarda uma cópia de como ele era, terminada em .bak, para que nada se perca. Salve com um novo nome para deixar o arquivo como está.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::import::MapFormats</name>
+    <message>
+        <source>The file is damaged at line %1, so it can&apos;t be opened safely.</source>
+        <translation>O arquivo está danificado na linha %1, então não pode ser aberto com segurança.</translation>
+    </message>
+    <message>
+        <source>The file is cut off at line %1: what comes after it is missing. It may not have finished saving or copying.</source>
+        <translation>O arquivo termina de repente na linha %1: falta o que vem depois. Talvez não tenha terminado de ser salvo ou copiado.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s) aren&apos;t in your parts library, so they were left out.</source>
+        <translation>
+            <numerusform>%n peça não está na sua biblioteca de peças, então foi deixada de fora.</numerusform>
+            <numerusform>%n peças não estão na sua biblioteca de peças, então foram deixadas de fora.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Only TrackDesigner files of version %1 can be read.</source>
+        <translation>Só é possível ler arquivos do TrackDesigner da versão %1.</translation>
+    </message>
+    <message>
+        <source>The file is cut off before its first piece, so it can&apos;t be opened. It may not have finished saving or copying.</source>
+        <translation>O arquivo termina antes da primeira peça, então não pode ser aberto. Talvez não tenha terminado de ser salvo ou copiado.</translation>
+    </message>
+    <message>
+        <source>No part is mapped to these TrackDesigner pieces, so they were left out: %1</source>
+        <translation>Nenhuma peça corresponde a estas peças do TrackDesigner, então foram deixadas de fora: %1</translation>
+    </message>
+    <message>
+        <source>The file is cut off part way through a piece: the pieces after it are missing. It may not have finished saving or copying.</source>
+        <translation>O arquivo termina no meio de uma peça: faltam as peças seguintes. Talvez não tenha terminado de ser salvo ou copiado.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::BbmReader</name>
+    <message numerus="yes">
+        <source>%n sheet(s) of a kind this version can&apos;t show were left out.</source>
+        <translation>
+            <numerusform>%n folha de um tipo que esta versão não consegue mostrar foi deixada de fora.</numerusform>
+            <numerusform>%n folhas de um tipo que esta versão não consegue mostrar foram deixadas de fora.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The map was saved by a newer BlueBrick (file version %1); this version reads up to %2.</source>
+        <translation>O mapa foi salvo por um BlueBrick mais recente (versão de arquivo %1); esta versão lê até a %2.</translation>
+    </message>
+    <message>
+        <source>The file is cut off at line %1: it ends before the layout does. It may not have finished saving or copying. Nothing was changed.</source>
+        <translation>O arquivo termina de repente na linha %1: acaba antes do layout. Talvez não tenha terminado de ser salvo ou copiado. Nada foi alterado.</translation>
+    </message>
+    <message>
+        <source>The file is damaged at line %1, column %2, so it can&apos;t be opened safely. Nothing was changed.</source>
+        <translation>O arquivo está danificado na linha %1, coluna %2, então não pode ser aberto com segurança. Nada foi alterado.</translation>
+    </message>
+    <message>
+        <source>This isn&apos;t a BlueBrick map: it has no layout in it.</source>
+        <translation>Isto não é um mapa do BlueBrick: não há nenhum layout nele.</translation>
+    </message>
+    <message>
+        <source>The file can&apos;t be opened: %1</source>
+        <translation>Não é possível abrir o arquivo: %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::BbmWriter</name>
+    <message>
+        <source>The layout&apos;s details (author, club, event or comment) could not be written.</source>
+        <translation>Não foi possível gravar os dados do layout (autor, clube, evento ou comentário).</translation>
+    </message>
+    <message>
+        <source>The sheet “%1” could not be written.</source>
+        <translation>Não foi possível gravar a folha “%1”.</translation>
+    </message>
+    <message>
+        <source>The layout could not be written.</source>
+        <translation>Não foi possível gravar o layout.</translation>
+    </message>
+    <message>
+        <source>Only part of the layout could be written: the disk may be full.</source>
+        <translation>Só foi possível gravar parte do layout: o disco pode estar cheio.</translation>
+    </message>
+    <message>
+        <source>The file can&apos;t be written: %1</source>
+        <translation>Não é possível gravar o arquivo: %1</translation>
+    </message>
+    <message>
+        <source>The file couldn&apos;t be saved: %1</source>
+        <translation>Não foi possível salvar o arquivo: %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::SidecarIO</name>
+    <message>
+        <source>The labels, modules and venue were saved by a newer version of the app. Anything this version doesn&apos;t know is kept as it is, but isn&apos;t shown.</source>
+        <translation>As etiquetas, os módulos e o local foram salvos por uma versão mais recente do aplicativo. O que esta versão não conhece é mantido como está, mas não é mostrado.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::Autosave</name>
+    <message>
+        <source>New layout</source>
+        <translation>Novo layout</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RecoverDialog</name>
+    <message>
+        <source>Discard</source>
+        <translation>Descartar</translation>
+    </message>
+    <message>
+        <source>Discard the unsaved changes to “%1”?</source>
+        <translation>Descartar as alterações não salvas de “%1”?</translation>
+    </message>
+    <message>
+        <source>The changes that were never saved are deleted.</source>
+        <translation>As alterações que nunca foram salvas são apagadas.</translation>
+    </message>
+    <message>
+        <source>The file itself stays as it was last saved.</source>
+        <translation>O arquivo fica como foi salvo pela última vez.</translation>
+    </message>
+    <message>
+        <source>Today %1</source>
+        <translation>Hoje %1</translation>
+    </message>
+    <message>
+        <source>Yesterday %1</source>
+        <translation>Ontem %1</translation>
+    </message>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>Recuperar trabalho não salvo</translation>
+    </message>
+    <message>
+        <source>Unsaved work</source>
+        <translation>Trabalho não salvo</translation>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation>Agora não</translation>
+    </message>
+    <message>
+        <source>Keep them for later: File › Recover Unsaved Work…</source>
+        <translation>Guardar para depois: Arquivo › Recuperar trabalho não salvo…</translation>
+    </message>
+    <message>
+        <source>Delete the picked changes for good</source>
+        <translation>Apagar de vez as alterações escolhidas</translation>
+    </message>
+    <message>
+        <source>Recover</source>
+        <translation>Recuperar</translation>
+    </message>
+    <message>
+        <source>Open the picked layout with its changes, ready to save</source>
+        <translation>Abrir o layout escolhido com as alterações, pronto para salvar</translation>
+    </message>
+    <message>
+        <source>%1 — changes from %2</source>
+        <translation>%1 — alterações de %2</translation>
+    </message>
+    <message>
+        <source>A new layout that was never saved</source>
+        <translation>Um novo layout que nunca foi salvo</translation>
+    </message>
+    <message>
+        <source>There&apos;s no unsaved work to recover: everything was saved.</source>
+        <translation>Não há trabalho não salvo para recuperar: tudo foi salvo.</translation>
+    </message>
+    <message>
+        <source>The app closed before these changes were saved. Recover one to keep working on it, or discard what you don&apos;t need.</source>
+        <translation>O aplicativo fechou antes de estas alterações serem salvas. Recupere uma para continuar trabalhando nela, ou descarte o que não precisar.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Fechar</translation>
     </message>
 </context>
 </TS>
