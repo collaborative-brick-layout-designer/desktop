@@ -54,10 +54,13 @@ for map in "${maps[@]}"; do
     name=$(basename "$map" .bbm)
     d="$work/$name"; mkdir -p "$d"
     echo "== $name"
-    # 1. Vanilla reads what we save.
-    "$convert" -p "$parts" "$map" "$d/ours.bbm" || { echo "   FAIL  we could not open/save it"; failed=1; continue; }
-    vanilla "$d/ours.bbm" "$d/ours.vanilla.bbm" "$map" "$d/original.vanilla.bbm" || { failed=1; continue; }
-    same ".bbm we save, as vanilla reads it" "$d/ours.bbm" "$d/ours.vanilla.bbm"
+    # 1. Vanilla reads what we save. Ours has the original's file name (in
+    # a folder of its own): vanilla names a map's default export after it.
+    mkdir -p "$d/ours"
+    ours="$d/ours/$name.bbm"
+    "$convert" -p "$parts" "$map" "$ours" || { echo "   FAIL  we could not open/save it"; failed=1; continue; }
+    vanilla "$ours" "$d/ours.vanilla.bbm" "$map" "$d/original.vanilla.bbm" || { failed=1; continue; }
+    same ".bbm we save, as vanilla reads it" "$ours" "$d/ours.vanilla.bbm"
     same "everything else in it, as vanilla reads it" "$d/original.vanilla.bbm" "$d/ours.vanilla.bbm" --everything
 
     # 2. Exports: ours and vanilla's, both read back by vanilla.
