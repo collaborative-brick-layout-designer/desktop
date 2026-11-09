@@ -22,6 +22,8 @@
 #include "saveload/SidecarIO.h"
 #include "saveload/VenueIO.h"
 
+#include "DialogAnswers.h"
+
 #include <gtest/gtest.h>
 
 #include <QAction>
@@ -64,79 +66,6 @@ using namespace bld;
 namespace {
 
 const QString kCorpus = QStringLiteral(BLD_BBM_CORPUS_DIR);
-
-// Answers the modal dialogs that open while `run` runs, in order; a dialog
-// beyond the answers is closed and counted as unexpected. A dialog answered
-// may close later (a queued accept()): the next step waits until it's gone,
-// so it is never taken for the next dialog. One still open 5 s after its
-// answer fails the test and is closed.
-struct Answers {
-    std::vector<std::function<void(QWidget*)>> steps;
-    int unexpected = 0;
-    void during(const std::function<void()>& run) {
-        std::size_t next = 0;
-        QPointer<QWidget> answered;
-        QElapsedTimer sinceAnswer;
-        QTimer poll;
-        poll.setInterval(20);
-        QObject::connect(&poll, &QTimer::timeout, [&] {
-            if (answered && answered->isVisible()) {
-                if (sinceAnswer.elapsed() < 5000) return;
-                ADD_FAILURE() << "a dialog stayed open after its answer";
-                answered->close();
-            }
-            answered = nullptr;
-            QWidget* modal = QApplication::activeModalWidget();
-            if (!modal || !modal->isVisible()) return;
-            answered = modal;
-            sinceAnswer.start();
-            if (next < steps.size()) steps[next++](modal);
-            else {
-                ++unexpected;
-                modal->close();
-            }
-        });
-        poll.start();
-        run();
-        poll.stop();
-        EXPECT_EQ(next, steps.size()) << "fewer dialogs than expected";
-    }
-};
-
-std::function<void(QWidget*)> click(const QString& text) {
-    return [text](QWidget* w) {
-        auto* box = qobject_cast<QMessageBox*>(w);
-        ASSERT_NE(box, nullptr);
-        for (QAbstractButton* b : box->buttons()) {
-            if (QString(b->text()).remove(QLatin1Char('&')) == text) {
-                b->click();
-                return;
-            }
-        }
-        ADD_FAILURE() << "no button " << text.toStdString();
-        box->close();
-    };
-}
-
-std::function<void(QWidget*)> chooseFile(const QString& path) {
-    return [path](QWidget* w) {
-        auto* dialog = qobject_cast<QFileDialog*>(w);
-        ASSERT_NE(dialog, nullptr);
-        // selectFile() can lose to the directory model still loading;
-        // the name box is what accept() reads.
-        dialog->setDirectory(QFileInfo(path).absolutePath());
-        auto* name = dialog->findChild<QLineEdit*>(QStringLiteral("fileNameEdit"));
-        ASSERT_NE(name, nullptr);
-        name->setText(QFileInfo(path).fileName());
-        QMetaObject::invokeMethod(dialog, "accept", Qt::QueuedConnection);
-    };
-}
-
-bool invoke(ui::MainWindow& w, const char* slot) {
-    bool result = false;
-    QMetaObject::invokeMethod(&w, slot, Qt::DirectConnection, qReturnArg(result));
-    return result;
-}
 
 QAction* action(QWidget& w, const QString& text) {
     for (QAction* a : w.findChildren<QAction*>())
@@ -385,7 +314,7 @@ TEST(SheetNames, OnlyTheUntouchedDefaultIsShownAsSheet) {
 TEST_F(MainWindowFile, AutosaveTakesInEveryEditOfABurst) {
     ASSERT_TRUE(window_->openFile(bbm_));
     QUndoStack* undo = window_->findChild<ui::MapView*>()->undoStack();
-    const QString autosave = ui::MainWindow::autosavePath();
+    const QString autosave = window_->autosavePath();
     QFile::remove(autosave);
     undo->push(new QUndoCommand(QStringLiteral("first")));
     // Whatever the first edit wrote is gone; the second must still reach disk.

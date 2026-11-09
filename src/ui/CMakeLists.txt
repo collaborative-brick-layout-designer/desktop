@@ -88,6 +88,10 @@ add_library(bld_ui STATIC
     ViewsPanel.h
     LoadingCard.cpp
     NoticeArea.cpp
+    Autosave.cpp
+    Autosave.h
+    RecoverDialog.cpp
+    RecoverDialog.h
     NoticeArea.h
     LoadingCard.h
     LibraryPathsDialog.cpp

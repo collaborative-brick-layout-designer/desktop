@@ -36,6 +36,9 @@ struct LayoutFileResult {
     std::unique_ptr<core::Map> map;
     QString error;        // why the file couldn't be read
     QStringList warnings; // read, but with something left out
+    // Something in the file couldn't be read (a sheet, the labels, a part),
+    // so saving over it would lose that: the caller keeps a copy first.
+    bool partlyRead = false;
     // The parts the file carries, by file name (without "parts/").
     QMap<QString, QByteArray> partFiles;
     // The whole manifest as read, and the server layout it names, if any.

@@ -63,10 +63,15 @@ struct Sidecar {
 
     // Custom sets placed in the layout, with the version each came from.
     std::vector<PlacedSet> sets;
+    // Top-level fields this build doesn't know (a newer build's, the web's),
+    // written back as they were.
+    QJsonObject extras;
+    // Saved by a newer build than this one (schemaVersion above ours).
+    bool fromNewerVersion() const { return schemaVersion > kSchemaVersion; }
 
     bool isEmpty() const {
         return anchoredLabels.empty() && modules.empty() && !venue.has_value()
-               && backgroundImagePath.isEmpty() && views.empty() && sets.empty();
+               && backgroundImagePath.isEmpty() && views.empty() && sets.empty() && extras.isEmpty();
     }
 };
 

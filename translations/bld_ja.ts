@@ -3605,6 +3605,150 @@ Restore it?</source>
         <source>&amp;Preferences…</source>
         <translation>環境設定(&amp;P)…</translation>
     </message>
+    <message>
+        <source>Later</source>
+        <translation>後で</translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation>表示</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation>今はしない</translation>
+    </message>
+    <message>
+        <source>%1 couldn&apos;t be opened.
+
+%2</source>
+        <translation>%1 を開けませんでした。
+
+%2</translation>
+    </message>
+    <message>
+        <source>The labels, modules and venue saved beside it (%1) couldn&apos;t be read (%2).</source>
+        <translation>隣に保存されているラベル、モジュール、会場（%1）を読み込めませんでした（%2）。</translation>
+    </message>
+    <message>
+        <source>The map was changed in another program since its labels, modules and venue were saved, so some of them may not line up any more.</source>
+        <translation>ラベル、モジュール、会場を保存した後に、マップが別のプログラムで変更されたため、一部が合わなくなっている可能性があります。</translation>
+    </message>
+    <message>
+        <source>Nothing is lost: when you save over it, a copy of the file as it was is kept first, ending in .bak.</source>
+        <translation>何も失われません。上書き保存するとき、まず元のままのファイルのコピー（末尾が .bak）が残されます。</translation>
+    </message>
+    <message>
+        <source>%1 opened with problems</source>
+        <translation>%1 は問題がある状態で開きました</translation>
+    </message>
+    <message>
+        <source>A copy of %1 couldn&apos;t be kept before saving over it, so nothing was saved. Use File › Save As… to save under a new name.</source>
+        <translation>上書きする前に %1 のコピーを残せなかったため、何も保存していません。ファイル › 名前を付けて保存… で別の名前で保存してください。</translation>
+    </message>
+    <message>
+        <source>A copy was kept</source>
+        <translation>コピーを残しました</translation>
+    </message>
+    <message>
+        <source>What couldn&apos;t be read is kept as it was in %1, beside the file.</source>
+        <translation>読み込めなかったものは、ファイルの隣の %1 に元のまま残っています。</translation>
+    </message>
+    <message>
+        <source>Saved with a problem</source>
+        <translation>問題がありましたが保存しました</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but its labels, modules and venue (%2) couldn&apos;t be:
+%3</source>
+        <translation>%1 は保存しましたが、ラベル、モジュール、会場（%2）は保存できませんでした:
+%3</translation>
+    </message>
+    <message>
+        <source>saved views</source>
+        <translation>保存したビュー</translation>
+    </message>
+    <message>
+        <source>which version each set came from</source>
+        <translation>各セットがどのバージョンのものか</translation>
+    </message>
+    <message>
+        <source>Autosave failed</source>
+        <translation>自動保存に失敗しました</translation>
+    </message>
+    <message>
+        <source>Your changes couldn&apos;t be kept for recovery: %1</source>
+        <translation>復元用に変更を残せませんでした: %1</translation>
+    </message>
+    <message>
+        <source>Autosave failed: %1</source>
+        <translation>自動保存に失敗しました: %1</translation>
+    </message>
+    <message>
+        <source>Autosaved %1</source>
+        <translation>自動保存 %1</translation>
+    </message>
+    <message>
+        <source>More unsaved work</source>
+        <translation>ほかにも未保存の作業があります</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more layout(s) with unsaved changes can be recovered any time from File › Recover Unsaved Work….</source>
+        <translation>
+            <numerusform>未保存の変更があるレイアウトがあと %n 件あり、いつでも ファイル › 未保存の作業を復元… から復元できます。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Recovery failed</source>
+        <translation>復元に失敗しました</translation>
+    </message>
+    <message>
+        <source>The unsaved changes to %1 couldn&apos;t be read: %2
+
+They are kept, so you can try again from File › Recover Unsaved Work….</source>
+        <translation>%1 の未保存の変更を読み込めませんでした: %2
+
+変更は残っているので、ファイル › 未保存の作業を復元… からもう一度試せます。</translation>
+    </message>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>未保存の作業を復元</translation>
+    </message>
+    <message>
+        <source>Another copy of the app is already recovering %1.</source>
+        <translation>別に起動しているアプリが、すでに %1 を復元しています。</translation>
+    </message>
+    <message>
+        <source>Recovered the unsaved new layout. Save it to keep it.</source>
+        <translation>未保存の新しいレイアウトを復元しました。残すには保存してください。</translation>
+    </message>
+    <message>
+        <source>Recovered the unsaved changes to %1. Save to keep them.</source>
+        <translation>%1 の未保存の変更を復元しました。残すには保存してください。</translation>
+    </message>
+    <message>
+        <source>Recover &amp;Unsaved Work…</source>
+        <translation>未保存の作業を復元(&amp;U)…</translation>
+    </message>
+    <message>
+        <source>Changes the app kept when it closed before they were saved</source>
+        <translation>保存前にアプリが閉じたときに残された変更</translation>
+    </message>
+    <message>
+        <source>%1 is a %2 file.
+
+Save it as a Collaborative Brick Layout Designer layout (%3) to keep everything in one file: labels, modules, the venue and the background image included.
+
+Keep it as %2 if you still open it in another program; File › Export as BlueBrick Map (.bbm)… can make a .bbm copy at any time.</source>
+        <translation>%1 は %2 ファイルです。
+
+Collaborative Brick Layout Designer のレイアウト（%3）として保存すると、ラベル、モジュール、会場、背景画像も含めてすべてを 1 つのファイルにまとめられます。
+
+ほかのプログラムでまだ開く場合は %2 のままにしてください。ファイル › BlueBrick マップ (.bbm) としてエクスポート… でいつでも .bbm のコピーを作れます。</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -4530,6 +4674,211 @@ This removes:
         <location filename="../src/ui/VenueLibraryPanel.cpp" line="274"/>
         <source>(could not read file)</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HelpTexts</name>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>未保存の作業を復元</translation>
+    </message>
+    <message>
+        <source>Changes the app kept for you when it closed before you saved them.</source>
+        <translation>保存する前にアプリが閉じたときに、アプリが残しておいた変更です。</translation>
+    </message>
+    <message>
+        <source>While you work, the app keeps a copy of your changes every few seconds. If it closes before you save, they wait here. Recover opens the layout with them, ready to save; Discard deletes them. Saving or closing normally clears them.</source>
+        <translation>作業中、アプリは数秒ごとに変更のコピーを残します。保存する前に閉じた場合、変更はここで待っています。「復元」は変更を含むレイアウトを開き、すぐに保存できます。「破棄」は削除します。保存するか普通に閉じると消えます。</translation>
+    </message>
+    <message>
+        <source>Opened with problems</source>
+        <translation>問題がある状態で開きました</translation>
+    </message>
+    <message>
+        <source>Part of the file couldn&apos;t be read, or was changed by another program.</source>
+        <translation>ファイルの一部を読み込めなかったか、別のプログラムで変更されています。</translation>
+    </message>
+    <message>
+        <source>What could be read is open. When you save over the file, the app first keeps a copy of it as it was, ending in .bak, so nothing is lost. Save to a new name to leave the file alone.</source>
+        <translation>読み込めた部分は開いています。このファイルに上書き保存すると、アプリはまず元のままのコピー（末尾が .bak）を残すので、何も失われません。ファイルをそのままにしたい場合は、別の名前で保存してください。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::import::MapFormats</name>
+    <message>
+        <source>The file is damaged at line %1, so it can&apos;t be opened safely.</source>
+        <translation>ファイルの %1 行目が壊れているため、安全に開けません。</translation>
+    </message>
+    <message>
+        <source>The file is cut off at line %1: what comes after it is missing. It may not have finished saving or copying.</source>
+        <translation>ファイルは %1 行目で途切れていて、その後ろがありません。保存かコピーが終わっていなかった可能性があります。</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s) aren&apos;t in your parts library, so they were left out.</source>
+        <translation>
+            <numerusform>%n 個のパーツがパーツライブラリにないため、省かれました。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Only TrackDesigner files of version %1 can be read.</source>
+        <translation>読み込めるのはバージョン %1 の TrackDesigner ファイルだけです。</translation>
+    </message>
+    <message>
+        <source>The file is cut off before its first piece, so it can&apos;t be opened. It may not have finished saving or copying.</source>
+        <translation>ファイルが最初のパーツの前で途切れているため、開けません。保存かコピーが終わっていなかった可能性があります。</translation>
+    </message>
+    <message>
+        <source>No part is mapped to these TrackDesigner pieces, so they were left out: %1</source>
+        <translation>これらの TrackDesigner のパーツに対応するパーツがないため、省かれました: %1</translation>
+    </message>
+    <message>
+        <source>The file is cut off part way through a piece: the pieces after it are missing. It may not have finished saving or copying.</source>
+        <translation>ファイルがパーツの途中で途切れていて、その後のパーツがありません。保存かコピーが終わっていなかった可能性があります。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::BbmReader</name>
+    <message numerus="yes">
+        <source>%n sheet(s) of a kind this version can&apos;t show were left out.</source>
+        <translation>
+            <numerusform>このバージョンで表示できない種類のシート %n 枚が省かれました。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The map was saved by a newer BlueBrick (file version %1); this version reads up to %2.</source>
+        <translation>このマップは新しい BlueBrick で保存されています（ファイルバージョン %1）。このバージョンが読めるのは %2 までです。</translation>
+    </message>
+    <message>
+        <source>The file is cut off at line %1: it ends before the layout does. It may not have finished saving or copying. Nothing was changed.</source>
+        <translation>ファイルは %1 行目で途切れていて、レイアウトの終わりまでありません。保存かコピーが終わっていなかった可能性があります。何も変更していません。</translation>
+    </message>
+    <message>
+        <source>The file is damaged at line %1, column %2, so it can&apos;t be opened safely. Nothing was changed.</source>
+        <translation>ファイルの %1 行目 %2 列目が壊れているため、安全に開けません。何も変更していません。</translation>
+    </message>
+    <message>
+        <source>This isn&apos;t a BlueBrick map: it has no layout in it.</source>
+        <translation>これは BlueBrick のマップではありません。レイアウトが含まれていません。</translation>
+    </message>
+    <message>
+        <source>The file can&apos;t be opened: %1</source>
+        <translation>ファイルを開けません: %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::BbmWriter</name>
+    <message>
+        <source>The layout&apos;s details (author, club, event or comment) could not be written.</source>
+        <translation>レイアウトの情報（作成者、クラブ、イベント、コメント）を書き込めませんでした。</translation>
+    </message>
+    <message>
+        <source>The sheet “%1” could not be written.</source>
+        <translation>シート「%1」を書き込めませんでした。</translation>
+    </message>
+    <message>
+        <source>The layout could not be written.</source>
+        <translation>レイアウトを書き込めませんでした。</translation>
+    </message>
+    <message>
+        <source>Only part of the layout could be written: the disk may be full.</source>
+        <translation>レイアウトの一部しか書き込めませんでした。ディスクがいっぱいかもしれません。</translation>
+    </message>
+    <message>
+        <source>The file can&apos;t be written: %1</source>
+        <translation>ファイルを書き込めません: %1</translation>
+    </message>
+    <message>
+        <source>The file couldn&apos;t be saved: %1</source>
+        <translation>ファイルを保存できませんでした: %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::SidecarIO</name>
+    <message>
+        <source>The labels, modules and venue were saved by a newer version of the app. Anything this version doesn&apos;t know is kept as it is, but isn&apos;t shown.</source>
+        <translation>ラベル、モジュール、会場は新しいバージョンのアプリで保存されています。このバージョンが知らないものはそのまま残りますが、表示されません。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::Autosave</name>
+    <message>
+        <source>New layout</source>
+        <translation>新しいレイアウト</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RecoverDialog</name>
+    <message>
+        <source>Discard</source>
+        <translation>破棄</translation>
+    </message>
+    <message>
+        <source>Discard the unsaved changes to “%1”?</source>
+        <translation>「%1」の未保存の変更を破棄しますか?</translation>
+    </message>
+    <message>
+        <source>The changes that were never saved are deleted.</source>
+        <translation>一度も保存されなかった変更は削除されます。</translation>
+    </message>
+    <message>
+        <source>The file itself stays as it was last saved.</source>
+        <translation>ファイル自体は最後に保存したときのままです。</translation>
+    </message>
+    <message>
+        <source>Today %1</source>
+        <translation>今日 %1</translation>
+    </message>
+    <message>
+        <source>Yesterday %1</source>
+        <translation>昨日 %1</translation>
+    </message>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>未保存の作業を復元</translation>
+    </message>
+    <message>
+        <source>Unsaved work</source>
+        <translation>未保存の作業</translation>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation>今はしない</translation>
+    </message>
+    <message>
+        <source>Keep them for later: File › Recover Unsaved Work…</source>
+        <translation>後で使えるように残す: ファイル › 未保存の作業を復元…</translation>
+    </message>
+    <message>
+        <source>Delete the picked changes for good</source>
+        <translation>選んだ変更を完全に削除します</translation>
+    </message>
+    <message>
+        <source>Recover</source>
+        <translation>復元</translation>
+    </message>
+    <message>
+        <source>Open the picked layout with its changes, ready to save</source>
+        <translation>選んだレイアウトを変更を含めて開き、すぐに保存できるようにします</translation>
+    </message>
+    <message>
+        <source>%1 — changes from %2</source>
+        <translation>%1 — %2 の変更</translation>
+    </message>
+    <message>
+        <source>A new layout that was never saved</source>
+        <translation>一度も保存されていない新しいレイアウト</translation>
+    </message>
+    <message>
+        <source>There&apos;s no unsaved work to recover: everything was saved.</source>
+        <translation>復元する未保存の作業はありません。すべて保存されています。</translation>
+    </message>
+    <message>
+        <source>The app closed before these changes were saved. Recover one to keep working on it, or discard what you don&apos;t need.</source>
+        <translation>これらの変更を保存する前にアプリが閉じました。続けて作業するには復元し、不要なものは破棄してください。</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
     </message>
 </context>
 </TS>

@@ -3605,6 +3605,150 @@ Restore it?</source>
         <source>&amp;Preferences…</source>
         <translation>偏好设置(&amp;P)…</translation>
     </message>
+    <message>
+        <source>Later</source>
+        <translation>稍后</translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation>显示</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>确定</translation>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation>以后再说</translation>
+    </message>
+    <message>
+        <source>%1 couldn&apos;t be opened.
+
+%2</source>
+        <translation>无法打开 %1。
+
+%2</translation>
+    </message>
+    <message>
+        <source>The labels, modules and venue saved beside it (%1) couldn&apos;t be read (%2).</source>
+        <translation>无法读取保存在旁边的标签、模块和场地（%1）（%2）。</translation>
+    </message>
+    <message>
+        <source>The map was changed in another program since its labels, modules and venue were saved, so some of them may not line up any more.</source>
+        <translation>自标签、模块和场地保存以来，地图已在其他程序中被更改，因此其中一些可能不再对齐。</translation>
+    </message>
+    <message>
+        <source>Nothing is lost: when you save over it, a copy of the file as it was is kept first, ending in .bak.</source>
+        <translation>不会丢失任何内容：当你覆盖保存时，会先保留一份文件原样的副本（以 .bak 结尾）。</translation>
+    </message>
+    <message>
+        <source>%1 opened with problems</source>
+        <translation>%1 打开时有问题</translation>
+    </message>
+    <message>
+        <source>A copy of %1 couldn&apos;t be kept before saving over it, so nothing was saved. Use File › Save As… to save under a new name.</source>
+        <translation>覆盖保存前无法保留 %1 的副本，因此没有保存任何内容。请用 文件 › 另存为… 以新名称保存。</translation>
+    </message>
+    <message>
+        <source>A copy was kept</source>
+        <translation>已保留一份副本</translation>
+    </message>
+    <message>
+        <source>What couldn&apos;t be read is kept as it was in %1, beside the file.</source>
+        <translation>无法读取的内容已原样保存在文件旁边的 %1 中。</translation>
+    </message>
+    <message>
+        <source>Saved with a problem</source>
+        <translation>保存时有问题</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but its labels, modules and venue (%2) couldn&apos;t be:
+%3</source>
+        <translation>%1 已保存，但其标签、模块和场地（%2）无法保存：
+%3</translation>
+    </message>
+    <message>
+        <source>saved views</source>
+        <translation>已保存的视图</translation>
+    </message>
+    <message>
+        <source>which version each set came from</source>
+        <translation>每个套装来自哪个版本</translation>
+    </message>
+    <message>
+        <source>Autosave failed</source>
+        <translation>自动保存失败</translation>
+    </message>
+    <message>
+        <source>Your changes couldn&apos;t be kept for recovery: %1</source>
+        <translation>无法保留你的更改以便恢复：%1</translation>
+    </message>
+    <message>
+        <source>Autosave failed: %1</source>
+        <translation>自动保存失败：%1</translation>
+    </message>
+    <message>
+        <source>Autosaved %1</source>
+        <translation>已自动保存 %1</translation>
+    </message>
+    <message>
+        <source>More unsaved work</source>
+        <translation>更多未保存的工作</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more layout(s) with unsaved changes can be recovered any time from File › Recover Unsaved Work….</source>
+        <translation>
+            <numerusform>另外还有 %n 个带有未保存更改的布局，随时可以从 文件 › 恢复未保存的工作… 恢复。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Recovery failed</source>
+        <translation>恢复失败</translation>
+    </message>
+    <message>
+        <source>The unsaved changes to %1 couldn&apos;t be read: %2
+
+They are kept, so you can try again from File › Recover Unsaved Work….</source>
+        <translation>无法读取 %1 的未保存更改：%2
+
+这些更改已保留，你可以从 文件 › 恢复未保存的工作… 再试一次。</translation>
+    </message>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>恢复未保存的工作</translation>
+    </message>
+    <message>
+        <source>Another copy of the app is already recovering %1.</source>
+        <translation>应用的另一个副本已在恢复 %1。</translation>
+    </message>
+    <message>
+        <source>Recovered the unsaved new layout. Save it to keep it.</source>
+        <translation>已恢复未保存的新布局。保存它以便保留。</translation>
+    </message>
+    <message>
+        <source>Recovered the unsaved changes to %1. Save to keep them.</source>
+        <translation>已恢复 %1 的未保存更改。保存以便保留。</translation>
+    </message>
+    <message>
+        <source>Recover &amp;Unsaved Work…</source>
+        <translation>恢复未保存的工作(&amp;U)…</translation>
+    </message>
+    <message>
+        <source>Changes the app kept when it closed before they were saved</source>
+        <translation>应用在保存前关闭时保留的更改</translation>
+    </message>
+    <message>
+        <source>%1 is a %2 file.
+
+Save it as a Collaborative Brick Layout Designer layout (%3) to keep everything in one file: labels, modules, the venue and the background image included.
+
+Keep it as %2 if you still open it in another program; File › Export as BlueBrick Map (.bbm)… can make a .bbm copy at any time.</source>
+        <translation>%1 是 %2 文件。
+
+将其保存为 Collaborative Brick Layout Designer 布局（%3），即可把所有内容放在一个文件中：包括标签、模块、场地和背景图片。
+
+如果你仍在其他程序中打开它，请保留为 %2；随时可以用 文件 › 导出为 BlueBrick 地图 (.bbm)… 制作一份 .bbm 副本。</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -4530,6 +4674,211 @@ This removes:
         <location filename="../src/ui/VenueLibraryPanel.cpp" line="274"/>
         <source>(could not read file)</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HelpTexts</name>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>恢复未保存的工作</translation>
+    </message>
+    <message>
+        <source>Changes the app kept for you when it closed before you saved them.</source>
+        <translation>应用在你保存之前关闭时为你保留的更改。</translation>
+    </message>
+    <message>
+        <source>While you work, the app keeps a copy of your changes every few seconds. If it closes before you save, they wait here. Recover opens the layout with them, ready to save; Discard deletes them. Saving or closing normally clears them.</source>
+        <translation>你工作时，应用每隔几秒保留一份更改副本。如果在你保存前关闭，这些更改会在这里等你。“恢复”会打开带有这些更改的布局，可直接保存；“放弃”会删除它们。正常保存或关闭会清除它们。</translation>
+    </message>
+    <message>
+        <source>Opened with problems</source>
+        <translation>打开时有问题</translation>
+    </message>
+    <message>
+        <source>Part of the file couldn&apos;t be read, or was changed by another program.</source>
+        <translation>文件的一部分无法读取，或被其他程序更改过。</translation>
+    </message>
+    <message>
+        <source>What could be read is open. When you save over the file, the app first keeps a copy of it as it was, ending in .bak, so nothing is lost. Save to a new name to leave the file alone.</source>
+        <translation>能读取的部分已打开。当你覆盖保存该文件时，应用会先保留一份原样副本（以 .bak 结尾），所以不会丢失任何内容。若要保留原文件不变，请另存为新名称。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::import::MapFormats</name>
+    <message>
+        <source>The file is damaged at line %1, so it can&apos;t be opened safely.</source>
+        <translation>文件在第 %1 行已损坏，无法安全打开。</translation>
+    </message>
+    <message>
+        <source>The file is cut off at line %1: what comes after it is missing. It may not have finished saving or copying.</source>
+        <translation>文件在第 %1 行被截断：后面的内容缺失。可能没有完成保存或复制。</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s) aren&apos;t in your parts library, so they were left out.</source>
+        <translation>
+            <numerusform>%n 个零件不在你的零件库中，因此被省略。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Only TrackDesigner files of version %1 can be read.</source>
+        <translation>只能读取版本 %1 的 TrackDesigner 文件。</translation>
+    </message>
+    <message>
+        <source>The file is cut off before its first piece, so it can&apos;t be opened. It may not have finished saving or copying.</source>
+        <translation>文件在第一个零件之前就被截断，无法打开。可能没有完成保存或复制。</translation>
+    </message>
+    <message>
+        <source>No part is mapped to these TrackDesigner pieces, so they were left out: %1</source>
+        <translation>这些 TrackDesigner 零件没有对应的零件，因此被省略：%1</translation>
+    </message>
+    <message>
+        <source>The file is cut off part way through a piece: the pieces after it are missing. It may not have finished saving or copying.</source>
+        <translation>文件在某个零件中途被截断：之后的零件缺失。可能没有完成保存或复制。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::BbmReader</name>
+    <message numerus="yes">
+        <source>%n sheet(s) of a kind this version can&apos;t show were left out.</source>
+        <translation>
+            <numerusform>省略了 %n 张此版本无法显示的图纸。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The map was saved by a newer BlueBrick (file version %1); this version reads up to %2.</source>
+        <translation>该地图由较新的 BlueBrick 保存（文件版本 %1）；此版本最多只能读取版本 %2。</translation>
+    </message>
+    <message>
+        <source>The file is cut off at line %1: it ends before the layout does. It may not have finished saving or copying. Nothing was changed.</source>
+        <translation>文件在第 %1 行被截断：在布局结束之前就结束了。可能没有完成保存或复制。没有做任何更改。</translation>
+    </message>
+    <message>
+        <source>The file is damaged at line %1, column %2, so it can&apos;t be opened safely. Nothing was changed.</source>
+        <translation>文件在第 %1 行第 %2 列已损坏，无法安全打开。没有做任何更改。</translation>
+    </message>
+    <message>
+        <source>This isn&apos;t a BlueBrick map: it has no layout in it.</source>
+        <translation>这不是 BlueBrick 地图：其中没有布局。</translation>
+    </message>
+    <message>
+        <source>The file can&apos;t be opened: %1</source>
+        <translation>无法打开文件：%1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::BbmWriter</name>
+    <message>
+        <source>The layout&apos;s details (author, club, event or comment) could not be written.</source>
+        <translation>无法写入布局的信息（作者、俱乐部、活动或备注）。</translation>
+    </message>
+    <message>
+        <source>The sheet “%1” could not be written.</source>
+        <translation>无法写入图纸“%1”。</translation>
+    </message>
+    <message>
+        <source>The layout could not be written.</source>
+        <translation>无法写入布局。</translation>
+    </message>
+    <message>
+        <source>Only part of the layout could be written: the disk may be full.</source>
+        <translation>只写入了部分布局：磁盘可能已满。</translation>
+    </message>
+    <message>
+        <source>The file can&apos;t be written: %1</source>
+        <translation>无法写入文件：%1</translation>
+    </message>
+    <message>
+        <source>The file couldn&apos;t be saved: %1</source>
+        <translation>无法保存文件：%1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::SidecarIO</name>
+    <message>
+        <source>The labels, modules and venue were saved by a newer version of the app. Anything this version doesn&apos;t know is kept as it is, but isn&apos;t shown.</source>
+        <translation>标签、模块和场地是由较新版本的应用保存的。此版本不认识的内容会原样保留，但不会显示。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::Autosave</name>
+    <message>
+        <source>New layout</source>
+        <translation>新布局</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RecoverDialog</name>
+    <message>
+        <source>Discard</source>
+        <translation>放弃</translation>
+    </message>
+    <message>
+        <source>Discard the unsaved changes to “%1”?</source>
+        <translation>放弃对“%1”的未保存更改吗？</translation>
+    </message>
+    <message>
+        <source>The changes that were never saved are deleted.</source>
+        <translation>从未保存的更改会被删除。</translation>
+    </message>
+    <message>
+        <source>The file itself stays as it was last saved.</source>
+        <translation>文件本身保持上次保存时的样子。</translation>
+    </message>
+    <message>
+        <source>Today %1</source>
+        <translation>今天 %1</translation>
+    </message>
+    <message>
+        <source>Yesterday %1</source>
+        <translation>昨天 %1</translation>
+    </message>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>恢复未保存的工作</translation>
+    </message>
+    <message>
+        <source>Unsaved work</source>
+        <translation>未保存的工作</translation>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation>以后再说</translation>
+    </message>
+    <message>
+        <source>Keep them for later: File › Recover Unsaved Work…</source>
+        <translation>留待以后：文件 › 恢复未保存的工作…</translation>
+    </message>
+    <message>
+        <source>Delete the picked changes for good</source>
+        <translation>永久删除所选的更改</translation>
+    </message>
+    <message>
+        <source>Recover</source>
+        <translation>恢复</translation>
+    </message>
+    <message>
+        <source>Open the picked layout with its changes, ready to save</source>
+        <translation>打开所选布局及其更改，可直接保存</translation>
+    </message>
+    <message>
+        <source>%1 — changes from %2</source>
+        <translation>%1 — %2 的更改</translation>
+    </message>
+    <message>
+        <source>A new layout that was never saved</source>
+        <translation>从未保存过的新布局</translation>
+    </message>
+    <message>
+        <source>There&apos;s no unsaved work to recover: everything was saved.</source>
+        <translation>没有需要恢复的未保存工作：所有内容都已保存。</translation>
+    </message>
+    <message>
+        <source>The app closed before these changes were saved. Recover one to keep working on it, or discard what you don&apos;t need.</source>
+        <translation>应用在这些更改保存前关闭了。恢复其中一个以继续工作，或放弃不需要的内容。</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>关闭</translation>
     </message>
 </context>
 </TS>

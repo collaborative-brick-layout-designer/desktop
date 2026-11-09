@@ -468,3 +468,41 @@ TEST(RoundTrip, SavesTheFilesOwnSelectedSheetUntilOneIsPicked) {
     m.selectedLayerIndex = 0;
     EXPECT_EQ(m.selectedLayerIndexToSave(), 0);
 }
+
+// A pasted control character (a vertical tab from a spreadsheet) used to
+// make every save fail with "XML writer error", the autosave included. Text
+// is cleaned as it's written: vertical tab and form feed become new lines,
+// other control characters go; tabs, new lines and emoji stay.
+TEST(RoundTrip, ControlCharactersInTextDoNotStopSaving) {
+    core::Map original = makeSampleMap();
+    original.author = QStringLiteral("Ann\vBob");
+    original.comment = QStringLiteral("a\x01"
+                                      "b\fc\td");
+    auto layer = std::make_unique<core::LayerText>();
+    layer->guid = QStringLiteral("300");
+    layer->name = QStringLiteral("Lab\x02"
+                                 "els");
+    core::TextCell c;
+    c.guid = QStringLiteral("301");
+    c.text = QStringLiteral("Station\v") + QString::fromUtf8("\xF0\x9F\x9A\x82") + QChar(0xD800);
+    layer->textCells.push_back(c);
+    original.layers().push_back(std::move(layer));
+
+    QByteArray buf;
+    {
+        QBuffer out(&buf);
+        ASSERT_TRUE(out.open(QIODevice::WriteOnly));
+        const auto written = saveload::writeBbm(original, out);
+        ASSERT_TRUE(written.ok) << written.error.toStdString();
+    }
+    QBuffer in(&buf);
+    ASSERT_TRUE(in.open(QIODevice::ReadOnly));
+    auto result = saveload::readBbm(in);
+    ASSERT_TRUE(result.ok()) << result.error.toStdString();
+    EXPECT_EQ(result.map->author, QStringLiteral("Ann\nBob"));
+    EXPECT_EQ(result.map->comment, QStringLiteral("ab\nc\td"));
+    const auto* parsed = dynamic_cast<const core::LayerText*>(result.map->layers()[0].get());
+    ASSERT_NE(parsed, nullptr);
+    EXPECT_EQ(parsed->name, QStringLiteral("Labels"));
+    EXPECT_EQ(parsed->textCells[0].text, QStringLiteral("Station\n") + QString::fromUtf8("\xF0\x9F\x9A\x82"));
+}

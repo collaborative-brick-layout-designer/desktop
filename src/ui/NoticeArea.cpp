@@ -1,6 +1,7 @@
 #include "NoticeArea.h"
 
 #include "ServerApi.h"
+#include "help/HelpButton.h"
 
 #include <QDesktopServices>
 #include <QEvent>
@@ -25,6 +26,14 @@ NoticeArea::NoticeArea(QWidget* over) : QWidget(over), over_(over) {
     column_->setSpacing(10);
     over->installEventFilter(this);
     hide();
+}
+
+void NoticeArea::addHelp(const QString& id, const QString& key) {
+    QFrame* card = cards_.value(id);
+    if (!card) return;
+    auto* col = qobject_cast<QVBoxLayout*>(card->layout());
+    auto* head = col && col->count() > 0 ? qobject_cast<QHBoxLayout*>(col->itemAt(0)->layout()) : nullptr;
+    if (head) head->insertWidget(1, new help::HelpButton(key, card), 0, Qt::AlignTop);
 }
 
 void NoticeArea::showNotice(const QString& id, const QString& title, const QString& text,

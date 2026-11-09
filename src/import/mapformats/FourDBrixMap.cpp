@@ -9,6 +9,7 @@
 #include "../../edit/Connectivity.h"
 #include "../../saveload/XmlPrimitives.h"
 
+#include <QCoreApplication>
 #include <QDateTime>
 #include <QFile>
 #include <QFileInfo>
@@ -108,8 +109,20 @@ public:
             break;
         }
         if (r.hasError() && r.error() != QXmlStreamReader::PrematureEndOfDocumentError) {
-            out.error = r.errorString();
+            out.error =
+                QCoreApplication::translate("bld::import::MapFormats",
+                                            "The file is damaged at line %1, so it can't be opened safely.")
+                    .arg(r.lineNumber());
             return out;
+        }
+        // Cut off: what was read opens, and saving over it keeps a copy first.
+        if (r.error() == QXmlStreamReader::PrematureEndOfDocumentError) {
+            out.partlyRead = true;
+            out.warnings << QCoreApplication::translate(
+                                "bld::import::MapFormats",
+                                "The file is cut off at line %1: what comes after it is "
+                                "missing. It may not have finished saving or copying.")
+                                .arg(r.lineNumber());
         }
 
         buildTracks();

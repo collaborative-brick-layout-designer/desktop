@@ -3613,6 +3613,151 @@ Restore it?</source>
         <source>&amp;Preferences…</source>
         <translation>&amp;Voorkeuren…</translation>
     </message>
+    <message>
+        <source>Later</source>
+        <translation>Later</translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation>Tonen</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation>Niet nu</translation>
+    </message>
+    <message>
+        <source>%1 couldn&apos;t be opened.
+
+%2</source>
+        <translation>%1 kon niet worden geopend.
+
+%2</translation>
+    </message>
+    <message>
+        <source>The labels, modules and venue saved beside it (%1) couldn&apos;t be read (%2).</source>
+        <translation>De labels, modules en locatie die ernaast zijn opgeslagen (%1) konden niet worden gelezen (%2).</translation>
+    </message>
+    <message>
+        <source>The map was changed in another program since its labels, modules and venue were saved, so some of them may not line up any more.</source>
+        <translation>De kaart is in een ander programma gewijzigd sinds de labels, modules en locatie zijn opgeslagen, dus sommige kloppen misschien niet meer.</translation>
+    </message>
+    <message>
+        <source>Nothing is lost: when you save over it, a copy of the file as it was is kept first, ending in .bak.</source>
+        <translation>Er gaat niets verloren: als je eroverheen opslaat, wordt eerst een kopie van het bestand zoals het was bewaard, eindigend op .bak.</translation>
+    </message>
+    <message>
+        <source>%1 opened with problems</source>
+        <translation>%1 geopend met problemen</translation>
+    </message>
+    <message>
+        <source>A copy of %1 couldn&apos;t be kept before saving over it, so nothing was saved. Use File › Save As… to save under a new name.</source>
+        <translation>Er kon geen kopie van %1 worden bewaard voordat erover werd opgeslagen, dus er is niets opgeslagen. Gebruik Bestand › Opslaan als… om onder een nieuwe naam op te slaan.</translation>
+    </message>
+    <message>
+        <source>A copy was kept</source>
+        <translation>Er is een kopie bewaard</translation>
+    </message>
+    <message>
+        <source>What couldn&apos;t be read is kept as it was in %1, beside the file.</source>
+        <translation>Wat niet gelezen kon worden, blijft bewaard zoals het was in %1, naast het bestand.</translation>
+    </message>
+    <message>
+        <source>Saved with a problem</source>
+        <translation>Opgeslagen met een probleem</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but its labels, modules and venue (%2) couldn&apos;t be:
+%3</source>
+        <translation>%1 is opgeslagen, maar de labels, modules en locatie (%2) niet:
+%3</translation>
+    </message>
+    <message>
+        <source>saved views</source>
+        <translation>opgeslagen weergaven</translation>
+    </message>
+    <message>
+        <source>which version each set came from</source>
+        <translation>uit welke versie elke set komt</translation>
+    </message>
+    <message>
+        <source>Autosave failed</source>
+        <translation>Automatisch opslaan mislukt</translation>
+    </message>
+    <message>
+        <source>Your changes couldn&apos;t be kept for recovery: %1</source>
+        <translation>Je wijzigingen konden niet worden bewaard om te herstellen: %1</translation>
+    </message>
+    <message>
+        <source>Autosave failed: %1</source>
+        <translation>Automatisch opslaan mislukt: %1</translation>
+    </message>
+    <message>
+        <source>Autosaved %1</source>
+        <translation>Automatisch opgeslagen %1</translation>
+    </message>
+    <message>
+        <source>More unsaved work</source>
+        <translation>Meer niet-opgeslagen werk</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more layout(s) with unsaved changes can be recovered any time from File › Recover Unsaved Work….</source>
+        <translation>
+            <numerusform>Nog %n layout met niet-opgeslagen wijzigingen kun je altijd herstellen via Bestand › Niet-opgeslagen werk herstellen….</numerusform>
+            <numerusform>Nog %n layouts met niet-opgeslagen wijzigingen kun je altijd herstellen via Bestand › Niet-opgeslagen werk herstellen….</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Recovery failed</source>
+        <translation>Herstellen mislukt</translation>
+    </message>
+    <message>
+        <source>The unsaved changes to %1 couldn&apos;t be read: %2
+
+They are kept, so you can try again from File › Recover Unsaved Work….</source>
+        <translation>De niet-opgeslagen wijzigingen aan %1 konden niet worden gelezen: %2
+
+Ze blijven bewaard, dus je kunt het opnieuw proberen via Bestand › Niet-opgeslagen werk herstellen….</translation>
+    </message>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>Niet-opgeslagen werk herstellen</translation>
+    </message>
+    <message>
+        <source>Another copy of the app is already recovering %1.</source>
+        <translation>Een andere kopie van de app herstelt %1 al.</translation>
+    </message>
+    <message>
+        <source>Recovered the unsaved new layout. Save it to keep it.</source>
+        <translation>De niet-opgeslagen nieuwe layout is hersteld. Sla hem op om hem te bewaren.</translation>
+    </message>
+    <message>
+        <source>Recovered the unsaved changes to %1. Save to keep them.</source>
+        <translation>De niet-opgeslagen wijzigingen aan %1 zijn hersteld. Sla op om ze te bewaren.</translation>
+    </message>
+    <message>
+        <source>Recover &amp;Unsaved Work…</source>
+        <translation>Niet-opgeslagen werk &amp;herstellen…</translation>
+    </message>
+    <message>
+        <source>Changes the app kept when it closed before they were saved</source>
+        <translation>Wijzigingen die de app bewaarde toen hij sloot voordat ze waren opgeslagen</translation>
+    </message>
+    <message>
+        <source>%1 is a %2 file.
+
+Save it as a Collaborative Brick Layout Designer layout (%3) to keep everything in one file: labels, modules, the venue and the background image included.
+
+Keep it as %2 if you still open it in another program; File › Export as BlueBrick Map (.bbm)… can make a .bbm copy at any time.</source>
+        <translation>%1 is een %2-bestand.
+
+Sla het op als Collaborative Brick Layout Designer-layout (%3) om alles in één bestand te houden: labels, modules, de locatie en de achtergrondafbeelding inbegrepen.
+
+Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporteren als BlueBrick-kaart (.bbm)… kan altijd een .bbm-kopie maken.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -4538,6 +4683,213 @@ This removes:
         <location filename="../src/ui/VenueLibraryPanel.cpp" line="274"/>
         <source>(could not read file)</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HelpTexts</name>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>Niet-opgeslagen werk herstellen</translation>
+    </message>
+    <message>
+        <source>Changes the app kept for you when it closed before you saved them.</source>
+        <translation>Wijzigingen die de app voor je bewaarde toen hij sloot voordat je ze opsloeg.</translation>
+    </message>
+    <message>
+        <source>While you work, the app keeps a copy of your changes every few seconds. If it closes before you save, they wait here. Recover opens the layout with them, ready to save; Discard deletes them. Saving or closing normally clears them.</source>
+        <translation>Terwijl je werkt, bewaart de app om de paar seconden een kopie van je wijzigingen. Sluit hij voordat je opslaat, dan wachten ze hier. Herstellen opent de layout met de wijzigingen, klaar om op te slaan; Verwerpen verwijdert ze. Opslaan of gewoon afsluiten ruimt ze op.</translation>
+    </message>
+    <message>
+        <source>Opened with problems</source>
+        <translation>Geopend met problemen</translation>
+    </message>
+    <message>
+        <source>Part of the file couldn&apos;t be read, or was changed by another program.</source>
+        <translation>Een deel van het bestand kon niet worden gelezen, of is door een ander programma gewijzigd.</translation>
+    </message>
+    <message>
+        <source>What could be read is open. When you save over the file, the app first keeps a copy of it as it was, ending in .bak, so nothing is lost. Save to a new name to leave the file alone.</source>
+        <translation>Wat gelezen kon worden, is geopend. Als je over het bestand opslaat, bewaart de app eerst een kopie zoals het was, eindigend op .bak, zodat er niets verloren gaat. Sla op onder een nieuwe naam om het bestand ongemoeid te laten.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::import::MapFormats</name>
+    <message>
+        <source>The file is damaged at line %1, so it can&apos;t be opened safely.</source>
+        <translation>Het bestand is beschadigd op regel %1 en kan daarom niet veilig worden geopend.</translation>
+    </message>
+    <message>
+        <source>The file is cut off at line %1: what comes after it is missing. It may not have finished saving or copying.</source>
+        <translation>Het bestand houdt op bij regel %1: wat daarna komt, ontbreekt. Misschien is het niet helemaal opgeslagen of gekopieerd.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s) aren&apos;t in your parts library, so they were left out.</source>
+        <translation>
+            <numerusform>%n onderdeel staat niet in je onderdelenbibliotheek en is weggelaten.</numerusform>
+            <numerusform>%n onderdelen staan niet in je onderdelenbibliotheek en zijn weggelaten.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Only TrackDesigner files of version %1 can be read.</source>
+        <translation>Alleen TrackDesigner-bestanden van versie %1 kunnen worden gelezen.</translation>
+    </message>
+    <message>
+        <source>The file is cut off before its first piece, so it can&apos;t be opened. It may not have finished saving or copying.</source>
+        <translation>Het bestand houdt op vóór het eerste onderdeel en kan daarom niet worden geopend. Misschien is het niet helemaal opgeslagen of gekopieerd.</translation>
+    </message>
+    <message>
+        <source>No part is mapped to these TrackDesigner pieces, so they were left out: %1</source>
+        <translation>Aan deze TrackDesigner-onderdelen is geen onderdeel gekoppeld, dus ze zijn weggelaten: %1</translation>
+    </message>
+    <message>
+        <source>The file is cut off part way through a piece: the pieces after it are missing. It may not have finished saving or copying.</source>
+        <translation>Het bestand houdt halverwege een onderdeel op: de onderdelen daarna ontbreken. Misschien is het niet helemaal opgeslagen of gekopieerd.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::BbmReader</name>
+    <message numerus="yes">
+        <source>%n sheet(s) of a kind this version can&apos;t show were left out.</source>
+        <translation>
+            <numerusform>%n blad van een soort die deze versie niet kan tonen, is weggelaten.</numerusform>
+            <numerusform>%n bladen van een soort die deze versie niet kan tonen, zijn weggelaten.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The map was saved by a newer BlueBrick (file version %1); this version reads up to %2.</source>
+        <translation>De kaart is opgeslagen met een nieuwere BlueBrick (bestandsversie %1); deze versie leest tot en met %2.</translation>
+    </message>
+    <message>
+        <source>The file is cut off at line %1: it ends before the layout does. It may not have finished saving or copying. Nothing was changed.</source>
+        <translation>Het bestand houdt op bij regel %1: het eindigt voordat de layout dat doet. Misschien is het niet helemaal opgeslagen of gekopieerd. Er is niets veranderd.</translation>
+    </message>
+    <message>
+        <source>The file is damaged at line %1, column %2, so it can&apos;t be opened safely. Nothing was changed.</source>
+        <translation>Het bestand is beschadigd op regel %1, kolom %2, en kan daarom niet veilig worden geopend. Er is niets veranderd.</translation>
+    </message>
+    <message>
+        <source>This isn&apos;t a BlueBrick map: it has no layout in it.</source>
+        <translation>Dit is geen BlueBrick-kaart: er staat geen layout in.</translation>
+    </message>
+    <message>
+        <source>The file can&apos;t be opened: %1</source>
+        <translation>Het bestand kan niet worden geopend: %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::BbmWriter</name>
+    <message>
+        <source>The layout&apos;s details (author, club, event or comment) could not be written.</source>
+        <translation>De gegevens van de layout (auteur, club, evenement of opmerking) konden niet worden geschreven.</translation>
+    </message>
+    <message>
+        <source>The sheet “%1” could not be written.</source>
+        <translation>Het blad ‘%1’ kon niet worden geschreven.</translation>
+    </message>
+    <message>
+        <source>The layout could not be written.</source>
+        <translation>De layout kon niet worden geschreven.</translation>
+    </message>
+    <message>
+        <source>Only part of the layout could be written: the disk may be full.</source>
+        <translation>Slechts een deel van de layout kon worden geschreven: misschien is de schijf vol.</translation>
+    </message>
+    <message>
+        <source>The file can&apos;t be written: %1</source>
+        <translation>Het bestand kan niet worden geschreven: %1</translation>
+    </message>
+    <message>
+        <source>The file couldn&apos;t be saved: %1</source>
+        <translation>Het bestand kon niet worden opgeslagen: %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::saveload::SidecarIO</name>
+    <message>
+        <source>The labels, modules and venue were saved by a newer version of the app. Anything this version doesn&apos;t know is kept as it is, but isn&apos;t shown.</source>
+        <translation>De labels, modules en locatie zijn opgeslagen met een nieuwere versie van de app. Wat deze versie niet kent, blijft bewaard zoals het is, maar wordt niet getoond.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::Autosave</name>
+    <message>
+        <source>New layout</source>
+        <translation>Nieuwe layout</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RecoverDialog</name>
+    <message>
+        <source>Discard</source>
+        <translation>Verwerpen</translation>
+    </message>
+    <message>
+        <source>Discard the unsaved changes to “%1”?</source>
+        <translation>De niet-opgeslagen wijzigingen aan ‘%1’ verwerpen?</translation>
+    </message>
+    <message>
+        <source>The changes that were never saved are deleted.</source>
+        <translation>De wijzigingen die nooit zijn opgeslagen, worden verwijderd.</translation>
+    </message>
+    <message>
+        <source>The file itself stays as it was last saved.</source>
+        <translation>Het bestand zelf blijft zoals het het laatst is opgeslagen.</translation>
+    </message>
+    <message>
+        <source>Today %1</source>
+        <translation>Vandaag %1</translation>
+    </message>
+    <message>
+        <source>Yesterday %1</source>
+        <translation>Gisteren %1</translation>
+    </message>
+    <message>
+        <source>Recover unsaved work</source>
+        <translation>Niet-opgeslagen werk herstellen</translation>
+    </message>
+    <message>
+        <source>Unsaved work</source>
+        <translation>Niet-opgeslagen werk</translation>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation>Niet nu</translation>
+    </message>
+    <message>
+        <source>Keep them for later: File › Recover Unsaved Work…</source>
+        <translation>Bewaar ze voor later: Bestand › Niet-opgeslagen werk herstellen…</translation>
+    </message>
+    <message>
+        <source>Delete the picked changes for good</source>
+        <translation>De gekozen wijzigingen voorgoed verwijderen</translation>
+    </message>
+    <message>
+        <source>Recover</source>
+        <translation>Herstellen</translation>
+    </message>
+    <message>
+        <source>Open the picked layout with its changes, ready to save</source>
+        <translation>De gekozen layout met de wijzigingen openen, klaar om op te slaan</translation>
+    </message>
+    <message>
+        <source>%1 — changes from %2</source>
+        <translation>%1 — wijzigingen van %2</translation>
+    </message>
+    <message>
+        <source>A new layout that was never saved</source>
+        <translation>Een nieuwe layout die nooit is opgeslagen</translation>
+    </message>
+    <message>
+        <source>There&apos;s no unsaved work to recover: everything was saved.</source>
+        <translation>Er is geen niet-opgeslagen werk om te herstellen: alles is opgeslagen.</translation>
+    </message>
+    <message>
+        <source>The app closed before these changes were saved. Recover one to keep working on it, or discard what you don&apos;t need.</source>
+        <translation>De app sloot voordat deze wijzigingen waren opgeslagen. Herstel er een om eraan verder te werken, of verwerp wat je niet nodig hebt.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sluiten</translation>
     </message>
 </context>
 </TS>

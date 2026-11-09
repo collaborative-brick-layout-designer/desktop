@@ -16,6 +16,9 @@ struct SidecarLoadResult {
     bool ok = false;
     QString error;
     bool hashMismatch = false;   // true if the stored hash differs from the current .bbm
+    // Saved by a newer version (schemaVersion above ours): what this build
+    // doesn't know is kept (Sidecar::extras) but not shown.
+    bool newerVersion = false;
 };
 
 // Compute the canonical sidecar path for a .bbm: "foo.bbm" -> "foo.bbm.bld".
@@ -50,6 +53,10 @@ std::optional<core::SavedView> viewFromJson(const QJsonValue& value);
 // Points the sidecar's references (views' sheets, labels' targets, module
 // members) at the ids the map was renumbered to (LoadResult::renamedIds).
 void renameSidecarIds(core::Sidecar& sidecar, const QHash<QString, QString>& renamed);
+
+// What the person is told when the labels, modules and venue were saved by
+// a newer version (Sidecar::fromNewerVersion).
+QString newerSidecarWarning();
 
 // Compute SHA-256 of the bytes (hex-encoded lowercase).
 QByteArray sha256Hex(const QByteArray& bytes);

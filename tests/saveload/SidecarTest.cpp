@@ -6,6 +6,7 @@
 
 #include <QByteArray>
 #include <QDir>
+#include <QFile>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QString>
@@ -365,4 +366,50 @@ TEST(Sidecar, RoundTripPlacedSets) {
     EXPECT_FALSE(back[1].toObject().contains(QStringLiteral("anchor")));
     // None: no field.
     EXPECT_FALSE(saveload::sidecarToJson(core::Sidecar{}).contains(QStringLiteral("sets")));
+}
+
+// What a newer version or the web wrote is kept, not dropped, and a newer
+// file says so (it used to be read and saved back as version 1 without a word).
+TEST(Sidecar, KeepsWhatANewerVersionWrote) {
+    const QByteArray json = R"({
+        "schemaVersion": 2,
+        "bbmHashSha256": "",
+        "zones": [ { "id": "z1", "name": "Yard" } ],
+        "anchoredLabels": [ { "id": "l1", "text": "Station", "kind": 0, "glow": true,
+                              "font": { "family": "Arial", "size": 12, "style": "Regular" },
+                              "color": { "known": false, "argb": 4278190080 } } ]
+    })";
+    QTemporaryDir dir;
+    const QString path = dir.filePath(QStringLiteral("t.bbm.bld"));
+    QFile f(path);
+    ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+    f.write(json);
+    f.close();
+
+    core::Sidecar back;
+    const auto r = saveload::readSidecar(path, {}, back);
+    ASSERT_TRUE(r.ok) << r.error.toStdString();
+    EXPECT_TRUE(r.newerVersion);
+    EXPECT_TRUE(back.fromNewerVersion());
+    ASSERT_EQ(back.anchoredLabels.size(), 1u);
+    EXPECT_EQ(back.anchoredLabels[0].text, QStringLiteral("Station"));
+    EXPECT_TRUE(back.anchoredLabels[0].extras.value(QStringLiteral("glow")).toBool());
+    EXPECT_FALSE(back.isEmpty());
+
+    const QJsonObject again = saveload::sidecarToJson(back);
+    EXPECT_EQ(again.value(QStringLiteral("schemaVersion")).toInt(), 2);
+    EXPECT_EQ(again.value(QStringLiteral("zones")).toArray().size(), 1);
+    EXPECT_EQ(
+        again.value(QStringLiteral("zones")).toArray()[0].toObject().value(QStringLiteral("name")).toString(),
+        QStringLiteral("Yard"));
+    EXPECT_TRUE(again.value(QStringLiteral("anchoredLabels"))
+                    .toArray()[0]
+                    .toObject()
+                    .value(QStringLiteral("glow"))
+                    .toBool());
+
+    // Only extras: still written, not thrown away as an empty sidecar.
+    core::Sidecar onlyExtras;
+    onlyExtras.extras.insert(QStringLiteral("zones"), QJsonArray{});
+    EXPECT_FALSE(onlyExtras.isEmpty());
 }

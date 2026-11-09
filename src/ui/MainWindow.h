@@ -13,6 +13,7 @@
 #include <optional>
 #include <utility>
 
+#include "Autosave.h"
 #include "LibraryApi.h"
 #include "PartsUpload.h"
 #include "ServerApi.h"
@@ -214,7 +215,18 @@ private:
     // Puts a just-read map in the window as the document at `path`.
     // Modules that older builds made of placed sets become sets again (with a notice).
     void makeSetsOfSetModules();
-    void showLoadedMap(std::unique_ptr<core::Map> map, const QString& path, const QStringList& warnings);
+    // `keepCopies`: files the first save over them copies to a .bak first
+    // (keepCopiesBeforeSaving_), as something in them couldn't be read.
+    void showLoadedMap(std::unique_ptr<core::Map> map, const QString& path, const QStringList& warnings,
+                       const QStringList& keepCopies = {});
+    // What opening a file couldn't read, or read differently, in a notice
+    // card that stays until it's put away (a status message went too soon).
+    void showOpenWarnings(const QString& path, const QStringList& warnings);
+    // Files to copy to a .bak before the first save writes over them: the
+    // layout opened with parts left out, a sidecar that couldn't be read.
+    // A save over one of them copies it first and says so.
+    QStringList keepCopiesBeforeSaving_;
+    QStringList keepCopiesBefore(const QString& path);
     // Parts a .bld-layout carries that the library lacks: written to the
     // layout-parts folder, which joins the library paths. Returns what to
     // tell the user, and the parts the library has with other definitions.
@@ -579,17 +591,23 @@ private:
     // the last-opened file, we offer to restore it (see restoreAutosaveIfAny).
     class QTimer* autosaveTimer_ = nullptr;
     class QTimer* autosaveSoon_ = nullptr;  // the save a few seconds after an edit
-    void performAutosave();
+    class QLabel* autosaveLabel_ = nullptr;
+    bool performAutosave();
     void performAutosaveThrottled();  // called on every undo-stack change
+    // This window's layout's own autosave (Autosave.h).
+    AutosaveSlot autosave_;
+    // Opens a leftover autosave as the layout, with its changes still to be saved.
+    bool recover(const AutosaveLeftover& leftover);
+
 public:
-    // Returns the path where the autosave file lives for the current session
-    // (AppDataLocation/autosave.bld-layout). Public so main.cpp can check on startup.
-    static QString autosavePath();
-    // Offers to restore the autosave if it exists and is newer than lastFile.
-    // Called from main.cpp before openFile()ing the recent file. Returns true
-    // if the user accepted the restore (in which case main.cpp should skip
-    // reopening lastFile).
-    bool restoreAutosaveIfAny(const QString& lastFile);
+    // Where the open layout autosaves (its own file in AppData/autosave).
+    QString autosavePath() { return autosave_.path(); }
+    // At start: offers the unsaved work a copy of the app left when it
+    // closed before saving (Autosave.h), every one of them. Returns true
+    // when one was recovered (main.cpp then doesn't reopen the last file).
+    bool offerRecovery();
+    // File › Recover Unsaved Work…: the same list, any time.
+    void onRecoverUnsavedWork();
 };
 
 }

@@ -147,9 +147,9 @@ int main(int argc, char** argv) {
         window.openFile(files.first());
     } else {
         // No file argument: reopen whatever the user had open last session —
-        // but first check for a crash-recovery autosave.
+        // but first offer any unsaved work a copy of the app left behind.
         const QString last = QSettings().value(QStringLiteral("recent/lastFile")).toString();
-        const bool restored = window.restoreAutosaveIfAny(last);
+        const bool restored = window.offerRecovery();
         if (!restored && !last.isEmpty() && QFile::exists(last)) {
             window.openFile(last);
         }

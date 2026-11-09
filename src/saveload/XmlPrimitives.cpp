@@ -181,8 +181,31 @@ void writeDoubleElement(QXmlStreamWriter& w, const QString& name, double v) {
     w.writeTextElement(name, formatDouble(v));
 }
 
+QString cleanText(const QString& text) {
+    const auto fine = [](QChar c) {
+        const char16_t u = c.unicode();
+        return (u >= 0x20 && u != 0xFFFE && u != 0xFFFF && !c.isSurrogate()) || u == '\t' || u == '\n'
+               || u == '\r';
+    };
+    if (std::all_of(text.begin(), text.end(), fine)) return text;
+    QString out;
+    out.reserve(text.size());
+    for (qsizetype i = 0; i < text.size(); ++i) {
+        const QChar c = text[i];
+        if (fine(c)) {
+            out += c;
+        } else if (c.isHighSurrogate() && i + 1 < text.size() && text[i + 1].isLowSurrogate()) {
+            out += c;
+            out += text[++i];
+        } else if (c == QChar(u'\v') || c == QChar(u'\f')) {
+            out += QLatin1Char('\n');
+        }
+    }
+    return out;
+}
+
 void writeTextElement(QXmlStreamWriter& w, const QString& name, const QString& v) {
-    w.writeTextElement(name, v);
+    w.writeTextElement(name, cleanText(v));
 }
 
 void writeColor(QXmlStreamWriter& w, const QString& name, const core::ColorSpec& c) {

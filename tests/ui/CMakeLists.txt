@@ -18,6 +18,8 @@ add_executable(bld_ui_tests
     VenueDesignerDialogTest.cpp
     PartDifferencesDialogTest.cpp
     MainWindowFileTest.cpp
+    FileSafetyTest.cpp
+    DamagedFilesTest.cpp
     ReadmeShotsTest.cpp
     ThemeTest.cpp
     SettingsDialogTest.cpp

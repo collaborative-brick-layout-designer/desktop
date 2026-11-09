@@ -156,6 +156,7 @@ LayoutFileResult readLayoutFileBytes(const QByteArray& bytes, const QString& ass
         return r;
     }
     if (!loaded.error.isEmpty()) r.warnings << loaded.error;
+    if (loaded.skippedSheets > 0) r.partlyRead = true;
 
     if (zip.find(kSidecar)) {
         const auto sidecarBytes = entry(kSidecar, kMaxSidecar);
@@ -163,10 +164,12 @@ LayoutFileResult readLayoutFileBytes(const QByteArray& bytes, const QString& ass
             sidecarBytes ? QJsonDocument::fromJson(*sidecarBytes) : QJsonDocument();
         if (!doc.isObject()) {
             r.warnings << tr("The labels, modules, venue and background could not be read.");
+            r.partlyRead = true;
         } else {
             const QJsonObject root = doc.object();
             saveload::sidecarFromJson(root, loaded.map->sidecar);
             saveload::renameSidecarIds(loaded.map->sidecar, loaded.renamedIds);
+            if (loaded.map->sidecar.fromNewerVersion()) r.warnings << saveload::newerSidecarWarning();
             // The background image travels inside the file: unpack it.
             const QString file =
                 root.value(QLatin1String("backgroundImage")).toObject().value(QLatin1String("file")).toString();
@@ -184,6 +187,7 @@ LayoutFileResult readLayoutFileBytes(const QByteArray& bytes, const QString& ass
                     loaded.map->sidecar.backgroundImagePath = target;
                 } else {
                     r.warnings << tr("The background image could not be unpacked.");
+                    r.partlyRead = true;
                     loaded.map->sidecar.backgroundImagePath.clear();
                 }
             }
@@ -200,6 +204,7 @@ LayoutFileResult readLayoutFileBytes(const QByteArray& bytes, const QString& ass
             partBytes += data->size();
         } else {
             r.warnings << tr("The part file %1 in the layout could not be read.").arg(name);
+            r.partlyRead = true;
         }
     }
     r.map = std::move(loaded.map);

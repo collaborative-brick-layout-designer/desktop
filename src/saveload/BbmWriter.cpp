@@ -8,6 +8,7 @@
 
 #include <QBuffer>
 #include <QByteArray>
+#include <QCoreApplication>
 #include <QFile>
 #include <QRegularExpression>
 #include <QSaveFile>
@@ -37,7 +38,9 @@ void writeExportInfo(QXmlStreamWriter& w, const core::ExportInfo& info) {
     w.writeEndElement();
 }
 
-void writeMapBody(QXmlStreamWriter& w, const core::Map& m) {
+// Writes the map; on a writer error, says what was being written then (the
+// layout's details or a sheet by name), so the person knows what to fix.
+QString writeMapBody(QXmlStreamWriter& w, const core::Map& m) {
     // Vanilla BlueBrick's <Map> root has NO xmlns attributes (verified against
     // real saved files; .NET Framework 4.8's XmlSerializer.Serialize over
     // IXmlSerializable does not emit xsi/xsd namespaces by default when the
@@ -56,14 +59,23 @@ void writeMapBody(QXmlStreamWriter& w, const core::Map& m) {
     writeExportInfo(w, m.exportInfo);
 
     xml::writeIntElement(w, QStringLiteral("SelectedLayerIndex"), m.selectedLayerIndexToSave());
+    if (w.hasError())
+        return QCoreApplication::translate(
+            "bld::saveload::BbmWriter",
+            "The layout's details (author, club, event or comment) could not be written.");
 
     w.writeStartElement(QStringLiteral("Layers"));
     for (const auto& layer : m.layers()) {
-        if (layer) writeLayer(w, *layer);
+        if (!layer) continue;
+        writeLayer(w, *layer);
+        if (w.hasError())
+            return QCoreApplication::translate("bld::saveload::BbmWriter",
+                                               "The sheet “%1” could not be written.")
+                .arg(layer->name);
     }
     w.writeEndElement();
+    return {};
 }
-
 }
 
 namespace {
@@ -117,15 +129,20 @@ WriteResult writeBbm(const core::Map& m, QIODevice& output) {
         w.setAutoFormattingIndent(2);
         w.writeStartDocument(QStringLiteral("1.0"));
         w.writeStartElement(QStringLiteral("Map"));
-        writeMapBody(w, m);
+        const QString failed = writeMapBody(w, m);
+        if (!failed.isEmpty()) return { false, failed };
         w.writeEndElement();
         w.writeEndDocument();
-        if (w.hasError()) return { false, QStringLiteral("XML writer error") };
+        if (w.hasError())
+            return { false, QCoreApplication::translate("bld::saveload::BbmWriter",
+                                                        "The layout could not be written.") };
     }
 
     const QByteArray vanillaBytes = vanillaPostProcess(std::move(buf));
     if (output.write(vanillaBytes) != vanillaBytes.size()) {
-        return { false, QStringLiteral("Write truncated") };
+        return { false, QCoreApplication::translate(
+                            "bld::saveload::BbmWriter",
+                            "Only part of the layout could be written: the disk may be full.") };
     }
     return { true, {} };
 }
@@ -133,11 +150,16 @@ WriteResult writeBbm(const core::Map& m, QIODevice& output) {
 WriteResult writeBbm(const core::Map& m, const QString& path) {
     QSaveFile file(path);
     if (!file.open(QIODevice::WriteOnly)) {
-        return { false, QStringLiteral("Cannot open file: %1").arg(file.errorString()) };
+        return { false,
+                 QCoreApplication::translate("bld::saveload::BbmWriter", "The file can't be written: %1")
+                     .arg(file.errorString()) };
     }
     auto r = writeBbm(m, file);
     if (!r.ok) return r;
-    if (!file.commit()) return { false, QStringLiteral("Commit failed: %1").arg(file.errorString()) };
+    if (!file.commit())
+        return { false,
+                 QCoreApplication::translate("bld::saveload::BbmWriter", "The file couldn't be saved: %1")
+                     .arg(file.errorString()) };
     return { true, {} };
 }
 

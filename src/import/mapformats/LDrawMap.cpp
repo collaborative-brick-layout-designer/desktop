@@ -12,6 +12,7 @@
 #include "../../parts/PartsLibrary.h"
 #include "../../saveload/XmlPrimitives.h"
 
+#include <QCoreApplication>
 #include <QFile>
 #include <QFileInfo>
 #include <QHash>
@@ -135,7 +136,9 @@ public:
         }
         edit::rebuildConnectivity(*map_, lib_);
         if (skippedUnknown_ > 0) {
-            out.warnings << QStringLiteral("%1 part(s) are not in the parts library").arg(skippedUnknown_);
+            out.warnings << QCoreApplication::translate(
+                "bld::import::MapFormats", "%n part(s) aren't in your parts library, so they were left out.",
+                nullptr, skippedUnknown_);
         }
         out.map = std::move(map_);
         return out;

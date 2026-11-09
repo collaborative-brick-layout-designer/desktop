@@ -13,6 +13,7 @@
 #include "../core/LayerText.h"
 #include "../core/Map.h"
 
+#include <QCoreApplication>
 #include <QFile>
 #include <QHash>
 #include <QXmlStreamReader>
@@ -52,8 +53,7 @@ void readExportInfo(QXmlStreamReader& r, core::ExportInfo& info, int dataVersion
     (void)dataVersion;
 }
 
-QString readLayersInto(QXmlStreamReader& r, core::Map& map, int dataVersion) {
-    int skipped = 0;
+QString readLayersInto(QXmlStreamReader& r, core::Map& map, int dataVersion, int& skipped) {
     while (r.readNextStartElement()) {
         if (r.name() != QStringLiteral("Layer")) {
             r.skipCurrentElement();
@@ -67,21 +67,29 @@ QString readLayersInto(QXmlStreamReader& r, core::Map& map, int dataVersion) {
         }
     }
     if (skipped == 0) return {};
-    return QStringLiteral("%1 sheet(s) skipped (unsupported type)").arg(skipped);
+    return QCoreApplication::translate("bld::saveload::BbmReader",
+                                       "%n sheet(s) of a kind this version can't show were left out.",
+                                       nullptr, skipped);
 }
 
 LoadResult readMapElement(QXmlStreamReader& r) {
     auto map = std::make_unique<core::Map>();
     QString warning;
+    int skipped = 0;
 
     while (r.readNextStartElement()) {
         const auto n = r.name();
         if (n == QStringLiteral("Version")) {
             map->dataVersion = xml::readIntElement(r);
             if (map->dataVersion > core::Map::kCurrentDataVersion) {
-                return { nullptr, QStringLiteral(
-                    "File data version %1 is newer than supported (%2).")
-                        .arg(map->dataVersion).arg(core::Map::kCurrentDataVersion), {} };
+                return { nullptr,
+                         QCoreApplication::translate(
+                             "bld::saveload::BbmReader",
+                             "The map was saved by a newer BlueBrick (file version %1); "
+                             "this version reads up to %2.")
+                             .arg(map->dataVersion)
+                             .arg(core::Map::kCurrentDataVersion),
+                         {} };
             }
         } else if (n == QStringLiteral("nbItems")) {
             map->nbItems = xml::readIntElement(r);
@@ -102,7 +110,7 @@ LoadResult readMapElement(QXmlStreamReader& r) {
         } else if (n == QStringLiteral("SelectedLayerIndex")) {
             map->selectedLayerIndex = xml::readIntElement(r);
         } else if (n == QStringLiteral("Layers")) {
-            const auto w = readLayersInto(r, *map, map->dataVersion);
+            const auto w = readLayersInto(r, *map, map->dataVersion, skipped);
             if (!w.isEmpty()) warning = w;
         } else {
             r.skipCurrentElement();
@@ -112,6 +120,7 @@ LoadResult readMapElement(QXmlStreamReader& r) {
     LoadResult out;
     out.map = std::move(map);
     out.error = warning; // non-fatal warning if layers were skipped
+    out.skippedSheets = skipped;
     return out;
 }
 
@@ -212,11 +221,34 @@ QHash<QString, QString> migrateNonNumericIds(core::Map& map) {
 
 }
 
+namespace {
+
+// Where the reading stopped, in words for the person opening the file.
+QString damagedFileError(const QXmlStreamReader& r) {
+    if (r.error() == QXmlStreamReader::PrematureEndOfDocumentError)
+        return QCoreApplication::translate("bld::saveload::BbmReader",
+                                           "The file is cut off at line %1: it ends before the layout does. "
+                                           "It may not have finished saving or copying. Nothing was changed.")
+            .arg(r.lineNumber());
+    return QCoreApplication::translate("bld::saveload::BbmReader",
+                                       "The file is damaged at line %1, column %2, so it can't be opened "
+                                       "safely. Nothing was changed.")
+        .arg(r.lineNumber())
+        .arg(r.columnNumber());
+}
+
+} // namespace
+
 LoadResult readBbm(QIODevice& input) {
     QXmlStreamReader r(&input);
     while (r.readNextStartElement()) {
         if (r.name() == QStringLiteral("Map")) {
             LoadResult result = readMapElement(r);
+            // A file cut off or damaged part way stops the reading there:
+            // what was read is only part of the layout, and saving it would
+            // overwrite the whole file with that part. Refuse it, as vanilla
+            // BlueBrick does.
+            if (r.hasError()) return { nullptr, damagedFileError(r), {} };
             if (result.map) {
                 result.renamedIds = migrateNonNumericIds(*result.map);
                 core::keepDrawnSettingsInRange(*result.map);
@@ -225,13 +257,20 @@ LoadResult readBbm(QIODevice& input) {
         }
         r.skipCurrentElement();
     }
-    return { nullptr, QStringLiteral("No <Map> root element found."), {} };
+    if (r.hasError()) return { nullptr, damagedFileError(r), {} };
+    return { nullptr,
+             QCoreApplication::translate("bld::saveload::BbmReader",
+                                         "This isn't a BlueBrick map: it has no layout in it."),
+             {} };
 }
 
 LoadResult readBbm(const QString& path) {
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
-        return { nullptr, QStringLiteral("Cannot open file: %1").arg(file.errorString()), {} };
+        return { nullptr,
+                 QCoreApplication::translate("bld::saveload::BbmReader", "The file can't be opened: %1")
+                     .arg(file.errorString()),
+                 {} };
     }
     return readBbm(file);
 }

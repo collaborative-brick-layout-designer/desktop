@@ -50,14 +50,18 @@ written. Writers MUST NOT emit an empty sidecar.
 
 ### `schemaVersion` (integer, required)
 
-The only version shipped is `1`. Readers must reject files with
-`schemaVersion` greater than their highest supported version (forward
-compat rule — newer schemas might add required fields whose absence
-would silently lose data).
+The only version shipped is `1`. A file with a greater `schemaVersion`
+was written by a newer build:
+
+- the desktop opens it with a warning ("saved by a newer version …
+  kept as it is, but isn't shown"), keeps every field it doesn't know
+  (top level, labels, modules, views and sets) and writes the newer
+  version number back, so saving never quietly downgrades the file;
+- the web refuses it (`readSidecar` throws).
 
 Adding a new *optional* field to the schema (e.g. extending a Venue
-with a new property) does NOT bump the version; older readers should
-tolerate (ignore) unknown keys.
+with a new property) does NOT bump the version; older readers keep
+unknown keys as they are and write them back.
 
 ### `bbmHashSha256` (string, optional)
 
@@ -283,10 +287,9 @@ pair with a `.bbm` — just a venue, on its own.
 
 ## Versioning
 
-`schemaVersion = 1` is the only version shipped. Handled the same as
-`.bbm` versioning: reject files newer than the highest supported
-version; tolerate (ignore) unknown fields in otherwise-compatible
-files.
+`schemaVersion = 1` is the only version shipped. A newer file is
+opened with a warning on the desktop and refused on the web (see
+`schemaVersion` above); unknown fields are kept and written back.
 
 ## Round-trip guarantees
 

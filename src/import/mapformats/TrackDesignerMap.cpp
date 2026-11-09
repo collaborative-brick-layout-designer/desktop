@@ -7,6 +7,7 @@
 #include "../../core/Map.h"
 #include "../../edit/Connectivity.h"
 
+#include <QCoreApplication>
 #include <QFile>
 #include <QHash>
 #include <QSaveFile>
@@ -132,9 +133,11 @@ MapReadResult readTrackDesignerMap(const QString& path, parts::PartsLibrary& lib
 
     // ---- header
     in.skip(8);                       // origin
-    in.read<qint32>();                // piece count
+    const qint32 pieceCount = in.read<qint32>();
     if (in.read<qint32>() != kFileVersion) {
-        out.error = QStringLiteral("Only TrackDesigner files of version %1 can be read.").arg(kFileVersion);
+        out.error = QCoreApplication::translate("bld::import::MapFormats",
+                                                "Only TrackDesigner files of version %1 can be read.")
+                        .arg(kFileVersion);
         return out;
     }
     in.skip(16);                      // bounds
@@ -153,7 +156,9 @@ MapReadResult readTrackDesignerMap(const QString& path, parts::PartsLibrary& lib
     in.read<qint16>();                // CTrackPiece count
     in.skip(17);                      // CTrackPiece list header
     if (!in.ok()) {
-        out.error = QStringLiteral("Truncated TrackDesigner file.");
+        out.error = QCoreApplication::translate(
+            "bld::import::MapFormats", "The file is cut off before its first piece, so it can't be opened. "
+                                       "It may not have finished saving or copying.");
         return out;
     }
 
@@ -161,6 +166,7 @@ MapReadResult readTrackDesignerMap(const QString& path, parts::PartsLibrary& lib
     std::vector<core::Brick> baseplate, rail, monorail;
     QList<int> unmapped;
     bool end = in.atEnd();
+    int piecesRead = 0;
     while (!end) {
         int tdId = in.read<qint32>();
         in.read<qint32>();            // instance pointer
@@ -175,6 +181,7 @@ MapReadResult readTrackDesignerMap(const QString& path, parts::PartsLibrary& lib
         if (in.remaining() >= 58) in.skip(58);
         else end = true;
         if (!in.ok()) break;
+        ++piecesRead;
 
         if (tdId == kMonorailUpRamp && port == 1) tdId = kMonorailDownRamp;
         const QString key = lib.partForTrackDesignerId(tdId);
@@ -256,8 +263,18 @@ MapReadResult readTrackDesignerMap(const QString& path, parts::PartsLibrary& lib
     if (!unmapped.isEmpty()) {
         QStringList ids;
         for (int id : unmapped) ids << QString::number(id);
-        out.warnings << QStringLiteral("No part is mapped to these TrackDesigner ids: %1").arg(ids.join(QStringLiteral(", ")));
+        out.warnings << QCoreApplication::translate(
+                            "bld::import::MapFormats",
+                            "No part is mapped to these TrackDesigner pieces, so they were "
+                            "left out: %1")
+                            .arg(ids.join(QStringLiteral(", ")));
     }
+    // Fewer pieces than the file says it has: it was cut off.
+    out.partlyRead = !in.ok() || piecesRead < pieceCount;
+    if (out.partlyRead)
+        out.warnings << QCoreApplication::translate(
+            "bld::import::MapFormats", "The file is cut off part way through a piece: the pieces after "
+                                       "it are missing. It may not have finished saving or copying.");
     out.map = std::move(map);
     return out;
 }
