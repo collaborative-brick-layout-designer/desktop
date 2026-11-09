@@ -20,6 +20,12 @@ SyncClient::SyncClient(SyncDoc& doc, QObject* parent) : QObject(parent), doc_(do
     connect(&socket_, &QWebSocket::connected, this, &SyncClient::onConnected);
     connect(&socket_, &QWebSocket::disconnected, this, &SyncClient::onDisconnected);
     connect(&socket_, &QWebSocket::binaryMessageReceived, this, &SyncClient::onMessage);
+    ping_.setInterval(15000);
+    connect(&ping_, &QTimer::timeout, this, &SyncClient::ping);
+    answer_.setSingleShot(true);
+    answer_.setInterval(10000);
+    connect(&answer_, &QTimer::timeout, this, &SyncClient::noAnswer);
+    connect(&socket_, &QWebSocket::pong, this, [this] { heard(); });
     // Qt drops a bigger message (closing with 1009) before buffering it all.
     // A few bytes over the limit for the message's own header.
     socket_.setMaxAllowedIncomingMessageSize(static_cast<quint64>(guard::kMaxUpdateBytes) + 64);
@@ -36,6 +42,13 @@ void SyncClient::setReconnectDelays(std::chrono::milliseconds initial, std::chro
     maxDelay_ = max;
 }
 
+void SyncClient::setKeepAlive(std::chrono::milliseconds every, std::chrono::milliseconds answerWithin,
+                              std::chrono::milliseconds firstSyncWithin) {
+    ping_.setInterval(every);
+    answer_.setInterval(answerWithin);
+    firstSyncWithin_ = firstSyncWithin;
+}
+
 void SyncClient::open(const QUrl& url, const QString& bearerToken) {
     url_ = url;
     token_ = bearerToken;
@@ -49,8 +62,31 @@ void SyncClient::open(const QUrl& url, const QString& bearerToken) {
 void SyncClient::close() {
     wantOpen_ = false;
     retry_.stop();
+    ping_.stop();
+    answer_.stop();
     socket_.close();
     setStatus(Status::Offline);
+}
+
+void SyncClient::ping() {
+    if (socket_.state() != QAbstractSocket::ConnectedState) return;
+    socket_.ping();
+    if (!answer_.isActive()) answer_.start();
+}
+
+void SyncClient::heard() {
+    answer_.stop();
+}
+
+void SyncClient::noAnswer() {
+    if (socket_.state() != QAbstractSocket::ConnectedState) return;
+    // The layout's first copy may still be arriving, with the answer behind it.
+    if (status_ == Status::Syncing && std::chrono::steady_clock::now() - openedAt_ < firstSyncWithin_) return;
+    qWarning().noquote() << "Live layout: no answer from the server for"
+                         << (ping_.interval() + answer_.interval()) / 1000 << "s; connecting again";
+    ping_.stop();
+    // Not close(): its closing handshake would wait on the dead network too.
+    socket_.abort();
 }
 
 void SyncClient::connectSocket() {
@@ -65,6 +101,9 @@ void SyncClient::connectSocket() {
 
 void SyncClient::onConnected() {
     delay_ = initialDelay_;
+    openedAt_ = std::chrono::steady_clock::now();
+    answer_.stop();
+    ping_.start();
     // Our step 1 below asks for everything we're missing anyway.
     resyncAsked_ = false;
     setStatus(Status::Syncing);
@@ -72,6 +111,8 @@ void SyncClient::onConnected() {
 }
 
 void SyncClient::onDisconnected() {
+    ping_.stop();
+    answer_.stop();
     const int code = socket_.closeCode();
     const QString reason = socket_.closeReason();
     if (!wantOpen_) {
@@ -107,6 +148,7 @@ void SyncClient::onDisconnected() {
 }
 
 void SyncClient::onMessage(const QByteArray& message) {
+    heard();
     const auto msg = protocol::decode(message);
     if (!msg) return;  // unknown or malformed: ignored, like y-websocket
     switch (msg->kind) {
