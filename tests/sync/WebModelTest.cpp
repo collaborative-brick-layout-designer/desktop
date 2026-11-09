@@ -8,6 +8,7 @@
 #include "WebModel.h"
 #include "WebModelWriter.h"
 
+#include "core/ColorSpec.h"
 #include "core/DrawnLimits.h"
 #include "core/LayerArea.h"
 #include "core/LayerBrick.h"
@@ -484,4 +485,14 @@ TEST(WebModel, AMapReaderReadsWhatAWholeReadReads) {
     check("a sheet it can't read");
     doc = good;
     check("readable again");
+}
+
+// The live document keeps every color as 8 digits, as the web reads it (a
+// shorter one reads as an opaque RGB there); only the .bbm writes .NET's
+// Color.Name without leading zeros.
+TEST(WebModel, AlmostClearColorsKeepAllEightDigitsInTheDocument) {
+    core::Map m;
+    m.backgroundColor = core::ColorSpec::fromArgb(QColor::fromRgba(0x05ff0000u));
+    const QJsonObject bg = sync::docJsonFromMap(m).value(QStringLiteral("meta")).toObject().value(QStringLiteral("backgroundColor")).toObject();
+    EXPECT_EQ(bg.value(QStringLiteral("argb")).toString(), QStringLiteral("05ff0000"));
 }

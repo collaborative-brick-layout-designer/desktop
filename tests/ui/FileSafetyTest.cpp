@@ -376,3 +376,25 @@ TEST_F(FileSafety, SaveAsksAboutTheFormatForEachFile) {
         << asked.toStdString();
     EXPECT_EQ(bytesOf(tdl), before);
 }
+
+// A layout saved twice with nothing changed gives the same bytes, and so
+// does opening it again and saving (module members used to be written in a
+// different order each time).
+TEST_F(FileSafety, SavingALayoutAgainChangesNothing) {
+    for (const QFileInfo& fixture : QDir(QStringLiteral(BLD_SOURCE_DIR "/fixtures/layouts"))
+                                        .entryInfoList({ QStringLiteral("*.bld-layout") }, QDir::Files)) {
+        SCOPED_TRACE(fixture.fileName().toStdString());
+        const QString path = dir_.filePath(fixture.fileName());
+        QFile::remove(path);
+        ASSERT_TRUE(QFile::copy(fixture.absoluteFilePath(), path));
+        QFile(path).setPermissions(QFile::ReadOwner | QFile::WriteOwner);
+        ASSERT_TRUE(window_->openFile(path));
+        ASSERT_TRUE(invoke(*window_, "onSave"));
+        const QByteArray first = bytesOf(path);
+        ASSERT_TRUE(invoke(*window_, "onSave"));
+        EXPECT_TRUE(bytesOf(path) == first) << "the second save differs";
+        ASSERT_TRUE(window_->openFile(path));
+        ASSERT_TRUE(invoke(*window_, "onSave"));
+        EXPECT_TRUE(bytesOf(path) == first) << "saving after opening it again differs";
+    }
+}

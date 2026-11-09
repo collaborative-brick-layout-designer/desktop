@@ -132,9 +132,13 @@ QJsonObject encodeModule(const core::Module& m) {
     QJsonObject o = m.extras;
     o[QStringLiteral("id")] = m.id;
     o[QStringLiteral("name")] = m.name;
-    QJsonArray members;
-    for (const auto& id : m.memberIds) members.append(id);
-    o[QStringLiteral("members")] = members;
+    // In order (numbers by value), so saving the same layout twice gives
+    // the same bytes: a set has no order of its own.
+    QStringList ids(m.memberIds.cbegin(), m.memberIds.cend());
+    std::sort(ids.begin(), ids.end(), [](const QString& a, const QString& b) {
+        return a.size() != b.size() ? a.size() < b.size() : a < b;
+    });
+    o[QStringLiteral("members")] = QJsonArray::fromStringList(ids);
     QJsonArray xform{ m.transform.m11(), m.transform.m12(), m.transform.m13(),
                       m.transform.m21(), m.transform.m22(), m.transform.m23(),
                       m.transform.m31(), m.transform.m32(), m.transform.m33() };
