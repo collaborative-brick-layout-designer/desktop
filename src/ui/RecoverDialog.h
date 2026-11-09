@@ -50,4 +50,4 @@ private:
     QPushButton* later_ = nullptr;
 };
 
-}  // namespace bld::ui
+} // namespace bld::ui

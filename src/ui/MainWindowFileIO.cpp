@@ -21,8 +21,8 @@
 #include "../import/mapformats/TrackDesignerMap.h"
 
 #include "LayerPanel.h"
-#include "MapView.h"
 #include "LiveLayout.h"
+#include "MapView.h"
 #include "ModulesPanel.h"
 #include "PartDifferencesDialog.h"
 #include "PartsBrowser.h"
@@ -41,27 +41,26 @@
 
 #include <QAction>
 #include <QByteArray>
+#include <QCheckBox>
 #include <QCloseEvent>
 #include <QCoreApplication>
 #include <QDateTime>
-#include <QTimer>
 #include <QDir>
 #include <QFile>
-#include <QCheckBox>
 #include <QFileDialog>
-#include <QSaveFile>
 #include <QFileInfo>
 #include <QHash>
 #include <QLabel>
 #include <QMenu>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QSaveFile>
 #include <QSettings>
 #include <QStandardPaths>
 #include <QStatusBar>
 #include <QTime>
+#include <QTimer>
 #include <QUndoStack>
-
 
 namespace bld::ui {
 
@@ -139,7 +138,8 @@ void openOnAPartsSheet(core::Map& map) {
     if (const int start = startingSheet(map); start >= 0 && start != map.selectedLayerIndex) {
         const int saved = map.selectedLayerIndex;
         const auto& layers = map.layers();
-        const core::Layer* l = saved >= 0 && saved < static_cast<int>(layers.size()) ? layers[saved].get() : nullptr;
+        const core::Layer* l =
+            saved >= 0 && saved < static_cast<int>(layers.size()) ? layers[saved].get() : nullptr;
         map.fileSelection = core::Map::FileSelection{ saved, l, l ? l->guid : QString() };
         map.selectedLayerIndex = start;
     }
@@ -162,7 +162,8 @@ bool MainWindow::openFile(const QString& path) {
                                               : import::readLDrawMap(path, parts_);
         if (!ldraw.ok()) {
             mapView_->hideOpening();
-            QMessageBox::warning(this, tr("Open failed"), tr("%1 couldn't be opened.\n\n%2").arg(fileNameOf(path), ldraw.error));
+            QMessageBox::warning(this, tr("Open failed"),
+                                 tr("%1 couldn't be opened.\n\n%2").arg(fileNameOf(path), ldraw.error));
             return false;
         }
         const int layerCount = static_cast<int>(ldraw.map->layers().size());
@@ -187,7 +188,8 @@ bool MainWindow::openFile(const QString& path) {
         auto layout = import::readLayoutFile(path, layoutAssetDir());
         if (!layout.ok()) {
             mapView_->hideOpening();
-            QMessageBox::warning(this, tr("Open failed"), tr("%1 couldn't be opened.\n\n%2").arg(fileNameOf(path), layout.error));
+            QMessageBox::warning(this, tr("Open failed"),
+                                 tr("%1 couldn't be opened.\n\n%2").arg(fileNameOf(path), layout.error));
             return false;
         }
         // Before the map, so its bricks find their parts.
@@ -204,7 +206,8 @@ bool MainWindow::openFile(const QString& path) {
     auto result = saveload::readBbm(path);
     if (!result.ok()) {
         mapView_->hideOpening();
-        QMessageBox::warning(this, tr("Open failed"), tr("%1 couldn't be opened.\n\n%2").arg(fileNameOf(path), result.error));
+        QMessageBox::warning(this, tr("Open failed"),
+                             tr("%1 couldn't be opened.\n\n%2").arg(fileNameOf(path), result.error));
         return false;
     }
     QStringList warnings;
@@ -229,8 +232,9 @@ bool MainWindow::openFile(const QString& path) {
                             .arg(fileNameOf(sidecarPath), sres.error);
         } else {
             if (sres.hashMismatch)
-                warnings << tr("The map was changed in another program since its labels, modules and venue were "
-                               "saved, so some of them may not line up any more.");
+                warnings << tr(
+                    "The map was changed in another program since its labels, modules and venue were "
+                    "saved, so some of them may not line up any more.");
             if (sres.newerVersion) warnings << saveload::newerSidecarWarning();
         }
     }
@@ -269,15 +273,16 @@ void MainWindow::showOpenWarnings(const QString& path, const QStringList& warnin
     QStringList lines;
     for (const QString& w : warnings) lines << QStringLiteral("• ") + w;
     if (!keepCopiesBeforeSaving_.isEmpty())
-        lines << QString() << tr("Nothing is lost: when you save over it, a copy of the file as it was is kept "
-                                 "first, ending in .bak.");
-    notices_->showNotice(id, tr("%1 opened with problems").arg(fileNameOf(path)), lines.join(QLatin1Char('\n')),
-                         { NoticeAction{ tr("OK"), {} } });
+        lines << QString()
+              << tr("Nothing is lost: when you save over it, a copy of the file as it was is kept "
+                    "first, ending in .bak.");
+    notices_->showNotice(id, tr("%1 opened with problems").arg(fileNameOf(path)),
+                         lines.join(QLatin1Char('\n')), { NoticeAction{ tr("OK"), {} } });
     notices_->addHelp(id, QStringLiteral("file.openProblems"));
 }
 
-void MainWindow::showLoadedMap(std::unique_ptr<core::Map> map, const QString& path, const QStringList& warnings,
-                               const QStringList& keepCopies) {
+void MainWindow::showLoadedMap(std::unique_ptr<core::Map> map, const QString& path,
+                               const QStringList& warnings, const QStringList& keepCopies) {
     const int layerCount = static_cast<int>(map->layers().size());
     const int nbItems = map->nbItems;
     openOnAPartsSheet(*map);
@@ -291,7 +296,8 @@ void MainWindow::showLoadedMap(std::unique_ptr<core::Map> map, const QString& pa
     mapView_->undoStack()->setClean();
     cleanUndoIndex_ = 0;
     updateTitle();
-    showFileMessage(statusBar(), tr("Opened %1 — %2 sheets, %3 items").arg(fileNameOf(path)).arg(layerCount).arg(nbItems),
+    showFileMessage(statusBar(),
+                    tr("Opened %1 — %2 sheets, %3 items").arg(fileNameOf(path)).arg(layerCount).arg(nbItems),
                     path);
     showOpenWarnings(path, warnings);
     QSettings().setValue(QString::fromLatin1(kLastFileKey), path);
@@ -418,7 +424,8 @@ bool MainWindow::writeMapTo(const QString& path) {
             const QByteArray bbmBytes = bf.readAll();
             QString err;
             if (!saveload::writeSidecar(sidecarPath, bbmBytes, map->sidecar, &err)) {
-                QMessageBox::warning(this, tr("Saved with a problem"),
+                QMessageBox::warning(
+                    this, tr("Saved with a problem"),
                     tr("%1 was saved, but its labels, modules and venue (%2) couldn't be:\n%3")
                         .arg(fileNameOf(path), fileNameOf(sidecarPath), err));
             }
@@ -542,13 +549,15 @@ bool MainWindow::onSave() {
 bool MainWindow::chooseSaveFormat() {
     const QFileInfo info(currentFilePath_);
     const QString native = info.dir().filePath(info.completeBaseName() + QStringLiteral(".bld-layout"));
-    QMessageBox box(QMessageBox::Question, tr("Save layout"),
+    QMessageBox box(
+        QMessageBox::Question, tr("Save layout"),
         tr("%1 is a %2 file.\n\n"
            "Save it as a Collaborative Brick Layout Designer layout (%3) to keep everything in one file: "
            "labels, modules, the venue and the background image included.\n\n"
            "Keep it as %2 if you still open it in another program; File › Export as BlueBrick Map (.bbm)… "
            "can make a .bbm copy at any time.")
-            .arg(info.fileName(), info.suffix().toLower().prepend(QLatin1Char('.')), QFileInfo(native).fileName()),
+            .arg(info.fileName(), info.suffix().toLower().prepend(QLatin1Char('.')),
+                 QFileInfo(native).fileName()),
         QMessageBox::Cancel, this);
     QPushButton* switchBtn = box.addButton(tr("Save as .bld-layout"), QMessageBox::AcceptRole);
     QPushButton* keepBtn = box.addButton(tr("Keep %1").arg(info.suffix().toLower().prepend(QLatin1Char('.'))),
@@ -899,10 +908,11 @@ void MainWindow::pushRecentFile(const QString& path) {
 // ---------- Autosave + restore ---------------------------------------------
 
 bool MainWindow::performAutosave() {
-    if (!mapView_->currentMap() || mapView_->undoStack()->isClean()) return false;
+    const auto* map = mapView_->currentMap();
+    if (!map || mapView_->undoStack()->isClean()) return false;
     const QString path = autosave_.path();
     QString error;
-    if (!import::writeLayoutFile(*mapView_->currentMap(), path, &error, nullptr, partsToEmbed(), manifestExtras())) {
+    if (!import::writeLayoutFile(*map, path, &error, nullptr, partsToEmbed(), manifestExtras())) {
         // Said where it stays seen: a failed autosave used to pass unnoticed.
         if (autosaveLabel_) {
             autosaveLabel_->setText(tr("Autosave failed"));
@@ -914,7 +924,8 @@ bool MainWindow::performAutosave() {
     // Which file it was editing, so a recovery names it.
     autosave_.noteWritten(currentFilePath_);
     if (autosaveLabel_) {
-        autosaveLabel_->setText(tr("Autosaved %1").arg(QTime::currentTime().toString(QStringLiteral("HH:mm"))));
+        autosaveLabel_->setText(
+            tr("Autosaved %1").arg(QTime::currentTime().toString(QStringLiteral("HH:mm"))));
         autosaveLabel_->setToolTip(tr("Last successful autosave time"));
     }
     statusBar()->showMessage(tr("Autosaved (%1)").arg(QTime::currentTime().toString("HH:mm:ss")), 2000);
@@ -946,7 +957,8 @@ bool MainWindow::offerRecovery() {
     if (more > 0) {
         notices_->showNotice(QStringLiteral("recover-more"), tr("More unsaved work"),
                              tr("%n more layout(s) with unsaved changes can be recovered any time from "
-                                "File › Recover Unsaved Work….", nullptr, static_cast<int>(more)),
+                                "File › Recover Unsaved Work….",
+                                nullptr, static_cast<int>(more)),
                              { NoticeAction{ tr("Show"), [this] { onRecoverUnsavedWork(); } },
                                NoticeAction{ tr("Later"), {} } });
         notices_->addHelp(QStringLiteral("recover-more"), QStringLiteral("file.recover"));
@@ -968,10 +980,11 @@ bool MainWindow::recover(const AutosaveLeftover& leftover) {
     // The autosave is a whole layout file: labels, modules and venue included.
     auto result = import::readLayoutFile(leftover.layoutPath, layoutAssetDir());
     if (!result.ok()) {
-        QMessageBox::warning(this, tr("Recovery failed"),
-                             tr("The unsaved changes to %1 couldn't be read: %2\n\nThey are kept, so you can try again "
-                                "from File › Recover Unsaved Work….")
-                                 .arg(leftover.displayName(), result.error));
+        QMessageBox::warning(
+            this, tr("Recovery failed"),
+            tr("The unsaved changes to %1 couldn't be read: %2\n\nThey are kept, so you can try again "
+               "from File › Recover Unsaved Work….")
+                .arg(leftover.displayName(), result.error));
         return false;
     }
     // The layout before it was saved or discarded (maybeSave): its undo
@@ -980,8 +993,9 @@ bool MainWindow::recover(const AutosaveLeftover& leftover) {
     // Before the layout is shown: its autosave becomes this window's, so
     // its next autosave and its save go to that file.
     if (!autosave_.adopt(leftover)) {
-        QMessageBox::information(this, tr("Recover unsaved work"),
-                                 tr("Another copy of the app is already recovering %1.").arg(leftover.displayName()));
+        QMessageBox::information(
+            this, tr("Recover unsaved work"),
+            tr("Another copy of the app is already recovering %1.").arg(leftover.displayName()));
         return false;
     }
     forgetFileSource();
@@ -1009,9 +1023,10 @@ bool MainWindow::recover(const AutosaveLeftover& leftover) {
     if (!source.isEmpty()) pushRecentFile(source);
     updateTitle();
 
-    const QString text = source.isEmpty()
-        ? tr("Recovered the unsaved new layout. Save it to keep it.")
-        : tr("Recovered the unsaved changes to %1. Save to keep them.").arg(fileNameOf(source));
+    const QString text =
+        source.isEmpty()
+            ? tr("Recovered the unsaved new layout. Save it to keep it.")
+            : tr("Recovered the unsaved changes to %1. Save to keep them.").arg(fileNameOf(source));
     showFileMessage(statusBar(), text, source.isEmpty() ? leftover.layoutPath : source, 8000);
     return true;
 }

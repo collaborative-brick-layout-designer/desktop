@@ -156,9 +156,9 @@ MapReadResult readTrackDesignerMap(const QString& path, parts::PartsLibrary& lib
     in.read<qint16>();                // CTrackPiece count
     in.skip(17);                      // CTrackPiece list header
     if (!in.ok()) {
-        out.error = QCoreApplication::translate("bld::import::MapFormats",
-                                                "The file is cut off before its first piece, so it can't be opened. "
-                                                "It may not have finished saving or copying.");
+        out.error = QCoreApplication::translate(
+            "bld::import::MapFormats", "The file is cut off before its first piece, so it can't be opened. "
+                                       "It may not have finished saving or copying.");
         return out;
     }
 
@@ -263,17 +263,18 @@ MapReadResult readTrackDesignerMap(const QString& path, parts::PartsLibrary& lib
     if (!unmapped.isEmpty()) {
         QStringList ids;
         for (int id : unmapped) ids << QString::number(id);
-        out.warnings << QCoreApplication::translate("bld::import::MapFormats",
-                                                    "No part is mapped to these TrackDesigner pieces, so they were "
-                                                    "left out: %1")
+        out.warnings << QCoreApplication::translate(
+                            "bld::import::MapFormats",
+                            "No part is mapped to these TrackDesigner pieces, so they were "
+                            "left out: %1")
                             .arg(ids.join(QStringLiteral(", ")));
     }
     // Fewer pieces than the file says it has: it was cut off.
     out.partlyRead = !in.ok() || piecesRead < pieceCount;
     if (out.partlyRead)
-        out.warnings << QCoreApplication::translate("bld::import::MapFormats",
-                                                    "The file is cut off part way through a piece: the pieces after "
-                                                    "it are missing. It may not have finished saving or copying.");
+        out.warnings << QCoreApplication::translate(
+            "bld::import::MapFormats", "The file is cut off part way through a piece: the pieces after "
+                                       "it are missing. It may not have finished saving or copying.");
     out.map = std::move(map);
     return out;
 }

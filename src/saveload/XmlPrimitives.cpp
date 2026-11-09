@@ -184,7 +184,8 @@ void writeDoubleElement(QXmlStreamWriter& w, const QString& name, double v) {
 QString cleanText(const QString& text) {
     const auto fine = [](QChar c) {
         const char16_t u = c.unicode();
-        return (u >= 0x20 && u != 0xFFFE && u != 0xFFFF && !c.isSurrogate()) || u == '\t' || u == '\n' || u == '\r';
+        return (u >= 0x20 && u != 0xFFFE && u != 0xFFFF && !c.isSurrogate()) || u == '\t' || u == '\n'
+               || u == '\r';
     };
     if (std::all_of(text.begin(), text.end(), fine)) return text;
     QString out;

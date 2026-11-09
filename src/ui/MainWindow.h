@@ -13,11 +13,11 @@
 #include <optional>
 #include <utility>
 
+#include "Autosave.h"
 #include "LibraryApi.h"
 #include "PartsUpload.h"
 #include "ServerApi.h"
 #include "TokenStore.h"
-#include "Autosave.h"
 #include <QSet>
 
 class QAction;
@@ -598,6 +598,7 @@ private:
     AutosaveSlot autosave_;
     // Opens a leftover autosave as the layout, with its changes still to be saved.
     bool recover(const AutosaveLeftover& leftover);
+
 public:
     // Where the open layout autosaves (its own file in AppData/autosave).
     QString autosavePath() { return autosave_.path(); }

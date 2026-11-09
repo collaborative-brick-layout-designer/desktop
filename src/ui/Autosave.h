@@ -20,9 +20,9 @@ class QLockFile;
 namespace bld::ui {
 
 struct AutosaveLeftover {
-    QString id;          // "<id>" of the files; "legacy" for the old single autosave
-    QString layoutPath;  // the autosaved .bld-layout
-    QString sourceFile;  // the file it was editing; empty for a new layout
+    QString id;         // "<id>" of the files; "legacy" for the old single autosave
+    QString layoutPath; // the autosaved .bld-layout
+    QString sourceFile; // the file it was editing; empty for a new layout
     QDateTime savedAt;
     bool legacy() const { return id == QLatin1String("legacy"); }
     // "corner.bbm", or "New layout" for one never saved.
@@ -63,4 +63,4 @@ private:
     std::unique_ptr<QLockFile> lock_;
 };
 
-}  // namespace bld::ui
+} // namespace bld::ui

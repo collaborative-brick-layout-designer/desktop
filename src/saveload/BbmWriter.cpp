@@ -60,21 +60,22 @@ QString writeMapBody(QXmlStreamWriter& w, const core::Map& m) {
 
     xml::writeIntElement(w, QStringLiteral("SelectedLayerIndex"), m.selectedLayerIndexToSave());
     if (w.hasError())
-        return QCoreApplication::translate("bld::saveload::BbmWriter",
-                                           "The layout's details (author, club, event or comment) could not be written.");
+        return QCoreApplication::translate(
+            "bld::saveload::BbmWriter",
+            "The layout's details (author, club, event or comment) could not be written.");
 
     w.writeStartElement(QStringLiteral("Layers"));
     for (const auto& layer : m.layers()) {
         if (!layer) continue;
         writeLayer(w, *layer);
         if (w.hasError())
-            return QCoreApplication::translate("bld::saveload::BbmWriter", "The sheet “%1” could not be written.")
+            return QCoreApplication::translate("bld::saveload::BbmWriter",
+                                               "The sheet “%1” could not be written.")
                 .arg(layer->name);
     }
     w.writeEndElement();
     return {};
 }
-
 }
 
 namespace {
@@ -133,13 +134,15 @@ WriteResult writeBbm(const core::Map& m, QIODevice& output) {
         w.writeEndElement();
         w.writeEndDocument();
         if (w.hasError())
-            return { false, QCoreApplication::translate("bld::saveload::BbmWriter", "The layout could not be written.") };
+            return { false, QCoreApplication::translate("bld::saveload::BbmWriter",
+                                                        "The layout could not be written.") };
     }
 
     const QByteArray vanillaBytes = vanillaPostProcess(std::move(buf));
     if (output.write(vanillaBytes) != vanillaBytes.size()) {
-        return { false, QCoreApplication::translate("bld::saveload::BbmWriter",
-                                                    "Only part of the layout could be written: the disk may be full.") };
+        return { false, QCoreApplication::translate(
+                            "bld::saveload::BbmWriter",
+                            "Only part of the layout could be written: the disk may be full.") };
     }
     return { true, {} };
 }
@@ -147,14 +150,16 @@ WriteResult writeBbm(const core::Map& m, QIODevice& output) {
 WriteResult writeBbm(const core::Map& m, const QString& path) {
     QSaveFile file(path);
     if (!file.open(QIODevice::WriteOnly)) {
-        return { false, QCoreApplication::translate("bld::saveload::BbmWriter", "The file can't be written: %1")
-                            .arg(file.errorString()) };
+        return { false,
+                 QCoreApplication::translate("bld::saveload::BbmWriter", "The file can't be written: %1")
+                     .arg(file.errorString()) };
     }
     auto r = writeBbm(m, file);
     if (!r.ok) return r;
     if (!file.commit())
-        return { false, QCoreApplication::translate("bld::saveload::BbmWriter", "The file couldn't be saved: %1")
-                            .arg(file.errorString()) };
+        return { false,
+                 QCoreApplication::translate("bld::saveload::BbmWriter", "The file couldn't be saved: %1")
+                     .arg(file.errorString()) };
     return { true, {} };
 }
 

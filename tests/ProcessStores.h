@@ -18,7 +18,8 @@ class ProcessStores {
 public:
     explicit ProcessStores(const QString& app) {
         QCoreApplication::setOrganizationName(QStringLiteral("BrickLayoutDesignerTests"));
-        QCoreApplication::setApplicationName(app + QLatin1Char('-') + QString::number(QCoreApplication::applicationPid()));
+        QCoreApplication::setApplicationName(app + QLatin1Char('-')
+                                             + QString::number(QCoreApplication::applicationPid()));
     }
     ~ProcessStores() {
         const bool was = QStandardPaths::isTestModeEnabled();

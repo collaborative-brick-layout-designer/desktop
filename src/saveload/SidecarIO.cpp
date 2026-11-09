@@ -6,7 +6,6 @@
 
 #include <QCoreApplication>
 #include <QCryptographicHash>
-#include <algorithm>
 #include <QDateTime>
 #include <QFile>
 #include <QJsonArray>
@@ -16,6 +15,7 @@
 #include <QSaveFile>
 #include <QSet>
 #include <QStringList>
+#include <algorithm>
 
 #include <cmath>
 
@@ -66,9 +66,11 @@ QPointF decodePoint(const QJsonObject& o) {
 }
 
 const QStringList& knownLabelKeys() {
-    static const QStringList keys{ QStringLiteral("id"),     QStringLiteral("text"),     QStringLiteral("font"),
-                                   QStringLiteral("color"),  QStringLiteral("kind"),     QStringLiteral("targetId"),
-                                   QStringLiteral("offset"), QStringLiteral("rot"),      QStringLiteral("minZoom") };
+    static const QStringList keys{ QStringLiteral("id"),     QStringLiteral("text"),
+                                   QStringLiteral("font"),   QStringLiteral("color"),
+                                   QStringLiteral("kind"),   QStringLiteral("targetId"),
+                                   QStringLiteral("offset"), QStringLiteral("rot"),
+                                   QStringLiteral("minZoom") };
     return keys;
 }
 
@@ -300,9 +302,9 @@ std::optional<core::SavedView> viewFromJson(const QJsonValue& raw) {
 }
 
 QString newerSidecarWarning() {
-    return QCoreApplication::translate("bld::saveload::SidecarIO",
-                                       "The labels, modules and venue were saved by a newer version of the app. "
-                                       "Anything this version doesn't know is kept as it is, but isn't shown.");
+    return QCoreApplication::translate(
+        "bld::saveload::SidecarIO", "The labels, modules and venue were saved by a newer version of the app. "
+                                    "Anything this version doesn't know is kept as it is, but isn't shown.");
 }
 
 QString sidecarPathFor(const QString& bbmPath) {

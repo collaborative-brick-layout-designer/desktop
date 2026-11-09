@@ -102,7 +102,7 @@ protected:
     decltype(ui::RecoverDialog::confirmDiscard) saved_ = ui::RecoverDialog::confirmDiscard;
 };
 
-}  // namespace
+} // namespace
 
 TEST_F(FileSafety, ACutOffBbmIsRefusedAndTheFileLeftAlone) {
     ASSERT_TRUE(window_->openFile(bbm_));
@@ -144,7 +144,8 @@ TEST_F(FileSafety, AnUnreadableSidecarIsKeptWhenSaving) {
     ASSERT_TRUE(saved);
     EXPECT_EQ(bytesOf(sidecar + QStringLiteral(".bak")), garbage);
     EXPECT_TRUE(window_->notices()->isShown(QStringLiteral("kept-copies")));
-    EXPECT_TRUE(cardText(*window_, QStringLiteral("kept-copies")).contains(QStringLiteral("corner.bbm.bld.bak")));
+    EXPECT_TRUE(
+        cardText(*window_, QStringLiteral("kept-copies")).contains(QStringLiteral("corner.bbm.bld.bak")));
     // Copied once: the next save doesn't make another.
     Answers none;
     none.during([&] { saved = invoke(*window_, "onSave"); });
@@ -161,11 +162,12 @@ TEST_F(FileSafety, AMapChangedElsewhereIsSaidInACard) {
     label.text = QStringLiteral("Station");
     map->sidecar.anchoredLabels.push_back(label);
     ASSERT_TRUE(saveload::writeSidecar(saveload::sidecarPathFor(bbm_), bytesOf(bbm_), map->sidecar));
-    writeBytes(bbm_, bytesOf(bbm_) + "\r\n");  // as another program would save it
+    writeBytes(bbm_, bytesOf(bbm_) + "\r\n"); // as another program would save it
     ASSERT_TRUE(window_->openFile(bbm_));
     EXPECT_TRUE(window_->statusBar()->currentMessage().startsWith(QStringLiteral("Opened corner.bbm")));
     ASSERT_TRUE(window_->notices()->isShown(QStringLiteral("open-warnings")));
-    EXPECT_TRUE(cardText(*window_, QStringLiteral("open-warnings")).contains(QStringLiteral("changed in another program")));
+    EXPECT_TRUE(cardText(*window_, QStringLiteral("open-warnings"))
+                    .contains(QStringLiteral("changed in another program")));
     // The labels are still there.
     EXPECT_EQ(window_->findChild<ui::MapView*>()->currentMap()->sidecar.anchoredLabels.size(), 1u);
 }
@@ -244,7 +246,7 @@ TEST_F(FileSafety, ARecoveredLayoutIsUnsaved) {
     makeAnEdit(*window_);
     ASSERT_TRUE(waitForAutosave(*window_));
     const QString autosave = window_->autosavePath();
-    window_.reset();  // a crash
+    window_.reset(); // a crash
 
     window_ = std::make_unique<ui::MainWindow>(parts_);
     QStringList listed;
@@ -257,11 +259,14 @@ TEST_F(FileSafety, ARecoveredLayoutIsUnsaved) {
     recover.during([&] { recovered = window_->offerRecovery(); });
     ASSERT_TRUE(recovered);
     ASSERT_EQ(listed.size(), 1);
-    EXPECT_TRUE(listed.front().startsWith(QStringLiteral("corner.bbm — changes from Today"))) << listed.front().toStdString();
+    EXPECT_TRUE(listed.front().startsWith(QStringLiteral("corner.bbm — changes from Today")))
+        << listed.front().toStdString();
     auto* view = window_->findChild<ui::MapView*>();
     EXPECT_FALSE(view->undoStack()->isClean());
-    EXPECT_TRUE(window_->windowTitle().startsWith(QStringLiteral("corner.bbm *"))) << window_->windowTitle().toStdString();
-    EXPECT_TRUE(window_->statusBar()->currentMessage().contains(QStringLiteral("Recovered the unsaved changes to corner.bbm")));
+    EXPECT_TRUE(window_->windowTitle().startsWith(QStringLiteral("corner.bbm *")))
+        << window_->windowTitle().toStdString();
+    EXPECT_TRUE(window_->statusBar()->currentMessage().contains(
+        QStringLiteral("Recovered the unsaved changes to corner.bbm")));
     // It goes on autosaving to the same file, which is this window's now.
     EXPECT_EQ(window_->autosavePath(), autosave);
     EXPECT_TRUE(ui::AutosaveSlot::leftovers().isEmpty());
@@ -283,7 +288,7 @@ TEST_F(FileSafety, EveryLeftoverIsOfferedAndDiscardTakesOnlyThatOne) {
         ASSERT_TRUE(w.openFile(file));
         makeAnEdit(w);
         ASSERT_TRUE(waitForAutosave(w));
-    }  // both "crash"
+    } // both "crash"
     ASSERT_EQ(ui::AutosaveSlot::leftovers().size(), 2);
     ui::RecoverDialog::confirmDiscard = [](QWidget*, const QString&) { return true; };
     int rows = 0, after = 0;
@@ -304,15 +309,16 @@ TEST_F(FileSafety, EveryLeftoverIsOfferedAndDiscardTakesOnlyThatOne) {
     EXPECT_EQ(ui::AutosaveSlot::leftovers().size(), 1);
     // The other waits, and the card says where.
     ASSERT_TRUE(window_->notices()->isShown(QStringLiteral("recover-more")));
-    EXPECT_TRUE(cardText(*window_, QStringLiteral("recover-more")).contains(QStringLiteral("File › Recover Unsaved Work")));
+    EXPECT_TRUE(cardText(*window_, QStringLiteral("recover-more"))
+                    .contains(QStringLiteral("File › Recover Unsaved Work")));
 }
 
 // The single autosave older versions kept is a leftover too.
 TEST_F(FileSafety, TheOldAutosaveIsStillOffered) {
     auto map = saveload::readBbm(bbm_).map;
     ASSERT_TRUE(map);
-    const QString legacy =
-        QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/autosave.bld-layout");
+    const QString legacy = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)
+                           + QStringLiteral("/autosave.bld-layout");
     QDir().mkpath(QFileInfo(legacy).absolutePath());
     QString error;
     ASSERT_TRUE(import::writeLayoutFile(*map, legacy, &error)) << error.toStdString();
@@ -350,7 +356,8 @@ TEST_F(FileSafety, SaveAsksAboutTheFormatForEachFile) {
     Answers keep{ { click(QStringLiteral("Keep .bbm")) } };
     keep.during([&] { invoke(*window_, "onSave"); });
     const QString tdl = dir_.filePath(QStringLiteral("corner.tdl"));
-    ASSERT_TRUE(QFile::copy(QStringLiteral(BLD_SOURCE_DIR "/fixtures/bluebrick-oracle/tight-corner.tdl"), tdl));
+    ASSERT_TRUE(
+        QFile::copy(QStringLiteral(BLD_SOURCE_DIR "/fixtures/bluebrick-oracle/tight-corner.tdl"), tdl));
     QFile(tdl).setPermissions(QFile::ReadOwner | QFile::WriteOwner);
     const QByteArray before = bytesOf(tdl);
     ASSERT_TRUE(window_->openFile(tdl));
@@ -365,6 +372,7 @@ TEST_F(FileSafety, SaveAsksAboutTheFormatForEachFile) {
     EXPECT_FALSE(saved);
     EXPECT_TRUE(asked.contains(QStringLiteral("corner.tdl is a .tdl file"))) << asked.toStdString();
     // The real menu item, by its name.
-    EXPECT_TRUE(asked.contains(QStringLiteral("File › Export as BlueBrick Map (.bbm)…"))) << asked.toStdString();
+    EXPECT_TRUE(asked.contains(QStringLiteral("File › Export as BlueBrick Map (.bbm)…")))
+        << asked.toStdString();
     EXPECT_EQ(bytesOf(tdl), before);
 }

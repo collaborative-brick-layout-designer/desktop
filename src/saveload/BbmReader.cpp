@@ -68,8 +68,8 @@ QString readLayersInto(QXmlStreamReader& r, core::Map& map, int dataVersion, int
     }
     if (skipped == 0) return {};
     return QCoreApplication::translate("bld::saveload::BbmReader",
-                                       "%n sheet(s) of a kind this version can't show were left out.", nullptr,
-                                       skipped);
+                                       "%n sheet(s) of a kind this version can't show were left out.",
+                                       nullptr, skipped);
 }
 
 LoadResult readMapElement(QXmlStreamReader& r) {
@@ -83,9 +83,10 @@ LoadResult readMapElement(QXmlStreamReader& r) {
             map->dataVersion = xml::readIntElement(r);
             if (map->dataVersion > core::Map::kCurrentDataVersion) {
                 return { nullptr,
-                         QCoreApplication::translate("bld::saveload::BbmReader",
-                                                     "The map was saved by a newer BlueBrick (file version %1); "
-                                                     "this version reads up to %2.")
+                         QCoreApplication::translate(
+                             "bld::saveload::BbmReader",
+                             "The map was saved by a newer BlueBrick (file version %1); "
+                             "this version reads up to %2.")
                              .arg(map->dataVersion)
                              .arg(core::Map::kCurrentDataVersion),
                          {} };
@@ -236,7 +237,7 @@ QString damagedFileError(const QXmlStreamReader& r) {
         .arg(r.columnNumber());
 }
 
-}  // namespace
+} // namespace
 
 LoadResult readBbm(QIODevice& input) {
     QXmlStreamReader r(&input);

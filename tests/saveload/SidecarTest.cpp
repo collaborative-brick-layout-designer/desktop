@@ -399,9 +399,14 @@ TEST(Sidecar, KeepsWhatANewerVersionWrote) {
     const QJsonObject again = saveload::sidecarToJson(back);
     EXPECT_EQ(again.value(QStringLiteral("schemaVersion")).toInt(), 2);
     EXPECT_EQ(again.value(QStringLiteral("zones")).toArray().size(), 1);
-    EXPECT_EQ(again.value(QStringLiteral("zones")).toArray()[0].toObject().value(QStringLiteral("name")).toString(),
-              QStringLiteral("Yard"));
-    EXPECT_TRUE(again.value(QStringLiteral("anchoredLabels")).toArray()[0].toObject().value(QStringLiteral("glow")).toBool());
+    EXPECT_EQ(
+        again.value(QStringLiteral("zones")).toArray()[0].toObject().value(QStringLiteral("name")).toString(),
+        QStringLiteral("Yard"));
+    EXPECT_TRUE(again.value(QStringLiteral("anchoredLabels"))
+                    .toArray()[0]
+                    .toObject()
+                    .value(QStringLiteral("glow"))
+                    .toBool());
 
     // Only extras: still written, not thrown away as an empty sidecar.
     core::Sidecar onlyExtras;

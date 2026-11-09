@@ -41,9 +41,15 @@ QString writeTo(const QTemporaryDir& dir, const QString& name, const QByteArray&
     return path;
 }
 
-QString oracle(const char* name) { return QStringLiteral(BLD_SOURCE_DIR "/fixtures/bluebrick-oracle/") + QLatin1String(name); }
-QString corpus(const char* name) { return QStringLiteral(BLD_BBM_CORPUS_DIR "/") + QLatin1String(name); }
-QString layouts(const char* name) { return QStringLiteral(BLD_SOURCE_DIR "/fixtures/layouts/") + QLatin1String(name); }
+QString oracle(const char* name) {
+    return QStringLiteral(BLD_SOURCE_DIR "/fixtures/bluebrick-oracle/") + QLatin1String(name);
+}
+QString corpus(const char* name) {
+    return QStringLiteral(BLD_BBM_CORPUS_DIR "/") + QLatin1String(name);
+}
+QString layouts(const char* name) {
+    return QStringLiteral(BLD_SOURCE_DIR "/fixtures/layouts/") + QLatin1String(name);
+}
 
 class DamagedFiles : public ::testing::Test {
 protected:
@@ -58,7 +64,7 @@ protected:
     parts::PartsLibrary lib_;
 };
 
-}  // namespace
+} // namespace
 
 // The review's case: Fordyce cut off part way opened with 503 of its 940
 // parts, and Save wrote that over the whole file. Vanilla refuses it.
@@ -67,7 +73,8 @@ TEST_F(DamagedFiles, ACutOffBbmIsRefused) {
     ASSERT_FALSE(whole.isEmpty());
     ASSERT_TRUE(saveload::readBbm(corpus("fordyce-2026.bbm")).ok());
     for (const double at : { 0.1, 0.5, 0.9, 0.999 }) {
-        const QString path = writeTo(dir_, QStringLiteral("cut.bbm"), whole.left(qsizetype(whole.size() * at)));
+        const QString path =
+            writeTo(dir_, QStringLiteral("cut.bbm"), whole.left(qsizetype(whole.size() * at)));
         const auto r = saveload::readBbm(path);
         EXPECT_FALSE(r.ok()) << "cut at " << at;
         EXPECT_TRUE(r.error.contains(QStringLiteral("cut off"))) << r.error.toStdString();
@@ -152,7 +159,8 @@ TEST_F(DamagedFiles, ACutOffVenueIsRefused) {
     const QByteArray whole = bytesOf(QStringLiteral(BLD_SOURCE_DIR "/fixtures/venues/grand-lobby.bld-venue"));
     ASSERT_FALSE(whole.isEmpty());
     QString err;
-    EXPECT_FALSE(saveload::readVenueFile(writeTo(dir_, QStringLiteral("v.bld-venue"), whole.left(whole.size() / 2)), &err));
+    EXPECT_FALSE(saveload::readVenueFile(
+        writeTo(dir_, QStringLiteral("v.bld-venue"), whole.left(whole.size() / 2)), &err));
     EXPECT_FALSE(err.isEmpty());
 }
 
@@ -160,7 +168,8 @@ TEST_F(DamagedFiles, ACutOffBudgetIsRefused) {
     const QByteArray whole = bytesOf(oracle("budget.bbb"));
     ASSERT_FALSE(whole.isEmpty());
     ASSERT_TRUE(edit::Budget::read(oracle("budget.bbb"), nullptr));
-    EXPECT_FALSE(edit::Budget::read(writeTo(dir_, QStringLiteral("b.bbb"), whole.left(whole.size() / 2)), nullptr));
+    EXPECT_FALSE(
+        edit::Budget::read(writeTo(dir_, QStringLiteral("b.bbb"), whole.left(whole.size() / 2)), nullptr));
 }
 
 TEST_F(DamagedFiles, ACutOffTrackDesignerMapSaysWhatIsMissing) {
@@ -177,7 +186,8 @@ TEST_F(DamagedFiles, ACutOffTrackDesignerMapSaysWhatIsMissing) {
     EXPECT_TRUE(cut.partlyRead);
     EXPECT_TRUE(cut.warnings.join(QLatin1Char(' ')).contains(QStringLiteral("cut off")));
     // Before the first piece: refused.
-    const auto header = import::readTrackDesignerMap(writeTo(dir_, QStringLiteral("head.tdl"), whole.left(40)), lib_);
+    const auto header =
+        import::readTrackDesignerMap(writeTo(dir_, QStringLiteral("head.tdl"), whole.left(40)), lib_);
     EXPECT_FALSE(header.ok());
     EXPECT_TRUE(header.error.contains(QStringLiteral("cut off"))) << header.error.toStdString();
 }
@@ -189,7 +199,8 @@ TEST_F(DamagedFiles, ACutOffFourDBrixMapSaysWhatIsMissing) {
     const auto full = import::readFourDBrixMap(oracle("fourdbrix.ncp"), lib_);
     ASSERT_TRUE(full.ok());
     EXPECT_FALSE(full.partlyRead);
-    const auto cut = import::readFourDBrixMap(writeTo(dir_, QStringLiteral("cut.ncp"), whole.left(whole.size() / 2)), lib_);
+    const auto cut = import::readFourDBrixMap(
+        writeTo(dir_, QStringLiteral("cut.ncp"), whole.left(whole.size() / 2)), lib_);
     ASSERT_TRUE(cut.ok()) << cut.error.toStdString();
     EXPECT_TRUE(cut.partlyRead);
     EXPECT_TRUE(cut.warnings.join(QLatin1Char(' ')).contains(QStringLiteral("cut off")));
@@ -206,7 +217,8 @@ TEST_F(DamagedFiles, ACutOffLDrawMapOpensWhatItHas) {
     for (const char* name : { "tight-corner.ldr", "tight-corner.mpd" }) {
         const QByteArray whole = bytesOf(oracle(name));
         ASSERT_FALSE(whole.isEmpty());
-        const auto r = import::readLDrawMap(writeTo(dir_, QString::fromLatin1(name), whole.left(whole.size() / 2 + 7)), lib_);
+        const auto r = import::readLDrawMap(
+            writeTo(dir_, QString::fromLatin1(name), whole.left(whole.size() / 2 + 7)), lib_);
         EXPECT_TRUE(r.ok()) << name << ": " << r.error.toStdString();
     }
 }

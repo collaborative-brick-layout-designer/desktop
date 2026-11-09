@@ -15,7 +15,7 @@
 namespace bld::ui {
 
 std::function<bool(QWidget*, const QString&)> RecoverDialog::confirmDiscard = [](QWidget* parent,
-                                                                                   const QString& name) {
+                                                                                 const QString& name) {
     DeleteWording w;
     w.verb = RecoverDialog::tr("Discard");
     w.title = RecoverDialog::tr("Discard the unsaved changes to “%1”?").arg(name);
@@ -96,15 +96,17 @@ int RecoverDialog::current() const {
 void RecoverDialog::fill() {
     list_->clear();
     for (const auto& l : leftovers_) {
-        auto* item = new QListWidgetItem(tr("%1 — changes from %2").arg(l.displayName(), whenText(l.savedAt)), list_);
+        auto* item =
+            new QListWidgetItem(tr("%1 — changes from %2").arg(l.displayName(), whenText(l.savedAt)), list_);
         item->setToolTip(l.sourceFile.isEmpty() ? tr("A new layout that was never saved")
                                                 : QDir::toNativeSeparators(l.sourceFile));
     }
     if (leftovers_.isEmpty()) {
         intro_->setText(tr("There's no unsaved work to recover: everything was saved."));
     } else {
-        intro_->setText(tr("The app closed before these changes were saved. Recover one to keep working on it, "
-                           "or discard what you don't need."));
+        intro_->setText(
+            tr("The app closed before these changes were saved. Recover one to keep working on it, "
+               "or discard what you don't need."));
         list_->setCurrentRow(0);
     }
     list_->setVisible(!leftovers_.isEmpty());
@@ -120,4 +122,4 @@ void RecoverDialog::updateButtons() {
     discard_->setEnabled(picked);
 }
 
-}  // namespace bld::ui
+} // namespace bld::ui

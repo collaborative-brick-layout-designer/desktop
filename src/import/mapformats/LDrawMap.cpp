@@ -136,9 +136,9 @@ public:
         }
         edit::rebuildConnectivity(*map_, lib_);
         if (skippedUnknown_ > 0) {
-            out.warnings << QCoreApplication::translate("bld::import::MapFormats",
-                                                        "%n part(s) aren't in your parts library, so they were left out.",
-                                                        nullptr, skippedUnknown_);
+            out.warnings << QCoreApplication::translate(
+                "bld::import::MapFormats", "%n part(s) aren't in your parts library, so they were left out.",
+                nullptr, skippedUnknown_);
         }
         out.map = std::move(map_);
         return out;

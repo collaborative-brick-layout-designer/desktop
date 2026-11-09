@@ -76,7 +76,8 @@ inline std::function<void(QWidget*)> click(const QString& text) {
 }
 
 // Clicks the button named `text` in any dialog (not only a message box).
-inline std::function<void(QWidget*)> clickIn(const QString& text, const std::function<void(QWidget*)>& first = {}) {
+inline std::function<void(QWidget*)> clickIn(const QString& text,
+                                             const std::function<void(QWidget*)>& first = {}) {
     return [text, first](QWidget* w) {
         if (first) first(w);
         for (QAbstractButton* b : w->findChildren<QAbstractButton*>()) {
@@ -110,4 +111,4 @@ inline bool invoke(bld::ui::MainWindow& w, const char* slot) {
     return result;
 }
 
-}  // namespace
+} // namespace

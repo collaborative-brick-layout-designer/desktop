@@ -476,10 +476,12 @@ TEST(RoundTrip, SavesTheFilesOwnSelectedSheetUntilOneIsPicked) {
 TEST(RoundTrip, ControlCharactersInTextDoNotStopSaving) {
     core::Map original = makeSampleMap();
     original.author = QStringLiteral("Ann\vBob");
-    original.comment = QStringLiteral("a\x01" "b\fc\td");
+    original.comment = QStringLiteral("a\x01"
+                                      "b\fc\td");
     auto layer = std::make_unique<core::LayerText>();
     layer->guid = QStringLiteral("300");
-    layer->name = QStringLiteral("Lab\x02" "els");
+    layer->name = QStringLiteral("Lab\x02"
+                                 "els");
     core::TextCell c;
     c.guid = QStringLiteral("301");
     c.text = QStringLiteral("Station\v") + QString::fromUtf8("\xF0\x9F\x9A\x82") + QChar(0xD800);

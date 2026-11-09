@@ -22,11 +22,15 @@ constexpr const char* kLegacySourceKey = "autosave/sourceFile";
 
 QString newId() {
     return QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd-HHmmss")) + QLatin1Char('-')
-         + QUuid::createUuid().toString(QUuid::Id128).left(8);
+           + QUuid::createUuid().toString(QUuid::Id128).left(8);
 }
 
-QString appData() { return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation); }
-QString legacyPath() { return appData() + QStringLiteral("/autosave.bld-layout"); }
+QString appData() {
+    return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+}
+QString legacyPath() {
+    return appData() + QStringLiteral("/autosave.bld-layout");
+}
 
 QString fileOf(const QString& id, const char* suffix) {
     return AutosaveSlot::folder() + QLatin1Char('/') + id + QLatin1String(suffix);
@@ -40,18 +44,21 @@ std::unique_ptr<QLockFile> lockFor(const QString& id) {
     return lock;
 }
 
-}  // namespace
+} // namespace
 
 QString AutosaveLeftover::displayName() const {
     return sourceFile.isEmpty() ? QCoreApplication::translate("bld::ui::Autosave", "New layout")
                                 : QFileInfo(sourceFile).fileName();
 }
 
-AutosaveSlot::AutosaveSlot() : id_(newId()) {}
+AutosaveSlot::AutosaveSlot() : id_(newId()) {
+}
 
 AutosaveSlot::~AutosaveSlot() = default;
 
-QString AutosaveSlot::folder() { return appData() + QStringLiteral("/autosave"); }
+QString AutosaveSlot::folder() {
+    return appData() + QStringLiteral("/autosave");
+}
 
 QString AutosaveSlot::path() {
     if (!lock_) {
@@ -70,15 +77,18 @@ QString AutosaveSlot::path() {
 void AutosaveSlot::noteWritten(const QString& sourceFile) {
     QSaveFile meta(fileOf(id_, ".json"));
     if (!meta.open(QIODevice::WriteOnly)) return;
-    meta.write(QJsonDocument(QJsonObject{
-                                 { QStringLiteral("sourceFile"), sourceFile },
-                                 { QStringLiteral("savedAt"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate) },
-                             })
+    meta.write(QJsonDocument(
+                   QJsonObject{
+                       { QStringLiteral("sourceFile"), sourceFile },
+                       { QStringLiteral("savedAt"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate) },
+                   })
                    .toJson(QJsonDocument::Compact));
     meta.commit();
 }
 
-bool AutosaveSlot::hasFile() const { return QFileInfo::exists(fileOf(id_, ".bld-layout")); }
+bool AutosaveSlot::hasFile() const {
+    return QFileInfo::exists(fileOf(id_, ".bld-layout"));
+}
 
 void AutosaveSlot::removeFile() {
     // Only a slot this window holds is its own to delete.
@@ -99,7 +109,8 @@ bool AutosaveSlot::adopt(const AutosaveLeftover& leftover) {
         // The old single autosave moves into a slot of its own.
         const QString target = path();
         QFile::remove(target);
-        if (!QFile::rename(leftover.layoutPath, target) && !QFile::copy(leftover.layoutPath, target)) return false;
+        if (!QFile::rename(leftover.layoutPath, target) && !QFile::copy(leftover.layoutPath, target))
+            return false;
         QFile::remove(leftover.layoutPath);
         QSettings().remove(QString::fromLatin1(kLegacySourceKey));
         noteWritten(leftover.sourceFile);
@@ -127,7 +138,8 @@ QList<AutosaveLeftover> AutosaveSlot::leftovers() {
         if (meta.open(QIODevice::ReadOnly)) {
             const QJsonObject o = QJsonDocument::fromJson(meta.readAll()).object();
             l.sourceFile = o.value(QLatin1String("sourceFile")).toString();
-            const QDateTime at = QDateTime::fromString(o.value(QLatin1String("savedAt")).toString(), Qt::ISODate);
+            const QDateTime at =
+                QDateTime::fromString(o.value(QLatin1String("savedAt")).toString(), Qt::ISODate);
             if (at.isValid()) l.savedAt = at.toLocalTime();
         }
         out << l;
@@ -138,7 +150,8 @@ QList<AutosaveLeftover> AutosaveSlot::leftovers() {
         // As before: one older than the file it was editing was saved over since.
         const QFileInfo src(source);
         if (source.isEmpty() || !src.exists() || src.lastModified() < legacy.lastModified())
-            out << AutosaveLeftover{ QStringLiteral("legacy"), legacy.absoluteFilePath(), source, legacy.lastModified() };
+            out << AutosaveLeftover{ QStringLiteral("legacy"), legacy.absoluteFilePath(), source,
+                                     legacy.lastModified() };
     }
     std::sort(out.begin(), out.end(),
               [](const AutosaveLeftover& a, const AutosaveLeftover& b) { return a.savedAt > b.savedAt; });
@@ -159,4 +172,4 @@ bool AutosaveSlot::discard(const AutosaveLeftover& leftover) {
     return removed;
 }
 
-}  // namespace bld::ui
+} // namespace bld::ui
