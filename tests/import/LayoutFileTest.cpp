@@ -20,6 +20,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QImage>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QTemporaryDir>
@@ -755,4 +756,66 @@ TEST(LayoutFile, IgnoresASourceThatIsntWholeOrSensible) {
     ASSERT_TRUE(s);
     EXPECT_EQ(s->server, QStringLiteral("https://x.org:8443"));
     EXPECT_EQ(s->title, QString());
+}
+
+// Saving twice with no edit gives the same bytes, for every fixture: a
+// layout file used to change on every save (a module's members were written
+// in the order of a set, which differs from one reading to the next).
+TEST(LayoutFile, SavingTwiceGivesTheSameBytes) {
+    QStringList fixtures;
+    for (const char* dir : { "/fixtures/layouts", "/fixtures/bbm-corpus", "/fixtures/bluebrick-oracle" })
+        for (const QFileInfo& f :
+             QDir(kSource + QLatin1String(dir))
+                 .entryInfoList({ QStringLiteral("*.bld-layout"), QStringLiteral("*.bbm") }, QDir::Files))
+            fixtures << f.absoluteFilePath();
+    ASSERT_GE(fixtures.size(), 20);
+    QTemporaryDir dir;
+    const QString assets = dir.filePath(QStringLiteral("assets"));
+    for (const QString& fixture : fixtures) {
+        SCOPED_TRACE(fixture.toStdString());
+        std::unique_ptr<core::Map> map;
+        if (isLayoutFile(fixture)) {
+            auto r = readLayoutFile(fixture, assets);
+            ASSERT_TRUE(r.ok()) << r.error.toStdString();
+            map = std::move(r.map);
+        } else {
+            auto r = saveload::readBbm(fixture);
+            ASSERT_TRUE(r.ok()) << r.error.toStdString();
+            map = std::move(r.map);
+        }
+        QString error;
+        const QByteArray first = layoutFileBytes(*map, &error, nullptr, {}, {});
+        ASSERT_FALSE(first.isEmpty()) << error.toStdString();
+        // Read back and saved again, as the next Save after opening it does.
+        auto again = readLayoutFileBytes(first, assets);
+        ASSERT_TRUE(again.ok()) << again.error.toStdString();
+        const QByteArray second = layoutFileBytes(*again.map, &error, nullptr, {}, {});
+        EXPECT_TRUE(first == second) << "the second save differs";
+        // A .bbm the same way.
+        QBuffer a, b;
+        a.open(QIODevice::WriteOnly);
+        b.open(QIODevice::WriteOnly);
+        ASSERT_TRUE(saveload::writeBbm(*map, a).ok);
+        ASSERT_TRUE(saveload::writeBbm(*again.map, b).ok);
+        EXPECT_TRUE(a.data() == b.data()) << "the .bbm differs";
+    }
+}
+
+// The members of a module in a file are in order, numbers by value.
+TEST(LayoutFile, ModuleMembersAreWrittenInOrder) {
+    core::Sidecar sidecar;
+    core::Module m;
+    m.id = QStringLiteral("m1");
+    for (const char* id : { "30", "4", "100", "12", "7" }) m.memberIds.insert(QString::fromLatin1(id));
+    sidecar.modules.push_back(m);
+    const QJsonObject json = saveload::sidecarToJson(sidecar);
+    QStringList members;
+    for (const auto& v : json.value(QStringLiteral("modules"))
+                             .toArray()[0]
+                             .toObject()
+                             .value(QStringLiteral("members"))
+                             .toArray())
+        members << v.toString();
+    EXPECT_EQ(members, (QStringList{ QStringLiteral("4"), QStringLiteral("7"), QStringLiteral("12"),
+                                     QStringLiteral("30"), QStringLiteral("100") }));
 }

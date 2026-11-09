@@ -21,6 +21,10 @@ constexpr int kFloatPrecision  = 7;
 constexpr int kDoublePrecision = 15;
 
 QString formatInvariantDouble(double v, int precision) {
+    // .NET's words for the numbers that aren't (Qt says "nan" and "inf",
+    // which vanilla BlueBrick can't read back, so it refused the file).
+    if (std::isnan(v)) return QStringLiteral("NaN");
+    if (std::isinf(v)) return v > 0 ? QStringLiteral("Infinity") : QStringLiteral("-Infinity");
     // C# "G" format trims trailing zeros; QString::number with 'g' does the
     // same. .NET writes the exponent with an upper-case E ("-4.371139E-08").
     QString s = QString::number(v, 'g', precision);
@@ -59,9 +63,12 @@ int readWholeElement(QXmlStreamReader& r, int fallback) {
 }
 
 float readFloatElement(QXmlStreamReader& r) {
+    // A position, size or angle that isn't a number (NaN, Infinity) is read
+    // as 0, as the web reads it: kept, it threw the part's area out to
+    // ±1.25E+29 studs.
     bool ok = false;
     const float v = r.readElementText().toFloat(&ok);
-    return ok ? v : 0.0f;
+    return ok && std::isfinite(v) ? v : 0.0f;
 }
 
 float readFloatElementOr(QXmlStreamReader& r, float fallback) {
@@ -73,7 +80,7 @@ float readFloatElementOr(QXmlStreamReader& r, float fallback) {
 double readDoubleElement(QXmlStreamReader& r) {
     bool ok = false;
     const double v = r.readElementText().toDouble(&ok);
-    return ok ? v : 0.0;
+    return ok && std::isfinite(v) ? v : 0.0;
 }
 
 core::ColorSpec readColor(QXmlStreamReader& r) {
@@ -142,8 +149,13 @@ std::vector<float> readFloatArray(QXmlStreamReader& r) {
     // Upstream writes <Wrapper><value>...</value>*</Wrapper>.
     std::vector<float> out;
     while (r.readNextStartElement()) {
-        if (r.name() == QStringLiteral("value")) out.push_back(readFloatElement(r));
-        else r.skipCurrentElement();
+        // As written: a dash pattern with a value that isn't a number is
+        // dropped whole (core::keepDrawnSettingsInRange), not read as 0.
+        if (r.name() == QStringLiteral("value")) {
+            bool ok = false;
+            const float v = r.readElementText().toFloat(&ok);
+            out.push_back(ok ? v : 0.0f);
+        } else r.skipCurrentElement();
     }
     return out;
 }
@@ -218,9 +230,9 @@ void writeColor(QXmlStreamWriter& w, const QString& name, const core::ColorSpec&
                            | (static_cast<quint32>(c.color.red())   << 16)
                            | (static_cast<quint32>(c.color.green()) << 8)
                            | static_cast<quint32>(c.color.blue());
-        // Vanilla emits lowercase hex: int.ToString("x") (we observed "ffffffff" style).
-        writeTextElement(w, QStringLiteral("Name"),
-                         QStringLiteral("%1").arg(argb, 8, 16, QLatin1Char('0')));
+        // Vanilla writes Color.Name: lowercase hex without leading zeros
+        // ("ffffffff", and "0" or "5ff0000" for a (nearly) clear color).
+        writeTextElement(w, QStringLiteral("Name"), QString::number(argb, 16));
     }
     w.writeEndElement();
 }

@@ -5,7 +5,10 @@
 #
 # For each map (default: the .bbm files in fixtures/):
 #   1. we open and save it; vanilla BlueBrick must read our .bbm and see the
-#      same bricks, links included (vanilla re-saves it and we compare);
+#      same bricks, links included (vanilla re-saves it and we compare), and
+#      everything else as it sees in the original: text, rulers, areas, the
+#      grid, groups, every sheet's settings and the map's details (vanilla
+#      re-saves both; it changes some things on any save, the same way);
 #   2. for each other format (.ldr .mpd .tdl .ncp) we and vanilla both
 #      export it, vanilla reads both exports back, and the results must
 #      match.
@@ -40,7 +43,7 @@ vanilla() {
 same() {  # same <what> <a> <b> [options]
     local what=$1 a=$2 b=$3; shift 3
     if out=$("$convert" -p "$parts" --compare "$a" "$b" --known-only "$@"); then
-        echo "   ok    $what ($out)"
+        echo "   ok    $what ($(echo "$out" | tr '\n' ';' | sed 's/;$//; s/;/; /g'))"
     else
         echo "   FAIL  $what"; echo "$out" | sed 's/^/         /'; failed=1
     fi
@@ -51,10 +54,14 @@ for map in "${maps[@]}"; do
     name=$(basename "$map" .bbm)
     d="$work/$name"; mkdir -p "$d"
     echo "== $name"
-    # 1. Vanilla reads what we save.
-    "$convert" -p "$parts" "$map" "$d/ours.bbm" || { echo "   FAIL  we could not open/save it"; failed=1; continue; }
-    vanilla "$d/ours.bbm" "$d/ours.vanilla.bbm" || { failed=1; continue; }
-    same ".bbm we save, as vanilla reads it" "$d/ours.bbm" "$d/ours.vanilla.bbm"
+    # 1. Vanilla reads what we save. Ours has the original's file name (in
+    # a folder of its own): vanilla names a map's default export after it.
+    mkdir -p "$d/ours"
+    ours="$d/ours/$name.bbm"
+    "$convert" -p "$parts" "$map" "$ours" || { echo "   FAIL  we could not open/save it"; failed=1; continue; }
+    vanilla "$ours" "$d/ours.vanilla.bbm" "$map" "$d/original.vanilla.bbm" || { failed=1; continue; }
+    same ".bbm we save, as vanilla reads it" "$ours" "$d/ours.vanilla.bbm"
+    same "everything else in it, as vanilla reads it" "$d/original.vanilla.bbm" "$d/ours.vanilla.bbm" --everything
 
     # 2. Exports: ours and vanilla's, both read back by vanilla.
     pairs=()

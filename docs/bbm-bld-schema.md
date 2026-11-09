@@ -51,13 +51,11 @@ written. Writers MUST NOT emit an empty sidecar.
 ### `schemaVersion` (integer, required)
 
 The only version shipped is `1`. A file with a greater `schemaVersion`
-was written by a newer build:
-
-- the desktop opens it with a warning ("saved by a newer version …
-  kept as it is, but isn't shown"), keeps every field it doesn't know
-  (top level, labels, modules, views and sets) and writes the newer
-  version number back, so saving never quietly downgrades the file;
-- the web refuses it (`readSidecar` throws).
+was written by a newer build. Both apps open it with a warning ("saved
+by a newer version … kept as it is, but isn't shown"), keep every field
+they don't know (top level, labels, modules, views and sets) and write
+the newer version number back, so saving never quietly downgrades the
+file.
 
 Adding a new *optional* field to the schema (e.g. extending a Venue
 with a new property) does NOT bump the version; older readers keep
@@ -288,8 +286,15 @@ pair with a `.bbm` — just a venue, on its own.
 ## Versioning
 
 `schemaVersion = 1` is the only version shipped. A newer file is
-opened with a warning on the desktop and refused on the web (see
-`schemaVersion` above); unknown fields are kept and written back.
+opened with a warning in both apps (see `schemaVersion` above); unknown
+fields are kept and written back.
+
+## Text the XML can't hold
+
+Both apps write a .bbm (and a set's XML) the same way when a name or
+text has a character XML 1.0 doesn't allow: a vertical tab or form feed
+becomes a newline, and other control characters, U+FFFE/U+FFFF and half
+a surrogate pair are left out.
 
 ## Round-trip guarantees
 

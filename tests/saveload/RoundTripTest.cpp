@@ -13,6 +13,8 @@
 
 #include <QBuffer>
 #include <QByteArray>
+#include <limits>
+#include <utility>
 
 using namespace bld;
 
@@ -505,4 +507,67 @@ TEST(RoundTrip, ControlCharactersInTextDoNotStopSaving) {
     ASSERT_NE(parsed, nullptr);
     EXPECT_EQ(parsed->name, QStringLiteral("Labels"));
     EXPECT_EQ(parsed->textCells[0].text, QStringLiteral("Station\n") + QString::fromUtf8("\xF0\x9F\x9A\x82"));
+}
+
+// Numbers that aren't numbers are written as .NET writes them, which vanilla
+// BlueBrick reads ("nan" made it refuse the file), and read as 0, so a
+// part's area doesn't jump to ±1.25E+29 studs.
+TEST(RoundTrip, NotANumberIsWrittenAsDotNetDoesAndReadAsZero) {
+    EXPECT_EQ(saveload::xml::formatFloat(std::numeric_limits<float>::quiet_NaN()), QStringLiteral("NaN"));
+    EXPECT_EQ(saveload::xml::formatFloat(std::numeric_limits<float>::infinity()), QStringLiteral("Infinity"));
+    EXPECT_EQ(saveload::xml::formatFloat(-std::numeric_limits<float>::infinity()),
+              QStringLiteral("-Infinity"));
+    EXPECT_EQ(saveload::xml::formatDouble(std::numeric_limits<double>::quiet_NaN()), QStringLiteral("NaN"));
+
+    core::Map original = makeSampleMap();
+    auto layer = std::make_unique<core::LayerBrick>();
+    layer->guid = QStringLiteral("400");
+    core::Brick b;
+    b.guid = QStringLiteral("401");
+    b.partNumber = QStringLiteral("3001.1");
+    b.displayArea = QRectF(10, 20, 4, 2);
+    b.orientation = std::numeric_limits<float>::quiet_NaN();
+    layer->bricks.push_back(b);
+    original.layers().push_back(std::move(layer));
+    QByteArray buf;
+    {
+        QBuffer out(&buf);
+        ASSERT_TRUE(out.open(QIODevice::WriteOnly));
+        ASSERT_TRUE(saveload::writeBbm(original, out).ok);
+    }
+    EXPECT_TRUE(buf.contains("<Orientation>NaN</Orientation>"));
+    buf.replace("<X>10</X>", "<X>Infinity</X>");
+    QBuffer in(&buf);
+    ASSERT_TRUE(in.open(QIODevice::ReadOnly));
+    const auto result = saveload::readBbm(in);
+    ASSERT_TRUE(result.ok()) << result.error.toStdString();
+    const auto* bricks = dynamic_cast<const core::LayerBrick*>(result.map->layers().back().get());
+    ASSERT_NE(bricks, nullptr);
+    EXPECT_EQ(bricks->bricks[0].orientation, 0.0f);
+    EXPECT_EQ(bricks->bricks[0].displayArea.x(), 0.0);
+    EXPECT_EQ(bricks->bricks[0].displayArea.y(), 20.0);
+}
+
+// A color without a name is written as BlueBrick's Color.Name: lowercase
+// hex without leading zeros ("0", "5ff0000"), as vanilla writes it.
+TEST(RoundTrip, AnUnnamedColorIsWrittenWithoutLeadingZeros) {
+    core::Map original = makeSampleMap();
+    for (const auto& [argb, name] : { std::pair<quint32, const char*>{ 0x00000000u, "<Name>0</Name>" },
+                                      { 0x05ff0000u, "<Name>5ff0000</Name>" },
+                                      { 0x80000000u, "<Name>80000000</Name>" },
+                                      { 0xff112233u, "<Name>ff112233</Name>" } }) {
+        original.backgroundColor = core::ColorSpec::fromArgb(QColor::fromRgba(argb));
+        QByteArray buf;
+        {
+            QBuffer out(&buf);
+            ASSERT_TRUE(out.open(QIODevice::WriteOnly));
+            ASSERT_TRUE(saveload::writeBbm(original, out).ok);
+        }
+        EXPECT_TRUE(buf.contains(name)) << name;
+        QBuffer in(&buf);
+        ASSERT_TRUE(in.open(QIODevice::ReadOnly));
+        const auto result = saveload::readBbm(in);
+        ASSERT_TRUE(result.ok());
+        EXPECT_EQ(result.map->backgroundColor.color.rgba(), argb) << name;
+    }
 }

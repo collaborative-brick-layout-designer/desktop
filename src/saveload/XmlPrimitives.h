@@ -36,6 +36,7 @@ int     readIntElement(QXmlStreamReader& r);
 // int is clamped, a fraction rounded); text that isn't a finite number gives
 // `fallback`.
 int     readWholeElement(QXmlStreamReader& r, int fallback);
+// A float; text that isn't a finite number (NaN, Infinity) reads as 0.
 float   readFloatElement(QXmlStreamReader& r);
 // A number for a drawn setting: text that isn't a finite number (NaN,
 // Infinity) gives `fallback`.
