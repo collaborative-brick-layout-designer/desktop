@@ -83,7 +83,9 @@ TEST(Presence, ColorsMatchTheWebAndStatesUseItsShape) {
     EXPECT_TRUE(peer.person);
     // An empty presence (an app still opening the layout) isn't a person's.
     EXPECT_FALSE(pr::peerFrom(QJsonObject{}).person);
-    EXPECT_FALSE(pr::peerFrom(QJsonObject{ { QStringLiteral("user"), QJsonObject{ { QStringLiteral("id"), QStringLiteral("x") } } } }).person);
+    EXPECT_FALSE(pr::peerFrom(QJsonObject{ { QStringLiteral("user"),
+                                             QJsonObject{ { QStringLiteral("id"), QStringLiteral("x") } } } })
+                     .person);
     // What the web sent in the fixture reads too.
     const auto entries = decode(fixture("awareness.bin"));
     EXPECT_TRUE(pr::peerFrom(*entries->at(0).state).cursor);

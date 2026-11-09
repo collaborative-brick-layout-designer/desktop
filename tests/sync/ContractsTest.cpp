@@ -41,12 +41,12 @@
 #include <QFile>
 #include <QGraphicsPixmapItem>
 #include <QJsonArray>
-#include <QSet>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QPainter>
 #include <QPainterPath>
 #include <QRegularExpression>
+#include <QSet>
 #include <QTemporaryDir>
 #include <QTimeZone>
 
@@ -591,7 +591,8 @@ TEST(Contracts, PresenceColorsAreTheWebs) {
     ASSERT_FALSE(c.isEmpty());
     for (const QJsonValue v : c.value(QLatin1String("firstChoices")).toArray()) {
         const QJsonObject o = v.toObject();
-        EXPECT_EQ(sync::presence::colorFor(o.value(QLatin1String("userId")).toString(), o.value(QLatin1String("layoutId")).toString()),
+        EXPECT_EQ(sync::presence::colorFor(o.value(QLatin1String("userId")).toString(),
+                                           o.value(QLatin1String("layoutId")).toString()),
                   o.value(QLatin1String("color")).toString())
             << o.value(QLatin1String("userId")).toString().toStdString();
     }

@@ -339,11 +339,13 @@ TEST(LiveLayout, DrawsOnlyOtherPeopleInTheirOwnColors) {
         ASSERT_TRUE(waitFor([&] { return s->status() == Status::Synced; }));
     }
     empty.setPresence(QJsonObject{});
-    mine.setPresence(sync::presence::state({ QStringLiteral("u-alice"), QStringLiteral("Alice"), QStringLiteral("#a78bfa") },
-                                           QPointF(5, 5), {}, 1));
+    mine.setPresence(sync::presence::state(
+        { QStringLiteral("u-alice"), QStringLiteral("Alice"), QStringLiteral("#a78bfa") }, QPointF(5, 5), {},
+        1));
     // u-alice and u-bob have the same first choice on L1 (contracts/presence-colors.json).
-    bob.setPresence(sync::presence::state({ QStringLiteral("u-bob"), QStringLiteral("Bob"), QStringLiteral("#a78bfa") },
-                                          QPointF(10, 20), {}, 1));
+    bob.setPresence(
+        sync::presence::state({ QStringLiteral("u-bob"), QStringLiteral("Bob"), QStringLiteral("#a78bfa") },
+                              QPointF(10, 20), {}, 1));
     ASSERT_TRUE(waitFor([&] { return h.live.drawnPeers() == 1; }));
     waitFor([] { return false; }, 200);
     EXPECT_EQ(h.live.drawnPeers(), 1);
@@ -356,7 +358,8 @@ TEST(LiveLayout, DrawsOnlyOtherPeopleInTheirOwnColors) {
         if (auto* a = dynamic_cast<QGraphicsPolygonItem*>(it)) bobColor = a->brush().color();
     }
     EXPECT_EQ(names, QStringList{ QStringLiteral("Bob") });
-    const auto colors = sync::presence::colorsFor({ QStringLiteral("u-alice"), QStringLiteral("u-bob") }, QStringLiteral("L1"));
+    const auto colors = sync::presence::colorsFor({ QStringLiteral("u-alice"), QStringLiteral("u-bob") },
+                                                  QStringLiteral("L1"));
     EXPECT_EQ(bobColor, QColor(colors.value(QStringLiteral("u-bob"))));
     EXPECT_NE(colors.value(QStringLiteral("u-bob")), colors.value(QStringLiteral("u-alice")));
 }

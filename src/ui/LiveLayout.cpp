@@ -128,8 +128,9 @@ void LiveLayout::drawPeers() {
     // Bricks by id, for selection outlines: where a drag here has them now.
     // (Only when someone has parts picked: it walks every part.)
     QHash<QString, QRectF> bricks;
-    const bool anyPicked = std::any_of(others.cbegin(), others.cend(),
-                                       [](const sync::presence::Peer& peer) { return !peer.brickIds.isEmpty(); });
+    const bool anyPicked = std::any_of(others.cbegin(), others.cend(), [](const sync::presence::Peer& peer) {
+        return !peer.brickIds.isEmpty();
+    });
     if (anyPicked)
         view_.withLivePose([&bricks](const core::Map& map) {
             for (const auto& layer : map.layers())

@@ -42,7 +42,7 @@ QString colorFor(const QString& userId, const QString& layoutId) {
 QHash<QString, QString> colorsFor(const QStringList& userIds, const QString& layoutId) {
     QStringList ids = userIds;
     ids.removeDuplicates();
-    std::sort(ids.begin(), ids.end());  // UTF-16 code units, as the web's sort
+    std::sort(ids.begin(), ids.end()); // UTF-16 code units, as the web's sort
     QSet<int> taken;
     QHash<QString, QString> out;
     for (const QString& id : ids) {
