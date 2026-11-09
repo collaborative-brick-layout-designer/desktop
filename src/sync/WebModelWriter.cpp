@@ -275,7 +275,7 @@ QJsonObject docJsonFromMap(const core::Map& map, PartJsonMemo* memo) {
                        { QStringLiteral("exportArea"), rect(ex.area) }, { QStringLiteral("exportScale"), ex.scale },
                        { QStringLiteral("exportWatermark"), ex.watermark }, { QStringLiteral("exportElectricCircuit"), ex.electricCircuit },
                        { QStringLiteral("exportConnectionPoints"), ex.connectionPoints } } },
-        { QStringLiteral("selectedLayerIndex"), map.selectedLayerIndex },
+        { QStringLiteral("selectedLayerIndex"), map.selectedLayerIndexToSave() },
     };
     QJsonArray order;
     QJsonObject data;

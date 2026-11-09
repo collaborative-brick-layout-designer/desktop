@@ -9,6 +9,7 @@
 #include <QString>
 
 #include <memory>
+#include <optional>
 #include <vector>
 
 namespace bld::core {
@@ -70,6 +71,22 @@ public:
     } trackDesigner;
 
     int     selectedLayerIndex = -1;
+
+    // The sheet the file was saved with as selected, while the app shows
+    // another one: a file whose saved sheet can't take parts opens on a
+    // parts sheet (ui::startingSheet). Saving writes the file's own choice
+    // back until the user picks a sheet, so opening a file and saving it
+    // untouched changes nothing. A pick clears it.
+    struct FileSelection {
+        int index = -1;                 // as saved; may name no sheet (-1, past the end)
+        const Layer* layer = nullptr;   // the sheet it named, if any
+        QString guid;                   // that sheet's id, to find it after edits
+    };
+    std::optional<FileSelection> fileSelection;
+
+    // The SelectedLayerIndex a save writes: the file's own choice while
+    // fileSelection holds it (where that sheet is now), else the picked sheet.
+    int selectedLayerIndexToSave() const;
 
     // ---------- content ----------
 

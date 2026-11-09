@@ -219,8 +219,15 @@ bool MainWindow::openFile(const QString& path) {
 void MainWindow::showLoadedMap(std::unique_ptr<core::Map> map, const QString& path, const QStringList& warnings) {
     const int layerCount = static_cast<int>(map->layers().size());
     const int nbItems = map->nbItems;
-    // Open on a sheet that takes parts, by the rule both apps share.
-    if (const int start = startingSheet(*map); start >= 0) map->selectedLayerIndex = start;
+    // Open on a sheet that takes parts, by the rule both apps share. The
+    // file's own choice is kept for saving, so opening never changes a file.
+    if (const int start = startingSheet(*map); start >= 0 && start != map->selectedLayerIndex) {
+        const int saved = map->selectedLayerIndex;
+        const auto& layers = map->layers();
+        const core::Layer* l = saved >= 0 && saved < static_cast<int>(layers.size()) ? layers[saved].get() : nullptr;
+        map->fileSelection = core::Map::FileSelection{ saved, l, l ? l->guid : QString() };
+        map->selectedLayerIndex = start;
+    }
     clearActiveView();
     mapView_->loadMap(std::move(map));
     layerPanel_->setMap(mapView_->currentMap(), mapView_->builder());

@@ -264,6 +264,8 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
     connect(list_, &QListWidget::currentRowChanged, this, [this](int row){
         if (row >= 0 && map_) {
             const int index = indexOfRow(row);
+            // A sheet the user picks is the one saved from now on.
+            if (index != map_->selectedLayerIndex) map_->fileSelection.reset();
             map_->selectedLayerIndex = index;
             emit activeLayerChanged(index);
             // Re-render the panel so the active row renders bold.

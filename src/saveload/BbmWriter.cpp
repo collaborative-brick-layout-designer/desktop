@@ -55,7 +55,7 @@ void writeMapBody(QXmlStreamWriter& w, const core::Map& m) {
 
     writeExportInfo(w, m.exportInfo);
 
-    xml::writeIntElement(w, QStringLiteral("SelectedLayerIndex"), m.selectedLayerIndex);
+    xml::writeIntElement(w, QStringLiteral("SelectedLayerIndex"), m.selectedLayerIndexToSave());
 
     w.writeStartElement(QStringLiteral("Layers"));
     for (const auto& layer : m.layers()) {

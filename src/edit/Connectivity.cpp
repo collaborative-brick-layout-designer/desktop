@@ -133,6 +133,14 @@ void rebuildConnectivity(Map& map, parts::PartsLibrary& lib) {
         previous.reserve(static_cast<qsizetype>(layer.bricks.size()) * 2);
         std::vector<WorldConn> all;
         all.reserve(layer.bricks.size() * 2);
+        // The connections of parts this library doesn't know: their points
+        // can't be placed, so a link to one is kept as the file has it (it
+        // was dropped, so opening a layout without that library changed it).
+        QSet<QString> unknown;
+        for (const auto& brick : layer.bricks)
+            if (!metaOf(brick.partNumber))
+                for (const auto& cp : brick.connections)
+                    if (!cp.guid.isEmpty()) unknown.insert(cp.guid);
         for (auto& brick : layer.bricks) {
             const parts::PartMetadata* meta = metaOf(brick.partNumber);
             if (!meta) continue;
@@ -146,6 +154,7 @@ void rebuildConnectivity(Map& map, parts::PartsLibrary& lib) {
                 // <LinkedTo> in a .bbm names the partner's connection, so
                 // every connection point needs an id.
                 if (cp.guid.isEmpty()) cp.guid = core::newBbmId();
+                if (!cp.linkedToId.isEmpty() && unknown.contains(cp.linkedToId)) continue;
                 if (!cp.linkedToId.isEmpty()) previous.insert(cp.guid, cp.linkedToId);
                 cp.linkedToId.clear();
                 const auto& c = meta->connections[i];

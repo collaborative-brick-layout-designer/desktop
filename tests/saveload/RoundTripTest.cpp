@@ -425,3 +425,46 @@ TEST(RoundTrip, MissingMapRootErrors) {
     EXPECT_FALSE(result.ok());
     EXPECT_FALSE(result.error.isEmpty());
 }
+
+// A file whose saved sheet can't take parts opens on a parts sheet, but a
+// save writes the file's own choice back (where that sheet is now) until
+// the user picks a sheet, so opening never changes a file.
+TEST(RoundTrip, SavesTheFilesOwnSelectedSheetUntilOneIsPicked) {
+    core::Map m;
+    auto parts = std::make_unique<core::LayerBrick>();
+    parts->guid = QStringLiteral("10");
+    auto rulers = std::make_unique<core::LayerRuler>();
+    rulers->guid = QStringLiteral("20");
+    const core::Layer* r = rulers.get();
+    m.layers().push_back(std::move(parts));
+    m.layers().push_back(std::move(rulers));
+    m.selectedLayerIndex = 0;  // opened on the parts sheet
+    m.fileSelection = core::Map::FileSelection{ 1, r, QStringLiteral("20") };
+    EXPECT_EQ(m.selectedLayerIndexToSave(), 1);
+    // Written as the file had it.
+    QByteArray buf;
+    {
+        QBuffer out(&buf);
+        ASSERT_TRUE(out.open(QIODevice::WriteOnly));
+        ASSERT_TRUE(saveload::writeBbm(m, out).ok);
+    }
+    EXPECT_TRUE(buf.contains("<SelectedLayerIndex>1</SelectedLayerIndex>")) << buf.constData();
+    // A sheet added below moves it up one.
+    m.layers().insert(m.layers().begin(), std::make_unique<core::LayerText>());
+    m.selectedLayerIndex = 1;
+    EXPECT_EQ(m.selectedLayerIndexToSave(), 2);
+    // Deleted: the sheet in use is saved.
+    m.layers().pop_back();
+    EXPECT_EQ(m.selectedLayerIndexToSave(), 1);
+    // A saved index that named no sheet is kept while it names none.
+    m.fileSelection = core::Map::FileSelection{ -1, nullptr, QString() };
+    EXPECT_EQ(m.selectedLayerIndexToSave(), -1);
+    m.fileSelection = core::Map::FileSelection{ 7, nullptr, QString() };
+    EXPECT_EQ(m.selectedLayerIndexToSave(), 7);
+    m.fileSelection = core::Map::FileSelection{ 0, nullptr, QString() };
+    EXPECT_EQ(m.selectedLayerIndexToSave(), 1);
+    // Picked: that sheet is saved.
+    m.fileSelection.reset();
+    m.selectedLayerIndex = 0;
+    EXPECT_EQ(m.selectedLayerIndexToSave(), 0);
+}

@@ -9,7 +9,8 @@
 //       Compare two maps brick by brick (part, position, size and angle
 //       within 0.02 studs / 0.05 degrees, and how many of each brick's
 //       connections are linked). --known-only skips parts the library
-//       lacks (BlueBrick redraws their placeholders at another size).
+//       lacks (BlueBrick redraws their placeholders at another size), and
+//       links to them (BlueBrick drops those on reading, we keep them).
 //       Exit status 1 and a list when they differ.
 //
 // Used by scripts/bluebrick-oracle/compat.sh to check files against
@@ -31,6 +32,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QGuiApplication>
+#include <QSet>
 #include <QStringList>
 
 #include <algorithm>
@@ -93,12 +95,21 @@ struct Key {
 
 std::vector<Key> keysOf(const core::Map& map, const parts::PartsLibrary* knownOnly) {
     std::vector<Key> out;
+    // With --known-only, a link to a part the library lacks is skipped too:
+    // we keep such a link as the file has it, BlueBrick drops it on reading.
+    QSet<QString> unknown;
+    if (knownOnly)
+        for (const auto& layer : map.layers())
+            if (layer->kind() == core::LayerKind::Brick)
+                for (const auto& b : static_cast<const core::LayerBrick&>(*layer).bricks)
+                    if (!knownOnly->metadata(b.partNumber))
+                        for (const auto& c : b.connections) unknown.insert(c.guid);
     for (const auto& layer : map.layers()) {
         if (layer->kind() != core::LayerKind::Brick) continue;
         for (const auto& b : static_cast<const core::LayerBrick&>(*layer).bricks) {
             if (knownOnly && !knownOnly->metadata(b.partNumber)) continue;
             int links = 0;
-            for (const auto& c : b.connections) links += !c.linkedToId.isEmpty();
+            for (const auto& c : b.connections) links += !c.linkedToId.isEmpty() && !unknown.contains(c.linkedToId);
             const QPointF c = b.displayArea.center();
             out.push_back({ b.partNumber.toUpper(), c.x(), c.y(), b.displayArea.width(), b.displayArea.height(),
                             std::remainder(static_cast<double>(b.orientation), 360.0), links });
