@@ -91,7 +91,7 @@ VenueLibraryPanel::VenueLibraryPanel(QWidget* parent)
 
     // Action buttons
     auto* btnRow = new QHBoxLayout();
-    loadBtn_   = new QPushButton(tr("Load into Project"), host);
+    loadBtn_   = new QPushButton(tr("Use in This Layout"), host);
     startBtn_  = new QPushButton(tr("Start Layout"), host);
     startBtn_->setObjectName(QStringLiteral("venueStartLayout"));
     startBtn_->setToolTip(tr("Start a new layout in this venue"));
@@ -101,7 +101,7 @@ VenueLibraryPanel::VenueLibraryPanel(QWidget* parent)
     designBtn_ = new QPushButton(tr("Design…"), host);
     designBtn_->setObjectName(QStringLiteral("venueDesign"));
     designBtn_->setToolTip(tr("Open this venue in the designer"));
-    saveBtn_   = new QPushButton(tr("Save Current Venue"), host);
+    saveBtn_   = new QPushButton(tr("Save This Layout’s Venue…"), host);
     deleteBtn_ = new QPushButton(tr("Delete"), host);
     renameBtn_ = new QPushButton(tr("Rename…"), host);
     btnRow->addWidget(loadBtn_);
@@ -196,7 +196,7 @@ void VenueLibraryPanel::refresh() {
 void VenueLibraryPanel::saveVenue(const std::optional<core::Venue>& venue) {
     if (!venue) {
         QMessageBox::information(this, tr("Save venue"),
-            tr("There is no venue on the current project."));
+            tr("This layout has no venue yet. Draw one first (Map ▸ Venue)."));
         return;
     }
 

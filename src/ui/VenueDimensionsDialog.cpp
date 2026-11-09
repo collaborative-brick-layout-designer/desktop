@@ -75,17 +75,21 @@ VenueDimensionsDialog::VenueDimensionsDialog(QWidget* parent) : QDialog(parent) 
     setWindowTitle(tr("Draw venue outline by dimensions"));
     resize(600, 560);
 
-    // Real-world venues are quoted in either feet OR inches depending on
-    // the drawing. Data model stays in studs; conversion happens in the
-    // OK handler based on the selected unit.
+    // Real-world venues are quoted in feet, inches, meters or centimeters
+    // depending on the drawing (1 stud = 8 mm). Data model stays in studs;
+    // conversion happens in the OK handler based on the selected unit.
     static constexpr double kStudsPerFoot = 38.09814081;
     static constexpr double kStudsPerInch = kStudsPerFoot / 12.0;
+    static constexpr double kStudsPerMeter = 125.0;
+    static constexpr double kStudsPerCentimeter = 1.25;
 
     auto* vbox = new QVBoxLayout(this);
 
     auto* unitCombo = new QComboBox(this);
     unitCombo->addItem(tr("Feet (ft)"),   QStringLiteral("ft"));
     unitCombo->addItem(tr("Inches (in)"), QStringLiteral("in"));
+    unitCombo->addItem(tr("Meters (m)"), QStringLiteral("m"));
+    unitCombo->addItem(tr("Centimeters (cm)"), QStringLiteral("cm"));
 
     auto* form = new QFormLayout();
     form->addRow(tr("Unit:"), unitCombo);
@@ -110,7 +114,7 @@ VenueDimensionsDialog::VenueDimensionsDialog(QWidget* parent) : QDialog(parent) 
 
     vbox->addWidget(new QLabel(tr(
         "<b>Segments</b> — each row adds a new vertex at the given distance "
-        "and angle from the previous point. Lengths are in <b>feet</b>. "
+        "and angle from the previous point, in the unit picked above. "
         "Angle: 0° east, 90° south, 180° west, 270° north. The polygon is "
         "closed automatically.")));
 
@@ -183,15 +187,16 @@ VenueDimensionsDialog::VenueDimensionsDialog(QWidget* parent) : QDialog(parent) 
     connect(remBtn, &QPushButton::clicked, this, [table]{
         if (table->rowCount() > 0) table->removeRow(table->rowCount() - 1);
     });
-    connect(preset, &QPushButton::clicked, this, [this, table, makeKindCombo]{
-        // Ask for width + depth (in feet) and replace the segment list
+    connect(preset, &QPushButton::clicked, this, [this, table, makeKindCombo, unitCombo]{
+        // Ask for width + depth (in the picked unit) and replace the segment list
         // with a 4-row rectangle going east, south, west, north.
         QDialog dlg(this);
         dlg.setWindowTitle(tr("Rectangle preset"));
         auto* f = new QFormLayout(&dlg);
         auto* w = new QDoubleSpinBox(&dlg);  w->setRange(0, 10000); w->setValue(30);
         auto* d = new QDoubleSpinBox(&dlg);  d->setRange(0, 10000); d->setValue(20);
-        w->setSuffix(tr(" ft")); d->setSuffix(tr(" ft"));
+        const QString unitSuffix = QStringLiteral(" %1").arg(unitCombo->currentData().toString());
+        w->setSuffix(unitSuffix); d->setSuffix(unitSuffix);
         w->setDecimals(2);      d->setDecimals(2);
         f->addRow(tr("Width (east-west):"),  w);
         f->addRow(tr("Depth (north-south):"), d);
@@ -225,8 +230,10 @@ VenueDimensionsDialog::VenueDimensionsDialog(QWidget* parent) : QDialog(parent) 
     connect(bb, &QDialogButtonBox::accepted, this,
             [this, table, originX, originY, unitCombo]{
         const QString unit = unitCombo->currentData().toString();
-        const double studsPerUnit = (unit == QStringLiteral("in")) ? kStudsPerInch
-                                                                    : kStudsPerFoot;
+        const double studsPerUnit = unit == QStringLiteral("in")   ? kStudsPerInch
+                                  : unit == QStringLiteral("m")    ? kStudsPerMeter
+                                  : unit == QStringLiteral("cm")   ? kStudsPerCentimeter
+                                                                   : kStudsPerFoot;
         QVector<QPointF>     pts;
         QVector<SegmentMeta> metas;
         QPointF cur(originX->value() * studsPerUnit,

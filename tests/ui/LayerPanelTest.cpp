@@ -84,7 +84,7 @@ TEST(LayerPanel, TheKindIsAnIconAndTheDetailsAreInTheTooltip) {
     EXPECT_TRUE(tip.contains(QStringLiteral("60%"))) << tip.toStdString();
     EXPECT_FALSE(tip.contains(QStringLiteral("Active"))) << tip.toStdString();
     EXPECT_TRUE(t.row(0)->toolTip().contains(QStringLiteral("Grid sheet")));
-    EXPECT_FALSE(t.row(0)->toolTip().contains(QStringLiteral("Transparency")));
+    EXPECT_FALSE(t.row(0)->toolTip().contains(QStringLiteral("Opacity")));
     // The active sheet says so, in bold.
     EXPECT_TRUE(t.row(1)->toolTip().contains(QStringLiteral("Active sheet")));
     EXPECT_TRUE(t.row(1)->font().bold());

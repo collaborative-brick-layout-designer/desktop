@@ -12,7 +12,7 @@ namespace {
 const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("HelpTexts", "Parts"),
     QT_TRANSLATE_NOOP("HelpTexts", "All the pieces you can build with."),
-    QT_TRANSLATE_NOOP("HelpTexts", "Search by name or number, or pick a group like track or plates. The letters you type may have gaps: \"plt2\" finds \"plate2x4\". Drag a part onto the map, or click it to drop it in the middle."),
+    QT_TRANSLATE_NOOP("HelpTexts", "Search by name or number, or pick a group like track or plates; the letters you type may have gaps, so \"plt2\" finds \"plate2x4\". Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough."),
     QT_TRANSLATE_NOOP("HelpTexts", "Sheets"),
     QT_TRANSLATE_NOOP("HelpTexts", "Sheets are see-through pages stacked on the map, to keep things apart."),
     QT_TRANSLATE_NOOP("HelpTexts", "Put track on one sheet and buildings on another. Hide a sheet to see under it, or lock it so nothing on it moves by accident. New parts go on the sheet that is picked."),
@@ -60,7 +60,7 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("HelpTexts", "The sheet in Adding to stays at full strength, and the fade follows when you pick another. It only changes what you see: pictures, PDFs and shared pictures never show it, and it isn’t saved in the layout or sent to anyone else."),
     QT_TRANSLATE_NOOP("HelpTexts", "Tools"),
     QT_TRANSLATE_NOOP("HelpTexts", "Pick what a click on the map does."),
-    QT_TRANSLATE_NOOP("HelpTexts", "Select moves pieces. Measure and Circle add a ruler you can keep on the map. Venue and Obstacle draw the walls of the venue and things to keep clear of."),
+    QT_TRANSLATE_NOOP("HelpTexts", "Select moves pieces, Turn turns the one you click, and Delete removes it. Paint colors the ground and Erase clears it. Measure and Circle add a ruler you can keep on the map, and Venue and Obstacle draw the venue’s walls and things to keep clear of."),
     QT_TRANSLATE_NOOP("HelpTexts", "Current sheet"),
     QT_TRANSLATE_NOOP("HelpTexts", "New parts go on this sheet."),
     QT_TRANSLATE_NOOP("HelpTexts", "Pick a different sheet in the Sheets panel to put new parts there instead. Each sheet keeps its own parts."),

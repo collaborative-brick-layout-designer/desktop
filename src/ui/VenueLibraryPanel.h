@@ -20,7 +20,7 @@ namespace bld::ui {
 // Backed by QSettings key "venue/libraryPath" (same as the menu actions used
 // before). Signals:
 //   venueLoadRequested   — user wants to replace the project venue
-//   venueSaveRequested   — user wants to save the current project venue
+//   venueSaveRequested   — user wants to save the layout's venue
 //                          (panel handles the save itself; this signal lets
 //                           MainWindow forward the current venue)
 class VenueLibraryPanel : public QDockWidget {
@@ -37,7 +37,7 @@ signals:
     void venueLoadRequested(const core::Venue& venue);
     // Emitted by "Start Layout": the caller starts a new layout with it.
     void newLayoutRequested(const core::Venue& venue);
-    // Emitted when the user clicks "Save Current Venue"; caller must respond
+    // Emitted when the user clicks "Save This Layout’s Venue…"; caller must respond
     // by calling saveVenue() with the project's current venue.
     void venueSaveRequested();
 

@@ -59,7 +59,8 @@ struct ServerSetCopy {
 
 // Dock panel showing parts in a thumbnail grid (QListView::IconMode).
 // Top strip: category dropdown + live text filter. Double-click (or
-// Enter) on a thumbnail activates the part.
+// Enter) on a thumbnail activates the part; on an empty map one click
+// does (like the website's Parts panel).
 class PartsBrowser : public QDockWidget {
     Q_OBJECT
 public:
@@ -119,6 +120,10 @@ public:
     // Rename set…: tests fill in the dialog and say whether it was renamed
     // (instead of showing it).
     std::function<bool(class RenameSetDialog&)> runRenameSetDialog;
+
+    // Whether the map has no parts yet: then one click on a part adds it
+    // (MainWindow sets it; unset: a click only picks the part).
+    std::function<bool()> mapIsEmpty;
 
     // Looks for the set `key` on your servers, calling `found` for a copy
     // there you may rename (MainWindow sets it; empty: no server).
@@ -186,6 +191,10 @@ private:
     bool handleTouch(QTouchEvent* e);
     // A finger held still on a part opens the same menu as a right-click.
     QTimer* holdTimer_ = nullptr;
+    // The part one click just added on an empty map, and when: the
+    // double-click it starts doesn't add a second one.
+    QString clickPlacedKey_;
+    qint64 clickPlacedAt_ = 0;
     void showPartMenu(const QPoint& pos);
     // Two fingers apart or together: the size when they landed, and how far apart.
     qreal pinchStartDist_ = 0;

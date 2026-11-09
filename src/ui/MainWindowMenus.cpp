@@ -173,7 +173,7 @@ void MainWindow::setupMenus() {
         });
         form->addRow(tr("Height (px):"), heightSpin);
 
-        auto* watermarkChk = new QCheckBox(tr("Embed general-info watermark"), &dlg);
+        auto* watermarkChk = new QCheckBox(tr("Add the author, club and event in the corner"), &dlg);
         watermarkChk->setChecked(s.value(QStringLiteral("export/watermark"), false).toBool());
         form->addRow(watermarkChk);
         auto* transparentChk = new QCheckBox(tr("Transparent background"), &dlg);

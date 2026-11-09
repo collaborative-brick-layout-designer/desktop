@@ -207,7 +207,7 @@ QWidget* buildAppearanceTab(QDialog* parent) {
     highlightChk->setChecked(s.value(QStringLiteral("appearance/selectionTint"), true).toBool());
     form->addRow(highlightChk);
 
-    auto* watermarkChk = new QCheckBox(QObject::tr("Show general-info watermark on export"), w);
+    auto* watermarkChk = new QCheckBox(QObject::tr("Add the author, club and event to exported pictures"), w);
     watermarkChk->setChecked(s.value(QStringLiteral("appearance/exportWatermark"), true).toBool());
     form->addRow(watermarkChk);
 

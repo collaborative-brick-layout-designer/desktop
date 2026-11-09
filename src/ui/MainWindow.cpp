@@ -179,7 +179,7 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
         auto* alphaSpin = new QSpinBox(&dlg);
         alphaSpin->setRange(0, 100); alphaSpin->setSuffix(QStringLiteral(" %"));
         alphaSpin->setValue(layer.transparency);
-        form->addRow(tr("Transparency:"), alphaSpin);
+        form->addRow(tr("Opacity:"), alphaSpin);
         auto* visChk = new QCheckBox(tr("Visible"), &dlg);
         visChk->setChecked(layer.visible);
         form->addRow(visChk);
@@ -300,6 +300,13 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     connect(mapView_, &MapView::layersChanged, this, recountBudget);
     connect(partsBrowser_, &PartsBrowser::partActivated,
             mapView_, &MapView::addPartAtViewCenter);
+    partsBrowser_->mapIsEmpty = [this] {
+        const core::Map* map = mapView_->currentMap();
+        if (!map) return false;
+        for (const auto& l : map->layers())
+            if (l && l->kind() == core::LayerKind::Brick && !static_cast<const core::LayerBrick&>(*l).bricks.empty()) return false;
+        return true;
+    };
     // Touch: tap a part then the map, or drag it out with a finger; the
     // map's touch bar "Add part" brings the parts panel forward.
     connect(partsBrowser_, &PartsBrowser::partTapped, mapView_, &MapView::armPartPlacement);

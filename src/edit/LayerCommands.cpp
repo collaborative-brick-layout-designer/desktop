@@ -143,7 +143,7 @@ SetLayerTransparencyCommand::SetLayerTransparencyCommand(core::Map& map, int ind
     auto& layers = map_.layers();
     before_ = (index_ >= 0 && index_ < static_cast<int>(layers.size()))
                   ? layers[index_]->transparency : 100;
-    setText(QObject::tr("Change sheet transparency"));
+    setText(QObject::tr("Change sheet opacity"));
 }
 void SetLayerTransparencyCommand::redo() {
     auto& layers = map_.layers();

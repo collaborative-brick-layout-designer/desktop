@@ -205,7 +205,7 @@ QString partListCsv(const std::vector<PartListGroup>& groups, bool hasBudget) {
         c[3].replace(QLatin1Char(','), QLatin1Char(' '));
         c[0].replace(QLatin1Char(','), QLatin1Char(' '));
         if (hasBudget && (isTotal || r.usage >= 0))
-            c[6] = c[6].mid(11).chopped(1);  // just the number, as BlueBrick
+            c[6] = c[6].mid(11).chopped(1).remove(QLatin1Char(','));  // just the number, as BlueBrick, without the thousands comma ("2,600" would split into two columns)
         for (QString& cell : c) cell = defuseFormula(cell);
         return c.join(QLatin1Char(',')) + QLatin1Char('\n');
     };

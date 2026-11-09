@@ -391,7 +391,7 @@ void LayerPanel::setMap(core::Map* map, rendering::SceneBuilder* builder) {
                        .arg(friendlyKindName(layer->kind()))
                        .arg(i)
                        .arg(QLatin1String(layerKindName(layer->kind())));
-            if (layer->transparency < 100) tip << tr("Transparency: %1%").arg(layer->transparency);
+            if (layer->transparency < 100) tip << tr("Opacity: %1%").arg(layer->transparency);
             item->setData(kActiveRole, isActive);
             item->setData(kFlashRole, i == flashRow_);
             if (isActive) {
