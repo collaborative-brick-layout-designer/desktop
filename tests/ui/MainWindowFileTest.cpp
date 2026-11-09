@@ -210,6 +210,57 @@ TEST_F(MainWindowFile, OpensOnTheSavedSheetOrTheTopmostPartsSheet) {
     EXPECT_EQ(map->layers()[map->selectedLayerIndex]->name, QStringLiteral("Tables"));
 }
 
+// Opening a file never changes it: Fordyce opens adding to "Tracks", but
+// saving it untouched writes back its own saved sheet ("rulers"), byte for
+// byte. A sheet the user picks is saved.
+TEST_F(MainWindowFile, OpeningAndSavingAnUntouchedFileChangesNothing) {
+    QFile f(kCorpus + QStringLiteral("/fordyce-2026.bbm"));
+    ASSERT_TRUE(f.open(QIODevice::ReadOnly));
+    const QByteArray original = f.readAll();
+    ASSERT_TRUE(original.contains("<SelectedLayerIndex>4</SelectedLayerIndex>"));
+    const QString copy = dir_.filePath(QStringLiteral("fordyce.bbm"));
+    QFile out(copy);
+    ASSERT_TRUE(out.open(QIODevice::WriteOnly));
+    out.write(original);
+    out.close();
+    const auto readBack = [&] {
+        QFile in(copy);
+        return in.open(QIODevice::ReadOnly) ? in.readAll() : QByteArray();
+    };
+    ASSERT_TRUE(window_->openFile(copy));
+    auto* view = window_->findChild<ui::MapView*>();
+    const core::Map* map = view->currentMap();
+    EXPECT_EQ(map->layers()[map->selectedLayerIndex]->name, QStringLiteral("Tracks"));
+    // An empty edit, so the file counts as changed; the map is as opened.
+    view->undoStack()->push(new QUndoCommand(QStringLiteral("nothing")));
+    Answers keep{ { click(QStringLiteral("Keep .bbm")) } };
+    bool saved = false;
+    keep.during([&] { saved = invoke(*window_, "onSave"); });
+    ASSERT_TRUE(saved);
+    EXPECT_EQ(readBack(), original);
+
+    // Pick "Tables" in the Sheets panel: that is saved.
+    auto* list = window_->findChild<QListWidget*>(QStringLiteral("sheetList"));
+    ASSERT_NE(list, nullptr);
+    int tablesRow = -1;
+    for (int i = 0; i < list->count(); ++i)
+        if (list->item(i)->text() == QStringLiteral("Tables")) tablesRow = i;
+    ASSERT_GE(tablesRow, 0);
+    list->setCurrentRow(tablesRow);
+    int tables = -1;
+    for (int i = 0; i < static_cast<int>(map->layers().size()); ++i)
+        if (map->layers()[i]->name == QStringLiteral("Tables")) tables = i;
+    ASSERT_EQ(map->selectedLayerIndex, tables);
+    view->undoStack()->push(new QUndoCommand(QStringLiteral("nothing either")));
+    Answers none;
+    none.during([&] { saved = invoke(*window_, "onSave"); });
+    ASSERT_TRUE(saved);
+    QByteArray picked = original;
+    picked.replace("<SelectedLayerIndex>4</SelectedLayerIndex>",
+                   QStringLiteral("<SelectedLayerIndex>%1</SelectedLayerIndex>").arg(tables).toUtf8());
+    EXPECT_EQ(readBack(), picked);
+}
+
 // Every menu item that opens a window ("…") says in its tooltip what it
 // does, not just its own name again ("Save As": "Save As").
 TEST_F(MainWindowFile, MenuItemsThatOpenAWindowSayWhatTheyDo) {
