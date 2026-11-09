@@ -108,6 +108,7 @@ private:
     // The parts on the map before an undo or redo, until its reload picks what came back.
     std::optional<QSet<QString>> partsBeforeStep_;
     sync::presence::User user_{ {}, QStringLiteral("Desktop"), QStringLiteral("#888888") };
+    QString layoutId_;
     std::optional<QPointF> cursorStuds_;
     QTimer* presenceTimer_ = nullptr;
     QList<QGraphicsItem*> peerItems_;

@@ -1,0 +1,141 @@
+{
+  "about": "Presence colors: the same in both apps (web apps/web/src/editor/presenceColors.ts, desktop src/sync/Presence.cpp).",
+  "palette": [
+    "#f87171",
+    "#fb923c",
+    "#facc15",
+    "#4ade80",
+    "#22d3ee",
+    "#60a5fa",
+    "#a78bfa",
+    "#f472b6"
+  ],
+  "firstChoices": [
+    {
+      "userId": "u-alice",
+      "layoutId": "L1",
+      "color": "#a78bfa"
+    },
+    {
+      "userId": "0b8f7e1c-2d3a-4c5b-9e6f-7a8b9c0d1e2f",
+      "layoutId": "layout-42",
+      "color": "#f472b6"
+    },
+    {
+      "userId": "é",
+      "layoutId": "x",
+      "color": "#60a5fa"
+    },
+    {
+      "userId": "😀user",
+      "layoutId": "L1",
+      "color": "#a78bfa"
+    },
+    {
+      "userId": "",
+      "layoutId": "",
+      "color": "#60a5fa"
+    },
+    {
+      "userId": "u-bob",
+      "layoutId": "L1",
+      "color": "#a78bfa"
+    }
+  ],
+  "groups": [
+    {
+      "layoutId": "L1",
+      "userIds": [
+        "u-alice",
+        "u-bob"
+      ],
+      "colors": {
+        "u-alice": "#a78bfa",
+        "u-bob": "#f472b6"
+      }
+    },
+    {
+      "layoutId": "L1",
+      "userIds": [
+        "u-bob",
+        "u-alice",
+        "u-carol",
+        "u-dave"
+      ],
+      "colors": {
+        "u-alice": "#a78bfa",
+        "u-bob": "#f472b6",
+        "u-carol": "#4ade80",
+        "u-dave": "#facc15"
+      }
+    },
+    {
+      "layoutId": "layout-42",
+      "userIds": [
+        "user-0",
+        "user-1",
+        "user-2",
+        "user-3",
+        "user-4",
+        "user-5",
+        "user-6",
+        "user-7"
+      ],
+      "colors": {
+        "user-0": "#22d3ee",
+        "user-1": "#facc15",
+        "user-2": "#60a5fa",
+        "user-3": "#a78bfa",
+        "user-4": "#f472b6",
+        "user-5": "#f87171",
+        "user-6": "#fb923c",
+        "user-7": "#4ade80"
+      }
+    },
+    {
+      "layoutId": "layout-42",
+      "userIds": [
+        "user-0",
+        "user-1",
+        "user-2",
+        "user-3",
+        "user-4",
+        "user-5",
+        "user-6",
+        "user-7",
+        "user-8",
+        "user-9"
+      ],
+      "colors": {
+        "user-0": "#22d3ee",
+        "user-1": "#facc15",
+        "user-2": "#60a5fa",
+        "user-3": "#a78bfa",
+        "user-4": "#f472b6",
+        "user-5": "#f87171",
+        "user-6": "#fb923c",
+        "user-7": "#4ade80",
+        "user-8": "#f87171",
+        "user-9": "#60a5fa"
+      }
+    },
+    {
+      "layoutId": "x",
+      "userIds": [
+        "é",
+        "e",
+        "Z",
+        "😀user",
+        "u-alice",
+        "u-alice"
+      ],
+      "colors": {
+        "Z": "#60a5fa",
+        "e": "#22d3ee",
+        "u-alice": "#f87171",
+        "é": "#a78bfa",
+        "😀user": "#f472b6"
+      }
+    }
+  ]
+}

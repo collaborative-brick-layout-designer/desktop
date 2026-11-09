@@ -1,22 +1,63 @@
 #include "Presence.h"
 
 #include <QJsonArray>
+#include <QSet>
+
+#include <algorithm>
 
 #include <cstdint>
 #include <cstdlib>
 
 namespace bld::sync::presence {
 
+namespace {
+const char* const kPalette[] = { "#f87171", "#fb923c", "#facc15", "#4ade80",
+                                 "#22d3ee", "#60a5fa", "#a78bfa", "#f472b6" };
+constexpr int kColors = 8;
+
+// FNV-1a over the UTF-16 code units, then murmur3's finalizer (the web's mix()).
+std::uint32_t mix(const QString& seed) {
+    std::uint32_t h = 0x811c9dc5u;
+    for (const QChar c : seed) {
+        h ^= c.unicode();
+        h *= 0x01000193u;
+    }
+    h ^= h >> 16;
+    h *= 0x85ebca6bu;
+    h ^= h >> 13;
+    h *= 0xc2b2ae35u;
+    h ^= h >> 16;
+    return h;
+}
+} // namespace
+
+int firstChoice(const QString& userId, const QString& layoutId) {
+    return static_cast<int>(mix(userId + QLatin1Char(':') + layoutId) % kColors);
+}
+
 QString colorFor(const QString& userId, const QString& layoutId) {
-    static const char* kPalette[] = { "#f87171", "#fb923c", "#facc15", "#4ade80",
-                                      "#22d3ee", "#60a5fa", "#a78bfa", "#f472b6" };
-    const QString seed = userId + QLatin1Char(':') + layoutId;
-    // (h * 31 + code unit) | 0 in JavaScript: 32-bit wrap-around.
-    std::int32_t h = 0;
-    for (const QChar c : seed)
-        h = static_cast<std::int32_t>(static_cast<std::uint32_t>(h) * 31u + c.unicode());
-    const std::int64_t a = std::llabs(static_cast<std::int64_t>(h));
-    return QString::fromLatin1(kPalette[a % 8]);
+    return QString::fromLatin1(kPalette[firstChoice(userId, layoutId)]);
+}
+
+QHash<QString, QString> colorsFor(const QStringList& userIds, const QString& layoutId) {
+    QStringList ids = userIds;
+    ids.removeDuplicates();
+    std::sort(ids.begin(), ids.end());  // UTF-16 code units, as the web's sort
+    QSet<int> taken;
+    QHash<QString, QString> out;
+    for (const QString& id : ids) {
+        const int first = firstChoice(id, layoutId);
+        int pick = first;
+        if (taken.size() < kColors)
+            for (int k = 0; k < kColors; ++k)
+                if (const int c = (first + k) % kColors; !taken.contains(c)) {
+                    pick = c;
+                    break;
+                }
+        taken.insert(pick);
+        out.insert(id, QString::fromLatin1(kPalette[pick]));
+    }
+    return out;
 }
 
 QJsonObject state(const User& user, std::optional<QPointF> cursor, const QStringList& brickIds,
@@ -43,7 +84,12 @@ QJsonObject state(const User& user, std::optional<QPointF> cursor, const QString
 Peer peerFrom(const QJsonObject& s) {
     Peer p;
     const QJsonObject user = s.value(QLatin1String("user")).toObject();
+    p.userId = user.value(QLatin1String("id")).toString();
     p.name = user.value(QLatin1String("displayName")).toString();
+    // A person's: a name, a selection and when they last moved (the web's readPeerPresence).
+    p.person = user.value(QLatin1String("displayName")).isString()
+               && s.value(QLatin1String("selection")).toObject().value(QLatin1String("brickIds")).isArray()
+               && s.value(QLatin1String("lastActivityMs")).isDouble();
     p.color = user.value(QLatin1String("color")).toString(QStringLiteral("#888888"));
     const QJsonValue c = s.value(QLatin1String("cursor"));
     if (c.isObject()) {

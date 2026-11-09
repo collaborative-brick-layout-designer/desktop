@@ -32,3 +32,6 @@ To change them: edit (or, for the imported part, run the desktop's
 `bld_sync_tests --gtest_filter='Contracts.*'` with `BLD_WRITE_CONTRACTS=1`),
 then `sha256sum doc-shape.json imported-part.json imported-part.xml part-naming.json sidecar-hash.json update-guard.json > MANIFEST.sha256`
 and copy the folder to the other repo.
+- `presence-colors.json`: each person's first-choice presence color on a
+  layout, and the colors a group of people here get (web
+  apps/web/src/editor/presenceColors.ts, desktop src/sync/Presence.cpp).
