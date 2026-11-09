@@ -19,6 +19,7 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QPushButton>
+#include <QSignalBlocker>
 #include <QStyledItemDelegate>
 #include <QTimer>
 #include <QVBoxLayout>
@@ -242,6 +243,9 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
         if (!builder_) return;
         const int idx = indexOfRow(list_->row(item));
         const bool visible = item->checkState() == Qt::Checked;
+        // Only a show / hide counts: a new icon or name changes the item too.
+        if (map_ && idx >= 0 && idx < static_cast<int>(map_->layers().size()) && map_->layers()[idx]->visible == visible)
+            return;
         builder_->setLayerVisible(idx, visible);
         // Also persist on the underlying Layer so a later scene rebuild
         // (triggered by e.g. a move / undo / paste) honours the user's
@@ -340,7 +344,11 @@ LayerPanel::LayerPanel(QWidget* parent) : QDockWidget(tr("Sheets"), parent) {
 
 bool LayerPanel::eventFilter(QObject* watched, QEvent* e) {
     // Redraw the kind icons in the list's new text color (light / dark).
+    // Quietly: this runs inside Qt's walk over every widget on a theme
+    // change, and an itemChanged here once rebuilt the "Adding to" menu,
+    // deleting widgets that walk was still to visit (a crash).
     if (watched == list_ && e->type() == QEvent::PaletteChange) {
+        const QSignalBlocker quiet(list_);
         for (int i = 0; i < list_->count(); ++i) {
             QListWidgetItem* item = list_->item(i);
             item->setIcon(kindIcon(static_cast<core::LayerKind>(item->data(kKindRole).toInt()), list_));
