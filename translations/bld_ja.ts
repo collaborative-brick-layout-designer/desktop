@@ -865,6 +865,22 @@
         <source>(unnamed)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Found Studio&apos;s: %1</source>
+        <translation>Studio のものが見つかりました：%1</translation>
+    </message>
+    <message>
+        <source>Using Studio&apos;s: %1</source>
+        <translation>Studio のものを使用中：%1</translation>
+    </message>
+    <message>
+        <source>Use %1 for the layout&apos;s %2</source>
+        <translation>レイアウトの %2 に %1 を使う</translation>
+    </message>
+    <message>
+        <source>Use Studio&apos;s LDraw library and mapping when these are left empty</source>
+        <translation>空欄のときは Studio の LDraw ライブラリと対応表を使う</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::PartList</name>
@@ -1173,6 +1189,130 @@
         <source>Installed %1 package(s).</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>%1 — Included</source>
+        <translation>%1 — 含まれています</translation>
+    </message>
+    <message>
+        <source>%1 — Included (you have %2)</source>
+        <translation>%1 — 含まれています（%2 があります）</translation>
+    </message>
+    <message>
+        <source>%1 — Installed</source>
+        <translation>%1 — インストール済み</translation>
+    </message>
+    <message>
+        <source>%1 is in use, so it couldn&apos;t be replaced.</source>
+        <translation>%1 は使用中のため置き換えられませんでした。</translation>
+    </message>
+    <message>
+        <source>%1 new, %2 update(s), %3 already included.</source>
+        <translation>新規 %1、更新 %2、含まれているもの %3。</translation>
+    </message>
+    <message>
+        <source>%1 — Update %2 → %3</source>
+        <translation>%1 — 更新 %2 → %3</translation>
+    </message>
+    <message>
+        <source>%1 (version %2)</source>
+        <translation>%1（バージョン %2）</translation>
+    </message>
+    <message>
+        <source>Cancel Download</source>
+        <translation>ダウンロードを中止</translation>
+    </message>
+    <message>
+        <source>Cancelled.</source>
+        <translation>中止しました。</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t make the folder %1.</source>
+        <translation>フォルダー %1 を作成できませんでした。</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t put it in %1.</source>
+        <translation>%1 に置けませんでした。</translation>
+    </message>
+    <message>
+        <source>Couldn’t search:</source>
+        <translation>検索できませんでした：</translation>
+    </message>
+    <message>
+        <source>Downloading %1 (%2 of %3)…</source>
+        <translation>%1 をダウンロード中（%3 件中 %2 件目）…</translation>
+    </message>
+    <message numerus="yes">
+        <source>Installed %n package(s).</source>
+        <translation>
+            <numerusform>%n 個のパッケージをインストールしました。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>It has a file that would go outside the parts folder (%1), so nothing was installed.</source>
+        <translation>パーツフォルダーの外に置かれるファイル（%1）があるため、何もインストールしませんでした。</translation>
+    </message>
+    <message>
+        <source>It&apos;s bigger than %1 MB, so it wasn&apos;t downloaded.</source>
+        <translation>%1 MB を超えるため、ダウンロードしませんでした。</translation>
+    </message>
+    <message>
+        <source>It&apos;s damaged (%1), so nothing was installed.</source>
+        <translation>壊れているため（%1）、何もインストールしませんでした。</translation>
+    </message>
+    <message>
+        <source>It&apos;s too big, so it wasn&apos;t downloaded.</source>
+        <translation>大きすぎるため、ダウンロードしませんでした。</translation>
+    </message>
+    <message>
+        <source>(no version)</source>
+        <translation>（バージョンなし）</translation>
+    </message>
+    <message>
+        <source>Packages (the ones you already have say Included):</source>
+        <translation>パッケージ（すでにあるものには「含まれています」と表示）：</translation>
+    </message>
+    <message>
+        <source>Packs of parts made for BlueBrick. Search, tick the ones you want, then install them.</source>
+        <translation>BlueBrick 用のパーツパックです。検索して、欲しいものにチェックを入れ、インストールします。</translation>
+    </message>
+    <message>
+        <source>Some packages couldn&apos;t be installed:
+%1</source>
+        <translation>一部のパッケージをインストールできませんでした：
+%1</translation>
+    </message>
+    <message>
+        <source>The download isn&apos;t a package this app can read.</source>
+        <translation>ダウンロードしたものは、このアプリで読めるパッケージではありません。</translation>
+    </message>
+    <message numerus="yes">
+        <source>The download stopped: nothing came for %n second(s).</source>
+        <translation>
+            <numerusform>ダウンロードが止まりました：%n 秒間何も届きませんでした。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The download was empty.</source>
+        <translation>ダウンロードしたものは空でした。</translation>
+    </message>
+    <message>
+        <source>There&apos;s no room for it in %1.</source>
+        <translation>%1 に空きがありません。</translation>
+    </message>
+    <message>
+        <source>There&apos;s no room for the download on this computer.</source>
+        <translation>このコンピューターにダウンロードの空きがありません。</translation>
+    </message>
+    <message>
+        <source>The rest were cancelled.</source>
+        <translation>残りは中止しました。</translation>
+    </message>
+    <message numerus="yes">
+        <source>You already have all %n package(s).</source>
+        <translation>
+            <numerusform>%n 個のパッケージはすべて入手済みです。</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::FindDialog</name>
@@ -1285,6 +1425,42 @@
         <location filename="../src/ui/ImportPipeline.cpp" line="248"/>
         <source>Could not read %1: %2</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 (%n times)</source>
+        <translation>
+            <numerusform>%1（%n 回）</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>and %n more</source>
+        <translation>
+            <numerusform>ほか %n 件</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>A newer LDD → LDraw mapping (ldraw.xml) in Preferences › Import may know them.</source>
+        <translation>環境設定 › 読み込み で新しい LDD → LDraw 対応表（ldraw.xml）を指定すると見つかるかもしれません。</translation>
+    </message>
+    <message>
+        <source>A newer LDraw library, set in Preferences › Import, may have them.</source>
+        <translation>環境設定 › 読み込み で新しい LDraw ライブラリを指定すると含まれているかもしれません。</translation>
+    </message>
+    <message>
+        <source>Couldn’t open %1.</source>
+        <translation>%1 を開けませんでした。</translation>
+    </message>
+    <message numerus="yes">
+        <source>LDD has no shape for %n brick(s), so they’re left out: %1.</source>
+        <translation>
+            <numerusform>LDD に %n 個のブロックの形がないため、省きました：%1。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s) aren’t in your LDraw library, so they’re left out of the picture: %1.</source>
+        <translation>
+            <numerusform>LDraw ライブラリに %n 個のパーツがないため、画像から省きました：%1。</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -3749,6 +3925,16 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
 
 ほかのプログラムでまだ開く場合は %2 のままにしてください。ファイル › BlueBrick マップ (.bbm) としてエクスポート… でいつでも .bbm のコピーを作れます。</translation>
     </message>
+    <message numerus="yes">
+        <source>Installed %n package(s); parts reloaded.</source>
+        <translation>
+            <numerusform>%n 個のパッケージをインストールし、パーツを読み込み直しました。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Keep both copies of the layout&apos;s parts</source>
+        <translation>レイアウトのパーツを両方とも残す</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -4701,6 +4887,18 @@ This removes:
     <message>
         <source>What could be read is open. When you save over the file, the app first keeps a copy of it as it was, ending in .bak, so nothing is lost. Save to a new name to leave the file alone.</source>
         <translation>読み込めた部分は開いています。このファイルに上書き保存すると、アプリはまず元のままのコピー（末尾が .bak）を残すので、何も失われません。ファイルをそのままにしたい場合は、別の名前で保存してください。</translation>
+    </message>
+    <message>
+        <source>Get more parts</source>
+        <translation>パーツを追加入手</translation>
+    </message>
+    <message>
+        <source>Packs of parts for BlueBrick layouts, like trains, roads or Duplo.</source>
+        <translation>BlueBrick のレイアウト用パーツパック（列車、道路、デュプロなど）。</translation>
+    </message>
+    <message>
+        <source>Packs you already have say Included, and a newer version of one says Update. Installed packs go in your own parts folder and show in the Parts panel at once.</source>
+        <translation>すでにあるパックには「含まれています」、新しい版があるものには「更新」と表示されます。インストールしたパックは自分のパーツフォルダーに入り、すぐにパーツパネルに表示されます。</translation>
     </message>
 </context>
 <context>

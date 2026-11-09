@@ -26,9 +26,10 @@
 #include <QFileInfo>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
+#include <QHash>
 #include <QLineF>
-#include <QRegularExpression>
 #include <QPainter>
+#include <QRegularExpression>
 #include <QSizeF>
 #include <QTransform>
 
@@ -102,7 +103,7 @@ PreparedPart fromLDrawGeometry(PreparedPart out, const import::LDrawReadResult& 
             rast = import::rasterizeMeshTopDown(baked.mesh, geometryRasterOptions(settings.pxPerStud));
         });
     if (!finished) { out.cancelled = true; out.error = Text::tr("Import cancelled."); return out; }
-    out.warnings = read.warnings + baked.errors;
+    out.warnings = friendlyImportWarnings(read.warnings + baked.errors, false);
     out.stats.ldrawResolved = baked.resolvedRefs;
     out.stats.unresolved    = baked.unresolvedRefs;
     if (baked.mesh.tris.empty() || rast.image.isNull()) {
@@ -203,7 +204,7 @@ PreparedPart fromLDDGeometry(PreparedPart out, const import::LDrawReadResult& re
             rast = import::rasterizeMeshTopDown(baked.mesh, geometryRasterOptions(settings.pxPerStud));
         });
     if (!finished) { out.cancelled = true; out.error = Text::tr("Import cancelled."); return out; }
-    out.warnings = baked.errors;
+    out.warnings = friendlyImportWarnings(baked.errors, true);
     out.stats.lddRendered = baked.rendered;
     out.stats.unresolved  = baked.skipped;
     if (baked.mesh.tris.empty() || rast.image.isNull()) {
@@ -234,6 +235,97 @@ PreparedPart fromLDDGeometry(PreparedPart out, const import::LDrawReadResult& re
 }
 
 }  // namespace
+
+QStringList friendlyImportWarnings(const QStringList& raw, bool fromLdd) {
+    static const QRegularExpression missing(QStringLiteral("^Unresolved (?:part|subfile) (.+)$"));
+    static const QRegularExpression noGeometry(QStringLiteral("^missing \\.g for designID (.+)$"));
+    static const QRegularExpression cantOpen(QStringLiteral("^Could not open (.+)$"));
+    QStringList order; // missing parts, first seen first
+    QHash<QString, int> times;
+    QStringList noGeo;
+    QHash<QString, int> noGeoTimes;
+    QStringList other;
+    QHash<QString, int> otherTimes;
+    for (const QString& w : raw) {
+        if (const auto m = missing.match(w); m.hasMatch()) {
+            const QString part = m.captured(1).trimmed();
+            const QString key = part.toLower();
+            if (!times.contains(key)) order << part;
+            ++times[key];
+        } else if (const auto g = noGeometry.match(w); g.hasMatch()) {
+            const QString id = g.captured(1).trimmed();
+            if (!noGeoTimes.contains(id)) noGeo << id;
+            ++noGeoTimes[id];
+        } else {
+            QString line = w;
+            if (const auto c = cantOpen.match(w); c.hasMatch())
+                line = Text::tr("Couldn’t open %1.").arg(c.captured(1));
+            if (!otherTimes.contains(line)) other << line;
+            ++otherTimes[line];
+        }
+    }
+    const auto named = [](const QStringList& names, const QHash<QString, int>& count, bool fold) {
+        constexpr int kShown = 8;
+        QStringList shown;
+        for (qsizetype i = 0; i < names.size() && i < kShown; ++i) {
+            const int n = count.value(fold ? names[i].toLower() : names[i]);
+            shown << (n > 1 ? Text::tr("%1 (%n times)", nullptr, n).arg(names[i]) : names[i]);
+        }
+        QString list = shown.join(QStringLiteral(", "));
+        if (names.size() > kShown)
+            list +=
+                QLatin1Char(' ') + Text::tr("and %n more", nullptr, static_cast<int>(names.size() - kShown));
+        return list;
+    };
+    QStringList out;
+    if (!order.isEmpty()) {
+        out << Text::tr("%n part(s) aren’t in your LDraw library, so they’re left out of the picture: %1.",
+                        nullptr, static_cast<int>(order.size()))
+                   .arg(named(order, times, true));
+        out << (fromLdd
+                    ? Text::tr(
+                          "A newer LDD → LDraw mapping (ldraw.xml) in Preferences › Import may know them.")
+                    : Text::tr("A newer LDraw library, set in Preferences › Import, may have them."));
+    }
+    if (!noGeo.isEmpty())
+        out << Text::tr("LDD has no shape for %n brick(s), so they’re left out: %1.", nullptr,
+                        static_cast<int>(noGeo.size()))
+                   .arg(named(noGeo, noGeoTimes, false));
+    for (const QString& line : std::as_const(other)) {
+        const int n = otherTimes.value(line);
+        out << (n > 1 ? Text::tr("%1 (%n times)", nullptr, n).arg(line) : line);
+    }
+    return out;
+}
+
+StudioInstall findStudioInstall(const QStringList& roots) {
+    QStringList where = roots;
+    if (where.isEmpty()) {
+        const QString studio = QStringLiteral("Studio 2.0");
+        for (const char* var : { "ProgramFiles", "ProgramW6432", "ProgramFiles(x86)" }) {
+            const QString dir = qEnvironmentVariable(var);
+            if (!dir.isEmpty()) where << QDir(dir).filePath(studio);
+        }
+        where << QStringLiteral("C:/Program Files/Studio 2.0") << QStringLiteral("/Applications/Studio 2.0")
+              << QDir::home().filePath(QStringLiteral("Applications/Studio 2.0"));
+        // Under Wine on Linux.
+        const QString prefix =
+            qEnvironmentVariable("WINEPREFIX", QDir::home().filePath(QStringLiteral(".wine")));
+        where << QDir(prefix).filePath(QStringLiteral("drive_c/Program Files/Studio 2.0"))
+              << QDir(prefix).filePath(QStringLiteral("drive_c/Program Files (x86)/Studio 2.0"));
+    }
+    StudioInstall found;
+    for (const QString& root : std::as_const(where)) {
+        const QDir dir(root);
+        if (found.ldrawLibrary.isEmpty()
+            && QFileInfo::exists(dir.filePath(QStringLiteral("ldraw/LDConfig.ldr"))))
+            found.ldrawLibrary = QDir::cleanPath(dir.filePath(QStringLiteral("ldraw")));
+        if (found.ldrawXml.isEmpty() && QFileInfo::exists(dir.filePath(QStringLiteral("data/ldraw.xml"))))
+            found.ldrawXml = QDir::cleanPath(dir.filePath(QStringLiteral("data/ldraw.xml")));
+        if (!found.ldrawLibrary.isEmpty() && !found.ldrawXml.isEmpty()) break;
+    }
+    return found;
+}
 
 PreparedPart prepareImport(const QString& path, const ImportSettings& settings,
                            parts::PartsLibrary& parts, const HeavyRunner& runHeavy) {

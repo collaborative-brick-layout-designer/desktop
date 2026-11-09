@@ -865,6 +865,22 @@
         <source>(unnamed)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Found Studio&apos;s: %1</source>
+        <translation>Trovata quella di Studio: %1</translation>
+    </message>
+    <message>
+        <source>Using Studio&apos;s: %1</source>
+        <translation>Si usa quella di Studio: %1</translation>
+    </message>
+    <message>
+        <source>Use %1 for the layout&apos;s %2</source>
+        <translation>Usa %1 per il %2 del layout</translation>
+    </message>
+    <message>
+        <source>Use Studio&apos;s LDraw library and mapping when these are left empty</source>
+        <translation>Usa la libreria LDraw e la corrispondenza di Studio quando questi campi sono vuoti</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::PartList</name>
@@ -1173,6 +1189,133 @@
         <source>Installed %1 package(s).</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>%1 — Included</source>
+        <translation>%1 — Incluso</translation>
+    </message>
+    <message>
+        <source>%1 — Included (you have %2)</source>
+        <translation>%1 — Incluso (hai la %2)</translation>
+    </message>
+    <message>
+        <source>%1 — Installed</source>
+        <translation>%1 — Installato</translation>
+    </message>
+    <message>
+        <source>%1 is in use, so it couldn&apos;t be replaced.</source>
+        <translation>%1 è in uso, quindi non è stato possibile sostituirlo.</translation>
+    </message>
+    <message>
+        <source>%1 new, %2 update(s), %3 already included.</source>
+        <translation>%1 nuovi, %2 aggiornamenti, %3 già inclusi.</translation>
+    </message>
+    <message>
+        <source>%1 — Update %2 → %3</source>
+        <translation>%1 — Aggiornamento %2 → %3</translation>
+    </message>
+    <message>
+        <source>%1 (version %2)</source>
+        <translation>%1 (versione %2)</translation>
+    </message>
+    <message>
+        <source>Cancel Download</source>
+        <translation>Annulla download</translation>
+    </message>
+    <message>
+        <source>Cancelled.</source>
+        <translation>Annullato.</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t make the folder %1.</source>
+        <translation>Impossibile creare la cartella %1.</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t put it in %1.</source>
+        <translation>Impossibile metterlo in %1.</translation>
+    </message>
+    <message>
+        <source>Couldn’t search:</source>
+        <translation>Ricerca non riuscita:</translation>
+    </message>
+    <message>
+        <source>Downloading %1 (%2 of %3)…</source>
+        <translation>Download di %1 (%2 di %3)…</translation>
+    </message>
+    <message numerus="yes">
+        <source>Installed %n package(s).</source>
+        <translation>
+            <numerusform>%n pacchetto installato.</numerusform>
+            <numerusform>%n pacchetti installati.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>It has a file that would go outside the parts folder (%1), so nothing was installed.</source>
+        <translation>Contiene un file che finirebbe fuori dalla cartella dei pezzi (%1), quindi non è stato installato nulla.</translation>
+    </message>
+    <message>
+        <source>It&apos;s bigger than %1 MB, so it wasn&apos;t downloaded.</source>
+        <translation>È più grande di %1 MB, quindi non è stato scaricato.</translation>
+    </message>
+    <message>
+        <source>It&apos;s damaged (%1), so nothing was installed.</source>
+        <translation>È danneggiato (%1), quindi non è stato installato nulla.</translation>
+    </message>
+    <message>
+        <source>It&apos;s too big, so it wasn&apos;t downloaded.</source>
+        <translation>È troppo grande, quindi non è stato scaricato.</translation>
+    </message>
+    <message>
+        <source>(no version)</source>
+        <translation>(senza versione)</translation>
+    </message>
+    <message>
+        <source>Packages (the ones you already have say Included):</source>
+        <translation>Pacchetti (quelli che hai già indicano Incluso):</translation>
+    </message>
+    <message>
+        <source>Packs of parts made for BlueBrick. Search, tick the ones you want, then install them.</source>
+        <translation>Pacchetti di pezzi fatti per BlueBrick. Cerca, spunta quelli che vuoi e installali.</translation>
+    </message>
+    <message>
+        <source>Some packages couldn&apos;t be installed:
+%1</source>
+        <translation>Alcuni pacchetti non sono stati installati:
+%1</translation>
+    </message>
+    <message>
+        <source>The download isn&apos;t a package this app can read.</source>
+        <translation>Il download non è un pacchetto che l’app sa leggere.</translation>
+    </message>
+    <message numerus="yes">
+        <source>The download stopped: nothing came for %n second(s).</source>
+        <translation>
+            <numerusform>Il download si è fermato: non è arrivato nulla per %n secondo.</numerusform>
+            <numerusform>Il download si è fermato: non è arrivato nulla per %n secondi.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The download was empty.</source>
+        <translation>Il download era vuoto.</translation>
+    </message>
+    <message>
+        <source>There&apos;s no room for it in %1.</source>
+        <translation>Non c’è spazio in %1.</translation>
+    </message>
+    <message>
+        <source>There&apos;s no room for the download on this computer.</source>
+        <translation>Non c’è spazio per il download su questo computer.</translation>
+    </message>
+    <message>
+        <source>The rest were cancelled.</source>
+        <translation>Gli altri sono stati annullati.</translation>
+    </message>
+    <message numerus="yes">
+        <source>You already have all %n package(s).</source>
+        <translation>
+            <numerusform>Hai già il pacchetto.</numerusform>
+            <numerusform>Hai già tutti i %n pacchetti.</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::FindDialog</name>
@@ -1285,6 +1428,46 @@
         <location filename="../src/ui/ImportPipeline.cpp" line="248"/>
         <source>Could not read %1: %2</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 (%n times)</source>
+        <translation>
+            <numerusform>%1 (%n volta)</numerusform>
+            <numerusform>%1 (%n volte)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>and %n more</source>
+        <translation>
+            <numerusform>e altro %n</numerusform>
+            <numerusform>e altri %n</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>A newer LDD → LDraw mapping (ldraw.xml) in Preferences › Import may know them.</source>
+        <translation>Una corrispondenza LDD → LDraw (ldraw.xml) più recente in Preferenze › Importazione potrebbe conoscerli.</translation>
+    </message>
+    <message>
+        <source>A newer LDraw library, set in Preferences › Import, may have them.</source>
+        <translation>Una libreria LDraw più recente, impostata in Preferenze › Importazione, potrebbe averli.</translation>
+    </message>
+    <message>
+        <source>Couldn’t open %1.</source>
+        <translation>Impossibile aprire %1.</translation>
+    </message>
+    <message numerus="yes">
+        <source>LDD has no shape for %n brick(s), so they’re left out: %1.</source>
+        <translation>
+            <numerusform>LDD non ha la forma di %n mattoncino, quindi è escluso: %1.</numerusform>
+            <numerusform>LDD non ha la forma di %n mattoncini, quindi sono esclusi: %1.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s) aren’t in your LDraw library, so they’re left out of the picture: %1.</source>
+        <translation>
+            <numerusform>%n pezzo non è nella tua libreria LDraw, quindi manca nell’immagine: %1.</numerusform>
+            <numerusform>%n pezzi non sono nella tua libreria LDraw, quindi mancano nell’immagine: %1.</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -3758,6 +3941,17 @@ Salvalo come layout di Collaborative Brick Layout Designer (%3) per tenere tutto
 
 Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come mappa BlueBrick (.bbm)… può farne una copia .bbm in qualsiasi momento.</translation>
     </message>
+    <message numerus="yes">
+        <source>Installed %n package(s); parts reloaded.</source>
+        <translation>
+            <numerusform>%n pacchetto installato; pezzi ricaricati.</numerusform>
+            <numerusform>%n pacchetti installati; pezzi ricaricati.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Keep both copies of the layout&apos;s parts</source>
+        <translation>Mantieni entrambe le versioni dei pezzi del layout</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -4710,6 +4904,18 @@ This removes:
     <message>
         <source>What could be read is open. When you save over the file, the app first keeps a copy of it as it was, ending in .bak, so nothing is lost. Save to a new name to leave the file alone.</source>
         <translation>Ciò che è stato possibile leggere è aperto. Quando salvi sopra il file, l’app ne conserva prima una copia com’era, con estensione .bak, così non si perde nulla. Salva con un nuovo nome per lasciare il file com’è.</translation>
+    </message>
+    <message>
+        <source>Get more parts</source>
+        <translation>Ottieni altri pezzi</translation>
+    </message>
+    <message>
+        <source>Packs of parts for BlueBrick layouts, like trains, roads or Duplo.</source>
+        <translation>Pacchetti di pezzi per i layout di BlueBrick, come treni, strade o Duplo.</translation>
+    </message>
+    <message>
+        <source>Packs you already have say Included, and a newer version of one says Update. Installed packs go in your own parts folder and show in the Parts panel at once.</source>
+        <translation>I pacchetti che hai già indicano Incluso, e una versione più recente indica Aggiornamento. I pacchetti installati vanno nella tua cartella dei pezzi e compaiono subito nel pannello Pezzi.</translation>
     </message>
 </context>
 <context>

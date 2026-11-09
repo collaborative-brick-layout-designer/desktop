@@ -1,4 +1,5 @@
 #include "PreferencesDialog.h"
+#include "ImportPipeline.h"
 
 #include "../import/ArchivePath.h"
 #include "BudgetSession.h"
@@ -511,8 +512,17 @@ QWidget* buildImportTab(QDialog* parent) {
     auto [studioWrap, studioEdit] = buildPicker(
         QStringLiteral("import/studioLibraryPath"),
         QObject::tr("Studio LDraw library root"));
+    // Studio's own library and mapping, found where Studio installs, are
+    // used while these are left empty (and say so).
+    const bool useStudio = QSettings().value(QStringLiteral("import/useStudioLibrary"), true).toBool();
+    const StudioInstall studio = useStudio ? findStudioInstall() : StudioInstall{};
     studioEdit->setPlaceholderText(
-        QObject::tr("Studio's bundled LDraw — falls back to LDraw library above"));
+        studio.ldrawLibrary.isEmpty()
+            ? QObject::tr("Studio's bundled LDraw — falls back to LDraw library above")
+            : QObject::tr("Found Studio's: %1").arg(QDir::toNativeSeparators(studio.ldrawLibrary)));
+    if (!studio.ldrawLibrary.isEmpty() && ldrawEdit->text().isEmpty())
+        ldrawEdit->setPlaceholderText(
+            QObject::tr("Using Studio's: %1").arg(QDir::toNativeSeparators(studio.ldrawLibrary)));
     form->addRow(QObject::tr("Studio library root:"), studioWrap);
 
     auto [lddWrap, lddEdit] = buildPicker(
@@ -525,7 +535,10 @@ QWidget* buildImportTab(QDialog* parent) {
     // LDD ships an old ldraw.xml without e.g. train track; the community
     // keeps a much larger one up to date.
     auto* xmlEdit = new QLineEdit(QSettings().value(QStringLiteral("import/lddLdrawXml")).toString(), w);
-    xmlEdit->setPlaceholderText(QObject::tr("optional newer ldraw.xml, e.g. from slswww.free.fr/ldraw.xml"));
+    xmlEdit->setPlaceholderText(
+        studio.ldrawXml.isEmpty()
+            ? QObject::tr("optional newer ldraw.xml, e.g. from slswww.free.fr/ldraw.xml")
+            : QObject::tr("Using Studio's: %1").arg(QDir::toNativeSeparators(studio.ldrawXml)));
     auto* xmlBtn = new QPushButton(QObject::tr("Browse…"), w);
     xmlEdit->setAccessibleName(QObject::tr("LDD to LDraw mapping file"));
     xmlBtn->setAccessibleName(QObject::tr("Choose the LDD to LDraw mapping file"));
@@ -540,9 +553,14 @@ QWidget* buildImportTab(QDialog* parent) {
     auto* xmlWrap = new QWidget(w);
     xmlWrap->setLayout(xmlRow);
     form->addRow(QObject::tr("LDD → LDraw mapping:"), xmlWrap);
+    auto* studioChk =
+        new QCheckBox(QObject::tr("Use Studio's LDraw library and mapping when these are left empty"), w);
+    studioChk->setChecked(useStudio);
+    form->addRow(QString(), studioChk);
 
-    QObject::connect(parent, &QDialog::accepted, w, [ldrawEdit, studioEdit, lddEdit, xmlEdit]{
+    QObject::connect(parent, &QDialog::accepted, w, [ldrawEdit, studioEdit, lddEdit, xmlEdit, studioChk] {
         QSettings s;
+        s.setValue(QStringLiteral("import/useStudioLibrary"), studioChk->isChecked());
         s.setValue(QStringLiteral("import/ldrawLibraryPath"),  ldrawEdit->text());
         s.setValue(QStringLiteral("import/studioLibraryPath"), studioEdit->text());
         s.setValue(QStringLiteral("import/lddInstallPath"),    lddEdit->text());

@@ -237,9 +237,13 @@ private:
     LayoutPartsTaken takeInLayoutParts(const QMap<QString, QByteArray>& files);
     // Shows the differing parts side by side and applies what the user
     // picks: the layout's replaces yours (backed up first), or is added under
-    // a new number that `map`'s bricks switch to. Returns what to tell the user.
+    // a new number (or a copy kept before that matches it) the layout's
+    // bricks switch to, listed in `renames` (from, to) for one undo step
+    // once the layout is open. Returns what to tell the user.
     QStringList resolvePartDifferences(const QStringList& keys, const QMap<QString, QByteArray>& files,
-                                       core::Map& map);
+                                       QList<QPair<QString, QString>>* renames);
+    // A <key>-N copy kept before whose files are exactly `theirs`, or empty.
+    QString matchingKeptCopy(const QString& key, const QMap<QString, QByteArray>& theirs) const;
     QString layoutPartsFolder();  // AppDataLocation/layout-parts, kept in the library paths
     // The parts to put in a .bld-layout: the ones outside the bundled library.
     QMap<QString, QByteArray> partsToEmbed() const;
@@ -547,6 +551,11 @@ private:
     void renameSetOnServer(const SetServer& on, const QString& id, const QString& partNumber, const QString& name);
     // Every parts folder: the bundled library, yours and the imports folder.
     QStringList allLibraryPaths() const;
+    // Folders kept on every rescan: the ones the library already had when
+    // the window opened (a caller's own, read first, as before), and the
+    // ones parts were imported into this session.
+    QStringList startupFolders_;
+    QStringList importedPartFolders_;
     void sendLocalToServer(int tab, const QString& localId);
     void saveLayoutFileToServer();
     void uploadPartsTo(const QUrl& server, const QString& token, bool quiet, const QStringList& only = {});

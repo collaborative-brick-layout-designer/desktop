@@ -119,29 +119,24 @@ void MainWindow::setupToolsMenu() {
         connect(opt, &QAction::toggled, this, [settingsKey](bool on){ QSettings().setValue(settingsKey, on); });
     }
 
-    connect(dlAct, &QAction::triggered, this, [this]{
-        // Pick a default install root the same way the simple download
-        // helper used to: first configured user library path, or the
-        // app-data fallback. The dialog uses this as the extraction
-        // destination AND as the source for the "already installed"
-        // version comparison.
+    connect(dlAct, &QAction::triggered, this, [this] {
+        // Packs always go to your own parts folder, never the first one
+        // listed in Parts Folders… (often a server's, which then labelled
+        // every part as that server's). Every parts folder is checked for
+        // what's already there.
+        const QString destRoot = QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))
+                                     .filePath(QStringLiteral("parts"));
+        DownloadCenterDialog dlg(destRoot, allLibraryPaths(), this);
+        dlg.exec();
+        if (dlg.installedCount() == 0) return;
         QStringList userPaths = loadUserLibraryPaths();
-        QString destRoot = userPaths.isEmpty()
-            ? QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))
-                .filePath(QStringLiteral("parts"))
-            : userPaths.first();
-        DownloadCenterDialog dlg(destRoot, this);
-        if (dlg.exec() == QDialog::Accepted && dlg.installedCount() > 0) {
-            const QString root = dlg.libraryRoot();
-            if (!userPaths.contains(root)) {
-                userPaths.append(root);
-                saveUserLibraryPaths(userPaths);
-            }
-            rescanLibrary(userPaths);
-            statusBar()->showMessage(
-                tr("Installed %1 package(s); parts reloaded.")
-                    .arg(dlg.installedCount()), 5000);
+        if (!userPaths.contains(destRoot)) {
+            userPaths.append(destRoot);
+            saveUserLibraryPaths(userPaths);
         }
+        onReloadLibrary();
+        statusBar()->showMessage(
+            tr("Installed %n package(s); parts reloaded.", nullptr, dlg.installedCount()), 5000);
     });
 
     // Preferences moved to Edit menu (BlueBrick parity).

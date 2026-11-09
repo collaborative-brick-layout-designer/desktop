@@ -865,6 +865,22 @@
         <source>(unnamed)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Found Studio&apos;s: %1</source>
+        <translation>Hittade Studios: %1</translation>
+    </message>
+    <message>
+        <source>Using Studio&apos;s: %1</source>
+        <translation>Använder Studios: %1</translation>
+    </message>
+    <message>
+        <source>Use %1 for the layout&apos;s %2</source>
+        <translation>Använd %1 för layoutens %2</translation>
+    </message>
+    <message>
+        <source>Use Studio&apos;s LDraw library and mapping when these are left empty</source>
+        <translation>Använd Studios LDraw-bibliotek och koppling när de här fälten är tomma</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::PartList</name>
@@ -1173,6 +1189,133 @@
         <source>Installed %1 package(s).</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>%1 — Included</source>
+        <translation>%1 — Ingår</translation>
+    </message>
+    <message>
+        <source>%1 — Included (you have %2)</source>
+        <translation>%1 — Ingår (du har %2)</translation>
+    </message>
+    <message>
+        <source>%1 — Installed</source>
+        <translation>%1 — Installerat</translation>
+    </message>
+    <message>
+        <source>%1 is in use, so it couldn&apos;t be replaced.</source>
+        <translation>%1 används, så den kunde inte ersättas.</translation>
+    </message>
+    <message>
+        <source>%1 new, %2 update(s), %3 already included.</source>
+        <translation>%1 nya, %2 uppdatering(ar), %3 ingår redan.</translation>
+    </message>
+    <message>
+        <source>%1 — Update %2 → %3</source>
+        <translation>%1 — Uppdatering %2 → %3</translation>
+    </message>
+    <message>
+        <source>%1 (version %2)</source>
+        <translation>%1 (version %2)</translation>
+    </message>
+    <message>
+        <source>Cancel Download</source>
+        <translation>Avbryt hämtningen</translation>
+    </message>
+    <message>
+        <source>Cancelled.</source>
+        <translation>Avbrutet.</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t make the folder %1.</source>
+        <translation>Mappen %1 kunde inte skapas.</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t put it in %1.</source>
+        <translation>Kunde inte läggas i %1.</translation>
+    </message>
+    <message>
+        <source>Couldn’t search:</source>
+        <translation>Kunde inte söka:</translation>
+    </message>
+    <message>
+        <source>Downloading %1 (%2 of %3)…</source>
+        <translation>Hämtar %1 (%2 av %3)…</translation>
+    </message>
+    <message numerus="yes">
+        <source>Installed %n package(s).</source>
+        <translation>
+            <numerusform>%n paket installerat.</numerusform>
+            <numerusform>%n paket installerade.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>It has a file that would go outside the parts folder (%1), so nothing was installed.</source>
+        <translation>Det har en fil som skulle hamna utanför delmappen (%1), så inget installerades.</translation>
+    </message>
+    <message>
+        <source>It&apos;s bigger than %1 MB, so it wasn&apos;t downloaded.</source>
+        <translation>Den är större än %1 MB, så den hämtades inte.</translation>
+    </message>
+    <message>
+        <source>It&apos;s damaged (%1), so nothing was installed.</source>
+        <translation>Den är skadad (%1), så inget installerades.</translation>
+    </message>
+    <message>
+        <source>It&apos;s too big, so it wasn&apos;t downloaded.</source>
+        <translation>Den är för stor, så den hämtades inte.</translation>
+    </message>
+    <message>
+        <source>(no version)</source>
+        <translation>(ingen version)</translation>
+    </message>
+    <message>
+        <source>Packages (the ones you already have say Included):</source>
+        <translation>Paket (de du redan har visar Ingår):</translation>
+    </message>
+    <message>
+        <source>Packs of parts made for BlueBrick. Search, tick the ones you want, then install them.</source>
+        <translation>Delpaket gjorda för BlueBrick. Sök, bocka för de du vill ha och installera dem.</translation>
+    </message>
+    <message>
+        <source>Some packages couldn&apos;t be installed:
+%1</source>
+        <translation>Några paket kunde inte installeras:
+%1</translation>
+    </message>
+    <message>
+        <source>The download isn&apos;t a package this app can read.</source>
+        <translation>Hämtningen är inte ett paket som appen kan läsa.</translation>
+    </message>
+    <message numerus="yes">
+        <source>The download stopped: nothing came for %n second(s).</source>
+        <translation>
+            <numerusform>Hämtningen stoppades: inget kom på %n sekund.</numerusform>
+            <numerusform>Hämtningen stoppades: inget kom på %n sekunder.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The download was empty.</source>
+        <translation>Hämtningen var tom.</translation>
+    </message>
+    <message>
+        <source>There&apos;s no room for it in %1.</source>
+        <translation>Det finns inte plats för den i %1.</translation>
+    </message>
+    <message>
+        <source>There&apos;s no room for the download on this computer.</source>
+        <translation>Det finns inte plats för hämtningen på den här datorn.</translation>
+    </message>
+    <message>
+        <source>The rest were cancelled.</source>
+        <translation>Resten avbröts.</translation>
+    </message>
+    <message numerus="yes">
+        <source>You already have all %n package(s).</source>
+        <translation>
+            <numerusform>Du har redan paketet.</numerusform>
+            <numerusform>Du har redan alla %n paket.</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::FindDialog</name>
@@ -1285,6 +1428,46 @@
         <location filename="../src/ui/ImportPipeline.cpp" line="248"/>
         <source>Could not read %1: %2</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 (%n times)</source>
+        <translation>
+            <numerusform>%1 (%n gång)</numerusform>
+            <numerusform>%1 (%n gånger)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>and %n more</source>
+        <translation>
+            <numerusform>och %n till</numerusform>
+            <numerusform>och %n till</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>A newer LDD → LDraw mapping (ldraw.xml) in Preferences › Import may know them.</source>
+        <translation>En nyare LDD → LDraw-koppling (ldraw.xml) i Inställningar › Import kanske känner till dem.</translation>
+    </message>
+    <message>
+        <source>A newer LDraw library, set in Preferences › Import, may have them.</source>
+        <translation>Ett nyare LDraw-bibliotek, valt i Inställningar › Import, kanske har dem.</translation>
+    </message>
+    <message>
+        <source>Couldn’t open %1.</source>
+        <translation>%1 kunde inte öppnas.</translation>
+    </message>
+    <message numerus="yes">
+        <source>LDD has no shape for %n brick(s), so they’re left out: %1.</source>
+        <translation>
+            <numerusform>LDD har ingen form för %n bit, så den utelämnas: %1.</numerusform>
+            <numerusform>LDD har ingen form för %n bitar, så de utelämnas: %1.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s) aren’t in your LDraw library, so they’re left out of the picture: %1.</source>
+        <translation>
+            <numerusform>%n del finns inte i ditt LDraw-bibliotek, så den saknas på bilden: %1.</numerusform>
+            <numerusform>%n delar finns inte i ditt LDraw-bibliotek, så de saknas på bilden: %1.</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -3758,6 +3941,17 @@ Spara den som en Collaborative Brick Layout Designer-layout (%3) för att ha all
 
 Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › Exportera som BlueBrick-karta (.bbm)… kan göra en .bbm-kopia när som helst.</translation>
     </message>
+    <message numerus="yes">
+        <source>Installed %n package(s); parts reloaded.</source>
+        <translation>
+            <numerusform>%n paket installerat; delarna laddades om.</numerusform>
+            <numerusform>%n paket installerade; delarna laddades om.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Keep both copies of the layout&apos;s parts</source>
+        <translation>Behåll båda versionerna av layoutens delar</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -4710,6 +4904,18 @@ This removes:
     <message>
         <source>What could be read is open. When you save over the file, the app first keeps a copy of it as it was, ending in .bak, so nothing is lost. Save to a new name to leave the file alone.</source>
         <translation>Det som gick att läsa är öppet. När du sparar över filen behåller appen först en kopia av hur den var, med ändelsen .bak, så att inget går förlorat. Spara under ett nytt namn om du vill lämna filen orörd.</translation>
+    </message>
+    <message>
+        <source>Get more parts</source>
+        <translation>Hämta fler delar</translation>
+    </message>
+    <message>
+        <source>Packs of parts for BlueBrick layouts, like trains, roads or Duplo.</source>
+        <translation>Delpaket för BlueBrick-layouter, som tåg, vägar eller Duplo.</translation>
+    </message>
+    <message>
+        <source>Packs you already have say Included, and a newer version of one says Update. Installed packs go in your own parts folder and show in the Parts panel at once.</source>
+        <translation>Paket du redan har visar Ingår, och en nyare version visar Uppdatering. Installerade paket hamnar i din egen delmapp och syns direkt i panelen Delar.</translation>
     </message>
 </context>
 <context>

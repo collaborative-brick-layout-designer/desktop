@@ -52,6 +52,15 @@ ImportSettings currentImportSettings() {
     out.studioLibrary = s.value(QStringLiteral("import/studioLibraryPath")).toString();
     out.lddPath      = s.value(QStringLiteral("import/lddInstallPath")).toString();
     out.lddLdrawXml  = s.value(QStringLiteral("import/lddLdrawXml")).toString();
+    // Left empty in Preferences: Studio's own, when Studio is installed.
+    const bool useStudio = s.value(QStringLiteral("import/useStudioLibrary"), true).toBool();
+    if (useStudio
+        && (out.ldrawLibrary.isEmpty() || out.studioLibrary.isEmpty() || out.lddLdrawXml.isEmpty())) {
+        const StudioInstall studio = findStudioInstall();
+        if (out.studioLibrary.isEmpty()) out.studioLibrary = studio.ldrawLibrary;
+        if (out.ldrawLibrary.isEmpty()) out.ldrawLibrary = studio.ldrawLibrary;
+        if (out.lddLdrawXml.isEmpty()) out.lddLdrawXml = studio.ldrawXml;
+    }
     return out;
 }
 

@@ -618,8 +618,12 @@ void SceneBuilder::decorateBrickItem(QGraphicsItem* item, const core::Brick& bri
                                 && !brick.connections[ci].linkedToId.isEmpty();
             if (linked) continue;
             const bool isActive = (ci == activeIdx);
-            const double r = isActive ? kActiveRadiusPx : kDotRadiusPx;
-            const QPointF localPx(c.position.x() * kPx, c.position.y() * kPx);
+            // The dots are children of the sprite, which a hi-res import
+            // scales down (8/32): undo that, or they sat at a quarter of
+            // the distance and size.
+            const double itemScale = item->scale() > 0 ? item->scale() : 1.0;
+            const double r = (isActive ? kActiveRadiusPx : kDotRadiusPx) / itemScale;
+            const QPointF localPx(c.position.x() * kPx / itemScale, c.position.y() * kPx / itemScale);
             auto* dot = new QGraphicsEllipseItem(localPx.x() - r, localPx.y() - r, r * 2, r * 2, item);
             const QColor fill = isActive ? QColor(255, 215, 0)             // gold for active
                                          : colorForConnectionType(c.type); // type color (red) for other free
@@ -650,7 +654,10 @@ void SceneBuilder::decorateBrickItem(QGraphicsItem* item, const core::Brick& bri
         if (!hullStuds.isEmpty()) {
             QPolygonF hullPx;
             hullPx.reserve(hullStuds.size());
-            for (const QPointF& p : hullStuds) { hullPx.append(QPointF(p.x() * kPx, p.y() * kPx)); }
+            // In studs; the sprite (its parent) may be scaled (a hi-res import).
+            const double itemScale = item->scale() > 0 ? item->scale() : 1.0;
+            for (const QPointF& p : hullStuds)
+                hullPx.append(QPointF(p.x() * kPx / itemScale, p.y() * kPx / itemScale));
             auto* poly = new QGraphicsPolygonItem(hullPx);
             poly->setBrush(Qt::NoBrush);
             // Attach to the brick item so the polygon rotates along

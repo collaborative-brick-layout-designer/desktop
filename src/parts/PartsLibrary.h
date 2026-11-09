@@ -193,7 +193,16 @@ QList<QPolygonF> traceOutlineStuds(const QImage& sprite, double pxPerStud);
 class PartsLibrary {
 public:
     void addSearchPath(const QString& path);
+    // Replaces every search path (Parts Folders… removing or reordering a
+    // folder takes effect on the next scan()).
+    void setSearchPaths(const QStringList& paths);
     const QStringList& searchPaths() const { return searchPaths_; }
+
+    // A parts package's version: config/About.txt's `version=` line, as
+    // BlueBrick's Download Center writes it, or empty.
+    static QString packageVersion(const QString& packageDir);
+    // Compares two package versions part by part ("1.10" > "1.9"); empty sorts first.
+    static int comparePackageVersions(const QString& a, const QString& b);
 
     // Walk every search path recursively, indexing every `<PartNumber>.<Color>.xml`
     // pair found. Returns the number of parts indexed. Safe to call repeatedly —

@@ -48,7 +48,26 @@ void MainWindow::onManageLibraries() {
 
 void MainWindow::rescanLibrary(const QStringList& paths) {
     parts_.clear();
-    for (const QString& p : paths) parts_.addSearchPath(p);
+    // Exactly these folders, in this order: a folder taken out of Parts
+    // Folders… is gone at once, not at the next start. Your imported parts
+    // stay, wherever they were saved.
+    QStringList all = startupFolders_;
+    for (const QString& p : paths)
+        if (!all.contains(p)) all << p;
+    const auto covered = [&all](const QString& dir) {
+        const QString d = QDir::cleanPath(dir);
+        for (const QString& p : std::as_const(all)) {
+            const QString c = QDir::cleanPath(p);
+            if (d == c || d.startsWith(c + QLatin1Char('/'))) return true;
+        }
+        return false;
+    };
+    if (const QString imports = importedPartsRoot();
+        !imports.isEmpty() && QDir(imports).exists() && !covered(imports))
+        all << imports;
+    for (const QString& dir : std::as_const(importedPartFolders_))
+        if (QDir(dir).exists() && !covered(dir)) all << dir;
+    parts_.setSearchPaths(all);
     parts_.scan();
     // Constructor calls this before the docks exist.
     if (partUsagePanel_) partUsagePanel_->clearIconCache();
@@ -112,6 +131,8 @@ QString MainWindow::registerImportedPart(const QString& xmlAbsPath) {
     // full rescans (Reload Library, Manage Libraries) keep finding this
     // part. addSearchPath is a no-op when the path is already present.
     parts_.addSearchPath(QFileInfo(xmlAbsPath).absolutePath());
+    if (!importedPartFolders_.contains(QFileInfo(xmlAbsPath).absolutePath()))
+        importedPartFolders_ << QFileInfo(xmlAbsPath).absolutePath();
 
     // A re-import that replaced an existing part: drop the stale entry
     // and cached sprite, and redraw copies already on the map.

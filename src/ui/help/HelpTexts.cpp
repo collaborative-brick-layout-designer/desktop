@@ -140,6 +140,12 @@ constexpr Raw kDesktopOnly[] = {
                                      "friend shared."),
       QT_TRANSLATE_NOOP("HelpTexts", "Add a folder and its parts appear next to the built-in ones. "
                                      "Removing a folder here doesn’t delete anything.") },
+    { "parts.getMore", "",
+      QT_TRANSLATE_NOOP("HelpTexts", "Get more parts"),
+      QT_TRANSLATE_NOOP("HelpTexts", "Packs of parts for BlueBrick layouts, like trains, roads or Duplo."),
+      QT_TRANSLATE_NOOP("HelpTexts", "Packs you already have say Included, and a newer version of one says "
+                                     "Update. Installed packs go in your own parts folder and show in the "
+                                     "Parts panel at once.") },
     { "prefs.ldraw", "",
       QT_TRANSLATE_NOOP("HelpTexts", "LDraw library"),
       QT_TRANSLATE_NOOP("HelpTexts", "The LDraw parts, needed to bring in models from Studio, LDraw or "

@@ -72,6 +72,21 @@ struct ImportSettings {
     int     pxPerStud = 32; // resolution of geometry-rendered sprites
 };
 
+// The importers' warnings as people read them: the same part missing many
+// times is one line naming each part once (with how often), saying where
+// to point the app for them, translated. Other warnings are kept, once.
+QStringList friendlyImportWarnings(const QStringList& raw, bool fromLdd);
+
+// Studio 2.0's own LDraw library and its ldraw.xml (Studio's LDD → LDraw
+// mapping), when Studio is installed here: <Studio>/ldraw and
+// <Studio>/data/ldraw.xml. Empty when not found. `roots` replaces the
+// places looked in (tests).
+struct StudioInstall {
+    QString ldrawLibrary;
+    QString ldrawXml;
+};
+StudioInstall findStudioInstall(const QStringList& roots = {});
+
 // Runs `work` somewhere that keeps the UI alive (a worker thread) and
 // returns false if the user cancelled. Only geometry baking goes through
 // it; anything touching QPixmap stays on the calling (GUI) thread.

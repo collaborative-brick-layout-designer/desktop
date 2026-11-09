@@ -152,6 +152,8 @@ protected:
         // Imported parts go under the Module library folder: a fresh one.
         QSettings().setValue(QStringLiteral("modules/libraryPath"), home_.path());
         QSettings().remove(QStringLiteral("import/ldrawLibraryPath"));
+        // Not Studio's library either, if this machine has Studio.
+        QSettings().setValue(QStringLiteral("import/useStudioLibrary"), false);
         writeFile(trackDir_.filePath(QStringLiteral("TT.7.xml")),
                   "<part><ConnexionList>"
                   "<connexion><type>1</type><position><x>-2</x><y>0</y></position><angle>180</angle></connexion>"

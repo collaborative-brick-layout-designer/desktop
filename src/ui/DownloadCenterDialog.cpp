@@ -1,9 +1,12 @@
 #include "DownloadCenterDialog.h"
 #include "../import/ArchivePath.h"
+#include "../parts/PartsLibrary.h"
+#include "help/HelpButton.h"
 
 #include <QApplication>
 #include <QBrush>
 #include <QCheckBox>
+#include <QCloseEvent>
 #include <QColor>
 #include <QDialogButtonBox>
 #include <QDir>
@@ -26,6 +29,7 @@
 #include <QRegularExpression>
 #include <QSettings>
 #include <QStandardPaths>
+#include <QTemporaryDir>
 #include <QTemporaryFile>
 #include <QTextStream>
 #include <QTimer>
@@ -33,6 +37,8 @@
 #include <QVBoxLayout>
 
 #include "../import/zip/SafeZip.h"
+
+#include <algorithm>
 
 namespace bld::ui {
 
@@ -46,13 +52,24 @@ constexpr const char* kNonLegoUrl =
     "https://bluebrick.lswproject.com/download/packageOther/";
 
 constexpr int kMaxFetchBytes  = 4 * 1024 * 1024;    // search-page HTML cap
-constexpr int kMaxPackageBytes = 100 * 1024 * 1024; // per-zip cap
+constexpr qint64 kMaxPackageBytes = qint64(100) * 1024 * 1024; // per-zip cap
 constexpr int kFetchTimeoutMs = 20000;
+constexpr int kStallTimeoutMs = 60000; // a download that receives nothing this long stops
+
+// Row data roles.
+constexpr int kUrlRole = Qt::UserRole + 0, kFileRole = Qt::UserRole + 1, kNameRole = Qt::UserRole + 2,
+              kVersionRole = Qt::UserRole + 3;
+
+const QString kUserAgent = QStringLiteral(
+    "Mozilla/5.0 (compatible; BLD/1.0; +https://github.com/collaborative-brick-layout-designer/desktop)");
 
 }  // namespace
 
-DownloadCenterDialog::DownloadCenterDialog(QString libraryRoot, QWidget* parent)
-    : QDialog(parent), libraryRoot_(std::move(libraryRoot)) {
+DownloadCenterDialog::DownloadCenterDialog(QString libraryRoot, QStringList libraryFolders, QWidget* parent)
+    : QDialog(parent), libraryRoot_(std::move(libraryRoot)), libraryFolders_(std::move(libraryFolders)),
+      maxPackageBytes_(kMaxPackageBytes), stallTimeoutMs_(kStallTimeoutMs),
+      nam_(new QNetworkAccessManager(this)) {
+    if (!libraryFolders_.contains(libraryRoot_)) libraryFolders_ << libraryRoot_;
     setWindowTitle(tr("Download Center"));
     resize(640, 480);
 
@@ -60,6 +77,11 @@ DownloadCenterDialog::DownloadCenterDialog(QString libraryRoot, QWidget* parent)
 
     // ---- Source selection group (mirrors LibraryPackageSourceForm) ----
     auto* srcGroup = new QGroupBox(tr("Search for parts packages from:"), this);
+    root->addWidget(
+        help::withHelp(new QLabel(tr("Packs of parts made for BlueBrick. Search, tick the ones you want, "
+                                     "then install them."),
+                                  this),
+                       QStringLiteral("parts.getMore"), this));
     auto* srcLayout = new QVBoxLayout(srcGroup);
     cbOfficial_ = new QCheckBox(tr("BlueBrick packs (Town, Train, Castle, BrickTracks, TrixBrix, …)"), srcGroup);
     cbOfficial_->setChecked(true);
@@ -97,7 +119,7 @@ DownloadCenterDialog::DownloadCenterDialog(QString libraryRoot, QWidget* parent)
     }
 
     // ---- Candidate list ----
-    auto* listLabel = new QLabel(tr("Available packages (already-installed versions filtered out):"), this);
+    auto* listLabel = new QLabel(tr("Packages (the ones you already have say Included):"), this);
     root->addWidget(listLabel);
     candidates_ = new QListWidget(this);
     candidates_->setAccessibleName(tr("Available packages"));
@@ -115,8 +137,11 @@ DownloadCenterDialog::DownloadCenterDialog(QString libraryRoot, QWidget* parent)
         row->addStretch(1);
         downloadBtn_ = new QPushButton(tr("Download && Install"), this);
         downloadBtn_->setEnabled(false);
+        cancelBtn_ = new QPushButton(tr("Cancel Download"), this);
+        cancelBtn_->setVisible(false);
         closeBtn_ = new QPushButton(tr("Close"), this);
         row->addWidget(downloadBtn_);
+        row->addWidget(cancelBtn_);
         row->addWidget(closeBtn_);
         root->addLayout(row);
     }
@@ -124,7 +149,35 @@ DownloadCenterDialog::DownloadCenterDialog(QString libraryRoot, QWidget* parent)
     connect(cbCustom_, &QCheckBox::toggled, this, &DownloadCenterDialog::onCustomToggled);
     connect(searchBtn_, &QPushButton::clicked, this, &DownloadCenterDialog::onSearchClicked);
     connect(downloadBtn_, &QPushButton::clicked, this, &DownloadCenterDialog::onDownloadClicked);
-    connect(closeBtn_, &QPushButton::clicked, this, &DownloadCenterDialog::reject);
+    connect(cancelBtn_, &QPushButton::clicked, this, &DownloadCenterDialog::cancelDownload);
+    // Close: what was installed stays installed (installedCount()).
+    connect(closeBtn_, &QPushButton::clicked, this, [this] { installedCount_ > 0 ? accept() : reject(); });
+}
+
+// A download still going is the network manager's child, so it goes with the dialog.
+DownloadCenterDialog::~DownloadCenterDialog() = default;
+
+void DownloadCenterDialog::cancelDownload() {
+    cancelled_ = true;
+    if (current_) current_->abort();
+}
+
+void DownloadCenterDialog::closeEvent(QCloseEvent* e) {
+    // Closing the window while it downloads stops the download first.
+    if (downloading_) {
+        cancelDownload();
+        e->ignore();
+        return;
+    }
+    QDialog::closeEvent(e);
+}
+
+void DownloadCenterDialog::reject() {
+    if (downloading_) {
+        cancelDownload();
+        return;
+    }
+    QDialog::reject();
 }
 
 void DownloadCenterDialog::onCustomToggled(bool on) {
@@ -132,16 +185,14 @@ void DownloadCenterDialog::onCustomToggled(bool on) {
 }
 
 QString DownloadCenterDialog::fetchUrl(const QUrl& url, QString* error) {
-    QNetworkAccessManager nam;
     QNetworkRequest req(url);
     // Match BlueBrick's user-agent so servers that filter on UA still
     // serve us a directory listing.
-    req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral(
-        "Mozilla/5.0 (compatible; BLD/1.0; +https://github.com/collaborative-brick-layout-designer/desktop)"));
+    req.setHeader(QNetworkRequest::UserAgentHeader, kUserAgent);
     req.setAttribute(QNetworkRequest::RedirectPolicyAttribute,
                      QNetworkRequest::NoLessSafeRedirectPolicy);
     req.setTransferTimeout(kFetchTimeoutMs);
-    QNetworkReply* rep = nam.get(req);
+    QNetworkReply* rep = nam_->get(req);
     QEventLoop loop;
     QObject::connect(rep, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
@@ -160,52 +211,22 @@ QString DownloadCenterDialog::fetchUrl(const QUrl& url, QString* error) {
 }
 
 QHash<QString, QString> DownloadCenterDialog::readInstalledVersions() const {
+    // Every parts folder, the bundled library included: a pack the app came
+    // with used to be offered as new. BlueBrick keeps the version at
+    // <pkg>/config/About.txt (`version=X.Y`), so packs made for vanilla
+    // work here too.
     QHash<QString, QString> out;
-    QDir lib(libraryRoot_);
-    if (!lib.exists()) return out;
-    const QFileInfoList dirs = lib.entryInfoList(
-        QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
-    for (const QFileInfo& d : dirs) {
-        // BlueBrick stores version metadata at <pkg>/config/About.txt as
-        // simple "key=value" lines, with `version=X.Y` as the marker.
-        // We follow the same convention so packages produced for vanilla
-        // also work here.
-        const QString aboutPath = d.absoluteFilePath()
-            + QStringLiteral("/config/About.txt");
-        QString version;
-        QFile f(aboutPath);
-        if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            QTextStream ts(&f);
-            while (!ts.atEnd()) {
-                const QString line = ts.readLine().trimmed();
-                if (line.startsWith(QStringLiteral("version="), Qt::CaseInsensitive)) {
-                    version = line.mid(QStringLiteral("version=").size()).trimmed();
-                    break;
-                }
-            }
+    for (const QString& folder : libraryFolders_) {
+        const QFileInfoList dirs = QDir(folder).entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
+        for (const QFileInfo& d : dirs) {
+            const QString version = parts::PartsLibrary::packageVersion(d.absoluteFilePath());
+            const QString name = d.fileName().toLower();
+            const auto it = out.constFind(name);
+            if (it == out.constEnd() || parts::PartsLibrary::comparePackageVersions(version, it.value()) > 0)
+                out.insert(name, version);
         }
-        out.insert(d.fileName(), version);
     }
     return out;
-}
-
-QVector<DownloadCenterDialog::Package>
-DownloadCenterDialog::filterAlreadyInstalled(QVector<Package> input) const {
-    const auto installed = readInstalledVersions();
-    QVector<Package> kept;
-    kept.reserve(input.size());
-    for (const auto& p : input) {
-        const auto it = installed.constFind(p.name);
-        if (it == installed.constEnd()) {
-            kept.push_back(p);
-            continue;
-        }
-        // Drop only when the installed version is >= the candidate.
-        // Empty versions sort first, matching BlueBrick's string compare.
-        if (QString::compare(it.value(), p.version) >= 0) continue;
-        kept.push_back(p);
-    }
-    return kept;
 }
 
 void DownloadCenterDialog::onSearchClicked() {
@@ -277,120 +298,232 @@ void DownloadCenterDialog::onSearchClicked() {
         }
     }
 
-    const QVector<Package> filtered = filterAlreadyInstalled(all);
+    const auto installed = readInstalledVersions();
     candidates_->clear();
-    for (const auto& p : filtered) {
-        const QString label = p.version.isEmpty()
-            ? p.name
-            : QStringLiteral("%1 (v%2)").arg(p.name, p.version);
-        auto* item = new QListWidgetItem(label, candidates_);
+    int fresh = 0, updates = 0, included = 0;
+    for (const auto& p : std::as_const(all)) {
+        const auto have = installed.constFind(p.name.toLower());
+        auto* item = new QListWidgetItem(candidates_);
+        item->setData(kUrlRole, p.sourceUrl);
+        item->setData(kFileRole, p.fileName);
+        item->setData(kNameRole, p.name);
+        item->setData(kVersionRole, p.version);
+        item->setToolTip(p.sourceUrl);
+        if (have != installed.constEnd()
+            && parts::PartsLibrary::comparePackageVersions(have.value(), p.version) >= 0) {
+            // Already there, this version or newer: shown, not offered.
+            item->setText(have.value().isEmpty() || have.value() == p.version
+                              ? tr("%1 — Included").arg(p.name)
+                              : tr("%1 — Included (you have %2)").arg(p.name, have.value()));
+            item->setFlags(item->flags() & ~(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled));
+            ++included;
+            continue;
+        }
+        if (have != installed.constEnd()) {
+            item->setText(
+                tr("%1 — Update %2 → %3")
+                    .arg(p.name, have.value().isEmpty() ? tr("(no version)") : have.value(), p.version));
+            ++updates;
+        } else {
+            item->setText(p.version.isEmpty() ? p.name : tr("%1 (version %2)").arg(p.name, p.version));
+            ++fresh;
+        }
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
         item->setCheckState(Qt::Unchecked);
-        item->setData(Qt::UserRole + 0, p.sourceUrl);
-        item->setData(Qt::UserRole + 1, p.fileName);
-        item->setData(Qt::UserRole + 2, p.name);
-        item->setData(Qt::UserRole + 3, p.version);
-        item->setToolTip(p.sourceUrl);
     }
 
     QString status;
-    if (filtered.isEmpty()) {
-        if (all.isEmpty())
-            status = tr("No packages found.");
-        else
-            status = tr("All %1 found packages are already installed.").arg(all.size());
-    } else {
-        status = tr("%1 package(s) available; %2 already installed.")
-                    .arg(filtered.size()).arg(all.size() - filtered.size());
-    }
-    if (!errors.isEmpty()) status += QChar(' ') + tr("Errors:") + QChar(' ') + errors.join(QStringLiteral("; "));
+    if (all.isEmpty()) status = tr("No packages found.");
+    else if (fresh + updates == 0) status = tr("You already have all %n package(s).", nullptr, included);
+    else status = tr("%1 new, %2 update(s), %3 already included.").arg(fresh).arg(updates).arg(included);
+    if (!errors.isEmpty())
+        status += QChar(' ') + tr("Couldn’t search:") + QChar(' ') + errors.join(QStringLiteral("; "));
     statusLabel_->setText(status);
     searchBtn_->setEnabled(true);
-    downloadBtn_->setEnabled(!filtered.isEmpty());
+    downloadBtn_->setEnabled(fresh + updates > 0);
 }
 
 bool DownloadCenterDialog::downloadAndInstall(const Package& pkg, QString* error) {
-    QNetworkAccessManager nam;
+    // Streamed to a temporary file, stopped as soon as it's too big, when it
+    // stalls, or on Cancel.
+    QTemporaryFile file;
+    if (!file.open()) {
+        if (error) *error = tr("There's no room for the download on this computer.");
+        return false;
+    }
     QNetworkRequest req(QUrl(pkg.sourceUrl));
-    req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral(
-        "Mozilla/5.0 (compatible; BLD/1.0; +https://github.com/collaborative-brick-layout-designer/desktop)"));
-    req.setAttribute(QNetworkRequest::RedirectPolicyAttribute,
-                     QNetworkRequest::NoLessSafeRedirectPolicy);
-    QNetworkReply* rep = nam.get(req);
-    QObject::connect(rep, &QNetworkReply::downloadProgress, this,
-        [this](qint64 done, qint64 total){
-            if (total <= 0) return;
-            progress_->setMaximum(static_cast<int>(total));
-            progress_->setValue(static_cast<int>(done));
-        });
+    req.setHeader(QNetworkRequest::UserAgentHeader, kUserAgent);
+    req.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
+    req.setTransferTimeout(stallTimeoutMs_);
+    QNetworkReply* rep = nam_->get(req);
+    current_ = rep;
+    bool tooBig = false, writeFailed = false;
+    qint64 received = 0;
+    const auto take = [&] {
+        const QByteArray chunk = rep->readAll();
+        received += chunk.size();
+        if (received > maxPackageBytes_) {
+            tooBig = true;
+            rep->abort();
+            return;
+        }
+        if (file.write(chunk) != chunk.size()) {
+            writeFailed = true;
+            rep->abort();
+        }
+    };
+    QObject::connect(rep, &QNetworkReply::metaDataChanged, this, [&] {
+        const qint64 length = rep->header(QNetworkRequest::ContentLengthHeader).toLongLong();
+        if (length > maxPackageBytes_) {
+            tooBig = true;
+            rep->abort();
+        }
+    });
+    QObject::connect(rep, &QNetworkReply::readyRead, this, take);
+    QObject::connect(rep, &QNetworkReply::downloadProgress, this, [this](qint64 done, qint64 total) {
+        if (total <= 0) return;
+        progress_->setMaximum(1000);
+        progress_->setValue(static_cast<int>(done * 1000 / total));
+    });
     QEventLoop loop;
     QObject::connect(rep, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-    loop.exec();
-    if (rep->error() != QNetworkReply::NoError) {
-        if (error) *error = rep->errorString();
-        rep->deleteLater();
-        return false;
-    }
-    QByteArray bytes = rep->readAll();
+    if (!rep->isFinished()) loop.exec();
+    if (!tooBig && !writeFailed && rep->error() == QNetworkReply::NoError) take();
+    const QNetworkReply::NetworkError netError = rep->error();
+    const QString netMessage = rep->errorString();
     rep->deleteLater();
-    if (bytes.isEmpty()) {
-        if (error) *error = tr("Empty response.");
+    current_ = nullptr;
+    const qint64 mb = maxPackageBytes_ / (qint64(1024) * 1024);
+    if (tooBig) {
+        if (error)
+            *error = mb > 0 ? tr("It's bigger than %1 MB, so it wasn't downloaded.").arg(mb)
+                            : tr("It's too big, so it wasn't downloaded.");
         return false;
     }
-    if (bytes.size() > kMaxPackageBytes) {
-        if (error) *error = tr("Refusing archives larger than %1 MB.")
-                                .arg(kMaxPackageBytes / (1024 * 1024));
+    if (writeFailed) {
+        if (error) *error = tr("There's no room for the download on this computer.");
         return false;
     }
+    if (cancelled_) {
+        if (error) *error = tr("Cancelled.");
+        return false;
+    }
+    if (netError == QNetworkReply::OperationCanceledError || netError == QNetworkReply::TimeoutError) {
+        if (error)
+            *error = tr("The download stopped: nothing came for %n second(s).", nullptr,
+                        std::max(1, stallTimeoutMs_ / 1000));
+        return false;
+    }
+    if (netError != QNetworkReply::NoError) {
+        if (error) *error = netMessage;
+        return false;
+    }
+    if (received == 0) {
+        if (error) *error = tr("The download was empty.");
+        return false;
+    }
+    file.seek(0);
+    return unpackAndMove(file.readAll(), error);
+}
 
-    QDir().mkpath(libraryRoot_);
-    const import::SafeZip zip(bytes);
+bool DownloadCenterDialog::unpackAndMove(const QByteArray& zipBytes, QString* error) {
+    const import::SafeZip zip(zipBytes);
     if (!zip.isValid()) {
-        if (error) *error = tr("Could not read the archive.");
+        if (error) *error = tr("The download isn't a package this app can read.");
+        return false;
+    }
+    if (!QDir().mkpath(libraryRoot_)) {
+        if (error) *error = tr("Couldn't make the folder %1.").arg(QDir::toNativeSeparators(libraryRoot_));
+        return false;
+    }
+    // Unpacked beside the library first, so a bad entry leaves nothing
+    // half-installed; only a whole package is moved into place.
+    QTemporaryDir staging(QDir(libraryRoot_).filePath(QStringLiteral(".download-XXXXXX")));
+    if (!staging.isValid()) {
+        if (error) *error = tr("Couldn't make the folder %1.").arg(QDir::toNativeSeparators(libraryRoot_));
         return false;
     }
     // Every entry is treated as hostile: package sources are user-
     // configurable URLs. Names can't escape the library root ("../"),
     // symlink entries aren't recreated, and sizes are bounded (SafeZip).
-    const QDir root(libraryRoot_);
+    const QDir stage(staging.path());
     for (const auto& entry : zip.entries()) {
-        const QString abs = import::resolveArchiveEntryPath(root.absolutePath(), entry.name);
+        const QString abs = import::resolveArchiveEntryPath(stage.absolutePath(), entry.name);
         if (abs.isEmpty() || entry.isSymLink) {
-            if (error) *error = tr("Refusing unsafe archive entry: %1").arg(entry.name);
+            if (error)
+                *error =
+                    tr("It has a file that would go outside the parts folder (%1), so nothing was installed.")
+                        .arg(entry.name);
             return false;
         }
         if (entry.isDir) {
             if (!QDir().mkpath(abs)) {
-                if (error) *error = tr("Could not create %1").arg(abs);
+                if (error) *error = tr("Couldn't make the folder %1.").arg(QDir::toNativeSeparators(abs));
                 return false;
             }
             continue;
         }
         const auto entryBytes = zip.read(entry);
         if (!entryBytes) {
-            if (error) *error = tr("Damaged archive entry: %1").arg(entry.name);
+            if (error) *error = tr("It's damaged (%1), so nothing was installed.").arg(entry.name);
             return false;
         }
         QDir().mkpath(QFileInfo(abs).absolutePath());
         QFile out(abs);
-        if (!out.open(QIODevice::WriteOnly | QIODevice::Truncate) || out.write(*entryBytes) < 0) {
-            if (error) *error = tr("Could not extract files into %1").arg(libraryRoot_);
+        if (!out.open(QIODevice::WriteOnly | QIODevice::Truncate)
+            || out.write(*entryBytes) != entryBytes->size()) {
+            if (error)
+                *error = tr("There's no room for it in %1.").arg(QDir::toNativeSeparators(libraryRoot_));
             return false;
         }
     }
-    return true;
+    // Move each top-level folder or file into the library, keeping the old
+    // one until the new one is in place.
+    const QFileInfoList top = stage.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Hidden);
+    struct Moved {
+        QString target, backup;
+    };
+    QList<Moved> moved;
+    const auto rollBack = [&moved] {
+        for (const Moved& m : std::as_const(moved)) {
+            QFileInfo(m.target).isDir() ? QDir(m.target).removeRecursively() : QFile::remove(m.target);
+            if (!m.backup.isEmpty()) QFile::rename(m.backup, m.target);
+        }
+    };
+    for (const QFileInfo& item : top) {
+        const QString target = QDir(libraryRoot_).filePath(item.fileName());
+        QString backup;
+        if (QFileInfo::exists(target)) {
+            backup = QDir(staging.path()).filePath(QStringLiteral(".old-") + item.fileName());
+            if (!QFile::rename(target, backup)) {
+                rollBack();
+                if (error)
+                    *error =
+                        tr("%1 is in use, so it couldn't be replaced.").arg(QDir::toNativeSeparators(target));
+                return false;
+            }
+        }
+        if (!QFile::rename(item.absoluteFilePath(), target)) {
+            if (!backup.isEmpty()) QFile::rename(backup, target);
+            rollBack();
+            if (error) *error = tr("Couldn't put it in %1.").arg(QDir::toNativeSeparators(libraryRoot_));
+            return false;
+        }
+        moved.push_back({ target, backup });
+    }
+    return true; // the old copies go with the staging folder
 }
 
 void DownloadCenterDialog::onDownloadClicked() {
     QVector<Package> selected;
     for (int i = 0; i < candidates_->count(); ++i) {
         QListWidgetItem* it = candidates_->item(i);
-        if (it->checkState() != Qt::Checked) continue;
+        if (!(it->flags() & Qt::ItemIsUserCheckable) || it->checkState() != Qt::Checked) continue;
         Package p;
-        p.sourceUrl = it->data(Qt::UserRole + 0).toString();
-        p.fileName  = it->data(Qt::UserRole + 1).toString();
-        p.name      = it->data(Qt::UserRole + 2).toString();
-        p.version   = it->data(Qt::UserRole + 3).toString();
+        p.sourceUrl = it->data(kUrlRole).toString();
+        p.fileName = it->data(kFileRole).toString();
+        p.name = it->data(kNameRole).toString();
+        p.version = it->data(kVersionRole).toString();
         selected.append(p);
     }
     if (selected.isEmpty()) {
@@ -401,48 +534,57 @@ void DownloadCenterDialog::onDownloadClicked() {
 
     downloadBtn_->setEnabled(false);
     searchBtn_->setEnabled(false);
+    closeBtn_->setEnabled(false);
+    cancelBtn_->setVisible(true);
     progress_->setVisible(true);
     progress_->setMaximum(0);
+    downloading_ = true;
+    cancelled_ = false;
 
     QStringList failures;
     int ok = 0;
-    for (int i = 0; i < selected.size(); ++i) {
+    for (int i = 0; i < selected.size() && !cancelled_; ++i) {
         const auto& p = selected[i];
-        statusLabel_->setText(tr("Downloading %1 (%2/%3)…").arg(p.fileName).arg(i + 1).arg(selected.size()));
-        QApplication::processEvents();
+        statusLabel_->setText(tr("Downloading %1 (%2 of %3)…").arg(p.name).arg(i + 1).arg(selected.size()));
+        progress_->setMaximum(0);
         QString err;
         if (downloadAndInstall(p, &err)) {
             ++ok;
-            // Mark the matching row so the user can see what landed.
+            // Mark the row so the user can see what landed.
             for (int j = 0; j < candidates_->count(); ++j) {
                 QListWidgetItem* row = candidates_->item(j);
-                if (row->data(Qt::UserRole + 1).toString() != p.fileName) continue;
-                row->setText(row->text() + QStringLiteral(" ✓"));
+                if (row->data(kFileRole).toString() != p.fileName) continue;
+                row->setText(
+                    tr("%1 — Installed")
+                        .arg(p.version.isEmpty() ? p.name : tr("%1 (version %2)").arg(p.name, p.version)));
                 row->setForeground(QBrush(QColor(40, 130, 60)));
                 row->setCheckState(Qt::Unchecked);
                 row->setFlags(row->flags() & ~Qt::ItemIsUserCheckable);
                 break;
             }
-        } else {
-            failures.append(QStringLiteral("%1: %2").arg(p.fileName, err));
+        } else if (!cancelled_) {
+            failures.append(QStringLiteral("%1: %2").arg(p.name, err));
         }
     }
+    downloading_ = false;
     progress_->setVisible(false);
+    cancelBtn_->setVisible(false);
+    closeBtn_->setEnabled(true);
     installedCount_ += ok;
 
+    QString status = tr("Installed %n package(s).", nullptr, ok);
+    if (cancelled_) status += QChar(' ') + tr("The rest were cancelled.");
+    statusLabel_->setText(status);
     if (!failures.isEmpty()) {
         QMessageBox::warning(this, windowTitle(),
-            tr("Some downloads failed:\n%1").arg(failures.join(QChar('\n'))));
+                             tr("Some packages couldn't be installed:\n%1").arg(failures.join(QChar('\n'))));
     }
-    statusLabel_->setText(tr("Installed %1 package(s).").arg(ok));
     searchBtn_->setEnabled(true);
-    downloadBtn_->setEnabled(false);
-    if (ok > 0) {
-        // Don't auto-close — the user might want to grab more. The
-        // caller checks installedCount() on accept; clicking Close maps
-        // to reject() but we expose installedCount() either way.
-        accept();
-    }
+    // More can be ticked and installed; the dialog stays open until Close.
+    bool more = false;
+    for (int j = 0; j < candidates_->count(); ++j)
+        more |= bool(candidates_->item(j)->flags() & Qt::ItemIsUserCheckable);
+    downloadBtn_->setEnabled(more);
 }
 
 }  // namespace bld::ui

@@ -113,6 +113,8 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     // The logo, also in the About box, which takes its parent's icon.
     setWindowIcon(theme::appIcon());
 
+    // Folders the library was given before the window (kept on every rescan).
+    startupFolders_ = parts_.searchPaths();
     // Scan every configured library path on startup so the PartsBrowser below
     // reflects the user's full set, not just the vendored submodule.
     QStringList allPaths;
@@ -346,12 +348,8 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
         rescanLibrary(allLibraryPaths());
         partsBrowser_->rebuild();
     });
-    connect(partsBrowser_, &PartsBrowser::partDeleted, this, [this]{
-        QStringList paths;
-        const QString vendored = defaultVendoredPartsRoot();
-        if (!vendored.isEmpty()) paths << vendored;
-        paths << loadUserLibraryPaths();
-        rescanLibrary(paths);
+    connect(partsBrowser_, &PartsBrowser::partDeleted, this, [this] {
+        rescanLibrary(allLibraryPaths());
         partsBrowser_->rebuild();
     });
 
