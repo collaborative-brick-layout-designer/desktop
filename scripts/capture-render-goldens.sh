@@ -20,29 +20,23 @@ CORPUS="${REPO_ROOT}/fixtures/bbm-corpus"
 GOLDENS="${REPO_ROOT}/fixtures/render-goldens"
 PARTS="${REPO_ROOT}/parts/BlueBrickParts/parts"
 
-RENDER_BIN="${BUILD_DIR}/src/app/bld_render"
-if [[ ! -x "${RENDER_BIN}" ]]; then
-    echo "bld_render not built at ${RENDER_BIN}. Run: cmake --build ${BUILD_DIR}" >&2
+TESTS_BIN="${BUILD_DIR}/tests/rendering/bld_rendering_tests"
+if [[ ! -x "${TESTS_BIN}" ]]; then
+    echo "bld_rendering_tests not built at ${TESTS_BIN}. Run: cmake --build ${BUILD_DIR} --target bld_rendering_tests" >&2
     exit 1
 fi
 
-mkdir -p "${GOLDENS}"
-export QT_QPA_PLATFORM=offscreen
+# The packs the corpus uses beyond the bundled library (TrixBrix in
+# tight-corner, BrickTracks in Fordyce), as CI downloads them:
+# BLD_RENDER_GOLDENS_PARTS=<TrixBrix dir>:<BrickTracks dir>. The test
+# refuses to capture a map with missing parts.
+if [[ -z "${BLD_RENDER_GOLDENS_PARTS:-}" ]]; then
+    echo "Set BLD_RENDER_GOLDENS_PARTS to the TrixBrix and BrickTracks folders (see .github/workflows/build.yml)." >&2
+    exit 1
+fi
 
-count=0
-for bbm in "${CORPUS}"/*.bbm; do
-    [[ -f "${bbm}" ]] || continue
-    stem="$(basename "${bbm}" .bbm)"
-    out="${GOLDENS}/${stem}.png"
-    echo "=> ${stem}"
-    # The test harness renders at 1600x1200 with the parts library
-    # and the map's own background color. bld_render mirrors that
-    # exact pipeline (width argument matches; parts dir is searched
-    # at the submodule path by default).
-    "${RENDER_BIN}" "${bbm}" "${out}" 1600 "${PARTS}"
-    count=$((count + 1))
-done
-
+# The same render the test compares, written over the goldens.
+QT_QPA_PLATFORM=offscreen BLD_ENABLE_RENDER_GOLDENS=1 BLD_RENDER_GOLDENS_CAPTURE=1 \
+    "${TESTS_BIN}" --gtest_filter='RenderGoldens.*'
 echo
-echo "Captured ${count} goldens under ${GOLDENS}."
-echo "Commit the PNGs to lock them in as the new reference."
+echo "Captured the goldens under ${GOLDENS}. Look at each one, then commit them."
