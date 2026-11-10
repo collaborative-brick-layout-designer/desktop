@@ -397,6 +397,11 @@ void VenueDesignerDialog::loadPlan() {
 void VenueDesignerDialog::refresh() {
     const core::Venue& v = venue();
     title_->setText(v.name.isEmpty() ? tr("Venue") : v.name);
+    // The venue's own unit: as it was opened, and after Undo or Redo.
+    if (unit_->currentIndex() != static_cast<int>(state_.unit)) {
+        const QSignalBlocker block(unit_);
+        unit_->setCurrentIndex(static_cast<int>(state_.unit));
+    }
     if (dirty())
         title_->setText(title_->text()
                         + QStringLiteral("  <span style='color:#b7791f;font-weight:normal'>%1</span>")

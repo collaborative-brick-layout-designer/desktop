@@ -118,6 +118,9 @@ QJsonObject venueToJson(const core::Venue& v) {
         }
         o.insert(QStringLiteral("dimensions"), a);
     }
+    // Feet and inches is what a venue without the key shows, so it isn't written.
+    if (v.lengthUnit == core::VenueLengthUnit::Metres) o.insert(QStringLiteral("lengthUnit"), QStringLiteral("m"));
+    else if (v.lengthUnit == core::VenueLengthUnit::Studs) o.insert(QStringLiteral("lengthUnit"), QStringLiteral("studs"));
     return withExtras(o, v.extras);
 }
 
@@ -187,6 +190,13 @@ core::Venue venueFromJson(const QJsonObject& o) {
     }
     v.extras = extrasOf(o, { "schema", "name", "enabled", "minWalkwayStuds", "bounds", "edges", "obstacles",
                              "power", "notes", "dimensions" });
+    // A unit this build doesn't know shows as feet and inches, and stays in
+    // `extras` (written back as it was) until another is picked.
+    const QString unit = o.value(QLatin1String("lengthUnit")).toString();
+    if (unit == QLatin1String("m")) v.lengthUnit = core::VenueLengthUnit::Metres;
+    else if (unit == QLatin1String("studs")) v.lengthUnit = core::VenueLengthUnit::Studs;
+    if (v.lengthUnit != core::VenueLengthUnit::FeetInches || unit == QLatin1String("ftin"))
+        v.extras.remove(QStringLiteral("lengthUnit"));
     return v;
 }
 

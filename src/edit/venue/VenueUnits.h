@@ -6,6 +6,8 @@
 // twin of the web's venues/designer/units.ts; both tests check the same
 // cases.
 
+#include "../../core/Venue.h"
+
 #include <QString>
 
 #include <optional>
@@ -15,7 +17,8 @@ namespace bld::edit::venue {
 constexpr double kStudsPerInch = 38.09814081 / 12.0;
 constexpr double kStudsPerMm = 1.0 / 8.0;
 
-enum class LengthUnit { FeetInches, Metres, Studs };
+// The unit lengths are typed and shown in; a venue remembers its own (core::Venue::lengthUnit).
+using LengthUnit = core::VenueLengthUnit;
 
 // Studs for a typed length, or nullopt. A bare number is inches in
 // feet-and-inches mode, metres in metric mode, studs in stud mode.

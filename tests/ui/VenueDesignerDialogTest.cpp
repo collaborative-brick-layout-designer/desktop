@@ -254,3 +254,57 @@ TEST(VenueDesignerDialog, TheRoomSizeLineFollowsTheChosenUnits) {
     units->setCurrentIndex(2); // Studs
     EXPECT_TRUE(sizeLine().contains(QStringLiteral("sq studs"))) << sizeLine().toStdString();
 }
+
+// The Units pick is the venue's own: picking one is a change to save, Save
+// hands it back with the venue, and the designer opens on it again with the
+// box and the wall labels in that unit. Undo takes the pick back.
+TEST(VenueDesignerDialog, TheVenueRemembersItsUnits) {
+    std::optional<core::Venue> saved;
+    const auto keep = [&](const core::Venue& v) {
+        saved = v;
+        return QString();
+    };
+    {
+        ui::VenueDesignerDialog dlg(ev::emptyVenue(QStringLiteral("Hall")), QStringLiteral("test"), QStringLiteral("Save"),
+                                    keep);
+        auto* view = dlg.findChild<ui::VenueDesignerView*>();
+        auto* units = dlg.findChild<QComboBox*>();
+        ASSERT_TRUE(view && units);
+        EXPECT_EQ(units->currentIndex(), static_cast<int>(ev::LengthUnit::FeetInches));
+        type(dlg, QStringLiteral("r"));
+        emit view->pressed(QPointF(10 * FT, 10 * FT), false);
+        emit view->moved(QPointF(40 * FT, 30 * FT), false);
+        type(dlg, QStringLiteral("40'x20'"));
+        key(dlg, Qt::Key_Return);
+        key(dlg, Qt::Key_Escape);
+        ASSERT_TRUE(dlg.saveNow());
+        EXPECT_FALSE(dlg.dirty());
+
+        units->setCurrentIndex(static_cast<int>(ev::LengthUnit::Metres));
+        EXPECT_TRUE(dlg.dirty());
+        EXPECT_EQ(dlg.venue().lengthUnit, core::VenueLengthUnit::Metres);
+        // Undo and Redo take the box with them.
+        key(dlg, Qt::Key_Z, {}, Qt::ControlModifier);
+        EXPECT_EQ(units->currentIndex(), static_cast<int>(ev::LengthUnit::FeetInches));
+        EXPECT_FALSE(dlg.dirty());
+        key(dlg, Qt::Key_Z, {}, Qt::ControlModifier | Qt::ShiftModifier);
+        EXPECT_EQ(units->currentIndex(), static_cast<int>(ev::LengthUnit::Metres));
+        ASSERT_TRUE(dlg.saveNow());
+    }
+    ASSERT_TRUE(saved);
+    EXPECT_EQ(saved->lengthUnit, core::VenueLengthUnit::Metres);
+
+    ui::VenueDesignerDialog again(*saved, QStringLiteral("test"), QStringLiteral("Save"), keep);
+    again.resize(1000, 700);
+    again.show();
+    QApplication::processEvents();
+    EXPECT_EQ(again.findChild<QComboBox*>()->currentIndex(), static_cast<int>(ev::LengthUnit::Metres));
+    EXPECT_EQ(again.state().unit, ev::LengthUnit::Metres);
+    EXPECT_FALSE(again.dirty());
+    QStringList labels;
+    for (QGraphicsItem* it : again.findChild<ui::VenueDesignerView*>()->scene()->items())
+        if (const QString t = it->data(rendering::kVenueLabelTextRole).toString(); !t.isEmpty()) labels << t;
+    labels.sort();
+    EXPECT_EQ(labels, (QStringList{ QStringLiteral("east wall — 6.10 m"), QStringLiteral("north wall — 12.19 m"),
+                                    QStringLiteral("south wall — 12.19 m"), QStringLiteral("west wall — 6.10 m") }));
+}

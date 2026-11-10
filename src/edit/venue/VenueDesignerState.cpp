@@ -137,6 +137,7 @@ const std::array<ToolInfo, 13>& tools() {
 
 DesignerState initialState(core::Venue v) {
     DesignerState s;
+    s.unit = v.lengthUnit;  // the venue remembers the unit it was drawn in
     s.history.present = std::move(v);
     return s;
 }
@@ -375,6 +376,7 @@ DesignerState reduce(DesignerState s, const Action& action) {
             },
             [&](const act::Undo&) {
                 s.history = undo(std::move(s.history));
+                s.unit = s.history.present.lengthUnit;
                 s.selection.reset();
                 s.draft.clear();
                 s.cut.reset();
@@ -382,6 +384,7 @@ DesignerState reduce(DesignerState s, const Action& action) {
             },
             [&](const act::Redo&) {
                 s.history = redo(std::move(s.history));
+                s.unit = s.history.present.lengthUnit;
                 s.selection.reset();
                 s.draft.clear();
                 s.cut.reset();
@@ -393,8 +396,15 @@ DesignerState reduce(DesignerState s, const Action& action) {
             },
             [&](const act::Edit& a) { return edited(std::move(s), a.venue); },
             [&](const act::Unit& a) {
+                // Kept with the venue (an edit like any other: saved, and
+                // undone with Undo), so its lengths show in this unit
+                // wherever it is drawn.
+                if (a.unit == s.unit) return s;
                 s.unit = a.unit;
-                return s;
+                core::Venue next = s.venue();
+                next.lengthUnit = a.unit;
+                next.extras.remove(QStringLiteral("lengthUnit"));  // a unit this build didn't know
+                return edited(std::move(s), std::move(next));
             },
             [&](const act::Snap& a) {
                 s.snap = a.on;

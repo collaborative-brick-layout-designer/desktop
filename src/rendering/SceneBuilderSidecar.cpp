@@ -236,7 +236,7 @@ void SceneBuilder::addVenue(const core::Map& map) {
         opts.selectedEdge = venueSelectedEdge_;
         opts.handles = venueHandles_;
         opts.handleHalfPx = venueHandleHalfPx_;
-        opts.unit = venueUnit_;
+        opts.unit = v.lengthUnit;  // the venue's own: the Venue Designer's Units pick
         const bool dark = QGuiApplication::palette().color(QPalette::Window).lightness() < 128;
         const VenueLabelColors colors = venueLabelColors(dark);
         const QFont font = mapFont(QStringLiteral("Bold"), wallLabelPx);

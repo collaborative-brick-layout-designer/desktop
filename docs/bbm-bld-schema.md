@@ -206,6 +206,12 @@ Optional venue fields (each left out when empty or default):
 - `notes`: `[{ "x", "y", "text", "estimated" }]`, notes on the plan.
 - `dimensions`: `[{ "from": {x, y}, "to": {x, y}, "label", "estimated" }]`,
   measurements drawn on the plan.
+- `lengthUnit`: `"m"` or `"studs"`, the unit the venue's lengths are shown
+  in (the Venue Designer's Units pick). Left out for feet and inches, which
+  is also what a value this build doesn't know shows as (the value itself is
+  kept). Both apps show wall lengths in it wherever the venue is drawn: the
+  designer, the layout editor and the public page. Added 2026-11 without a
+  version bump (optional, additive).
 
 ### `kind` — `EdgeKind` enum
 
@@ -219,7 +225,7 @@ Optional venue fields (each left out when empty or default):
 
 Everything in venue geometry is in **studs** (1 stud = 8 mm). The
 Venue Dimensions dialog accepts feet or inches and converts to studs
-on input.
+on input. `lengthUnit` (above) only says how lengths are shown.
 
 `minWalkwayStuds` is the minimum clearance from the inside of any
 non-Wall edge (so walls don't need a walkway buffer). The walkway

@@ -113,8 +113,6 @@ public:
         venueHandles_ = std::move(handles);
         venueHandleHalfPx_ = handleHalfPx;
     }
-    // The unit the wall labels show lengths in (the Venue Designer's Units pick); feet by default.
-    void setVenueUnit(edit::venue::LengthUnit unit) { venueUnit_ = unit; }
 
     // While parts are dragged: draw again what is drawn from the layout but
     // follows parts (module frames and names, electric circuits, and the
@@ -168,7 +166,6 @@ private:
     std::optional<int> venueSelectedEdge_;
     QVector<QPointF> venueHandles_;
     double venueHandleHalfPx_ = 0;
-    edit::venue::LengthUnit venueUnit_ = edit::venue::LengthUnit::FeetInches;
     void addLayer(const core::Layer& layer, int layerIndex);
     void clearLayer(int layerIndex);
 

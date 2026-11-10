@@ -98,3 +98,31 @@ TEST(VenueDraw, SceneShowsTheGrandLobbysPowerNotesAndEstimates) {
             t.startsWith(QStringLiteral("angled north-east wall")) && t.endsWith(QStringLiteral("(est.)"));
     EXPECT_TRUE(estEdge);
 }
+
+// The layout editor draws a venue's wall lengths in the unit the venue
+// remembers (the Venue Designer's Units pick), not always feet; changing it
+// redraws them.
+TEST(VenueDraw, WallLabelsUseTheVenuesOwnUnit) {
+    core::Venue venue;
+    venue.name = QStringLiteral("Hall");
+    venue.edges.push_back({ { QPointF(0, 0), QPointF(400, 0) }, core::EdgeKind::Wall, 0.0, QStringLiteral("North") });
+    core::Map map;
+    map.sidecar.venue = venue;
+    parts::PartsLibrary lib;
+    QGraphicsScene scene;
+    rendering::SceneBuilder builder(scene, lib);
+    const auto labels = [&] {
+        QStringList out;
+        for (QGraphicsItem* it : scene.items())
+            if (it->data(rendering::kVenueLabelTextRole).isValid()) out << it->data(rendering::kVenueLabelTextRole).toString();
+        return out;
+    };
+    builder.build(map);
+    EXPECT_EQ(labels(), QStringList{ QStringLiteral("North — 10.50 ft") });
+    map.sidecar.venue->lengthUnit = core::VenueLengthUnit::Metres;
+    builder.update(map);
+    EXPECT_EQ(labels(), QStringList{ QStringLiteral("North — 3.20 m") });
+    map.sidecar.venue->lengthUnit = core::VenueLengthUnit::Studs;
+    builder.build(map);
+    EXPECT_EQ(labels(), QStringList{ QStringLiteral("North — 400 studs") });
+}

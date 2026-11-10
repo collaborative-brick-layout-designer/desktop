@@ -190,3 +190,32 @@ TEST(VenueDesignerTools, DragsInWholeInchesAsOneUndoStepAndEscPutsItBack) {
     EXPECT_NEAR((*sizes)[1], 240 * IN, 1e-9);
     EXPECT_FALSE(parseSize(QStringLiteral("1' x 2' x 3'"), LengthUnit::FeetInches));
 }
+
+// The Units pick is kept with the venue: an edit (so it is saved, and Undo
+// takes it back), and the designer opens in the venue's unit.
+TEST(VenueDesignerTools, TheUnitsPickIsKeptWithTheVenue) {
+    auto s = initialState(emptyVenue());
+    EXPECT_EQ(s.unit, LengthUnit::FeetInches);
+    EXPECT_TRUE(s.history.past.empty());
+    s = run(std::move(s), { act::Unit{ LengthUnit::FeetInches } });
+    EXPECT_TRUE(s.history.past.empty());  // the same pick again changes nothing
+
+    s = run(std::move(s), { act::Unit{ LengthUnit::Metres } });
+    EXPECT_EQ(s.unit, LengthUnit::Metres);
+    EXPECT_EQ(s.venue().lengthUnit, LengthUnit::Metres);
+    EXPECT_EQ(s.history.past.size(), 1u);
+    // Typed lengths read in it.
+    s = run(std::move(s), { tool(Tool::Wall), click(0, 0), hover(50, 1), act::Type{ QStringLiteral("3") }, act::Enter{},
+                            act::Escape{} });
+    ASSERT_EQ(s.venue().edges.size(), 1);
+    EXPECT_NEAR(s.venue().edges[0].polyline[1].x(), 375.0, 1e-6);  // 3 m
+
+    // Opened again: the venue's unit.
+    EXPECT_EQ(initialState(s.venue()).unit, LengthUnit::Metres);
+
+    s = run(std::move(s), { act::Unit{ LengthUnit::Studs }, act::Undo{} });
+    EXPECT_EQ(s.unit, LengthUnit::Metres);
+    EXPECT_EQ(s.venue().lengthUnit, LengthUnit::Metres);
+    s = run(std::move(s), { act::Redo{} });
+    EXPECT_EQ(s.unit, LengthUnit::Studs);
+}

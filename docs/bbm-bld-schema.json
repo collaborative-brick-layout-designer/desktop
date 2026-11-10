@@ -165,6 +165,10 @@
           "type": "array",
           "description": "Interior polygons (pillars, columns, fixed furniture) that bricks mustn't overlap.",
           "items": { "$ref": "#/definitions/venueObstacle" }
+        },
+        "lengthUnit": {
+          "type": "string",
+          "description": "The unit the venue's lengths are shown in (the Venue Designer's Units pick): \"m\" or \"studs\". Absent, or a value a reader doesn't know, means feet and inches. Stored lengths stay in studs. Added 2026-11, optional."
         }
       }
     },
