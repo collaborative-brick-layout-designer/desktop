@@ -90,9 +90,15 @@ protected:
     // parts and the folders added in Parts Folders, but not the bundled
     // library or the folders of parts downloaded from a server.
     QStringList ownPartsRoots() const;
+    // Whether the part file at `xmlPath` (under `root`) is in a library pack
+    // (a folder with config/About.txt, as the Download Center's are).
+    static bool inLibraryPack(const QString& xmlPath, const QString& root);
     // A set of yours or one a server sent (not a library's): placed copies keep track of its version.
     bool isCustomSetFile(const QString& xmlPath) const;
     QList<bld::sync::LocalPart> scanOwnParts() const;
+    // Your own parts (as scanOwnParts() finds them) that this layout uses,
+    // sets' parts included, by part number.
+    QStringList ownPartsInLayout() const;
 
     // Register a freshly-written library part with the in-memory
     // parts library and the parts panel without re-scanning every
@@ -370,6 +376,14 @@ protected:
     // The live server's sign-in ran out (a 401 while live): sign in again
     // there (the device sign-in), then resumeLive with the new token.
     // Virtual so tests sign in without a browser.
+    // After Save to Server: your own parts this layout uses that the
+    // server lacks, offered unticked.
+    void offerPartsUpload(bool quiet);
+    // Save to Server's openLive: parts go on the sheet they went on here.
+    void openLiveFromHere(const bld::sync::ConnectResult& r) {
+        carrySheetIntoLive_ = true;
+        openLive(r);
+    }
     virtual void signInToLiveServer();
     // Connect the live layout again with a new token; its offline edits
     // (kept on disk) come back for review once it's in step.
@@ -392,7 +406,6 @@ private:
     QString liveServerName() const;
     // Offer to upload the user's parts the live server lacks; `quiet`: say
     // nothing when there are none (after publishing).
-    void offerPartsUpload(bool quiet);
     QUrl liveServer_;
     QString liveToken_;
     QString liveLayoutId_;  // the live layout's id, for a saved file's source
@@ -412,6 +425,16 @@ private:
     bool liveCatalogReady_ = false;
     QSet<QString> liveAskedParts_;  // offered already, or in the layout as opened
     bool liveLayoutSeen_ = false;
+    // The sheet new parts go on, kept across going live and the live
+    // layout's reloads (the shared copy keeps the file's own choice).
+    struct LiveSheet {
+        int index = -1;
+        QString name;
+    };
+    LiveSheet liveSheet_;
+    bool carrySheetIntoLive_ = false;  // Save to Server: the local layout's sheet
+    void rememberLiveSheet(int index);
+    bool keepLiveSheet();  // true when it picked another sheet
     bool liveOfferOpen_ = false;
     // Bring this server's parts into the library (in the background):
     // missing or changed ones are downloaded to a folder named after it.
@@ -564,7 +587,9 @@ private:
     QStringList importedPartFolders_;
     void sendLocalToServer(int tab, const QString& localId);
     void saveLayoutFileToServer();
-    void uploadPartsTo(const QUrl& server, const QString& token, bool quiet, const QStringList& only = {});
+    // `ticked`: the parts start ticked in the window (you asked to upload).
+    void uploadPartsTo(const QUrl& server, const QString& token, bool quiet, const QStringList& only = {},
+                       bool ticked = true);
     void saveVenueToServer(const core::Venue& venue);
     void saveModuleFileToServer(const QString& bbmPath);
     void shareToCatalog(const bld::sync::CatalogShare& share, bool update, const QString& clubReview);
