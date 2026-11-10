@@ -83,6 +83,7 @@ LiveLayout::LiveLayout(MapView& view, QObject* parent) : QObject(parent), view_(
 void LiveLayout::setUser(const QString& userId, const QString& displayName, const QString& layoutId) {
     user_ = { userId, displayName.isEmpty() ? QStringLiteral("Desktop") : displayName,
               sync::presence::colorFor(userId, layoutId) };
+    layoutId_ = layoutId;
     schedulePresence();
 }
 
@@ -108,20 +109,28 @@ void LiveLayout::drawPeers() {
     drawnPeers_ = 0;
     // Who is editing which module, for the Edit module bar.
     QHash<QString, QStringList> editing;
+    // Everyone else here: people's presence only (not an empty one from an app
+    // still opening the layout), and not this person in another app or tab.
+    std::vector<sync::presence::Peer> others;
     if (active_)
         for (const auto& state : session_.peers()) {
-            const auto peer = sync::presence::peerFrom(state);
+            auto peer = sync::presence::peerFrom(state);
+            if (!peer.person || (!user_.id.isEmpty() && peer.userId == user_.id)) continue;
             if (!peer.editingModule.isEmpty()) editing[peer.editingModule] << peer.name;
+            others.push_back(std::move(peer));
         }
     view_.setPeersEditing(editing);
-    if (!active_ || !view_.currentMap() || session_.peers().empty()) return;
+    if (!active_ || !view_.currentMap() || others.empty()) return;
+    // Colors as every app works them out from the same people.
+    QStringList ids{ user_.id };
+    for (const auto& peer : others) ids << peer.userId;
+    const QHash<QString, QString> colors = sync::presence::colorsFor(ids, layoutId_);
     // Bricks by id, for selection outlines: where a drag here has them now.
     // (Only when someone has parts picked: it walks every part.)
     QHash<QString, QRectF> bricks;
-    const bool anyPicked =
-        std::any_of(session_.peers().cbegin(), session_.peers().cend(), [](const QJsonObject& state) {
-            return !sync::presence::peerFrom(state).brickIds.isEmpty();
-        });
+    const bool anyPicked = std::any_of(others.cbegin(), others.cend(), [](const sync::presence::Peer& peer) {
+        return !peer.brickIds.isEmpty();
+    });
     if (anyPicked)
         view_.withLivePose([&bricks](const core::Map& map) {
             for (const auto& layer : map.layers())
@@ -136,9 +145,8 @@ void LiveLayout::drawPeers() {
         view_.scene()->addItem(it);
         peerItems_ << it;
     };
-    for (const auto& state : session_.peers()) {
-        const auto peer = sync::presence::peerFrom(state);
-        const QColor color(peer.color);
+    for (const auto& peer : others) {
+        const QColor color(colors.value(peer.userId, peer.color));
         for (const auto& id : peer.brickIds) {
             const auto r = bricks.constFind(id);
             if (r == bricks.constEnd()) continue;
