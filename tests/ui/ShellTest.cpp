@@ -159,7 +159,9 @@ TEST_F(Shell, TouchModeButtonsAreAComfortableSize) {
     auto* bar = w.findChild<QToolBar*>(QStringLiteral("toolbar.main"));
     auto* more = bar->findChild<QToolButton*>(QStringLiteral("qt_toolbar_ext_button"));
     ASSERT_TRUE(more);
-    if (more->isVisible()) EXPECT_GE(more->width(), ui::TouchMode::kComfortTarget);
+    if (more->isVisible()) {
+        EXPECT_GE(more->width(), ui::TouchMode::kComfortTarget);
+    }
     ui::TouchMode::instance().setActive(false);
     qApp->setStyleSheet(QString());
 }
