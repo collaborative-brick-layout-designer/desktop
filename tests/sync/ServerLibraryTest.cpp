@@ -1385,6 +1385,92 @@ TEST_F(ServerModulesWindow, OpenToChangeItThenSaveMakesANewVersion) {
     EXPECT_TRUE(library_->editingModule().isEmpty());
 }
 
+// Someone else saved the module while it was changed here: the save names
+// the version it started from, the refusal asks, and nothing is overwritten
+// unless "Save mine as a new version" is chosen.
+class ServerModulesChanged : public ServerModulesWindow {
+protected:
+    void beforeOpen() override {
+        ServerModulesWindow::beforeOpen();
+        http_.clear("/api/modules/m1/snapshot");
+        http_.replyRaw("/api/modules/m1/snapshot", 200, snapshotOf(*sampleModule()),
+                       "application/octet-stream", "\r\nX-Doc-Version: 4");
+    }
+};
+
+TEST_F(ServerModulesChanged, ASaveFromAnOlderVersionAsksAndSaveMineSavesOverIt) {
+    emit library_->openRequested(QStringLiteral("m1"));
+    ASSERT_TRUE(waitFor([&] { return window_->editingModule().id == QStringLiteral("m1"); }));
+    EXPECT_EQ(window_->editingModule().docVersion, 4);
+    // The first save: refused, someone saved version 5 meanwhile. The second (Save mine): taken.
+    http_.reply("/api/modules/m1/snapshot?note=Mine", 409,
+                { { QStringLiteral("error"), QStringLiteral("module_changed") },
+                  { QStringLiteral("docVersion"), 5 } });
+    http_.reply("/api/modules/m1/snapshot?note=Mine", 200,
+                { { QStringLiteral("version"), 6 }, { QStringLiteral("docVersion"), 6 } });
+    http_.reply("/api/modules/m1/thumbnail", 200, { { QStringLiteral("ok"), true } });
+    QStringList asked;
+    window_->askModuleChanged = [&](const QString& title) {
+        asked << title;
+        return 2; // Save mine as a new version
+    };
+    QTimer::singleShot(0, [] {
+        auto* d = qobject_cast<QInputDialog*>(QApplication::activeModalWidget());
+        ASSERT_NE(d, nullptr);
+        d->setTextValue(QStringLiteral("Mine"));
+        d->accept();
+    });
+    QAction* save = nullptr;
+    for (QAction* a : window_->findChildren<QAction*>())
+        if (a->shortcut() == QKeySequence::Save) save = a;
+    ASSERT_NE(save, nullptr);
+    save->trigger();
+    ASSERT_TRUE(waitFor([&] { return asked.size() == 1; }));
+    EXPECT_EQ(asked.front(), QStringLiteral("Freight yard"));
+    std::vector<const synctest::Request*> puts;
+    ASSERT_TRUE(waitFor([&] {
+        puts.clear();
+        for (const auto& r : http_.requests)
+            if (r.method == "PUT" && r.path == "/api/modules/m1/snapshot?note=Mine") puts.push_back(&r);
+        return puts.size() == 2;
+    }));
+    // The first named the version it started from; Save mine names none.
+    EXPECT_EQ(puts[0]->ifMatch, QByteArray("\"4\""));
+    EXPECT_TRUE(puts[1]->ifMatch.isEmpty());
+    ASSERT_TRUE(waitFor([&] { return window_->editingModule().docVersion == 6; }));
+}
+
+TEST_F(ServerModulesChanged, LoadTheirsOpensTheirVersion) {
+    emit library_->openRequested(QStringLiteral("m1"));
+    ASSERT_TRUE(waitFor([&] { return window_->editingModule().id == QStringLiteral("m1"); }));
+    http_.reply("/api/modules/m1/snapshot?note=Mine", 409,
+                { { QStringLiteral("error"), QStringLiteral("module_changed") },
+                  { QStringLiteral("docVersion"), 5 } });
+    window_->askModuleChanged = [&](const QString&) { return 1; }; // Load theirs
+    QTimer::singleShot(0, [] {
+        auto* d = qobject_cast<QInputDialog*>(QApplication::activeModalWidget());
+        ASSERT_NE(d, nullptr);
+        d->setTextValue(QStringLiteral("Mine"));
+        d->accept();
+    });
+    const auto gets = [&] {
+        int n = 0;
+        for (const auto& r : http_.requests) n += r.method == "GET" && r.path == "/api/modules/m1/snapshot";
+        return n;
+    };
+    const int before = gets();
+    for (QAction* a : window_->findChildren<QAction*>())
+        if (a->shortcut() == QKeySequence::Save) a->trigger();
+    // Their version is read again (the save itself reads it once first).
+    ASSERT_TRUE(waitFor([&] { return gets() >= before + 2; }));
+    ASSERT_TRUE(waitFor([&] {
+        return view_->undoStack()->isClean() && window_->editingModule().id == QStringLiteral("m1");
+    }));
+    int puts = 0;
+    for (const auto& r : http_.requests) puts += r.method == "PUT";
+    EXPECT_EQ(puts, 1);
+}
+
 class ServerModulesWarning : public ServerModulesWindow {
 protected:
     void beforeOpen() override {
