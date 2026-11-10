@@ -463,6 +463,33 @@ TEST_F(LibraryTabs, YoursFirstThenEachClubWithVersionsAndPictures) {
     EXPECT_NE(tab.findChild<QLabel*>(QStringLiteral("serverModulesEmpty")), nullptr);
 }
 
+TEST_F(LibraryTabs, AModuleWithNoPartsSaysSoAndCantBeAdded) {
+    QJsonObject blank = moduleJson(QStringLiteral("m9"), QStringLiteral("Blank"), QStringLiteral("owner"));
+    blank.insert(QStringLiteral("empty"), true);
+    QJsonObject full = moduleJson(QStringLiteral("m1"), QStringLiteral("Freight yard"), QStringLiteral("owner"));
+    full.insert(QStringLiteral("empty"), false);
+    http_.reply("/api/modules", 200, modules({ full, blank }));
+    ui::ServerModulesTab tab(library_);
+    tab.show();
+    connectSignedIn();
+    QString inserted;
+    QObject::connect(&library_, &ui::ServerLibrary::insertRequested, [&](const QString& id) { inserted = id; });
+    QWidget* row = tab.row(QStringLiteral("m9"));
+    ASSERT_NE(row, nullptr);
+    auto* note = row->findChild<QLabel*>(QStringLiteral("rowEmpty"));
+    ASSERT_NE(note, nullptr);
+    EXPECT_EQ(note->text(), QStringLiteral("No parts yet"));
+    auto* add = row->findChild<QPushButton*>(QStringLiteral("insertModule"));
+    ASSERT_NE(add, nullptr);
+    EXPECT_FALSE(add->isEnabled());
+    add->click();
+    EXPECT_TRUE(inserted.isEmpty());
+    // One with parts is as before.
+    QWidget* yard = tab.row(QStringLiteral("m1"));
+    EXPECT_EQ(yard->findChild<QLabel*>(QStringLiteral("rowEmpty")), nullptr);
+    EXPECT_TRUE(yard->findChild<QPushButton*>(QStringLiteral("insertModule"))->isEnabled());
+}
+
 TEST_F(LibraryTabs, APictureOnItsWayDuringARefreshStillArrives) {
     serveModules();
     QByteArray png;
@@ -904,7 +931,7 @@ TEST_F(LibraryTabs, ACatalogThatIsOffSaysSo) {
     http_.reply("/api/catalog/settings", 200, catalogOn(false));
     ui::CatalogTab tab(library_);
     connectSignedIn();
-    EXPECT_TRUE(tab.note()->text().contains(QStringLiteral("isn't turned on")));
+    EXPECT_TRUE(tab.note()->text().contains(QStringLiteral("catalog is turned off")));
 }
 
 // ---------- The main window --------------------------------------------------

@@ -2798,8 +2798,8 @@
         <translation>稍后</translation>
     </message>
     <message>
-        <source>Keep your offline changes waiting; File &gt; Review Offline Changes brings this back</source>
-        <translation>让你的离线更改继续等待；文件 &gt; 查看离线更改 可以回到这里</translation>
+        <source>Keep your offline changes waiting; File › Review Offline Changes brings this back</source>
+        <translation>让你的离线更改继续等待；文件 › 查看离线更改 可以回到这里</translation>
     </message>
     <message>
         <source>Throw away the changes you made offline?</source>
@@ -3703,7 +3703,7 @@
         <translation>添加到（%1）</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server. Its admins can turn it on.</source>
+        <source>This server&apos;s catalog is turned off. Its admins can turn it on.</source>
         <translation>这台服务器没有开启目录。它的管理员可以开启。</translation>
     </message>
     <message>
@@ -4757,9 +4757,9 @@
         <translation>正在连接…</translation>
     </message>
     <message numerus="yes">
-        <source>Reconnecting…, %n unsynced edit(s)</source>
+        <source>Reconnecting… %n unsynced edit(s)</source>
         <translation>
-            <numerusform>正在重新连接…，有 %n 处编辑未同步</numerusform>
+            <numerusform>正在重新连接… 有 %n 处编辑未同步</numerusform>
         </translation>
     </message>
     <message>
@@ -6853,6 +6853,12 @@ Save anyway?</source>
         <translation>在 %1 上实时编辑：%2</translation>
     </message>
     <message>
+        <source>Could not publish your version: %1
+Your offline changes are kept; File › Review Offline Changes brings them back.</source>
+        <translation>无法发布你的版本：%1
+你的离线更改已保留；文件 › 查看离线更改 可以找回它们。</translation>
+    </message>
+    <message>
         <source>Review now</source>
         <translation>立即查看</translation>
     </message>
@@ -6919,12 +6925,6 @@ Save anyway?</source>
     <message>
         <source>Your version was saved as &quot;%1&quot; in your layouts on %2. The live layout stays as the server has it.</source>
         <translation>你的版本已保存为“%1”，位于你在 %2 上的布局中。实时布局保持服务器上的样子。</translation>
-    </message>
-    <message>
-        <source>Could not publish your version: %1
-Your offline changes are kept; File &gt; Review Offline Changes brings them back.</source>
-        <translation>无法发布你的版本：%1
-你的离线更改已保留；文件 &gt; 查看离线更改 可以找回它们。</translation>
     </message>
     <message>
         <source>Publishing your version as &quot;%1&quot;…</source>
@@ -8699,6 +8699,10 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>导入到地图</translation>
     </message>
     <message>
+        <source>No parts yet: open it in a layout and add some</source>
+        <translation>还没有零件：在布局中打开它并添加一些</translation>
+    </message>
+    <message>
         <source>Delete…</source>
         <translation>删除…</translation>
     </message>
@@ -8717,6 +8721,16 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     <message>
         <source>On this computer: %1</source>
         <translation>这台电脑上：%1</translation>
+    </message>
+    <message>
+        <source>%1  ·  No parts yet</source>
+        <translation>%1  ·  还没有零件</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it in a layout and add some, then save it here again.
+%1</source>
+        <translation>还没有零件：在布局中打开它，添加一些，然后再保存到这里。
+%1</translation>
     </message>
     <message>
         <source>No modules here yet. Make a module in a layout (Modules › Make a Module…), then choose Save to Module library… from its menu.</source>
@@ -9637,7 +9651,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>你不能对这个模块这样做。请向它的所有者或俱乐部管理员申请编辑权限。</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server.</source>
+        <source>This server&apos;s catalog is turned off.</source>
         <translation>这台服务器没有开启目录。</translation>
     </message>
     <message>
@@ -9680,6 +9694,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>v%1</translation>
     </message>
     <message>
+        <source>No parts yet</source>
+        <translation>还没有零件</translation>
+    </message>
+    <message>
+        <source>Open it to add some parts, then it can go in a layout.</source>
+        <translation>打开它添加一些零件，之后就可以放进布局了。</translation>
+    </message>
+    <message>
         <source>Editing now</source>
         <translation>正在编辑</translation>
     </message>
@@ -9694,6 +9716,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Add to layout</source>
         <translation>添加到布局</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it to add some</source>
+        <translation>还没有零件：打开它来添加</translation>
     </message>
     <message>
         <source>More for %1</source>
@@ -11360,6 +11386,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>
             <numerusform>还有 %n 个估算值待测量</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq m</source>
+        <translation>场地 %1 × %2 · %3 平方米</translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq studs</source>
+        <translation>场地 %1 × %2 · %3 颗粒²</translation>
     </message>
     <message>
         <source>Venue %1 × %2 · %3 sq ft</source>

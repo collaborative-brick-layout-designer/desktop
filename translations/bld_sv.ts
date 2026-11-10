@@ -2813,8 +2813,8 @@
         <translation>Senare</translation>
     </message>
     <message>
-        <source>Keep your offline changes waiting; File &gt; Review Offline Changes brings this back</source>
-        <translation>Låt dina offlineändringar vänta; Arkiv &gt; Granska offlineändringar tar fram det här igen</translation>
+        <source>Keep your offline changes waiting; File › Review Offline Changes brings this back</source>
+        <translation>Låt dina offlineändringar vänta; Arkiv › Granska offlineändringar tar fram det här igen</translation>
     </message>
     <message>
         <source>Throw away the changes you made offline?</source>
@@ -3720,7 +3720,7 @@
         <translation>Lägg till i (%1)</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server. Its admins can turn it on.</source>
+        <source>This server&apos;s catalog is turned off. Its admins can turn it on.</source>
         <translation>Katalogen är inte påslagen på den här servern. Dess administratörer kan slå på den.</translation>
     </message>
     <message>
@@ -4787,10 +4787,10 @@
         <translation>Ansluter…</translation>
     </message>
     <message numerus="yes">
-        <source>Reconnecting…, %n unsynced edit(s)</source>
+        <source>Reconnecting… %n unsynced edit(s)</source>
         <translation>
-            <numerusform>Återansluter…, %n osynkad ändring</numerusform>
-            <numerusform>Återansluter…, %n osynkade ändringar</numerusform>
+            <numerusform>Återansluter… %n osynkad ändring</numerusform>
+            <numerusform>Återansluter… %n osynkade ändringar</numerusform>
         </translation>
     </message>
     <message>
@@ -7334,6 +7334,12 @@ Spara ändå?</translation>
         <translation>Live på %1: %2</translation>
     </message>
     <message>
+        <source>Could not publish your version: %1
+Your offline changes are kept; File › Review Offline Changes brings them back.</source>
+        <translation>Kunde inte publicera din version: %1
+Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram dem igen.</translation>
+    </message>
+    <message>
         <source>Review now</source>
         <translation>Granska nu</translation>
     </message>
@@ -7402,12 +7408,6 @@ Spara ändå?</translation>
     <message>
         <source>Your version was saved as &quot;%1&quot; in your layouts on %2. The live layout stays as the server has it.</source>
         <translation>Din version sparades som &quot;%1&quot; bland dina layouter på %2. Livelayouten förblir som servern har den.</translation>
-    </message>
-    <message>
-        <source>Could not publish your version: %1
-Your offline changes are kept; File &gt; Review Offline Changes brings them back.</source>
-        <translation>Kunde inte publicera din version: %1
-Dina offlineändringar finns kvar; Arkiv &gt; Granska offlineändringar tar fram dem igen.</translation>
     </message>
     <message>
         <source>Publishing your version as &quot;%1&quot;…</source>
@@ -8763,6 +8763,10 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <translation>Importera till kartan</translation>
     </message>
     <message>
+        <source>No parts yet: open it in a layout and add some</source>
+        <translation>Inga delar än: öppna den i en layout och lägg till några</translation>
+    </message>
+    <message>
         <source>Delete…</source>
         <translation>Ta bort…</translation>
     </message>
@@ -8781,6 +8785,16 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     <message>
         <source>On this computer: %1</source>
         <translation>På den här datorn: %1</translation>
+    </message>
+    <message>
+        <source>%1  ·  No parts yet</source>
+        <translation>%1  ·  Inga delar än</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it in a layout and add some, then save it here again.
+%1</source>
+        <translation>Inga delar än: öppna den i en layout, lägg till några och spara den här igen.
+%1</translation>
     </message>
     <message>
         <source>No modules here yet. Make a module in a layout (Modules › Make a Module…), then choose Save to Module library… from its menu.</source>
@@ -9706,7 +9720,7 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Du kan inte göra det med den här modulen. Be ägaren, eller klubbens administratörer, om redigeringsrättigheter.</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server.</source>
+        <source>This server&apos;s catalog is turned off.</source>
         <translation>Katalogen är inte påslagen på den här servern.</translation>
     </message>
     <message>
@@ -9749,6 +9763,14 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>v%1</translation>
     </message>
     <message>
+        <source>No parts yet</source>
+        <translation>Inga delar än</translation>
+    </message>
+    <message>
+        <source>Open it to add some parts, then it can go in a layout.</source>
+        <translation>Öppna den för att lägga till delar, sedan kan den läggas i en layout.</translation>
+    </message>
+    <message>
         <source>Editing now</source>
         <translation>Redigeras nu</translation>
     </message>
@@ -9763,6 +9785,10 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Add to layout</source>
         <translation>Lägg till i layout</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it to add some</source>
+        <translation>Inga delar än: öppna den för att lägga till några</translation>
     </message>
     <message>
         <source>More for %1</source>
@@ -11431,6 +11457,14 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
             <numerusform>%n uppskattning kvar att mäta</numerusform>
             <numerusform>%n uppskattningar kvar att mäta</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq m</source>
+        <translation>Lokal %1 × %2 · %3 m²</translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq studs</source>
+        <translation>Lokal %1 × %2 · %3 knoppar²</translation>
     </message>
     <message>
         <source>Venue %1 × %2 · %3 sq ft</source>

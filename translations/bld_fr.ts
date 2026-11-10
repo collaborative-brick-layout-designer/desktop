@@ -2813,8 +2813,8 @@
         <translation>Plus tard</translation>
     </message>
     <message>
-        <source>Keep your offline changes waiting; File &gt; Review Offline Changes brings this back</source>
-        <translation>Garder vos changements hors ligne en attente ; Fichier &gt; Revoir les changements hors ligne y revient</translation>
+        <source>Keep your offline changes waiting; File › Review Offline Changes brings this back</source>
+        <translation>Garder vos changements hors ligne en attente ; Fichier › Revoir les changements hors ligne y revient</translation>
     </message>
     <message>
         <source>Throw away the changes you made offline?</source>
@@ -3720,7 +3720,7 @@
         <translation>Ajouter à (%1)</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server. Its admins can turn it on.</source>
+        <source>This server&apos;s catalog is turned off. Its admins can turn it on.</source>
         <translation>Le catalogue n’est pas activé sur ce serveur. Ses admins peuvent l’activer.</translation>
     </message>
     <message>
@@ -4787,10 +4787,10 @@
         <translation>Connexion…</translation>
     </message>
     <message numerus="yes">
-        <source>Reconnecting…, %n unsynced edit(s)</source>
+        <source>Reconnecting… %n unsynced edit(s)</source>
         <translation>
-            <numerusform>Reconnexion…, %n modification non synchronisée</numerusform>
-            <numerusform>Reconnexion…, %n modifications non synchronisées</numerusform>
+            <numerusform>Reconnexion… %n modification non synchronisée</numerusform>
+            <numerusform>Reconnexion… %n modifications non synchronisées</numerusform>
         </translation>
     </message>
     <message>
@@ -6895,6 +6895,12 @@ Enregistrer quand même ?</translation>
         <translation>En direct sur %1 : %2</translation>
     </message>
     <message>
+        <source>Could not publish your version: %1
+Your offline changes are kept; File › Review Offline Changes brings them back.</source>
+        <translation>Impossible de publier votre version : %1
+Vos changements hors ligne sont gardés ; Fichier › Revoir les changements hors ligne les ramène.</translation>
+    </message>
+    <message>
         <source>Review now</source>
         <translation>Examiner maintenant</translation>
     </message>
@@ -6963,12 +6969,6 @@ Enregistrer quand même ?</translation>
     <message>
         <source>Your version was saved as &quot;%1&quot; in your layouts on %2. The live layout stays as the server has it.</source>
         <translation>Votre version a été enregistrée sous « %1 » dans vos plans sur %2. Le plan en direct reste tel que le serveur l’a.</translation>
-    </message>
-    <message>
-        <source>Could not publish your version: %1
-Your offline changes are kept; File &gt; Review Offline Changes brings them back.</source>
-        <translation>Impossible de publier votre version : %1
-Vos changements hors ligne sont gardés ; Fichier &gt; Revoir les changements hors ligne les ramène.</translation>
     </message>
     <message>
         <source>Publishing your version as &quot;%1&quot;…</source>
@@ -8763,6 +8763,10 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
         <translation>Importer dans la carte</translation>
     </message>
     <message>
+        <source>No parts yet: open it in a layout and add some</source>
+        <translation>Aucune pièce pour l’instant : ouvrez-le dans un plan et ajoutez-en</translation>
+    </message>
+    <message>
         <source>Delete…</source>
         <translation>Supprimer…</translation>
     </message>
@@ -8781,6 +8785,16 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     <message>
         <source>On this computer: %1</source>
         <translation>Sur cet ordinateur : %1</translation>
+    </message>
+    <message>
+        <source>%1  ·  No parts yet</source>
+        <translation>%1  ·  Aucune pièce pour l’instant</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it in a layout and add some, then save it here again.
+%1</source>
+        <translation>Aucune pièce pour l’instant : ouvrez-le dans un plan, ajoutez-en, puis enregistrez-le de nouveau ici.
+%1</translation>
     </message>
     <message>
         <source>No modules here yet. Make a module in a layout (Modules › Make a Module…), then choose Save to Module library… from its menu.</source>
@@ -9706,7 +9720,7 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Vous ne pouvez pas faire cela avec ce module. Demandez les droits d’édition à son propriétaire ou aux admins de votre club.</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server.</source>
+        <source>This server&apos;s catalog is turned off.</source>
         <translation>Le catalogue n’est pas activé sur ce serveur.</translation>
     </message>
     <message>
@@ -9749,6 +9763,14 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>v%1</translation>
     </message>
     <message>
+        <source>No parts yet</source>
+        <translation>Aucune pièce pour l’instant</translation>
+    </message>
+    <message>
+        <source>Open it to add some parts, then it can go in a layout.</source>
+        <translation>Ouvrez-le pour ajouter des pièces, puis il pourra aller dans un plan.</translation>
+    </message>
+    <message>
         <source>Editing now</source>
         <translation>En cours de modification</translation>
     </message>
@@ -9763,6 +9785,10 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Add to layout</source>
         <translation>Ajouter au plan</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it to add some</source>
+        <translation>Aucune pièce pour l’instant : ouvrez-le pour en ajouter</translation>
     </message>
     <message>
         <source>More for %1</source>
@@ -11431,6 +11457,14 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
             <numerusform>%n estimation reste à mesurer</numerusform>
             <numerusform>%n estimations restent à mesurer</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq m</source>
+        <translation>Salle %1 × %2 · %3 m²</translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq studs</source>
+        <translation>Salle %1 × %2 · %3 tenons²</translation>
     </message>
     <message>
         <source>Venue %1 × %2 · %3 sq ft</source>

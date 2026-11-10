@@ -155,7 +155,7 @@ QString ServerLibrary::refusalText(const sync::ServerRefusal& r) {
     if (!r.permission.isEmpty()) return sync::describe(r);
     if (code == QLatin1String("forbidden"))
         return tr("You can't do that with this module. Ask its owner, or your club's admins, for editor rights.");
-    if (code == QLatin1String("catalog_off")) return tr("The catalog isn't turned on on this server.");
+    if (code == QLatin1String("catalog_off")) return tr("This server's catalog is turned off.");
     if (code == QLatin1String("not_found")) return tr("It isn't there any more. Someone may have deleted it.");
     // A club that doesn't take it, a sign-in that can't do it, the demo account.
     return sync::describe(r);
@@ -467,6 +467,12 @@ QWidget* ServerModulesTab::makeRow(const sync::ServerModule& m) {
     auto* subtitle = libraryMutedLabel(sub, frame);
     subtitle->setObjectName(QStringLiteral("rowSubtitle"));
     text->addWidget(subtitle);
+    if (m.empty) {
+        auto* none = libraryMutedLabel(tr("No parts yet"), frame);
+        none->setObjectName(QStringLiteral("rowEmpty"));
+        none->setToolTip(tr("Open it to add some parts, then it can go in a layout."));
+        text->addWidget(none);
+    }
     // "by Sam · in ArkLUG · based on Yard by Sam".
     if (const QString credit = sync::creditLine(m.credit); !credit.isEmpty()) {
         auto* by = libraryMutedLabel(credit, frame);
@@ -488,7 +494,8 @@ QWidget* ServerModulesTab::makeRow(const sync::ServerModule& m) {
                                                              : tr("Add to layout"),
                                 frame);
     add->setObjectName(QStringLiteral("insertModule"));
-    add->setEnabled(library_.inserting().isEmpty());
+    add->setEnabled(library_.inserting().isEmpty() && !m.empty);
+    if (m.empty) add->setToolTip(tr("No parts yet: open it to add some"));
     const QString id = m.id;
     connect(add, &QPushButton::clicked, this, [this, id] { emit library_.insertRequested(id); });
     text->addWidget(add, 0, Qt::AlignLeft);
@@ -770,7 +777,7 @@ void CatalogTab::reload() {
     if (!ready) return;
     const sync::CatalogSettings& cat = library_.catalog();
     if (!cat.modules && !cat.parts && !cat.layouts && !cat.venues) {
-        note_->setText(tr("The catalog isn't turned on on this server. Its admins can turn it on."));
+        note_->setText(tr("This server's catalog is turned off. Its admins can turn it on."));
         return;
     }
     if (!kindOn(kind_)) {

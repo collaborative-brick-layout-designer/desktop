@@ -980,7 +980,7 @@ void MainWindow::saveOfflineAsNew(const sync::merge::Snapshot& mine) {
         api->deleteLater();
         QMessageBox::warning(this, tr("Save as a New Layout"),
                              tr("Could not publish your version: %1\nYour offline changes are kept; "
-                                "File > Review Offline Changes brings them back.")
+                                "File › Review Offline Changes brings them back.")
                                  .arg(message));
     });
     // Empty organisation: the user's own layouts.

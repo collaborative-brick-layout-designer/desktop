@@ -241,10 +241,10 @@
         </translation>
     </message>
     <message numerus="yes">
-        <source>Reconnecting…, %n unsynced edit(s)</source>
+        <source>Reconnecting… %n unsynced edit(s)</source>
         <translation>
-            <numerusform>Reconnecting…, %n unsynced edit</numerusform>
-            <numerusform>Reconnecting…, %n unsynced edits</numerusform>
+            <numerusform>Reconnecting… %n unsynced edit</numerusform>
+            <numerusform>Reconnecting… %n unsynced edits</numerusform>
         </translation>
     </message>
 </context>

@@ -32,11 +32,29 @@
 namespace bld::ui {
 
 namespace {
+constexpr int kEmptyRole = Qt::UserRole + 1; // true: the module file has no parts yet
 constexpr const char* kSettingsKey = "modules/libraryPath";
 
 QString defaultModuleLibraryPath() {
     const QString base = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     return base.isEmpty() ? QString() : base + QStringLiteral("/modules");
+}
+
+// A well-formed layout file with no parts in it (a module made blank and never filled).
+// Anything unreadable or unfamiliar is not "empty": it stays insertable, as before.
+bool bbmHasNoParts(const QString& path) {
+    QFile f(path);
+    if (!f.open(QIODevice::ReadOnly)) return false;
+    bool sawOpen = false, sawClose = false;
+    QByteArray tail;
+    while (!f.atEnd()) {
+        const QByteArray chunk = tail + f.read(1 << 16);
+        if (chunk.contains("<Brick ") || chunk.contains("<Brick>")) return false; // (<Bricks> is the sheet's list)
+        sawOpen = sawOpen || chunk.contains("<Map");
+        sawClose = sawClose || chunk.contains("</Map>");
+        tail = chunk.right(8); // a tag split across two reads
+    }
+    return sawOpen && sawClose;
 }
 
 // Minimal QListWidget subclass that encodes the dragged item's file path
@@ -144,6 +162,10 @@ ModuleLibraryPanel::ModuleLibraryPanel(QWidget* parent)
         QMenu menu(this);
         auto* act = menu.addAction(tr("Import into map"));
         connect(act, &QAction::triggered, [this, it]{ onActivated(it); });
+        if (it->data(kEmptyRole).toBool()) {
+            act->setEnabled(false);
+            act->setToolTip(tr("No parts yet: open it in a layout and add some"));
+        }
         const QString path = it->data(Qt::UserRole).toString();
         if (!path.isEmpty()) {
             menu.addSeparator();
@@ -288,8 +310,17 @@ void ModuleLibraryPanel::refresh() {
         auto* item = new QListWidgetItem(QFileInfo(f).completeBaseName());
         item->setData(Qt::UserRole, d.absoluteFilePath(f));
         item->setToolTip(d.absoluteFilePath(f));
+        if (bbmHasNoParts(d.absoluteFilePath(f))) {
+            // Greyed out and labeled, so nobody inserts nothing; Delete is still in its right-click menu.
+            item->setText(tr("%1  ·  No parts yet").arg(item->text()));
+            item->setData(kEmptyRole, true);
+            item->setToolTip(tr("No parts yet: open it in a layout and add some, then save it here again.\n%1")
+                                 .arg(d.absoluteFilePath(f)));
+            item->setFlags(item->flags() & ~(Qt::ItemIsDragEnabled));
+            item->setForeground(palette().color(QPalette::Disabled, QPalette::Text));
+        }
         list_->addItem(item);
-        if (parts_) pendingThumbs_ << d.absoluteFilePath(f);
+        if (parts_ && !item->data(kEmptyRole).toBool()) pendingThumbs_ << d.absoluteFilePath(f);
     }
     scheduleThumbnails();
     if (files.isEmpty()) {
@@ -308,6 +339,7 @@ void ModuleLibraryPanel::onChooseFolder() {
 
 void ModuleLibraryPanel::onActivated(QListWidgetItem* item) {
     if (!item) return;
+    if (item->data(kEmptyRole).toBool()) return; // nothing to place
     const QString p = item->data(Qt::UserRole).toString();
     if (!p.isEmpty()) emit moduleImportRequested(p);
 }

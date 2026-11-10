@@ -147,3 +147,68 @@ TEST(ModuleLibraryPanel, DeletesAModuleFileOnlyAfterAYes) {
     EXPECT_EQ(panel.list()->item(0)->flags(), Qt::NoItemFlags);  // "No modules here yet."
     QSettings().setValue(QStringLiteral("modules/libraryPath"), before);
 }
+
+TEST(ModuleLibraryPanel, AModuleFileWithNoPartsIsLabeledAndWontImport) {
+    QTemporaryDir dir;
+    auto write = [&](const QString& name, const QByteArray& body) {
+        QFile f(dir.filePath(name));
+        ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+        f.write(body);
+    };
+    write(QStringLiteral("Blank.bbm"), "<?xml version=\"1.0\"?>\n<Map>\n  <Version>9</Version>\n  <Layer type=\"brick\"><Bricks></Bricks></Layer>\n</Map>\n");
+    write(QStringLiteral("Yard.bbm"), "<?xml version=\"1.0\"?>\n<Map>\n  <Layer type=\"brick\"><Brick id=\"1\"><PartNumber>3001</PartNumber></Brick></Layer>\n</Map>\n");
+    ModuleLibraryPanel panel;
+    QStringList imported;
+    QObject::connect(&panel, &ModuleLibraryPanel::moduleImportRequested, [&](const QString& p) { imported << p; });
+    panel.setLibraryPath(dir.path());
+    ASSERT_EQ(panel.list()->count(), 2);
+    QListWidgetItem* blank = panel.list()->item(0);
+    QListWidgetItem* yard = panel.list()->item(1);
+    EXPECT_EQ(blank->text(), QStringLiteral("Blank  \u00b7  No parts yet"));
+    EXPECT_FALSE(blank->flags() & Qt::ItemIsDragEnabled);
+    EXPECT_EQ(yard->text(), QStringLiteral("Yard"));
+    EXPECT_TRUE(yard->flags() & Qt::ItemIsDragEnabled);
+    emit panel.list()->itemActivated(blank);
+    EXPECT_TRUE(imported.isEmpty());
+    emit panel.list()->itemActivated(yard);
+    EXPECT_EQ(imported.size(), 1);
+}
+
+// BLD_MODULE_SHOTS=<dir>: pictures of the Module library list with a blank module, light and dark (not compared).
+TEST(ModuleLibraryPanel, PictureForReview) {
+    const QString out = qEnvironmentVariable("BLD_MODULE_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_MODULE_SHOTS not set";
+    QTemporaryDir dir;
+    auto write = [&](const QString& name, const QByteArray& body) {
+        QFile f(dir.filePath(name));
+        ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+        f.write(body);
+    };
+    write(QStringLiteral("Blank module.bbm"), "<Map>\n<Layer type=\"brick\"><Bricks></Bricks></Layer>\n</Map>\n");
+    write(QStringLiteral("Has parts.bbm"), "<Map>\n<Layer type=\"brick\"><Bricks><Brick id=\"1\"></Brick></Bricks></Layer>\n</Map>\n");
+    const QPalette before = QApplication::palette();
+    for (const bool dark : { false, true }) {
+        QPalette p = before;
+        if (dark) {
+            p.setColor(QPalette::Window, QColor(32, 34, 38));
+            p.setColor(QPalette::Base, QColor(40, 42, 46));
+            p.setColor(QPalette::WindowText, QColor(230, 230, 230));
+            p.setColor(QPalette::Text, QColor(230, 230, 230));
+            p.setColor(QPalette::Disabled, QPalette::Text, QColor(130, 130, 130));
+        } else {
+            p.setColor(QPalette::Window, QColor(246, 246, 246));
+            p.setColor(QPalette::Base, Qt::white);
+            p.setColor(QPalette::WindowText, Qt::black);
+            p.setColor(QPalette::Text, Qt::black);
+            p.setColor(QPalette::Disabled, QPalette::Text, QColor(150, 150, 150));
+        }
+        QApplication::setPalette(p);
+        ModuleLibraryPanel panel;
+        panel.setLibraryPath(dir.path());
+        panel.resize(320, 220);
+        panel.show();
+        QApplication::processEvents();
+        panel.grab().save(out + (dark ? QStringLiteral("/module-panel-dark.png") : QStringLiteral("/module-panel-light.png")));
+    }
+    QApplication::setPalette(before);
+}
