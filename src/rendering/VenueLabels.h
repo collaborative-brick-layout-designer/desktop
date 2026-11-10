@@ -13,6 +13,7 @@
 // on screen when the font is (the Venue Designer sets it from the zoom).
 
 #include "../core/Venue.h"
+#include "../edit/venue/VenueUnits.h"
 
 #include <QColor>
 #include <QPointF>
@@ -73,10 +74,12 @@ struct VenueLabelOptions {
     std::optional<int> selectedEdge;
     QVector<QPointF> handles;  // studs
     double handleHalfPx = 0;    // scene px
+    // The unit the lengths are shown in (the Venue Designer's Units pick); feet by default.
+    edit::venue::LengthUnit unit = edit::venue::LengthUnit::FeetInches;
 };
 
-// "24.50 ft", or inches under a foot.
-QString venueDistanceText(double lenStuds);
+// "24.50 ft" (or inches under a foot), "7.47 m" or "280 studs", in the chosen unit.
+QString venueDistanceText(double lenStuds, edit::venue::LengthUnit unit = edit::venue::LengthUnit::FeetInches);
 // A wall's direction turned to read upright: in [-90, 90).
 double uprightAngle(double dx, double dy);
 // Whether two turned rectangles (centre, angle, width, height) overlap.

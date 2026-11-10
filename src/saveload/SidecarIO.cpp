@@ -79,7 +79,8 @@ const QStringList& knownRootKeys() {
     static const QStringList keys{ QStringLiteral("schemaVersion"),  QStringLiteral("bbmHashSha256"),
                                    QStringLiteral("anchoredLabels"), QStringLiteral("modules"),
                                    QStringLiteral("venue"),          QStringLiteral("backgroundImage"),
-                                   QStringLiteral("views"),          QStringLiteral("sets") };
+                                   QStringLiteral("views"),          QStringLiteral("sets"),
+                                   QStringLiteral("budgetLimits") };
     return keys;
 }
 
@@ -379,10 +380,32 @@ QJsonObject sidecarToJson(const core::Sidecar& sidecar) {
         for (const auto& s : sidecar.sets) sets.append(encodePlacedSet(s));
         root[QStringLiteral("sets")] = sets;
     }
+    if (sidecar.budgetLimits) root[QStringLiteral("budgetLimits")] = budgetLimitsToJson(*sidecar.budgetLimits);
     return root;
 }
 
+QJsonObject budgetLimitsToJson(const QMap<QString, int>& limits) {
+    QJsonObject out;
+    for (auto it = limits.constBegin(); it != limits.constEnd(); ++it)
+        if (it.value() >= 0) out.insert(it.key(), it.value());
+    return out;
+}
+
+std::optional<QMap<QString, int>> budgetLimitsFromJson(const QJsonValue& v) {
+    if (!v.isObject()) return std::nullopt;
+    QMap<QString, int> out;
+    const QJsonObject o = v.toObject();
+    for (auto it = o.constBegin(); it != o.constEnd(); ++it) {
+        if (!it.value().isDouble()) continue;
+        const double d = it.value().toDouble();
+        if (d < 0 || !std::isfinite(d)) continue;
+        out.insert(it.key().toUpper(), static_cast<int>(d));
+    }
+    return out;
+}
+
 void sidecarFromJson(const QJsonObject& root, core::Sidecar& out) {
+    out.budgetLimits = budgetLimitsFromJson(root.value(QStringLiteral("budgetLimits")));
     out.sets.clear();
     for (const auto& v : root.value(QStringLiteral("sets")).toArray())
         if (auto s = decodePlacedSet(v)) out.sets.push_back(std::move(*s));

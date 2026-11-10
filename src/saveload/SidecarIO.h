@@ -4,6 +4,8 @@
 #include <QHash>
 #include <QJsonObject>
 #include <QJsonValue>
+#include <QMap>
+#include <QJsonValue>
 #include <QString>
 
 #include <optional>
@@ -41,6 +43,10 @@ bool writeSidecar(const QString& cldPath,
 // The sidecar as JSON and back, without the file or its hash: the same
 // shape the web keeps in a live layout's shared document (meta.cache).
 QJsonObject sidecarToJson(const core::Sidecar& sidecar);
+// The budget as a sidecar's `budgetLimits` (part number -> limit, 0 or
+// more), and back; nullopt when the value isn't an object (no budget).
+QJsonObject budgetLimitsToJson(const QMap<QString, int>& limits);
+std::optional<QMap<QString, int>> budgetLimitsFromJson(const QJsonValue& v);
 void sidecarFromJson(const QJsonObject& root, core::Sidecar& out);
 
 // One saved view as JSON and back (references/LAYOUT-FILE.md "Saved

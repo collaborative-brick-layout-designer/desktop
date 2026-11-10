@@ -104,6 +104,7 @@ void VenueDesignerView::setState(const ev::DesignerState& s, const QImage& plan,
     // wall's label whole, and every label clear of the selection handles.
     builder_->setVenueLabelPx(13.0 / transform().m11());
     builder_->setVenueDarkCanvas(darkCanvas());
+    builder_->setVenueUnit(s.unit);
     {
         std::optional<int> edge;
         QVector<QPointF> grips;

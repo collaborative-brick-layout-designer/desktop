@@ -5,11 +5,14 @@
 #include "ui/venue/VenueDesignerDialog.h"
 #include "ui/venue/VenueDesignerView.h"
 #include "rendering/SceneBuilder.h"
+#include "rendering/VenueLabels.h"
 
 #include <gtest/gtest.h>
 
 #include <QApplication>
 #include <QJsonObject>
+#include <QComboBox>
+#include <QGraphicsItem>
 #include <QKeyEvent>
 #include <QPalette>
 #include <QPushButton>
@@ -177,4 +180,49 @@ TEST(VenueDesignerDialog, TheCanvasFollowsTheTheme) {
     QApplication::processEvents();
     look(false);
     QApplication::setPalette(before);
+}
+
+// The wall labels follow the Units pick (area 7 part B): they used to say
+// feet whatever was chosen, next to a status bar that said metres.
+TEST(VenueDesignerDialog, WallLabelsFollowTheChosenUnits) {
+    ui::VenueDesignerDialog dlg(ev::emptyVenue(QStringLiteral("Hall")), QStringLiteral("test"), QStringLiteral("Save"),
+                                [](const core::Venue&) { return QString(); });
+    dlg.resize(1000, 700);
+    dlg.show();
+    auto* view = dlg.findChild<ui::VenueDesignerView*>();
+    ASSERT_TRUE(view);
+    auto* units = dlg.findChild<QComboBox*>();
+    ASSERT_TRUE(units);
+    type(dlg, QStringLiteral("r"));
+    emit view->pressed(QPointF(10 * FT, 10 * FT), false);
+    emit view->moved(QPointF(40 * FT, 30 * FT), false);
+    type(dlg, QStringLiteral("40'x20'"));
+    key(dlg, Qt::Key_Return);
+    key(dlg, Qt::Key_Escape);
+    QApplication::processEvents();
+
+    const auto labels = [&] {
+        QStringList out;
+        for (QGraphicsItem* it : view->scene()->items())
+            if (const QString t = it->data(rendering::kVenueLabelTextRole).toString(); !t.isEmpty()) out << t;
+        out.sort();
+        return out;
+    };
+    const auto walls = [](const QString& a, const QString& b) {
+        QStringList l{ QStringLiteral("north wall — %1").arg(a), QStringLiteral("east wall — %1").arg(b),
+                       QStringLiteral("south wall — %1").arg(a), QStringLiteral("west wall — %1").arg(b) };
+        l.sort();
+        return l;
+    };
+    EXPECT_EQ(labels(), walls(QStringLiteral("40.00 ft"), QStringLiteral("20.00 ft")));
+    units->setCurrentIndex(static_cast<int>(ev::LengthUnit::Metres));
+    QApplication::processEvents();
+    EXPECT_EQ(dlg.state().unit, ev::LengthUnit::Metres);
+    EXPECT_EQ(labels(), walls(QStringLiteral("12.19 m"), QStringLiteral("6.10 m")));
+    units->setCurrentIndex(static_cast<int>(ev::LengthUnit::Studs));
+    QApplication::processEvents();
+    EXPECT_EQ(labels(), walls(QStringLiteral("1523.9 studs"), QStringLiteral("762 studs")));
+    units->setCurrentIndex(static_cast<int>(ev::LengthUnit::FeetInches));
+    QApplication::processEvents();
+    EXPECT_EQ(labels(), walls(QStringLiteral("40.00 ft"), QStringLiteral("20.00 ft")));
 }

@@ -1,6 +1,7 @@
 // File › Save / Save As / Export BlueBrick Map with the native layout file.
 
 #include "ui/LibraryPathsDialog.h"
+#include "ui/BudgetSession.h"
 #include "ui/MainWindow.h"
 #include "ui/MapView.h"
 #include "ui/PartDifferencesDialog.h"
@@ -244,7 +245,7 @@ TEST_F(MainWindowFile, BudgetMenuSaysWhatABudgetIs) {
     // Triggering it opens a box that explains; close it straight away.
     QTimer::singleShot(0, [] {
         if (auto* box = qobject_cast<QMessageBox*>(QApplication::activeModalWidget())) {
-            EXPECT_TRUE(box->text().contains(QStringLiteral("how many of each part you own")));
+            EXPECT_TRUE(box->text().contains(QStringLiteral("how many of each part")));
             box->accept();
         }
     });
@@ -856,4 +857,73 @@ TEST(PartsBrowserShowPart, PicksThePartItself) {
     browser.showPart(QStringLiteral("2865.8"));
     ASSERT_TRUE(browser.grid()->currentItem());
     EXPECT_EQ(browser.grid()->currentItem()->data(Qt::UserRole + 1).toString(), QStringLiteral("2865.8"));
+}
+
+// The budget is the layout's (area 7, Bug 1): New Budget puts one on the
+// open layout, every change is an undo step, Save As keeps it in the
+// layout file, and Remove takes it off.
+TEST_F(MainWindowFile, BudgetIsSavedWithTheLayoutAndUndoable) {
+    ASSERT_TRUE(window_->openFile(bbm_));
+    ui::BudgetSession* budget = window_->budgetSession();
+    ASSERT_NE(budget, nullptr);
+    EXPECT_FALSE(budget->exists());
+    auto* view = window_->findChild<ui::MapView*>();
+    ASSERT_NE(view, nullptr);
+    core::Map* map = view->currentMap();
+    ASSERT_NE(map, nullptr);
+    const auto act = [&](const char* name) {
+        for (QAction* a : window_->findChildren<QAction*>())
+            if (a->objectName() == QLatin1String(name)) return a;
+        return static_cast<QAction*>(nullptr);
+    };
+    QAction* newAct = act("act.budget.new");
+    QAction* editAct = act("act.budget.edit");
+    QAction* removeAct = act("act.budget.remove");
+    ASSERT_TRUE(newAct && editAct && removeAct);
+    EXPECT_TRUE(newAct->isEnabled());
+    EXPECT_FALSE(editAct->isEnabled());
+
+    newAct->trigger();
+    EXPECT_TRUE(budget->exists());
+    EXPECT_TRUE(editAct->isEnabled());
+    ASSERT_TRUE(map->sidecar.budgetLimits);
+    EXPECT_TRUE(map->sidecar.budgetLimits->isEmpty());
+    // A limit is an undo step on the layout, and the status bar says how it stands.
+    budget->setLimit(QStringLiteral("3001.1"), 4);
+    EXPECT_EQ(map->sidecar.budgetLimits->value(QStringLiteral("3001.1")), 4);
+    EXPECT_EQ(view->undoStack()->undoText(), QStringLiteral("Change budget"));
+    QLabel* status = nullptr;
+    for (QLabel* l : window_->statusBar()->findChildren<QLabel*>())
+        if (l->text().startsWith(QStringLiteral("Budget:"))) status = l;
+    ASSERT_NE(status, nullptr);
+    EXPECT_EQ(status->text(), QStringLiteral("Budget: OK"));
+    view->undoStack()->undo();
+    EXPECT_FALSE(map->sidecar.budgetLimits->contains(QStringLiteral("3001.1")));
+    EXPECT_EQ(budget->limit(QStringLiteral("3001.1")), -1);
+    view->undoStack()->redo();
+    EXPECT_EQ(budget->limit(QStringLiteral("3001.1")), 4);
+
+    // Saved with the layout, in its sidecar.
+    const QString saved = dir_.filePath(QStringLiteral("budgeted.bld-layout"));
+    QAction* saveAs = action(*window_, QStringLiteral("Save &As…"));
+    ASSERT_NE(saveAs, nullptr);
+    Answers answers{ { chooseFile(saved) } };
+    answers.during([&] { saveAs->trigger(); });
+    const auto read = import::readLayoutFile(saved, dir_.path());
+    ASSERT_TRUE(read.ok());
+    ASSERT_TRUE(read.map->sidecar.budgetLimits);
+    EXPECT_EQ(read.map->sidecar.budgetLimits->value(QStringLiteral("3001.1")), 4);
+
+    // Exported as a .bbb for BlueBrick, imported again as the budget.
+    const QString bbb = dir_.filePath(QStringLiteral("mine.bbb"));
+    ASSERT_TRUE(budget->exportFile(bbb));
+    removeAct->trigger();
+    EXPECT_FALSE(budget->exists());
+    EXPECT_FALSE(map->sidecar.budgetLimits);
+    ASSERT_TRUE(budget->importFile(bbb));
+    EXPECT_EQ(budget->limit(QStringLiteral("3001.1")), 4);
+    // Opening another layout shows its own (none). (Clean first: no "save changes?" box.)
+    view->undoStack()->setClean();
+    ASSERT_TRUE(window_->openFile(kCorpus + QStringLiteral("/fordyce-2026.bbm")));
+    EXPECT_FALSE(budget->exists());
 }

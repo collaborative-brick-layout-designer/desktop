@@ -3587,6 +3587,10 @@
         <translation>予算</translation>
     </message>
     <message>
+        <source>Saved with the layout, and shared with everyone who edits it.</source>
+        <translation>レイアウトと一緒に保存され、編集する全員と共有されます。</translation>
+    </message>
+    <message>
         <source>Part budgets</source>
         <translation>パーツの予算</translation>
     </message>
@@ -3612,24 +3616,36 @@
         <source>All parts within budget</source>
         <translation>すべてのパーツが予算内です</translation>
     </message>
-    <message>
-        <source>Budget — %1</source>
-        <translation>予算 — %1</translation>
-    </message>
 </context>
 <context>
     <name>bld::ui::BudgetSession</name>
     <message>
-        <source>Untitled.bbb</source>
-        <translation>無題.bbb</translation>
+        <source>New budget</source>
+        <translation>新しい予算</translation>
+    </message>
+    <message>
+        <source>Remove budget</source>
+        <translation>予算を削除</translation>
     </message>
     <message>
         <source>%1 is not a BlueBrick budget file.</source>
         <translation>%1 は BlueBrick の予算ファイルではありません。</translation>
     </message>
     <message>
+        <source>Import budget</source>
+        <translation>予算を読み込む</translation>
+    </message>
+    <message>
+        <source>Import and merge budget</source>
+        <translation>予算を読み込んで合算</translation>
+    </message>
+    <message>
         <source>Cannot save the budget to %1.</source>
         <translation>予算を %1 に保存できません。</translation>
+    </message>
+    <message>
+        <source>Change budget</source>
+        <translation>予算を変更</translation>
     </message>
 </context>
 <context>
@@ -5555,8 +5571,8 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>左に回転</translation>
     </message>
     <message>
-        <source>Turn the selected pieces anticlockwise</source>
-        <translation>選んだパーツを反時計回りに回します</translation>
+        <source>Turn the selected pieces counterclockwise</source>
+        <translation>選んだパーツを反時計回りに回す</translation>
     </message>
     <message>
         <source>Turn right</source>
@@ -5875,6 +5891,10 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>%1 — %2 のモジュール</translation>
     </message>
     <message>
+        <source>%1%2 — Collaborative Brick Layout Designer</source>
+        <translation>%1%2 — Collaborative Brick Layout Designer</translation>
+    </message>
+    <message>
         <source>Changes are shared as you make them</source>
         <translation>変更はその場で共有されます</translation>
     </message>
@@ -5947,10 +5967,6 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>テンプレート %1 から新しいレイアウト</translation>
     </message>
     <message>
-        <source>Bricks</source>
-        <translation>パーツ</translation>
-    </message>
-    <message>
         <source>New layout</source>
         <translation>新しいレイアウト</translation>
     </message>
@@ -5969,10 +5985,6 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
     <message>
         <source>Cannot write %1: %2</source>
         <translation>%1 を書き込めません: %2</translation>
-    </message>
-    <message>
-        <source>%1%2%3 — Collaborative Brick Layout Designer</source>
-        <translation>%1%2%3 — Collaborative Brick Layout Designer</translation>
     </message>
     <message>
         <source>Opened %1 — %2 sheets</source>
@@ -6483,6 +6495,18 @@ Save anyway?</source>
     <message>
         <source>Save the picked parts as a set in your parts, to place again in one go</source>
         <translation>選んだパーツをセットとして自分のパーツに保存し、一度にまた置けるようにします</translation>
+    </message>
+    <message>
+        <source>This app&apos;s help: Getting Started, sheets, the room, sharing, files and shortcuts</source>
+        <translation>このアプリのヘルプ: はじめに、シート、会場、共有、ファイル、ショートカット</translation>
+    </message>
+    <message>
+        <source>BlueBrick&apos;s &amp;Manual (the original app)</source>
+        <translation>BlueBrick のマニュアル(&amp;M)（元のアプリ）</translation>
+    </message>
+    <message>
+        <source>The manual of BlueBrick, which this app grew from. Some of it describes the original app: here a map has sheets, and R turns the picked parts.</source>
+        <translation>このアプリの元になった BlueBrick のマニュアルです。一部は元のアプリの説明です: ここではマップにシートがあり、R キーで選んだパーツが回ります。</translation>
     </message>
     <message>
         <source>The Qt toolkit this app is built with</source>
@@ -7169,18 +7193,6 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
         <translation>モジュール名(&amp;M)</translation>
     </message>
     <message>
-        <source>Unsaved budget</source>
-        <translation>未保存の予算</translation>
-    </message>
-    <message>
-        <source>The budget %1 has unsaved changes. Save it before continuing?</source>
-        <translation>予算 %1 に未保存の変更があります。続ける前に保存しますか?</translation>
-    </message>
-    <message>
-        <source>Save budget</source>
-        <translation>予算を保存</translation>
-    </message>
-    <message>
         <source>&amp;Budget</source>
         <translation>予算(&amp;B)</translation>
     </message>
@@ -7205,52 +7217,12 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
         <translation>新しい予算(&amp;N)</translation>
     </message>
     <message>
-        <source>Start a budget: how many of each part you have</source>
-        <translation>予算を始めます。各パーツを何個持っているか</translation>
-    </message>
-    <message>
         <source>New budget started. Budget › Edit Budget sets how many of each part you have.</source>
         <translation>新しい予算を始めました。予算 › 予算を編集 で各パーツを何個持っているかを設定します。</translation>
     </message>
     <message>
-        <source>&amp;Open Budget…</source>
-        <translation>予算を開く(&amp;O)…</translation>
-    </message>
-    <message>
-        <source>Open a budget file: how many of each part you have</source>
-        <translation>予算ファイルを開きます。各パーツを何個持っているか</translation>
-    </message>
-    <message>
-        <source>Open budget</source>
-        <translation>予算を開く</translation>
-    </message>
-    <message>
-        <source>&amp;Import and Merge Budget…</source>
-        <translation>予算をインポートして統合(&amp;I)…</translation>
-    </message>
-    <message>
-        <source>Add the limits of another budget file to the current budget</source>
-        <translation>別の予算ファイルの上限を現在の予算に加えます</translation>
-    </message>
-    <message>
         <source>Import and merge budget</source>
-        <translation>予算をインポートして統合</translation>
-    </message>
-    <message>
-        <source>&amp;Close Budget</source>
-        <translation>予算を閉じる(&amp;C)</translation>
-    </message>
-    <message>
-        <source>&amp;Save Budget</source>
-        <translation>予算を保存(&amp;S)</translation>
-    </message>
-    <message>
-        <source>Save Budget &amp;As…</source>
-        <translation>名前を付けて予算を保存(&amp;A)…</translation>
-    </message>
-    <message>
-        <source>Save this budget under a new name</source>
-        <translation>この予算を新しい名前で保存します</translation>
+        <translation>予算を読み込んで合算</translation>
     </message>
     <message>
         <source>Show Only &amp;Parts in the Budget</source>
@@ -7265,8 +7237,56 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
         <translation>予算の数を表示(&amp;U)</translation>
     </message>
     <message>
-        <source>Set how many of each part you have</source>
-        <translation>各パーツを何個持っているかを設定します</translation>
+        <source>Start a budget for this layout: how many of each part it may use</source>
+        <translation>このレイアウトの予算を始めます: 種類ごとに使えるパーツの数</translation>
+    </message>
+    <message>
+        <source>&amp;Import Budget from File…</source>
+        <translation>予算をファイルから読み込む(&amp;I)…</translation>
+    </message>
+    <message>
+        <source>Use the limits in a BlueBrick budget file (.bbb) as this layout&apos;s budget</source>
+        <translation>BlueBrick の予算ファイル (.bbb) の上限をこのレイアウトの予算として使います</translation>
+    </message>
+    <message>
+        <source>Import budget</source>
+        <translation>予算を読み込む</translation>
+    </message>
+    <message>
+        <source>Import and &amp;Merge Budget…</source>
+        <translation>予算を読み込んで合算(&amp;M)…</translation>
+    </message>
+    <message>
+        <source>Add the limits of a budget file to this layout&apos;s budget</source>
+        <translation>予算ファイルの上限をこのレイアウトの予算に加えます</translation>
+    </message>
+    <message>
+        <source>Export Budget to &amp;File…</source>
+        <translation>予算をファイルに書き出す(&amp;F)…</translation>
+    </message>
+    <message>
+        <source>Save this layout&apos;s budget as a BlueBrick budget file (.bbb), for BlueBrick or another layout</source>
+        <translation>このレイアウトの予算を BlueBrick の予算ファイル (.bbb) として保存します。BlueBrick や別のレイアウトで使えます</translation>
+    </message>
+    <message>
+        <source>Export budget</source>
+        <translation>予算を書き出す</translation>
+    </message>
+    <message>
+        <source>Budget.bbb</source>
+        <translation>予算.bbb</translation>
+    </message>
+    <message>
+        <source>Budget exported to %1</source>
+        <translation>予算を %1 に書き出しました</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Budget</source>
+        <translation>予算を削除(&amp;R)</translation>
+    </message>
+    <message>
+        <source>Take the budget off this layout, for everyone who edits it (Undo brings it back)</source>
+        <translation>このレイアウトから予算を外します。編集する全員に反映されます（元に戻すで戻せます）</translation>
     </message>
     <message>
         <source>Show how many of each part are used and allowed in the Parts panel</source>
@@ -7295,6 +7315,10 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     <message>
         <source>&amp;Edit Budget…</source>
         <translation>予算を編集(&amp;E)…</translation>
+    </message>
+    <message>
+        <source>Set how many of each part this layout may use</source>
+        <translation>このレイアウトで使えるパーツの数を種類ごとに決めます</translation>
     </message>
     <message>
         <source>&amp;Import .bbm as Module…</source>
@@ -12049,16 +12073,16 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>R</translation>
     </message>
     <message>
-        <source>Turn the selected pieces</source>
-        <translation>選んだパーツを回す</translation>
-    </message>
-    <message>
         <source>Shift+R</source>
         <translation>Shift+R</translation>
     </message>
     <message>
-        <source>Turn them the other way</source>
-        <translation>逆方向に回す</translation>
+        <source>Turn the selected pieces left (counterclockwise)</source>
+        <translation>選んだパーツを左に回す（反時計回り）</translation>
+    </message>
+    <message>
+        <source>Turn them right (clockwise)</source>
+        <translation>右に回す（時計回り）</translation>
     </message>
     <message>
         <source>Arrow keys</source>

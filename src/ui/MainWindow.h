@@ -63,6 +63,8 @@ public:
     void showWelcomeIfNew();
 
     bool openFile(const QString& path);
+    // The open layout's budget (tests, panels).
+    class BudgetSession* budgetSession() const { return budget_; }
 
     // Seed a blank document if none is loaded. Call once after the
     // startup file-load attempts so the user always opens to a working
@@ -218,8 +220,6 @@ private:
     void setupMapMenu();           // in MainWindowMapMenu.cpp
     void setupToolsMenu();         // in MainWindowToolsMenu.cpp
     void setupBudgetMenu();        // in MainWindowBudgetMenu.cpp
-    bool maybeSaveBudget();        // prompts on an unsaved budget
-    bool saveBudget(bool askForName);
     void updateTitle();
     bool maybeSave();              // prompts on dirty close
     // Venue Library "Start Layout": a new layout (after the usual unsaved-

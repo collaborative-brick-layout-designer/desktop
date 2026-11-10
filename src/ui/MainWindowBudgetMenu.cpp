@@ -1,5 +1,7 @@
-// Budget menu (BlueBrick's): New / Open / Import and Merge / Close / Save /
-// Save As, the three budget options, and the budget editor.
+// Budget menu: the layout's budget (how many of each part it may use),
+// saved with the layout and shared with everyone who edits it. New /
+// Import from a .bbb file / Import and Merge / Export to a .bbb file /
+// Remove, the three budget options, and the budget editor.
 
 #include "MainWindow.h"
 
@@ -26,36 +28,12 @@ namespace {
 
 QString budgetFilter() { return QObject::tr("BlueBrick budget (*.bbb)"); }
 
+QString budgetFileStart() {
+    const QString dir = BudgetSession::lastFileDir();
+    return dir.isEmpty() ? QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) : dir;
+}
+
 }  // namespace
-
-bool MainWindow::maybeSaveBudget() {
-    if (!budget_->exists() || !budget_->isModified()) return true;
-    const auto btn = QMessageBox::question(
-        this, tr("Unsaved budget"),
-        tr("The budget %1 has unsaved changes. Save it before continuing?").arg(budget_->displayName()),
-        QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-    if (btn == QMessageBox::Save)    return saveBudget(false);
-    if (btn == QMessageBox::Discard) return true;
-    return false;
-}
-
-bool MainWindow::saveBudget(bool askForName) {
-    QString path = budget_->filePath();
-    if (askForName || path.isEmpty()) {
-        const QString start = path.isEmpty()
-            ? QDir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).filePath(budget_->displayName())
-            : path;
-        path = QFileDialog::getSaveFileName(this, tr("Save budget"), start, budgetFilter());
-        if (path.isEmpty()) return false;
-        if (QFileInfo(path).suffix().isEmpty()) path += QStringLiteral(".bbb");
-    }
-    QString err;
-    if (!budget_->saveAs(path, &err)) {
-        QMessageBox::warning(this, tr("Save budget"), err);
-        return false;
-    }
-    return true;
-}
 
 void MainWindow::setupBudgetMenu() {
     auto* menu = menuBar()->addMenu(tr("&Budget"));
@@ -73,41 +51,48 @@ void MainWindow::setupBudgetMenu() {
     });
     menu->addSeparator();
     auto* newAct = menu->addAction(tr("&New Budget"));
-    newAct->setToolTip(tr("Start a budget: how many of each part you have"));
+    newAct->setObjectName(QStringLiteral("act.budget.new"));
+    newAct->setToolTip(tr("Start a budget for this layout: how many of each part it may use"));
     connect(newAct, &QAction::triggered, this, [this] {
-        if (!maybeSaveBudget()) return;
         budget_->create();
         statusBar()->showMessage(
             tr("New budget started. Budget › Edit Budget sets how many of each part you have."), 6000);
     });
-    auto* openAct = menu->addAction(tr("&Open Budget…"));
-    openAct->setToolTip(tr("Open a budget file: how many of each part you have"));
-    connect(openAct, &QAction::triggered, this, [this]{
-        if (!maybeSaveBudget()) return;
-        const QString path = QFileDialog::getOpenFileName(this, tr("Open budget"), budget_->filePath(), budgetFilter());
+    auto* importAct = menu->addAction(tr("&Import Budget from File…"));
+    importAct->setObjectName(QStringLiteral("act.budget.import"));
+    importAct->setToolTip(tr("Use the limits in a BlueBrick budget file (.bbb) as this layout's budget"));
+    connect(importAct, &QAction::triggered, this, [this]{
+        const QString path = QFileDialog::getOpenFileName(this, tr("Import budget"), budgetFileStart(), budgetFilter());
         if (path.isEmpty()) return;
         QString err;
-        if (!budget_->open(path, &err)) QMessageBox::warning(this, tr("Open budget"), err);
+        if (!budget_->importFile(path, &err)) QMessageBox::warning(this, tr("Import budget"), err);
     });
-    auto* mergeAct = menu->addAction(tr("&Import and Merge Budget…"));
-    mergeAct->setToolTip(tr("Add the limits of another budget file to the current budget"));
+    auto* mergeAct = menu->addAction(tr("Import and &Merge Budget…"));
+    mergeAct->setObjectName(QStringLiteral("act.budget.merge"));
+    mergeAct->setToolTip(tr("Add the limits of a budget file to this layout's budget"));
     connect(mergeAct, &QAction::triggered, this, [this]{
-        const QString path = QFileDialog::getOpenFileName(this, tr("Import and merge budget"),
-                                                          budget_->filePath(), budgetFilter());
+        const QString path = QFileDialog::getOpenFileName(this, tr("Import and merge budget"), budgetFileStart(),
+                                                          budgetFilter());
         if (path.isEmpty()) return;
         QString err;
         if (!budget_->importAndMerge(path, &err)) QMessageBox::warning(this, tr("Import and merge budget"), err);
     });
-    auto* closeAct = menu->addAction(tr("&Close Budget"));
-    connect(closeAct, &QAction::triggered, this, [this]{
-        if (maybeSaveBudget()) budget_->close();
+    auto* exportAct = menu->addAction(tr("Export Budget to &File…"));
+    exportAct->setObjectName(QStringLiteral("act.budget.export"));
+    exportAct->setToolTip(tr("Save this layout's budget as a BlueBrick budget file (.bbb), for BlueBrick or another layout"));
+    connect(exportAct, &QAction::triggered, this, [this]{
+        QString path = QFileDialog::getSaveFileName(
+            this, tr("Export budget"), QDir(budgetFileStart()).filePath(tr("Budget.bbb")), budgetFilter());
+        if (path.isEmpty()) return;
+        if (QFileInfo(path).suffix().isEmpty()) path += QStringLiteral(".bbb");
+        QString err;
+        if (!budget_->exportFile(path, &err)) QMessageBox::warning(this, tr("Export budget"), err);
+        else statusBar()->showMessage(tr("Budget exported to %1").arg(QFileInfo(path).fileName()), 6000);
     });
-    menu->addSeparator();
-    auto* saveAct = menu->addAction(tr("&Save Budget"));
-    connect(saveAct, &QAction::triggered, this, [this]{ saveBudget(false); });
-    auto* saveAsAct = menu->addAction(tr("Save Budget &As…"));
-    saveAsAct->setToolTip(tr("Save this budget under a new name"));
-    connect(saveAsAct, &QAction::triggered, this, [this]{ saveBudget(true); });
+    auto* removeAct = menu->addAction(tr("&Remove Budget"));
+    removeAct->setObjectName(QStringLiteral("act.budget.remove"));
+    removeAct->setToolTip(tr("Take the budget off this layout, for everyone who edits it (Undo brings it back)"));
+    connect(removeAct, &QAction::triggered, this, [this]{ budget_->remove(); });
     menu->addSeparator();
 
     auto* onlyAct = menu->addAction(tr("Show Only &Parts in the Budget"));
@@ -137,7 +122,8 @@ void MainWindow::setupBudgetMenu() {
     });
     menu->addSeparator();
     auto* editAct = menu->addAction(tr("&Edit Budget…"));
-    editAct->setToolTip(tr("Set how many of each part you have"));
+    editAct->setObjectName(QStringLiteral("act.budget.edit"));
+    editAct->setToolTip(tr("Set how many of each part this layout may use"));
     connect(editAct, &QAction::triggered, this, [this]{
         if (!mapView_->currentMap() || !budget_->exists()) return;
         auto* dlg = new BudgetDialog(*mapView_->currentMap(), *budget_, this);
@@ -147,15 +133,16 @@ void MainWindow::setupBudgetMenu() {
 
     const auto sync = [=, this]{
         const bool on = budget_->exists();
-        for (QAction* a : { mergeAct, closeAct, saveAct, saveAsAct, onlyAct, numbersAct, limitAct, editAct })
-            a->setEnabled(on);
+        const bool can = budget_->canEdit();
+        for (QAction* a : { newAct, importAct }) a->setEnabled(can);
+        for (QAction* a : { mergeAct, exportAct, removeAct, onlyAct, numbersAct, limitAct, editAct })
+            a->setEnabled(on && can);
         for (auto [a, v] : { std::pair{ onlyAct, budget_->showOnlyBudgetedParts() },
                              std::pair{ numbersAct, budget_->showBudgetNumbers() },
                              std::pair{ limitAct, budget_->useBudgetLimitation() } }) {
             const QSignalBlocker block(a);
             a->setChecked(v);
         }
-        updateTitle();
     };
     connect(budget_, &BudgetSession::changed, this, sync);
     sync();

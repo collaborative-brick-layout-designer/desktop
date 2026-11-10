@@ -6,6 +6,7 @@
 #include "DocShape.h"
 #include "UpdateGuard.h"
 #include "WebModelWriter.h"
+#include "../saveload/SidecarIO.h"
 
 #include "core/Map.h"
 
@@ -819,6 +820,37 @@ struct SyncDoc::Impl {
         arena = Arena();
     }
 
+    // The budget: a Y.Map at meta.budgetLimits (part number -> limit), as
+    // the web keeps it, changed one key at a time so edits to different
+    // rows merge. No budget: the key goes.
+    void writeBudget(const QJsonObject& curMeta, const std::optional<QMap<QString, int>>& want) {
+        static const char* const kKey = "budgetLimits";
+        const bool had = curMeta.contains(QLatin1String(kKey));
+        if (!want) {
+            if (!had) return;
+            ymap_remove(meta, txn, kKey);
+            ++ops;
+            return;
+        }
+        const QJsonObject wantObj = saveload::budgetLimitsToJson(*want);
+        Output existing(ymap_get(meta, txn, kKey));
+        if (!existing || existing->tag != Y_MAP) {
+            // Not there, or a plain value (which the web wouldn't read): a Y.Map, whole.
+            const YInput v = arena.itemMap(wantObj);
+            ymap_insert(meta, txn, kKey, &v);
+            ++ops;
+            return;
+        }
+        const Branch* limits = youtput_read_ymap(existing.get());
+        const QJsonObject cur = curMeta.value(QLatin1String(kKey)).toObject();
+        for (auto it = cur.begin(); it != cur.end(); ++it)
+            if (!wantObj.contains(it.key())) {
+                ymap_remove(limits, txn, arena.str(it.key()));
+                ++ops;
+            }
+        setFields(limits, cur, wantObj, false);
+    }
+
     // Set changed fields of an item or layer map in place.
     void setFields(const Branch* map, const QJsonObject& cur, const QJsonObject& want, bool skipArrays) {
         for (auto it = want.begin(); it != want.end(); ++it) {
@@ -1222,6 +1254,7 @@ QByteArray SyncDoc::writeMap(const core::Map& map) {
     if (curMeta.contains(QLatin1String("cache")) || !cache.isEmpty())
         wantMeta.insert(QStringLiteral("cache"), cache);
     d.setFields(d.meta, curMeta, wantMeta, false);
+    d.writeBudget(curMeta, map.sidecar.budgetLimits);
     // Modules and labels one per key too, as the web keeps them, so edits
     // made here and on the web at the same time merge (SidecarItems.h).
     if (!cache.isEmpty()) {

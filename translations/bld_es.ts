@@ -3603,6 +3603,10 @@
         <translation>Presupuesto</translation>
     </message>
     <message>
+        <source>Saved with the layout, and shared with everyone who edits it.</source>
+        <translation>Se guarda con la maqueta y se comparte con todos los que la editan.</translation>
+    </message>
+    <message>
         <source>Part budgets</source>
         <translation>Presupuestos de piezas</translation>
     </message>
@@ -3629,24 +3633,36 @@
         <source>All parts within budget</source>
         <translation>Todas las piezas dentro del presupuesto</translation>
     </message>
-    <message>
-        <source>Budget — %1</source>
-        <translation>Presupuesto — %1</translation>
-    </message>
 </context>
 <context>
     <name>bld::ui::BudgetSession</name>
     <message>
-        <source>Untitled.bbb</source>
-        <translation>Sin título.bbb</translation>
+        <source>New budget</source>
+        <translation>Presupuesto nuevo</translation>
+    </message>
+    <message>
+        <source>Remove budget</source>
+        <translation>Quitar presupuesto</translation>
     </message>
     <message>
         <source>%1 is not a BlueBrick budget file.</source>
         <translation>%1 no es un archivo de presupuesto de BlueBrick.</translation>
     </message>
     <message>
+        <source>Import budget</source>
+        <translation>Importar presupuesto</translation>
+    </message>
+    <message>
+        <source>Import and merge budget</source>
+        <translation>Importar y combinar presupuesto</translation>
+    </message>
+    <message>
         <source>Cannot save the budget to %1.</source>
         <translation>No se puede guardar el presupuesto en %1.</translation>
+    </message>
+    <message>
+        <source>Change budget</source>
+        <translation>Cambiar el presupuesto</translation>
     </message>
 </context>
 <context>
@@ -5589,8 +5605,8 @@ Guardar la mía como versión nueva: la tuya pasa a ser el módulo; la suya qued
         <translation>Girar en contra del sentido del reloj</translation>
     </message>
     <message>
-        <source>Turn the selected pieces anticlockwise</source>
-        <translation>Girar las piezas elegidas en sentido antihorario</translation>
+        <source>Turn the selected pieces counterclockwise</source>
+        <translation>Girar las piezas elegidas en contra del sentido del reloj</translation>
     </message>
     <message>
         <source>Turn right</source>
@@ -5909,6 +5925,10 @@ Guardar la mía como versión nueva: la tuya pasa a ser el módulo; la suya qued
         <translation>%1 — Módulo en %2</translation>
     </message>
     <message>
+        <source>%1%2 — Collaborative Brick Layout Designer</source>
+        <translation>%1%2 — Collaborative Brick Layout Designer</translation>
+    </message>
+    <message>
         <source>Changes are shared as you make them</source>
         <translation>Los cambios se comparten según los haces</translation>
     </message>
@@ -5981,10 +6001,6 @@ Guardar la mía como versión nueva: la tuya pasa a ser el módulo; la suya qued
         <translation>Maqueta nueva a partir de la plantilla %1</translation>
     </message>
     <message>
-        <source>Bricks</source>
-        <translation>Piezas</translation>
-    </message>
-    <message>
         <source>New layout</source>
         <translation>Maqueta nueva</translation>
     </message>
@@ -6003,10 +6019,6 @@ Guardar la mía como versión nueva: la tuya pasa a ser el módulo; la suya qued
     <message>
         <source>Cannot write %1: %2</source>
         <translation>No se puede escribir %1: %2</translation>
-    </message>
-    <message>
-        <source>%1%2%3 — Collaborative Brick Layout Designer</source>
-        <translation>%1%2%3 — Collaborative Brick Layout Designer</translation>
     </message>
     <message>
         <source>Opened %1 — %2 sheets</source>
@@ -6520,6 +6532,18 @@ Save anyway?</source>
     <message>
         <source>Save the picked parts as a set in your parts, to place again in one go</source>
         <translation>Guardar las piezas elegidas como set en tus piezas, para colocarlas de nuevo de una vez</translation>
+    </message>
+    <message>
+        <source>This app&apos;s help: Getting Started, sheets, the room, sharing, files and shortcuts</source>
+        <translation>La ayuda de esta aplicación: primeros pasos, hojas, la sala, compartir, archivos y atajos</translation>
+    </message>
+    <message>
+        <source>BlueBrick&apos;s &amp;Manual (the original app)</source>
+        <translation>&amp;Manual de BlueBrick (la aplicación original)</translation>
+    </message>
+    <message>
+        <source>The manual of BlueBrick, which this app grew from. Some of it describes the original app: here a map has sheets, and R turns the picked parts.</source>
+        <translation>El manual de BlueBrick, del que nació esta aplicación. Parte de él describe la aplicación original: aquí un mapa tiene hojas y R gira las piezas elegidas.</translation>
     </message>
     <message>
         <source>The Qt toolkit this app is built with</source>
@@ -7213,18 +7237,6 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
         <translation>Nombres de &amp;módulos</translation>
     </message>
     <message>
-        <source>Unsaved budget</source>
-        <translation>Presupuesto sin guardar</translation>
-    </message>
-    <message>
-        <source>The budget %1 has unsaved changes. Save it before continuing?</source>
-        <translation>El presupuesto %1 tiene cambios sin guardar. ¿Guardarlo antes de seguir?</translation>
-    </message>
-    <message>
-        <source>Save budget</source>
-        <translation>Guardar presupuesto</translation>
-    </message>
-    <message>
         <source>&amp;Budget</source>
         <translation>&amp;Presupuesto</translation>
     </message>
@@ -7249,52 +7261,16 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
         <translation>Presupuesto &amp;nuevo</translation>
     </message>
     <message>
-        <source>Start a budget: how many of each part you have</source>
-        <translation>Empezar un presupuesto: cuántas tienes de cada pieza</translation>
-    </message>
-    <message>
         <source>New budget started. Budget › Edit Budget sets how many of each part you have.</source>
         <translation>Presupuesto nuevo empezado. Presupuesto › Editar presupuesto fija cuántas tienes de cada pieza.</translation>
-    </message>
-    <message>
-        <source>&amp;Open Budget…</source>
-        <translation>&amp;Abrir presupuesto…</translation>
-    </message>
-    <message>
-        <source>Open a budget file: how many of each part you have</source>
-        <translation>Abrir un archivo de presupuesto: cuántas tienes de cada pieza</translation>
-    </message>
-    <message>
-        <source>Open budget</source>
-        <translation>Abrir presupuesto</translation>
-    </message>
-    <message>
-        <source>&amp;Import and Merge Budget…</source>
-        <translation>&amp;Importar y combinar presupuesto…</translation>
-    </message>
-    <message>
-        <source>Add the limits of another budget file to the current budget</source>
-        <translation>Añadir los límites de otro archivo de presupuesto al presupuesto actual</translation>
     </message>
     <message>
         <source>Import and merge budget</source>
         <translation>Importar y combinar presupuesto</translation>
     </message>
     <message>
-        <source>&amp;Close Budget</source>
-        <translation>&amp;Cerrar presupuesto</translation>
-    </message>
-    <message>
-        <source>&amp;Save Budget</source>
-        <translation>&amp;Guardar presupuesto</translation>
-    </message>
-    <message>
-        <source>Save Budget &amp;As…</source>
-        <translation>Guardar presupuesto &amp;como…</translation>
-    </message>
-    <message>
-        <source>Save this budget under a new name</source>
-        <translation>Guardar este presupuesto con otro nombre</translation>
+        <source>Export Budget to &amp;File…</source>
+        <translation>Exportar presupuesto a un &amp;archivo…</translation>
     </message>
     <message>
         <source>Show Only &amp;Parts in the Budget</source>
@@ -7309,8 +7285,52 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
         <translation>Mostrar los núme&amp;ros del presupuesto</translation>
     </message>
     <message>
-        <source>Set how many of each part you have</source>
-        <translation>Fijar cuántas tienes de cada pieza</translation>
+        <source>Start a budget for this layout: how many of each part it may use</source>
+        <translation>Empezar un presupuesto para esta maqueta: cuántas de cada pieza puede usar</translation>
+    </message>
+    <message>
+        <source>&amp;Import Budget from File…</source>
+        <translation>&amp;Importar presupuesto de un archivo…</translation>
+    </message>
+    <message>
+        <source>Use the limits in a BlueBrick budget file (.bbb) as this layout&apos;s budget</source>
+        <translation>Usar los límites de un archivo de presupuesto de BlueBrick (.bbb) como presupuesto de esta maqueta</translation>
+    </message>
+    <message>
+        <source>Import budget</source>
+        <translation>Importar presupuesto</translation>
+    </message>
+    <message>
+        <source>Import and &amp;Merge Budget…</source>
+        <translation>Importar y co&amp;mbinar presupuesto…</translation>
+    </message>
+    <message>
+        <source>Add the limits of a budget file to this layout&apos;s budget</source>
+        <translation>Añadir los límites de un archivo de presupuesto al presupuesto de esta maqueta</translation>
+    </message>
+    <message>
+        <source>Save this layout&apos;s budget as a BlueBrick budget file (.bbb), for BlueBrick or another layout</source>
+        <translation>Guardar el presupuesto de esta maqueta como archivo de presupuesto de BlueBrick (.bbb), para BlueBrick u otra maqueta</translation>
+    </message>
+    <message>
+        <source>Export budget</source>
+        <translation>Exportar presupuesto</translation>
+    </message>
+    <message>
+        <source>Budget.bbb</source>
+        <translation>Presupuesto.bbb</translation>
+    </message>
+    <message>
+        <source>Budget exported to %1</source>
+        <translation>Presupuesto exportado a %1</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Budget</source>
+        <translation>&amp;Quitar presupuesto</translation>
+    </message>
+    <message>
+        <source>Take the budget off this layout, for everyone who edits it (Undo brings it back)</source>
+        <translation>Quitar el presupuesto de esta maqueta, para todos los que la editan (Deshacer lo devuelve)</translation>
     </message>
     <message>
         <source>Show how many of each part are used and allowed in the Parts panel</source>
@@ -7339,6 +7359,10 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
     <message>
         <source>&amp;Edit Budget…</source>
         <translation>&amp;Editar presupuesto…</translation>
+    </message>
+    <message>
+        <source>Set how many of each part this layout may use</source>
+        <translation>Definir cuántas de cada pieza puede usar esta maqueta</translation>
     </message>
     <message>
         <source>&amp;Import .bbm as Module…</source>
@@ -12120,16 +12144,16 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <translation>R</translation>
     </message>
     <message>
-        <source>Turn the selected pieces</source>
-        <translation>Girar las piezas elegidas</translation>
-    </message>
-    <message>
         <source>Shift+R</source>
         <translation>Shift+R</translation>
     </message>
     <message>
-        <source>Turn them the other way</source>
-        <translation>Girarlas en el otro sentido</translation>
+        <source>Turn the selected pieces left (counterclockwise)</source>
+        <translation>Girar las piezas elegidas a la izquierda (en contra del sentido del reloj)</translation>
+    </message>
+    <message>
+        <source>Turn them right (clockwise)</source>
+        <translation>Girarlas a la derecha (en el sentido del reloj)</translation>
     </message>
     <message>
         <source>Arrow keys</source>

@@ -33,6 +33,11 @@
         { "type": "null" }
       ],
       "description": "Optional physical event space the layout targets: outline, edge classifications (wall / door / open), interior obstacles, walkway buffer. A project has at most one venue. Vanilla BlueBrick has no Venue concept; the .bbm.bld is the only place this lives."
+    },
+    "budgetLimits": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 },
+      "description": "The layout's budget: part number -> how many of that part the layout may use (0 = none; a part without an entry is unlimited or forbidden by the reader's preference, as in BlueBrick). Present, even empty, when the layout has a budget; absent when it has none. Shared with everyone who edits the layout (the live document keeps it at meta.budgetLimits). A BlueBrick .bbb file is the same list in XML. Added 2026-11, optional."
     }
   },
 

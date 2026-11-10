@@ -21,6 +21,8 @@ add_library(bld_edit STATIC
     RulerCommands.h
     VenueCommands.cpp
     VenueCommands.h
+    BudgetCommands.cpp
+    BudgetCommands.h
     ViewCommands.cpp
     ViewCommands.h
     VenueValidator.cpp

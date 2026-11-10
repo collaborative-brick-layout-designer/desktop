@@ -3603,6 +3603,10 @@
         <translation>Budget</translation>
     </message>
     <message>
+        <source>Saved with the layout, and shared with everyone who edits it.</source>
+        <translation>Salvato con il layout e condiviso con tutti quelli che lo modificano.</translation>
+    </message>
+    <message>
         <source>Part budgets</source>
         <translation>Budget dei pezzi</translation>
     </message>
@@ -3629,24 +3633,36 @@
         <source>All parts within budget</source>
         <translation>Tutti i pezzi entro il budget</translation>
     </message>
-    <message>
-        <source>Budget — %1</source>
-        <translation>Budget — %1</translation>
-    </message>
 </context>
 <context>
     <name>bld::ui::BudgetSession</name>
     <message>
-        <source>Untitled.bbb</source>
-        <translation>SenzaTitolo.bbb</translation>
+        <source>New budget</source>
+        <translation>Nuovo budget</translation>
+    </message>
+    <message>
+        <source>Remove budget</source>
+        <translation>Rimuovi budget</translation>
     </message>
     <message>
         <source>%1 is not a BlueBrick budget file.</source>
         <translation>%1 non è un file di budget BlueBrick.</translation>
     </message>
     <message>
+        <source>Import budget</source>
+        <translation>Importa budget</translation>
+    </message>
+    <message>
+        <source>Import and merge budget</source>
+        <translation>Importa e unisci budget</translation>
+    </message>
+    <message>
         <source>Cannot save the budget to %1.</source>
         <translation>Impossibile salvare il budget in %1.</translation>
+    </message>
+    <message>
+        <source>Change budget</source>
+        <translation>Cambia budget</translation>
     </message>
 </context>
 <context>
@@ -5589,7 +5605,7 @@ Salva la mia come nuova versione: la tua diventa il modulo; la loro resta nella 
         <translation>Gira a sinistra</translation>
     </message>
     <message>
-        <source>Turn the selected pieces anticlockwise</source>
+        <source>Turn the selected pieces counterclockwise</source>
         <translation>Gira i pezzi selezionati in senso antiorario</translation>
     </message>
     <message>
@@ -5909,6 +5925,10 @@ Salva la mia come nuova versione: la tua diventa il modulo; la loro resta nella 
         <translation>%1 — Modulo su %2</translation>
     </message>
     <message>
+        <source>%1%2 — Collaborative Brick Layout Designer</source>
+        <translation>%1%2 — Collaborative Brick Layout Designer</translation>
+    </message>
+    <message>
         <source>Changes are shared as you make them</source>
         <translation>Le modifiche vengono condivise mentre le fai</translation>
     </message>
@@ -5981,10 +6001,6 @@ Salva la mia come nuova versione: la tua diventa il modulo; la loro resta nella 
         <translation>Nuovo layout dal modello %1</translation>
     </message>
     <message>
-        <source>Bricks</source>
-        <translation>Mattoncini</translation>
-    </message>
-    <message>
         <source>New layout</source>
         <translation>Nuovo layout</translation>
     </message>
@@ -6003,10 +6019,6 @@ Salva la mia come nuova versione: la tua diventa il modulo; la loro resta nella 
     <message>
         <source>Cannot write %1: %2</source>
         <translation>Impossibile scrivere %1: %2</translation>
-    </message>
-    <message>
-        <source>%1%2%3 — Collaborative Brick Layout Designer</source>
-        <translation>%1%2%3 — Collaborative Brick Layout Designer</translation>
     </message>
     <message>
         <source>Opened %1 — %2 sheets</source>
@@ -6520,6 +6532,18 @@ Salvare comunque?</translation>
     <message>
         <source>Save the picked parts as a set in your parts, to place again in one go</source>
         <translation>Salva i pezzi selezionati come set tra i tuoi pezzi, da posizionare di nuovo in un colpo solo</translation>
+    </message>
+    <message>
+        <source>This app&apos;s help: Getting Started, sheets, the room, sharing, files and shortcuts</source>
+        <translation>L’aiuto di questa app: per iniziare, fogli, la sala, condivisione, file e scorciatoie</translation>
+    </message>
+    <message>
+        <source>BlueBrick&apos;s &amp;Manual (the original app)</source>
+        <translation>&amp;Manuale di BlueBrick (l’app originale)</translation>
+    </message>
+    <message>
+        <source>The manual of BlueBrick, which this app grew from. Some of it describes the original app: here a map has sheets, and R turns the picked parts.</source>
+        <translation>Il manuale di BlueBrick, da cui è nata questa app. In parte descrive l’app originale: qui una mappa ha fogli, e R gira i pezzi selezionati.</translation>
     </message>
     <message>
         <source>The Qt toolkit this app is built with</source>
@@ -7213,18 +7237,6 @@ Le tue modifiche offline sono conservate; File &gt; Rivedi modifiche offline le 
         <translation>Nomi dei &amp;moduli</translation>
     </message>
     <message>
-        <source>Unsaved budget</source>
-        <translation>Budget non salvato</translation>
-    </message>
-    <message>
-        <source>The budget %1 has unsaved changes. Save it before continuing?</source>
-        <translation>Il budget %1 ha modifiche non salvate. Salvarlo prima di continuare?</translation>
-    </message>
-    <message>
-        <source>Save budget</source>
-        <translation>Salva budget</translation>
-    </message>
-    <message>
         <source>&amp;Budget</source>
         <translation>&amp;Budget</translation>
     </message>
@@ -7249,52 +7261,16 @@ Le tue modifiche offline sono conservate; File &gt; Rivedi modifiche offline le 
         <translation>&amp;Nuovo budget</translation>
     </message>
     <message>
-        <source>Start a budget: how many of each part you have</source>
-        <translation>Inizia un budget: quanti pezzi di ogni tipo hai</translation>
-    </message>
-    <message>
         <source>New budget started. Budget › Edit Budget sets how many of each part you have.</source>
         <translation>Nuovo budget iniziato. Budget › Modifica budget imposta quanti pezzi di ogni tipo hai.</translation>
-    </message>
-    <message>
-        <source>&amp;Open Budget…</source>
-        <translation>&amp;Apri budget…</translation>
-    </message>
-    <message>
-        <source>Open a budget file: how many of each part you have</source>
-        <translation>Apri un file di budget: quanti pezzi di ogni tipo hai</translation>
-    </message>
-    <message>
-        <source>Open budget</source>
-        <translation>Apri budget</translation>
-    </message>
-    <message>
-        <source>&amp;Import and Merge Budget…</source>
-        <translation>&amp;Importa e unisci budget…</translation>
-    </message>
-    <message>
-        <source>Add the limits of another budget file to the current budget</source>
-        <translation>Aggiungi i limiti di un altro file di budget al budget corrente</translation>
     </message>
     <message>
         <source>Import and merge budget</source>
         <translation>Importa e unisci budget</translation>
     </message>
     <message>
-        <source>&amp;Close Budget</source>
-        <translation>&amp;Chiudi budget</translation>
-    </message>
-    <message>
-        <source>&amp;Save Budget</source>
-        <translation>&amp;Salva budget</translation>
-    </message>
-    <message>
-        <source>Save Budget &amp;As…</source>
-        <translation>Salva budget con n&amp;ome…</translation>
-    </message>
-    <message>
-        <source>Save this budget under a new name</source>
-        <translation>Salva questo budget con un nuovo nome</translation>
+        <source>Export Budget to &amp;File…</source>
+        <translation>Esporta budget in un &amp;file…</translation>
     </message>
     <message>
         <source>Show Only &amp;Parts in the Budget</source>
@@ -7309,8 +7285,52 @@ Le tue modifiche offline sono conservate; File &gt; Rivedi modifiche offline le 
         <translation>Mostra i n&amp;umeri del budget</translation>
     </message>
     <message>
-        <source>Set how many of each part you have</source>
-        <translation>Imposta quanti pezzi di ogni tipo hai</translation>
+        <source>Start a budget for this layout: how many of each part it may use</source>
+        <translation>Inizia un budget per questo layout: quanti pezzi di ogni tipo può usare</translation>
+    </message>
+    <message>
+        <source>&amp;Import Budget from File…</source>
+        <translation>&amp;Importa budget da un file…</translation>
+    </message>
+    <message>
+        <source>Use the limits in a BlueBrick budget file (.bbb) as this layout&apos;s budget</source>
+        <translation>Usa i limiti di un file di budget BlueBrick (.bbb) come budget di questo layout</translation>
+    </message>
+    <message>
+        <source>Import budget</source>
+        <translation>Importa budget</translation>
+    </message>
+    <message>
+        <source>Import and &amp;Merge Budget…</source>
+        <translation>Importa e &amp;unisci budget…</translation>
+    </message>
+    <message>
+        <source>Add the limits of a budget file to this layout&apos;s budget</source>
+        <translation>Aggiungi i limiti di un file di budget al budget di questo layout</translation>
+    </message>
+    <message>
+        <source>Save this layout&apos;s budget as a BlueBrick budget file (.bbb), for BlueBrick or another layout</source>
+        <translation>Salva il budget di questo layout come file di budget BlueBrick (.bbb), per BlueBrick o per un altro layout</translation>
+    </message>
+    <message>
+        <source>Export budget</source>
+        <translation>Esporta budget</translation>
+    </message>
+    <message>
+        <source>Budget.bbb</source>
+        <translation>Budget.bbb</translation>
+    </message>
+    <message>
+        <source>Budget exported to %1</source>
+        <translation>Budget esportato in %1</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Budget</source>
+        <translation>&amp;Rimuovi budget</translation>
+    </message>
+    <message>
+        <source>Take the budget off this layout, for everyone who edits it (Undo brings it back)</source>
+        <translation>Togli il budget da questo layout, per tutti quelli che lo modificano (Annulla lo riporta)</translation>
     </message>
     <message>
         <source>Show how many of each part are used and allowed in the Parts panel</source>
@@ -7339,6 +7359,10 @@ Le tue modifiche offline sono conservate; File &gt; Rivedi modifiche offline le 
     <message>
         <source>&amp;Edit Budget…</source>
         <translation>&amp;Modifica budget…</translation>
+    </message>
+    <message>
+        <source>Set how many of each part this layout may use</source>
+        <translation>Imposta quanti pezzi di ogni tipo può usare questo layout</translation>
     </message>
     <message>
         <source>&amp;Import .bbm as Module…</source>
@@ -12120,16 +12144,16 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>R</translation>
     </message>
     <message>
-        <source>Turn the selected pieces</source>
-        <translation>Gira i pezzi selezionati</translation>
-    </message>
-    <message>
         <source>Shift+R</source>
         <translation>Shift+R</translation>
     </message>
     <message>
-        <source>Turn them the other way</source>
-        <translation>Girali dall&apos;altra parte</translation>
+        <source>Turn the selected pieces left (counterclockwise)</source>
+        <translation>Gira i pezzi selezionati a sinistra (senso antiorario)</translation>
+    </message>
+    <message>
+        <source>Turn them right (clockwise)</source>
+        <translation>Girali a destra (senso orario)</translation>
     </message>
     <message>
         <source>Arrow keys</source>

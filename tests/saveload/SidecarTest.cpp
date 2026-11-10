@@ -413,3 +413,50 @@ TEST(Sidecar, KeepsWhatANewerVersionWrote) {
     onlyExtras.extras.insert(QStringLiteral("zones"), QJsonArray{});
     EXPECT_FALSE(onlyExtras.isEmpty());
 }
+
+// The budget travels in the sidecar as `budgetLimits` (area 7, Bug 1):
+// part number -> limit, kept even when empty (the layout has a budget with
+// no limits yet), and absent when the layout has none.
+TEST(Sidecar, RoundTripBudgetLimits) {
+    core::Sidecar sc;
+    sc.budgetLimits = QMap<QString, int>{ { QStringLiteral("3001.1"), 12 }, { QStringLiteral("3005.4"), 0 } };
+    EXPECT_FALSE(sc.isEmpty());
+    const QJsonObject json = saveload::sidecarToJson(sc);
+    EXPECT_EQ(json.value(QLatin1String("budgetLimits")).toObject().value(QLatin1String("3001.1")).toInt(), 12);
+    EXPECT_EQ(json.value(QLatin1String("budgetLimits")).toObject().value(QLatin1String("3005.4")).toInt(), 0);
+
+    QTemporaryDir dir;
+    const QString path = dir.filePath("b.bbm.bld");
+    const QByteArray bbm = "<dummy bbm>";
+    QString err;
+    ASSERT_TRUE(saveload::writeSidecar(path, bbm, sc, &err)) << err.toStdString();
+    core::Sidecar back;
+    ASSERT_TRUE(saveload::readSidecar(path, bbm, back).ok);
+    ASSERT_TRUE(back.budgetLimits);
+    EXPECT_EQ(*back.budgetLimits, *sc.budgetLimits);
+    EXPECT_TRUE(back.extras.isEmpty());  // a known key, not an extra
+
+    // Empty stays "has a budget"; none stays none.
+    core::Sidecar empty;
+    empty.budgetLimits = QMap<QString, int>{};
+    EXPECT_FALSE(empty.isEmpty());
+    core::Sidecar emptyBack;
+    saveload::sidecarFromJson(saveload::sidecarToJson(empty), emptyBack);
+    ASSERT_TRUE(emptyBack.budgetLimits);
+    EXPECT_TRUE(emptyBack.budgetLimits->isEmpty());
+    core::Sidecar none;
+    EXPECT_FALSE(saveload::sidecarToJson(none).contains(QLatin1String("budgetLimits")));
+
+    // Only whole numbers of 0 or more count; part numbers are upper-cased; not an object: no budget.
+    core::Sidecar odd;
+    saveload::sidecarFromJson(QJsonObject{ { QStringLiteral("budgetLimits"),
+                                            QJsonObject{ { QStringLiteral("a.1"), 3 }, { QStringLiteral("b"), -1 },
+                                                         { QStringLiteral("c"), QStringLiteral("x") },
+                                                         { QStringLiteral("d"), 2.7 } } } },
+                              odd);
+    ASSERT_TRUE(odd.budgetLimits);
+    EXPECT_EQ(*odd.budgetLimits, (QMap<QString, int>{ { QStringLiteral("A.1"), 3 }, { QStringLiteral("D"), 2 } }));
+    core::Sidecar notObj;
+    saveload::sidecarFromJson(QJsonObject{ { QStringLiteral("budgetLimits"), QJsonArray{ 1, 2 } } }, notObj);
+    EXPECT_FALSE(notObj.budgetLimits);
+}

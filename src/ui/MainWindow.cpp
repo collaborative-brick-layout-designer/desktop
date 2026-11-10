@@ -142,8 +142,8 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
         QTimer::singleShot(3000, updates_, &UpdateCheck::checkAtStartupIfDue);
     budget_ = new BudgetSession(parts_, this);
     mapView_->setBudget(budget_);
-    // Reopen last session's budget once everything listening is connected.
-    QTimer::singleShot(0, budget_, &BudgetSession::restoreFromSettings);
+    // The budget is the open layout's: it follows the layout from here on.
+    budget_->attach(mapView_);
     setCentralWidget(mapView_);
 
     layerPanel_ = new LayerPanel(this);
