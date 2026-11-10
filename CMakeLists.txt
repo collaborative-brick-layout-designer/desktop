@@ -70,11 +70,20 @@ if(MSVC)
 endif()
 
 # Warnings: our own targets (src/, tests/, fuzz/) build warning-free at
-# -Wall -Wextra -Wpedantic (/W4 on MSVC). CI turns warnings into errors;
-# it's off by default so a newer compiler's new warnings never stop
-# someone's local build. Fetched dependencies (googletest, QtKeychain, yrs)
-# and vendored code marked BLD_THIRD_PARTY (puff.c) keep their own flags.
-option(BLD_WARNINGS_AS_ERRORS "Treat compiler warnings in our own targets as errors" OFF)
+# -Wall -Wextra -Wpedantic (/W4 on MSVC), and CI turns warnings into errors.
+# A git checkout does the same by default, so a warning stops the build here
+# and not a round later in CI. A source archive (no .git: a packager's or a
+# user's build) keeps them as warnings, so a newer compiler's new warnings
+# never stop that build. A build folder configured earlier keeps the value
+# in its cache; -DBLD_WARNINGS_AS_ERRORS=ON or =OFF sets it either way.
+# Fetched dependencies (googletest, QtKeychain, yrs) and vendored code marked
+# BLD_THIRD_PARTY (puff.c) keep their own flags.
+if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
+    set(_bld_werror_default ON)
+else()
+    set(_bld_werror_default OFF)
+endif()
+option(BLD_WARNINGS_AS_ERRORS "Treat compiler warnings in our own targets as errors" ${_bld_werror_default})
 function(bld_apply_warnings dir)
     get_property(_targets DIRECTORY "${dir}" PROPERTY BUILDSYSTEM_TARGETS)
     foreach(_t IN LISTS _targets)

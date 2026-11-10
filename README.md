@@ -303,10 +303,39 @@ CMake options:
 
 | Option | Default | What it does |
 |---|---|---|
-| `BLD_WARNINGS_AS_ERRORS` | `OFF` | Treat compiler warnings in our own code as errors. CI turns it on and also fails on any linker or CMake warning (`scripts/ci/check-warnings.sh`); turn it on to check a change before you push. The build is warning-free with `-Wall -Wextra -Wpedantic` (`/W4` on MSVC). |
+| `BLD_WARNINGS_AS_ERRORS` | `ON` in a git checkout, `OFF` in a source archive | Treat compiler warnings in our own code as errors, as CI does. CI also fails on any linker or CMake warning (`scripts/ci/check-warnings.sh`). The build is warning-free with `-Wall -Wextra -Wpedantic` (`/W4` on MSVC). |
 | `BLD_DEPLOY_QT` | `ON` (Windows, macOS) | Bundle the Qt runtime into the install tree. |
 | `BLD_INSTALL_PARTS` | `ON` | Install the bundled BlueBrickParts library with the app. |
 | `BLD_FUZZ` | `OFF` | Build the libFuzzer parser harnesses (clang only). |
+
+### Checking a change before you push
+
+CI fails a pull request on any compiler warning and on what clang-tidy
+finds on the lines you changed. Both checks run here too:
+
+- **Warnings are errors** in a build from a git checkout, as in CI, so a
+  warning stops your build and not CI's a round later. A build folder you
+  configured before this became the default keeps its old setting: run
+  `cmake -B build -DBLD_WARNINGS_AS_ERRORS=ON` once to switch it. If a
+  newer compiler warns about code you didn't touch, `-DBLD_WARNINGS_AS_ERRORS=OFF`
+  gets you building again (and please open an issue).
+- **`scripts/lint.sh`** runs CI's *Lint changed lines* job on your branch:
+  clang-tidy's bug-finding checks (these fail the job) and clang-format
+  (advice only) on the lines changed since `origin/main`. The first run
+  configures a clang build folder, `build-lint/`, and builds the app's
+  libraries in it, as CI does, which takes several minutes; later runs
+  build only what changed. It needs clang, clang-tidy, clang-format and
+  ninja. `scripts/lint.sh <base>` compares with another branch, and
+  `LINT_JOBS=4 scripts/lint.sh` keeps it to four processes.
+
+`CMakePresets.json` has both setups: `cmake --preset dev` configures
+`build/` the way CI's build jobs do (Debug, warnings are errors), and
+`cmake --preset lint` configures `build-lint/` with clang.
+
+CI's compilers are GCC 11 and 13, Apple clang and MSVC, and its clang-tidy is
+version 18. A newer compiler or clang-tidy here knows more warnings and
+checks, so it can stop on a line CI passes (and, now and then, the other
+way round): CI stays the final word.
 
 ### Tests
 

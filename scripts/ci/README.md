@@ -5,12 +5,13 @@
   The code base predates `.clang-format` and is partly hand-aligned, so only
   changed lines are checked. Needs a clang-configured build directory with
   `compile_commands.json` (exported by default). The *Lint changed lines*
-  CI job runs it on every pull request.
+  CI job runs it on every pull request. To run it before you push, use
+  `scripts/lint.sh`: it makes and builds the clang build folder (`build-lint/`) first.
 
 - `check-warnings.sh <log>...` — fails when a configure or build log has a
   compiler, linker or CMake warning in it. The *Build* jobs run it after
-  building with `-DBLD_WARNINGS_AS_ERRORS=ON`, so the build stays
-  warning-free on all three platforms.
+  building with `-DBLD_WARNINGS_AS_ERRORS=ON` (the default in a git
+  checkout too), so the build stays warning-free on all three platforms.
 
 The *Coverage* CI job reports line, function and branch coverage of `src/`
 (job summary plus an HTML artifact); to run it locally, configure with

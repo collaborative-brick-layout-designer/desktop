@@ -54,6 +54,7 @@ Thumbs.db
 # Local settings
 .claude/settings.local.json
 local_*.cmake
+CMakeUserPresets.json
 
 # Read-only upstream BlueBrick checkout for porting reference
 .reference/
