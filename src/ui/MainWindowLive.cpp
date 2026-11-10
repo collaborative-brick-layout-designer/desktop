@@ -136,6 +136,27 @@ void MainWindow::setupLiveMenu(QMenu* file) {
                              { NoticeAction{ tr("OK"), {} } });
     });
     connect(live_, &LiveLayout::offlineEditsReady, this, &MainWindow::onReviewOfflineEdits);
+    connect(live_, &LiveLayout::editsNotTaken, this, [this] {
+        // Said here instead of "You can only view this layout now".
+        notices_->hideNotice(QStringLiteral("live-access"));
+        notices_->showNotice(
+            QStringLiteral("live-not-taken"), tr("Your latest changes weren't taken"),
+            tr("Your access to “%1” changed to view only before your latest changes reached the server, so it "
+               "didn't take them. You're still live, viewing it. Nothing is lost: save your changes as a new "
+               "layout, or let them go.")
+                .arg(live_->title()),
+            { NoticeAction{ tr("Save My Changes as a New Layout"),
+                            [this] {
+                                QTimer::singleShot(0, this, [this] {
+                                    if (!live_->active() || !live_->session().notTaken()) return;
+                                    const auto kept = *live_->session().notTaken();
+                                    saveOfflineAsNew(kept);
+                                });
+                            },
+                            true },
+              NoticeAction{ tr("Let Them Go"), [this] { live_->session().forgetNotTaken(); } } },
+            {}, true);
+    });
     // Queued: after the edit's own signal handling, not inside it.
     connect(live_, &LiveLayout::localEdited, this, &MainWindow::offerPlacedParts, Qt::QueuedConnection);
     liveRoleCheck_ = new QTimer(this);
@@ -390,8 +411,8 @@ void MainWindow::checkLiveRole() {
 void MainWindow::liveSignInNeeded() {
     notices_->showNotice(
         QStringLiteral("live-signin"), tr("Sign in again to keep working live"),
-        tr("Your sign-in to %1 has run out, so your changes can't reach the server. They're kept here, and sent "
-           "once you sign in again.")
+        tr("You were signed out of %1 (on the website or another device), or your sign-in there ran out, so your "
+           "changes can't reach the server. They're kept here, and sent once you sign in again.")
             .arg(liveServerName()),
         { NoticeAction{ tr("Sign In…"),
                         // Not inside the notice's own click.
@@ -888,6 +909,8 @@ void MainWindow::saveOfflineAsNew(const sync::merge::Snapshot& mine) {
     connect(api, &sync::ServerApi::published, this, [this, api, server](const QString&, const QString& t) {
         api->deleteLater();
         if (live_->active() && live_->session().offlineEdits()) live_->session().resolveOffline(nullptr);
+        if (live_->active()) live_->session().forgetNotTaken();
+        notices_->hideNotice(QStringLiteral("live-not-taken"));
         updateLiveUi();
         QMessageBox::information(this, tr("Save as a New Layout"),
                                  tr("Your version was saved as \"%1\" in your layouts on %2. The live layout "
