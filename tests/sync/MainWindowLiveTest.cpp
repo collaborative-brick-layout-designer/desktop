@@ -57,6 +57,7 @@
 #include <QStandardPaths>
 #include <QTabWidget>
 #include <QTimer>
+#include <QMenu>
 #include <QToolButton>
 #include <QUndoStack>
 
@@ -602,6 +603,17 @@ TEST_F(MainWindowLiveServerParts, AFailedDownloadStaysInSightAndTryAgainFetchesT
 
     button->click();
     ASSERT_TRUE(waitFor([&] { return manifestGets() == 2 && !button->isVisibleTo(window_.get()); }));
+}
+
+// Full review area 4, Idea 3: back in step after a drop, the parts the
+// server couldn't give are fetched again without Try again.
+TEST_F(MainWindowLiveServerParts, AfterADropTheServersPartsAreFetchedAgainByThemselves) {
+    QToolButton* button = failedButton();
+    ASSERT_NE(button, nullptr);
+    ASSERT_TRUE(waitFor([&] { return button->isVisibleTo(window_.get()); }));
+    const int before = manifestGets();
+    ws_.dropAll(QWebSocketProtocol::CloseCodeGoingAway);
+    ASSERT_TRUE(waitFor([&] { return manifestGets() > before; }, 8000));
 }
 
 namespace {
@@ -1592,4 +1604,23 @@ TEST_F(MainWindowLive, PicturesOfTheSheetAfterGoingLive) {
                                        .arg(mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark")
                                                                                   : QStringLiteral("light")));
     }
+}
+
+// Full review area 4, Unclear UI 2: the desktop had no list of who's here
+// (cursors miss anyone with the mouse off the map, or on a phone).
+TEST_F(MainWindowLive, PeopleHereListsEveryoneElse) {
+    auto* people = window_->findChild<QToolButton*>(QStringLiteral("peopleHere"));
+    ASSERT_NE(people, nullptr);
+    EXPECT_FALSE(people->isVisibleTo(window_.get()));
+    sync::SyncSession other;
+    other.open(ws_.url(), {}, false);
+    ASSERT_TRUE(waitFor([&] { return other.status() == Status::Synced; }));
+    other.setPresence(sync::presence::state({ QStringLiteral("u-sam"), QStringLiteral("Sam"), QStringLiteral("#60a5fa") },
+                                            std::nullopt, {}, 1));
+    ASSERT_TRUE(waitFor([&] { return people->isVisibleTo(window_.get()); }));
+    EXPECT_EQ(people->text(), QStringLiteral("People here (1)"));
+    ASSERT_EQ(people->menu()->actions().size(), 1);
+    EXPECT_EQ(people->menu()->actions()[0]->text(), QStringLiteral("Sam"));
+    other.setPresence(std::nullopt);
+    EXPECT_TRUE(waitFor([&] { return !people->isVisibleTo(window_.get()); }));
 }

@@ -6601,6 +6601,10 @@ Save anyway?</source>
         <translation>这个文件是一个布局的副本。打开实时版本和大家一起编辑，或继续编辑这份副本。</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>现在打开此布局的其他所有人</translation>
+    </message>
+    <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
         <translation>这个文件是“%1”的副本。打开实时版本和大家一起编辑，或继续编辑这份副本。</translation>
     </message>
@@ -6787,6 +6791,10 @@ Save anyway?</source>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>已断开连接。布局作为未保存的副本仍在这里打开着。</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>在此的人（%1）</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>

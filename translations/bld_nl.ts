@@ -6638,6 +6638,10 @@ Toch opslaan?</translation>
         <translation>Dit bestand is een kopie van een layout. Open de live versie om er met iedereen aan te werken, of werk verder aan deze kopie.</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Iedereen anders die deze layout nu open heeft</translation>
+    </message>
+    <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
         <translation>Dit bestand is een kopie van ‘%1’. Open de live versie om er met iedereen aan te werken, of werk verder aan deze kopie.</translation>
     </message>
@@ -6828,6 +6832,10 @@ Toch opslaan?</translation>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>Verbinding verbroken. De layout blijft hier open als niet-opgeslagen kopie.</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>Mensen hier (%1)</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>

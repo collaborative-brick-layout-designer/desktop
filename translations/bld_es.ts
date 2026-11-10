@@ -6638,6 +6638,10 @@ Save anyway?</source>
         <translation>Este archivo es una copia de una maqueta. Abre la versión en directo para trabajar en ella con todos, o sigue en esta copia.</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Todas las demás personas que tienen este diseño abierto ahora</translation>
+    </message>
+    <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
         <translation>Este archivo es una copia de «%1». Abre la versión en directo para trabajar en ella con todos, o sigue en esta copia.</translation>
     </message>
@@ -6828,6 +6832,10 @@ Save anyway?</source>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>Desconectado. La maqueta sigue abierta aquí como copia sin guardar.</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>Personas aquí (%1)</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>

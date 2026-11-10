@@ -7089,6 +7089,10 @@ Lagre likevel?</translation>
         <translation>Denne filen er en kopi av en layout. Åpne direkteversjonen for å jobbe på den sammen med alle, eller jobb videre med denne kopien.</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Alle andre som har dette oppsettet åpent nå</translation>
+    </message>
+    <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
         <translation>Denne filen er en kopi av «%1». Åpne direkteversjonen for å jobbe på den sammen med alle, eller jobb videre med denne kopien.</translation>
     </message>
@@ -7279,6 +7283,10 @@ Lagre likevel?</translation>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>Frakoblet. Layouten er fortsatt åpen her som en ulagret kopi.</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>Personer her (%1)</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>

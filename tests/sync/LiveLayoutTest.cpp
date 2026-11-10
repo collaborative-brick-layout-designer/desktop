@@ -362,6 +362,16 @@ TEST(LiveLayout, DrawsOnlyOtherPeopleInTheirOwnColors) {
                                                   QStringLiteral("L1"));
     EXPECT_EQ(bobColor, QColor(colors.value(QStringLiteral("u-bob"))));
     EXPECT_NE(colors.value(QStringLiteral("u-bob")), colors.value(QStringLiteral("u-alice")));
+    // Who's here (Unclear UI 2): Bob, once, however many apps he has open.
+    sync::SyncSession bob2;
+    bob2.open(h.server.url(), {}, false);
+    ASSERT_TRUE(waitFor([&] { return bob2.status() == Status::Synced; }));
+    bob2.setPresence(sync::presence::state({ QStringLiteral("u-bob"), QStringLiteral("Bob"), QStringLiteral("#a78bfa") },
+                                           std::nullopt, {}, 1));
+    ASSERT_TRUE(waitFor([&] { return h.live.drawnPeers() == 1 && h.live.session().peers().size() >= 4; }));
+    ASSERT_EQ(h.live.people().size(), 1);
+    EXPECT_EQ(h.live.people()[0].name, QStringLiteral("Bob"));
+    EXPECT_EQ(h.live.people()[0].color, colors.value(QStringLiteral("u-bob")));
 }
 
 // Full review area 4, Bug 7: Undo after someone else moved the same part
