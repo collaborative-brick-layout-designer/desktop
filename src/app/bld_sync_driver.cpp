@@ -37,6 +37,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QMutex>
+#include <QTemporaryDir>
 #include <QThread>
 #include <QTimer>
 
@@ -141,6 +142,7 @@ public:
             socket_ = server_;
             socket_.setScheme(server_.scheme() == QLatin1String("https") ? QStringLiteral("wss") : QStringLiteral("ws"));
             socket_.setPath(QStringLiteral("/ws/layout/") + layoutId_);
+            session_.setCacheDir(cache_.path());
             session_.open(socket_, token_, false);
             reply(QStringLiteral("ok"));
         } else if (cmd == QLatin1String("wait-synced")) {
@@ -251,6 +253,9 @@ private:
     QString layoutId_;
     QString name_ = QStringLiteral("Desktop");
     sync::SyncSession session_;
+    // Where the session keeps the layout and its offline edits, as the app
+    // does: "reconnect" opens the layout again and finds them there.
+    QTemporaryDir cache_;
 };
 
 }  // namespace
