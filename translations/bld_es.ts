@@ -5240,24 +5240,25 @@ las celdas existentes con su numeración antigua: píntalas encima para limpiar.
     </message>
     <message>
         <source>Someone saved this module</source>
-        <translation type="unfinished"></translation>
+        <translation>Alguien guardó este módulo</translation>
     </message>
     <message>
         <source>Someone else saved “%1” while you were changing it, so your save was held back. Nothing is lost.</source>
-        <translation type="unfinished"></translation>
+        <translation>Otra persona guardó «%1» mientras lo cambiabas, así que tu guardado se retuvo. No se pierde nada.</translation>
     </message>
     <message>
         <source>Load theirs: their version opens here, and your changes since your last save are dropped.
 Save mine as a new version: yours becomes the module; theirs stays in its version history.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar la suya: su versión se abre aquí, y tus cambios desde tu último guardado se descartan.
+Guardar la mía como versión nueva: la tuya pasa a ser el módulo; la suya queda en su historial de versiones.</translation>
     </message>
     <message>
         <source>Load Theirs</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar la suya</translation>
     </message>
     <message>
         <source>Save Mine as a New Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar la mía como versión nueva</translation>
     </message>
     <message>
         <source>Couldn&apos;t save the module: %1</source>

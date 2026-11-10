@@ -5240,24 +5240,25 @@ les cellules existantes à leur ancienne numérotation — repeignez pour nettoy
     </message>
     <message>
         <source>Someone saved this module</source>
-        <translation type="unfinished"></translation>
+        <translation>Quelqu&apos;un a enregistré ce module</translation>
     </message>
     <message>
         <source>Someone else saved “%1” while you were changing it, so your save was held back. Nothing is lost.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quelqu&apos;un d&apos;autre a enregistré « %1 » pendant que vous le modifiiez, votre enregistrement a donc été retenu. Rien n&apos;est perdu.</translation>
     </message>
     <message>
         <source>Load theirs: their version opens here, and your changes since your last save are dropped.
 Save mine as a new version: yours becomes the module; theirs stays in its version history.</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger la leur : leur version s&apos;ouvre ici, et vos modifications depuis votre dernier enregistrement sont abandonnées.
+Enregistrer la mienne comme nouvelle version : la vôtre devient le module ; la leur reste dans son historique des versions.</translation>
     </message>
     <message>
         <source>Load Theirs</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger la leur</translation>
     </message>
     <message>
         <source>Save Mine as a New Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer la mienne comme nouvelle version</translation>
     </message>
     <message>
         <source>Couldn&apos;t save the module: %1</source>

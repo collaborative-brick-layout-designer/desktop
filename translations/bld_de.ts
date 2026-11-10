@@ -5240,24 +5240,25 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Someone saved this module</source>
-        <translation type="unfinished"></translation>
+        <translation>Jemand hat dieses Modul gespeichert</translation>
     </message>
     <message>
         <source>Someone else saved “%1” while you were changing it, so your save was held back. Nothing is lost.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jemand anderes hat „%1“ gespeichert, während du es geändert hast, deshalb wurde dein Speichern zurückgehalten. Nichts geht verloren.</translation>
     </message>
     <message>
         <source>Load theirs: their version opens here, and your changes since your last save are dropped.
 Save mine as a new version: yours becomes the module; theirs stays in its version history.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ihre laden: ihre Version öffnet sich hier, und deine Änderungen seit dem letzten Speichern werden verworfen.
+Meine als neue Version speichern: deine wird das Modul; ihre bleibt in seinem Versionsverlauf.</translation>
     </message>
     <message>
         <source>Load Theirs</source>
-        <translation type="unfinished"></translation>
+        <translation>Ihre laden</translation>
     </message>
     <message>
         <source>Save Mine as a New Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Meine als neue Version speichern</translation>
     </message>
     <message>
         <source>Couldn&apos;t save the module: %1</source>
