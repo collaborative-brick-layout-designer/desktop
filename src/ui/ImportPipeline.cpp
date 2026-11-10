@@ -159,7 +159,7 @@ PreparedPart fromBlueBrickParts(PreparedPart out, const import::LDrawReadResult&
     if (bounds.isEmpty()) {
         out.error = out.stats.unresolved > 0
             ? Text::tr("None of the %1 parts in this model are in the parts library. "
-                 "Set an LDraw library in Preferences to render any part.").arg(out.stats.unresolved)
+                 "Set an LDraw library in Settings › Bringing in models to draw any part.").arg(out.stats.unresolved)
             : Text::tr("The model is empty.");
         return out;
     }

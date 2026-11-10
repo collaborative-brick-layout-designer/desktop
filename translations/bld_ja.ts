@@ -4138,10 +4138,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>None of the %1 parts in this model are in the parts library. Set an LDraw library in Preferences to render any part.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The model is empty.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4181,6 +4177,10 @@
     </message>
     <message>
         <source>Import canceled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None of the %1 parts in this model are in the parts library. Set an LDraw library in Settings › Bringing in models to draw any part.</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
@@ -4425,7 +4425,7 @@
     <name>bld::ui::LayerPanel</name>
     <message>
         <source>Sheets</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">レイヤー</translation>
     </message>
     <message>
         <source>Show all</source>
@@ -5953,10 +5953,6 @@ Save anyway?</source>
     </message>
     <message>
         <source>Autosaved (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reloaded parts: %1 parts in %2 folder(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8857,10 +8853,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Parts that are only used inside a set (a building of a castle set, a flex track half, a cut track piece). They’re listed greyed and aren’t placed by themselves.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Picture size</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8954,6 +8946,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Delete imported part…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parts that are only used inside a set (a building of a castle set, a flex track half, a cut track piece). They’re listed grayed and aren’t placed by themselves.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
