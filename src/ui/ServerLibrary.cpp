@@ -371,7 +371,7 @@ ServerModulesTab::ServerModulesTab(ServerLibrary& library, QWidget* parent) : QW
         return ConfirmDialog::confirmDelete(this, m.title, ConfirmDialog::moduleWording());
     };
     confirmReturn = [this](const sync::ServerModule& m, bool give) {
-        return ConfirmDialog::ask(this, returnOptions(tr("module"), m.title, m.credit, give));
+        return ConfirmDialog::ask(this, returnOptions(ReturnKind::Module, m.title, m.credit, give));
     };
 
     connect(filter_, &QLineEdit::textChanged, this, &ServerModulesTab::rebuild);

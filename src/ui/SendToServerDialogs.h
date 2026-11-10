@@ -36,7 +36,7 @@ public:
     // take it (each kind needs its own permission in a club). `server`: what
     // you call it. `initialOwner`: a club's slug to start at (the Show
     // filter's), or empty for Me.
-    SaveToServerDialog(const QString& what, sync::AddKind kind, const QString& initialName, const QString& server,
+    SaveToServerDialog(sync::AddKind kind, const QString& initialName, const QString& server,
                        const QList<sync::OrgEntry>& orgs, const QString& initialOwner, QWidget* parent = nullptr);
 
     QString name() const;

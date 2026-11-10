@@ -697,16 +697,16 @@ void ServerWindow::rebuild() {
     rebuildParts();
 }
 
-QList<ServerWindow::Action> ServerWindow::returnActions(const QString& kindPath, const QString& word, const QString& id,
+QList<ServerWindow::Action> ServerWindow::returnActions(const QString& kindPath, ReturnKind kind, const QString& id,
                                                         const QString& title, const sync::Credit& credit) {
     QList<Action> out;
     if (credit.canTakeBack)
         out << Action{ tr("Take Back to Mine…"), QStringLiteral("takeBack"),
-                       [this, kindPath, word, id, title, credit] { giveOrTakeBack(kindPath, word, id, title, credit, false); },
+                       [this, kindPath, kind, id, title, credit] { giveOrTakeBack(kindPath, kind, id, title, credit, false); },
                        true, tr("It becomes yours again; the club keeps its own copy, credited to you.") };
     if (credit.canGiveBack)
         out << Action{ tr("Give Back to %1…").arg(credit.authorName), QStringLiteral("giveBack"),
-                       [this, kindPath, word, id, title, credit] { giveOrTakeBack(kindPath, word, id, title, credit, true); },
+                       [this, kindPath, kind, id, title, credit] { giveOrTakeBack(kindPath, kind, id, title, credit, true); },
                        true, tr("It goes back to the person who made it; the club keeps its own copy.") };
     return out;
 }
@@ -739,7 +739,7 @@ void ServerWindow::rebuildLayouts() {
         r.more << Action{ tr("Download a copy…"), QStringLiteral("downloadLayout"), [this, l] { downloadLayout(l); }, true,
                           canDownloadNative() ? tr("Save it as a file on this computer (.bld-layout, or .bbm for BlueBrick)")
                                               : tr("Save it as a BlueBrick map (.bbm) on this computer") };
-        r.more << returnActions(QStringLiteral("layouts"), tr("layout"), l.id, r.title, l.credit);
+        r.more << returnActions(QStringLiteral("layouts"), ReturnKind::Layout, l.id, r.title, l.credit);
         addShareAction(r, QStringLiteral("layout"), l.id, r.title, isOwner);
         if (isOwner) r.more << Action{ tr("Delete…"), QStringLiteral("deleteLayout"), [this, l] { deleteLayout(l); }, true, {} };
         makeRow(layoutsPage_, r);
@@ -785,7 +785,7 @@ void ServerWindow::rebuildVenues() {
         r.more << Action{ tr("Add to my venue library"), QStringLiteral("addVenue"),
                           [this, v] { emit addVenueRequested(v.id, v.name); }, true,
                           tr("Keep a copy in the Venue library on this computer") };
-        r.more << returnActions(QStringLiteral("venues"), tr("venue"), v.id, r.title, v.credit);
+        r.more << returnActions(QStringLiteral("venues"), ReturnKind::Venue, v.id, r.title, v.credit);
         addShareAction(r, QStringLiteral("venue"), v.id, r.title, v.canManage);
         if (v.canManage) r.more << Action{ tr("Delete…"), QStringLiteral("deleteVenue"), [this, v] { deleteVenue(v); }, true, {} };
         makeRow(venuesPage_, r);
@@ -841,7 +841,7 @@ void ServerWindow::rebuildModules() {
             r.more << Action{ tr("Save a copy locally"), QStringLiteral("saveModuleCopy"),
                               [this, id] { emit saveModuleCopyRequested(id); }, true,
                               tr("Keep a copy in the Module library folder on this computer") };
-            r.more << returnActions(QStringLiteral("modules"), tr("module"), id, m.title, m.credit);
+            r.more << returnActions(QStringLiteral("modules"), ReturnKind::Module, id, m.title, m.credit);
             addShareAction(r, QStringLiteral("module"), id, m.title, m.canDelete());
             if (m.canDelete()) r.more << Action{ tr("Delete…"), QStringLiteral("deleteModule"), [this, m] { deleteModule(m); }, true, {} };
         }
@@ -891,7 +891,7 @@ void ServerWindow::rebuildParts() {
             r.primary = { tr("Add to my parts"), QStringLiteral("addPart"), [this, number] { emit addPartRequested(number); },
                           true, tr("Download it into your parts, to use in any layout") };
         }
-        r.more << returnActions(QStringLiteral("custom-parts"), tr("part"), p.id, r.title, p.credit);
+        r.more << returnActions(QStringLiteral("custom-parts"), ReturnKind::Part, p.id, r.title, p.credit);
         addShareAction(r, QStringLiteral("part"), p.id, r.title, p.role == QLatin1String("owner"));
         makeRow(partsPage_, r);
     }
@@ -1071,9 +1071,9 @@ void ServerWindow::deleteModule(const sync::ServerModule& m) {
     }));
 }
 
-void ServerWindow::giveOrTakeBack(const QString& kindPath, const QString& word, const QString& id, const QString& title,
+void ServerWindow::giveOrTakeBack(const QString& kindPath, ReturnKind kind, const QString& id, const QString& title,
                                   const sync::Credit& credit, bool give) {
-    if (!ask(returnOptions(word, title, credit, give))) return;
+    if (!ask(returnOptions(kind, title, credit, give))) return;
     library_.api().returnToAuthor(
         kindPath, id, give,
         sync::whileAlive(this, [this, kindPath, title, author = credit.authorName, give](const QString&) {

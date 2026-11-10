@@ -180,15 +180,18 @@ void MainWindow::setupLiveMenu(QMenu* file) {
 void MainWindow::offerLayoutSource(const import::LayoutSource& source) {
     const QString id = QStringLiteral("layoutSource");
     const QUrl server(source.server);
-    const QString what = source.title.isEmpty() ? tr("a layout") : QStringLiteral("“%1”").arg(source.title);
+    // One whole sentence per case: "a layout" on its own can't be translated into a sentence.
+    const QString title = source.title;
     const QString keep = tr("Keep working on this copy");
     const sync::ServerList servers = sync::ServerList::load();
     if (const sync::ServerEntry* entry = servers.find(server)) {
         notices_->showNotice(
             id, tr("This layout is on %1").arg(entry->label()),
-            tr("This file is a copy of %1. Open the live version to work on it with everyone, or keep "
-               "working on this copy.")
-                .arg(what),
+            title.isEmpty() ? tr("This file is a copy of a layout. Open the live version to work on it with everyone, "
+                                 "or keep working on this copy.")
+                            : tr("This file is a copy of “%1”. Open the live version to work on it with everyone, or keep "
+                                 "working on this copy.")
+                                  .arg(title),
             { { tr("Open the live version"),
                 // After the click has returned: the connect dialog runs its own loop.
                 [this, source] { QTimer::singleShot(0, this, [this, source] { openSourceLive(source); }); }, true },
@@ -198,9 +201,11 @@ void MainWindow::offerLayoutSource(const import::LayoutSource& source) {
     const QString host = server.port() > 0 ? QStringLiteral("%1:%2").arg(server.host()).arg(server.port()) : server.host();
     notices_->showNotice(
         id, tr("This layout came from %1").arg(host),
-        tr("This file is a copy of %1, from a server that isn't one of yours. Add the server to open the "
-           "live version, or keep working on this copy.")
-            .arg(what),
+        title.isEmpty() ? tr("This file is a copy of a layout, from a server that isn't one of yours. Add the server to "
+                             "open the live version, or keep working on this copy.")
+                        : tr("This file is a copy of “%1”, from a server that isn't one of yours. Add the server to open the "
+                             "live version, or keep working on this copy.")
+                              .arg(title),
         { { tr("Add %1 to your servers").arg(host),
             [this, source] {
                 sync::ServerList list = sync::ServerList::load();

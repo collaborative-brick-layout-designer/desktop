@@ -277,7 +277,7 @@ ConnectDialog::ConnectDialog(ServerApi& api, TokenStore& tokens, std::function<v
                                                                         : bld::ui::DeleteWording{});
     };
     confirmReturn_ = [this](const QString& name, const Credit& credit, bool give) {
-        return bld::ui::ConfirmDialog::ask(this, bld::ui::returnOptions(tr("layout"), name, credit, give));
+        return bld::ui::ConfirmDialog::ask(this, bld::ui::returnOptions(bld::ui::ReturnKind::Layout, name, credit, give));
     };
     confirmSaveToClub_ = [this](const QString& club) {
         return bld::ui::ConfirmDialog::ask(this, bld::ui::saveToClubOptions(club));

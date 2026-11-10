@@ -305,14 +305,56 @@ private:
     QJsonObject sidecar_;
 };
 
-QString verb(Side s) {
+// One whole sentence per case ("%1" is the item), so no language has to build
+// "you … changed it" from translated pieces.
+QString youDid(Side s) {
     switch (s) {
-    case Side::Added: return Text::tr("added it");
-    case Side::Edited: return Text::tr("changed it");
-    case Side::Deleted: return Text::tr("deleted it");
+    case Side::Added: return Text::tr("%1: you added it");
+    case Side::Edited: return Text::tr("%1: you changed it");
+    case Side::Deleted: return Text::tr("%1: you deleted it");
     case Side::Unchanged: break;
     }
-    return Text::tr("left it as it was");
+    return Text::tr("%1: you left it as it was");
+}
+
+QString serverDid(Side s) {
+    switch (s) {
+    case Side::Added: return Text::tr("%1: the server added it");
+    case Side::Edited: return Text::tr("%1: the server changed it");
+    case Side::Deleted: return Text::tr("%1: the server deleted it");
+    case Side::Unchanged: break;
+    }
+    return Text::tr("%1: the server left it as it was");
+}
+
+QString bothDid(Side s) {
+    switch (s) {
+    case Side::Added: return Text::tr("%1: you and the server both added it");
+    case Side::Edited: return Text::tr("%1: you and the server both changed it");
+    case Side::Deleted: return Text::tr("%1: you and the server both deleted it");
+    case Side::Unchanged: break;
+    }
+    return Text::tr("%1: you and the server both left it as it was");
+}
+
+// A clash: each side did something different.
+QString eachDid(Side mine, Side server) {
+    if (mine == Side::Unchanged) return serverDid(server);
+    if (server == Side::Unchanged) return youDid(mine);
+    switch (mine) {
+    case Side::Added:
+        if (server == Side::Added) return Text::tr("%1: you added it, the server added it");
+        if (server == Side::Edited) return Text::tr("%1: you added it, the server changed it");
+        return Text::tr("%1: you added it, the server deleted it");
+    case Side::Edited:
+        if (server == Side::Added) return Text::tr("%1: you changed it, the server added it");
+        if (server == Side::Edited) return Text::tr("%1: you changed it, the server changed it");
+        return Text::tr("%1: you changed it, the server deleted it");
+    default:
+        if (server == Side::Added) return Text::tr("%1: you deleted it, the server added it");
+        if (server == Side::Edited) return Text::tr("%1: you deleted it, the server changed it");
+        return Text::tr("%1: you deleted it, the server deleted it");
+    }
 }
 
 }  // namespace
@@ -430,10 +472,10 @@ QString describe(const ItemChange& c) {
     else if (c.kind == QLatin1String("view")) what = Text::tr("View \"%1\"").arg(v.value(QLatin1String("name")).toString());
     else if (c.kind == QLatin1String("venue")) what = Text::tr("Venue");
     else what = Text::tr("Background image");
-    if (c.status == Status::Same) return Text::tr("%1: you and the server both %2").arg(what, verb(c.mine));
-    if (c.status == Status::Mine) return Text::tr("%1: you %2").arg(what, verb(c.mine));
-    if (c.status == Status::Server) return Text::tr("%1: the server %2").arg(what, verb(c.server));
-    return Text::tr("%1: you %2, the server %3").arg(what, verb(c.mine), verb(c.server));
+    if (c.status == Status::Same) return bothDid(c.mine).arg(what);
+    if (c.status == Status::Mine) return youDid(c.mine).arg(what);
+    if (c.status == Status::Server) return serverDid(c.server).arg(what);
+    return eachDid(c.mine, c.server).arg(what);
 }
 
 }  // namespace bld::sync::merge

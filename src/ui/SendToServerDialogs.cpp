@@ -24,17 +24,34 @@ namespace bld::ui {
 
 // ---------- SaveToServerDialog ------------------------------------------------
 
-SaveToServerDialog::SaveToServerDialog(const QString& what, sync::AddKind kind, const QString& initialName,
+SaveToServerDialog::SaveToServerDialog(sync::AddKind kind, const QString& initialName,
                                        const QString& server, const QList<sync::OrgEntry>& orgs,
                                        const QString& initialOwner, QWidget* parent)
     : QDialog(parent) {
     setObjectName(QStringLiteral("SaveToServerDialog"));
     setWindowTitle(tr("Save to Server"));
     auto* col = new QVBoxLayout(this);
-    auto* intro = libraryMutedLabel(tr("A copy of this %1 goes to %2, where you, your clubs and the web can use it. "
-                                       "The one on this computer stays as it is.")
-                                        .arg(what, server),
-                                    this);
+    // One whole sentence per kind, so no language has to fit a noun into a blank.
+    QString about;
+    switch (kind) {
+    case sync::AddKind::Layout:
+        about = tr("A copy of this layout goes to %1, where you, your clubs and the web can use it. "
+                   "The one on this computer stays as it is.").arg(server);
+        break;
+    case sync::AddKind::Module:
+        about = tr("A copy of this module goes to %1, where you, your clubs and the web can use it. "
+                   "The one on this computer stays as it is.").arg(server);
+        break;
+    case sync::AddKind::Part:
+        about = tr("A copy of this part goes to %1, where you, your clubs and the web can use it. "
+                   "The one on this computer stays as it is.").arg(server);
+        break;
+    case sync::AddKind::Venue:
+        about = tr("A copy of this venue goes to %1, where you, your clubs and the web can use it. "
+                   "The one on this computer stays as it is.").arg(server);
+        break;
+    }
+    auto* intro = libraryMutedLabel(about, this);
     col->addWidget(help::withHelp(intro, QStringLiteral("server.send"), this));
     auto* form = new QFormLayout();
     name_ = new QLineEdit(initialName, this);

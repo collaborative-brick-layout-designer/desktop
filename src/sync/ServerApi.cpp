@@ -69,15 +69,30 @@ QString leftOutNote(const QList<OrgEntry>& orgs, AddKind kind) {
     for (const auto& o : orgs)
         if (!o.canAddKind(kind)) names << o.name;
     if (names.isEmpty()) return {};
-    const QString what = kind == AddKind::Module ? ServerApi::tr("modules")
-                         : kind == AddKind::Part ? ServerApi::tr("parts")
-                         : kind == AddKind::Venue ? ServerApi::tr("venues")
-                                                  : ServerApi::tr("layouts");
-    const QString sentence =
-        names.size() == 1
-            ? ServerApi::tr("%1 isn't listed: your roles there can't add %2.").arg(names.constFirst(), what)
-            : ServerApi::tr("%1 and %2 aren't listed: your roles there can't add %3.")
-                  .arg(QStringList(names.mid(0, names.size() - 1)).join(QStringLiteral(", ")), names.constLast(), what);
+    // One whole sentence per kind: "modules" on its own can't be translated into a sentence.
+    const bool one = names.size() == 1;
+    const QString first = names.constFirst();
+    const QString most = QStringList(names.mid(0, names.size() - 1)).join(QStringLiteral(", "));
+    const QString last = names.constLast();
+    QString sentence;
+    switch (kind) {
+    case AddKind::Module:
+        sentence = one ? ServerApi::tr("%1 isn't listed: your roles there can't add modules.").arg(first)
+                       : ServerApi::tr("%1 and %2 aren't listed: your roles there can't add modules.").arg(most, last);
+        break;
+    case AddKind::Part:
+        sentence = one ? ServerApi::tr("%1 isn't listed: your roles there can't add parts.").arg(first)
+                       : ServerApi::tr("%1 and %2 aren't listed: your roles there can't add parts.").arg(most, last);
+        break;
+    case AddKind::Venue:
+        sentence = one ? ServerApi::tr("%1 isn't listed: your roles there can't add venues.").arg(first)
+                       : ServerApi::tr("%1 and %2 aren't listed: your roles there can't add venues.").arg(most, last);
+        break;
+    case AddKind::Layout:
+        sentence = one ? ServerApi::tr("%1 isn't listed: your roles there can't add layouts.").arg(first)
+                       : ServerApi::tr("%1 and %2 aren't listed: your roles there can't add layouts.").arg(most, last);
+        break;
+    }
     return sentence + QLatin1Char(' ') + askForPermission(addPermissionFor(kind));
 }
 

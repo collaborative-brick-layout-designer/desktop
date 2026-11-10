@@ -135,7 +135,7 @@ SaveModuleDialog::SaveModuleDialog(ServerLibrary& library, const QString& defaul
 }
 
 void SaveModuleDialog::setModuleName(const QString& name) {
-    setWindowTitle(tr("Save “%1” to the Module library").arg(name.isEmpty() ? tr("module") : name));
+    setWindowTitle(name.isEmpty() ? tr("Save to the Module library") : tr("Save “%1” to the Module library").arg(name));
     name_->setText(name);
 }
 
