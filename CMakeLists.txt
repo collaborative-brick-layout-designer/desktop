@@ -14,6 +14,13 @@ endforeach()
 # package. Release CI overrides it from the git tag (-DBLD_VERSION=1.2.3).
 set(BLD_VERSION "2.0.0" CACHE STRING "Version stamped into binaries and packages")
 
+# The oldest macOS the app runs on. Qt's own frameworks set the floor: Qt
+# 6.12's are built for macOS 14.4 (their LC_BUILD_VERSION minos), and dyld
+# refuses an app on an older system before it can say anything. Info.plist's
+# LSMinimumSystemVersion says the same, so Finder explains instead; CI checks
+# no bundled binary needs a newer macOS (scripts/ci/check-macos-minimum.sh).
+set(CMAKE_OSX_DEPLOYMENT_TARGET "14.4" CACHE STRING "Oldest macOS the app runs on (Qt 6.12's minimum)")
+
 project(BrickLayoutDesigner
     VERSION ${BLD_VERSION}
     DESCRIPTION "Cross-platform maintainer fork of BlueBrick"
@@ -181,6 +188,26 @@ if(BLD_HAVE_TS AND TARGET bld_app AND Qt6LinguistTools_FOUND)
     # The Translations test reads bld_en.qm (English's plurals).
     if(TARGET bld_ui_tests AND TARGET release_translations)
         add_dependencies(bld_ui_tests release_translations)
+    endif()
+endif()
+
+# Qt's own words (its dialogs' buttons) in the UI languages. windeployqt
+# writes them as qt_<code>.qm beside ours and Linux packages read them from
+# the bundled Qt, but macdeployqt brings none: copy them into the bundle.
+# Qt has Portuguese as pt_BR/pt_PT, Chinese as zh_CN/zh_TW, and Norwegian as
+# nn (core/QtCatalogs.cpp picks the right one at start).
+if(APPLE)
+    set(_bld_qt_translations "${QT6_INSTALL_PREFIX}/${QT6_INSTALL_TRANSLATIONS}")
+    set(_bld_qt_qm "")
+    foreach(_code fr de nl pt_BR pt_PT es it nb nn sv zh_CN zh_TW ja)
+        if(EXISTS "${_bld_qt_translations}/qtbase_${_code}.qm")
+            list(APPEND _bld_qt_qm "${_bld_qt_translations}/qtbase_${_code}.qm")
+        endif()
+    endforeach()
+    if(_bld_qt_qm)
+        install(FILES ${_bld_qt_qm} DESTINATION "${BLD_INSTALL_DATADIR}/translations")
+    else()
+        message(WARNING "No Qt translations in ${_bld_qt_translations}: the app's Qt dialogs stay in English")
     endif()
 endif()
 

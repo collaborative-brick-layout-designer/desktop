@@ -14,7 +14,8 @@
   runtime + parts library + translations) copied into staging\ by the
   workflow. scripts/harvest-wix.py mirrors it into Harvested.wxs.
 
-  Build with:  wix build -d Version=X.Y.Z brick-layout-designer.wxs Harvested.wxs
+  Build with:  wix build -ext WixToolset.UI.wixext -d Version=X.Y.Z brick-layout-designer.wxs Harvested.wxs
+  (with License.rtf beside it: scripts/text-to-rtf.py LICENSE License.rtf)
   Version must change on every release or MajorUpgrade can't replace
   the previous install.
 
@@ -22,7 +23,8 @@
   docs/SIGNING.md); unsigned installs show an "unknown publisher"
   SmartScreen warning ("More info -> Run anyway" proceeds normally).
 -->
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
   <Package Name="Collaborative Brick Layout Designer"
            Manufacturer="Collaborative Brick Layout Designer contributors"
            Version="$(var.Version)"
@@ -33,6 +35,18 @@
     <SummaryInformation Description="Cross-platform maintainer fork of BlueBrick" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version is already installed." />
+
+    <!-- The usual installer pages: welcome, the license (GPL-3.0, from
+         LICENSE), where to install, and ready to install. -->
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+
+    <!-- Apps & Features: the app's icon, and links to its page, help and updates. -->
+    <Icon Id="AppIcon.ico" SourceFile="..\icons\brick-layout-designer.ico" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon.ico" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/collaborative-brick-layout-designer/desktop" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/collaborative-brick-layout-designer/desktop/issues" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://github.com/collaborative-brick-layout-designer/desktop/releases/latest" />
 
     <!-- Embed the .cab into the MSI so a single file is enough to install. -->
     <MediaTemplate EmbedCab="yes" />

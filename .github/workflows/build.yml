@@ -49,7 +49,9 @@ jobs:
           # universal already.
           - os: macos-15
             name: macos-universal
-            cmake_extra: '"-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64" -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0'
+            # The macOS minimum (CMAKE_OSX_DEPLOYMENT_TARGET) is set in
+            # CMakeLists.txt, from Qt's own.
+            cmake_extra: '"-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"'
 
     name: Build (${{ matrix.name }})
     runs-on: ${{ matrix.os }}
@@ -224,6 +226,10 @@ jobs:
           # No scripts from the upstream parts library in the package.
           if find dist -iname '*.bat' -o -iname '*.cmd' | grep .; then exit 1; fi
           test -f dist/brick-layout-designer/usr/share/brick-layout-designer/help/en/index.html
+          # Nothing for building against (QtKeychain's headers and .a used to come along).
+          scripts/ci/check-package-files.sh dist/brick-layout-designer
+          # Every UI language finds its own catalog and Qt's, in the package.
+          xvfb-run -a ./dist/brick-layout-designer/brick-layout-designer --check-translations
           # And natively under a headless Wayland compositor.
           export XDG_RUNTIME_DIR=$(mktemp -d)
           weston --backend=headless-backend.so --socket=bld-test &
@@ -249,6 +255,11 @@ jobs:
           # src/sync uses it) and the bundle has it.
           test -d "$APP/Contents/Frameworks/QtWebSockets.framework"
           otool -L "$APP/Contents/MacOS/brick-layout-designer" | grep -q QtWebSockets
+          # Info.plist's LSMinimumSystemVersion covers what Qt's frameworks need.
+          scripts/ci/check-macos-minimum.sh "$APP"
+          scripts/ci/check-package-files.sh "$APP"
+          # Every UI language finds its own catalog and Qt's, in the bundle.
+          "$APP/Contents/MacOS/brick-layout-designer" --check-translations
 
       - name: Codesign (macOS)
         # No-op unless the Apple Developer secrets are configured; see
@@ -329,6 +340,12 @@ jobs:
           grep -qi 'Qt6WebSockets.dll' deps.txt || { echo "::error::the app doesn't link Qt WebSockets"; exit 1; }
           test -d dist/brick-layout-designer/parts/BlueBrickParts/parts
           test -f dist/brick-layout-designer/help/en/index.html
+          # Nothing for building against, and no vc_redist.x64.exe: the MSVC
+          # runtime DLLs are beside the app.
+          scripts/ci/check-package-files.sh dist/brick-layout-designer
+          # Every UI language finds its own catalog and Qt's, in the package.
+          PATH="/c/Windows/System32:/c/Windows" ./dist/brick-layout-designer/brick-layout-designer.exe --check-translations > translations.txt || { cat translations.txt; exit 1; }
+          cat translations.txt
 
       - name: Codesign exe (Windows)
         # Signs the binaries before they are zipped / wrapped in the MSI.
@@ -355,12 +372,17 @@ jobs:
         run: |
           (cd dist && 7z a "../$ARTIFACT.zip" brick-layout-designer)
 
-          dotnet tool install --global wix --version 4.* || true
+          # An exact WiX, and its UI extension at the same version (a newer
+          # extension doesn't load in WiX 4). A failed install fails the job.
+          WIX_VERSION=4.0.6
+          dotnet tool install --global wix --version "$WIX_VERSION"
           export PATH="$HOME/.dotnet/tools:$PATH"
           rm -rf packaging/windows/staging
           cp -r dist/brick-layout-designer packaging/windows/staging
           cd packaging/windows
-          wix extension add WixToolset.UI.wixext WixToolset.Util.wixext || true
+          wix extension add "WixToolset.UI.wixext/$WIX_VERSION"
+          # The license page shows LICENSE (GPL-3.0), as RTF.
+          python ../../scripts/text-to-rtf.py ../../LICENSE License.rtf
           # Mirror staging/ (Qt plugins in their subdirs, parts library,
           # translations) into Harvested.wxs.
           python ../../scripts/harvest-wix.py \
@@ -368,9 +390,35 @@ jobs:
             --out Harvested.wxs \
             --exclude-top brick-layout-designer.exe
           wix build brick-layout-designer.wxs Harvested.wxs \
+            -ext WixToolset.UI.wixext \
             -d Version="$BLD_VERSION" \
             -arch x64 \
             -out "../../$ARTIFACT.msi"
+
+      # The MSI asks where to install and shows the license, and Apps &
+      # Features has the icon and links (read from its tables).
+      - name: Check the MSI (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $installer = New-Object -ComObject WindowsInstaller.Installer
+          $db = $installer.GetType().InvokeMember('OpenDatabase', 'InvokeMethod', $null, $installer, @((Resolve-Path "$env:ARTIFACT.msi").Path, 0))
+          function Rows($sql) {
+            $view = $db.GetType().InvokeMember('OpenView', 'InvokeMethod', $null, $db, @($sql))
+            $view.GetType().InvokeMember('Execute', 'InvokeMethod', $null, $view, $null) | Out-Null
+            $rows = @()
+            while ($rec = $view.GetType().InvokeMember('Fetch', 'InvokeMethod', $null, $view, $null)) {
+              $rows += $rec.GetType().InvokeMember('StringData', 'GetProperty', $null, $rec, 1)
+            }
+            $rows
+          }
+          $dialogs = Rows 'SELECT Dialog FROM Dialog'
+          $props = Rows 'SELECT Property FROM Property'
+          $missing = @()
+          foreach ($d in 'WelcomeDlg', 'LicenseAgreementDlg', 'InstallDirDlg', 'VerifyReadyDlg') { if ($dialogs -notcontains $d) { $missing += "dialog $d" } }
+          foreach ($p in 'ARPPRODUCTICON', 'ARPURLINFOABOUT', 'ARPHELPLINK', 'WIXUI_INSTALLDIR') { if ($props -notcontains $p) { $missing += "property $p" } }
+          if ($missing.Count -gt 0) { Write-Error "The MSI is missing: $($missing -join ', ')"; exit 1 }
+          Write-Host "Dialogs: $($dialogs -join ', ')"
 
       - name: Codesign MSI (Windows)
         if: runner.os == 'Windows' && env.HAS_WINDOWS_PFX == 'true'

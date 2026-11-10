@@ -163,11 +163,13 @@ Download a release from
 | Platform | Files |
 |---|---|
 | Windows x64 | `.msi` installer (opens `.bld-layout` and `.bbm` files) or a portable `.zip` |
-| macOS (Apple Silicon and Intel) | `.dmg` or `.zip` with the app bundle |
+| macOS 14.4 or newer (Apple Silicon and Intel) | `.dmg` or `.zip` with the app bundle |
 | Linux x86_64 | AppImage or `.tar.gz` (glibc 2.35 or newer) |
 
 Every package carries its runtime (Qt, and the MSVC runtime on Windows), the
-BlueBrickParts library and the translations. Releases are not code-signed,
+BlueBrickParts library and the translations. macOS 14.4 is the oldest the
+Qt 6.12 inside the app runs on; an older Mac is told so when the app is
+opened. Releases are not code-signed,
 so Windows SmartScreen and macOS Gatekeeper ask once before the first start
 (on macOS: right-click the app, then Open).
 

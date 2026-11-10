@@ -42,10 +42,18 @@ install(TARGETS bld_app
 if(BLD_DEPLOY_QT)
     # Runs windeployqt / macdeployqt / Qt's Linux deployer against the
     # installed binary so the install tree runs without a Qt install.
+    # On Windows the MSVC runtime DLLs go beside the app below
+    # (InstallRequiredSystemLibraries); without --no-compiler-runtime,
+    # windeployqt also added the 25 MB vc_redist.x64.exe, which nothing ran.
+    set(_bld_deploy_options "")
+    if(WIN32)
+        set(_bld_deploy_options DEPLOY_TOOL_OPTIONS --no-compiler-runtime)
+    endif()
     qt_generate_deploy_app_script(
         TARGET bld_app
         OUTPUT_SCRIPT _bld_deploy_script
-        NO_UNSUPPORTED_PLATFORM_ERROR)
+        NO_UNSUPPORTED_PLATFORM_ERROR
+        ${_bld_deploy_options})
     if(WIN32)
         # Qt's DLLs beside the .exe (the deploy script defaults to bin/,
         # where Windows doesn't look for them).
