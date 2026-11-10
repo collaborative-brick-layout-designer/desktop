@@ -1688,9 +1688,11 @@ void MapView::keyPressEvent(QKeyEvent* e) {
         return;
     }
     if (e->key() == Qt::Key_R) {
-        // By the toolbar's turn step (90° unless changed), as the web does.
+        // By the toolbar's turn step (90° unless changed), as the web does:
+        // R turns left, Shift+R right, as Edit > Transform's items do (in
+        // the window those catch the key first).
         const auto step = static_cast<float>(rotationStepDegrees());
-        rotateSelected(e->modifiers().testFlag(Qt::ShiftModifier) ? -step : step);
+        rotateSelected(e->modifiers().testFlag(Qt::ShiftModifier) ? step : -step);
         e->accept();
         return;
     }

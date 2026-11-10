@@ -196,7 +196,7 @@ ImportPreviewDialog::ImportPreviewDialog(PreparedPart part, const QStringList& c
     alignBox_->addItem(tr("Bottom plates"), static_cast<int>(ImportAlign::BottomLayer));
     alignBox_->addItem(tr("Bounding box"), static_cast<int>(ImportAlign::BoundingBox));
     alignBox_->setToolTip(tr("Which studs go on the grid: Automatic puts the flat bottom plates on it, "
-                             "else centres the model. Arrow keys in the picture move it by the step you pick."));
+                             "else centers the model. Arrow keys in the picture move it by the step you pick."));
     align->addWidget(alignBox_);
     auto* nudgeLabel = new QLabel(tr("Move by"), left);
     nudgeLabel->setToolTip(tr("Shift the model against the stud grid by this much per click. "

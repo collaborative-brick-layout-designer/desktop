@@ -13,7 +13,11 @@
 #include <utility>
 
 #include <QApplication>
+#include <QCheckBox>
+#include <QImage>
 #include <QJsonArray>
+#include <QRadioButton>
+#include <QStyleOptionButton>
 #include <QSettings>
 #include <QStyle>
 
@@ -241,6 +245,51 @@ TEST(Tokens, TextIsReadableInLightAndDarkWithEveryAccent) {
             check("accent text on panel", a.text(m), n.panel);
             check("accent text on bg", a.text(m), n.bg);
             check("accent text on its soft color (pills, checked tools)", a.text(m), a.soft(m));
+        }
+    }
+}
+
+// In the light theme an unticked checkbox or radio button had no box at all
+// (Fusion draws it in Window and Base, both the panel color here): every
+// box now has an edge at least 3:1 against the panel, ticked or not, in
+// both themes.
+TEST_F(Theme, CheckboxAndRadioBoxesShowInLightAndDark) {
+    PrefsStore store(QString::fromLatin1(kGroup));
+    ThemeManager manager(store);
+    const auto lum = [](const QColor& c) {
+        const auto ch = [](double v) { return v <= 0.03928 ? v / 12.92 : std::pow((v + 0.055) / 1.055, 2.4); };
+        return 0.2126 * ch(c.redF()) + 0.7152 * ch(c.greenF()) + 0.0722 * ch(c.blueF());
+    };
+    for (const ThemeChoice mode : { ThemeChoice::Light, ThemeChoice::Dark }) {
+        AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        const QColor panel = QApplication::palette().color(QPalette::Window);
+        for (const bool checked : { false, true }) {
+            QCheckBox box(QStringLiteral("Bigger text and buttons"));
+            QRadioButton radio(QStringLiteral("Gentle"));
+            for (QAbstractButton* b : { static_cast<QAbstractButton*>(&box), static_cast<QAbstractButton*>(&radio) }) {
+                b->setChecked(checked);
+                b->resize(b->sizeHint());
+                const QImage shot = b->grab().toImage();
+                QStyleOptionButton opt;
+                opt.initFrom(b);
+                const QRect ind = b->style()->subElementRect(
+                    qobject_cast<QCheckBox*>(b) ? QStyle::SE_CheckBoxIndicator : QStyle::SE_RadioButtonIndicator, &opt, b);
+                ASSERT_FALSE(ind.isEmpty());
+                // The best-contrast pixel of the box's left edge column.
+                double best = 1;
+                const double lp = lum(panel);
+                const qreal dpr = shot.devicePixelRatio();
+                for (int y = ind.top(); y <= ind.bottom(); ++y)
+                    for (int x = ind.left(); x <= ind.left() + 2; ++x) {
+                        const QColor c = shot.pixelColor(QPoint(x, y) * dpr);
+                        const double l = lum(c);
+                        best = std::max(best, (std::max(l, lp) + 0.05) / (std::min(l, lp) + 0.05));
+                    }
+                EXPECT_GE(best, 3.0) << (mode == ThemeChoice::Light ? "light " : "dark ")
+                                     << (checked ? "ticked " : "unticked ") << b->metaObject()->className();
+            }
         }
     }
 }

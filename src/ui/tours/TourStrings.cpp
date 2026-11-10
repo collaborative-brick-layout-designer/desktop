@@ -43,7 +43,7 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("Tours", "Draw your venue"),
     QT_TRANSLATE_NOOP("Tours", "Draw the walls first, then add doors, openings and things in the way, like pillars."),
     QT_TRANSLATE_NOOP("Tours", "Real sizes"),
-    QT_TRANSLATE_NOOP("Tours", "Type sizes in feet and inches or metres. The app works out the studs for you."),
+    QT_TRANSLATE_NOOP("Tours", "Type sizes in feet and inches or meters. The app works out the studs for you."),
     QT_TRANSLATE_NOOP("Tours", "Straight walls"),
     QT_TRANSLATE_NOOP("Tours", "Snap keeps walls straight and corners square while you draw."),
     QT_TRANSLATE_NOOP("Tours", "Trace a floor plan"),

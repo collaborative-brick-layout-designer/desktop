@@ -281,7 +281,7 @@ bool editRulerDialog(QWidget* parent, core::Map& map, int layerIndex,
                 form->addRow(QObject::tr("Endpoint 2:"), btn2);
             } else {
                 auto* btn = new QPushButton(any.circular.attachedBrickId.isEmpty()
-                    ? QObject::tr("Not attached") : QObject::tr("Detach centre"), &dlg);
+                    ? QObject::tr("Not attached") : QObject::tr("Detach center"), &dlg);
                 btn->setEnabled(!any.circular.attachedBrickId.isEmpty());
                 QObject::connect(btn, &QPushButton::clicked, &dlg, [&map, layerIndex, rulerGuid, &undoStack, &dlg]{
                     undoStack.push(new edit::AttachRulerCommand(map, layerIndex, rulerGuid, 0, QString()));

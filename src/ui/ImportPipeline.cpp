@@ -102,7 +102,7 @@ PreparedPart fromLDrawGeometry(PreparedPart out, const import::LDrawReadResult& 
             if (cancel.requested() || baked.mesh.tris.empty()) return;
             rast = import::rasterizeMeshTopDown(baked.mesh, geometryRasterOptions(settings.pxPerStud));
         });
-    if (!finished) { out.cancelled = true; out.error = Text::tr("Import cancelled."); return out; }
+    if (!finished) { out.cancelled = true; out.error = Text::tr("Import canceled."); return out; }
     out.warnings = friendlyImportWarnings(read.warnings + baked.errors, false);
     out.stats.ldrawResolved = baked.resolvedRefs;
     out.stats.unresolved    = baked.unresolvedRefs;
@@ -203,7 +203,7 @@ PreparedPart fromLDDGeometry(PreparedPart out, const import::LDrawReadResult& re
             if (cancel.requested() || baked.mesh.tris.empty()) return;
             rast = import::rasterizeMeshTopDown(baked.mesh, geometryRasterOptions(settings.pxPerStud));
         });
-    if (!finished) { out.cancelled = true; out.error = Text::tr("Import cancelled."); return out; }
+    if (!finished) { out.cancelled = true; out.error = Text::tr("Import canceled."); return out; }
     out.warnings = friendlyImportWarnings(baked.errors, true);
     out.stats.lddRendered = baked.rendered;
     out.stats.unresolved  = baked.skipped;

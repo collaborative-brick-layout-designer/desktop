@@ -129,7 +129,7 @@
     "dialog.measure": {
       "title": "Measure",
       "short": "A ruler on the map that shows a real distance.",
-      "more": "Rulers stay on the map until you delete them, so others can see them too. Change its color, or show the length in studs, metres or feet."
+      "more": "Rulers stay on the map until you delete them, so others can see them too. Change its color, or show the length in studs, meters or feet."
     },
     "dialog.exportImage": {
       "title": "Export or print",
@@ -302,7 +302,7 @@
     },
     "room.units": {
       "title": "Units",
-      "short": "Show lengths in feet and inches, metres or studs.",
+      "short": "Show lengths in feet and inches, meters or studs.",
       "more": "Change it any time: the venue stays the same size. A stud is 8 mm, the width of one LEGO bump."
     },
     "room.snap": {

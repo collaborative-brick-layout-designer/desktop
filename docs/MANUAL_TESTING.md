@@ -388,7 +388,7 @@ custom install location, or stash the BlueBrick.1.9.2 folder under
 - [ ] Ctrl+Shift+A — deselect all
 - [ ] Ctrl+G / Ctrl+Shift+G — group / ungroup
 - [ ] Ctrl+F — Find & Replace
-- [ ] Ctrl+P — Select Path (extends selection along connected bricks)
+- [ ] Ctrl+Shift+P — Select Connected (extends selection along connected bricks)
 - [ ] Ctrl+T — Add Text
 - [ ] Ctrl+L — Add Anchored Label
 - [ ] Ctrl+, — Preferences

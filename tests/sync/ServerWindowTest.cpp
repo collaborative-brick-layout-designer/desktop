@@ -1025,7 +1025,7 @@ protected:
 TEST_F(ServerWindowMain, FileOpenFromServerReplacesConnectAndDownloadVenuesAndTheToolbarOpensItToo) {
     QAction* act = window_->findChild<QAction*>(QStringLiteral("file.openFromServer"));
     ASSERT_TRUE(act);
-    EXPECT_EQ(act->text(), QStringLiteral("Open from &Server…"));
+    EXPECT_EQ(act->text(), QStringLiteral("Open &from Server…"));
     EXPECT_EQ(act->shortcut(), QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_O));
     QStringList file;
     for (QAction* a : window_->menuBar()->actions().first()->menu()->actions()) file << a->text();
@@ -1106,7 +1106,7 @@ TEST_F(ServerWindowMain, FileSaveToServerReplacesPublishAndUploadMyParts) {
     EXPECT_FALSE(file.contains(QStringLiteral("&Publish to Server…")));
     EXPECT_FALSE(file.contains(QStringLiteral("&Upload My Parts to Server…")));
     // Right after Open from Server.
-    EXPECT_EQ(file.indexOf(QStringLiteral("Save &to Server…")), file.indexOf(QStringLiteral("Open from &Server…")) + 1);
+    EXPECT_EQ(file.indexOf(QStringLiteral("Save &to Server…")), file.indexOf(QStringLiteral("Open &from Server…")) + 1);
 }
 
 TEST_F(ServerWindowMain, AVenueGoesToTheServerFromTheVenueLibraryAsYoursOrAClubs) {

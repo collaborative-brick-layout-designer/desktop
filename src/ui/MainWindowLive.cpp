@@ -68,13 +68,13 @@ void MainWindow::setupLiveMenu(QMenu* file) {
     statusBar()->addPermanentWidget(liveStatus_);
 
     file->addSeparator();
-    auto* serversAct = file->addAction(tr("Ser&vers…"));
+    auto* serversAct = file->addAction(tr("S&ervers…"));
     serversAct->setObjectName(QStringLiteral("manageServers"));
     serversAct->setToolTip(tr("Your servers: add one, sign in, or pick your Main one"));
     connect(serversAct, &QAction::triggered, this, &MainWindow::onManageServers);
     // Everything on the server in one window (it replaced Connect to Server…
     // and Download Venues from Server…).
-    auto* openFromServer = file->addAction(tr("Open from &Server…"));
+    auto* openFromServer = file->addAction(tr("Open &from Server…"));
     openFromServer->setObjectName(QStringLiteral("file.openFromServer"));
     openFromServer->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_O));
     openFromServer->setToolTip(tr("Your layouts, venues, modules and parts on the server, and your clubs'"));
@@ -84,10 +84,10 @@ void MainWindow::setupLiveMenu(QMenu* file) {
     saveToServer->setObjectName(QStringLiteral("file.saveToServer"));
     saveToServer->setToolTip(tr("Put this layout on a server, yours or a club's, and keep editing it live"));
     connect(saveToServer, &QAction::triggered, this, &MainWindow::onPublishToServer);
-    disconnectAct_ = file->addAction(tr("&Disconnect"));
+    disconnectAct_ = file->addAction(tr("Dis&connect"));
     disconnectAct_->setEnabled(false);
     connect(disconnectAct_, &QAction::triggered, this, &MainWindow::onDisconnect);
-    downloadPartsAct_ = file->addAction(tr("&Download Server Parts Again"));
+    downloadPartsAct_ = file->addAction(tr("Do&wnload Server Parts Again"));
     downloadPartsAct_->setToolTip(tr("Fetch the live layout's server parts that are missing or changed"));
     downloadPartsAct_->setEnabled(false);
     connect(downloadPartsAct_, &QAction::triggered, this, [this] { syncServerParts(liveServer_, liveToken_); });
@@ -110,7 +110,7 @@ void MainWindow::setupLiveMenu(QMenu* file) {
     partsDownloadCard_ = new LoadingCard(mapView_, LoadingCard::Place::Bottom);
     partsDownloadCard_->setObjectName(QStringLiteral("partsDownloadCard"));
     connect(partsDownloadCard_, &QObject::destroyed, this, [this] { partsDownloadCard_ = nullptr; });
-    reviewOfflineAct_ = file->addAction(tr("Review &Offline Changes…"));
+    reviewOfflineAct_ = file->addAction(tr("Review Off&line Changes…"));
     reviewOfflineAct_->setToolTip(tr("Compare what you changed offline with the server's layout"));
     reviewOfflineAct_->setEnabled(false);
     connect(reviewOfflineAct_, &QAction::triggered, this, &MainWindow::onReviewOfflineEdits);
@@ -441,6 +441,24 @@ void MainWindow::startPrefsSync(const sync::ConnectResult& r) {
     });
 }
 
+void MainWindow::watchTokenSaves() {
+    if (!tokens_) return;
+    tokens_->onSaveFailed([this, alive = std::weak_ptr<int>(alive_)](const QUrl& server, const QString& reason) {
+        if (alive.expired() || !notices_) return;
+        const sync::ServerList servers = sync::ServerList::load();
+        const sync::ServerEntry* e = servers.find(server);
+        const QString name = e ? e->label() : server.host();
+        notices_->showNotice(
+            QStringLiteral("keychain"), tr("Your sign-in wasn't saved"),
+            tr("This computer's keychain couldn't keep your sign-in to %1, so you'll be asked to sign in "
+               "again the next time the app starts. On Linux, a keyring such as GNOME Keyring or KWallet "
+               "has to be running and unlocked.")
+                    .arg(name)
+                + QStringLiteral("\n\n") + tr("The keychain said: %1").arg(reason),
+            { { tr("OK"), {}, true } });
+    });
+}
+
 QString MainWindow::liveServerName() const {
     const sync::ServerList servers = sync::ServerList::load();
     const sync::ServerEntry* e = servers.find(liveServer_);
@@ -655,6 +673,7 @@ void MainWindow::updateLiveUi() {
     if (partsBrowser_) partsBrowser_->setLiveServerFolder(on ? sync::ServerList::folderName(liveServer_) : QString());
     liveStatus_->setVisible(on);
     liveStatus_->setText(on ? tr("Live on %1: %2").arg(liveServerName(), live_->statusText()) : QString());
+    updateServerStatus();
     disconnectAct_->setEnabled(on);
     downloadPartsAct_->setEnabled(on && !partsSyncRunning_);
     if (!on) partsSyncFailed_->setVisible(false);

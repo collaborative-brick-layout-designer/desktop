@@ -4,13 +4,46 @@
 
 #include <QApplication>
 #include <QFontDatabase>
+#include <QPainter>
+#include <QProxyStyle>
 #include <QStyle>
+#include <QStyleOption>
 #include <QStyleFactory>
 #include <QStyleHints>
 
 static void initThemeResources() { Q_INIT_RESOURCE(theme); }
 
 namespace bld::ui::theme {
+
+namespace {
+
+// Fusion draws the box of a checkbox or radio button in colors made from
+// Window and Base, which are both the panel color here: in the light theme
+// an unticked box didn't show at all, and a ticked one was a bare tick.
+// This outlines both in the muted text color (at least 3:1 on the panel,
+// as WCAG asks of a control's edge).
+class IndicatorStyle : public QProxyStyle {
+public:
+    using QProxyStyle::QProxyStyle;
+    void drawPrimitive(PrimitiveElement pe, const QStyleOption* opt, QPainter* p,
+                       const QWidget* w) const override {
+        QProxyStyle::drawPrimitive(pe, opt, p, w);
+        if (pe != PE_IndicatorCheckBox && pe != PE_IndicatorRadioButton) return;
+        const bool enabled = opt->state.testFlag(State_Enabled);
+        const QColor edge = opt->palette.color(enabled ? QPalette::Active : QPalette::Disabled,
+                                               enabled ? QPalette::PlaceholderText : QPalette::Mid);
+        p->save();
+        p->setRenderHint(QPainter::Antialiasing);
+        p->setBrush(Qt::NoBrush);
+        p->setPen(QPen(edge, 1.2));
+        const QRectF r = QRectF(opt->rect).adjusted(0.6, 0.6, -0.6, -0.6);
+        if (pe == PE_IndicatorRadioButton) p->drawEllipse(r);
+        else p->drawRoundedRect(r, 2.5, 2.5);
+        p->restore();
+    }
+};
+
+}  // namespace
 
 bool loadFonts() {
     static const bool ok = [] {
@@ -205,7 +238,7 @@ void ThemeManager::apply() {
     // Once: setting a style again re-polishes every widget.
     static bool fusion = false;
     if (!fusion) {
-        QApplication::setStyle(QStyleFactory::create(QStringLiteral("Fusion")));
+        QApplication::setStyle(new IndicatorStyle(QStyleFactory::create(QStringLiteral("Fusion"))));
         fusion = true;
     }
     QFont f = baseFont_;

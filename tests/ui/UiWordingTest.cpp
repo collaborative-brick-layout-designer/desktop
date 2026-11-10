@@ -158,3 +158,44 @@ TEST(UiWordingTest, SaysColorNotColour) {
     }
     EXPECT_TRUE(found.isEmpty()) << found.join(QStringLiteral(", ")).toStdString();
 }
+
+// US spelling in what people read (Aaron, 2026-10-08): "center", "canceled",
+// "meters" and the rest, in every string marked for translation and in the
+// help and tour words shared with the web.
+TEST(UiWordingTest, SaysUsSpelling) {
+    static const QRegularExpression british(
+        QStringLiteral(R"(\b(centr(e|es|ed)|cancell(ed|ing)|metres?|catalogue|favourite|organis\w*|behaviour|grey|licence)\b)"),
+        QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression marked(QStringLiteral(R"(\b(tr|QT_TR_NOOP|QT_TRANSLATE_NOOP)\()"));
+    static const QRegularExpression literal(QStringLiteral(R"re("((?:[^"\\]|\\.)*)")re"));
+    QStringList found;
+    QDirIterator it(QStringLiteral(BLD_SOURCE_DIR "/src"), { QStringLiteral("*.cpp"), QStringLiteral("*.h") },
+                    QDir::Files, QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        const QString path = it.next();
+        QFile f(path);
+        if (!f.open(QIODevice::ReadOnly)) continue;
+        const QStringList lines = QString::fromUtf8(f.readAll()).split(QLatin1Char('\n'));
+        for (int n = 0; n < lines.size(); ++n) {
+            // A marked string, or the next part of one split over lines.
+            const bool continues = n > 0 && marked.match(lines[n - 1]).hasMatch()
+                                   && lines[n].trimmed().startsWith(QLatin1Char('"'));
+            if (!marked.match(lines[n]).hasMatch() && !continues) continue;
+            for (auto m = literal.globalMatch(lines[n]); m.hasNext();) {
+                const QString text = m.next().captured(1);
+                if (british.match(text).hasMatch())
+                    found << QStringLiteral("%1:%2 \"%3\"")
+                                 .arg(path.mid(QStringLiteral(BLD_SOURCE_DIR).size() + 1))
+                                 .arg(n + 1)
+                                 .arg(text);
+            }
+        }
+    }
+    for (const char* shared : { "/src/ui/help/help-texts.json", "/src/ui/tours/tours.json" }) {
+        QFile f(QStringLiteral(BLD_SOURCE_DIR) + QLatin1String(shared));
+        ASSERT_TRUE(f.open(QIODevice::ReadOnly)) << shared;
+        const QString text = QString::fromUtf8(f.readAll());
+        for (auto m = british.globalMatch(text); m.hasNext();) found << QLatin1String(shared) + QStringLiteral(": ") + m.next().captured(0);
+    }
+    EXPECT_TRUE(found.isEmpty()) << found.join(QLatin1Char('\n')).toStdString();
+}

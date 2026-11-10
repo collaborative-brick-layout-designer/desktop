@@ -32,7 +32,8 @@ void collect(const QMenu* menu, QList<Shortcut>& out) {
             collect(a->menu(), out);
             continue;
         }
-        if (a->isSeparator() || a->shortcut().isEmpty()) continue;
+        // Not hidden ones: the live layout's Undo / Redo wait hidden beside the usual two.
+        if (a->isSeparator() || !a->isVisible() || a->shortcut().isEmpty()) continue;
         QStringList keys;
         for (const QKeySequence& k : a->shortcuts()) keys << k.toString(QKeySequence::NativeText);
         out.append({ keys.join(QStringLiteral(" / ")), plain(a->text()) });

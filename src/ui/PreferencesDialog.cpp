@@ -164,28 +164,35 @@ QWidget* buildEditionTab(QDialog* parent) {
             rotCombo->setCurrentIndex(i);
     form->addRow(QObject::tr("Default turn step:"), help::withHelp(rotCombo, QStringLiteral("toolbar.rotateStep"), w));
 
-    QColor paintColor(s.value(QStringLiteral("paintColor"), QColor(0, 128, 0).name()).toString());
+    // The color lives on the button: the lambdas below run long after this
+    // function has returned, so they can't hold a reference to a local.
     auto* colorBtn = new QPushButton(w);
-    auto refreshColor = [colorBtn, &paintColor]{
-        QPixmap pm(24, 16); pm.fill(paintColor);
+    colorBtn->setObjectName(QStringLiteral("paintColorButton"));
+    colorBtn->setProperty("paintColor",
+        QColor(s.value(QStringLiteral("paintColor"), QColor(0, 128, 0).name()).toString()));
+    auto refreshColor = [colorBtn]{
+        const QColor c = colorBtn->property("paintColor").value<QColor>();
+        QPixmap pm(24, 16); pm.fill(c);
         colorBtn->setIcon(QIcon(pm));
-        colorBtn->setText(paintColor.name(QColor::HexArgb));
+        colorBtn->setText(c.name(QColor::HexArgb));
     };
     refreshColor();
-    QObject::connect(colorBtn, &QPushButton::clicked, colorBtn, [&paintColor, refreshColor, w]{
-        QColor c = QColorDialog::getColor(paintColor, w, QObject::tr("Default paint color"),
+    QObject::connect(colorBtn, &QPushButton::clicked, colorBtn, [colorBtn, refreshColor, w]{
+        QColor c = QColorDialog::getColor(colorBtn->property("paintColor").value<QColor>(), w,
+                                          QObject::tr("Default paint color"),
                                           QColorDialog::ShowAlphaChannel);
-        if (c.isValid()) { paintColor = c; refreshColor(); }
+        if (c.isValid()) { colorBtn->setProperty("paintColor", c); refreshColor(); }
     });
     form->addRow(QObject::tr("Default paint color:"), help::withHelp(colorBtn, QStringLiteral("toolbar.paintColor"), w));
 
     s.endGroup();
 
-    QObject::connect(parent, &QDialog::accepted, w, [snapCombo, rotCombo, &paintColor]{
+    QObject::connect(parent, &QDialog::accepted, w, [snapCombo, rotCombo, colorBtn]{
         QSettings s; s.beginGroup(QStringLiteral("editing"));
         s.setValue(QStringLiteral("snapStepStuds"), snapCombo->currentData().toDouble());
         s.setValue(QStringLiteral("rotationStepDegrees"), rotCombo->currentData().toDouble());
-        s.setValue(QStringLiteral("paintColor"), paintColor.name(QColor::HexArgb));
+        s.setValue(QStringLiteral("paintColor"),
+                    colorBtn->property("paintColor").value<QColor>().name(QColor::HexArgb));
         s.endGroup();
     });
     return w;
@@ -482,8 +489,8 @@ QWidget* buildImportTab(QDialog* parent) {
         dlg.setValue(entries.size());
         if (cancelled) {
             dlg.close();
-            QMessageBox::information(w, QObject::tr("Download cancelled"),
-                QObject::tr("Extraction cancelled — partial files may remain at %1")
+            QMessageBox::information(w, QObject::tr("Download canceled"),
+                QObject::tr("Extraction canceled — partial files may remain at %1")
                     .arg(destRoot));
             return;
         }

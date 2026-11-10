@@ -114,7 +114,7 @@ void MainWindow::setupBudgetMenu() {
     onlyAct->setCheckable(true);
     onlyAct->setToolTip(tr("Hide parts without a budget from the Parts panel"));
     connect(onlyAct, &QAction::toggled, this, [this](bool on){ budget_->setShowOnlyBudgetedParts(on); });
-    auto* numbersAct = menu->addAction(tr("Show Budget &Numbers"));
+    auto* numbersAct = menu->addAction(tr("Show Budget N&umbers"));
     numbersAct->setCheckable(true);
     numbersAct->setToolTip(tr("Show how many of each part are used and allowed in the Parts panel"));
     connect(numbersAct, &QAction::toggled, this, [this](bool on){ budget_->setShowBudgetNumbers(on); });

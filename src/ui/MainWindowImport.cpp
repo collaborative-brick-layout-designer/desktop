@@ -199,7 +199,7 @@ void MainWindow::importModelFile(const QString& path) {
     // A name that's taken is asked about after the preview (replace or keep both).
     ImportPreviewDialog dlg(std::move(part), importCategories(root), lastCategory, this);
     if (dlg.exec() != QDialog::Accepted) {
-        statusBar()->showMessage(tr("Import cancelled."), 3000);
+        statusBar()->showMessage(tr("Import canceled."), 3000);
         return;
     }
     QSettings().setValue(kLastCategoryKey, dlg.category());
@@ -210,7 +210,7 @@ void MainWindow::importModelFile(const QString& path) {
     if (const QString clash = importClashWith(name); !clash.isEmpty()) {
         const auto choice = askImportClash(name, clash, 0, nullptr);
         if (!choice) {
-            statusBar()->showMessage(tr("Import cancelled."), 3000);
+            statusBar()->showMessage(tr("Import canceled."), 3000);
             return;
         }
         if (!choice->isEmpty()) {
@@ -595,7 +595,7 @@ void MainWindow::onBatchImport() {
     QStringList details;
     if (!done.isEmpty())   details << tr("Imported:") << done;
     if (!failed.isEmpty()) details << QString() << tr("Failed:") << failed;
-    if (skipped > 0)       details << QString() << tr("%n file(s) skipped (cancelled).", nullptr, skipped);
+    if (skipped > 0)       details << QString() << tr("%n file(s) skipped (canceled).", nullptr, skipped);
     box.setDetailedText(details.join(QLatin1Char('\n')));
     box.exec();
     offerToUpdateServerParts(replaced);
