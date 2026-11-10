@@ -11074,7 +11074,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Snap to corners, walls, 45° and whole inches (hold Shift for any angle)</source>
-        <translation type="unfinished"></translation>
+        <translation>An Ecken, Wände, 45° und ganze Zoll einrasten (Umschalt halten für jeden Winkel)</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -11086,15 +11086,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Floor plan…</source>
-        <translation type="unfinished"></translation>
+        <translation>Grundriss…</translation>
     </message>
     <message>
         <source>Save to Server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf dem Server speichern…</translation>
     </message>
     <message>
         <source>Put a copy of this venue on your server, yours or a club&apos;s</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie dieses Veranstaltungsorts auf deinen Server stellen, deinen oder den eines Clubs</translation>
     </message>
     <message>
         <source>Close</source>
@@ -11110,11 +11110,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Obstacles</source>
-        <translation type="unfinished"></translation>
+        <translation>Hindernisse</translation>
     </message>
     <message>
         <source>Measurements</source>
-        <translation type="unfinished"></translation>
+        <translation>Maße</translation>
     </message>
     <message>
         <source>Notes</source>
@@ -11138,23 +11138,23 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Show the whole venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Den ganzen Veranstaltungsort zeigen</translation>
     </message>
     <message>
         <source>Save venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort speichern</translation>
     </message>
     <message>
         <source>Save your changes to the venue before closing?</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Änderungen am Veranstaltungsort vor dem Schließen speichern?</translation>
     </message>
     <message>
         <source>Floor plan image</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild des Grundrisses</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg *.gif *.bmp *.webp)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder (*.png *.jpg *.jpeg *.gif *.bmp *.webp)</translation>
     </message>
     <message>
         <source>Could not read %1: %2</source>
@@ -11166,38 +11166,38 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>unsaved</source>
-        <translation type="unfinished"></translation>
+        <translation>nicht gespeichert</translation>
     </message>
     <message numerus="yes">
         <source>%n estimate(s) left to measure</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n Schätzung noch zu messen</numerusform>
+            <numerusform>%n Schätzungen noch zu messen</numerusform>
         </translation>
     </message>
     <message>
         <source>Venue %1 × %2 · %3 sq ft</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort %1 × %2 · %3 sq ft</translation>
     </message>
     <message>
         <source>Typing %1 — Enter to apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Tippe %1 – Enter zum Übernehmen</translation>
     </message>
     <message>
         <source>Click two points on the floor plan whose real distance you know</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwei Punkte auf dem Grundriss anklicken, deren echte Entfernung du kennst</translation>
     </message>
     <message>
         <source>Enter the real distance between the two points in the inspector</source>
-        <translation type="unfinished"></translation>
+        <translation>Die echte Entfernung zwischen den zwei Punkten im Inspektor eingeben</translation>
     </message>
     <message>
         <source>Drag to move the floor plan</source>
-        <translation type="unfinished"></translation>
+        <translation>Ziehen, um den Grundriss zu verschieben</translation>
     </message>
     <message>
         <source>Estimated, not measured yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Geschätzt, noch nicht gemessen</translation>
     </message>
     <message>
         <source>Name</source>
@@ -11205,23 +11205,23 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Minimum walkway</source>
-        <translation type="unfinished"></translation>
+        <translation>Schmalster Gang</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe</translation>
     </message>
     <message>
         <source>Walls, doors, openings</source>
-        <translation type="unfinished"></translation>
+        <translation>Wände, Türen, Öffnungen</translation>
     </message>
     <message>
         <source>Power points</source>
-        <translation type="unfinished"></translation>
+        <translation>Steckdosen</translation>
     </message>
     <message>
         <source>Still estimated</source>
-        <translation type="unfinished"></translation>
+        <translation>Noch geschätzt</translation>
     </message>
     <message>
         <source>Label</source>
@@ -11233,11 +11233,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Length</source>
-        <translation type="unfinished"></translation>
+        <translation>Länge</translation>
     </message>
     <message>
         <source>Obstacle</source>
-        <translation type="unfinished"></translation>
+        <translation>Hindernis</translation>
     </message>
     <message>
         <source>Other</source>
@@ -11245,87 +11245,87 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Breite</translation>
     </message>
     <message>
         <source>Depth</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiefe</translation>
     </message>
     <message>
         <source>From the left (x)</source>
-        <translation type="unfinished"></translation>
+        <translation>Von links (x)</translation>
     </message>
     <message>
         <source>From the top (y)</source>
-        <translation type="unfinished"></translation>
+        <translation>Von oben (y)</translation>
     </message>
     <message>
         <source>North</source>
-        <translation type="unfinished"></translation>
+        <translation>Norden</translation>
     </message>
     <message>
         <source>East</source>
-        <translation type="unfinished"></translation>
+        <translation>Osten</translation>
     </message>
     <message>
         <source>South</source>
-        <translation type="unfinished"></translation>
+        <translation>Süden</translation>
     </message>
     <message>
         <source>West</source>
-        <translation type="unfinished"></translation>
+        <translation>Westen</translation>
     </message>
     <message>
         <source>Way up</source>
-        <translation type="unfinished"></translation>
+        <translation>Richtung nach oben</translation>
     </message>
     <message>
         <source>Power point</source>
-        <translation type="unfinished"></translation>
+        <translation>Steckdose</translation>
     </message>
     <message>
         <source>Wall outlet</source>
-        <translation type="unfinished"></translation>
+        <translation>Wandsteckdose</translation>
     </message>
     <message>
         <source>Floor outlet</source>
-        <translation type="unfinished"></translation>
+        <translation>Bodensteckdose</translation>
     </message>
     <message>
         <source>Where</source>
-        <translation type="unfinished"></translation>
+        <translation>Wo</translation>
     </message>
     <message>
         <source>Amps</source>
-        <translation type="unfinished"></translation>
+        <translation>Ampere</translation>
     </message>
     <message>
         <source>Volts</source>
-        <translation type="unfinished"></translation>
+        <translation>Volt</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Text</translation>
     </message>
     <message>
         <source>Measurement</source>
-        <translation type="unfinished"></translation>
+        <translation>Maß</translation>
     </message>
     <message>
         <source>Use %1 as the label</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 als Beschriftung verwenden</translation>
     </message>
     <message>
         <source>Measures</source>
-        <translation type="unfinished"></translation>
+        <translation>Misst</translation>
     </message>
     <message>
         <source>Real distance, e.g. 40&apos; 4&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Echte Entfernung, z. B. 40&apos; 4&quot;</translation>
     </message>
     <message>
         <source>Real distance between the two points</source>
-        <translation type="unfinished"></translation>
+        <translation>Echte Entfernung zwischen den zwei Punkten</translation>
     </message>
     <message>
         <source>Scale the floor plan</source>
@@ -11333,15 +11333,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>1 image pixel = %1. Calibrate by clicking two points you know the distance between.</source>
-        <translation type="unfinished"></translation>
+        <translation>1 Bildpixel = %1. Kalibriere, indem du zwei Punkte anklickst, deren Entfernung du kennst.</translation>
     </message>
     <message>
         <source>Calibrate</source>
-        <translation type="unfinished"></translation>
+        <translation>Kalibrieren</translation>
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation>Verschieben</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -11372,23 +11372,23 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Show the venue on the map</source>
-        <translation type="unfinished"></translation>
+        <translation>Den Veranstaltungsort auf der Karte zeigen</translation>
     </message>
     <message>
         <source>Narrowest walkway:</source>
-        <translation type="unfinished"></translation>
+        <translation>Schmalster Gang:</translation>
     </message>
     <message>
         <source>&lt;b&gt;Sides&lt;/b&gt;: for each side of the outline, say whether it is a wall, a door or open</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Seiten&lt;/b&gt;: Sag für jede Seite des Umrisses, ob sie eine Wand, eine Tür oder offen ist</translation>
     </message>
     <message>
         <source>Edges</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanten</translation>
     </message>
     <message>
         <source>#</source>
-        <translation type="unfinished"></translation>
+        <translation>#</translation>
     </message>
     <message>
         <source>Kind</source>
@@ -11396,7 +11396,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Door width (ft)</source>
-        <translation type="unfinished"></translation>
+        <translation>Türbreite (ft)</translation>
     </message>
     <message>
         <source>Label</source>
@@ -11404,21 +11404,21 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Kind of edge %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Art der Kante %1</translation>
     </message>
     <message>
         <source>Door width of edge %1 (ft)</source>
-        <translation type="unfinished"></translation>
+        <translation>Türbreite der Kante %1 (ft)</translation>
     </message>
     <message>
         <source>Label of edge %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschriftung der Kante %1</translation>
     </message>
     <message numerus="yes">
         <source>&lt;b&gt;Obstacles&lt;/b&gt;: %n drawn.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>&lt;b&gt;Hindernisse&lt;/b&gt;: %n gezeichnet.</numerusform>
+            <numerusform>&lt;b&gt;Hindernisse&lt;/b&gt;: %n gezeichnet.</numerusform>
         </translation>
     </message>
     <message>
@@ -11439,34 +11439,34 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Clear Venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort entfernen</translation>
     </message>
     <message>
         <source>Remove the venue entirely.</source>
-        <translation type="unfinished"></translation>
+        <translation>Den Veranstaltungsort ganz entfernen.</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::VenueDimensionsDialog</name>
     <message>
         <source>Draw venue outline by dimensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Umriss des Veranstaltungsorts nach Maßen zeichnen</translation>
     </message>
     <message>
         <source>Feet (ft)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuß (ft)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoll (in)</translation>
     </message>
     <message>
         <source>Meters (m)</source>
-        <translation type="unfinished"></translation>
+        <translation>Meter (m)</translation>
     </message>
     <message>
         <source>Centimeters (cm)</source>
-        <translation type="unfinished"></translation>
+        <translation>Zentimeter (cm)</translation>
     </message>
     <message>
         <source>Unit:</source>
@@ -11474,51 +11474,51 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Start X:</source>
-        <translation type="unfinished"></translation>
+        <translation>Start X:</translation>
     </message>
     <message>
         <source>Start Y:</source>
-        <translation type="unfinished"></translation>
+        <translation>Start Y:</translation>
     </message>
     <message>
         <source>&lt;b&gt;Sides&lt;/b&gt;: each row is one side of the room, its length (in the unit picked above) and its direction. 0° goes right, 90° down, 180° left and 270° up. The last side back to the start is added for you.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Seiten&lt;/b&gt;: Jede Zeile ist eine Seite des Raums, ihre Länge (in der oben gewählten Einheit) und ihre Richtung. 0° geht nach rechts, 90° nach unten, 180° nach links und 270° nach oben. Die letzte Seite zurück zum Anfang wird für dich ergänzt.</translation>
     </message>
     <message>
         <source>A room needs at least three sides that are longer than zero.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Raum braucht mindestens drei Seiten, die länger als null sind.</translation>
     </message>
     <message>
         <source>Add segment</source>
-        <translation type="unfinished"></translation>
+        <translation>Seite hinzufügen</translation>
     </message>
     <message>
         <source>Remove last</source>
-        <translation type="unfinished"></translation>
+        <translation>Letzte entfernen</translation>
     </message>
     <message>
         <source>Rectangle preset…</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechteck-Vorlage…</translation>
     </message>
     <message>
         <source>Quickly fill four segments for a width × depth rectangle.</source>
-        <translation type="unfinished"></translation>
+        <translation>Schnell vier Seiten für ein Rechteck aus Breite × Tiefe ausfüllen.</translation>
     </message>
     <message>
         <source>Rectangle preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechteck-Vorlage</translation>
     </message>
     <message>
         <source>Width (east-west):</source>
-        <translation type="unfinished"></translation>
+        <translation>Breite (Ost–West):</translation>
     </message>
     <message>
         <source>Depth (north-south):</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiefe (Nord–Süd):</translation>
     </message>
     <message>
         <source>Venue outline</source>
-        <translation type="unfinished"></translation>
+        <translation>Umriss des Veranstaltungsorts</translation>
     </message>
 </context>
 <context>
@@ -11533,7 +11533,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Choose the folder to scan for venue .bld-venue files</source>
-        <translation type="unfinished"></translation>
+        <translation>Den Ordner wählen, der nach Veranstaltungsort-Dateien (.bld-venue) durchsucht wird</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -11553,11 +11553,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>(no saved venues)</source>
-        <translation type="unfinished"></translation>
+        <translation>(keine gespeicherten Veranstaltungsorte)</translation>
     </message>
     <message>
         <source>Save venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort speichern</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -11565,23 +11565,23 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Save venue to the Venue library</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort in der Veranstaltungsort-Bibliothek speichern</translation>
     </message>
     <message>
         <source>Name for this venue:</source>
-        <translation type="unfinished"></translation>
+        <translation>Name für diesen Veranstaltungsort:</translation>
     </message>
     <message>
         <source>%1 already exists. Overwrite?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 gibt es schon. Überschreiben?</translation>
     </message>
     <message>
         <source>Could not write file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei konnte nicht geschrieben werden: %1</translation>
     </message>
     <message>
         <source>Venue library folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordner der Veranstaltungsort-Bibliothek</translation>
     </message>
     <message>
         <source>Load venue</source>
@@ -11593,43 +11593,43 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Use in This Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>In diesem Layout verwenden</translation>
     </message>
     <message>
         <source>Start Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Layout beginnen</translation>
     </message>
     <message>
         <source>Start a new layout in this venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein neues Layout in diesem Veranstaltungsort beginnen</translation>
     </message>
     <message>
         <source>New Venue…</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Veranstaltungsort…</translation>
     </message>
     <message>
         <source>Design a new venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Einen neuen Veranstaltungsort gestalten</translation>
     </message>
     <message>
         <source>Design…</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestalten…</translation>
     </message>
     <message>
         <source>Open this venue in the designer</source>
-        <translation type="unfinished"></translation>
+        <translation>Diesen Veranstaltungsort im Designer öffnen</translation>
     </message>
     <message>
         <source>Save This Layout’s Venue…</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort dieses Layouts speichern…</translation>
     </message>
     <message>
         <source>Save to Server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf dem Server speichern…</translation>
     </message>
     <message>
         <source>Put a copy of this venue on your server, yours or a club&apos;s</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie dieses Veranstaltungsorts auf deinen Server stellen, deinen oder den eines Clubs</translation>
     </message>
     <message>
         <source>Save to Server</source>
@@ -11637,31 +11637,31 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>This layout has no venue yet. Draw one first (Map ▸ Venue).</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Layout hat noch keinen Veranstaltungsort. Zeichne zuerst einen (Karte ▸ Veranstaltungsort).</translation>
     </message>
     <message>
         <source>New venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Veranstaltungsort</translation>
     </message>
     <message>
         <source>Design venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort gestalten</translation>
     </message>
     <message>
         <source>Venue in the Venue library folder %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort im Ordner der Veranstaltungsort-Bibliothek %1</translation>
     </message>
     <message>
         <source>Save Venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort speichern</translation>
     </message>
     <message>
         <source>Could not save %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 konnte nicht gespeichert werden: %2</translation>
     </message>
     <message>
         <source>Start layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Layout beginnen</translation>
     </message>
     <message>
         <source>Delete venue</source>
@@ -11673,41 +11673,41 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Rename venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort umbenennen</translation>
     </message>
     <message>
         <source>New name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Name:</translation>
     </message>
     <message>
         <source>&quot;%1&quot; already exists.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ gibt es schon.</translation>
     </message>
     <message>
         <source>Could not rename the file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Datei konnte nicht umbenannt werden.</translation>
     </message>
     <message>
         <source>(could not read file)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Datei nicht lesbar)</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ViewIndicator</name>
     <message>
         <source>Show everything</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles zeigen</translation>
     </message>
     <message>
         <source>Showing &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ViewsPanel</name>
     <message>
         <source>On screen now · click to stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerade auf dem Bildschirm · klicken zum Beenden</translation>
     </message>
     <message>
         <source>Views</source>
@@ -11715,7 +11715,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>No saved views yet. A view remembers a part of the layout, so you can show it, or share a picture of it, in one click.</source>
-        <translation type="unfinished"></translation>
+        <translation>Noch keine gespeicherten Ansichten. Eine Ansicht merkt sich einen Teil des Layouts, damit du ihn mit einem Klick zeigen oder ein Bild davon teilen kannst.</translation>
     </message>
     <message>
         <source>Saved views</source>
@@ -11723,31 +11723,31 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Fit whole layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Ganzes Layout einpassen</translation>
     </message>
     <message>
         <source>The picture always covers the whole layout, even after it changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Bild umfasst immer das ganze Layout, auch nach Änderungen</translation>
     </message>
     <message>
         <source>Use this area</source>
-        <translation type="unfinished"></translation>
+        <translation>Diesen Bereich verwenden</translation>
     </message>
     <message>
         <source>Keep the part of the map on screen now</source>
-        <translation type="unfinished"></translation>
+        <translation>Den Teil der Karte behalten, der gerade auf dem Bildschirm ist</translation>
     </message>
     <message>
         <source>Move the map to the part you want, then click “Use this area” again to keep it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewege die Karte zum gewünschten Teil und klicke dann erneut auf „Diesen Bereich verwenden“, um ihn zu behalten.</translation>
     </message>
     <message>
         <source>Show the grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Raster zeigen</translation>
     </message>
     <message>
         <source>Show labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschriftungen zeigen</translation>
     </message>
     <message>
         <source>Sheets</source>
@@ -11755,7 +11755,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>All sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Blätter</translation>
     </message>
     <message>
         <source>Rename…</source>
@@ -11771,35 +11771,35 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Close the settings for this view</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Einstellungen dieser Ansicht schließen</translation>
     </message>
     <message>
         <source>+ Add view</source>
-        <translation type="unfinished"></translation>
+        <translation>+ Ansicht hinzufügen</translation>
     </message>
     <message>
         <source>Save a view of the whole layout; you can pick an area after</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Ansicht des ganzen Layouts speichern; du kannst danach einen Bereich wählen</translation>
     </message>
     <message>
         <source>Show everything</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles zeigen</translation>
     </message>
     <message>
         <source>Back to the layout as it is, with every sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurück zum Layout, wie es ist, mit jedem Blatt</translation>
     </message>
     <message>
         <source>One picture of each view, in a folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Bild jeder Ansicht, in einem Ordner</translation>
     </message>
     <message>
         <source>This saved view is deleted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese gespeicherte Ansicht wird gelöscht.</translation>
     </message>
     <message>
         <source>The layout itself doesn’t change.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Layout selbst ändert sich nicht.</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -11807,15 +11807,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Rename view</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansicht umbenennen</translation>
     </message>
     <message>
         <source>View %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansicht %1</translation>
     </message>
     <message>
         <source>Add view</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansicht hinzufügen</translation>
     </message>
     <message>
         <source>View</source>
@@ -11823,11 +11823,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Showing %1. Click again to stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige %1. Erneut klicken zum Beenden</translation>
     </message>
     <message>
         <source>Show %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 zeigen</translation>
     </message>
     <message>
         <source>Share a picture</source>
@@ -11835,7 +11835,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Share a picture of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Bild von %1 teilen</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -11843,15 +11843,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Change what this view shows</source>
-        <translation type="unfinished"></translation>
+        <translation>Ändern, was diese Ansicht zeigt</translation>
     </message>
     <message>
         <source>Change %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ändern</translation>
     </message>
     <message>
         <source>Export a picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Bild exportieren</translation>
     </message>
     <message>
         <source>Export all views</source>
@@ -11863,73 +11863,73 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Add view &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansicht „%1“ hinzufügen</translation>
     </message>
     <message>
         <source>Delete view &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansicht „%1“ löschen</translation>
     </message>
     <message>
         <source>Fit the view to the whole layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Ansicht auf das ganze Layout einpassen</translation>
     </message>
     <message>
         <source>Keep this area in the view</source>
-        <translation type="unfinished"></translation>
+        <translation>Diesen Bereich in der Ansicht behalten</translation>
     </message>
     <message>
         <source>Show the grid in the view</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Raster in der Ansicht zeigen</translation>
     </message>
     <message>
         <source>Hide the grid in the view</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Raster in der Ansicht ausblenden</translation>
     </message>
     <message>
         <source>Show labels in the view</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschriftungen in der Ansicht zeigen</translation>
     </message>
     <message>
         <source>Hide labels in the view</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschriftungen in der Ansicht ausblenden</translation>
     </message>
     <message>
         <source>Choose the view&apos;s sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Blätter der Ansicht wählen</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::help::HelpButton</name>
     <message>
         <source>Show me</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeig es mir</translation>
     </message>
     <message>
         <source>Learn more</source>
-        <translation type="unfinished"></translation>
+        <translation>Mehr erfahren</translation>
     </message>
     <message>
         <source>Opens the help pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffnet die Hilfeseiten</translation>
     </message>
     <message>
         <source>Help: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfe: %1</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::help::ShortcutsDialog</name>
     <message>
         <source>On the map</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf der Karte</translation>
     </message>
     <message>
         <source>R</source>
-        <translation type="unfinished"></translation>
+        <translation>R</translation>
     </message>
     <message>
         <source>Turn the selected pieces</source>
-        <translation type="unfinished"></translation>
+        <translation>Die gewählten Teile drehen</translation>
     </message>
     <message>
         <source>Shift+R</source>
@@ -11937,15 +11937,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Turn them the other way</source>
-        <translation type="unfinished"></translation>
+        <translation>In die andere Richtung drehen</translation>
     </message>
     <message>
         <source>Arrow keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfeiltasten</translation>
     </message>
     <message>
         <source>Nudge the selected pieces</source>
-        <translation type="unfinished"></translation>
+        <translation>Die gewählten Teile verschieben</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -11957,57 +11957,57 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Keyboard shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastenkürzel</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::help::SourceLinks</name>
     <message>
         <source>Source on GitHub: &lt;a href=&quot;%1&quot;&gt;desktop app&lt;/a&gt; · &lt;a href=&quot;%2&quot;&gt;web app&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Quellcode auf GitHub: &lt;a href=&quot;%1&quot;&gt;Desktop-App&lt;/a&gt; · &lt;a href=&quot;%2&quot;&gt;Web-App&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::theme::PanelHeader</name>
     <message>
         <source>Dock to left</source>
-        <translation type="unfinished"></translation>
+        <translation>Links andocken</translation>
     </message>
     <message>
         <source>Dock to right</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechts andocken</translation>
     </message>
     <message>
         <source>Hide panel</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenster ausblenden</translation>
     </message>
     <message>
         <source>Move to left</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach links</translation>
     </message>
     <message>
         <source>Move to right</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach rechts</translation>
     </message>
     <message>
         <source>Float panel</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenster schweben lassen</translation>
     </message>
     <message>
         <source>Move or hide panel</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenster verschieben oder ausblenden</translation>
     </message>
     <message>
         <source>Move or hide %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 verschieben oder ausblenden</translation>
     </message>
     <message>
         <source>Hide this panel (the Panels menu brings it back)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Fenster ausblenden (das Fenster-Menü holt es zurück)</translation>
     </message>
     <message>
         <source>Hide %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ausblenden</translation>
     </message>
 </context>
 <context>
@@ -12018,23 +12018,23 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Open a file…</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Datei öffnen…</translation>
     </message>
     <message>
         <source>Open from server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Vom Server öffnen…</translation>
     </message>
     <message>
         <source>Save a file to a server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Datei auf einem Server speichern…</translation>
     </message>
     <message>
         <source>Connect to a server</source>
-        <translation type="unfinished"></translation>
+        <translation>Mit einem Server verbinden</translation>
     </message>
     <message>
         <source>Sign in to your club&apos;s server to share layouts, modules and your settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Melde dich beim Server deines Clubs an, um Layouts, Module und deine Einstellungen zu teilen.</translation>
     </message>
 </context>
 </TS>
