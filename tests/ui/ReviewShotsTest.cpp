@@ -147,10 +147,10 @@ TEST(ReviewShots, PicturesForReview) {
             QTest::qWait(300);
             d.grab().save(file(QStringLiteral("venue-dimensions")));
         }
-        for (const char* name : { "Background Image…", "Edit Venue Properties…" })
-            if (QAction* a = actionNamed(window, QString::fromUtf8(name)))
+        for (const char* item : { "Background Image…", "Edit Venue Properties…" })
+            if (QAction* a = actionNamed(window, QString::fromUtf8(item)))
                 grabModal([a] { a->trigger(); },
-                          file(QString::fromLatin1(name[0] == 'B' ? "background-image" : "venue-properties")));
+                          file(QString::fromLatin1(item[0] == 'B' ? "background-image" : "venue-properties")));
         // Keyboard shortcuts: Undo and Redo once.
         {
             ui::help::ShortcutsDialog d(ui::help::collectShortcuts(window.menuBar()), &window);
