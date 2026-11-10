@@ -1,5 +1,9 @@
 #include "Presence.h"
 
+#include <QColor>
+
+#include <cmath>
+
 #include <QJsonArray>
 #include <QSet>
 
@@ -33,6 +37,25 @@ std::uint32_t mix(const QString& seed) {
 
 int firstChoice(const QString& userId, const QString& layoutId) {
     return static_cast<int>(mix(userId + QLatin1Char(':') + layoutId) % kColors);
+}
+
+namespace {
+double relativeLuminance(const QString& hex) {
+    const QColor c(hex);
+    const auto chan = [](double v) { return v <= 0.03928 ? v / 12.92 : std::pow((v + 0.055) / 1.055, 2.4); };
+    return 0.2126 * chan(c.redF()) + 0.7152 * chan(c.greenF()) + 0.0722 * chan(c.blueF());
+}
+} // namespace
+
+double contrastRatio(const QString& a, const QString& b) {
+    const double la = relativeLuminance(a), lb = relativeLuminance(b);
+    return (std::max(la, lb) + 0.05) / (std::min(la, lb) + 0.05);
+}
+
+QString textColorOn(const QString& color) {
+    return contrastRatio(color, QLatin1String(kTextDark)) >= contrastRatio(color, QLatin1String(kTextLight))
+               ? QString::fromLatin1(kTextDark)
+               : QString::fromLatin1(kTextLight);
 }
 
 QString colorFor(const QString& userId, const QString& layoutId) {

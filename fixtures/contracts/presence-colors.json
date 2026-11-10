@@ -1,5 +1,5 @@
 {
-  "about": "Presence colors: the same in both apps (web apps/web/src/editor/presenceColors.ts, desktop src/sync/Presence.cpp).",
+  "about": "Presence colors: the same in both apps (web apps/web/src/editor/presenceColors.ts, desktop src/sync/Presence.cpp). textOn: the color a name is drawn in on each palette color (dark ink or white, whichever contrasts more; at least minContrast, WCAG AA).",
   "palette": [
     "#f87171",
     "#fb923c",
@@ -22,12 +22,12 @@
       "color": "#f472b6"
     },
     {
-      "userId": "é",
+      "userId": "\u00e9",
       "layoutId": "x",
       "color": "#60a5fa"
     },
     {
-      "userId": "😀user",
+      "userId": "\ud83d\ude00user",
       "layoutId": "L1",
       "color": "#a78bfa"
     },
@@ -122,10 +122,10 @@
     {
       "layoutId": "x",
       "userIds": [
-        "é",
+        "\u00e9",
         "e",
         "Z",
-        "😀user",
+        "\ud83d\ude00user",
         "u-alice",
         "u-alice"
       ],
@@ -133,9 +133,24 @@
         "Z": "#60a5fa",
         "e": "#22d3ee",
         "u-alice": "#f87171",
-        "é": "#a78bfa",
-        "😀user": "#f472b6"
+        "\u00e9": "#a78bfa",
+        "\ud83d\ude00user": "#f472b6"
       }
     }
-  ]
+  ],
+  "textColors": {
+    "dark": "#111827",
+    "light": "#ffffff"
+  },
+  "minContrast": 4.5,
+  "textOn": {
+    "#f87171": "#111827",
+    "#fb923c": "#111827",
+    "#facc15": "#111827",
+    "#4ade80": "#111827",
+    "#22d3ee": "#111827",
+    "#60a5fa": "#111827",
+    "#a78bfa": "#111827",
+    "#f472b6": "#111827"
+  }
 }

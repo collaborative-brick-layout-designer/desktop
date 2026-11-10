@@ -613,4 +613,20 @@ TEST(Contracts, PresenceColorsAreTheWebs) {
             EXPECT_EQ(distinct.size(), colors.size());
         }
     }
+    // A name on its color reads: the web's text color, at least WCAG AA (4.5:1). White on the yellow was 1.5:1.
+    const QJsonObject textColors = c.value(QLatin1String("textColors")).toObject();
+    EXPECT_EQ(textColors.value(QLatin1String("dark")).toString(), QLatin1String(sync::presence::kTextDark));
+    EXPECT_EQ(textColors.value(QLatin1String("light")).toString(), QLatin1String(sync::presence::kTextLight));
+    EXPECT_DOUBLE_EQ(c.value(QLatin1String("minContrast")).toDouble(), sync::presence::kMinContrast);
+    const QJsonObject textOn = c.value(QLatin1String("textOn")).toObject();
+    const QJsonArray palette = c.value(QLatin1String("palette")).toArray();
+    ASSERT_EQ(textOn.size(), palette.size());
+    for (const QJsonValue v : palette) {
+        const QString color = v.toString();
+        const QString text = sync::presence::textColorOn(color);
+        EXPECT_EQ(text, textOn.value(color).toString()) << color.toStdString();
+        EXPECT_GE(sync::presence::contrastRatio(color, text), sync::presence::kMinContrast) << color.toStdString();
+    }
+    EXPECT_NEAR(sync::presence::contrastRatio(QStringLiteral("#000000"), QStringLiteral("#ffffff")), 21.0, 1e-6);
+    EXPECT_EQ(sync::presence::textColorOn(QStringLiteral("#1e3a8a")), QLatin1String(sync::presence::kTextLight));
 }

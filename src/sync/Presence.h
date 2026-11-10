@@ -27,6 +27,16 @@ QString colorFor(const QString& userId, const QString& layoutId);
 // The color of each person here (`userIds`, yourself included).
 QHash<QString, QString> colorsFor(const QStringList& userIds, const QString& layoutId);
 
+// A name drawn on a presence color: dark ink on a light color, white on a
+// dark one, whichever contrasts more (the web's presenceTextColor; the
+// contract's "textOn"). Every palette color takes dark ink, at 6.4:1 or better.
+inline constexpr const char* kTextDark = "#111827";
+inline constexpr const char* kTextLight = "#ffffff";
+inline constexpr double kMinContrast = 4.5;  // WCAG AA for small text
+// WCAG 2 contrast ratio (1 to 21) between two "#rrggbb" colors.
+double contrastRatio(const QString& a, const QString& b);
+QString textColorOn(const QString& color);
+
 struct User {
     QString id;
     QString displayName;
