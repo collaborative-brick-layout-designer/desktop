@@ -183,8 +183,11 @@ TEST(AnnotationUndo, TextCommandsUndoAndRedoExactly) {
         states.push_back(stateOf(m));
     };
     step(new edit::AddTextCellCommand(m, 0, cell("t3", "Depot", QRectF(0, 40, 16, 10))));
-    step(new edit::EditTextCellTextCommand(m, 0, QStringLiteral("t1"), QStringLiteral("Main station")));
+    // New words with the box re-fitted to them (and undone with it).
+    step(new edit::EditTextCellTextCommand(m, 0, QStringLiteral("t1"), QStringLiteral("Main station"),
+                                           nullptr, QRectF(-3, 1, 30, 18)));
     EXPECT_EQ(texts(m).textCells[0].text, QStringLiteral("Main station"));
+    EXPECT_EQ(texts(m).textCells[0].displayArea, QRectF(-3, 1, 30, 18));
     step(new edit::MoveTextCellCommand(m, 0, QStringLiteral("t2"), QPointF(-8, 16)));
     step(new edit::EditTextCellTextCommand(m, 0, QStringLiteral("t1"), QStringLiteral("Central")));
     // The first one deleted: undo puts it back first.

@@ -3,8 +3,9 @@
 #include "../core/TextCell.h"
 
 #include <QPointF>
-#include <QUndoCommand>
+#include <QRectF>
 #include <QString>
+#include <QUndoCommand>
 
 #include <optional>
 
@@ -60,8 +61,10 @@ private:
 // Replace a text cell's text content. Font / color / alignment stay put.
 class EditTextCellTextCommand : public QUndoCommand {
 public:
+    // `newArea` (when valid): the cell's box re-fitted to the new text (rendering/MapText.h
+    // refittedTextArea).
     EditTextCellTextCommand(core::Map& map, int layerIndex, QString cellGuid, QString newText,
-                            QUndoCommand* parent = nullptr);
+                            QUndoCommand* parent = nullptr, QRectF newArea = {});
     void undo() override;
     void redo() override;
 private:
@@ -70,6 +73,8 @@ private:
     QString cellGuid_;
     QString newText_;
     QString oldText_;
+    QRectF newArea_;
+    QRectF oldArea_;
 };
 
 }

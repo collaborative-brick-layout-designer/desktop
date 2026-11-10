@@ -40,15 +40,16 @@
 
 #include <QBuffer>
 #include <QCoreApplication>
-#include <QPainter>
-#include <QToolButton>
 #include <QDesktopServices>
 #include <QInputDialog>
 #include <QJsonObject>
 #include <QMessageBox>
+#include <QPainter>
+#include <QPushButton>
 #include <QStatusBar>
 #include <QTabWidget>
 #include <QTimer>
+#include <QToolButton>
 #include <QUndoStack>
 
 namespace bld::ui {
@@ -544,49 +545,57 @@ void MainWindow::openServerModule(const QString& moduleId) {
     const QUrl server = serverLibrary_->server();
     const QString token = serverLibrary_->token();
     if (!maybeSave()) return;
-    serverLibrary_->api().moduleSnapshot(moduleId, sync::whileAlive(this, [this, moduleId, title, server, token](const QByteArray& bytes) {
-        QString error;
-        std::shared_ptr<core::Map> map(sync::mapFromModuleSnapshot(bytes, &error).release());
-        if (!map) {
-            QMessageBox::warning(this, tr("Open module"), tr("“%1” couldn't be read (%2).").arg(title, error));
-            return;
-        }
-        // Sheets an older web build saved see-through come back solid.
-        edit::repairModuleSheets(*map);
-        forgetFileSource();
-        // The module replaces the live layout here: leave the server session.
-        if (live_ && live_->active()) {
-            live_->close();
-            updateLiveUi();
-        }
-        auto open = [this, moduleId, title, server, token, map] {
-            clearActiveView();
-            mapView_->loadMap(std::make_unique<core::Map>(std::move(*map)));
-            layerPanel_->setMap(mapView_->currentMap(), mapView_->builder());
-            modulesPanel_->setMap(mapView_->currentMap());
-            currentFilePath_.clear();
-            mapView_->undoStack()->clear();
-            mapView_->undoStack()->setClean();
-            cleanUndoIndex_ = 0;
-            editingModule_ = { server, token, moduleId, title };
-            serverLibrary_->setEditingModule(moduleId);
-            updateTitle();
-            notices_->showNotice(
-                QStringLiteral("editing-module"), tr("You're changing the module “%1”").arg(title),
-                tr("Add, move or remove its parts, then Save (Ctrl+S) to make a new version on %1.")
-                    .arg(serverLibrary_->label()),
-                { NoticeAction{ tr("Save new version"), [this] { saveEditedModule(); }, true, false },
-                  NoticeAction{ tr("OK"), {} } });
-            statusBar()->showMessage(tr("Opened the module “%1”").arg(title), 5000);
-        };
-        const sync::ServerList servers = sync::ServerList::load();
-        const sync::ServerEntry* e = servers.find(server);
-        const bool serverHasParts = !e || !e->features || e->features->contains(QStringLiteral("partsManifest"));
-        if (serverHasParts && hasUnknownParts(*map, parts_)) syncServerParts(server, token, open);
-        else open();
-    }), sync::whileAlive(this, [this, title](const sync::ServerRefusal& r) {
-        QMessageBox::warning(this, tr("Open module"), tr("Couldn't get “%1”: %2").arg(title, ServerLibrary::refusalText(r)));
-    }));
+    serverLibrary_->api().moduleSnapshotAt(
+        moduleId,
+        sync::whileAlive(
+            this,
+            [this, moduleId, title, server, token](const QByteArray& bytes, int docVersion) {
+                QString error;
+                std::shared_ptr<core::Map> map(sync::mapFromModuleSnapshot(bytes, &error).release());
+                if (!map) {
+                    QMessageBox::warning(this, tr("Open module"),
+                                         tr("“%1” couldn't be read (%2).").arg(title, error));
+                    return;
+                }
+                // Sheets an older web build saved see-through come back solid.
+                edit::repairModuleSheets(*map);
+                forgetFileSource();
+                // The module replaces the live layout here: leave the server session.
+                if (live_ && live_->active()) {
+                    live_->close();
+                    updateLiveUi();
+                }
+                auto open = [this, moduleId, title, server, token, map, docVersion] {
+                    clearActiveView();
+                    mapView_->loadMap(std::make_unique<core::Map>(std::move(*map)));
+                    layerPanel_->setMap(mapView_->currentMap(), mapView_->builder());
+                    modulesPanel_->setMap(mapView_->currentMap());
+                    currentFilePath_.clear();
+                    mapView_->undoStack()->clear();
+                    mapView_->undoStack()->setClean();
+                    cleanUndoIndex_ = 0;
+                    editingModule_ = { server, token, moduleId, title, docVersion };
+                    serverLibrary_->setEditingModule(moduleId);
+                    updateTitle();
+                    notices_->showNotice(
+                        QStringLiteral("editing-module"), tr("You're changing the module “%1”").arg(title),
+                        tr("Add, move or remove its parts, then Save (Ctrl+S) to make a new version on %1.")
+                            .arg(serverLibrary_->label()),
+                        { NoticeAction{ tr("Save new version"), [this] { saveEditedModule(); }, true, false },
+                          NoticeAction{ tr("OK"), {} } });
+                    statusBar()->showMessage(tr("Opened the module “%1”").arg(title), 5000);
+                };
+                const sync::ServerList servers = sync::ServerList::load();
+                const sync::ServerEntry* e = servers.find(server);
+                const bool serverHasParts =
+                    !e || !e->features || e->features->contains(QStringLiteral("partsManifest"));
+                if (serverHasParts && hasUnknownParts(*map, parts_)) syncServerParts(server, token, open);
+                else open();
+            }),
+        sync::whileAlive(this, [this, title](const sync::ServerRefusal& r) {
+            QMessageBox::warning(this, tr("Open module"),
+                                 tr("Couldn't get “%1”: %2").arg(title, ServerLibrary::refusalText(r)));
+        }));
 }
 
 void MainWindow::clearEditingModule() {
@@ -621,21 +630,65 @@ bool MainWindow::saveEditedModule() {
     auto* api = new sync::LibraryApi(this);
     api->setBase(target.server);
     api->setToken(target.token);
-    uploadModule(*api, std::make_shared<core::Map>(std::move(module)), target.id, target.title, QString(), note,
+    auto shared = std::make_shared<core::Map>(std::move(module));
+    const std::function<void(bool, const QString&, int)> finished =
+        [this, api, target, undoIndex](bool saved, const QString&, int) {
+            api->deleteLater();
+            if (!saved) return;
+            if (editingModule_.id == target.id && mapView_->undoStack()->index() == undoIndex) {
+                mapView_->undoStack()->setClean();
+                updateTitle();
+            }
+        };
+    uploadModule(*api, shared, target.id, target.title, QString(), note, finished, target.docVersion);
+    return true;
+}
+
+void MainWindow::moduleChangedElsewhere(const std::shared_ptr<core::Map>& module, const QString& note) {
+    const EditingModule target = editingModule_;
+    const int choice = askModuleChanged ? askModuleChanged(target.title) : [&] {
+        QMessageBox box(QMessageBox::Warning, tr("Someone saved this module"),
+                        tr("Someone else saved “%1” while you were changing it, so your save was held back. "
+                           "Nothing is lost.")
+                            .arg(target.title),
+                        QMessageBox::NoButton, this);
+        box.setInformativeText(
+            tr("Load theirs: their version opens here, and your changes since your last save are dropped.\n"
+               "Save mine as a new version: yours becomes the module; theirs stays in its version history."));
+        auto* theirs = box.addButton(tr("Load Theirs"), QMessageBox::DestructiveRole);
+        auto* mine = box.addButton(tr("Save Mine as a New Version"), QMessageBox::AcceptRole);
+        box.addButton(tr("Not Now"), QMessageBox::RejectRole);
+        box.setDefaultButton(mine);
+        box.exec();
+        return box.clickedButton() == theirs ? 1 : box.clickedButton() == mine ? 2 : 0;
+    }();
+    if (choice == 1) {
+        // Theirs: nothing here to keep (that was the choice).
+        mapView_->undoStack()->setClean();
+        openServerModule(target.id);
+        return;
+    }
+    if (choice != 2) return;
+    auto* api = new sync::LibraryApi(this);
+    api->setBase(target.server);
+    api->setToken(target.token);
+    const int undoIndex = mapView_->undoStack()->index();
+    uploadModule(*api, module, target.id, target.title, QString(), note,
                  [this, api, target, undoIndex](bool saved, const QString&, int) {
                      api->deleteLater();
-                     if (!saved) return;
-                     if (editingModule_.id == target.id && mapView_->undoStack()->index() == undoIndex) {
+                     if (saved && editingModule_.id == target.id
+                         && mapView_->undoStack()->index() == undoIndex) {
                          mapView_->undoStack()->setClean();
                          updateTitle();
                      }
                  });
-    return true;
 }
 
-void MainWindow::uploadModule(sync::LibraryApi& api, const std::shared_ptr<core::Map>& module, const QString& updateId,
-                              const QString& title, const QString& orgSlug, const QString& note,
-                              const std::function<void(bool, const QString&, int)>& whenDone) {
+void MainWindow::uploadModule(sync::LibraryApi& api, const std::shared_ptr<core::Map>& module,
+                              const QString& updateId, const QString& title, const QString& orgSlug,
+                              const QString& note,
+                              const std::function<void(bool, const QString&, int)>& whenDone,
+                              int baseDocVersion) {
     // Its picture now, while the parts are at hand: as big as the web's,
     // smaller when the server's limit can't take that.
     QByteArray png;
@@ -655,37 +708,71 @@ void MainWindow::uploadModule(sync::LibraryApi& api, const std::shared_ptr<core:
     });
     // Write the module into what the server holds (a new one starts with
     // the server's empty layout), then save it as a version.
-    auto write = [this, &api, module, png, note, server, done, failed](
-                     const QString& id, const QString& name, bool created) {
-        api.moduleSnapshot(id, sync::whileAlive(this, [this, &api, module, id, name, png, note, server, done, failed, created](const QByteArray& current) {
-            QString error;
-            const QByteArray snapshot = sync::moduleSnapshotFor(*module, current, &error);
-            if (snapshot.isEmpty()) {
-                QMessageBox::warning(this, tr("Save module"), tr("Couldn't save the module (%1).").arg(error));
-                if (created) api.deleteModule(id, {}, {});
-                if (*done) (*done)(false, {}, 0);
-                return;
-            }
-            api.saveModuleSnapshot(id, snapshot, note, sync::whileAlive(this, [this, &api, id, name, png, server, done](int version) {
-                const std::function<void()> finished = sync::whileAlive(this, [this, id, name, version, server, done] {
-                    statusBar()->showMessage(version > 1 ? tr("Saved version %1 of “%2” on %3").arg(version).arg(name, server)
-                                                         : tr("Saved “%1” on %2").arg(name, server),
-                                             6000);
-                    serverLibrary_->refresh();
-                    if (*done) (*done)(true, id, version);
-                });
-                if (png.isEmpty()) {
-                    finished();
-                    return;
-                }
-                // No picture: the lists show a placeholder until it's opened on the web.
-                api.setModuleThumbnail(id, png, finished, [finished](const sync::ServerRefusal&) { finished(); });
-            }), [&api, id, created, failed](const sync::ServerRefusal& r) {
-                // Don't leave an empty module behind when its contents didn't arrive.
-                if (created) api.deleteModule(id, {}, {});
-                failed(r);
-            });
-        }), failed);
+    auto write = [this, &api, module, png, note, server, done, failed,
+                  baseDocVersion](const QString& id, const QString& name, bool created) {
+        api.moduleSnapshot(
+            id,
+            sync::whileAlive(
+                this,
+                [this, &api, module, id, name, png, note, server, done, failed, created,
+                 baseDocVersion](const QByteArray& current) {
+                    QString error;
+                    const QByteArray snapshot = sync::moduleSnapshotFor(*module, current, &error);
+                    if (snapshot.isEmpty()) {
+                        QMessageBox::warning(this, tr("Save module"),
+                                             tr("Couldn't save the module (%1).").arg(error));
+                        if (created) api.deleteModule(id, {}, {});
+                        if (*done) (*done)(false, {}, 0);
+                        return;
+                    }
+                    api.saveModuleSnapshot(
+                        id, snapshot, note,
+                        sync::whileAlive(this,
+                                         [this, &api, id, name, png, server, done](int version) {
+                                             const std::function<void()> finished = sync::whileAlive(
+                                                 this, [this, id, name, version, server, done] {
+                                                     statusBar()->showMessage(
+                                                         version > 1
+                                                             ? tr("Saved version %1 of “%2” on %3")
+                                                                   .arg(version)
+                                                                   .arg(name, server)
+                                                             : tr("Saved “%1” on %2").arg(name, server),
+                                                         6000);
+                                                     serverLibrary_->refresh();
+                                                     if (*done) (*done)(true, id, version);
+                                                 });
+                                             if (png.isEmpty()) {
+                                                 finished();
+                                                 return;
+                                             }
+                                             // No picture: the lists show a placeholder until it's opened on
+                                             // the web.
+                                             api.setModuleThumbnail(
+                                                 id, png, finished,
+                                                 [finished](const sync::ServerRefusal&) { finished(); });
+                                         }),
+                        sync::whileAlive(this,
+                                         [this, &api, id, created, failed, module, note,
+                                          done](const sync::ServerRefusal& r) {
+                                             // Don't leave an empty module behind when its contents didn't
+                                             // arrive.
+                                             if (created) api.deleteModule(id, {}, {});
+                                             // Someone else saved it since this one started: ask, never
+                                             // overwrite theirs.
+                                             if (r.status == 409 && r.code == QLatin1String("module_changed")
+                                                 && editingModule_.id == id) {
+                                                 if (*done) (*done)(false, {}, 0);
+                                                 moduleChangedElsewhere(module, note);
+                                                 return;
+                                             }
+                                             failed(r);
+                                         }),
+                        baseDocVersion, sync::whileAlive(this, [this, id](int docVersion) {
+                            // The next save starts from this one.
+                            if (editingModule_.id == id) editingModule_.docVersion = docVersion;
+                        }));
+                }),
+            failed);
     };
     if (!updateId.isEmpty()) {
         const sync::ServerModule* m = serverLibrary_->module(updateId);

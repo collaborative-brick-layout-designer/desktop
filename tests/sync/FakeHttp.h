@@ -23,7 +23,7 @@
 namespace bld::synctest {
 
 struct Request {
-    QByteArray method, path, authorization, userAgent, body;
+    QByteArray method, path, authorization, userAgent, ifMatch, body;
     qint64 atMs = 0; // when it arrived
 };
 
@@ -49,8 +49,9 @@ public:
     // Forget the replies queued for a path (to answer differently from now on).
     void clear(const QByteArray& path) { replies_.remove(path); }
     // Any bytes, e.g. a part's sprite.
-    void replyRaw(const QByteArray& path, int status, const QByteArray& body, const QByteArray& contentType) {
-        replies_[path].push_back({ status, body, contentType });
+    void replyRaw(const QByteArray& path, int status, const QByteArray& body, const QByteArray& contentType,
+                  const QByteArray& extraHeaders = {}) {
+        replies_[path].push_back({ status, body, contentType, extraHeaders });
     }
 
     // Requests for these paths wait unanswered until release(path) (a slow server).
@@ -93,6 +94,7 @@ private:
             if (name == "content-length") length = value.toLongLong();
             if (name == "authorization") req.authorization = value;
             if (name == "user-agent") req.userAgent = value;
+            if (name == "if-match") req.ifMatch = value;
         }
         if (buf.size() < headerEnd + 4 + length) return;
         req.body = buf.mid(headerEnd + 4, length);
@@ -115,8 +117,8 @@ private:
         const QByteArray& body = r.body;
         const int status = r.status;
         s->write("HTTP/1.1 " + QByteArray::number(status) + " X\r\nContent-Type: " + r.contentType
-                 + "\r\nContent-Length: " + QByteArray::number(body.size()) + "\r\nConnection: close\r\n\r\n"
-                 + body);
+                 + r.extraHeaders + "\r\nContent-Length: " + QByteArray::number(body.size())
+                 + "\r\nConnection: close\r\n\r\n" + body);
         s->disconnectFromHost();
     }
 
@@ -127,6 +129,8 @@ private:
     struct Reply {
         int status;
         QByteArray body, contentType;
+        // "\r\nName: value" lines added after Content-Type.
+        QByteArray extraHeaders = {};
     };
     QHash<QByteArray, std::deque<Reply>> replies_;
 };

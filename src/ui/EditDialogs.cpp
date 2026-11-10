@@ -12,6 +12,7 @@
 #include "../edit/RulerCommands.h"
 #include "../edit/TextCommands.h"
 #include "../parts/PartsLibrary.h"
+#include "rendering/MapText.h"
 
 #include <QLabel>
 #include <QCheckBox>
@@ -378,7 +379,15 @@ bool editTextDialog(QWidget* parent, core::Map& map, int layerIndex,
     // user-visible step even though it chains the existing text-only command
     // with an ad-hoc lambda edit of the other fields).
     undoStack.beginMacro(QObject::tr("Edit text"));
-    undoStack.push(new edit::EditTextCellTextCommand(map, layerIndex, cellGuid, textE->toPlainText()));
+    // The box re-fitted to the words and the size (the Size field decides how big it draws).
+    const double newSize = sizeSpin->value();
+    const double newOrient = orientSpin->value();
+    const QString newText = textE->toPlainText();
+    QRectF area;
+    if (newText != cell->text || !qFuzzyCompare(newSize, double(cell->font.sizePt)))
+        area = rendering::refittedTextArea(cell->displayArea, newText, newSize, newOrient,
+                                           rendering::mapLineWidth(styleParts.join(QStringLiteral(", "))));
+    undoStack.push(new edit::EditTextCellTextCommand(map, layerIndex, cellGuid, newText, nullptr, area));
     // Per-field updates are written directly and wrapped in a trivial restore
     // command so undo returns the prior state.
     class RestoreTextProps : public QUndoCommand {

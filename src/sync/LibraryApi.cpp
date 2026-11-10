@@ -59,9 +59,11 @@ QUrl LibraryApi::url(const QString& pathAndQuery) const {
     return u;
 }
 
-void LibraryApi::send(const QByteArray& verb, const QString& path, const QByteArray& body, const QByteArray& contentType,
-                      std::function<void(QNetworkReply*)> ok, Fail failed) {
+void LibraryApi::send(const QByteArray& verb, const QString& path, const QByteArray& body,
+                      const QByteArray& contentType, std::function<void(QNetworkReply*)> ok, Fail failed,
+                      const QList<QPair<QByteArray, QByteArray>>& headers) {
     QNetworkRequest req(url(path));
+    for (const auto& [name, value] : headers) req.setRawHeader(name, value);
     req.setHeader(QNetworkRequest::UserAgentHeader, userAgent());
     if (!contentType.isEmpty()) req.setHeader(QNetworkRequest::ContentTypeHeader, contentType);
     if (!token_.isEmpty()) req.setRawHeader("Authorization", "Bearer " + token_.toUtf8());
@@ -176,6 +178,18 @@ void LibraryApi::moduleSnapshot(const QString& id, std::function<void(const QByt
          std::move(failed));
 }
 
+void LibraryApi::moduleSnapshotAt(const QString& id, std::function<void(const QByteArray&, int)> done,
+                                  Fail failed) {
+    send(
+        "GET", QStringLiteral("/api/modules/%1/snapshot").arg(idPath(id)), {}, {},
+        [done = std::move(done)](QNetworkReply* r) {
+            bool ok = false;
+            const int v = QString::fromLatin1(r->rawHeader("X-Doc-Version")).toInt(&ok);
+            if (done) done(r->readAll(), ok ? v : -1);
+        },
+        std::move(failed));
+}
+
 void LibraryApi::moduleVersionSnapshot(const QString& id, int version, std::function<void(const QByteArray&)> done,
                                        Fail failed) {
     send("GET", QStringLiteral("/api/modules/%1/versions/%2/snapshot").arg(idPath(id)).arg(version), {}, {},
@@ -195,17 +209,25 @@ void LibraryApi::createModule(const QString& title, const QString& orgSlug,
 }
 
 void LibraryApi::saveModuleSnapshot(const QString& id, const QByteArray& snapshot, const QString& note,
-                                    std::function<void(int)> done, Fail failed) {
+                                    std::function<void(int)> done, Fail failed, int baseDocVersion,
+                                    std::function<void(int)> savedAs) {
     QString path = QStringLiteral("/api/modules/%1/snapshot").arg(idPath(id));
     const QString trimmed = note.trimmed();
     if (!trimmed.isEmpty())
         path += QStringLiteral("?note=") + QString::fromLatin1(QUrl::toPercentEncoding(trimmed));
-    send("PUT", path, snapshot, QByteArrayLiteral("application/octet-stream"),
-         [done = std::move(done)](QNetworkReply* r) {
-             const QJsonObject o = QJsonDocument::fromJson(r->readAll()).object();
-             if (done) done(intOf(o.value(QLatin1String("version"))));
-         },
-         std::move(failed));
+    QList<QPair<QByteArray, QByteArray>> headers;
+    if (baseDocVersion >= 0)
+        headers.append(
+            { QByteArrayLiteral("If-Match"), QByteArray("\"") + QByteArray::number(baseDocVersion) + "\"" });
+    send(
+        "PUT", path, snapshot, QByteArrayLiteral("application/octet-stream"),
+        [done = std::move(done), savedAs = std::move(savedAs)](QNetworkReply* r) {
+            const QJsonObject o = QJsonDocument::fromJson(r->readAll()).object();
+            if (savedAs && o.contains(QLatin1String("docVersion")))
+                savedAs(intOf(o.value(QLatin1String("docVersion"))));
+            if (done) done(intOf(o.value(QLatin1String("version"))));
+        },
+        std::move(failed), headers);
 }
 
 void LibraryApi::setModuleThumbnail(const QString& id, const QByteArray& png, std::function<void()> done, Fail failed) {

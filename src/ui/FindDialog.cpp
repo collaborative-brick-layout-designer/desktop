@@ -9,6 +9,7 @@
 #include "../edit/TextCommands.h"
 #include "../parts/PartsLibrary.h"
 #include "ConfirmDialog.h"
+#include "rendering/MapText.h"
 
 #include <QCheckBox>
 #include <QComboBox>
@@ -255,7 +256,11 @@ FindDialog::FindDialog(MapView& view, QWidget* parent)
                 for (const auto& c : static_cast<core::LayerText&>(*L).textCells) {
                     if (!c.text.contains(needle, cs)) continue;
                     QString next = c.text; next.replace(needle, with, cs);
-                    view.undoStack()->push(new edit::EditTextCellTextCommand(*map, li, c.guid, next));
+                    const QRectF area =
+                        rendering::refittedTextArea(c.displayArea, next, c.font.sizePt, c.orientation,
+                                                    rendering::mapLineWidth(c.font.styleString));
+                    view.undoStack()->push(
+                        new edit::EditTextCellTextCommand(*map, li, c.guid, next, nullptr, area));
                     ++replaced;
                     if (!all) break;
                 }

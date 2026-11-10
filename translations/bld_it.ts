@@ -5236,6 +5236,27 @@ existing cells at their old indexing — paint over to clean up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Someone saved this module</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Someone else saved “%1” while you were changing it, so your save was held back. Nothing is lost.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load theirs: their version opens here, and your changes since your last save are dropped.
+Save mine as a new version: yours becomes the module; theirs stays in its version history.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Theirs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Mine as a New Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Couldn&apos;t save the module: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6497,6 +6518,22 @@ Save anyway?</source>
     <message>
         <source>&amp;Redo</source>
         <translation>&amp;Ripeti</translation>
+    </message>
+    <message>
+        <source>Nothing to undo</source>
+        <translation>Niente da annullare</translation>
+    </message>
+    <message>
+        <source>Nothing to redo</source>
+        <translation>Niente da ripetere</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to undo.</source>
+        <translation>Qualcun altro l&apos;ha modificato dopo di te, quindi non c&apos;era niente da annullare.</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to redo.</source>
+        <translation>Qualcun altro l&apos;ha modificato dopo di te, quindi non c&apos;era niente da ripetere.</translation>
     </message>
     <message>
         <source>Live layout closed</source>

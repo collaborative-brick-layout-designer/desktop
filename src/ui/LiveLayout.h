@@ -77,6 +77,8 @@ signals:
     void mapReloaded();
     void statusTextChanged(const QString& text);
     void undoStateChanged();
+    // An undo (or a redo, `undo` false) found the step changed by someone else since: nothing changed.
+    void nothingToUndo(bool undo);
     // The server ended the session (access revoked, layout deleted).
     void ended(const QString& reason);
     // The server ended the sign-in, not the layout: it stays open, and its
