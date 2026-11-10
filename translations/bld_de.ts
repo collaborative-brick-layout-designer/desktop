@@ -4161,10 +4161,6 @@
         <translation>Die LDraw-Bibliothek unter %1 hat für kein Teil dieses Modells eine Form.</translation>
     </message>
     <message>
-        <source>None of the %1 parts in this model are in the parts library. Set an LDraw library in Preferences to render any part.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The model is empty.</source>
         <translation>Das Modell ist leer.</translation>
     </message>
@@ -4206,6 +4202,10 @@
     <message>
         <source>Import canceled.</source>
         <translation>Import abgebrochen.</translation>
+    </message>
+    <message>
+        <source>None of the %1 parts in this model are in the parts library. Set an LDraw library in Settings › Bringing in models to draw any part.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
         <source>and %n more</source>
@@ -5993,10 +5993,6 @@ Trotzdem speichern?</translation>
     <message>
         <source>Autosaved (%1)</source>
         <translation>Automatisch gesichert (%1)</translation>
-    </message>
-    <message>
-        <source>Reloaded parts: %1 parts in %2 folder(s)</source>
-        <translation>Teile neu geladen: %1 Teile in %2 Ordnern</translation>
     </message>
     <message>
         <source>There is no folder on this computer to keep your own parts in.</source>
@@ -8938,10 +8934,6 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>Zurück zu allen Teilen</translation>
     </message>
     <message>
-        <source>Parts that are only used inside a set (a building of a castle set, a flex track half, a cut track piece). They’re listed greyed and aren’t placed by themselves.</source>
-        <translation>Teile, die nur innerhalb eines Sets verwendet werden (ein Gebäude aus einem Burg-Set, eine Flexgleis-Hälfte, ein geschnittenes Gleisstück). Sie stehen ausgegraut in der Liste und werden nicht einzeln platziert.</translation>
-    </message>
-    <message>
         <source>Picture size</source>
         <translation>Bildgröße</translation>
     </message>
@@ -9036,6 +9028,10 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>Delete imported part…</source>
         <translation>Importiertes Teil löschen…</translation>
+    </message>
+    <message>
+        <source>Parts that are only used inside a set (a building of a castle set, a flex track half, a cut track piece). They’re listed grayed and aren’t placed by themselves.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Other</source>

@@ -164,7 +164,7 @@ TEST(UiWordingTest, SaysColorNotColour) {
 // help and tour words shared with the web.
 TEST(UiWordingTest, SaysUsSpelling) {
     static const QRegularExpression british(
-        QStringLiteral(R"(\b(centr(e|es|ed)|cancell(ed|ing)|metres?|catalogue|favourite|organis\w*|behaviour|grey|licence)\b)"),
+        QStringLiteral(R"(\b(centr(e|es|ed)|cancell(ed|ing)|metres?|catalogue|favourite|organis\w*|behaviour|grey\w*|licence)\b)"),
         QRegularExpression::CaseInsensitiveOption);
     static const QRegularExpression marked(QStringLiteral(R"(\b(tr|QT_TR_NOOP|QT_TRANSLATE_NOOP)\()"));
     static const QRegularExpression literal(QStringLiteral(R"re("((?:[^"\\]|\\.)*)")re"));

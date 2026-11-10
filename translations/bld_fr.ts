@@ -4161,10 +4161,6 @@
         <translation>La bibliothèque LDraw de %1 n’a de forme pour aucune pièce de ce modèle.</translation>
     </message>
     <message>
-        <source>None of the %1 parts in this model are in the parts library. Set an LDraw library in Preferences to render any part.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The model is empty.</source>
         <translation>Le modèle est vide.</translation>
     </message>
@@ -4206,6 +4202,10 @@
     <message>
         <source>Import canceled.</source>
         <translation>Import annulé.</translation>
+    </message>
+    <message>
+        <source>None of the %1 parts in this model are in the parts library. Set an LDraw library in Settings › Bringing in models to draw any part.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
         <source>and %n more</source>
@@ -5993,10 +5993,6 @@ Enregistrer quand même ?</translation>
     <message>
         <source>Autosaved (%1)</source>
         <translation>Sauvegarde automatique (%1)</translation>
-    </message>
-    <message>
-        <source>Reloaded parts: %1 parts in %2 folder(s)</source>
-        <translation>Pièces rechargées : %1 pièces dans %2 dossiers</translation>
     </message>
     <message>
         <source>There is no folder on this computer to keep your own parts in.</source>
@@ -8938,10 +8934,6 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Retour à toutes les pièces</translation>
     </message>
     <message>
-        <source>Parts that are only used inside a set (a building of a castle set, a flex track half, a cut track piece). They’re listed greyed and aren’t placed by themselves.</source>
-        <translation>Les pièces qui ne servent que dans un set (un bâtiment d’un set de château, une moitié de rail flexible, un bout de rail coupé). Elles sont listées en grisé et ne se posent pas seules.</translation>
-    </message>
-    <message>
         <source>Picture size</source>
         <translation>Taille des images</translation>
     </message>
@@ -9036,6 +9028,10 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Delete imported part…</source>
         <translation>Supprimer la pièce importée…</translation>
+    </message>
+    <message>
+        <source>Parts that are only used inside a set (a building of a castle set, a flex track half, a cut track piece). They’re listed grayed and aren’t placed by themselves.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Other</source>

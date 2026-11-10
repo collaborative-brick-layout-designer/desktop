@@ -180,7 +180,7 @@ PartsBrowser::PartsBrowser(parts::PartsLibrary& lib, QWidget* parent)
     showHidden_ = new QCheckBox(host);
     showHidden_->setObjectName(QStringLiteral("showHiddenParts"));
     showHidden_->setToolTip(tr("Parts that are only used inside a set (a building of a castle set, a flex track "
-                               "half, a cut track piece). They’re listed greyed and aren’t placed by themselves."));
+                               "half, a cut track piece). They’re listed grayed and aren’t placed by themselves."));
     showHidden_->setChecked(QSettings().value(QStringLiteral("parts/showHidden"), false).toBool());
     hiddenRow->addWidget(showHidden_);
     hiddenRow->addWidget(new help::HelpButton(QStringLiteral("part.hidden"), host, showHidden_));

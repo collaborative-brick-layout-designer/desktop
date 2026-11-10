@@ -253,8 +253,8 @@ void MainWindow::onReloadLibrary() {
     // The library's pictures were dropped: read the layout's again, with the loading card.
     mapView_->reloadPictures();
     statusBar()->showMessage(
-        tr("Reloaded parts: %1 parts in %2 folder(s)")
-            .arg(parts_.partCount()).arg(allPaths.size()), 4000);
+        tr("Reloaded parts: %1 parts in %n folder(s)", nullptr, static_cast<int>(allPaths.size()))
+            .arg(parts_.partCount()), 4000);
 }
 
 }  // namespace bld::ui

@@ -4161,10 +4161,6 @@
         <translation>La biblioteca LDraw de %1 no tiene forma para ninguna pieza de este modelo.</translation>
     </message>
     <message>
-        <source>None of the %1 parts in this model are in the parts library. Set an LDraw library in Preferences to render any part.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The model is empty.</source>
         <translation>El modelo está vacío.</translation>
     </message>
@@ -4206,6 +4202,10 @@
     <message>
         <source>Import canceled.</source>
         <translation>Importación cancelada.</translation>
+    </message>
+    <message>
+        <source>None of the %1 parts in this model are in the parts library. Set an LDraw library in Settings › Bringing in models to draw any part.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
         <source>and %n more</source>
@@ -5993,10 +5993,6 @@ Save anyway?</source>
     <message>
         <source>Autosaved (%1)</source>
         <translation>Guardado automático (%1)</translation>
-    </message>
-    <message>
-        <source>Reloaded parts: %1 parts in %2 folder(s)</source>
-        <translation>Piezas recargadas: %1 piezas en %2 carpetas</translation>
     </message>
     <message>
         <source>There is no folder on this computer to keep your own parts in.</source>
@@ -8938,10 +8934,6 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <translation>Volver a todas las piezas</translation>
     </message>
     <message>
-        <source>Parts that are only used inside a set (a building of a castle set, a flex track half, a cut track piece). They’re listed greyed and aren’t placed by themselves.</source>
-        <translation>Piezas que solo se usan dentro de un set (un edificio de un set de castillo, una mitad de vía flexible, un trozo de vía cortado). Aparecen en gris y no se colocan solas.</translation>
-    </message>
-    <message>
         <source>Picture size</source>
         <translation>Tamaño de las imágenes</translation>
     </message>
@@ -9036,6 +9028,10 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>Delete imported part…</source>
         <translation>Borrar pieza importada…</translation>
+    </message>
+    <message>
+        <source>Parts that are only used inside a set (a building of a castle set, a flex track half, a cut track piece). They’re listed grayed and aren’t placed by themselves.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Other</source>
