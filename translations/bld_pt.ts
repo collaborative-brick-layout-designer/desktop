@@ -3530,6 +3530,18 @@
         <translation>Vista &quot;%1&quot;</translation>
     </message>
     <message>
+        <source>Custom set</source>
+        <translation>Conjunto personalizado</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1 (yours: %2, the server&apos;s: %3)</source>
+        <translation>Limite do orçamento para %1 (o seu: %2, o do servidor: %3)</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1</source>
+        <translation>Limite do orçamento para %1</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Local</translation>
     </message>

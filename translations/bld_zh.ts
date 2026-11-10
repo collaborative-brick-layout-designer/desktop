@@ -3514,6 +3514,18 @@
         <translation>视图“%1”</translation>
     </message>
     <message>
+        <source>Custom set</source>
+        <translation>自定义套件</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1 (yours: %2, the server&apos;s: %3)</source>
+        <translation>%1 的预算上限（你的：%2，服务器的：%3）</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1</source>
+        <translation>%1 的预算上限</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>场地</translation>
     </message>

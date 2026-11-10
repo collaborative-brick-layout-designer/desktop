@@ -3530,6 +3530,18 @@
         <translation>Visning «%1»</translation>
     </message>
     <message>
+        <source>Custom set</source>
+        <translation>Eget sett</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1 (yours: %2, the server&apos;s: %3)</source>
+        <translation>Budsjettgrense for %1 (din: %2, serverens: %3)</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1</source>
+        <translation>Budsjettgrense for %1</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Lokale</translation>
     </message>

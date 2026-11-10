@@ -205,3 +205,24 @@ TEST(CompareDialog, HasHelpForTheWindowAndTheChoices) {
     keys.sort();
     EXPECT_EQ(keys, QStringList({ QStringLiteral("compare.about"), QStringLiteral("compare.keep") }));
 }
+
+// A budget limit changed offline is a row of its own in the review: sent by
+// default when nothing clashes, the server's kept (and no "Keep both") when
+// someone else set that part's limit too.
+TEST(CompareDialog, ListsBudgetChangesWithTheirOwnChoices) {
+    const Snapshot base = load(QStringLiteral("base"));
+    Snapshot mine = base, server = base;
+    mine.sidecar.insert(QStringLiteral("budgetLimits"),
+                        QJsonObject{ { QStringLiteral("3001.1"), 5 }, { QStringLiteral("3002.1"), 7 } });
+    server.sidecar.insert(QStringLiteral("budgetLimits"), QJsonObject{ { QStringLiteral("3001.1"), 9 } });
+    CompareDialog dlg(compareLayouts(base, mine, server));
+    ASSERT_EQ(dlg.list()->topLevelItemCount(), 2);
+    EXPECT_EQ(dlg.list()->topLevelItem(0)->text(0).toStdString(),
+              "Budget limit for 3001.1 (yours: 5, the server's: 9): you added it, the server added it");
+    EXPECT_EQ(dlg.list()->topLevelItem(1)->text(0).toStdString(), "Budget limit for 3002.1: you added it");
+    QComboBox* clash = comboFor(dlg, QStringLiteral("budget:3001.1"));
+    ASSERT_NE(clash, nullptr);
+    EXPECT_EQ(clash->count(), 2);  // Keep mine, Keep server
+    EXPECT_EQ(dlg.choices().value(QStringLiteral("budget:3001.1")), Choice::Server);
+    EXPECT_EQ(dlg.choices().value(QStringLiteral("budget:3002.1")), Choice::Mine);
+}

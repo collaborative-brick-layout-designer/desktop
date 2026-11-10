@@ -3530,6 +3530,18 @@
         <translation>Vue « %1 »</translation>
     </message>
     <message>
+        <source>Custom set</source>
+        <translation>Set personnalisé</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1 (yours: %2, the server&apos;s: %3)</source>
+        <translation>Limite du budget pour %1 (la vôtre : %2, celle du serveur : %3)</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1</source>
+        <translation>Limite du budget pour %1</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Salle</translation>
     </message>

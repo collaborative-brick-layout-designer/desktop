@@ -310,3 +310,59 @@ TEST(LayoutMerge, SaysWhereFromWhicheverSideHasIt) {
     g.mineValue = QJsonObject{};
     EXPECT_EQ(describe(g).toStdString(), std::string("Group on \"Track\": you added it"));
 }
+
+// The budget is compared one part at a time, and a placed set by its group:
+// neither is in the server's compare, and both were dropped by a merge.
+TEST(LayoutMerge, BudgetLimitsAndPlacedSetsAreComparedAndMerged) {
+    Case c;
+    using Budget = QMap<QString, int>;
+    c.base->sidecar.budgetLimits = Budget{ { QStringLiteral("A"), 1 }, { QStringLiteral("B"), 2 }, { QStringLiteral("C"), 3 },
+                                           { QStringLiteral("D"), 4 } };
+    // Mine: A raised, B taken out, E new. The server: C lowered, D raised (as mine does, differently).
+    c.mine->sidecar.budgetLimits = Budget{ { QStringLiteral("A"), 10 }, { QStringLiteral("C"), 3 }, { QStringLiteral("D"), 40 },
+                                           { QStringLiteral("E"), 5 } };
+    c.server->sidecar.budgetLimits = Budget{ { QStringLiteral("A"), 1 }, { QStringLiteral("B"), 2 }, { QStringLiteral("C"), 0 },
+                                             { QStringLiteral("D"), 44 } };
+    core::PlacedSet set;
+    set.groupId = QStringLiteral("G-offline");
+    set.version = QStringLiteral("v1");
+    c.mine->sidecar.sets.push_back(set);
+    const Snapshot b = snapshotOf(*c.base), m = snapshotOf(*c.mine), s = snapshotOf(*c.server);
+    const auto changes = compareLayouts(b, m, s);
+
+    QStringList lines;
+    for (const auto& ch : changes)
+        if (ch.kind == QLatin1String("budget") || ch.kind == QLatin1String("set")) lines << describe(ch);
+    EXPECT_EQ(lines.join(QLatin1Char('\n')).toStdString(),
+              "Budget limit for A: you changed it\n"
+              "Budget limit for B: you deleted it\n"
+              "Budget limit for C: the server changed it\n"
+              "Budget limit for D (yours: 40, the server's: 44): you changed it, the server changed it\n"
+              "Budget limit for E: you added it\n"
+              "Custom set: you added it");
+    for (const auto& ch : changes) {
+        if (ch.kind == QLatin1String("budget") || ch.kind == QLatin1String("set")) {
+            EXPECT_FALSE(ch.allowsBoth());
+        }
+    }
+
+    // By default: mine where nothing clashes, the server's on the clash.
+    auto merged = mergeLayouts(m, s, changes, {});
+    ASSERT_TRUE(merged);
+    EXPECT_EQ(merged->sidecar.budgetLimits, (Budget{ { QStringLiteral("A"), 10 }, { QStringLiteral("C"), 0 },
+                                                     { QStringLiteral("D"), 44 }, { QStringLiteral("E"), 5 } }));
+    ASSERT_EQ(merged->sidecar.sets.size(), 1u);
+    EXPECT_EQ(merged->sidecar.sets[0].groupId, QStringLiteral("G-offline"));
+    // "Keep mine" on the clash.
+    merged = mergeLayouts(m, s, changes, { { QStringLiteral("budget:D"), Choice::Mine } });
+    ASSERT_TRUE(merged);
+    EXPECT_EQ(merged->sidecar.budgetLimits->value(QStringLiteral("D")), 40);
+
+    // The whole budget taken away offline: gone after the merge, not left empty.
+    c.mine->sidecar.budgetLimits.reset();
+    c.server->sidecar.budgetLimits = c.base->sidecar.budgetLimits;
+    const Snapshot none = snapshotOf(*c.mine), same = snapshotOf(*c.server);
+    merged = mergeLayouts(none, same, compareLayouts(b, none, same), {});
+    ASSERT_TRUE(merged);
+    EXPECT_FALSE(merged->sidecar.budgetLimits.has_value());
+}

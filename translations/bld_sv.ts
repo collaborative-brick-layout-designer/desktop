@@ -3530,6 +3530,18 @@
         <translation>Vyn &quot;%1&quot;</translation>
     </message>
     <message>
+        <source>Custom set</source>
+        <translation>Eget set</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1 (yours: %2, the server&apos;s: %3)</source>
+        <translation>Budgetgräns för %1 (din: %2, serverns: %3)</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1</source>
+        <translation>Budgetgräns för %1</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Lokal</translation>
     </message>

@@ -98,6 +98,13 @@ Items itemsOf(const Snapshot& s) {
     for (const auto& v : s.sidecar.value(QLatin1String("views")).toArray())
         out.insert(QStringLiteral("view:") + v.toObject().value(QLatin1String("id")).toString(),
                    { QStringLiteral("view"), {}, v, {} });
+    for (const auto& p : s.sidecar.value(QLatin1String("sets")).toArray())
+        out.insert(QStringLiteral("set:") + p.toObject().value(QLatin1String("id")).toString(),
+                   { QStringLiteral("set"), {}, p, {} });
+    // The budget, one row a part: limits set for different parts merge.
+    const QJsonObject limits = s.sidecar.value(QLatin1String("budgetLimits")).toObject();
+    for (auto it = limits.begin(); it != limits.end(); ++it)
+        out.insert(QStringLiteral("budget:") + it.key(), { QStringLiteral("budget"), {}, it.value(), {} });
     if (s.sidecar.contains(QLatin1String("venue")))
         out.insert(QStringLiteral("venue"), { QStringLiteral("venue"), {}, s.sidecar.value(QLatin1String("venue")), {} });
     if (s.sidecar.contains(QLatin1String("backgroundImage")))
@@ -162,6 +169,8 @@ public:
         if (c.kind == QLatin1String("module")) return takeSidecarItem(c, QStringLiteral("modules"), copy);
         // A view is replaced whole: the last edit of a view wins.
         if (c.kind == QLatin1String("view")) return takeSidecarItem(c, QStringLiteral("views"), copy);
+        if (c.kind == QLatin1String("set")) return takeSidecarItem(c, QStringLiteral("sets"), false);
+        if (c.kind == QLatin1String("budget")) return takeBudgetRow(c);
         if (c.kind == QLatin1String("venue") || c.kind == QLatin1String("background")) {
             const QString k = c.kind == QLatin1String("venue") ? QStringLiteral("venue") : QStringLiteral("backgroundImage");
             if (c.mineValue.isUndefined()) sidecar_.remove(k);
@@ -298,6 +307,18 @@ private:
             list.append(c.mineValue);
         }
         sidecar_.insert(listName, list);
+    }
+
+    // One part's limit. The budget itself comes with its first row, and
+    // goes with its last one when mine has no budget any more.
+    void takeBudgetRow(const ItemChange& c) {
+        const QString key = QStringLiteral("budgetLimits");
+        QJsonObject limits = sidecar_.value(key).toObject();
+        const QString part = c.key.section(QLatin1Char(':'), 1);
+        if (c.mineValue.isUndefined()) limits.remove(part);
+        else limits.insert(part, c.mineValue);
+        if (limits.isEmpty() && !mine_.sidecar.contains(key)) sidecar_.remove(key);
+        else sidecar_.insert(key, limits);
     }
 
     const Snapshot& mine_;
@@ -470,7 +491,16 @@ QString describe(const ItemChange& c) {
     else if (c.kind == QLatin1String("label")) what = Text::tr("Label \"%1\"").arg(v.value(QLatin1String("text")).toString().left(40));
     else if (c.kind == QLatin1String("module")) what = Text::tr("Module \"%1\"").arg(v.value(QLatin1String("name")).toString());
     else if (c.kind == QLatin1String("view")) what = Text::tr("View \"%1\"").arg(v.value(QLatin1String("name")).toString());
-    else if (c.kind == QLatin1String("venue")) what = Text::tr("Venue");
+    else if (c.kind == QLatin1String("set")) what = Text::tr("Custom set");
+    else if (c.kind == QLatin1String("budget")) {
+        // The limit that side wants, so a clash reads without opening the budget.
+        const auto limit = [](const QJsonValue& v) { return QString::number(v.toInt()); };
+        const QString part = c.key.section(QLatin1Char(':'), 1);
+        if (c.status == Status::Conflict && !c.mineValue.isUndefined() && !c.serverValue.isUndefined())
+            what = Text::tr("Budget limit for %1 (yours: %2, the server's: %3)")
+                       .arg(part, limit(c.mineValue), limit(c.serverValue));
+        else what = Text::tr("Budget limit for %1").arg(part);
+    } else if (c.kind == QLatin1String("venue")) what = Text::tr("Venue");
     else what = Text::tr("Background image");
     if (c.status == Status::Same) return bothDid(c.mine).arg(what);
     if (c.status == Status::Mine) return youDid(c.mine).arg(what);
