@@ -4717,10 +4717,6 @@
 </context>
 <context>
     <name>bld::ui::LiveLayout</name>
-    <message>
-        <source>your access to this layout changed to view only, so your latest changes weren&apos;t taken. Nothing is lost: your copy stays open here, so save it (File &gt; Save As). Open the layout from the server again to view it live</source>
-        <translation>je toegang tot deze layout is veranderd naar alleen bekijken, dus je laatste wijzigingen zijn niet overgenomen. Er is niets verloren: je kopie blijft hier open, dus sla hem op (Bestand &gt; Opslaan als). Open de layout opnieuw van de server om hem live te bekijken</translation>
-    </message>
     <message numerus="yes">
         <source>Signed out, %n edit(s) kept</source>
         <translation>
@@ -6598,6 +6594,22 @@ Toch opslaan?</translation>
         <translation>Iemand anders heeft dat na jou gewijzigd, dus er was niets om opnieuw te doen.</translation>
     </message>
     <message>
+        <source>Your latest changes weren&apos;t taken</source>
+        <translation>Je laatste wijzigingen zijn niet overgenomen</translation>
+    </message>
+    <message>
+        <source>Your access to “%1” changed to view only before your latest changes reached the server, so it didn&apos;t take them. You&apos;re still live, viewing it. Nothing is lost: save your changes as a new layout, or let them go.</source>
+        <translation>Je toegang tot “%1” is gewijzigd naar alleen bekijken voordat je laatste wijzigingen de server bereikten, dus die zijn niet overgenomen. Je bent nog steeds live en bekijkt de layout. Er gaat niets verloren: sla je wijzigingen op als nieuwe layout, of laat ze gaan.</translation>
+    </message>
+    <message>
+        <source>Save My Changes as a New Layout</source>
+        <translation>Mijn wijzigingen opslaan als nieuwe layout</translation>
+    </message>
+    <message>
+        <source>Let Them Go</source>
+        <translation>Laat ze gaan</translation>
+    </message>
+    <message>
         <source>Live layout closed</source>
         <translation>Live layout gesloten</translation>
     </message>
@@ -6674,8 +6686,8 @@ Toch opslaan?</translation>
         <translation>Log opnieuw in om live verder te werken</translation>
     </message>
     <message>
-        <source>Your sign-in to %1 has run out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
-        <translation>Je login op %1 is verlopen, dus je wijzigingen kunnen de server niet bereiken. Ze blijven hier bewaard en worden verstuurd zodra je opnieuw inlogt.</translation>
+        <source>You were signed out of %1 (on the website or another device), or your sign-in there ran out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
+        <translation>Je bent afgemeld bij %1 (op de website of een ander apparaat), of je aanmelding daar is verlopen, dus je wijzigingen kunnen de server niet bereiken. Ze blijven hier bewaard en worden verstuurd zodra je weer aanmeldt.</translation>
     </message>
     <message>
         <source>Sign In…</source>

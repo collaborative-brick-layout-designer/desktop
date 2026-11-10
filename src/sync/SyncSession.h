@@ -62,6 +62,8 @@ public:
     // What the editor showed when access went down to view only, if the
     // server turned out to lack some of it (editsNotTaken); else nullopt.
     const std::optional<merge::Snapshot>& notTaken() const { return notTaken_; }
+    // Saved elsewhere, or let go of.
+    void forgetNotTaken() { notTaken_.reset(); }
     // The first sync has delivered the layout.
     bool loaded() const { return loaded_; }
     // Offline edits waiting to be resolved.

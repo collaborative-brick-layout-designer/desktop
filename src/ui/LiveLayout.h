@@ -79,6 +79,9 @@ signals:
     void undoStateChanged();
     // An undo (or a redo, `undo` false) found the step changed by someone else since: nothing changed.
     void nothingToUndo(bool undo);
+    // Down to view only before our latest edits reached the server: it didn't
+    // take them. Still live; session().notTaken() holds them for saving.
+    void editsNotTaken();
     // The server ended the session (access revoked, layout deleted).
     void ended(const QString& reason);
     // The server ended the sign-in, not the layout: it stays open, and its

@@ -32,19 +32,12 @@ LiveLayout::LiveLayout(MapView& view, QObject* parent) : QObject(parent), view_(
         emit statusTextChanged(statusText());
         emit offlineEditsReady();
     });
-    // Down to view only with edits the server didn't take: the session ends
-    // and they stay open here as an unsaved copy, as when the server closes it.
+    // Down to view only with edits the server didn't take: still live, as a
+    // viewer (the map is the server's copy); the window offers to save them
+    // as a new layout (session_.notTaken()), as the web does.
     connect(&session_, &sync::SyncSession::editsNotTaken, this, [this] {
-        const auto kept = session_.notTaken();
-        if (!active_ || !kept) return;
-        close();
-        if (auto map = sync::merge::mapOf(*kept)) {
-            view_.loadMap(std::move(map));
-            emit mapReloaded();
-        }
-        emit ended(tr("your access to this layout changed to view only, so your latest changes weren't taken. "
-                      "Nothing is lost: your copy stays open here, so save it (File > Save As). Open the layout "
-                      "from the server again to view it live"));
+        if (!active_ || !session_.notTaken()) return;
+        emit editsNotTaken();
     });
     connect(&session_, &sync::SyncSession::ended, this, [this](int code, const QString& reason) {
         // Only the sign-in ended (it ran out, reached its longest, or was

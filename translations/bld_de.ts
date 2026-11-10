@@ -4717,10 +4717,6 @@
 </context>
 <context>
     <name>bld::ui::LiveLayout</name>
-    <message>
-        <source>your access to this layout changed to view only, so your latest changes weren&apos;t taken. Nothing is lost: your copy stays open here, so save it (File &gt; Save As). Open the layout from the server again to view it live</source>
-        <translation>dein Zugriff auf dieses Layout wurde auf Nur-Ansehen geändert, daher wurden deine letzten Änderungen nicht angenommen. Nichts geht verloren: Deine Kopie bleibt hier offen, also speichere sie (Datei &gt; Speichern unter). Öffne das Layout erneut vom Server, um es live anzusehen</translation>
-    </message>
     <message numerus="yes">
         <source>Signed out, %n edit(s) kept</source>
         <translation>
@@ -6598,6 +6594,22 @@ Trotzdem speichern?</translation>
         <translation>Jemand anderes hat das nach dir geändert, daher gab es nichts zu wiederholen.</translation>
     </message>
     <message>
+        <source>Your latest changes weren&apos;t taken</source>
+        <translation>Deine letzten Änderungen wurden nicht übernommen</translation>
+    </message>
+    <message>
+        <source>Your access to “%1” changed to view only before your latest changes reached the server, so it didn&apos;t take them. You&apos;re still live, viewing it. Nothing is lost: save your changes as a new layout, or let them go.</source>
+        <translation>Dein Zugriff auf „%1“ wurde auf „nur ansehen“ geändert, bevor deine letzten Änderungen den Server erreichten, daher hat er sie nicht übernommen. Du bist weiterhin live und siehst das Layout an. Nichts ist verloren: Speichere deine Änderungen als neues Layout oder verwirf sie.</translation>
+    </message>
+    <message>
+        <source>Save My Changes as a New Layout</source>
+        <translation>Meine Änderungen als neues Layout speichern</translation>
+    </message>
+    <message>
+        <source>Let Them Go</source>
+        <translation>Verwerfen</translation>
+    </message>
+    <message>
         <source>Live layout closed</source>
         <translation>Live-Layout geschlossen</translation>
     </message>
@@ -6674,8 +6686,8 @@ Trotzdem speichern?</translation>
         <translation>Melde dich erneut an, um live weiterzuarbeiten</translation>
     </message>
     <message>
-        <source>Your sign-in to %1 has run out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
-        <translation>Deine Anmeldung bei %1 ist abgelaufen, daher erreichen deine Änderungen den Server nicht. Sie bleiben hier und werden gesendet, sobald du dich erneut anmeldest.</translation>
+        <source>You were signed out of %1 (on the website or another device), or your sign-in there ran out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
+        <translation>Du wurdest von %1 abgemeldet (auf der Website oder einem anderen Gerät), oder deine Anmeldung dort ist abgelaufen, daher erreichen deine Änderungen den Server nicht. Sie bleiben hier erhalten und werden gesendet, sobald du dich wieder anmeldest.</translation>
     </message>
     <message>
         <source>Sign In…</source>

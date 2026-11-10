@@ -4690,10 +4690,6 @@
 </context>
 <context>
     <name>bld::ui::LiveLayout</name>
-    <message>
-        <source>your access to this layout changed to view only, so your latest changes weren&apos;t taken. Nothing is lost: your copy stays open here, so save it (File &gt; Save As). Open the layout from the server again to view it live</source>
-        <translation>このレイアウトへのアクセスが閲覧のみに変わったため、最新の変更は受け付けられませんでした。何も失われていません。あなたのコピーはここで開いたままなので、保存してください（ファイル &gt; 名前を付けて保存）。ライブで見るには、サーバーからレイアウトをもう一度開いてください</translation>
-    </message>
     <message numerus="yes">
         <source>Signed out, %n edit(s) kept</source>
         <translation>
@@ -6561,6 +6557,22 @@ Save anyway?</source>
         <translation>あなたの後にほかの人が変更したため、やり直すものはありませんでした。</translation>
     </message>
     <message>
+        <source>Your latest changes weren&apos;t taken</source>
+        <translation>最新の変更は受け付けられませんでした</translation>
+    </message>
+    <message>
+        <source>Your access to “%1” changed to view only before your latest changes reached the server, so it didn&apos;t take them. You&apos;re still live, viewing it. Nothing is lost: save your changes as a new layout, or let them go.</source>
+        <translation>最新の変更がサーバーに届く前に「%1」へのアクセスが閲覧のみに変わったため、変更は受け付けられませんでした。引き続きライブで閲覧中です。失われたものはありません。変更を新しいレイアウトとして保存するか、破棄してください。</translation>
+    </message>
+    <message>
+        <source>Save My Changes as a New Layout</source>
+        <translation>変更を新しいレイアウトとして保存</translation>
+    </message>
+    <message>
+        <source>Let Them Go</source>
+        <translation>破棄する</translation>
+    </message>
+    <message>
         <source>Live layout closed</source>
         <translation>ライブレイアウトが閉じられました</translation>
     </message>
@@ -6637,8 +6649,8 @@ Save anyway?</source>
         <translation>ライブで作業を続けるにはもう一度サインインしてください</translation>
     </message>
     <message>
-        <source>Your sign-in to %1 has run out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
-        <translation>%1 へのサインインの期限が切れたため、変更がサーバーに届きません。変更はここに残り、もう一度サインインすると送られます。</translation>
+        <source>You were signed out of %1 (on the website or another device), or your sign-in there ran out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
+        <translation>%1 からサインアウトされた（ウェブサイトまたは別のデバイスで）か、サインインの期限が切れたため、変更をサーバーに送れません。変更はここに保存され、再びサインインすると送信されます。</translation>
     </message>
     <message>
         <source>Sign In…</source>

@@ -4717,10 +4717,6 @@
 </context>
 <context>
     <name>bld::ui::LiveLayout</name>
-    <message>
-        <source>your access to this layout changed to view only, so your latest changes weren&apos;t taken. Nothing is lost: your copy stays open here, so save it (File &gt; Save As). Open the layout from the server again to view it live</source>
-        <translation>o seu acesso a este layout passou a só de leitura, por isso as suas últimas alterações não foram aceites. Nada se perdeu: a sua cópia fica aberta aqui, por isso guarde-a (Ficheiro &gt; Guardar como). Abra o layout de novo a partir do servidor para o ver ao vivo</translation>
-    </message>
     <message numerus="yes">
         <source>Signed out, %n edit(s) kept</source>
         <translation>
@@ -6598,6 +6594,22 @@ Guardar mesmo assim?</translation>
         <translation>Outra pessoa alterou isso depois de você, por isso não havia nada para refazer.</translation>
     </message>
     <message>
+        <source>Your latest changes weren&apos;t taken</source>
+        <translation>Suas últimas alterações não foram aceitas</translation>
+    </message>
+    <message>
+        <source>Your access to “%1” changed to view only before your latest changes reached the server, so it didn&apos;t take them. You&apos;re still live, viewing it. Nothing is lost: save your changes as a new layout, or let them go.</source>
+        <translation>Seu acesso a “%1” mudou para somente visualização antes que suas últimas alterações chegassem ao servidor, então ele não as aceitou. Você continua ao vivo, visualizando. Nada se perde: salve suas alterações como um novo layout ou descarte-as.</translation>
+    </message>
+    <message>
+        <source>Save My Changes as a New Layout</source>
+        <translation>Salvar minhas alterações como novo layout</translation>
+    </message>
+    <message>
+        <source>Let Them Go</source>
+        <translation>Descartar</translation>
+    </message>
+    <message>
         <source>Live layout closed</source>
         <translation>Layout ao vivo fechado</translation>
     </message>
@@ -6674,8 +6686,8 @@ Guardar mesmo assim?</translation>
         <translation>Inicie sessão de novo para continuar a trabalhar ao vivo</translation>
     </message>
     <message>
-        <source>Your sign-in to %1 has run out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
-        <translation>A sua sessão em %1 expirou, por isso as suas alterações não chegam ao servidor. Ficam guardadas aqui e são enviadas assim que você iniciar sessão de novo.</translation>
+        <source>You were signed out of %1 (on the website or another device), or your sign-in there ran out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
+        <translation>Você foi desconectado de %1 (no site ou em outro dispositivo), ou seu login expirou, então suas alterações não chegam ao servidor. Elas ficam guardadas aqui e são enviadas quando você entrar de novo.</translation>
     </message>
     <message>
         <source>Sign In…</source>

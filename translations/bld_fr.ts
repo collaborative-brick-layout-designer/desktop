@@ -4717,10 +4717,6 @@
 </context>
 <context>
     <name>bld::ui::LiveLayout</name>
-    <message>
-        <source>your access to this layout changed to view only, so your latest changes weren&apos;t taken. Nothing is lost: your copy stays open here, so save it (File &gt; Save As). Open the layout from the server again to view it live</source>
-        <translation>votre accès à ce plan est passé en lecture seule, donc vos derniers changements n’ont pas été acceptés. Rien n’est perdu : votre copie reste ouverte ici, alors enregistrez-la (Fichier &gt; Enregistrer sous). Rouvrez le plan depuis le serveur pour le voir en direct</translation>
-    </message>
     <message numerus="yes">
         <source>Signed out, %n edit(s) kept</source>
         <translation>
@@ -6598,6 +6594,22 @@ Enregistrer quand même ?</translation>
         <translation>Quelqu&apos;un d&apos;autre l&apos;a modifié après vous : il n&apos;y avait donc rien à rétablir.</translation>
     </message>
     <message>
+        <source>Your latest changes weren&apos;t taken</source>
+        <translation>Vos dernières modifications n&apos;ont pas été prises en compte</translation>
+    </message>
+    <message>
+        <source>Your access to “%1” changed to view only before your latest changes reached the server, so it didn&apos;t take them. You&apos;re still live, viewing it. Nothing is lost: save your changes as a new layout, or let them go.</source>
+        <translation>Votre accès à « %1 » est passé en lecture seule avant que vos dernières modifications n&apos;atteignent le serveur : il ne les a donc pas prises en compte. Vous êtes toujours en direct, en lecture. Rien n&apos;est perdu : enregistrez vos modifications comme nouvelle disposition, ou abandonnez-les.</translation>
+    </message>
+    <message>
+        <source>Save My Changes as a New Layout</source>
+        <translation>Enregistrer mes modifications comme nouvelle disposition</translation>
+    </message>
+    <message>
+        <source>Let Them Go</source>
+        <translation>Les abandonner</translation>
+    </message>
+    <message>
         <source>Live layout closed</source>
         <translation>Plan en direct fermé</translation>
     </message>
@@ -6674,8 +6686,8 @@ Enregistrer quand même ?</translation>
         <translation>Reconnectez-vous pour continuer en direct</translation>
     </message>
     <message>
-        <source>Your sign-in to %1 has run out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
-        <translation>Votre connexion à %1 a expiré, donc vos changements n’arrivent pas au serveur. Ils sont gardés ici, et envoyés dès que vous vous reconnectez.</translation>
+        <source>You were signed out of %1 (on the website or another device), or your sign-in there ran out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
+        <translation>Vous avez été déconnecté de %1 (sur le site web ou un autre appareil), ou votre connexion a expiré : vos modifications ne peuvent pas atteindre le serveur. Elles sont conservées ici et envoyées dès que vous vous reconnectez.</translation>
     </message>
     <message>
         <source>Sign In…</source>

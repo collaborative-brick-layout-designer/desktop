@@ -23,6 +23,7 @@
 #include "ui/tours/Tours.h"
 #include "ui/MapView.h"
 #include "ui/NoticeArea.h"
+#include "LayoutMerge.h"
 #include "ui/UpdateCheck.h"
 #include "ui/theme/AppPrefs.h"
 #include "ui/theme/ThemeManager.h"
@@ -1090,10 +1091,11 @@ TEST_F(MainWindowLive, ARoleLoweredWhileOpenMakesItViewOnlyAndRaisedAgainEditabl
 }
 
 // Lowered before this desktop heard of it: the edit made meanwhile went to
-// the server, which dropped it. Once it knows, the live session ends and
-// the layout with that edit stays open as an unsaved copy (as #172 does
-// for a refused merge), saying why in plain words.
-TEST_F(MainWindowLive, ARoleLoweredUnheardKeepsTheEditTheServerDroppedForSaving) {
+// the server, which dropped it. Once it knows, it stays live as a viewer
+// (full review area 4, Bug 11: the session used to end, with one message
+// nested in another), and a notice offers to save the edit it didn't take
+// as a new layout.
+TEST_F(MainWindowLive, ARoleLoweredUnheardStaysLiveAndOffersTheDroppedEditForSaving) {
     // Taken: before the change.
     core::Map& m = *view_->currentMap();
     const QPointF at = brickAt(m, 0).displayArea.topLeft();
@@ -1109,19 +1111,33 @@ TEST_F(MainWindowLive, ARoleLoweredUnheardKeepsTheEditTheServerDroppedForSaving)
 
     // The connection drops and comes back: back in step, it asks again.
     http_.reply("/api/layouts/L1", 200, layoutRole("viewer"));
-    Answers closed{ { box(QStringLiteral("your latest changes weren't taken"), QStringLiteral("OK")) } };
-    closed.during([&] {
+    auto* notices = window_->findChild<ui::NoticeArea*>();
+    Answers none{ {} };
+    none.during([&] {
         ws_.dropAll(QWebSocketProtocol::CloseCodeGoingAway);
-        ASSERT_TRUE(waitFor([&] { return closed.done() && !live_->active(); }, 8000));
+        ASSERT_TRUE(waitFor([&] { return notices->isShown(QStringLiteral("live-not-taken")); }, 8000));
     });
-    EXPECT_EQ(closed.unexpected, 0);
-    // Mine stays here, unsaved; the server never got the dropped edit.
-    ASSERT_NE(view_->currentMap(), nullptr);
-    EXPECT_EQ(brickAt(*view_->currentMap(), 0).displayArea, original_.translated(0, 8));
-    EXPECT_EQ(brickAt(*view_->currentMap(), 1).displayArea.topLeft(), other + QPointF(16, 0));
-    EXPECT_FALSE(view_->undoStack()->isClean());
+    EXPECT_EQ(none.unexpected, 0);
+    // Still live, viewing the server's copy.
+    EXPECT_TRUE(live_->active());
+    EXPECT_TRUE(live_->readOnly());
+    ASSERT_TRUE(waitFor([&] { return session().status() == Status::Synced; }));
+    ASSERT_TRUE(waitFor([&] { return view_->currentMap() && brickAt(*view_->currentMap(), 1).displayArea == otherOriginal_; }));
     EXPECT_EQ(brickArea(ws_.doc, 1), otherOriginal_);
-    EXPECT_FALSE(window_->findChild<ui::NoticeArea*>()->isShown(QStringLiteral("live-access")));
+    EXPECT_FALSE(notices->isShown(QStringLiteral("live-access")));
+    // The edit it didn't take is kept for saving.
+    ASSERT_TRUE(session().notTaken().has_value());
+    const auto kept = sync::merge::mapOf(*session().notTaken());
+    ASSERT_NE(kept, nullptr);
+    EXPECT_EQ(brickAt(*kept, 1).displayArea.topLeft(), other + QPointF(16, 0));
+    // Let Them Go: gone.
+    QPushButton* letGo = nullptr;
+    for (auto* b : notices->card(QStringLiteral("live-not-taken"))->findChildren<QPushButton*>())
+        if (b->text() == QStringLiteral("Let Them Go")) letGo = b;
+    ASSERT_NE(letGo, nullptr);
+    letGo->click();
+    EXPECT_TRUE(waitFor([&] { return !session().notTaken().has_value(); }));
+    EXPECT_FALSE(notices->isShown(QStringLiteral("live-not-taken")));
 }
 
 namespace {
