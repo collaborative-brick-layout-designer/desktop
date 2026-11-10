@@ -304,7 +304,7 @@ private:
     // `ok` gets the reply when it is a 2xx; `failed` gets the refusal otherwise.
     void send(const QByteArray& verb, const QString& path, const QByteArray& body,
               const QByteArray& contentType, std::function<void(QNetworkReply*)> ok, Fail failed,
-              QList<QPair<QByteArray, QByteArray>> headers = {});
+              const QList<QPair<QByteArray, QByteArray>>& headers = {});
     void sendJson(const QByteArray& verb, const QString& path, const QJsonObject& body,
                   std::function<void(const QJsonObject&)> ok, Fail failed);
 

@@ -61,7 +61,7 @@ QUrl LibraryApi::url(const QString& pathAndQuery) const {
 
 void LibraryApi::send(const QByteArray& verb, const QString& path, const QByteArray& body,
                       const QByteArray& contentType, std::function<void(QNetworkReply*)> ok, Fail failed,
-                      QList<QPair<QByteArray, QByteArray>> headers) {
+                      const QList<QPair<QByteArray, QByteArray>>& headers) {
     QNetworkRequest req(url(path));
     for (const auto& [name, value] : headers) req.setRawHeader(name, value);
     req.setHeader(QNetworkRequest::UserAgentHeader, userAgent());
@@ -227,7 +227,7 @@ void LibraryApi::saveModuleSnapshot(const QString& id, const QByteArray& snapsho
                 savedAs(intOf(o.value(QLatin1String("docVersion"))));
             if (done) done(intOf(o.value(QLatin1String("version"))));
         },
-        std::move(failed), std::move(headers));
+        std::move(failed), headers);
 }
 
 void LibraryApi::setModuleThumbnail(const QString& id, const QByteArray& png, std::function<void()> done, Fail failed) {
