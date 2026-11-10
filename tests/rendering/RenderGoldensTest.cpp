@@ -16,6 +16,7 @@
 #include "saveload/BbmReader.h"
 #include "parts/PartsLibrary.h"
 #include "core/Map.h"
+#include "core/LayerBrick.h"
 
 #include <gtest/gtest.h>
 
@@ -27,7 +28,9 @@
 #include <QGraphicsScene>
 #include <QImage>
 #include <QPainter>
+#include <QSet>
 #include <QString>
+#include <QStringList>
 
 #include <cmath>
 
@@ -134,12 +137,41 @@ void checkGolden(const QString& bbmPath) {
     const QString stem = QFileInfo(bbmPath).completeBaseName();
     const QString golden = QDir(goldensDir()).filePath(stem + QStringLiteral(".png"));
 
+    // The bundled library, plus the packs a fixture also uses (TrixBrix's
+    // curves in tight-corner): BLD_RENDER_GOLDENS_PARTS, ':'-separated (CI
+    // downloads them, checksum-checked). A golden is drawn with every part
+    // the map names, never with missing-part placeholders.
     bld::parts::PartsLibrary lib;
     lib.addSearchPath(partsLibRoot());
+    for (const QString& extra : qEnvironmentVariable("BLD_RENDER_GOLDENS_PARTS").split(QLatin1Char(':'), Qt::SkipEmptyParts))
+        lib.addSearchPath(extra);
     ASSERT_GT(lib.scan(), 100) << "parts library didn't load any parts";
+    {
+        auto loaded = bld::saveload::readBbm(bbmPath);
+        ASSERT_TRUE(loaded.ok());
+        QSet<QString> missing;
+        for (const auto& layer : loaded.map->layers()) {
+            if (layer->kind() != bld::core::LayerKind::Brick) continue;
+            for (const auto& b : static_cast<const bld::core::LayerBrick&>(*layer).bricks)
+                if (!lib.metadata(b.partNumber) || lib.pixmap(b.partNumber).isNull()) missing.insert(b.partNumber);
+        }
+        QStringList names(missing.begin(), missing.end());
+        names.sort();
+        ASSERT_TRUE(names.isEmpty()) << "parts the map uses aren't in the library (set BLD_RENDER_GOLDENS_PARTS): "
+                                     << names.join(QStringLiteral(", ")).toStdString();
+    }
 
     const QImage rendered = renderBbm(bbmPath, lib);
     ASSERT_FALSE(rendered.isNull()) << "renderBbm returned a null image";
+
+    // BLD_RENDER_GOLDENS_CAPTURE=1 (scripts/capture-render-goldens.sh):
+    // write this render as the new golden, after a person has looked at
+    // the differences and decided the new drawing is the right one.
+    if (qEnvironmentVariable("BLD_RENDER_GOLDENS_CAPTURE") == QStringLiteral("1")) {
+        QDir().mkpath(goldensDir());
+        ASSERT_TRUE(rendered.save(golden, "PNG")) << golden.toStdString();
+        GTEST_SKIP() << "captured " << golden.toStdString();
+    }
 
     if (!QFile::exists(golden)) {
         // Initial capture hasn't happened yet for this fixture —
@@ -183,8 +215,10 @@ void checkGolden(const QString& bbmPath) {
 // font hinting, image scaler, and GIF decode all differ. The only
 // environment that can meaningfully enforce them is "the same box
 // the references were captured on". Set BLD_ENABLE_RENDER_GOLDENS=1
-// to actually run — CI doesn't, so cross-platform nightly builds
-// don't break every time antialiasing shifts.
+// to actually run. CI runs them on Linux only (ci.yml, "Render
+// goldens"), with the same Qt and the map text in the embedded Liberation
+// Sans, so the other platforms' builds don't break every time
+// antialiasing shifts.
 bool goldensEnabled() {
     return qEnvironmentVariableIsSet("BLD_ENABLE_RENDER_GOLDENS")
         && !qEnvironmentVariable("BLD_ENABLE_RENDER_GOLDENS").isEmpty()

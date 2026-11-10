@@ -8,6 +8,20 @@ golden is what this fork is *expected* to render today. Drift beyond
 the per-channel tolerance documented in the test harness = a
 regression.
 
+## Where they run
+
+CI runs them on Linux, in the Linux build job (`build.yml`, Qt 6.12 from
+the installer, map text in the embedded Liberation Sans), with the
+TrixBrix and BrickTracks packs the corpus also uses downloaded and
+checksum-checked (`BLD_RENDER_GOLDENS_PARTS`). A failure uploads the
+renders as the `render-goldens-actual` artifact. The goldens are that
+job's renders: capture new ones from that artifact, or locally with
+the same Qt.
+
+A map whose parts aren't all in the library fails the test instead of
+being drawn with missing-part placeholders (the April 2026 goldens had
+them in every TrixBrix and BrickTracks curve).
+
 ## Opt-in — not default
 
 The `RenderGoldens.*` tests **skip unless `BLD_ENABLE_RENDER_GOLDENS=1`**

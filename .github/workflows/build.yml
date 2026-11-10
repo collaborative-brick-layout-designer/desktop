@@ -159,8 +159,35 @@ jobs:
             "https://raw.githubusercontent.com/collaborative-brick-layout-designer/web/$sha/apps/web/src/help/help-texts.json" || true
           echo "BLD_WEB_HELP_TEXTS=$RUNNER_TEMP/help-texts.json" >> "$GITHUB_ENV"
 
+      # The render goldens (tests/rendering/RenderGoldensTest.cpp) run on
+      # Linux only, where they were captured, with the packs the corpus maps
+      # use beyond the bundled library, checksum-checked.
+      - name: Parts packs for the render goldens (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/golden-packs" && cd "$RUNNER_TEMP/golden-packs"
+          curl -fsSL --retry 3 -o TrixBrix.zip https://bluebrick.lswproject.com/download/package/TrixBrix.1.8.5.zip
+          curl -fsSL --retry 3 -o BrickTracks.zip https://bluebrick.lswproject.com/download/package/BrickTracks.1.1.zip
+          sha256sum -c - <<'SUMS'
+          79c4bf6dbb28b03f6cd7e5b783db2743423700795e839ef3ee3df5ed71aebd8f  TrixBrix.zip
+          e25ab99a02fcd6ae02828fc00e7bc8b00cedcb52778f25940da36fbfc269aac4  BrickTracks.zip
+          SUMS
+          unzip -q TrixBrix.zip && unzip -q BrickTracks.zip
+          echo "BLD_RENDER_GOLDENS_PARTS=$PWD/TrixBrix:$PWD/BrickTracks" >> "$GITHUB_ENV"
+          echo "BLD_ENABLE_RENDER_GOLDENS=1" >> "$GITHUB_ENV"
+
       - name: Test
         run: ctest --test-dir build --build-config Release --output-on-failure --timeout 300
+
+      - name: Upload the render goldens' renders
+        if: failure() && runner.os == 'Linux'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: render-goldens-actual
+          path: fixtures/render-goldens/actual/
+          if-no-files-found: ignore
+          retention-days: 14
 
       # ---------------------------------------------------------------- Linux
       - name: Package (Linux AppImage + tar.gz)
