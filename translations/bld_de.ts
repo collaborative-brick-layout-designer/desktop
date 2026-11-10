@@ -1843,35 +1843,35 @@
     </message>
     <message>
         <source>Replaced %1 texts.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Texte ersetzt.</translation>
     </message>
     <message>
         <source>Sides</source>
-        <translation type="unfinished"></translation>
+        <translation>Seiten</translation>
     </message>
     <message>
         <source>Length (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Länge (%1)</translation>
     </message>
     <message>
         <source>Angle (°)</source>
-        <translation type="unfinished"></translation>
+        <translation>Winkel (°)</translation>
     </message>
     <message>
         <source>Kind</source>
-        <translation type="unfinished"></translation>
+        <translation>Art</translation>
     </message>
     <message>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschriftung</translation>
     </message>
     <message>
         <source>Wall</source>
-        <translation type="unfinished"></translation>
+        <translation>Wand</translation>
     </message>
     <message>
         <source>Door</source>
-        <translation type="unfinished"></translation>
+        <translation>Tür</translation>
     </message>
     <message>
         <source>Open</source>
@@ -1879,15 +1879,15 @@
     </message>
     <message>
         <source>Angle of side %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Winkel der Seite %1</translation>
     </message>
     <message>
         <source>Kind of side %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Art der Seite %1</translation>
     </message>
     <message>
         <source>Label of side %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschriftung der Seite %1</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1895,11 +1895,11 @@
     </message>
     <message>
         <source>BlueBrick budget (*.bbb)</source>
-        <translation type="unfinished"></translation>
+        <translation>BlueBrick-Budget (*.bbb)</translation>
     </message>
     <message>
         <source>(unnamed)</source>
-        <translation type="unfinished"></translation>
+        <translation>(ohne Namen)</translation>
     </message>
     <message>
         <source>Use %1 for the layout&apos;s %2</source>
@@ -1907,418 +1907,418 @@
     </message>
     <message>
         <source>hidden: its sheet is hidden</source>
-        <translation type="unfinished"></translation>
+        <translation>ausgeblendet: sein Blatt ist ausgeblendet</translation>
     </message>
     <message>
         <source>hidden: its sheets are hidden</source>
-        <translation type="unfinished"></translation>
+        <translation>ausgeblendet: seine Blätter sind ausgeblendet</translation>
     </message>
     <message>
         <source>1 part is on a hidden sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>1 Teil liegt auf einem ausgeblendeten Blatt</translation>
     </message>
     <message>
         <source>%1 parts are on a hidden sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Teile liegen auf einem ausgeblendeten Blatt</translation>
     </message>
     <message numerus="yes">
         <source>Make %n set(s) of their modules</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n Set aus seinen Modulen machen</numerusform>
+            <numerusform>%n Sets aus ihren Modulen machen</numerusform>
         </translation>
     </message>
     <message>
         <source>Keep track of a set&apos;s version</source>
-        <translation type="unfinished"></translation>
+        <translation>Version eines Sets verfolgen</translation>
     </message>
     <message>
         <source>Update set</source>
-        <translation type="unfinished"></translation>
+        <translation>Set aktualisieren</translation>
     </message>
     <message>
         <source>%1 (partly hidden)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (teilweise ausgeblendet)</translation>
     </message>
     <message>
         <source>Could not read %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 konnte nicht gelesen werden</translation>
     </message>
     <message>
         <source>Could not write %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 konnte nicht geschrieben werden</translation>
     </message>
     <message>
         <source>Club logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Club-Logo</translation>
     </message>
     <message>
         <source>No image</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Bild</translation>
     </message>
     <message>
         <source>(no description)</source>
-        <translation type="unfinished"></translation>
+        <translation>(keine Beschreibung)</translation>
     </message>
     <message>
         <source>by %1</source>
-        <translation type="unfinished"></translation>
+        <translation>von %1</translation>
     </message>
     <message>
         <source>“%1” is a part in this set, so the set can’t have that name too. Pick another name.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ ist ein Teil in diesem Set, daher kann das Set nicht auch so heißen. Wähle einen anderen Namen.</translation>
     </message>
     <message>
         <source>%1 × %2 studs (%3 × %4 m)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 × %2 Noppen (%3 × %4 m)</translation>
     </message>
     <message>
         <source>1 item</source>
-        <translation type="unfinished"></translation>
+        <translation>1 Element</translation>
     </message>
     <message>
         <source>%1 items</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Elemente</translation>
     </message>
     <message>
         <source>1 use</source>
-        <translation type="unfinished"></translation>
+        <translation>1 Verwendung</translation>
     </message>
     <message>
         <source>%1 uses</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Verwendungen</translation>
     </message>
     <message>
         <source>1 part</source>
-        <translation type="unfinished"></translation>
+        <translation>1 Teil</translation>
     </message>
     <message>
         <source>%1 parts</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Teile</translation>
     </message>
     <message>
         <source>Nothing new to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Nichts Neues hinzuzufügen</translation>
     </message>
     <message>
         <source>Added %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 hinzugefügt</translation>
     </message>
     <message>
         <source>already had %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 war schon da</translation>
     </message>
     <message>
         <source>%1 couldn&apos;t be added</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 konnte nicht hinzugefügt werden</translation>
     </message>
     <message>
         <source>There is nothing to show yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier gibt es noch nichts zu zeigen.</translation>
     </message>
     <message>
         <source>Saved 1 picture in “%1”.</source>
-        <translation type="unfinished"></translation>
+        <translation>1 Bild in „%1“ gespeichert.</translation>
     </message>
     <message>
         <source>Saved %1 pictures in “%2”.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Bilder in „%2“ gespeichert.</translation>
     </message>
     <message>
         <source>Nothing to show in: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nichts zu zeigen in: %1.</translation>
     </message>
     <message>
         <source>Could not write: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte nicht geschrieben werden: %1.</translation>
     </message>
     <message>
         <source>Choose a folder for the pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>Einen Ordner für die Bilder wählen</translation>
     </message>
 </context>
 <context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansicht</translation>
     </message>
     <message>
         <source>Whole layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Ganzes Layout</translation>
     </message>
     <message>
         <source>One area</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Bereich</translation>
     </message>
     <message>
         <source>all sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>alle Blätter</translation>
     </message>
     <message>
         <source>1 sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>1 Blatt</translation>
     </message>
     <message>
         <source>%1 of %2 sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 von %2 Blättern</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation type="unfinished"></translation>
+        <translation>Klein</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Mittel</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation type="unfinished"></translation>
+        <translation>Groß</translation>
     </message>
 </context>
 <context>
     <name>ServerRefusal</name>
     <message>
         <source>View club items</source>
-        <translation type="unfinished"></translation>
+        <translation>Club-Sachen ansehen</translation>
     </message>
     <message>
         <source>Edit club layouts</source>
-        <translation type="unfinished"></translation>
+        <translation>Club-Layouts bearbeiten</translation>
     </message>
     <message>
         <source>Start new club layouts</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Club-Layouts beginnen</translation>
     </message>
     <message>
         <source>Add or edit modules</source>
-        <translation type="unfinished"></translation>
+        <translation>Module hinzufügen oder bearbeiten</translation>
     </message>
     <message>
         <source>Add parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Teile hinzufügen</translation>
     </message>
     <message>
         <source>Manage venues</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsorte verwalten</translation>
     </message>
     <message>
         <source>Delete club items</source>
-        <translation type="unfinished"></translation>
+        <translation>Club-Sachen löschen</translation>
     </message>
     <message>
         <source>Send to the catalog</source>
-        <translation type="unfinished"></translation>
+        <translation>An den Katalog senden</translation>
     </message>
     <message>
         <source>Invite people</source>
-        <translation type="unfinished"></translation>
+        <translation>Leute einladen</translation>
     </message>
     <message>
         <source>Manage members and roles</source>
-        <translation type="unfinished"></translation>
+        <translation>Mitglieder und Rollen verwalten</translation>
     </message>
     <message>
         <source>Download the club&apos;s data</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Daten des Clubs herunterladen</translation>
     </message>
     <message>
         <source>Ask a club admin for the %1 permission.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte einen Club-Admin um die Berechtigung „%1“.</translation>
     </message>
     <message>
         <source>The site&apos;s firewall blocked this request. Please tell the site admin (what you were doing, and the time).</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Firewall der Seite hat diese Anfrage blockiert. Bitte sag es dem Admin der Seite (was du gemacht hast und wann).</translation>
     </message>
     <message>
         <source>This account is read-only for now. Ask the site admin why.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Konto ist vorerst nur lesbar. Frag den Admin der Seite nach dem Grund.</translation>
     </message>
     <message>
         <source>Too many requests at once. Please wait a minute and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zu viele Anfragen auf einmal. Bitte warte eine Minute und versuch es erneut.</translation>
     </message>
     <message>
         <source>Please confirm your email address first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte bestätige zuerst deine E-Mail-Adresse.</translation>
     </message>
     <message>
         <source>You have reached a limit on this server. Ask the site admin for more room.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast auf diesem Server eine Grenze erreicht. Bitte den Admin der Seite um mehr Platz.</translation>
     </message>
     <message>
         <source>This account is being deleted. To keep it, sign in on the website before then; then this app works again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Konto wird gelöscht. Um es zu behalten, melde dich vorher auf der Website an; dann funktioniert diese App wieder.</translation>
     </message>
     <message>
         <source>Your account is on hold (read only) while a privacy request is looked at. You can still see and download your things. Ask the site admin.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Konto ist angehalten (nur lesbar), während eine Datenschutzanfrage geprüft wird. Du kannst deine Sachen weiter sehen und herunterladen. Frag den Admin der Seite.</translation>
     </message>
     <message>
         <source>This server needs a newer Collaborative Brick Layout Designer. Please download the new version.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Server braucht ein neueres Collaborative Brick Layout Designer. Bitte lade die neue Version herunter.</translation>
     </message>
     <message>
         <source>Your sign-in has run out. Sign in again (File › Servers…).</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Anmeldung ist abgelaufen. Melde dich erneut an (Datei › Server…).</translation>
     </message>
     <message>
         <source>This sign-in can&apos;t do that. Sign in again (File › Servers…) to give the app the rights it needs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Anmeldung kann das nicht. Melde dich erneut an (Datei › Server…), um der App die nötigen Rechte zu geben.</translation>
     </message>
     <message>
         <source>You&apos;re not a member of that club.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du bist kein Mitglied dieses Clubs.</translation>
     </message>
     <message>
         <source>The demo account can&apos;t do that.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Demo-Konto kann das nicht.</translation>
     </message>
     <message>
         <source>Your roles in this club can&apos;t add that.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Rollen in diesem Club können das nicht hinzufügen.</translation>
     </message>
     <message>
         <source>Your roles in this club don&apos;t allow that.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Rollen in diesem Club erlauben das nicht.</translation>
     </message>
     <message>
         <source>This club only lets some of its members add things. Ask a club admin.</source>
-        <translation type="unfinished"></translation>
+        <translation>In diesem Club dürfen nur manche Mitglieder etwas hinzufügen. Frag einen Club-Admin.</translation>
     </message>
     <message>
         <source>You don&apos;t have permission to do that. Ask its owner, or a club admin, for access.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast keine Berechtigung dafür. Bitte den Eigentümer oder einen Club-Admin um Zugriff.</translation>
     </message>
     <message>
         <source>The server could not be reached.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Server war nicht erreichbar.</translation>
     </message>
     <message>
         <source>The server answered %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Server antwortete %1</translation>
     </message>
     <message>
         <source>this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new version (Help &gt; Check for Updates) to keep working on it</source>
-        <translation type="unfinished"></translation>
+        <translation>dieses Layout wurde von einer neueren Version von Collaborative Brick Layout Designer gespeichert. Bitte lade die neue Version herunter (Hilfe &gt; Nach Updates suchen), um weiter daran zu arbeiten</translation>
     </message>
     <message>
         <source>this layout&apos;s live update couldn&apos;t be read. Please reopen the layout to keep working on it live</source>
-        <translation type="unfinished"></translation>
+        <translation>die Live-Aktualisierung dieses Layouts war nicht lesbar. Bitte öffne das Layout erneut, um live daran weiterzuarbeiten</translation>
     </message>
     <message>
         <source>this version of Collaborative Brick Layout Designer is too old for this server. Please download the new version (Help &gt; Check for Updates)</source>
-        <translation type="unfinished"></translation>
+        <translation>diese Version von Collaborative Brick Layout Designer ist zu alt für diesen Server. Bitte lade die neue Version herunter (Hilfe &gt; Nach Updates suchen)</translation>
     </message>
     <message>
         <source>this account is being deleted. To keep it, sign in on the website before the date in your email; then open the layout again</source>
-        <translation type="unfinished"></translation>
+        <translation>dieses Konto wird gelöscht. Um es zu behalten, melde dich vor dem Datum in deiner E-Mail auf der Website an; öffne dann das Layout erneut</translation>
     </message>
     <message>
         <source>your account is on hold (read only) while a privacy request is looked at. Ask the site admin</source>
-        <translation type="unfinished"></translation>
+        <translation>dein Konto ist angehalten (nur lesbar), während eine Datenschutzanfrage geprüft wird. Frag den Admin der Seite</translation>
     </message>
     <message>
         <source>your changes weren&apos;t taken because they looked like another layout&apos;s parts being merged into this one. Nothing is lost: your copy stays open here, so save it (File &gt; Save As) and tell the site admin</source>
-        <translation type="unfinished"></translation>
+        <translation>deine Änderungen wurden nicht angenommen, weil es aussah, als würden Teile eines anderen Layouts in dieses gemischt. Nichts geht verloren: Deine Kopie bleibt hier offen, also speichere sie (Datei &gt; Speichern unter) und sag es dem Admin der Seite</translation>
     </message>
     <message>
         <source>this layout was deleted on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>dieses Layout wurde auf dem Server gelöscht</translation>
     </message>
     <message>
         <source>you can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it</source>
-        <translation type="unfinished"></translation>
+        <translation>du kannst dieses Layout nicht mehr öffnen: Es wurde gelöscht, oder sein Eigentümer oder ein Club-Admin hat geändert, wer es öffnen darf</translation>
     </message>
     <message>
         <source>your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website). Sign in again (File › Servers…), then open the layout again</source>
-        <translation type="unfinished"></translation>
+        <translation>deine Anmeldung auf diesem Server ist beendet (abgelaufen, anderswo abgemeldet oder auf der Website entfernt). Melde dich erneut an (Datei › Server…) und öffne dann das Layout erneut</translation>
     </message>
     <message>
         <source>too many people have this layout open right now; try again in a little while</source>
-        <translation type="unfinished"></translation>
+        <translation>gerade haben zu viele Leute dieses Layout offen; versuch es in einer Weile erneut</translation>
     </message>
 </context>
 <context>
     <name>SheetNames</name>
     <message>
         <source>Sheet %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Blatt %1</translation>
     </message>
     <message>
         <source>(untitled)</source>
-        <translation type="unfinished"></translation>
+        <translation>(ohne Titel)</translation>
     </message>
 </context>
 <context>
     <name>Tours</name>
     <message>
         <source>Welcome to Collaborative Brick Layout Designer</source>
-        <translation type="unfinished"></translation>
+        <translation>Willkommen bei Collaborative Brick Layout Designer</translation>
     </message>
     <message>
         <source>Plan a LEGO layout for your next show, on your own or with your club.</source>
-        <translation type="unfinished"></translation>
+        <translation>Plane ein LEGO-Layout für deine nächste Ausstellung, allein oder mit deinem Club.</translation>
     </message>
     <message>
         <source>Start or open a layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Layout beginnen oder öffnen</translation>
     </message>
     <message>
         <source>Begin with an empty map, or open a file from this app or BlueBrick.</source>
-        <translation type="unfinished"></translation>
+        <translation>Beginne mit einer leeren Karte oder öffne eine Datei aus dieser App oder BlueBrick.</translation>
     </message>
     <message>
         <source>Join a club</source>
-        <translation type="unfinished"></translation>
+        <translation>Einem Club beitreten</translation>
     </message>
     <message>
         <source>Share layouts, venues and parts with the people you build with.</source>
-        <translation type="unfinished"></translation>
+        <translation>Teile Layouts, Veranstaltungsorte und Teile mit den Leuten, mit denen du baust.</translation>
     </message>
     <message>
         <source>Take the tour</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Tour machen</translation>
     </message>
     <message>
         <source>A few short steps that show you the main buttons.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein paar kurze Schritte, die dir die wichtigsten Knöpfe zeigen.</translation>
     </message>
     <message>
         <source>Not now</source>
-        <translation type="unfinished">Nicht jetzt</translation>
+        <translation>Nicht jetzt</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Weiter</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurück</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>Überspringen</translation>
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Fertig</translation>
     </message>
     <message>
         <source>{n} of {total}</source>
-        <translation type="unfinished"></translation>
+        <translation>{n} von {total}</translation>
     </message>
     <message>
         <source>The editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Editor</translation>
     </message>
     <message>
         <source>All your pieces live here</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier wohnen alle deine Teile</translation>
     </message>
     <message>
         <source>Search by name, or pick a group like Train track. Drag a piece onto the map to place it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Suche nach Name oder wähle eine Gruppe wie Zuggleise. Zieh ein Teil auf die Karte, um es zu platzieren.</translation>
     </message>
     <message>
         <source>Sheets</source>
@@ -2326,31 +2326,31 @@
     </message>
     <message>
         <source>A layout is built on sheets, like see-through pages. Hide one to see what is under it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Layout ist aus Blättern aufgebaut, wie durchsichtige Seiten. Blende eines aus, um zu sehen, was darunter liegt.</translation>
     </message>
     <message>
         <source>Place and move</source>
-        <translation type="unfinished"></translation>
+        <translation>Platzieren und bewegen</translation>
     </message>
     <message>
         <source>Click a piece to pick it, then drag it to move it. Drag a box around pieces to pick several.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klicke auf ein Teil, um es zu wählen, und zieh es dann, um es zu bewegen. Zieh einen Rahmen um Teile, um mehrere zu wählen.</translation>
     </message>
     <message>
         <source>Bend flexible track</source>
-        <translation type="unfinished"></translation>
+        <translation>Flexgleis biegen</translation>
     </message>
     <message>
         <source>Pick a flexible track, then drag the round handle at its free end to bend it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle ein Flexgleis und zieh dann den runden Griff an seinem freien Ende, um es zu biegen.</translation>
     </message>
     <message>
         <source>Saving and live sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichern und Live-Abgleich</translation>
     </message>
     <message>
         <source>This shows whether your changes are saved. In a shared layout, everyone&apos;s changes appear live.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier siehst du, ob deine Änderungen gespeichert sind. In einem geteilten Layout erscheinen die Änderungen aller live.</translation>
     </message>
     <message>
         <source>Share a picture</source>
@@ -2358,87 +2358,87 @@
     </message>
     <message>
         <source>Make a picture of your layout to post, print or send to your club.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mach ein Bild deines Layouts zum Posten, Drucken oder Schicken an deinen Club.</translation>
     </message>
     <message>
         <source>Help is always here</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfe ist immer da</translation>
     </message>
     <message>
         <source>Click a ? for a quick tip. The Help menu has the other tours and all help topics.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klicke auf ein ? für einen kurzen Tipp. Das Hilfe-Menü hat die anderen Touren und alle Hilfethemen.</translation>
     </message>
     <message>
         <source>Venues</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsorte</translation>
     </message>
     <message>
         <source>Draw your venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichne deinen Veranstaltungsort</translation>
     </message>
     <message>
         <source>Draw the walls first, then add doors, openings and things in the way, like pillars.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichne zuerst die Wände, dann füge Türen, Öffnungen und Dinge im Weg hinzu, etwa Säulen.</translation>
     </message>
     <message>
         <source>Real sizes</source>
-        <translation type="unfinished"></translation>
+        <translation>Echte Größen</translation>
     </message>
     <message>
         <source>Type sizes in feet and inches or meters. The app works out the studs for you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tippe Größen in Fuß und Zoll oder Metern. Die App rechnet die Noppen für dich aus.</translation>
     </message>
     <message>
         <source>Straight walls</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerade Wände</translation>
     </message>
     <message>
         <source>Snap keeps walls straight and corners square while you draw.</source>
-        <translation type="unfinished"></translation>
+        <translation>Einrasten hält Wände gerade und Ecken rechtwinklig, während du zeichnest.</translation>
     </message>
     <message>
         <source>Trace a floor plan</source>
-        <translation type="unfinished"></translation>
+        <translation>Einen Grundriss nachzeichnen</translation>
     </message>
     <message>
         <source>Have a plan of the hall? Put the picture underneath and draw over it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hast du einen Plan der Halle? Leg das Bild darunter und zeichne darüber.</translation>
     </message>
     <message>
         <source>Save the venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Den Veranstaltungsort speichern</translation>
     </message>
     <message>
         <source>Save it, and start new layouts from it whenever you show there.</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichere ihn und beginne neue Layouts damit, wann immer du dort ausstellst.</translation>
     </message>
     <message>
         <source>Clubs</source>
-        <translation type="unfinished"></translation>
+        <translation>Clubs</translation>
     </message>
     <message>
         <source>Your server</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Server</translation>
     </message>
     <message>
         <source>This shows whether you are connected to your club&apos;s server. Click it to add a server or sign in.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier siehst du, ob du mit dem Server deines Clubs verbunden bist. Klicke darauf, um einen Server hinzuzufügen oder dich anzumelden.</translation>
     </message>
     <message>
         <source>Everything on your server</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles auf deinem Server</translation>
     </message>
     <message>
         <source>Open from Server shows your layouts, venues, modules and parts, and your clubs&apos;, in one place.</source>
-        <translation type="unfinished"></translation>
+        <translation>„Vom Server öffnen“ zeigt deine Layouts, Veranstaltungsorte, Module und Teile und die deiner Clubs an einem Ort.</translation>
     </message>
     <message>
         <source>Mine and my clubs&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Meins und das meiner Clubs</translation>
     </message>
     <message>
         <source>Pick All, Mine or a club to see just those layouts, venues and parts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle Alle, Meine oder einen Club, um nur diese Layouts, Veranstaltungsorte und Teile zu sehen.</translation>
     </message>
     <message>
         <source>Save to</source>
@@ -2446,51 +2446,51 @@
     </message>
     <message>
         <source>When you make or publish a layout, Save to picks whether it is yours or your club&apos;s.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn du ein Layout anlegst oder veröffentlichst, wählt „Speichern bei“, ob es dir oder deinem Club gehört.</translation>
     </message>
     <message>
         <source>Your club&apos;s page</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Seite deines Clubs</translation>
     </message>
     <message>
         <source>The club page shows who is in the club. Admins invite people from there.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Club-Seite zeigt, wer im Club ist. Admins laden von dort Leute ein.</translation>
     </message>
     <message>
         <source>Joining a club</source>
-        <translation type="unfinished"></translation>
+        <translation>Einem Club beitreten</translation>
     </message>
     <message>
         <source>A club admin sends you an invite link. Open it to join, and the club&apos;s things show up here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Club-Admin schickt dir einen Einladungslink. Öffne ihn, um beizutreten, und die Sachen des Clubs erscheinen hier.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Layout ansehen</translation>
     </message>
     <message>
         <source>Look around</source>
-        <translation type="unfinished"></translation>
+        <translation>Umsehen</translation>
     </message>
     <message>
         <source>Drag with one finger to move around. Pinch to zoom in and out.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zieh mit einem Finger, um dich zu bewegen. Zieh zwei Finger auseinander oder zusammen, um zu zoomen.</translation>
     </message>
     <message>
         <source>Make changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Änderungen machen</translation>
     </message>
     <message>
         <source>Tap Edit to change the layout, if you are allowed to. Tap a piece to pick it, then drag it to move it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tippe auf Bearbeiten, um das Layout zu ändern, wenn du darfst. Tippe auf ein Teil, um es zu wählen, und zieh es dann, um es zu bewegen.</translation>
     </message>
     <message>
         <source>Saved views</source>
-        <translation type="unfinished"></translation>
+        <translation>Gespeicherte Ansichten</translation>
     </message>
     <message>
         <source>Tap the layout&apos;s name to jump to a saved view, or to see the whole layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tippe auf den Namen des Layouts, um zu einer gespeicherten Ansicht zu springen oder das ganze Layout zu sehen.</translation>
     </message>
     <message>
         <source>Make a picture of the layout to send to friends.</source>
@@ -2881,7 +2881,7 @@
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Öffnen</translation>
+        <translation>Offen</translation>
     </message>
     <message>
         <source>Find a Club on the Web…</source>
@@ -3108,7 +3108,7 @@
     <name>bld::sync::Credit</name>
     <message>
         <source>by %1</source>
-        <translation type="unfinished"></translation>
+        <translation>von %1</translation>
     </message>
     <message>
         <source>in %1</source>
@@ -3213,7 +3213,7 @@
     </message>
     <message>
         <source>The server answered %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Server antwortete %1</translation>
     </message>
 </context>
 <context>
@@ -3604,7 +3604,7 @@
     </message>
     <message>
         <source>Venues</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsorte</translation>
     </message>
     <message>
         <source>Collections</source>
@@ -3716,7 +3716,7 @@
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Öffnen</translation>
+        <translation>Offen</translation>
     </message>
     <message>
         <source>Copied</source>
@@ -3830,7 +3830,7 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -4859,7 +4859,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>%1 × %2 studs (%3 × %4 m)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 × %2 Noppen (%3 × %4 m)</translation>
     </message>
     <message numerus="yes">
         <source>%n selected</source>
@@ -5621,7 +5621,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>(untitled)</source>
-        <translation type="unfinished"></translation>
+        <translation>(ohne Titel)</translation>
     </message>
     <message>
         <source>“%1”</source>
@@ -5685,11 +5685,11 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>1 part</source>
-        <translation type="unfinished"></translation>
+        <translation>1 Teil</translation>
     </message>
     <message>
         <source>%1 parts</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Teile</translation>
     </message>
     <message>
         <source>Placed on another sheet</source>
@@ -6316,7 +6316,7 @@ Save anyway?</source>
     </message>
     <message>
         <source>Could not write %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 konnte nicht geschrieben werden</translation>
     </message>
     <message>
         <source>Exported %1x%2 to %3</source>
@@ -7476,7 +7476,7 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>Überspringen</translation>
     </message>
     <message>
         <source>Importing…</source>
@@ -7908,7 +7908,7 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansicht</translation>
     </message>
     <message>
         <source>Layout</source>
@@ -8481,7 +8481,7 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Fertig</translation>
     </message>
     <message>
         <source>Back to the whole layout (Esc)</source>
@@ -8607,7 +8607,7 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Fertig</translation>
     </message>
     <message>
         <source>Show module name</source>
@@ -9628,7 +9628,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Venues</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsorte</translation>
     </message>
     <message>
         <source>Modules</source>
@@ -10074,7 +10074,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Not now</source>
-        <translation type="unfinished">Nicht jetzt</translation>
+        <translation>Nicht jetzt</translation>
     </message>
     <message>
         <source>“%1” (%2 placed)</source>
@@ -10436,7 +10436,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Downloading LDraw library — %1 / %2 MB</source>
@@ -10588,7 +10588,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Whole layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Ganzes Layout</translation>
     </message>
     <message>
         <source>What’s on screen</source>
@@ -10596,7 +10596,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansicht</translation>
     </message>
     <message>
         <source>Save as PNG…</source>
@@ -10648,7 +10648,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Fertig</translation>
     </message>
     <message>
         <source>Save picture</source>
@@ -10660,7 +10660,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>There is nothing to show yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier gibt es noch nichts zu zeigen.</translation>
     </message>
     <message>
         <source>%1 × %2 pixels</source>
@@ -10755,7 +10755,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Fertig</translation>
     </message>
     <message>
         <source>Give it a name.</source>
@@ -10814,15 +10814,15 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>1 part</source>
-        <translation type="unfinished"></translation>
+        <translation>1 Teil</translation>
     </message>
     <message>
         <source>%1 parts</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Teile</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Place</source>
@@ -10877,7 +10877,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Fertig</translation>
     </message>
     <message>
         <source>Add part</source>
@@ -10893,7 +10893,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Tap the map to place %1</source>
@@ -10944,7 +10944,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Wall</source>
-        <translation type="unfinished"></translation>
+        <translation>Wand</translation>
     </message>
     <message>
         <source>Click corner to corner; type a length and press Enter; Enter or Esc to finish</source>
@@ -10960,7 +10960,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Door</source>
-        <translation type="unfinished"></translation>
+        <translation>Tür</translation>
     </message>
     <message>
         <source>Click where the door starts on a wall, then where it ends (or type its width)</source>
@@ -11207,11 +11207,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschriftung</translation>
     </message>
     <message>
         <source>Kind</source>
-        <translation type="unfinished"></translation>
+        <translation>Art</translation>
     </message>
     <message>
         <source>Length</source>
@@ -11374,7 +11374,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Kind</source>
-        <translation type="unfinished"></translation>
+        <translation>Art</translation>
     </message>
     <message>
         <source>Door width (ft)</source>
@@ -11382,7 +11382,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschriftung</translation>
     </message>
     <message>
         <source>Kind of edge %1</source>
@@ -11701,7 +11701,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Saved views</source>
-        <translation type="unfinished"></translation>
+        <translation>Gespeicherte Ansichten</translation>
     </message>
     <message>
         <source>Fit whole layout</source>
@@ -11749,7 +11749,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Fertig</translation>
     </message>
     <message>
         <source>Close the settings for this view</source>
@@ -11801,7 +11801,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansicht</translation>
     </message>
     <message>
         <source>Showing %1. Click again to stop</source>
