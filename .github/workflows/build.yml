@@ -62,12 +62,12 @@ jobs:
       HAS_WINDOWS_PFX: ${{ inputs.sign && secrets.WINDOWS_PFX_BASE64 != '' }}
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           submodules: recursive
 
       - name: Install Qt
-        uses: jurplel/install-qt-action@v4
+        uses: jurplel/install-qt-action@b344308e4483fc892e0d27b3cd1b173ebdd95f06 # v4.5.0
         with:
           # aqtinstall 3.3.0 (the latest release) cannot find Qt >= 6.11 for Windows.
           aqtsource: git+https://github.com/miurahr/aqtinstall.git@076e1659807d0b362a3ed684d54c2e9c775eb9c7
@@ -83,26 +83,27 @@ jobs:
       # lipo's them into one universal static library; Windows uses the
       # default x86_64-pc-windows-msvc target, matching MSVC.
       - name: Rust
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
         with:
+          toolchain: stable
           targets: ${{ runner.os == 'macOS' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
       # Compiler cache, saved per platform. PR runs restore main's cache,
       # so only what changed recompiles. ccache understands macOS's
       # two-arch compiles; sccache is the one that caches MSVC.
       - name: Compiler cache
-        uses: hendrikmuhs/ccache-action@v1.2
+        uses: hendrikmuhs/ccache-action@5ebbd400eff9e74630f759d94ddd7b6c26299639 # v1.2.20
         with:
           key: ${{ matrix.name }}
           variant: ${{ runner.os == 'Windows' && 'sccache' || 'ccache' }}
           max-size: 1G
 
       - name: Ninja
-        uses: seanmiddleditch/gha-setup-ninja@v6
+        uses: seanmiddleditch/gha-setup-ninja@3b1f8f94a2f8254bd26914c4ab9474d4f0015f67 # v6
 
       - name: MSVC environment (Windows)
         if: runner.os == 'Windows'
-        uses: ilammy/msvc-dev-cmd@v1
+        uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1.13.0
 
       - name: Install dependencies (Linux)
         if: runner.os == 'Linux'
@@ -169,10 +170,17 @@ jobs:
           # and fails if it doesn't exist yet.
           mkdir -p "$APPDIR/usr/translations"
 
+          # Tagged releases, checked against their SHA-256, not the moving
+          # "continuous" builds: the same tools build every AppImage, and a
+          # replaced download can't run in this job.
           curl -sSfL -o linuxdeploy \
-            https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+            https://github.com/linuxdeploy/linuxdeploy/releases/download/1-alpha-20251107-1/linuxdeploy-x86_64.AppImage
           curl -sSfL -o linuxdeploy-plugin-qt \
-            https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
+            https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/1-alpha-20250213-1/linuxdeploy-plugin-qt-x86_64.AppImage
+          sha256sum -c - <<'SUMS'
+          c20cd71e3a4e3b80c3483cef793cda3f4e990aca14014d23c544ca3ce1270b4d  linuxdeploy
+          15106be885c1c48a021198e7e1e9a48ce9d02a86dd0a1848f00bdbf3c1c92724  linuxdeploy-plugin-qt
+          SUMS
           chmod +x linuxdeploy linuxdeploy-plugin-qt
           # Runners have no FUSE; run the tool AppImages extracted.
           export APPIMAGE_EXTRACT_AND_RUN=1
@@ -380,7 +388,7 @@ jobs:
           Remove-Item cert.pfx
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ${{ env.ARTIFACT }}
           path: |

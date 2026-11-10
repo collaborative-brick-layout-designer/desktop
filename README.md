@@ -244,7 +244,7 @@ a save in an older one.
 - **Save files.** A `.bbm` read and written again is byte-for-byte the same,
   checked against a corpus of real files. Maps, budgets, part lists and the
   LDraw / TrackDesigner / nControl conversions are compared with vanilla
-  BlueBrick 1.9.2's own output, which CI produces under Wine (the
+  BlueBrick 1.9.2's own output, which CI produces by running it on Mono (the
   *Vanilla BlueBrick compatibility* job; see
   [scripts/bluebrick-oracle/](scripts/bluebrick-oracle/)).
 - **Parts library.** The bundled BlueBrickParts library is used unchanged,
@@ -287,7 +287,7 @@ Build:
 
 ```sh
 git clone --recurse-submodules https://github.com/collaborative-brick-layout-designer/desktop.git
-cd brick-layout-designer
+cd desktop
 cmake -S . -B build -G Ninja
 cmake --build build
 ./build/src/app/brick-layout-designer   # Windows: build\src\app\brick-layout-designer.exe
@@ -350,6 +350,25 @@ a release tag publishes them. The steps are in
 [.github/workflows/build.yml](.github/workflows/build.yml). Signing and
 notarization switch on when the secrets in [docs/SIGNING.md](docs/SIGNING.md)
 are set; releases are unsigned today.
+
+### Making a release
+
+1. Bump nothing by hand: the tag sets the version (`-DBLD_VERSION` in
+   `release.yml`). Nightlies are stamped with the latest release plus their
+   run number (2.0.12.345) and say "a nightly build" in About.
+2. Tag the merge commit on `main` with an **annotated** tag; its message
+   leads the release notes, followed by the commits since the last `v*` tag
+   grouped by type. Put `[important]` or `[security]` in the message to make
+   the update notice say so.
+
+   ```sh
+   git tag -a v2.1.0 -m "v2.1.0: what's new, in a sentence or two"
+   git push origin v2.1.0
+   ```
+
+3. `release.yml` builds, tests and packages every platform and publishes the
+   release. A tag with a `-` (`v2.1.0-rc1`) is published as a pre-release,
+   which the update check never offers.
 
 ### Troubleshooting
 
