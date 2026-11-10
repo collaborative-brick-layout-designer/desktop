@@ -5,7 +5,8 @@
 #   scripts/ci/lint-changes.sh [base ref, default origin/main] [build dir with compile_commands.json]
 #
 # Configure the build dir with clang (Qt adds GCC-only flags clang-tidy
-# rejects otherwise).
+# rejects otherwise). To run this on your own machine use scripts/lint.sh,
+# which sets that folder up first.
 #
 # Fails when clang-tidy's bug-finding checks flag a changed line. Formatting
 # is advisory: much of the code is hand-aligned in ways clang-format can't
@@ -37,7 +38,7 @@ fi
 checks='-*,bugprone-*,-bugprone-easily-swappable-parameters,-bugprone-narrowing-conversions,-bugprone-throwing-static-initialization,clang-analyzer-*,-clang-analyzer-optin.*,performance-*,-performance-enum-size'
 # src only: gtest's ASSERT macros read as unchecked optional access.
 out=$(git diff -U0 "$base" -- src | python3 "$tidy_diff" -p1 -path "$build" -quiet \
-        -iregex '.*\.(cpp|h)' -checks="$checks" -j "$(nproc)" 2>&1)
+        -iregex '.*\.(cpp|h)' -checks="$checks" -j "${LINT_JOBS:-$(nproc)}" 2>&1)
 if echo "$out" | grep -qE "(warning|error): "; then
     echo "$out" | grep -E -A3 "(warning|error): " | head -200
     echo "   clang-tidy found problems on changed lines"

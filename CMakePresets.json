@@ -1,0 +1,41 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 25, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "dev",
+      "displayName": "Development (as CI builds it)",
+      "description": "Debug, warnings are errors: what CI's build jobs check.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BLD_WARNINGS_AS_ERRORS": "ON"
+      }
+    },
+    {
+      "name": "lint",
+      "displayName": "Lint (clang, for clang-tidy)",
+      "description": "The clang build folder scripts/lint.sh reads its compile commands from, as CI's lint job configures it.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build-lint",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BLD_WARNINGS_AS_ERRORS": "ON",
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "dev", "configurePreset": "dev" },
+    { "name": "lint", "configurePreset": "lint" }
+  ],
+  "testPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}
