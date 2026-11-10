@@ -740,12 +740,27 @@ void MainWindow::addActiveSheetControl() {
             for (int i : hidden) layerPanel_->flashRow(i);
             QStringList hiddenNames;
             for (int i : hidden) hiddenNames << tr("“%1”").arg(nameOf(i));
-            const QString text = names.size() == 1
-                ? tr("%1 went on %2, which is hidden, so you can’t see %3.")
-                      .arg(what, names.front(), count == 1 ? tr("it") : tr("them"))
-                : tr("%1 went on %2. %3 %4 hidden, so you can’t see all of them.")
-                      .arg(what, names.join(QStringLiteral(", ")), hiddenNames.join(QStringLiteral(", ")),
-                           hidden.size() == 1 ? tr("is") : tr("are"));
+            // One whole sentence per case: "it"/"them" and "is"/"are" can't be translated on
+            // their own (UiWordingTest.NoSentenceIsBuiltFromTranslatedFragments). One part lands
+            // on one sheet, so several sheets means several parts.
+            const QString sheet = names.front();
+            const QString sheets = names.join(QStringLiteral(", "));
+            const QString hiddenList = hiddenNames.join(QStringLiteral(", "));
+            QString text;
+            if (names.size() == 1) {
+                if (pasted)
+                    text = count == 1 ? tr("The pasted part went on %1, which is hidden, so you can’t see it.").arg(sheet)
+                                      : tr("The pasted parts went on %1, which is hidden, so you can’t see them.").arg(sheet);
+                else
+                    text = count == 1 ? tr("Your part went on %1, which is hidden, so you can’t see it.").arg(sheet)
+                                      : tr("The set went on %1, which is hidden, so you can’t see them.").arg(sheet);
+            } else if (hidden.size() == 1) {
+                text = pasted ? tr("The pasted parts went on %1. %2 is hidden, so you can’t see all of them.").arg(sheets, hiddenList)
+                              : tr("The set went on %1. %2 is hidden, so you can’t see all of them.").arg(sheets, hiddenList);
+            } else {
+                text = pasted ? tr("The pasted parts went on %1. %2 are hidden, so you can’t see all of them.").arg(sheets, hiddenList)
+                              : tr("The set went on %1. %2 are hidden, so you can’t see all of them.").arg(sheets, hiddenList);
+            }
             notices_->showNotice(QStringLiteral("sheet.hidden"), tr("Hidden sheet"), text,
                                  { NoticeAction{ hidden.size() == 1 ? tr("Show sheet") : tr("Show sheets"),
                                                  [this, hidden] {

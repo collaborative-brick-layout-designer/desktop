@@ -2956,10 +2956,6 @@
         <translation>Last ned den nye versjonen</translation>
     </message>
     <message>
-        <source>layout</source>
-        <translation>layout</translation>
-    </message>
-    <message>
         <source>Done: “%1” went back to its author, and the club kept its own copy.</source>
         <translation>Ferdig: «%1» gikk tilbake til opphavspersonen, og klubben beholdt sin egen kopi.</translation>
     </message>
@@ -3180,28 +3176,36 @@
 <context>
     <name>bld::sync::ServerApi</name>
     <message>
-        <source>modules</source>
-        <translation>moduler</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add modules.</source>
+        <translation>%1 er ikke med i listen: rollene dine der kan ikke legge til moduler.</translation>
     </message>
     <message>
-        <source>parts</source>
-        <translation>deler</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add modules.</source>
+        <translation>%1 og %2 er ikke med i listen: rollene dine der kan ikke legge til moduler.</translation>
     </message>
     <message>
-        <source>venues</source>
-        <translation>lokaler</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add parts.</source>
+        <translation>%1 er ikke med i listen: rollene dine der kan ikke legge til deler.</translation>
     </message>
     <message>
-        <source>layouts</source>
-        <translation>layouter</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add parts.</source>
+        <translation>%1 og %2 er ikke med i listen: rollene dine der kan ikke legge til deler.</translation>
     </message>
     <message>
-        <source>%1 isn&apos;t listed: your roles there can&apos;t add %2.</source>
-        <translation>%1 er ikke med i listen: rollene dine der kan ikke legge til %2.</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add venues.</source>
+        <translation>%1 er ikke med i listen: rollene dine der kan ikke legge til lokaler.</translation>
     </message>
     <message>
-        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add %3.</source>
-        <translation>%1 og %2 er ikke med i listen: rollene dine der kan ikke legge til %3.</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add venues.</source>
+        <translation>%1 og %2 er ikke med i listen: rollene dine der kan ikke legge til lokaler.</translation>
+    </message>
+    <message>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add layouts.</source>
+        <translation>%1 er ikke med i listen: rollene dine der kan ikke legge til layouter.</translation>
+    </message>
+    <message>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add layouts.</source>
+        <translation>%1 og %2 er ikke med i listen: rollene dine der kan ikke legge til layouter.</translation>
     </message>
     <message>
         <source>Not a server address: %1</source>
@@ -3390,20 +3394,88 @@
 <context>
     <name>bld::sync::merge</name>
     <message>
-        <source>added it</source>
-        <translation>la den til</translation>
+        <source>%1: you added it</source>
+        <translation>%1: du la den til</translation>
     </message>
     <message>
-        <source>changed it</source>
-        <translation>endret den</translation>
+        <source>%1: you changed it</source>
+        <translation>%1: du endret den</translation>
     </message>
     <message>
-        <source>deleted it</source>
-        <translation>slettet den</translation>
+        <source>%1: you deleted it</source>
+        <translation>%1: du slettet den</translation>
     </message>
     <message>
-        <source>left it as it was</source>
-        <translation>lot den være som den var</translation>
+        <source>%1: you left it as it was</source>
+        <translation>%1: du lot den være som den var</translation>
+    </message>
+    <message>
+        <source>%1: the server added it</source>
+        <translation>%1: serveren la den til</translation>
+    </message>
+    <message>
+        <source>%1: the server changed it</source>
+        <translation>%1: serveren endret den</translation>
+    </message>
+    <message>
+        <source>%1: the server deleted it</source>
+        <translation>%1: serveren slettet den</translation>
+    </message>
+    <message>
+        <source>%1: the server left it as it was</source>
+        <translation>%1: serveren lot den være som den var</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both added it</source>
+        <translation>%1: både du og serveren la den til</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both changed it</source>
+        <translation>%1: både du og serveren endret den</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both deleted it</source>
+        <translation>%1: både du og serveren slettet den</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both left it as it was</source>
+        <translation>%1: både du og serveren lot den være som den var</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server added it</source>
+        <translation>%1: du la den til, serveren la den også til</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server changed it</source>
+        <translation>%1: du la den til, serveren endret den</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server deleted it</source>
+        <translation>%1: du la den til, serveren slettet den</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server added it</source>
+        <translation>%1: du endret den, serveren la den til</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server changed it</source>
+        <translation>%1: du endret den, serveren endret den også</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server deleted it</source>
+        <translation>%1: du endret den, serveren slettet den</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server added it</source>
+        <translation>%1: du slettet den, serveren la den til</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server changed it</source>
+        <translation>%1: du slettet den, serveren endret den</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server deleted it</source>
+        <translation>%1: du slettet den, serveren slettet den også</translation>
     </message>
     <message>
         <source> at (%1, %2)</source>
@@ -3464,22 +3536,6 @@
     <message>
         <source>Background image</source>
         <translation>Bakgrunnsbilde</translation>
-    </message>
-    <message>
-        <source>%1: you and the server both %2</source>
-        <translation>%1: både du og serveren %2</translation>
-    </message>
-    <message>
-        <source>%1: you %2</source>
-        <translation>%1: du %2</translation>
-    </message>
-    <message>
-        <source>%1: the server %2</source>
-        <translation>%1: serveren %2</translation>
-    </message>
-    <message>
-        <source>%1: you %2, the server %3</source>
-        <translation>%1: du %2, serveren %3</translation>
     </message>
 </context>
 <context>
@@ -5473,20 +5529,12 @@ Lagre min som ny versjon: din blir modulen; deres blir liggende i versjonshistor
         <translation>Serveren har allerede alle delene dine.</translation>
     </message>
     <message>
-        <source>venue</source>
-        <translation>lokale</translation>
-    </message>
-    <message>
         <source>The venue couldn&apos;t be written out to send it.</source>
         <translation>Lokalet kunne ikke skrives ut for å sendes.</translation>
     </message>
     <message>
         <source>Couldn&apos;t save the venue: %1</source>
         <translation>Kunne ikke lagre lokalet: %1</translation>
-    </message>
-    <message>
-        <source>module</source>
-        <translation>modul</translation>
     </message>
     <message>
         <source>Sheets</source>
@@ -5681,28 +5729,36 @@ Lagre min som ny versjon: din blir modulen; deres blir liggende i versjonshistor
         <translation>Settet</translation>
     </message>
     <message>
-        <source>%1 went on %2, which is hidden, so you can’t see %3.</source>
-        <translation>%1 havnet på %2, som er skjult, så du kan ikke se %3.</translation>
+        <source>The pasted part went on %1, which is hidden, so you can’t see it.</source>
+        <translation>Den innlimte delen havnet på %1, som er skjult, så du kan ikke se den.</translation>
     </message>
     <message>
-        <source>it</source>
-        <translation>den</translation>
+        <source>The pasted parts went on %1, which is hidden, so you can’t see them.</source>
+        <translation>De innlimte delene havnet på %1, som er skjult, så du kan ikke se dem.</translation>
     </message>
     <message>
-        <source>them</source>
-        <translation>dem</translation>
+        <source>Your part went on %1, which is hidden, so you can’t see it.</source>
+        <translation>Delen din havnet på %1, som er skjult, så du kan ikke se den.</translation>
     </message>
     <message>
-        <source>%1 went on %2. %3 %4 hidden, so you can’t see all of them.</source>
-        <translation>%1 havnet på %2. %3 %4 skjult, så du kan ikke se alle.</translation>
+        <source>The set went on %1, which is hidden, so you can’t see them.</source>
+        <translation>Settet havnet på %1, som er skjult, så du kan ikke se delene.</translation>
     </message>
     <message>
-        <source>is</source>
-        <translation>er</translation>
+        <source>The pasted parts went on %1. %2 is hidden, so you can’t see all of them.</source>
+        <translation>De innlimte delene havnet på %1. %2 er skjult, så du kan ikke se alle.</translation>
     </message>
     <message>
-        <source>are</source>
-        <translation>er</translation>
+        <source>The set went on %1. %2 is hidden, so you can’t see all of them.</source>
+        <translation>Settet havnet på %1. %2 er skjult, så du kan ikke se alle delene.</translation>
+    </message>
+    <message>
+        <source>The pasted parts went on %1. %2 are hidden, so you can’t see all of them.</source>
+        <translation>De innlimte delene havnet på %1. %2 er skjult, så du kan ikke se alle.</translation>
+    </message>
+    <message>
+        <source>The set went on %1. %2 are hidden, so you can’t see all of them.</source>
+        <translation>Settet havnet på %1. %2 er skjult, så du kan ikke se alle delene.</translation>
     </message>
     <message>
         <source>Hidden sheet</source>
@@ -7001,20 +7057,12 @@ Lagre likevel?</translation>
         <translation>Serveren avsluttet direkteøkten%1. Layouten er fortsatt åpen her som en ulagret kopi.</translation>
     </message>
     <message>
-        <source>a layout</source>
-        <translation>en layout</translation>
-    </message>
-    <message>
         <source>Keep working on this copy</source>
         <translation>Jobb videre med denne kopien</translation>
     </message>
     <message>
         <source>This layout is on %1</source>
         <translation>Denne layouten ligger på %1</translation>
-    </message>
-    <message>
-        <source>This file is a copy of %1. Open the live version to work on it with everyone, or keep working on this copy.</source>
-        <translation>Denne filen er en kopi av %1. Åpne direkteversjonen for å jobbe på den sammen med alle, eller jobb videre med denne kopien.</translation>
     </message>
     <message>
         <source>Open the live version</source>
@@ -7025,8 +7073,20 @@ Lagre likevel?</translation>
         <translation>Denne layouten kom fra %1</translation>
     </message>
     <message>
-        <source>This file is a copy of %1, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
-        <translation>Denne filen er en kopi av %1, fra en server som ikke er en av dine. Legg til serveren for å åpne direkteversjonen, eller jobb videre med denne kopien.</translation>
+        <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
+        <translation>Denne filen er en kopi av en layout. Åpne direkteversjonen for å jobbe på den sammen med alle, eller jobb videre med denne kopien.</translation>
+    </message>
+    <message>
+        <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
+        <translation>Denne filen er en kopi av «%1». Åpne direkteversjonen for å jobbe på den sammen med alle, eller jobb videre med denne kopien.</translation>
+    </message>
+    <message>
+        <source>This file is a copy of a layout, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
+        <translation>Denne filen er en kopi av en layout, fra en server som ikke er en av dine. Legg til serveren for å åpne direkteversjonen, eller jobb videre med denne kopien.</translation>
+    </message>
+    <message>
+        <source>This file is a copy of “%1”, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
+        <translation>Denne filen er en kopi av «%1», fra en server som ikke er en av dine. Legg til serveren for å åpne direkteversjonen, eller jobb videre med denne kopien.</translation>
     </message>
     <message>
         <source>Add %1 to your servers</source>
@@ -9258,32 +9318,12 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
 <context>
     <name>bld::ui::ReturnWording</name>
     <message>
-        <source>its author</source>
-        <translation>opphavspersonen</translation>
-    </message>
-    <message>
-        <source>you</source>
-        <translation>deg</translation>
-    </message>
-    <message>
-        <source>The club</source>
-        <translation>Klubben</translation>
-    </message>
-    <message>
         <source>Give “%1” back to %2?</source>
         <translation>Gi «%1» tilbake til %2?</translation>
     </message>
     <message>
         <source>Take “%1” back?</source>
         <translation>Ta «%1» tilbake?</translation>
-    </message>
-    <message>
-        <source>The %1 goes back to %2, who made it.</source>
-        <translation>%1 går tilbake til %2, som laget den.</translation>
-    </message>
-    <message>
-        <source>The %1 becomes yours again, and only yours.</source>
-        <translation>%1 blir din igjen, og bare din.</translation>
     </message>
     <message>
         <source>%1 keeps its own copy, credited to %2, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
@@ -9300,6 +9340,82 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Give back</source>
         <translation>Gi tilbake</translation>
+    </message>
+    <message>
+        <source>Give “%1” back to its author?</source>
+        <translation>Gi «%1» tilbake til opphavspersonen?</translation>
+    </message>
+    <message>
+        <source>The layout goes back to %1, who made it.</source>
+        <translation>Layouten går tilbake til %1, som lagde den.</translation>
+    </message>
+    <message>
+        <source>The layout goes back to the person who made it.</source>
+        <translation>Layouten går tilbake til personen som lagde den.</translation>
+    </message>
+    <message>
+        <source>The module goes back to %1, who made it.</source>
+        <translation>Modulen går tilbake til %1, som lagde den.</translation>
+    </message>
+    <message>
+        <source>The module goes back to the person who made it.</source>
+        <translation>Modulen går tilbake til personen som lagde den.</translation>
+    </message>
+    <message>
+        <source>The venue goes back to %1, who made it.</source>
+        <translation>Lokalet går tilbake til %1, som lagde det.</translation>
+    </message>
+    <message>
+        <source>The venue goes back to the person who made it.</source>
+        <translation>Lokalet går tilbake til personen som lagde det.</translation>
+    </message>
+    <message>
+        <source>The part goes back to %1, who made it.</source>
+        <translation>Delen går tilbake til %1, som lagde den.</translation>
+    </message>
+    <message>
+        <source>The part goes back to the person who made it.</source>
+        <translation>Delen går tilbake til personen som lagde den.</translation>
+    </message>
+    <message>
+        <source>%1 keeps its own copy, credited to its author, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>%1 beholder sin egen kopi, med samme opphavsperson, så ingenting klubben har bygget med den endres. Medlemmer med tillatelsen Slette klubbens ting får beskjed.</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to %1, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>Klubben beholder sin egen kopi, med %1 som opphavsperson, så ingenting klubben har bygget med den endres. Medlemmer med tillatelsen Slette klubbens ting får beskjed.</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to its author, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>Klubben beholder sin egen kopi, med samme opphavsperson, så ingenting klubben har bygget med den endres. Medlemmer med tillatelsen Slette klubbens ting får beskjed.</translation>
+    </message>
+    <message>
+        <source>Its author can move it back to the club.</source>
+        <translation>Opphavspersonen kan flytte den tilbake til klubben.</translation>
+    </message>
+    <message>
+        <source>The layout becomes yours again, and only yours.</source>
+        <translation>Layouten blir din igjen, og bare din.</translation>
+    </message>
+    <message>
+        <source>The module becomes yours again, and only yours.</source>
+        <translation>Modulen blir din igjen, og bare din.</translation>
+    </message>
+    <message>
+        <source>The venue becomes yours again, and only yours.</source>
+        <translation>Lokalet blir ditt igjen, og bare ditt.</translation>
+    </message>
+    <message>
+        <source>The part becomes yours again, and only yours.</source>
+        <translation>Delen blir din igjen, og bare din.</translation>
+    </message>
+    <message>
+        <source>%1 keeps its own copy, credited to you, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>%1 beholder sin egen kopi, med deg som opphavsperson, så ingenting klubben har bygget med den endres. Medlemmer med tillatelsen Slette klubbens ting får beskjed.</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to you, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>Klubben beholder sin egen kopi, med deg som opphavsperson, så ingenting klubben har bygget med den endres. Medlemmer med tillatelsen Slette klubbens ting får beskjed.</translation>
     </message>
     <message>
         <source>Take back</source>
@@ -9389,8 +9505,8 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Lagre «%1» til Modulbiblioteket</translation>
     </message>
     <message>
-        <source>module</source>
-        <translation>modul</translation>
+        <source>Save to the Module library</source>
+        <translation>Lagre til Modulbiblioteket</translation>
     </message>
     <message>
         <source>e.g. First version</source>
@@ -9454,8 +9570,20 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Lagre til server</translation>
     </message>
     <message>
-        <source>A copy of this %1 goes to %2, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
-        <translation>En kopi av denne %1 går til %2, der du, klubbene dine og nettet kan bruke den. Den på denne datamaskinen blir som den er.</translation>
+        <source>A copy of this layout goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>En kopi av denne layouten går til %1, der du, klubbene dine og nettet kan bruke den. Den på denne datamaskinen blir som den er.</translation>
+    </message>
+    <message>
+        <source>A copy of this module goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>En kopi av denne modulen går til %1, der du, klubbene dine og nettet kan bruke den. Den på denne datamaskinen blir som den er.</translation>
+    </message>
+    <message>
+        <source>A copy of this part goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>En kopi av denne delen går til %1, der du, klubbene dine og nettet kan bruke den. Den på denne datamaskinen blir som den er.</translation>
+    </message>
+    <message>
+        <source>A copy of this venue goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>En kopi av dette lokalet går til %1, der du, klubbene dine og nettet kan bruke det. Det på denne datamaskinen blir som det er.</translation>
     </message>
     <message>
         <source>Me</source>
@@ -9522,10 +9650,6 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Module name</source>
         <translation>Modulnavn</translation>
-    </message>
-    <message>
-        <source>module</source>
-        <translation>modul</translation>
     </message>
     <message>
         <source>No saved modules yet. Make a module in a layout, then choose Save to Module library… from its menu.</source>
@@ -9831,10 +9955,6 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Lagre den som et BlueBrick-kart (.bbm) på denne datamaskinen</translation>
     </message>
     <message>
-        <source>layout</source>
-        <translation>layout</translation>
-    </message>
-    <message>
         <source>Delete…</source>
         <translation>Slett…</translation>
     </message>
@@ -9885,10 +10005,6 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Keep a copy in the Venue library on this computer</source>
         <translation>Behold en kopi i Lokalebiblioteket på denne datamaskinen</translation>
-    </message>
-    <message>
-        <source>venue</source>
-        <translation>lokale</translation>
     </message>
     <message>
         <source>No venues match.</source>
@@ -9947,10 +10063,6 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Behold en kopi i Modulbibliotek-mappen på denne datamaskinen</translation>
     </message>
     <message>
-        <source>module</source>
-        <translation>modul</translation>
-    </message>
-    <message>
         <source>No modules match.</source>
         <translation>Ingen moduler passer.</translation>
     </message>
@@ -9985,10 +10097,6 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Download it into your parts, to use in any layout</source>
         <translation>Last den ned til delene dine, for å bruke den i alle layouter</translation>
-    </message>
-    <message>
-        <source>part</source>
-        <translation>del</translation>
     </message>
     <message>
         <source>No parts match.</source>

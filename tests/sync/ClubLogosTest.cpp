@@ -196,7 +196,7 @@ TEST_F(ClubLogosTest, ALogoShowsBesideTheClubWhereverClubsArePicked) {
     EXPECT_TRUE(window_->showFilter()->itemIcon(1).isNull());
 
     // Save to Server's "Save to".
-    ui::SaveToServerDialog save(QStringLiteral("venue"), sync::AddKind::Venue, QStringLiteral("Gym"), QStringLiteral("Club server"),
+    ui::SaveToServerDialog save(sync::AddKind::Venue, QStringLiteral("Gym"), QStringLiteral("Club server"),
                                 library_.orgs(), QString(), nullptr);
     save.showLogosFrom(http_.base());
     ASSERT_EQ(save.owner()->count(), 2);

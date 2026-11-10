@@ -82,6 +82,35 @@ TEST(UiWordingTest, SaysTurnClubAndWebAddress) {
     EXPECT_TRUE(bad.isEmpty()) << "See docs/glossary.md:\n" << describe(bad).toStdString();
 }
 
+// A sentence is one string. "it"/"them", "is"/"are", "you", "its author", a
+// verb phrase ("changed it") or a bare kind word ("module") can't be
+// translated on their own and dropped into a sentence written around a blank:
+// gender, number and case differ by language (every translator of the 10
+// languages flagged these). Write one whole sentence per case, as
+// ReturnWording.h and LayoutMerge.cpp do. A noun appended to a list
+// (`lost << tr("modules")`) is a list item, not sentence glue, and is fine.
+TEST(UiWordingTest, NoSentenceIsBuiltFromTranslatedFragments) {
+    static const QRegularExpression re(QStringLiteral(
+        R"re((<<\s*)?\btr\(\s*"(it|them|is|are|you|its author|[Tt]he club|added it|changed it|deleted it|left it as it was|a layout|layouts?|modules?|venues?|parts?)"\s*\))re"));
+    QStringList bad;
+    QDirIterator it(QStringLiteral(BLD_SOURCE_DIR "/src"), { QStringLiteral("*.cpp"), QStringLiteral("*.h") },
+                    QDir::Files, QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        const QString path = it.next();
+        QFile f(path);
+        if (!f.open(QIODevice::ReadOnly)) continue;
+        const QString text = QString::fromUtf8(f.readAll());
+        for (auto m = re.globalMatch(text); m.hasNext();) {
+            const auto match = m.next();
+            if (!match.captured(1).isEmpty()) continue;  // a list of nouns
+            bad << path.mid(QStringLiteral(BLD_SOURCE_DIR).size() + 1) + QStringLiteral(": tr(\"") + match.captured(2)
+                       + QStringLiteral("\")");
+        }
+    }
+    EXPECT_TRUE(bad.isEmpty()) << "Write the whole sentence, one string per case (see ReturnWording.h):\n"
+                               << bad.join(QLatin1Char('\n')).toStdString();
+}
+
 // The glossary is the same file in both repos.
 TEST(UiWordingTest, TheGlossaryIsThere) {
     QFile f(QStringLiteral(BLD_SOURCE_DIR "/docs/glossary.md"));

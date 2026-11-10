@@ -10,7 +10,10 @@
 #include "ui/LoadingCard.h"
 #include "ui/MainWindow.h"
 #include "ui/MapView.h"
+#include "ui/ConfirmDialog.h"
 #include "ui/FindDialog.h"
+#include "ui/LayerPanel.h"
+#include "ui/ReturnWording.h"
 #include "ui/ServerWindow.h"
 #include "ui/TouchMode.h"
 #include "ui/tours/Tours.h"
@@ -171,6 +174,34 @@ TEST(ReviewShots, PicturesForReview) {
             window.grab().save(file(QStringLiteral("main-touch")));
             ui::TouchMode::instance().setActive(false);
             QTest::qWait(400);
+        }
+        // Two messages that used to be glued from translated fragments, now whole
+        // sentences per case (UiWordingTest.NoSentenceIsBuiltFromTranslatedFragments):
+        // the set that went on a hidden sheet, and the give-back question.
+        {
+            auto* sheets = window.findChild<ui::LayerPanel*>();
+            const auto& all = view->currentMap()->layers();
+            int tracks = -1;
+            for (int i = 0; i < static_cast<int>(all.size()); ++i)
+                if (all[i] && all[i]->kind() == core::LayerKind::Brick) tracks = i;
+            if (sheets && tracks >= 0) {
+                sheets->setSheetVisible(tracks, false);
+                QTest::qWait(200);
+                emit view->partsPlaced({ tracks }, tracks, 12, false);
+                QTest::qWait(500);
+                for (QFrame* card : window.findChildren<QFrame*>(QStringLiteral("NoticeCard")))
+                    if (card->isVisible()) card->grab().save(file(QStringLiteral("hidden-sheet")));
+                for (QFrame* card : window.findChildren<QFrame*>(QStringLiteral("NoticeCard"))) card->hide();
+                sheets->setSheetVisible(tracks, true);
+                QTest::qWait(200);
+            }
+            sync::Credit credit;
+            credit.authorName = QStringLiteral("Robin");
+            credit.club = QStringLiteral("Brick Club");
+            credit.canGiveBack = true;
+            grabModal([&] { ui::ConfirmDialog::ask(&window, ui::returnOptions(ui::ReturnKind::Module, QStringLiteral("Yard"), credit, true)); },
+                      file(QStringLiteral("give-back")));
+            QTest::qWait(300);
         }
         // Find & Replace stepping through matches.
         {

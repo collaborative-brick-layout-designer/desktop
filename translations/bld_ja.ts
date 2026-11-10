@@ -2941,10 +2941,6 @@
         <translation>新しいバージョンをダウンロード</translation>
     </message>
     <message>
-        <source>layout</source>
-        <translation>レイアウト</translation>
-    </message>
-    <message>
         <source>Done: “%1” went back to its author, and the club kept its own copy.</source>
         <translation>完了: 「%1」は作成者に戻り、クラブにはコピーが残りました。</translation>
     </message>
@@ -3165,28 +3161,36 @@
 <context>
     <name>bld::sync::ServerApi</name>
     <message>
-        <source>modules</source>
-        <translation>モジュール</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add modules.</source>
+        <translation>%1 は表示されません。そこでのあなたの役割ではモジュールを追加できません。</translation>
     </message>
     <message>
-        <source>parts</source>
-        <translation>パーツ</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add modules.</source>
+        <translation>%1 と %2 は表示されません。そこでのあなたの役割ではモジュールを追加できません。</translation>
     </message>
     <message>
-        <source>venues</source>
-        <translation>会場</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add parts.</source>
+        <translation>%1 は表示されません。そこでのあなたの役割ではパーツを追加できません。</translation>
     </message>
     <message>
-        <source>layouts</source>
-        <translation>レイアウト</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add parts.</source>
+        <translation>%1 と %2 は表示されません。そこでのあなたの役割ではパーツを追加できません。</translation>
     </message>
     <message>
-        <source>%1 isn&apos;t listed: your roles there can&apos;t add %2.</source>
-        <translation>%1 は表示されません。そこでのあなたの役割では%2を追加できません。</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add venues.</source>
+        <translation>%1 は表示されません。そこでのあなたの役割では会場を追加できません。</translation>
     </message>
     <message>
-        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add %3.</source>
-        <translation>%1 と %2 は表示されません。そこでのあなたの役割では%3を追加できません。</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add venues.</source>
+        <translation>%1 と %2 は表示されません。そこでのあなたの役割では会場を追加できません。</translation>
+    </message>
+    <message>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add layouts.</source>
+        <translation>%1 は表示されません。そこでのあなたの役割ではレイアウトを追加できません。</translation>
+    </message>
+    <message>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add layouts.</source>
+        <translation>%1 と %2 は表示されません。そこでのあなたの役割ではレイアウトを追加できません。</translation>
     </message>
     <message>
         <source>Not a server address: %1</source>
@@ -3374,20 +3378,88 @@
 <context>
     <name>bld::sync::merge</name>
     <message>
-        <source>added it</source>
-        <translation>追加しました</translation>
+        <source>%1: you added it</source>
+        <translation>%1: あなたが追加しました</translation>
     </message>
     <message>
-        <source>changed it</source>
-        <translation>変更しました</translation>
+        <source>%1: you changed it</source>
+        <translation>%1: あなたが変更しました</translation>
     </message>
     <message>
-        <source>deleted it</source>
-        <translation>削除しました</translation>
+        <source>%1: you deleted it</source>
+        <translation>%1: あなたが削除しました</translation>
     </message>
     <message>
-        <source>left it as it was</source>
-        <translation>そのままにしました</translation>
+        <source>%1: you left it as it was</source>
+        <translation>%1: あなたがそのままにしました</translation>
+    </message>
+    <message>
+        <source>%1: the server added it</source>
+        <translation>%1: サーバーが追加しました</translation>
+    </message>
+    <message>
+        <source>%1: the server changed it</source>
+        <translation>%1: サーバーが変更しました</translation>
+    </message>
+    <message>
+        <source>%1: the server deleted it</source>
+        <translation>%1: サーバーが削除しました</translation>
+    </message>
+    <message>
+        <source>%1: the server left it as it was</source>
+        <translation>%1: サーバーがそのままにしました</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both added it</source>
+        <translation>%1: あなたとサーバーの両方が追加しました</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both changed it</source>
+        <translation>%1: あなたとサーバーの両方が変更しました</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both deleted it</source>
+        <translation>%1: あなたとサーバーの両方が削除しました</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both left it as it was</source>
+        <translation>%1: あなたとサーバーの両方がそのままにしました</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server added it</source>
+        <translation>%1: あなたが追加し、サーバーも追加しました</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server changed it</source>
+        <translation>%1: あなたが追加し、サーバーが変更しました</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server deleted it</source>
+        <translation>%1: あなたが追加し、サーバーが削除しました</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server added it</source>
+        <translation>%1: あなたが変更し、サーバーが追加しました</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server changed it</source>
+        <translation>%1: あなたが変更し、サーバーも変更しました</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server deleted it</source>
+        <translation>%1: あなたが変更し、サーバーが削除しました</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server added it</source>
+        <translation>%1: あなたが削除し、サーバーが追加しました</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server changed it</source>
+        <translation>%1: あなたが削除し、サーバーが変更しました</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server deleted it</source>
+        <translation>%1: あなたが削除し、サーバーも削除しました</translation>
     </message>
     <message>
         <source> at (%1, %2)</source>
@@ -3448,22 +3520,6 @@
     <message>
         <source>Background image</source>
         <translation>背景画像</translation>
-    </message>
-    <message>
-        <source>%1: you and the server both %2</source>
-        <translation>%1: あなたとサーバーの両方が%2</translation>
-    </message>
-    <message>
-        <source>%1: you %2</source>
-        <translation>%1: あなたが%2</translation>
-    </message>
-    <message>
-        <source>%1: the server %2</source>
-        <translation>%1: サーバーが%2</translation>
-    </message>
-    <message>
-        <source>%1: you %2, the server %3</source>
-        <translation>%1: あなたは%2、サーバーは%3</translation>
     </message>
 </context>
 <context>
@@ -5431,20 +5487,12 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>サーバーにはすでにあなたのパーツがすべてあります。</translation>
     </message>
     <message>
-        <source>venue</source>
-        <translation>会場</translation>
-    </message>
-    <message>
         <source>The venue couldn&apos;t be written out to send it.</source>
         <translation>送るための会場の書き出しができませんでした。</translation>
     </message>
     <message>
         <source>Couldn&apos;t save the venue: %1</source>
         <translation>会場を保存できませんでした: %1</translation>
-    </message>
-    <message>
-        <source>module</source>
-        <translation>モジュール</translation>
     </message>
     <message>
         <source>Sheets</source>
@@ -5639,28 +5687,36 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>セット</translation>
     </message>
     <message>
-        <source>%1 went on %2, which is hidden, so you can’t see %3.</source>
-        <translation>%1 は %2 に入りましたが、そのシートは非表示なので、%3見えません。</translation>
+        <source>The pasted part went on %1, which is hidden, so you can’t see it.</source>
+        <translation>貼り付けたパーツは %1 に入りましたが、そのシートは非表示なので見えません。</translation>
     </message>
     <message>
-        <source>it</source>
-        <translation>それが</translation>
+        <source>The pasted parts went on %1, which is hidden, so you can’t see them.</source>
+        <translation>貼り付けたパーツは %1 に入りましたが、そのシートは非表示なので見えません。</translation>
     </message>
     <message>
-        <source>them</source>
-        <translation>それらが</translation>
+        <source>Your part went on %1, which is hidden, so you can’t see it.</source>
+        <translation>自分のパーツは %1 に入りましたが、そのシートは非表示なので見えません。</translation>
     </message>
     <message>
-        <source>%1 went on %2. %3 %4 hidden, so you can’t see all of them.</source>
-        <translation>%1 は %2 に入りました。%3 %4非表示なので、すべては見えません。</translation>
+        <source>The set went on %1, which is hidden, so you can’t see them.</source>
+        <translation>セットは %1 に入りましたが、そのシートは非表示なので、パーツは見えません。</translation>
     </message>
     <message>
-        <source>is</source>
-        <translation>は</translation>
+        <source>The pasted parts went on %1. %2 is hidden, so you can’t see all of them.</source>
+        <translation>貼り付けたパーツは %1 に入りました。%2 は非表示なので、すべては見えません。</translation>
     </message>
     <message>
-        <source>are</source>
-        <translation>は</translation>
+        <source>The set went on %1. %2 is hidden, so you can’t see all of them.</source>
+        <translation>セットは %1 に入りました。%2 は非表示なので、パーツのすべては見えません。</translation>
+    </message>
+    <message>
+        <source>The pasted parts went on %1. %2 are hidden, so you can’t see all of them.</source>
+        <translation>貼り付けたパーツは %1 に入りました。%2 は非表示なので、すべては見えません。</translation>
+    </message>
+    <message>
+        <source>The set went on %1. %2 are hidden, so you can’t see all of them.</source>
+        <translation>セットは %1 に入りました。%2 は非表示なので、パーツのすべては見えません。</translation>
     </message>
     <message>
         <source>Hidden sheet</source>
@@ -6513,20 +6569,12 @@ Save anyway?</source>
         <translation>サーバーがライブセッションを終了しました%1。レイアウトは未保存のコピーとしてここで開いたままです。</translation>
     </message>
     <message>
-        <source>a layout</source>
-        <translation>レイアウト</translation>
-    </message>
-    <message>
         <source>Keep working on this copy</source>
         <translation>このコピーで作業を続ける</translation>
     </message>
     <message>
         <source>This layout is on %1</source>
         <translation>このレイアウトは %1 にあります</translation>
-    </message>
-    <message>
-        <source>This file is a copy of %1. Open the live version to work on it with everyone, or keep working on this copy.</source>
-        <translation>このファイルは %1 のコピーです。みんなと作業するにはライブ版を開くか、このコピーで作業を続けてください。</translation>
     </message>
     <message>
         <source>Open the live version</source>
@@ -6537,8 +6585,20 @@ Save anyway?</source>
         <translation>このレイアウトは %1 から来ました</translation>
     </message>
     <message>
-        <source>This file is a copy of %1, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
-        <translation>このファイルは %1 のコピーで、あなたのサーバー一覧にないサーバーのものです。ライブ版を開くにはサーバーを追加するか、このコピーで作業を続けてください。</translation>
+        <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
+        <translation>このファイルはレイアウトのコピーです。みんなと作業するにはライブ版を開くか、このコピーで作業を続けてください。</translation>
+    </message>
+    <message>
+        <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
+        <translation>このファイルは「%1」のコピーです。みんなと作業するにはライブ版を開くか、このコピーで作業を続けてください。</translation>
+    </message>
+    <message>
+        <source>This file is a copy of a layout, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
+        <translation>このファイルはレイアウトのコピーで、あなたのサーバー一覧にないサーバーのものです。ライブ版を開くにはサーバーを追加するか、このコピーで作業を続けてください。</translation>
+    </message>
+    <message>
+        <source>This file is a copy of “%1”, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
+        <translation>このファイルは「%1」のコピーで、あなたのサーバー一覧にないサーバーのものです。ライブ版を開くにはサーバーを追加するか、このコピーで作業を続けてください。</translation>
     </message>
     <message>
         <source>Add %1 to your servers</source>
@@ -9191,32 +9251,12 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
 <context>
     <name>bld::ui::ReturnWording</name>
     <message>
-        <source>its author</source>
-        <translation>作成者</translation>
-    </message>
-    <message>
-        <source>you</source>
-        <translation>あなた</translation>
-    </message>
-    <message>
-        <source>The club</source>
-        <translation>クラブ</translation>
-    </message>
-    <message>
         <source>Give “%1” back to %2?</source>
         <translation>「%1」を %2 に返しますか?</translation>
     </message>
     <message>
         <source>Take “%1” back?</source>
         <translation>「%1」を取り戻しますか?</translation>
-    </message>
-    <message>
-        <source>The %1 goes back to %2, who made it.</source>
-        <translation>この%1は、作った %2 に戻ります。</translation>
-    </message>
-    <message>
-        <source>The %1 becomes yours again, and only yours.</source>
-        <translation>この%1はふたたび、あなただけのものになります。</translation>
     </message>
     <message>
         <source>%1 keeps its own copy, credited to %2, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
@@ -9233,6 +9273,82 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Give back</source>
         <translation>返す</translation>
+    </message>
+    <message>
+        <source>Give “%1” back to its author?</source>
+        <translation>「%1」を作成者に返しますか?</translation>
+    </message>
+    <message>
+        <source>The layout goes back to %1, who made it.</source>
+        <translation>このレイアウトは、作った %1 に戻ります。</translation>
+    </message>
+    <message>
+        <source>The layout goes back to the person who made it.</source>
+        <translation>このレイアウトは、作った人に戻ります。</translation>
+    </message>
+    <message>
+        <source>The module goes back to %1, who made it.</source>
+        <translation>このモジュールは、作った %1 に戻ります。</translation>
+    </message>
+    <message>
+        <source>The module goes back to the person who made it.</source>
+        <translation>このモジュールは、作った人に戻ります。</translation>
+    </message>
+    <message>
+        <source>The venue goes back to %1, who made it.</source>
+        <translation>この会場は、作った %1 に戻ります。</translation>
+    </message>
+    <message>
+        <source>The venue goes back to the person who made it.</source>
+        <translation>この会場は、作った人に戻ります。</translation>
+    </message>
+    <message>
+        <source>The part goes back to %1, who made it.</source>
+        <translation>このパーツは、作った %1 に戻ります。</translation>
+    </message>
+    <message>
+        <source>The part goes back to the person who made it.</source>
+        <translation>このパーツは、作った人に戻ります。</translation>
+    </message>
+    <message>
+        <source>%1 keeps its own copy, credited to its author, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>%1 には作成者の名前が付いたコピーが残るので、クラブがそれで作ったものは何も変わりません。「クラブのものを削除」の権限を持つメンバーに知らされます。</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to %1, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>クラブには %1 の名前が付いたコピーが残るので、クラブがそれで作ったものは何も変わりません。「クラブのものを削除」の権限を持つメンバーに知らされます。</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to its author, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>クラブには作成者の名前が付いたコピーが残るので、クラブがそれで作ったものは何も変わりません。「クラブのものを削除」の権限を持つメンバーに知らされます。</translation>
+    </message>
+    <message>
+        <source>Its author can move it back to the club.</source>
+        <translation>作成者はクラブに戻すことができます。</translation>
+    </message>
+    <message>
+        <source>The layout becomes yours again, and only yours.</source>
+        <translation>このレイアウトはふたたび、あなただけのものになります。</translation>
+    </message>
+    <message>
+        <source>The module becomes yours again, and only yours.</source>
+        <translation>このモジュールはふたたび、あなただけのものになります。</translation>
+    </message>
+    <message>
+        <source>The venue becomes yours again, and only yours.</source>
+        <translation>この会場はふたたび、あなただけのものになります。</translation>
+    </message>
+    <message>
+        <source>The part becomes yours again, and only yours.</source>
+        <translation>このパーツはふたたび、あなただけのものになります。</translation>
+    </message>
+    <message>
+        <source>%1 keeps its own copy, credited to you, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>%1 にはあなたの名前が付いたコピーが残るので、クラブがそれで作ったものは何も変わりません。「クラブのものを削除」の権限を持つメンバーに知らされます。</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to you, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>クラブにはあなたの名前が付いたコピーが残るので、クラブがそれで作ったものは何も変わりません。「クラブのものを削除」の権限を持つメンバーに知らされます。</translation>
     </message>
     <message>
         <source>Take back</source>
@@ -9322,8 +9438,8 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>「%1」をモジュールライブラリに保存</translation>
     </message>
     <message>
-        <source>module</source>
-        <translation>モジュール</translation>
+        <source>Save to the Module library</source>
+        <translation>モジュールライブラリに保存</translation>
     </message>
     <message>
         <source>e.g. First version</source>
@@ -9386,8 +9502,20 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>サーバーに保存</translation>
     </message>
     <message>
-        <source>A copy of this %1 goes to %2, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
-        <translation>この%1のコピーが %2 に入り、あなた、クラブ、ウェブで使えるようになります。このコンピューターにあるものはそのまま残ります。</translation>
+        <source>A copy of this layout goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>このレイアウトのコピーが %1 に入り、あなた、クラブ、ウェブで使えるようになります。このコンピューターにあるものはそのまま残ります。</translation>
+    </message>
+    <message>
+        <source>A copy of this module goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>このモジュールのコピーが %1 に入り、あなた、クラブ、ウェブで使えるようになります。このコンピューターにあるものはそのまま残ります。</translation>
+    </message>
+    <message>
+        <source>A copy of this part goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>このパーツのコピーが %1 に入り、あなた、クラブ、ウェブで使えるようになります。このコンピューターにあるものはそのまま残ります。</translation>
+    </message>
+    <message>
+        <source>A copy of this venue goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>この会場のコピーが %1 に入り、あなた、クラブ、ウェブで使えるようになります。このコンピューターにあるものはそのまま残ります。</translation>
     </message>
     <message>
         <source>Me</source>
@@ -9454,10 +9582,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Module name</source>
         <translation>モジュール名</translation>
-    </message>
-    <message>
-        <source>module</source>
-        <translation>モジュール</translation>
     </message>
     <message>
         <source>No saved modules yet. Make a module in a layout, then choose Save to Module library… from its menu.</source>
@@ -9763,10 +9887,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>このコンピューターに BlueBrick マップ (.bbm) として保存します</translation>
     </message>
     <message>
-        <source>layout</source>
-        <translation>レイアウト</translation>
-    </message>
-    <message>
         <source>Delete…</source>
         <translation>削除…</translation>
     </message>
@@ -9817,10 +9937,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Keep a copy in the Venue library on this computer</source>
         <translation>このコンピューターの会場ライブラリにコピーを残します</translation>
-    </message>
-    <message>
-        <source>venue</source>
-        <translation>会場</translation>
     </message>
     <message>
         <source>No venues match.</source>
@@ -9879,10 +9995,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>このコンピューターのモジュールライブラリのフォルダーにコピーを残します</translation>
     </message>
     <message>
-        <source>module</source>
-        <translation>モジュール</translation>
-    </message>
-    <message>
         <source>No modules match.</source>
         <translation>一致するモジュールがありません。</translation>
     </message>
@@ -9917,10 +10029,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Download it into your parts, to use in any layout</source>
         <translation>どのレイアウトでも使えるように、自分のパーツにダウンロードします</translation>
-    </message>
-    <message>
-        <source>part</source>
-        <translation>パーツ</translation>
     </message>
     <message>
         <source>No parts match.</source>

@@ -756,7 +756,7 @@ TEST(SaveToServerDialog, OffersMeAndTheClubsThatTakeThingsAndAsksBeforeAClub) {
     sync::OrgEntry train{ QStringLiteral("train"), QStringLiteral("Train Club"), QStringLiteral("member") };
     sync::OrgEntry closed{ QStringLiteral("closed"), QStringLiteral("Closed Club"), QStringLiteral("member") };
     closed.canAdd = false;
-    ui::SaveToServerDialog d(QStringLiteral("venue"), sync::AddKind::Venue, QStringLiteral("Gym"), QStringLiteral("Club server"), { train, closed },
+    ui::SaveToServerDialog d(sync::AddKind::Venue, QStringLiteral("Gym"), QStringLiteral("Club server"), { train, closed },
                              QStringLiteral("train"));
     QStringList owners;
     for (int i = 0; i < d.owner()->count(); ++i) owners << d.owner()->itemText(i);
@@ -805,17 +805,17 @@ TEST(SaveToServerDialog, OffersTheClubsWhoseRolesTakeThatKindAndSaysWhoIsLeftOut
         for (int i = 0; i < d.owner()->count(); ++i) out << d.owner()->itemText(i);
         return out;
     };
-    ui::SaveToServerDialog module(QStringLiteral("module"), sync::AddKind::Module, QStringLiteral("Yard"),
+    ui::SaveToServerDialog module(sync::AddKind::Module, QStringLiteral("Yard"),
                                   QStringLiteral("Club server"), orgs, QString());
     EXPECT_EQ(owners(module), (QStringList{ QStringLiteral("Me"), QStringLiteral("Track Crew") }));
     EXPECT_TRUE(module.leftOut()->isVisibleTo(&module));
     EXPECT_EQ(module.leftOut()->text(), QStringLiteral("Hall Team isn't listed: your roles there can't add modules. Ask a "
                                                        "club admin for the Add or edit modules permission."));
-    ui::SaveToServerDialog venue(QStringLiteral("venue"), sync::AddKind::Venue, QStringLiteral("Gym"),
+    ui::SaveToServerDialog venue(sync::AddKind::Venue, QStringLiteral("Gym"),
                                  QStringLiteral("Club server"), orgs, QString());
     EXPECT_EQ(owners(venue), (QStringList{ QStringLiteral("Me"), QStringLiteral("Hall Team") }));
     // Every club takes it: nothing to say.
-    ui::SaveToServerDialog all(QStringLiteral("module"), sync::AddKind::Module, QStringLiteral("Yard"),
+    ui::SaveToServerDialog all(sync::AddKind::Module, QStringLiteral("Yard"),
                                QStringLiteral("Club server"), { orgs[0] }, QString());
     EXPECT_FALSE(all.leftOut()->isVisibleTo(&all));
 }

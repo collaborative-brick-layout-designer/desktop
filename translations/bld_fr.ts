@@ -2956,10 +2956,6 @@
         <translation>Télécharger la nouvelle version</translation>
     </message>
     <message>
-        <source>layout</source>
-        <translation>plan</translation>
-    </message>
-    <message>
         <source>Done: “%1” went back to its author, and the club kept its own copy.</source>
         <translation>C’est fait : « %1 » est retourné à son auteur, et le club a gardé sa propre copie.</translation>
     </message>
@@ -3180,28 +3176,36 @@
 <context>
     <name>bld::sync::ServerApi</name>
     <message>
-        <source>modules</source>
-        <translation>modules</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add modules.</source>
+        <translation>%1 n’est pas listé : vos rôles là-bas ne peuvent pas ajouter de modules.</translation>
     </message>
     <message>
-        <source>parts</source>
-        <translation>pièces</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add modules.</source>
+        <translation>%1 et %2 ne sont pas listés : vos rôles là-bas ne peuvent pas ajouter de modules.</translation>
     </message>
     <message>
-        <source>venues</source>
-        <translation>salles</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add parts.</source>
+        <translation>%1 n’est pas listé : vos rôles là-bas ne peuvent pas ajouter de pièces.</translation>
     </message>
     <message>
-        <source>layouts</source>
-        <translation>plans</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add parts.</source>
+        <translation>%1 et %2 ne sont pas listés : vos rôles là-bas ne peuvent pas ajouter de pièces.</translation>
     </message>
     <message>
-        <source>%1 isn&apos;t listed: your roles there can&apos;t add %2.</source>
-        <translation>%1 n’est pas listé : vos rôles là-bas ne peuvent pas ajouter de %2.</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add venues.</source>
+        <translation>%1 n’est pas listé : vos rôles là-bas ne peuvent pas ajouter de salles.</translation>
     </message>
     <message>
-        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add %3.</source>
-        <translation>%1 et %2 ne sont pas listés : vos rôles là-bas ne peuvent pas ajouter de %3.</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add venues.</source>
+        <translation>%1 et %2 ne sont pas listés : vos rôles là-bas ne peuvent pas ajouter de salles.</translation>
+    </message>
+    <message>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add layouts.</source>
+        <translation>%1 n’est pas listé : vos rôles là-bas ne peuvent pas ajouter de plans.</translation>
+    </message>
+    <message>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add layouts.</source>
+        <translation>%1 et %2 ne sont pas listés : vos rôles là-bas ne peuvent pas ajouter de plans.</translation>
     </message>
     <message>
         <source>Not a server address: %1</source>
@@ -3390,20 +3394,88 @@
 <context>
     <name>bld::sync::merge</name>
     <message>
-        <source>added it</source>
-        <translation>l’a ajouté</translation>
+        <source>%1: you added it</source>
+        <translation>%1 : vous l’avez ajouté</translation>
     </message>
     <message>
-        <source>changed it</source>
-        <translation>l’a modifié</translation>
+        <source>%1: you changed it</source>
+        <translation>%1 : vous l’avez modifié</translation>
     </message>
     <message>
-        <source>deleted it</source>
-        <translation>l’a supprimé</translation>
+        <source>%1: you deleted it</source>
+        <translation>%1 : vous l’avez supprimé</translation>
     </message>
     <message>
-        <source>left it as it was</source>
-        <translation>l’a laissé tel quel</translation>
+        <source>%1: you left it as it was</source>
+        <translation>%1 : vous l’avez laissé tel quel</translation>
+    </message>
+    <message>
+        <source>%1: the server added it</source>
+        <translation>%1 : le serveur l’a ajouté</translation>
+    </message>
+    <message>
+        <source>%1: the server changed it</source>
+        <translation>%1 : le serveur l’a modifié</translation>
+    </message>
+    <message>
+        <source>%1: the server deleted it</source>
+        <translation>%1 : le serveur l’a supprimé</translation>
+    </message>
+    <message>
+        <source>%1: the server left it as it was</source>
+        <translation>%1 : le serveur l’a laissé tel quel</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both added it</source>
+        <translation>%1 : vous et le serveur l’avez tous deux ajouté</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both changed it</source>
+        <translation>%1 : vous et le serveur l’avez tous deux modifié</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both deleted it</source>
+        <translation>%1 : vous et le serveur l’avez tous deux supprimé</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both left it as it was</source>
+        <translation>%1 : vous et le serveur l’avez tous deux laissé tel quel</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server added it</source>
+        <translation>%1 : vous l’avez ajouté, le serveur l’a ajouté</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server changed it</source>
+        <translation>%1 : vous l’avez ajouté, le serveur l’a modifié</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server deleted it</source>
+        <translation>%1 : vous l’avez ajouté, le serveur l’a supprimé</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server added it</source>
+        <translation>%1 : vous l’avez modifié, le serveur l’a ajouté</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server changed it</source>
+        <translation>%1 : vous l’avez modifié, le serveur l’a modifié</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server deleted it</source>
+        <translation>%1 : vous l’avez modifié, le serveur l’a supprimé</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server added it</source>
+        <translation>%1 : vous l’avez supprimé, le serveur l’a ajouté</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server changed it</source>
+        <translation>%1 : vous l’avez supprimé, le serveur l’a modifié</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server deleted it</source>
+        <translation>%1 : vous l’avez supprimé, le serveur l’a supprimé</translation>
     </message>
     <message>
         <source> at (%1, %2)</source>
@@ -3464,22 +3536,6 @@
     <message>
         <source>Background image</source>
         <translation>Image de fond</translation>
-    </message>
-    <message>
-        <source>%1: you and the server both %2</source>
-        <translation>%1 : vous et le serveur l’avez tous deux %2</translation>
-    </message>
-    <message>
-        <source>%1: you %2</source>
-        <translation>%1 : vous %2</translation>
-    </message>
-    <message>
-        <source>%1: the server %2</source>
-        <translation>%1 : le serveur %2</translation>
-    </message>
-    <message>
-        <source>%1: you %2, the server %3</source>
-        <translation>%1 : vous %2, le serveur %3</translation>
     </message>
 </context>
 <context>
@@ -5465,20 +5521,12 @@ Enregistrer la mienne comme nouvelle version : la vôtre devient le module ; la 
         <translation>Le serveur a déjà toutes vos pièces.</translation>
     </message>
     <message>
-        <source>venue</source>
-        <translation>salle</translation>
-    </message>
-    <message>
         <source>The venue couldn&apos;t be written out to send it.</source>
         <translation>La salle n’a pas pu être écrite pour l’envoyer.</translation>
     </message>
     <message>
         <source>Couldn&apos;t save the venue: %1</source>
         <translation>Impossible d’enregistrer la salle : %1</translation>
-    </message>
-    <message>
-        <source>module</source>
-        <translation>module</translation>
     </message>
     <message>
         <source>Sheets</source>
@@ -5673,28 +5721,36 @@ Enregistrer la mienne comme nouvelle version : la vôtre devient le module ; la 
         <translation>Le set</translation>
     </message>
     <message>
-        <source>%1 went on %2, which is hidden, so you can’t see %3.</source>
-        <translation>%1 est allé sur %2, qui est masquée, donc vous ne voyez pas %3.</translation>
+        <source>The pasted part went on %1, which is hidden, so you can’t see it.</source>
+        <translation>La pièce collée est allée sur %1, qui est masquée, donc vous ne la voyez pas.</translation>
     </message>
     <message>
-        <source>it</source>
-        <translation>la pièce</translation>
+        <source>The pasted parts went on %1, which is hidden, so you can’t see them.</source>
+        <translation>Les pièces collées sont allées sur %1, qui est masquée, donc vous ne les voyez pas.</translation>
     </message>
     <message>
-        <source>them</source>
-        <translation>les pièces</translation>
+        <source>Your part went on %1, which is hidden, so you can’t see it.</source>
+        <translation>Votre pièce est allée sur %1, qui est masquée, donc vous ne la voyez pas.</translation>
     </message>
     <message>
-        <source>%1 went on %2. %3 %4 hidden, so you can’t see all of them.</source>
-        <translation>%1 est allé sur %2. %3 %4 masquées, donc vous ne les voyez pas toutes.</translation>
+        <source>The set went on %1, which is hidden, so you can’t see them.</source>
+        <translation>Le set est allé sur %1, qui est masquée, donc vous ne voyez pas ses pièces.</translation>
     </message>
     <message>
-        <source>is</source>
-        <translation>est</translation>
+        <source>The pasted parts went on %1. %2 is hidden, so you can’t see all of them.</source>
+        <translation>Les pièces collées sont allées sur %1. %2 est masquée, donc vous ne les voyez pas toutes.</translation>
     </message>
     <message>
-        <source>are</source>
-        <translation>sont</translation>
+        <source>The set went on %1. %2 is hidden, so you can’t see all of them.</source>
+        <translation>Le set est allé sur %1. %2 est masquée, donc vous ne voyez pas toutes ses pièces.</translation>
+    </message>
+    <message>
+        <source>The pasted parts went on %1. %2 are hidden, so you can’t see all of them.</source>
+        <translation>Les pièces collées sont allées sur %1. %2 sont masquées, donc vous ne les voyez pas toutes.</translation>
+    </message>
+    <message>
+        <source>The set went on %1. %2 are hidden, so you can’t see all of them.</source>
+        <translation>Le set est allé sur %1. %2 sont masquées, donc vous ne voyez pas toutes ses pièces.</translation>
     </message>
     <message>
         <source>Hidden sheet</source>
@@ -6550,20 +6606,12 @@ Enregistrer quand même ?</translation>
         <translation>Le serveur a terminé la session en direct%1. Le plan reste ouvert ici comme copie non enregistrée.</translation>
     </message>
     <message>
-        <source>a layout</source>
-        <translation>un plan</translation>
-    </message>
-    <message>
         <source>Keep working on this copy</source>
         <translation>Continuer sur cette copie</translation>
     </message>
     <message>
         <source>This layout is on %1</source>
         <translation>Ce plan est sur %1</translation>
-    </message>
-    <message>
-        <source>This file is a copy of %1. Open the live version to work on it with everyone, or keep working on this copy.</source>
-        <translation>Ce fichier est une copie de %1. Ouvrez la version en direct pour y travailler avec tout le monde, ou continuez sur cette copie.</translation>
     </message>
     <message>
         <source>Open the live version</source>
@@ -6574,8 +6622,20 @@ Enregistrer quand même ?</translation>
         <translation>Ce plan vient de %1</translation>
     </message>
     <message>
-        <source>This file is a copy of %1, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
-        <translation>Ce fichier est une copie de %1, d’un serveur qui n’est pas parmi les vôtres. Ajoutez le serveur pour ouvrir la version en direct, ou continuez sur cette copie.</translation>
+        <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
+        <translation>Ce fichier est une copie d’un plan. Ouvrez la version en direct pour y travailler avec tout le monde, ou continuez sur cette copie.</translation>
+    </message>
+    <message>
+        <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
+        <translation>Ce fichier est une copie de « %1 ». Ouvrez la version en direct pour y travailler avec tout le monde, ou continuez sur cette copie.</translation>
+    </message>
+    <message>
+        <source>This file is a copy of a layout, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
+        <translation>Ce fichier est une copie d’un plan, d’un serveur qui n’est pas parmi les vôtres. Ajoutez le serveur pour ouvrir la version en direct, ou continuez sur cette copie.</translation>
+    </message>
+    <message>
+        <source>This file is a copy of “%1”, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
+        <translation>Ce fichier est une copie de « %1 », d’un serveur qui n’est pas parmi les vôtres. Ajoutez le serveur pour ouvrir la version en direct, ou continuez sur cette copie.</translation>
     </message>
     <message>
         <source>Add %1 to your servers</source>
@@ -9258,32 +9318,12 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
 <context>
     <name>bld::ui::ReturnWording</name>
     <message>
-        <source>its author</source>
-        <translation>son auteur</translation>
-    </message>
-    <message>
-        <source>you</source>
-        <translation>vous</translation>
-    </message>
-    <message>
-        <source>The club</source>
-        <translation>Le club</translation>
-    </message>
-    <message>
         <source>Give “%1” back to %2?</source>
         <translation>Rendre « %1 » à %2 ?</translation>
     </message>
     <message>
         <source>Take “%1” back?</source>
         <translation>Reprendre « %1 » ?</translation>
-    </message>
-    <message>
-        <source>The %1 goes back to %2, who made it.</source>
-        <translation>Le %1 retourne à %2, qui l’a fait.</translation>
-    </message>
-    <message>
-        <source>The %1 becomes yours again, and only yours.</source>
-        <translation>Le %1 redevient à vous, et seulement à vous.</translation>
     </message>
     <message>
         <source>%1 keeps its own copy, credited to %2, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
@@ -9300,6 +9340,82 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Give back</source>
         <translation>Rendre</translation>
+    </message>
+    <message>
+        <source>Give “%1” back to its author?</source>
+        <translation>Rendre « %1 » à son auteur ?</translation>
+    </message>
+    <message>
+        <source>The layout goes back to %1, who made it.</source>
+        <translation>Le plan retourne à %1, qui l’a fait.</translation>
+    </message>
+    <message>
+        <source>The layout goes back to the person who made it.</source>
+        <translation>Le plan retourne à la personne qui l’a fait.</translation>
+    </message>
+    <message>
+        <source>The module goes back to %1, who made it.</source>
+        <translation>Le module retourne à %1, qui l’a fait.</translation>
+    </message>
+    <message>
+        <source>The module goes back to the person who made it.</source>
+        <translation>Le module retourne à la personne qui l’a fait.</translation>
+    </message>
+    <message>
+        <source>The venue goes back to %1, who made it.</source>
+        <translation>La salle retourne à %1, qui l’a faite.</translation>
+    </message>
+    <message>
+        <source>The venue goes back to the person who made it.</source>
+        <translation>La salle retourne à la personne qui l’a faite.</translation>
+    </message>
+    <message>
+        <source>The part goes back to %1, who made it.</source>
+        <translation>La pièce retourne à %1, qui l’a faite.</translation>
+    </message>
+    <message>
+        <source>The part goes back to the person who made it.</source>
+        <translation>La pièce retourne à la personne qui l’a faite.</translation>
+    </message>
+    <message>
+        <source>%1 keeps its own copy, credited to its author, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>%1 garde sa propre copie, au nom de son auteur, donc rien de ce que le club a construit avec ne change. Les membres ayant la permission « Supprimer des affaires du club » sont prévenus.</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to %1, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>Le club garde sa propre copie, au nom de %1, donc rien de ce que le club a construit avec ne change. Les membres ayant la permission « Supprimer des affaires du club » sont prévenus.</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to its author, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>Le club garde sa propre copie, au nom de son auteur, donc rien de ce que le club a construit avec ne change. Les membres ayant la permission « Supprimer des affaires du club » sont prévenus.</translation>
+    </message>
+    <message>
+        <source>Its author can move it back to the club.</source>
+        <translation>Son auteur peut le remettre au club.</translation>
+    </message>
+    <message>
+        <source>The layout becomes yours again, and only yours.</source>
+        <translation>Le plan redevient le vôtre, et seulement le vôtre.</translation>
+    </message>
+    <message>
+        <source>The module becomes yours again, and only yours.</source>
+        <translation>Le module redevient le vôtre, et seulement le vôtre.</translation>
+    </message>
+    <message>
+        <source>The venue becomes yours again, and only yours.</source>
+        <translation>La salle redevient la vôtre, et seulement la vôtre.</translation>
+    </message>
+    <message>
+        <source>The part becomes yours again, and only yours.</source>
+        <translation>La pièce redevient la vôtre, et seulement la vôtre.</translation>
+    </message>
+    <message>
+        <source>%1 keeps its own copy, credited to you, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>%1 garde sa propre copie, à votre nom, donc rien de ce que le club a construit avec ne change. Les membres ayant la permission « Supprimer des affaires du club » sont prévenus.</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to you, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>Le club garde sa propre copie, à votre nom, donc rien de ce que le club a construit avec ne change. Les membres ayant la permission « Supprimer des affaires du club » sont prévenus.</translation>
     </message>
     <message>
         <source>Take back</source>
@@ -9389,8 +9505,8 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Enregistrer « %1 » dans la bibliothèque de modules</translation>
     </message>
     <message>
-        <source>module</source>
-        <translation>module</translation>
+        <source>Save to the Module library</source>
+        <translation>Enregistrer dans la bibliothèque de modules</translation>
     </message>
     <message>
         <source>e.g. First version</source>
@@ -9454,8 +9570,20 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Enregistrer sur le serveur</translation>
     </message>
     <message>
-        <source>A copy of this %1 goes to %2, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
-        <translation>Une copie de ce %1 va sur %2, où vous, vos clubs et le web pouvez l’utiliser. Celui de cet ordinateur reste tel quel.</translation>
+        <source>A copy of this layout goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>Une copie de ce plan va sur %1, où vous, vos clubs et le web pouvez l’utiliser. Celui de cet ordinateur reste tel quel.</translation>
+    </message>
+    <message>
+        <source>A copy of this module goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>Une copie de ce module va sur %1, où vous, vos clubs et le web pouvez l’utiliser. Celui de cet ordinateur reste tel quel.</translation>
+    </message>
+    <message>
+        <source>A copy of this part goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>Une copie de cette pièce va sur %1, où vous, vos clubs et le web pouvez l’utiliser. Celle de cet ordinateur reste telle quelle.</translation>
+    </message>
+    <message>
+        <source>A copy of this venue goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>Une copie de cette salle va sur %1, où vous, vos clubs et le web pouvez l’utiliser. Celle de cet ordinateur reste telle quelle.</translation>
     </message>
     <message>
         <source>Me</source>
@@ -9522,10 +9650,6 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Module name</source>
         <translation>Nom du module</translation>
-    </message>
-    <message>
-        <source>module</source>
-        <translation>module</translation>
     </message>
     <message>
         <source>No saved modules yet. Make a module in a layout, then choose Save to Module library… from its menu.</source>
@@ -9831,10 +9955,6 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>L’enregistrer comme carte BlueBrick (.bbm) sur cet ordinateur</translation>
     </message>
     <message>
-        <source>layout</source>
-        <translation>plan</translation>
-    </message>
-    <message>
         <source>Delete…</source>
         <translation>Supprimer…</translation>
     </message>
@@ -9885,10 +10005,6 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Keep a copy in the Venue library on this computer</source>
         <translation>Garder une copie dans la bibliothèque de salles de cet ordinateur</translation>
-    </message>
-    <message>
-        <source>venue</source>
-        <translation>salle</translation>
     </message>
     <message>
         <source>No venues match.</source>
@@ -9947,10 +10063,6 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Garder une copie dans le dossier de la bibliothèque de modules de cet ordinateur</translation>
     </message>
     <message>
-        <source>module</source>
-        <translation>module</translation>
-    </message>
-    <message>
         <source>No modules match.</source>
         <translation>Aucun module ne correspond.</translation>
     </message>
@@ -9985,10 +10097,6 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Download it into your parts, to use in any layout</source>
         <translation>La télécharger dans vos pièces, pour l’utiliser dans n’importe quel plan</translation>
-    </message>
-    <message>
-        <source>part</source>
-        <translation>pièce</translation>
     </message>
     <message>
         <source>No parts match.</source>

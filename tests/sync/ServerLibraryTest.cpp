@@ -582,7 +582,7 @@ TEST(Credit, ReadsTheServersCreditAndSaysItInTheWebsitesWords) {
     given.authorName = QStringLiteral("Sam");
     for (const bool give : { false, true }) {
         const ui::ConfirmOptions o =
-            ui::returnOptions(QStringLiteral("module"), QStringLiteral("Yard"), given, give);
+            ui::returnOptions(ui::ReturnKind::Module, QStringLiteral("Yard"), given, give);
         EXPECT_TRUE(
             o.keeps.endsWith(QStringLiteral("Members with the Delete club items permission are told.")))
             << o.keeps.toStdString();

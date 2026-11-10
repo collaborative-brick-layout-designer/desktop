@@ -52,6 +52,7 @@ class LibraryStatusLine;
 class ServerLibrary;
 struct ConfirmOptions;
 
+enum class ReturnKind;  // ReturnWording.h
 class ServerWindow : public QWidget {
     Q_OBJECT
 public:
@@ -214,9 +215,9 @@ private:
     void deleteVenue(const sync::VenueEntry& v);
     void deleteModule(const sync::ServerModule& m);
     // A club's layout, venue, module or part back to its author (`kindPath` "layouts", …).
-    void giveOrTakeBack(const QString& kindPath, const QString& word, const QString& id, const QString& title,
+    void giveOrTakeBack(const QString& kindPath, ReturnKind kind, const QString& id, const QString& title,
                         const sync::Credit& credit, bool give);
-    QList<Action> returnActions(const QString& kindPath, const QString& word, const QString& id, const QString& title,
+    QList<Action> returnActions(const QString& kindPath, ReturnKind kind, const QString& id, const QString& title,
                                 const sync::Credit& credit);
     bool ask(const ConfirmOptions& o);
 

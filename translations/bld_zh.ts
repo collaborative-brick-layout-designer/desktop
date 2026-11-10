@@ -2941,10 +2941,6 @@
         <translation>下载新版本</translation>
     </message>
     <message>
-        <source>layout</source>
-        <translation>布局</translation>
-    </message>
-    <message>
         <source>Done: “%1” went back to its author, and the club kept its own copy.</source>
         <translation>完成：“%1”已归还给作者，俱乐部保留了自己的副本。</translation>
     </message>
@@ -3165,28 +3161,36 @@
 <context>
     <name>bld::sync::ServerApi</name>
     <message>
-        <source>modules</source>
-        <translation>模块</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add modules.</source>
+        <translation>%1 没有列出：你在那里的角色不能添加模块。</translation>
     </message>
     <message>
-        <source>parts</source>
-        <translation>零件</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add modules.</source>
+        <translation>%1 和 %2 没有列出：你在那里的角色不能添加模块。</translation>
     </message>
     <message>
-        <source>venues</source>
-        <translation>场地</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add parts.</source>
+        <translation>%1 没有列出：你在那里的角色不能添加零件。</translation>
     </message>
     <message>
-        <source>layouts</source>
-        <translation>布局</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add parts.</source>
+        <translation>%1 和 %2 没有列出：你在那里的角色不能添加零件。</translation>
     </message>
     <message>
-        <source>%1 isn&apos;t listed: your roles there can&apos;t add %2.</source>
-        <translation>%1 没有列出：你在那里的角色不能添加%2。</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add venues.</source>
+        <translation>%1 没有列出：你在那里的角色不能添加场地。</translation>
     </message>
     <message>
-        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add %3.</source>
-        <translation>%1 和 %2 没有列出：你在那里的角色不能添加%3。</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add venues.</source>
+        <translation>%1 和 %2 没有列出：你在那里的角色不能添加场地。</translation>
+    </message>
+    <message>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add layouts.</source>
+        <translation>%1 没有列出：你在那里的角色不能添加布局。</translation>
+    </message>
+    <message>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add layouts.</source>
+        <translation>%1 和 %2 没有列出：你在那里的角色不能添加布局。</translation>
     </message>
     <message>
         <source>Not a server address: %1</source>
@@ -3374,20 +3378,88 @@
 <context>
     <name>bld::sync::merge</name>
     <message>
-        <source>added it</source>
-        <translation>添加了它</translation>
+        <source>%1: you added it</source>
+        <translation>%1：你添加了它</translation>
     </message>
     <message>
-        <source>changed it</source>
-        <translation>更改了它</translation>
+        <source>%1: you changed it</source>
+        <translation>%1：你更改了它</translation>
     </message>
     <message>
-        <source>deleted it</source>
-        <translation>删除了它</translation>
+        <source>%1: you deleted it</source>
+        <translation>%1：你删除了它</translation>
     </message>
     <message>
-        <source>left it as it was</source>
-        <translation>没有改动它</translation>
+        <source>%1: you left it as it was</source>
+        <translation>%1：你没有改动它</translation>
+    </message>
+    <message>
+        <source>%1: the server added it</source>
+        <translation>%1：服务器添加了它</translation>
+    </message>
+    <message>
+        <source>%1: the server changed it</source>
+        <translation>%1：服务器更改了它</translation>
+    </message>
+    <message>
+        <source>%1: the server deleted it</source>
+        <translation>%1：服务器删除了它</translation>
+    </message>
+    <message>
+        <source>%1: the server left it as it was</source>
+        <translation>%1：服务器没有改动它</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both added it</source>
+        <translation>%1：你和服务器都添加了它</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both changed it</source>
+        <translation>%1：你和服务器都更改了它</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both deleted it</source>
+        <translation>%1：你和服务器都删除了它</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both left it as it was</source>
+        <translation>%1：你和服务器都没有改动它</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server added it</source>
+        <translation>%1：你添加了它，服务器也添加了它</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server changed it</source>
+        <translation>%1：你添加了它，服务器更改了它</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server deleted it</source>
+        <translation>%1：你添加了它，服务器删除了它</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server added it</source>
+        <translation>%1：你更改了它，服务器添加了它</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server changed it</source>
+        <translation>%1：你更改了它，服务器也更改了它</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server deleted it</source>
+        <translation>%1：你更改了它，服务器删除了它</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server added it</source>
+        <translation>%1：你删除了它，服务器添加了它</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server changed it</source>
+        <translation>%1：你删除了它，服务器更改了它</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server deleted it</source>
+        <translation>%1：你删除了它，服务器也删除了它</translation>
     </message>
     <message>
         <source> at (%1, %2)</source>
@@ -3448,22 +3520,6 @@
     <message>
         <source>Background image</source>
         <translation>背景图片</translation>
-    </message>
-    <message>
-        <source>%1: you and the server both %2</source>
-        <translation>%1：你和服务器都%2</translation>
-    </message>
-    <message>
-        <source>%1: you %2</source>
-        <translation>%1：你%2</translation>
-    </message>
-    <message>
-        <source>%1: the server %2</source>
-        <translation>%1：服务器%2</translation>
-    </message>
-    <message>
-        <source>%1: you %2, the server %3</source>
-        <translation>%1：你%2，服务器%3</translation>
     </message>
 </context>
 <context>
@@ -5431,20 +5487,12 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>服务器已经有你的全部零件。</translation>
     </message>
     <message>
-        <source>venue</source>
-        <translation>场地</translation>
-    </message>
-    <message>
         <source>The venue couldn&apos;t be written out to send it.</source>
         <translation>无法写出场地以便发送。</translation>
     </message>
     <message>
         <source>Couldn&apos;t save the venue: %1</source>
         <translation>无法保存场地：%1</translation>
-    </message>
-    <message>
-        <source>module</source>
-        <translation>模块</translation>
     </message>
     <message>
         <source>Sheets</source>
@@ -5639,28 +5687,36 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>套件</translation>
     </message>
     <message>
-        <source>%1 went on %2, which is hidden, so you can’t see %3.</source>
-        <translation>%1放到了 %2 上，它已隐藏，所以你看不到%3。</translation>
+        <source>The pasted part went on %1, which is hidden, so you can’t see it.</source>
+        <translation>粘贴的零件放到了 %1 上，该图纸已隐藏，所以你看不到它。</translation>
     </message>
     <message>
-        <source>it</source>
-        <translation>它</translation>
+        <source>The pasted parts went on %1, which is hidden, so you can’t see them.</source>
+        <translation>粘贴的零件放到了 %1 上，该图纸已隐藏，所以你看不到它们。</translation>
     </message>
     <message>
-        <source>them</source>
-        <translation>它们</translation>
+        <source>Your part went on %1, which is hidden, so you can’t see it.</source>
+        <translation>你的零件放到了 %1 上，该图纸已隐藏，所以你看不到它。</translation>
     </message>
     <message>
-        <source>%1 went on %2. %3 %4 hidden, so you can’t see all of them.</source>
-        <translation>%1放到了 %2 上。%3%4隐藏，所以你看不到全部。</translation>
+        <source>The set went on %1, which is hidden, so you can’t see them.</source>
+        <translation>套件放到了 %1 上，该图纸已隐藏，所以你看不到它的零件。</translation>
     </message>
     <message>
-        <source>is</source>
-        <translation>已</translation>
+        <source>The pasted parts went on %1. %2 is hidden, so you can’t see all of them.</source>
+        <translation>粘贴的零件放到了 %1 上。%2 已隐藏，所以你看不到全部。</translation>
     </message>
     <message>
-        <source>are</source>
-        <translation>都已</translation>
+        <source>The set went on %1. %2 is hidden, so you can’t see all of them.</source>
+        <translation>套件放到了 %1 上。%2 已隐藏，所以你看不到它的全部零件。</translation>
+    </message>
+    <message>
+        <source>The pasted parts went on %1. %2 are hidden, so you can’t see all of them.</source>
+        <translation>粘贴的零件放到了 %1 上。%2 都已隐藏，所以你看不到全部。</translation>
+    </message>
+    <message>
+        <source>The set went on %1. %2 are hidden, so you can’t see all of them.</source>
+        <translation>套件放到了 %1 上。%2 都已隐藏，所以你看不到它的全部零件。</translation>
     </message>
     <message>
         <source>Hidden sheet</source>
@@ -6513,20 +6569,12 @@ Save anyway?</source>
         <translation>服务器结束了实时会话%1。布局作为未保存的副本仍在这里打开着。</translation>
     </message>
     <message>
-        <source>a layout</source>
-        <translation>一个布局</translation>
-    </message>
-    <message>
         <source>Keep working on this copy</source>
         <translation>继续编辑这份副本</translation>
     </message>
     <message>
         <source>This layout is on %1</source>
         <translation>这个布局在 %1 上</translation>
-    </message>
-    <message>
-        <source>This file is a copy of %1. Open the live version to work on it with everyone, or keep working on this copy.</source>
-        <translation>这个文件是 %1 的副本。打开实时版本和大家一起编辑，或继续编辑这份副本。</translation>
     </message>
     <message>
         <source>Open the live version</source>
@@ -6537,8 +6585,20 @@ Save anyway?</source>
         <translation>这个布局来自 %1</translation>
     </message>
     <message>
-        <source>This file is a copy of %1, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
-        <translation>这个文件是 %1 的副本，来自一台不属于你的服务器。添加该服务器即可打开实时版本，或继续编辑这份副本。</translation>
+        <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
+        <translation>这个文件是一个布局的副本。打开实时版本和大家一起编辑，或继续编辑这份副本。</translation>
+    </message>
+    <message>
+        <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
+        <translation>这个文件是“%1”的副本。打开实时版本和大家一起编辑，或继续编辑这份副本。</translation>
+    </message>
+    <message>
+        <source>This file is a copy of a layout, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
+        <translation>这个文件是一个布局的副本，来自一台不属于你的服务器。添加该服务器即可打开实时版本，或继续编辑这份副本。</translation>
+    </message>
+    <message>
+        <source>This file is a copy of “%1”, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
+        <translation>这个文件是“%1”的副本，来自一台不属于你的服务器。添加该服务器即可打开实时版本，或继续编辑这份副本。</translation>
     </message>
     <message>
         <source>Add %1 to your servers</source>
@@ -9191,32 +9251,12 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
 <context>
     <name>bld::ui::ReturnWording</name>
     <message>
-        <source>its author</source>
-        <translation>它的作者</translation>
-    </message>
-    <message>
-        <source>you</source>
-        <translation>你</translation>
-    </message>
-    <message>
-        <source>The club</source>
-        <translation>俱乐部</translation>
-    </message>
-    <message>
         <source>Give “%1” back to %2?</source>
         <translation>把“%1”归还给%2吗？</translation>
     </message>
     <message>
         <source>Take “%1” back?</source>
         <translation>收回“%1”吗？</translation>
-    </message>
-    <message>
-        <source>The %1 goes back to %2, who made it.</source>
-        <translation>这个%1会回到创建它的%2手中。</translation>
-    </message>
-    <message>
-        <source>The %1 becomes yours again, and only yours.</source>
-        <translation>这个%1会重新归你所有，而且只归你。</translation>
     </message>
     <message>
         <source>%1 keeps its own copy, credited to %2, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
@@ -9233,6 +9273,82 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Give back</source>
         <translation>归还</translation>
+    </message>
+    <message>
+        <source>Give “%1” back to its author?</source>
+        <translation>把“%1”归还给它的作者吗？</translation>
+    </message>
+    <message>
+        <source>The layout goes back to %1, who made it.</source>
+        <translation>这个布局会回到创建它的%1手中。</translation>
+    </message>
+    <message>
+        <source>The layout goes back to the person who made it.</source>
+        <translation>这个布局会回到创建者手中。</translation>
+    </message>
+    <message>
+        <source>The module goes back to %1, who made it.</source>
+        <translation>这个模块会回到创建它的%1手中。</translation>
+    </message>
+    <message>
+        <source>The module goes back to the person who made it.</source>
+        <translation>这个模块会回到创建者手中。</translation>
+    </message>
+    <message>
+        <source>The venue goes back to %1, who made it.</source>
+        <translation>这个场地会回到创建它的%1手中。</translation>
+    </message>
+    <message>
+        <source>The venue goes back to the person who made it.</source>
+        <translation>这个场地会回到创建者手中。</translation>
+    </message>
+    <message>
+        <source>The part goes back to %1, who made it.</source>
+        <translation>这个零件会回到创建它的%1手中。</translation>
+    </message>
+    <message>
+        <source>The part goes back to the person who made it.</source>
+        <translation>这个零件会回到创建者手中。</translation>
+    </message>
+    <message>
+        <source>%1 keeps its own copy, credited to its author, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>%1 保留自己的副本，作者署名不变，所以俱乐部用它搭建的内容不会改变。拥有“删除俱乐部内容”权限的成员会收到通知。</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to %1, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>俱乐部保留自己的副本，作者署名为%1，所以俱乐部用它搭建的内容不会改变。拥有“删除俱乐部内容”权限的成员会收到通知。</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to its author, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>俱乐部保留自己的副本，作者署名不变，所以俱乐部用它搭建的内容不会改变。拥有“删除俱乐部内容”权限的成员会收到通知。</translation>
+    </message>
+    <message>
+        <source>Its author can move it back to the club.</source>
+        <translation>它的作者可以把它移回俱乐部。</translation>
+    </message>
+    <message>
+        <source>The layout becomes yours again, and only yours.</source>
+        <translation>这个布局会重新归你所有，而且只归你。</translation>
+    </message>
+    <message>
+        <source>The module becomes yours again, and only yours.</source>
+        <translation>这个模块会重新归你所有，而且只归你。</translation>
+    </message>
+    <message>
+        <source>The venue becomes yours again, and only yours.</source>
+        <translation>这个场地会重新归你所有，而且只归你。</translation>
+    </message>
+    <message>
+        <source>The part becomes yours again, and only yours.</source>
+        <translation>这个零件会重新归你所有，而且只归你。</translation>
+    </message>
+    <message>
+        <source>%1 keeps its own copy, credited to you, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>%1 保留自己的副本，作者署你的名，所以俱乐部用它搭建的内容不会改变。拥有“删除俱乐部内容”权限的成员会收到通知。</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to you, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>俱乐部保留自己的副本，作者署你的名，所以俱乐部用它搭建的内容不会改变。拥有“删除俱乐部内容”权限的成员会收到通知。</translation>
     </message>
     <message>
         <source>Take back</source>
@@ -9322,8 +9438,8 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>把“%1”保存到模块库</translation>
     </message>
     <message>
-        <source>module</source>
-        <translation>模块</translation>
+        <source>Save to the Module library</source>
+        <translation>保存到模块库</translation>
     </message>
     <message>
         <source>e.g. First version</source>
@@ -9386,8 +9502,20 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>保存到服务器</translation>
     </message>
     <message>
-        <source>A copy of this %1 goes to %2, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
-        <translation>这个%1的副本会放到 %2，你、你的俱乐部和网页都能使用它。这台电脑上的原件保持不变。</translation>
+        <source>A copy of this layout goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>这个布局的副本会放到 %1，你、你的俱乐部和网页都能使用它。这台电脑上的原件保持不变。</translation>
+    </message>
+    <message>
+        <source>A copy of this module goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>这个模块的副本会放到 %1，你、你的俱乐部和网页都能使用它。这台电脑上的原件保持不变。</translation>
+    </message>
+    <message>
+        <source>A copy of this part goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>这个零件的副本会放到 %1，你、你的俱乐部和网页都能使用它。这台电脑上的原件保持不变。</translation>
+    </message>
+    <message>
+        <source>A copy of this venue goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>这个场地的副本会放到 %1，你、你的俱乐部和网页都能使用它。这台电脑上的原件保持不变。</translation>
     </message>
     <message>
         <source>Me</source>
@@ -9454,10 +9582,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Module name</source>
         <translation>模块名称</translation>
-    </message>
-    <message>
-        <source>module</source>
-        <translation>模块</translation>
     </message>
     <message>
         <source>No saved modules yet. Make a module in a layout, then choose Save to Module library… from its menu.</source>
@@ -9763,10 +9887,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>把它保存为这台电脑上的 BlueBrick 地图（.bbm）</translation>
     </message>
     <message>
-        <source>layout</source>
-        <translation>布局</translation>
-    </message>
-    <message>
         <source>Delete…</source>
         <translation>删除…</translation>
     </message>
@@ -9817,10 +9937,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Keep a copy in the Venue library on this computer</source>
         <translation>在这台电脑的场地库中保留一份副本</translation>
-    </message>
-    <message>
-        <source>venue</source>
-        <translation>场地</translation>
     </message>
     <message>
         <source>No venues match.</source>
@@ -9879,10 +9995,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>在这台电脑的模块库文件夹中保留一份副本</translation>
     </message>
     <message>
-        <source>module</source>
-        <translation>模块</translation>
-    </message>
-    <message>
         <source>No modules match.</source>
         <translation>没有匹配的模块。</translation>
     </message>
@@ -9917,10 +10029,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Download it into your parts, to use in any layout</source>
         <translation>把它下载到你的零件中，可在任何布局里使用</translation>
-    </message>
-    <message>
-        <source>part</source>
-        <translation>零件</translation>
     </message>
     <message>
         <source>No parts match.</source>
