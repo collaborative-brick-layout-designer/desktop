@@ -46,7 +46,7 @@ def linked_crates(yffi_src: Path) -> dict[str, dict]:
     crates: dict[str, dict] = {}
     for target in TARGETS:
         meta = json.loads(subprocess.check_output(
-            ["cargo", "metadata", "--format-version", "1", "--locked", "--offline",
+            ["cargo", "metadata", "--format-version", "1", "--locked",
              "--filter-platform", target, "--manifest-path", str(yffi_src / "Cargo.toml")],
             text=True))
         packages = {p["id"]: p for p in meta["packages"]}
