@@ -6526,6 +6526,10 @@ Trotzdem speichern?</translation>
         <translation>Das Qt-Toolkit, mit dem diese App gebaut ist</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Alle anderen, die dieses Layout gerade geöffnet haben</translation>
+    </message>
+    <message>
         <source>S&amp;ervers…</source>
         <translation>S&amp;erver…</translation>
     </message>
@@ -6828,6 +6832,10 @@ Trotzdem speichern?</translation>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>Getrennt. Das Layout bleibt hier als nicht gespeicherte Kopie offen.</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>Hier anwesend (%1)</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>

@@ -6526,6 +6526,10 @@ Guardar mesmo assim?</translation>
         <translation>O toolkit Qt com que esta aplicação é feita</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Todas as outras pessoas com este layout aberto agora</translation>
+    </message>
+    <message>
         <source>S&amp;ervers…</source>
         <translation>S&amp;ervidores…</translation>
     </message>
@@ -6828,6 +6832,10 @@ Guardar mesmo assim?</translation>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>Desligado. O layout fica aberto aqui como uma cópia não guardada.</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>Pessoas aqui (%1)</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>

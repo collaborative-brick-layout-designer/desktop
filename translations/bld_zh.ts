@@ -6489,6 +6489,10 @@ Save anyway?</source>
         <translation>本应用所用的 Qt 工具包</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>现在打开此布局的其他所有人</translation>
+    </message>
+    <message>
         <source>S&amp;ervers…</source>
         <translation>服务器(&amp;E)…</translation>
     </message>
@@ -6787,6 +6791,10 @@ Save anyway?</source>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>已断开连接。布局作为未保存的副本仍在这里打开着。</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>在此的人（%1）</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>

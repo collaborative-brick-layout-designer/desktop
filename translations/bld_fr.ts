@@ -6526,6 +6526,10 @@ Enregistrer quand même ?</translation>
         <translation>La boîte à outils Qt avec laquelle cette application est faite</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Toutes les autres personnes qui ont cette disposition ouverte en ce moment</translation>
+    </message>
+    <message>
         <source>S&amp;ervers…</source>
         <translation>Ser&amp;veurs…</translation>
     </message>
@@ -6828,6 +6832,10 @@ Enregistrer quand même ?</translation>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>Déconnecté. Le plan reste ouvert ici comme copie non enregistrée.</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>Personnes présentes (%1)</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>

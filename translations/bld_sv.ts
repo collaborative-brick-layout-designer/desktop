@@ -6977,6 +6977,10 @@ Spara ändå?</translation>
         <translation>&amp;Redigera</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Alla andra som har den här layouten öppen nu</translation>
+    </message>
+    <message>
         <source>S&amp;ervers…</source>
         <translation>S&amp;ervrar…</translation>
     </message>
@@ -7279,6 +7283,10 @@ Spara ändå?</translation>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>Frånkopplad. Layouten är fortfarande öppen här som en osparad kopia.</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>Personer här (%1)</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>

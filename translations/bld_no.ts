@@ -6977,6 +6977,10 @@ Lagre likevel?</translation>
         <translation>&amp;Rediger</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Alle andre som har dette oppsettet åpent nå</translation>
+    </message>
+    <message>
         <source>S&amp;ervers…</source>
         <translation>S&amp;ervere…</translation>
     </message>
@@ -7279,6 +7283,10 @@ Lagre likevel?</translation>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>Frakoblet. Layouten er fortsatt åpen her som en ulagret kopi.</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>Personer her (%1)</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>

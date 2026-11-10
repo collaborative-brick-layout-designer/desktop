@@ -6526,6 +6526,10 @@ Toch opslaan?</translation>
         <translation>De Qt-toolkit waarmee deze app is gebouwd</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Iedereen anders die deze layout nu open heeft</translation>
+    </message>
+    <message>
         <source>S&amp;ervers…</source>
         <translation>&amp;Servers…</translation>
     </message>
@@ -6828,6 +6832,10 @@ Toch opslaan?</translation>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>Verbinding verbroken. De layout blijft hier open als niet-opgeslagen kopie.</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>Mensen hier (%1)</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>

@@ -6489,6 +6489,10 @@ Save anyway?</source>
         <translation>このアプリの土台になっている Qt ツールキット</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>今このレイアウトを開いている他のすべての人</translation>
+    </message>
+    <message>
         <source>S&amp;ervers…</source>
         <translation>サーバー(&amp;E)…</translation>
     </message>
@@ -6787,6 +6791,10 @@ Save anyway?</source>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>切断しました。レイアウトは未保存のコピーとしてここで開いたままです。</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>ここにいる人（%1）</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>

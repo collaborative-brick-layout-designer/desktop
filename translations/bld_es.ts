@@ -6526,6 +6526,10 @@ Save anyway?</source>
         <translation>El kit de herramientas Qt con el que está hecha esta aplicación</translation>
     </message>
     <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Todas las demás personas que tienen este diseño abierto ahora</translation>
+    </message>
+    <message>
         <source>S&amp;ervers…</source>
         <translation>Ser&amp;vidores…</translation>
     </message>
@@ -6828,6 +6832,10 @@ Save anyway?</source>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
         <translation>Desconectado. La maqueta sigue abierta aquí como copia sin guardar.</translation>
+    </message>
+    <message>
+        <source>People here (%1)</source>
+        <translation>Personas aquí (%1)</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>
