@@ -605,6 +605,17 @@ TEST_F(MainWindowLiveServerParts, AFailedDownloadStaysInSightAndTryAgainFetchesT
     ASSERT_TRUE(waitFor([&] { return manifestGets() == 2 && !button->isVisibleTo(window_.get()); }));
 }
 
+// Full review area 4, Idea 3: back in step after a drop, the parts the
+// server couldn't give are fetched again without Try again.
+TEST_F(MainWindowLiveServerParts, AfterADropTheServersPartsAreFetchedAgainByThemselves) {
+    QToolButton* button = failedButton();
+    ASSERT_NE(button, nullptr);
+    ASSERT_TRUE(waitFor([&] { return button->isVisibleTo(window_.get()); }));
+    const int before = manifestGets();
+    ws_.dropAll(QWebSocketProtocol::CloseCodeGoingAway);
+    ASSERT_TRUE(waitFor([&] { return manifestGets() > before; }, 8000));
+}
+
 namespace {
 
 // The first server is slow to answer for its parts; meanwhile a layout on

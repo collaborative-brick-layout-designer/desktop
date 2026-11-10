@@ -184,9 +184,12 @@ void MainWindow::setupLiveMenu(QMenu* file) {
     connect(&live_->session(), &sync::SyncSession::statusChanged, this, [this](sync::SyncClient::Status s) {
         if ((s == sync::SyncClient::Status::Synced || s == sync::SyncClient::Status::Connecting) && live_->active())
             liveRoleCheck_->start();
-        // Back in step after the server's parts couldn't be had (the
-        // connection dropped mid-download): try again by itself.
-        if (s == sync::SyncClient::Status::Synced && live_->active() && partsSyncFailed_->isVisible() && !partsSyncRunning_)
+        // The server's parts couldn't be had and the connection dropped
+        // (often the same Wi-Fi drop): back in step, try again by itself.
+        if (s == sync::SyncClient::Status::Connecting && !partsSyncFailed_->isHidden())
+            partsRetryOnReconnect_ = true;
+        if (s == sync::SyncClient::Status::Synced && std::exchange(partsRetryOnReconnect_, false)
+            && live_->active() && !partsSyncFailed_->isHidden() && !partsSyncRunning_)
             syncServerParts(liveServer_, liveToken_);
         updatePeopleHere();
     });
