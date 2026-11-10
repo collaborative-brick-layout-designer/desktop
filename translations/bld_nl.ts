@@ -3978,6 +3978,22 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <source>Review now</source>
         <translation>Nu controleren</translation>
     </message>
+    <message>
+        <source>Nothing to undo</source>
+        <translation>Niets ongedaan te maken</translation>
+    </message>
+    <message>
+        <source>Nothing to redo</source>
+        <translation>Niets opnieuw te doen</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to undo.</source>
+        <translation>Iemand anders heeft dat na jou gewijzigd, dus er was niets ongedaan te maken.</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to redo.</source>
+        <translation>Iemand anders heeft dat na jou gewijzigd, dus er was niets opnieuw te doen.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>

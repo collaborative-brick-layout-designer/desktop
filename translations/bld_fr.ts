@@ -3978,6 +3978,22 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
         <source>Review now</source>
         <translation>Examiner maintenant</translation>
     </message>
+    <message>
+        <source>Nothing to undo</source>
+        <translation>Rien à annuler</translation>
+    </message>
+    <message>
+        <source>Nothing to redo</source>
+        <translation>Rien à rétablir</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to undo.</source>
+        <translation>Quelqu&apos;un d&apos;autre l&apos;a modifié après vous : il n&apos;y avait donc rien à annuler.</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to redo.</source>
+        <translation>Quelqu&apos;un d&apos;autre l&apos;a modifié après vous : il n&apos;y avait donc rien à rétablir.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>

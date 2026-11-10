@@ -3978,6 +3978,22 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <source>Review now</source>
         <translation>Granska nu</translation>
     </message>
+    <message>
+        <source>Nothing to undo</source>
+        <translation>Inget att ångra</translation>
+    </message>
+    <message>
+        <source>Nothing to redo</source>
+        <translation>Inget att göra om</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to undo.</source>
+        <translation>Någon annan ändrade det efter dig, så det fanns inget att ångra.</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to redo.</source>
+        <translation>Någon annan ändrade det efter dig, så det fanns inget att göra om.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>

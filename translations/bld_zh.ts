@@ -3959,6 +3959,22 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <source>Review now</source>
         <translation>立即审阅</translation>
     </message>
+    <message>
+        <source>Nothing to undo</source>
+        <translation>没有可撤销的操作</translation>
+    </message>
+    <message>
+        <source>Nothing to redo</source>
+        <translation>没有可重做的操作</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to undo.</source>
+        <translation>有人在你之后修改了它，因此没有可撤销的内容。</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to redo.</source>
+        <translation>有人在你之后修改了它，因此没有可重做的内容。</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
