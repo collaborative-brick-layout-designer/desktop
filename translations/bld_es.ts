@@ -756,395 +756,395 @@
     </message>
     <message>
         <source>Set updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizaciones de sets</translation>
     </message>
     <message>
         <source>A set you placed knows when the set changes, so you can bring in the new version.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un set colocado sabe cuándo cambia el set, para que puedas traer la versión nueva.</translation>
     </message>
     <message>
         <source>When one of your custom sets (or one shared with you) gets new parts, has its parts moved, or is renamed, or a custom set inside it changes, layouts that use it say “Update available”. Update puts the set’s new parts where the placed set is now, keeping its place and turn, and joins them to the track around it where they fit. Nothing changes until you choose Update, and Undo puts it back.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuando uno de tus sets personalizados (o uno compartido contigo) recibe piezas nuevas, se mueven sus piezas, se renombra o cambia un set personalizado que contiene, las maquetas que lo usan muestran «Actualización disponible». Actualizar pone las piezas nuevas del set donde está ahora el set colocado, conservando su sitio y giro, y las une a las vías de alrededor donde encajan. Nada cambia hasta que eliges Actualizar, y Deshacer lo devuelve a como estaba.</translation>
     </message>
     <message>
         <source>Hidden parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Piezas ocultas</translation>
     </message>
     <message>
         <source>Some parts are only used inside a set, so they’re hidden from the parts list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Algunas piezas solo se usan dentro de un set, así que están ocultas en la lista de piezas.</translation>
     </message>
     <message>
         <source>A building of a castle set, a cut track piece or one half of a flex track only makes sense inside its set, so it isn’t listed or placed by itself (BlueBrick’s “Not listed in library”), while the set places, moves and ungroups as usual. Tick Show hidden parts, or right-click a set and choose Show its parts, to see them. On your own parts, “Only used inside sets” in the part’s menu turns this on or off.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un edificio de un set de castillo, un trozo de vía cortado o una mitad de una vía flexible solo tiene sentido dentro de su set, así que no se lista ni se coloca por separado (el «No listado en la biblioteca» de BlueBrick), mientras que el set se coloca, se mueve y se desagrupa como siempre. Marca «Mostrar piezas ocultas», o haz clic derecho en un set y elige «Mostrar sus piezas», para verlas. En tus propias piezas, «Solo se usa dentro de sets» en el menú de la pieza lo activa o desactiva.</translation>
     </message>
     <message>
         <source>Opening a file</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir un archivo</translation>
     </message>
     <message>
         <source>Open a layout file from this app, BlueBrick, TrackDesigner or 4DBrix.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir un archivo de maqueta de esta aplicación, BlueBrick, TrackDesigner o 4DBrix.</translation>
     </message>
     <message>
         <source>A layout file (.bld-layout) or a BlueBrick map (.bbm) opens with everything in it. TrackDesigner (.tdl) and 4DBrix (.ncp) parts are matched to parts in the library, and any that have no match are listed after opening. LDraw, BrickLink Studio and LDD models are imported in the desktop app.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un archivo de maqueta (.bld-layout) o un mapa de BlueBrick (.bbm) se abre con todo su contenido. Las piezas de TrackDesigner (.tdl) y 4DBrix (.ncp) se emparejan con piezas de la biblioteca, y las que no tienen pareja se listan tras abrir. Los modelos de LDraw, BrickLink Studio y LDD se importan en la aplicación de escritorio.</translation>
     </message>
     <message>
         <source>Models from other programs</source>
-        <translation type="unfinished"></translation>
+        <translation>Modelos de otros programas</translation>
     </message>
     <message>
         <source>LDraw, BrickLink Studio and LDD files are imported in the desktop app, then saved here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Los archivos de LDraw, BrickLink Studio y LDD se importan en la aplicación de escritorio y luego se guardan aquí.</translation>
     </message>
     <message>
         <source>The desktop app reads them, matches their parts to the library and lists the ones it can’t match. It can also turn a model into a custom part. Then choose File › Save to Server… and it shows up here.</source>
-        <translation type="unfinished"></translation>
+        <translation>La aplicación de escritorio los lee, empareja sus piezas con la biblioteca y lista las que no encuentra. También puede convertir un modelo en una pieza personalizada. Luego elige Archivo › Guardar en el servidor… y aparece aquí.</translation>
     </message>
     <message>
         <source>Download as</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargar como</translation>
     </message>
     <message>
         <source>Save a copy of this layout on your computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar una copia de esta maqueta en tu ordenador.</translation>
     </message>
     <message>
         <source>The layout file keeps everything and opens in this app or the desktop app. The other choices are for other programs and may leave some things out.</source>
-        <translation type="unfinished"></translation>
+        <translation>El archivo de maqueta lo conserva todo y se abre en esta aplicación o en la de escritorio. Las otras opciones son para otros programas y pueden dejar cosas fuera.</translation>
     </message>
     <message>
         <source>Layout file</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivo de maqueta</translation>
     </message>
     <message>
         <source>Everything in one file: parts, sheets, venue, labels and modules.</source>
-        <translation type="unfinished"></translation>
+        <translation>Todo en un archivo: piezas, hojas, sala, etiquetas y módulos.</translation>
     </message>
     <message>
         <source>Pick this to keep a backup or to open the layout in the desktop app. Nothing is left out.</source>
-        <translation type="unfinished"></translation>
+        <translation>Elige esto para guardar una copia de seguridad o abrir la maqueta en la aplicación de escritorio. No se deja nada fuera.</translation>
     </message>
     <message>
         <source>BlueBrick map</source>
-        <translation type="unfinished"></translation>
+        <translation>Mapa de BlueBrick</translation>
     </message>
     <message>
         <source>For people who still use the old BlueBrick program.</source>
-        <translation type="unfinished"></translation>
+        <translation>Para quien aún usa el antiguo programa BlueBrick.</translation>
     </message>
     <message>
         <source>BlueBrick can’t hold everything this app can, so the venue, labels, modules and background picture are left out. Your layout here keeps them.</source>
-        <translation type="unfinished"></translation>
+        <translation>BlueBrick no puede guardar todo lo que esta aplicación sí, así que la sala, las etiquetas, los módulos y la imagen de fondo quedan fuera. Tu maqueta aquí los conserva.</translation>
     </message>
     <message>
         <source>Viewer or editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Lector o editor</translation>
     </message>
     <message>
         <source>Editors can change the layout; viewers can only look.</source>
-        <translation type="unfinished"></translation>
+        <translation>Los editores pueden cambiar la maqueta; los lectores solo pueden mirar.</translation>
     </message>
     <message>
         <source>Invite people by email. They get a link to join, and can see changes as they happen. You can change their role or remove them later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Invita a gente por correo. Reciben un enlace para unirse y ven los cambios al momento. Puedes cambiar su rol o quitarlos más tarde.</translation>
     </message>
     <message>
         <source>People</source>
-        <translation type="unfinished"></translation>
+        <translation>Personas</translation>
     </message>
     <message>
         <source>Everyone who can open this layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos los que pueden abrir esta maqueta.</translation>
     </message>
     <message>
         <source>The owner decides who else can see or change the layout. Anyone here can open it from their own list of layouts.</source>
-        <translation type="unfinished"></translation>
+        <translation>El propietario decide quién más puede ver o cambiar la maqueta. Cualquiera de aquí puede abrirla desde su propia lista de maquetas.</translation>
     </message>
     <message>
         <source>Waiting to join</source>
-        <translation type="unfinished"></translation>
+        <translation>Pendientes de unirse</translation>
     </message>
     <message>
         <source>People you invited who haven’t joined yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Personas invitadas que aún no se han unido.</translation>
     </message>
     <message>
         <source>Invites stop working after a while. Cancel one if you sent it to the wrong address.</source>
-        <translation type="unfinished"></translation>
+        <translation>Las invitaciones dejan de funcionar al cabo de un tiempo. Cancela una si la enviaste a la dirección equivocada.</translation>
     </message>
     <message>
         <source>Give it to someone else</source>
-        <translation type="unfinished"></translation>
+        <translation>Dársela a otra persona</translation>
     </message>
     <message>
         <source>Hand this layout to another person or to your club.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pasar esta maqueta a otra persona o a tu club.</translation>
     </message>
     <message>
         <source>The new owner decides who can see and change it. Give it to your club so it stays with the club, not with one person.</source>
-        <translation type="unfinished"></translation>
+        <translation>El nuevo propietario decide quién puede verla y cambiarla. Dásela a tu club para que se quede con el club y no con una persona.</translation>
     </message>
     <message>
         <source>Public link</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlace público</translation>
     </message>
     <message>
         <source>Anyone with the link can look at the layout, without signing in.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cualquiera con el enlace puede ver la maqueta, sin iniciar sesión.</translation>
     </message>
     <message>
         <source>They can look but not change anything. Turn the link off and it stops working straight away.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pueden mirar pero no cambiar nada. Desactiva el enlace y deja de funcionar al instante.</translation>
     </message>
     <message>
         <source>History</source>
-        <translation type="unfinished"></translation>
+        <translation>Historial</translation>
     </message>
     <message>
         <source>What happened to this layout, and when: who opened, shared or saved a copy of it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Qué le pasó a esta maqueta y cuándo: quién la abrió, la compartió o guardó una copia.</translation>
     </message>
     <message>
         <source>It helps you see who has been working on the layout. It doesn’t list every piece that moved.</source>
-        <translation type="unfinished"></translation>
+        <translation>Te ayuda a ver quién ha trabajado en la maqueta. No lista cada pieza que se movió.</translation>
     </message>
     <message>
         <source>Share a picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Compartir una imagen</translation>
     </message>
     <message>
         <source>Send a picture of the layout to anyone, even people without an account.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar una imagen de la maqueta a cualquiera, incluso sin cuenta.</translation>
     </message>
     <message>
         <source>Pick the whole layout, what is on screen, or a saved view. On a phone it opens your share menu; on a computer it saves the picture or copies it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Elige la maqueta entera, lo que hay en pantalla o una vista guardada. En un teléfono abre tu menú de compartir; en un ordenador guarda o copia la imagen.</translation>
     </message>
     <message>
         <source>Export all views</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar todas las vistas</translation>
     </message>
     <message>
         <source>One picture of every saved view, all in one zip file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Una imagen de cada vista guardada, todas en un archivo zip.</translation>
     </message>
     <message>
         <source>After you change the layout, do it again to get fresh pictures with the same names. The size you pick is remembered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tras cambiar la maqueta, hazlo de nuevo para tener imágenes nuevas con los mismos nombres. Se recuerda el tamaño que elijas.</translation>
     </message>
     <message>
         <source>Where settings are kept</source>
-        <translation type="unfinished"></translation>
+        <translation>Dónde se guardan los ajustes</translation>
     </message>
     <message>
         <source>Signed in, your settings follow you to any computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Con la sesión iniciada, tus ajustes te siguen a cualquier ordenador.</translation>
     </message>
     <message>
         <source>They are kept with your account on this server. Signed out, they are kept in this browser only.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se guardan con tu cuenta en este servidor. Sin sesión, solo se guardan en este navegador.</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color</translation>
     </message>
     <message>
         <source>The color of buttons and highlights; your bricks keep their own colors.</source>
-        <translation type="unfinished"></translation>
+        <translation>El color de botones y resaltados; tus piezas mantienen sus propios colores.</translation>
     </message>
     <message>
         <source>Pick the one you like best. It only changes how the app looks for you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Elige el que más te guste. Solo cambia cómo ves tú la aplicación.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Texto y botones más grandes</translation>
     </message>
     <message>
         <source>Makes words and buttons larger and easier to hit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hace las palabras y los botones más grandes y fáciles de pulsar.</translation>
     </message>
     <message>
         <source>Handy on a small screen or if reading is tiring. The map zoom doesn’t change.</source>
-        <translation type="unfinished"></translation>
+        <translation>Útil en una pantalla pequeña o si leer cansa. El zoom del mapa no cambia.</translation>
     </message>
     <message>
         <source>Help buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Botones de ayuda</translation>
     </message>
     <message>
         <source>The small round question marks, like this one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Los pequeños signos de interrogación redondos, como este.</translation>
     </message>
     <message>
         <source>Turn them off once you know your way around. You can turn them back on here or from the Help menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactívalos cuando ya te manejes. Puedes volver a activarlos aquí o desde el menú Ayuda.</translation>
     </message>
     <message>
         <source>Tours</source>
-        <translation type="unfinished"></translation>
+        <translation>Recorridos</translation>
     </message>
     <message>
         <source>Short guided walks through the app.</source>
-        <translation type="unfinished"></translation>
+        <translation>Recorridos guiados cortos por la aplicación.</translation>
     </message>
     <message>
         <source>A tour points at the real buttons, one step at a time. Press “Show tours again” to see the ones you have already finished.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un recorrido señala los botones reales, paso a paso. Pulsa «Ver recorridos otra vez» para ver los que ya terminaste.</translation>
     </message>
     <message>
         <source>Snap strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuerza del ajuste</translation>
     </message>
     <message>
         <source>How strongly a part you drag pulls onto a matching connection nearby.</source>
-        <translation type="unfinished"></translation>
+        <translation>Con cuánta fuerza una pieza que arrastras se une a una conexión cercana que encaja.</translation>
     </message>
     <message>
         <source>Gentle pulls only when the ends are close and lets go once you move away; Strong reaches further; Off never pulls, and the grid still lines parts up. Hold Alt (Option on a Mac) while dragging to place one part without snapping.</source>
-        <translation type="unfinished"></translation>
+        <translation>Suave solo atrae cuando los extremos están cerca y suelta en cuanto te alejas; Fuerte llega más lejos; Desactivado nunca atrae, y la cuadrícula sigue alineando las piezas. Mantén Alt (Opción en Mac) al arrastrar para colocar una pieza sin ajuste.</translation>
     </message>
     <message>
         <source>Drawing tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Herramientas de dibujo</translation>
     </message>
     <message>
         <source>Pick what to draw: walls, doors, columns, power points and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>Elige qué dibujar: paredes, puertas, columnas, enchufes y más.</translation>
     </message>
     <message>
         <source>Click on the drawing to place things. While drawing, type a length and press Enter to make it exact.</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic en el dibujo para colocar cosas. Mientras dibujas, escribe una longitud y pulsa Intro para que sea exacta.</translation>
     </message>
     <message>
         <source>Units</source>
-        <translation type="unfinished"></translation>
+        <translation>Unidades</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar las longitudes en pies y pulgadas, metros o studs.</translation>
     </message>
     <message>
         <source>Change it any time: the venue stays the same size. A stud is 8 mm, the width of one LEGO bump.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cámbialo cuando quieras: la sala sigue igual de grande. Un stud mide 8 mm, el ancho de un tetón de LEGO.</translation>
     </message>
     <message>
         <source>Lines jump to corners, walls and straight angles as you draw.</source>
-        <translation type="unfinished"></translation>
+        <translation>Las líneas saltan a esquinas, paredes y ángulos rectos mientras dibujas.</translation>
     </message>
     <message>
         <source>Turn it off to draw freely. Hold Shift while drawing to go at any angle for a moment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactívalo para dibujar libremente. Mantén Mayús al dibujar para ir en cualquier ángulo un momento.</translation>
     </message>
     <message>
         <source>Floor plan</source>
-        <translation type="unfinished"></translation>
+        <translation>Plano</translation>
     </message>
     <message>
         <source>Put a picture of the venue’s plan underneath, and trace over it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pon debajo una imagen del plano de la sala y dibuja encima.</translation>
     </message>
     <message>
         <source>A photo or a drawing both work. Scale it by clicking two points you know the real distance between.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sirven una foto o un dibujo. Ajusta su escala haciendo clic en dos puntos cuya distancia real conozcas.</translation>
     </message>
     <message>
         <source>Scale the floor plan</source>
-        <translation type="unfinished"></translation>
+        <translation>Escalar el plano</translation>
     </message>
     <message>
         <source>Make the picture the right size by measuring one known distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Da a la imagen el tamaño correcto midiendo una distancia conocida.</translation>
     </message>
     <message>
         <source>Click Calibrate, then click two points on the picture, like the ends of a wall. Type the real distance between them and the picture is scaled to fit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic en Calibrar y luego en dos puntos de la imagen, como los extremos de una pared. Escribe la distancia real entre ellos y la imagen se escala para encajar.</translation>
     </message>
     <message>
         <source>Show</source>
-        <translation type="unfinished">Mostrar</translation>
+        <translation>Mostrar</translation>
     </message>
     <message>
         <source>Hide parts of the drawing to see the rest more clearly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar partes del dibujo para ver mejor el resto.</translation>
     </message>
     <message>
         <source>Hiding something only hides it here. It is still part of the venue.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar algo solo lo oculta aquí. Sigue siendo parte de la sala.</translation>
     </message>
     <message>
         <source>Walkway</source>
-        <translation type="unfinished"></translation>
+        <translation>Pasillo</translation>
     </message>
     <message>
         <source>The space to leave clear around the layout for people to walk.</source>
-        <translation type="unfinished"></translation>
+        <translation>El espacio libre que dejar alrededor de la maqueta para que la gente pase.</translation>
     </message>
     <message>
         <source>The venue check warns you when the layout comes closer than this to a wall or an obstacle. It starts at about 90 cm.</source>
-        <translation type="unfinished"></translation>
+        <translation>La comprobación de la sala te avisa cuando la maqueta se acerca más que esto a una pared o un obstáculo. Empieza en unos 90 cm.</translation>
     </message>
     <message>
         <source>Estimates</source>
-        <translation type="unfinished"></translation>
+        <translation>Estimaciones</translation>
     </message>
     <message>
         <source>Lengths you guessed and still need to measure.</source>
-        <translation type="unfinished"></translation>
+        <translation>Longitudes que adivinaste y aún tienes que medir.</translation>
     </message>
     <message>
         <source>Mark a length as an estimate when you don’t know it yet. Measure it at the hall later and type in the real number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Marca una longitud como estimación cuando aún no la sepas. Mídela luego en el local y escribe el número real.</translation>
     </message>
     <message>
         <source>Parts that differ</source>
-        <translation type="unfinished"></translation>
+        <translation>Piezas distintas</translation>
     </message>
     <message>
         <source>This file has its own version of some parts the server already has.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este archivo tiene su propia versión de algunas piezas que el servidor ya tiene.</translation>
     </message>
     <message>
         <source>Maybe someone changed a part’s picture. Compare the two and choose which one to use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quizá alguien cambió la imagen de una pieza. Compara las dos y elige cuál usar.</translation>
     </message>
     <message>
         <source>Which to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuál usar</translation>
     </message>
     <message>
         <source>Keep the server’s part, use the file’s, or keep both.</source>
-        <translation type="unfinished"></translation>
+        <translation>Conservar la pieza del servidor, usar la del archivo o conservar ambas.</translation>
     </message>
     <message>
         <source>“Use the file’s” replaces the part for everyone on this server. “Keep both” adds the file’s under a new number, and only this layout uses it.</source>
-        <translation type="unfinished"></translation>
+        <translation>«Usar la del archivo» reemplaza la pieza para todos en este servidor. «Conservar ambas» añade la del archivo con un número nuevo, y solo esta maqueta la usa.</translation>
     </message>
     <message>
         <source>Whose things</source>
-        <translation type="unfinished"></translation>
+        <translation>De quién</translation>
     </message>
     <message>
         <source>Show everything you can use, only your own, or one club’s.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar todo lo que puedes usar, solo lo tuyo o lo de un club.</translation>
     </message>
     <message>
         <source>Your own things and your clubs’ things sit in one list, each marked with who owns it. Pick a club to see just its things; new things are saved there too unless you choose otherwise. With a club picked, you can also see who is in it and the roles they hold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tus cosas y las de tus clubes están en una sola lista, cada una marcada con su propietario. Elige un club para ver solo sus cosas; lo nuevo también se guarda allí salvo que elijas otra cosa. Con un club elegido, también ves quién está en él y qué roles tienen.</translation>
     </message>
     <message>
         <source>Who can join</source>
-        <translation type="unfinished"></translation>
+        <translation>Quién puede unirse</translation>
     </message>
     <message>
         <source>Choose how new people get into the club.</source>
-        <translation type="unfinished"></translation>
+        <translation>Elige cómo entra gente nueva al club.</translation>
     </message>
     <message>
         <source>Invite only: people join with an invite from an admin. Ask to join: people send a request and an admin says yes or no. Open: anyone signed in can join straight away, as a member.</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo con invitación: se une con una invitación de un admin. Pedir unirse: se envía una solicitud y un admin dice sí o no. Abierto: cualquiera con sesión iniciada puede unirse al momento, como miembro.</translation>
     </message>
     <message>
         <source>Show in the club list</source>
@@ -2354,7 +2354,7 @@
     </message>
     <message>
         <source>Share a picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Compartir una imagen</translation>
     </message>
     <message>
         <source>Make a picture of your layout to post, print or send to your club.</source>
@@ -2528,7 +2528,7 @@
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color</translation>
     </message>
     <message>
         <source>Description</source>
@@ -4536,7 +4536,7 @@
     </message>
     <message>
         <source>Show</source>
-        <translation type="unfinished">Mostrar</translation>
+        <translation>Mostrar</translation>
     </message>
     <message>
         <source>Show all sheets</source>
@@ -5505,7 +5505,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color</translation>
     </message>
     <message>
         <source>The color Paint uses</source>
@@ -9584,7 +9584,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Show</source>
-        <translation type="unfinished">Mostrar</translation>
+        <translation>Mostrar</translation>
     </message>
     <message>
         <source>Show:</source>
@@ -10062,7 +10062,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Show</source>
-        <translation type="unfinished">Mostrar</translation>
+        <translation>Mostrar</translation>
     </message>
     <message>
         <source>Pick them on the map</source>
@@ -10125,11 +10125,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Texto y botones más grandes</translation>
     </message>
     <message>
         <source>Editing</source>
@@ -10137,11 +10137,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Snap strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuerza del ajuste</translation>
     </message>
     <message>
         <source>How strongly a part you drag pulls onto a matching connection nearby.</source>
-        <translation type="unfinished"></translation>
+        <translation>Con cuánta fuerza una pieza que arrastras se une a una conexión cercana que encaja.</translation>
     </message>
     <message>
         <source>Off: parts never pull onto each other; the grid still lines them up.</source>
@@ -10189,7 +10189,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Tours</source>
-        <translation type="unfinished"></translation>
+        <translation>Recorridos</translation>
     </message>
     <message>
         <source>Show tours again</source>
@@ -10580,7 +10580,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Share a picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Compartir una imagen</translation>
     </message>
     <message>
         <source>Picture of:</source>
@@ -10612,7 +10612,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Export all views</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar todas las vistas</translation>
     </message>
     <message>
         <source>No saved views yet, so this makes one picture of the whole layout.</source>
@@ -11036,7 +11036,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Units</source>
-        <translation type="unfinished"></translation>
+        <translation>Unidades</translation>
     </message>
     <message>
         <source>Feet &amp; inches</source>
@@ -11084,11 +11084,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Show</source>
-        <translation type="unfinished">Mostrar</translation>
+        <translation>Mostrar</translation>
     </message>
     <message>
         <source>Floor plan</source>
-        <translation type="unfinished"></translation>
+        <translation>Plano</translation>
     </message>
     <message>
         <source>Obstacles</source>
@@ -11104,7 +11104,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Estimates</source>
-        <translation type="unfinished"></translation>
+        <translation>Estimaciones</translation>
     </message>
     <message>
         <source>Fit</source>
@@ -11311,7 +11311,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Scale the floor plan</source>
-        <translation type="unfinished"></translation>
+        <translation>Escalar el plano</translation>
     </message>
     <message>
         <source>1 image pixel = %1. Calibrate by clicking two points you know the distance between.</source>
@@ -11813,7 +11813,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Share a picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Compartir una imagen</translation>
     </message>
     <message>
         <source>Share a picture of %1</source>
@@ -11837,7 +11837,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Export all views</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar todas las vistas</translation>
     </message>
     <message>
         <source>Sheet</source>
