@@ -3978,6 +3978,22 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
         <source>Review now</source>
         <translation>Jetzt prüfen</translation>
     </message>
+    <message>
+        <source>Nothing to undo</source>
+        <translation>Nichts rückgängig zu machen</translation>
+    </message>
+    <message>
+        <source>Nothing to redo</source>
+        <translation>Nichts zu wiederholen</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to undo.</source>
+        <translation>Jemand anderes hat das nach Ihnen geändert, daher gab es nichts rückgängig zu machen.</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to redo.</source>
+        <translation>Jemand anderes hat das nach Ihnen geändert, daher gab es nichts zu wiederholen.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>

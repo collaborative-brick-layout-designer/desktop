@@ -3978,6 +3978,22 @@ Mantenha-o como %2 se ainda o abre em outro programa; Arquivo › Exportar como 
         <source>Review now</source>
         <translation>Revisar agora</translation>
     </message>
+    <message>
+        <source>Nothing to undo</source>
+        <translation>Nada para desfazer</translation>
+    </message>
+    <message>
+        <source>Nothing to redo</source>
+        <translation>Nada para refazer</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to undo.</source>
+        <translation>Outra pessoa alterou isso depois de você, então não havia nada para desfazer.</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to redo.</source>
+        <translation>Outra pessoa alterou isso depois de você, então não havia nada para refazer.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>

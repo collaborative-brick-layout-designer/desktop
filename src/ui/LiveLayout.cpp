@@ -225,18 +225,31 @@ QSet<QString> partGuidsOf(const core::Map* map) {
 
 // Undo and redo pick the parts they bring back (BlueBrick), once the
 // shared document's change has reloaded the map.
+// A step someone else has changed since (they moved the part we moved) is
+// dropped without changing anything: the Undo / Redo actions catch up, and
+// the window says why nothing happened (nothingToUndo).
 bool LiveLayout::undo() {
     if (!active_) return false;
+    const bool had = session_.canUndo();
     partsBeforeStep_ = partGuidsOf(view_.currentMap());
     const bool done = session_.undo();
-    if (!done) partsBeforeStep_.reset();
+    if (!done) {
+        partsBeforeStep_.reset();
+        emit undoStateChanged();
+        if (had) emit nothingToUndo(true);
+    }
     return done;
 }
 bool LiveLayout::redo() {
     if (!active_) return false;
+    const bool had = session_.canRedo();
     partsBeforeStep_ = partGuidsOf(view_.currentMap());
     const bool done = session_.redo();
-    if (!done) partsBeforeStep_.reset();
+    if (!done) {
+        partsBeforeStep_.reset();
+        emit undoStateChanged();
+        if (had) emit nothingToUndo(false);
+    }
     return done;
 }
 

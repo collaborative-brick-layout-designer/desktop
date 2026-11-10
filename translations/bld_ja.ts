@@ -3959,6 +3959,22 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <source>Review now</source>
         <translation>今すぐ確認</translation>
     </message>
+    <message>
+        <source>Nothing to undo</source>
+        <translation>元に戻す操作はありません</translation>
+    </message>
+    <message>
+        <source>Nothing to redo</source>
+        <translation>やり直す操作はありません</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to undo.</source>
+        <translation>あなたの後に別の人が変更したため、元に戻すものはありませんでした。</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to redo.</source>
+        <translation>あなたの後に別の人が変更したため、やり直すものはありませんでした。</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>

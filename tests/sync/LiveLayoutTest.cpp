@@ -363,3 +363,34 @@ TEST(LiveLayout, DrawsOnlyOtherPeopleInTheirOwnColors) {
     EXPECT_EQ(bobColor, QColor(colors.value(QStringLiteral("u-bob"))));
     EXPECT_NE(colors.value(QStringLiteral("u-bob")), colors.value(QStringLiteral("u-alice")));
 }
+
+// Full review area 4, Bug 7: Undo after someone else moved the same part
+// changed nothing, said nothing, and the Undo action stayed enabled.
+TEST(LiveLayout, UndoAfterSomeoneElseMovedThePartSaysSoAndGoesOut) {
+    Harness h;
+    h.open();
+    const QRectF original = firstBrickArea(h.server.doc);
+    moveFirstBrick(h.view, 8);
+    ASSERT_TRUE(waitFor([&] { return firstBrickArea(h.server.doc) == original.translated(8, 0); }));
+    ASSERT_TRUE(waitFor([&] { return h.view.undoStack()->count() == 0; }));
+    ASSERT_TRUE(h.live.canUndo());
+    // Bob moves it after us.
+    h.server.remoteEdit([](core::Map& m) { firstBrick(m).displayArea.translate(0, 40); });
+    ASSERT_TRUE(waitFor([&] { return firstBrick(*h.view.currentMap()).displayArea == original.translated(8, 40); }));
+    int said = 0, refreshed = 0;
+    bool aboutUndo = false;
+    QObject::connect(&h.live, &ui::LiveLayout::nothingToUndo, [&](bool undo) {
+        ++said;
+        aboutUndo = undo;
+    });
+    QObject::connect(&h.live, &ui::LiveLayout::undoStateChanged, [&] { ++refreshed; });
+    EXPECT_FALSE(h.live.undo());
+    EXPECT_EQ(said, 1);
+    EXPECT_TRUE(aboutUndo);
+    EXPECT_GE(refreshed, 1);
+    EXPECT_FALSE(h.live.canUndo());
+    EXPECT_EQ(firstBrickArea(h.server.doc), original.translated(8, 40));
+    // Nothing left to undo: a second Undo says nothing more.
+    EXPECT_FALSE(h.live.undo());
+    EXPECT_EQ(said, 1);
+}

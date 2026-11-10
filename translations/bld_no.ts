@@ -3978,6 +3978,22 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
         <source>Review now</source>
         <translation>Gå gjennom nå</translation>
     </message>
+    <message>
+        <source>Nothing to undo</source>
+        <translation>Ingenting å angre</translation>
+    </message>
+    <message>
+        <source>Nothing to redo</source>
+        <translation>Ingenting å gjøre om</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to undo.</source>
+        <translation>Noen andre endret det etter deg, så det var ingenting å angre.</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to redo.</source>
+        <translation>Noen andre endret det etter deg, så det var ingenting å gjøre om.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
