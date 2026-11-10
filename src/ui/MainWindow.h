@@ -516,10 +516,15 @@ private:
     bool saveEditedModule();
     // Writes `module` to the server: a new module (`title`, `orgSlug`) or
     // a new version of `updateId`, then its picture.
-    void uploadModule(bld::sync::LibraryApi& api, const std::shared_ptr<core::Map>& module, const QString& updateId,
-                      const QString& title, const QString& orgSlug, const QString& note,
-                      const std::function<void(bool saved, const QString& id, int version)>& done);
+    void uploadModule(bld::sync::LibraryApi& api, const std::shared_ptr<core::Map>& module,
+                      const QString& updateId, const QString& title, const QString& orgSlug,
+                      const QString& note,
+                      const std::function<void(bool saved, const QString& id, int version)>& done,
+                      int baseDocVersion = -1);
     void clearEditingModule();
+    // A save refused because someone else saved the module meanwhile: Load theirs, or Save mine as a new
+    // version.
+    void moduleChangedElsewhere(const std::shared_ptr<core::Map>& module, const QString& note);
     // Your warnings not yet acknowledged, as a notice over the map.
     void refreshNotices();
     void showNextNotice(const QList<bld::sync::Notice>& notices);
@@ -609,6 +614,9 @@ private:
         QString token;
         QString id;
         QString title;
+        // The module's docVersion this started from (or last saved): the save names it, so it
+        // can't overwrite someone else's (-1: the server didn't say).
+        int docVersion = -1;
     } editingModule_;
     QString shownNotice_;  // the notice card's warning id
     // Keychain answers may come after the window is gone: they check this first.
@@ -620,6 +628,9 @@ public:
     // the dialog's name and owner (nullopt: cancelled), and the layout file to send.
     std::function<std::optional<std::pair<QString, QString>>(const QString& what, const QString& name)> askSaveToServer;
     std::function<QString()> askLayoutFileToSend;
+    // Someone else saved the module being changed here (409 module_changed):
+    // 1 Load theirs, 2 Save mine as a new version, 0 not now (tests answer instead).
+    std::function<int(const QString& title)> askModuleChanged;
     // For tests.
     class ServerLibrary* serverLibrary() const { return serverLibrary_; }
     class ServerWindow* serverWindow() const { return serverWindow_; }

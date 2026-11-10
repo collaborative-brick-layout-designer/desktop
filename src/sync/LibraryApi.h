@@ -212,14 +212,21 @@ public:
     void listModules(std::function<void(const QList<ServerModule>&)> done, Fail failed);
     // The module's contents: a shared document (Yjs v1 update).
     void moduleSnapshot(const QString& id, std::function<void(const QByteArray&)> done, Fail failed);
+    // The same, with which save it is (its docVersion, X-Doc-Version; -1 from a server that doesn't say):
+    // the next save names it (If-Match), so it can't overwrite someone else's.
+    void moduleSnapshotAt(const QString& id, std::function<void(const QByteArray&, int docVersion)> done,
+                          Fail failed);
     // One saved version's contents (Update from library: was it changed here?).
     void moduleVersionSnapshot(const QString& id, int version, std::function<void(const QByteArray&)> done, Fail failed);
     // A new, empty module of yours (orgSlug empty) or a club's.
     void createModule(const QString& title, const QString& orgSlug,
                       std::function<void(const QString& id, const QString& title)> done, Fail failed);
     // Save its contents: each save is a new version, with an optional note.
+    // `baseDocVersion` (>= 0): the docVersion this started from; someone else's
+    // save since then is refused (409 module_changed) instead of overwritten.
     void saveModuleSnapshot(const QString& id, const QByteArray& snapshot, const QString& note,
-                            std::function<void(int version)> done, Fail failed);
+                            std::function<void(int version)> done, Fail failed, int baseDocVersion = -1,
+                            std::function<void(int docVersion)> savedAs = {});
     void setModuleThumbnail(const QString& id, const QByteArray& png, std::function<void()> done, Fail failed);
     void renameModule(const QString& id, const QString& title, std::function<void()> done, Fail failed);
     void deleteModule(const QString& id, std::function<void()> done, Fail failed);
@@ -295,8 +302,9 @@ public:
 
 private:
     // `ok` gets the reply when it is a 2xx; `failed` gets the refusal otherwise.
-    void send(const QByteArray& verb, const QString& path, const QByteArray& body, const QByteArray& contentType,
-              std::function<void(QNetworkReply*)> ok, Fail failed);
+    void send(const QByteArray& verb, const QString& path, const QByteArray& body,
+              const QByteArray& contentType, std::function<void(QNetworkReply*)> ok, Fail failed,
+              const QList<QPair<QByteArray, QByteArray>>& headers = {});
     void sendJson(const QByteArray& verb, const QString& path, const QJsonObject& body,
                   std::function<void(const QJsonObject&)> ok, Fail failed);
 
