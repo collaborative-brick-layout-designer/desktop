@@ -12,6 +12,8 @@
 #include <QFont>
 #include <QPainterPath>
 #include <QPointF>
+#include <QRectF>
+#include <QSizeF>
 #include <QString>
 #include <QStringList>
 
@@ -45,6 +47,16 @@ struct TextCellLayout {
     struct Line { QString text; double x; double y; };  // each line's top-left in the box
     std::vector<Line> lines;
 };
+
+// A text cell's box, in studs, for its text at `sizePt`, unturned: the
+// widest line plus a sixth of the size each side, by its lines at the map's
+// line spacing; a point is 4/3 of a stud, as BlueBrick's files store it
+// (Arial 18 pt "Nikki": 59 x 27 studs). The web's textBoxStuds is the same.
+QSizeF textBoxStuds(const QString& text, double sizePt, const LineWidthAt& widthAt);
+// `area` re-fitted to `text` at `sizePt` about the same middle (a quarter
+// turn keeps width and height swapped, as BlueBrick stores it).
+QRectF refittedTextArea(const QRectF& area, const QString& text, double sizePt, double orientation,
+                        const LineWidthAt& widthAt);
 
 // A text cell's text, fitted into its display area (the bigger font that
 // fits the area's short and long side), centred on it, lines aligned

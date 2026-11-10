@@ -11,6 +11,7 @@
 
 #include "../core/Brick.h"
 #include "../core/GridSnap.h"
+#include "../core/Groups.h"
 #include "../core/Layer.h"
 #include "../core/LayerArea.h"
 #include "../core/LayerBrick.h"
@@ -19,34 +20,34 @@
 #include "../core/LayerText.h"
 #include "../core/Map.h"
 #include "../core/TextCell.h"
+#include "../core/Venue.h"
 #include "../edit/AreaCommands.h"
 #include "../edit/Connectivity.h"
 #include "../edit/EditCommands.h"
-#include "../edit/LayerCommands.h"
-#include "BudgetSession.h"
 #include "../edit/FlexMove.h"
-#include "../edit/Sets.h"
-#include "../core/Groups.h"
-#include "../edit/RulerCommands.h"
 #include "../edit/LabelCommands.h"
+#include "../edit/LayerCommands.h"
+#include "../edit/ModuleCommands.h"
 #include "../edit/RotateTurn.h"
+#include "../edit/RulerCommands.h"
+#include "../edit/Sets.h"
 #include "../edit/TextCommands.h"
 #include "../edit/VenueCommands.h"
-#include "../core/Venue.h"
 #include "../parts/BrickPlacement.h"
 #include "../parts/PartsLibrary.h"
+#include "../rendering/MapText.h"
 #include "../rendering/SceneBuilder.h"
+#include "../saveload/BbmReader.h"
+#include "BudgetSession.h"
 #include "ConnectionSnap.h"
+#include "EditDialogs.h"
 #include "MapViewInternal.h"
+#include "ModuleLibraryPanel.h" // kModuleDragMimeType
+#include "PartsBrowser.h"       // kPartMimeType
 #include "SelectionOverlay.h"
 #include "SelectionStyle.h"
 #include "TouchMode.h"
-#include "EditDialogs.h"
-#include "ModuleLibraryPanel.h"   // kModuleDragMimeType
-#include "PartsBrowser.h"         // kPartMimeType
 #include "VenueDialog.h"
-#include "../edit/ModuleCommands.h"
-#include "../saveload/BbmReader.h"
 
 #include <QDragEnterEvent>
 #include <QTimer>
@@ -2410,13 +2411,24 @@ void MapView::editSelectedTextContent() {
     auto* L = map_->layers()[li].get();
     if (!L || L->kind() != core::LayerKind::Text) return;
     auto& TL = static_cast<core::LayerText&>(*L);
-    QString current;
-    for (const auto& c : TL.textCells) if (c.guid == guid) { current = c.text; break; }
+    const core::TextCell* cell = nullptr;
+    for (const auto& c : TL.textCells)
+        if (c.guid == guid) {
+            cell = &c;
+            break;
+        }
+    if (!cell) return;
+    const QString current = cell->text;
     bool ok = false;
     const QString next = QInputDialog::getMultiLineText(
         this, tr("Edit text"), tr("Label text:"), current, &ok);
     if (!ok || next == current) return;
-    undoStack_->push(new edit::EditTextCellTextCommand(*map_, li, guid, next));  // indexChanged handler rebuilds the scene
+    // New words: the box fits them at the same size (as BlueBrick re-measures).
+    const QRectF area =
+        rendering::refittedTextArea(cell->displayArea, next, cell->font.sizePt, cell->orientation,
+                                    rendering::mapLineWidth(cell->font.styleString));
+    undoStack_->push(new edit::EditTextCellTextCommand(*map_, li, guid, next, nullptr,
+                                                       area)); // indexChanged handler rebuilds the scene
 }
 
 void MapView::mouseDoubleClickEvent(QMouseEvent* e) {
@@ -2860,11 +2872,11 @@ void MapView::addTextAtScenePos(const QString& text, QPointF sceneCenterPx) {
     }
 
     const double pxPerStud = rendering::SceneBuilder::kPixelsPerStud;
-    // Default label box: sized so the fit-to-box renderer shows the text at
-    // a readable height. Width scales with character count, height is a
-    // fixed line height in studs.
-    const double heightStuds = 10.0;
-    const double widthStuds  = std::max(heightStuds * 0.6 * text.size(), heightStuds * 2.0);
+    // The box from the text at 12 pt, as BlueBrick sizes it (rendering/MapText.h textBoxStuds).
+    const QSizeF box =
+        rendering::textBoxStuds(text, 12.0, rendering::mapLineWidth(QStringLiteral("Regular")));
+    const double heightStuds = box.height();
+    const double widthStuds = box.width();
 
     core::TextCell c;
     c.guid = core::newBbmId();

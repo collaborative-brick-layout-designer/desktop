@@ -593,3 +593,28 @@ TEST(RenderParity, VenueWallLabelsMatchTheSharedDescription) {
     EXPECT_DOUBLE_EQ(rendering::uprightAngle(0, -1), -90.0);
     EXPECT_NEAR(rendering::uprightAngle(-1, -1), 45.0, 1e-9);
 }
+
+// New and edited text: the box comes from the size in points, the same
+// numbers as the web's textBoxStuds (apps/web/src/editor/render/mapText.ts).
+TEST(TextBoxFromSize, SizedFromPointsLikeTheWeb) {
+    const bld::rendering::LineWidthAt half = [](const QString& line, double px) {
+        return line.size() * 0.5 * px;
+    };
+    // 18 pt = 24 studs a line: "Nikki" 5 x 12 + 8 = 68 wide, 27.598 high (the web's test, the same numbers).
+    const QSizeF nikki = bld::rendering::textBoxStuds(QStringLiteral("Nikki"), 18, half);
+    EXPECT_DOUBLE_EQ(nikki.width(), 68);
+    EXPECT_DOUBLE_EQ(nikki.height(), 27.598);
+    // Twice the size, twice the box; two lines, twice as high.
+    const QSizeF a = bld::rendering::textBoxStuds(QStringLiteral("Station"), 12, half);
+    const QSizeF b = bld::rendering::textBoxStuds(QStringLiteral("Station"), 24, half);
+    EXPECT_NEAR(b.width(), 2 * a.width(), 0.01);
+    EXPECT_NEAR(b.height(), 2 * a.height(), 0.01);
+    EXPECT_NEAR(bld::rendering::textBoxStuds(QStringLiteral("City\nGardens"), 12, half).height(),
+                2 * a.height(), 0.01);
+    // Re-fitted about its middle; a quarter turn keeps it swapped.
+    const QRectF r =
+        bld::rendering::refittedTextArea(QRectF(0, 0, 10, 4), QStringLiteral("Station"), 36, 90, half);
+    EXPECT_GT(r.height(), r.width());
+    EXPECT_NEAR(r.center().x(), 5, 1e-9);
+    EXPECT_NEAR(r.center().y(), 2, 1e-9);
+}

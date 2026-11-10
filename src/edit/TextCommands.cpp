@@ -80,12 +80,15 @@ void DeleteTextCellCommand::undo() {
 // ----- EditTextCellTextCommand -----
 
 EditTextCellTextCommand::EditTextCellTextCommand(core::Map& map, int layerIndex, QString cellGuid,
-                                                  QString newText, QUndoCommand* parent)
-    : QUndoCommand(parent), map_(map), layerIndex_(layerIndex),
-      cellGuid_(std::move(cellGuid)), newText_(std::move(newText)) {
+                                                 QString newText, QUndoCommand* parent, QRectF newArea)
+    : QUndoCommand(parent), map_(map), layerIndex_(layerIndex), cellGuid_(std::move(cellGuid)),
+      newText_(std::move(newText)), newArea_(newArea) {
     if (auto* L = textLayer(map_, layerIndex_)) {
         const int i = indexByGuid(*L, cellGuid_);
-        if (i >= 0) oldText_ = L->textCells[i].text;
+        if (i >= 0) {
+            oldText_ = L->textCells[i].text;
+            oldArea_ = L->textCells[i].displayArea;
+        }
     }
     setText(QObject::tr("Edit text"));
 }
@@ -93,14 +96,20 @@ EditTextCellTextCommand::EditTextCellTextCommand(core::Map& map, int layerIndex,
 void EditTextCellTextCommand::redo() {
     if (auto* L = textLayer(map_, layerIndex_)) {
         const int i = indexByGuid(*L, cellGuid_);
-        if (i >= 0) L->textCells[i].text = newText_;
+        if (i >= 0) {
+            L->textCells[i].text = newText_;
+            if (newArea_.isValid()) L->textCells[i].displayArea = newArea_;
+        }
     }
 }
 
 void EditTextCellTextCommand::undo() {
     if (auto* L = textLayer(map_, layerIndex_)) {
         const int i = indexByGuid(*L, cellGuid_);
-        if (i >= 0) L->textCells[i].text = oldText_;
+        if (i >= 0) {
+            L->textCells[i].text = oldText_;
+            if (newArea_.isValid()) L->textCells[i].displayArea = oldArea_;
+        }
     }
 }
 
