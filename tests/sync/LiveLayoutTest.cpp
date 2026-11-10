@@ -325,3 +325,41 @@ TEST(LiveLayout, ShowsOtherPeoplesCursorsAndSendsOurs) {
     h.live.close();
     EXPECT_EQ(h.live.drawnPeers(), 0);
 }
+
+// Full review area 4: an empty presence (an app still opening the layout)
+// and this person's own other app or tab aren't drawn as someone else; two
+// people here never share a color.
+TEST(LiveLayout, DrawsOnlyOtherPeopleInTheirOwnColors) {
+    Harness h;
+    h.open();
+    h.live.setUser(QStringLiteral("u-alice"), QStringLiteral("Alice"), QStringLiteral("L1"));
+    sync::SyncSession empty, mine, bob;
+    for (auto* s : { &empty, &mine, &bob }) {
+        s->open(h.server.url(), {}, false);
+        ASSERT_TRUE(waitFor([&] { return s->status() == Status::Synced; }));
+    }
+    empty.setPresence(QJsonObject{});
+    mine.setPresence(sync::presence::state(
+        { QStringLiteral("u-alice"), QStringLiteral("Alice"), QStringLiteral("#a78bfa") }, QPointF(5, 5), {},
+        1));
+    // u-alice and u-bob have the same first choice on L1 (contracts/presence-colors.json).
+    bob.setPresence(
+        sync::presence::state({ QStringLiteral("u-bob"), QStringLiteral("Bob"), QStringLiteral("#a78bfa") },
+                              QPointF(10, 20), {}, 1));
+    ASSERT_TRUE(waitFor([&] { return h.live.drawnPeers() == 1; }));
+    waitFor([] { return false; }, 200);
+    EXPECT_EQ(h.live.drawnPeers(), 1);
+    QStringList names;
+    QColor bobColor;
+    for (QGraphicsItem* it : h.view.scene()->items()) {
+        // (Only what's drawn for others: the map's own labels are below.)
+        if (it->topLevelItem()->zValue() < 1e9) continue;
+        if (auto* t = dynamic_cast<QGraphicsSimpleTextItem*>(it)) names << t->text();
+        if (auto* a = dynamic_cast<QGraphicsPolygonItem*>(it)) bobColor = a->brush().color();
+    }
+    EXPECT_EQ(names, QStringList{ QStringLiteral("Bob") });
+    const auto colors = sync::presence::colorsFor({ QStringLiteral("u-alice"), QStringLiteral("u-bob") },
+                                                  QStringLiteral("L1"));
+    EXPECT_EQ(bobColor, QColor(colors.value(QStringLiteral("u-bob"))));
+    EXPECT_NE(colors.value(QStringLiteral("u-bob")), colors.value(QStringLiteral("u-alice")));
+}
