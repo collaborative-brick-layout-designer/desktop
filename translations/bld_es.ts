@@ -2494,26 +2494,26 @@
     </message>
     <message>
         <source>Make a picture of the layout to send to friends.</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz una imagen de la maqueta para enviarla a amigos.</translation>
     </message>
     <message>
         <source>Tap ? for tips, and to take the other tours.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toca ? para ver consejos y hacer los otros recorridos.</translation>
     </message>
 </context>
 <context>
     <name>bld::edit::ModuleLibraryLink</name>
     <message>
         <source>its Module library copy isn&apos;t on this server</source>
-        <translation type="unfinished"></translation>
+        <translation>su copia de la biblioteca de módulos no está en este servidor</translation>
     </message>
     <message>
         <source>in the Module library%1 · v%2 is newer</source>
-        <translation type="unfinished"></translation>
+        <translation>en la biblioteca de módulos%1 · v%2 es más nueva</translation>
     </message>
     <message>
         <source>in the Module library%1</source>
-        <translation type="unfinished"></translation>
+        <translation>en la biblioteca de módulos%1</translation>
     </message>
 </context>
 <context>
@@ -2524,7 +2524,7 @@
     </message>
     <message>
         <source>In Use</source>
-        <translation type="unfinished"></translation>
+        <translation>En uso</translation>
     </message>
     <message>
         <source>Color</source>
@@ -2536,23 +2536,23 @@
     </message>
     <message>
         <source>Budgeted</source>
-        <translation type="unfinished"></translation>
+        <translation>Presupuestadas</translation>
     </message>
     <message>
         <source>Missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Faltan</translation>
     </message>
     <message>
         <source>Part Usage %</source>
-        <translation type="unfinished"></translation>
+        <translation>Uso de piezas %</translation>
     </message>
     <message>
         <source>Total</source>
-        <translation type="unfinished"></translation>
+        <translation>Total</translation>
     </message>
     <message>
         <source>N/A</source>
-        <translation type="unfinished"></translation>
+        <translation>N/D</translation>
     </message>
     <message>
         <source>Unbudgeted</source>
@@ -2564,7 +2564,7 @@
     </message>
     <message>
         <source>LUG:</source>
-        <translation type="unfinished"></translation>
+        <translation>Club:</translation>
     </message>
     <message>
         <source>Event:</source>
@@ -2583,39 +2583,39 @@
     <name>bld::import::LayoutFile</name>
     <message>
         <source>This is not a Collaborative Brick Layout Designer layout file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este no es un archivo de maqueta de Collaborative Brick Layout Designer.</translation>
     </message>
     <message>
         <source>The file was made by a newer version of Collaborative Brick Layout Designer; anything this version doesn&apos;t know is left out.</source>
-        <translation type="unfinished"></translation>
+        <translation>El archivo se hizo con una versión más nueva de Collaborative Brick Layout Designer; lo que esta versión no conoce se deja fuera.</translation>
     </message>
     <message>
         <source>The layout file has no readable layout in it.</source>
-        <translation type="unfinished"></translation>
+        <translation>El archivo de maqueta no tiene ninguna maqueta legible.</translation>
     </message>
     <message>
         <source>The labels, modules, venue and background could not be read.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudieron leer las etiquetas, módulos, sala y fondo.</translation>
     </message>
     <message>
         <source>The background image could not be unpacked.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo descomprimir la imagen de fondo.</translation>
     </message>
     <message>
         <source>The part file %1 in the layout could not be read.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo leer el archivo de pieza %1 de la maqueta.</translation>
     </message>
     <message>
         <source>Could not back up %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo hacer copia de seguridad de %1.</translation>
     </message>
     <message>
         <source>Could not write %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo escribir %1.</translation>
     </message>
     <message>
         <source>The background image %1 could not be read, so the file only keeps its path.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo leer la imagen de fondo %1, así que el archivo solo guarda su ruta.</translation>
     </message>
 </context>
 <context>
@@ -2724,112 +2724,112 @@
     </message>
     <message>
         <source>While you were offline you made 1 change. It doesn&apos;t clash with what changed on the server meanwhile. Apply it to the live layout, or discard it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sin conexión hiciste 1 cambio. No choca con lo que cambió entretanto en el servidor. Aplícalo a la maqueta en directo o descártalo.</translation>
     </message>
     <message numerus="yes">
         <source>While you were offline you made %n changes. None of them clash with what changed on the server meanwhile. Apply them to the live layout, or discard them.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Sin conexión hiciste %n cambio. No choca con lo que cambió entretanto en el servidor. Aplícalo a la maqueta en directo o descártalo.</numerusform>
+            <numerusform>Sin conexión hiciste %n cambios. Ninguno choca con lo que cambió entretanto en el servidor. Aplícalos a la maqueta en directo o descártalos.</numerusform>
         </translation>
     </message>
     <message>
         <source>While you were offline you made 1 change, and it clashes with what changed on the server meanwhile. Choose what to keep.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sin conexión hiciste 1 cambio, y choca con lo que cambió entretanto en el servidor. Elige qué conservar.</translation>
     </message>
     <message numerus="yes">
         <source>While you were offline you made %n changes; 1 of them clashes with what changed on the server meanwhile. For the clash, choose what to keep.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Sin conexión hiciste %n cambios; 1 de ellos choca con lo que cambió entretanto en el servidor. En ese conflicto, elige qué conservar.</numerusform>
+            <numerusform>Sin conexión hiciste %n cambios; 1 de ellos choca con lo que cambió entretanto en el servidor. En ese conflicto, elige qué conservar.</numerusform>
         </translation>
     </message>
     <message>
         <source>While you were offline you made %1 changes; %2 of them clash with what changed on the server meanwhile. For each clash, choose what to keep.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sin conexión hiciste %1 cambios; %2 de ellos chocan con lo que cambió entretanto en el servidor. En cada conflicto, elige qué conservar.</translation>
     </message>
     <message>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambio</translation>
     </message>
     <message>
         <source>Keep</source>
-        <translation type="unfinished"></translation>
+        <translation>Conservar</translation>
     </message>
     <message>
         <source>Both the same</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambos iguales</translation>
     </message>
     <message>
         <source>Server&apos;s change</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambio del servidor</translation>
     </message>
     <message>
         <source>Apply mine</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar el mío</translation>
     </message>
     <message>
         <source>Don&apos;t apply</source>
-        <translation type="unfinished"></translation>
+        <translation>No aplicar</translation>
     </message>
     <message>
         <source>Keep mine</source>
-        <translation type="unfinished"></translation>
+        <translation>Conservar el mío</translation>
     </message>
     <message>
         <source>Keep server</source>
-        <translation type="unfinished"></translation>
+        <translation>Conservar el del servidor</translation>
     </message>
     <message>
         <source>Keep both</source>
-        <translation type="unfinished"></translation>
+        <translation>Conservar ambos</translation>
     </message>
     <message>
         <source>All Mine</source>
-        <translation type="unfinished"></translation>
+        <translation>Todo lo mío</translation>
     </message>
     <message>
         <source>All Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Todo lo del servidor</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar</translation>
     </message>
     <message>
         <source>Discard My Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Descartar mis cambios</translation>
     </message>
     <message>
         <source>Replace Server with Mine…</source>
-        <translation type="unfinished"></translation>
+        <translation>Reemplazar el servidor por lo mío…</translation>
     </message>
     <message>
         <source>Save Mine as a New Layout…</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar lo mío como maqueta nueva…</translation>
     </message>
     <message>
         <source>Later</source>
-        <translation type="unfinished">Más tarde</translation>
+        <translation>Más tarde</translation>
     </message>
     <message>
         <source>Keep your offline changes waiting; File &gt; Review Offline Changes brings this back</source>
-        <translation type="unfinished"></translation>
+        <translation>Dejar tus cambios sin conexión en espera; Archivo &gt; Revisar cambios sin conexión vuelve a esto</translation>
     </message>
     <message>
         <source>Throw away the changes you made offline?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Tirar los cambios que hiciste sin conexión?</translation>
     </message>
     <message>
         <source>Put your version in place of the server&apos;s? Everything changed on the server while you were offline is undone for everyone (they can still undo this).</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Poner tu versión en lugar de la del servidor? Todo lo que cambió en el servidor mientras estabas sin conexión se deshace para todos (aún pueden deshacer esto).</translation>
     </message>
 </context>
 <context>
     <name>bld::sync::ConnectDialog</name>
     <message>
         <source>Connect to Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar al servidor</translation>
     </message>
     <message>
         <source>Your servers</source>
@@ -2837,47 +2837,47 @@
     </message>
     <message>
         <source>Manage Servers…</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestionar servidores…</translation>
     </message>
     <message>
         <source>Add, rename or remove servers, sign in or out, and pick your Main one</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir, renombrar o quitar servidores, iniciar o cerrar sesión y elegir el principal</translation>
     </message>
     <message>
         <source>Or connect to a new server by its web address:</source>
-        <translation type="unfinished"></translation>
+        <translation>O conéctate a un servidor nuevo por su dirección web:</translation>
     </message>
     <message>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar</translation>
     </message>
     <message>
         <source>Waiting for you to approve it in the browser…</source>
-        <translation type="unfinished"></translation>
+        <translation>Esperando a que lo apruebes en el navegador…</translation>
     </message>
     <message>
         <source>Filter layouts</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrar maquetas</translation>
     </message>
     <message>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Maqueta</translation>
     </message>
     <message>
         <source>Owner</source>
-        <translation type="unfinished"></translation>
+        <translation>Propietario</translation>
     </message>
     <message>
         <source>Access</source>
-        <translation type="unfinished"></translation>
+        <translation>Acceso</translation>
     </message>
     <message>
         <source>Updated</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizada</translation>
     </message>
     <message>
         <source>Sign Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar sesión</translation>
     </message>
     <message>
         <source>Open</source>
@@ -2885,59 +2885,59 @@
     </message>
     <message>
         <source>Find a Club on the Web…</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar un club en la web…</translation>
     </message>
     <message>
         <source>Open this server&apos;s Clubs page in your browser, to find a club and join it</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir la página de clubes de este servidor en el navegador, para encontrar un club y unirte</translation>
     </message>
     <message>
         <source>Delete…</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar…</translation>
     </message>
     <message>
         <source>Delete the picked layout from the server (you own it)</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar del servidor la maqueta elegida (es tuya)</translation>
     </message>
     <message>
         <source>More for the picked item</source>
-        <translation type="unfinished"></translation>
+        <translation>Más para el elemento elegido</translation>
     </message>
     <message>
         <source>Take Back to Mine…</source>
-        <translation type="unfinished"></translation>
+        <translation>Recuperar para mí…</translation>
     </message>
     <message>
         <source>It becomes yours again; the club keeps its own copy, credited to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuelve a ser tuyo; el club conserva su propia copia, a tu nombre.</translation>
     </message>
     <message>
         <source>Give Back to %1…</source>
-        <translation type="unfinished"></translation>
+        <translation>Devolver a %1…</translation>
     </message>
     <message>
         <source>It goes back to the person who made it; the club keeps its own copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuelve a la persona que lo hizo; el club conserva su propia copia.</translation>
     </message>
     <message>
         <source>Show everything, only yours, or one club&apos;s</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar todo, solo lo tuyo o lo de un club</translation>
     </message>
     <message>
         <source>Show:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar:</translation>
     </message>
     <message>
         <source>Save to server</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar en el servidor</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Título</translation>
     </message>
     <message>
         <source>Save to</source>
@@ -2945,163 +2945,163 @@
     </message>
     <message>
         <source>Save to Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar en el servidor</translation>
     </message>
     <message>
         <source>Sign In to a Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Iniciar sesión en un servidor</translation>
     </message>
     <message>
         <source>Download the New Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargar la nueva versión</translation>
     </message>
     <message>
         <source>layout</source>
-        <translation type="unfinished"></translation>
+        <translation>maqueta</translation>
     </message>
     <message>
         <source>Done: “%1” went back to its author, and the club kept its own copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hecho: «%1» volvió a su autor, y el club conservó su propia copia.</translation>
     </message>
     <message>
         <source>Deleted “%1”</source>
-        <translation type="unfinished"></translation>
+        <translation>Se borró «%1»</translation>
     </message>
     <message>
         <source>Your browser should open the sign-in page. If it doesn&apos;t, go to &lt;a href=&quot;%1&quot;&gt;%1&lt;/a&gt; and enter this code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tu navegador debería abrir la página de inicio de sesión. Si no, ve a &lt;a href=&quot;%1&quot;&gt;%1&lt;/a&gt; y escribe este código:</translation>
     </message>
     <message>
         <source>Sign-in was declined in the browser.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se rechazó el inicio de sesión en el navegador.</translation>
     </message>
     <message>
         <source>The sign-in code expired. Connect again for a new one.</source>
-        <translation type="unfinished"></translation>
+        <translation>El código de inicio de sesión caducó. Conéctate de nuevo para obtener otro.</translation>
     </message>
     <message>
         <source>Could not sign in: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo iniciar sesión: %1</translation>
     </message>
     <message>
         <source>%1 (Main)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (principal)</translation>
     </message>
     <message>
         <source>Untitled Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Maqueta sin título</translation>
     </message>
     <message>
         <source>View only</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo lectura</translation>
     </message>
     <message>
         <source>Open &quot;%1&quot; from %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir «%1» desde %2</translation>
     </message>
     <message>
         <source>No servers yet. Type one&apos;s web address below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no hay servidores. Escribe abajo la dirección web de uno.</translation>
     </message>
     <message>
         <source>Connecting to %1…</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectando con %1…</translation>
     </message>
     <message>
         <source>This server needs Collaborative Brick Layout Designer %1 or newer, and you have %2. Download the new version, install it, then connect again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este servidor necesita Collaborative Brick Layout Designer %1 o posterior, y tienes %2. Descarga la nueva versión, instálala y vuelve a conectar.</translation>
     </message>
     <message>
         <source>This server keeps its layouts in a newer form than this version of Collaborative Brick Layout Designer can read. Download the new version, then connect again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este servidor guarda sus maquetas en una forma más nueva de la que esta versión de Collaborative Brick Layout Designer puede leer. Descarga la nueva versión y vuelve a conectar.</translation>
     </message>
     <message>
         <source>This server can&apos;t take layouts from the desktop app yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este servidor aún no acepta maquetas desde la aplicación de escritorio.</translation>
     </message>
     <message>
         <source>Collaborative Brick Layout Designer %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Collaborative Brick Layout Designer %1</translation>
     </message>
     <message>
         <source>Loading your clubs…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargando tus clubes…</translation>
     </message>
     <message>
         <source>Loading layouts…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargando maquetas…</translation>
     </message>
     <message>
         <source>Deleting “%1”…</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrando «%1»…</translation>
     </message>
     <message>
         <source>Giving “%1” back…</source>
-        <translation type="unfinished"></translation>
+        <translation>Devolviendo «%1»…</translation>
     </message>
     <message>
         <source>Taking “%1” back…</source>
-        <translation type="unfinished"></translation>
+        <translation>Recuperando «%1»…</translation>
     </message>
     <message>
         <source>Could not do that: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo hacer: %1</translation>
     </message>
     <message>
         <source>Could not delete it: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo borrar: %1</translation>
     </message>
     <message>
         <source>Could not publish: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo publicar: %1</translation>
     </message>
     <message>
         <source>Could not reach %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo contactar con %1: %2</translation>
     </message>
     <message>
         <source>Could not load your clubs: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudieron cargar tus clubes: %1</translation>
     </message>
     <message>
         <source>Could not load the layouts: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudieron cargar las maquetas: %1</translation>
     </message>
     <message>
         <source>Me</source>
-        <translation type="unfinished"></translation>
+        <translation>Yo</translation>
     </message>
     <message>
         <source>Saving to the server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardando en el servidor…</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar</translation>
     </message>
     <message>
         <source>No layouts yet. Create one on the web, or publish one from here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no hay maquetas. Crea una en la web o publica una desde aquí.</translation>
     </message>
     <message>
         <source>That layout isn&apos;t on this server any more, or you can&apos;t open it now.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esa maqueta ya no está en este servidor, o ahora no puedes abrirla.</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>Todo</translation>
     </message>
     <message>
         <source>Mine</source>
-        <translation type="unfinished"></translation>
+        <translation>Lo mío</translation>
     </message>
     <message>
         <source>Signed out of %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sesión cerrada en %1.</translation>
     </message>
     <message>
         <source>Club</source>
-        <translation type="unfinished"></translation>
+        <translation>Club</translation>
     </message>
 </context>
 <context>
@@ -3112,96 +3112,96 @@
     </message>
     <message>
         <source>in %1</source>
-        <translation type="unfinished"></translation>
+        <translation>en %1</translation>
     </message>
     <message>
         <source>based on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>basado en %1</translation>
     </message>
     <message>
         <source>based on %1 by %2</source>
-        <translation type="unfinished"></translation>
+        <translation>basado en %1 de %2</translation>
     </message>
     <message>
         <source>Save it to %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Guardarlo en %1?</translation>
     </message>
     <message>
         <source>Move it to %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Moverlo a %1?</translation>
     </message>
     <message>
         <source>%1 will own this. Members with the Delete club items permission can rename, share or delete it.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 será su propietario. Los miembros con el permiso «Borrar cosas del club» pueden renombrarlo, compartirlo o borrarlo.</translation>
     </message>
     <message>
         <source>You stay credited as the author, and you can take it back while you’re a member.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sigues figurando como autor y puedes recuperarlo mientras seas miembro.</translation>
     </message>
 </context>
 <context>
     <name>bld::sync::PartsSync</name>
     <message>
         <source>parts library %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>biblioteca de piezas %1: %2</translation>
     </message>
     <message>
         <source>parts library %1: refused the path %2</source>
-        <translation type="unfinished"></translation>
+        <translation>biblioteca de piezas %1: se rechazó la ruta %2</translation>
     </message>
     <message>
         <source>%1: the server answered %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: el servidor respondió %2</translation>
     </message>
     <message>
         <source>%1: the download didn&apos;t match its hash</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: la descarga no coincidía con su huella</translation>
     </message>
     <message>
         <source>%1: could not write %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: no se pudo escribir %2</translation>
     </message>
 </context>
 <context>
     <name>bld::sync::PartsUpload</name>
     <message>
         <source>the server answered %1</source>
-        <translation type="unfinished"></translation>
+        <translation>el servidor respondió %1</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>The server refused the upload</source>
-        <translation type="unfinished"></translation>
+        <translation>El servidor rechazó la subida</translation>
     </message>
 </context>
 <context>
     <name>bld::sync::ServerApi</name>
     <message>
         <source>modules</source>
-        <translation type="unfinished"></translation>
+        <translation>módulos</translation>
     </message>
     <message>
         <source>parts</source>
-        <translation type="unfinished"></translation>
+        <translation>piezas</translation>
     </message>
     <message>
         <source>venues</source>
-        <translation type="unfinished"></translation>
+        <translation>salas</translation>
     </message>
     <message>
         <source>layouts</source>
-        <translation type="unfinished"></translation>
+        <translation>maquetas</translation>
     </message>
     <message>
         <source>%1 isn&apos;t listed: your roles there can&apos;t add %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 no aparece: tus roles allí no pueden añadir %2.</translation>
     </message>
     <message>
         <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add %3.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 y %2 no aparecen: tus roles allí no pueden añadir %3.</translation>
     </message>
     <message>
         <source>Not a server address: %1</source>
@@ -3300,7 +3300,7 @@
     </message>
     <message>
         <source>Sign Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar sesión</translation>
     </message>
     <message>
         <source>Add a Server</source>
@@ -3359,7 +3359,7 @@
     </message>
     <message>
         <source>Me</source>
-        <translation type="unfinished"></translation>
+        <translation>Yo</translation>
     </message>
     <message>
         <source>Save to</source>
@@ -3367,7 +3367,7 @@
     </message>
     <message>
         <source>Save to server</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar en el servidor</translation>
     </message>
     <message>
         <source>Uploaded %1; these failed:
@@ -3620,7 +3620,7 @@
     </message>
     <message>
         <source>Me</source>
-        <translation type="unfinished"></translation>
+        <translation>Yo</translation>
     </message>
     <message>
         <source>Add to</source>
@@ -5061,7 +5061,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor</translation>
     </message>
     <message>
         <source>Modules you and your clubs saved on a server</source>
@@ -5093,7 +5093,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>Connecting to %1…</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectando con %1…</translation>
     </message>
     <message>
         <source>Reaching %1. Click to see your servers.</source>
@@ -6540,7 +6540,7 @@ Save anyway?</source>
     </message>
     <message>
         <source>Save to Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar en el servidor</translation>
     </message>
     <message>
         <source>This layout is already live on a server.</source>
@@ -6552,7 +6552,7 @@ Save anyway?</source>
     </message>
     <message>
         <source>Untitled Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Maqueta sin título</translation>
     </message>
     <message>
         <source>Saved “%1” on %2</source>
@@ -7360,7 +7360,7 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Keep both</source>
-        <translation type="unfinished"></translation>
+        <translation>Conservar ambos</translation>
     </message>
     <message numerus="yes">
         <source>Do the same for the other %n part(s) you already have</source>
@@ -7492,7 +7492,7 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>%1 → %2 (replaced)</source>
@@ -7777,7 +7777,7 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>modules</source>
-        <translation type="unfinished"></translation>
+        <translation>módulos</translation>
     </message>
     <message>
         <source>the venue</source>
@@ -7912,7 +7912,7 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Maqueta</translation>
     </message>
 </context>
 <context>
@@ -8548,7 +8548,7 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>Delete…</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar…</translation>
     </message>
     <message>
         <source>Delete module</source>
@@ -8811,7 +8811,7 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>Keep mine</source>
-        <translation type="unfinished"></translation>
+        <translation>Conservar el mío</translation>
     </message>
     <message>
         <source>Use the layout&apos;s</source>
@@ -8819,7 +8819,7 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>Keep both</source>
-        <translation type="unfinished"></translation>
+        <translation>Conservar ambos</translation>
     </message>
     <message>
         <source>Use the layout&apos;s: your files are backed up, then replaced.
@@ -8832,7 +8832,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar</translation>
     </message>
     <message>
         <source>Keep All Mine</source>
@@ -9371,7 +9371,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <name>bld::ui::SaveToServerDialog</name>
     <message>
         <source>Save to Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar en el servidor</translation>
     </message>
     <message>
         <source>A copy of this %1 goes to %2, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
@@ -9379,7 +9379,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Me</source>
-        <translation type="unfinished"></translation>
+        <translation>Yo</translation>
     </message>
     <message>
         <source>Name</source>
@@ -9391,7 +9391,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Save to server</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar en el servidor</translation>
     </message>
     <message>
         <source>Give it a name.</source>
@@ -9501,23 +9501,23 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Take Back to Mine…</source>
-        <translation type="unfinished"></translation>
+        <translation>Recuperar para mí…</translation>
     </message>
     <message>
         <source>It becomes yours again; the club keeps its own copy, credited to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuelve a ser tuyo; el club conserva su propia copia, a tu nombre.</translation>
     </message>
     <message>
         <source>Give Back to %1…</source>
-        <translation type="unfinished"></translation>
+        <translation>Devolver a %1…</translation>
     </message>
     <message>
         <source>It goes back to the person who made it; the club keeps its own copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuelve a la persona que lo hizo; el club conserva su propia copia.</translation>
     </message>
     <message>
         <source>Delete…</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar…</translation>
     </message>
     <message>
         <source>Renamed to &quot;%1&quot;</source>
@@ -9560,7 +9560,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor</translation>
     </message>
     <message>
         <source>Which of your servers to look at</source>
@@ -9568,11 +9568,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Manage Servers…</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestionar servidores…</translation>
     </message>
     <message>
         <source>Add, rename or remove servers, sign in or out, and pick your Main one</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir, renombrar o quitar servidores, iniciar o cerrar sesión y elegir el principal</translation>
     </message>
     <message>
         <source>Find a layout, venue, module or part</source>
@@ -9580,7 +9580,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Show everything, only yours, or one club&apos;s</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar todo, solo lo tuyo o lo de un club</translation>
     </message>
     <message>
         <source>Show</source>
@@ -9588,7 +9588,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Show:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar:</translation>
     </message>
     <message>
         <source>Change the logo on the website</source>
@@ -9676,7 +9676,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>%1 (Main)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (principal)</translation>
     </message>
     <message>
         <source>No servers yet</source>
@@ -9692,35 +9692,35 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>Todo</translation>
     </message>
     <message>
         <source>Mine</source>
-        <translation type="unfinished"></translation>
+        <translation>Lo mío</translation>
     </message>
     <message>
         <source>Take Back to Mine…</source>
-        <translation type="unfinished"></translation>
+        <translation>Recuperar para mí…</translation>
     </message>
     <message>
         <source>It becomes yours again; the club keeps its own copy, credited to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuelve a ser tuyo; el club conserva su propia copia, a tu nombre.</translation>
     </message>
     <message>
         <source>Give Back to %1…</source>
-        <translation type="unfinished"></translation>
+        <translation>Devolver a %1…</translation>
     </message>
     <message>
         <source>It goes back to the person who made it; the club keeps its own copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuelve a la persona que lo hizo; el club conserva su propia copia.</translation>
     </message>
     <message>
         <source>Untitled Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Maqueta sin título</translation>
     </message>
     <message>
         <source>View only</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo lectura</translation>
     </message>
     <message>
         <source>updated %1</source>
@@ -9752,11 +9752,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>layout</source>
-        <translation type="unfinished"></translation>
+        <translation>maqueta</translation>
     </message>
     <message>
         <source>Delete…</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar…</translation>
     </message>
     <message>
         <source>Loading…</source>
@@ -10000,7 +10000,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Deleted “%1”</source>
-        <translation type="unfinished"></translation>
+        <translation>Se borró «%1»</translation>
     </message>
     <message>
         <source>Delete layout</source>
@@ -10929,7 +10929,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Later</source>
-        <translation type="unfinished">Más tarde</translation>
+        <translation>Más tarde</translation>
     </message>
 </context>
 <context>
@@ -11615,7 +11615,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Save to Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar en el servidor</translation>
     </message>
     <message>
         <source>This layout has no venue yet. Draw one first (Map ▸ Venue).</source>
@@ -11821,7 +11821,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar</translation>
     </message>
     <message>
         <source>Change what this view shows</source>
