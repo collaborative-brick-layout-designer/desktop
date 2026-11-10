@@ -57,8 +57,15 @@ jobs:
         id: notes
         run: |
           CURRENT_TAG="${GITHUB_REF#refs/tags/}"
-          PREV_TAG=$(git tag --sort=-creatordate | grep -A1 "^${CURRENT_TAG}$" | tail -1)
-          TAG_MSG=$(git tag -l --format='%(contents)' "$CURRENT_TAG" | head -20)
+          PREV_TAG=$(git tag -l 'v*' --sort=-creatordate | grep -A1 "^${CURRENT_TAG}$" | tail -1)
+          # The tag's own message only when it has one: a lightweight tag's
+          # "contents" are the commit's message ("Merge pull request #…").
+          # checkout can leave the tag lightweight locally; fetch the real one.
+          git fetch --force origin "refs/tags/${CURRENT_TAG}:refs/tags/${CURRENT_TAG}"
+          TAG_MSG=""
+          if [ "$(git cat-file -t "$CURRENT_TAG")" = "tag" ]; then
+            TAG_MSG=$(git tag -l --format='%(contents)' "$CURRENT_TAG" | sed '/-----BEGIN/,$d' | head -20)
+          fi
 
           {
             echo 'BODY<<ENDOFNOTES'
@@ -103,3 +110,6 @@ jobs:
         with:
           files: artifacts/*
           body: ${{ steps.notes.outputs.BODY }}
+          # v2.1.0-rc1 and the like are pre-releases, so the update check
+          # (which asks for the latest full release) never offers them.
+          prerelease: ${{ contains(github.ref_name, '-') }}

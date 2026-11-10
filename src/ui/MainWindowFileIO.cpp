@@ -7,6 +7,8 @@
 #include "MainWindow.h"
 #include "ActiveSheet.h"
 #include "StatusMessages.h"
+#include "UpdateCheck.h"
+#include "../core/Version.h"
 #include "../edit/Sets.h"
 #include "help/HelpButton.h"
 #include "help/SourceLinks.h"
@@ -897,6 +899,9 @@ void MainWindow::onAbout() {
            "<p>Licensed under GPL-3.0, like BlueBrick.</p>"
            "<p>Parts library: %1 parts indexed.</p>")
         .arg(parts_.partCount())
+        + QStringLiteral("<p>%1 · <a href=\"%2\">%3</a></p>")
+              .arg(versionLine(QCoreApplication::applicationVersion(), core::buildChannel()).toHtmlEscaped(),
+                   core::thirdPartyNoticesUrl().toHtmlEscaped(), tr("Third-party licenses"))
         + QStringLiteral("<p>%1</p>").arg(help::sourceLinksHtml()));
 }
 

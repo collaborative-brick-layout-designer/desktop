@@ -34,6 +34,13 @@ bool isNewerVersion(const QString& candidate, const QString& current) {
     return core::compareVersions(candidate, current) == 1;
 }
 
+QString versionLine(const QString& version, const QString& channel) {
+    const QString v = version.isEmpty() ? QStringLiteral("dev") : version;
+    if (channel == QLatin1String("nightly"))
+        return UpdateCheck::tr("Version %1, a nightly build").arg(v);
+    return UpdateCheck::tr("Version %1").arg(v);
+}
+
 bool isImportantRelease(const QString& notes) {
     static const QRegularExpression marker(QStringLiteral("\\[(important|security)\\]"),
                                            QRegularExpression::CaseInsensitiveOption);

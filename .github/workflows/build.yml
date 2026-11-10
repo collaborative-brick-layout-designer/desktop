@@ -14,7 +14,11 @@ on:
   workflow_call:
     inputs:
       version:
-        description: Version to stamp (X.Y.Z). Empty keeps the CMake default.
+        description: Version to stamp (X.Y.Z, or X.Y.Z.N for a nightly). Empty keeps the CMake default.
+        type: string
+        default: ''
+      channel:
+        description: Build channel About shows ("nightly"), empty for a release.
         type: string
         default: ''
       artifact-suffix:
@@ -122,6 +126,7 @@ jobs:
         run: |
           VERSION_ARG=()
           if [ -n "${{ inputs.version }}" ]; then VERSION_ARG=(-DBLD_VERSION="${{ inputs.version }}"); fi
+          VERSION_ARG+=(-DBLD_CHANNEL="${{ inputs.channel }}")
           LAUNCHER=${{ runner.os == 'Windows' && 'sccache' || 'ccache' }}
           # Warnings are errors in CI (off by default for local builds).
           cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DBLD_WARNINGS_AS_ERRORS=ON \
@@ -142,6 +147,12 @@ jobs:
       - name: No warnings
         shell: bash
         run: scripts/ci/check-warnings.sh configure.log build.log
+
+      # THIRD-PARTY-NOTICES.txt lists what this build links (the crates in
+      # yffi's Cargo.lock, QtKeychain): regenerate it after bumping either.
+      - name: Third-party notices are current (Linux)
+        if: runner.os == 'Linux'
+        run: python3 scripts/gen-third-party-notices.py --check build
 
       # The help texts must match the web's word for word: fetch the web's
       # catalogue at the commit src/ui/help/web-help-texts.commit names (the
@@ -257,6 +268,7 @@ jobs:
           scripts/ci/check-package-files.sh dist/brick-layout-designer
           # Every UI language finds its own catalog and Qt's, in the package.
           xvfb-run -a ./dist/brick-layout-designer/brick-layout-designer --check-translations
+          test -f dist/brick-layout-designer/usr/share/doc/BrickLayoutDesigner/THIRD-PARTY-NOTICES.txt
           # And natively under a headless Wayland compositor.
           export XDG_RUNTIME_DIR=$(mktemp -d)
           weston --backend=headless-backend.so --socket=bld-test &
@@ -333,6 +345,7 @@ jobs:
           "$APP/Contents/MacOS/brick-layout-designer" --version | grep -F "$BLD_VERSION"
           test -d "$APP/Contents/Resources/parts/BlueBrickParts/parts"
           test -f "$APP/Contents/Resources/help/en/index.html"
+          test -f "$APP/Contents/Resources/THIRD-PARTY-NOTICES.txt"
           # ditto keeps the extended attributes / signature intact.
           ditto -c -k --keepParent "$APP" "$ARTIFACT.zip"
           # Drag-to-Applications disk image.
@@ -373,6 +386,7 @@ jobs:
           # Every UI language finds its own catalog and Qt's, in the package.
           PATH="/c/Windows/System32:/c/Windows" ./dist/brick-layout-designer/brick-layout-designer.exe --check-translations > translations.txt || { cat translations.txt; exit 1; }
           cat translations.txt
+          test -f dist/brick-layout-designer/THIRD-PARTY-NOTICES.txt
 
       - name: Codesign exe (Windows)
         # Signs the binaries before they are zipped / wrapped in the MSI.
