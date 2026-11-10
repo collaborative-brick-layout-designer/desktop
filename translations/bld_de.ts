@@ -5016,51 +5016,51 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>this module</source>
-        <translation type="unfinished"></translation>
+        <translation>dieses Modul</translation>
     </message>
     <message>
         <source>Replace “%1” with version %2?</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ durch Version %2 ersetzen?</translation>
     </message>
     <message>
         <source>Replace “%1” with the Module library file&apos;s parts?</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ durch die Teile der Datei aus der Modulbibliothek ersetzen?</translation>
     </message>
     <message>
         <source>This module was changed in this layout. Those changes are replaced by the Module library&apos;s version.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Modul wurde in diesem Layout geändert. Diese Änderungen werden durch die Version der Modulbibliothek ersetzt.</translation>
     </message>
     <message>
         <source>Its name, colors and place on the map stay. You can undo this.</source>
-        <translation type="unfinished"></translation>
+        <translation>Name, Farben und Platz auf der Karte bleiben. Du kannst das rückgängig machen.</translation>
     </message>
     <message>
         <source>Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisieren</translation>
     </message>
     <message>
         <source>Update from Module library</source>
-        <translation type="unfinished"></translation>
+        <translation>Aus der Modulbibliothek aktualisieren</translation>
     </message>
     <message>
         <source>Couldn&apos;t update from the Module library: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisieren aus der Modulbibliothek fehlgeschlagen: %1</translation>
     </message>
     <message>
         <source>The module from the Module library couldn&apos;t be read (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Modul aus der Modulbibliothek konnte nicht gelesen werden (%1).</translation>
     </message>
     <message>
         <source>“%1” already matches %2</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ entspricht schon %2</translation>
     </message>
     <message>
         <source>The Module library&apos;s version has no parts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Version der Modulbibliothek hat keine Teile.</translation>
     </message>
     <message>
         <source>Updated “%1” from the Module library</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ aus der Modulbibliothek aktualisiert</translation>
     </message>
     <message>
         <source>Server</source>
@@ -5068,31 +5068,31 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Modules you and your clubs saved on a server</source>
-        <translation type="unfinished"></translation>
+        <translation>Module, die du und deine Clubs auf einem Server gespeichert habt</translation>
     </message>
     <message>
         <source>Modules you and your clubs saved on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Module, die du und deine Clubs auf %1 gespeichert habt</translation>
     </message>
     <message>
         <source>Modules, parts and collections people shared for everyone</source>
-        <translation type="unfinished"></translation>
+        <translation>Module, Teile und Sammlungen, die andere für alle geteilt haben</translation>
     </message>
     <message>
         <source>No server</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Server</translation>
     </message>
     <message>
         <source>You&apos;re not connected to a server. Click to add your club&apos;s server and share layouts with it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du bist mit keinem Server verbunden. Klicke, um den Server deines Clubs hinzuzufügen und Layouts mit ihm zu teilen.</translation>
     </message>
     <message>
         <source>Signed out of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Von %1 abgemeldet</translation>
     </message>
     <message>
         <source>You&apos;re not signed in to %1. Click to sign in.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du bist bei %1 nicht angemeldet. Klicke zum Anmelden.</translation>
     </message>
     <message>
         <source>Connecting to %1…</source>
@@ -5100,43 +5100,43 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Reaching %1. Click to see your servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreiche %1. Klicke, um deine Server zu sehen.</translation>
     </message>
     <message>
         <source>Connected to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbunden mit %1</translation>
     </message>
     <message>
         <source>Signed in to %1: your modules, the catalog and your settings come from there. Click to see your servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bei %1 angemeldet: Deine Module, der Katalog und deine Einstellungen kommen von dort. Klicke, um deine Server zu sehen.</translation>
     </message>
     <message>
         <source>%1 is offline</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ist offline</translation>
     </message>
     <message>
         <source>%1 can&apos;t be reached right now; the app tries again by itself. Click to see your servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ist gerade nicht erreichbar; die App versucht es selbst erneut. Klicke, um deine Server zu sehen.</translation>
     </message>
     <message>
         <source>Opening “%1”…</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffne „%1“…</translation>
     </message>
     <message>
         <source>Open live</source>
-        <translation type="unfinished"></translation>
+        <translation>Live öffnen</translation>
     </message>
     <message>
         <source>This server needs Collaborative Brick Layout Designer %1 or newer, and you have %2. Download the new version, install it, then open the layout again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Server braucht Collaborative Brick Layout Designer %1 oder neuer, und du hast %2. Lade die neue Version herunter, installiere sie und öffne das Layout erneut.</translation>
     </message>
     <message>
         <source>This server keeps its layouts in a newer form than this version of Collaborative Brick Layout Designer can read. Download the new version, then open the layout again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Server speichert seine Layouts in einer neueren Form, als diese Version von Collaborative Brick Layout Designer lesen kann. Lade die neue Version herunter und öffne das Layout erneut.</translation>
     </message>
     <message>
         <source>Couldn&apos;t reach the server: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Server war nicht erreichbar: %1</translation>
     </message>
     <message>
         <source>Use this venue</source>
@@ -5144,147 +5144,147 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>The venue “%1” couldn&apos;t be saved in the Venue library folder %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Veranstaltungsort „%1“ konnte nicht im Ordner der Veranstaltungsort-Bibliothek %2 gespeichert werden.</translation>
     </message>
     <message>
         <source>Add to my venue library</source>
-        <translation type="unfinished"></translation>
+        <translation>Zu meiner Veranstaltungsort-Bibliothek hinzufügen</translation>
     </message>
     <message>
         <source>Added “%1” to your Venue library</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ zu deiner Veranstaltungsort-Bibliothek hinzugefügt</translation>
     </message>
     <message>
         <source>Couldn&apos;t get “%1”: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ konnte nicht geholt werden: %2</translation>
     </message>
     <message>
         <source>Module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul</translation>
     </message>
     <message>
         <source>Save a copy locally</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie lokal speichern</translation>
     </message>
     <message>
         <source>“%1” couldn&apos;t be read (%2).</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ konnte nicht gelesen werden (%2).</translation>
     </message>
     <message>
         <source>Getting %1 from the server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Hole %1 vom Server…</translation>
     </message>
     <message>
         <source>%1 is in your parts</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ist in deinen Teilen</translation>
     </message>
     <message>
         <source>%1 couldn&apos;t be downloaded. Try again in a moment.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 konnte nicht heruntergeladen werden. Versuch es gleich noch einmal.</translation>
     </message>
     <message>
         <source>Getting “%1” from the server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Hole „%1“ vom Server…</translation>
     </message>
     <message>
         <source>Add module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul hinzufügen</translation>
     </message>
     <message>
         <source>“%1” has no parts yet. Open it to add some.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ hat noch keine Teile. Öffne es, um welche hinzuzufügen.</translation>
     </message>
     <message>
         <source>Added “%1” to the layout</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ zum Layout hinzugefügt</translation>
     </message>
     <message>
         <source>Adding “%1” to your modules…</source>
-        <translation type="unfinished"></translation>
+        <translation>Füge „%1“ zu deinen Modulen hinzu…</translation>
     </message>
     <message>
         <source>Couldn&apos;t add “%1”: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ konnte nicht hinzugefügt werden: %2</translation>
     </message>
     <message>
         <source>Open module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul öffnen</translation>
     </message>
     <message>
         <source>You&apos;re changing the module “%1”</source>
-        <translation type="unfinished"></translation>
+        <translation>Du änderst das Modul „%1“</translation>
     </message>
     <message>
         <source>Add, move or remove its parts, then Save (Ctrl+S) to make a new version on %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Füge seine Teile hinzu, verschiebe oder entferne sie und speichere dann (Strg+S), um eine neue Version auf %1 anzulegen.</translation>
     </message>
     <message>
         <source>Save new version</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Version speichern</translation>
     </message>
     <message>
         <source>Opened the module “%1”</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul „%1“ geöffnet</translation>
     </message>
     <message>
         <source>What changed? (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Was hat sich geändert? (freiwillig)</translation>
     </message>
     <message>
         <source>Saving “%1”…</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichere „%1“…</translation>
     </message>
     <message>
         <source>Couldn&apos;t save the module: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Modul konnte nicht gespeichert werden: %1</translation>
     </message>
     <message>
         <source>Couldn&apos;t save the module (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Modul konnte nicht gespeichert werden (%1).</translation>
     </message>
     <message>
         <source>Saved version %1 of “%2” on %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Version %1 von „%2“ auf %3 gespeichert</translation>
     </message>
     <message>
         <source>Final warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Letzte Warnung</translation>
     </message>
     <message>
         <source>Note</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinweis</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <source>From %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Von %1</translation>
     </message>
     <message>
         <source>From the site team</source>
-        <translation type="unfinished"></translation>
+        <translation>Vom Team der Seite</translation>
     </message>
     <message>
         <source>(1 of %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>(1 von %1)</translation>
     </message>
     <message>
         <source>To your club %1</source>
-        <translation type="unfinished"></translation>
+        <translation>An deinen Club %1</translation>
     </message>
     <message>
         <source>I understand</source>
-        <translation type="unfinished"></translation>
+        <translation>Verstanden</translation>
     </message>
     <message>
         <source>See what it&apos;s about</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansehen, worum es geht</translation>
     </message>
     <message>
         <source>All notices</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Hinweise</translation>
     </message>
     <message>
         <source>Could not read %1: %2</source>
@@ -5308,27 +5308,27 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Sign in to a server first: the Server window shows how.</source>
-        <translation type="unfinished"></translation>
+        <translation>Melde dich zuerst bei einem Server an: Das Server-Fenster zeigt, wie.</translation>
     </message>
     <message>
         <source>Open now, not saved as a file yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerade offen, noch nicht als Datei gespeichert</translation>
     </message>
     <message>
         <source>Open now · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerade offen · %1</translation>
     </message>
     <message>
         <source>Recent file · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Zuletzt verwendete Datei · %1</translation>
     </message>
     <message>
         <source>In this layout</source>
-        <translation type="unfinished"></translation>
+        <translation>In diesem Layout</translation>
     </message>
     <message>
         <source>Module library folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordner der Modulbibliothek</translation>
     </message>
     <message>
         <source>Venue library</source>
@@ -5336,39 +5336,39 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Your part %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Teil %1</translation>
     </message>
     <message>
         <source>“%1” is saved on this computer, but it couldn’t go to %2: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ ist auf diesem Computer gespeichert, konnte aber nicht zu %2: %3</translation>
     </message>
     <message>
         <source>“%1” is in your parts on %2 too.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ ist auch auf %2 in deinen Teilen.</translation>
     </message>
     <message>
         <source>“%1” is saved on this computer only.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ ist nur auf diesem Computer gespeichert.</translation>
     </message>
     <message>
         <source>Name already used</source>
-        <translation type="unfinished"></translation>
+        <translation>Name schon vergeben</translation>
     </message>
     <message>
         <source>You already have a set called “%1” on this computer. Pick another name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast auf diesem Computer schon ein Set namens „%1“. Wähle einen anderen Namen.</translation>
     </message>
     <message>
         <source>“%1” couldn’t be renamed on this computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ konnte auf diesem Computer nicht umbenannt werden.</translation>
     </message>
     <message>
         <source>The set couldn’t be renamed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Set konnte nicht umbenannt werden: %1</translation>
     </message>
     <message>
         <source>“%1” is deleted from %2 too.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ wird auch auf %2 gelöscht.</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -5376,83 +5376,83 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>“%1” is deleted from this computer, but not from %2: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ wird auf diesem Computer gelöscht, aber nicht auf %2: %3</translation>
     </message>
     <message>
         <source>“%1” is deleted from this computer, but it’s still in your parts on %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ wird auf diesem Computer gelöscht, ist aber auf %2 noch in deinen Teilen.</translation>
     </message>
     <message>
         <source>“%1” is deleted from this computer, but it’s still in your parts on %2. Delete it there on the website.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ wird auf diesem Computer gelöscht, ist aber auf %2 noch in deinen Teilen. Lösche es dort auf der Website.</translation>
     </message>
     <message>
         <source>Delete it from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf %1 löschen</translation>
     </message>
     <message>
         <source>Open %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 öffnen</translation>
     </message>
     <message>
         <source>Still on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Noch auf %1</translation>
     </message>
     <message>
         <source>Keep it there</source>
-        <translation type="unfinished"></translation>
+        <translation>Dort lassen</translation>
     </message>
     <message>
         <source>Rename set</source>
-        <translation type="unfinished"></translation>
+        <translation>Set umbenennen</translation>
     </message>
     <message>
         <source>“%1” is renamed on this computer, but not on %2: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ ist auf diesem Computer umbenannt, aber nicht auf %2: %3</translation>
     </message>
     <message>
         <source>“%1” is renamed on %2 too.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ ist auch auf %2 umbenannt.</translation>
     </message>
     <message>
         <source>Couldn&apos;t read %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 konnte nicht gelesen werden: %2</translation>
     </message>
     <message>
         <source>Save a file to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Datei auf dem Server speichern</translation>
     </message>
     <message>
         <source>All supported maps (*.bld-layout *.bbm *.ldr *.mpd *.tdl *.ncp);;Collaborative Brick Layout Designer layout (*.bld-layout);;BlueBrick map (*.bbm)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle unterstützten Karten (*.bld-layout *.bbm *.ldr *.mpd *.tdl *.ncp);;Collaborative-Brick-Layout-Designer-Layout (*.bld-layout);;BlueBrick-Karte (*.bbm)</translation>
     </message>
     <message>
         <source>You have no parts of your own to upload.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast keine eigenen Teile zum Hochladen.</translation>
     </message>
     <message>
         <source>Could not check the server&apos;s parts: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Teile des Servers konnten nicht geprüft werden: %1</translation>
     </message>
     <message>
         <source>The server already has all your parts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Server hat schon alle deine Teile.</translation>
     </message>
     <message>
         <source>venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort</translation>
     </message>
     <message>
         <source>The venue couldn&apos;t be written out to send it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Veranstaltungsort konnte zum Senden nicht geschrieben werden.</translation>
     </message>
     <message>
         <source>Couldn&apos;t save the venue: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Veranstaltungsort konnte nicht gespeichert werden: %1</translation>
     </message>
     <message>
         <source>module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul</translation>
     </message>
     <message>
         <source>Sheets</source>
@@ -5464,31 +5464,31 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Undo the last change</source>
-        <translation type="unfinished"></translation>
+        <translation>Die letzte Änderung rückgängig machen</translation>
     </message>
     <message>
         <source>Redo what you undid</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiederholen, was du rückgängig gemacht hast</translation>
     </message>
     <message>
         <source>Pick and move pieces</source>
-        <translation type="unfinished"></translation>
+        <translation>Teile wählen und bewegen</translation>
     </message>
     <message>
         <source>Paint</source>
-        <translation type="unfinished"></translation>
+        <translation>Malen</translation>
     </message>
     <message>
         <source>Paint areas of color on an area sheet. Ctrl+drag moves the whole sheet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbflächen auf ein Flächenblatt malen. Strg+Ziehen verschiebt das ganze Blatt.</translation>
     </message>
     <message>
         <source>Erase</source>
-        <translation type="unfinished"></translation>
+        <translation>Radieren</translation>
     </message>
     <message>
         <source>Erase painted areas</source>
-        <translation type="unfinished"></translation>
+        <translation>Bemalte Flächen radieren</translation>
     </message>
     <message>
         <source>Measure</source>
@@ -5496,15 +5496,15 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Draw a ruler to measure a distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Lineal zeichnen, um eine Entfernung zu messen</translation>
     </message>
     <message>
         <source>Circle</source>
-        <translation type="unfinished"></translation>
+        <translation>Kreis</translation>
     </message>
     <message>
         <source>Draw a circle to measure a radius</source>
-        <translation type="unfinished"></translation>
+        <translation>Einen Kreis zeichnen, um einen Radius zu messen</translation>
     </message>
     <message>
         <source>Color</source>
@@ -5512,7 +5512,7 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>The color Paint uses</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Farbe, die Malen verwendet</translation>
     </message>
     <message>
         <source>Turn left</source>
@@ -5520,7 +5520,7 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Turn the selected pieces anticlockwise</source>
-        <translation type="unfinished"></translation>
+        <translation>Die gewählten Teile gegen den Uhrzeigersinn drehen</translation>
     </message>
     <message>
         <source>Turn right</source>
@@ -5528,43 +5528,43 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Turn the selected pieces clockwise</source>
-        <translation type="unfinished"></translation>
+        <translation>Die gewählten Teile im Uhrzeigersinn drehen</translation>
     </message>
     <message>
         <source>Remove the selected pieces</source>
-        <translation type="unfinished"></translation>
+        <translation>Die gewählten Teile entfernen</translation>
     </message>
     <message>
         <source>Share a picture of the layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Bild des Layouts teilen</translation>
     </message>
     <message>
         <source>Open from Server: your layouts, venues, modules and parts, and your clubs&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Vom Server öffnen: deine Layouts, Veranstaltungsorte, Module und Teile und die deiner Clubs</translation>
     </message>
     <message>
         <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation type="unfinished"></translation>
+        <translation>Teile an einem Raster ausrichten (Klick schaltet ein oder aus, der Pfeil wählt den Schritt)</translation>
     </message>
     <message>
         <source>%1 studs</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Noppen</translation>
     </message>
     <message>
         <source>Snap %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Einrasten %1</translation>
     </message>
     <message>
         <source>Snap off</source>
-        <translation type="unfinished"></translation>
+        <translation>Einrasten aus</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
-        <translation type="unfinished"></translation>
+        <translation>Wie weit Links drehen und Rechts drehen drehen</translation>
     </message>
     <message>
         <source>Turn %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>Drehen %1°</translation>
     </message>
     <message>
         <source>Panels</source>
@@ -5572,55 +5572,55 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Show or hide the side panels</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Seitenfenster ein- oder ausblenden</translation>
     </message>
     <message>
         <source>Build</source>
-        <translation type="unfinished"></translation>
+        <translation>Bauen</translation>
     </message>
     <message>
         <source>Parts, sheets and views, for building the layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Teile, Blätter und Ansichten zum Bauen des Layouts</translation>
     </message>
     <message>
         <source>The venue the layout goes in</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Veranstaltungsort, in den das Layout kommt</translation>
     </message>
     <message>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Notizen</translation>
     </message>
     <message>
         <source>Author, club, event and notes for this layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Autor, Club, Veranstaltung und Notizen zu diesem Layout</translation>
     </message>
     <message>
         <source>Every part this layout uses</source>
-        <translation type="unfinished"></translation>
+        <translation>Jedes Teil, das dieses Layout verwendet</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfe</translation>
     </message>
     <message>
         <source>1 piece</source>
-        <translation type="unfinished"></translation>
+        <translation>1 Teil</translation>
     </message>
     <message>
         <source>%1 pieces</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Teile</translation>
     </message>
     <message>
         <source>Sheet: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Blatt: %1</translation>
     </message>
     <message>
         <source>Zoom. Press F to fit the whole layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom. Drück F, um das ganze Layout einzupassen.</translation>
     </message>
     <message>
         <source>Parts → %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Teile → %1</translation>
     </message>
     <message>
         <source>(untitled)</source>
@@ -5628,63 +5628,63 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>“%1”</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“</translation>
     </message>
     <message>
         <source>The pasted part</source>
-        <translation type="unfinished"></translation>
+        <translation>Das eingefügte Teil</translation>
     </message>
     <message>
         <source>The pasted parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Die eingefügten Teile</translation>
     </message>
     <message>
         <source>Your part</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Teil</translation>
     </message>
     <message>
         <source>The set</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Set</translation>
     </message>
     <message>
         <source>%1 went on %2, which is hidden, so you can’t see %3.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kam auf %2, das ausgeblendet ist, daher siehst du %3 nicht.</translation>
     </message>
     <message>
         <source>it</source>
-        <translation type="unfinished"></translation>
+        <translation>es</translation>
     </message>
     <message>
         <source>them</source>
-        <translation type="unfinished"></translation>
+        <translation>sie</translation>
     </message>
     <message>
         <source>%1 went on %2. %3 %4 hidden, so you can’t see all of them.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kam auf %2. %3 %4 ausgeblendet, daher siehst du nicht alle.</translation>
     </message>
     <message>
         <source>is</source>
-        <translation type="unfinished"></translation>
+        <translation>ist</translation>
     </message>
     <message>
         <source>are</source>
-        <translation type="unfinished"></translation>
+        <translation>sind</translation>
     </message>
     <message>
         <source>Hidden sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgeblendetes Blatt</translation>
     </message>
     <message>
         <source>Show sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Blatt zeigen</translation>
     </message>
     <message>
         <source>Show sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>Blätter zeigen</translation>
     </message>
     <message>
         <source>Pasted %1 → %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 eingefügt → %2</translation>
     </message>
     <message>
         <source>1 part</source>
@@ -5696,19 +5696,19 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Placed on another sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf einem anderen Blatt platziert</translation>
     </message>
     <message>
         <source>%1 went on %2, not “%3”: that is a %4, which can’t hold parts.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kam auf %2, nicht auf „%3“: Das ist ein %4, das keine Teile aufnehmen kann.</translation>
     </message>
     <message>
         <source>Make %1 active</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 aktiv machen</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswählen</translation>
     </message>
     <message>
         <source>Paint color</source>
@@ -5716,27 +5716,27 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Budget: OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget: OK</translation>
     </message>
     <message>
         <source>Every budgeted part is within its limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Jedes Teil im Budget liegt innerhalb seiner Grenze</translation>
     </message>
     <message>
         <source>Budget: %1 over</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget: %1 darüber</translation>
     </message>
     <message>
         <source>• %1: %2 / %3  (+%4)</source>
-        <translation type="unfinished"></translation>
+        <translation>• %1: %2 / %3  (+%4)</translation>
     </message>
     <message>
         <source>Last successful autosave time</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeit der letzten erfolgreichen automatischen Sicherung</translation>
     </message>
     <message>
         <source>Parts library: %1 parts indexed</source>
-        <translation type="unfinished"></translation>
+        <translation>Teilebibliothek: %1 Teile erfasst</translation>
     </message>
     <message>
         <source>Select one or more parts first.</source>
@@ -5752,7 +5752,7 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>%1 already exists. Replace it?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 gibt es schon. Ersetzen?</translation>
     </message>
     <message>
         <source>Save selection as module</source>
@@ -5760,7 +5760,7 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>BlueBrick map (*.bbm)</source>
-        <translation type="unfinished"></translation>
+        <translation>BlueBrick-Karte (*.bbm)</translation>
     </message>
     <message>
         <source>Save module failed</source>
@@ -5768,7 +5768,7 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Saved %1 bricks to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Steine in %2 gespeichert</translation>
     </message>
     <message>
         <source>Save set</source>
@@ -5780,11 +5780,11 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>BlueBrick set (*.set.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>BlueBrick-Set (*.set.xml)</translation>
     </message>
     <message>
         <source>“%1” is a part in this set, so the set’s file can’t have that name too. Save it again under another name.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ ist ein Teil in diesem Set, daher kann die Datei des Sets nicht auch so heißen. Speichere es unter einem anderen Namen.</translation>
     </message>
     <message>
         <source>Save set failed</source>
@@ -5792,27 +5792,27 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
     </message>
     <message>
         <source>Saved set %1 (%2 subparts) to %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Set %1 (%2 Unterteile) in %3 gespeichert</translation>
     </message>
     <message>
         <source>Import failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Import fehlgeschlagen</translation>
     </message>
     <message>
         <source>Imported %1 bricks from module &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Steine aus dem Modul „%2“ importiert</translation>
     </message>
     <message>
         <source>Import .bbm as module</source>
-        <translation type="unfinished"></translation>
+        <translation>.bbm als Modul importieren</translation>
     </message>
     <message>
         <source>Import module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul importieren</translation>
     </message>
     <message>
         <source>The selected file has no parts sheets to import.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die gewählte Datei hat keine Teileblätter zum Importieren.</translation>
     </message>
     <message>
         <source>Imported %1 bricks as module &apos;%2&apos;</source>
@@ -8245,7 +8245,7 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     </message>
     <message>
         <source>Module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul</translation>
     </message>
     <message>
         <source>Edit module</source>
@@ -8466,7 +8466,7 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     </message>
     <message>
         <source>%1 studs</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Noppen</translation>
     </message>
     <message numerus="yes">
         <source>Paste (%1 parts on %n sheet(s))</source>
@@ -8575,7 +8575,7 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     </message>
     <message>
         <source>Module library folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordner der Modulbibliothek</translation>
     </message>
 </context>
 <context>
@@ -9002,11 +9002,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Rename set</source>
-        <translation type="unfinished"></translation>
+        <translation>Set umbenennen</translation>
     </message>
     <message>
         <source>The set couldn’t be renamed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Set konnte nicht umbenannt werden: %1</translation>
     </message>
     <message>
         <source>Delete set…</source>
@@ -9069,7 +9069,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>What changed? (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Was hat sich geändert? (freiwillig)</translation>
     </message>
     <message>
         <source>Save version</source>
@@ -9155,7 +9155,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <name>bld::ui::RenameSetDialog</name>
     <message>
         <source>Rename set</source>
-        <translation type="unfinished"></translation>
+        <translation>Set umbenennen</translation>
     </message>
     <message>
         <source>Set name</source>
@@ -9230,7 +9230,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
 </context>
 <context>
@@ -9301,11 +9301,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>What changed? (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Was hat sich geändert? (freiwillig)</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Save “%1” to the Module library</source>
@@ -9313,7 +9313,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul</translation>
     </message>
     <message>
         <source>e.g. First version</source>
@@ -9367,7 +9367,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Save set</source>
-        <translation type="unfinished">Set speichern</translation>
+        <translation>Set speichern</translation>
     </message>
 </context>
 <context>
@@ -9448,7 +9448,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul</translation>
     </message>
     <message>
         <source>No saved modules yet. Make a module in a layout, then choose Save to Module library… from its menu.</source>
@@ -9663,7 +9663,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>BlueBrick map (*.bbm)</source>
-        <translation type="unfinished"></translation>
+        <translation>BlueBrick-Karte (*.bbm)</translation>
     </message>
     <message>
         <source>Download a copy</source>
@@ -9731,7 +9731,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Open live</source>
-        <translation type="unfinished"></translation>
+        <translation>Live öffnen</translation>
     </message>
     <message>
         <source>Opens it to look at: you can&apos;t change this one.</source>
@@ -9803,7 +9803,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Add to my venue library</source>
-        <translation type="unfinished"></translation>
+        <translation>Zu meiner Veranstaltungsort-Bibliothek hinzufügen</translation>
     </message>
     <message>
         <source>Keep a copy in the Venue library on this computer</source>
@@ -9811,7 +9811,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort</translation>
     </message>
     <message>
         <source>No venues match.</source>
@@ -9863,7 +9863,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Save a copy locally</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie lokal speichern</translation>
     </message>
     <message>
         <source>Keep a copy in the Module library folder on this computer</source>
@@ -9871,7 +9871,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul</translation>
     </message>
     <message>
         <source>No modules match.</source>
@@ -10038,7 +10038,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <name>bld::ui::SetNameTakenDialog</name>
     <message>
         <source>Name already used</source>
-        <translation type="unfinished"></translation>
+        <translation>Name schon vergeben</translation>
     </message>
     <message>
         <source>You already have a part or set called “%1” on %2, so this set can’t go there under that name. Give it another name, here and there:</source>
@@ -10073,7 +10073,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisieren</translation>
     </message>
     <message>
         <source>Not now</source>
@@ -10085,7 +10085,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>“%1”</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“</translation>
     </message>
     <message>
         <source>&lt;b&gt;Update available:&lt;/b&gt; the set %1 changed since it was placed.</source>
@@ -10184,7 +10184,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfe</translation>
     </message>
     <message>
         <source>Show the small &quot;?&quot; buttons that explain things</source>
@@ -10283,7 +10283,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>%1 studs</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Noppen</translation>
     </message>
     <message>
         <source>Grid snap:</source>
@@ -10343,7 +10343,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>BlueBrick map (*.bbm)</source>
-        <translation type="unfinished"></translation>
+        <translation>BlueBrick-Karte (*.bbm)</translation>
     </message>
     <message>
         <source>None: new layouts start empty</source>
@@ -10383,7 +10383,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Module library folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordner der Modulbibliothek</translation>
     </message>
     <message>
         <source>Module library folder:</source>
@@ -10734,7 +10734,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>What changed? (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Was hat sich geändert? (freiwillig)</translation>
     </message>
     <message>
         <source>Anyone can copy this into their own layouts.</source>
@@ -10833,11 +10833,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul</translation>
     </message>
     <message>
         <source>Save module</source>
-        <translation type="unfinished">Modul speichern</translation>
+        <translation>Modul speichern</translation>
     </message>
     <message>
         <source>This module uses %1 sheets: %2.</source>
@@ -10860,11 +10860,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <name>bld::ui::TouchActionBar</name>
     <message>
         <source>Turn left</source>
-        <translation type="unfinished">Gegen den Uhrzeigersinn drehen</translation>
+        <translation>Links drehen</translation>
     </message>
     <message>
         <source>Turn right</source>
-        <translation type="unfinished">Im Uhrzeigersinn drehen</translation>
+        <translation>Rechts drehen</translation>
     </message>
     <message>
         <source>Duplicate</source>
@@ -10872,7 +10872,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -10888,11 +10888,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Undo</source>
-        <translation type="unfinished">Rückgängig</translation>
+        <translation>Rückgängig</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation type="unfinished">Wiederherstellen</translation>
+        <translation>Wiederholen</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -10939,7 +10939,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <name>bld::ui::VenueDesignerDialog</name>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswählen</translation>
     </message>
     <message>
         <source>Click to select, drag to move, drag a corner to reshape</source>
@@ -11019,7 +11019,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Note</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinweis</translation>
     </message>
     <message>
         <source>Click where the note goes, then type it in the inspector</source>
@@ -11063,11 +11063,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Undo</source>
-        <translation type="unfinished">Rückgängig</translation>
+        <translation>Rückgängig</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation type="unfinished">Wiederherstellen</translation>
+        <translation>Wiederholen</translation>
     </message>
     <message>
         <source>Floor plan…</source>
@@ -11103,7 +11103,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Notizen</translation>
     </message>
     <message>
         <source>Estimates</source>
@@ -11938,7 +11938,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Remove the selected pieces</source>
-        <translation type="unfinished"></translation>
+        <translation>Die gewählten Teile entfernen</translation>
     </message>
     <message>
         <source>Keyboard shortcuts</source>
