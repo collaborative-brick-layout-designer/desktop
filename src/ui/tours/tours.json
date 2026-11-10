@@ -33,7 +33,7 @@
       "devices": "all",
       "steps": [
         { "target": "room.tools", "title": "Draw your venue", "text": "Draw the walls first, then add doors, openings and things in the way, like pillars." },
-        { "target": "room.units", "title": "Real sizes", "text": "Type sizes in feet and inches or metres. The app works out the studs for you." },
+        { "target": "room.units", "title": "Real sizes", "text": "Type sizes in feet and inches or meters. The app works out the studs for you." },
         { "target": "room.snap", "title": "Straight walls", "text": "Snap keeps walls straight and corners square while you draw." },
         { "target": "room.floorPlan", "title": "Trace a floor plan", "text": "Have a plan of the hall? Put the picture underneath and draw over it." },
         { "target": "roomDesigner.save", "title": "Save the venue", "text": "Save it, and start new layouts from it whenever you show there." }

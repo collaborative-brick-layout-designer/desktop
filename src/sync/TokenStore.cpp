@@ -28,6 +28,10 @@ void KeychainTokenStore::save(const QUrl& server, const QString& token) {
     job->setInsecureFallback(false);
     job->setKey(keyFor(server));
     job->setTextData(token);
+    // (A copy: the job may finish after this store has gone.)
+    QObject::connect(job, &QKeychain::Job::finished, [job, server, failed = saveFailed_] {
+        if (job->error() != QKeychain::NoError && failed) failed(server, job->errorString());
+    });
     job->start();
 }
 

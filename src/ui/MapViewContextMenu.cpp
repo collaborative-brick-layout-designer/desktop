@@ -287,7 +287,7 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
         const QString rulerGuid = heldRulerGuid;
         const QString brickGuid = clickedBrickGuid;
         if (heldRulerIsCircular) {
-            auto* a = menu.addAction(tr("Attach Ruler Centre to This Brick"));
+            auto* a = menu.addAction(tr("Attach Ruler Center to This Brick"));
             connect(a, &QAction::triggered, [this, layer, rulerGuid, brickGuid]{
                 undoStack_->push(new edit::AttachRulerCommand(
                     *map_, layer, rulerGuid, 0, brickGuid));
@@ -337,7 +337,7 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
                 ? !picked->circular.attachedBrickId.isEmpty()
                 : !picked->linear.attachedBrick1Id.isEmpty() || !picked->linear.attachedBrick2Id.isEmpty();
             if (picked->kind == core::RulerKind::Circular) {
-                if (!picked->circular.attachedBrickId.isEmpty()) detach(tr("Detach Ruler Centre"), 0);
+                if (!picked->circular.attachedBrickId.isEmpty()) detach(tr("Detach Ruler Center"), 0);
             } else {
                 if (!picked->linear.attachedBrick1Id.isEmpty()) detach(tr("Detach Ruler Endpoint 1"), 0);
                 if (!picked->linear.attachedBrick2Id.isEmpty()) detach(tr("Detach Ruler Endpoint 2"), 1);

@@ -234,6 +234,11 @@ void MainWindow::updateServerStatus() {
         dot = QColor(200, 70, 60);
         break;
     }
+    // Live on that same server: "Live on <server>: Connected" beside it
+    // says it already, so one is shown, not two.
+    const bool liveHere = live_ && live_->active() && serverLibrary_->server().isValid()
+                          && sync::TokenStore::keyFor(serverLibrary_->server()) == sync::TokenStore::keyFor(liveServer_);
+    serverStatus_->setVisible(!liveHere);
     serverStatus_->setText(text);
     serverStatus_->setToolTip(tip);
     serverStatus_->setAccessibleName(text);

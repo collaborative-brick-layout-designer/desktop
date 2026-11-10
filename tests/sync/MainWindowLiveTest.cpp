@@ -221,7 +221,7 @@ protected:
     sync::SyncSession& session() { return live_->session(); }
     QAction* reviewAction() {
         for (QAction* a : window_->findChildren<QAction*>())
-            if (a->text() == QStringLiteral("Review &Offline Changes…")) return a;
+            if (a->text() == QStringLiteral("Review Off&line Changes…")) return a;
         return nullptr;
     }
 
@@ -603,7 +603,7 @@ TEST_F(MainWindowLiveSlowParts, ALayoutOnAnotherServerStillGetsThatServersParts)
     // Done: Download Server Parts Again works again.
     QAction* again = nullptr;
     for (QAction* a : window_->findChildren<QAction*>())
-        if (a->text() == QStringLiteral("&Download Server Parts Again")) again = a;
+        if (a->text() == QStringLiteral("Do&wnload Server Parts Again")) again = a;
     ASSERT_NE(again, nullptr);
     ASSERT_TRUE(waitFor([&] { return again->isEnabled(); }));
     EXPECT_EQ(manifestGets(http_), 1);
@@ -884,6 +884,11 @@ TEST_F(MainWindowLiveElsewhere, TheWindowSaysWhichServerItIsLiveOnAndRemembersTh
     bool status = false;
     for (QLabel* l : window_->findChildren<QLabel*>()) status |= l->text().startsWith(QStringLiteral("Live on Show hall: "));
     EXPECT_TRUE(status);
+    // Said once: no "Connected to Show hall" beside "Live on Show hall: …".
+    auto* serverStatus = window_->findChild<QToolButton*>(QStringLiteral("serverStatus"));
+    ASSERT_TRUE(serverStatus);
+    EXPECT_TRUE(serverStatus->isHidden() || !serverStatus->text().contains(QStringLiteral("Show hall")))
+        << serverStatus->text().toStdString();
     const sync::ServerList list = sync::ServerList::load();
     const sync::ServerEntry* live = list.find(http_.base());
     ASSERT_NE(live, nullptr);
@@ -1094,7 +1099,7 @@ TEST_F(MainWindowLive, OfflineEditsComeBackWhenTheLayoutIsOpenedAgain) {
     const QPointF at = brickAt(m, 0).displayArea.topLeft();
     view_->undoStack()->push(new edit::MoveBricksCommand(m, { { brickRef(m, 0), at, at + QPointF(8, 0) } }));
     ASSERT_TRUE(waitFor([&] { return session().offlineEdits().has_value(); }));
-    QAction* disconnect = actionNamed(window_.get(), QStringLiteral("&Disconnect"));
+    QAction* disconnect = actionNamed(window_.get(), QStringLiteral("Dis&connect"));
     ASSERT_NE(disconnect, nullptr);
     disconnect->trigger();
     EXPECT_FALSE(live_->active());
@@ -1342,4 +1347,33 @@ TEST_F(MainWindowLive, JourneyADesktopMembersShowDay) {
     window_->show();
     tour->trigger();
     ASSERT_TRUE(waitFor([&] { return !window_->findChildren<ui::tours::TourOverlay*>().isEmpty(); }));
+}
+
+// With no working keychain (no Secret Service, a locked keyring) the sign-in
+// used to be lost without a word at the next start: now a notice says why.
+TEST(MainWindowKeychain, ASignInTheKeychainCantKeepSaysSo) {
+    QStandardPaths::setTestModeEnabled(true);
+    ui::UpdateCheck::setCheckAtStartupEnabled(false);
+    QSettings().setValue(QLatin1String(sync::ServerList::kKey), QByteArray("[]"));
+    parts::PartsLibrary parts;
+    TestWindow window(parts);
+    auto tokens = std::make_shared<sync::MemoryTokenStore>();
+    window.setTokenStore(tokens);
+    auto* notices = window.findChild<ui::NoticeArea*>();
+    ASSERT_TRUE(notices);
+    const QUrl server(QStringLiteral("https://layouts.club.example"));
+
+    tokens->save(server, QStringLiteral("bld_pat_kept"));  // a keychain that works: nothing to say
+    EXPECT_FALSE(notices->isShown(QStringLiteral("keychain")));
+
+    tokens->saveError = QStringLiteral("The name org.freedesktop.secrets was not provided");
+    tokens->save(server, QStringLiteral("bld_pat_new"));
+    ASSERT_TRUE(notices->isShown(QStringLiteral("keychain")));
+    QStringList texts;
+    for (auto* l : notices->card(QStringLiteral("keychain"))->findChildren<QLabel*>()) texts << l->text();
+    const QString all = texts.join(QLatin1Char('\n'));
+    EXPECT_TRUE(all.contains(QStringLiteral("layouts.club.example"))) << all.toStdString();
+    EXPECT_TRUE(all.contains(QStringLiteral("sign in again"))) << all.toStdString();
+    EXPECT_TRUE(all.contains(QStringLiteral("org.freedesktop.secrets"))) << all.toStdString();
+    QStandardPaths::setTestModeEnabled(false);
 }

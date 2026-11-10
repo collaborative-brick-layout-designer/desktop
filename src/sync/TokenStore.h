@@ -22,8 +22,17 @@ public:
     virtual void save(const QUrl& server, const QString& token) = 0;
     virtual void remove(const QUrl& server) = 0;
 
+    // Told when a token couldn't be kept (no keychain, or a locked one), with
+    // the keychain's own reason: the sign-in works until the app closes, and
+    // the person should hear why they'll be asked again.
+    using SaveFailed = std::function<void(const QUrl& server, const QString& reason)>;
+    virtual void onSaveFailed(SaveFailed f) { saveFailed_ = std::move(f); }
+
     // The key a server's token is kept under: its scheme, host and port.
     static QString keyFor(const QUrl& server);
+
+protected:
+    SaveFailed saveFailed_;
 };
 
 // macOS Keychain, Windows Credential Store, Secret Service on Linux
@@ -55,6 +64,8 @@ public:
     void load(const QUrl& server, std::function<void(const QString&)> done) override;
     void save(const QUrl& server, const QString& token) override;
     void remove(const QUrl& server) override;
+    // (The new store is the one saved to.)
+    void onSaveFailed(SaveFailed f) override { current_->onSaveFailed(std::move(f)); }
 
     // The app's store: the keychain under the new service name, reading
     // through to the old one.
@@ -70,9 +81,17 @@ public:
     void load(const QUrl& server, std::function<void(const QString&)> done) override {
         done(tokens.value(keyFor(server)));
     }
-    void save(const QUrl& server, const QString& token) override { tokens.insert(keyFor(server), token); }
+    void save(const QUrl& server, const QString& token) override {
+        if (!saveError.isEmpty()) {
+            if (saveFailed_) saveFailed_(server, saveError);
+            return;
+        }
+        tokens.insert(keyFor(server), token);
+    }
     void remove(const QUrl& server) override { tokens.remove(keyFor(server)); }
     QHash<QString, QString> tokens;
+    // Set to act as a keychain that can't save (tests).
+    QString saveError;
 };
 
 } // namespace bld::sync

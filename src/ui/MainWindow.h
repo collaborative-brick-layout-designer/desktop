@@ -375,10 +375,16 @@ protected:
     // (kept on disk) come back for review once it's in step.
     void resumeLive(const QString& token);
     // Where sign-in tokens are kept (the OS keychain; tests use memory).
-    void setTokenStore(std::shared_ptr<bld::sync::TokenStore> store) { tokens_ = std::move(store); }
+    void setTokenStore(std::shared_ptr<bld::sync::TokenStore> store) {
+        tokens_ = std::move(store);
+        watchTokenSaves();
+    }
     bld::sync::TokenStore& tokenStore() { return *tokens_; }
 private:
     std::shared_ptr<bld::sync::TokenStore> tokens_ = bld::sync::MigratingTokenStore::keychain();
+    // A sign-in the keychain couldn't keep says so (a notice), instead of
+    // being lost without a word at the next start.
+    void watchTokenSaves();
     // Settings follow your account on the Main server (ServerList::settingsAccount):
     // with the live server's token when it is Main, else with Main's own.
     void startPrefsSync(const bld::sync::ConnectResult& r);

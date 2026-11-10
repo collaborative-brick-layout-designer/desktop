@@ -884,7 +884,7 @@ TEST(MapViewRotate, TextAndRulersTurnWithTheSelection) {
     ASSERT_TRUE(textItem);
     QTest::mouseClick(view.viewport(), Qt::LeftButton, {}, pointOn(view, textItem));
     ASSERT_TRUE(textItem->isSelected());
-    QTest::keyClick(&view, Qt::Key_R);
+    QTest::keyClick(&view, Qt::Key_R, Qt::ShiftModifier);  // turns right
     EXPECT_FLOAT_EQ(T->textCells[0].orientation, 90);
     EXPECT_NEAR(T->textCells[0].displayArea.center().x(), 14, 1e-9);
     EXPECT_NEAR(T->textCells[0].displayArea.center().y(), 11, 1e-9);
@@ -897,7 +897,7 @@ TEST(MapViewRotate, TextAndRulersTurnWithTheSelection) {
     ASSERT_TRUE(textItem && rulerItem);
     textItem->setSelected(true);
     QTest::mouseClick(view.viewport(), Qt::LeftButton, Qt::ControlModifier, pointOn(view, rulerItem));
-    QTest::keyClick(&view, Qt::Key_R);
+    QTest::keyClick(&view, Qt::Key_R, Qt::ShiftModifier);  // turns right
     // Pivot: the centre of their box, (0, 7)-(15, 20), so (7.5, 13.5)
     // (BlueBrick RotateItems); +90 maps (x, y) to (-y, x).
     EXPECT_FLOAT_EQ(T->textCells[0].orientation, 180);

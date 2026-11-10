@@ -136,6 +136,7 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     mapView_->setTrackedSets([this](const parts::PartMetadata& m) { return isCustomSetFile(m.xmlFilePath); });
     updates_ = new UpdateCheck(this);
     notices_ = new NoticeArea(mapView_);
+    watchTokenSaves();
     connect(updates_, &UpdateCheck::updateAvailable, this, &MainWindow::showUpdateNotice);
     // Once the window is up; not in headless runs (tests, CI smoke launches).
     if (QGuiApplication::platformName() != QLatin1String("offscreen") && !qEnvironmentVariableIsSet("BLD_NO_UPDATE_CHECK"))

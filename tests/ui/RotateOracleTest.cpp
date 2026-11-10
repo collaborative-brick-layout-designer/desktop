@@ -72,7 +72,11 @@ protected:
             EXPECT_NEAR(got[i].displayArea.height(), want[i].displayArea.height(), 2e-3);
         }
     }
-    void pressR(Qt::KeyboardModifiers mods = {}) { QTest::keyClick(view_.get(), Qt::Key_R, mods); }
+    // Shift+R turns right (+1, clockwise on screen), R left (-1), as the
+    // Edit > Transform items do.
+    void pressR(bool left = false) {
+        QTest::keyClick(view_.get(), Qt::Key_R, left ? Qt::NoModifier : Qt::ShiftModifier);
+    }
 
     parts::PartsLibrary lib_;
     std::unique_ptr<ui::MapView> view_;
@@ -116,7 +120,7 @@ TEST_F(RotateOracle, AJoinedPartStepsRoundItsJoin) {
 
 TEST_F(RotateOracle, AJoinedPartStepsBackRoundItsJoin) {
     pick(QStringLiteral("186617953428535140"));
-    pressR(Qt::ShiftModifier);
+    pressR(/*left=*/true);
     expectLikeVanilla("rot-one-cw.bbm");
 }
 

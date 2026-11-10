@@ -131,7 +131,7 @@ void MainWindow::setupMapMenu() {
         }
         mapView_->viewport()->update();
     });
-    auto* infoAct = mapMenu->addAction(tr("General &Info…"));
+    auto* infoAct = mapMenu->addAction(tr("&General Info…"));
     infoAct->setToolTip(tr("Who made the layout, for which event, and notes about it"));
     generalInfoAct_ = infoAct;
     connect(infoAct, &QAction::triggered, this, [this]{
@@ -197,7 +197,7 @@ void MainWindow::setupMapMenu() {
             tr("Click points to outline the venue. Right-click / Enter to finish, Escape to cancel."),
             8000);
     });
-    auto* drawByDimsAct = venueMenu->addAction(tr("Draw Outline by &Dimensions…"));
+    auto* drawByDimsAct = venueMenu->addAction(tr("Draw Outline by Di&mensions…"));
     drawByDimsAct->setToolTip(tr("Build the venue outline by entering lengths + angles "
                                    "instead of clicking points on the map."));
     connect(drawByDimsAct, &QAction::triggered, this, [this]{
@@ -227,7 +227,7 @@ void MainWindow::setupMapMenu() {
             tr("Venue outline built from %1 segments").arg(poly.size()), 3000);
     });
 
-    auto* drawObstacleAct = venueMenu->addAction(tr("Add &Obstacle…"));
+    auto* drawObstacleAct = venueMenu->addAction(tr("&Add Obstacle…"));
     drawObstacleAct->setToolTip(tr("Click points to add an obstacle polygon (pillar, column)."));
     connect(drawObstacleAct, &QAction::triggered, this, [this]{
         if (!mapView_->currentMap() || !mapView_->currentMap()->sidecar.venue) {

@@ -138,7 +138,7 @@ VenueDesignerDialog::VenueDesignerDialog(core::Venue initial, const QString& sub
     header->addWidget(unitsLabel);
     unit_ = new QComboBox(this);
     unitsLabel->setBuddy(unit_);
-    unit_->addItems({ tr("Feet & inches"), tr("Metres"), tr("Studs") });
+    unit_->addItems({ tr("Feet & inches"), tr("Meters"), tr("Studs") });
     connect(unit_, &QComboBox::currentIndexChanged, this,
             [this](int i) { dispatch(ev::act::Unit{ static_cast<ev::LengthUnit>(i) }); });
     header->addWidget(unit_);

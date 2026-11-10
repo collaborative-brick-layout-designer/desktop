@@ -143,7 +143,10 @@ void MainWindow::setupMenus() {
         auto* pathEdit = new QLineEdit(
             currentFilePath_.isEmpty()
                 ? s.value(QStringLiteral("export/path")).toString()
-                : QFileInfo(currentFilePath_).baseName() + QStringLiteral(".png"), &dlg);
+                : QFileInfo(currentFilePath_).absoluteDir().filePath(
+                      QFileInfo(currentFilePath_).completeBaseName() + QStringLiteral(".png")), &dlg);
+        pathEdit->setObjectName(QStringLiteral("exportImagePath"));
+        pathEdit->setPlaceholderText(tr("Choose a file with the … button"));
         auto* browseBtn = new QPushButton(tr("…"), &dlg);
         pathEdit->setAccessibleName(tr("Output file"));
         browseBtn->setAccessibleName(tr("Choose the output file"));
@@ -179,7 +182,7 @@ void MainWindow::setupMenus() {
         auto* transparentChk = new QCheckBox(tr("Transparent background"), &dlg);
         transparentChk->setChecked(s.value(QStringLiteral("export/transparent"), false).toBool());
         form->addRow(transparentChk);
-        auto* antialiasChk = new QCheckBox(tr("Antialias"), &dlg);
+        auto* antialiasChk = new QCheckBox(tr("Smooth edges"), &dlg);
         antialiasChk->setChecked(s.value(QStringLiteral("export/antialias"), true).toBool());
         form->addRow(antialiasChk);
         // ExportImageForm's "Electric circuits": remembered in the map
@@ -189,11 +192,21 @@ void MainWindow::setupMenus() {
         form->addRow(electricChk);
 
         auto* bb = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dlg);
+        bb->setObjectName(QStringLiteral("exportImageButtons"));
         form->addRow(bb);
         connect(bb, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
         connect(bb, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);
+        // No file, no picture: OK waits for one (it used to close and save nothing).
+        QPushButton* okBtn = bb->button(QDialogButtonBox::Ok);
+        const auto updateOk = [okBtn, pathEdit] {
+            const bool has = !pathEdit->text().trimmed().isEmpty();
+            okBtn->setEnabled(has);
+            okBtn->setToolTip(has ? QString() : tr("Choose where to save the picture first"));
+        };
+        connect(pathEdit, &QLineEdit::textChanged, okBtn, updateOk);
+        updateOk();
         if (dlg.exec() != QDialog::Accepted) return;
-        const QString path = pathEdit->text();
+        const QString path = pathEdit->text().trimmed();
         if (path.isEmpty()) return;
 
         const int width  = widthSpin->value();
@@ -240,7 +253,7 @@ void MainWindow::setupMenus() {
 
     // A picture of the layout or a saved view, with no questions; the
     // detailed Export as Image above is its "More options…".
-    auto* shareAct = file->addAction(tr("Share &Picture…"));
+    auto* shareAct = file->addAction(tr("S&hare Picture…"));
     shareAct->setObjectName(QStringLiteral("action.sharePicture"));
     shareAct->setToolTip(tr("Save or copy a picture of the layout, what's on screen or a saved view"));
     connect(shareAct, &QAction::triggered, this, [this] { openSharePicture(); });
@@ -370,7 +383,7 @@ void MainWindow::setupMenus() {
     //   Undo / Redo
     //   Cut / Copy / Paste / Duplicate / Delete
     //   Find & Replace
-    //   Select All / Deselect All / Select Path / Group▸ (Group, Ungroup)
+    //   Select All / Deselect All / Select Connected / Group▸ (Group, Ungroup)
     //   Transform▸ (Move Step▸ / Send Back / Bring Front / -- /
     //               Rotation Step▸ / Rotate CW / Rotate CCW)
     //   Insert▸    (BLD-specific: Add Text, Add Anchored Label)
@@ -417,11 +430,12 @@ void MainWindow::setupMenus() {
     auto* selAllAct = edit->addAction(tr("Select &All"));
     selAllAct->setShortcut(QKeySequence::SelectAll);
     connect(selAllAct, &QAction::triggered, [this]{ mapView_->selectAll(); });
-    auto* selNoneAct = edit->addAction(tr("Deselect &All"));
+    auto* selNoneAct = edit->addAction(tr("D&eselect All"));
     selNoneAct->setShortcut(QKeySequence(tr("Ctrl+Shift+A")));
     connect(selNoneAct, &QAction::triggered, [this]{ mapView_->deselectAll(); });
-    auto* selPathAct = edit->addAction(tr("Select &Path"));
-    selPathAct->setShortcut(QKeySequence(tr("Ctrl+P")));
+    // (Ctrl+P is Print: Qt fires neither of two items that share a key.)
+    auto* selPathAct = edit->addAction(tr("Select C&onnected"));
+    selPathAct->setShortcut(QKeySequence(tr("Ctrl+Shift+P")));
     selPathAct->setToolTip(tr("Extend selection to every brick connected to current selection"));
     connect(selPathAct, &QAction::triggered, [this]{ mapView_->selectPath(); });
 
@@ -435,7 +449,7 @@ void MainWindow::setupMenus() {
 
     edit->addSeparator();
     // Transform submenu (BlueBrick parity).
-    auto* transformMenu = edit->addMenu(tr("&Transform"));
+    auto* transformMenu = edit->addMenu(tr("Transfor&m"));
     auto* moveStepMenu = transformMenu->addMenu(tr("&Move Step"));
     auto addNudge = [this, moveStepMenu](const QString& label, double dx, double dy){
         auto* a = moveStepMenu->addAction(label);
@@ -447,16 +461,16 @@ void MainWindow::setupMenus() {
     addNudge(tr("&Down"),  0.0,  1.0);
     addNudge(tr("&Left"), -1.0,  0.0);
     addNudge(tr("&Right"), 1.0,  0.0);
-    auto* toBackAct = transformMenu->addAction(tr("Send to &back"));
+    auto* toBackAct = transformMenu->addAction(tr("Send to &Back"));
     toBackAct->setShortcut(QKeySequence(tr("Ctrl+Shift+[")));
     connect(toBackAct, &QAction::triggered, [this]{ mapView_->sendSelectionToBack(); });
-    auto* toFrontAct = transformMenu->addAction(tr("Bring to &front"));
+    auto* toFrontAct = transformMenu->addAction(tr("Bring to &Front"));
     toFrontAct->setShortcut(QKeySequence(tr("Ctrl+Shift+]")));
     connect(toFrontAct, &QAction::triggered, [this]{ mapView_->bringSelectionToFront(); });
     transformMenu->addSeparator();
     // Rotation step picker — duplicates toolbar dropdown so it's reachable
     // without a mouse. Each entry sets the current rotation step.
-    auto* rotStepMenu = transformMenu->addMenu(tr("Turn &step"));
+    auto* rotStepMenu = transformMenu->addMenu(tr("Turn &Step"));
     const std::vector<std::pair<QString, double>> rotStepOpts = {
         { tr("90°"),    90.0 },
         { tr("45°"),    45.0 },
@@ -473,12 +487,12 @@ void MainWindow::setupMenus() {
             s.setValue(QStringLiteral("rotationStepDegrees"), val); s.endGroup();
         });
     }
-    auto* rotCW = transformMenu->addAction(tr("Turn &right"));
+    auto* rotCW = transformMenu->addAction(tr("Turn &Right"));
     rotCW->setShortcut(QKeySequence(tr("Shift+R")));
     connect(rotCW, &QAction::triggered, [this]{
         mapView_->rotateSelected(static_cast<float>(mapView_->rotationStepDegrees()));
     });
-    auto* rotCCW = transformMenu->addAction(tr("Turn &left"));
+    auto* rotCCW = transformMenu->addAction(tr("Turn &Left"));
     rotCCW->setShortcut(Qt::Key_R);
     connect(rotCCW, &QAction::triggered, [this]{
         mapView_->rotateSelected(static_cast<float>(-mapView_->rotationStepDegrees()));
@@ -536,9 +550,9 @@ void MainWindow::setupMenus() {
     settingsAct->setObjectName(QStringLiteral("action.settings"));
     settingsAct->setShortcut(QKeySequence::Preferences);
     settingsAct->setMenuRole(QAction::PreferencesRole);
-    settingsAct->setToolTip(tr("Light or dark, color, bigger text, Expert mode and help buttons"));
+    settingsAct->setToolTip(tr("Light or dark, color, bigger text and help buttons"));
     connect(settingsAct, &QAction::triggered, this, &MainWindow::openSettings);
-    auto* prefsAct = edit->addAction(tr("&Preferences…"));
+    auto* prefsAct = edit->addAction(tr("Prefere&nces…"));
     prefsAct->setToolTip(tr("Change how the app looks and works"));
     prefsAct->setMenuRole(QAction::NoRole);
     preferencesAct_ = prefsAct;
@@ -600,7 +614,7 @@ void MainWindow::setupMenus() {
     statusToggle->setChecked(true);
     connect(statusToggle, &QAction::toggled, statusBar(), &QStatusBar::setVisible);
 
-    auto* scrollToggle = view->addAction(tr("Map &Scroll Bars"));
+    auto* scrollToggle = view->addAction(tr("Map Scroll &Bars"));
     scrollToggle->setCheckable(true);
     // Off by default — middle-button pan is the primary navigation, and
     // visible scrollbars steal wheel events. User can flip them back on
@@ -624,8 +638,8 @@ void MainWindow::setupMenus() {
         });
     };
     addRenderToggle(tr("&Electric Circuits"),      QStringLiteral("view/electricCircuits"),    false);
-    addRenderToggle(tr("Connection &Points"),      QStringLiteral("view/connectionPoints"),    false);
-    addRenderToggle(tr("Ruler Attach P&oints"),     QStringLiteral("view/rulerAttachPoints"),   false);
+    addRenderToggle(tr("&Connection Points"),      QStringLiteral("view/connectionPoints"),    false);
+    addRenderToggle(tr("&Ruler Attach Points"),     QStringLiteral("view/rulerAttachPoints"),   false);
     addRenderToggle(tr("&Watermark"),               QStringLiteral("view/watermark"),           true);
     addRenderToggle(tr("Brick &Hulls"),             QStringLiteral("view/brickHulls"),          false);
     addRenderToggle(tr("Brick E&levation Labels"),  QStringLiteral("view/brickElevation"),      false);
@@ -641,7 +655,7 @@ void MainWindow::setupMenus() {
 
     setupBudgetMenu();
 
-    auto* modules = menuBar()->addMenu(tr("&Modules"));
+    auto* modules = menuBar()->addMenu(tr("M&odules"));
     auto* createModAct = modules->addAction(tr("&Make a Module…"));
     createModAct->setObjectName(QStringLiteral("makeModule"));
     createModAct->setToolTip(tr("Make the picked parts one module in this layout. To use it in other layouts, "

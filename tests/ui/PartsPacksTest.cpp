@@ -256,7 +256,7 @@ TEST_F(DownloadCenter, CancelStopsTheDownload) {
     button(*dialog_, QStringLiteral("Download & Install"))->click();
     EXPECT_EQ(dialog_->installedCount(), 0);
     EXPECT_FALSE(QFileInfo::exists(install_ + QStringLiteral("/Space")));
-    EXPECT_TRUE(status().contains(QStringLiteral("cancelled"))) << status().toStdString();
+    EXPECT_TRUE(status().contains(QStringLiteral("canceled"))) << status().toStdString();
     EXPECT_FALSE(button(*dialog_, QStringLiteral("Cancel Download"))->isVisible());
     EXPECT_TRUE(dialog_->isVisible());
 }

@@ -405,7 +405,7 @@ bool DownloadCenterDialog::downloadAndInstall(const Package& pkg, QString* error
         return false;
     }
     if (cancelled_) {
-        if (error) *error = tr("Cancelled.");
+        if (error) *error = tr("Canceled.");
         return false;
     }
     if (netError == QNetworkReply::OperationCanceledError || netError == QNetworkReply::TimeoutError) {
@@ -573,7 +573,7 @@ void DownloadCenterDialog::onDownloadClicked() {
     installedCount_ += ok;
 
     QString status = tr("Installed %n package(s).", nullptr, ok);
-    if (cancelled_) status += QChar(' ') + tr("The rest were cancelled.");
+    if (cancelled_) status += QChar(' ') + tr("The rest were canceled.");
     statusLabel_->setText(status);
     if (!failures.isEmpty()) {
         QMessageBox::warning(this, windowTitle(),
