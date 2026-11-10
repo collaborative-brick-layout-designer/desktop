@@ -840,6 +840,10 @@ bool MapView::eventFilter(QObject* obj, QEvent* ev) {
     return QGraphicsView::eventFilter(obj, ev);
 }
 
+void MapView::setWheelZoomFactor(double factor) {
+    wheelZoomFactor_ = std::clamp(factor, 1.01, 3.0);
+}
+
 void MapView::wheelEvent(QWheelEvent* e) {
     // The wheel is ZOOM ONLY. We always accept the event so
     // QAbstractScrollArea's base class doesn't fall through to
@@ -856,7 +860,8 @@ void MapView::wheelEvent(QWheelEvent* e) {
     const double rawDelta = e->angleDelta().y();
     e->accept();   // swallow every wheel event regardless — no pan fallthrough
     if (rawDelta == 0.0) return;
-    constexpr double kBase = 1.0015;
+    // One notch (120) zooms by the chosen factor; 1.0015^120 is the 1.2 of old.
+    const double kBase = std::pow(wheelZoomFactor_, 1.0 / 120.0);
     // High-res trackpads (especially on macOS) can emit angle deltas
     // >1000 in a single event. 1.0015^1000 ≈ 4.5e6 — one wheel tick
     // blowing through the whole zoom range and yanking the anchored
@@ -1624,7 +1629,7 @@ void MapView::finishVenueDraw() {
         updateVenueDrawPreview();
         if (auto* mw = window())
             if (auto* sb = mw->findChild<QStatusBar*>())
-                sb->showMessage(tr("Venue polygon needs at least 3 points"), 2500);
+                sb->showMessage(tr("A venue needs at least 3 corners"), 2500);
         return;
     }
 

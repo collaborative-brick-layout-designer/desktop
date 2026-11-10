@@ -43,6 +43,7 @@
 #include <QLabel>
 #include <QMenu>
 #include <QPainter>
+#include <QFile>
 #include <QSettings>
 #include <QStatusBar>
 #include <QMenuBar>
@@ -321,6 +322,7 @@ void MainWindow::setupShell() {
         if (auto* a = snapActByValue.value(snap > 0.0 ? snap : 32.0)) a->setChecked(true);
         if (auto* a = rotActByValue.value(rot)) a->setChecked(true);
         rotBtn->setText(tr("Turn %1°").arg(rot));
+        mapView_->setWheelZoomFactor(QSettings().value(QStringLiteral("general/wheelZoomFactor"), settings::kZoomNormal).toDouble());
     }
 
     // Task tabs, centred between two stretches.
@@ -478,13 +480,70 @@ QList<QDockWidget*> MainWindow::panelDocks() const {
 
 void MainWindow::openSettings() {
     SettingsDialog dialog(theme::PrefsStore::instance(), syncedHost(),
-                          [this] { if (preferencesAct_) preferencesAct_->trigger(); }, this,
+                          [this](settings::Change c) { applySetting(c); }, this,
                           // Once Settings has closed.
                           [this](const QString& id) {
                               QTimer::singleShot(0, this, [this, id] { startTourNamed(id); });
-                          });
+                          },
+                          [this] { onManageLibraries(); });
     dialog.setManageServers([this] { onManageServers(); });
     dialog.exec();
+}
+
+QString MainWindow::fileToReopen() {
+    const QSettings s;
+    if (!s.value(QStringLiteral("general/reopenLastFile"), true).toBool()) return {};
+    const QString last = s.value(QStringLiteral("recent/lastFile")).toString();
+    return !last.isEmpty() && QFile::exists(last) ? last : QString();
+}
+
+void MainWindow::applySetting(settings::Change c) {
+    QSettings s;
+    switch (c) {
+    case settings::Change::SnapStep: {
+        const double v = s.value(QStringLiteral("editing/snapStepStuds"), 0.0).toDouble();
+        mapView_->setSnapStepStuds(v);
+        // The toolbar's Snap button says so at once.
+        if (auto* b = findChild<QToolButton*>(QStringLiteral("tool.snap"))) {
+            b->setChecked(v > 0.0);
+            b->setText(v > 0.0 ? tr("Snap %1").arg(v) : tr("Snap off"));
+            if (b->menu())
+                for (QAction* a : b->menu()->actions()) a->setChecked(v > 0.0 && qFuzzyCompare(a->data().toDouble(), v));
+        }
+        break;
+    }
+    case settings::Change::TurnStep: {
+        const double v = s.value(QStringLiteral("editing/rotationStepDegrees"), 90.0).toDouble();
+        mapView_->setRotationStepDegrees(v);
+        if (auto* b = findChild<QToolButton*>(QStringLiteral("tool.angle"))) {
+            b->setText(tr("Turn %1°").arg(v));
+            if (b->menu())
+                for (QAction* a : b->menu()->actions()) a->setChecked(qFuzzyCompare(a->data().toDouble(), v));
+        }
+        break;
+    }
+    case settings::Change::PaintColor: {
+        QColor color(s.value(QStringLiteral("editing/paintColor")).toString());
+        if (color.isValid() && color.alpha() == 0) color.setAlpha(255);
+        if (color.isValid()) mapView_->setPaintColor(color);
+        if (refreshPaintSwatch_) refreshPaintSwatch_();
+        break;
+    }
+    case settings::Change::ZoomSpeed:
+        mapView_->setWheelZoomFactor(s.value(QStringLiteral("general/wheelZoomFactor"), settings::kZoomNormal).toDouble());
+        break;
+    case settings::Change::MapLook:
+        mapView_->rebuildScene();
+        break;
+    case settings::Change::ModuleFolder: {
+        const QString dir = s.value(QStringLiteral("modules/libraryPath")).toString();
+        if (!dir.isEmpty() && dir != moduleLibraryPanel_->libraryPath()) moduleLibraryPanel_->setLibraryPath(dir);
+        break;
+    }
+    case settings::Change::PartsList:
+        partsBrowser_->rebuild();
+        break;
+    }
 }
 
 void MainWindow::startTourNamed(const QString& id) {

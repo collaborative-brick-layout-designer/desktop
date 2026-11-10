@@ -148,11 +148,10 @@ int main(int argc, char** argv) {
     } else {
         // No file argument: reopen whatever the user had open last session —
         // but first offer any unsaved work a copy of the app left behind.
-        const QString last = QSettings().value(QStringLiteral("recent/lastFile")).toString();
+        // (Settings > Starting up > Open the layout I had open last time.)
+        const QString last = bld::ui::MainWindow::fileToReopen();
         const bool restored = window.offerRecovery();
-        if (!restored && !last.isEmpty() && QFile::exists(last)) {
-            window.openFile(last);
-        }
+        if (!restored && !last.isEmpty()) window.openFile(last);
     }
     // Guarantee a working canvas. If every load path above failed (first
     // run, missing lastFile, autosave declined), seed a blank doc so the

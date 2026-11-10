@@ -455,11 +455,12 @@ QWidget* withHelp(QWidget* control, const QString& key, QWidget* parent) {
     auto* h = new QHBoxLayout(row);
     h->setContentsMargins(0, 0, 0, 0);
     h->setSpacing(4);
-    // Wrapping text takes the width; anything else keeps its size.
+    // Wrapping text and fields that stretch take the width; anything else keeps its size.
     const auto* label = qobject_cast<QLabel*>(control);
-    const bool grows = label && label->wordWrap();
+    const bool wraps = label && label->wordWrap();
+    const bool grows = wraps || control->sizePolicy().horizontalPolicy() == QSizePolicy::Expanding;
     h->addWidget(control, grows ? 1 : 0);
-    h->addWidget(new HelpButton(key, row, control), 0, grows ? Qt::AlignTop : Qt::AlignVCenter);
+    h->addWidget(new HelpButton(key, row, control), 0, wraps ? Qt::AlignTop : Qt::AlignVCenter);
     if (!grows) h->addStretch(1);
     return row;
 }

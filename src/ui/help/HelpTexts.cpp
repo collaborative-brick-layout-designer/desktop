@@ -152,6 +152,17 @@ constexpr Raw kDesktopOnly[] = {
                                      "LEGO Digital Designer."),
       QT_TRANSLATE_NOOP("HelpTexts", "If you don’t have it, press the download button and the app fetches "
                                      "it for you. You only need it for bringing in models.") },
+    { "prefs.zoomSpeed", "",
+      QT_TRANSLATE_NOOP("HelpTexts", "Zoom speed"),
+      QT_TRANSLATE_NOOP("HelpTexts", "How far one turn of the mouse wheel zooms the map."),
+      QT_TRANSLATE_NOOP("HelpTexts", "Gentle suits a touchpad or a wheel that spins freely; Fast gets from the "
+                                     "whole layout to one part in a few turns.") },
+    { "prefs.language", "",
+      QT_TRANSLATE_NOOP("HelpTexts", "Language"),
+      QT_TRANSLATE_NOOP("HelpTexts", "The language of the app's menus, windows and help."),
+      QT_TRANSLATE_NOOP("HelpTexts", "Match my computer uses your computer's language when the app has it, "
+                                     "and English otherwise. A language you pick shows the next time the app "
+                                     "starts.") },
     // Working with a server
     { "connect.server", "/help#sharing",
       QT_TRANSLATE_NOOP("HelpTexts", "Server address"),

@@ -60,6 +60,9 @@ public:
     // Budget whose limitation (when on) placement and paste respect.
     void setBudget(class BudgetSession* budget) { budget_ = budget; }
     void rebuildScene(); // re-run SceneBuilder against current map, every item made again
+    // How much one wheel notch zooms (Settings > Editing > Zoom speed): 1.2 = 20 %.
+    void setWheelZoomFactor(double factor);
+    double wheelZoomFactor() const { return wheelZoomFactor_; }
     // After an edit (an undo-stack step, a newer live copy): draws again only
     // what changed (SceneBuilder::update), or everything when the change is
     // structural. Keeps the pick, the pick index and the module state.
@@ -502,6 +505,7 @@ private:
     void finishLoading();
     void retryFailedPictures();
     class LoadingCard* loadingCard_ = nullptr;
+    double wheelZoomFactor_ = 1.2;
     QStringList failedPictures_;
     QStringList shownFailures_;
     bool preloading_ = false;

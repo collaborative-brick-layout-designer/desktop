@@ -284,8 +284,8 @@ QStringList friendlyImportWarnings(const QStringList& raw, bool fromLdd) {
                    .arg(named(order, times, true));
         out << (fromLdd
                     ? Text::tr(
-                          "A newer LDD → LDraw mapping (ldraw.xml) in Preferences › Import may know them.")
-                    : Text::tr("A newer LDraw library, set in Preferences › Import, may have them."));
+                          "A newer LDD → LDraw mapping (ldraw.xml) in Settings › Bringing in models may know them.")
+                    : Text::tr("A newer LDraw library, set in Settings › Bringing in models, may have them."));
     }
     if (!noGeo.isEmpty())
         out << Text::tr("LDD has no shape for %n brick(s), so they’re left out: %1.", nullptr,

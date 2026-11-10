@@ -14,7 +14,6 @@
 #include "MapView.h"
 #include "ModuleLibraryPanel.h"
 #include "PartsBrowser.h"
-#include "PreferencesDialog.h"
 
 #include "../parts/PartsLibrary.h"
 

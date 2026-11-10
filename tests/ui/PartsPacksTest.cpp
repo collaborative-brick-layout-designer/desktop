@@ -17,7 +17,8 @@
 #include "ui/MainWindow.h"
 #include "ui/MapView.h"
 #include "ui/MapViewInternal.h"
-#include "ui/PreferencesDialog.h"
+#include "ui/SettingsDialog.h"
+#include "ui/theme/AppPrefs.h"
 #include "ui/UpdateCheck.h"
 
 #include "core/LayerBrick.h"
@@ -446,7 +447,7 @@ TEST(ImportWarnings, MissingPartsAreOneLineThatSaysWhatToDo) {
     EXPECT_EQ(out[0],
               QStringLiteral("2 part(s) aren’t in your LDraw library, so they’re left out of the picture: "
                              "98560.dat (12 times), 3001.dat."));
-    EXPECT_TRUE(out[1].contains(QStringLiteral("Preferences › Import")));
+    EXPECT_TRUE(out[1].contains(QStringLiteral("Settings › Bringing in models")));
     EXPECT_EQ(out[2], QStringLiteral("Couldn’t open /tmp/x.ldr. (2 times)"));
     // From LDD: the ldraw.xml setting.
     EXPECT_TRUE(ui::friendlyImportWarnings({ QStringLiteral("Unresolved part 1.dat") }, true)[1].contains(
@@ -480,14 +481,13 @@ TEST(StudioInstall, FindsStudiosLibraryAndMapping) {
 // Settings in the UI: using Studio's library when found can be turned off.
 TEST(StudioInstall, UsingStudiosLibraryIsAPreference) {
     QSettings().remove(QStringLiteral("import/useStudioLibrary"));
-    ui::PreferencesDialog dialog;
-    QCheckBox* use = nullptr;
-    for (auto* c : dialog.findChildren<QCheckBox*>())
-        if (c->text().startsWith(QStringLiteral("Use Studio's LDraw library"))) use = c;
+    ui::theme::PrefsStore store(QStringLiteral("partsPacksTest"));
+    ui::SettingsDialog dialog(store, QString());
+    auto* use = dialog.findChild<QCheckBox*>(QStringLiteral("import/useStudioLibrary"));
     ASSERT_NE(use, nullptr);
+    EXPECT_TRUE(use->text().startsWith(QStringLiteral("Use Studio's LDraw library")));
     EXPECT_TRUE(use->isChecked());
-    use->setChecked(false);
-    dialog.accept();
+    use->setChecked(false);  // saved at once
     EXPECT_FALSE(QSettings().value(QStringLiteral("import/useStudioLibrary"), true).toBool());
     QSettings().remove(QStringLiteral("import/useStudioLibrary"));
 }

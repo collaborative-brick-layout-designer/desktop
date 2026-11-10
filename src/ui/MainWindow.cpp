@@ -10,7 +10,6 @@
 #include "UpdateCheck.h"
 #include "FindDialog.h"
 #include "LibraryPathsDialog.h"
-#include "PreferencesDialog.h"
 #include "VenueDialog.h"
 #include "VenueDimensionsDialog.h"
 #include "../edit/VenueCommands.h"

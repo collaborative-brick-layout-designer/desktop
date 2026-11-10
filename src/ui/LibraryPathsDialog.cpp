@@ -17,10 +17,13 @@ LibraryPathsDialog::LibraryPathsDialog(QStringList initial, QWidget* parent)
     resize(600, 360);
 
     auto* layout = new QVBoxLayout(this);
-    layout->addWidget(new QLabel(
-        tr("Folders scanned for `<PartNumber>.<Color>.xml` + matching `.gif`. "
-           "Add extra libraries (TrixBrix, BrickTracks, etc.) alongside the "
-           "bundled BlueBrickParts. Order controls shadowing — earlier paths win.")));
+    auto* intro = new QLabel(
+        tr("Folders of parts to show in the Parts panel, beside the parts that come with the app, such as "
+           "a TrixBrix or BrickTracks pack or parts a friend sent. When two folders have a part with the "
+           "same number, the one higher in the list is used."),
+        this);
+    intro->setWordWrap(true);
+    layout->addWidget(intro);
 
     auto* row = new QHBoxLayout();
 
@@ -28,6 +31,11 @@ LibraryPathsDialog::LibraryPathsDialog(QStringList initial, QWidget* parent)
     list_->setAccessibleName(tr("Parts folders"));
     for (const QString& p : initial) list_->addItem(p);
     list_->setSelectionMode(QAbstractItemView::SingleSelection);
+    // A long path scrolls, rather than widening the window.
+    list_->setTextElideMode(Qt::ElideMiddle);
+    list_->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    list_->setMinimumWidth(300);
+    list_->setSizeAdjustPolicy(QAbstractScrollArea::AdjustIgnored);
     row->addWidget(list_, 1);
 
     auto* side = new QVBoxLayout();

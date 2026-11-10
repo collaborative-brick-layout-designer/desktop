@@ -73,13 +73,13 @@ void MainWindow::setupMapMenu() {
         auto* pathEdit = new QLineEdit(m->sidecar.backgroundImagePath, &dlg);
         auto* browseBtn = new QPushButton(tr("…"), &dlg);
         auto* clearBtn  = new QPushButton(tr("Clear"), &dlg);
-        pathEdit->setAccessibleName(tr("Image path"));
+        pathEdit->setAccessibleName(tr("Picture"));
         browseBtn->setAccessibleName(tr("Choose the image"));
         browseBtn->setToolTip(tr("Choose the image"));
         auto* row = new QHBoxLayout();
         row->addWidget(pathEdit); row->addWidget(browseBtn); row->addWidget(clearBtn);
         auto* rowWrap = new QWidget(&dlg); rowWrap->setLayout(row);
-        form->addRow(tr("Image path:"), rowWrap);
+        form->addRow(tr("Picture:"), rowWrap);
         connect(browseBtn, &QPushButton::clicked, &dlg, [pathEdit, &dlg]{
             const QString p = QFileDialog::getOpenFileName(&dlg, tr("Choose background image"),
                 pathEdit->text(),
@@ -113,7 +113,7 @@ void MainWindow::setupMapMenu() {
         rectGroupForm->addRow(tr("Width (studs):"), wSpin);
         rectGroupForm->addRow(tr("Height (studs):"), hSpin);
         auto* rectWrap = new QWidget(&dlg); rectWrap->setLayout(rectGroupForm);
-        form->addRow(tr("Placement (0 width = native size):"), rectWrap);
+        form->addRow(tr("Where it goes (a width of 0 keeps its own size):"), rectWrap);
 
         auto* bb = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dlg);
         form->addRow(bb);
@@ -228,7 +228,7 @@ void MainWindow::setupMapMenu() {
     });
 
     auto* drawObstacleAct = venueMenu->addAction(tr("&Add Obstacle…"));
-    drawObstacleAct->setToolTip(tr("Click points to add an obstacle polygon (pillar, column)."));
+    drawObstacleAct->setToolTip(tr("Click points around something in the room, such as a pillar, to mark it as in the way."));
     connect(drawObstacleAct, &QAction::triggered, this, [this]{
         if (!mapView_->currentMap() || !mapView_->currentMap()->sidecar.venue) {
             QMessageBox::information(this, tr("Add obstacle"),

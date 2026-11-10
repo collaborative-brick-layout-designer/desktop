@@ -59,6 +59,7 @@ add_executable(bld_ui_tests
     PlainWordsShotsTest.cpp
     MenuKeysTest.cpp
     ReviewShotsTest.cpp
+    SettingsApplyTest.cpp
 )
 
 target_compile_definitions(bld_ui_tests PRIVATE

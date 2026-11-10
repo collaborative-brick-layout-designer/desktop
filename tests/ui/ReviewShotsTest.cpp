@@ -10,7 +10,9 @@
 #include "ui/LoadingCard.h"
 #include "ui/MainWindow.h"
 #include "ui/MapView.h"
-#include "ui/PreferencesDialog.h"
+#include "ui/LibraryPathsDialog.h"
+#include "ui/VenueDimensionsDialog.h"
+#include "ui/SettingsDialog.h"
 #include "ui/UpdateCheck.h"
 #include "ui/help/ShortcutsDialog.h"
 #include "ui/theme/AppPrefs.h"
@@ -24,6 +26,7 @@
 #include <QDir>
 #include <QElapsedTimer>
 #include <QLineEdit>
+#include <QListWidget>
 #include <QMenu>
 #include <QMenuBar>
 #include <QSettings>
@@ -114,13 +117,40 @@ TEST(ReviewShots, PicturesForReview) {
         };
         window.statusBar()->clearMessage();
 
-        // Preferences: the checkboxes show their boxes.
+        // Settings: every setting in one window, with sections down the side.
         {
-            ui::PreferencesDialog d(&window);
+            ui::SettingsDialog d(store, QString(), {}, &window, {}, [] {});
+            d.resize(940, 900);
             d.show();
             QTest::qWait(300);
-            d.grab().save(file(QStringLiteral("preferences")));
+            d.grab().save(file(QStringLiteral("settings-top")));
+            auto* nav = d.findChild<QListWidget*>(QStringLiteral("settingsSections"));
+            for (const auto& [row, scene] : { std::pair{ 2, "settings-editing" }, std::pair{ 6, "settings-parts" } }) {
+                if (!nav || row >= nav->count()) continue;
+                nav->setCurrentRow(row);
+                QTest::qWait(300);
+                d.grab().save(file(QString::fromLatin1(scene)));
+            }
         }
+        // The older dialogs, in plain words.
+        {
+            ui::LibraryPathsDialog d({ QStringLiteral("/usr/share/collaborative-brick-layout-designer/parts/BlueBrickParts/parts"),
+                                       QStringLiteral("/home/someone/.local/share/Collaborative Brick Layout Designer/parts/TrixBrix/parts/with/a/long/path") },
+                                     &window);
+            d.show();
+            QTest::qWait(300);
+            d.grab().save(file(QStringLiteral("parts-folders")));
+        }
+        {
+            ui::VenueDimensionsDialog d(&window);
+            d.show();
+            QTest::qWait(300);
+            d.grab().save(file(QStringLiteral("venue-dimensions")));
+        }
+        for (const char* name : { "Background Image…", "Edit Venue Properties…" })
+            if (QAction* a = actionNamed(window, QString::fromUtf8(name)))
+                grabModal([a] { a->trigger(); },
+                          file(QString::fromLatin1(name[0] == 'B' ? "background-image" : "venue-properties")));
         // Keyboard shortcuts: Undo and Redo once.
         {
             ui::help::ShortcutsDialog d(ui::help::collectShortcuts(window.menuBar()), &window);

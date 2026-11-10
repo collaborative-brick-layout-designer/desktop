@@ -1,5 +1,7 @@
 #pragma once
 
+#include "SettingsSections.h"
+
 #include <QMainWindow>
 #include "../import/LayoutSource.h"
 #include <QString>
@@ -51,6 +53,9 @@ struct ServerSetCopy;
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
+    // The layout to open at start when none was named: the last one, while
+    // Settings > Starting up says so and it's still there; else empty.
+    static QString fileToReopen();
     explicit MainWindow(parts::PartsLibrary& parts, QWidget* parent = nullptr);
     ~MainWindow() override;
 
@@ -197,6 +202,8 @@ private:
     class QMenu* panelsMenu_ = nullptr;
     // Edit > Settings...: the look and help settings.
     void openSettings();
+    // Follows a change made in Settings (the snap step, the paint color, a redraw…).
+    void applySetting(bld::ui::settings::Change c);
     // Help › Tour: …: runs the tour, opening the Venue Designer or the
     // server window first for the Venues and Clubs tours.
     void startTourNamed(const QString& id);
@@ -342,7 +349,6 @@ private:
 
     class QMenu* recentMenu_ = nullptr;
     QAction* generalInfoAct_ = nullptr;   // Map > General Info (the Notes tab)
-    QAction* preferencesAct_ = nullptr;   // Edit > Preferences (Settings' "More options")
     QAction* helpContentsAct_ = nullptr;
     class QMenu* helpMenu_ = nullptr;     // Help (also behind the toolbar's "?")
     class QToolBar* mainToolbar_ = nullptr;
