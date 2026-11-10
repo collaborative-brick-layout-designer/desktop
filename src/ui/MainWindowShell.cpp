@@ -45,6 +45,7 @@
 #include <QPainter>
 #include <QFile>
 #include <QSettings>
+#include <QLayout>
 #include <QStatusBar>
 #include <QMenuBar>
 #include <QTimer>
@@ -79,6 +80,64 @@ private:
     MapView* view_;
     QLabel* label_;
     double last_ = -1;
+};
+
+// Keeps everything on the toolbar in sight: when the labelled tools don't
+// fit (a narrower window, help buttons on, a language with longer words),
+// they show only their icons (the name stays in the tooltip), so the task
+// tabs and Help never fold away into the toolbar's tiny "»" (Bug 8).
+class ToolbarFitter : public QObject {
+public:
+    explicit ToolbarFitter(QToolBar* bar) : QObject(bar), bar_(bar) {
+        bar->installEventFilter(this);
+        QTimer::singleShot(0, this, [this] { fit(); });
+    }
+    void fit() {
+        pending_ = false;
+        const auto styleAll = [this](Qt::ToolButtonStyle style) {
+            bar_->setToolButtonStyle(style);
+            for (auto* b : bar_->findChildren<QToolButton*>())
+                if (b->objectName().startsWith(QLatin1String("tool."))) b->setToolButtonStyle(style);
+        };
+        const auto crowd = [this](bool out) {
+            for (auto* h : bar_->findChildren<help::HelpButton*>()) h->setCrowdedOut(out);
+        };
+        const auto tooWide = [this] {
+            bar_->layout()->invalidate();
+            return bar_->sizeHint().width() > bar_->width();
+        };
+        styleAll(Qt::ToolButtonTextUnderIcon);
+        crowd(false);
+        const bool compact = tooWide();
+        // Still too wide with icons only (touch mode's bigger buttons): the
+        // toolbar's "?" buttons step aside (the Help menu has their help).
+        if (compact) {
+            styleAll(Qt::ToolButtonIconOnly);
+            if (tooWide()) crowd(true);
+        }
+        bar_->setProperty("compact", compact);
+        bar_->layout()->invalidate();
+        lastHint_ = bar_->sizeHint();
+        lastWidth_ = bar_->width();
+    }
+
+protected:
+    bool eventFilter(QObject*, QEvent* e) override {
+        // Later, once. A layout request fit() itself caused changes nothing: skipped.
+        const bool sizeChanged = e->type() == QEvent::Resize && bar_->width() != lastWidth_;
+        const bool contentChanged = e->type() == QEvent::LayoutRequest && bar_->sizeHint() != lastHint_;
+        if ((sizeChanged || contentChanged || e->type() == QEvent::LanguageChange) && !pending_) {
+            pending_ = true;
+            QTimer::singleShot(0, this, [this] { fit(); });
+        }
+        return false;
+    }
+
+private:
+    QToolBar* bar_;
+    bool pending_ = false;
+    QSize lastHint_;
+    int lastWidth_ = -1;
 };
 
 }  // namespace
@@ -225,7 +284,13 @@ void MainWindow::setupShell() {
     tours::tag(toolbar, QStringLiteral("share.picture"), true);
     // What the editor tour points at for the map and for saving.
     tours::tag(mapView_, QStringLiteral("map"));
-    tours::tag(statusBar(), QStringLiteral("topbar.saveStatus"));
+    // Saved or not, in words: what the editor tour's "Saving" step points at.
+    saveStatus_ = new QLabel(this);
+    saveStatus_->setObjectName(QStringLiteral("SaveStatus"));
+    statusBar()->addPermanentWidget(saveStatus_);
+    tours::tag(saveStatus_, QStringLiteral("topbar.saveStatus"));
+    tours::tag(statusBar(), QStringLiteral("topbar.saveStatus"), true);
+    updateTitle();
     toolbar->addSeparator();
 
     // Snap: click turns it on or off, the arrow picks the step (vanilla's
@@ -376,6 +441,7 @@ void MainWindow::setupShell() {
     help->setMenu(helpMenu_);
     toolbar->addWidget(help);
     tours::tag(help, QStringLiteral("help.menu"));
+    new ToolbarFitter(toolbar);
     // When a narrow window folds the toolbar's "?" away, the menu bar's Help is still there.
     tours::tag(menuBar(), QStringLiteral("help.menu"), true);
 

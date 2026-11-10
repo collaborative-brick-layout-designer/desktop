@@ -58,12 +58,15 @@ struct Host {
     QWidget window;
     QPushButton* parts = new QPushButton(QStringLiteral("Parts"), &window);
     QPushButton* sheets = new QPushButton(QStringLiteral("Sheets"), &window);
+    QWidget* map = new QWidget(&window);
     Host() {
         window.resize(900, 600);
         parts->setGeometry(20, 20, 120, 40);
         sheets->setGeometry(600, 400, 100, 40);
+        map->setGeometry(200, 100, 300, 200);
         tours::tag(parts, QStringLiteral("panel.parts"));
         tours::tag(sheets, QStringLiteral("panel.sheets"));
+        tours::tag(map, QStringLiteral("map"));
         window.show();
         QApplication::processEvents();
     }
@@ -252,7 +255,9 @@ TEST_F(Tours, NextBackAndDoneRememberTheTour) {
     Host h;
     auto* o = tours::startTour(&h.window, QStringLiteral("editor"), store);
     ASSERT_NE(o, nullptr);
-    const auto& steps = tours::findTour(QStringLiteral("editor"))->steps;
+    // Only the steps this window has something for (parts, sheets and the map's two).
+    const auto& steps = o->tour().steps;
+    ASSERT_EQ(steps.size(), 4);
     EXPECT_EQ(cardTitle(o), steps[0].title);
     EXPECT_EQ(o->card()->findChild<QLabel*>(QStringLiteral("TourCount"))->text(),
               QStringLiteral("The editor · 1 of %1").arg(steps.size()));
@@ -269,8 +274,9 @@ TEST_F(Tours, NextBackAndDoneRememberTheTour) {
     cardButton(o, "TourBack")->click();
     EXPECT_EQ(o->step(), 0);
 
-    // A step with nothing to point at: no outline, the card in the middle.
-    for (int i = 0; i < 2; ++i) cardButton(o, "TourNext")->click();
+    // A control gone while the tour runs: no outline, the card in the middle.
+    h.sheets->hide();
+    cardButton(o, "TourNext")->click();
     EXPECT_EQ(o->target(), nullptr);
     EXPECT_TRUE(o->hole().isEmpty());
     EXPECT_NEAR(o->card()->geometry().center().x(), o->rect().center().x(), 2);
@@ -299,6 +305,9 @@ TEST_F(Tours, FollowsTheControlWhenItMoves) {
     auto* parts = new QPushButton(QStringLiteral("Parts"), panel);
     parts->setGeometry(20, 20, 120, 40);
     tours::tag(parts, QStringLiteral("panel.parts"));
+    auto* sheets = new QPushButton(QStringLiteral("Sheets"), panel);
+    sheets->setGeometry(600, 400, 100, 40);
+    tours::tag(sheets, QStringLiteral("panel.sheets"));
     window.show();
     QApplication::processEvents();
     auto* o = tours::startTour(&window, QStringLiteral("editor"), store);

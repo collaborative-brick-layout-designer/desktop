@@ -29,6 +29,9 @@
 #include <QPushButton>
 #include <QTemporaryDir>
 #include <QTest>
+#include <QRegularExpression>
+#include <QGraphicsScene>
+#include <QGraphicsItem>
 #include <QTimer>
 
 using namespace bld;
@@ -121,6 +124,48 @@ TEST(PlainWords, FindLooksInPartsFirstByNameAndAsksBeforeAnUnknownPart) {
         EXPECT_EQ(countPart(*view.currentMap(), QStringLiteral("2865.1")), 88);
         EXPECT_EQ(status->text(), QStringLiteral("Replaced 88 parts."));
     }
+}
+
+// Find Next went to every match at once; now it steps through them, one
+// picked and in view at a time (Bug 17), by name too.
+TEST(PlainWords, FindNextStepsThroughTheMatchesOneByOne) {
+    if (!library().metadata(QStringLiteral("2865.8"))) GTEST_SKIP() << "the BlueBrickParts library isn't checked out";
+    ui::MapView view(library());
+    view.resize(800, 600);
+    view.show();
+    view.loadMap(tightCorner());
+    ui::FindDialog d(view);
+    d.show();
+    auto* findE = d.findChild<QLineEdit*>(QStringLiteral("findText"));
+    auto* next = d.findChild<QPushButton*>(QStringLiteral("findNext"));
+    QLabel* status = d.findChild<QLabel*>(QStringLiteral("findStatus"));
+    ASSERT_TRUE(findE && next && status);
+    findE->setText(QStringLiteral("9v straight"));
+    QTest::qWait(400);
+    const qsizetype all = view.scene()->selectedItems().size();
+    EXPECT_GE(all, 88);
+    EXPECT_TRUE(status->text().startsWith(QStringLiteral("88 matches"))) << status->text().toStdString();
+    next->click();
+    EXPECT_EQ(status->text(), QStringLiteral("Match 1 of 88."));
+    const QList<QGraphicsItem*> first = view.scene()->selectedItems();
+    ASSERT_FALSE(first.isEmpty());
+    EXPECT_LT(first.size(), all);  // one match, not all of them
+    EXPECT_TRUE(view.mapToScene(view.viewport()->rect()).boundingRect().intersects(first.first()->sceneBoundingRect()));
+    // The next one shows something new (rails in one set are picked together).
+    const QRegularExpression at(QStringLiteral("^Match (\\d+) of 88\\.$"));
+    next->click();
+    const auto second = at.match(status->text());
+    ASSERT_TRUE(second.hasMatch()) << status->text().toStdString();
+    EXPECT_GT(second.captured(1).toInt(), 1);
+    EXPECT_NE(view.scene()->selectedItems(), first);
+    // Enter in the box does the same.
+    QTest::keyClick(findE, Qt::Key_Return);
+    const auto third = at.match(status->text());
+    ASSERT_TRUE(third.hasMatch()) << status->text().toStdString();
+    EXPECT_NE(third.captured(1), second.captured(1));
+    findE->setText(QStringLiteral("no such thing"));
+    QTest::qWait(400);
+    EXPECT_EQ(status->text(), QStringLiteral("No matches."));
 }
 
 TEST(PlainWords, OneClickAddsTheFirstPartToAnEmptyMapAndADoubleClickNoSecond) {

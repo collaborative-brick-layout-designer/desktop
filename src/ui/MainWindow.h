@@ -352,6 +352,8 @@ private:
     QAction* helpContentsAct_ = nullptr;
     class QMenu* helpMenu_ = nullptr;     // Help (also behind the toolbar's "?")
     class QToolBar* mainToolbar_ = nullptr;
+    class QLabel* saveStatus_ = nullptr;  // "✓ Saved" / "● Not saved" in the status bar
+    QByteArray defaultDockState_;  // the panels as they first come
     QList<QPair<QAction*, QString>> shellIcons_;  // toolbar actions and their icon names
     std::function<void()> refreshPaintSwatch_;
 

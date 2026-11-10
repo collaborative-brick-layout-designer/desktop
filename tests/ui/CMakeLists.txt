@@ -60,6 +60,7 @@ add_executable(bld_ui_tests
     MenuKeysTest.cpp
     ReviewShotsTest.cpp
     SettingsApplyTest.cpp
+    ShellTest.cpp
 )
 
 target_compile_definitions(bld_ui_tests PRIVATE

@@ -589,6 +589,16 @@ void MainWindow::setupMenus() {
             acts[i]->setChecked(!docks[i]->isHidden());
     });
 
+    // Panels floated off the screen or closed: back where they start.
+    auto* resetPanels = view->addAction(tr("Reset Panel La&yout"));
+    resetPanels->setObjectName(QStringLiteral("view.resetPanels"));
+    resetPanels->setToolTip(tr("Put every panel back where it was when the app was new"));
+    connect(resetPanels, &QAction::triggered, this, [this] {
+        for (QDockWidget* d : panelDocks()) d->setFloating(false);
+        restoreState(defaultDockState_);
+        statusBar()->showMessage(tr("Panels are back where they started."), 4000);
+    });
+
     view->addSeparator();
     auto* statusToggle = view->addAction(tr("&Status Bar"));
     statusToggle->setCheckable(true);

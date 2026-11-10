@@ -99,6 +99,28 @@ void MainWindow::updateTitle() {
                                                   budget_->isModified() ? QStringLiteral(" *") : QString());
     setWindowTitle(tr("%1%2%3 — Collaborative Brick Layout Designer")
                        .arg(name, dirty ? QStringLiteral(" *") : QString(), budget));
+    // The status bar says it too, in words (the editor tour points at it).
+    if (saveStatus_) {
+        const bool live = live_ && live_->active();
+        QString text, tip;
+        if (live) {
+            text = tr("Changes are shared as you make them");
+            tip = tr("This layout is on a server: everyone's changes are saved there and appear live.");
+        } else if (dirty) {
+            text = tr("● Not saved");
+            tip = tr("You have changes that aren't saved yet. File › Save (Ctrl+S) saves them.");
+        } else if (!currentFilePath_.isEmpty()) {
+            text = tr("✓ Saved");
+            tip = tr("Every change is saved in %1.").arg(QFileInfo(currentFilePath_).fileName());
+        } else {
+            text = tr("Not saved yet");
+            tip = tr("A new layout: File › Save (Ctrl+S) saves it on this computer.");
+        }
+        saveStatus_->setText(text);
+        saveStatus_->setToolTip(tip);
+        saveStatus_->setAccessibleName(text);
+        saveStatus_->setProperty("dirty", dirty);
+    }
 }
 
 // ---------- Open / Save / New ----------------------------------------------

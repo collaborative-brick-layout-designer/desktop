@@ -267,9 +267,15 @@ bool HelpButton::isPopoverOpen() const { return popover() != nullptr; }
 
 QSize HelpButton::sizeHint() const { return { kCircle + 4, kCircle + 4 }; }
 
+void HelpButton::setCrowdedOut(bool out) {
+    if (crowdedOut_ == out) return;
+    crowdedOut_ = out;
+    applyPrefs();
+}
+
 void HelpButton::applyPrefs() {
     // An unknown key never shows (HelpTextsTest catches those).
-    const bool on = store_.prefs().helpIcons && helpEntry(key_).has_value();
+    const bool on = store_.prefs().helpIcons && helpEntry(key_).has_value() && !crowdedOut_;
     if (!on) {
         hideTip();
         closePopover(false);

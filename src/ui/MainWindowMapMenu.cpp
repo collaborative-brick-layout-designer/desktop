@@ -10,8 +10,6 @@
 
 #include "../edit/venue/VenueDesign.h"
 #include "MapView.h"
-#include "VenueDialog.h"
-#include "VenueDimensionsDialog.h"
 #include "VenueLibraryPanel.h"
 #include "venue/VenueDesignerDialog.h"
 
@@ -186,75 +184,12 @@ void MainWindow::setupMapMenu() {
         dlg.setSendToServer([this](const core::Venue& v) { saveVenueToServer(v); });
         dlg.exec();
     });
-    venueMenu->addSeparator();
-    auto* drawOutlineAct = venueMenu->addAction(tr("Draw &Outline…"));
-    drawOutlineAct->setToolTip(tr("Click points on the map to build the venue outline. "
-                                    "Right-click or Enter finishes; Escape cancels."));
-    connect(drawOutlineAct, &QAction::triggered, this, [this]{
-        if (!mapView_->currentMap()) return;
-        mapView_->setTool(MapView::Tool::DrawVenueOutline);
-        statusBar()->showMessage(
-            tr("Click points to outline the venue. Right-click / Enter to finish, Escape to cancel."),
-            8000);
-    });
-    auto* drawByDimsAct = venueMenu->addAction(tr("Draw Outline by Di&mensions…"));
-    drawByDimsAct->setToolTip(tr("Build the venue outline by entering lengths + angles "
-                                   "instead of clicking points on the map."));
-    connect(drawByDimsAct, &QAction::triggered, this, [this]{
-        auto* m = mapView_->currentMap();
-        if (!m) return;
-        VenueDimensionsDialog dlg(this);
-        if (dlg.exec() != QDialog::Accepted) return;
-        const auto poly  = dlg.polygon();
-        const auto metas = dlg.segments();
-        if (poly.size() < 3) return;
-        core::Venue v = m->sidecar.venue.value_or(core::Venue{});
-        v.enabled = true;
-        v.edges.clear();
-        for (int i = 0; i < poly.size(); ++i) {
-            core::VenueEdge e;
-            e.polyline = { poly[i], poly[(i + 1) % poly.size()] };
-            if (i < metas.size()) {
-                e.kind  = metas[i].kind;
-                e.label = metas[i].label;
-            } else {
-                e.kind  = core::EdgeKind::Wall;
-            }
-            v.edges.push_back(e);
-        }
-        mapView_->undoStack()->push(new edit::SetVenueCommand(*m, std::make_optional(v)));
-        statusBar()->showMessage(
-            tr("Venue outline built from %1 segments").arg(poly.size()), 3000);
-    });
-
-    auto* drawObstacleAct = venueMenu->addAction(tr("&Add Obstacle…"));
-    drawObstacleAct->setToolTip(tr("Click points around something in the room, such as a pillar, to mark it as in the way."));
-    connect(drawObstacleAct, &QAction::triggered, this, [this]{
-        if (!mapView_->currentMap() || !mapView_->currentMap()->sidecar.venue) {
-            QMessageBox::information(this, tr("Add obstacle"),
-                tr("Draw the venue outline first."));
-            return;
-        }
-        mapView_->setTool(MapView::Tool::DrawVenueObstacle);
-        statusBar()->showMessage(
-            tr("Click points to outline an obstacle. Right-click / Enter to finish, Escape to cancel."),
-            8000);
-    });
-    venueMenu->addSeparator();
-    auto* editVenueAct = venueMenu->addAction(tr("&Edit Venue Properties…"));
-    editVenueAct->setToolTip(tr("Change the room this layout is set up in"));
-    connect(editVenueAct, &QAction::triggered, this, [this]{
-        auto* m = mapView_->currentMap();
-        if (!m) return;
-        VenueDialog dlg(m->sidecar.venue, this);
-        if (dlg.exec() != QDialog::Accepted) return;
-        if (dlg.cleared()) {
-            mapView_->undoStack()->push(new edit::SetVenueCommand(*m, std::nullopt));
-        } else {
-            mapView_->undoStack()->push(new edit::SetVenueCommand(*m, dlg.result()));
-        }
-    });
-    auto* clearVenueAct = venueMenu->addAction(tr("&Clear Venue"));
+    // Drawing the outline and obstacles, typing in lengths and the venue's
+    // name and walkway are all in the Venue Designer; the older menu items
+    // that did each on its own are folded into it (Unclear UI 4).
+    auto* clearVenueAct = venueMenu->addAction(tr("&Remove Venue…"));
+    clearVenueAct->setObjectName(QStringLiteral("map.removeVenue"));
+    clearVenueAct->setToolTip(tr("Take the venue out of this layout (asks first)"));
     connect(clearVenueAct, &QAction::triggered, this, [this]{
         auto* m = mapView_->currentMap();
         if (!m || !m->sidecar.venue) {

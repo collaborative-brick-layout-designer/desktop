@@ -197,12 +197,15 @@ QMenuBar::item:selected { background: @soft; }
 QMainWindow::separator { background: @panel; width: 24px; height: 24px; }
 QSplitter::handle:horizontal { width: 24px; }
 QSplitter::handle:vertical { height: 24px; }
-QPushButton { min-height: 36px; }
-QComboBox, QLineEdit, QSpinBox, QDoubleSpinBox { min-height: 32px; }
-QAbstractButton#HelpIcon { min-width: 40px; min-height: 40px; }
-QStatusBar QToolButton { min-height: 36px; }
-QCheckBox, QRadioButton { min-height: 36px; }
-QListWidget#sheetList::item { min-height: 40px; }
+QPushButton { min-height: 44px; }
+QComboBox, QLineEdit, QSpinBox, QDoubleSpinBox { min-height: 40px; }
+QAbstractButton#HelpIcon { min-width: 44px; min-height: 44px; }
+QStatusBar QToolButton { min-height: 44px; }
+QCheckBox, QRadioButton { min-height: 44px; }
+QListWidget#sheetList::item { min-height: 44px; }
+QListWidget#settingsSections::item { min-height: 44px; }
+QToolBar[mainToolbar="true"] QToolButton { min-height: 44px; min-width: 44px; }
+QToolButton#qt_toolbar_ext_button { min-width: 44px; min-height: 44px; }
 )");
     const QList<std::pair<const char*, QColor>> vars{
         { "@panel", n.panel }, { "@line", n.line }, { "@border", n.border }, { "@ink", n.ink },

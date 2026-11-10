@@ -108,7 +108,10 @@ MapView::MapView(parts::PartsLibrary& parts, QWidget* parent)
     // view (handled manually in mousePress/Move/Release).
     setDragMode(QGraphicsView::RubberBandDrag);
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-    setResizeAnchor(QGraphicsView::AnchorUnderMouse);
+    // A resize (a panel opened, the window made bigger, touch mode's larger
+    // controls) keeps the middle of what you see in the middle; under the
+    // mouse, a first touch jumped the layout off to a corner (Bug 9).
+    setResizeAnchor(QGraphicsView::AnchorViewCenter);
     // Full-viewport repaints avoid the "trails" behind rotated bricks that
     // SmartViewportUpdate leaves when the item's bounding rect in scene
     // coords changes more than its local rect signals.

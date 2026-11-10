@@ -187,6 +187,8 @@ void tag(QWidget* w, const QString& id, bool fallback) {
 
 QWidget* findTarget(QWidget* host, const QString& id) {
     if (!host) return nullptr;
+    // The window itself, as Open from Server is "server.window".
+    if (host->property(kTargetProperty).toString() == id && showing(host)) return host;
     const auto all = host->findChildren<QWidget*>();
     for (auto* w : all)
         if (w->property(kTargetProperty).toString() == id && showing(w)) return w;
@@ -219,6 +221,15 @@ void forgetSeen(theme::PrefsStore& store) {
 TourOverlay::TourOverlay(QWidget* host, const Tour& tour, theme::PrefsStore& store)
     : QWidget(host), host_(host), tour_(tour), store_(store) {
     setObjectName(QStringLiteral("TourOverlay"));
+    // A step about something this window doesn't have (a club's page before
+    // you're in a club) would point at nothing and say "click it": left out,
+    // and the count says so. Not before the window shows, nor every step.
+    if (host->isVisible()) {
+        QList<Step> found;
+        for (const Step& st : std::as_const(tour_.steps))
+            if (findTarget(host, st.target)) found.append(st);
+        if (!found.isEmpty()) tour_.steps = found;
+    }
     setAttribute(Qt::WA_NoSystemBackground);
     setGeometry(host->rect());
     host->installEventFilter(this);
