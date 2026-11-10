@@ -359,10 +359,6 @@
         <translation>Todas as peças com que você pode construir.</translation>
     </message>
     <message>
-        <source>Search by name or number, or pick a group like track or plates; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
-        <translation>Pesquise por nome ou número, ou escolha um grupo como carris ou placas; as letras que você escreve podem ter falhas, por isso &quot;plt2&quot; encontra &quot;plate2x4&quot;. Arraste uma peça para o mapa, ou faça duplo clique nela para a adicionar ao centro. Num mapa vazio, basta um clique.</translation>
-    </message>
-    <message>
         <source>Sheets</source>
         <translation>Folhas</translation>
     </message>
@@ -587,18 +583,6 @@
         <translation>Diz se o layout fica dentro das peças que você tem.</translation>
     </message>
     <message>
-        <source>A budget is how many of each part you own. “Over” means the layout uses more of some part than you have.</source>
-        <translation>Um orçamento é quantas unidades de cada peça você possui. “Acima” significa que o layout usa mais de alguma peça do que você tem.</translation>
-    </message>
-    <message>
-        <source>Set how many of each part you have, so the layout never uses more.</source>
-        <translation>Defina quantas unidades de cada peça você tem, para que o layout nunca use mais.</translation>
-    </message>
-    <message>
-        <source>Type a number next to a part to set its limit. Save the budget to a file to use it again, or open one a friend made.</source>
-        <translation>Escreva um número ao lado de uma peça para definir o limite dela. Guarde o orçamento num ficheiro para o usar de novo, ou abra um feito por um amigo.</translation>
-    </message>
-    <message>
         <source>Sheet options</source>
         <translation>Opções da folha</translation>
     </message>
@@ -819,8 +803,24 @@
         <translation>Ficheiro de layout</translation>
     </message>
     <message>
-        <source>Everything in one file: parts, sheets, venue, labels and modules.</source>
-        <translation>Tudo num só ficheiro: peças, folhas, local, etiquetas e módulos.</translation>
+        <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
+        <translation>Pesquise por nome ou número, ou escolha um grupo como Track ou Baseplate; as letras que você escreve podem ter falhas, por isso &quot;plt2&quot; encontra &quot;plate2x4&quot;. Arraste uma peça para o mapa, ou faça duplo clique nela para a adicionar ao centro. Num mapa vazio, basta um clique.</translation>
+    </message>
+    <message>
+        <source>A budget is how many of each part the layout may use. It is saved with the layout and shared with everyone who edits it. “Over” means the layout uses more of some part than the budget allows.</source>
+        <translation>Um orçamento é quantas unidades de cada peça o layout pode usar. É guardado com o layout e partilhado com todos os que o editam. “Acima” significa que o layout usa mais de alguma peça do que o orçamento permite.</translation>
+    </message>
+    <message>
+        <source>Set how many of each part the layout may use, so it never goes over.</source>
+        <translation>Defina quantas unidades de cada peça o layout pode usar, para que nunca passe do limite.</translation>
+    </message>
+    <message>
+        <source>Type a number next to a part to set its limit. The budget is saved with the layout and shared with everyone who edits it. A BlueBrick budget file (.bbb) can be imported or exported too.</source>
+        <translation>Escreva um número ao lado de uma peça para definir o limite dela. O orçamento é guardado com o layout e partilhado com todos os que o editam. Também é possível importar ou exportar um ficheiro de orçamento BlueBrick (.bbb).</translation>
+    </message>
+    <message>
+        <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
+        <translation>Tudo num só ficheiro: peças, folhas, local, etiquetas, módulos e o orçamento.</translation>
     </message>
     <message>
         <source>Pick this to keep a backup or to open the layout in the desktop app. Nothing is left out.</source>
@@ -2317,8 +2317,8 @@
         <translation>Todas as suas peças estão aqui</translation>
     </message>
     <message>
-        <source>Search by name, or pick a group like Train track. Drag a piece onto the map to place it.</source>
-        <translation>Pesquise por nome, ou escolha um grupo como Carris de comboio. Arraste uma peça para o mapa para a colocar.</translation>
+        <source>Search by name, or pick a group like Track or Baseplate. Drag a piece onto the map to place it.</source>
+        <translation>Pesquise por nome, ou escolha um grupo como Track ou Baseplate. Arraste uma peça para o mapa para a colocar.</translation>
     </message>
     <message>
         <source>Sheets</source>

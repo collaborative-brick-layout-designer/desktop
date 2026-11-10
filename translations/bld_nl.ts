@@ -359,10 +359,6 @@
         <translation>Alle stukken waarmee je kunt bouwen.</translation>
     </message>
     <message>
-        <source>Search by name or number, or pick a group like track or plates; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
-        <translation>Zoek op naam of nummer, of kies een groep zoals rails of platen; de letters die je typt mogen gaten hebben, dus &quot;plt2&quot; vindt &quot;plate2x4&quot;. Sleep een onderdeel naar de kaart, of dubbelklik erop om het in het midden toe te voegen. Op een lege kaart is één klik genoeg.</translation>
-    </message>
-    <message>
         <source>Sheets</source>
         <translation>Bladen</translation>
     </message>
@@ -587,18 +583,6 @@
         <translation>Zegt of de layout binnen de onderdelen blijft die je hebt.</translation>
     </message>
     <message>
-        <source>A budget is how many of each part you own. “Over” means the layout uses more of some part than you have.</source>
-        <translation>Een budget is hoeveel je van elk onderdeel hebt. ‘Over’ betekent dat de layout van een onderdeel meer gebruikt dan je hebt.</translation>
-    </message>
-    <message>
-        <source>Set how many of each part you have, so the layout never uses more.</source>
-        <translation>Stel in hoeveel je van elk onderdeel hebt, zodat de layout nooit meer gebruikt.</translation>
-    </message>
-    <message>
-        <source>Type a number next to a part to set its limit. Save the budget to a file to use it again, or open one a friend made.</source>
-        <translation>Typ een getal naast een onderdeel om de limiet in te stellen. Sla het budget op als bestand om het opnieuw te gebruiken, of open er een dat een vriend heeft gemaakt.</translation>
-    </message>
-    <message>
         <source>Sheet options</source>
         <translation>Bladopties</translation>
     </message>
@@ -819,8 +803,24 @@
         <translation>Layoutbestand</translation>
     </message>
     <message>
-        <source>Everything in one file: parts, sheets, venue, labels and modules.</source>
-        <translation>Alles in één bestand: onderdelen, bladen, zaal, labels en modules.</translation>
+        <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
+        <translation>Zoek op naam of nummer, of kies een groep zoals Track of Baseplate; de letters die je typt mogen gaten hebben, dus &quot;plt2&quot; vindt &quot;plate2x4&quot;. Sleep een onderdeel naar de kaart, of dubbelklik erop om het in het midden toe te voegen. Op een lege kaart is één klik genoeg.</translation>
+    </message>
+    <message>
+        <source>A budget is how many of each part the layout may use. It is saved with the layout and shared with everyone who edits it. “Over” means the layout uses more of some part than the budget allows.</source>
+        <translation>Een budget is hoeveel van elk onderdeel de layout mag gebruiken. Het wordt met de layout opgeslagen en gedeeld met iedereen die hem bewerkt. ‘Over’ betekent dat de layout van een onderdeel meer gebruikt dan het budget toestaat.</translation>
+    </message>
+    <message>
+        <source>Set how many of each part the layout may use, so it never goes over.</source>
+        <translation>Stel in hoeveel van elk onderdeel de layout mag gebruiken, zodat hij er nooit overheen gaat.</translation>
+    </message>
+    <message>
+        <source>Type a number next to a part to set its limit. The budget is saved with the layout and shared with everyone who edits it. A BlueBrick budget file (.bbb) can be imported or exported too.</source>
+        <translation>Typ een getal naast een onderdeel om de limiet in te stellen. Het budget wordt met de layout opgeslagen en gedeeld met iedereen die hem bewerkt. Een BlueBrick-budgetbestand (.bbb) kan ook worden geïmporteerd of geëxporteerd.</translation>
+    </message>
+    <message>
+        <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
+        <translation>Alles in één bestand: onderdelen, bladen, zaal, labels, modules en het budget.</translation>
     </message>
     <message>
         <source>Pick this to keep a backup or to open the layout in the desktop app. Nothing is left out.</source>
@@ -2317,8 +2317,8 @@
         <translation>Al je stukken staan hier</translation>
     </message>
     <message>
-        <source>Search by name, or pick a group like Train track. Drag a piece onto the map to place it.</source>
-        <translation>Zoek op naam, of kies een groep zoals Treinrails. Sleep een stuk naar de kaart om het te plaatsen.</translation>
+        <source>Search by name, or pick a group like Track or Baseplate. Drag a piece onto the map to place it.</source>
+        <translation>Zoek op naam, of kies een groep zoals Track of Baseplate. Sleep een stuk naar de kaart om het te plaatsen.</translation>
     </message>
     <message>
         <source>Sheets</source>

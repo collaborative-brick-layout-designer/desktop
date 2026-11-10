@@ -359,10 +359,6 @@
         <translation>組み立てに使えるすべてのパーツです。</translation>
     </message>
     <message>
-        <source>Search by name or number, or pick a group like track or plates; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
-        <translation>名前や番号で検索するか、線路やプレートなどのグループを選びます。入力する文字は飛ばしてもよく、&quot;plt2&quot; で &quot;plate2x4&quot; が見つかります。パーツをマップにドラッグするか、ダブルクリックして中央に追加します。空のマップなら 1 回のクリックで十分です。</translation>
-    </message>
-    <message>
         <source>Sheets</source>
         <translation>シート</translation>
     </message>
@@ -587,18 +583,6 @@
         <translation>レイアウトが持っているパーツの範囲に収まっているかを表示します。</translation>
     </message>
     <message>
-        <source>A budget is how many of each part you own. “Over” means the layout uses more of some part than you have.</source>
-        <translation>予算は、各パーツを何個持っているかです。「超過」は、持っている数より多く使っているパーツがあるという意味です。</translation>
-    </message>
-    <message>
-        <source>Set how many of each part you have, so the layout never uses more.</source>
-        <translation>各パーツを何個持っているかを設定すると、レイアウトがそれ以上使わないようにできます。</translation>
-    </message>
-    <message>
-        <source>Type a number next to a part to set its limit. Save the budget to a file to use it again, or open one a friend made.</source>
-        <translation>パーツの横に数を入力して上限を設定します。予算をファイルに保存してまた使ったり、友だちが作ったものを開いたりできます。</translation>
-    </message>
-    <message>
         <source>Sheet options</source>
         <translation>シートのオプション</translation>
     </message>
@@ -819,8 +803,24 @@
         <translation>レイアウトファイル</translation>
     </message>
     <message>
-        <source>Everything in one file: parts, sheets, venue, labels and modules.</source>
-        <translation>パーツ、シート、会場、ラベル、モジュールのすべてを 1 つのファイルに。</translation>
+        <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
+        <translation>名前か番号で検索するか、Track や Baseplate などのグループを選びます。入力した文字は飛び飛びでもよく、&quot;plt2&quot; で &quot;plate2x4&quot; が見つかります。パーツをマップにドラッグするか、ダブルクリックして中央に追加します。空のマップではクリック一回で置けます。</translation>
+    </message>
+    <message>
+        <source>A budget is how many of each part the layout may use. It is saved with the layout and shared with everyone who edits it. “Over” means the layout uses more of some part than the budget allows.</source>
+        <translation>予算とは、レイアウトで使えるパーツの数を種類ごとに決めたものです。レイアウトと一緒に保存され、編集する全員と共有されます。「超過」は、あるパーツを予算より多く使っていることを意味します。</translation>
+    </message>
+    <message>
+        <source>Set how many of each part the layout may use, so it never goes over.</source>
+        <translation>レイアウトで使えるパーツの数を種類ごとに決めて、超えないようにします。</translation>
+    </message>
+    <message>
+        <source>Type a number next to a part to set its limit. The budget is saved with the layout and shared with everyone who edits it. A BlueBrick budget file (.bbb) can be imported or exported too.</source>
+        <translation>パーツの横に数を入力すると上限になります。予算はレイアウトと一緒に保存され、編集する全員と共有されます。BlueBrick の予算ファイル (.bbb) の読み込みと書き出しもできます。</translation>
+    </message>
+    <message>
+        <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
+        <translation>すべてが一つのファイルに: パーツ、シート、会場、ラベル、モジュール、予算。</translation>
     </message>
     <message>
         <source>Pick this to keep a backup or to open the layout in the desktop app. Nothing is left out.</source>
@@ -2306,8 +2306,8 @@
         <translation>パーツはすべてここにあります</translation>
     </message>
     <message>
-        <source>Search by name, or pick a group like Train track. Drag a piece onto the map to place it.</source>
-        <translation>名前で検索するか、「列車の線路」などのグループを選びます。パーツをマップにドラッグして置きます。</translation>
+        <source>Search by name, or pick a group like Track or Baseplate. Drag a piece onto the map to place it.</source>
+        <translation>名前で検索するか、Track や Baseplate などのグループを選びます。パーツをマップにドラッグして置きます。</translation>
     </message>
     <message>
         <source>Sheets</source>

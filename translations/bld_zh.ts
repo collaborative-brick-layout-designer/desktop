@@ -359,10 +359,6 @@
         <translation>你可以用来搭建的所有零件。</translation>
     </message>
     <message>
-        <source>Search by name or number, or pick a group like track or plates; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
-        <translation>按名称或编号搜索，或选择一个分组，例如轨道或板件；输入的字母可以不连续，所以“plt2”能找到“plate2x4”。把零件拖到地图上，或双击它添加到中间。在空白地图上，单击一下就够了。</translation>
-    </message>
-    <message>
         <source>Sheets</source>
         <translation>图纸</translation>
     </message>
@@ -587,18 +583,6 @@
         <translation>告诉你布局是否没有超出你拥有的零件。</translation>
     </message>
     <message>
-        <source>A budget is how many of each part you own. “Over” means the layout uses more of some part than you have.</source>
-        <translation>预算是你拥有的每种零件的数量。“超出”表示布局中某种零件用得比你拥有的多。</translation>
-    </message>
-    <message>
-        <source>Set how many of each part you have, so the layout never uses more.</source>
-        <translation>设置你拥有的每种零件的数量，布局就不会用得更多。</translation>
-    </message>
-    <message>
-        <source>Type a number next to a part to set its limit. Save the budget to a file to use it again, or open one a friend made.</source>
-        <translation>在零件旁边输入数字来设置它的上限。把预算保存为文件以便再次使用，或打开朋友制作的预算。</translation>
-    </message>
-    <message>
         <source>Sheet options</source>
         <translation>图纸选项</translation>
     </message>
@@ -819,8 +803,24 @@
         <translation>布局文件</translation>
     </message>
     <message>
-        <source>Everything in one file: parts, sheets, venue, labels and modules.</source>
-        <translation>所有内容都在一个文件里：零件、图纸、场地、标签和模块。</translation>
+        <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
+        <translation>按名称或编号搜索，或选择一个组，如 Track 或 Baseplate；输入的字母可以不连续，所以 &quot;plt2&quot; 能找到 &quot;plate2x4&quot;。把零件拖到地图上，或双击它加到中间。空地图上点一下就行。</translation>
+    </message>
+    <message>
+        <source>A budget is how many of each part the layout may use. It is saved with the layout and shared with everyone who edits it. “Over” means the layout uses more of some part than the budget allows.</source>
+        <translation>预算是此布局每种零件最多可以用多少个。它随布局一起保存，并与所有编辑它的人共享。“超出”表示布局用的某种零件比预算允许的多。</translation>
+    </message>
+    <message>
+        <source>Set how many of each part the layout may use, so it never goes over.</source>
+        <translation>设置布局每种零件最多可以用多少个，这样就不会超出。</translation>
+    </message>
+    <message>
+        <source>Type a number next to a part to set its limit. The budget is saved with the layout and shared with everyone who edits it. A BlueBrick budget file (.bbb) can be imported or exported too.</source>
+        <translation>在零件旁边输入一个数字来设置它的上限。预算随布局一起保存，并与所有编辑它的人共享。也可以导入或导出 BlueBrick 预算文件 (.bbb)。</translation>
+    </message>
+    <message>
+        <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
+        <translation>全部在一个文件里：零件、图纸、场地、标签、模块和预算。</translation>
     </message>
     <message>
         <source>Pick this to keep a backup or to open the layout in the desktop app. Nothing is left out.</source>
@@ -2306,8 +2306,8 @@
         <translation>你的所有零件都在这里</translation>
     </message>
     <message>
-        <source>Search by name, or pick a group like Train track. Drag a piece onto the map to place it.</source>
-        <translation>按名称搜索，或选择一个分组，例如火车轨道。把零件拖到地图上即可放置。</translation>
+        <source>Search by name, or pick a group like Track or Baseplate. Drag a piece onto the map to place it.</source>
+        <translation>按名称搜索，或选择一个组，如 Track 或 Baseplate。把零件拖到地图上放置。</translation>
     </message>
     <message>
         <source>Sheets</source>
