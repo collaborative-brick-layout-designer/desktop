@@ -5015,6 +5015,12 @@ le celle esistenti alla vecchia numerazione: ridipingi per sistemare.</translati
         <translation>Questo modulo non ha pezzi da salvare.</translation>
     </message>
     <message>
+        <source>Load theirs: their version replaces this module&apos;s parts in this layout, and your changes to it are dropped.
+Save mine as a new version: this layout&apos;s copy becomes the module; theirs stays in its version history.</source>
+        <translation>Carica la loro: la loro versione sostituisce i pezzi di questo modulo in questo layout e le tue modifiche vengono scartate.
+Salva la mia come nuova versione: la copia di questo layout diventa il modulo; la loro resta nella cronologia delle versioni.</translation>
+    </message>
+    <message>
         <source>Link module to the Module library</source>
         <translation>Collega il modulo alla libreria dei moduli</translation>
     </message>

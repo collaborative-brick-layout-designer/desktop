@@ -5015,6 +5015,12 @@ les cellules existantes à leur ancienne numérotation — repeignez pour nettoy
         <translation>Ce module n’a pas de pièces à enregistrer.</translation>
     </message>
     <message>
+        <source>Load theirs: their version replaces this module&apos;s parts in this layout, and your changes to it are dropped.
+Save mine as a new version: this layout&apos;s copy becomes the module; theirs stays in its version history.</source>
+        <translation>Charger la leur : leur version remplace les pièces de ce module dans ce plan, et vos modifications sont abandonnées.
+Enregistrer la mienne comme nouvelle version : la copie de ce plan devient le module ; la leur reste dans son historique des versions.</translation>
+    </message>
+    <message>
         <source>Link module to the Module library</source>
         <translation>Lier le module à la bibliothèque de modules</translation>
     </message>

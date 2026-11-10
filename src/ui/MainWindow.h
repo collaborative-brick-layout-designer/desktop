@@ -516,13 +516,20 @@ private:
     // A placed module and its library copy (MainWindowModuleLibrary.cpp).
     void saveModuleToLibrary(const QString& moduleId);
     void publishModule(const QString& moduleId);
-    void pullModule(const QString& moduleId);
+    // `askIfChanged` false: the parts are replaced without asking (Load theirs, after a refused save).
+    void pullModule(const QString& moduleId, bool askIfChanged = true);
+    // Update Module library version was refused: someone saved the module meanwhile. Load theirs, or
+    // Save mine as a new version (the same choice as a module being changed here).
+    void publishChangedElsewhere(const QString& moduleId, const QString& libraryId, const QString& title,
+                                 const std::shared_ptr<core::Map>& module, const QString& note);
     void onModuleLibraryAction(const QString& moduleId, const QString& action);
     ModuleLibraryInfo moduleLibraryInfo(const core::Module& m) const;
     // Saves `module` (the parts of placed module `moduleId`) to the library
     // (or this computer), then links the placed module to what was saved.
+    // `baseDocVersion` (>= 0): the library module's docVersion this copy was made from (Update Module
+    // library version): someone else's save since then is refused and asked about, never overwritten.
     void saveModuleMap(core::Map module, const QString& moduleId, const QString& title, bool onThisComputer,
-                       const QString& orgSlug, const QString& updateId, const QString& note);
+                       const QString& orgSlug, const QString& updateId, const QString& note, int baseDocVersion = -1);
     void linkModule(const QString& moduleId, const QString& libraryId, int version, const QString& sourceFile);
     void replaceWithLibrary(const QString& moduleId, core::Map& library, const QString& libraryId, int version);
     bool confirmModuleLibrary(const ConfirmOptions& o);
@@ -533,7 +540,11 @@ private:
                       const QString& updateId, const QString& title, const QString& orgSlug,
                       const QString& note,
                       const std::function<void(bool saved, const QString& id, int version)>& done,
-                      int baseDocVersion = -1);
+                      int baseDocVersion = -1,
+                      // A save refused because someone saved the module since `baseDocVersion` (409
+                      // module_changed); without one, the module being changed here is asked about.
+                      const std::function<void(const std::shared_ptr<core::Map>& module, const QString& note)>&
+                          changedElsewhere = {});
     void clearEditingModule();
     // A save refused because someone else saved the module meanwhile: Load theirs, or Save mine as a new
     // version.

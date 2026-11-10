@@ -4981,6 +4981,12 @@ existing cells at their old indexing — paint over to clean up.</source>
         <translation>这个模块没有可保存的零件。</translation>
     </message>
     <message>
+        <source>Load theirs: their version replaces this module&apos;s parts in this layout, and your changes to it are dropped.
+Save mine as a new version: this layout&apos;s copy becomes the module; theirs stays in its version history.</source>
+        <translation>加载对方版本：对方的版本会替换这个布局中这个模块的零件，你对它的更改将被丢弃。
+将我的保存为新版本：这个布局中的副本成为该模块；对方的版本保留在版本历史中。</translation>
+    </message>
+    <message>
         <source>Link module to the Module library</source>
         <translation>将模块关联到模块库</translation>
     </message>

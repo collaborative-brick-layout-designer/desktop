@@ -5023,6 +5023,12 @@ befintliga rutor med sin gamla numrering — måla över för att städa upp.</t
         <translation>Modulen har inga delar att spara.</translation>
     </message>
     <message>
+        <source>Load theirs: their version replaces this module&apos;s parts in this layout, and your changes to it are dropped.
+Save mine as a new version: this layout&apos;s copy becomes the module; theirs stays in its version history.</source>
+        <translation>Läs in deras: deras version ersätter modulens delar i den här layouten, och dina ändringar i den slängs.
+Spara min som ny version: layoutens kopia blir modulen; deras finns kvar i versionshistoriken.</translation>
+    </message>
+    <message>
         <source>Link module to the Module library</source>
         <translation>Länka modulen till modulbiblioteket</translation>
     </message>

@@ -5015,6 +5015,12 @@ as células existentes com a indexação antiga — pinte por cima para limpar.<
         <translation>Este módulo não tem peças para guardar.</translation>
     </message>
     <message>
+        <source>Load theirs: their version replaces this module&apos;s parts in this layout, and your changes to it are dropped.
+Save mine as a new version: this layout&apos;s copy becomes the module; theirs stays in its version history.</source>
+        <translation>Carregar a deles: a versão deles substitui as peças deste módulo neste layout e as suas alterações são descartadas.
+Guardar a minha como nova versão: a cópia deste layout passa a ser o módulo; a deles fica no histórico de versões.</translation>
+    </message>
+    <message>
         <source>Link module to the Module library</source>
         <translation>Ligar módulo à biblioteca de módulos</translation>
     </message>
