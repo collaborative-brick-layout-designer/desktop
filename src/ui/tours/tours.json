@@ -18,7 +18,7 @@
       "title": "The editor",
       "devices": "large",
       "steps": [
-        { "target": "panel.parts", "title": "All your pieces live here", "text": "Search by name, or pick a group like Train track. Drag a piece onto the map to place it." },
+        { "target": "panel.parts", "title": "All your pieces live here", "text": "Search by name, or pick a group like Track or Baseplate. Drag a piece onto the map to place it." },
         { "target": "panel.sheets", "title": "Sheets", "text": "A layout is built on sheets, like see-through pages. Hide one to see what is under it." },
         { "target": "map", "title": "Place and move", "text": "Click a piece to pick it, then drag it to move it. Drag a box around pieces to pick several." },
         { "target": "map", "title": "Bend flexible track", "text": "Pick a flexible track, then drag the round handle at its free end to bend it." },

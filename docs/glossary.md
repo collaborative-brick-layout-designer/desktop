@@ -13,7 +13,8 @@ the desktop's `UiWordingTest`.
 | **Send to back / Bring to front** | to back / to front | Drawing order within a sheet. |
 | **Club** | org, organization | A group of builders who share layouts, venues, modules and parts. |
 | **Module** | group (for modules) | A saved piece of a layout, such as a table section, that moves as one. |
-| **Venue** (the **room**) | floor plan | The room a layout is set up in: walls, doors, open areas and obstacles. |
+| **Venue** (the **room**) | hall, space | The room a layout is set up in: walls, doors, open areas and obstacles. |
+| **Floor plan** | blueprint, sketch (for the picture) | The picture of the room you trace over in the venue designer, calibrated so its lengths are real. |
 | **Parts library** / **part pack** | part library zip, package | The parts the apps can place. "Get the parts library" sets one up. |
 | **Web address** | slug, URL slug | The short name in a club's or a page's address. A pack's **folder name** on the server. |
 | **…** | ... | One ellipsis character on anything that opens a window. |

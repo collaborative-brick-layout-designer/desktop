@@ -26,7 +26,7 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("Tours", "{n} of {total}"),
     QT_TRANSLATE_NOOP("Tours", "The editor"),
     QT_TRANSLATE_NOOP("Tours", "All your pieces live here"),
-    QT_TRANSLATE_NOOP("Tours", "Search by name, or pick a group like Train track. Drag a piece onto the map to place it."),
+    QT_TRANSLATE_NOOP("Tours", "Search by name, or pick a group like Track or Baseplate. Drag a piece onto the map to place it."),
     QT_TRANSLATE_NOOP("Tours", "Sheets"),
     QT_TRANSLATE_NOOP("Tours", "A layout is built on sheets, like see-through pages. Hide one to see what is under it."),
     QT_TRANSLATE_NOOP("Tours", "Place and move"),
