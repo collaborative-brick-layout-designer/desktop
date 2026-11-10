@@ -340,8 +340,11 @@ TEST(LayoutMerge, BudgetLimitsAndPlacedSetsAreComparedAndMerged) {
               "Budget limit for D (yours: 40, the server's: 44): you changed it, the server changed it\n"
               "Budget limit for E: you added it\n"
               "Custom set: you added it");
-    for (const auto& ch : changes)
-        if (ch.kind == QLatin1String("budget") || ch.kind == QLatin1String("set")) EXPECT_FALSE(ch.allowsBoth());
+    for (const auto& ch : changes) {
+        if (ch.kind == QLatin1String("budget") || ch.kind == QLatin1String("set")) {
+            EXPECT_FALSE(ch.allowsBoth());
+        }
+    }
 
     // By default: mine where nothing clashes, the server's on the clash.
     auto merged = mergeLayouts(m, s, changes, {});
