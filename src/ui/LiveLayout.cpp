@@ -179,7 +179,7 @@ void LiveLayout::drawPeers() {
         QFont f = name->font();
         f.setPixelSize(10);
         name->setFont(f);
-        name->setBrush(Qt::white);
+        name->setBrush(QColor(sync::presence::textColorOn(color.name())));  // dark ink on a light color
         name->setPos(20, 4);
         auto* pill = new QGraphicsRectItem(QRectF(14, 2, name->boundingRect().width() + 12, 16), arrow);
         pill->setBrush(color);
