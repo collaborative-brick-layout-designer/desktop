@@ -26,7 +26,7 @@ TEST(QtCatalogsShots, PicturesForReview) {
     ui::theme::loadFonts();
     const QString qtDir = QLibraryInfo::path(QLibraryInfo::TranslationsPath);
     const ui::theme::Accent accent = ui::theme::accent(QString::fromLatin1(ui::theme::kDefaultAccent));
-    for (const QString code : { QStringLiteral("pt"), QStringLiteral("zh"), QStringLiteral("no") }) {
+    for (const QString& code : { QStringLiteral("pt"), QStringLiteral("zh"), QStringLiteral("no") }) {
         for (const bool after : { false, true }) {
             QTranslator qt;
             bool loaded = false;
