@@ -9172,74 +9172,74 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Set name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name des Sets</translation>
     </message>
     <message>
         <source>Layouts that use it don’t change.</source>
-        <translation type="unfinished"></translation>
+        <translation>Layouts, die es verwenden, ändern sich nicht.</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbenennen</translation>
     </message>
     <message>
         <source>Also rename it on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Auch auf %1 umbenennen</translation>
     </message>
     <message>
         <source>Your set is in your custom parts on %1 too. Its name there changes as well; layouts there don’t change.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Set ist auch auf %1 in deinen eigenen Teilen. Sein Name ändert sich dort ebenfalls; Layouts dort ändern sich nicht.</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ReturnWording</name>
     <message>
         <source>its author</source>
-        <translation type="unfinished"></translation>
+        <translation>sein Urheber</translation>
     </message>
     <message>
         <source>you</source>
-        <translation type="unfinished"></translation>
+        <translation>dir</translation>
     </message>
     <message>
         <source>The club</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Club</translation>
     </message>
     <message>
         <source>Give “%1” back to %2?</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ an %2 zurückgeben?</translation>
     </message>
     <message>
         <source>Take “%1” back?</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ zurückholen?</translation>
     </message>
     <message>
         <source>The %1 goes back to %2, who made it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das %1 geht an %2 zurück, der es gemacht hat.</translation>
     </message>
     <message>
         <source>The %1 becomes yours again, and only yours.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das %1 gehört wieder dir, und nur dir.</translation>
     </message>
     <message>
         <source>%1 keeps its own copy, credited to %2, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 behält eine eigene Kopie, mit %2 als Urheber, daher ändert sich nichts, was der Club damit gebaut hat. Mitglieder mit der Berechtigung „Club-Sachen löschen“ werden benachrichtigt.</translation>
     </message>
     <message>
         <source>%1 can move it back to the club.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kann es wieder zum Club verschieben.</translation>
     </message>
     <message>
         <source>To share it again, move it back to the club.</source>
-        <translation type="unfinished"></translation>
+        <translation>Um es wieder zu teilen, verschiebe es zurück zum Club.</translation>
     </message>
     <message>
         <source>Give back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurückgeben</translation>
     </message>
     <message>
         <source>Take back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurückholen</translation>
     </message>
     <message>
         <source>Save</source>
@@ -9250,7 +9250,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <name>bld::ui::SaveModuleDialog</name>
     <message>
         <source>Put everything on one sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles auf ein Blatt</translation>
     </message>
     <message>
         <source>untitled</source>
@@ -9258,11 +9258,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>All its parts go on one sheet: &lt;b&gt;%1&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle seine Teile kommen auf ein Blatt: &lt;b&gt;%1&lt;/b&gt;.</translation>
     </message>
     <message>
         <source>This module uses %1 sheets: &lt;b&gt;%2&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Modul verwendet %1 Blätter: &lt;b&gt;%2&lt;/b&gt;.</translation>
     </message>
     <message>
         <source>Save to Module library</source>
@@ -9270,23 +9270,23 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>A copy goes to your Module library, so you and your club can use it in other layouts. This module stays linked to it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie kommt in deine Modulbibliothek, damit du und dein Club es in anderen Layouts verwenden könnt. Dieses Modul bleibt mit ihr verbunden.</translation>
     </message>
     <message>
         <source>New module in the Module library</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Modul in der Modulbibliothek</translation>
     </message>
     <message>
         <source>New version of a module in the Module library (none you can change yet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Version eines Moduls in der Modulbibliothek (noch keines, das du ändern darfst)</translation>
     </message>
     <message>
         <source>New version of a module in the Module library</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Version eines Moduls in der Modulbibliothek</translation>
     </message>
     <message>
         <source>My module</source>
-        <translation type="unfinished"></translation>
+        <translation>Mein Modul</translation>
     </message>
     <message>
         <source>Module name</source>
@@ -9306,11 +9306,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>%1  ·  v%2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1  ·  v%2</translation>
     </message>
     <message>
         <source>Module to update</source>
-        <translation type="unfinished"></translation>
+        <translation>Zu aktualisierendes Modul</translation>
     </message>
     <message>
         <source>What changed? (optional)</source>
@@ -9322,7 +9322,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Save “%1” to the Module library</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ in der Modulbibliothek speichern</translation>
     </message>
     <message>
         <source>module</source>
@@ -9330,7 +9330,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>e.g. First version</source>
-        <translation type="unfinished"></translation>
+        <translation>z. B. Erste Version</translation>
     </message>
     <message>
         <source>e.g. Longer siding</source>
@@ -9338,45 +9338,45 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Pick the module to update.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle das zu aktualisierende Modul.</translation>
     </message>
     <message>
         <source>Module name is required</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Modulname ist nötig</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::SaveSetDialog</name>
     <message>
         <source>Save Selection as Set</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswahl als Set speichern</translation>
     </message>
     <message>
         <source>A set is a group of parts saved together, to place again in one go. It goes into your parts, in the Parts panel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Set ist eine Gruppe von Teilen, die zusammen gespeichert ist, um sie in einem Rutsch wieder zu platzieren. Es kommt zu deinen Teilen, im Teile-Fenster.</translation>
     </message>
     <message numerus="yes">
         <source>%n part(s) picked.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n Teil gewählt.</numerusform>
+            <numerusform>%n Teile gewählt.</numerusform>
         </translation>
     </message>
     <message>
         <source>New Set</source>
-        <translation type="unfinished">Neues Set</translation>
+        <translation>Neues Set</translation>
     </message>
     <message>
         <source>Set name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name des Sets</translation>
     </message>
     <message>
         <source>Also put it on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Auch auf den Server stellen</translation>
     </message>
     <message>
         <source>Adds it to your custom parts on %1 too, so you can place it on the website and share it like one of your own parts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügt es auch deinen eigenen Teilen auf %1 hinzu, damit du es auf der Website platzieren und wie eines deiner eigenen Teile teilen kannst.</translation>
     </message>
     <message>
         <source>Save set</source>
@@ -9391,7 +9391,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>A copy of this %1 goes to %2, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie dieses %1 kommt auf %2, wo du, deine Clubs und das Web sie verwenden können. Das auf diesem Computer bleibt, wie es ist.</translation>
     </message>
     <message>
         <source>Me</source>
@@ -9399,7 +9399,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <source>Save to</source>
@@ -9411,18 +9411,18 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Give it a name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gib ihm einen Namen.</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ServerLibrary</name>
     <message>
         <source>Add your club&apos;s server to see the layouts, venues, modules and parts you and your clubs keep there, and the catalog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Füge den Server deines Clubs hinzu, um die Layouts, Veranstaltungsorte, Module und Teile zu sehen, die du und deine Clubs dort habt, und den Katalog.</translation>
     </message>
     <message>
         <source>Sign in to %1 to see your layouts, venues, modules and parts, your clubs&apos; and the catalog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Melde dich bei %1 an, um deine Layouts, Veranstaltungsorte, Module und Teile, die deiner Clubs und den Katalog zu sehen.</translation>
     </message>
     <message>
         <source>Loading…</source>
@@ -9430,26 +9430,26 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Can&apos;t reach %1 right now. Your modules on this computer still work.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ist gerade nicht erreichbar. Deine Module auf diesem Computer funktionieren weiter.</translation>
     </message>
     <message>
         <source>You can&apos;t do that with this module. Ask its owner, or your club&apos;s admins, for editor rights.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mit diesem Modul kannst du das nicht. Bitte seinen Eigentümer oder die Admins deines Clubs um Bearbeitungsrechte.</translation>
     </message>
     <message>
         <source>The catalog isn&apos;t turned on on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Katalog ist auf diesem Server nicht eingeschaltet.</translation>
     </message>
     <message>
         <source>It isn&apos;t there any more. Someone may have deleted it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es ist nicht mehr da. Vielleicht hat es jemand gelöscht.</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ServerModulesTab</name>
     <message>
         <source>Filter modules…</source>
-        <translation type="unfinished"></translation>
+        <translation>Module filtern…</translation>
     </message>
     <message>
         <source>Rename module</source>
@@ -9465,51 +9465,51 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>No saved modules yet. Make a module in a layout, then choose Save to Module library… from its menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Noch keine gespeicherten Module. Mach in einem Layout ein Modul und wähle dann „In der Modulbibliothek speichern…“ in seinem Menü.</translation>
     </message>
     <message>
         <source>No modules match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Module passen.</translation>
     </message>
     <message>
         <source>A club</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Club</translation>
     </message>
     <message>
         <source>Yours</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine</translation>
     </message>
     <message>
         <source>v%1</source>
-        <translation type="unfinished"></translation>
+        <translation>v%1</translation>
     </message>
     <message>
         <source>Editing now</source>
-        <translation type="unfinished"></translation>
+        <translation>Wird gerade bearbeitet</translation>
     </message>
     <message>
         <source>Adding…</source>
-        <translation type="unfinished"></translation>
+        <translation>Füge hinzu…</translation>
     </message>
     <message>
         <source>Add to this module</source>
-        <translation type="unfinished"></translation>
+        <translation>Zu diesem Modul hinzufügen</translation>
     </message>
     <message>
         <source>Add to layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum Layout hinzufügen</translation>
     </message>
     <message>
         <source>More for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mehr für %1</translation>
     </message>
     <message>
         <source>Open to change it</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum Ändern öffnen</translation>
     </message>
     <message>
         <source>You can look at this module, not change it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst dieses Modul ansehen, aber nicht ändern.</translation>
     </message>
     <message>
         <source>Rename…</source>
@@ -9537,27 +9537,27 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Renamed to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbenannt in „%1“</translation>
     </message>
     <message>
         <source>Gave &quot;%1&quot; back to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ an %2 zurückgegeben</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is yours again</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ gehört wieder dir</translation>
     </message>
     <message>
         <source>Give back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurückgeben</translation>
     </message>
     <message>
         <source>Take back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurückholen</translation>
     </message>
     <message>
         <source>Deleted &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ gelöscht</translation>
     </message>
     <message>
         <source>Delete module</source>
@@ -9568,7 +9568,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <name>bld::ui::ServerWindow</name>
     <message>
         <source>Yours</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine</translation>
     </message>
     <message>
         <source>Open from Server</source>
@@ -9580,7 +9580,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Which of your servers to look at</source>
-        <translation type="unfinished"></translation>
+        <translation>Welchen deiner Server ansehen</translation>
     </message>
     <message>
         <source>Manage Servers…</source>
@@ -9592,7 +9592,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Find a layout, venue, module or part</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Layout, einen Veranstaltungsort, ein Modul oder ein Teil finden</translation>
     </message>
     <message>
         <source>Show everything, only yours, or one club&apos;s</source>
@@ -9608,35 +9608,35 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Change the logo on the website</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Logo auf der Website ändern</translation>
     </message>
     <message>
         <source>Club admins upload or change the club&apos;s logo on the website, under Manage › Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Club-Admins laden das Logo des Clubs auf der Website hoch oder ändern es, unter Verwalten › Einstellungen</translation>
     </message>
     <message>
         <source>Members…</source>
-        <translation type="unfinished"></translation>
+        <translation>Mitglieder…</translation>
     </message>
     <message>
         <source>See who is in this club, the roles they hold and when they were last active</source>
-        <translation type="unfinished"></translation>
+        <translation>Sehen, wer in diesem Club ist, welche Rollen sie haben und wann sie zuletzt aktiv waren</translation>
     </message>
     <message>
         <source>Save a file to the server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Datei auf dem Server speichern…</translation>
     </message>
     <message>
         <source>Put a layout file from this computer (.bld-layout, .bbm and more) on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Layout-Datei von diesem Computer (.bld-layout, .bbm und mehr) auf den Server stellen</translation>
     </message>
     <message>
         <source>Upload to server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf den Server hochladen…</translation>
     </message>
     <message>
         <source>Send your own parts the server doesn&apos;t have yet, all at once</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine eigenen Teile, die der Server noch nicht hat, auf einmal senden</translation>
     </message>
     <message>
         <source>Layouts</source>
@@ -9664,15 +9664,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Modules, parts, layouts and venues people shared for everyone</source>
-        <translation type="unfinished"></translation>
+        <translation>Module, Teile, Layouts und Veranstaltungsorte, die andere für alle geteilt haben</translation>
     </message>
     <message>
         <source>Sets of catalog things to add in one go</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppen von Katalog-Sachen zum Hinzufügen in einem Rutsch</translation>
     </message>
     <message>
         <source>Collaborative Brick Layout Designer layout (*.bld-layout)</source>
-        <translation type="unfinished"></translation>
+        <translation>Collaborative-Brick-Layout-Designer-Layout (*.bld-layout)</translation>
     </message>
     <message>
         <source>BlueBrick map (*.bbm)</source>
@@ -9680,15 +9680,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Download a copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie herunterladen</translation>
     </message>
     <message>
         <source>This server doesn&apos;t have a venue library yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Server hat noch keine Veranstaltungsort-Bibliothek.</translation>
     </message>
     <message>
         <source>More for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mehr für %1</translation>
     </message>
     <message>
         <source>%1 (Main)</source>
@@ -9696,15 +9696,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>No servers yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Noch keine Server</translation>
     </message>
     <message>
         <source>Signed in as %1 · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Angemeldet als %1 · %2</translation>
     </message>
     <message>
         <source>Signed in · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Angemeldet · %1</translation>
     </message>
     <message>
         <source>All</source>
@@ -9740,7 +9740,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>updated %1</source>
-        <translation type="unfinished"></translation>
+        <translation>geändert %1</translation>
     </message>
     <message>
         <source>Open live</source>
@@ -9748,23 +9748,23 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Opens it to look at: you can&apos;t change this one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffnet es zum Ansehen: Dieses kannst du nicht ändern.</translation>
     </message>
     <message>
         <source>Opens it here, kept in step with everyone working on it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffnet es hier, abgeglichen mit allen, die daran arbeiten.</translation>
     </message>
     <message>
         <source>Download a copy…</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie herunterladen…</translation>
     </message>
     <message>
         <source>Save it as a file on this computer (.bld-layout, or .bbm for BlueBrick)</source>
-        <translation type="unfinished"></translation>
+        <translation>Als Datei auf diesem Computer speichern (.bld-layout, oder .bbm für BlueBrick)</translation>
     </message>
     <message>
         <source>Save it as a BlueBrick map (.bbm) on this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Als BlueBrick-Karte (.bbm) auf diesem Computer speichern</translation>
     </message>
     <message>
         <source>layout</source>
@@ -9780,31 +9780,31 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>No layouts match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Layouts passen.</translation>
     </message>
     <message>
         <source>%1 has no layouts yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 hat noch keine Layouts.</translation>
     </message>
     <message>
         <source>You have no layouts yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast noch keine Layouts.</translation>
     </message>
     <message>
         <source>There are no layouts here yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier gibt es noch keine Layouts.</translation>
     </message>
     <message>
         <source>Send one with Save a file to the server…, or start one on the web.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sende eines mit „Eine Datei auf dem Server speichern…“ oder beginne eines im Web.</translation>
     </message>
     <message>
         <source>Untitled venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort ohne Titel</translation>
     </message>
     <message>
         <source>saved %1</source>
-        <translation type="unfinished"></translation>
+        <translation>gespeichert %1</translation>
     </message>
     <message>
         <source>Use this venue</source>
@@ -9812,7 +9812,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Start a new layout in this venue (it&apos;s kept in your Venue library too)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein neues Layout in diesem Veranstaltungsort beginnen (er bleibt auch in deiner Veranstaltungsort-Bibliothek)</translation>
     </message>
     <message>
         <source>Add to my venue library</source>
@@ -9820,7 +9820,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Keep a copy in the Venue library on this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie in der Veranstaltungsort-Bibliothek auf diesem Computer behalten</translation>
     </message>
     <message>
         <source>venue</source>
@@ -9828,23 +9828,23 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>No venues match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Veranstaltungsorte passen.</translation>
     </message>
     <message>
         <source>%1 has no saved venues yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 hat noch keine gespeicherten Veranstaltungsorte.</translation>
     </message>
     <message>
         <source>You have no saved venues yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast noch keine gespeicherten Veranstaltungsorte.</translation>
     </message>
     <message>
         <source>No saved venues here yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier gibt es noch keine gespeicherten Veranstaltungsorte.</translation>
     </message>
     <message>
         <source>Send one from the Venue library with Save to Server…, or make one on the web.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sende einen aus der Veranstaltungsort-Bibliothek mit „Auf dem Server speichern…“ oder mach einen im Web.</translation>
     </message>
     <message>
         <source>version %1</source>
@@ -9852,27 +9852,27 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Editing now</source>
-        <translation type="unfinished"></translation>
+        <translation>Wird gerade bearbeitet</translation>
     </message>
     <message>
         <source>Adding…</source>
-        <translation type="unfinished"></translation>
+        <translation>Füge hinzu…</translation>
     </message>
     <message>
         <source>Insert into this layout</source>
-        <translation type="unfinished"></translation>
+        <translation>In dieses Layout einfügen</translation>
     </message>
     <message>
         <source>Add its parts to the layout that&apos;s open, as one module</source>
-        <translation type="unfinished"></translation>
+        <translation>Seine Teile als ein Modul zum offenen Layout hinzufügen</translation>
     </message>
     <message>
         <source>Open to change it</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum Ändern öffnen</translation>
     </message>
     <message>
         <source>You can look at this module, not change it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst dieses Modul ansehen, aber nicht ändern.</translation>
     </message>
     <message>
         <source>Save a copy locally</source>
@@ -9880,7 +9880,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Keep a copy in the Module library folder on this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie im Ordner der Modulbibliothek auf diesem Computer behalten</translation>
     </message>
     <message>
         <source>module</source>
@@ -9888,31 +9888,31 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>No modules match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Module passen.</translation>
     </message>
     <message>
         <source>%1 has no saved modules yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 hat noch keine gespeicherten Module.</translation>
     </message>
     <message>
         <source>You have no saved modules yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast noch keine gespeicherten Module.</translation>
     </message>
     <message>
         <source>No saved modules here yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier gibt es noch keine gespeicherten Module.</translation>
     </message>
     <message>
         <source>Make a module in a layout, then choose Save to Module library… from its menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mach in einem Layout ein Modul und wähle dann „In der Modulbibliothek speichern…“ in seinem Menü.</translation>
     </message>
     <message>
         <source>Show in parts list</source>
-        <translation type="unfinished"></translation>
+        <translation>In der Teileliste zeigen</translation>
     </message>
     <message>
         <source>It&apos;s in your parts: find it in the Parts panel</source>
-        <translation type="unfinished"></translation>
+        <translation>Es ist in deinen Teilen: Du findest es im Teile-Fenster</translation>
     </message>
     <message>
         <source>Add to my parts</source>
@@ -9920,99 +9920,99 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Download it into your parts, to use in any layout</source>
-        <translation type="unfinished"></translation>
+        <translation>In deine Teile herunterladen, um es in jedem Layout zu verwenden</translation>
     </message>
     <message>
         <source>part</source>
-        <translation type="unfinished"></translation>
+        <translation>Teil</translation>
     </message>
     <message>
         <source>No parts match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Teile passen.</translation>
     </message>
     <message>
         <source>%1 has no custom parts yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 hat noch keine eigenen Teile.</translation>
     </message>
     <message>
         <source>You have no custom parts yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast noch keine eigenen Teile.</translation>
     </message>
     <message>
         <source>No custom parts here yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier gibt es noch keine eigenen Teile.</translation>
     </message>
     <message>
         <source>Send yours with Upload to server…, or upload one on the web.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sende deine mit „Auf den Server hochladen…“ oder lade eines im Web hoch.</translation>
     </message>
     <message>
         <source>On this computer, not on the server yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf diesem Computer, noch nicht auf dem Server</translation>
     </message>
     <message>
         <source>Not on the server yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Noch nicht auf dem Server</translation>
     </message>
     <message>
         <source>Send…</source>
-        <translation type="unfinished"></translation>
+        <translation>Senden…</translation>
     </message>
     <message>
         <source>Put a copy on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie auf %1 stellen</translation>
     </message>
     <message>
         <source>Public · update in review</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffentlich · Update in Prüfung</translation>
     </message>
     <message>
         <source>Public</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffentlich</translation>
     </message>
     <message>
         <source>In review</source>
-        <translation type="unfinished"></translation>
+        <translation>In Prüfung</translation>
     </message>
     <message>
         <source>Declined</source>
-        <translation type="unfinished"></translation>
+        <translation>Abgelehnt</translation>
     </message>
     <message>
         <source>Unpublished</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht veröffentlicht</translation>
     </message>
     <message>
         <source>Withdrawn</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurückgezogen</translation>
     </message>
     <message>
         <source>In the catalog: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Im Katalog: %1</translation>
     </message>
     <message>
         <source>Publish this update…</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Update veröffentlichen…</translation>
     </message>
     <message>
         <source>Share to the public catalog…</source>
-        <translation type="unfinished"></translation>
+        <translation>Im öffentlichen Katalog teilen…</translation>
     </message>
     <message>
         <source>A copy goes to the public catalog, for anyone to add to their layouts</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie kommt in den öffentlichen Katalog, damit jeder sie zu seinen Layouts hinzufügen kann</translation>
     </message>
     <message>
         <source>Downloading “%1”…</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade „%1“ herunter…</translation>
     </message>
     <message>
         <source>Couldn&apos;t save %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 konnte nicht gespeichert werden: %2</translation>
     </message>
     <message>
         <source>Saved a copy of “%1” as %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie von „%1“ als %2 gespeichert</translation>
     </message>
     <message>
         <source>Deleted “%1”</source>
@@ -10020,11 +10020,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Delete layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Layout löschen</translation>
     </message>
     <message>
         <source>Delete venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort löschen</translation>
     </message>
     <message>
         <source>Delete module</source>
@@ -10032,19 +10032,19 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Gave “%1” back to %2; the club kept its own copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ an %2 zurückgegeben; der Club hat seine eigene Kopie behalten.</translation>
     </message>
     <message>
         <source>“%1” is yours again; the club kept its own copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ gehört wieder dir; der Club hat seine eigene Kopie behalten.</translation>
     </message>
     <message>
         <source>Give back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurückgeben</translation>
     </message>
     <message>
         <source>Take back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurückholen</translation>
     </message>
 </context>
 <context>
@@ -10055,26 +10055,26 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>You already have a part or set called “%1” on %2, so this set can’t go there under that name. Give it another name, here and there:</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast auf %2 schon ein Teil oder Set namens „%1“, daher kann dieses Set dort nicht so heißen. Gib ihm einen anderen Namen, hier und dort:</translation>
     </message>
     <message>
         <source>Set name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name des Sets</translation>
     </message>
     <message>
         <source>Use this name</source>
-        <translation type="unfinished"></translation>
+        <translation>Diesen Namen verwenden</translation>
     </message>
     <message>
         <source>Keep it only on this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur auf diesem Computer behalten</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::SetUpdatesBar</name>
     <message>
         <source>Update available</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisierung verfügbar</translation>
     </message>
     <message>
         <source>Show</source>
@@ -10082,7 +10082,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Pick them on the map</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf der Karte wählen</translation>
     </message>
     <message>
         <source>Update</source>
@@ -10094,7 +10094,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>“%1” (%2 placed)</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ (%2 platziert)</translation>
     </message>
     <message>
         <source>“%1”</source>
@@ -10102,42 +10102,42 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>&lt;b&gt;Update available:&lt;/b&gt; the set %1 changed since it was placed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aktualisierung verfügbar:&lt;/b&gt; Das Set %1 hat sich geändert, seit es platziert wurde.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Update available:&lt;/b&gt; the sets %1 changed since they were placed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aktualisierung verfügbar:&lt;/b&gt; Die Sets %1 haben sich geändert, seit sie platziert wurden.</translation>
     </message>
     <message>
         <source>Update all %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle %1 aktualisieren</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::SettingsDialog</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <source>Sections</source>
-        <translation type="unfinished"></translation>
+        <translation>Bereiche</translation>
     </message>
     <message>
         <source>Light or dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Hell oder dunkel</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Hell</translation>
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Dunkel</translation>
     </message>
     <message>
         <source>Match my computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Wie mein Computer</translation>
     </message>
     <message>
         <source>Color</source>
@@ -10149,7 +10149,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <source>Snap strength</source>
@@ -10161,7 +10161,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Off: parts never pull onto each other; the grid still lines them up.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aus: Teile ziehen sich nie an; das Raster richtet sie trotzdem aus.</translation>
     </message>
     <message>
         <source>Gentle: pulls only when the ends are close. Recommended.</source>
@@ -10735,7 +10735,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <source>Description (optional)</source>
@@ -10775,7 +10775,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Give it a name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gib ihm einen Namen.</translation>
     </message>
     <message>
         <source>Tick the box to agree that anyone can copy it.</source>
@@ -10866,7 +10866,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Put everything on one sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles auf ein Blatt</translation>
     </message>
 </context>
 <context>
@@ -10933,7 +10933,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Update available</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisierung verfügbar</translation>
     </message>
     <message>
         <source>Collaborative Brick Layout Designer %1 is available (you have %2).</source>
@@ -11199,7 +11199,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <source>Minimum walkway</source>
@@ -11663,7 +11663,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Delete venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort löschen</translation>
     </message>
     <message>
         <source>Could not delete %1.</source>

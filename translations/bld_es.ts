@@ -9172,74 +9172,74 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Set name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del set</translation>
     </message>
     <message>
         <source>Layouts that use it don’t change.</source>
-        <translation type="unfinished"></translation>
+        <translation>Las maquetas que lo usan no cambian.</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Renombrar</translation>
     </message>
     <message>
         <source>Also rename it on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Renombrarlo también en %1</translation>
     </message>
     <message>
         <source>Your set is in your custom parts on %1 too. Its name there changes as well; layouts there don’t change.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tu set también está en tus piezas personalizadas de %1. Su nombre allí también cambia; las maquetas de allí no cambian.</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ReturnWording</name>
     <message>
         <source>its author</source>
-        <translation type="unfinished"></translation>
+        <translation>su autor</translation>
     </message>
     <message>
         <source>you</source>
-        <translation type="unfinished"></translation>
+        <translation>ti</translation>
     </message>
     <message>
         <source>The club</source>
-        <translation type="unfinished"></translation>
+        <translation>El club</translation>
     </message>
     <message>
         <source>Give “%1” back to %2?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Devolver «%1» a %2?</translation>
     </message>
     <message>
         <source>Take “%1” back?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Recuperar «%1»?</translation>
     </message>
     <message>
         <source>The %1 goes back to %2, who made it.</source>
-        <translation type="unfinished"></translation>
+        <translation>El %1 vuelve a %2, que lo hizo.</translation>
     </message>
     <message>
         <source>The %1 becomes yours again, and only yours.</source>
-        <translation type="unfinished"></translation>
+        <translation>El %1 vuelve a ser tuyo, y solo tuyo.</translation>
     </message>
     <message>
         <source>%1 keeps its own copy, credited to %2, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 conserva su propia copia, a nombre de %2, así que no cambia nada de lo que el club construyó con él. Se avisa a los miembros con el permiso «Borrar cosas del club».</translation>
     </message>
     <message>
         <source>%1 can move it back to the club.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 puede devolverlo al club.</translation>
     </message>
     <message>
         <source>To share it again, move it back to the club.</source>
-        <translation type="unfinished"></translation>
+        <translation>Para compartirlo otra vez, devuélvelo al club.</translation>
     </message>
     <message>
         <source>Give back</source>
-        <translation type="unfinished"></translation>
+        <translation>Devolver</translation>
     </message>
     <message>
         <source>Take back</source>
-        <translation type="unfinished"></translation>
+        <translation>Recuperar</translation>
     </message>
     <message>
         <source>Save</source>
@@ -9250,7 +9250,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <name>bld::ui::SaveModuleDialog</name>
     <message>
         <source>Put everything on one sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Poner todo en una hoja</translation>
     </message>
     <message>
         <source>untitled</source>
@@ -9258,11 +9258,11 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>All its parts go on one sheet: &lt;b&gt;%1&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Todas sus piezas van a una hoja: &lt;b&gt;%1&lt;/b&gt;.</translation>
     </message>
     <message>
         <source>This module uses %1 sheets: &lt;b&gt;%2&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este módulo usa %1 hojas: &lt;b&gt;%2&lt;/b&gt;.</translation>
     </message>
     <message>
         <source>Save to Module library</source>
@@ -9270,23 +9270,23 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>A copy goes to your Module library, so you and your club can use it in other layouts. This module stays linked to it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Una copia va a tu biblioteca de módulos, para que tú y tu club podáis usarlo en otras maquetas. Este módulo sigue enlazado con ella.</translation>
     </message>
     <message>
         <source>New module in the Module library</source>
-        <translation type="unfinished"></translation>
+        <translation>Módulo nuevo en la biblioteca de módulos</translation>
     </message>
     <message>
         <source>New version of a module in the Module library (none you can change yet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Versión nueva de un módulo de la biblioteca (aún ninguno que puedas cambiar)</translation>
     </message>
     <message>
         <source>New version of a module in the Module library</source>
-        <translation type="unfinished"></translation>
+        <translation>Versión nueva de un módulo de la biblioteca</translation>
     </message>
     <message>
         <source>My module</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi módulo</translation>
     </message>
     <message>
         <source>Module name</source>
@@ -9306,11 +9306,11 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>%1  ·  v%2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1  ·  v%2</translation>
     </message>
     <message>
         <source>Module to update</source>
-        <translation type="unfinished"></translation>
+        <translation>Módulo que actualizar</translation>
     </message>
     <message>
         <source>What changed? (optional)</source>
@@ -9322,7 +9322,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Save “%1” to the Module library</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar «%1» en la biblioteca de módulos</translation>
     </message>
     <message>
         <source>module</source>
@@ -9330,7 +9330,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>e.g. First version</source>
-        <translation type="unfinished"></translation>
+        <translation>p. ej. Primera versión</translation>
     </message>
     <message>
         <source>e.g. Longer siding</source>
@@ -9338,45 +9338,45 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Pick the module to update.</source>
-        <translation type="unfinished"></translation>
+        <translation>Elige el módulo que actualizar.</translation>
     </message>
     <message>
         <source>Module name is required</source>
-        <translation type="unfinished"></translation>
+        <translation>El nombre del módulo es obligatorio</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::SaveSetDialog</name>
     <message>
         <source>Save Selection as Set</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar la selección como set</translation>
     </message>
     <message>
         <source>A set is a group of parts saved together, to place again in one go. It goes into your parts, in the Parts panel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un set es un grupo de piezas guardadas juntas, para volver a colocarlas de una vez. Va a tus piezas, en el panel Piezas.</translation>
     </message>
     <message numerus="yes">
         <source>%n part(s) picked.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n pieza elegida.</numerusform>
+            <numerusform>%n piezas elegidas.</numerusform>
         </translation>
     </message>
     <message>
         <source>New Set</source>
-        <translation type="unfinished">Nuevo set</translation>
+        <translation>Set nuevo</translation>
     </message>
     <message>
         <source>Set name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del set</translation>
     </message>
     <message>
         <source>Also put it on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponerlo también en el servidor</translation>
     </message>
     <message>
         <source>Adds it to your custom parts on %1 too, so you can place it on the website and share it like one of your own parts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lo añade también a tus piezas personalizadas de %1, para que puedas colocarlo en la web y compartirlo como una de tus piezas.</translation>
     </message>
     <message>
         <source>Save set</source>
@@ -9391,7 +9391,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>A copy of this %1 goes to %2, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
-        <translation type="unfinished"></translation>
+        <translation>Una copia de este %1 va a %2, donde tú, tus clubes y la web podéis usarlo. El de este ordenador queda como está.</translation>
     </message>
     <message>
         <source>Me</source>
@@ -9399,7 +9399,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <source>Save to</source>
@@ -9411,18 +9411,18 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Give it a name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponle un nombre.</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ServerLibrary</name>
     <message>
         <source>Add your club&apos;s server to see the layouts, venues, modules and parts you and your clubs keep there, and the catalog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Añade el servidor de tu club para ver las maquetas, salas, módulos y piezas que tú y tus clubes guardáis allí, y el catálogo.</translation>
     </message>
     <message>
         <source>Sign in to %1 to see your layouts, venues, modules and parts, your clubs&apos; and the catalog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicia sesión en %1 para ver tus maquetas, salas, módulos y piezas, los de tus clubes y el catálogo.</translation>
     </message>
     <message>
         <source>Loading…</source>
@@ -9430,26 +9430,26 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Can&apos;t reach %1 right now. Your modules on this computer still work.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se puede contactar con %1 ahora. Tus módulos de este ordenador siguen funcionando.</translation>
     </message>
     <message>
         <source>You can&apos;t do that with this module. Ask its owner, or your club&apos;s admins, for editor rights.</source>
-        <translation type="unfinished"></translation>
+        <translation>No puedes hacer eso con este módulo. Pide permisos de edición a su propietario o a los admins de tu club.</translation>
     </message>
     <message>
         <source>The catalog isn&apos;t turned on on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>El catálogo no está activado en este servidor.</translation>
     </message>
     <message>
         <source>It isn&apos;t there any more. Someone may have deleted it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ya no está. Puede que alguien lo borrara.</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ServerModulesTab</name>
     <message>
         <source>Filter modules…</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrar módulos…</translation>
     </message>
     <message>
         <source>Rename module</source>
@@ -9465,51 +9465,51 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>No saved modules yet. Make a module in a layout, then choose Save to Module library… from its menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no hay módulos guardados. Haz un módulo en una maqueta y luego elige «Guardar en la biblioteca de módulos…» en su menú.</translation>
     </message>
     <message>
         <source>No modules match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ningún módulo coincide.</translation>
     </message>
     <message>
         <source>A club</source>
-        <translation type="unfinished"></translation>
+        <translation>Un club</translation>
     </message>
     <message>
         <source>Yours</source>
-        <translation type="unfinished"></translation>
+        <translation>Tuyos</translation>
     </message>
     <message>
         <source>v%1</source>
-        <translation type="unfinished"></translation>
+        <translation>v%1</translation>
     </message>
     <message>
         <source>Editing now</source>
-        <translation type="unfinished"></translation>
+        <translation>Editando ahora</translation>
     </message>
     <message>
         <source>Adding…</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadiendo…</translation>
     </message>
     <message>
         <source>Add to this module</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir a este módulo</translation>
     </message>
     <message>
         <source>Add to layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir a la maqueta</translation>
     </message>
     <message>
         <source>More for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Más para %1</translation>
     </message>
     <message>
         <source>Open to change it</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir para cambiarlo</translation>
     </message>
     <message>
         <source>You can look at this module, not change it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Puedes ver este módulo, no cambiarlo.</translation>
     </message>
     <message>
         <source>Rename…</source>
@@ -9537,27 +9537,27 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Renamed to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Renombrado a «%1»</translation>
     </message>
     <message>
         <source>Gave &quot;%1&quot; back to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Se devolvió «%1» a %2</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is yours again</source>
-        <translation type="unfinished"></translation>
+        <translation>«%1» vuelve a ser tuyo</translation>
     </message>
     <message>
         <source>Give back</source>
-        <translation type="unfinished"></translation>
+        <translation>Devolver</translation>
     </message>
     <message>
         <source>Take back</source>
-        <translation type="unfinished"></translation>
+        <translation>Recuperar</translation>
     </message>
     <message>
         <source>Deleted &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Se borró «%1»</translation>
     </message>
     <message>
         <source>Delete module</source>
@@ -9568,7 +9568,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <name>bld::ui::ServerWindow</name>
     <message>
         <source>Yours</source>
-        <translation type="unfinished"></translation>
+        <translation>Tuyos</translation>
     </message>
     <message>
         <source>Open from Server</source>
@@ -9580,7 +9580,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Which of your servers to look at</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuál de tus servidores mirar</translation>
     </message>
     <message>
         <source>Manage Servers…</source>
@@ -9592,7 +9592,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Find a layout, venue, module or part</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar una maqueta, sala, módulo o pieza</translation>
     </message>
     <message>
         <source>Show everything, only yours, or one club&apos;s</source>
@@ -9608,35 +9608,35 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Change the logo on the website</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar el logo en la web</translation>
     </message>
     <message>
         <source>Club admins upload or change the club&apos;s logo on the website, under Manage › Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Los admins del club suben o cambian el logo del club en la web, en Gestionar › Ajustes</translation>
     </message>
     <message>
         <source>Members…</source>
-        <translation type="unfinished"></translation>
+        <translation>Miembros…</translation>
     </message>
     <message>
         <source>See who is in this club, the roles they hold and when they were last active</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver quién está en este club, qué roles tiene y cuándo estuvo activo por última vez</translation>
     </message>
     <message>
         <source>Save a file to the server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar un archivo en el servidor…</translation>
     </message>
     <message>
         <source>Put a layout file from this computer (.bld-layout, .bbm and more) on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Poner en el servidor un archivo de maqueta de este ordenador (.bld-layout, .bbm y más)</translation>
     </message>
     <message>
         <source>Upload to server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Subir al servidor…</translation>
     </message>
     <message>
         <source>Send your own parts the server doesn&apos;t have yet, all at once</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar de una vez tus propias piezas que el servidor aún no tiene</translation>
     </message>
     <message>
         <source>Layouts</source>
@@ -9664,15 +9664,15 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Modules, parts, layouts and venues people shared for everyone</source>
-        <translation type="unfinished"></translation>
+        <translation>Módulos, piezas, maquetas y salas que la gente compartió para todos</translation>
     </message>
     <message>
         <source>Sets of catalog things to add in one go</source>
-        <translation type="unfinished"></translation>
+        <translation>Conjuntos de cosas del catálogo para añadir de una vez</translation>
     </message>
     <message>
         <source>Collaborative Brick Layout Designer layout (*.bld-layout)</source>
-        <translation type="unfinished"></translation>
+        <translation>Maqueta de Collaborative Brick Layout Designer (*.bld-layout)</translation>
     </message>
     <message>
         <source>BlueBrick map (*.bbm)</source>
@@ -9680,15 +9680,15 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Download a copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargar una copia</translation>
     </message>
     <message>
         <source>This server doesn&apos;t have a venue library yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este servidor aún no tiene biblioteca de salas.</translation>
     </message>
     <message>
         <source>More for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Más para %1</translation>
     </message>
     <message>
         <source>%1 (Main)</source>
@@ -9696,15 +9696,15 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>No servers yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no hay servidores</translation>
     </message>
     <message>
         <source>Signed in as %1 · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Sesión iniciada como %1 · %2</translation>
     </message>
     <message>
         <source>Signed in · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Sesión iniciada · %1</translation>
     </message>
     <message>
         <source>All</source>
@@ -9740,7 +9740,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>updated %1</source>
-        <translation type="unfinished"></translation>
+        <translation>actualizada %1</translation>
     </message>
     <message>
         <source>Open live</source>
@@ -9748,23 +9748,23 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Opens it to look at: you can&apos;t change this one.</source>
-        <translation type="unfinished"></translation>
+        <translation>La abre para mirarla: esta no la puedes cambiar.</translation>
     </message>
     <message>
         <source>Opens it here, kept in step with everyone working on it.</source>
-        <translation type="unfinished"></translation>
+        <translation>La abre aquí, sincronizada con todos los que trabajan en ella.</translation>
     </message>
     <message>
         <source>Download a copy…</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargar una copia…</translation>
     </message>
     <message>
         <source>Save it as a file on this computer (.bld-layout, or .bbm for BlueBrick)</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardarla como archivo en este ordenador (.bld-layout, o .bbm para BlueBrick)</translation>
     </message>
     <message>
         <source>Save it as a BlueBrick map (.bbm) on this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardarla como mapa de BlueBrick (.bbm) en este ordenador</translation>
     </message>
     <message>
         <source>layout</source>
@@ -9780,31 +9780,31 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>No layouts match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ninguna maqueta coincide.</translation>
     </message>
     <message>
         <source>%1 has no layouts yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 aún no tiene maquetas.</translation>
     </message>
     <message>
         <source>You have no layouts yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no tienes maquetas.</translation>
     </message>
     <message>
         <source>There are no layouts here yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no hay maquetas aquí.</translation>
     </message>
     <message>
         <source>Send one with Save a file to the server…, or start one on the web.</source>
-        <translation type="unfinished"></translation>
+        <translation>Envía una con «Guardar un archivo en el servidor…» o empieza una en la web.</translation>
     </message>
     <message>
         <source>Untitled venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Sala sin título</translation>
     </message>
     <message>
         <source>saved %1</source>
-        <translation type="unfinished"></translation>
+        <translation>guardada %1</translation>
     </message>
     <message>
         <source>Use this venue</source>
@@ -9812,7 +9812,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Start a new layout in this venue (it&apos;s kept in your Venue library too)</source>
-        <translation type="unfinished"></translation>
+        <translation>Empezar una maqueta nueva en esta sala (también se guarda en tu biblioteca de salas)</translation>
     </message>
     <message>
         <source>Add to my venue library</source>
@@ -9820,7 +9820,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Keep a copy in the Venue library on this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar una copia en la biblioteca de salas de este ordenador</translation>
     </message>
     <message>
         <source>venue</source>
@@ -9828,23 +9828,23 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>No venues match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ninguna sala coincide.</translation>
     </message>
     <message>
         <source>%1 has no saved venues yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 aún no tiene salas guardadas.</translation>
     </message>
     <message>
         <source>You have no saved venues yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no tienes salas guardadas.</translation>
     </message>
     <message>
         <source>No saved venues here yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no hay salas guardadas aquí.</translation>
     </message>
     <message>
         <source>Send one from the Venue library with Save to Server…, or make one on the web.</source>
-        <translation type="unfinished"></translation>
+        <translation>Envía una desde la biblioteca de salas con «Guardar en el servidor…», o haz una en la web.</translation>
     </message>
     <message>
         <source>version %1</source>
@@ -9852,27 +9852,27 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Editing now</source>
-        <translation type="unfinished"></translation>
+        <translation>Editando ahora</translation>
     </message>
     <message>
         <source>Adding…</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadiendo…</translation>
     </message>
     <message>
         <source>Insert into this layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Insertar en esta maqueta</translation>
     </message>
     <message>
         <source>Add its parts to the layout that&apos;s open, as one module</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir sus piezas a la maqueta abierta, como un módulo</translation>
     </message>
     <message>
         <source>Open to change it</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir para cambiarlo</translation>
     </message>
     <message>
         <source>You can look at this module, not change it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Puedes ver este módulo, no cambiarlo.</translation>
     </message>
     <message>
         <source>Save a copy locally</source>
@@ -9880,7 +9880,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Keep a copy in the Module library folder on this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar una copia en la carpeta de la biblioteca de módulos de este ordenador</translation>
     </message>
     <message>
         <source>module</source>
@@ -9888,31 +9888,31 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>No modules match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ningún módulo coincide.</translation>
     </message>
     <message>
         <source>%1 has no saved modules yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 aún no tiene módulos guardados.</translation>
     </message>
     <message>
         <source>You have no saved modules yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no tienes módulos guardados.</translation>
     </message>
     <message>
         <source>No saved modules here yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no hay módulos guardados aquí.</translation>
     </message>
     <message>
         <source>Make a module in a layout, then choose Save to Module library… from its menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz un módulo en una maqueta y luego elige «Guardar en la biblioteca de módulos…» en su menú.</translation>
     </message>
     <message>
         <source>Show in parts list</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar en la lista de piezas</translation>
     </message>
     <message>
         <source>It&apos;s in your parts: find it in the Parts panel</source>
-        <translation type="unfinished"></translation>
+        <translation>Está en tus piezas: encuéntrala en el panel Piezas</translation>
     </message>
     <message>
         <source>Add to my parts</source>
@@ -9920,99 +9920,99 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Download it into your parts, to use in any layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargarla en tus piezas, para usarla en cualquier maqueta</translation>
     </message>
     <message>
         <source>part</source>
-        <translation type="unfinished"></translation>
+        <translation>pieza</translation>
     </message>
     <message>
         <source>No parts match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ninguna pieza coincide.</translation>
     </message>
     <message>
         <source>%1 has no custom parts yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 aún no tiene piezas personalizadas.</translation>
     </message>
     <message>
         <source>You have no custom parts yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no tienes piezas personalizadas.</translation>
     </message>
     <message>
         <source>No custom parts here yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no hay piezas personalizadas aquí.</translation>
     </message>
     <message>
         <source>Send yours with Upload to server…, or upload one on the web.</source>
-        <translation type="unfinished"></translation>
+        <translation>Envía las tuyas con «Subir al servidor…», o sube una en la web.</translation>
     </message>
     <message>
         <source>On this computer, not on the server yet</source>
-        <translation type="unfinished"></translation>
+        <translation>En este ordenador, aún no en el servidor</translation>
     </message>
     <message>
         <source>Not on the server yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no está en el servidor</translation>
     </message>
     <message>
         <source>Send…</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar…</translation>
     </message>
     <message>
         <source>Put a copy on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Poner una copia en %1</translation>
     </message>
     <message>
         <source>Public · update in review</source>
-        <translation type="unfinished"></translation>
+        <translation>Pública · actualización en revisión</translation>
     </message>
     <message>
         <source>Public</source>
-        <translation type="unfinished"></translation>
+        <translation>Pública</translation>
     </message>
     <message>
         <source>In review</source>
-        <translation type="unfinished"></translation>
+        <translation>En revisión</translation>
     </message>
     <message>
         <source>Declined</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechazada</translation>
     </message>
     <message>
         <source>Unpublished</source>
-        <translation type="unfinished"></translation>
+        <translation>Sin publicar</translation>
     </message>
     <message>
         <source>Withdrawn</source>
-        <translation type="unfinished"></translation>
+        <translation>Retirada</translation>
     </message>
     <message>
         <source>In the catalog: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>En el catálogo: %1</translation>
     </message>
     <message>
         <source>Publish this update…</source>
-        <translation type="unfinished"></translation>
+        <translation>Publicar esta actualización…</translation>
     </message>
     <message>
         <source>Share to the public catalog…</source>
-        <translation type="unfinished"></translation>
+        <translation>Compartir en el catálogo público…</translation>
     </message>
     <message>
         <source>A copy goes to the public catalog, for anyone to add to their layouts</source>
-        <translation type="unfinished"></translation>
+        <translation>Una copia va al catálogo público, para que cualquiera la añada a sus maquetas</translation>
     </message>
     <message>
         <source>Downloading “%1”…</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargando «%1»…</translation>
     </message>
     <message>
         <source>Couldn&apos;t save %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo guardar %1: %2</translation>
     </message>
     <message>
         <source>Saved a copy of “%1” as %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Se guardó una copia de «%1» como %2</translation>
     </message>
     <message>
         <source>Deleted “%1”</source>
@@ -10020,11 +10020,11 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Delete layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar maqueta</translation>
     </message>
     <message>
         <source>Delete venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar sala</translation>
     </message>
     <message>
         <source>Delete module</source>
@@ -10032,19 +10032,19 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Gave “%1” back to %2; the club kept its own copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se devolvió «%1» a %2; el club conservó su propia copia.</translation>
     </message>
     <message>
         <source>“%1” is yours again; the club kept its own copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>«%1» vuelve a ser tuyo; el club conservó su propia copia.</translation>
     </message>
     <message>
         <source>Give back</source>
-        <translation type="unfinished"></translation>
+        <translation>Devolver</translation>
     </message>
     <message>
         <source>Take back</source>
-        <translation type="unfinished"></translation>
+        <translation>Recuperar</translation>
     </message>
 </context>
 <context>
@@ -10055,26 +10055,26 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>You already have a part or set called “%1” on %2, so this set can’t go there under that name. Give it another name, here and there:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ya tienes una pieza o un set llamado «%1» en %2, así que este set no puede ir allí con ese nombre. Ponle otro nombre, aquí y allí:</translation>
     </message>
     <message>
         <source>Set name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del set</translation>
     </message>
     <message>
         <source>Use this name</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar este nombre</translation>
     </message>
     <message>
         <source>Keep it only on this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardarlo solo en este ordenador</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::SetUpdatesBar</name>
     <message>
         <source>Update available</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualización disponible</translation>
     </message>
     <message>
         <source>Show</source>
@@ -10082,7 +10082,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Pick them on the map</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegirlos en el mapa</translation>
     </message>
     <message>
         <source>Update</source>
@@ -10094,7 +10094,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>“%1” (%2 placed)</source>
-        <translation type="unfinished"></translation>
+        <translation>«%1» (%2 colocados)</translation>
     </message>
     <message>
         <source>“%1”</source>
@@ -10102,42 +10102,42 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>&lt;b&gt;Update available:&lt;/b&gt; the set %1 changed since it was placed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Actualización disponible:&lt;/b&gt; el set %1 cambió desde que se colocó.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Update available:&lt;/b&gt; the sets %1 changed since they were placed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Actualización disponible:&lt;/b&gt; los sets %1 cambiaron desde que se colocaron.</translation>
     </message>
     <message>
         <source>Update all %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar todos (%1)</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::SettingsDialog</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustes</translation>
     </message>
     <message>
         <source>Sections</source>
-        <translation type="unfinished"></translation>
+        <translation>Secciones</translation>
     </message>
     <message>
         <source>Light or dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Claro u oscuro</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Claro</translation>
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Oscuro</translation>
     </message>
     <message>
         <source>Match my computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Igual que mi ordenador</translation>
     </message>
     <message>
         <source>Color</source>
@@ -10149,7 +10149,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Edición</translation>
     </message>
     <message>
         <source>Snap strength</source>
@@ -10161,7 +10161,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Off: parts never pull onto each other; the grid still lines them up.</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactivado: las piezas nunca se atraen; la cuadrícula aún las alinea.</translation>
     </message>
     <message>
         <source>Gentle: pulls only when the ends are close. Recommended.</source>
@@ -10735,7 +10735,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <source>Description (optional)</source>
@@ -10775,7 +10775,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Give it a name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponle un nombre.</translation>
     </message>
     <message>
         <source>Tick the box to agree that anyone can copy it.</source>
@@ -10866,7 +10866,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Put everything on one sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Poner todo en una hoja</translation>
     </message>
 </context>
 <context>
@@ -10933,7 +10933,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Update available</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualización disponible</translation>
     </message>
     <message>
         <source>Collaborative Brick Layout Designer %1 is available (you have %2).</source>
@@ -11199,7 +11199,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <source>Minimum walkway</source>
@@ -11663,7 +11663,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Delete venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar sala</translation>
     </message>
     <message>
         <source>Could not delete %1.</source>
