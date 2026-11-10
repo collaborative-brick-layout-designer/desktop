@@ -6,9 +6,11 @@ on:
   workflow_dispatch:
 
 # A newer push to the same PR supersedes the running build.
+# One run per pull request: a newer push cancels the older run, which only
+# held a runner. Runs on main and tags are never cancelled.
 concurrency:
-  group: ci-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
