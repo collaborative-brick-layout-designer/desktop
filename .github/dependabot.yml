@@ -4,7 +4,8 @@
 # dependencies (Corrosion, the yffi crate, QtKeychain) are pinned by URL and
 # hash with FetchContent in src/sync/CMakeLists.txt, there is no vcpkg,
 # Cargo or pip manifest, and Qt comes from the system or the CI installer.
-# Bump those by hand.
+# Bump those by hand; the weekly Drift workflow (drift.yml) opens an issue
+# when one has a newer release or cargo audit flags a crate.
 version: 2
 updates:
   - package-ecosystem: github-actions

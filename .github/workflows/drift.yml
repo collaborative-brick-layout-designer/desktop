@@ -1,0 +1,61 @@
+name: Drift
+
+# Once a week: what has moved on since it was pinned (yffi, QtKeychain,
+# Corrosion, the BlueBrickParts submodule, the web's help texts) and what
+# cargo audit says about the crates the app links (yffi's Cargo.lock).
+# Nothing else checks these: Dependabot sees only the GitHub Actions here.
+# One issue, "Dependency drift", stays open while there is something to
+# report, is updated each week, and closes when everything is current.
+
+on:
+  schedule:
+    - cron: '23 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+jobs:
+  drift:
+    name: Dependency drift
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: cargo audit
+        run: cargo install cargo-audit --locked
+
+      - name: Check
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          scripts/ci/drift.sh "$RUNNER_TEMP/drift" > report.md
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+          cat report.md
+
+      - name: Open, update or close the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          STATUS: ${{ steps.check.outputs.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Dependency drift"
+          issue=$(gh issue list --state open --search "in:title \"$title\"" --json number,title --jq ".[] | select(.title == \"$title\") | .number" | head -1)
+          { cat report.md; echo; echo "From $RUN_URL"; } > body.md
+          if [ "$STATUS" = "1" ]; then
+            if [ -n "$issue" ]; then gh issue edit "$issue" --body-file body.md && gh issue comment "$issue" --body "Checked again: $RUN_URL"
+            else gh issue create --title "$title" --body-file body.md; fi
+          elif [ "$STATUS" = "0" ] && [ -n "$issue" ]; then
+            gh issue close "$issue" --comment "Everything is current again: $RUN_URL"
+          fi
