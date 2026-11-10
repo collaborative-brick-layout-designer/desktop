@@ -6,13 +6,18 @@
 //   - each language says "sheet" with its glossary word, never "layer"
 //     (docs/glossary.md: "Sheet, not layer");
 //   - no context holds strings the app can't find (a tr() inside a lambda
-//     or a free function lands in the namespace's name).
+//     or a free function lands in the namespace's name);
+//   - the Parts panel's "All categories" isn't cut short in a language.
 // The CI's check-translations step makes sure lupdate finds nothing new.
 
 #include "ui/TranslationCoverage.h"
+#include "ui/PartsBrowser.h"
+#include "parts/PartsLibrary.h"
 
 #include <gtest/gtest.h>
 
+#include <QApplication>
+#include <QComboBox>
 #include <QCoreApplication>
 #include <QDir>
 #include <QTranslator>
@@ -186,4 +191,28 @@ TEST(Translations, EveryContextIsOneTheAppLooksIn) {
         if (bareNamespace.match(m.context).hasMatch() && m.context != QLatin1String("bld::sync::merge"))
             bad.insert(m.context);
     EXPECT_TRUE(bad.isEmpty()) << QStringList(bad.cbegin(), bad.cend()).join(QStringLiteral(", ")).toStdString();
+}
+
+// "Toutes les catégories" was cut to "Toutes les catég": the box sized itself
+// before its items arrived.
+TEST(Translations, ThePartsPanelSaysAllCategoriesInFull) {
+    for (const char* code : {"de", "fr", "es"}) {
+        QTranslator tr;
+        if (!tr.load(QStringLiteral("bld_") + QLatin1String(code), QStringLiteral(BLD_BINARY_DIR)))
+            GTEST_SKIP() << "the .qm files aren't built (no Qt Linguist tools)";
+        QCoreApplication::installTranslator(&tr);
+        {
+            bld::parts::PartsLibrary lib;
+            bld::ui::PartsBrowser browser(lib);
+            browser.resize(300, 600);
+            browser.show();
+            QApplication::processEvents();
+            auto* box = browser.findChild<QComboBox*>(QStringLiteral("partsCategory"));
+            ASSERT_NE(box, nullptr);
+            const QString all = QCoreApplication::translate("bld::ui::PartsBrowser", "All categories");
+            EXPECT_NE(all, QStringLiteral("All categories")) << code;
+            EXPECT_GT(box->width(), box->fontMetrics().horizontalAdvance(all)) << code;
+        }
+        QCoreApplication::removeTranslator(&tr);
+    }
 }

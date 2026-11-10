@@ -46,6 +46,7 @@
 #include <QTabWidget>
 #include <QTest>
 #include <QTimer>
+#include <QTranslator>
 
 #include <functional>
 #include <memory>
@@ -90,6 +91,13 @@ TEST(ReviewShots, PicturesForReview) {
     const QStringList libs = qEnvironmentVariable("BLD_PARTS").split(QLatin1Char(':'), Qt::SkipEmptyParts);
     if (out.isEmpty() || libs.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS / BLD_PARTS not set";
     const QString tag = qEnvironmentVariable("BLD_REVIEW_TAG", QStringLiteral("after"));
+    // BLD_REVIEW_LANG=de: in that language, as main.cpp loads it (English's plurals first).
+    QTranslator english, language;
+    if (const QString lang = qEnvironmentVariable("BLD_REVIEW_LANG"); !lang.isEmpty()) {
+        if (english.load(QStringLiteral("bld_en"), QStringLiteral(BLD_BINARY_DIR))) QCoreApplication::installTranslator(&english);
+        ASSERT_TRUE(language.load(QStringLiteral("bld_") + lang, QStringLiteral(BLD_BINARY_DIR)));
+        QCoreApplication::installTranslator(&language);
+    }
     QDir().mkpath(out);
     QStandardPaths::setTestModeEnabled(true);
     QCoreApplication::setAttribute(Qt::AA_DontUseNativeDialogs, true);
