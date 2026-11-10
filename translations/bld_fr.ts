@@ -3952,6 +3952,32 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
         <source>Keep both copies of the layout&apos;s parts</source>
         <translation>Garder les deux versions des pièces du plan</translation>
     </message>
+    <message>
+        <source>You&apos;re live again</source>
+        <translation>Vous êtes de nouveau en direct</translation>
+    </message>
+    <message numerus="yes">
+        <source>Your %n offline change(s) were sent.</source>
+        <translation>
+            <numerusform>Votre modification hors ligne a été envoyée.</numerusform>
+            <numerusform>Vos %n modifications hors ligne ont été envoyées.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>You&apos;re not live</source>
+        <translation>Vous n&apos;êtes pas en direct</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <translation>
+            <numerusform>%n de vos modifications attend d&apos;être examinée. D&apos;ici là, vous ne voyez pas ce que les autres modifient, et ils ne voient pas vos modifications.</numerusform>
+            <numerusform>%n de vos modifications attendent d&apos;être examinées. D&apos;ici là, vous ne voyez pas ce que les autres modifient, et ils ne voient pas vos modifications.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Review now</source>
+        <translation>Examiner maintenant</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -5096,6 +5122,16 @@ This removes:
     <message>
         <source>Close</source>
         <translation>Fermer</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::LiveLayout</name>
+    <message numerus="yes">
+        <source>Not live, %n change(s) wait for review</source>
+        <translation>
+            <numerusform>Pas en direct, %n modification attend d&apos;être examinée</numerusform>
+            <numerusform>Pas en direct, %n modifications attendent d&apos;être examinées</numerusform>
+        </translation>
     </message>
 </context>
 </TS>

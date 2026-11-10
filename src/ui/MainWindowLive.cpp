@@ -683,13 +683,36 @@ void MainWindow::updateLiveUi() {
     liveRedoAct_->setVisible(on);
     liveUndoAct_->setEnabled(on && live_->canUndo());
     liveRedoAct_->setEnabled(on && live_->canRedo());
-    reviewOfflineAct_->setEnabled(on && live_->session().offlineEdits()
-                                  && live_->session().status() == sync::SyncClient::Status::Synced);
+    const bool waiting = on && live_->session().offlineEdits()
+                         && live_->session().status() == sync::SyncClient::Status::Synced;
+    reviewOfflineAct_->setEnabled(waiting);
+    // Edits waiting for review: this window shows only its own copy and keeps
+    // every new edit back, so it isn't live until they're reviewed. Said for
+    // as long as that lasts (the status bar says "Not live" too).
+    const int n = live_->session().unsyncedEdits();
+    const auto* comparing = findChild<sync::CompareDialog*>(QString(), Qt::FindDirectChildrenOnly);
+    if (waiting && !(comparing && comparing->isVisible())) {
+        if (liveReviewNotice_ == n) return updateTitle();
+        liveReviewNotice_ = n;
+        notices_->showNotice(QStringLiteral("live-review"), tr("You're not live"),
+                             tr("%n of your change(s) wait for review. Until then you don't see what others change, "
+                                "and they don't see your changes.",
+                                nullptr, n),
+                             { NoticeAction{ tr("Review now"),
+                                             [this] { QTimer::singleShot(0, this, &MainWindow::onReviewOfflineEdits); },
+                                             true } });
+    } else if (liveReviewNotice_ != -1) {
+        liveReviewNotice_ = -1;
+        notices_->hideNotice(QStringLiteral("live-review"));
+    }
     updateTitle();
 }
 
 void MainWindow::onReviewOfflineEdits() {
     if (!live_->active()) return;
+    // (Shown again afterwards if the edits still wait: Later.)
+    notices_->hideNotice(QStringLiteral("live-review"));
+    liveReviewNotice_ = -1;
     // One compare window at a time: a reconnect while it is open says
     // "back in step" again.
     if (findChild<sync::CompareDialog*>(QString(), Qt::FindDirectChildrenOnly)) return;
@@ -709,6 +732,26 @@ void MainWindow::onReviewOfflineEdits() {
         statusBar()->showMessage(tr("Your offline edits left the layout as it was; nothing to apply."), 5000);
         updateLiveUi();
         return;
+    }
+    // Nothing clashes with what others changed meanwhile (a Wi-Fi drop of a
+    // few seconds, say): sent as they are, as the web does, without asking.
+    const bool clash = std::any_of(changes.cbegin(), changes.cend(), [](const sync::merge::ItemChange& c) {
+        return c.status == sync::merge::Status::Conflict;
+    });
+    if (!clash) {
+        QString error;
+        const auto merged = sync::merge::mergeLayouts(mine, server, changes, {}, &error);
+        if (merged) {
+            const int n = static_cast<int>(std::count_if(changes.cbegin(), changes.cend(), [](const sync::merge::ItemChange& c) {
+                return c.mine != sync::merge::Side::Unchanged;
+            }));
+            session.resolveOffline(merged.get());
+            notices_->showNotice(QStringLiteral("live-offline-sent"), tr("You're live again"),
+                                 tr("Your %n offline change(s) were sent.", nullptr, n), { NoticeAction{ tr("OK"), {} } });
+            updateLiveUi();
+            return;
+        }
+        // Couldn't be merged by itself: the window lets the person choose.
     }
 
     sync::CompareDialog dlg(changes, this);

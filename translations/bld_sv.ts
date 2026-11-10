@@ -3952,6 +3952,32 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <source>Keep both copies of the layout&apos;s parts</source>
         <translation>Behåll båda versionerna av layoutens delar</translation>
     </message>
+    <message>
+        <source>You&apos;re live again</source>
+        <translation>Du är live igen</translation>
+    </message>
+    <message numerus="yes">
+        <source>Your %n offline change(s) were sent.</source>
+        <translation>
+            <numerusform>Din ändring offline skickades.</numerusform>
+            <numerusform>Dina %n ändringar offline skickades.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>You&apos;re not live</source>
+        <translation>Du är inte live</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <translation>
+            <numerusform>%n av dina ändringar väntar på granskning. Till dess ser du inte vad andra ändrar, och de ser inte dina ändringar.</numerusform>
+            <numerusform>%n av dina ändringar väntar på granskning. Till dess ser du inte vad andra ändrar, och de ser inte dina ändringar.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Review now</source>
+        <translation>Granska nu</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -5096,6 +5122,16 @@ This removes:
     <message>
         <source>Close</source>
         <translation>Stäng</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::LiveLayout</name>
+    <message numerus="yes">
+        <source>Not live, %n change(s) wait for review</source>
+        <translation>
+            <numerusform>Inte live, %n ändring väntar på granskning</numerusform>
+            <numerusform>Inte live, %n ändringar väntar på granskning</numerusform>
+        </translation>
     </message>
 </context>
 </TS>

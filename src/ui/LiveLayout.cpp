@@ -257,8 +257,9 @@ QString LiveLayout::statusText() const {
     }
     switch (session_.status()) {
     case sync::SyncClient::Status::Synced:
+        // Edits waiting for review: connected, but not live until they're reviewed.
         s = session_.unsyncedEdits() > 0
-                ? tr("Connected, %n offline edit(s) to review", nullptr, session_.unsyncedEdits())
+                ? tr("Not live, %n change(s) wait for review", nullptr, session_.unsyncedEdits())
                 : tr("Connected");
         break;
     case sync::SyncClient::Status::Offline:

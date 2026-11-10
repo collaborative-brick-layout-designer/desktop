@@ -457,6 +457,8 @@ private:
     void liveSignInNeeded();
     class QTimer* liveRoleCheck_ = nullptr;  // a burst of reasons asks once
     class QTimer* liveRolePoll_ = nullptr;
+    // The "You're not live" notice is up for this many waiting edits (-1: not shown).
+    int liveReviewNotice_ = -1;
 
     // The server half of the Module library and your notices (MainWindowModules.cpp).
     void setupServerLibrary();

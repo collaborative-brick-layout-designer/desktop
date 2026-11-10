@@ -3952,6 +3952,32 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
         <source>Keep both copies of the layout&apos;s parts</source>
         <translation>Beide Fassungen der Teile des Layouts behalten</translation>
     </message>
+    <message>
+        <source>You&apos;re live again</source>
+        <translation>Sie sind wieder live</translation>
+    </message>
+    <message numerus="yes">
+        <source>Your %n offline change(s) were sent.</source>
+        <translation>
+            <numerusform>Ihre Offline-Änderung wurde gesendet.</numerusform>
+            <numerusform>Ihre %n Offline-Änderungen wurden gesendet.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>You&apos;re not live</source>
+        <translation>Sie sind nicht live</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <translation>
+            <numerusform>%n Ihrer Änderungen wartet auf Prüfung. Bis dahin sehen Sie nicht, was andere ändern, und andere sehen Ihre Änderungen nicht.</numerusform>
+            <numerusform>%n Ihrer Änderungen warten auf Prüfung. Bis dahin sehen Sie nicht, was andere ändern, und andere sehen Ihre Änderungen nicht.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Review now</source>
+        <translation>Jetzt prüfen</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -5096,6 +5122,16 @@ This removes:
     <message>
         <source>Close</source>
         <translation>Schließen</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::LiveLayout</name>
+    <message numerus="yes">
+        <source>Not live, %n change(s) wait for review</source>
+        <translation>
+            <numerusform>Nicht live, %n Änderung wartet auf Prüfung</numerusform>
+            <numerusform>Nicht live, %n Änderungen warten auf Prüfung</numerusform>
+        </translation>
     </message>
 </context>
 </TS>
