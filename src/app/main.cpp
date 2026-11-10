@@ -109,6 +109,12 @@ int main(int argc, char** argv) {
     // (windeployqt / macdeployqt); dev builds find it under the Qt install.
     static QTranslator appTranslator;
     static QTranslator qtTranslator;
+    // English's own catalog first, whatever the language: the singular and
+    // plural of every "%n part(s)" ("1 part", "3 parts"), and what a
+    // language that isn't finished falls back to.
+    static QTranslator englishTranslator;
+    if (englishTranslator.load(QStringLiteral("bld_en"), translationsDir()))
+        QCoreApplication::installTranslator(&englishTranslator);
     QString langCode = QSettings().value(QStringLiteral("general/language")).toString();
     if (langCode.isEmpty()) langCode = QLocale::system().name().split('_').value(0);
     // Norwegian systems report Bokmål (nb) or Nynorsk (nn); we ship "no" as BlueBrick did.

@@ -2,59 +2,71 @@
 
 ## Languages we ship
 
-Current target set (upstream BlueBrick's shipped languages plus Chinese and
-Japanese). Counts are strings with a translation, of 870:
+Upstream BlueBrick's languages plus Chinese and Japanese. How much of each
+is done is in `src/ui/TranslationCoverage.h`, which Settings › Language
+shows next to each language until it reaches 100 % (the rest shows in
+English):
 
-| Code | Language              | Translated | Source |
-|------|-----------------------|-----------:|--------|
-| en   | English               | —          | built into `tr()` |
-| de   | German                | 164        | BlueBrick's translators + seeded |
-| fr   | French                | 156        | BlueBrick's translators + seeded |
-| it   | Italian               | 160        | BlueBrick's translators + seeded |
-| nl   | Dutch                 | 158        | BlueBrick's translators + seeded |
-| pt   | Portuguese            | 157        | BlueBrick's translators + seeded |
-| es   | Spanish               | 152        | BlueBrick's translators + seeded |
-| sv   | Swedish               | 89         | BlueBrick's translators |
-| no   | Norwegian (Bokmål)    | 88         | BlueBrick's translators |
-| zh   | Chinese (Simplified)  | 72         | seeded |
-| ja   | Japanese              | 72         | seeded |
+| Code | Language              | Sheet is | Part is |
+|------|-----------------------|----------|---------|
+| en   | English               | sheet    | part    |
+| de   | German                | Blatt    | Teil    |
+| fr   | French                | feuille  | pièce   |
+| it   | Italian               | foglio   | pezzo   |
+| nl   | Dutch                 | blad     | onderdeel |
+| pt   | Portuguese            | folha    | peça    |
+| es   | Spanish               | hoja     | pieza   |
+| sv   | Swedish               | blad     | del     |
+| no   | Norwegian (Bokmål)    | ark      | del     |
+| zh   | Chinese (Simplified)  | 图纸     | 零件    |
+| ja   | Japanese              | シート   | パーツ  |
 
-"BlueBrick's translators" are strings identical to one of BlueBrick 1.9.2's,
-taken from its own translations by
-[`scripts/seed-from-bluebrick.py`](../scripts/seed-from-bluebrick.py)
-(pass it the BlueBrick source folder holding `MainForm.resx`; it only fills
-unfinished strings). "Seeded" are the machine-seeded menu and dialog basics
-from [`scripts/apply-translations.py`](../scripts/apply-translations.py) —
-those need native-speaker review. Everything else is still
-`type="unfinished"`: pull requests welcome. Norwegian uses the code `no`, as
-BlueBrick did; systems set to `nb` or `nn` pick it automatically.
+"Sheet" is never the word for a layer (`Ebene`, `calque`, `capa`, `レイヤー`
+…): docs/glossary.md, and the Translations test checks it. Norwegian uses
+the code `no`, as BlueBrick did; systems set to `nb` or `nn` pick it
+automatically.
 
-Each language has a `translations/bld_<code>.ts` file checked in.
-Running `lupdate` populates the file with every `tr()` call from the
-source; translators fill in the `<translation>` bodies; CMake runs
-`lrelease` at build time to produce `bld_<code>.qm` bundled next to the
-binary.
+`bld_en.ts` holds only English's plurals: the source says "%n part(s)",
+and the catalog makes it "1 part" and "3 parts". It is filled by
+[`scripts/fill-english-plurals.py`](../scripts/fill-english-plurals.py).
 
 ## Workflow — running `lupdate`
 
-From the repo root:
+From the repo root, with Qt 6's `lupdate` (Qt 5's writes other contexts):
 
 ```sh
-# Populate / refresh every language's .ts file from source
-for lang in fr de es it nl pt zh ja; do
-    lupdate -recursive src -ts translations/bld_${lang}.ts
+for lang in de es fr it ja nl no pt sv zh; do
+    lupdate -recursive src -ts translations/bld_${lang}.ts -locations none -no-obsolete
 done
+lupdate -recursive src -pluralonly -source-language en -target-language en \
+    -locations none -no-obsolete -ts translations/bld_en.ts
+python3 scripts/fill-english-plurals.py
+python3 scripts/translation-coverage.py
 ```
 
-`lupdate` is part of Qt's linguist tools (package `qt6-tools-dev-tools`
-on Ubuntu / Debian, `qt@6` formula on macOS, or shipped with the Qt
-installer on Windows).
+`lupdate` keeps the translations that are there, adds the new strings as
+unfinished and (with `-no-obsolete`) drops the ones the source no longer
+has. `-locations none` keeps the files free of line numbers, so they only
+change when the words do.
 
-`lupdate` **preserves** existing translations — rerunning it after new
-`tr()` strings are added will add the new entries without disturbing
-completed translations. Removed strings are marked `type="obsolete"`
-instead of deleted, so translators can see them and decide to port or
-drop.
+CI's *Translations match the source* step
+([`scripts/ci/check-translations.py`](../scripts/ci/check-translations.py))
+fails when a `.ts` file is missing a string the source marks for
+translation, or keeps one it dropped. Run the loop above to fix it.
+
+A `tr()` lupdate can't place (a lambda or a free function named `tr`)
+lands in the namespace's name, where the app never looks: use a struct
+with `Q_DECLARE_TR_FUNCTIONS(context)` and call `Struct::tr()` (see
+`src/ui/ImportPipeline.cpp`). Strings kept in tables (`const char*`) are
+marked with `QT_TRANSLATE_NOOP("context", "…")` and translated where they
+are shown.
+
+### Help texts
+
+The help popovers come from `src/ui/help/help-texts.json`, the web app's
+file word for word. `src/ui/help/HelpTextStrings.cpp` marks the same
+strings with `QT_TRANSLATE_NOOP("HelpTexts", …)`; after changing the JSON,
+run `scripts/gen-help-strings.py`.
 
 ### Tour and welcome text
 
@@ -65,6 +77,20 @@ strings with `QT_TRANSLATE_NOOP("Tours", …)` so `lupdate` finds them (the
 `Tours` context), and the app translates them when it reads the file.
 After changing `tours.json`, run `scripts/gen-tour-strings.py`; the
 `Tours.EveryStringInToursJsonIsMarkedForTranslation` test fails until you do.
+
+## Workflow — translating with `scripts/ts-tool.py`
+
+```sh
+python3 scripts/ts-tool.py export de > de-todo.json   # what is left, as {"source": ""}
+# fill in the values (a "%n" string's value is its list of forms), then:
+python3 scripts/ts-tool.py fill de de-todo.json
+python3 scripts/translation-coverage.py
+```
+
+`fill` writes each translation into every message with that source and
+leaves out any that loses a placeholder (`%1`, `%n`) or an Alt letter
+(`&File`), or says "layer" for a sheet; `check` clears such translations
+already in a file.
 
 ## Workflow — bulk-applying translations via the script
 
@@ -117,7 +143,7 @@ Save and commit.
 CMake auto-detects the `.ts` files; a successful build produces
 `.qm` files in the build directory (under `<build>/translations/`).
 The `main.cpp` loader picks them up based on the user's language
-preference (Preferences → General → Language).
+preference (Settings › Language).
 
 When you ship a release, the package step copies `.qm` files from the
 build directory to `<app>/translations/` so the installed binary
@@ -147,7 +173,7 @@ finds them at runtime.
 2. Create `translations/bld_<code>.ts` as an empty TS (copy an
    existing stub, change the `language="..."` attribute).
 3. Run `lupdate` to populate it (see above).
-4. Add the language option to `PreferencesDialog`'s language combo.
+4. Add the language to `settings::languages()` (`src/ui/SettingsSections.cpp`) and to the lists in `scripts/translation-coverage.py`, `scripts/ts-tool.py` and `scripts/ci/check-translations.py`.
 5. Translate.
 6. Open a PR.
 

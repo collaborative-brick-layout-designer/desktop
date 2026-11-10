@@ -2,6 +2,7 @@
 
 #include "BudgetSession.h"
 #include "ImportPipeline.h"
+#include "TranslationCoverage.h"
 #include "help/HelpButton.h"
 
 #include "../import/ArchivePath.h"
@@ -201,7 +202,11 @@ void addLanguage(QVBoxLayout* into, QWidget* parent) {
     auto* combo = new QComboBox(parent);
     combo->setObjectName(QStringLiteral("general/language"));
     combo->setAccessibleName(Text::tr("Language"));
-    for (const Language& l : languages()) combo->addItem(l.name, l.code);
+    // A language that isn't finished says how far it got (Bug 4): the rest shows in English.
+    for (const Language& l : languages()) {
+        const int done = l.code.isEmpty() ? 100 : translationPercent(l.code);
+        combo->addItem(done >= 100 ? l.name : Text::tr("%1 (%2% translated)").arg(l.name).arg(done), l.code);
+    }
     // Unset (or empty): Match my computer, as the app starts with.
     const QString current = QSettings().value(QStringLiteral("general/language")).toString();
     combo->setCurrentIndex(std::max(0, combo->findData(current)));

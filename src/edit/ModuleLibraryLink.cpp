@@ -16,6 +16,10 @@
 #include <cmath>
 #include <map>
 
+// lupdate reads the context from Q_DECLARE_TR_FUNCTIONS; call ModuleLibraryLinkText::tr().
+struct ModuleLibraryLinkText { Q_DECLARE_TR_FUNCTIONS(bld::edit::ModuleLibraryLink) };
+
+
 namespace bld::edit {
 
 namespace {
@@ -213,11 +217,10 @@ std::function<QString(const QString&)> sheetForUpdate(const core::Map& map, cons
 }
 
 QString libraryNote(int version, int latest) {
-    const auto tr = [](const char* s) { return QCoreApplication::translate("bld::edit::ModuleLibraryLink", s); };
-    if (latest < 0) return tr("its Module library copy isn't on this server");
+    if (latest < 0) return ModuleLibraryLinkText::tr("its Module library copy isn't on this server");
     const QString v = version > 0 ? QStringLiteral(" v%1").arg(version) : QString();
-    if (latest > 0 && (version == 0 || latest > version)) return tr("in the Module library%1 · v%2 is newer").arg(v).arg(latest);
-    return tr("in the Module library%1").arg(v);
+    if (latest > 0 && (version == 0 || latest > version)) return ModuleLibraryLinkText::tr("in the Module library%1 · v%2 is newer").arg(v).arg(latest);
+    return ModuleLibraryLinkText::tr("in the Module library%1").arg(v);
 }
 
 }  // namespace bld::edit

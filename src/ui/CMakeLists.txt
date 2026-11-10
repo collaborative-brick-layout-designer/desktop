@@ -127,6 +127,7 @@ add_library(bld_ui STATIC
     SettingsDialog.cpp
     SettingsSections.cpp
     SettingsSections.h
+    TranslationCoverage.h
     SettingsDialog.h
     theme/ThemeManager.cpp
     theme/ThemeManager.h

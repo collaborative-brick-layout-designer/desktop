@@ -1,5 +1,7 @@
 #include "Tokens.h"
 
+#include <QtGlobal>
+
 namespace bld::ui::theme {
 
 namespace {
@@ -25,25 +27,25 @@ const Neutrals& neutrals(Mode mode) {
 // white, so sunny buttons use dark ink (4.97:1) instead.
 const QList<Accent>& accents() {
     static const QList<Accent> all{
-        { QStringLiteral("brick"), QStringLiteral("Brick red"), c("#C2412D"), c("#FFFFFF"), c("#FBE9E5"),
+        { QStringLiteral("brick"), QString::fromLatin1(QT_TRANSLATE_NOOP("bld::ui::SettingsDialog", "Brick red")), c("#C2412D"), c("#FFFFFF"), c("#FBE9E5"),
           c("#3A221E"), c("#A8331F"), c("#F2A08F") },
-        { QStringLiteral("ocean"), QStringLiteral("Ocean blue"), c("#2459C4"), c("#FFFFFF"), c("#E6EEFB"),
+        { QStringLiteral("ocean"), QString::fromLatin1(QT_TRANSLATE_NOOP("bld::ui::SettingsDialog", "Ocean blue")), c("#2459C4"), c("#FFFFFF"), c("#E6EEFB"),
           c("#1C2940"), c("#1D4AA6"), c("#93B4F0") },
-        { QStringLiteral("forest"), QStringLiteral("Forest green"), c("#2E7D4F"), c("#FFFFFF"), c("#E4F2E9"),
+        { QStringLiteral("forest"), QString::fromLatin1(QT_TRANSLATE_NOOP("bld::ui::SettingsDialog", "Forest green")), c("#2E7D4F"), c("#FFFFFF"), c("#E4F2E9"),
           c("#1C3326"), c("#256942"), c("#8FD1A8") },
-        { QStringLiteral("plum"), QStringLiteral("Plum"), c("#8A4FBF"), c("#FFFFFF"), c("#F1E8F9"),
+        { QStringLiteral("plum"), QString::fromLatin1(QT_TRANSLATE_NOOP("bld::ui::SettingsDialog", "Plum")), c("#8A4FBF"), c("#FFFFFF"), c("#F1E8F9"),
           c("#2E2238"), c("#7340A3"), c("#C9A6EA") },
-        { QStringLiteral("sunny"), QStringLiteral("Sunny yellow"), c("#B8860B"), c("#1E2124"), c("#FBF1D9"),
+        { QStringLiteral("sunny"), QString::fromLatin1(QT_TRANSLATE_NOOP("bld::ui::SettingsDialog", "Sunny yellow")), c("#B8860B"), c("#1E2124"), c("#FBF1D9"),
           c("#3A2F14"), c("#8A6508"), c("#E9C86A") },
-        { QStringLiteral("teal"), QStringLiteral("Lagoon teal"), c("#0F7C80"), c("#FFFFFF"), c("#E0F2F2"),
+        { QStringLiteral("teal"), QString::fromLatin1(QT_TRANSLATE_NOOP("bld::ui::SettingsDialog", "Lagoon teal")), c("#0F7C80"), c("#FFFFFF"), c("#E0F2F2"),
           c("#16302F"), c("#0B6569"), c("#7FD0CF") },
-        { QStringLiteral("orange"), QStringLiteral("Pumpkin orange"), c("#B9520B"), c("#FFFFFF"), c("#FCEBDD"),
+        { QStringLiteral("orange"), QString::fromLatin1(QT_TRANSLATE_NOOP("bld::ui::SettingsDialog", "Pumpkin orange")), c("#B9520B"), c("#FFFFFF"), c("#FCEBDD"),
           c("#3A2616"), c("#A0470A"), c("#F4B183") },
-        { QStringLiteral("rose"), QStringLiteral("Rose pink"), c("#C2335F"), c("#FFFFFF"), c("#FBE6EC"),
+        { QStringLiteral("rose"), QString::fromLatin1(QT_TRANSLATE_NOOP("bld::ui::SettingsDialog", "Rose pink")), c("#C2335F"), c("#FFFFFF"), c("#FBE6EC"),
           c("#3A1E27"), c("#A6284F"), c("#F2A3BA") },
-        { QStringLiteral("indigo"), QStringLiteral("Indigo"), c("#4B4FC4"), c("#FFFFFF"), c("#EAEAFB"),
+        { QStringLiteral("indigo"), QString::fromLatin1(QT_TRANSLATE_NOOP("bld::ui::SettingsDialog", "Indigo")), c("#4B4FC4"), c("#FFFFFF"), c("#EAEAFB"),
           c("#23243F"), c("#3E42A8"), c("#B0B3F2") },
-        { QStringLiteral("slate"), QStringLiteral("Slate gray"), c("#4F5B6B"), c("#FFFFFF"), c("#EBEEF2"),
+        { QStringLiteral("slate"), QString::fromLatin1(QT_TRANSLATE_NOOP("bld::ui::SettingsDialog", "Slate gray")), c("#4F5B6B"), c("#FFFFFF"), c("#EBEEF2"),
           c("#262B32"), c("#46505E"), c("#B6C0CC") },
     };
     return all;

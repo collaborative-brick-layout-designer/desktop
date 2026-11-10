@@ -370,7 +370,7 @@ void MainWindow::setupMenus() {
         }
         p.end();
         statusBar()->showMessage(
-            tr("Printed %1 page(s)").arg(rows * cols), 5000);
+            tr("Printed %n page(s)", nullptr, rows * cols), 5000);
     });
 
     file->addSeparator();

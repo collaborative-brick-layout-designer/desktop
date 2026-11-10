@@ -55,7 +55,8 @@ bool writeAll(const QString& path, const QByteArray& data) {
     return out.open(QIODevice::WriteOnly) && out.write(data) == data.size() && out.commit();
 }
 
-QString tr(const char* s) { return QCoreApplication::translate("bld::import::LayoutFile", s); }
+// lupdate reads the context from Q_DECLARE_TR_FUNCTIONS; call Text::tr().
+struct Text { Q_DECLARE_TR_FUNCTIONS(bld::import::LayoutFile) };
 
 // The image's extension as an entry name: short and plain, else "bin".
 QString imageSuffix(const QString& path) {
@@ -133,18 +134,18 @@ LayoutFileResult readLayoutFileBytes(const QByteArray& bytes, const QString& ass
     const QJsonObject manifest =
         manifestBytes ? QJsonDocument::fromJson(*manifestBytes).object() : QJsonObject();
     if (manifest.value(QLatin1String("format")).toString() != kFormat) {
-        r.error = tr("This is not a Collaborative Brick Layout Designer layout file.");
+        r.error = Text::tr("This is not a Collaborative Brick Layout Designer layout file.");
         return r;
     }
     r.manifest = manifest;
     r.source = LayoutSource::fromJson(manifest.value(QLatin1String("source")));
     if (manifest.value(QLatin1String("version")).toInt() > kLayoutFileVersion)
-        r.warnings << tr("The file was made by a newer version of Collaborative Brick Layout Designer; "
+        r.warnings << Text::tr("The file was made by a newer version of Collaborative Brick Layout Designer; "
                          "anything this version doesn't know is left out.");
 
     const auto bbm = entry(kLayout, kMaxLayout);
     if (!bbm) {
-        r.error = tr("The layout file has no readable layout in it.");
+        r.error = Text::tr("The layout file has no readable layout in it.");
         return r;
     }
     QBuffer in;
@@ -163,7 +164,7 @@ LayoutFileResult readLayoutFileBytes(const QByteArray& bytes, const QString& ass
         const QJsonDocument doc =
             sidecarBytes ? QJsonDocument::fromJson(*sidecarBytes) : QJsonDocument();
         if (!doc.isObject()) {
-            r.warnings << tr("The labels, modules, venue and background could not be read.");
+            r.warnings << Text::tr("The labels, modules, venue and background could not be read.");
             r.partlyRead = true;
         } else {
             const QJsonObject root = doc.object();
@@ -186,7 +187,7 @@ LayoutFileResult readLayoutFileBytes(const QByteArray& bytes, const QString& ass
                 if (unpacked) {
                     loaded.map->sidecar.backgroundImagePath = target;
                 } else {
-                    r.warnings << tr("The background image could not be unpacked.");
+                    r.warnings << Text::tr("The background image could not be unpacked.");
                     r.partlyRead = true;
                     loaded.map->sidecar.backgroundImagePath.clear();
                 }
@@ -203,7 +204,7 @@ LayoutFileResult readLayoutFileBytes(const QByteArray& bytes, const QString& ass
             r.partFiles.insert(name, *data);
             partBytes += data->size();
         } else {
-            r.warnings << tr("The part file %1 in the layout could not be read.").arg(name);
+            r.warnings << Text::tr("The part file %1 in the layout could not be read.").arg(name);
             r.partlyRead = true;
         }
     }
@@ -308,7 +309,7 @@ bool replaceLocalPart(const QString& localXmlPath, const QMap<QString, QByteArra
     QDir().mkpath(backupDir);
     for (const auto& name : old) {
         if (!writeAll(QDir(backupDir).filePath(name), readAll(dir.filePath(name)))) {
-            if (error) *error = tr("Could not back up %1.").arg(dir.filePath(name));
+            if (error) *error = Text::tr("Could not back up %1.").arg(dir.filePath(name));
             return false;
         }
     }
@@ -322,7 +323,7 @@ bool replaceLocalPart(const QString& localXmlPath, const QMap<QString, QByteArra
         if (!incoming.contains(name)) QFile::remove(dir.filePath(name));
     for (auto it = incoming.constBegin(); it != incoming.constEnd(); ++it) {
         if (!writeAll(dir.filePath(it.key()), it.value())) {
-            if (error) *error = tr("Could not write %1.").arg(dir.filePath(it.key()));
+            if (error) *error = Text::tr("Could not write %1.").arg(dir.filePath(it.key()));
             return false;
         }
     }
@@ -414,7 +415,7 @@ QByteArray layoutFileBytes(const core::Map& map, QString* error, QStringList* wa
                 // Images are compressed already.
                 zip.add(name, image.readAll(), ZipWriter::Method::Stored);
             } else if (warnings) {
-                *warnings << tr("The background image %1 could not be read, so the file only "
+                *warnings << Text::tr("The background image %1 could not be read, so the file only "
                                 "keeps its path.")
                                  .arg(imagePath);
             }

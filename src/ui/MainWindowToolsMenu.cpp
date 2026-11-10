@@ -135,7 +135,7 @@ void MainWindow::setupToolsMenu() {
         }
         onReloadLibrary();
         statusBar()->showMessage(
-            tr("Installed %n package(s); parts reloaded.", nullptr, dlg.installedCount()), 5000);
+            tr("Installed %n part pack(s); parts reloaded.", nullptr, dlg.installedCount()), 5000);
     });
 
     // Preferences moved to Edit menu (BlueBrick parity).

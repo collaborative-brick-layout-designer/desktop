@@ -16,3 +16,9 @@ The *Coverage* CI job reports line, function and branch coverage of `src/`
 (job summary plus an HTML artifact); to run it locally, configure with
 `--coverage` in the C/C++ and linker flags, run the tests, then
 `gcovr -r . --object-directory <build> --filter src/ --exclude src/app/ --print-summary`.
+
+- `check-translations.py [lupdate]` — fails when `translations/*.ts` and the
+  source disagree: a string marked for translation that a `.ts` file
+  doesn't have, or one the source dropped. It runs `lupdate` on copies and
+  compares the strings, so any lupdate version gives the same answer. The
+  *Lint changed lines* job runs it on every pull request.

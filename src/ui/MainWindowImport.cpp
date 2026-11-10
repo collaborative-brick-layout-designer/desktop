@@ -590,7 +590,7 @@ void MainWindow::onBatchImport() {
     const int skipped = static_cast<int>(files.size()) - done.size() - failed.size();
     QMessageBox box(failed.isEmpty() ? QMessageBox::Information : QMessageBox::Warning,
                     tr("Batch Import"),
-                    tr("Imported %1 of %2 file(s) into “%3”.").arg(done.size()).arg(files.size()).arg(cat),
+                    tr("Imported %1 of %n file(s) into “%2”.", nullptr, static_cast<int>(files.size())).arg(done.size()).arg(cat),
                     QMessageBox::Ok, this);
     QStringList details;
     if (!done.isEmpty())   details << tr("Imported:") << done;

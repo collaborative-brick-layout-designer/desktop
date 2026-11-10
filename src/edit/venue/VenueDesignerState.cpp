@@ -1,6 +1,7 @@
 #include "VenueDesignerState.h"
 
 #include <QRegularExpression>
+#include <QtGlobal>
 
 #include <cmath>
 
@@ -112,23 +113,24 @@ DesignerState finishCut(DesignerState s, double t1) {
 } // namespace
 
 const std::array<ToolInfo, 13>& tools() {
+    // Shown through the designer's tr(); marked here so lupdate finds them.
     static const std::array<ToolInfo, 13> kTools{ {
-        { Tool::Select, "Select", 'v', "Click to select, drag to move, drag a corner to reshape" },
-        { Tool::Wall, "Wall", 'w',
-          "Click corner to corner; type a length and press Enter; Enter or Esc to finish" },
-        { Tool::Room, "Room", 'r', "Click two opposite corners, or click one and type width x depth" },
-        { Tool::Door, "Door", 'd',
-          "Click where the door starts on a wall, then where it ends (or type its width)" },
-        { Tool::Opening, "Opening", 'o',
-          "Click where the opening starts on a wall, then where it ends (or type its width)" },
-        { Tool::Column, "Column", 'c', "Click two opposite corners, or click one and type width x depth" },
-        { Tool::Stairs, "Stairs", 's', "Click two opposite corners; set the way up in the inspector" },
-        { Tool::Elevator, "Elevator", 'e', "Click two opposite corners" },
-        { Tool::Counter, "Counter", 'k', "Click two opposite corners" },
-        { Tool::Railing, "Railing", 'l', "Click where it starts and where it ends (or type its length)" },
-        { Tool::Power, "Power", 'p', "Click on a wall for a wall outlet, anywhere else for a floor outlet" },
-        { Tool::Note, "Note", 'n', "Click where the note goes, then type it in the inspector" },
-        { Tool::Measure, "Measure", 'm', "Click two points to add a measurement (or type its length)" },
+        { Tool::Select, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Select"), 'v', QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click to select, drag to move, drag a corner to reshape") },
+        { Tool::Wall, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Wall"), 'w',
+          QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click corner to corner; type a length and press Enter; Enter or Esc to finish") },
+        { Tool::Room, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Room"), 'r', QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click two opposite corners, or click one and type width x depth") },
+        { Tool::Door, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Door"), 'd',
+          QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click where the door starts on a wall, then where it ends (or type its width)") },
+        { Tool::Opening, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Opening"), 'o',
+          QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click where the opening starts on a wall, then where it ends (or type its width)") },
+        { Tool::Column, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Column"), 'c', QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click two opposite corners, or click one and type width x depth") },
+        { Tool::Stairs, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Stairs"), 's', QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click two opposite corners; set the way up in the inspector") },
+        { Tool::Elevator, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Elevator"), 'e', QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click two opposite corners") },
+        { Tool::Counter, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Counter"), 'k', QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click two opposite corners") },
+        { Tool::Railing, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Railing"), 'l', QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click where it starts and where it ends (or type its length)") },
+        { Tool::Power, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Power"), 'p', QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click on a wall for a wall outlet, anywhere else for a floor outlet") },
+        { Tool::Note, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Note"), 'n', QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click where the note goes, then type it in the inspector") },
+        { Tool::Measure, QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Measure"), 'm', QT_TRANSLATE_NOOP("bld::ui::VenueDesignerDialog", "Click two points to add a measurement (or type its length)") },
     } };
     return kTools;
 }

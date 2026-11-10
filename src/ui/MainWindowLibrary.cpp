@@ -42,8 +42,8 @@ void MainWindow::onManageLibraries() {
     rescanLibrary(newPaths);
     partsBrowser_->rebuild();
     statusBar()->showMessage(
-        tr("Reloaded parts: %1 parts in %2 folder(s)")
-            .arg(parts_.partCount()).arg(newPaths.size()), 4000);
+        tr("Reloaded parts: %1 parts in %n folder(s)", nullptr, static_cast<int>(newPaths.size()))
+            .arg(parts_.partCount()), 4000);
 }
 
 void MainWindow::rescanLibrary(const QStringList& paths) {

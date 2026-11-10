@@ -4,6 +4,7 @@
 // once. No Expert mode switch.
 
 #include "ui/SettingsDialog.h"
+#include "ui/TranslationCoverage.h"
 #include "ui/theme/AppPrefs.h"
 #include "ServerList.h"
 
@@ -202,7 +203,13 @@ TEST_F(SettingsDialogTest, TheLanguageMatchesTheComputerUntilOneIsPicked) {
     }
     QSettings().setValue(QStringLiteral("general/language"), QStringLiteral("ja"));
     SettingsDialog again(store, QString());
-    EXPECT_EQ(again.findChild<QComboBox*>(QStringLiteral("general/language"))->currentText(), QStringLiteral("日本語"));
+    // A language that isn't finished says how far it got.
+    const QString ja = again.findChild<QComboBox*>(QStringLiteral("general/language"))->currentText();
+    EXPECT_TRUE(ja.startsWith(QStringLiteral("日本語"))) << ja.toStdString();
+    if (translationPercent(QStringLiteral("ja")) < 100)
+        EXPECT_EQ(ja, QStringLiteral("日本語 (%1% translated)").arg(translationPercent(QStringLiteral("ja"))));
+    else
+        EXPECT_EQ(ja, QStringLiteral("日本語"));
 }
 
 // Bug 1 (the color kept a reference to a gone local) stays fixed here too.

@@ -7,7 +7,8 @@
 namespace bld::sync {
 
 namespace {
-QString tr(const char* s) { return QCoreApplication::translate("Compat", s); }
+// lupdate reads the context from Q_DECLARE_TR_FUNCTIONS; call Text::tr().
+struct Text { Q_DECLARE_TR_FUNCTIONS(Compat) };
 }  // namespace
 
 Standing desktopStanding(const QString& app, const QString& minimum, const QString& recommended) {
@@ -40,22 +41,22 @@ QStringList missingFeatures(const std::optional<QStringList>& serverFeatures) {
 }
 
 QString featureLabel(const QString& id) {
-    if (id == QLatin1String("liveSync")) return tr("Editing a layout together, live");
-    if (id == QLatin1String("signIn")) return tr("Signing in from the desktop app");
-    if (id == QLatin1String("publish")) return tr("Putting a layout on the server");
-    if (id == QLatin1String("clubs")) return tr("Your clubs");
-    if (id == QLatin1String("venues")) return tr("The venue library");
-    if (id == QLatin1String("partsManifest")) return tr("Getting the server's parts");
-    if (id == QLatin1String("partFilesWithToken")) return tr("Downloading the server's part pictures");
-    if (id == QLatin1String("uploadParts")) return tr("Sending your own parts to the server");
-    if (id == QLatin1String("preferences")) return tr("Your settings on every computer");
-    if (id == QLatin1String("ownerTags")) return tr("Showing whose layouts and venues they are");
-    if (id == QLatin1String("limits")) return tr("Usage limits, with plain messages when one is reached");
-    if (id == QLatin1String("layoutDownload")) return tr("Downloading a copy of a layout, venue sizes in the list");
-    if (id == QLatin1String("catalogShare")) return tr("Sharing to the public catalog from the desktop app");
-    if (id == QLatin1String("uploadSets")) return tr("Uploading sets of your own parts");
+    if (id == QLatin1String("liveSync")) return Text::tr("Editing a layout together, live");
+    if (id == QLatin1String("signIn")) return Text::tr("Signing in from the desktop app");
+    if (id == QLatin1String("publish")) return Text::tr("Putting a layout on the server");
+    if (id == QLatin1String("clubs")) return Text::tr("Your clubs");
+    if (id == QLatin1String("venues")) return Text::tr("The venue library");
+    if (id == QLatin1String("partsManifest")) return Text::tr("Getting the server's parts");
+    if (id == QLatin1String("partFilesWithToken")) return Text::tr("Downloading the server's part pictures");
+    if (id == QLatin1String("uploadParts")) return Text::tr("Sending your own parts to the server");
+    if (id == QLatin1String("preferences")) return Text::tr("Your settings on every computer");
+    if (id == QLatin1String("ownerTags")) return Text::tr("Showing whose layouts and venues they are");
+    if (id == QLatin1String("limits")) return Text::tr("Usage limits, with plain messages when one is reached");
+    if (id == QLatin1String("layoutDownload")) return Text::tr("Downloading a copy of a layout, venue sizes in the list");
+    if (id == QLatin1String("catalogShare")) return Text::tr("Sharing to the public catalog from the desktop app");
+    if (id == QLatin1String("uploadSets")) return Text::tr("Uploading sets of your own parts");
     if (id == QLatin1String("deletePartsFromDesktop"))
-        return tr("Deleting your own parts and sets from the desktop app");
+        return Text::tr("Deleting your own parts and sets from the desktop app");
     return id;
 }
 

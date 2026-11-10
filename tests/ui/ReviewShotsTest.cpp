@@ -27,6 +27,8 @@
 #include <QAction>
 #include <QApplication>
 #include <QDialog>
+#include <QAbstractItemView>
+#include <QComboBox>
 #include <QDir>
 #include <QElapsedTimer>
 #include <QFrame>
@@ -132,6 +134,13 @@ TEST(ReviewShots, PicturesForReview) {
             QTest::qWait(300);
             d.grab().save(file(QStringLiteral("settings-top")));
             auto* nav = d.findChild<QListWidget*>(QStringLiteral("settingsSections"));
+            // The language list, each saying how far it got.
+            if (auto* lang = d.findChild<QComboBox*>(QStringLiteral("general/language"))) {
+                lang->showPopup();
+                QTest::qWait(400);
+                if (lang->view() && lang->view()->window()) lang->view()->window()->grab().save(file(QStringLiteral("languages")));
+                lang->hidePopup();
+            }
             for (const auto& [row, scene] : { std::pair{ 2, "settings-editing" }, std::pair{ 6, "settings-parts" } }) {
                 if (!nav || row >= nav->count()) continue;
                 nav->setCurrentRow(row);

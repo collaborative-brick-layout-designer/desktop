@@ -112,7 +112,7 @@ void BudgetDialog::rebuildTable() {
     }
     table_->blockSignals(false);
     statusLabel_->setText(overBudget > 0
-        ? tr("⚠ %1 part(s) over budget").arg(overBudget)
+        ? tr("⚠ %n part(s) over budget", nullptr, overBudget)
         : tr("All parts within budget"));
 }
 
