@@ -3358,6 +3358,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>This layout uses these parts of yours, which the server doesn&apos;t have yet. Tick the ones to share there, so others see them in the layout:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Me</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4675,10 +4679,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <source>Connected, %n offline edit(s) to review</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <source>Not live, %n change(s) wait for review</source>
+        <translation>
+            <numerusform>Non in diretta, %n modifica attende la revisione</numerusform>
+            <numerusform>Non in diretta, %n modifiche attendono la revisione</numerusform>
         </translation>
     </message>
     <message>
@@ -6713,8 +6717,34 @@ Save anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>You&apos;re not live</source>
+        <translation>Non sei in diretta</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <translation>
+            <numerusform>%n delle tue modifiche attende la revisione. Fino ad allora non vedi cosa cambiano gli altri e loro non vedono le tue modifiche.</numerusform>
+            <numerusform>%n delle tue modifiche attendono la revisione. Fino ad allora non vedi cosa cambiano gli altri e loro non vedono le tue modifiche.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Review now</source>
+        <translation>Rivedi ora</translation>
+    </message>
+    <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re live again</source>
+        <translation>Sei di nuovo in diretta</translation>
+    </message>
+    <message numerus="yes">
+        <source>Your %n offline change(s) were sent.</source>
+        <translation>
+            <numerusform>La tua modifica offline è stata inviata.</numerusform>
+            <numerusform>Le tue %n modifiche offline sono state inviate.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Review Offline Changes</source>

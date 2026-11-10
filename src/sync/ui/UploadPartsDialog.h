@@ -22,8 +22,10 @@ class ServerApi;
 class UploadPartsDialog : public QDialog {
     Q_OBJECT
 public:
+    // `ticked`: the parts start ticked (you asked for these), else unticked
+    // (offered after Save to Server: nothing goes unless you tick it).
     UploadPartsDialog(ServerApi& api, PartsUpload& upload, const QList<LocalPart>& missing,
-                      QWidget* parent = nullptr);
+                      QWidget* parent = nullptr, bool ticked = true);
 
     // The same as clicking Upload.
     void uploadChecked();

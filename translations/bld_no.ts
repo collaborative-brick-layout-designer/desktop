@@ -3358,6 +3358,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>This layout uses these parts of yours, which the server doesn&apos;t have yet. Tick the ones to share there, so others see them in the layout:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Me</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4675,10 +4679,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <source>Connected, %n offline edit(s) to review</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <source>Not live, %n change(s) wait for review</source>
+        <translation>
+            <numerusform>Ikke live, %n endring venter på gjennomgang</numerusform>
+            <numerusform>Ikke live, %n endringer venter på gjennomgang</numerusform>
         </translation>
     </message>
     <message>
@@ -7163,8 +7167,34 @@ Save anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>You&apos;re not live</source>
+        <translation>Du er ikke live</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <translation>
+            <numerusform>%n av endringene dine venter på gjennomgang. Inntil da ser du ikke hva andre endrer, og de ser ikke endringene dine.</numerusform>
+            <numerusform>%n av endringene dine venter på gjennomgang. Inntil da ser du ikke hva andre endrer, og de ser ikke endringene dine.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Review now</source>
+        <translation>Gå gjennom nå</translation>
+    </message>
+    <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re live again</source>
+        <translation>Du er live igjen</translation>
+    </message>
+    <message numerus="yes">
+        <source>Your %n offline change(s) were sent.</source>
+        <translation>
+            <numerusform>Endringen din fra frakoblet modus ble sendt.</numerusform>
+            <numerusform>De %n endringene dine fra frakoblet modus ble sendt.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Review Offline Changes</source>

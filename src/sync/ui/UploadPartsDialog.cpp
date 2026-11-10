@@ -17,13 +17,16 @@
 namespace bld::sync {
 
 UploadPartsDialog::UploadPartsDialog(ServerApi& api, PartsUpload& upload, const QList<LocalPart>& missing,
-                                     QWidget* parent)
+                                     QWidget* parent, bool ticked)
     : QDialog(parent), api_(api), upload_(upload), missing_(missing) {
     setWindowTitle(tr("Upload to Server"));
     resize(520, 440);
     auto* col = new QVBoxLayout(this);
     auto* intro = new QLabel(
-        tr("These parts of yours aren't on the server yet. Upload the ones layouts there will need:"), this);
+        ticked ? tr("These parts of yours aren't on the server yet. Upload the ones layouts there will need:")
+               : tr("This layout uses these parts of yours, which the server doesn't have yet. Tick the ones to "
+                    "share there, so others see them in the layout:"),
+        this);
     intro->setWordWrap(true);
     col->addWidget(bld::ui::help::withHelp(intro, QStringLiteral("upload.parts"), this));
     list_ = new QListWidget(this);
@@ -32,7 +35,7 @@ UploadPartsDialog::UploadPartsDialog(ServerApi& api, PartsUpload& upload, const 
         auto* item = new QListWidgetItem(
             p.displayName == p.key ? p.key : QStringLiteral("%1 — %2").arg(p.key, p.displayName), list_);
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-        item->setCheckState(Qt::Checked);
+        item->setCheckState(ticked ? Qt::Checked : Qt::Unchecked);
     }
     col->addWidget(list_, 1);
     auto* form = new QFormLayout();
@@ -51,6 +54,14 @@ UploadPartsDialog::UploadPartsDialog(ServerApi& api, PartsUpload& upload, const 
     col->addWidget(buttons);
     connect(buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(uploadBtn_, &QPushButton::clicked, this, &UploadPartsDialog::uploadChecked);
+    // Nothing ticked, nothing to save.
+    const auto anyTicked = [this] {
+        for (int i = 0; i < list_->count(); ++i)
+            if (list_->item(i)->checkState() == Qt::Checked) return true;
+        return false;
+    };
+    connect(list_, &QListWidget::itemChanged, uploadBtn_, [this, anyTicked] { uploadBtn_->setEnabled(anyTicked()); });
+    uploadBtn_->setEnabled(anyTicked());
 
     confirmClub = [this](const QString& club) {
         return bld::ui::ConfirmDialog::ask(this, bld::ui::saveToClubOptions(club));

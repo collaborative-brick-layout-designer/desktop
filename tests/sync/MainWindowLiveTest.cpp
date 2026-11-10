@@ -13,7 +13,10 @@
 #include "edit/EditCommands.h"
 #include "import/LayoutFile.h"
 #include "parts/PartsLibrary.h"
+#include "ui/LayerPanel.h"
 #include "ui/LiveLayout.h"
+#include "UploadPartsDialog.h"
+#include "core/Ids.h"
 #include "ui/LoadingCard.h"
 #include "ui/MainWindow.h"
 #include "ui/ModuleLibraryPanel.h"
@@ -21,6 +24,8 @@
 #include "ui/MapView.h"
 #include "ui/NoticeArea.h"
 #include "ui/UpdateCheck.h"
+#include "ui/theme/AppPrefs.h"
+#include "ui/theme/ThemeManager.h"
 
 #include <gtest/gtest.h>
 
@@ -36,6 +41,7 @@
 #include <QFileInfo>
 #include <QLineEdit>
 #include <QTemporaryDir>
+#include <QListWidget>
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -44,6 +50,7 @@
 #include <QPointer>
 #include <QPushButton>
 #include <QSettings>
+#include <QStatusBar>
 
 #include <algorithm>
 #include <QStandardPaths>
@@ -177,6 +184,11 @@ public:
     }
     using ui::MainWindow::setTokenStore;
     using ui::MainWindow::manifestExtras;
+    using ui::MainWindow::offerPartsUpload;
+    using ui::MainWindow::openLiveFromHere;
+    using ui::MainWindow::ownPartsInLayout;
+    using ui::MainWindow::runUploadPartsDialog;
+    using ui::MainWindow::scanOwnParts;
 };
 
 QString liveCache() {
@@ -226,15 +238,24 @@ protected:
     }
 
     // Offline: I move brick 0 right by 8 in the view while someone else
-    // moves brick 1 down by 16 on the server.
-    void editOffline() {
+    // moves brick 1 down by 16 on the server. With `clash`, we both move
+    // brick 2 too (I right by 4, they down by 24), so the compare window
+    // opens; without it, the edits are sent by themselves.
+    void editOffline(bool clash = true) {
         ws_.dropAll(QWebSocketProtocol::CloseCodeGoingAway);
         ASSERT_TRUE(waitFor([&] { return session().status() != Status::Synced; }));
         core::Map& m = *view_->currentMap();
         const QPointF at = brickAt(m, 0).displayArea.topLeft();
         view_->undoStack()->push(new edit::MoveBricksCommand(m, { { brickRef(m, 0), at, at + QPointF(8, 0) } }));
+        if (clash) {
+            const QPointF at2 = brickAt(m, 2).displayArea.topLeft();
+            view_->undoStack()->push(new edit::MoveBricksCommand(m, { { brickRef(m, 2), at2, at2 + QPointF(4, 0) } }));
+        }
         ASSERT_TRUE(waitFor([&] { return session().offlineEdits().has_value(); }));
-        ws_.remoteEdit([](core::Map& s) { brickAt(s, 1).displayArea.translate(0, 16); });
+        ws_.remoteEdit([clash](core::Map& s) {
+            brickAt(s, 1).displayArea.translate(0, 16);
+            if (clash) brickAt(s, 2).displayArea.translate(0, 24);
+        });
     }
 
     FakeHttp http_;
@@ -261,6 +282,21 @@ TEST_F(MainWindowLive, BackInStepTheCompareWindowOpensAndApplyMerges) {
     EXPECT_FALSE(reviewAction()->isEnabled());
 }
 
+// Full review area 4, Bug 6: a short drop with an edit nothing clashes with
+// opened the compare window (8 buttons, modal). Now it's sent by itself.
+TEST_F(MainWindowLive, OfflineEditsNothingClashesWithAreSentWithoutAsking) {
+    editOffline(false);
+    Answers none{ {} };
+    none.during([&] { ASSERT_TRUE(waitFor([&] { return !session().offlineEdits(); })); });
+    EXPECT_EQ(none.unexpected, 0);
+    ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 0) == original_.translated(8, 0); }));
+    EXPECT_EQ(brickArea(ws_.doc, 1), otherOriginal_.translated(0, 16));
+    auto* notices = window_->findChild<ui::NoticeArea*>();
+    EXPECT_TRUE(notices->isShown(QStringLiteral("live-offline-sent")));
+    EXPECT_FALSE(notices->isShown(QStringLiteral("live-review")));
+    EXPECT_EQ(live_->statusText(), QStringLiteral("Connected"));
+}
+
 TEST_F(MainWindowLive, LaterKeepsThemForReviewOfflineChangesAndDiscardLeavesTheServer) {
     QAction* review = reviewAction();
     ASSERT_NE(review, nullptr);
@@ -271,6 +307,11 @@ TEST_F(MainWindowLive, LaterKeepsThemForReviewOfflineChangesAndDiscardLeavesTheS
     EXPECT_EQ(later.unexpected, 0);
     ASSERT_TRUE(session().offlineEdits());
     EXPECT_TRUE(review->isEnabled());
+    // Full review area 4, Bug 5: not live until they're reviewed, and it says so.
+    auto* notices = window_->findChild<ui::NoticeArea*>();
+    EXPECT_TRUE(notices->isShown(QStringLiteral("live-review")));
+    EXPECT_TRUE(live_->statusText().startsWith(QStringLiteral("Not live, 2 change(s) wait for review")))
+        << live_->statusText().toStdString();
     // The editor still shows mine.
     EXPECT_EQ(brickAt(*view_->currentMap(), 0).displayArea, original_.translated(8, 0));
 
@@ -280,6 +321,7 @@ TEST_F(MainWindowLive, LaterKeepsThemForReviewOfflineChangesAndDiscardLeavesTheS
     EXPECT_EQ(discard.unexpected, 0);
     EXPECT_FALSE(session().offlineEdits());
     EXPECT_FALSE(review->isEnabled());
+    EXPECT_FALSE(notices->isShown(QStringLiteral("live-review")));
     waitFor([] { return false; }, 150);
     EXPECT_EQ(brickArea(ws_.doc, 0), original_);
     EXPECT_EQ(brickArea(ws_.doc, 1), otherOriginal_.translated(0, 16));
@@ -1091,7 +1133,7 @@ QAction* actionNamed(QWidget* window, const QString& text) {
 }  // namespace
 
 // Disconnected with offline edits, then the same layout opened again: they
-// come back in the compare window, and Apply puts them on the server.
+// come back, and (nothing clashes) go to the server without asking.
 TEST_F(MainWindowLive, OfflineEditsComeBackWhenTheLayoutIsOpenedAgain) {
     ws_.dropAll(QWebSocketProtocol::CloseCodeGoingAway);
     ASSERT_TRUE(waitFor([&] { return session().status() != Status::Synced; }));
@@ -1107,7 +1149,7 @@ TEST_F(MainWindowLive, OfflineEditsComeBackWhenTheLayoutIsOpenedAgain) {
     waitFor([] { return false; }, 150);
     EXPECT_EQ(brickArea(ws_.doc, 0), original_);
 
-    Answers answers{ { compare(QStringLiteral("Apply")) } };
+    Answers answers{ {} };
     answers.during([&] {
         window_->openLive({ http_.base(), QStringLiteral("bld_pat_test"), QStringLiteral("L1"),
                             QStringLiteral("Show 2026"), false, serverInfo() });
@@ -1210,7 +1252,7 @@ TEST_F(MainWindowLive, ASignInThatRanOutSaysToSignInAgainAndKeepsTheEdits) {
     view_->undoStack()->push(new edit::MoveBricksCommand(m, { { brickRef(m, 0), at, at + QPointF(8, 0) } }));
     ASSERT_TRUE(waitFor([&] { return session().offlineEdits().has_value(); }));
 
-    // Sign In...: back with a new token, in step, and the edit reviewed and applied.
+    // Sign In...: back with a new token, in step, and the edit sent.
     window_->newToken = QStringLiteral("bld_pat_new");
     http_.clear("/api/layouts/L1");
     http_.upgrade = [this](QTcpSocket* s) { ws_.take(s); };
@@ -1218,7 +1260,7 @@ TEST_F(MainWindowLive, ASignInThatRanOutSaysToSignInAgainAndKeepsTheEdits) {
     for (auto* b : notices->card(QStringLiteral("live-signin"))->findChildren<QPushButton*>())
         if (b->text() == QStringLiteral("Sign In…")) signIn = b;
     ASSERT_NE(signIn, nullptr);
-    Answers answers{ { compare(QStringLiteral("Apply")) } };
+    Answers answers{ {} };  // (nothing clashes: sent without asking)
     answers.during([&] {
         signIn->click();
         ASSERT_TRUE(waitFor([&] { return answers.done() && !session().offlineEdits(); }, 8000));
@@ -1265,13 +1307,13 @@ TEST_F(MainWindowLive, ASignInEndedByTheServerKeepsTheLayoutOpenAndSignInAgainSe
     ASSERT_TRUE(waitFor([&] { return session().offlineEdits().has_value(); }));
     EXPECT_TRUE(live_->statusText().contains(QStringLiteral("kept"))) << live_->statusText().toStdString();
 
-    // Sign In...: back with a new token, in step, and the edit reviewed and applied.
+    // Sign In...: back with a new token, in step, and the edit sent.
     window_->newToken = QStringLiteral("bld_pat_new");
     QPushButton* signIn = nullptr;
     for (auto* b : notices->card(QStringLiteral("live-signin"))->findChildren<QPushButton*>())
         if (b->text() == QStringLiteral("Sign In…")) signIn = b;
     ASSERT_NE(signIn, nullptr);
-    Answers answers{ { compare(QStringLiteral("Apply")) } };
+    Answers answers{ {} };  // (nothing clashes: sent without asking)
     answers.during([&] {
         signIn->click();
         ASSERT_TRUE(waitFor([&] { return answers.done() && !session().offlineEdits(); }, 8000));
@@ -1376,4 +1418,162 @@ TEST(MainWindowKeychain, ASignInTheKeychainCantKeepSaysSo) {
     EXPECT_TRUE(all.contains(QStringLiteral("sign in again"))) << all.toStdString();
     EXPECT_TRUE(all.contains(QStringLiteral("org.freedesktop.secrets"))) << all.toStdString();
     QStandardPaths::setTestModeEnabled(false);
+}
+
+namespace {
+void writeFile(const QString& path, const QByteArray& data) {
+    QDir().mkpath(QFileInfo(path).absolutePath());
+    QFile f(path);
+    ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+    f.write(data);
+}
+// A part file and its picture.
+void writePart(const QString& dir, const QString& key) {
+    writeFile(dir + QLatin1Char('/') + key + QStringLiteral(".xml"),
+              "<part><Description><en>" + key.toUtf8() + "</en></Description></part>");
+    writeFile(dir + QLatin1Char('/') + key + QStringLiteral(".gif"), "GIF89a");
+}
+}  // namespace
+
+// Save to Server used to offer every Download Center part as "parts of
+// yours", all ticked: one click sent hundreds to the club. Now only your
+// own parts this layout uses, unticked.
+TEST_F(MainWindowLive, SaveToServerOffersOnlyYourOwnPartsInTheLayoutUnticked) {
+    QTemporaryDir modules, folder;
+    // Your imported part, used; another of yours, not used.
+    writePart(modules.path() + QStringLiteral("/imports/Mine"), QStringLiteral("MY.1"));
+    writePart(modules.path() + QStringLiteral("/imports/Mine"), QStringLiteral("UNUSED.1"));
+    // A Download Center pack where Get More Parts installs them, and a copy of one in a folder of yours.
+    const QString packs = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/parts");
+    writeFile(packs + QStringLiteral("/Town/config/About.txt"), "version=1.3");
+    writePart(packs + QStringLiteral("/Town/parts"), QStringLiteral("TOWN.1"));
+    writeFile(folder.path() + QStringLiteral("/Castle/config/About.txt"), "version=1.1");
+    writePart(folder.path() + QStringLiteral("/Castle/parts"), QStringLiteral("CASTLE.1"));
+    writePart(folder.path(), QStringLiteral("FOLDER.1"));
+    QSettings().setValue(QStringLiteral("modules/libraryPath"), modules.path());
+    const QVariant userPaths = QSettings().value(QStringLiteral("partsLibrary/userPaths"));
+    QSettings().setValue(QStringLiteral("partsLibrary/userPaths"), QStringList{ packs, folder.path() });
+
+    QStringList own;
+    for (const auto& p : window_->scanOwnParts()) own << p.key;
+    own.sort();
+    EXPECT_EQ(own, (QStringList{ QStringLiteral("FOLDER.1"), QStringLiteral("MY.1"), QStringLiteral("UNUSED.1") }));
+
+    // The layout uses MY.1, TOWN.1 and CASTLE.1 (and the parts it had).
+    core::Map& m = *view_->currentMap();
+    for (const char* key : { "MY.1", "TOWN.1", "CASTLE.1" }) {
+        core::Brick b = brickAt(m, 0);
+        b.guid = core::newBbmId();
+        b.partNumber = QString::fromLatin1(key);
+        for (auto& l : m.layers())
+            if (l->kind() == core::LayerKind::Brick) {
+                static_cast<core::LayerBrick&>(*l).bricks.push_back(b);
+                break;
+            }
+    }
+    EXPECT_EQ(window_->ownPartsInLayout(), QStringList{ QStringLiteral("MY.1") });
+
+    http_.reply("/api/parts/catalog", 200, { { QStringLiteral("parts"), QJsonArray{} } });
+    QStringList offered;
+    QList<Qt::CheckState> states;
+    bool canSave = true, savesOnceTicked = false;
+    window_->runUploadPartsDialog = [&](sync::UploadPartsDialog& d) {
+        auto* list = d.findChild<QListWidget*>(QStringLiteral("parts"));
+        auto* save = d.findChild<QPushButton*>(QStringLiteral("upload"));
+        for (int i = 0; list && i < list->count(); ++i) {
+            offered << list->item(i)->text();
+            states << list->item(i)->checkState();
+        }
+        canSave = save->isEnabled();
+        if (list && list->count() > 0) list->item(0)->setCheckState(Qt::Checked);
+        savesOnceTicked = save->isEnabled();
+        return false;
+    };
+    window_->offerPartsUpload(false);
+    ASSERT_TRUE(waitFor([&] { return !offered.isEmpty(); }));
+    EXPECT_EQ(offered, QStringList{ QStringLiteral("MY.1") });
+    EXPECT_EQ(states, QList<Qt::CheckState>{ Qt::Unchecked });
+    EXPECT_FALSE(canSave);
+    EXPECT_TRUE(savesOnceTicked);
+
+    window_->runUploadPartsDialog = nullptr;
+    QDir(packs).removeRecursively();
+    QSettings().remove(QStringLiteral("modules/libraryPath"));
+    if (userPaths.isValid()) QSettings().setValue(QStringLiteral("partsLibrary/userPaths"), userPaths);
+    else QSettings().remove(QStringLiteral("partsLibrary/userPaths"));
+}
+
+// Going live switched the sheet new parts go on ("Adding to: rulers"):
+// the sheet picked here stays, going live and through others' edits.
+TEST_F(MainWindowLive, TheSheetPartsGoOnStaysWhenGoingLiveAndThroughOthersEdits) {
+    core::Map* m = view_->currentMap();
+    std::vector<int> sheets;
+    for (int i = 0; i < static_cast<int>(m->layers().size()); ++i)
+        if (m->layers()[i]->kind() == core::LayerKind::Brick) sheets.push_back(i);
+    ASSERT_FALSE(sheets.empty());
+    // Opened live: on a parts sheet, whatever the shared copy says.
+    EXPECT_EQ(m->layers()[m->selectedLayerIndex]->kind(), core::LayerKind::Brick);
+    const int picked = sheets.front();
+    auto* panel = window_->findChild<ui::LayerPanel*>();
+    ASSERT_TRUE(panel);
+    // Another sheet first (a sheet that isn't for parts, when there's one), then the parts sheet.
+    for (int i = 0; i < static_cast<int>(m->layers().size()); ++i)
+        if (i != picked) {
+            m->selectedLayerIndex = i;
+            break;
+        }
+    emit panel->activeLayerChanged(picked);
+    m->selectedLayerIndex = picked;
+    ws_.remoteEdit([](core::Map& s) { brickAt(s, 1).displayArea.translate(0, 16); });
+    ASSERT_TRUE(waitFor([&] { return brickAt(*view_->currentMap(), 1).displayArea == otherOriginal_.translated(0, 16); }));
+    EXPECT_EQ(view_->currentMap()->selectedLayerIndex, picked);
+
+    // Save to Server from here: the live copy starts on the same sheet.
+    window_->openLiveFromHere({ http_.base(), QStringLiteral("bld_pat_test"), QStringLiteral("L1"),
+                                QStringLiteral("Show 2026"), false, {} });
+    ASSERT_TRUE(waitFor([&] { return session().status() == Status::Synced && view_->currentMap(); }));
+    waitFor([] { return false; }, 200);
+    EXPECT_EQ(view_->currentMap()->selectedLayerIndex, picked);
+    // The status bar names that sheet too.
+    const QString name = view_->currentMap()->layers()[picked]->name;
+    bool named = false;
+    for (QLabel* l : window_->findChildren<QLabel*>()) named |= l->text() == QStringLiteral("Sheet: ") + name;
+    EXPECT_TRUE(named);
+}
+
+// BLD_REVIEW_SHOTS=<dir> BLD_PARTS=<library dirs, ':'-separated>: the live
+// window after Save to Server, light and dark, for a PR (skipped otherwise).
+TEST_F(MainWindowLive, PicturesOfTheSheetAfterGoingLive) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    const QStringList libs = qEnvironmentVariable("BLD_PARTS").split(QLatin1Char(':'), Qt::SkipEmptyParts);
+    if (out.isEmpty() || libs.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS / BLD_PARTS not set";
+    for (const QString& p : libs) parts_.addSearchPath(p);
+    ASSERT_GT(parts_.scan(), 1000);
+    ui::theme::PrefsStore store(QStringLiteral("review-live-shots"));
+    ui::theme::ThemeManager themer(store);
+    window_->resize(1440, 900);
+    window_->show();
+    waitFor([] { return false; }, 300);
+    window_->openLiveFromHere({ http_.base(), QStringLiteral("bld_pat_test"), QStringLiteral("L1"),
+                                QStringLiteral("Show 2026"), false, {} });
+    ASSERT_TRUE(waitFor([&] { return session().status() == Status::Synced && view_->currentMap(); }));
+    view_->rebuildScene();
+    waitFor([&] { return !view_->loadingCard() || !view_->loadingCard()->isVisible(); }, 30000);
+    for (QFrame* card : window_->findChildren<QFrame*>(QStringLiteral("NoticeCard"))) card->hide();
+    int missing = 0;
+    for (const auto& L : view_->currentMap()->layers())
+        if (L->kind() == core::LayerKind::Brick)
+            for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks)
+                if (!parts_.metadata(b.partNumber) || parts_.pixmap(b.partNumber).isNull()) ++missing;
+    ASSERT_EQ(missing, 0);
+    for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+        ui::theme::AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        waitFor([] { return false; }, 600);
+        window_->statusBar()->clearMessage();
+        window_->grab().save(out + QStringLiteral("/review-after-live-sheet-%1.png")
+                                       .arg(mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark")
+                                                                                  : QStringLiteral("light")));
+    }
 }

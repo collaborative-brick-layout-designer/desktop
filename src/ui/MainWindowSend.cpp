@@ -208,6 +208,29 @@ void MainWindow::uploadSet(const SetServer& to, const sync::LocalPart& set) {
     upload->upload({ set }, QString());
 }
 
+QStringList MainWindow::ownPartsInLayout() const {
+    QStringList out;
+    const core::Map* map = mapView_ ? mapView_->currentMap() : nullptr;
+    if (!map) return out;
+    QHash<QString, QString> own;
+    for (const sync::LocalPart& p : scanOwnParts()) own.insert(p.key.toUpper(), p.key);
+    // Each part number once; a set's (and a set inside it's) parts come along.
+    QStringList pending = sync::partNumbersIn(*map).values();
+    QSet<QString> seen;
+    while (!pending.isEmpty()) {
+        QString number = pending.takeFirst().toUpper();
+        if (number.endsWith(QStringLiteral(".SET"))) number.chop(4);
+        if (seen.contains(number)) continue;
+        seen.insert(number);
+        if (const auto it = own.constFind(number); it != own.cend()) out << *it;
+        auto meta = parts_.metadata(number);
+        if (!meta) meta = parts_.metadata(number + QStringLiteral(".set"));
+        if (!meta) continue;
+        for (const parts::PartSubPart& sub : meta->subparts) pending << sub.subKey;
+    }
+    return out;
+}
+
 QStringList MainWindow::ownPartsInSet(const QString& setKey) const {
     // Your own parts (as Upload My Parts lists them), by part number.
     QHash<QString, QString> own;
@@ -495,7 +518,8 @@ void MainWindow::saveLayoutFileToServer() {
     onPublishToServer();
 }
 
-void MainWindow::uploadPartsTo(const QUrl& server, const QString& token, bool quiet, const QStringList& only) {
+void MainWindow::uploadPartsTo(const QUrl& server, const QString& token, bool quiet, const QStringList& only,
+                               bool ticked) {
     auto local = scanOwnParts();
     if (!only.isEmpty()) local.erase(std::remove_if(local.begin(), local.end(), [&](const auto& p) { return !only.contains(p.key); }), local.end());
     if (local.isEmpty()) {
@@ -510,7 +534,7 @@ void MainWindow::uploadPartsTo(const QUrl& server, const QString& token, bool qu
             upload->deleteLater();
         });
     connect(upload, &sync::PartsUpload::missingReady, this,
-            [this, upload, quiet, checkFailed, server, token](const QList<sync::LocalPart>& missing) {
+            [this, upload, quiet, checkFailed, server, token, ticked](const QList<sync::LocalPart>& missing) {
                 // The check is over: a refused upload later must not delete the
                 // PartsUpload under the dialog that is still using it.
                 disconnect(checkFailed);
@@ -522,11 +546,11 @@ void MainWindow::uploadPartsTo(const QUrl& server, const QString& token, bool qu
                 // missingReady comes from inside a network reply's finished
                 // signal, and that reply is already deleteLater'd: open the
                 // dialog (and its event loop) once the signal has returned.
-                QTimer::singleShot(0, this, [this, upload, missing, server, token] {
+                QTimer::singleShot(0, this, [this, upload, missing, server, token, ticked] {
                     sync::ServerApi api;
                     api.setBase(server);
                     api.setToken(token);
-                    sync::UploadPartsDialog dialog(api, *upload, missing, this);
+                    sync::UploadPartsDialog dialog(api, *upload, missing, this, ticked);
                     if (runUploadPartsDialog ? runUploadPartsDialog(dialog) : dialog.exec() == QDialog::Accepted) {
                         statusBar()->showMessage(tr("Uploaded %n part(s) to the server", nullptr, dialog.uploadedCount()), 5000);
                         if (live_->active() && server == liveServer_) loadLivePartsCatalog();
