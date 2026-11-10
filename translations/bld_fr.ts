@@ -7394,6 +7394,30 @@ Vos changements hors ligne sont gardés ; Fichier › Revoir les changements hor
         <translation>Définir combien de chaque pièce ce plan peut utiliser</translation>
     </message>
     <message>
+        <source>Bring your budget into this layout?</source>
+        <translation>Reprendre votre budget dans ce plan ?</translation>
+    </message>
+    <message>
+        <source>A budget is now saved with its layout, and shared with everyone who edits that layout. This layout has no budget yet. Your budget from before is in the file “%1”.
+
+You won&apos;t be asked again. To bring it into this or any other layout later, choose Budget › Import Budget from File.</source>
+        <translation>Un budget est désormais enregistré avec son plan et partagé avec tous ceux qui le modifient. Ce plan n’a pas encore de budget. Votre budget d’avant se trouve dans le fichier « %1 ».
+
+La question ne vous sera plus posée. Pour le reprendre plus tard dans ce plan ou dans un autre, choisissez Budget › Importer un budget depuis un fichier.</translation>
+    </message>
+    <message>
+        <source>Bring it in</source>
+        <translation>Le reprendre</translation>
+    </message>
+    <message>
+        <source>Your budget is in this layout now. Budget › Edit Budget shows it.</source>
+        <translation>Votre budget est maintenant dans ce plan. Budget › Modifier le budget l’affiche.</translation>
+    </message>
+    <message>
+        <source>No, thanks</source>
+        <translation>Non merci</translation>
+    </message>
+    <message>
         <source>&amp;Import .bbm as Module…</source>
         <translation>&amp;Importer un .bbm comme module…</translation>
     </message>

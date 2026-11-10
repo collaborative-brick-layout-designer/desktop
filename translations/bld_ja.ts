@@ -7349,6 +7349,30 @@ Your offline changes are kept; File › Review Offline Changes brings them back.
         <translation>このレイアウトで使えるパーツの数を種類ごとに決めます</translation>
     </message>
     <message>
+        <source>Bring your budget into this layout?</source>
+        <translation>予算をこのレイアウトに取り込みますか？</translation>
+    </message>
+    <message>
+        <source>A budget is now saved with its layout, and shared with everyone who edits that layout. This layout has no budget yet. Your budget from before is in the file “%1”.
+
+You won&apos;t be asked again. To bring it into this or any other layout later, choose Budget › Import Budget from File.</source>
+        <translation>予算はレイアウトと一緒に保存され、そのレイアウトを編集する全員と共有されるようになりました。このレイアウトにはまだ予算がありません。以前の予算はファイル「%1」にあります。
+
+この確認は今回だけです。あとでこのレイアウトや別のレイアウトに取り込むには、予算 › 予算をファイルから読み込む を選んでください。</translation>
+    </message>
+    <message>
+        <source>Bring it in</source>
+        <translation>取り込む</translation>
+    </message>
+    <message>
+        <source>Your budget is in this layout now. Budget › Edit Budget shows it.</source>
+        <translation>予算がこのレイアウトに入りました。予算 › 予算を編集 で確認できます。</translation>
+    </message>
+    <message>
+        <source>No, thanks</source>
+        <translation>いいえ</translation>
+    </message>
+    <message>
         <source>&amp;Import .bbm as Module…</source>
         <translation>.bbm をモジュールとしてインポート(&amp;I)…</translation>
     </message>

@@ -673,15 +673,18 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     connect(mapView_, &MapView::mapLoaded, this, [refreshVenueStatus] { refreshVenueStatus(); });
     QTimer::singleShot(0, this, refreshVenueStatus);
 
-    // Budget status readout — mirrors the venue one. Silent without a budget.
+    // Budget status readout — mirrors the venue one. Silent without a
+    // budget, and with one that sets no limits yet (as on the web): there is
+    // nothing to be within.
     QLabel* budgetLabel = new QLabel(this);
     QWidget* budgetItem = help::withHelp(budgetLabel, QStringLiteral("status.budget"));
     statusBar()->addPermanentWidget(budgetItem);
     auto refreshBudgetStatus = [this, budgetLabel, budgetItem]{
         auto* map = mapView_->currentMap();
         const auto* budget = budget_->budget();
-        budgetItem->setVisible(map && budget);
-        if (!map || !budget) {
+        const bool limits = map && budget && !budget->isEmpty();
+        budgetItem->setVisible(limits);
+        if (!limits) {
             budgetLabel->clear();
             budgetLabel->setToolTip({});
             return;

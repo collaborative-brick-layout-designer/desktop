@@ -7394,6 +7394,30 @@ Deine Offline-Änderungen bleiben erhalten; Datei › Offline-Änderungen prüfe
         <translation>Festlegen, wie viele von jedem Teil dieses Layout verwenden darf</translation>
     </message>
     <message>
+        <source>Bring your budget into this layout?</source>
+        <translation>Dein Budget in dieses Layout übernehmen?</translation>
+    </message>
+    <message>
+        <source>A budget is now saved with its layout, and shared with everyone who edits that layout. This layout has no budget yet. Your budget from before is in the file “%1”.
+
+You won&apos;t be asked again. To bring it into this or any other layout later, choose Budget › Import Budget from File.</source>
+        <translation>Ein Budget wird jetzt mit seinem Layout gespeichert und mit allen geteilt, die dieses Layout bearbeiten. Dieses Layout hat noch kein Budget. Dein bisheriges Budget liegt in der Datei „%1“.
+
+Du wirst nicht noch einmal gefragt. Um es später in dieses oder ein anderes Layout zu übernehmen, wähle Budget › Budget aus Datei importieren.</translation>
+    </message>
+    <message>
+        <source>Bring it in</source>
+        <translation>Übernehmen</translation>
+    </message>
+    <message>
+        <source>Your budget is in this layout now. Budget › Edit Budget shows it.</source>
+        <translation>Dein Budget ist jetzt in diesem Layout. Budget › Budget bearbeiten zeigt es.</translation>
+    </message>
+    <message>
+        <source>No, thanks</source>
+        <translation>Nein, danke</translation>
+    </message>
+    <message>
         <source>&amp;Import .bbm as Module…</source>
         <translation>.bbm als Modul i&amp;mportieren…</translation>
     </message>

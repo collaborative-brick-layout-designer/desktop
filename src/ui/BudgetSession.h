@@ -47,6 +47,15 @@ public:
     // The folder the last .bbb was imported from or exported to, for the file dialogs.
     static QString lastFileDir();
 
+    // Older versions kept one budget file for the whole app and opened it
+    // at every start. The first start of a version that keeps the budget in
+    // the layout notes that file here (once, whatever happens later), so the
+    // window can offer to bring it into a layout. Empty when there was none,
+    // the file is gone, or the offer was made.
+    static QString oldAppWideFile();
+    // The offer was made: never again.
+    static void forgetOldAppWideFile();
+
     // Per-part limit (-1 = unlimited). Setting a negative value clears it.
     int limit(const QString& part) const;
     void setLimit(const QString& part, int limit);

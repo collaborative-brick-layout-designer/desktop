@@ -7,7 +7,9 @@
 
 #include "BudgetDialog.h"
 #include "BudgetSession.h"
+#include "LiveLayout.h"
 #include "MapView.h"
+#include "NoticeArea.h"
 #include "help/HelpTexts.h"
 
 #include <QAction>
@@ -21,6 +23,7 @@
 #include <QSettings>
 #include <QStandardPaths>
 #include <QStatusBar>
+#include <QTimer>
 
 namespace bld::ui {
 
@@ -146,6 +149,43 @@ void MainWindow::setupBudgetMenu() {
     };
     connect(budget_, &BudgetSession::changed, this, sync);
     sync();
+
+    // The budget file older versions kept for the whole app: offered to the
+    // first layout without a budget, at start or when one is opened.
+    BudgetSession::oldAppWideFile();  // noted now, before an import or export moves budget/lastFile
+    connect(mapView_, &MapView::mapLoaded, this, [this] { QTimer::singleShot(0, this, &MainWindow::offerOldBudget); });
+    QTimer::singleShot(0, this, &MainWindow::offerOldBudget);
+}
+
+void MainWindow::offerOldBudget() {
+    if (!notices_ || !budget_->canEdit() || budget_->exists()) return;
+    // A layout others only let you look at can't take a budget.
+    if (live_ && live_->active() && live_->readOnly()) return;
+    const QString path = BudgetSession::oldAppWideFile();
+    if (path.isEmpty()) return;
+    // Offered once: asked now, never again (Budget › Import Budget from File stays).
+    BudgetSession::forgetOldAppWideFile();
+    const QString id = QStringLiteral("budget.old");
+    notices_->showNotice(
+        id, tr("Bring your budget into this layout?"),
+        tr("A budget is now saved with its layout, and shared with everyone who edits that layout. "
+           "This layout has no budget yet. Your budget from before is in the file “%1”.\n\n"
+           "You won't be asked again. To bring it into this or any other layout later, choose "
+           "Budget › Import Budget from File.")
+            .arg(QDir::toNativeSeparators(path)),
+        { NoticeAction{ tr("Bring it in"),
+                        [this, path] {
+                            QString err;
+                            if (!budget_->importFile(path, &err)) {
+                                QMessageBox::warning(this, tr("Import budget"), err);
+                                return;
+                            }
+                            statusBar()->showMessage(
+                                tr("Your budget is in this layout now. Budget › Edit Budget shows it."), 6000);
+                        },
+                        true },
+          NoticeAction{ tr("No, thanks"), {} } });
+    notices_->addHelp(id, QStringLiteral("dialog.budget"));
 }
 
 }  // namespace bld::ui

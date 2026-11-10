@@ -20,6 +20,10 @@ const QString kOnlyBudgeted  = QStringLiteral("budget/showOnlyBudgetedParts");
 const QString kNumbers       = QStringLiteral("budget/showBudgetNumbers");
 const QString kLimitation    = QStringLiteral("budget/useBudgetLimitation");
 const QString kDefaultInfinite = QStringLiteral("budget/defaultInfinite");
+// The app-wide budget file of older versions: looked for once (kOldChecked),
+// and kept in kOldFile until the offer to bring it in is made.
+const QString kOldChecked    = QStringLiteral("budget/oldFileChecked");
+const QString kOldFile       = QStringLiteral("budget/oldFile");
 
 // The layout's limits as a Budget, and back.
 std::optional<edit::Budget> budgetOf(const std::optional<QMap<QString, int>>& limits) {
@@ -112,6 +116,26 @@ QString BudgetSession::lastFileDir() {
     const QString last = QSettings().value(kLastFile).toString();
     return last.isEmpty() ? QString() : QFileInfo(last).absolutePath();
 }
+
+QString BudgetSession::oldAppWideFile() {
+    QSettings settings;
+    if (!settings.value(kOldChecked, false).toBool()) {
+        // Until now budget/lastFile was the app's budget, opened at every
+        // start; from here on it is only where the file dialogs start.
+        settings.setValue(kOldChecked, true);
+        const QString last = settings.value(kLastFile).toString();
+        if (!last.isEmpty()) settings.setValue(kOldFile, last);
+    }
+    const QString old = settings.value(kOldFile).toString();
+    if (old.isEmpty()) return {};
+    if (!QFileInfo(old).isFile()) {
+        settings.remove(kOldFile);
+        return {};
+    }
+    return old;
+}
+
+void BudgetSession::forgetOldAppWideFile() { QSettings().remove(kOldFile); }
 
 int BudgetSession::limit(const QString& part) const {
     return budget_ ? budget_->limit(part, defaultBudgetIsInfinite()) : -1;

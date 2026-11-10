@@ -274,6 +274,12 @@ one key at a time. A BlueBrick `.bbb` file is the same list in XML; both apps
 import and export it. The key was added 2026-11 without a version bump
 (optional, additive).
 
+The budget is the layout's editors' own business: a copy published to the
+server's catalog leaves it out. Versions before this kept one budget file
+for the whole app; the first time a layout without a budget is open after
+updating, the app offers once to bring that file in (Budget › Import Budget
+from File does the same at any time).
+
 ## Background image
 
 ```json

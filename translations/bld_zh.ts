@@ -7349,6 +7349,30 @@ Your offline changes are kept; File › Review Offline Changes brings them back.
         <translation>设置此布局每种零件最多可以用多少个</translation>
     </message>
     <message>
+        <source>Bring your budget into this layout?</source>
+        <translation>把你的预算带入这个布局吗？</translation>
+    </message>
+    <message>
+        <source>A budget is now saved with its layout, and shared with everyone who edits that layout. This layout has no budget yet. Your budget from before is in the file “%1”.
+
+You won&apos;t be asked again. To bring it into this or any other layout later, choose Budget › Import Budget from File.</source>
+        <translation>预算现在随布局一起保存，并与编辑该布局的所有人共享。这个布局还没有预算。你以前的预算在文件“%1”中。
+
+以后不会再询问。以后要把它带入这个或其他布局，请选择 预算 › 从文件导入预算。</translation>
+    </message>
+    <message>
+        <source>Bring it in</source>
+        <translation>带入</translation>
+    </message>
+    <message>
+        <source>Your budget is in this layout now. Budget › Edit Budget shows it.</source>
+        <translation>你的预算现在已在这个布局中。预算 › 编辑预算 可以查看。</translation>
+    </message>
+    <message>
+        <source>No, thanks</source>
+        <translation>不用了</translation>
+    </message>
+    <message>
         <source>&amp;Import .bbm as Module…</source>
         <translation>把 .bbm 导入为模块(&amp;I)…</translation>
     </message>
