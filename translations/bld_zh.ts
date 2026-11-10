@@ -3587,6 +3587,10 @@
         <translation>预算</translation>
     </message>
     <message>
+        <source>Saved with the layout, and shared with everyone who edits it.</source>
+        <translation>随布局一起保存，并与所有编辑它的人共享。</translation>
+    </message>
+    <message>
         <source>Part budgets</source>
         <translation>零件预算</translation>
     </message>
@@ -3612,24 +3616,36 @@
         <source>All parts within budget</source>
         <translation>所有零件都在预算内</translation>
     </message>
-    <message>
-        <source>Budget — %1</source>
-        <translation>预算 — %1</translation>
-    </message>
 </context>
 <context>
     <name>bld::ui::BudgetSession</name>
     <message>
-        <source>Untitled.bbb</source>
-        <translation>未命名.bbb</translation>
+        <source>New budget</source>
+        <translation>新建预算</translation>
+    </message>
+    <message>
+        <source>Remove budget</source>
+        <translation>移除预算</translation>
     </message>
     <message>
         <source>%1 is not a BlueBrick budget file.</source>
         <translation>%1 不是 BlueBrick 预算文件。</translation>
     </message>
     <message>
+        <source>Import budget</source>
+        <translation>导入预算</translation>
+    </message>
+    <message>
+        <source>Import and merge budget</source>
+        <translation>导入并合并预算</translation>
+    </message>
+    <message>
         <source>Cannot save the budget to %1.</source>
         <translation>无法把预算保存到 %1。</translation>
+    </message>
+    <message>
+        <source>Change budget</source>
+        <translation>更改预算</translation>
     </message>
 </context>
 <context>
@@ -5555,8 +5571,8 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>向左转</translation>
     </message>
     <message>
-        <source>Turn the selected pieces anticlockwise</source>
-        <translation>把选中的零件逆时针转动</translation>
+        <source>Turn the selected pieces counterclockwise</source>
+        <translation>逆时针旋转选中的零件</translation>
     </message>
     <message>
         <source>Turn right</source>
@@ -5875,6 +5891,10 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>%1 — %2 上的模块</translation>
     </message>
     <message>
+        <source>%1%2 — Collaborative Brick Layout Designer</source>
+        <translation>%1%2 — Collaborative Brick Layout Designer</translation>
+    </message>
+    <message>
         <source>Changes are shared as you make them</source>
         <translation>你的更改会即时共享</translation>
     </message>
@@ -5947,10 +5967,6 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>从模板 %1 新建布局</translation>
     </message>
     <message>
-        <source>Bricks</source>
-        <translation>积木</translation>
-    </message>
-    <message>
         <source>New layout</source>
         <translation>新建布局</translation>
     </message>
@@ -5969,10 +5985,6 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
     <message>
         <source>Cannot write %1: %2</source>
         <translation>无法写入 %1：%2</translation>
-    </message>
-    <message>
-        <source>%1%2%3 — Collaborative Brick Layout Designer</source>
-        <translation>%1%2%3 — Collaborative Brick Layout Designer</translation>
     </message>
     <message>
         <source>Opened %1 — %2 sheets</source>
@@ -6483,6 +6495,18 @@ Save anyway?</source>
     <message>
         <source>Save the picked parts as a set in your parts, to place again in one go</source>
         <translation>把选中的零件保存为你零件中的一个套件，以便一次性再次放置</translation>
+    </message>
+    <message>
+        <source>This app&apos;s help: Getting Started, sheets, the room, sharing, files and shortcuts</source>
+        <translation>本应用的帮助：入门、图纸、场地、共享、文件和快捷键</translation>
+    </message>
+    <message>
+        <source>BlueBrick&apos;s &amp;Manual (the original app)</source>
+        <translation>BlueBrick 手册(&amp;M)（原版应用）</translation>
+    </message>
+    <message>
+        <source>The manual of BlueBrick, which this app grew from. Some of it describes the original app: here a map has sheets, and R turns the picked parts.</source>
+        <translation>BlueBrick 的手册，本应用由它发展而来。其中一部分描述的是原版应用：在这里，地图由图纸组成，R 键旋转选中的零件。</translation>
     </message>
     <message>
         <source>The Qt toolkit this app is built with</source>
@@ -7169,18 +7193,6 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
         <translation>模块名称(&amp;M)</translation>
     </message>
     <message>
-        <source>Unsaved budget</source>
-        <translation>未保存的预算</translation>
-    </message>
-    <message>
-        <source>The budget %1 has unsaved changes. Save it before continuing?</source>
-        <translation>预算 %1 有未保存的更改。继续之前先保存吗？</translation>
-    </message>
-    <message>
-        <source>Save budget</source>
-        <translation>保存预算</translation>
-    </message>
-    <message>
         <source>&amp;Budget</source>
         <translation>预算(&amp;B)</translation>
     </message>
@@ -7205,52 +7217,12 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
         <translation>新建预算(&amp;N)</translation>
     </message>
     <message>
-        <source>Start a budget: how many of each part you have</source>
-        <translation>开始一个预算：你拥有的每种零件的数量</translation>
-    </message>
-    <message>
         <source>New budget started. Budget › Edit Budget sets how many of each part you have.</source>
         <translation>已开始新预算。预算 › 编辑预算 可以设置你拥有的每种零件的数量。</translation>
     </message>
     <message>
-        <source>&amp;Open Budget…</source>
-        <translation>打开预算(&amp;O)…</translation>
-    </message>
-    <message>
-        <source>Open a budget file: how many of each part you have</source>
-        <translation>打开一个预算文件：你拥有的每种零件的数量</translation>
-    </message>
-    <message>
-        <source>Open budget</source>
-        <translation>打开预算</translation>
-    </message>
-    <message>
-        <source>&amp;Import and Merge Budget…</source>
-        <translation>导入并合并预算(&amp;I)…</translation>
-    </message>
-    <message>
-        <source>Add the limits of another budget file to the current budget</source>
-        <translation>把另一个预算文件的上限加到当前预算中</translation>
-    </message>
-    <message>
         <source>Import and merge budget</source>
         <translation>导入并合并预算</translation>
-    </message>
-    <message>
-        <source>&amp;Close Budget</source>
-        <translation>关闭预算(&amp;C)</translation>
-    </message>
-    <message>
-        <source>&amp;Save Budget</source>
-        <translation>保存预算(&amp;S)</translation>
-    </message>
-    <message>
-        <source>Save Budget &amp;As…</source>
-        <translation>预算另存为(&amp;A)…</translation>
-    </message>
-    <message>
-        <source>Save this budget under a new name</source>
-        <translation>用新名称保存这个预算</translation>
     </message>
     <message>
         <source>Show Only &amp;Parts in the Budget</source>
@@ -7265,8 +7237,56 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
         <translation>显示预算数量(&amp;U)</translation>
     </message>
     <message>
-        <source>Set how many of each part you have</source>
-        <translation>设置你拥有的每种零件的数量</translation>
+        <source>Start a budget for this layout: how many of each part it may use</source>
+        <translation>为此布局开始一个预算：每种零件最多可以用多少个</translation>
+    </message>
+    <message>
+        <source>&amp;Import Budget from File…</source>
+        <translation>从文件导入预算(&amp;I)…</translation>
+    </message>
+    <message>
+        <source>Use the limits in a BlueBrick budget file (.bbb) as this layout&apos;s budget</source>
+        <translation>把 BlueBrick 预算文件 (.bbb) 中的上限用作此布局的预算</translation>
+    </message>
+    <message>
+        <source>Import budget</source>
+        <translation>导入预算</translation>
+    </message>
+    <message>
+        <source>Import and &amp;Merge Budget…</source>
+        <translation>导入并合并预算(&amp;M)…</translation>
+    </message>
+    <message>
+        <source>Add the limits of a budget file to this layout&apos;s budget</source>
+        <translation>把预算文件中的上限加到此布局的预算里</translation>
+    </message>
+    <message>
+        <source>Export Budget to &amp;File…</source>
+        <translation>将预算导出到文件(&amp;F)…</translation>
+    </message>
+    <message>
+        <source>Save this layout&apos;s budget as a BlueBrick budget file (.bbb), for BlueBrick or another layout</source>
+        <translation>把此布局的预算保存为 BlueBrick 预算文件 (.bbb)，供 BlueBrick 或其他布局使用</translation>
+    </message>
+    <message>
+        <source>Export budget</source>
+        <translation>导出预算</translation>
+    </message>
+    <message>
+        <source>Budget.bbb</source>
+        <translation>预算.bbb</translation>
+    </message>
+    <message>
+        <source>Budget exported to %1</source>
+        <translation>预算已导出到 %1</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Budget</source>
+        <translation>移除预算(&amp;R)</translation>
+    </message>
+    <message>
+        <source>Take the budget off this layout, for everyone who edits it (Undo brings it back)</source>
+        <translation>从此布局移除预算，对所有编辑它的人生效（撤销可以恢复）</translation>
     </message>
     <message>
         <source>Show how many of each part are used and allowed in the Parts panel</source>
@@ -7295,6 +7315,10 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     <message>
         <source>&amp;Edit Budget…</source>
         <translation>编辑预算(&amp;E)…</translation>
+    </message>
+    <message>
+        <source>Set how many of each part this layout may use</source>
+        <translation>设置此布局每种零件最多可以用多少个</translation>
     </message>
     <message>
         <source>&amp;Import .bbm as Module…</source>
@@ -12049,16 +12073,16 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>R</translation>
     </message>
     <message>
-        <source>Turn the selected pieces</source>
-        <translation>转动选中的零件</translation>
-    </message>
-    <message>
         <source>Shift+R</source>
         <translation>Shift+R</translation>
     </message>
     <message>
-        <source>Turn them the other way</source>
-        <translation>往另一个方向转</translation>
+        <source>Turn the selected pieces left (counterclockwise)</source>
+        <translation>向左旋转选中的零件（逆时针）</translation>
+    </message>
+    <message>
+        <source>Turn them right (clockwise)</source>
+        <translation>向右旋转（顺时针）</translation>
     </message>
     <message>
         <source>Arrow keys</source>

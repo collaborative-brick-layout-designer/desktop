@@ -3603,6 +3603,10 @@
         <translation>Budget</translation>
     </message>
     <message>
+        <source>Saved with the layout, and shared with everyone who edits it.</source>
+        <translation>Wordt met de layout opgeslagen en gedeeld met iedereen die hem bewerkt.</translation>
+    </message>
+    <message>
         <source>Part budgets</source>
         <translation>Onderdeelbudgetten</translation>
     </message>
@@ -3629,24 +3633,36 @@
         <source>All parts within budget</source>
         <translation>Alle onderdelen binnen budget</translation>
     </message>
-    <message>
-        <source>Budget — %1</source>
-        <translation>Budget — %1</translation>
-    </message>
 </context>
 <context>
     <name>bld::ui::BudgetSession</name>
     <message>
-        <source>Untitled.bbb</source>
-        <translation>Naamloos.bbb</translation>
+        <source>New budget</source>
+        <translation>Nieuw budget</translation>
+    </message>
+    <message>
+        <source>Remove budget</source>
+        <translation>Budget verwijderen</translation>
     </message>
     <message>
         <source>%1 is not a BlueBrick budget file.</source>
         <translation>%1 is geen BlueBrick-budgetbestand.</translation>
     </message>
     <message>
+        <source>Import budget</source>
+        <translation>Budget importeren</translation>
+    </message>
+    <message>
+        <source>Import and merge budget</source>
+        <translation>Budget importeren en samenvoegen</translation>
+    </message>
+    <message>
         <source>Cannot save the budget to %1.</source>
         <translation>Het budget kan niet worden opgeslagen in %1.</translation>
+    </message>
+    <message>
+        <source>Change budget</source>
+        <translation>Budget wijzigen</translation>
     </message>
 </context>
 <context>
@@ -5589,8 +5605,8 @@ De mijne als nieuwe versie opslaan: jouw versie wordt de module; die van hen bli
         <translation>Naar links draaien</translation>
     </message>
     <message>
-        <source>Turn the selected pieces anticlockwise</source>
-        <translation>De geselecteerde stukken naar links draaien</translation>
+        <source>Turn the selected pieces counterclockwise</source>
+        <translation>De geselecteerde stukken tegen de klok in draaien</translation>
     </message>
     <message>
         <source>Turn right</source>
@@ -5909,6 +5925,10 @@ De mijne als nieuwe versie opslaan: jouw versie wordt de module; die van hen bli
         <translation>%1 — Module op %2</translation>
     </message>
     <message>
+        <source>%1%2 — Collaborative Brick Layout Designer</source>
+        <translation>%1%2 — Collaborative Brick Layout Designer</translation>
+    </message>
+    <message>
         <source>Changes are shared as you make them</source>
         <translation>Wijzigingen worden gedeeld terwijl je ze maakt</translation>
     </message>
@@ -5981,10 +6001,6 @@ De mijne als nieuwe versie opslaan: jouw versie wordt de module; die van hen bli
         <translation>Nieuwe layout van sjabloon %1</translation>
     </message>
     <message>
-        <source>Bricks</source>
-        <translation>Stenen</translation>
-    </message>
-    <message>
         <source>New layout</source>
         <translation>Nieuwe layout</translation>
     </message>
@@ -6003,10 +6019,6 @@ De mijne als nieuwe versie opslaan: jouw versie wordt de module; die van hen bli
     <message>
         <source>Cannot write %1: %2</source>
         <translation>%1 kan niet worden geschreven: %2</translation>
-    </message>
-    <message>
-        <source>%1%2%3 — Collaborative Brick Layout Designer</source>
-        <translation>%1%2%3 — Collaborative Brick Layout Designer</translation>
     </message>
     <message>
         <source>Opened %1 — %2 sheets</source>
@@ -6520,6 +6532,18 @@ Toch opslaan?</translation>
     <message>
         <source>Save the picked parts as a set in your parts, to place again in one go</source>
         <translation>De gekozen onderdelen als set in je onderdelen opslaan, om in één keer opnieuw te plaatsen</translation>
+    </message>
+    <message>
+        <source>This app&apos;s help: Getting Started, sheets, the room, sharing, files and shortcuts</source>
+        <translation>De hulp van deze app: aan de slag, bladen, de zaal, delen, bestanden en sneltoetsen</translation>
+    </message>
+    <message>
+        <source>BlueBrick&apos;s &amp;Manual (the original app)</source>
+        <translation>&amp;Handleiding van BlueBrick (de oorspronkelijke app)</translation>
+    </message>
+    <message>
+        <source>The manual of BlueBrick, which this app grew from. Some of it describes the original app: here a map has sheets, and R turns the picked parts.</source>
+        <translation>De handleiding van BlueBrick, waaruit deze app is ontstaan. Een deel beschrijft de oorspronkelijke app: hier heeft een kaart bladen, en R draait de gekozen onderdelen.</translation>
     </message>
     <message>
         <source>The Qt toolkit this app is built with</source>
@@ -7213,18 +7237,6 @@ Je offline wijzigingen blijven bewaard; Bestand &gt; Offline wijzigingen bekijke
         <translation>&amp;Modulenamen</translation>
     </message>
     <message>
-        <source>Unsaved budget</source>
-        <translation>Niet-opgeslagen budget</translation>
-    </message>
-    <message>
-        <source>The budget %1 has unsaved changes. Save it before continuing?</source>
-        <translation>Het budget %1 heeft niet-opgeslagen wijzigingen. Opslaan voordat je verdergaat?</translation>
-    </message>
-    <message>
-        <source>Save budget</source>
-        <translation>Budget opslaan</translation>
-    </message>
-    <message>
         <source>&amp;Budget</source>
         <translation>&amp;Budget</translation>
     </message>
@@ -7249,52 +7261,16 @@ Je offline wijzigingen blijven bewaard; Bestand &gt; Offline wijzigingen bekijke
         <translation>&amp;Nieuw budget</translation>
     </message>
     <message>
-        <source>Start a budget: how many of each part you have</source>
-        <translation>Een budget beginnen: hoeveel je van elk onderdeel hebt</translation>
-    </message>
-    <message>
         <source>New budget started. Budget › Edit Budget sets how many of each part you have.</source>
         <translation>Nieuw budget begonnen. Budget › Budget bewerken stelt in hoeveel je van elk onderdeel hebt.</translation>
-    </message>
-    <message>
-        <source>&amp;Open Budget…</source>
-        <translation>Budget &amp;openen…</translation>
-    </message>
-    <message>
-        <source>Open a budget file: how many of each part you have</source>
-        <translation>Een budgetbestand openen: hoeveel je van elk onderdeel hebt</translation>
-    </message>
-    <message>
-        <source>Open budget</source>
-        <translation>Budget openen</translation>
-    </message>
-    <message>
-        <source>&amp;Import and Merge Budget…</source>
-        <translation>Budget &amp;importeren en samenvoegen…</translation>
-    </message>
-    <message>
-        <source>Add the limits of another budget file to the current budget</source>
-        <translation>De limieten van een ander budgetbestand aan het huidige budget toevoegen</translation>
     </message>
     <message>
         <source>Import and merge budget</source>
         <translation>Budget importeren en samenvoegen</translation>
     </message>
     <message>
-        <source>&amp;Close Budget</source>
-        <translation>Budget &amp;sluiten</translation>
-    </message>
-    <message>
-        <source>&amp;Save Budget</source>
-        <translation>Budget o&amp;pslaan</translation>
-    </message>
-    <message>
-        <source>Save Budget &amp;As…</source>
-        <translation>Budget opslaan &amp;als…</translation>
-    </message>
-    <message>
-        <source>Save this budget under a new name</source>
-        <translation>Dit budget onder een nieuwe naam opslaan</translation>
+        <source>Export Budget to &amp;File…</source>
+        <translation>Budget naar &amp;bestand exporteren…</translation>
     </message>
     <message>
         <source>Show Only &amp;Parts in the Budget</source>
@@ -7309,8 +7285,52 @@ Je offline wijzigingen blijven bewaard; Bestand &gt; Offline wijzigingen bekijke
         <translation>Budget&amp;getallen tonen</translation>
     </message>
     <message>
-        <source>Set how many of each part you have</source>
-        <translation>Instellen hoeveel je van elk onderdeel hebt</translation>
+        <source>Start a budget for this layout: how many of each part it may use</source>
+        <translation>Een budget voor deze layout beginnen: hoeveel van elk onderdeel hij mag gebruiken</translation>
+    </message>
+    <message>
+        <source>&amp;Import Budget from File…</source>
+        <translation>Budget uit bestand &amp;importeren…</translation>
+    </message>
+    <message>
+        <source>Use the limits in a BlueBrick budget file (.bbb) as this layout&apos;s budget</source>
+        <translation>De limieten van een BlueBrick-budgetbestand (.bbb) als budget van deze layout gebruiken</translation>
+    </message>
+    <message>
+        <source>Import budget</source>
+        <translation>Budget importeren</translation>
+    </message>
+    <message>
+        <source>Import and &amp;Merge Budget…</source>
+        <translation>Budget importeren en sa&amp;menvoegen…</translation>
+    </message>
+    <message>
+        <source>Add the limits of a budget file to this layout&apos;s budget</source>
+        <translation>De limieten van een budgetbestand bij het budget van deze layout optellen</translation>
+    </message>
+    <message>
+        <source>Save this layout&apos;s budget as a BlueBrick budget file (.bbb), for BlueBrick or another layout</source>
+        <translation>Het budget van deze layout opslaan als BlueBrick-budgetbestand (.bbb), voor BlueBrick of een andere layout</translation>
+    </message>
+    <message>
+        <source>Export budget</source>
+        <translation>Budget exporteren</translation>
+    </message>
+    <message>
+        <source>Budget.bbb</source>
+        <translation>Budget.bbb</translation>
+    </message>
+    <message>
+        <source>Budget exported to %1</source>
+        <translation>Budget geëxporteerd naar %1</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Budget</source>
+        <translation>Budget &amp;verwijderen</translation>
+    </message>
+    <message>
+        <source>Take the budget off this layout, for everyone who edits it (Undo brings it back)</source>
+        <translation>Het budget van deze layout afhalen, voor iedereen die hem bewerkt (Ongedaan maken brengt het terug)</translation>
     </message>
     <message>
         <source>Show how many of each part are used and allowed in the Parts panel</source>
@@ -7339,6 +7359,10 @@ Je offline wijzigingen blijven bewaard; Bestand &gt; Offline wijzigingen bekijke
     <message>
         <source>&amp;Edit Budget…</source>
         <translation>Budget &amp;bewerken…</translation>
+    </message>
+    <message>
+        <source>Set how many of each part this layout may use</source>
+        <translation>Instellen hoeveel van elk onderdeel deze layout mag gebruiken</translation>
     </message>
     <message>
         <source>&amp;Import .bbm as Module…</source>
@@ -12120,16 +12144,16 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>R</translation>
     </message>
     <message>
-        <source>Turn the selected pieces</source>
-        <translation>De geselecteerde stukken draaien</translation>
-    </message>
-    <message>
         <source>Shift+R</source>
         <translation>Shift+R</translation>
     </message>
     <message>
-        <source>Turn them the other way</source>
-        <translation>Ze de andere kant op draaien</translation>
+        <source>Turn the selected pieces left (counterclockwise)</source>
+        <translation>De geselecteerde stukken naar links draaien (tegen de klok in)</translation>
+    </message>
+    <message>
+        <source>Turn them right (clockwise)</source>
+        <translation>Ze naar rechts draaien (met de klok mee)</translation>
     </message>
     <message>
         <source>Arrow keys</source>

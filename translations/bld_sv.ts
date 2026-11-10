@@ -3595,16 +3595,16 @@
 <context>
     <name>bld::ui::BudgetDialog</name>
     <message>
-        <source>Budget — %1</source>
-        <translation>Budget — %1</translation>
-    </message>
-    <message>
         <source>Refresh from map</source>
         <translation>Uppdatera från kartan</translation>
     </message>
     <message>
         <source>Budget</source>
         <translation>Budget</translation>
+    </message>
+    <message>
+        <source>Saved with the layout, and shared with everyone who edits it.</source>
+        <translation>Sparas med layouten och delas med alla som redigerar den.</translation>
     </message>
     <message>
         <source>Part budgets</source>
@@ -3637,16 +3637,32 @@
 <context>
     <name>bld::ui::BudgetSession</name>
     <message>
-        <source>Untitled.bbb</source>
-        <translation>Namnlös.bbb</translation>
+        <source>New budget</source>
+        <translation>Ny budget</translation>
+    </message>
+    <message>
+        <source>Remove budget</source>
+        <translation>Ta bort budget</translation>
     </message>
     <message>
         <source>%1 is not a BlueBrick budget file.</source>
         <translation>%1 är inte en BlueBrick-budgetfil.</translation>
     </message>
     <message>
+        <source>Import budget</source>
+        <translation>Importera budget</translation>
+    </message>
+    <message>
+        <source>Import and merge budget</source>
+        <translation>Importera och slå ihop budget</translation>
+    </message>
+    <message>
         <source>Cannot save the budget to %1.</source>
         <translation>Kan inte spara budgeten till %1.</translation>
+    </message>
+    <message>
+        <source>Change budget</source>
+        <translation>Ändra budget</translation>
     </message>
 </context>
 <context>
@@ -5597,8 +5613,8 @@ Spara min som ny version: din blir modulen; deras finns kvar i versionshistorike
         <translation>Vrid åt vänster</translation>
     </message>
     <message>
-        <source>Turn the selected pieces anticlockwise</source>
-        <translation>Vrid de markerade delarna moturs</translation>
+        <source>Turn the selected pieces counterclockwise</source>
+        <translation>Vrid de valda delarna moturs</translation>
     </message>
     <message>
         <source>Turn right</source>
@@ -5905,18 +5921,6 @@ Spara min som ny version: din blir modulen; deras finns kvar i versionshistorike
         <translation>Importerade %1 klossar som modulen &apos;%2&apos;</translation>
     </message>
     <message>
-        <source>Unsaved budget</source>
-        <translation>Osparad budget</translation>
-    </message>
-    <message>
-        <source>The budget %1 has unsaved changes. Save it before continuing?</source>
-        <translation>Budgeten %1 har osparade ändringar. Spara den innan du fortsätter?</translation>
-    </message>
-    <message>
-        <source>Save budget</source>
-        <translation>Spara budget</translation>
-    </message>
-    <message>
         <source>&amp;Budget</source>
         <translation>&amp;Budget</translation>
     </message>
@@ -5941,52 +5945,12 @@ Spara min som ny version: din blir modulen; deras finns kvar i versionshistorike
         <translation>&amp;Ny budget</translation>
     </message>
     <message>
-        <source>Start a budget: how many of each part you have</source>
-        <translation>Starta en budget: hur många du har av varje del</translation>
-    </message>
-    <message>
         <source>New budget started. Budget › Edit Budget sets how many of each part you have.</source>
         <translation>Ny budget startad. Budget › Redigera budget anger hur många du har av varje del.</translation>
     </message>
     <message>
-        <source>&amp;Open Budget…</source>
-        <translation>&amp;Öppna budget…</translation>
-    </message>
-    <message>
-        <source>Open a budget file: how many of each part you have</source>
-        <translation>Öppna en budgetfil: hur många du har av varje del</translation>
-    </message>
-    <message>
-        <source>Open budget</source>
-        <translation>Öppna budget</translation>
-    </message>
-    <message>
-        <source>&amp;Import and Merge Budget…</source>
-        <translation>&amp;Importera och slå ihop budget…</translation>
-    </message>
-    <message>
-        <source>Add the limits of another budget file to the current budget</source>
-        <translation>Lägg till gränserna från en annan budgetfil i den aktuella budgeten</translation>
-    </message>
-    <message>
         <source>Import and merge budget</source>
         <translation>Importera och slå ihop budget</translation>
-    </message>
-    <message>
-        <source>&amp;Close Budget</source>
-        <translation>S&amp;täng budget</translation>
-    </message>
-    <message>
-        <source>&amp;Save Budget</source>
-        <translation>&amp;Spara budget</translation>
-    </message>
-    <message>
-        <source>Save Budget &amp;As…</source>
-        <translation>Spara budget so&amp;m…</translation>
-    </message>
-    <message>
-        <source>Save this budget under a new name</source>
-        <translation>Spara budgeten under ett nytt namn</translation>
     </message>
     <message>
         <source>Show Only &amp;Parts in the Budget</source>
@@ -6001,8 +5965,56 @@ Spara min som ny version: din blir modulen; deras finns kvar i versionshistorike
         <translation>Visa budget&amp;antal</translation>
     </message>
     <message>
-        <source>Set how many of each part you have</source>
-        <translation>Ange hur många du har av varje del</translation>
+        <source>Start a budget for this layout: how many of each part it may use</source>
+        <translation>Börja en budget för den här layouten: hur många av varje del den får använda</translation>
+    </message>
+    <message>
+        <source>&amp;Import Budget from File…</source>
+        <translation>&amp;Importera budget från fil…</translation>
+    </message>
+    <message>
+        <source>Use the limits in a BlueBrick budget file (.bbb) as this layout&apos;s budget</source>
+        <translation>Använd gränserna i en BlueBrick-budgetfil (.bbb) som den här layoutens budget</translation>
+    </message>
+    <message>
+        <source>Import budget</source>
+        <translation>Importera budget</translation>
+    </message>
+    <message>
+        <source>Import and &amp;Merge Budget…</source>
+        <translation>Importera och slå &amp;ihop budget…</translation>
+    </message>
+    <message>
+        <source>Add the limits of a budget file to this layout&apos;s budget</source>
+        <translation>Lägg till gränserna i en budgetfil till den här layoutens budget</translation>
+    </message>
+    <message>
+        <source>Export Budget to &amp;File…</source>
+        <translation>Exportera budget till &amp;fil…</translation>
+    </message>
+    <message>
+        <source>Save this layout&apos;s budget as a BlueBrick budget file (.bbb), for BlueBrick or another layout</source>
+        <translation>Spara den här layoutens budget som en BlueBrick-budgetfil (.bbb), för BlueBrick eller en annan layout</translation>
+    </message>
+    <message>
+        <source>Export budget</source>
+        <translation>Exportera budget</translation>
+    </message>
+    <message>
+        <source>Budget.bbb</source>
+        <translation>Budget.bbb</translation>
+    </message>
+    <message>
+        <source>Budget exported to %1</source>
+        <translation>Budget exporterad till %1</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Budget</source>
+        <translation>&amp;Ta bort budget</translation>
+    </message>
+    <message>
+        <source>Take the budget off this layout, for everyone who edits it (Undo brings it back)</source>
+        <translation>Ta bort budgeten från den här layouten, för alla som redigerar den (Ångra tar tillbaka den)</translation>
     </message>
     <message>
         <source>Show how many of each part are used and allowed in the Parts panel</source>
@@ -6033,12 +6045,12 @@ Spara min som ny version: din blir modulen; deras finns kvar i versionshistorike
         <translation>&amp;Redigera budget…</translation>
     </message>
     <message>
-        <source>[untitled]</source>
-        <translation>[namnlös]</translation>
+        <source>Set how many of each part this layout may use</source>
+        <translation>Ange hur många av varje del den här layouten får använda</translation>
     </message>
     <message>
-        <source>%1%2%3 — Collaborative Brick Layout Designer</source>
-        <translation>%1%2%3 — Collaborative Brick Layout Designer</translation>
+        <source>[untitled]</source>
+        <translation>[namnlös]</translation>
     </message>
     <message>
         <source>Open failed</source>
@@ -6101,10 +6113,6 @@ Spara ändå?</translation>
         <translation>Rutnät</translation>
     </message>
     <message>
-        <source>Bricks</source>
-        <translation>Klossar</translation>
-    </message>
-    <message>
         <source>New layout</source>
         <translation>Ny layout</translation>
     </message>
@@ -6139,6 +6147,10 @@ Spara ändå?</translation>
     <message>
         <source>%1 — Module on %2</source>
         <translation>%1 — Modul på %2</translation>
+    </message>
+    <message>
+        <source>%1%2 — Collaborative Brick Layout Designer</source>
+        <translation>%1%2 — Collaborative Brick Layout Designer</translation>
     </message>
     <message>
         <source>Changes are shared as you make them</source>
@@ -7607,6 +7619,18 @@ Dina offlineändringar finns kvar; Arkiv &gt; Granska offlineändringar tar fram
     <message>
         <source>&amp;Contents</source>
         <translation>&amp;Innehåll</translation>
+    </message>
+    <message>
+        <source>This app&apos;s help: Getting Started, sheets, the room, sharing, files and shortcuts</source>
+        <translation>Det här programmets hjälp: kom igång, blad, lokalen, delning, filer och kortkommandon</translation>
+    </message>
+    <message>
+        <source>BlueBrick&apos;s &amp;Manual (the original app)</source>
+        <translation>BlueBricks &amp;handbok (det ursprungliga programmet)</translation>
+    </message>
+    <message>
+        <source>The manual of BlueBrick, which this app grew from. Some of it describes the original app: here a map has sheets, and R turns the picked parts.</source>
+        <translation>BlueBricks handbok, som det här programmet växte fram ur. Delar av den beskriver det ursprungliga programmet: här har en karta blad, och R vrider de valda delarna.</translation>
     </message>
     <message>
         <source>&amp;Keyboard Shortcuts</source>
@@ -12120,16 +12144,16 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>R</translation>
     </message>
     <message>
-        <source>Turn the selected pieces</source>
-        <translation>Vrid de markerade delarna</translation>
-    </message>
-    <message>
         <source>Shift+R</source>
         <translation>Shift+R</translation>
     </message>
     <message>
-        <source>Turn them the other way</source>
-        <translation>Vrid dem åt andra hållet</translation>
+        <source>Turn the selected pieces left (counterclockwise)</source>
+        <translation>Vrid de valda delarna åt vänster (moturs)</translation>
+    </message>
+    <message>
+        <source>Turn them right (clockwise)</source>
+        <translation>Vrid dem åt höger (medurs)</translation>
     </message>
     <message>
         <source>Arrow keys</source>
