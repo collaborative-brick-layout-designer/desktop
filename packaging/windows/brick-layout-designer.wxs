@@ -34,7 +34,12 @@
 
     <SummaryInformation Description="Cross-platform maintainer fork of BlueBrick" />
 
-    <MajorUpgrade DowngradeErrorMessage="A newer version is already installed." />
+    <!-- Windows Installer compares only the first three numbers of a version,
+         so two nightlies (2.0.12.345, 2.0.12.346) or a nightly over 2.0.12
+         count as the same version: without AllowSameVersionUpgrades each
+         install added another entry to Apps & Features. -->
+    <MajorUpgrade AllowSameVersionUpgrades="yes"
+                  DowngradeErrorMessage="A newer version is already installed." />
 
     <!-- The usual installer pages: welcome, the license (GPL-3.0, from
          LICENSE), where to install, and ready to install. -->

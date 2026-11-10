@@ -15,6 +15,17 @@ namespace bld::core {
 // than its release, and "+build" is ignored.
 std::optional<int> compareVersions(const QString& a, const QString& b);
 
+// The build's channel: empty for a release, "nightly" for a nightly build
+// (BLD_CHANNEL, set by main.cpp from the build). About says it beside the
+// version.
+QString buildChannel();
+void setBuildChannel(const QString& channel);
+
+// Help > About's "Third-party licenses": the installed THIRD-PARTY-NOTICES.txt
+// (beside the app on Windows, in Resources on macOS, in share/doc on Linux),
+// or the copy on GitHub when it isn't there (a build run from its folder).
+QString thirdPartyNoticesUrl();
+
 // Where this desktop's releases are downloaded (GitHub releases).
 QString desktopDownloadUrl();
 

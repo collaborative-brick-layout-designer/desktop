@@ -7995,6 +7995,10 @@ Eksportere likevel?</translation>
         <translation>&lt;h3&gt;Collaborative Brick Layout Designer&lt;/h3&gt;&lt;p&gt;Plattformuavhengig C++/Qt 6-avlegger av &lt;b&gt;BlueBrick&lt;/b&gt; av Alban Nanty og bidragsytere.&lt;/p&gt;&lt;p&gt;Legger til moduler, etiketter, lokaler og direkteredigering med klubben din, og lagrer alt i én &lt;i&gt;.bld-layout&lt;/i&gt;-fil. Den åpner og eksporterer fortsatt BlueBrick-filer (&lt;i&gt;.bbm&lt;/i&gt;).&lt;/p&gt;&lt;p&gt;&lt;b&gt;Laget med KI.&lt;/b&gt; Mye av denne appen ble skrevet med hjelp fra KI (Anthropics Claude), styrt og gjennomgått av et menneske. Den er testet, men kan fortsatt inneholde feil. Si gjerne fra om dem du finner.&lt;/p&gt;&lt;p&gt;Lisensiert under GPL-3.0, som BlueBrick.&lt;/p&gt;&lt;p&gt;Delebibliotek: %1 deler indeksert.&lt;/p&gt;</translation>
     </message>
     <message>
+        <source>Third-party licenses</source>
+        <translation>Tredjepartslisenser</translation>
+    </message>
+    <message>
         <source>%1 — on %2</source>
         <translation>%1 — på %2</translation>
     </message>
@@ -11135,6 +11139,14 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
 </context>
 <context>
     <name>bld::ui::UpdateCheck</name>
+    <message>
+        <source>Version %1, a nightly build</source>
+        <translation>Versjon %1, et nattbygg</translation>
+    </message>
+    <message>
+        <source>Version %1</source>
+        <translation>Versjon %1</translation>
+    </message>
     <message>
         <source>Check for Updates</source>
         <translation>Se etter oppdateringer</translation>

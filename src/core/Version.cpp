@@ -1,6 +1,10 @@
 #include "Version.h"
 
+#include <QCoreApplication>
+#include <QDir>
+#include <QFileInfo>
 #include <QRegularExpression>
+#include <QUrl>
 #include <QStringList>
 #include <QVector>
 
@@ -41,6 +45,29 @@ std::optional<int> compareVersions(const QString& a, const QString& b) {
 
 QString desktopDownloadUrl() {
     return QStringLiteral("https://github.com/collaborative-brick-layout-designer/desktop/releases/latest");
+}
+
+namespace {
+QString& channelStorage() {
+    static QString channel;
+    return channel;
+}
+}  // namespace
+
+QString buildChannel() { return channelStorage(); }
+void setBuildChannel(const QString& channel) { channelStorage() = channel.trimmed(); }
+
+QString thirdPartyNoticesUrl() {
+    const QString exeDir = QCoreApplication::applicationDirPath();
+    for (const QString& rel : {
+             QStringLiteral("/THIRD-PARTY-NOTICES.txt"),
+             QStringLiteral("/../Resources/THIRD-PARTY-NOTICES.txt"),
+             QStringLiteral("/../share/doc/BrickLayoutDesigner/THIRD-PARTY-NOTICES.txt") }) {
+        const QFileInfo f(exeDir + rel);
+        if (f.isFile()) return QUrl::fromLocalFile(QDir::cleanPath(f.absoluteFilePath())).toString();
+    }
+    return QStringLiteral(
+        "https://github.com/collaborative-brick-layout-designer/desktop/blob/main/THIRD-PARTY-NOTICES.txt");
 }
 
 }  // namespace bld::core

@@ -7995,6 +7995,10 @@ Trotzdem exportieren?</translation>
         <translation>&lt;h3&gt;Collaborative Brick Layout Designer&lt;/h3&gt;&lt;p&gt;Plattformübergreifende C++/Qt-6-Weiterentwicklung von &lt;b&gt;BlueBrick&lt;/b&gt; von Alban Nanty und Mitwirkenden.&lt;/p&gt;&lt;p&gt;Bringt Module, Beschriftungen, Veranstaltungsorte und das Live-Bearbeiten mit deinem Club und speichert alles in einer &lt;i&gt;.bld-layout&lt;/i&gt;-Datei. BlueBrick-Dateien &lt;i&gt;.bbm&lt;/i&gt; öffnet und exportiert es weiterhin.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Mit KI gemacht.&lt;/b&gt; Ein großer Teil dieser App wurde mithilfe von KI (Claude von Anthropic) geschrieben, von einem Menschen angeleitet und geprüft. Sie ist getestet, kann aber trotzdem Fehler enthalten. Bitte melde alle, die du findest.&lt;/p&gt;&lt;p&gt;Lizenziert unter GPL-3.0, wie BlueBrick.&lt;/p&gt;&lt;p&gt;Teilebibliothek: %1 Teile erfasst.&lt;/p&gt;</translation>
     </message>
     <message>
+        <source>Third-party licenses</source>
+        <translation>Lizenzen von Drittanbietern</translation>
+    </message>
+    <message>
         <source>%1 — on %2</source>
         <translation>%1 – auf %2</translation>
     </message>
@@ -11135,6 +11139,14 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
 </context>
 <context>
     <name>bld::ui::UpdateCheck</name>
+    <message>
+        <source>Version %1, a nightly build</source>
+        <translation>Version %1, ein Nightly-Build</translation>
+    </message>
+    <message>
+        <source>Version %1</source>
+        <translation>Version %1</translation>
+    </message>
     <message>
         <source>Check for Updates</source>
         <translation>Nach Updates suchen</translation>

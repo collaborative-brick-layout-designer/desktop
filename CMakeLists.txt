@@ -11,8 +11,12 @@ foreach(_bld_policy CMP0156 CMP0177)
 endforeach()
 
 # Single source of truth for the version stamped into the binaries and every
-# package. Release CI overrides it from the git tag (-DBLD_VERSION=1.2.3).
-set(BLD_VERSION "2.0.0" CACHE STRING "Version stamped into binaries and packages")
+# package. Release CI overrides it from the git tag (-DBLD_VERSION=1.2.3);
+# nightly CI stamps the latest release plus its run number
+# (-DBLD_VERSION=1.2.3.456 -DBLD_CHANNEL=nightly), so a nightly is newer
+# than the release it follows and older than the next one.
+set(BLD_VERSION "2.0.0" CACHE STRING "Version stamped into binaries and packages (X.Y.Z or X.Y.Z.N)")
+set(BLD_CHANNEL "" CACHE STRING "Build channel shown in About: empty for a release, nightly for a nightly build")
 
 # The oldest macOS the app runs on. Qt's own frameworks set the floor: Qt
 # 6.12's are built for macOS 14.4 (their LC_BUILD_VERSION minos), and dyld
@@ -25,6 +29,14 @@ project(BrickLayoutDesigner
     VERSION ${BLD_VERSION}
     DESCRIPTION "Cross-platform maintainer fork of BlueBrick"
     LANGUAGES C CXX)
+
+# The fourth number of a nightly's version, 0 for a release (Windows'
+# VERSIONINFO always has four).
+if(PROJECT_VERSION_TWEAK STREQUAL "")
+    set(BLD_VERSION_TWEAK 0)
+else()
+    set(BLD_VERSION_TWEAK ${PROJECT_VERSION_TWEAK})
+endif()
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -227,13 +239,16 @@ endif()
 # by scripts/help/chm_to_html.py.
 install(DIRECTORY "${CMAKE_SOURCE_DIR}/help" DESTINATION "${BLD_INSTALL_DATADIR}")
 
+# THIRD-PARTY-NOTICES.txt: the licenses of what the app links and embeds
+# (scripts/gen-third-party-notices.py). Help > About links to it, looking in
+# these places (core/Version.cpp, thirdPartyNoticesUrl).
 if(WIN32)
-    install(FILES README.md DESTINATION .)
+    install(FILES README.md THIRD-PARTY-NOTICES.txt DESTINATION .)
     install(FILES LICENSE DESTINATION . RENAME LICENSE.txt)
 elseif(APPLE)
-    install(FILES README.md LICENSE DESTINATION "${BLD_INSTALL_DATADIR}")
+    install(FILES README.md LICENSE THIRD-PARTY-NOTICES.txt DESTINATION "${BLD_INSTALL_DATADIR}")
 else()
-    install(FILES README.md LICENSE DESTINATION "${CMAKE_INSTALL_DOCDIR}")
+    install(FILES README.md LICENSE THIRD-PARTY-NOTICES.txt DESTINATION "${CMAKE_INSTALL_DOCDIR}")
     install(FILES packaging/linux/brick-layout-designer.desktop
             DESTINATION "${CMAKE_INSTALL_DATADIR}/applications")
     install(FILES packaging/linux/brick-layout-designer.xml

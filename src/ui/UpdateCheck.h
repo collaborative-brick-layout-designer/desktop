@@ -14,6 +14,10 @@ namespace bld::ui {
 // its release. Unparsable versions are never newer.
 bool isNewerVersion(const QString& candidate, const QString& current);
 
+// About's version line: "Version 2.0.12", or for a nightly build
+// "Version 2.0.12.345, a nightly build" (newer than 2.0.12, older than 2.0.13).
+QString versionLine(const QString& version, const QString& channel);
+
 // A release on GitHub, as the update notice shows it.
 struct ReleaseInfo {
     QString version;  // "1.3.0" (no leading v)

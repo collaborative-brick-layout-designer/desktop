@@ -7937,6 +7937,10 @@ Export anyway?</source>
         <translation>&lt;h3&gt;Collaborative Brick Layout Designer&lt;/h3&gt;&lt;p&gt;Alban Nanty と協力者による &lt;b&gt;BlueBrick&lt;/b&gt; の、クロスプラットフォームな C++/Qt 6 フォークです。&lt;/p&gt;&lt;p&gt;モジュール、ラベル、会場、クラブとのライブ編集を追加し、すべてを 1 つの &lt;i&gt;.bld-layout&lt;/i&gt; ファイルに保存します。BlueBrick の &lt;i&gt;.bbm&lt;/i&gt; ファイルも引き続き開いたりエクスポートしたりできます。&lt;/p&gt;&lt;p&gt;&lt;b&gt;AI を使って作られています。&lt;/b&gt;このアプリの多くは AI（Anthropic の Claude）の助けを借りて書かれ、人が指示とレビューを行いました。テストはしていますが、間違いが残っている可能性があります。見つけたら報告してください。&lt;/p&gt;&lt;p&gt;BlueBrick と同じく GPL-3.0 でライセンスされています。&lt;/p&gt;&lt;p&gt;パーツライブラリ: パーツ %1 個を登録済み。&lt;/p&gt;</translation>
     </message>
     <message>
+        <source>Third-party licenses</source>
+        <translation>サードパーティのライセンス</translation>
+    </message>
+    <message>
         <source>%1 — on %2</source>
         <translation>%1 — %2 上</translation>
     </message>
@@ -11066,6 +11070,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
 </context>
 <context>
     <name>bld::ui::UpdateCheck</name>
+    <message>
+        <source>Version %1, a nightly build</source>
+        <translation>バージョン %1（ナイトリービルド）</translation>
+    </message>
+    <message>
+        <source>Version %1</source>
+        <translation>バージョン %1</translation>
+    </message>
     <message>
         <source>Check for Updates</source>
         <translation>更新を確認</translation>

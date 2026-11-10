@@ -13,14 +13,45 @@ env:
 permissions:
   contents: read
 
+# One nightly release update at a time; the newer push wins.
+concurrency:
+  group: nightly-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
+  # A nightly is the latest release plus this run's number (2.0.12.345):
+  # newer than that release, so nightly users aren't told to "update" to
+  # it and servers don't count them as 2.0.0, and older than the next one.
+  version:
+    name: Nightly version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+    steps:
+      - id: v
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=$(gh api "repos/$GITHUB_REPOSITORY/releases/latest" --jq .tag_name)
+          base="${tag#v}"
+          base="${base%%-*}"
+          if ! echo "$base" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::The latest release's tag ($tag) is not vX.Y.Z"
+            exit 1
+          fi
+          echo "version=$base.$GITHUB_RUN_NUMBER" >> "$GITHUB_OUTPUT"
+          echo "Nightly version $base.$GITHUB_RUN_NUMBER"
+
   build:
+    needs: version
     uses: ./.github/workflows/build.yml
     with:
       artifact-suffix: -nightly
+      version: ${{ needs.version.outputs.version }}
+      channel: nightly
 
   release:
-    needs: build
+    needs: [version, build]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -32,13 +63,42 @@ jobs:
           path: artifacts
           merge-multiple: true
 
+      # A run that finishes after a newer commit's leaves the release to it.
+      - name: Is this still the tip of main?
+        id: tip
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tip=$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq .commit.sha)
+          if [ "$tip" = "$GITHUB_SHA" ]; then echo "latest=true" >> "$GITHUB_OUTPUT"; else
+            echo "latest=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::main has moved on to $tip; leaving Latest Build to its run."
+          fi
+
+      # The release only replaces its files; the tag stayed on an April
+      # commit, so "Source code" was months old. Move it to this commit.
+      - name: Move the latest tag to this commit
+        if: steps.tip.outputs.latest == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/latest" > /dev/null 2>&1; then
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/git/refs/tags/latest" -f sha="$GITHUB_SHA" -F force=true > /dev/null
+          else
+            gh api -X POST "repos/$GITHUB_REPOSITORY/git/refs" -f ref=refs/tags/latest -f sha="$GITHUB_SHA" > /dev/null
+          fi
+          echo "latest -> $GITHUB_SHA"
+
       - name: Create or update pre-release
         uses: softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3 # v3.0.4
+        if: steps.tip.outputs.latest == 'true'
         with:
           tag_name: latest
+          target_commitish: ${{ github.sha }}
           name: Latest Build
           body: |
-            **Nightly pre-release** built automatically from the latest commit on `main`.
+            **Nightly pre-release** built automatically from the latest commit on `main`
+            (`${{ github.sha }}`), version ${{ needs.version.outputs.version }}.
 
             These are unsigned, AI-assisted builds — **use tagged releases for stability**
             and keep backups of any `.bbm` you care about. See the README for the
@@ -46,3 +106,20 @@ jobs:
           files: artifacts/*
           prerelease: true
           make_latest: false
+
+      # Files from older runs that this run didn't make (the pre-rebrand
+      # brick-layout-designer-nightly-* names) go, so the list is exactly
+      # this build.
+      - name: Remove files this build didn't make
+        if: steps.tip.outputs.latest == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          keep=$(cd artifacts && ls -1)
+          gh api "repos/$GITHUB_REPOSITORY/releases/tags/latest" --jq '.assets[] | "\(.id) \(.name)"' |
+          while read -r id name; do
+            if ! printf '%s\n' "$keep" | grep -qxF "$name"; then
+              echo "Removing $name"
+              gh api -X DELETE "repos/$GITHUB_REPOSITORY/releases/assets/$id"
+            fi
+          done

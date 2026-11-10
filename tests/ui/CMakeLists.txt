@@ -65,6 +65,7 @@ add_executable(bld_ui_tests
     SettingsApplyTest.cpp
     ShellTest.cpp
     TranslationsTest.cpp
+    AboutShotsTest.cpp
 )
 
 target_compile_definitions(bld_ui_tests PRIVATE

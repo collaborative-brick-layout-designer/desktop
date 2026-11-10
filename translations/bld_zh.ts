@@ -7937,6 +7937,10 @@ Export anyway?</source>
         <translation>&lt;h3&gt;Collaborative Brick Layout Designer&lt;/h3&gt;&lt;p&gt;由 Alban Nanty 及贡献者开发的 &lt;b&gt;BlueBrick&lt;/b&gt; 的跨平台 C++/Qt 6 分支。&lt;/p&gt;&lt;p&gt;增加了模块、标签、场地以及与俱乐部的实时编辑，并把所有内容保存在一个 &lt;i&gt;.bld-layout&lt;/i&gt; 文件中。它仍然可以打开和导出 BlueBrick 的 &lt;i&gt;.bbm&lt;/i&gt; 文件。&lt;/p&gt;&lt;p&gt;&lt;b&gt;借助 AI 制作。&lt;/b&gt;本应用的大部分代码是在 AI（Anthropic 的 Claude）的帮助下编写的，由人指导和审核。它经过测试，但仍可能有错误。如果发现问题，请报告。&lt;/p&gt;&lt;p&gt;与 BlueBrick 一样，采用 GPL-3.0 许可证。&lt;/p&gt;&lt;p&gt;零件库：已索引 %1 个零件。&lt;/p&gt;</translation>
     </message>
     <message>
+        <source>Third-party licenses</source>
+        <translation>第三方许可</translation>
+    </message>
+    <message>
         <source>%1 — on %2</source>
         <translation>%1 — 在 %2 上</translation>
     </message>
@@ -11066,6 +11070,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
 </context>
 <context>
     <name>bld::ui::UpdateCheck</name>
+    <message>
+        <source>Version %1, a nightly build</source>
+        <translation>版本 %1（每夜构建）</translation>
+    </message>
+    <message>
+        <source>Version %1</source>
+        <translation>版本 %1</translation>
+    </message>
     <message>
         <source>Check for Updates</source>
         <translation>检查更新</translation>

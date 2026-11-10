@@ -1,5 +1,6 @@
 #include "../core/NameMigration.h"
 #include "../core/QtCatalogs.h"
+#include "../core/Version.h"
 #include "../parts/PartsLibrary.h"
 #include "../ui/MainWindow.h"
 #include "../ui/theme/AppIcon.h"
@@ -81,6 +82,7 @@ int main(int argc, char** argv) {
     QApplication::setOrganizationName(name.organization);
     QApplication::setApplicationName(name.application);
     QApplication::setApplicationVersion(QStringLiteral(BLD_VERSION));
+    bld::core::setBuildChannel(QStringLiteral(BLD_CHANNEL));
     // The .desktop file (Wayland's app id, the taskbar icon); like the
     // binary, it keeps its name.
     QGuiApplication::setDesktopFileName(QStringLiteral("brick-layout-designer"));

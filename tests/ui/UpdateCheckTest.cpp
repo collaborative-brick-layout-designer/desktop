@@ -1,6 +1,12 @@
 // Version comparison for the update check.
 
 #include "ui/UpdateCheck.h"
+#include "core/Version.h"
+
+#include <QCoreApplication>
+#include <QFile>
+#include <QFileInfo>
+#include <QUrl>
 
 #include <gtest/gtest.h>
 
@@ -22,6 +28,48 @@ TEST(UpdateCheck, PreReleasesAndJunk) {
     EXPECT_FALSE(isNewerVersion(QStringLiteral("nightly"), QStringLiteral("1.2.0")));
     EXPECT_FALSE(isNewerVersion(QStringLiteral("1.3.0"), QStringLiteral("")));
     EXPECT_FALSE(isNewerVersion(QString(), QStringLiteral("1.2.0")));
+}
+
+// A nightly is stamped with the release it follows plus its run number:
+// newer than that release, so it isn't told to "update" to it, and older
+// than the next one, which it is offered.
+TEST(UpdateCheck, NightlyVersions) {
+    EXPECT_FALSE(isNewerVersion(QStringLiteral("v2.0.12"), QStringLiteral("2.0.12.345")));
+    EXPECT_FALSE(isNewerVersion(QStringLiteral("2.0.11"), QStringLiteral("2.0.12.345")));
+    EXPECT_TRUE(isNewerVersion(QStringLiteral("v2.0.13"), QStringLiteral("2.0.12.345")));
+    EXPECT_TRUE(isNewerVersion(QStringLiteral("2.0.12.346"), QStringLiteral("2.0.12.345")));
+}
+
+// About says which version this is, and that a nightly is one.
+TEST(UpdateCheck, AboutVersionLine) {
+    using bld::ui::versionLine;
+    EXPECT_EQ(versionLine(QStringLiteral("2.0.12"), QString()), QStringLiteral("Version 2.0.12"));
+    EXPECT_EQ(versionLine(QStringLiteral("2.0.12.345"), QStringLiteral("nightly")),
+              QStringLiteral("Version 2.0.12.345, a nightly build"));
+    EXPECT_EQ(versionLine(QString(), QString()), QStringLiteral("Version dev"));
+}
+
+// About's "Third-party licenses" opens the installed notices, or the copy on
+// GitHub when the app runs from its build folder: never a dead link.
+TEST(UpdateCheck, ThirdPartyNoticesLink) {
+    const QString beside = QCoreApplication::applicationDirPath() + QStringLiteral("/THIRD-PARTY-NOTICES.txt");
+    ASSERT_FALSE(QFileInfo::exists(beside));
+    EXPECT_EQ(bld::core::thirdPartyNoticesUrl(),
+              QStringLiteral("https://github.com/collaborative-brick-layout-designer/desktop/blob/main/THIRD-PARTY-NOTICES.txt"));
+    {
+        QFile f(beside);
+        ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+        f.write("notices\n");
+    }
+    EXPECT_EQ(bld::core::thirdPartyNoticesUrl(), QUrl::fromLocalFile(QFileInfo(beside).absoluteFilePath()).toString());
+    QFile::remove(beside);
+    // The file itself is in the repo, names what is linked, and is current
+    // (CI's --check of scripts/gen-third-party-notices.py).
+    QFile notices(QStringLiteral(BLD_SOURCE_DIR "/THIRD-PARTY-NOTICES.txt"));
+    ASSERT_TRUE(notices.open(QIODevice::ReadOnly));
+    const QString text = QString::fromUtf8(notices.readAll());
+    for (const char* name : { "QtKeychain", "yffi 0.28.0", "yrs 0.28.0", "Figtree", "Liberation Sans" })
+        EXPECT_TRUE(text.contains(QLatin1String(name))) << name;
 }
 
 // ---------------------------------------------------------------------------

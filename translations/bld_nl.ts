@@ -7995,6 +7995,10 @@ Toch exporteren?</translation>
         <translation>&lt;h3&gt;Collaborative Brick Layout Designer&lt;/h3&gt;&lt;p&gt;Platformonafhankelijke C++/Qt 6-fork van &lt;b&gt;BlueBrick&lt;/b&gt; door Alban Nanty en medewerkers.&lt;/p&gt;&lt;p&gt;Voegt modules, labels, zalen en live bewerken met je club toe, en slaat alles op in één &lt;i&gt;.bld-layout&lt;/i&gt;-bestand. BlueBrick-bestanden (&lt;i&gt;.bbm&lt;/i&gt;) kan hij nog steeds openen en exporteren.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Gemaakt met AI.&lt;/b&gt; Een groot deel van deze app is geschreven met hulp van AI (Claude van Anthropic), aangestuurd en nagekeken door een mens. Hij is getest, maar kan nog steeds fouten bevatten. Meld het als je er een vindt.&lt;/p&gt;&lt;p&gt;Uitgebracht onder GPL-3.0, net als BlueBrick.&lt;/p&gt;&lt;p&gt;Onderdelenbibliotheek: %1 onderdelen geïndexeerd.&lt;/p&gt;</translation>
     </message>
     <message>
+        <source>Third-party licenses</source>
+        <translation>Licenties van derden</translation>
+    </message>
+    <message>
         <source>%1 — on %2</source>
         <translation>%1 — op %2</translation>
     </message>
@@ -11135,6 +11139,14 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
 </context>
 <context>
     <name>bld::ui::UpdateCheck</name>
+    <message>
+        <source>Version %1, a nightly build</source>
+        <translation>Versie %1, een nachtelijke build</translation>
+    </message>
+    <message>
+        <source>Version %1</source>
+        <translation>Versie %1</translation>
+    </message>
     <message>
         <source>Check for Updates</source>
         <translation>Controleren op updates</translation>
