@@ -6489,10 +6489,6 @@ Save anyway?</source>
         <translation>本应用所用的 Qt 工具包</translation>
     </message>
     <message>
-        <source>Everyone else who has this layout open now</source>
-        <translation>现在打开此布局的其他所有人</translation>
-    </message>
-    <message>
         <source>S&amp;ervers…</source>
         <translation>服务器(&amp;E)…</translation>
     </message>
@@ -6603,6 +6599,10 @@ Save anyway?</source>
     <message>
         <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
         <translation>这个文件是一个布局的副本。打开实时版本和大家一起编辑，或继续编辑这份副本。</translation>
+    </message>
+    <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>现在打开此布局的其他所有人</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>

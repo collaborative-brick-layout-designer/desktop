@@ -6526,10 +6526,6 @@ Salvare comunque?</translation>
         <translation>Il toolkit Qt con cui è costruita questa app</translation>
     </message>
     <message>
-        <source>Everyone else who has this layout open now</source>
-        <translation>Tutte le altre persone che hanno questo layout aperto ora</translation>
-    </message>
-    <message>
         <source>S&amp;ervers…</source>
         <translation>Ser&amp;ver…</translation>
     </message>
@@ -6640,6 +6636,10 @@ Salvare comunque?</translation>
     <message>
         <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
         <translation>Questo file è una copia di un layout. Apri la versione in diretta per lavorarci con tutti, oppure continua a lavorare su questa copia.</translation>
+    </message>
+    <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Tutte le altre persone che hanno questo layout aperto ora</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>

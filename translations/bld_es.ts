@@ -6526,10 +6526,6 @@ Save anyway?</source>
         <translation>El kit de herramientas Qt con el que está hecha esta aplicación</translation>
     </message>
     <message>
-        <source>Everyone else who has this layout open now</source>
-        <translation>Todas las demás personas que tienen este diseño abierto ahora</translation>
-    </message>
-    <message>
         <source>S&amp;ervers…</source>
         <translation>Ser&amp;vidores…</translation>
     </message>
@@ -6640,6 +6636,10 @@ Save anyway?</source>
     <message>
         <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
         <translation>Este archivo es una copia de una maqueta. Abre la versión en directo para trabajar en ella con todos, o sigue en esta copia.</translation>
+    </message>
+    <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Todas las demás personas que tienen este diseño abierto ahora</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>

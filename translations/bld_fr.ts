@@ -6526,10 +6526,6 @@ Enregistrer quand même ?</translation>
         <translation>La boîte à outils Qt avec laquelle cette application est faite</translation>
     </message>
     <message>
-        <source>Everyone else who has this layout open now</source>
-        <translation>Toutes les autres personnes qui ont cette disposition ouverte en ce moment</translation>
-    </message>
-    <message>
         <source>S&amp;ervers…</source>
         <translation>Ser&amp;veurs…</translation>
     </message>
@@ -6640,6 +6636,10 @@ Enregistrer quand même ?</translation>
     <message>
         <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
         <translation>Ce fichier est une copie d’un plan. Ouvrez la version en direct pour y travailler avec tout le monde, ou continuez sur cette copie.</translation>
+    </message>
+    <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Toutes les autres personnes qui ont cette disposition ouverte en ce moment</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>

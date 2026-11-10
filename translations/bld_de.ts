@@ -6526,10 +6526,6 @@ Trotzdem speichern?</translation>
         <translation>Das Qt-Toolkit, mit dem diese App gebaut ist</translation>
     </message>
     <message>
-        <source>Everyone else who has this layout open now</source>
-        <translation>Alle anderen, die dieses Layout gerade geöffnet haben</translation>
-    </message>
-    <message>
         <source>S&amp;ervers…</source>
         <translation>S&amp;erver…</translation>
     </message>
@@ -6640,6 +6636,10 @@ Trotzdem speichern?</translation>
     <message>
         <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
         <translation>Diese Datei ist eine Kopie eines Layouts. Öffne die Live-Version, um mit allen daran zu arbeiten, oder arbeite an dieser Kopie weiter.</translation>
+    </message>
+    <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Alle anderen, die dieses Layout gerade geöffnet haben</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>

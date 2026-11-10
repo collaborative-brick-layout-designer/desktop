@@ -6977,10 +6977,6 @@ Lagre likevel?</translation>
         <translation>&amp;Rediger</translation>
     </message>
     <message>
-        <source>Everyone else who has this layout open now</source>
-        <translation>Alle andre som har dette oppsettet åpent nå</translation>
-    </message>
-    <message>
         <source>S&amp;ervers…</source>
         <translation>S&amp;ervere…</translation>
     </message>
@@ -7091,6 +7087,10 @@ Lagre likevel?</translation>
     <message>
         <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
         <translation>Denne filen er en kopi av en layout. Åpne direkteversjonen for å jobbe på den sammen med alle, eller jobb videre med denne kopien.</translation>
+    </message>
+    <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Alle andre som har dette oppsettet åpent nå</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>

@@ -6489,10 +6489,6 @@ Save anyway?</source>
         <translation>このアプリの土台になっている Qt ツールキット</translation>
     </message>
     <message>
-        <source>Everyone else who has this layout open now</source>
-        <translation>今このレイアウトを開いている他のすべての人</translation>
-    </message>
-    <message>
         <source>S&amp;ervers…</source>
         <translation>サーバー(&amp;E)…</translation>
     </message>
@@ -6603,6 +6599,10 @@ Save anyway?</source>
     <message>
         <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
         <translation>このファイルはレイアウトのコピーです。みんなと作業するにはライブ版を開くか、このコピーで作業を続けてください。</translation>
+    </message>
+    <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>今このレイアウトを開いている他のすべての人</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>

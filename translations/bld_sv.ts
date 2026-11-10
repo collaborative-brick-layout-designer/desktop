@@ -6977,10 +6977,6 @@ Spara ändå?</translation>
         <translation>&amp;Redigera</translation>
     </message>
     <message>
-        <source>Everyone else who has this layout open now</source>
-        <translation>Alla andra som har den här layouten öppen nu</translation>
-    </message>
-    <message>
         <source>S&amp;ervers…</source>
         <translation>S&amp;ervrar…</translation>
     </message>
@@ -7091,6 +7087,10 @@ Spara ändå?</translation>
     <message>
         <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
         <translation>Den här filen är en kopia av en layout. Öppna liveversionen för att arbeta med den tillsammans med alla, eller fortsätt arbeta med den här kopian.</translation>
+    </message>
+    <message>
+        <source>Everyone else who has this layout open now</source>
+        <translation>Alla andra som har den här layouten öppen nu</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
