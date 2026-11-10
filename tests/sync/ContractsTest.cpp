@@ -19,6 +19,7 @@
 
 #include "FakeHttp.h"
 #include "PartsSync.h"
+#include "Presence.h"
 #include "SidecarItems.h"
 #include "SyncDoc.h"
 #include "UpdateGuard.h"
@@ -45,6 +46,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QRegularExpression>
+#include <QSet>
 #include <QTemporaryDir>
 #include <QTimeZone>
 
@@ -579,5 +581,36 @@ TEST(Contracts, WhatTheDesktopWritesBackTheServerTakesAndItSettles) {
         auto peers = sync::mapFromDocJson(peer.toJson(), &error);
         ASSERT_TRUE(peers) << what;
         EXPECT_TRUE(peer.writeMap(*peers).isEmpty()) << what << ": the peer writes back";
+    }
+}
+
+// Full review area 4, Bug 9: both apps give the people here the same
+// colors, and two people share one only when more than eight are here.
+TEST(Contracts, PresenceColorsAreTheWebs) {
+    const QJsonObject c = readJson(QStringLiteral("presence-colors.json"));
+    ASSERT_FALSE(c.isEmpty());
+    for (const QJsonValue v : c.value(QLatin1String("firstChoices")).toArray()) {
+        const QJsonObject o = v.toObject();
+        EXPECT_EQ(sync::presence::colorFor(o.value(QLatin1String("userId")).toString(),
+                                           o.value(QLatin1String("layoutId")).toString()),
+                  o.value(QLatin1String("color")).toString())
+            << o.value(QLatin1String("userId")).toString().toStdString();
+    }
+    const QJsonArray groups = c.value(QLatin1String("groups")).toArray();
+    ASSERT_FALSE(groups.isEmpty());
+    for (const QJsonValue v : groups) {
+        const QJsonObject g = v.toObject();
+        QStringList ids;
+        for (const QJsonValue id : g.value(QLatin1String("userIds")).toArray()) ids << id.toString();
+        const auto colors = sync::presence::colorsFor(ids, g.value(QLatin1String("layoutId")).toString());
+        const QJsonObject want = g.value(QLatin1String("colors")).toObject();
+        EXPECT_EQ(colors.size(), want.size());
+        for (auto it = want.begin(); it != want.end(); ++it)
+            EXPECT_EQ(colors.value(it.key()), it.value().toString()) << it.key().toStdString();
+        if (want.size() <= 8) {
+            QSet<QString> distinct;
+            for (const auto& col : colors) distinct.insert(col);
+            EXPECT_EQ(distinct.size(), colors.size());
+        }
     }
 }

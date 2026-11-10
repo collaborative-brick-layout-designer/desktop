@@ -5,6 +5,7 @@
 //   { user: {id, displayName, avatarUrl, color}, cursor: {x, y, layerId} | null,
 //     selection: {brickIds}, tool, editingModule, lastActivityMs }
 
+#include <QHash>
 #include <QJsonObject>
 #include <QPointF>
 #include <QString>
@@ -14,8 +15,17 @@
 
 namespace bld::sync::presence {
 
-// The web's deterministicColor: the same color for a user on a layout everywhere.
+// Presence colors, the same in both apps (web apps/web/src/editor/presenceColors.ts;
+// fixtures/contracts/presence-colors.json checks they agree). Each person has a
+// first choice on a layout, from a well-mixed hash of their id and the layout's;
+// the people here, taken in order of their ids, each get it unless someone
+// before them has it, else the next color along nobody has. Two people share a
+// color only when more than eight are here.
+int firstChoice(const QString& userId, const QString& layoutId);
+// The first-choice color (what this app sends as its own `user.color`).
 QString colorFor(const QString& userId, const QString& layoutId);
+// The color of each person here (`userIds`, yourself included).
+QHash<QString, QString> colorsFor(const QStringList& userIds, const QString& layoutId);
 
 struct User {
     QString id;
@@ -29,6 +39,10 @@ QJsonObject state(const User& user, std::optional<QPointF> cursorStuds, const QS
 
 // Someone else, read from their state (missing parts are empty).
 struct Peer {
+    QString userId;
+    // A person's presence (a name, a selection, a last-activity time); not an
+    // empty one from an app still opening the layout.
+    bool person = false;
     QString name;
     QString color;
     std::optional<QPointF> cursor;
