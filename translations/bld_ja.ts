@@ -4721,9 +4721,9 @@
         <translation>%1、閲覧のみ</translation>
     </message>
     <message numerus="yes">
-        <source>Not live, %n change(s) wait for review</source>
+        <source>Connected, %n change(s) waiting for review</source>
         <translation>
-            <numerusform>ライブではありません。変更 %n 件が確認待ちです</numerusform>
+            <numerusform>接続中、%n 件の変更が確認待ちです</numerusform>
         </translation>
     </message>
     <message>
@@ -6580,6 +6580,12 @@ Save anyway?</source>
         <source>Someone else changed that after you, so there was nothing to redo.</source>
         <translation>あなたの後にほかの人が変更したため、やり直すものはありませんでした。</translation>
     </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s.</source>
+        <translation>
+            <numerusform>確認待ち: 他の人の変更とぶつかる変更が %n 件あります。</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Your latest changes weren&apos;t taken</source>
         <translation>最新の変更は受け付けられませんでした</translation>
@@ -6627,6 +6633,10 @@ Save anyway?</source>
     <message>
         <source>Everyone else who has this layout open now</source>
         <translation>今このレイアウトを開いている他のすべての人</translation>
+    </message>
+    <message>
+        <source>Your changes were sent</source>
+        <translation>変更を送信しました</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
@@ -6825,18 +6835,14 @@ Save anyway?</source>
         <translation>%1 でライブ: %2</translation>
     </message>
     <message>
-        <source>You&apos;re not live</source>
-        <translation>ライブではありません</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
-        <translation>
-            <numerusform>あなたの変更 %n 件が確認待ちです。それまでは、ほかの人の変更は見えず、あなたの変更もほかの人には見えません。</numerusform>
-        </translation>
-    </message>
-    <message>
         <source>Review now</source>
         <translation>今すぐ確認</translation>
+    </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s. Everything else is live: you see what others change, and your other changes are sent.</source>
+        <translation>
+            <numerusform>確認待ち: 他の人の変更とぶつかる変更が %n 件あります。 それ以外はライブです: 他の人の変更が見え、あなたの他の変更も送信されます。</numerusform>
+        </translation>
     </message>
     <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
@@ -6851,6 +6857,10 @@ Save anyway?</source>
         <translation>
             <numerusform>オフラインでの変更 %n 件を送信しました。</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Some of your changes wait for review</source>
+        <translation>一部の変更が確認待ちです</translation>
     </message>
     <message>
         <source>Review Offline Changes</source>

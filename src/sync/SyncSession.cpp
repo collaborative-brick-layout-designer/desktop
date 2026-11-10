@@ -15,9 +15,11 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QSaveFile>
+#include <QSet>
 #include <QRandomGenerator>
 #include <QTimer>
 
+#include <algorithm>
 #include <utility>
 
 namespace bld::sync {
@@ -33,7 +35,10 @@ SyncSession::SyncSession(QObject* parent)
         if (s == SyncClient::Status::Synced) {
             if (before_) checkNothingDropped();
             if (offline_) QTimer::singleShot(0, this, [this] {
-                    if (offline_ && client_.status() == SyncClient::Status::Synced) emit offlineEditsReady();
+                    if (!offline_ || client_.status() != SyncClient::Status::Synced) return;
+                    // What doesn't clash goes by itself; the clashes are asked about.
+                    reconcileOffline();
+                    if (offline_) emit offlineEditsReady();
                 });
             // Two clocks on: the server marks our old connection's presence
             // gone one clock later, and a tie keeps it gone.
@@ -241,12 +246,91 @@ void SyncSession::localEdit(const core::Map& map) {
         offline_->mine = merge::snapshotOf(map);
         ++offline_->count;
         saveOffline();
+        // Connected, with clashes waiting: this edit goes by itself if it
+        // doesn't clash too (after the undo step that brought it settles).
+        if (client_.status() == SyncClient::Status::Synced)
+            QTimer::singleShot(0, this, [this] { reconcileOffline(); });
         return;
     }
     const QByteArray update = doc_.writeMap(map);
     if (update.isEmpty()) return;
     client_.sendLocal(update);
     saveDocTimer_->start();
+}
+
+int SyncSession::reconcileOffline() {
+    if (!offline_ || readOnly_ || held_ || client_.status() != SyncClient::Status::Synced) return 0;
+    const auto server = currentMap();
+    if (!server) return 0;
+    const merge::Snapshot serverNow = merge::snapshotOf(*server);
+    const QList<merge::ItemChange> changes = merge::compareLayouts(offline_->base, offline_->mine, serverNow);
+    int clashes = 0, mineOnly = 0;
+    QHash<QString, merge::Choice> send, keep;
+    QSet<QString> clashKeys;
+    for (const auto& c : changes) {
+        if (c.status == merge::Status::Conflict) {
+            ++clashes;
+            clashKeys.insert(c.key);
+            send.insert(c.key, merge::Choice::Server);
+            keep.insert(c.key, merge::Choice::Mine);
+        } else if (c.status == merge::Status::Mine) {
+            ++mineOnly;
+            send.insert(c.key, merge::Choice::Mine);
+            keep.insert(c.key, merge::Choice::Mine);
+        } else {
+            send.insert(c.key, merge::Choice::Server);
+            keep.insert(c.key, merge::Choice::Server);
+        }
+    }
+    // 1. The shared layout plus my changes nothing clashes with: sent as an ordinary edit.
+    int sent = 0;
+    if (mineOnly > 0) {
+        QString error;
+        const bool serverUnchanged = std::none_of(changes.cbegin(), changes.cend(), [](const merge::ItemChange& c) {
+            return c.server != merge::Side::Unchanged;
+        });
+        // Nothing changed on the server: mine goes as it is (the order of
+        // what was added included); else the server's with mine on top.
+        const auto toSend = serverUnchanged ? merge::mapOf(offline_->mine, &error)
+                                            : merge::mergeLayouts(offline_->mine, serverNow, changes, send, &error);
+        if (!toSend) return 0;  // (the compare window lets the person choose)
+        const QByteArray update = doc_.writeMap(*toSend);
+        if (!update.isEmpty()) {
+            client_.sendLocal(update);
+            saveDocTimer_->start();
+        }
+        sent = mineOnly;
+    }
+    if (clashes == 0) {
+        offline_.reset();
+        saveOffline();
+        emit mapChanged();
+        if (sent > 0) emit offlineEditsSent(sent, 0);
+        return sent;
+    }
+    // 2. Only the clashes stay: the shared layout as it is now (others'
+    // changes and what was just sent), with my version of each clash on
+    // top. The base moves up to the shared layout too, except on the
+    // clashes, which keep the base's version so they still read as clashes
+    // (and an edit made now to something others changed earlier isn't one).
+    const auto now = currentMap();
+    if (!now) return sent;
+    const merge::Snapshot nowSnap = merge::snapshotOf(*now);
+    QString error;
+    const auto kept = merge::mergeLayouts(offline_->mine, nowSnap, changes, keep, &error);
+    const QList<merge::ItemChange> baseChanges = merge::compareLayouts(nowSnap, offline_->base, nowSnap);
+    QHash<QString, merge::Choice> baseChoices;
+    for (const auto& c : baseChanges)
+        baseChoices.insert(c.key, clashKeys.contains(c.key) ? merge::Choice::Mine : merge::Choice::Server);
+    const auto newBase = merge::mergeLayouts(offline_->base, nowSnap, baseChanges, baseChoices, &error);
+    if (!kept || !newBase) return sent;
+    offline_->base = merge::snapshotOf(*newBase);
+    offline_->mine = merge::snapshotOf(*kept);
+    offline_->count = clashes;
+    saveOffline();
+    emit mapChanged();
+    if (sent > 0) emit offlineEditsSent(sent, clashes);
+    return sent;
 }
 
 void SyncSession::resolveOffline(const core::Map* result) {
@@ -279,7 +363,8 @@ void SyncSession::holdRemoteChanges(bool hold) {
     held_ = hold;
     if (!held_ && pending_) {
         pending_ = false;
-        emit mapChanged();
+        if (offline_) reconcileOffline();
+        else emit mapChanged();
     }
 }
 
@@ -295,10 +380,15 @@ void SyncSession::remoteArrived() {
     }
     loaded_ = true;
     saveDocTimer_->start();
-    // The editor keeps showing the offline edits until they're resolved.
-    if (offline_) return;
     if (held_) {
         pending_ = true;
+        return;
+    }
+    // Offline edits waiting: others' changes still come into what the editor
+    // shows, and mine that don't clash go out (once back in step; the
+    // reconnect's own step does it when it completes).
+    if (offline_) {
+        if (client_.status() == SyncClient::Status::Synced) reconcileOffline();
         return;
     }
     emit mapChanged();

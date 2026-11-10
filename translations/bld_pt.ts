@@ -4749,10 +4749,10 @@
         <translation>%1, só de leitura</translation>
     </message>
     <message numerus="yes">
-        <source>Not live, %n change(s) wait for review</source>
+        <source>Connected, %n change(s) waiting for review</source>
         <translation>
-            <numerusform>Não está ao vivo, %n alteração aguarda revisão</numerusform>
-            <numerusform>Não está ao vivo, %n alterações aguardam revisão</numerusform>
+            <numerusform>Ligado, %n alteração aguarda revisão</numerusform>
+            <numerusform>Ligado, %n alterações aguardam revisão</numerusform>
         </translation>
     </message>
     <message>
@@ -6617,6 +6617,13 @@ Guardar mesmo assim?</translation>
         <source>Someone else changed that after you, so there was nothing to redo.</source>
         <translation>Outra pessoa alterou isso depois de você, por isso não havia nada para refazer.</translation>
     </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s.</source>
+        <translation>
+            <numerusform>Aguarda revisão: %n alteração que choca com a de outra pessoa.</numerusform>
+            <numerusform>Aguardam revisão: %n alterações que chocam com as de outra pessoa.</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Your latest changes weren&apos;t taken</source>
         <translation>Suas últimas alterações não foram aceitas</translation>
@@ -6664,6 +6671,10 @@ Guardar mesmo assim?</translation>
     <message>
         <source>Everyone else who has this layout open now</source>
         <translation>Todas as outras pessoas com este layout aberto agora</translation>
+    </message>
+    <message>
+        <source>Your changes were sent</source>
+        <translation>As suas alterações foram enviadas</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
@@ -6866,19 +6877,15 @@ Guardar mesmo assim?</translation>
         <translation>Ao vivo em %1: %2</translation>
     </message>
     <message>
-        <source>You&apos;re not live</source>
-        <translation>Você não está ao vivo</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
-        <translation>
-            <numerusform>%n das suas alterações aguarda revisão. Até lá você não vê o que os outros alteram, e eles não veem as suas alterações.</numerusform>
-            <numerusform>%n das suas alterações aguardam revisão. Até lá você não vê o que os outros alteram, e eles não veem as suas alterações.</numerusform>
-        </translation>
-    </message>
-    <message>
         <source>Review now</source>
         <translation>Rever agora</translation>
+    </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s. Everything else is live: you see what others change, and your other changes are sent.</source>
+        <translation>
+            <numerusform>Aguarda revisão: %n alteração que choca com a de outra pessoa. Tudo o resto está em direto: você vê o que os outros mudam, e as suas outras alterações são enviadas.</numerusform>
+            <numerusform>Aguardam revisão: %n alterações que chocam com as de outra pessoa. Tudo o resto está em direto: você vê o que os outros mudam, e as suas outras alterações são enviadas.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
@@ -6894,6 +6901,10 @@ Guardar mesmo assim?</translation>
             <numerusform>A sua %n alteração offline foi enviada.</numerusform>
             <numerusform>As suas %n alterações offline foram enviadas.</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Some of your changes wait for review</source>
+        <translation>Algumas das suas alterações aguardam revisão</translation>
     </message>
     <message>
         <source>Review Offline Changes</source>

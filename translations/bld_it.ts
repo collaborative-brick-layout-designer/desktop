@@ -4749,10 +4749,10 @@
         <translation>%1, sola lettura</translation>
     </message>
     <message numerus="yes">
-        <source>Not live, %n change(s) wait for review</source>
+        <source>Connected, %n change(s) waiting for review</source>
         <translation>
-            <numerusform>Non in diretta, %n modifica in attesa di revisione</numerusform>
-            <numerusform>Non in diretta, %n modifiche in attesa di revisione</numerusform>
+            <numerusform>Connesso, %n modifica in attesa di revisione</numerusform>
+            <numerusform>Connesso, %n modifiche in attesa di revisione</numerusform>
         </translation>
     </message>
     <message>
@@ -6617,6 +6617,13 @@ Salvare comunque?</translation>
         <source>Someone else changed that after you, so there was nothing to redo.</source>
         <translation>Qualcun altro l’ha modificato dopo di te, quindi non c’era niente da ripetere.</translation>
     </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s.</source>
+        <translation>
+            <numerusform>In attesa di revisione: %n modifica in conflitto con quella di qualcun altro.</numerusform>
+            <numerusform>In attesa di revisione: %n modifiche in conflitto con quelle di qualcun altro.</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Your latest changes weren&apos;t taken</source>
         <translation>Le tue ultime modifiche non sono state accettate</translation>
@@ -6664,6 +6671,10 @@ Salvare comunque?</translation>
     <message>
         <source>Everyone else who has this layout open now</source>
         <translation>Tutte le altre persone che hanno questo layout aperto ora</translation>
+    </message>
+    <message>
+        <source>Your changes were sent</source>
+        <translation>Le tue modifiche sono state inviate</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
@@ -6866,19 +6877,15 @@ Salvare comunque?</translation>
         <translation>In diretta su %1: %2</translation>
     </message>
     <message>
-        <source>You&apos;re not live</source>
-        <translation>Non sei in diretta</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
-        <translation>
-            <numerusform>%n tua modifica è in attesa di revisione. Fino ad allora non vedi cosa cambiano gli altri, e loro non vedono le tue modifiche.</numerusform>
-            <numerusform>%n tue modifiche sono in attesa di revisione. Fino ad allora non vedi cosa cambiano gli altri, e loro non vedono le tue modifiche.</numerusform>
-        </translation>
-    </message>
-    <message>
         <source>Review now</source>
         <translation>Rivedi ora</translation>
+    </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s. Everything else is live: you see what others change, and your other changes are sent.</source>
+        <translation>
+            <numerusform>In attesa di revisione: %n modifica in conflitto con quella di qualcun altro. Tutto il resto è in diretta: vedi cosa cambiano gli altri, e le tue altre modifiche vengono inviate.</numerusform>
+            <numerusform>In attesa di revisione: %n modifiche in conflitto con quelle di qualcun altro. Tutto il resto è in diretta: vedi cosa cambiano gli altri, e le tue altre modifiche vengono inviate.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
@@ -6894,6 +6901,10 @@ Salvare comunque?</translation>
             <numerusform>La tua %n modifica offline è stata inviata.</numerusform>
             <numerusform>Le tue %n modifiche offline sono state inviate.</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Some of your changes wait for review</source>
+        <translation>Alcune delle tue modifiche attendono la revisione</translation>
     </message>
     <message>
         <source>Review Offline Changes</source>

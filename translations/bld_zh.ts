@@ -4721,9 +4721,9 @@
         <translation>%1，仅查看</translation>
     </message>
     <message numerus="yes">
-        <source>Not live, %n change(s) wait for review</source>
+        <source>Connected, %n change(s) waiting for review</source>
         <translation>
-            <numerusform>未实时，%n 处更改待审核</numerusform>
+            <numerusform>已连接，%n 个更改等待审查</numerusform>
         </translation>
     </message>
     <message>
@@ -6580,6 +6580,12 @@ Save anyway?</source>
         <source>Someone else changed that after you, so there was nothing to redo.</source>
         <translation>别人在你之后改动了它，所以没有可重做的内容。</translation>
     </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s.</source>
+        <translation>
+            <numerusform>等待审查：%n 个与别人冲突的更改。</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Your latest changes weren&apos;t taken</source>
         <translation>你最近的修改未被接收</translation>
@@ -6627,6 +6633,10 @@ Save anyway?</source>
     <message>
         <source>Everyone else who has this layout open now</source>
         <translation>现在打开此布局的其他所有人</translation>
+    </message>
+    <message>
+        <source>Your changes were sent</source>
+        <translation>你的更改已发送</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
@@ -6825,18 +6835,14 @@ Save anyway?</source>
         <translation>在 %1 上实时编辑：%2</translation>
     </message>
     <message>
-        <source>You&apos;re not live</source>
-        <translation>你当前不是实时</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
-        <translation>
-            <numerusform>你有 %n 处更改待审核。在此之前，你看不到别人的改动，别人也看不到你的更改。</numerusform>
-        </translation>
-    </message>
-    <message>
         <source>Review now</source>
         <translation>立即查看</translation>
+    </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s. Everything else is live: you see what others change, and your other changes are sent.</source>
+        <translation>
+            <numerusform>等待审查：%n 个与别人冲突的更改。 其他一切都是实时的：你能看到别人的更改，你的其他更改也会发送。</numerusform>
+        </translation>
     </message>
     <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
@@ -6851,6 +6857,10 @@ Save anyway?</source>
         <translation>
             <numerusform>你的 %n 处离线更改已发送。</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Some of your changes wait for review</source>
+        <translation>你的一些更改等待审查</translation>
     </message>
     <message>
         <source>Review Offline Changes</source>

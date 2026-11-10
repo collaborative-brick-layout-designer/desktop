@@ -4749,10 +4749,10 @@
         <translation>%1, kun visning</translation>
     </message>
     <message numerus="yes">
-        <source>Not live, %n change(s) wait for review</source>
+        <source>Connected, %n change(s) waiting for review</source>
         <translation>
-            <numerusform>Ikke direkte, %n endring venter på gjennomgang</numerusform>
-            <numerusform>Ikke direkte, %n endringer venter på gjennomgang</numerusform>
+            <numerusform>Tilkoblet, %n endring venter på gjennomgang</numerusform>
+            <numerusform>Tilkoblet, %n endringer venter på gjennomgang</numerusform>
         </translation>
     </message>
     <message>
@@ -7056,6 +7056,13 @@ Lagre likevel?</translation>
         <source>Someone else changed that after you, so there was nothing to redo.</source>
         <translation>Noen andre endret det etter deg, så det var ingenting å gjøre om.</translation>
     </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s.</source>
+        <translation>
+            <numerusform>Venter på gjennomgang: %n endring som kolliderer med noen andres.</numerusform>
+            <numerusform>Venter på gjennomgang: %n endringer som kolliderer med noen andres.</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Your latest changes weren&apos;t taken</source>
         <translation>De siste endringene dine ble ikke tatt imot</translation>
@@ -7103,6 +7110,10 @@ Lagre likevel?</translation>
     <message>
         <source>Everyone else who has this layout open now</source>
         <translation>Alle andre som har dette oppsettet åpent nå</translation>
+    </message>
+    <message>
+        <source>Your changes were sent</source>
+        <translation>Endringene dine ble sendt</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
@@ -7305,19 +7316,15 @@ Lagre likevel?</translation>
         <translation>Direkte på %1: %2</translation>
     </message>
     <message>
-        <source>You&apos;re not live</source>
-        <translation>Du er ikke direkte</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
-        <translation>
-            <numerusform>%n av endringene dine venter på gjennomgang. Til da ser du ikke hva andre endrer, og de ser ikke endringene dine.</numerusform>
-            <numerusform>%n av endringene dine venter på gjennomgang. Til da ser du ikke hva andre endrer, og de ser ikke endringene dine.</numerusform>
-        </translation>
-    </message>
-    <message>
         <source>Review now</source>
         <translation>Gå gjennom nå</translation>
+    </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s. Everything else is live: you see what others change, and your other changes are sent.</source>
+        <translation>
+            <numerusform>Venter på gjennomgang: %n endring som kolliderer med noen andres. Alt annet er live: du ser hva andre endrer, og de andre endringene dine blir sendt.</numerusform>
+            <numerusform>Venter på gjennomgang: %n endringer som kolliderer med noen andres. Alt annet er live: du ser hva andre endrer, og de andre endringene dine blir sendt.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
@@ -7333,6 +7340,10 @@ Lagre likevel?</translation>
             <numerusform>%n frakoblet endring ble sendt.</numerusform>
             <numerusform>%n frakoblede endringer ble sendt.</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Some of your changes wait for review</source>
+        <translation>Noen av endringene dine venter på gjennomgang</translation>
     </message>
     <message>
         <source>Review Offline Changes</source>

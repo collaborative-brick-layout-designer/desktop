@@ -4749,10 +4749,10 @@
         <translation>%1, solo lectura</translation>
     </message>
     <message numerus="yes">
-        <source>Not live, %n change(s) wait for review</source>
+        <source>Connected, %n change(s) waiting for review</source>
         <translation>
-            <numerusform>Sin directo, %n cambio espera revisión</numerusform>
-            <numerusform>Sin directo, %n cambios esperan revisión</numerusform>
+            <numerusform>Conectado, %n cambio espera revisión</numerusform>
+            <numerusform>Conectado, %n cambios esperan revisión</numerusform>
         </translation>
     </message>
     <message>
@@ -6617,6 +6617,13 @@ Save anyway?</source>
         <source>Someone else changed that after you, so there was nothing to redo.</source>
         <translation>Otra persona lo cambió después de ti, así que no había nada que rehacer.</translation>
     </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s.</source>
+        <translation>
+            <numerusform>Espera revisión: %n cambio que choca con el de otra persona.</numerusform>
+            <numerusform>Esperan revisión: %n cambios que chocan con los de otra persona.</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Your latest changes weren&apos;t taken</source>
         <translation>Tus últimos cambios no se aceptaron</translation>
@@ -6664,6 +6671,10 @@ Save anyway?</source>
     <message>
         <source>Everyone else who has this layout open now</source>
         <translation>Todas las demás personas que tienen este diseño abierto ahora</translation>
+    </message>
+    <message>
+        <source>Your changes were sent</source>
+        <translation>Tus cambios se enviaron</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
@@ -6866,19 +6877,15 @@ Save anyway?</source>
         <translation>En directo en %1: %2</translation>
     </message>
     <message>
-        <source>You&apos;re not live</source>
-        <translation>No estás en directo</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
-        <translation>
-            <numerusform>%n de tus cambios espera revisión. Hasta entonces no ves lo que cambian los demás, y ellos no ven tus cambios.</numerusform>
-            <numerusform>%n de tus cambios esperan revisión. Hasta entonces no ves lo que cambian los demás, y ellos no ven tus cambios.</numerusform>
-        </translation>
-    </message>
-    <message>
         <source>Review now</source>
         <translation>Revisar ahora</translation>
+    </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s. Everything else is live: you see what others change, and your other changes are sent.</source>
+        <translation>
+            <numerusform>Espera revisión: %n cambio que choca con el de otra persona. Todo lo demás está en vivo: ves lo que cambian los demás y tus otros cambios se envían.</numerusform>
+            <numerusform>Esperan revisión: %n cambios que chocan con los de otra persona. Todo lo demás está en vivo: ves lo que cambian los demás y tus otros cambios se envían.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
@@ -6894,6 +6901,10 @@ Save anyway?</source>
             <numerusform>Se envió tu cambio sin conexión.</numerusform>
             <numerusform>Se enviaron tus %n cambios sin conexión.</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Some of your changes wait for review</source>
+        <translation>Algunos de tus cambios esperan revisión</translation>
     </message>
     <message>
         <source>Review Offline Changes</source>

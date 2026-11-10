@@ -227,10 +227,10 @@
         </translation>
     </message>
     <message numerus="yes">
-        <source>Not live, %n change(s) wait for review</source>
+        <source>Connected, %n change(s) waiting for review</source>
         <translation>
-            <numerusform>Not live, %n change wait for review</numerusform>
-            <numerusform>Not live, %n changes wait for review</numerusform>
+            <numerusform>Connected, %n change waiting for review</numerusform>
+            <numerusform>Connected, %n changes waiting for review</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -391,6 +391,13 @@
         </translation>
     </message>
     <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s.</source>
+        <translation>
+            <numerusform>Waiting for review: %n change clashing with someone else's.</numerusform>
+            <numerusform>Waiting for review: %n changes clashing with someone else's.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Uploaded %n part(s) to the server</source>
         <translation>
             <numerusform>Uploaded %n part to the server</numerusform>
@@ -419,10 +426,10 @@
         </translation>
     </message>
     <message numerus="yes">
-        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s. Everything else is live: you see what others change, and your other changes are sent.</source>
         <translation>
-            <numerusform>%n of your change wait for review. Until then you don't see what others change, and they don't see your changes.</numerusform>
-            <numerusform>%n of your changes wait for review. Until then you don't see what others change, and they don't see your changes.</numerusform>
+            <numerusform>Waiting for review: %n change clashing with someone else's. Everything else is live: you see what others change, and your other changes are sent.</numerusform>
+            <numerusform>Waiting for review: %n changes clashing with someone else's. Everything else is live: you see what others change, and your other changes are sent.</numerusform>
         </translation>
     </message>
     <message numerus="yes">

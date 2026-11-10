@@ -144,20 +144,36 @@ TEST(SyncSession, KeepsOfflineEditsApartUntilTheyAreResolved) {
     EXPECT_EQ(firstBrick(*sync::merge::mapOf(session.offlineEdits()->base)).displayArea, original);
     EXPECT_FALSE(session.canUndo());
 
-    // Back in step: nothing is merged, the editor is asked instead.
+    // Meanwhile someone else turned the same brick: a clash. Back in step,
+    // nothing is merged by itself; the editor is asked instead.
+    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 90.0f; });
     ASSERT_TRUE(waitFor([&] { return ready == 1; }));
     EXPECT_EQ(session.status(), Status::Synced);
     EXPECT_EQ(firstBrickArea(server.doc), original);
-    EXPECT_EQ(session.unsyncedEdits(), 2);
-    // Someone else's edit meanwhile: the editor keeps showing mine.
+    EXPECT_EQ(session.unsyncedEdits(), 1);  // the one clash
+    // Someone else's edit to another brick meanwhile shows in the editor
+    // (full review area 4, Bug 5), while mine stays on the clashing brick.
     const int before = changed;
-    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 90.0f; });
-    ASSERT_TRUE(waitFor([&] { return firstBrick(*session.currentMap()).orientation == 90.0f; }));
-    EXPECT_EQ(changed, before);
-    EXPECT_EQ(firstBrick(*session.editorMap()).displayArea, firstBrick(*map).displayArea);
-    // A further edit while they wait is still an offline edit.
-    session.localEdit(*map);
-    EXPECT_EQ(session.unsyncedEdits(), 3);
+    const auto bricksOf = [](core::Map& m) -> std::vector<core::Brick>& {
+        for (auto& l : m.layers())
+            if (l->kind() == core::LayerKind::Brick) return static_cast<core::LayerBrick&>(*l).bricks;
+        throw std::runtime_error("no bricks");
+    };
+    server.remoteEdit([&](core::Map& m) { bricksOf(m)[1].displayArea.translate(0, 24); });
+    ASSERT_TRUE(waitFor([&] { return changed > before; }));
+    {
+        const auto shown = session.editorMap();
+        const auto onServer = sync::mapFromDocJson(server.doc.toJson());
+        EXPECT_EQ(bricksOf(*shown)[1].displayArea, bricksOf(*onServer)[1].displayArea);
+        EXPECT_EQ(firstBrick(*shown).displayArea, firstBrick(*map).displayArea);
+    }
+    // A further edit to a third brick while the clash waits goes out by itself.
+    auto more = session.editorMap();
+    bricksOf(*more)[2].displayArea.translate(8, 0);
+    const QRectF third = bricksOf(*more)[2].displayArea;
+    session.localEdit(*more);
+    ASSERT_TRUE(waitFor([&] { return bricksOf(*sync::mapFromDocJson(server.doc.toJson()))[2].displayArea == third; }));
+    EXPECT_EQ(session.unsyncedEdits(), 1);
     EXPECT_EQ(firstBrickArea(server.doc), original);
 
     // Resolved: the result goes in as an ordinary edit.
@@ -166,7 +182,6 @@ TEST(SyncSession, KeepsOfflineEditsApartUntilTheyAreResolved) {
     session.resolveOffline(merged.get());
     EXPECT_FALSE(session.offlineEdits());
     EXPECT_EQ(session.unsyncedEdits(), 0);
-    EXPECT_EQ(changed, before + 1);
     ASSERT_TRUE(waitFor([&] { return firstBrickArea(server.doc) == firstBrick(*map).displayArea; }));
     EXPECT_EQ(firstBrick(*sync::mapFromDocJson(server.doc.toJson())).orientation, 90.0f);
     EXPECT_TRUE(session.canUndo());
@@ -184,7 +199,11 @@ TEST(SyncSession, DiscardingOfflineEditsLeavesTheServerAlone) {
     auto map = session.currentMap();
     firstBrick(*map).displayArea.translate(8, 0);
     session.localEdit(*map);
+    // Someone else turned the same brick: a clash, so it waits (an edit
+    // nothing clashes with would go by itself).
+    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 90.0f; });
     ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced; }));
+    ASSERT_TRUE(session.offlineEdits());
     session.resolveOffline(nullptr);
     EXPECT_FALSE(session.offlineEdits());
     EXPECT_EQ(firstBrick(*session.editorMap()).displayArea, original);
@@ -433,8 +452,9 @@ TEST(SyncSession, ClosingRightAfterAnEditKeepsItInTheCopyOnDisk) {
     again.close();
 }
 
-// Closed with offline edits and opened again on the same session: they come
-// back for review once in step, and nothing reaches the server before that.
+// Closed with offline edits that clash and opened again on the same session:
+// they come back for review once in step, and nothing reaches the server
+// before that.
 TEST(SyncSession, OfflineEditsSurviveClosingAndOpeningAgain) {
     QTemporaryDir cache;
     FakeServer server;
@@ -454,6 +474,7 @@ TEST(SyncSession, OfflineEditsSurviveClosingAndOpeningAgain) {
     session.close();
     EXPECT_EQ(session.status(), Status::Offline);
     ready = 0;
+    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 90.0f; });  // a clash
 
     session.open(server.url(), {}, false);
     ASSERT_TRUE(session.offlineEdits());
@@ -467,8 +488,8 @@ TEST(SyncSession, OfflineEditsSurviveClosingAndOpeningAgain) {
     session.close();
 }
 
-// A lot changed offline (a whole yard of new parts): back in step and
-// resolved, all of it reaches the server in one go.
+// A lot changed offline (a whole yard of new parts) and nothing clashes:
+// back in step, all of it reaches the server by itself, in one go.
 TEST(SyncSession, ManyOfflineEditsAllReachTheServer) {
     FakeServer server;
     sync::SyncSession session;
@@ -490,9 +511,8 @@ TEST(SyncSession, ManyOfflineEditsAllReachTheServer) {
     }
     EXPECT_EQ(session.unsyncedEdits(), kAdded / 500);
     ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced; }));
-    EXPECT_EQ(bricksIn(server.doc), before);
-    session.resolveOffline(map.get());
     ASSERT_TRUE(waitFor([&] { return bricksIn(server.doc) == before + kAdded; }, 15000));
+    EXPECT_FALSE(session.offlineEdits());
     EXPECT_EQ(brickLayer(*sync::mapFromDocJson(server.doc.toJson())).bricks.back().guid, QStringLiteral("yard-2999"));
     session.close();
 }
@@ -515,6 +535,7 @@ TEST(SyncSession, ASessionTheServerEndsKeepsTheOfflineEditsOnDisk) {
     firstBrick(*map).displayArea.translate(0, 8);
     session.localEdit(*map);
     ASSERT_TRUE(session.offlineEdits());
+    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 90.0f; });  // a clash: it waits
     // Back on a new connection, then that one is ended.
     ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced; }));
     server.dropAll(4404, QStringLiteral("access_revoked"));

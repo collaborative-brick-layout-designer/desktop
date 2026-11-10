@@ -72,12 +72,17 @@ public:
     struct OfflineEdits {
         merge::Snapshot base;  // the shared layout when the first offline edit was made
         merge::Snapshot mine;  // the editor's layout after the last one
-        int count = 0;
+        int count = 0;         // edits made offline; once back in step, the ones that clash
     };
     const std::optional<OfflineEdits>& offlineEdits() const { return offline_; }
     // Ends the offline edits: `result` (a merge, or mine to replace the
     // server's) goes in as an ordinary edit; nullptr throws them away.
     void resolveOffline(const core::Map* result);
+    // Back in step with offline edits waiting: the ones that don't clash
+    // with what others changed are sent by themselves, others' changes come
+    // into what the editor shows, and only the clashes stay for review.
+    // Returns how many were sent (and emits offlineEditsSent when any were).
+    int reconcileOffline();
 
     // The shared layout as a desktop map; nullptr (and *error) when the
     // document can't be read.
@@ -113,6 +118,9 @@ signals:
     void peersChanged();
     // Back in step with the server, with offline edits to resolve.
     void offlineEditsReady();
+    // Offline edits that didn't clash went to the server by themselves;
+    // `clashesLeft` of them still wait for review.
+    void offlineEditsSent(int sent, int clashesLeft);
     // The server ended the session for good (access revoked, layout gone),
     // or the layout is in a form this version can't read (kUnreadableDocCode).
     void ended(int code, const QString& reason);
