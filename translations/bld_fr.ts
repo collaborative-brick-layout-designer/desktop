@@ -3205,11 +3205,11 @@
     </message>
     <message>
         <source>Not a server address: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce n’est pas une adresse de serveur : %1</translation>
     </message>
     <message>
         <source>Use https:// for a server on another machine (http:// only works for this computer).</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisez https:// pour un serveur sur une autre machine (http:// ne marche que pour cet ordinateur).</translation>
     </message>
     <message>
         <source>The server answered %1</source>
@@ -3220,7 +3220,7 @@
     <name>bld::sync::ServersDialog</name>
     <message>
         <source>Servers</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveurs</translation>
     </message>
     <message>
         <source>Your servers</source>
@@ -3228,75 +3228,75 @@
     </message>
     <message>
         <source>The places your shared layouts live: your club&apos;s server, a friend&apos;s, and so on. Your settings follow your account on the Main one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les endroits où vivent vos plans partagés : le serveur de votre club, celui d’un ami, etc. Vos réglages suivent votre compte sur le serveur principal.</translation>
     </message>
     <message>
         <source>No servers yet. Add one with its web address, like layouts.example.org.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas encore de serveur. Ajoutez-en un avec son adresse web, comme layouts.example.org.</translation>
     </message>
     <message>
         <source>Add a Server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter un serveur…</translation>
     </message>
     <message>
         <source>Rename…</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer…</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Retirer</translation>
+        <translation>Retirer</translation>
     </message>
     <message>
         <source>Sign In</source>
-        <translation type="unfinished"></translation>
+        <translation>Se connecter</translation>
     </message>
     <message>
         <source>Make Main</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendre principal</translation>
     </message>
     <message>
         <source>Your settings follow your account on the Main server</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos réglages suivent votre compte sur le serveur principal</translation>
     </message>
     <message>
         <source>★ Main</source>
-        <translation type="unfinished"></translation>
+        <translation>★ Principal</translation>
     </message>
     <message>
         <source>Your settings follow your account on this server</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos réglages suivent votre compte sur ce serveur</translation>
     </message>
     <message>
         <source>Checking…</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérification…</translation>
     </message>
     <message>
         <source>Signed in</source>
-        <translation type="unfinished"></translation>
+        <translation>Connecté</translation>
     </message>
     <message>
         <source>Signed in as %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Connecté en tant que %1</translation>
     </message>
     <message>
         <source>Not signed in</source>
-        <translation type="unfinished"></translation>
+        <translation>Non connecté</translation>
     </message>
     <message>
         <source>Signed out by the server. Sign in again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Déconnecté par le serveur. Reconnectez-vous.</translation>
     </message>
     <message>
         <source>version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>version %1</translation>
     </message>
     <message>
         <source>can&apos;t reach it right now</source>
-        <translation type="unfinished"></translation>
+        <translation>injoignable pour l’instant</translation>
     </message>
     <message>
         <source>⚠ Can&apos;t do yet: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>⚠ Pas encore possible : %1</translation>
     </message>
     <message>
         <source>Sign Out</source>
@@ -3304,58 +3304,58 @@
     </message>
     <message>
         <source>Add a Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter un serveur</translation>
     </message>
     <message>
         <source>Type the server&apos;s web address, the one you open in your browser.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tapez l’adresse web du serveur, celle que vous ouvrez dans votre navigateur.</translation>
     </message>
     <message>
         <source>e.g. Train club</source>
-        <translation type="unfinished"></translation>
+        <translation>p. ex. Club ferroviaire</translation>
     </message>
     <message>
         <source>Web address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse web</translation>
     </message>
     <message>
         <source>Name (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom (facultatif)</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter</translation>
     </message>
     <message>
         <source>Rename Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer le serveur</translation>
     </message>
     <message>
         <source>What do you call %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>Comment appelez-vous %1 ?</translation>
     </message>
     <message>
         <source>%1 leaves your list of servers, and you’re signed out of it here.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 quitte votre liste de serveurs, et vous en êtes déconnecté ici.</translation>
     </message>
     <message>
         <source>Your layouts stay on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos plans restent sur le serveur.</translation>
     </message>
     <message>
         <source>You can add it again later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous pouvez le rajouter plus tard.</translation>
     </message>
 </context>
 <context>
     <name>bld::sync::UploadPartsDialog</name>
     <message>
         <source>Upload to Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoyer au serveur</translation>
     </message>
     <message>
         <source>These parts of yours aren&apos;t on the server yet. Upload the ones layouts there will need:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ces pièces à vous ne sont pas encore sur le serveur. Envoyez celles dont les plans là-bas auront besoin :</translation>
     </message>
     <message>
         <source>Me</source>
@@ -3372,13 +3372,14 @@
     <message>
         <source>Uploaded %1; these failed:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 envoyées ; celles-ci ont échoué :
+%2</translation>
     </message>
     <message numerus="yes">
         <source>Uploading %n part(s)…</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Envoi de %n pièce…</numerusform>
+            <numerusform>Envoi de %n pièces…</numerusform>
         </translation>
     </message>
 </context>
@@ -3386,142 +3387,142 @@
     <name>bld::sync::merge</name>
     <message>
         <source>added it</source>
-        <translation type="unfinished"></translation>
+        <translation>l’a ajouté</translation>
     </message>
     <message>
         <source>changed it</source>
-        <translation type="unfinished"></translation>
+        <translation>l’a modifié</translation>
     </message>
     <message>
         <source>deleted it</source>
-        <translation type="unfinished"></translation>
+        <translation>l’a supprimé</translation>
     </message>
     <message>
         <source>left it as it was</source>
-        <translation type="unfinished"></translation>
+        <translation>l’a laissé tel quel</translation>
     </message>
     <message>
         <source> at (%1, %2)</source>
-        <translation type="unfinished"></translation>
+        <translation> en (%1, %2)</translation>
     </message>
     <message>
         <source> on &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation> sur « %1 »</translation>
     </message>
     <message>
         <source>Layout details</source>
-        <translation type="unfinished"></translation>
+        <translation>Détails du plan</translation>
     </message>
     <message>
         <source>Sheet &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Feuille « %1 »</translation>
     </message>
     <message>
         <source>Brick %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Brique %1</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished">Grouper</translation>
+        <translation>Groupe</translation>
     </message>
     <message>
         <source>Group %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Groupe %1</translation>
     </message>
     <message>
         <source>Text &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Texte « %1 »</translation>
     </message>
     <message>
         <source>Area cell %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cellule de zone %1</translation>
     </message>
     <message>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Règle</translation>
     </message>
     <message>
         <source>Label &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Étiquette « %1 »</translation>
     </message>
     <message>
         <source>Module &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Module « %1 »</translation>
     </message>
     <message>
         <source>View &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Vue « %1 »</translation>
     </message>
     <message>
         <source>Venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Salle</translation>
     </message>
     <message>
         <source>Background image</source>
-        <translation type="unfinished"></translation>
+        <translation>Image de fond</translation>
     </message>
     <message>
         <source>%1: you and the server both %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 : vous et le serveur l’avez tous deux %2</translation>
     </message>
     <message>
         <source>%1: you %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 : vous %2</translation>
     </message>
     <message>
         <source>%1: the server %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 : le serveur %2</translation>
     </message>
     <message>
         <source>%1: you %2, the server %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 : vous %2, le serveur %3</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ActiveSheetButton</name>
     <message>
         <source>no sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>aucune feuille</translation>
     </message>
     <message>
         <source>Adding to: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajout sur : %1</translation>
     </message>
     <message>
         <source>Open a layout to pick a sheet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrez un plan pour choisir une feuille.</translation>
     </message>
     <message>
         <source>No sheet is picked. Click to pick one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune feuille choisie. Cliquez pour en choisir une.</translation>
     </message>
     <message>
         <source>Adding to: %1 (hidden)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajout sur : %1 (masquée)</translation>
     </message>
     <message>
         <source>“%1” is a %2, so new parts go on “%3”. Click to pick another sheet.</source>
-        <translation type="unfinished"></translation>
+        <translation>« %1 » est une %2, donc les nouvelles pièces vont sur « %3 ». Cliquez pour choisir une autre feuille.</translation>
     </message>
     <message>
         <source>“%1” is a %2, and there is no parts sheet yet. Click to pick another sheet.</source>
-        <translation type="unfinished"></translation>
+        <translation>« %1 » est une %2, et il n’y a pas encore de feuille de pièces. Cliquez pour choisir une autre feuille.</translation>
     </message>
     <message>
         <source>New parts go on “%1”. Click to pick another sheet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les nouvelles pièces vont sur « %1 ». Cliquez pour choisir une autre feuille.</translation>
     </message>
     <message>
         <source> (hidden)</source>
-        <translation type="unfinished"></translation>
+        <translation> (masquée)</translation>
     </message>
     <message>
         <source>Fade other sheets while editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Estomper les autres feuilles pendant la modification</translation>
     </message>
     <message>
         <source>Draw every sheet but this one faded, so it stands out. Only on your screen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dessiner estompées toutes les feuilles sauf celle-ci, pour qu’elle ressorte. Seulement sur votre écran.</translation>
     </message>
 </context>
 <context>
@@ -3535,7 +3536,7 @@
     <name>bld::ui::BudgetDialog</name>
     <message>
         <source>Refresh from map</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualiser depuis la carte</translation>
     </message>
     <message>
         <source>Budget</source>
@@ -3543,7 +3544,7 @@
     </message>
     <message>
         <source>Part budgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Budgets des pièces</translation>
     </message>
     <message>
         <source>Part</source>
@@ -3551,41 +3552,41 @@
     </message>
     <message>
         <source>Used</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisées</translation>
     </message>
     <message>
         <source>Limit (blank = no limit)</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite (vide = aucune limite)</translation>
     </message>
     <message numerus="yes">
         <source>⚠ %n part(s) over budget</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>⚠ %n pièce dépasse le budget</numerusform>
+            <numerusform>⚠ %n pièces dépassent le budget</numerusform>
         </translation>
     </message>
     <message>
         <source>All parts within budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Toutes les pièces sont dans le budget</translation>
     </message>
     <message>
         <source>Budget — %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget — %1</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::BudgetSession</name>
     <message>
         <source>Untitled.bbb</source>
-        <translation type="unfinished"></translation>
+        <translation>Sans titre.bbb</translation>
     </message>
     <message>
         <source>%1 is not a BlueBrick budget file.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 n’est pas un fichier de budget BlueBrick.</translation>
     </message>
     <message>
         <source>Cannot save the budget to %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d’enregistrer le budget dans %1.</translation>
     </message>
 </context>
 <context>
@@ -3600,7 +3601,7 @@
     </message>
     <message>
         <source>Layouts</source>
-        <translation type="unfinished"></translation>
+        <translation>Plans</translation>
     </message>
     <message>
         <source>Venues</source>
@@ -3612,11 +3613,11 @@
     </message>
     <message>
         <source>Search the catalog</source>
-        <translation type="unfinished"></translation>
+        <translation>Chercher dans le catalogue</translation>
     </message>
     <message>
         <source>‹ All collections</source>
-        <translation type="unfinished"></translation>
+        <translation>‹ Toutes les collections</translation>
     </message>
     <message>
         <source>Me</source>
@@ -3624,83 +3625,83 @@
     </message>
     <message>
         <source>Add to</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter à</translation>
     </message>
     <message>
         <source>Add to (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter à (%1)</translation>
     </message>
     <message>
         <source>The catalog isn&apos;t turned on on this server. Its admins can turn it on.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le catalogue n’est pas activé sur ce serveur. Ses admins peuvent l’activer.</translation>
     </message>
     <message>
         <source>Loading…</source>
-        <translation type="unfinished"></translation>
+        <translation>Chargement…</translation>
     </message>
     <message>
         <source>Nothing in the catalog yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rien dans le catalogue pour l’instant.</translation>
     </message>
     <message>
         <source>Nothing matches.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun résultat.</translation>
     </message>
     <message>
         <source>Adding copies it into your modules first.</source>
-        <translation type="unfinished"></translation>
+        <translation>L’ajout le copie d’abord dans vos modules.</translation>
     </message>
     <message>
         <source>Open a copy: it&apos;s yours (or your club&apos;s) to change. The shared one stays as it is.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir une copie : elle est à vous (ou à votre club) pour la modifier. Celle partagée reste telle quelle.</translation>
     </message>
     <message>
         <source>Use this venue: a copy goes to your venues, and a new layout starts in it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser cette salle : une copie va dans vos salles, et un nouveau plan y commence.</translation>
     </message>
     <message>
         <source>No collections yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas encore de collection.</translation>
     </message>
     <message>
         <source>by %1 · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>par %1 · %2</translation>
     </message>
     <message>
         <source>Add and insert</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter et insérer</translation>
     </message>
     <message>
         <source>Add and insert %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter et insérer %1</translation>
     </message>
     <message>
         <source>Add to my modules</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter à mes modules</translation>
     </message>
     <message>
         <source>Open a copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir une copie</translation>
     </message>
     <message>
         <source>Use this venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser cette salle</translation>
     </message>
     <message>
         <source>Add to my parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter à mes pièces</translation>
     </message>
     <message>
         <source>Open a copy of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir une copie de %1</translation>
     </message>
     <message>
         <source>Use the venue %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser la salle %1</translation>
     </message>
     <message>
         <source>View on the web</source>
-        <translation type="unfinished"></translation>
+        <translation>Voir sur le web</translation>
     </message>
     <message>
         <source>Featured</source>
@@ -3708,11 +3709,11 @@
     </message>
     <message>
         <source>Add all</source>
-        <translation type="unfinished"></translation>
+        <translation>Tout ajouter</translation>
     </message>
     <message>
         <source>A copy of each of its %1 goes to your modules and parts. Ones already there are skipped.</source>
-        <translation type="unfinished"></translation>
+        <translation>Une copie de chacun de ses %1 va dans vos modules et pièces. Ceux déjà présents sont ignorés.</translation>
     </message>
     <message>
         <source>Open</source>
@@ -3720,113 +3721,113 @@
     </message>
     <message>
         <source>Copied</source>
-        <translation type="unfinished"></translation>
+        <translation>Copié</translation>
     </message>
     <message>
         <source>Added</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouté</translation>
     </message>
     <message>
         <source>Copied &quot;%1&quot; to your layouts</source>
-        <translation type="unfinished"></translation>
+        <translation>« %1 » copié dans vos plans</translation>
     </message>
     <message>
         <source>Copied &quot;%1&quot; to your venues</source>
-        <translation type="unfinished"></translation>
+        <translation>« %1 » copiée dans vos salles</translation>
     </message>
     <message>
         <source>Added &quot;%1&quot; to your modules</source>
-        <translation type="unfinished"></translation>
+        <translation>« %1 » ajouté à vos modules</translation>
     </message>
     <message>
         <source>Added &quot;%1&quot; to your parts</source>
-        <translation type="unfinished"></translation>
+        <translation>« %1 » ajoutée à vos pièces</translation>
     </message>
     <message>
         <source>Catalog</source>
-        <translation type="unfinished"></translation>
+        <translation>Catalogue</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ClubMembersDialog</name>
     <message>
         <source>Active today</source>
-        <translation type="unfinished"></translation>
+        <translation>Actif aujourd’hui</translation>
     </message>
     <message>
         <source>Active this week</source>
-        <translation type="unfinished"></translation>
+        <translation>Actif cette semaine</translation>
     </message>
     <message>
         <source>Active this month</source>
-        <translation type="unfinished"></translation>
+        <translation>Actif ce mois-ci</translation>
     </message>
     <message>
         <source>Not active for a month or more</source>
-        <translation type="unfinished"></translation>
+        <translation>Inactif depuis un mois ou plus</translation>
     </message>
     <message>
         <source>Who is in the club and the roles they hold. Roles are given and changed on the website.</source>
-        <translation type="unfinished"></translation>
+        <translation>Qui fait partie du club et ses rôles. Les rôles se donnent et se changent sur le site web.</translation>
     </message>
     <message>
         <source>Loading the members…</source>
-        <translation type="unfinished"></translation>
+        <translation>Chargement des membres…</translation>
     </message>
     <message>
         <source>Manage members on the website</source>
-        <translation type="unfinished"></translation>
+        <translation>Gérer les membres sur le site web</translation>
     </message>
     <message>
         <source>Invite people, answer requests to join, and give or take roles on the club&apos;s People page</source>
-        <translation type="unfinished"></translation>
+        <translation>Inviter des gens, répondre aux demandes d’adhésion et donner ou retirer des rôles sur la page Personnes du club</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <source>Members of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Membres de %1</translation>
     </message>
     <message>
         <source>You&apos;re no longer in this club, so its members aren&apos;t shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous ne faites plus partie de ce club, donc ses membres ne sont pas affichés.</translation>
     </message>
     <message>
         <source>Nobody is in this club yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Personne n’est encore dans ce club.</translation>
     </message>
     <message>
         <source>This server doesn&apos;t list club members in the app yet. You can see them on the website.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce serveur ne liste pas encore les membres des clubs dans l’application. Vous pouvez les voir sur le site web.</translation>
     </message>
     <message>
         <source>The members couldn&apos;t be loaded. %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Les membres n’ont pas pu être chargés. %1</translation>
     </message>
     <message>
         <source>1 member</source>
-        <translation type="unfinished"></translation>
+        <translation>1 membre</translation>
     </message>
     <message>
         <source>%1 members</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 membres</translation>
     </message>
     <message>
         <source>Joined %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A rejoint le %1</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ConfirmDialog</name>
     <message>
         <source>Type &lt;b&gt;%1&lt;/b&gt; to confirm</source>
-        <translation type="unfinished"></translation>
+        <translation>Tapez &lt;b&gt;%1&lt;/b&gt; pour confirmer</translation>
     </message>
     <message>
         <source>Type %1 to confirm</source>
-        <translation type="unfinished"></translation>
+        <translation>Tapez %1 pour confirmer</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -3834,63 +3835,63 @@
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Supprimer</translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <source>%1 “%2”?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 « %2 » ?</translation>
     </message>
     <message>
         <source>“%1” is deleted.</source>
-        <translation type="unfinished"></translation>
+        <translation>« %1 » est supprimé.</translation>
     </message>
     <message>
         <source>This can’t be undone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci ne peut pas être annulé.</translation>
     </message>
     <message>
         <source>You can undo this with Ctrl+Z.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous pouvez l’annuler avec Ctrl+Z.</translation>
     </message>
     <message>
         <source>The layout, its history and its share links are deleted for everyone who can open it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le plan, son historique et ses liens de partage sont supprimés pour tous ceux qui peuvent l’ouvrir.</translation>
     </message>
     <message>
         <source>The modules, parts and venues it uses aren’t deleted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les modules, pièces et salles qu’il utilise ne sont pas supprimés.</translation>
     </message>
     <message>
         <source>The module and its versions are deleted, and it leaves any collections it was in.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le module et ses versions sont supprimés, et il quitte les collections où il était.</translation>
     </message>
     <message>
         <source>Layouts that already use it don’t change.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les plans qui l’utilisent déjà ne changent pas.</translation>
     </message>
     <message>
         <source>The venue is deleted from the Venue library.</source>
-        <translation type="unfinished"></translation>
+        <translation>La salle est supprimée de la bibliothèque de salles.</translation>
     </message>
     <message>
         <source>Layouts made from it keep their own copy of the venue.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les plans faits à partir d’elle gardent leur propre copie de la salle.</translation>
     </message>
     <message>
         <source>The part is deleted from your custom parts.</source>
-        <translation type="unfinished"></translation>
+        <translation>La pièce est supprimée de vos pièces personnalisées.</translation>
     </message>
     <message>
         <source>Layouts that use it show a placeholder in its place.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les plans qui l’utilisent montrent un repère à sa place.</translation>
     </message>
     <message>
         <source>The set is deleted from your custom parts, so it can’t be placed again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le set est supprimé de vos pièces personnalisées, il ne peut donc plus être posé.</translation>
     </message>
     <message>
         <source>Layouts that use it keep the parts it put down.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les plans qui l’utilisent gardent les pièces qu’il a posées.</translation>
     </message>
 </context>
 <context>
@@ -3901,23 +3902,23 @@
     </message>
     <message>
         <source>Unofficial location (custom URL)</source>
-        <translation type="unfinished"></translation>
+        <translation>Emplacement non officiel (URL personnalisée)</translation>
     </message>
     <message>
         <source>https://example.com/parts/</source>
-        <translation type="unfinished"></translation>
+        <translation>https://example.com/parts/</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Chercher</translation>
     </message>
     <message>
         <source>No search yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas encore de recherche.</translation>
     </message>
     <message>
         <source>Download &amp;&amp; Install</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger &amp;&amp; installer</translation>
     </message>
     <message>
         <source>Close</source>
@@ -3925,27 +3926,27 @@
     </message>
     <message>
         <source>Search response too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>Réponse de recherche trop volumineuse.</translation>
     </message>
     <message>
         <source>Pick at least one source to search.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez au moins une source où chercher.</translation>
     </message>
     <message>
         <source>Searching…</source>
-        <translation type="unfinished"></translation>
+        <translation>Recherche…</translation>
     </message>
     <message>
         <source>Searching %1/%2: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Recherche %1/%2 : %3</translation>
     </message>
     <message>
         <source>%1 — %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 — %2</translation>
     </message>
     <message>
         <source>empty response</source>
-        <translation type="unfinished"></translation>
+        <translation>réponse vide</translation>
     </message>
     <message>
         <source>%1 — Included</source>
@@ -3957,22 +3958,22 @@
     </message>
     <message numerus="yes">
         <source>%1 new, %n update(s), %2 already included.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%1 nouveaux, %n mise à jour, %2 déjà inclus.</numerusform>
+            <numerusform>%1 nouveaux, %n mises à jour, %2 déjà inclus.</numerusform>
         </translation>
     </message>
     <message>
         <source>Canceled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Annulé.</translation>
     </message>
     <message>
         <source>The download isn&apos;t a part pack this app can read.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le téléchargement n’est pas un pack de pièces que cette application peut lire.</translation>
     </message>
     <message>
         <source>Tick at least one part pack to install.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cochez au moins un pack de pièces à installer.</translation>
     </message>
     <message>
         <source>%1 — Installed</source>
@@ -3984,50 +3985,51 @@
     </message>
     <message>
         <source>Look for part packs on:</source>
-        <translation type="unfinished"></translation>
+        <translation>Chercher des packs de pièces sur :</translation>
     </message>
     <message>
         <source>BlueBrick packs (Town, Train, Castle, BrickTracks, TrixBrix, …)</source>
-        <translation type="unfinished"></translation>
+        <translation>Packs BlueBrick (Town, Train, Castle, BrickTracks, TrixBrix, …)</translation>
     </message>
     <message>
         <source>Other toy brands (Plarail)</source>
-        <translation type="unfinished"></translation>
+        <translation>Autres marques de jouets (Plarail)</translation>
     </message>
     <message>
         <source>Part packs (the ones you already have say Included):</source>
-        <translation type="unfinished"></translation>
+        <translation>Packs de pièces (ceux que vous avez déjà indiquent Inclus) :</translation>
     </message>
     <message>
         <source>Part packs you can get</source>
-        <translation type="unfinished"></translation>
+        <translation>Packs de pièces disponibles</translation>
     </message>
     <message>
         <source>No part packs found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun pack de pièces trouvé.</translation>
     </message>
     <message numerus="yes">
         <source>You already have all %n part pack(s).</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Vous avez déjà le %n pack de pièces.</numerusform>
+            <numerusform>Vous avez déjà les %n packs de pièces.</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Installed %n part pack(s).</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n pack de pièces installé.</numerusform>
+            <numerusform>%n packs de pièces installés.</numerusform>
         </translation>
     </message>
     <message>
         <source>The rest were canceled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le reste a été annulé.</translation>
     </message>
     <message>
         <source>Some part packs couldn&apos;t be installed:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Certains packs de pièces n’ont pas pu être installés :
+%1</translation>
     </message>
     <message>
         <source>%1 — Update %2 → %3</source>
@@ -4552,7 +4554,7 @@
     </message>
     <message>
         <source>Rename…</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer…</translation>
     </message>
     <message>
         <source>Rename sheet</source>
@@ -5137,7 +5139,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>Use this venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser cette salle</translation>
     </message>
     <message>
         <source>The venue “%1” couldn&apos;t be saved in the Venue library folder %2.</source>
@@ -5905,7 +5907,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>New layout</source>
-        <translation type="unfinished">Nouveau plan</translation>
+        <translation>Nouveau plan</translation>
     </message>
     <message>
         <source>Export part list</source>
@@ -6044,7 +6046,7 @@ Save anyway?</source>
     </message>
     <message>
         <source>Background image</source>
-        <translation type="unfinished"></translation>
+        <translation>Image de fond</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -6088,7 +6090,7 @@ Save anyway?</source>
     </message>
     <message>
         <source>Venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Salle</translation>
     </message>
     <message>
         <source>Venue of this layout</source>
@@ -6128,7 +6130,7 @@ Save anyway?</source>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Retirer</translation>
+        <translation>Retirer</translation>
     </message>
     <message>
         <source>Choose background image</source>
@@ -6636,7 +6638,7 @@ Save anyway?</source>
     </message>
     <message>
         <source>Upload to Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoyer au serveur</translation>
     </message>
     <message>
         <source>%1 isn&apos;t on the server yet, so others see a missing part. Upload it?</source>
@@ -6779,7 +6781,7 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Catalog</source>
-        <translation type="unfinished"></translation>
+        <translation>Catalogue</translation>
     </message>
     <message>
         <source>The catalog is on your club&apos;s server. Connect to a server first (File › Servers…), then try again.</source>
@@ -8130,7 +8132,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Retirer</translation>
+        <translation>Retirer</translation>
     </message>
     <message>
         <source>Properties…</source>
@@ -8540,7 +8542,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Layouts that already use it don’t change.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les plans qui l’utilisent déjà ne changent pas.</translation>
     </message>
     <message>
         <source>Import into map</source>
@@ -8726,7 +8728,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Rename…</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer…</translation>
     </message>
     <message>
         <source>Show name</source>
@@ -9410,7 +9412,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Loading…</source>
-        <translation type="unfinished"></translation>
+        <translation>Chargement…</translation>
     </message>
     <message>
         <source>Can&apos;t reach %1 right now. Your modules on this computer still work.</source>
@@ -9497,7 +9499,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Rename…</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer…</translation>
     </message>
     <message>
         <source>Take Back to Mine…</source>
@@ -9624,7 +9626,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Layouts</source>
-        <translation type="unfinished"></translation>
+        <translation>Plans</translation>
     </message>
     <message>
         <source>Venues</source>
@@ -9640,7 +9642,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Catalog</source>
-        <translation type="unfinished"></translation>
+        <translation>Catalogue</translation>
     </message>
     <message>
         <source>Collections</source>
@@ -9760,7 +9762,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Loading…</source>
-        <translation type="unfinished"></translation>
+        <translation>Chargement…</translation>
     </message>
     <message>
         <source>No layouts match.</source>
@@ -9792,7 +9794,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Use this venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser cette salle</translation>
     </message>
     <message>
         <source>Start a new layout in this venue (it&apos;s kept in your Venue library too)</source>
@@ -9832,7 +9834,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>version %1</translation>
     </message>
     <message>
         <source>Editing now</source>
@@ -9900,7 +9902,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Add to my parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter à mes pièces</translation>
     </message>
     <message>
         <source>Download it into your parts, to use in any layout</source>
@@ -10201,7 +10203,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Servers</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveurs</translation>
     </message>
     <message>
         <source>Manage servers…</source>
@@ -10225,7 +10227,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <source>No servers yet. Add your club&apos;s server to share layouts and modules with it, and to keep these settings with your account.</source>
@@ -10873,7 +10875,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Supprimer</translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <source>Done</source>
@@ -11080,7 +11082,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <source>Show</source>
@@ -11144,7 +11146,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Salle</translation>
     </message>
     <message>
         <source>unsaved</source>
@@ -11327,7 +11329,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Retirer</translation>
+        <translation>Retirer</translation>
     </message>
     <message>
         <source>Duplicate</source>
@@ -11335,14 +11337,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Supprimer</translation>
+        <translation>Supprimer</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::VenueDialog</name>
     <message>
         <source>Venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Salle</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -11417,7 +11419,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Retirer</translation>
+        <translation>Retirer</translation>
     </message>
     <message>
         <source>Clear Venue</source>
@@ -11527,7 +11529,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Rename…</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer…</translation>
     </message>
     <message>
         <source>No folder set. Click &quot;Folder…&quot; to choose one.</source>
@@ -11543,7 +11545,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Salle</translation>
     </message>
     <message>
         <source>Save venue to the Venue library</source>
@@ -11741,11 +11743,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Rename…</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer…</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Supprimer</translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <source>Done</source>
@@ -11931,7 +11933,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Supprimer</translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <source>Remove the selected pieces</source>
@@ -11996,7 +11998,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <name>bld::ui::tours::WelcomeDialog</name>
     <message>
         <source>New layout</source>
-        <translation type="unfinished">Nouveau plan</translation>
+        <translation>Nouveau plan</translation>
     </message>
     <message>
         <source>Open a file…</source>
