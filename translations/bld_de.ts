@@ -5239,6 +5239,27 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
         <translation>Speichere „%1“…</translation>
     </message>
     <message>
+        <source>Someone saved this module</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Someone else saved “%1” while you were changing it, so your save was held back. Nothing is lost.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load theirs: their version opens here, and your changes since your last save are dropped.
+Save mine as a new version: yours becomes the module; theirs stays in its version history.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Theirs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Mine as a New Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Couldn&apos;t save the module: %1</source>
         <translation>Das Modul konnte nicht gespeichert werden: %1</translation>
     </message>
@@ -6502,6 +6523,22 @@ Trotzdem speichern?</translation>
     <message>
         <source>&amp;Redo</source>
         <translation>&amp;Wiederholen</translation>
+    </message>
+    <message>
+        <source>Nothing to undo</source>
+        <translation>Nichts rückgängig zu machen</translation>
+    </message>
+    <message>
+        <source>Nothing to redo</source>
+        <translation>Nichts zu wiederholen</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to undo.</source>
+        <translation>Jemand anderes hat das nach dir geändert, daher gab es nichts rückgängig zu machen.</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to redo.</source>
+        <translation>Jemand anderes hat das nach dir geändert, daher gab es nichts zu wiederholen.</translation>
     </message>
     <message>
         <source>Live layout closed</source>

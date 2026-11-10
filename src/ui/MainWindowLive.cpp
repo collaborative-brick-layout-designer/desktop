@@ -129,6 +129,12 @@ void MainWindow::setupLiveMenu(QMenu* file) {
     connect(live_, &LiveLayout::mapReloaded, this, &MainWindow::onLiveReloaded);
     connect(live_, &LiveLayout::statusTextChanged, this, [this] { updateLiveUi(); });
     connect(live_, &LiveLayout::undoStateChanged, this, [this] { updateLiveUi(); });
+    connect(live_, &LiveLayout::nothingToUndo, this, [this](bool undo) {
+        notices_->showNotice(QStringLiteral("live-undo"), undo ? tr("Nothing to undo") : tr("Nothing to redo"),
+                             undo ? tr("Someone else changed that after you, so there was nothing to undo.")
+                                  : tr("Someone else changed that after you, so there was nothing to redo."),
+                             { NoticeAction{ tr("OK"), {} } });
+    });
     connect(live_, &LiveLayout::offlineEditsReady, this, &MainWindow::onReviewOfflineEdits);
     // Queued: after the edit's own signal handling, not inside it.
     connect(live_, &LiveLayout::localEdited, this, &MainWindow::offerPlacedParts, Qt::QueuedConnection);

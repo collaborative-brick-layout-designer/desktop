@@ -5202,6 +5202,27 @@ existing cells at their old indexing — paint over to clean up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Someone saved this module</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Someone else saved “%1” while you were changing it, so your save was held back. Nothing is lost.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load theirs: their version opens here, and your changes since your last save are dropped.
+Save mine as a new version: yours becomes the module; theirs stays in its version history.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Theirs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Mine as a New Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Couldn&apos;t save the module: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6460,6 +6481,22 @@ Save anyway?</source>
     <message>
         <source>&amp;Redo</source>
         <translation>やり直し(&amp;R)</translation>
+    </message>
+    <message>
+        <source>Nothing to undo</source>
+        <translation>元に戻す操作はありません</translation>
+    </message>
+    <message>
+        <source>Nothing to redo</source>
+        <translation>やり直す操作はありません</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to undo.</source>
+        <translation>あなたの後に別の人が変更したため、元に戻すものはありませんでした。</translation>
+    </message>
+    <message>
+        <source>Someone else changed that after you, so there was nothing to redo.</source>
+        <translation>あなたの後に別の人が変更したため、やり直すものはありませんでした。</translation>
     </message>
     <message>
         <source>Live layout closed</source>

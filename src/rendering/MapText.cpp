@@ -41,6 +41,26 @@ LineWidthAt mapLineWidth(const QString& style) {
     };
 }
 
+QSizeF textBoxStuds(const QString& text, double sizePt, const LineWidthAt& widthAt) {
+    const double px = std::max(1.0, std::isfinite(sizePt) ? sizePt : 12.0) * 96.0 / 72.0;
+    const QStringList lines = (text.isEmpty() ? QStringLiteral(" ") : text).split(QLatin1Char('\n'));
+    double widest = 0;
+    for (const QString& l : lines) widest = std::max(widest, widthAt(l, px));
+    const auto round3 = [](double v) { return std::round(v * 1000.0) / 1000.0; };
+    return { round3(std::max(widest, px * 0.5) + px / 3.0), round3(lines.size() * kMapLineHeight * px) };
+}
+
+QRectF refittedTextArea(const QRectF& area, const QString& text, double sizePt, double orientation,
+                        const LineWidthAt& widthAt) {
+    const QSizeF box = textBoxStuds(text, sizePt, widthAt);
+    const double o = std::fmod(std::fmod(orientation, 360.0) + 360.0, 360.0);
+    const bool quarter = std::abs(o - 90.0) < 1.0 || std::abs(o - 270.0) < 1.0;
+    const QSizeF size = quarter ? box.transposed() : box;
+    QRectF r(QPointF(), size);
+    r.moveCenter(area.center());
+    return r;
+}
+
 TextCellLayout textCellLayout(const core::TextCell& cell, const LineWidthAt& widthAt) {
     constexpr double kProbe = 100;
     const double k = SceneBuilder::kPixelsPerStud;
