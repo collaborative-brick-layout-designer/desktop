@@ -2199,44 +2199,60 @@
         <translation>Le serveur a répondu %1</translation>
     </message>
     <message>
-        <source>this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new version (Help &gt; Check for Updates) to keep working on it</source>
-        <translation>ce plan a été enregistré par une version plus récente de Collaborative Brick Layout Designer. Téléchargez la nouvelle version (Aide &gt; Rechercher des mises à jour) pour continuer à y travailler</translation>
+        <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
+        <translation>Ce plan a été enregistré par une version plus récente de Collaborative Brick Layout Designer, donc cette version ne peut pas le garder en direct. Téléchargez la nouvelle version (Aide &gt; Rechercher des mises à jour) pour y travailler de nouveau en direct.</translation>
     </message>
     <message>
-        <source>this layout&apos;s live update couldn&apos;t be read. Please reopen the layout to keep working on it live</source>
-        <translation>la mise à jour en direct de ce plan n’a pas pu être lue. Rouvrez le plan pour continuer à y travailler en direct</translation>
+        <source>A live update to this layout couldn&apos;t be read, so it&apos;s no longer live here. Open it from the server again to keep working on it with everyone.</source>
+        <translation>Une mise à jour en direct de ce plan n’a pas pu être lue, donc il n’est plus en direct ici. Rouvrez-le depuis le serveur pour continuer à y travailler avec tout le monde.</translation>
     </message>
     <message>
-        <source>this version of Collaborative Brick Layout Designer is too old for this server. Please download the new version (Help &gt; Check for Updates)</source>
-        <translation>cette version de Collaborative Brick Layout Designer est trop ancienne pour ce serveur. Téléchargez la nouvelle version (Aide &gt; Rechercher des mises à jour)</translation>
+        <source>This version of Collaborative Brick Layout Designer is too old for this server, so the layout is no longer live here. Download the new version (Help &gt; Check for Updates).</source>
+        <translation>Cette version de Collaborative Brick Layout Designer est trop ancienne pour ce serveur, donc le plan n’est plus en direct ici. Téléchargez la nouvelle version (Aide &gt; Rechercher des mises à jour).</translation>
     </message>
     <message>
-        <source>this account is being deleted. To keep it, sign in on the website before the date in your email; then open the layout again</source>
-        <translation>ce compte va être supprimé. Pour le garder, connectez-vous sur le site avant la date indiquée dans votre e-mail ; puis rouvrez le plan</translation>
+        <source>This account is being deleted, so the layout is no longer live here. To keep the account, sign in on the website before the date in your email, then open the layout again.</source>
+        <translation>Ce compte va être supprimé, donc le plan n’est plus en direct ici. Pour garder le compte, connectez-vous sur le site avant la date indiquée dans votre e-mail, puis rouvrez le plan.</translation>
     </message>
     <message>
-        <source>your account is on hold (read only) while a privacy request is looked at. Ask the site admin</source>
-        <translation>votre compte est suspendu (lecture seule) le temps d’examiner une demande liée à la vie privée. Demandez à l’admin du site</translation>
+        <source>Your account is on hold (read only) while a privacy request is looked at, so the layout is no longer live here. Ask the site admin.</source>
+        <translation>Votre compte est suspendu (lecture seule) le temps d’examiner une demande liée à la vie privée, donc le plan n’est plus en direct ici. Demandez à l’admin du site.</translation>
     </message>
     <message>
-        <source>your changes weren&apos;t taken because they looked like another layout&apos;s parts being merged into this one. Nothing is lost: your copy stays open here, so save it (File &gt; Save As) and tell the site admin</source>
-        <translation>vos changements n’ont pas été acceptés car ils ressemblaient à des pièces d’un autre plan fusionnées dans celui-ci. Rien n’est perdu : votre copie reste ouverte ici, alors enregistrez-la (Fichier &gt; Enregistrer sous) et prévenez l’admin du site</translation>
+        <source>This layout was deleted on the server.</source>
+        <translation>Ce plan a été supprimé sur le serveur.</translation>
     </message>
     <message>
-        <source>this layout was deleted on the server</source>
-        <translation>ce plan a été supprimé sur le serveur</translation>
+        <source>You can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it.</source>
+        <translation>Vous ne pouvez plus ouvrir ce plan : il a été supprimé, ou son propriétaire ou un admin du club a changé qui peut l’ouvrir.</translation>
     </message>
     <message>
-        <source>you can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it</source>
-        <translation>vous ne pouvez plus ouvrir ce plan : il a été supprimé, ou son propriétaire ou un admin du club a changé qui peut l’ouvrir</translation>
+        <source>Your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website), so the layout is no longer live here. Sign in again (File › Servers…), then open the layout again.</source>
+        <translation>Votre connexion sur ce serveur a pris fin (elle a expiré, ou a été fermée ailleurs ou retirée sur le site), donc le plan n’est plus en direct ici. Reconnectez-vous (Fichier › Serveurs…), puis rouvrez le plan.</translation>
     </message>
     <message>
-        <source>your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website). Sign in again (File › Servers…), then open the layout again</source>
-        <translation>votre connexion sur ce serveur a pris fin (elle a expiré, ou a été fermée ailleurs ou retirée sur le site). Reconnectez-vous (Fichier › Serveurs…), puis rouvrez le plan</translation>
+        <source>Too many people have this layout open right now, so it&apos;s no longer live here. Try again in a little while.</source>
+        <translation>Trop de personnes ont ce plan ouvert en ce moment, donc il n’est plus en direct ici. Réessayez dans un petit moment.</translation>
     </message>
     <message>
-        <source>too many people have this layout open right now; try again in a little while</source>
-        <translation>trop de personnes ont ce plan ouvert en ce moment ; réessayez dans un petit moment</translation>
+        <source>Your latest changes weren&apos;t taken, because they looked like another layout&apos;s parts being merged into this one, so the layout is no longer live here. Nothing is lost: your copy stays open here, unsaved. Save it (File &gt; Save As) and tell the site admin.</source>
+        <translation>Vos derniers changements n’ont pas été acceptés car ils ressemblaient à des pièces d’un autre plan fusionnées dans celui-ci, donc le plan n’est plus en direct ici. Rien n’est perdu : votre copie reste ouverte ici, non enregistrée. Enregistrez-la (Fichier &gt; Enregistrer sous) et prévenez l’admin du site.</translation>
+    </message>
+    <message>
+        <source>The server closed this live layout.</source>
+        <translation>Le serveur a fermé ce plan en direct.</translation>
+    </message>
+    <message>
+        <source>Your copy stays open here, unsaved. To keep it, save it (File &gt; Save As).</source>
+        <translation>Votre copie reste ouverte ici, non enregistrée. Pour la garder, enregistrez-la (Fichier &gt; Enregistrer sous).</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1</source>
+        <translation>Code de fermeture du serveur : %1</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1 (%2)</source>
+        <translation>Code de fermeture du serveur : %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -6661,10 +6677,6 @@ Enregistrer quand même ?</translation>
     <message>
         <source>Live layout closed</source>
         <translation>Plan en direct fermé</translation>
-    </message>
-    <message>
-        <source>The server ended the live session%1. The layout stays open here as an unsaved copy.</source>
-        <translation>Le serveur a terminé la session en direct%1. Le plan reste ouvert ici comme copie non enregistrée.</translation>
     </message>
     <message>
         <source>Keep working on this copy</source>

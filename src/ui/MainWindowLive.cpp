@@ -217,7 +217,7 @@ void MainWindow::setupLiveMenu(QMenu* file) {
         liveRolePoll_->stop();
         liveSignInNeeded();
     });
-    connect(live_, &LiveLayout::ended, this, [this](const QString& reason) {
+    connect(live_, &LiveLayout::ended, this, [this](const QString& message, const QString& detail) {
         if (prefsSync_) prefsSync_->stop();
         liveRolePoll_->stop();
         notices_->hideNotice(QStringLiteral("live-access"));
@@ -227,10 +227,11 @@ void MainWindow::setupLiveMenu(QMenu* file) {
         // layout asks first.
         mapView_->undoStack()->resetClean();
         updateLiveUi();
-        QMessageBox::information(
-            this, tr("Live layout closed"),
-            tr("The server ended the live session%1. The layout stays open here as an unsaved copy.")
-                .arg(reason.isEmpty() ? QString() : QStringLiteral(" (%1)").arg(reason)));
+        // One plain message per ending (sync::liveCloseText); the server's
+        // own code only as details, for an ending this version doesn't know.
+        QMessageBox box(QMessageBox::Information, tr("Live layout closed"), message, QMessageBox::Ok, this);
+        if (!detail.isEmpty()) box.setDetailedText(detail);
+        box.exec();
     });
 }
 

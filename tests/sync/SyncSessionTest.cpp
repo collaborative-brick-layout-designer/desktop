@@ -329,7 +329,7 @@ TEST(SyncSession, ALayoutFromANewerVersionIsNotSynced) {
     EXPECT_EQ(ended->first, sync::kUnreadableDocCode);
     EXPECT_FALSE(session.loaded());
     EXPECT_EQ(changed, 0);
-    EXPECT_FALSE(sync::liveCloseText(ended->first, ended->second).isEmpty());
+    EXPECT_TRUE(sync::isKnownLiveClose(ended->first, ended->second));
 }
 
 TEST(SyncSession, StopsWhenANewerVersionChangesTheLayoutMidSession) {

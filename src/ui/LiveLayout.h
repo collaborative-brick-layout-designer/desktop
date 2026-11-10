@@ -91,8 +91,11 @@ signals:
     // take them. Still live; session().notTaken() holds them for saving.
     void editsNotTaken();
     void peopleChanged();
-    // The server ended the session (access revoked, layout deleted).
-    void ended(const QString& reason);
+    // The live layout closed for good (access taken away, the layout
+    // deleted, a refused merge…): the whole message to show
+    // (sync::liveCloseText), and the server's own code as details when the
+    // message couldn't say why (sync::liveCloseDetail).
+    void ended(const QString& message, const QString& detail);
     // The server ended the sign-in, not the layout: it stays open, and its
     // edits are sent once its owner signs in again (MainWindow::resumeLive).
     void signInEnded();

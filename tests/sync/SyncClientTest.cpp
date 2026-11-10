@@ -169,7 +169,7 @@ TEST(SyncClient, EndsTheSessionWhenTheResyncCantBeReadEither) {
     ASSERT_TRUE(waitFor([&] { return finalCode != 0; }));
     EXPECT_EQ(finalCode, sync::kUnreadableUpdateCode);
     EXPECT_EQ(finalReason, QStringLiteral("unreadable_update"));
-    EXPECT_FALSE(sync::liveCloseText(finalCode, finalReason).isEmpty());
+    EXPECT_TRUE(sync::isKnownLiveClose(finalCode, finalReason));
     EXPECT_EQ(client.status(), sync::SyncClient::Status::Offline);
     EXPECT_EQ(local.toJson(), before);
     // No retry follows.
@@ -228,7 +228,7 @@ TEST(SyncClient, RejectsMalformedDocumentsWithoutCrashing) {
     ASSERT_TRUE(waitFor([&] { return finalCode != 0; }));
     EXPECT_EQ(finalCode, sync::kUnreadableUpdateCode);
     EXPECT_EQ(finalReason, QStringLiteral("unreadable_update"));
-    EXPECT_FALSE(sync::liveCloseText(finalCode, finalReason).isEmpty());
+    EXPECT_TRUE(sync::isKnownLiveClose(finalCode, finalReason));
     EXPECT_EQ(local.toJson(), edited);
 }
 

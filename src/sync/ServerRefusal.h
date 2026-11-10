@@ -67,9 +67,16 @@ QString failureText(const ServerRefusal& r);
 // One sentence to show.
 QString describe(const ServerRefusal& r);
 
-// Why the server closed a live layout, for the "Live layout closed" note.
-// Empty when there's nothing better than the raw reason.
+// The whole message of the "Live layout closed" box: why the live layout
+// closed, in plain words and whole sentences, and that the copy here is kept
+// and how to save it. Never empty: an ending this version doesn't know gets
+// a general sentence.
 QString liveCloseText(int code, const QString& reason);
+// Whether liveCloseText says why (false: it's the general sentence).
+bool isKnownLiveClose(int code, const QString& reason);
+// For the box's details: the server's own code and reason, when
+// liveCloseText couldn't say why. Empty otherwise.
+QString liveCloseDetail(int code, const QString& reason);
 
 // The server closed a live layout because its sign-in ended (1008: the
 // token ran out or reached its longest, or it was signed out or removed on

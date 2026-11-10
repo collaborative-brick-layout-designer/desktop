@@ -2199,44 +2199,60 @@
         <translation>Servern svarade %1</translation>
     </message>
     <message>
-        <source>this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new version (Help &gt; Check for Updates) to keep working on it</source>
-        <translation>layouten sparades av en nyare version av Collaborative Brick Layout Designer. Hämta den nya versionen (Hjälp &gt; Sök efter uppdateringar) för att fortsätta arbeta med den</translation>
+        <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
+        <translation>Layouten sparades av en nyare version av Collaborative Brick Layout Designer, så den här versionen kan inte hålla den live. Hämta den nya versionen (Hjälp &gt; Sök efter uppdateringar) för att arbeta med den live igen.</translation>
     </message>
     <message>
-        <source>this layout&apos;s live update couldn&apos;t be read. Please reopen the layout to keep working on it live</source>
-        <translation>layoutens liveuppdatering kunde inte läsas. Öppna layouten igen för att fortsätta arbeta med den live</translation>
+        <source>A live update to this layout couldn&apos;t be read, so it&apos;s no longer live here. Open it from the server again to keep working on it with everyone.</source>
+        <translation>En liveuppdatering av layouten kunde inte läsas, så den är inte längre live här. Öppna den från servern igen för att fortsätta arbeta med den tillsammans med alla.</translation>
     </message>
     <message>
-        <source>this version of Collaborative Brick Layout Designer is too old for this server. Please download the new version (Help &gt; Check for Updates)</source>
-        <translation>den här versionen av Collaborative Brick Layout Designer är för gammal för den här servern. Hämta den nya versionen (Hjälp &gt; Sök efter uppdateringar)</translation>
+        <source>This version of Collaborative Brick Layout Designer is too old for this server, so the layout is no longer live here. Download the new version (Help &gt; Check for Updates).</source>
+        <translation>Den här versionen av Collaborative Brick Layout Designer är för gammal för den här servern, så layouten är inte längre live här. Hämta den nya versionen (Hjälp &gt; Sök efter uppdateringar).</translation>
     </message>
     <message>
-        <source>this account is being deleted. To keep it, sign in on the website before the date in your email; then open the layout again</source>
-        <translation>det här kontot håller på att tas bort. För att behålla det loggar du in på webbplatsen före datumet i ditt mejl; öppna sedan layouten igen</translation>
+        <source>This account is being deleted, so the layout is no longer live here. To keep the account, sign in on the website before the date in your email, then open the layout again.</source>
+        <translation>Det här kontot håller på att tas bort, så layouten är inte längre live här. För att behålla kontot loggar du in på webbplatsen före datumet i ditt mejl och öppnar sedan layouten igen.</translation>
     </message>
     <message>
-        <source>your account is on hold (read only) while a privacy request is looked at. Ask the site admin</source>
-        <translation>ditt konto är pausat (skrivskyddat) medan en integritetsbegäran behandlas. Fråga webbplatsens administratör</translation>
+        <source>Your account is on hold (read only) while a privacy request is looked at, so the layout is no longer live here. Ask the site admin.</source>
+        <translation>Ditt konto är pausat (skrivskyddat) medan en integritetsbegäran behandlas, så layouten är inte längre live här. Fråga webbplatsens administratör.</translation>
     </message>
     <message>
-        <source>your changes weren&apos;t taken because they looked like another layout&apos;s parts being merged into this one. Nothing is lost: your copy stays open here, so save it (File &gt; Save As) and tell the site admin</source>
-        <translation>dina ändringar togs inte emot eftersom de såg ut som att en annan layouts delar slogs ihop med den här. Inget går förlorat: din kopia är fortfarande öppen här, så spara den (Arkiv &gt; Spara som) och berätta för webbplatsens administratör</translation>
+        <source>This layout was deleted on the server.</source>
+        <translation>Layouten togs bort på servern.</translation>
     </message>
     <message>
-        <source>this layout was deleted on the server</source>
-        <translation>layouten togs bort på servern</translation>
+        <source>You can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it.</source>
+        <translation>Du kan inte öppna layouten längre: den togs bort, eller så ändrade ägaren eller en klubbadministratör vem som får öppna den.</translation>
     </message>
     <message>
-        <source>you can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it</source>
-        <translation>du kan inte öppna layouten längre: den togs bort, eller så ändrade ägaren eller en klubbadministratör vem som får öppna den</translation>
+        <source>Your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website), so the layout is no longer live here. Sign in again (File › Servers…), then open the layout again.</source>
+        <translation>Din inloggning på den här servern avslutades (den gick ut, eller loggades ut någon annanstans eller togs bort på webbplatsen), så layouten är inte längre live här. Logga in igen (Arkiv › Servrar…) och öppna sedan layouten igen.</translation>
     </message>
     <message>
-        <source>your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website). Sign in again (File › Servers…), then open the layout again</source>
-        <translation>din inloggning på den här servern avslutades (den gick ut, eller loggades ut någon annanstans eller togs bort på webbplatsen). Logga in igen (Arkiv › Servrar…) och öppna sedan layouten igen</translation>
+        <source>Too many people have this layout open right now, so it&apos;s no longer live here. Try again in a little while.</source>
+        <translation>För många har layouten öppen just nu, så den är inte längre live här. Försök igen om en liten stund.</translation>
     </message>
     <message>
-        <source>too many people have this layout open right now; try again in a little while</source>
-        <translation>för många har layouten öppen just nu; försök igen om en liten stund</translation>
+        <source>Your latest changes weren&apos;t taken, because they looked like another layout&apos;s parts being merged into this one, so the layout is no longer live here. Nothing is lost: your copy stays open here, unsaved. Save it (File &gt; Save As) and tell the site admin.</source>
+        <translation>Dina senaste ändringar togs inte emot eftersom de såg ut som att en annan layouts delar slogs ihop med den här, så layouten är inte längre live här. Inget går förlorat: din kopia är fortfarande öppen här, osparad. Spara den (Arkiv &gt; Spara som) och berätta för webbplatsens administratör.</translation>
+    </message>
+    <message>
+        <source>The server closed this live layout.</source>
+        <translation>Servern stängde den här livelayouten.</translation>
+    </message>
+    <message>
+        <source>Your copy stays open here, unsaved. To keep it, save it (File &gt; Save As).</source>
+        <translation>Din kopia är fortfarande öppen här, osparad. Spara den för att behålla den (Arkiv &gt; Spara som).</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1</source>
+        <translation>Serverns stängningskod: %1</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1 (%2)</source>
+        <translation>Serverns stängningskod: %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -7124,10 +7140,6 @@ Spara ändå?</translation>
     <message>
         <source>Live layout closed</source>
         <translation>Livelayouten stängdes</translation>
-    </message>
-    <message>
-        <source>The server ended the live session%1. The layout stays open here as an unsaved copy.</source>
-        <translation>Servern avslutade livesessionen%1. Layouten är fortfarande öppen här som en osparad kopia.</translation>
     </message>
     <message>
         <source>Keep working on this copy</source>

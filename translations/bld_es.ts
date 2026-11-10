@@ -2199,44 +2199,60 @@
         <translation>El servidor respondió %1</translation>
     </message>
     <message>
-        <source>this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new version (Help &gt; Check for Updates) to keep working on it</source>
-        <translation>esta maqueta se guardó con una versión más nueva de Collaborative Brick Layout Designer. Descarga la nueva versión (Ayuda &gt; Buscar actualizaciones) para seguir trabajando en ella</translation>
+        <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
+        <translation>Esta maqueta se guardó con una versión más nueva de Collaborative Brick Layout Designer, así que esta versión no puede mantenerla en directo. Descarga la nueva versión (Ayuda &gt; Buscar actualizaciones) para volver a trabajar en ella en directo.</translation>
     </message>
     <message>
-        <source>this layout&apos;s live update couldn&apos;t be read. Please reopen the layout to keep working on it live</source>
-        <translation>no se pudo leer la actualización en directo de esta maqueta. Vuelve a abrirla para seguir trabajando en directo</translation>
+        <source>A live update to this layout couldn&apos;t be read, so it&apos;s no longer live here. Open it from the server again to keep working on it with everyone.</source>
+        <translation>No se pudo leer una actualización en directo de esta maqueta, así que aquí ya no está en directo. Vuelve a abrirla desde el servidor para seguir trabajando en ella con todos.</translation>
     </message>
     <message>
-        <source>this version of Collaborative Brick Layout Designer is too old for this server. Please download the new version (Help &gt; Check for Updates)</source>
-        <translation>esta versión de Collaborative Brick Layout Designer es demasiado antigua para este servidor. Descarga la nueva versión (Ayuda &gt; Buscar actualizaciones)</translation>
+        <source>This version of Collaborative Brick Layout Designer is too old for this server, so the layout is no longer live here. Download the new version (Help &gt; Check for Updates).</source>
+        <translation>Esta versión de Collaborative Brick Layout Designer es demasiado antigua para este servidor, así que la maqueta ya no está en directo aquí. Descarga la nueva versión (Ayuda &gt; Buscar actualizaciones).</translation>
     </message>
     <message>
-        <source>this account is being deleted. To keep it, sign in on the website before the date in your email; then open the layout again</source>
-        <translation>esta cuenta se va a borrar. Para conservarla, inicia sesión en la web antes de la fecha de tu correo; luego vuelve a abrir la maqueta</translation>
+        <source>This account is being deleted, so the layout is no longer live here. To keep the account, sign in on the website before the date in your email, then open the layout again.</source>
+        <translation>Esta cuenta se va a borrar, así que la maqueta ya no está en directo aquí. Para conservar la cuenta, inicia sesión en la web antes de la fecha de tu correo y luego vuelve a abrir la maqueta.</translation>
     </message>
     <message>
-        <source>your account is on hold (read only) while a privacy request is looked at. Ask the site admin</source>
-        <translation>tu cuenta está en espera (solo lectura) mientras se revisa una solicitud de privacidad. Pregunta al admin del sitio</translation>
+        <source>Your account is on hold (read only) while a privacy request is looked at, so the layout is no longer live here. Ask the site admin.</source>
+        <translation>Tu cuenta está en espera (solo lectura) mientras se revisa una solicitud de privacidad, así que la maqueta ya no está en directo aquí. Pregunta al admin del sitio.</translation>
     </message>
     <message>
-        <source>your changes weren&apos;t taken because they looked like another layout&apos;s parts being merged into this one. Nothing is lost: your copy stays open here, so save it (File &gt; Save As) and tell the site admin</source>
-        <translation>no se aceptaron tus cambios porque parecían piezas de otra maqueta mezcladas en esta. No se pierde nada: tu copia sigue abierta aquí, así que guárdala (Archivo &gt; Guardar como) y avisa al admin del sitio</translation>
+        <source>This layout was deleted on the server.</source>
+        <translation>Esta maqueta se borró en el servidor.</translation>
     </message>
     <message>
-        <source>this layout was deleted on the server</source>
-        <translation>esta maqueta se borró en el servidor</translation>
+        <source>You can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it.</source>
+        <translation>Ya no puedes abrir esta maqueta: se borró, o su propietario o un admin del club cambió quién puede abrirla.</translation>
     </message>
     <message>
-        <source>you can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it</source>
-        <translation>ya no puedes abrir esta maqueta: se borró, o su propietario o un admin del club cambió quién puede abrirla</translation>
+        <source>Your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website), so the layout is no longer live here. Sign in again (File › Servers…), then open the layout again.</source>
+        <translation>Tu sesión en este servidor terminó (caducó, se cerró en otro sitio o se quitó en la web), así que la maqueta ya no está en directo aquí. Vuelve a iniciar sesión (Archivo › Servidores…) y luego abre de nuevo la maqueta.</translation>
     </message>
     <message>
-        <source>your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website). Sign in again (File › Servers…), then open the layout again</source>
-        <translation>tu sesión en este servidor terminó (caducó, se cerró en otro sitio o se quitó en la web). Vuelve a iniciar sesión (Archivo › Servidores…) y luego abre de nuevo la maqueta</translation>
+        <source>Too many people have this layout open right now, so it&apos;s no longer live here. Try again in a little while.</source>
+        <translation>Demasiada gente tiene abierta esta maqueta ahora, así que aquí ya no está en directo. Inténtalo de nuevo dentro de un rato.</translation>
     </message>
     <message>
-        <source>too many people have this layout open right now; try again in a little while</source>
-        <translation>demasiada gente tiene abierta esta maqueta ahora; inténtalo de nuevo dentro de un rato</translation>
+        <source>Your latest changes weren&apos;t taken, because they looked like another layout&apos;s parts being merged into this one, so the layout is no longer live here. Nothing is lost: your copy stays open here, unsaved. Save it (File &gt; Save As) and tell the site admin.</source>
+        <translation>No se aceptaron tus últimos cambios porque parecían piezas de otra maqueta mezcladas en esta, así que la maqueta ya no está en directo aquí. No se pierde nada: tu copia sigue abierta aquí, sin guardar. Guárdala (Archivo &gt; Guardar como) y avisa al admin del sitio.</translation>
+    </message>
+    <message>
+        <source>The server closed this live layout.</source>
+        <translation>El servidor cerró esta maqueta en directo.</translation>
+    </message>
+    <message>
+        <source>Your copy stays open here, unsaved. To keep it, save it (File &gt; Save As).</source>
+        <translation>Tu copia sigue abierta aquí, sin guardar. Para conservarla, guárdala (Archivo &gt; Guardar como).</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1</source>
+        <translation>Código de cierre del servidor: %1</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1 (%2)</source>
+        <translation>Código de cierre del servidor: %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -6661,10 +6677,6 @@ Save anyway?</source>
     <message>
         <source>Live layout closed</source>
         <translation>Maqueta en directo cerrada</translation>
-    </message>
-    <message>
-        <source>The server ended the live session%1. The layout stays open here as an unsaved copy.</source>
-        <translation>El servidor terminó la sesión en directo%1. La maqueta sigue abierta aquí como copia sin guardar.</translation>
     </message>
     <message>
         <source>Keep working on this copy</source>

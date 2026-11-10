@@ -2188,44 +2188,60 @@
         <translation>服务器回应 %1</translation>
     </message>
     <message>
-        <source>this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new version (Help &gt; Check for Updates) to keep working on it</source>
-        <translation>这个布局是由较新版本的 Collaborative Brick Layout Designer 保存的。请下载新版本（帮助 &gt; 检查更新）以继续编辑</translation>
+        <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
+        <translation>这个布局是由较新版本的 Collaborative Brick Layout Designer 保存的，所以这个版本无法让它保持实时。请下载新版本（帮助 &gt; 检查更新）以再次实时编辑。</translation>
     </message>
     <message>
-        <source>this layout&apos;s live update couldn&apos;t be read. Please reopen the layout to keep working on it live</source>
-        <translation>无法读取这个布局的实时更新。请重新打开布局以继续实时编辑</translation>
+        <source>A live update to this layout couldn&apos;t be read, so it&apos;s no longer live here. Open it from the server again to keep working on it with everyone.</source>
+        <translation>无法读取这个布局的一次实时更新，所以它在这里不再是实时的。请从服务器重新打开它，以继续和大家一起编辑。</translation>
     </message>
     <message>
-        <source>this version of Collaborative Brick Layout Designer is too old for this server. Please download the new version (Help &gt; Check for Updates)</source>
-        <translation>这个版本的 Collaborative Brick Layout Designer 对这台服务器来说太旧了。请下载新版本（帮助 &gt; 检查更新）</translation>
+        <source>This version of Collaborative Brick Layout Designer is too old for this server, so the layout is no longer live here. Download the new version (Help &gt; Check for Updates).</source>
+        <translation>这个版本的 Collaborative Brick Layout Designer 对这台服务器来说太旧了，所以布局在这里不再是实时的。请下载新版本（帮助 &gt; 检查更新）。</translation>
     </message>
     <message>
-        <source>this account is being deleted. To keep it, sign in on the website before the date in your email; then open the layout again</source>
-        <translation>这个账户正在删除中。要保留它，请在邮件中的日期之前到网站登录；然后重新打开布局</translation>
+        <source>This account is being deleted, so the layout is no longer live here. To keep the account, sign in on the website before the date in your email, then open the layout again.</source>
+        <translation>这个账户正在删除中，所以布局在这里不再是实时的。要保留账户，请在邮件中的日期之前到网站登录，然后重新打开布局。</translation>
     </message>
     <message>
-        <source>your account is on hold (read only) while a privacy request is looked at. Ask the site admin</source>
-        <translation>在处理隐私请求期间，你的账户已暂停（只读）。请询问站点管理员</translation>
+        <source>Your account is on hold (read only) while a privacy request is looked at, so the layout is no longer live here. Ask the site admin.</source>
+        <translation>在处理隐私请求期间，你的账户已暂停（只读），所以布局在这里不再是实时的。请询问站点管理员。</translation>
     </message>
     <message>
-        <source>your changes weren&apos;t taken because they looked like another layout&apos;s parts being merged into this one. Nothing is lost: your copy stays open here, so save it (File &gt; Save As) and tell the site admin</source>
-        <translation>你的更改没有被接受，因为它们看起来像是把另一个布局的零件合并进了这个布局。不会丢失任何内容：你的副本仍在这里打开着，请保存它（文件 &gt; 另存为）并告诉站点管理员</translation>
+        <source>This layout was deleted on the server.</source>
+        <translation>这个布局已在服务器上被删除。</translation>
     </message>
     <message>
-        <source>this layout was deleted on the server</source>
-        <translation>这个布局已在服务器上被删除</translation>
+        <source>You can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it.</source>
+        <translation>你无法再打开这个布局：它已被删除，或者它的所有者或俱乐部管理员更改了可以打开它的人。</translation>
     </message>
     <message>
-        <source>you can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it</source>
-        <translation>你无法再打开这个布局：它已被删除，或者它的所有者或俱乐部管理员更改了可以打开它的人</translation>
+        <source>Your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website), so the layout is no longer live here. Sign in again (File › Servers…), then open the layout again.</source>
+        <translation>你在这台服务器上的登录已结束（已过期、在别处退出登录，或在网站上被移除），所以布局在这里不再是实时的。请重新登录（文件 › 服务器…），然后重新打开布局。</translation>
     </message>
     <message>
-        <source>your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website). Sign in again (File › Servers…), then open the layout again</source>
-        <translation>你在这台服务器上的登录已结束（已过期、在别处退出登录，或在网站上被移除）。请重新登录（文件 › 服务器…），然后重新打开布局</translation>
+        <source>Too many people have this layout open right now, so it&apos;s no longer live here. Try again in a little while.</source>
+        <translation>现在打开这个布局的人太多了，所以它在这里不再是实时的。请稍后再试。</translation>
     </message>
     <message>
-        <source>too many people have this layout open right now; try again in a little while</source>
-        <translation>现在打开这个布局的人太多了；请稍后再试</translation>
+        <source>Your latest changes weren&apos;t taken, because they looked like another layout&apos;s parts being merged into this one, so the layout is no longer live here. Nothing is lost: your copy stays open here, unsaved. Save it (File &gt; Save As) and tell the site admin.</source>
+        <translation>你最近的更改没有被接受，因为它们看起来像是把另一个布局的零件合并进了这个布局，所以布局在这里不再是实时的。不会丢失任何内容：你的副本仍在这里打开着，尚未保存。请保存它（文件 &gt; 另存为）并告诉站点管理员。</translation>
+    </message>
+    <message>
+        <source>The server closed this live layout.</source>
+        <translation>服务器关闭了这个实时布局。</translation>
+    </message>
+    <message>
+        <source>Your copy stays open here, unsaved. To keep it, save it (File &gt; Save As).</source>
+        <translation>你的副本仍在这里打开着，尚未保存。要保留它，请保存（文件 &gt; 另存为）。</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1</source>
+        <translation>服务器的关闭代码：%1</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1 (%2)</source>
+        <translation>服务器的关闭代码：%1（%2）</translation>
     </message>
 </context>
 <context>
@@ -6623,10 +6639,6 @@ Save anyway?</source>
     <message>
         <source>Live layout closed</source>
         <translation>实时布局已关闭</translation>
-    </message>
-    <message>
-        <source>The server ended the live session%1. The layout stays open here as an unsaved copy.</source>
-        <translation>服务器结束了实时会话%1。布局作为未保存的副本仍在这里打开着。</translation>
     </message>
     <message>
         <source>Keep working on this copy</source>

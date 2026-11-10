@@ -2199,44 +2199,60 @@
         <translation>Serveren svarte %1</translation>
     </message>
     <message>
-        <source>this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new version (Help &gt; Check for Updates) to keep working on it</source>
-        <translation>denne layouten ble lagret av en nyere versjon av Collaborative Brick Layout Designer. Last ned den nye versjonen (Hjelp &gt; Se etter oppdateringer) for å jobbe videre med den</translation>
+        <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
+        <translation>Denne layouten ble lagret av en nyere versjon av Collaborative Brick Layout Designer, så denne versjonen kan ikke holde den direkte. Last ned den nye versjonen (Hjelp &gt; Se etter oppdateringer) for å jobbe direkte med den igjen.</translation>
     </message>
     <message>
-        <source>this layout&apos;s live update couldn&apos;t be read. Please reopen the layout to keep working on it live</source>
-        <translation>direkteoppdateringen til denne layouten kunne ikke leses. Åpne layouten på nytt for å jobbe videre med den direkte</translation>
+        <source>A live update to this layout couldn&apos;t be read, so it&apos;s no longer live here. Open it from the server again to keep working on it with everyone.</source>
+        <translation>En direkteoppdatering til denne layouten kunne ikke leses, så den er ikke lenger direkte her. Åpne den fra serveren på nytt for å jobbe videre med den sammen med alle.</translation>
     </message>
     <message>
-        <source>this version of Collaborative Brick Layout Designer is too old for this server. Please download the new version (Help &gt; Check for Updates)</source>
-        <translation>denne versjonen av Collaborative Brick Layout Designer er for gammel for denne serveren. Last ned den nye versjonen (Hjelp &gt; Se etter oppdateringer)</translation>
+        <source>This version of Collaborative Brick Layout Designer is too old for this server, so the layout is no longer live here. Download the new version (Help &gt; Check for Updates).</source>
+        <translation>Denne versjonen av Collaborative Brick Layout Designer er for gammel for denne serveren, så layouten er ikke lenger direkte her. Last ned den nye versjonen (Hjelp &gt; Se etter oppdateringer).</translation>
     </message>
     <message>
-        <source>this account is being deleted. To keep it, sign in on the website before the date in your email; then open the layout again</source>
-        <translation>denne kontoen er i ferd med å bli slettet. For å beholde den, logg inn på nettstedet før datoen i e-posten din; åpne så layouten igjen</translation>
+        <source>This account is being deleted, so the layout is no longer live here. To keep the account, sign in on the website before the date in your email, then open the layout again.</source>
+        <translation>Denne kontoen er i ferd med å bli slettet, så layouten er ikke lenger direkte her. For å beholde kontoen, logg inn på nettstedet før datoen i e-posten din, og åpne så layouten igjen.</translation>
     </message>
     <message>
-        <source>your account is on hold (read only) while a privacy request is looked at. Ask the site admin</source>
-        <translation>kontoen din er satt på vent (skrivebeskyttet) mens en personvernforespørsel behandles. Spør nettstedets administrator</translation>
+        <source>Your account is on hold (read only) while a privacy request is looked at, so the layout is no longer live here. Ask the site admin.</source>
+        <translation>Kontoen din er satt på vent (skrivebeskyttet) mens en personvernforespørsel behandles, så layouten er ikke lenger direkte her. Spør nettstedets administrator.</translation>
     </message>
     <message>
-        <source>your changes weren&apos;t taken because they looked like another layout&apos;s parts being merged into this one. Nothing is lost: your copy stays open here, so save it (File &gt; Save As) and tell the site admin</source>
-        <translation>endringene dine ble ikke tatt imot fordi de så ut som om en annen layouts deler ble flettet inn i denne. Ingenting er tapt: kopien din er fortsatt åpen her, så lagre den (Fil &gt; Lagre som) og si fra til nettstedets administrator</translation>
+        <source>This layout was deleted on the server.</source>
+        <translation>Denne layouten ble slettet på serveren.</translation>
     </message>
     <message>
-        <source>this layout was deleted on the server</source>
-        <translation>denne layouten ble slettet på serveren</translation>
+        <source>You can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it.</source>
+        <translation>Du kan ikke åpne denne layouten lenger: den ble slettet, eller eieren eller en klubbadministrator endret hvem som kan åpne den.</translation>
     </message>
     <message>
-        <source>you can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it</source>
-        <translation>du kan ikke åpne denne layouten lenger: den ble slettet, eller eieren eller en klubbadministrator endret hvem som kan åpne den</translation>
+        <source>Your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website), so the layout is no longer live here. Sign in again (File › Servers…), then open the layout again.</source>
+        <translation>Innloggingen din på denne serveren er avsluttet (den utløp, eller ble logget ut et annet sted eller fjernet på nettstedet), så layouten er ikke lenger direkte her. Logg inn igjen (Fil › Servere…), og åpne så layouten igjen.</translation>
     </message>
     <message>
-        <source>your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website). Sign in again (File › Servers…), then open the layout again</source>
-        <translation>innloggingen din på denne serveren er avsluttet (den utløp, eller ble logget ut et annet sted eller fjernet på nettstedet). Logg inn igjen (Fil › Servere…), og åpne så layouten igjen</translation>
+        <source>Too many people have this layout open right now, so it&apos;s no longer live here. Try again in a little while.</source>
+        <translation>For mange har denne layouten åpen akkurat nå, så den er ikke lenger direkte her. Prøv igjen om en liten stund.</translation>
     </message>
     <message>
-        <source>too many people have this layout open right now; try again in a little while</source>
-        <translation>for mange har denne layouten åpen akkurat nå; prøv igjen om en liten stund</translation>
+        <source>Your latest changes weren&apos;t taken, because they looked like another layout&apos;s parts being merged into this one, so the layout is no longer live here. Nothing is lost: your copy stays open here, unsaved. Save it (File &gt; Save As) and tell the site admin.</source>
+        <translation>De siste endringene dine ble ikke tatt imot fordi de så ut som om en annen layouts deler ble flettet inn i denne, så layouten er ikke lenger direkte her. Ingenting er tapt: kopien din er fortsatt åpen her, ulagret. Lagre den (Fil &gt; Lagre som) og si fra til nettstedets administrator.</translation>
+    </message>
+    <message>
+        <source>The server closed this live layout.</source>
+        <translation>Serveren lukket denne direktelayouten.</translation>
+    </message>
+    <message>
+        <source>Your copy stays open here, unsaved. To keep it, save it (File &gt; Save As).</source>
+        <translation>Kopien din er fortsatt åpen her, ulagret. Lagre den for å beholde den (Fil &gt; Lagre som).</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1</source>
+        <translation>Serverens lukkekode: %1</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1 (%2)</source>
+        <translation>Serverens lukkekode: %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -7124,10 +7140,6 @@ Lagre likevel?</translation>
     <message>
         <source>Live layout closed</source>
         <translation>Direktelayouten ble lukket</translation>
-    </message>
-    <message>
-        <source>The server ended the live session%1. The layout stays open here as an unsaved copy.</source>
-        <translation>Serveren avsluttet direkteøkten%1. Layouten er fortsatt åpen her som en ulagret kopi.</translation>
     </message>
     <message>
         <source>Keep working on this copy</source>

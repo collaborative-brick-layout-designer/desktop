@@ -2199,44 +2199,60 @@
         <translation>De server antwoordde %1</translation>
     </message>
     <message>
-        <source>this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new version (Help &gt; Check for Updates) to keep working on it</source>
-        <translation>deze layout is opgeslagen met een nieuwere versie van Collaborative Brick Layout Designer. Download de nieuwe versie (Help &gt; Controleren op updates) om eraan verder te werken</translation>
+        <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
+        <translation>Deze layout is opgeslagen met een nieuwere versie van Collaborative Brick Layout Designer, dus deze versie kan hem niet live houden. Download de nieuwe versie (Help &gt; Controleren op updates) om er weer live aan te werken.</translation>
     </message>
     <message>
-        <source>this layout&apos;s live update couldn&apos;t be read. Please reopen the layout to keep working on it live</source>
-        <translation>de live-update van deze layout kon niet worden gelezen. Open de layout opnieuw om er live aan verder te werken</translation>
+        <source>A live update to this layout couldn&apos;t be read, so it&apos;s no longer live here. Open it from the server again to keep working on it with everyone.</source>
+        <translation>Een live-update van deze layout kon niet worden gelezen, dus hij is hier niet meer live. Open hem opnieuw vanaf de server om er met iedereen aan verder te werken.</translation>
     </message>
     <message>
-        <source>this version of Collaborative Brick Layout Designer is too old for this server. Please download the new version (Help &gt; Check for Updates)</source>
-        <translation>deze versie van Collaborative Brick Layout Designer is te oud voor deze server. Download de nieuwe versie (Help &gt; Controleren op updates)</translation>
+        <source>This version of Collaborative Brick Layout Designer is too old for this server, so the layout is no longer live here. Download the new version (Help &gt; Check for Updates).</source>
+        <translation>Deze versie van Collaborative Brick Layout Designer is te oud voor deze server, dus de layout is hier niet meer live. Download de nieuwe versie (Help &gt; Controleren op updates).</translation>
     </message>
     <message>
-        <source>this account is being deleted. To keep it, sign in on the website before the date in your email; then open the layout again</source>
-        <translation>dit account wordt verwijderd. Wil je het houden, log dan vóór de datum in je e-mail in op de website; open daarna de layout opnieuw</translation>
+        <source>This account is being deleted, so the layout is no longer live here. To keep the account, sign in on the website before the date in your email, then open the layout again.</source>
+        <translation>Dit account wordt verwijderd, dus de layout is hier niet meer live. Wil je het account houden, log dan vóór de datum in je e-mail in op de website en open daarna de layout opnieuw.</translation>
     </message>
     <message>
-        <source>your account is on hold (read only) while a privacy request is looked at. Ask the site admin</source>
-        <translation>je account staat in de wacht (alleen-lezen) terwijl er naar een privacyverzoek wordt gekeken. Vraag het de sitebeheerder</translation>
+        <source>Your account is on hold (read only) while a privacy request is looked at, so the layout is no longer live here. Ask the site admin.</source>
+        <translation>Je account staat in de wacht (alleen-lezen) terwijl er naar een privacyverzoek wordt gekeken, dus de layout is hier niet meer live. Vraag het de sitebeheerder.</translation>
     </message>
     <message>
-        <source>your changes weren&apos;t taken because they looked like another layout&apos;s parts being merged into this one. Nothing is lost: your copy stays open here, so save it (File &gt; Save As) and tell the site admin</source>
-        <translation>je wijzigingen zijn niet overgenomen omdat het leek alsof de onderdelen van een andere layout in deze werden samengevoegd. Er is niets verloren: je kopie blijft hier open, dus sla hem op (Bestand &gt; Opslaan als) en meld het aan de sitebeheerder</translation>
+        <source>This layout was deleted on the server.</source>
+        <translation>Deze layout is op de server verwijderd.</translation>
     </message>
     <message>
-        <source>this layout was deleted on the server</source>
-        <translation>deze layout is op de server verwijderd</translation>
+        <source>You can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it.</source>
+        <translation>Je kunt deze layout niet meer openen: hij is verwijderd, of de eigenaar of een clubbeheerder heeft veranderd wie hem mag openen.</translation>
     </message>
     <message>
-        <source>you can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it</source>
-        <translation>je kunt deze layout niet meer openen: hij is verwijderd, of de eigenaar of een clubbeheerder heeft veranderd wie hem mag openen</translation>
+        <source>Your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website), so the layout is no longer live here. Sign in again (File › Servers…), then open the layout again.</source>
+        <translation>Je login op deze server is beëindigd (hij is verlopen, of ergens anders uitgelogd of op de website verwijderd), dus de layout is hier niet meer live. Log opnieuw in (Bestand › Servers…) en open daarna de layout opnieuw.</translation>
     </message>
     <message>
-        <source>your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website). Sign in again (File › Servers…), then open the layout again</source>
-        <translation>je login op deze server is beëindigd (hij is verlopen, of ergens anders uitgelogd of op de website verwijderd). Log opnieuw in (Bestand › Servers…) en open daarna de layout opnieuw</translation>
+        <source>Too many people have this layout open right now, so it&apos;s no longer live here. Try again in a little while.</source>
+        <translation>Te veel mensen hebben deze layout nu open, dus hij is hier niet meer live. Probeer het straks opnieuw.</translation>
     </message>
     <message>
-        <source>too many people have this layout open right now; try again in a little while</source>
-        <translation>te veel mensen hebben deze layout nu open; probeer het straks opnieuw</translation>
+        <source>Your latest changes weren&apos;t taken, because they looked like another layout&apos;s parts being merged into this one, so the layout is no longer live here. Nothing is lost: your copy stays open here, unsaved. Save it (File &gt; Save As) and tell the site admin.</source>
+        <translation>Je laatste wijzigingen zijn niet overgenomen omdat het leek alsof de onderdelen van een andere layout in deze werden samengevoegd, dus de layout is hier niet meer live. Er is niets verloren: je kopie blijft hier open, niet opgeslagen. Sla hem op (Bestand &gt; Opslaan als) en meld het aan de sitebeheerder.</translation>
+    </message>
+    <message>
+        <source>The server closed this live layout.</source>
+        <translation>De server heeft deze live layout gesloten.</translation>
+    </message>
+    <message>
+        <source>Your copy stays open here, unsaved. To keep it, save it (File &gt; Save As).</source>
+        <translation>Je kopie blijft hier open, niet opgeslagen. Sla hem op om hem te bewaren (Bestand &gt; Opslaan als).</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1</source>
+        <translation>Sluitcode van de server: %1</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1 (%2)</source>
+        <translation>Sluitcode van de server: %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -6661,10 +6677,6 @@ Toch opslaan?</translation>
     <message>
         <source>Live layout closed</source>
         <translation>Live layout gesloten</translation>
-    </message>
-    <message>
-        <source>The server ended the live session%1. The layout stays open here as an unsaved copy.</source>
-        <translation>De server heeft de live sessie beëindigd%1. De layout blijft hier open als niet-opgeslagen kopie.</translation>
     </message>
     <message>
         <source>Keep working on this copy</source>

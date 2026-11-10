@@ -5,6 +5,7 @@
 #include "FakeHttp.h"
 #include "FakeSyncServer.h"
 
+#include "Compat.h"
 #include "ConnectDialog.h"
 #include "Presence.h"
 #include "ServerList.h"
@@ -261,6 +262,48 @@ protected:
             if (clash) brickAt(s, 2).displayArea.translate(0, 24);
         });
     }
+
+    // What the one "Live layout closed" box said.
+    struct ClosedBox {
+        QString title, text, detail;
+    };
+    // After an edit of mine, the live layout closes for good with `code`
+    // and `reason`: from the server, or (`foundHere`) as the app ends it
+    // itself for a layout or an update it can't read. One box shows; the
+    // layout stays open as an unsaved copy with my edit in it, no longer live.
+    void closesWith(int code, const QString& reason, ClosedBox& said, bool foundHere = false) {
+        core::Map& m = *view_->currentMap();
+        const QPointF at = brickAt(m, 0).displayArea.topLeft();
+        view_->undoStack()->push(new edit::MoveBricksCommand(m, { { brickRef(m, 0), at, at + QPointF(0, 8) } }));
+        ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 0) == original_.translated(0, 8); }));
+        Answers closed{ { [&](QWidget* w) {
+            auto* b = qobject_cast<QMessageBox*>(w);
+            ASSERT_NE(b, nullptr) << w->metaObject()->className();
+            said = { b->windowTitle(), b->text(), b->detailedText() };
+            press(QStringLiteral("OK"))(w);
+        } } };
+        closed.during([&] {
+            if (foundHere) QTimer::singleShot(0, &session(), [&] { emit session().ended(code, reason); });
+            else ws_.dropAll(code, reason);
+            ASSERT_TRUE(waitFor([&] { return closed.done() && !live_->active(); }));
+        });
+        EXPECT_EQ(closed.unexpected, 0);
+        EXPECT_EQ(said.title, QStringLiteral("Live layout closed"));
+        // One plain message: no sentence wrapped around another, and never the server's own word for it.
+        EXPECT_FALSE(said.text.contains(QStringLiteral("ended the live session"))) << said.text.toStdString();
+        EXPECT_FALSE(said.text.contains(reason)) << said.text.toStdString();
+        EXPECT_TRUE(said.text.at(0).isUpper()) << said.text.toStdString();
+        EXPECT_TRUE(said.text.endsWith(QLatin1Char('.'))) << said.text.toStdString();
+        // It says once that the copy is kept, unsaved, and how to save it.
+        EXPECT_EQ(said.text.count(QStringLiteral("unsaved")), 1) << said.text.toStdString();
+        EXPECT_TRUE(said.text.contains(QStringLiteral("File > Save As"))) << said.text.toStdString();
+        ASSERT_NE(view_->currentMap(), nullptr);
+        EXPECT_EQ(brickAt(*view_->currentMap(), 0).displayArea, original_.translated(0, 8));
+        EXPECT_FALSE(view_->undoStack()->isClean());
+        EXPECT_FALSE(window_->windowTitle().contains(QStringLiteral("Live on"))) << window_->windowTitle().toStdString();
+    }
+    // The end of every such message but a refused merge's, which says it its own way.
+    static QString kept() { return QStringLiteral(" Your copy stays open here, unsaved. To keep it, save it (File > Save As)."); }
 
     FakeHttp http_;
     FakeServer ws_;
@@ -1298,28 +1341,159 @@ TEST_F(MainWindowLive, OpeningALayoutOnAnotherServerLeavesTheFirst) {
     window_.reset();  // before the other server goes
 }
 
+// The "Live layout closed" box, one test per ending. Each is one plain
+// message of whole sentences. It used to be the ending's words dropped into
+// "The server ended the live session (…). The layout stays open here as an
+// unsaved copy.", which read as one message inside another and said
+// "unsaved copy" twice for a refused merge.
+
 // Removed from the layout while it's open (a club admin took the role, the
-// owner stopped sharing): the box says so in plain words, not the server's
-// code, and the layout stays open as an unsaved copy.
-TEST_F(MainWindowLive, AccessTakenAwaySaysWhyInPlainWordsAndKeepsTheCopy) {
-    core::Map& m = *view_->currentMap();
-    const QPointF at = brickAt(m, 0).displayArea.topLeft();
-    view_->undoStack()->push(new edit::MoveBricksCommand(m, { { brickRef(m, 0), at, at + QPointF(0, 8) } }));
-    ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 0) == original_.translated(0, 8); }));
-    QString text;
-    Answers closed{ { [&](QWidget* w) {
-        if (auto* b = qobject_cast<QMessageBox*>(w)) text = b->text();
-        press(QStringLiteral("OK"))(w);
-    } } };
-    closed.during([&] {
-        ws_.dropAll(4404, QStringLiteral("access_revoked"));
-        ASSERT_TRUE(waitFor([&] { return closed.done() && !live_->active(); }));
-    });
-    EXPECT_EQ(closed.unexpected, 0);
-    EXPECT_TRUE(text.contains(QStringLiteral("you can't open this layout any more"))) << text.toStdString();
-    EXPECT_FALSE(text.contains(QStringLiteral("access_revoked"))) << text.toStdString();
-    EXPECT_EQ(brickAt(*view_->currentMap(), 0).displayArea, original_.translated(0, 8));
-    EXPECT_FALSE(view_->undoStack()->isClean());
+// owner stopped sharing).
+TEST_F(MainWindowLive, ClosedBecauseAccessWasTakenAway) {
+    ClosedBox said;
+    ASSERT_NO_FATAL_FAILURE(closesWith(4404, QStringLiteral("access_revoked"), said));
+    EXPECT_EQ(said.text, QStringLiteral("You can't open this layout any more: it was deleted, or its owner or a club admin "
+                                        "changed who can open it.")
+                             + kept());
+    EXPECT_TRUE(said.detail.isEmpty()) << said.detail.toStdString();
+}
+
+// The same words when the server only says it can't find it.
+TEST_F(MainWindowLive, ClosedBecauseTheServerNoLongerFindsIt) {
+    ClosedBox said;
+    ASSERT_NO_FATAL_FAILURE(closesWith(4404, QStringLiteral("not_found"), said));
+    EXPECT_TRUE(said.text.startsWith(QStringLiteral("You can't open this layout any more: "))) << said.text.toStdString();
+    EXPECT_TRUE(said.text.endsWith(kept())) << said.text.toStdString();
+    EXPECT_TRUE(said.detail.isEmpty()) << said.detail.toStdString();
+}
+
+TEST_F(MainWindowLive, ClosedBecauseTheLayoutWasDeleted) {
+    ClosedBox said;
+    ASSERT_NO_FATAL_FAILURE(closesWith(4404, QStringLiteral("layout_deleted"), said));
+    EXPECT_EQ(said.text, QStringLiteral("This layout was deleted on the server.") + kept());
+    EXPECT_TRUE(said.detail.isEmpty()) << said.detail.toStdString();
+}
+
+// (What the copy is good for afterwards: ARefusedMergeKeepsMyCopyOpenUnsavedAndSaveKeepsIt.)
+TEST_F(MainWindowLive, ClosedBecauseAMergeWasRefused) {
+    ClosedBox said;
+    ASSERT_NO_FATAL_FAILURE(closesWith(QWebSocketProtocol::CloseCodePolicyViolated, QStringLiteral("layout_merge_refused"), said));
+    EXPECT_EQ(said.text,
+              QStringLiteral("Your latest changes weren't taken, because they looked like another layout's parts being merged "
+                             "into this one, so the layout is no longer live here. Nothing is lost: your copy stays open "
+                             "here, unsaved. Save it (File > Save As) and tell the site admin."));
+    EXPECT_TRUE(said.detail.isEmpty()) << said.detail.toStdString();
+}
+
+TEST_F(MainWindowLive, ClosedBecauseTheAccountIsBeingDeleted) {
+    ClosedBox said;
+    ASSERT_NO_FATAL_FAILURE(closesWith(QWebSocketProtocol::CloseCodePolicyViolated, QStringLiteral("account_pending_deletion"), said));
+    EXPECT_EQ(said.text, QStringLiteral("This account is being deleted, so the layout is no longer live here. To keep the "
+                                        "account, sign in on the website before the date in your email, then open the "
+                                        "layout again.")
+                             + kept());
+    EXPECT_TRUE(said.detail.isEmpty()) << said.detail.toStdString();
+}
+
+TEST_F(MainWindowLive, ClosedBecauseTheAccountIsOnHold) {
+    ClosedBox said;
+    ASSERT_NO_FATAL_FAILURE(closesWith(QWebSocketProtocol::CloseCodePolicyViolated, QStringLiteral("account_restricted"), said));
+    EXPECT_EQ(said.text, QStringLiteral("Your account is on hold (read only) while a privacy request is looked at, so the "
+                                        "layout is no longer live here. Ask the site admin.")
+                             + kept());
+    EXPECT_TRUE(said.detail.isEmpty()) << said.detail.toStdString();
+}
+
+TEST_F(MainWindowLive, ClosedBecauseThisVersionIsTooOldForTheServer) {
+    ClosedBox said;
+    ASSERT_NO_FATAL_FAILURE(closesWith(4426, QStringLiteral("update_required"), said));
+    EXPECT_EQ(said.text, QStringLiteral("This version of Collaborative Brick Layout Designer is too old for this server, so "
+                                        "the layout is no longer live here. Download the new version (Help > Check for "
+                                        "Updates).")
+                             + kept());
+    EXPECT_TRUE(said.detail.isEmpty()) << said.detail.toStdString();
+}
+
+TEST_F(MainWindowLive, ClosedBecauseTooManyPeopleHaveItOpen) {
+    ClosedBox said;
+    ASSERT_NO_FATAL_FAILURE(closesWith(4429, QStringLiteral("limit_reached"), said));
+    EXPECT_EQ(said.text, QStringLiteral("Too many people have this layout open right now, so it's no longer live here. Try "
+                                        "again in a little while.")
+                             + kept());
+    EXPECT_TRUE(said.detail.isEmpty()) << said.detail.toStdString();
+}
+
+// The app itself ends it: a newer version saved the layout in a way this one can't read.
+TEST_F(MainWindowLive, ClosedBecauseANewerVersionSavedTheLayout) {
+    ClosedBox said;
+    ASSERT_NO_FATAL_FAILURE(closesWith(sync::kUnreadableDocCode, QStringLiteral("unreadable_doc"), said, true));
+    EXPECT_EQ(said.text, QStringLiteral("This layout was saved by a newer version of Collaborative Brick Layout Designer, so "
+                                        "this version can't keep it live. Download the new version (Help > Check for "
+                                        "Updates) to work on it live again.")
+                             + kept());
+    EXPECT_TRUE(said.detail.isEmpty()) << said.detail.toStdString();
+}
+
+// Or one live update it can't read.
+TEST_F(MainWindowLive, ClosedBecauseALiveUpdateCouldntBeRead) {
+    ClosedBox said;
+    ASSERT_NO_FATAL_FAILURE(closesWith(sync::kUnreadableUpdateCode, QStringLiteral("unreadable_update"), said, true));
+    EXPECT_EQ(said.text, QStringLiteral("A live update to this layout couldn't be read, so it's no longer live here. Open it "
+                                        "from the server again to keep working on it with everyone.")
+                             + kept());
+    EXPECT_TRUE(said.detail.isEmpty()) << said.detail.toStdString();
+}
+
+// An ending this version doesn't know: a general sentence, with the
+// server's own code kept out of the message, under Show Details.
+TEST_F(MainWindowLive, ClosedForAReasonThisVersionDoesntKnow) {
+    ClosedBox said;
+    ASSERT_NO_FATAL_FAILURE(closesWith(QWebSocketProtocol::CloseCodePolicyViolated, QStringLiteral("something_new"), said));
+    EXPECT_EQ(said.text, QStringLiteral("The server closed this live layout.") + kept());
+    EXPECT_EQ(said.detail, QStringLiteral("The server's close code: 1008 (something_new)"));
+}
+
+// BLD_REVIEW_SHOTS=<dir>: the "Live layout closed" box for a deleted layout
+// and for a refused merge, light and dark, for a PR (skipped otherwise). It
+// grabs whatever box shows, so the same test takes the "before" pictures on
+// an older build.
+TEST_F(MainWindowLive, PicturesOfTheLiveLayoutClosedBox) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    ui::theme::PrefsStore store(QStringLiteral("review-closed-shots"));
+    ui::theme::ThemeManager themer(store);
+    window_->resize(1100, 700);
+    window_->show();
+    const struct {
+        int code;
+        const char* reason;
+        const char* name;
+    } endings[] = { { 4404, "layout_deleted", "deleted" }, { 1008, "layout_merge_refused", "merge-refused" } };
+    for (const auto& ending : endings) {
+        for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+            ui::theme::AppPrefs p = store.prefs();
+            p.theme = mode;
+            store.update(p);
+            window_->openLive({ http_.base(), QStringLiteral("bld_pat_test"), QStringLiteral("L1"),
+                               QStringLiteral("Show 2026"), false, serverInfo() });
+            ASSERT_TRUE(waitFor([&] { return session().status() == Status::Synced; })) << ending.reason;
+            const QString file = out + QStringLiteral("/closed-%1-%2.png")
+                                           .arg(QLatin1String(ending.name),
+                                                mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark")
+                                                                                     : QStringLiteral("light"));
+            Answers closed{ { [&](QWidget* w) {
+                // Laid out and painted in the theme before it's grabbed.
+                QTimer::singleShot(400, w, [w, file] {
+                    EXPECT_TRUE(w->grab().save(file)) << file.toStdString();
+                    press(QStringLiteral("OK"))(w);
+                });
+            } } };
+            closed.during([&] {
+                ws_.dropAll(ending.code, QLatin1String(ending.reason));
+                ASSERT_TRUE(waitFor([&] { return closed.done() && !live_->active() && QFile::exists(file); }));
+            });
+        }
+    }
 }
 
 // The copy of a live layout kept on this computer goes in a folder named

@@ -2188,44 +2188,60 @@
         <translation>サーバーの応答: %1</translation>
     </message>
     <message>
-        <source>this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new version (Help &gt; Check for Updates) to keep working on it</source>
-        <translation>このレイアウトは新しいバージョンの Collaborative Brick Layout Designer で保存されています。作業を続けるには新しいバージョンをダウンロードしてください（ヘルプ &gt; 更新を確認）</translation>
+        <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
+        <translation>このレイアウトは新しいバージョンの Collaborative Brick Layout Designer で保存されているため、このバージョンではライブのままにできません。もう一度ライブで作業するには、新しいバージョンをダウンロードしてください（ヘルプ &gt; 更新を確認）。</translation>
     </message>
     <message>
-        <source>this layout&apos;s live update couldn&apos;t be read. Please reopen the layout to keep working on it live</source>
-        <translation>このレイアウトのライブ更新を読み込めませんでした。ライブで作業を続けるには、レイアウトを開き直してください</translation>
+        <source>A live update to this layout couldn&apos;t be read, so it&apos;s no longer live here. Open it from the server again to keep working on it with everyone.</source>
+        <translation>このレイアウトのライブ更新を読み込めなかったため、ここではライブではなくなりました。みんなと作業を続けるには、サーバーから開き直してください。</translation>
     </message>
     <message>
-        <source>this version of Collaborative Brick Layout Designer is too old for this server. Please download the new version (Help &gt; Check for Updates)</source>
-        <translation>このバージョンの Collaborative Brick Layout Designer は、このサーバーには古すぎます。新しいバージョンをダウンロードしてください（ヘルプ &gt; 更新を確認）</translation>
+        <source>This version of Collaborative Brick Layout Designer is too old for this server, so the layout is no longer live here. Download the new version (Help &gt; Check for Updates).</source>
+        <translation>このバージョンの Collaborative Brick Layout Designer は、このサーバーには古すぎるため、レイアウトはここではライブではなくなりました。新しいバージョンをダウンロードしてください（ヘルプ &gt; 更新を確認）。</translation>
     </message>
     <message>
-        <source>this account is being deleted. To keep it, sign in on the website before the date in your email; then open the layout again</source>
-        <translation>このアカウントは削除される予定です。残すには、メールに書かれた日付までにウェブサイトでサインインしてから、レイアウトを開き直してください</translation>
+        <source>This account is being deleted, so the layout is no longer live here. To keep the account, sign in on the website before the date in your email, then open the layout again.</source>
+        <translation>このアカウントは削除される予定のため、レイアウトはここではライブではなくなりました。アカウントを残すには、メールに書かれた日付までにウェブサイトでサインインしてから、レイアウトを開き直してください。</translation>
     </message>
     <message>
-        <source>your account is on hold (read only) while a privacy request is looked at. Ask the site admin</source>
-        <translation>プライバシーに関する申請の確認中のため、アカウントは保留（読み取り専用）です。サイトの管理者にお問い合わせください</translation>
+        <source>Your account is on hold (read only) while a privacy request is looked at, so the layout is no longer live here. Ask the site admin.</source>
+        <translation>プライバシーに関する申請の確認中のため、アカウントは保留（読み取り専用）で、レイアウトはここではライブではなくなりました。サイトの管理者にお問い合わせください。</translation>
     </message>
     <message>
-        <source>your changes weren&apos;t taken because they looked like another layout&apos;s parts being merged into this one. Nothing is lost: your copy stays open here, so save it (File &gt; Save As) and tell the site admin</source>
-        <translation>別のレイアウトのパーツがこのレイアウトに混ざったように見えたため、変更は受け付けられませんでした。何も失われていません。あなたのコピーはここで開いたままなので、保存して（ファイル &gt; 名前を付けて保存）、サイトの管理者に知らせてください</translation>
+        <source>This layout was deleted on the server.</source>
+        <translation>このレイアウトはサーバーで削除されました。</translation>
     </message>
     <message>
-        <source>this layout was deleted on the server</source>
-        <translation>このレイアウトはサーバーで削除されました</translation>
+        <source>You can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it.</source>
+        <translation>このレイアウトはもう開けません。削除されたか、持ち主またはクラブの管理者が開ける人を変更しました。</translation>
     </message>
     <message>
-        <source>you can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it</source>
-        <translation>このレイアウトはもう開けません。削除されたか、持ち主またはクラブの管理者が開ける人を変更しました</translation>
+        <source>Your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website), so the layout is no longer live here. Sign in again (File › Servers…), then open the layout again.</source>
+        <translation>このサーバーでのサインインが終了したため（期限切れ、別の場所でのサインアウト、またはウェブサイトでの削除）、レイアウトはここではライブではなくなりました。もう一度サインインして（ファイル › サーバー…）、レイアウトを開き直してください。</translation>
     </message>
     <message>
-        <source>your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website). Sign in again (File › Servers…), then open the layout again</source>
-        <translation>このサーバーでのサインインが終了しました（期限切れ、別の場所でのサインアウト、またはウェブサイトでの削除）。もう一度サインインして（ファイル › サーバー…）、レイアウトを開き直してください</translation>
+        <source>Too many people have this layout open right now, so it&apos;s no longer live here. Try again in a little while.</source>
+        <translation>今このレイアウトを開いている人が多すぎるため、ここではライブではなくなりました。少し待ってからもう一度お試しください。</translation>
     </message>
     <message>
-        <source>too many people have this layout open right now; try again in a little while</source>
-        <translation>今このレイアウトを開いている人が多すぎます。少し待ってからもう一度お試しください</translation>
+        <source>Your latest changes weren&apos;t taken, because they looked like another layout&apos;s parts being merged into this one, so the layout is no longer live here. Nothing is lost: your copy stays open here, unsaved. Save it (File &gt; Save As) and tell the site admin.</source>
+        <translation>別のレイアウトのパーツがこのレイアウトに混ざったように見えたため、最新の変更は受け付けられず、レイアウトはここではライブではなくなりました。何も失われていません。あなたのコピーは未保存のままここで開いています。保存して（ファイル &gt; 名前を付けて保存）、サイトの管理者に知らせてください。</translation>
+    </message>
+    <message>
+        <source>The server closed this live layout.</source>
+        <translation>サーバーがこのライブレイアウトを閉じました。</translation>
+    </message>
+    <message>
+        <source>Your copy stays open here, unsaved. To keep it, save it (File &gt; Save As).</source>
+        <translation>あなたのコピーは未保存のままここで開いています。残すには保存してください（ファイル &gt; 名前を付けて保存）。</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1</source>
+        <translation>サーバーの終了コード: %1</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1 (%2)</source>
+        <translation>サーバーの終了コード: %1（%2）</translation>
     </message>
 </context>
 <context>
@@ -6623,10 +6639,6 @@ Save anyway?</source>
     <message>
         <source>Live layout closed</source>
         <translation>ライブレイアウトが閉じられました</translation>
-    </message>
-    <message>
-        <source>The server ended the live session%1. The layout stays open here as an unsaved copy.</source>
-        <translation>サーバーがライブセッションを終了しました%1。レイアウトは未保存のコピーとしてここで開いたままです。</translation>
     </message>
     <message>
         <source>Keep working on this copy</source>
