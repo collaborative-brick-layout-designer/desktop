@@ -4205,7 +4205,7 @@
     </message>
     <message>
         <source>None of the %1 parts in this model are in the parts library. Set an LDraw library in Settings › Bringing in models to draw any part.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keines der %1 Teile dieses Modells ist in der Teilebibliothek. Lege unter Einstellungen › Modelle übernehmen eine LDraw-Bibliothek fest, um jedes Teil zu zeichnen.</translation>
     </message>
     <message numerus="yes">
         <source>and %n more</source>
@@ -9031,7 +9031,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Parts that are only used inside a set (a building of a castle set, a flex track half, a cut track piece). They’re listed grayed and aren’t placed by themselves.</source>
-        <translation type="unfinished"></translation>
+        <translation>Teile, die nur innerhalb eines Sets verwendet werden (ein Gebäude aus einem Burg-Set, eine Flexgleis-Hälfte, ein geschnittenes Gleisstück). Sie stehen ausgegraut in der Liste und werden nicht einzeln platziert.</translation>
     </message>
     <message>
         <source>Other</source>

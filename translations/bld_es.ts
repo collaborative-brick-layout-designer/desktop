@@ -4205,7 +4205,7 @@
     </message>
     <message>
         <source>None of the %1 parts in this model are in the parts library. Set an LDraw library in Settings › Bringing in models to draw any part.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ninguna de las %1 piezas de este modelo está en la biblioteca de piezas. Fija una biblioteca LDraw en Ajustes › Traer modelos para dibujar cualquier pieza.</translation>
     </message>
     <message numerus="yes">
         <source>and %n more</source>
@@ -9031,7 +9031,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Parts that are only used inside a set (a building of a castle set, a flex track half, a cut track piece). They’re listed grayed and aren’t placed by themselves.</source>
-        <translation type="unfinished"></translation>
+        <translation>Piezas que solo se usan dentro de un set (un edificio de un set de castillo, una mitad de vía flexible, un trozo de vía cortado). Aparecen en gris y no se colocan solas.</translation>
     </message>
     <message>
         <source>Other</source>
