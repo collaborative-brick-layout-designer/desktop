@@ -266,7 +266,7 @@ void MainWindow::setupShell() {
     help::HelpButton::addTo(toolbar, QStringLiteral("toolbar.paintColor"), toolbar->widgetForAction(color));
     toolbar->addSeparator();
 
-    addTool(QStringLiteral("turnLeft"), tr("Turn left"), tr("Turn the selected pieces anticlockwise"), [this] {
+    addTool(QStringLiteral("turnLeft"), tr("Turn left"), tr("Turn the selected pieces counterclockwise"), [this] {
         mapView_->rotateSelected(static_cast<float>(-mapView_->rotationStepDegrees()));
     });
     addTool(QStringLiteral("turnRight"), tr("Turn right"), tr("Turn the selected pieces clockwise"), [this] {

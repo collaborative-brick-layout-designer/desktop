@@ -92,13 +92,8 @@ void MainWindow::updateTitle() {
         const sync::ServerEntry* e = servers.find(editingModule_.server);
         name = tr("%1 — Module on %2").arg(editingModule_.title, e ? e->label() : editingModule_.server.host());
     }
-    // As BlueBrick, the open budget follows the map name.
-    QString budget;
-    if (budget_ && budget_->exists())
-        budget = QStringLiteral(" — %1%2").arg(budget_->displayName(),
-                                                  budget_->isModified() ? QStringLiteral(" *") : QString());
-    setWindowTitle(tr("%1%2%3 — Collaborative Brick Layout Designer")
-                       .arg(name, dirty ? QStringLiteral(" *") : QString(), budget));
+    setWindowTitle(tr("%1%2 — Collaborative Brick Layout Designer")
+                       .arg(name, dirty ? QStringLiteral(" *") : QString()));
     // The status bar says it too, in words (the editor tour points at it).
     if (saveStatus_) {
         const bool live = live_ && live_->active();
@@ -740,7 +735,7 @@ bool MainWindow::maybeSave() {
 }
 
 void MainWindow::closeEvent(QCloseEvent* e) {
-    if (!maybeSave() || !maybeSaveBudget()) { e->ignore(); return; }
+    if (!maybeSave()) { e->ignore(); return; }
     // Persist window geometry + dock layout for the next launch.
     QSettings s;
     s.beginGroup(QStringLiteral("ui"));
@@ -803,7 +798,7 @@ bool MainWindow::newDocument() {
     blank->layers().push_back(std::move(grid));
     auto layer = std::make_unique<core::LayerBrick>();
     layer->guid = core::newBbmId();
-    layer->name = tr("Bricks");
+    layer->name = tr("Layout");  // as the web names a blank layout's first sheet
     blank->layers().push_back(std::move(layer));
     blank->selectedLayerIndex = static_cast<int>(blank->layers().size()) - 1;
     blank->nbItems = 0;

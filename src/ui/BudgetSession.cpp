@@ -1,10 +1,15 @@
 #include "BudgetSession.h"
 
+#include "MapView.h"
+
 #include "../core/Map.h"
+#include "../core/Sidecar.h"
+#include "../edit/BudgetCommands.h"
 #include "../parts/PartsLibrary.h"
 
 #include <QFileInfo>
 #include <QSettings>
+#include <QUndoStack>
 
 namespace bld::ui {
 
@@ -16,33 +21,67 @@ const QString kNumbers       = QStringLiteral("budget/showBudgetNumbers");
 const QString kLimitation    = QStringLiteral("budget/useBudgetLimitation");
 const QString kDefaultInfinite = QStringLiteral("budget/defaultInfinite");
 
+// The layout's limits as a Budget, and back.
+std::optional<edit::Budget> budgetOf(const std::optional<QMap<QString, int>>& limits) {
+    if (!limits) return std::nullopt;
+    edit::Budget b;
+    for (auto it = limits->constBegin(); it != limits->constEnd(); ++it) b.setLimit(it.key(), it.value());
+    return b;
+}
+
+std::optional<QMap<QString, int>> limitsOf(const std::optional<edit::Budget>& budget) {
+    if (!budget) return std::nullopt;
+    QMap<QString, int> out;
+    for (const auto& e : budget->entries()) out.insert(e.first.toUpper(), e.second);
+    return out;
+}
+
 }  // namespace
 
 BudgetSession::BudgetSession(parts::PartsLibrary& lib, QObject* parent) : QObject(parent), lib_(lib) {}
 
-QString BudgetSession::displayName() const {
-    return path_.isEmpty() ? tr("Untitled.bbb") : QFileInfo(path_).fileName();
+core::Map* BudgetSession::map() const { return view_ ? view_->currentMap() : nullptr; }
+
+bool BudgetSession::canEdit() const { return map() != nullptr; }
+
+void BudgetSession::attach(MapView* view) {
+    view_ = view;
+    if (!view_) return;
+    connect(view_, &MapView::mapLoaded, this, [this] { refresh(true); });
+    connect(view_->undoStack(), &QUndoStack::indexChanged, this, [this](int) { refresh(false); });
+    refresh(true);
 }
 
-void BudgetSession::setBudget(std::optional<edit::Budget> budget, const QString& path, bool modified) {
-    budget_ = std::move(budget);
-    path_ = path;
-    modified_ = modified;
+void BudgetSession::refresh(bool force) {
+    const core::Map* m = map();
+    const std::optional<QMap<QString, int>> now = m ? m->sidecar.budgetLimits : std::nullopt;
+    if (!force && now == limitsOf(budget_)) return;
+    budget_ = budgetOf(now);
     emit changed();
 }
 
-void BudgetSession::create() {
-    setBudget(edit::Budget{}, QString(), false);
+void BudgetSession::apply(const std::optional<edit::Budget>& next, const QString& text) {
+    core::Map* m = map();
+    if (!m) return;
+    const auto want = limitsOf(next);
+    if (want == m->sidecar.budgetLimits) return;
+    // The undo stack's indexChanged brings reload(), which tells everyone.
+    view_->undoStack()->push(new edit::SetBudgetCommand(*m, want, text));
+    reload();
 }
 
-bool BudgetSession::open(const QString& path, QString* error) {
+void BudgetSession::create() { apply(edit::Budget{}, tr("New budget")); }
+
+void BudgetSession::remove() { apply(std::nullopt, tr("Remove budget")); }
+
+bool BudgetSession::importFile(const QString& path, QString* error) {
     auto loaded = edit::Budget::read(path, &lib_);
     if (!loaded) {
         if (error) *error = tr("%1 is not a BlueBrick budget file.").arg(QFileInfo(path).fileName());
         return false;
     }
     QSettings().setValue(kLastFile, path);
-    setBudget(std::move(loaded), path, false);
+    apply(loaded, tr("Import budget"));
     return true;
 }
 
@@ -52,36 +91,26 @@ bool BudgetSession::importAndMerge(const QString& path, QString* error) {
         if (error) *error = tr("%1 is not a BlueBrick budget file.").arg(QFileInfo(path).fileName());
         return false;
     }
-    // As BlueBrick: the imported budget, merged with the current one, under
-    // the current budget's name.
-    const bool hadEntries = budget_ && !budget_->isEmpty();
+    QSettings().setValue(kLastFile, path);
+    // As BlueBrick: the imported limits and the current ones add up.
     if (budget_) loaded->mergeWith(*budget_);
-    setBudget(std::move(loaded), path_, modified_ || hadEntries);
+    apply(loaded, tr("Import and merge budget"));
     return true;
 }
 
-void BudgetSession::close() {
-    QSettings().remove(kLastFile);
-    setBudget(std::nullopt, QString(), false);
-}
-
-bool BudgetSession::saveAs(const QString& path, QString* error) {
+bool BudgetSession::exportFile(const QString& path, QString* error) {
     if (!budget_) return false;
     if (!budget_->write(path)) {
         if (error) *error = tr("Cannot save the budget to %1.").arg(path);
         return false;
     }
     QSettings().setValue(kLastFile, path);
-    path_ = path;
-    modified_ = false;
-    emit changed();
     return true;
 }
 
-void BudgetSession::restoreFromSettings() {
+QString BudgetSession::lastFileDir() {
     const QString last = QSettings().value(kLastFile).toString();
-    if (last.isEmpty()) return;
-    if (!open(last)) QSettings().remove(kLastFile);
+    return last.isEmpty() ? QString() : QFileInfo(last).absolutePath();
 }
 
 int BudgetSession::limit(const QString& part) const {
@@ -90,10 +119,9 @@ int BudgetSession::limit(const QString& part) const {
 
 void BudgetSession::setLimit(const QString& part, int limit) {
     if (!budget_) return;
-    if (budget_->setLimit(part, limit)) {
-        modified_ = true;
-        emit changed();
-    }
+    edit::Budget next = *budget_;
+    if (!next.setLimit(part, limit)) return;
+    apply(next, tr("Change budget"));
 }
 
 bool BudgetSession::showOnlyBudgetedParts() const { return QSettings().value(kOnlyBudgeted, false).toBool(); }

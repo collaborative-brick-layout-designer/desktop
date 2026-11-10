@@ -317,6 +317,13 @@ void readSidecar(const QJsonObject& meta, const QJsonObject& items, core::Sideca
     saveload::sidecarFromJson(mergedSidecarCache(obj(meta, "cache"), items), out);
 }
 
+// The budget is the one sidecar field the web keeps outside meta.cache: a
+// Y.Map at meta.budgetLimits (part number -> limit), so edits to different
+// rows merge. Absent: no budget.
+void readBudget(const QJsonObject& meta, core::Sidecar& out) {
+    out.budgetLimits = saveload::budgetLimitsFromJson(meta.value(QLatin1String("budgetLimits")));
+}
+
 } // namespace
 
 std::unique_ptr<core::Map> mapFromDocJson(const QJsonObject& doc, QString* error) {
@@ -324,6 +331,7 @@ std::unique_ptr<core::Map> mapFromDocJson(const QJsonObject& doc, QString* error
     auto map = std::make_unique<core::Map>();
     if (!readHeader(meta, *map, error)) return nullptr;
     readSidecar(meta, obj(doc, "sidecarItems"), map->sidecar);
+    readBudget(meta, map->sidecar);
 
     const QJsonObject data = obj(doc, "layerData");
     for (const auto& id : arr(doc, "layers")) {
@@ -629,6 +637,7 @@ std::unique_ptr<core::Map> MapReader::read(const QJsonObject& doc, QString* erro
         d.haveSidecar = true;
     }
     map->sidecar = d.sidecar;
+    readBudget(meta, map->sidecar);
 
     const QJsonObject data = obj(doc, "layerData");
     std::unordered_map<QString, Impl::Sheet> next;

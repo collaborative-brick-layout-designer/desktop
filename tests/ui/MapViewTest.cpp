@@ -596,6 +596,7 @@ TEST_F(MapViewTest, BudgetLimitationRefusesPartsOverTheirLimit) {
     QSettings().setValue(QStringLiteral("general/warnBudgetLimitation"), false);  // no modal message
     ui::BudgetSession budget(parts_);
     view_->setBudget(&budget);
+    budget.attach(view_.get());  // the budget is the open layout's
     budget.create();
     budget.setLimit(QStringLiteral("3001.1"), 1);
     const int before = view_->undoStack()->count();
@@ -608,9 +609,9 @@ TEST_F(MapViewTest, BudgetLimitationRefusesPartsOverTheirLimit) {
     budget.setUseBudgetLimitation(true);
     view_->addPartAtScenePos(QStringLiteral("3001.1"), QPointF(160, 0));
     EXPECT_EQ(view_->undoStack()->count(), before + 2) << "over the limit: refused";
-    budget.setLimit(QStringLiteral("3001.1"), 3);
+    budget.setLimit(QStringLiteral("3001.1"), 3);  // (an undo step of its own)
     view_->addPartAtScenePos(QStringLiteral("3001.1"), QPointF(160, 0));
-    EXPECT_EQ(view_->undoStack()->count(), before + 3) << "raised limit: placed";
+    EXPECT_EQ(view_->undoStack()->count(), before + 4) << "raised limit: placed";
 
     budget.setUseBudgetLimitation(false);
     view_->setBudget(nullptr);

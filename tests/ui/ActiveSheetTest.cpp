@@ -158,8 +158,8 @@ TEST(ActiveSheet, PartsGoOnTheActiveSheetOrTheFirstPartsSheet) {
 
 TEST_F(ActiveSheetTest, TheButtonThePanelAndThePartsTitleAgreeAndFollowEveryChange) {
     add(core::LayerKind::Brick, QStringLiteral("Tables"));
-    // The blank layout's "Bricks" is active.
-    allSay(QStringLiteral("Bricks"), QStringLiteral("Bricks"));
+    // The blank layout's "Layout" (named as on the web) is active.
+    allSay(QStringLiteral("Layout"), QStringLiteral("Layout"));
 
     // Switch with the button: everything follows, and a part lands there.
     pick(QStringLiteral("Tables"));
@@ -167,20 +167,20 @@ TEST_F(ActiveSheetTest, TheButtonThePanelAndThePartsTitleAgreeAndFollowEveryChan
     allSay(QStringLiteral("Tables"), QStringLiteral("Tables"));
     view_->addPartAtScenePos(QStringLiteral("PL.7"), QPointF(64, 64));
     EXPECT_EQ(partsOn(sheet(QStringLiteral("Tables"))), 1);
-    EXPECT_EQ(partsOn(sheet(QStringLiteral("Bricks"))), 0);
+    EXPECT_EQ(partsOn(sheet(QStringLiteral("Layout"))), 0);
 
     // A click in the Sheets panel: the button follows.
-    list()->setCurrentRow(rowOf(sheet(QStringLiteral("Bricks"))));
+    list()->setCurrentRow(rowOf(sheet(QStringLiteral("Layout"))));
     QApplication::processEvents();
-    allSay(QStringLiteral("Bricks"), QStringLiteral("Bricks"));
+    allSay(QStringLiteral("Layout"), QStringLiteral("Layout"));
 
     // A rename, and its undo.
-    emit panel_->renameLayerRequested(sheet(QStringLiteral("Bricks")), QStringLiteral("Track"));
+    emit panel_->renameLayerRequested(sheet(QStringLiteral("Layout")), QStringLiteral("Track"));
     QApplication::processEvents();
     allSay(QStringLiteral("Track"), QStringLiteral("Track"));
     view_->undoStack()->undo();
     QApplication::processEvents();
-    allSay(QStringLiteral("Bricks"), QStringLiteral("Bricks"));
+    allSay(QStringLiteral("Layout"), QStringLiteral("Layout"));
 }
 
 TEST_F(ActiveSheetTest, ADraggedPartSaysWhereItWillLand) {
@@ -196,17 +196,17 @@ TEST_F(ActiveSheetTest, ADraggedPartSaysWhereItWillLand) {
     auto* tag = view_->viewport()->findChild<QLabel*>(QStringLiteral("dropSheetTag"));
     ASSERT_NE(tag, nullptr);
     EXPECT_TRUE(tag->isVisible());
-    EXPECT_EQ(tag->text(), QStringLiteral("→ Bricks"));
+    EXPECT_EQ(tag->text(), QStringLiteral("→ Layout"));
     QDragLeaveEvent leave;
     QApplication::sendEvent(view_->viewport(), &leave);
     EXPECT_FALSE(tag->isVisible());
 }
 
 TEST_F(ActiveSheetTest, PlacingOnAHiddenSheetSaysSoAndOffersToShowIt) {
-    const int bricks = sheet(QStringLiteral("Bricks"));
+    const int bricks = sheet(QStringLiteral("Layout"));
     panel_->setSheetVisible(bricks, false);
     QApplication::processEvents();
-    EXPECT_EQ(button_->text(), QStringLiteral("Adding to: Bricks (hidden)"));
+    EXPECT_EQ(button_->text(), QStringLiteral("Adding to: Layout (hidden)"));
     view_->addPartAtScenePos(QStringLiteral("PL.7"), QPointF(64, 64));
     EXPECT_EQ(partsOn(bricks), 1);
     ASSERT_TRUE(window_->notices()->isShown(QStringLiteral("sheet.hidden")));
@@ -217,7 +217,7 @@ TEST_F(ActiveSheetTest, PlacingOnAHiddenSheetSaysSoAndOffersToShowIt) {
     QApplication::processEvents();
     EXPECT_TRUE(map().layers()[bricks]->visible);
     EXPECT_EQ(list()->item(rowOf(bricks))->checkState(), Qt::Checked);
-    EXPECT_EQ(button_->text(), QStringLiteral("Adding to: Bricks"));
+    EXPECT_EQ(button_->text(), QStringLiteral("Adding to: Layout"));
     EXPECT_FALSE(window_->notices()->isShown(QStringLiteral("sheet.hidden")));
 }
 
@@ -225,19 +225,19 @@ TEST_F(ActiveSheetTest, APartWithATextSheetActiveGoesOnAPartsSheetAndSaysWhich) 
     add(core::LayerKind::Text, QStringLiteral("Notes"));
     pick(QStringLiteral("Notes"));
     // The Parts title names where parts will really go.
-    allSay(QStringLiteral("Notes"), QStringLiteral("Bricks"));
-    EXPECT_TRUE(button_->toolTip().contains(QStringLiteral("so new parts go on “Bricks”"))) << button_->toolTip().toStdString();
+    allSay(QStringLiteral("Notes"), QStringLiteral("Layout"));
+    EXPECT_TRUE(button_->toolTip().contains(QStringLiteral("so new parts go on “Layout”"))) << button_->toolTip().toStdString();
     view_->addPartAtScenePos(QStringLiteral("PL.7"), QPointF(64, 64));
-    const int bricks = sheet(QStringLiteral("Bricks"));
+    const int bricks = sheet(QStringLiteral("Layout"));
     EXPECT_EQ(partsOn(bricks), 1);
     ASSERT_TRUE(window_->notices()->isShown(QStringLiteral("sheet.redirected")));
     EXPECT_EQ(panel_->flashingRow(), bricks);
     // The notice can make that sheet the active one.
-    QPushButton* make = noticeButton(QStringLiteral("sheet.redirected"), QStringLiteral("Make “Bricks” active"));
+    QPushButton* make = noticeButton(QStringLiteral("sheet.redirected"), QStringLiteral("Make “Layout” active"));
     ASSERT_NE(make, nullptr);
     make->click();
     QApplication::processEvents();
-    allSay(QStringLiteral("Bricks"), QStringLiteral("Bricks"));
+    allSay(QStringLiteral("Layout"), QStringLiteral("Layout"));
 }
 
 // "Fade other sheets while editing": off by default; on, every sheet but
@@ -250,9 +250,9 @@ TEST_F(ActiveSheetTest, FadingTheOtherSheetsShowsOnScreenOnlyNeverInAPicture) {
     add(core::LayerKind::Brick, QStringLiteral("Tables"));
     pick(QStringLiteral("Tables"));
     view_->addPartAtScenePos(QStringLiteral("PL.7"), QPointF(64, 64));
-    pick(QStringLiteral("Bricks"));
+    pick(QStringLiteral("Layout"));
     view_->addPartAtScenePos(QStringLiteral("PL.7"), QPointF(256, 64));
-    const int bricks = sheet(QStringLiteral("Bricks"));
+    const int bricks = sheet(QStringLiteral("Layout"));
     const int tables = sheet(QStringLiteral("Tables"));
     const auto opacity = [this](int i) {
         const auto items = view_->builder()->layerItems(i);
@@ -304,7 +304,7 @@ TEST_F(ActiveSheetTest, FadingTheOtherSheetsShowsOnScreenOnlyNeverInAPicture) {
     view_->addPartAtScenePos(QStringLiteral("PL.7"), QPointF(64, 256));
     QApplication::processEvents();
     for (QGraphicsItem* it : view_->builder()->layerItems(sheet(QStringLiteral("Tables")))) EXPECT_EQ(it->opacity(), 1.0);
-    for (QGraphicsItem* it : view_->builder()->layerItems(sheet(QStringLiteral("Bricks"))))
+    for (QGraphicsItem* it : view_->builder()->layerItems(sheet(QStringLiteral("Layout"))))
         EXPECT_DOUBLE_EQ(it->opacity(), ui::MapView::kFadedSheetOpacity);
     view_->undoStack()->undo();
     QApplication::processEvents();

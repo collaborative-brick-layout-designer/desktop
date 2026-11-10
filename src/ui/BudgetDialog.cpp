@@ -19,7 +19,7 @@ namespace bld::ui {
 
 BudgetDialog::BudgetDialog(core::Map& map, BudgetSession& budget, QWidget* parent)
     : QDialog(parent), map_(map), budget_(budget) {
-    setWindowTitle(tr("Budget — %1").arg(budget_.displayName()));
+    setWindowTitle(tr("Budget"));
     resize(620, 500);
 
     auto* vbox = new QVBoxLayout(this);
@@ -29,6 +29,10 @@ BudgetDialog::BudgetDialog(core::Map& map, BudgetSession& budget, QWidget* paren
     btnRow->addStretch();
     btnRow->addWidget(refreshBtn);
     vbox->addLayout(btnRow);
+    auto* note = new QLabel(tr("Saved with the layout, and shared with everyone who edits it."), this);
+    note->setObjectName(QStringLiteral("budget.sharedNote"));
+    note->setWordWrap(true);
+    vbox->addWidget(note);
 
     table_ = new QTableWidget(this);
     table_->setAccessibleName(tr("Part budgets"));
@@ -63,7 +67,6 @@ BudgetDialog::BudgetDialog(core::Map& map, BudgetSession& budget, QWidget* paren
     // Close with the budget (e.g. Budget > Close); follow other changes.
     connect(&budget_, &BudgetSession::changed, this, [this]{
         if (!budget_.exists()) { close(); return; }
-        setWindowTitle(tr("Budget — %1").arg(budget_.displayName()));
         if (!editing_) rebuildTable();
     });
     rebuildTable();

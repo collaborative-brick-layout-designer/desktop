@@ -256,6 +256,24 @@ shows the bricks and a blank background where the venue would be.
 - `labels` (bool): show the anchored labels.
 - A view without an `id` is dropped on reading. Unknown fields are kept.
 
+## Budget
+
+```json
+"budgetLimits": { "3001.1": 12, "3005.4": 0 }
+```
+
+How many of each part the layout may use: part number → a whole number of
+0 or more. 0 means none of that part; a part without an entry is unlimited
+or forbidden by the reader's preference, as in BlueBrick. Present, even as
+`{}`, when the layout has a budget; absent when it has none.
+
+The budget is shared with everyone who edits the layout: the web keeps it in
+the live document as a Y.Map at `meta.budgetLimits` (not in `meta.cache`),
+so two people changing different rows merge, and the desktop writes it there
+one key at a time. A BlueBrick `.bbb` file is the same list in XML; both apps
+import and export it. The key was added 2026-11 without a version bump
+(optional, additive).
+
 ## Background image
 
 ```json

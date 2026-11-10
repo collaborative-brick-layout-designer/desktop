@@ -11,9 +11,9 @@ namespace bld::ui {
 
 class BudgetSession;
 
-// Edits the current budget's limits: every part the map uses or the
-// budget lists, with its count and limit (blank = no limit). Over-budget
-// rows are red. New / Open / Save live in the Budget menu.
+// Edits the layout's budget: every part the map uses or the budget lists,
+// with its count and limit (blank = no limit). Over-budget rows are red.
+// New / Import / Export / Remove live in the Budget menu.
 class BudgetDialog : public QDialog {
     Q_OBJECT
 public:

@@ -55,8 +55,8 @@ QList<ShortcutGroup> collectShortcuts(const QMenuBar* menuBar) {
     // MapView::keyPressEvent's own keys (no menu item has them).
     groups.append({ ShortcutsDialog::tr("On the map"),
                     {
-                        { ShortcutsDialog::tr("R"), ShortcutsDialog::tr("Turn the selected pieces") },
-                        { ShortcutsDialog::tr("Shift+R"), ShortcutsDialog::tr("Turn them the other way") },
+                        { ShortcutsDialog::tr("R"), ShortcutsDialog::tr("Turn the selected pieces left (counterclockwise)") },
+                        { ShortcutsDialog::tr("Shift+R"), ShortcutsDialog::tr("Turn them right (clockwise)") },
                         { ShortcutsDialog::tr("Arrow keys"), ShortcutsDialog::tr("Nudge the selected pieces") },
                         { ShortcutsDialog::tr("Delete"), ShortcutsDialog::tr("Remove the selected pieces") },
                     } });

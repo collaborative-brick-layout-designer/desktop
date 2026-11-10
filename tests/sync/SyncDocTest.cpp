@@ -464,3 +464,46 @@ TEST(SyncDoc, EditsToABigLayoutTouchTheArrayOnceNotOncePerPart) {
     EXPECT_EQ(layerOf<core::LayerBrick>(*mapOf(doc), core::LayerKind::Brick).bricks.size(), layer.bricks.size());
     EXPECT_TRUE(doc.writeMap(*map).isEmpty());
 }
+
+// The budget rides at meta.budgetLimits as a Y.Map (part number -> limit),
+// where the web editor keeps it, not in meta.cache; one key at a time, so
+// edits to different rows merge. No budget: no key.
+TEST(SyncDocSidecar, BudgetTravelsAsTheWebsBudgetLimitsMap) {
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(serverDoc()));
+    auto map = mapOf(doc);
+    EXPECT_FALSE(map->sidecar.budgetLimits);
+
+    map->sidecar.budgetLimits = QMap<QString, int>{ { QStringLiteral("3001.1"), 12 }, { QStringLiteral("3005.4"), 0 } };
+    const QByteArray update = doc.writeMap(*map);
+    ASSERT_FALSE(update.isEmpty());
+    const QJsonObject meta = doc.toJson().value(QLatin1String("meta")).toObject();
+    const QJsonObject limits = meta.value(QLatin1String("budgetLimits")).toObject();
+    EXPECT_EQ(limits.value(QLatin1String("3001.1")).toInt(), 12);
+    EXPECT_EQ(limits.value(QLatin1String("3005.4")).toInt(), 0);
+    EXPECT_FALSE(meta.value(QLatin1String("cache")).toObject().contains(QLatin1String("budgetLimits")));
+
+    // Another copy reads it back; nothing more to write.
+    sync::SyncDoc other;
+    ASSERT_TRUE(other.applyUpdate(serverDoc()));
+    ASSERT_TRUE(other.applyUpdate(update));
+    ASSERT_TRUE(mapOf(other)->sidecar.budgetLimits);
+    EXPECT_EQ(*mapOf(other)->sidecar.budgetLimits, *map->sidecar.budgetLimits);
+    EXPECT_TRUE(doc.writeMap(*mapOf(doc)).isEmpty());
+
+    // One row changed, one dropped: the others' rows stay as they were.
+    map->sidecar.budgetLimits = QMap<QString, int>{ { QStringLiteral("3001.1"), 20 } };
+    const QByteArray second = doc.writeMap(*map);
+    ASSERT_FALSE(second.isEmpty());
+    ASSERT_TRUE(other.applyUpdate(second));
+    EXPECT_EQ(*mapOf(other)->sidecar.budgetLimits, *map->sidecar.budgetLimits);
+    // Removed, and back.
+    map->sidecar.budgetLimits.reset();
+    ASSERT_FALSE(doc.writeMap(*map).isEmpty());
+    EXPECT_FALSE(doc.toJson().value(QLatin1String("meta")).toObject().contains(QLatin1String("budgetLimits")));
+    EXPECT_FALSE(mapOf(doc)->sidecar.budgetLimits);
+    map->sidecar.budgetLimits = QMap<QString, int>{};
+    ASSERT_FALSE(doc.writeMap(*map).isEmpty());
+    ASSERT_TRUE(mapOf(doc)->sidecar.budgetLimits);
+    EXPECT_TRUE(mapOf(doc)->sidecar.budgetLimits->isEmpty());
+}

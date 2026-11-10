@@ -684,10 +684,24 @@ void MainWindow::setupMenus() {
     }
     auto* contentsAct = help->addAction(tr("&Contents"));
     helpContentsAct_ = contentsAct;
+    contentsAct->setObjectName(QStringLiteral("help.contents"));
     contentsAct->setShortcut(QKeySequence::HelpContents);
+    contentsAct->setToolTip(tr("This app's help: Getting Started, sheets, the room, sharing, files and shortcuts"));
     connect(contentsAct, &QAction::triggered, this, [] {
-        // BlueBrick's manual as offline HTML, in the UI language if there
-        // is one, else English; the online copy if it wasn't installed.
+        // This app's own help (the web's /help topics), in the UI language
+        // if there is one, else English; the online copy if it wasn't
+        // installed. (BlueBrick's manual is its own item below: it
+        // describes the original app, whose layers, shortcuts and menus
+        // differ from this one's.)
+        const QString page = help::helpPagePath(QString::fromLatin1(help::kGettingStartedPage));
+        help::openHelpPage(page.isEmpty() ? QUrl(QStringLiteral(
+            "https://github.com/collaborative-brick-layout-designer/desktop/blob/main/help/en/Getting_Started.htm"))
+                                          : QUrl::fromLocalFile(page));
+    });
+    auto* manualAct = help->addAction(tr("BlueBrick's &Manual (the original app)"));
+    manualAct->setObjectName(QStringLiteral("help.bluebrickManual"));
+    manualAct->setToolTip(tr("The manual of BlueBrick, which this app grew from. Some of it describes the original app: here a map has sheets, and R turns the picked parts."));
+    connect(manualAct, &QAction::triggered, this, [] {
         const QString index = help::helpPagePath(QStringLiteral("index.html"));
         help::openHelpPage(index.isEmpty() ? QUrl(QStringLiteral(
             "https://github.com/collaborative-brick-layout-designer/desktop/tree/main/help/en"))

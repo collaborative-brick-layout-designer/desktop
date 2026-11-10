@@ -7,6 +7,7 @@
 
 #include <QByteArray>
 #include <QJsonObject>
+#include <QMap>
 #include <QPointF>
 #include <QRectF>
 #include <QString>
@@ -63,6 +64,12 @@ struct Sidecar {
 
     // Custom sets placed in the layout, with the version each came from.
     std::vector<PlacedSet> sets;
+    // The layout's budget: how many of each part (by part number, upper
+    // case) it may use. Set, even empty, when the layout has a budget;
+    // unset when it has none. Shared with everyone who edits the layout
+    // (the web keeps it at meta.budgetLimits); .bbb files import and
+    // export it.
+    std::optional<QMap<QString, int>> budgetLimits;
     // Top-level fields this build doesn't know (a newer build's, the web's),
     // written back as they were.
     QJsonObject extras;
@@ -71,7 +78,8 @@ struct Sidecar {
 
     bool isEmpty() const {
         return anchoredLabels.empty() && modules.empty() && !venue.has_value()
-               && backgroundImagePath.isEmpty() && views.empty() && sets.empty() && extras.isEmpty();
+               && backgroundImagePath.isEmpty() && views.empty() && sets.empty() && !budgetLimits.has_value()
+               && extras.isEmpty();
     }
 };
 

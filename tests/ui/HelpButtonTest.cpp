@@ -330,6 +330,25 @@ TEST_F(HelpInMainWindow, HelpMenuHasGettingStartedAndShortcuts) {
     EXPECT_TRUE(opened[0].toLocalFile().endsWith(QLatin1String("/Getting_Started.htm")));
 }
 
+// Help › Contents is this app's own help (area 7, Bug 3); BlueBrick's
+// manual, which describes layers and part shortcut keys this app doesn't
+// have, is its own, labelled item.
+TEST_F(HelpInMainWindow, ContentsIsTheAppsOwnHelpAndBlueBricksManualIsSeparate) {
+    QAction* contents = action(QStringLiteral("help.contents"));
+    QAction* manual = action(QStringLiteral("help.bluebrickManual"));
+    ASSERT_NE(contents, nullptr);
+    ASSERT_NE(manual, nullptr);
+    EXPECT_TRUE(manual->text().contains(QStringLiteral("BlueBrick")));
+    QList<QUrl> opened;
+    const UrlOpener previous = setHelpPageOpener([&opened](const QUrl& u) { opened << u; });
+    contents->trigger();
+    manual->trigger();
+    setHelpPageOpener(previous);
+    ASSERT_EQ(opened.size(), 2);
+    EXPECT_TRUE(opened[0].toLocalFile().endsWith(QLatin1String("/Getting_Started.htm"))) << opened[0].toString().toStdString();
+    EXPECT_TRUE(opened[1].toLocalFile().endsWith(QLatin1String("/index.html"))) << opened[1].toString().toStdString();
+}
+
 TEST_F(HelpInMainWindow, ShortcutsComeFromTheMenus) {
     const auto groups = collectShortcuts(window_->menuBar());
     ASSERT_GE(groups.size(), 3);

@@ -23,6 +23,7 @@ target_include_directories(bld_rendering PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
 target_link_libraries(bld_rendering
     PUBLIC
         bld_core
+        bld_edit   # venue lengths in the chosen unit (edit/venue/VenueUnits.h)
         bld_parts
         Qt6::Core
         Qt6::Gui

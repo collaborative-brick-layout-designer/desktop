@@ -37,7 +37,8 @@ VenueLabelColors venueLabelColors(bool dark) {
              QColor(20, 20, 20) };
 }
 
-QString venueDistanceText(double lenStuds) {
+QString venueDistanceText(double lenStuds, edit::venue::LengthUnit unit) {
+    if (unit != edit::venue::LengthUnit::FeetInches) return edit::venue::formatLength(lenStuds, unit);
     const double ft = lenStuds * 0.026248;
     return ft < 1.0 ? QStringLiteral("%1\"").arg(ft * 12.0, 0, 'f', 1) : QStringLiteral("%1 ft").arg(ft, 0, 'f', 2);
 }
@@ -98,7 +99,7 @@ std::vector<VenueLabel> venueEdgeLabels(const QVector<core::VenueEdge>& edges, c
         const double len = std::hypot(dx, dy);
         if (len <= 0.5) continue;
         const auto& edge = edges[i];
-        const QString distance = venueDistanceText(len);
+        const QString distance = venueDistanceText(len, opts.unit);
         const QString base = edge.label.isEmpty() ? distance : edge.label + QStringLiteral(" — ") + distance;
         const QString full = edge.estimated ? venuedraw::estimatedText(base) : base;
         const QString shortText = edge.estimated ? venuedraw::estimatedText(distance) : distance;

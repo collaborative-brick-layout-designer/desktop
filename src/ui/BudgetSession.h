@@ -12,32 +12,40 @@ namespace bld::parts { class PartsLibrary; }
 
 namespace bld::ui {
 
-// The budget the user is working with (BlueBrick's Budget.Instance): at
-// most one, created or opened from the Budget menu, reopened at startup,
-// and shared by the parts browser, the part-usage panel, the status bar
-// and placement (when Use Budget Limitation is on).
+class MapView;
+
+// The open layout's budget (sidecar.budgetLimits): how many of each part
+// it may use. It is saved with the layout and shared with everyone who
+// edits it (the web keeps it at meta.budgetLimits), and every change is an
+// undo step on the layout. Shared by the parts browser, the part-usage
+// panel, the status bar and placement (when Stop at the Budget Limits is
+// on). BlueBrick's .bbb files are imported and exported here.
 class BudgetSession : public QObject {
     Q_OBJECT
 public:
     explicit BudgetSession(parts::PartsLibrary& lib, QObject* parent = nullptr);
 
+    // The view whose layout the budget belongs to; follows it from then on.
+    void attach(MapView* view);
+    // Read the budget from the layout again (it changed by undo, redo or
+    // someone else); says so when it differs.
+    void reload() { refresh(false); }
+
     bool exists() const { return budget_.has_value(); }
     const edit::Budget* budget() const { return budget_ ? &*budget_ : nullptr; }
-    QString filePath() const { return path_; }
-    // The name shown in the title bar ("Untitled.bbb" until saved).
-    QString displayName() const;
-    bool hasFileName() const { return !path_.isEmpty(); }
-    bool isModified() const { return modified_; }
+    // Whether the layout can be changed here (one is open).
+    bool canEdit() const;
 
+    // Start a budget with no limits yet; take the layout's budget away.
     void create();
-    bool open(const QString& path, QString* error = nullptr);
-    // BlueBrick's Import and Merge: the file's limits added to the current ones.
+    void remove();
+    // A .bbb file's limits as the layout's budget; or added to it (BlueBrick's Import and Merge).
+    bool importFile(const QString& path, QString* error = nullptr);
     bool importAndMerge(const QString& path, QString* error = nullptr);
-    void close();
-    bool saveAs(const QString& path, QString* error = nullptr);
-
-    // Reopen the budget that was open when the app last closed, if any.
-    void restoreFromSettings();
+    // The budget as a .bbb file, for BlueBrick or another layout.
+    bool exportFile(const QString& path, QString* error = nullptr);
+    // The folder the last .bbb was imported from or exported to, for the file dialogs.
+    static QString lastFileDir();
 
     // Per-part limit (-1 = unlimited). Setting a negative value clears it.
     int limit(const QString& part) const;
@@ -65,12 +73,15 @@ signals:
     void changed();
 
 private:
-    void setBudget(std::optional<edit::Budget> budget, const QString& path, bool modified);
+    core::Map* map() const;
+    // `force`: say so even when the budget is the same (another layout was opened).
+    void refresh(bool force);
+    // Make `next` the layout's budget, as one undo step named `text`.
+    void apply(const std::optional<edit::Budget>& next, const QString& text);
 
     parts::PartsLibrary& lib_;
+    MapView* view_ = nullptr;
     std::optional<edit::Budget> budget_;
-    QString path_;
-    bool modified_ = false;
 };
 
 }  // namespace bld::ui
