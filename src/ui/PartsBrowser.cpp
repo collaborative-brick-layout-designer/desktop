@@ -18,6 +18,7 @@
 #include <QApplication>
 #include <QDateTime>
 #include <QStyle>
+#include <QStyleOption>
 #include <QCheckBox>
 #include <QClipboard>
 #include <QComboBox>
@@ -140,7 +141,19 @@ PartsBrowser::PartsBrowser(parts::PartsLibrary& lib, QWidget* parent)
 
     auto* row = new QHBoxLayout();
     category_ = new QComboBox(host);
+    category_->setObjectName(QStringLiteral("partsCategory"));
     category_->setMinimumContentsLength(12);
+    {
+        // Wide enough for "All categories" in every language: the box sizes
+        // itself before the categories arrive, and "Toutes les catégories"
+        // was cut short.
+        QStyleOptionComboBox opt;
+        opt.initFrom(category_);
+        const QFontMetrics fm = category_->fontMetrics();
+        const QSize text(fm.horizontalAdvance(tr("All categories")), fm.height());
+        const int needed = category_->style()->sizeFromContents(QStyle::CT_ComboBox, &opt, text, category_).width();
+        category_->setMinimumWidth(std::max(category_->minimumSizeHint().width(), needed));
+    }
     row->addWidget(category_, 1);
 
     filter_ = new QLineEdit(host);
