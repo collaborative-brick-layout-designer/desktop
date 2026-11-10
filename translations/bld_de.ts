@@ -6573,71 +6573,71 @@ Trotzdem speichern?</translation>
     </message>
     <message>
         <source>Sign in again to keep working live</source>
-        <translation type="unfinished"></translation>
+        <translation>Melde dich erneut an, um live weiterzuarbeiten</translation>
     </message>
     <message>
         <source>Your sign-in to %1 has run out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Anmeldung bei %1 ist abgelaufen, daher erreichen deine Änderungen den Server nicht. Sie bleiben hier und werden gesendet, sobald du dich erneut anmeldest.</translation>
     </message>
     <message>
         <source>Sign In…</source>
-        <translation type="unfinished"></translation>
+        <translation>Anmelden…</translation>
     </message>
     <message>
         <source>You can only view this layout now</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst dieses Layout jetzt nur ansehen</translation>
     </message>
     <message>
         <source>Your access to “%1” changed to view only, so changes can&apos;t be made here. Ask its owner, or a club admin, if you need to edit it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Zugriff auf „%1“ wurde auf Nur-Ansehen geändert, daher sind hier keine Änderungen möglich. Frag den Eigentümer oder einen Club-Admin, wenn du es bearbeiten musst.</translation>
     </message>
     <message>
         <source>You can edit this layout now</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst dieses Layout jetzt bearbeiten</translation>
     </message>
     <message>
         <source>Your access to “%1” changed: your changes go to everyone again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Zugriff auf „%1“ hat sich geändert: Deine Änderungen gehen wieder an alle.</translation>
     </message>
     <message>
         <source>Your sign-in wasn&apos;t saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Anmeldung wurde nicht gespeichert</translation>
     </message>
     <message>
         <source>This computer&apos;s keychain couldn&apos;t keep your sign-in to %1, so you&apos;ll be asked to sign in again the next time the app starts. On Linux, a keyring such as GNOME Keyring or KWallet has to be running and unlocked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Schlüsselbund dieses Computers konnte deine Anmeldung bei %1 nicht behalten, daher wirst du beim nächsten Start der App erneut nach der Anmeldung gefragt. Unter Linux muss ein Schlüsselbund wie GNOME Keyring oder KWallet laufen und entsperrt sein.</translation>
     </message>
     <message>
         <source>The keychain said: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Schlüsselbund meldete: %1</translation>
     </message>
     <message>
         <source>Please update Collaborative Brick Layout Designer</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte aktualisiere Collaborative Brick Layout Designer</translation>
     </message>
     <message>
         <source>%1 works best with version %2 or newer, and you have %3. Everything still works for now.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 funktioniert am besten mit Version %2 oder neuer, und du hast %3. Vorerst funktioniert alles noch.</translation>
     </message>
     <message>
         <source>This server can&apos;t do everything yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Server kann noch nicht alles</translation>
     </message>
     <message>
         <source>This server may not do everything yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Server kann vielleicht noch nicht alles</translation>
     </message>
     <message>
         <source>%1 is running an older version, so these aren&apos;t available there:</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 läuft mit einer älteren Version, daher gibt es dort Folgendes nicht:</translation>
     </message>
     <message>
         <source>%1 hasn&apos;t been updated in a while, so these may not work there:</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 wurde länger nicht aktualisiert, daher funktioniert Folgendes dort vielleicht nicht:</translation>
     </message>
     <message>
         <source>Everything else works as usual. Whoever runs the server can update it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles andere funktioniert wie gewohnt. Wer den Server betreibt, kann ihn aktualisieren.</translation>
     </message>
     <message>
         <source>Upload to Server</source>
@@ -6645,55 +6645,55 @@ Trotzdem speichern?</translation>
     </message>
     <message>
         <source>%1 isn&apos;t on the server yet, so others see a missing part. Upload it?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ist noch nicht auf dem Server, daher sehen andere ein fehlendes Teil. Hochladen?</translation>
     </message>
     <message>
         <source>%1 aren&apos;t on the server yet, so others see missing parts. Upload them?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 sind noch nicht auf dem Server, daher sehen andere fehlende Teile. Hochladen?</translation>
     </message>
     <message>
         <source>Upload…</source>
-        <translation type="unfinished"></translation>
+        <translation>Hochladen…</translation>
     </message>
     <message>
         <source>Not Now</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht jetzt</translation>
     </message>
     <message numerus="yes">
         <source>Uploaded %n part(s) to the server</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n Teil auf den Server hochgeladen</numerusform>
+            <numerusform>%n Teile auf den Server hochgeladen</numerusform>
         </translation>
     </message>
     <message>
         <source>Checking the server&apos;s parts…</source>
-        <translation type="unfinished"></translation>
+        <translation>Prüfe die Teile des Servers…</translation>
     </message>
     <message>
         <source>Downloading server parts…</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade Server-Teile herunter…</translation>
     </message>
     <message>
         <source>You can keep working while they download.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst weiterarbeiten, während sie geladen werden.</translation>
     </message>
     <message>
         <source>Couldn&apos;t get the server&apos;s parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Teile des Servers konnten nicht geholt werden</translation>
     </message>
     <message numerus="yes">
         <source>Server parts up to date (%n file(s) downloaded)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Server-Teile aktuell (%n Datei heruntergeladen)</numerusform>
+            <numerusform>Server-Teile aktuell (%n Dateien heruntergeladen)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n server part file(s) didn&apos;t download</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n Server-Teiledatei wurde nicht heruntergeladen</numerusform>
+            <numerusform>%n Server-Teiledateien wurden nicht heruntergeladen</numerusform>
         </translation>
     </message>
     <message>
@@ -6702,85 +6702,88 @@ Trotzdem speichern?</translation>
     </message>
     <message numerus="yes">
         <source>…and %n more</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>…und %n weiteres</numerusform>
+            <numerusform>…und %n weitere</numerusform>
         </translation>
     </message>
     <message>
         <source>Parts the server has but this computer doesn&apos;t show as outlines.
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Teile, die der Server hat, dieser Computer aber nicht, erscheinen als Umrisse.
+
+</translation>
     </message>
     <message>
         <source>Disconnected. The layout stays open here as an unsaved copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Getrennt. Das Layout bleibt hier als nicht gespeicherte Kopie offen.</translation>
     </message>
     <message>
         <source>Live on %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Live auf %1: %2</translation>
     </message>
     <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Offline-Bearbeitungen haben das Layout unverändert gelassen; nichts zu übernehmen.</translation>
     </message>
     <message>
         <source>Review Offline Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Offline-Änderungen prüfen</translation>
     </message>
     <message>
         <source>Could not merge your changes: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Änderungen konnten nicht zusammengeführt werden: %1</translation>
     </message>
     <message>
         <source>Your offline changes were applied to the live layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Offline-Änderungen wurden ins Live-Layout übernommen.</translation>
     </message>
     <message>
         <source>Your offline changes were discarded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Offline-Änderungen wurden verworfen.</translation>
     </message>
     <message>
         <source>Could not read your version: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Version konnte nicht gelesen werden: %1</translation>
     </message>
     <message>
         <source>Your version replaced the server&apos;s.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Version hat die des Servers ersetzt.</translation>
     </message>
     <message>
         <source>Save as a New Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Als neues Layout speichern</translation>
     </message>
     <message>
         <source>Could not write your version to publish it. Your offline changes are kept.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Version konnte zum Veröffentlichen nicht geschrieben werden. Deine Offline-Änderungen bleiben erhalten.</translation>
     </message>
     <message>
         <source>%1 (offline copy)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (Offline-Kopie)</translation>
     </message>
     <message>
         <source>Your version was saved as &quot;%1&quot; in your layouts on %2. The live layout stays as the server has it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Version wurde als „%1“ in deinen Layouts auf %2 gespeichert. Das Live-Layout bleibt, wie der Server es hat.</translation>
     </message>
     <message>
         <source>Could not publish your version: %1
 Your offline changes are kept; File &gt; Review Offline Changes brings them back.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Version konnte nicht veröffentlicht werden: %1
+Deine Offline-Änderungen bleiben erhalten; Datei &gt; Offline-Änderungen prüfen holt sie zurück.</translation>
     </message>
     <message>
         <source>Publishing your version as &quot;%1&quot;…</source>
-        <translation type="unfinished"></translation>
+        <translation>Veröffentliche deine Version als „%1“…</translation>
     </message>
     <message>
         <source>Your modules on the web</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Module im Web</translation>
     </message>
     <message>
         <source>Modules saved on the website are on your club&apos;s server. Connect to a server first (File › Servers…), then try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf der Website gespeicherte Module liegen auf dem Server deines Clubs. Verbinde dich zuerst mit einem Server (Datei › Server…) und versuch es dann erneut.</translation>
     </message>
     <message>
         <source>Catalog</source>
@@ -6788,35 +6791,35 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>The catalog is on your club&apos;s server. Connect to a server first (File › Servers…), then try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Katalog liegt auf dem Server deines Clubs. Verbinde dich zuerst mit einem Server (Datei › Server…) und versuch es dann erneut.</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Einfügen</translation>
     </message>
     <message>
         <source>&amp;Text…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Text…</translation>
     </message>
     <message>
         <source>&amp;Anchored Label…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Verankerte Beschriftung…</translation>
     </message>
     <message>
         <source>&amp;Up</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hoch</translation>
     </message>
     <message>
         <source>&amp;Down</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Runter</translation>
     </message>
     <message>
         <source>&amp;Left</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Links</translation>
     </message>
     <message>
         <source>&amp;Right</source>
-        <translation type="unfinished"></translation>
+        <translation>R&amp;echts</translation>
     </message>
     <message>
         <source>90°</source>
@@ -6832,11 +6835,11 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>11.25°</source>
-        <translation type="unfinished"></translation>
+        <translation>11,25°</translation>
     </message>
     <message>
         <source>5°</source>
-        <translation type="unfinished"></translation>
+        <translation>5°</translation>
     </message>
     <message>
         <source>1°</source>
@@ -6844,7 +6847,7 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Shift+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Shift+R</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
@@ -6852,37 +6855,37 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Choose a file with the … button</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle eine Datei mit dem Knopf …</translation>
     </message>
     <message>
         <source>Output file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgabedatei</translation>
     </message>
     <message>
         <source>Choose the output file</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Ausgabedatei wählen</translation>
     </message>
     <message>
         <source>Add the author, club and event in the corner</source>
-        <translation type="unfinished"></translation>
+        <translation>Autor, Club und Veranstaltung in die Ecke schreiben</translation>
     </message>
     <message>
         <source>Smooth edges</source>
-        <translation type="unfinished"></translation>
+        <translation>Glatte Kanten</translation>
     </message>
     <message>
         <source>Electric circuits</source>
-        <translation type="unfinished"></translation>
+        <translation>Stromkreise</translation>
     </message>
     <message>
         <source>Choose where to save the picture first</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle zuerst, wo das Bild gespeichert werden soll</translation>
     </message>
     <message numerus="yes">
         <source>Printed %n page(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n Seite gedruckt</numerusform>
+            <numerusform>%n Seiten gedruckt</numerusform>
         </translation>
     </message>
     <message>
@@ -6899,7 +6902,7 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Ctrl+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+D</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
@@ -6907,7 +6910,7 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Find parts by number or name, and swap them for another part</source>
-        <translation type="unfinished"></translation>
+        <translation>Teile nach Nummer oder Name suchen und durch ein anderes Teil ersetzen</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -6915,11 +6918,11 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>D&amp;eselect All</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswahl auf&amp;heben</translation>
     </message>
     <message>
         <source>Ctrl+Shift+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+A</translation>
     </message>
     <message>
         <source>&amp;Find &amp;&amp; Replace…</source>
@@ -6927,103 +6930,103 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Extend selection to every brick connected to current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Auswahl auf jeden Stein erweitern, der mit der jetzigen Auswahl verbunden ist</translation>
     </message>
     <message>
         <source>&amp;Move Step</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bewegungsschritt</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Gruppieren</translation>
     </message>
     <message>
         <source>Select C&amp;onnected</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Verbundene auswählen</translation>
     </message>
     <message>
         <source>Ctrl+Shift+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+P</translation>
     </message>
     <message>
         <source>Ctrl+G</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+G</translation>
     </message>
     <message>
         <source>&amp;Ungroup</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppierung a&amp;ufheben</translation>
     </message>
     <message>
         <source>Ctrl+Shift+G</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+G</translation>
     </message>
     <message>
         <source>Transfor&amp;m</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Transformieren</translation>
     </message>
     <message>
         <source>Send to &amp;Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach &amp;hinten stellen</translation>
     </message>
     <message>
         <source>Bring to &amp;Front</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach &amp;vorne holen</translation>
     </message>
     <message>
         <source>Turn &amp;Step</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Drehschritt</translation>
     </message>
     <message>
         <source>Turn &amp;Right</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rechts drehen</translation>
     </message>
     <message>
         <source>Turn &amp;Left</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Links drehen</translation>
     </message>
     <message>
         <source>Write a note on the map</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Notiz auf die Karte schreiben</translation>
     </message>
     <message>
         <source>Ctrl+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+T</translation>
     </message>
     <message>
         <source>Add text</source>
-        <translation type="unfinished"></translation>
+        <translation>Text hinzufügen</translation>
     </message>
     <message>
         <source>Label text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Text der Beschriftung:</translation>
     </message>
     <message>
         <source>Ctrl+Shift+]</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+]</translation>
     </message>
     <message>
         <source>Ctrl+Shift+[</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+[</translation>
     </message>
     <message>
         <source>A label that stays next to the part it is attached to</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Beschriftung, die neben dem Teil bleibt, an dem sie hängt</translation>
     </message>
     <message>
         <source>Ctrl+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+L</translation>
     </message>
     <message>
         <source>Anchored label</source>
-        <translation type="unfinished"></translation>
+        <translation>Verankerte Beschriftung</translation>
     </message>
     <message>
         <source>&amp;Settings…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Einstellungen…</translation>
     </message>
     <message>
         <source>Every setting: the look, editing, the language, folders and more</source>
-        <translation type="unfinished"></translation>
+        <translation>Jede Einstellung: Aussehen, Bearbeiten, Sprache, Ordner und mehr</translation>
     </message>
     <message>
         <source>&amp;View</source>
@@ -7055,11 +7058,11 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Brick &amp;Hulls</source>
-        <translation type="unfinished"></translation>
+        <translation>Stein&amp;hüllen</translation>
     </message>
     <message>
         <source>Brick E&amp;levation Labels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Höhenangaben der Steine</translation>
     </message>
     <message>
         <source>&amp;Module Names</source>
@@ -7067,15 +7070,15 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Unsaved budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht gespeichertes Budget</translation>
     </message>
     <message>
         <source>The budget %1 has unsaved changes. Save it before continuing?</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Budget %1 hat nicht gespeicherte Änderungen. Vor dem Fortfahren speichern?</translation>
     </message>
     <message>
         <source>Save budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget speichern</translation>
     </message>
     <message>
         <source>&amp;Budget</source>
@@ -7083,119 +7086,119 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>What&apos;s a &amp;Budget?</source>
-        <translation type="unfinished"></translation>
+        <translation>Was ist ein &amp;Budget?</translation>
     </message>
     <message>
         <source>What a budget is and how to start one</source>
-        <translation type="unfinished"></translation>
+        <translation>Was ein Budget ist und wie man eines beginnt</translation>
     </message>
     <message>
         <source>What&apos;s a budget?</source>
-        <translation type="unfinished"></translation>
+        <translation>Was ist ein Budget?</translation>
     </message>
     <message>
         <source>Choose Budget › New Budget to start one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle Budget › Neues Budget, um eines zu beginnen.</translation>
     </message>
     <message>
         <source>&amp;New Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Neues Budget</translation>
     </message>
     <message>
         <source>Start a budget: how many of each part you have</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Budget beginnen: wie viele von jedem Teil du hast</translation>
     </message>
     <message>
         <source>New budget started. Budget › Edit Budget sets how many of each part you have.</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Budget begonnen. Budget › Budget bearbeiten legt fest, wie viele von jedem Teil du hast.</translation>
     </message>
     <message>
         <source>&amp;Open Budget…</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget ö&amp;ffnen…</translation>
     </message>
     <message>
         <source>Open a budget file: how many of each part you have</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Budgetdatei öffnen: wie viele von jedem Teil du hast</translation>
     </message>
     <message>
         <source>Open budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget öffnen</translation>
     </message>
     <message>
         <source>&amp;Import and Merge Budget…</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget &amp;importieren und zusammenführen…</translation>
     </message>
     <message>
         <source>Add the limits of another budget file to the current budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Grenzen einer anderen Budgetdatei zum aktuellen Budget hinzufügen</translation>
     </message>
     <message>
         <source>Import and merge budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget importieren und zusammenführen</translation>
     </message>
     <message>
         <source>&amp;Close Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget s&amp;chließen</translation>
     </message>
     <message>
         <source>&amp;Save Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget &amp;speichern</translation>
     </message>
     <message>
         <source>Save Budget &amp;As…</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget speichern &amp;unter…</translation>
     </message>
     <message>
         <source>Save this budget under a new name</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Budget unter einem neuen Namen speichern</translation>
     </message>
     <message>
         <source>Show Only &amp;Parts in the Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur &amp;Teile im Budget zeigen</translation>
     </message>
     <message>
         <source>Hide parts without a budget from the Parts panel</source>
-        <translation type="unfinished"></translation>
+        <translation>Teile ohne Budget im Teile-Fenster ausblenden</translation>
     </message>
     <message>
         <source>Show Budget N&amp;umbers</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget-&amp;Zahlen zeigen</translation>
     </message>
     <message>
         <source>Set how many of each part you have</source>
-        <translation type="unfinished"></translation>
+        <translation>Festlegen, wie viele von jedem Teil du hast</translation>
     </message>
     <message>
         <source>Show how many of each part are used and allowed in the Parts panel</source>
-        <translation type="unfinished"></translation>
+        <translation>Im Teile-Fenster zeigen, wie viele von jedem Teil verwendet und erlaubt sind</translation>
     </message>
     <message>
         <source>Stop at the Budget &amp;Limits</source>
-        <translation type="unfinished"></translation>
+        <translation>An den Budget-&amp;Grenzen stoppen</translation>
     </message>
     <message>
         <source>Don&apos;t let anyone place more of a part than its budget allows</source>
-        <translation type="unfinished"></translation>
+        <translation>Niemanden mehr von einem Teil platzieren lassen, als sein Budget erlaubt</translation>
     </message>
     <message>
         <source>Budget limits</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget-Grenzen</translation>
     </message>
     <message>
         <source>Do you also want to show the budget numbers in the Parts panel?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sollen die Budget-Zahlen auch im Teile-Fenster erscheinen?</translation>
     </message>
     <message>
         <source>Don&apos;t ask again</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht mehr fragen</translation>
     </message>
     <message>
         <source>&amp;Edit Budget…</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget &amp;bearbeiten…</translation>
     </message>
     <message>
         <source>&amp;Import .bbm as Module…</source>
-        <translation type="unfinished"></translation>
+        <translation>.bbm als Modul i&amp;mportieren…</translation>
     </message>
     <message>
         <source>Save Selection as &amp;Set…</source>
@@ -7207,35 +7210,35 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>&amp;Getting Started</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Erste Schritte</translation>
     </message>
     <message>
         <source>Tour: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tour: %1</translation>
     </message>
     <message>
         <source>&amp;Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Inhalt</translation>
     </message>
     <message>
         <source>&amp;Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tastenkürzel</translation>
     </message>
     <message>
         <source>Turn Help Buttons &amp;Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfe-Knöpfe &amp;ausschalten</translation>
     </message>
     <message>
         <source>Turn Help Buttons &amp;On</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfe-Knöpfe &amp;einschalten</translation>
     </message>
     <message>
         <source>Check for &amp;Updates…</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach &amp;Updates suchen…</translation>
     </message>
     <message>
         <source>See whether a newer version of the app is out</source>
-        <translation type="unfinished"></translation>
+        <translation>Nachsehen, ob es eine neuere Version der App gibt</translation>
     </message>
     <message>
         <source>&amp;About Collaborative Brick Layout Designer…</source>
@@ -7243,7 +7246,7 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Version, credits and where the source code lives</source>
-        <translation type="unfinished"></translation>
+        <translation>Version, Mitwirkende und wo der Quellcode liegt</translation>
     </message>
     <message>
         <source>About &amp;Qt…</source>
@@ -7259,19 +7262,19 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Turn a LEGO Digital Designer model into a part you can place</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein LEGO-Digital-Designer-Modell in ein platzierbares Teil verwandeln</translation>
     </message>
     <message>
         <source>&amp;Batch Import…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Stapelimport…</translation>
     </message>
     <message>
         <source>Turn many LDraw / Studio / LDD files into custom parts at once</source>
-        <translation type="unfinished"></translation>
+        <translation>Viele LDraw-/Studio-/LDD-Dateien auf einmal in eigene Teile verwandeln</translation>
     </message>
     <message>
         <source>&amp;Re-import Changed Parts…</source>
-        <translation type="unfinished"></translation>
+        <translation>Geänderte Teile &amp;neu importieren…</translation>
     </message>
     <message>
         <source>&amp;Export Part List…</source>
@@ -7279,64 +7282,65 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Save the list of parts in this layout to a file</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Teileliste dieses Layouts in eine Datei speichern</translation>
     </message>
     <message>
         <source>&amp;Split by Sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach Blatt &amp;aufteilen</translation>
     </message>
     <message>
         <source>Include &amp;Hidden Sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgeblendete Blätter ein&amp;beziehen</translation>
     </message>
     <message>
         <source>Could not save the custom part: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Das eigene Teil konnte nicht gespeichert werden: %1</translation>
     </message>
     <message numerus="yes">
         <source>Imported %1 as &apos;%2&apos; (%3 × %4 studs, %n connection point(s))</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%1 als „%2“ importiert (%3 × %4 Noppen, %n Verbindungspunkt)</numerusform>
+            <numerusform>%1 als „%2“ importiert (%3 × %4 Noppen, %n Verbindungspunkte)</numerusform>
         </translation>
     </message>
     <message>
         <source>Re-import</source>
-        <translation type="unfinished"></translation>
+        <translation>Neu importieren</translation>
     </message>
     <message>
         <source>Re-imported %1 from %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 aus %2 neu importiert</translation>
     </message>
     <message>
         <source>Re-import Changed Parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Geänderte Teile neu importieren</translation>
     </message>
     <message numerus="yes">
         <source>Re-imported %n part(s).</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n Teil neu importiert.</numerusform>
+            <numerusform>%n Teile neu importiert.</numerusform>
         </translation>
     </message>
     <message>
         <source>These parts could not be re-imported:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Teile konnten nicht neu importiert werden:
+%1</translation>
     </message>
     <message>
         <source>Batch Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Stapelimport</translation>
     </message>
     <message>
         <source>Models (*.ldr *.dat *.mpd *.io *.lxf *.lxfml);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Modelle (*.ldr *.dat *.mpd *.io *.lxf *.lxfml);;Alle Dateien (*)</translation>
     </message>
     <message numerus="yes">
         <source>Import %n file(s) as custom parts.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n Datei als eigenes Teil importieren.</numerusform>
+            <numerusform>%n Dateien als eigene Teile importieren.</numerusform>
         </translation>
     </message>
     <message>
@@ -7345,7 +7349,7 @@ Your offline changes are kept; File &gt; Review Offline Changes brings them back
     </message>
     <message>
         <source>Models (*.ldr *.dat *.mpd *.io *.lxf *.lxfml);;LDraw (*.ldr *.dat *.mpd);;Studio (*.io);;LDD (*.lxf *.lxfml);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Modelle (*.ldr *.dat *.mpd *.io *.lxf *.lxfml);;LDraw (*.ldr *.dat *.mpd);;Studio (*.io);;LDD (*.lxf *.lxfml);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Import</source>
@@ -8051,7 +8055,7 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     </message>
     <message>
         <source>Label text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Text der Beschriftung:</translation>
     </message>
     <message>
         <source>Edit label</source>
@@ -8203,7 +8207,7 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     </message>
     <message>
         <source>Extend selection to every brick connected to current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Auswahl auf jeden Stein erweitern, der mit der jetzigen Auswahl verbunden ist</translation>
     </message>
     <message>
         <source>Make a Module…</source>
@@ -8235,7 +8239,7 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     </message>
     <message>
         <source>Add text</source>
-        <translation type="unfinished"></translation>
+        <translation>Text hinzufügen</translation>
     </message>
     <message>
         <source>Attach Ruler Center to This Brick</source>
@@ -11920,7 +11924,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Shift+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Shift+R</translation>
     </message>
     <message>
         <source>Turn them the other way</source>
