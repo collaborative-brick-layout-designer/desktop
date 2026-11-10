@@ -16,6 +16,7 @@
 
 #include <QCoreApplication>
 #include <QDir>
+#include <QHash>
 #include <QSettings>
 #include <QStandardPaths>
 #include <QStatusBar>
@@ -195,17 +196,35 @@ bool MainWindow::addPartsFromZip(const QString& zipPath, QString* error) {
 
 QStringList MainWindow::ownPartsRoots() const {
     const QString vendored = QDir::cleanPath(defaultVendoredPartsRoot());
-    const QString serverParts = QDir::cleanPath(
-        QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/server-parts"));
+    const QString appData = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    const QString serverParts = QDir::cleanPath(appData + QStringLiteral("/server-parts"));
+    // Where Get More Parts… installs the Download Center's packs: a library, not yours.
+    const QString packs = QDir::cleanPath(appData + QStringLiteral("/parts"));
     QStringList roots;
     if (const QString imports = importedPartsRoot(); !imports.isEmpty()) roots << QDir::cleanPath(imports);
     for (const QString& p : loadUserLibraryPaths()) {
         const QString path = QDir::cleanPath(p);
         if (path.isEmpty() || roots.contains(path) || path == vendored) continue;
         if (path == serverParts || path.startsWith(serverParts + QLatin1Char('/'))) continue;
+        if (path == packs || path.startsWith(packs + QLatin1Char('/'))) continue;
         roots << path;
     }
     return roots;
+}
+
+namespace {
+// A part inside a library pack (BlueBrick's: <pack>/config/About.txt), such
+// as one from the Download Center put in a folder of your own: not yours.
+bool inLibraryPackDir(const QString& dir, const QString& root) {
+    for (QDir d(dir);; ) {
+        if (QFileInfo::exists(d.filePath(QStringLiteral("config/About.txt")))) return true;
+        if (QDir::cleanPath(d.absolutePath()) == root || !d.cdUp()) return false;
+    }
+}
+}  // namespace
+
+bool MainWindow::inLibraryPack(const QString& xmlPath, const QString& root) {
+    return inLibraryPackDir(QFileInfo(xmlPath).absolutePath(), QDir::cleanPath(root));
 }
 
 QList<sync::LocalPart> MainWindow::scanOwnParts() const {
@@ -215,7 +234,7 @@ QList<sync::LocalPart> MainWindow::scanOwnParts() const {
         if (!QDir(root).exists()) continue;
         // The first folder with a part number wins, as in the parts library.
         for (const sync::LocalPart& p : sync::PartsUpload::scanFolder(root))
-            if (!seen.contains(p.key.toUpper())) {
+            if (!seen.contains(p.key.toUpper()) && !inLibraryPack(p.xmlPath, root)) {
                 seen.insert(p.key.toUpper());
                 parts << p;
             }

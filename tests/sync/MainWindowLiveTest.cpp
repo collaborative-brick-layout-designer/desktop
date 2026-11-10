@@ -13,7 +13,10 @@
 #include "edit/EditCommands.h"
 #include "import/LayoutFile.h"
 #include "parts/PartsLibrary.h"
+#include "ui/LayerPanel.h"
 #include "ui/LiveLayout.h"
+#include "UploadPartsDialog.h"
+#include "core/Ids.h"
 #include "ui/LoadingCard.h"
 #include "ui/MainWindow.h"
 #include "ui/ModuleLibraryPanel.h"
@@ -21,6 +24,8 @@
 #include "ui/MapView.h"
 #include "ui/NoticeArea.h"
 #include "ui/UpdateCheck.h"
+#include "ui/theme/AppPrefs.h"
+#include "ui/theme/ThemeManager.h"
 
 #include <gtest/gtest.h>
 
@@ -36,6 +41,7 @@
 #include <QFileInfo>
 #include <QLineEdit>
 #include <QTemporaryDir>
+#include <QListWidget>
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -44,6 +50,7 @@
 #include <QPointer>
 #include <QPushButton>
 #include <QSettings>
+#include <QStatusBar>
 
 #include <algorithm>
 #include <QStandardPaths>
@@ -177,6 +184,11 @@ public:
     }
     using ui::MainWindow::setTokenStore;
     using ui::MainWindow::manifestExtras;
+    using ui::MainWindow::offerPartsUpload;
+    using ui::MainWindow::openLiveFromHere;
+    using ui::MainWindow::ownPartsInLayout;
+    using ui::MainWindow::runUploadPartsDialog;
+    using ui::MainWindow::scanOwnParts;
 };
 
 QString liveCache() {
@@ -1406,4 +1418,162 @@ TEST(MainWindowKeychain, ASignInTheKeychainCantKeepSaysSo) {
     EXPECT_TRUE(all.contains(QStringLiteral("sign in again"))) << all.toStdString();
     EXPECT_TRUE(all.contains(QStringLiteral("org.freedesktop.secrets"))) << all.toStdString();
     QStandardPaths::setTestModeEnabled(false);
+}
+
+namespace {
+void writeFile(const QString& path, const QByteArray& data) {
+    QDir().mkpath(QFileInfo(path).absolutePath());
+    QFile f(path);
+    ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+    f.write(data);
+}
+// A part file and its picture.
+void writePart(const QString& dir, const QString& key) {
+    writeFile(dir + QLatin1Char('/') + key + QStringLiteral(".xml"),
+              "<part><Description><en>" + key.toUtf8() + "</en></Description></part>");
+    writeFile(dir + QLatin1Char('/') + key + QStringLiteral(".gif"), "GIF89a");
+}
+}  // namespace
+
+// Save to Server used to offer every Download Center part as "parts of
+// yours", all ticked: one click sent hundreds to the club. Now only your
+// own parts this layout uses, unticked.
+TEST_F(MainWindowLive, SaveToServerOffersOnlyYourOwnPartsInTheLayoutUnticked) {
+    QTemporaryDir modules, folder;
+    // Your imported part, used; another of yours, not used.
+    writePart(modules.path() + QStringLiteral("/imports/Mine"), QStringLiteral("MY.1"));
+    writePart(modules.path() + QStringLiteral("/imports/Mine"), QStringLiteral("UNUSED.1"));
+    // A Download Center pack where Get More Parts installs them, and a copy of one in a folder of yours.
+    const QString packs = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/parts");
+    writeFile(packs + QStringLiteral("/Town/config/About.txt"), "version=1.3");
+    writePart(packs + QStringLiteral("/Town/parts"), QStringLiteral("TOWN.1"));
+    writeFile(folder.path() + QStringLiteral("/Castle/config/About.txt"), "version=1.1");
+    writePart(folder.path() + QStringLiteral("/Castle/parts"), QStringLiteral("CASTLE.1"));
+    writePart(folder.path(), QStringLiteral("FOLDER.1"));
+    QSettings().setValue(QStringLiteral("modules/libraryPath"), modules.path());
+    const QVariant userPaths = QSettings().value(QStringLiteral("partsLibrary/userPaths"));
+    QSettings().setValue(QStringLiteral("partsLibrary/userPaths"), QStringList{ packs, folder.path() });
+
+    QStringList own;
+    for (const auto& p : window_->scanOwnParts()) own << p.key;
+    own.sort();
+    EXPECT_EQ(own, (QStringList{ QStringLiteral("FOLDER.1"), QStringLiteral("MY.1"), QStringLiteral("UNUSED.1") }));
+
+    // The layout uses MY.1, TOWN.1 and CASTLE.1 (and the parts it had).
+    core::Map& m = *view_->currentMap();
+    for (const char* key : { "MY.1", "TOWN.1", "CASTLE.1" }) {
+        core::Brick b = brickAt(m, 0);
+        b.guid = core::newBbmId();
+        b.partNumber = QString::fromLatin1(key);
+        for (auto& l : m.layers())
+            if (l->kind() == core::LayerKind::Brick) {
+                static_cast<core::LayerBrick&>(*l).bricks.push_back(b);
+                break;
+            }
+    }
+    EXPECT_EQ(window_->ownPartsInLayout(), QStringList{ QStringLiteral("MY.1") });
+
+    http_.reply("/api/parts/catalog", 200, { { QStringLiteral("parts"), QJsonArray{} } });
+    QStringList offered;
+    QList<Qt::CheckState> states;
+    bool canSave = true, savesOnceTicked = false;
+    window_->runUploadPartsDialog = [&](sync::UploadPartsDialog& d) {
+        auto* list = d.findChild<QListWidget*>(QStringLiteral("parts"));
+        auto* save = d.findChild<QPushButton*>(QStringLiteral("upload"));
+        for (int i = 0; list && i < list->count(); ++i) {
+            offered << list->item(i)->text();
+            states << list->item(i)->checkState();
+        }
+        canSave = save->isEnabled();
+        if (list && list->count() > 0) list->item(0)->setCheckState(Qt::Checked);
+        savesOnceTicked = save->isEnabled();
+        return false;
+    };
+    window_->offerPartsUpload(false);
+    ASSERT_TRUE(waitFor([&] { return !offered.isEmpty(); }));
+    EXPECT_EQ(offered, QStringList{ QStringLiteral("MY.1") });
+    EXPECT_EQ(states, QList<Qt::CheckState>{ Qt::Unchecked });
+    EXPECT_FALSE(canSave);
+    EXPECT_TRUE(savesOnceTicked);
+
+    window_->runUploadPartsDialog = nullptr;
+    QDir(packs).removeRecursively();
+    QSettings().remove(QStringLiteral("modules/libraryPath"));
+    if (userPaths.isValid()) QSettings().setValue(QStringLiteral("partsLibrary/userPaths"), userPaths);
+    else QSettings().remove(QStringLiteral("partsLibrary/userPaths"));
+}
+
+// Going live switched the sheet new parts go on ("Adding to: rulers"):
+// the sheet picked here stays, going live and through others' edits.
+TEST_F(MainWindowLive, TheSheetPartsGoOnStaysWhenGoingLiveAndThroughOthersEdits) {
+    core::Map* m = view_->currentMap();
+    std::vector<int> sheets;
+    for (int i = 0; i < static_cast<int>(m->layers().size()); ++i)
+        if (m->layers()[i]->kind() == core::LayerKind::Brick) sheets.push_back(i);
+    ASSERT_FALSE(sheets.empty());
+    // Opened live: on a parts sheet, whatever the shared copy says.
+    EXPECT_EQ(m->layers()[m->selectedLayerIndex]->kind(), core::LayerKind::Brick);
+    const int picked = sheets.front();
+    auto* panel = window_->findChild<ui::LayerPanel*>();
+    ASSERT_TRUE(panel);
+    // Another sheet first (a sheet that isn't for parts, when there's one), then the parts sheet.
+    for (int i = 0; i < static_cast<int>(m->layers().size()); ++i)
+        if (i != picked) {
+            m->selectedLayerIndex = i;
+            break;
+        }
+    emit panel->activeLayerChanged(picked);
+    m->selectedLayerIndex = picked;
+    ws_.remoteEdit([](core::Map& s) { brickAt(s, 1).displayArea.translate(0, 16); });
+    ASSERT_TRUE(waitFor([&] { return brickAt(*view_->currentMap(), 1).displayArea == otherOriginal_.translated(0, 16); }));
+    EXPECT_EQ(view_->currentMap()->selectedLayerIndex, picked);
+
+    // Save to Server from here: the live copy starts on the same sheet.
+    window_->openLiveFromHere({ http_.base(), QStringLiteral("bld_pat_test"), QStringLiteral("L1"),
+                                QStringLiteral("Show 2026"), false, {} });
+    ASSERT_TRUE(waitFor([&] { return session().status() == Status::Synced && view_->currentMap(); }));
+    waitFor([] { return false; }, 200);
+    EXPECT_EQ(view_->currentMap()->selectedLayerIndex, picked);
+    // The status bar names that sheet too.
+    const QString name = view_->currentMap()->layers()[picked]->name;
+    bool named = false;
+    for (QLabel* l : window_->findChildren<QLabel*>()) named |= l->text() == QStringLiteral("Sheet: ") + name;
+    EXPECT_TRUE(named);
+}
+
+// BLD_REVIEW_SHOTS=<dir> BLD_PARTS=<library dirs, ':'-separated>: the live
+// window after Save to Server, light and dark, for a PR (skipped otherwise).
+TEST_F(MainWindowLive, PicturesOfTheSheetAfterGoingLive) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    const QStringList libs = qEnvironmentVariable("BLD_PARTS").split(QLatin1Char(':'), Qt::SkipEmptyParts);
+    if (out.isEmpty() || libs.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS / BLD_PARTS not set";
+    for (const QString& p : libs) parts_.addSearchPath(p);
+    ASSERT_GT(parts_.scan(), 1000);
+    ui::theme::PrefsStore store(QStringLiteral("review-live-shots"));
+    ui::theme::ThemeManager themer(store);
+    window_->resize(1440, 900);
+    window_->show();
+    waitFor([] { return false; }, 300);
+    window_->openLiveFromHere({ http_.base(), QStringLiteral("bld_pat_test"), QStringLiteral("L1"),
+                                QStringLiteral("Show 2026"), false, {} });
+    ASSERT_TRUE(waitFor([&] { return session().status() == Status::Synced && view_->currentMap(); }));
+    view_->rebuildScene();
+    waitFor([&] { return !view_->loadingCard() || !view_->loadingCard()->isVisible(); }, 30000);
+    for (QFrame* card : window_->findChildren<QFrame*>(QStringLiteral("NoticeCard"))) card->hide();
+    int missing = 0;
+    for (const auto& L : view_->currentMap()->layers())
+        if (L->kind() == core::LayerKind::Brick)
+            for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks)
+                if (!parts_.metadata(b.partNumber) || parts_.pixmap(b.partNumber).isNull()) ++missing;
+    ASSERT_EQ(missing, 0);
+    for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+        ui::theme::AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        waitFor([] { return false; }, 600);
+        window_->statusBar()->clearMessage();
+        window_->grab().save(out + QStringLiteral("/review-after-live-sheet-%1.png")
+                                       .arg(mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark")
+                                                                                  : QStringLiteral("light")));
+    }
 }

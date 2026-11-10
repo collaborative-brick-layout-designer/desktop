@@ -15,6 +15,9 @@
 #include "ui/help/ShortcutsDialog.h"
 #include "ui/theme/AppPrefs.h"
 #include "ui/theme/ThemeManager.h"
+#include "sync/ServerApi.h"
+#include "sync/PartsUpload.h"
+#include "sync/ui/UploadPartsDialog.h"
 
 #include <gtest/gtest.h>
 
@@ -141,6 +144,18 @@ TEST(ReviewShots, PicturesForReview) {
             QTest::qWait(400);
             m->grab().save(file(QStringLiteral("edit-menu")));
             m->close();
+        }
+        // After Save to Server: only your own part in the layout, unticked.
+        {
+            sync::ServerApi api;
+            sync::PartsUpload upload(QUrl(QStringLiteral("http://127.0.0.1:9")), QString());
+            sync::LocalPart mine;
+            mine.key = QStringLiteral("MY-STATION.1");
+            mine.displayName = QStringLiteral("Fordyce station (imported)");
+            sync::UploadPartsDialog d(api, upload, { mine }, &window, false);
+            d.show();
+            QTest::qWait(300);
+            d.grab().save(file(QStringLiteral("upload-parts")));
         }
         // A sign-in the keychain couldn't keep.
         {

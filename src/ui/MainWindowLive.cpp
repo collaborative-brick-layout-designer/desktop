@@ -4,6 +4,7 @@
 
 #include "MainWindow.h"
 
+#include "ActiveSheet.h"
 #include "LayerPanel.h"
 #include "LiveLayout.h"
 #include "LoadingCard.h"
@@ -255,7 +256,7 @@ void MainWindow::onPublishToServer() {
     const auto published = dialog.result();
     if (!published) return;
     // The published layout is now the live one; the local file stays as it was.
-    openLive(*published);
+    openLiveFromHere(*published);
     statusBar()->showMessage(tr("Saved “%1” on %2").arg(published->title, liveServerName()),
                              5000);
     // Parts of yours the server lacks would show as missing there: offer them.
@@ -264,10 +265,19 @@ void MainWindow::onPublishToServer() {
 
 void MainWindow::offerPartsUpload(bool quiet) {
     if (!live_->active() || liveToken_.isEmpty()) return;
-    uploadPartsTo(liveServer_, liveToken_, quiet);
+    // Only your own parts this layout uses, unticked: never every part of a
+    // Download Center pack, and nothing goes up unless you tick it.
+    const QStringList used = ownPartsInLayout();
+    if (used.isEmpty()) return;
+    uploadPartsTo(liveServer_, liveToken_, quiet, used, false);
 }
 
 void MainWindow::openLive(const sync::ConnectResult& r) {
+    liveSheet_ = {};
+    if (const core::Map* m = mapView_->currentMap(); m && carrySheetIntoLive_)
+        if (const int i = placementLayer(*m); i >= 0) liveSheet_ = { i, m->layers()[i]->name };
+    carrySheetIntoLive_ = false;
+    connect(layerPanel_, &LayerPanel::activeLayerChanged, this, &MainWindow::rememberLiveSheet, Qt::UniqueConnection);
     // The live layout is now what's open; the file it may have come from isn't.
     forgetFileSource();
     liveServer_ = r.server;
@@ -662,9 +672,44 @@ void MainWindow::onLiveReloaded() {
                 if (live_->active()) makeSetsOfSetModules();
             });
     }
+    const bool moved = keepLiveSheet();
     layerPanel_->setMap(mapView_->currentMap(), mapView_->builder());
+    // What names the active sheet ("Sheet: …" in the status bar) reads it again.
+    if (moved) emit layerPanel_->activeLayerChanged(mapView_->currentMap()->selectedLayerIndex);
     modulesPanel_->setMap(mapView_->currentMap());
     updateTitle();
+}
+
+void MainWindow::rememberLiveSheet(int index) {
+    const core::Map* m = mapView_->currentMap();
+    if (!live_->active() || !m || index < 0 || index >= static_cast<int>(m->layers().size())) return;
+    liveSheet_ = { index, m->layers()[index]->name };
+}
+
+bool MainWindow::keepLiveSheet() {
+    core::Map* m = live_->active() ? mapView_->currentMap() : nullptr;
+    if (!m) return false;
+    const auto& layers = m->layers();
+    const int n = static_cast<int>(layers.size());
+    const auto takesParts = [&](int i) {
+        return i >= 0 && i < n && layers[i] && layers[i]->kind() == core::LayerKind::Brick;
+    };
+    // The one chosen (here, or before going live), found again by its place
+    // and name, else by name; else the rule a file opens by.
+    int want = -1;
+    if (!liveSheet_.name.isNull()) {
+        if (takesParts(liveSheet_.index) && layers[liveSheet_.index]->name == liveSheet_.name) want = liveSheet_.index;
+        for (int i = 0; i < n && want < 0; ++i)
+            if (takesParts(i) && layers[i]->name == liveSheet_.name) want = i;
+    }
+    if (want < 0) want = startingSheet(*m);
+    if (want < 0 || want == m->selectedLayerIndex) return false;
+    // The shared copy keeps its own choice when this one is written back.
+    const int saved = m->selectedLayerIndex;
+    const core::Layer* l = saved >= 0 && saved < n ? layers[saved].get() : nullptr;
+    m->fileSelection = core::Map::FileSelection{ saved, l, l ? l->guid : QString() };
+    m->selectedLayerIndex = want;
+    return true;
 }
 
 void MainWindow::updateLiveUi() {
