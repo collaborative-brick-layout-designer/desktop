@@ -141,21 +141,20 @@ jobs:
         run: scripts/ci/check-warnings.sh configure.log build.log
 
       # The help texts must match the web's word for word: fetch the web's
-      # catalogue at main, so HelpTexts.MatchesTheWebCatalogueWordForWord
-      # runs here instead of skipping (a failed fetch fails that test).
+      # catalogue at the commit src/ui/help/web-help-texts.commit names (the
+      # PR that copies the web's words bumps it), so
+      # HelpTexts.MatchesTheWebCatalogueWordForWord runs here instead of
+      # skipping. Pinned, not main: a change on the web's main no longer
+      # turns this build red, and a tag builds the same way forever. A
+      # failed fetch fails that test.
       - name: Fetch the web's help texts (Linux)
         if: runner.os == 'Linux'
         shell: bash
         run: |
-          # help-texts.json is the one source; before the web moved its
-          # words there they were in helpTexts.ts, which the test still reads.
-          base=https://raw.githubusercontent.com/collaborative-brick-layout-designer/web/main/apps/web/src/help
-          if curl -fsSL --retry 3 -o "$RUNNER_TEMP/help-texts.json" "$base/help-texts.json"; then
-            echo "BLD_WEB_HELP_TEXTS=$RUNNER_TEMP/help-texts.json" >> "$GITHUB_ENV"
-          else
-            curl -fsSL --retry 3 -o "$RUNNER_TEMP/helpTexts.ts" "$base/helpTexts.ts" || true
-            echo "BLD_WEB_HELP_TEXTS=$RUNNER_TEMP/helpTexts.ts" >> "$GITHUB_ENV"
-          fi
+          sha=$(tr -d '[:space:]' < src/ui/help/web-help-texts.commit)
+          curl -fsSL --retry 3 -o "$RUNNER_TEMP/help-texts.json" \
+            "https://raw.githubusercontent.com/collaborative-brick-layout-designer/web/$sha/apps/web/src/help/help-texts.json" || true
+          echo "BLD_WEB_HELP_TEXTS=$RUNNER_TEMP/help-texts.json" >> "$GITHUB_ENV"
 
       - name: Test
         run: ctest --test-dir build --build-config Release --output-on-failure --timeout 300
