@@ -7394,6 +7394,30 @@ As suas alterações offline ficam guardadas; Ficheiro › Rever alterações of
         <translation>Definir quantas unidades de cada peça este layout pode usar</translation>
     </message>
     <message>
+        <source>Bring your budget into this layout?</source>
+        <translation>Trazer o seu orçamento para este layout?</translation>
+    </message>
+    <message>
+        <source>A budget is now saved with its layout, and shared with everyone who edits that layout. This layout has no budget yet. Your budget from before is in the file “%1”.
+
+You won&apos;t be asked again. To bring it into this or any other layout later, choose Budget › Import Budget from File.</source>
+        <translation>Agora um orçamento é guardado com o seu layout e partilhado com todos os que editam esse layout. Este layout ainda não tem orçamento. O seu orçamento de antes está no ficheiro &quot;%1&quot;.
+
+Não voltaremos a perguntar. Para o trazer mais tarde para este ou outro layout, escolha Orçamento › Importar orçamento de ficheiro.</translation>
+    </message>
+    <message>
+        <source>Bring it in</source>
+        <translation>Trazer</translation>
+    </message>
+    <message>
+        <source>Your budget is in this layout now. Budget › Edit Budget shows it.</source>
+        <translation>O seu orçamento está agora neste layout. Orçamento › Editar orçamento mostra-o.</translation>
+    </message>
+    <message>
+        <source>No, thanks</source>
+        <translation>Não, obrigado</translation>
+    </message>
+    <message>
         <source>&amp;Import .bbm as Module…</source>
         <translation>&amp;Importar .bbm como módulo…</translation>
     </message>

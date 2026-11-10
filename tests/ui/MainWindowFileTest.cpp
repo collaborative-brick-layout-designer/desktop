@@ -4,6 +4,7 @@
 #include "ui/BudgetSession.h"
 #include "ui/MainWindow.h"
 #include "ui/MapView.h"
+#include "ui/NoticeArea.h"
 #include "ui/PartDifferencesDialog.h"
 #include "ui/PartsBrowser.h"
 #include "ui/MapViewInternal.h"
@@ -11,6 +12,7 @@
 #include "ui/UpdateCheck.h"
 
 #include "core/AnchoredLabel.h"
+#include "edit/Budget.h"
 #include "core/DrawnLimits.h"
 #include "core/LayerBrick.h"
 #include "core/LayerGrid.h"
@@ -27,6 +29,7 @@
 
 #include <gtest/gtest.h>
 
+#include <QAbstractButton>
 #include <QAction>
 #include <QApplication>
 #include <QBuffer>
@@ -888,6 +891,10 @@ TEST_F(MainWindowFile, BudgetIsSavedWithTheLayoutAndUndoable) {
     EXPECT_TRUE(editAct->isEnabled());
     ASSERT_TRUE(map->sidecar.budgetLimits);
     EXPECT_TRUE(map->sidecar.budgetLimits->isEmpty());
+    // A budget with no limits yet says nothing in the status bar, as on the
+    // web (no "Budget: OK" before there is anything to be within).
+    for (QLabel* l : window_->statusBar()->findChildren<QLabel*>())
+        EXPECT_FALSE(l->text().startsWith(QStringLiteral("Budget"))) << l->text().toStdString();
     // A limit is an undo step on the layout, and the status bar says how it stands.
     budget->setLimit(QStringLiteral("3001.1"), 4);
     EXPECT_EQ(map->sidecar.budgetLimits->value(QStringLiteral("3001.1")), 4);
@@ -896,6 +903,13 @@ TEST_F(MainWindowFile, BudgetIsSavedWithTheLayoutAndUndoable) {
     for (QLabel* l : window_->statusBar()->findChildren<QLabel*>())
         if (l->text().startsWith(QStringLiteral("Budget:"))) status = l;
     ASSERT_NE(status, nullptr);
+    EXPECT_EQ(status->text(), QStringLiteral("Budget: OK"));
+    EXPECT_FALSE(status->parentWidget()->isHidden());
+    // Back to a budget with no limits: nothing to be within, so nothing is said.
+    view->undoStack()->undo();
+    EXPECT_TRUE(status->text().isEmpty());
+    EXPECT_TRUE(status->parentWidget()->isHidden());
+    view->undoStack()->redo();
     EXPECT_EQ(status->text(), QStringLiteral("Budget: OK"));
     view->undoStack()->undo();
     EXPECT_FALSE(map->sidecar.budgetLimits->contains(QStringLiteral("3001.1")));
@@ -926,4 +940,173 @@ TEST_F(MainWindowFile, BudgetIsSavedWithTheLayoutAndUndoable) {
     view->undoStack()->setClean();
     ASSERT_TRUE(window_->openFile(kCorpus + QStringLiteral("/fordyce-2026.bbm")));
     EXPECT_FALSE(budget->exists());
+}
+
+namespace {
+
+// The notice's button with this text, or nullptr.
+QPushButton* noticeButton(ui::MainWindow& window, const QString& id, const QString& text) {
+    QFrame* card = window.notices()->card(id);
+    if (!card) return nullptr;
+    for (auto* b : card->findChildren<QPushButton*>())
+        if (QString(b->text()).remove(QLatin1Char('&')) == text) return b;
+    return nullptr;
+}
+
+// Settings as an older version left them: its app-wide budget file, and
+// nothing about the offer yet.
+void asBeforeTheUpdate(const QString& bbb) {
+    QApplication::processEvents();  // a window made earlier has had its own look
+    QSettings settings;
+    settings.remove(QStringLiteral("budget/oldFileChecked"));
+    settings.remove(QStringLiteral("budget/oldFile"));
+    if (bbb.isEmpty()) settings.remove(QStringLiteral("budget/lastFile"));
+    else settings.setValue(QStringLiteral("budget/lastFile"), bbb);
+}
+
+QString writeBudgetFile(const QString& path) {
+    edit::Budget b;
+    b.setLimit(QStringLiteral("3001.1"), 12);
+    b.setLimit(QStringLiteral("3005.4"), 0);
+    EXPECT_TRUE(b.write(path));
+    return path;
+}
+
+}  // namespace
+
+// Older versions kept one budget file for the whole app. The first start
+// after the update offers, once, to bring it into the open layout; "Bring it
+// in" does, and it is never offered again.
+TEST_F(MainWindowFile, OffersTheOldAppWideBudgetOnceAndBringsItIn) {
+    const QString bbb = writeBudgetFile(dir_.filePath(QStringLiteral("club.bbb")));
+    window_.reset();  // the fixture's window would take the offer
+    asBeforeTheUpdate(bbb);
+    {
+        ui::MainWindow window(parts_);
+        // Nothing to bring it into until a layout is open.
+        QTest::qWait(50);
+        EXPECT_FALSE(window.notices()->isShown(QStringLiteral("budget.old")));
+        ASSERT_TRUE(window.openFile(bbm_));
+        ASSERT_TRUE(QTest::qWaitFor([&] { return window.notices()->isShown(QStringLiteral("budget.old")); }, 2000));
+        QFrame* card = window.notices()->card(QStringLiteral("budget.old"));
+        EXPECT_EQ(card->findChild<QLabel*>(QStringLiteral("NoticeTitle"))->text(),
+                  QStringLiteral("Bring your budget into this layout?"));
+        const QString text = card->findChild<QLabel*>(QStringLiteral("NoticeText"))->text();
+        EXPECT_TRUE(text.contains(QStringLiteral("club.bbb"))) << text.toStdString();
+        EXPECT_TRUE(text.contains(QStringLiteral("Budget › Import Budget from File"))) << text.toStdString();
+        // With an ⓘ that says what a budget is.
+        bool help = false;
+        for (auto* b : card->findChildren<QAbstractButton*>())
+            help = help || b->property("helpKey").toString() == QStringLiteral("dialog.budget");
+        EXPECT_TRUE(help);
+        EXPECT_FALSE(window.budgetSession()->exists());
+
+        QPushButton* bring = noticeButton(window, QStringLiteral("budget.old"), QStringLiteral("Bring it in"));
+        ASSERT_NE(bring, nullptr);
+        ASSERT_NE(noticeButton(window, QStringLiteral("budget.old"), QStringLiteral("No, thanks")), nullptr);
+        bring->click();
+        ASSERT_TRUE(QTest::qWaitFor([&] { return window.budgetSession()->exists(); }, 2000));
+        EXPECT_EQ(window.budgetSession()->limit(QStringLiteral("3001.1")), 12);
+        EXPECT_EQ(window.budgetSession()->limit(QStringLiteral("3005.4")), 0);
+        // An undo step on the layout, like any budget change.
+        auto* view = window.findChild<ui::MapView*>();
+        EXPECT_EQ(view->undoStack()->undoText(), QStringLiteral("Import budget"));
+        EXPECT_TRUE(QTest::qWaitFor([&] { return !window.notices()->isShown(QStringLiteral("budget.old")); }, 2000));
+        view->undoStack()->setClean();
+    }
+    // The next start, and a layout without a budget opened then: not asked again.
+    {
+        ui::MainWindow window(parts_);
+        QTest::qWait(50);
+        EXPECT_FALSE(window.notices()->isShown(QStringLiteral("budget.old")));
+        ASSERT_TRUE(window.openFile(bbm_));
+        QTest::qWait(50);
+        EXPECT_FALSE(window.notices()->isShown(QStringLiteral("budget.old")));
+        EXPECT_FALSE(window.budgetSession()->exists());
+    }
+    asBeforeTheUpdate({});
+}
+
+// Turned down, it isn't asked again either; and Import Budget from File
+// still brings any .bbb in.
+TEST_F(MainWindowFile, TheOldBudgetOfferTurnedDownIsNotMadeAgain) {
+    const QString bbb = writeBudgetFile(dir_.filePath(QStringLiteral("club.bbb")));
+    window_.reset();  // the fixture's window would take the offer
+    asBeforeTheUpdate(bbb);
+    {
+        ui::MainWindow window(parts_);
+        // Nothing to bring it into until a layout is open.
+        QTest::qWait(50);
+        EXPECT_FALSE(window.notices()->isShown(QStringLiteral("budget.old")));
+        ASSERT_TRUE(window.openFile(bbm_));
+        ASSERT_TRUE(QTest::qWaitFor([&] { return window.notices()->isShown(QStringLiteral("budget.old")); }, 2000));
+        noticeButton(window, QStringLiteral("budget.old"), QStringLiteral("No, thanks"))->click();
+        EXPECT_TRUE(QTest::qWaitFor([&] { return !window.notices()->isShown(QStringLiteral("budget.old")); }, 2000));
+        EXPECT_FALSE(window.budgetSession()->exists());
+    }
+    ui::MainWindow window(parts_);
+    ASSERT_TRUE(window.openFile(bbm_));
+    QTest::qWait(50);
+    EXPECT_FALSE(window.notices()->isShown(QStringLiteral("budget.old")));
+    QAction* import = nullptr;
+    for (QAction* a : window.findChildren<QAction*>())
+        if (a->objectName() == QLatin1String("act.budget.import")) import = a;
+    ASSERT_NE(import, nullptr);
+    EXPECT_TRUE(import->isEnabled());
+    Answers answers{ { chooseFile(bbb) } };
+    answers.during([&] { import->trigger(); });
+    EXPECT_EQ(window.budgetSession()->limit(QStringLiteral("3001.1")), 12);
+    window.findChild<ui::MapView*>()->undoStack()->setClean();
+    asBeforeTheUpdate({});
+}
+
+// Nothing to offer: a first install (no budget file from before), a file
+// that is gone, and a .bbb imported with this version (budget/lastFile is
+// only where the file dialogs start now).
+TEST_F(MainWindowFile, NoOldBudgetOfferWithoutAnOldBudgetFile) {
+    window_.reset();
+    asBeforeTheUpdate({});
+    {
+        ui::MainWindow window(parts_);
+        ASSERT_TRUE(window.openFile(bbm_));
+        QTest::qWait(50);
+        EXPECT_FALSE(window.notices()->isShown(QStringLiteral("budget.old")));
+        ASSERT_TRUE(window.budgetSession()->importFile(writeBudgetFile(dir_.filePath(QStringLiteral("new.bbb")))));
+        window.findChild<ui::MapView*>()->undoStack()->setClean();
+    }
+    {
+        ui::MainWindow window(parts_);
+        ASSERT_TRUE(window.openFile(bbm_));
+        QTest::qWait(50);
+        EXPECT_FALSE(window.notices()->isShown(QStringLiteral("budget.old")));
+    }
+    asBeforeTheUpdate(dir_.filePath(QStringLiteral("gone.bbb")));
+    ui::MainWindow window(parts_);
+    ASSERT_TRUE(window.openFile(bbm_));
+    QTest::qWait(50);
+    EXPECT_FALSE(window.notices()->isShown(QStringLiteral("budget.old")));
+    asBeforeTheUpdate({});
+}
+
+// The first layout opened after the update already has a budget: the offer
+// waits for the first layout without one.
+TEST_F(MainWindowFile, TheOldBudgetOfferWaitsForALayoutWithoutABudget) {
+    const QString bbb = writeBudgetFile(dir_.filePath(QStringLiteral("club.bbb")));
+    window_.reset();  // the fixture's window would take the offer
+    asBeforeTheUpdate(bbb);
+    // A layout that has a budget: the .bbm with a sidecar beside it.
+    const QString budgeted = dir_.filePath(QStringLiteral("budgeted.bbm"));
+    ASSERT_TRUE(QFile::copy(bbm_, budgeted));
+    QFile sidecar(budgeted + QStringLiteral(".bld"));
+    ASSERT_TRUE(sidecar.open(QIODevice::WriteOnly));
+    sidecar.write(R"({"schemaVersion":1,"bbmHashSha256":"","budgetLimits":{"3001.1":4}})");
+    sidecar.close();
+    ui::MainWindow window(parts_);
+    ASSERT_TRUE(window.openFile(budgeted));
+    ASSERT_TRUE(window.budgetSession()->exists());
+    QTest::qWait(50);
+    EXPECT_FALSE(window.notices()->isShown(QStringLiteral("budget.old")));
+    ASSERT_TRUE(window.openFile(bbm_));
+    EXPECT_TRUE(QTest::qWaitFor([&] { return window.notices()->isShown(QStringLiteral("budget.old")); }, 2000));
+    asBeforeTheUpdate({});
 }

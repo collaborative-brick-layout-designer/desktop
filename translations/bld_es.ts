@@ -7394,6 +7394,30 @@ Tus cambios sin conexión se conservan; Archivo › Revisar cambios sin conexió
         <translation>Definir cuántas de cada pieza puede usar esta maqueta</translation>
     </message>
     <message>
+        <source>Bring your budget into this layout?</source>
+        <translation>¿Traer tu presupuesto a esta maqueta?</translation>
+    </message>
+    <message>
+        <source>A budget is now saved with its layout, and shared with everyone who edits that layout. This layout has no budget yet. Your budget from before is in the file “%1”.
+
+You won&apos;t be asked again. To bring it into this or any other layout later, choose Budget › Import Budget from File.</source>
+        <translation>Ahora un presupuesto se guarda con su maqueta y se comparte con todos los que editan esa maqueta. Esta maqueta aún no tiene presupuesto. Tu presupuesto de antes está en el archivo «%1».
+
+No se te volverá a preguntar. Para traerlo más tarde a esta o a cualquier otra maqueta, elige Presupuesto › Importar presupuesto de un archivo.</translation>
+    </message>
+    <message>
+        <source>Bring it in</source>
+        <translation>Traerlo</translation>
+    </message>
+    <message>
+        <source>Your budget is in this layout now. Budget › Edit Budget shows it.</source>
+        <translation>Tu presupuesto ya está en esta maqueta. Presupuesto › Editar presupuesto lo muestra.</translation>
+    </message>
+    <message>
+        <source>No, thanks</source>
+        <translation>No, gracias</translation>
+    </message>
+    <message>
         <source>&amp;Import .bbm as Module…</source>
         <translation>&amp;Importar .bbm como módulo…</translation>
     </message>

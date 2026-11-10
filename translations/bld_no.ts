@@ -6067,6 +6067,30 @@ Lagre min som ny versjon: din blir modulen; deres blir liggende i versjonshistor
         <translation>Angi hvor mange av hver del denne layouten kan bruke</translation>
     </message>
     <message>
+        <source>Bring your budget into this layout?</source>
+        <translation>Ta budsjettet ditt inn i denne layouten?</translation>
+    </message>
+    <message>
+        <source>A budget is now saved with its layout, and shared with everyone who edits that layout. This layout has no budget yet. Your budget from before is in the file “%1”.
+
+You won&apos;t be asked again. To bring it into this or any other layout later, choose Budget › Import Budget from File.</source>
+        <translation>Et budsjett lagres nå sammen med layouten sin og deles med alle som redigerer den layouten. Denne layouten har ikke noe budsjett ennå. Budsjettet ditt fra før ligger i filen «%1».
+
+Du blir ikke spurt igjen. For å ta det inn i denne eller en annen layout senere, velg Budsjett › Importer budsjett fra fil.</translation>
+    </message>
+    <message>
+        <source>Bring it in</source>
+        <translation>Ta det inn</translation>
+    </message>
+    <message>
+        <source>Your budget is in this layout now. Budget › Edit Budget shows it.</source>
+        <translation>Budsjettet ditt er nå i denne layouten. Budsjett › Rediger budsjett viser det.</translation>
+    </message>
+    <message>
+        <source>No, thanks</source>
+        <translation>Nei takk</translation>
+    </message>
+    <message>
         <source>[untitled]</source>
         <translation>[uten navn]</translation>
     </message>

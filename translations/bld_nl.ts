@@ -7394,6 +7394,30 @@ Je offline wijzigingen blijven bewaard; Bestand › Offline wijzigingen bekijken
         <translation>Instellen hoeveel van elk onderdeel deze layout mag gebruiken</translation>
     </message>
     <message>
+        <source>Bring your budget into this layout?</source>
+        <translation>Je budget in deze layout overnemen?</translation>
+    </message>
+    <message>
+        <source>A budget is now saved with its layout, and shared with everyone who edits that layout. This layout has no budget yet. Your budget from before is in the file “%1”.
+
+You won&apos;t be asked again. To bring it into this or any other layout later, choose Budget › Import Budget from File.</source>
+        <translation>Een budget wordt nu bij zijn layout bewaard en gedeeld met iedereen die die layout bewerkt. Deze layout heeft nog geen budget. Je budget van eerder staat in het bestand &quot;%1&quot;.
+
+Dit wordt niet opnieuw gevraagd. Om het later in deze of een andere layout over te nemen, kies je Budget › Budget uit bestand importeren.</translation>
+    </message>
+    <message>
+        <source>Bring it in</source>
+        <translation>Overnemen</translation>
+    </message>
+    <message>
+        <source>Your budget is in this layout now. Budget › Edit Budget shows it.</source>
+        <translation>Je budget staat nu in deze layout. Budget › Budget bewerken toont het.</translation>
+    </message>
+    <message>
+        <source>No, thanks</source>
+        <translation>Nee, bedankt</translation>
+    </message>
+    <message>
         <source>&amp;Import .bbm as Module…</source>
         <translation>.bbm &amp;importeren als module…</translation>
     </message>

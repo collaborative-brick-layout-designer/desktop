@@ -220,6 +220,9 @@ private:
     void setupMapMenu();           // in MainWindowMapMenu.cpp
     void setupToolsMenu();         // in MainWindowToolsMenu.cpp
     void setupBudgetMenu();        // in MainWindowBudgetMenu.cpp
+    // Once, for the budget file older versions kept for the whole app:
+    // offers to bring it into the open layout (in MainWindowBudgetMenu.cpp).
+    void offerOldBudget();
     void updateTitle();
     bool maybeSave();              // prompts on dirty close
     // Venue Library "Start Layout": a new layout (after the usual unsaved-
