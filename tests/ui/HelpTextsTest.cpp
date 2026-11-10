@@ -16,6 +16,9 @@
 #include <QRegularExpression>
 #include <QSet>
 
+#include <algorithm>
+#include <string>
+
 using namespace bld::ui::help;
 
 namespace {
@@ -38,7 +41,7 @@ QStringList fixtureKeys() {
 }
 
 // The web repo's catalogue, when it is checked out next to this one (or
-// named by BLD_WEB_HELP_TEXTS: CI fetches the web's file at main there, so
+// named by BLD_WEB_HELP_TEXTS: CI fetches the web's file at the pinned commit, so
 // the comparison always runs in CI). Its help-texts.json, or the older
 // helpTexts.ts that held the words before it.
 QString webCatalogue() {
@@ -49,6 +52,18 @@ QString webCatalogue() {
     if (!json.isEmpty()) return json;
     return readFile(QStringLiteral(BLD_SOURCE_DIR
                                    "/../collaborative-layout-designer-web/apps/web/src/help/helpTexts.ts"));
+}
+
+// The first line where two texts differ, both sides, readable (not bytes).
+std::string firstDifference(const QString& web, const QString& own) {
+    const QStringList a = web.split(QLatin1Char('\n')), b = own.split(QLatin1Char('\n'));
+    for (qsizetype i = 0; i < std::max(a.size(), b.size()); ++i) {
+        const QString x = a.value(i), y = b.value(i);
+        if (x != y)
+            return QStringLiteral("first difference at line %1:\n  web:     %2\n  desktop: %3")
+                .arg(i + 1).arg(x.trimmed(), y.trimmed()).toStdString();
+    }
+    return "no line differs (line endings?)";
 }
 
 // This app's copy of help-texts.json.
@@ -168,20 +183,30 @@ TEST(HelpTexts, MatchesTheWebCatalogueWordForWord) {
     if (web.isEmpty()) GTEST_SKIP() << "the web repo isn't checked out next to this one";
     const bool json = web.trimmed().startsWith(QLatin1Char('{'));
     if (json) {
-        EXPECT_EQ(web, ownCatalogue()) << "src/ui/help/help-texts.json must be the web's file byte for byte";
+        EXPECT_TRUE(web == ownCatalogue())
+            << "src/ui/help/help-texts.json must be the web's file (at src/ui/help/web-help-texts.commit) byte for byte; "
+            << firstDifference(web, ownCatalogue());
     }
     QStringList webKeys;
     for (const WebEntry& w : json ? jsonEntries(web) : tsEntries(web)) {
         webKeys << w.key;
         // The web's words; the desktop's own overrides are checked below.
         const auto e = sharedHelpEntry(w.key);
-        ASSERT_TRUE(e) << w.key.toStdString();
-        EXPECT_EQ(e->title, w.title) << w.key.toStdString();
-        EXPECT_EQ(e->shortText, w.shortText) << w.key.toStdString();
-        EXPECT_EQ(e->more, w.more) << w.key.toStdString();
-        EXPECT_EQ(e->learnMoreUrl, w.learnMoreUrl) << w.key.toStdString();
+        ASSERT_TRUE(e) << "the web has key " << w.key.toStdString() << ", the desktop doesn't";
+        // As text, so a failure names the key and shows both sentences.
+        EXPECT_EQ(e->title.toStdString(), w.title.toStdString()) << w.key.toStdString() << " title";
+        EXPECT_EQ(e->shortText.toStdString(), w.shortText.toStdString()) << w.key.toStdString() << " short";
+        EXPECT_EQ(e->more.toStdString(), w.more.toStdString()) << w.key.toStdString() << " more";
+        EXPECT_EQ(e->learnMoreUrl.toStdString(), w.learnMoreUrl.toStdString()) << w.key.toStdString() << " learnMoreUrl";
     }
-    EXPECT_EQ(webKeys, sharedHelpKeys());
+    EXPECT_EQ(webKeys.join(QLatin1Char(' ')).toStdString(), sharedHelpKeys().join(QLatin1Char(' ')).toStdString());
+}
+
+// The web commit the desktop's copy matches is written down, so CI compares
+// against that commit, not whatever the web's main says today.
+TEST(HelpTexts, PinsTheWebCommitItMatches) {
+    const QString sha = readFile(QStringLiteral(BLD_SOURCE_DIR "/src/ui/help/web-help-texts.commit")).trimmed();
+    EXPECT_TRUE(QRegularExpression(QStringLiteral("^[0-9a-f]{40}$")).match(sha).hasMatch()) << sha.toStdString();
 }
 
 // The shared words come from help-texts.json (one source), and every one of

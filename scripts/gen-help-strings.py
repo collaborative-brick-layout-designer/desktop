@@ -6,6 +6,10 @@ carry tr() calls. This lists every title, short and more text in it, marked
 with QT_TRANSLATE_NOOP("HelpTexts", ...), so lupdate puts them in the .ts
 files; the app translates them when it reads the file (HelpTexts.cpp). Run
 it after changing help-texts.json; HelpTextsTest checks the two match.
+
+When you copy the web's help-texts.json here, also put the web commit you
+copied it from in src/ui/help/web-help-texts.commit: CI compares this copy
+with the web's file at that commit.
 """
 import json
 import pathlib
