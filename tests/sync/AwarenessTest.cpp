@@ -62,12 +62,12 @@ TEST(Awareness, KeepsPeersAsYProtocolsDoes) {
 
 TEST(Presence, ColorsMatchTheWebAndStatesUseItsShape) {
     namespace pr = bld::sync::presence;
-    // Values from the web's deterministicColor.
-    EXPECT_EQ(pr::colorFor(QStringLiteral("u-alice"), QStringLiteral("L1")), QStringLiteral("#f472b6"));
+    // Values from the web's presenceColors.ts (more in fixtures/contracts/presence-colors.json).
+    EXPECT_EQ(pr::colorFor(QStringLiteral("u-alice"), QStringLiteral("L1")), QStringLiteral("#a78bfa"));
     EXPECT_EQ(
         pr::colorFor(QStringLiteral("0b8f7e1c-2d3a-4c5b-9e6f-7a8b9c0d1e2f"), QStringLiteral("layout-42")),
-        QStringLiteral("#fb923c"));
-    EXPECT_EQ(pr::colorFor(QStringLiteral("é"), QStringLiteral("x")), QStringLiteral("#f472b6"));
+        QStringLiteral("#f472b6"));
+    EXPECT_EQ(pr::colorFor(QStringLiteral("é"), QStringLiteral("x")), QStringLiteral("#60a5fa"));
 
     const QJsonObject s =
         pr::state({ QStringLiteral("u1"), QStringLiteral("Aaron"), QStringLiteral("#60a5fa") },
@@ -80,6 +80,12 @@ TEST(Presence, ColorsMatchTheWebAndStatesUseItsShape) {
     EXPECT_EQ(peer.brickIds, QStringList{ QStringLiteral("b1") });
     EXPECT_TRUE(s.value(QLatin1String("cursor")).toObject().contains(QLatin1String("layerId")));
     EXPECT_FALSE(pr::peerFrom(pr::state({}, std::nullopt, {}, 0)).cursor);
+    EXPECT_TRUE(peer.person);
+    // An empty presence (an app still opening the layout) isn't a person's.
+    EXPECT_FALSE(pr::peerFrom(QJsonObject{}).person);
+    EXPECT_FALSE(pr::peerFrom(QJsonObject{ { QStringLiteral("user"),
+                                             QJsonObject{ { QStringLiteral("id"), QStringLiteral("x") } } } })
+                     .person);
     // What the web sent in the fixture reads too.
     const auto entries = decode(fixture("awareness.bin"));
     EXPECT_TRUE(pr::peerFrom(*entries->at(0).state).cursor);
