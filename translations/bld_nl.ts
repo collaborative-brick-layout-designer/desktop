@@ -2956,10 +2956,6 @@
         <translation>De nieuwe versie downloaden</translation>
     </message>
     <message>
-        <source>layout</source>
-        <translation>layout</translation>
-    </message>
-    <message>
         <source>Done: “%1” went back to its author, and the club kept its own copy.</source>
         <translation>Klaar: ‘%1’ is terug naar de auteur, en de club heeft een eigen kopie gehouden.</translation>
     </message>
@@ -3180,28 +3176,36 @@
 <context>
     <name>bld::sync::ServerApi</name>
     <message>
-        <source>modules</source>
-        <translation>modules</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add modules.</source>
+        <translation>%1 staat er niet bij: je rollen daar mogen geen modules toevoegen.</translation>
     </message>
     <message>
-        <source>parts</source>
-        <translation>onderdelen</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add modules.</source>
+        <translation>%1 en %2 staan er niet bij: je rollen daar mogen geen modules toevoegen.</translation>
     </message>
     <message>
-        <source>venues</source>
-        <translation>zalen</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add parts.</source>
+        <translation>%1 staat er niet bij: je rollen daar mogen geen onderdelen toevoegen.</translation>
     </message>
     <message>
-        <source>layouts</source>
-        <translation>layouts</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add parts.</source>
+        <translation>%1 en %2 staan er niet bij: je rollen daar mogen geen onderdelen toevoegen.</translation>
     </message>
     <message>
-        <source>%1 isn&apos;t listed: your roles there can&apos;t add %2.</source>
-        <translation>%1 staat er niet bij: je rollen daar mogen geen %2 toevoegen.</translation>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add venues.</source>
+        <translation>%1 staat er niet bij: je rollen daar mogen geen zalen toevoegen.</translation>
     </message>
     <message>
-        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add %3.</source>
-        <translation>%1 en %2 staan er niet bij: je rollen daar mogen geen %3 toevoegen.</translation>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add venues.</source>
+        <translation>%1 en %2 staan er niet bij: je rollen daar mogen geen zalen toevoegen.</translation>
+    </message>
+    <message>
+        <source>%1 isn&apos;t listed: your roles there can&apos;t add layouts.</source>
+        <translation>%1 staat er niet bij: je rollen daar mogen geen layouts toevoegen.</translation>
+    </message>
+    <message>
+        <source>%1 and %2 aren&apos;t listed: your roles there can&apos;t add layouts.</source>
+        <translation>%1 en %2 staan er niet bij: je rollen daar mogen geen layouts toevoegen.</translation>
     </message>
     <message>
         <source>Not a server address: %1</source>
@@ -3390,20 +3394,88 @@
 <context>
     <name>bld::sync::merge</name>
     <message>
-        <source>added it</source>
-        <translation>toegevoegd</translation>
+        <source>%1: you added it</source>
+        <translation>%1: jij hebt het toegevoegd</translation>
     </message>
     <message>
-        <source>changed it</source>
-        <translation>gewijzigd</translation>
+        <source>%1: you changed it</source>
+        <translation>%1: jij hebt het gewijzigd</translation>
     </message>
     <message>
-        <source>deleted it</source>
-        <translation>verwijderd</translation>
+        <source>%1: you deleted it</source>
+        <translation>%1: jij hebt het verwijderd</translation>
     </message>
     <message>
-        <source>left it as it was</source>
-        <translation>zo gelaten</translation>
+        <source>%1: you left it as it was</source>
+        <translation>%1: jij hebt het zo gelaten</translation>
+    </message>
+    <message>
+        <source>%1: the server added it</source>
+        <translation>%1: de server heeft het toegevoegd</translation>
+    </message>
+    <message>
+        <source>%1: the server changed it</source>
+        <translation>%1: de server heeft het gewijzigd</translation>
+    </message>
+    <message>
+        <source>%1: the server deleted it</source>
+        <translation>%1: de server heeft het verwijderd</translation>
+    </message>
+    <message>
+        <source>%1: the server left it as it was</source>
+        <translation>%1: de server heeft het zo gelaten</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both added it</source>
+        <translation>%1: jij en de server hebben het allebei toegevoegd</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both changed it</source>
+        <translation>%1: jij en de server hebben het allebei gewijzigd</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both deleted it</source>
+        <translation>%1: jij en de server hebben het allebei verwijderd</translation>
+    </message>
+    <message>
+        <source>%1: you and the server both left it as it was</source>
+        <translation>%1: jij en de server hebben het allebei zo gelaten</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server added it</source>
+        <translation>%1: jij hebt het toegevoegd, de server heeft het toegevoegd</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server changed it</source>
+        <translation>%1: jij hebt het toegevoegd, de server heeft het gewijzigd</translation>
+    </message>
+    <message>
+        <source>%1: you added it, the server deleted it</source>
+        <translation>%1: jij hebt het toegevoegd, de server heeft het verwijderd</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server added it</source>
+        <translation>%1: jij hebt het gewijzigd, de server heeft het toegevoegd</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server changed it</source>
+        <translation>%1: jij hebt het gewijzigd, de server heeft het gewijzigd</translation>
+    </message>
+    <message>
+        <source>%1: you changed it, the server deleted it</source>
+        <translation>%1: jij hebt het gewijzigd, de server heeft het verwijderd</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server added it</source>
+        <translation>%1: jij hebt het verwijderd, de server heeft het toegevoegd</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server changed it</source>
+        <translation>%1: jij hebt het verwijderd, de server heeft het gewijzigd</translation>
+    </message>
+    <message>
+        <source>%1: you deleted it, the server deleted it</source>
+        <translation>%1: jij hebt het verwijderd, de server heeft het verwijderd</translation>
     </message>
     <message>
         <source> at (%1, %2)</source>
@@ -3464,22 +3536,6 @@
     <message>
         <source>Background image</source>
         <translation>Achtergrondafbeelding</translation>
-    </message>
-    <message>
-        <source>%1: you and the server both %2</source>
-        <translation>%1: jij en de server hebben het allebei %2</translation>
-    </message>
-    <message>
-        <source>%1: you %2</source>
-        <translation>%1: jij hebt het %2</translation>
-    </message>
-    <message>
-        <source>%1: the server %2</source>
-        <translation>%1: de server heeft het %2</translation>
-    </message>
-    <message>
-        <source>%1: you %2, the server %3</source>
-        <translation>%1: jij hebt het %2, de server heeft het %3</translation>
     </message>
 </context>
 <context>
@@ -5465,20 +5521,12 @@ De mijne als nieuwe versie opslaan: jouw versie wordt de module; die van hen bli
         <translation>De server heeft al je onderdelen al.</translation>
     </message>
     <message>
-        <source>venue</source>
-        <translation>zaal</translation>
-    </message>
-    <message>
         <source>The venue couldn&apos;t be written out to send it.</source>
         <translation>De zaal kon niet worden weggeschreven om hem te sturen.</translation>
     </message>
     <message>
         <source>Couldn&apos;t save the venue: %1</source>
         <translation>De zaal kon niet worden opgeslagen: %1</translation>
-    </message>
-    <message>
-        <source>module</source>
-        <translation>module</translation>
     </message>
     <message>
         <source>Sheets</source>
@@ -5673,28 +5721,36 @@ De mijne als nieuwe versie opslaan: jouw versie wordt de module; die van hen bli
         <translation>De set</translation>
     </message>
     <message>
-        <source>%1 went on %2, which is hidden, so you can’t see %3.</source>
-        <translation>%1 is op %2 terechtgekomen, dat verborgen is, dus je ziet %3 niet.</translation>
+        <source>The pasted part went on %1, which is hidden, so you can’t see it.</source>
+        <translation>Het geplakte onderdeel is op %1 terechtgekomen, dat verborgen is, dus je ziet het niet.</translation>
     </message>
     <message>
-        <source>it</source>
-        <translation>het</translation>
+        <source>The pasted parts went on %1, which is hidden, so you can’t see them.</source>
+        <translation>De geplakte onderdelen zijn op %1 terechtgekomen, dat verborgen is, dus je ziet ze niet.</translation>
     </message>
     <message>
-        <source>them</source>
-        <translation>ze</translation>
+        <source>Your part went on %1, which is hidden, so you can’t see it.</source>
+        <translation>Je onderdeel is op %1 terechtgekomen, dat verborgen is, dus je ziet het niet.</translation>
     </message>
     <message>
-        <source>%1 went on %2. %3 %4 hidden, so you can’t see all of them.</source>
-        <translation>%1 is op %2 terechtgekomen. %3 %4 verborgen, dus je ziet ze niet allemaal.</translation>
+        <source>The set went on %1, which is hidden, so you can’t see them.</source>
+        <translation>De set is op %1 terechtgekomen, dat verborgen is, dus je ziet de onderdelen niet.</translation>
     </message>
     <message>
-        <source>is</source>
-        <translation>is</translation>
+        <source>The pasted parts went on %1. %2 is hidden, so you can’t see all of them.</source>
+        <translation>De geplakte onderdelen zijn op %1 terechtgekomen. %2 is verborgen, dus je ziet ze niet allemaal.</translation>
     </message>
     <message>
-        <source>are</source>
-        <translation>zijn</translation>
+        <source>The set went on %1. %2 is hidden, so you can’t see all of them.</source>
+        <translation>De set is op %1 terechtgekomen. %2 is verborgen, dus je ziet niet alle onderdelen.</translation>
+    </message>
+    <message>
+        <source>The pasted parts went on %1. %2 are hidden, so you can’t see all of them.</source>
+        <translation>De geplakte onderdelen zijn op %1 terechtgekomen. %2 zijn verborgen, dus je ziet ze niet allemaal.</translation>
+    </message>
+    <message>
+        <source>The set went on %1. %2 are hidden, so you can’t see all of them.</source>
+        <translation>De set is op %1 terechtgekomen. %2 zijn verborgen, dus je ziet niet alle onderdelen.</translation>
     </message>
     <message>
         <source>Hidden sheet</source>
@@ -6550,20 +6606,12 @@ Toch opslaan?</translation>
         <translation>De server heeft de live sessie beëindigd%1. De layout blijft hier open als niet-opgeslagen kopie.</translation>
     </message>
     <message>
-        <source>a layout</source>
-        <translation>een layout</translation>
-    </message>
-    <message>
         <source>Keep working on this copy</source>
         <translation>Verder werken aan deze kopie</translation>
     </message>
     <message>
         <source>This layout is on %1</source>
         <translation>Deze layout staat op %1</translation>
-    </message>
-    <message>
-        <source>This file is a copy of %1. Open the live version to work on it with everyone, or keep working on this copy.</source>
-        <translation>Dit bestand is een kopie van %1. Open de live versie om er met iedereen aan te werken, of werk verder aan deze kopie.</translation>
     </message>
     <message>
         <source>Open the live version</source>
@@ -6574,8 +6622,20 @@ Toch opslaan?</translation>
         <translation>Deze layout komt van %1</translation>
     </message>
     <message>
-        <source>This file is a copy of %1, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
-        <translation>Dit bestand is een kopie van %1, van een server die niet een van de jouwe is. Voeg de server toe om de live versie te openen, of werk verder aan deze kopie.</translation>
+        <source>This file is a copy of a layout. Open the live version to work on it with everyone, or keep working on this copy.</source>
+        <translation>Dit bestand is een kopie van een layout. Open de live versie om er met iedereen aan te werken, of werk verder aan deze kopie.</translation>
+    </message>
+    <message>
+        <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
+        <translation>Dit bestand is een kopie van ‘%1’. Open de live versie om er met iedereen aan te werken, of werk verder aan deze kopie.</translation>
+    </message>
+    <message>
+        <source>This file is a copy of a layout, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
+        <translation>Dit bestand is een kopie van een layout, van een server die niet een van de jouwe is. Voeg de server toe om de live versie te openen, of werk verder aan deze kopie.</translation>
+    </message>
+    <message>
+        <source>This file is a copy of “%1”, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
+        <translation>Dit bestand is een kopie van ‘%1’, van een server die niet een van de jouwe is. Voeg de server toe om de live versie te openen, of werk verder aan deze kopie.</translation>
     </message>
     <message>
         <source>Add %1 to your servers</source>
@@ -9258,32 +9318,12 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
 <context>
     <name>bld::ui::ReturnWording</name>
     <message>
-        <source>its author</source>
-        <translation>de auteur</translation>
-    </message>
-    <message>
-        <source>you</source>
-        <translation>jou</translation>
-    </message>
-    <message>
-        <source>The club</source>
-        <translation>De club</translation>
-    </message>
-    <message>
         <source>Give “%1” back to %2?</source>
         <translation>‘%1’ teruggeven aan %2?</translation>
     </message>
     <message>
         <source>Take “%1” back?</source>
         <translation>‘%1’ terugnemen?</translation>
-    </message>
-    <message>
-        <source>The %1 goes back to %2, who made it.</source>
-        <translation>De %1 gaat terug naar %2, die hem heeft gemaakt.</translation>
-    </message>
-    <message>
-        <source>The %1 becomes yours again, and only yours.</source>
-        <translation>De %1 wordt weer van jou, en alleen van jou.</translation>
     </message>
     <message>
         <source>%1 keeps its own copy, credited to %2, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
@@ -9300,6 +9340,82 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Give back</source>
         <translation>Teruggeven</translation>
+    </message>
+    <message>
+        <source>Give “%1” back to its author?</source>
+        <translation>‘%1’ teruggeven aan de auteur?</translation>
+    </message>
+    <message>
+        <source>The layout goes back to %1, who made it.</source>
+        <translation>De layout gaat terug naar %1, die hem heeft gemaakt.</translation>
+    </message>
+    <message>
+        <source>The layout goes back to the person who made it.</source>
+        <translation>De layout gaat terug naar degene die hem heeft gemaakt.</translation>
+    </message>
+    <message>
+        <source>The module goes back to %1, who made it.</source>
+        <translation>De module gaat terug naar %1, die hem heeft gemaakt.</translation>
+    </message>
+    <message>
+        <source>The module goes back to the person who made it.</source>
+        <translation>De module gaat terug naar degene die hem heeft gemaakt.</translation>
+    </message>
+    <message>
+        <source>The venue goes back to %1, who made it.</source>
+        <translation>De zaal gaat terug naar %1, die hem heeft gemaakt.</translation>
+    </message>
+    <message>
+        <source>The venue goes back to the person who made it.</source>
+        <translation>De zaal gaat terug naar degene die hem heeft gemaakt.</translation>
+    </message>
+    <message>
+        <source>The part goes back to %1, who made it.</source>
+        <translation>Het onderdeel gaat terug naar %1, die het heeft gemaakt.</translation>
+    </message>
+    <message>
+        <source>The part goes back to the person who made it.</source>
+        <translation>Het onderdeel gaat terug naar degene die het heeft gemaakt.</translation>
+    </message>
+    <message>
+        <source>%1 keeps its own copy, credited to its author, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>%1 houdt een eigen kopie, die op naam van de auteur blijft, zodat er niets verandert aan wat de club ermee heeft gebouwd. Leden met de rechten Clubitems verwijderen krijgen bericht.</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to %1, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>De club houdt een eigen kopie, die op naam van %1 blijft, zodat er niets verandert aan wat de club ermee heeft gebouwd. Leden met de rechten Clubitems verwijderen krijgen bericht.</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to its author, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>De club houdt een eigen kopie, die op naam van de auteur blijft, zodat er niets verandert aan wat de club ermee heeft gebouwd. Leden met de rechten Clubitems verwijderen krijgen bericht.</translation>
+    </message>
+    <message>
+        <source>Its author can move it back to the club.</source>
+        <translation>De auteur kan het terugzetten naar de club.</translation>
+    </message>
+    <message>
+        <source>The layout becomes yours again, and only yours.</source>
+        <translation>De layout wordt weer van jou, en alleen van jou.</translation>
+    </message>
+    <message>
+        <source>The module becomes yours again, and only yours.</source>
+        <translation>De module wordt weer van jou, en alleen van jou.</translation>
+    </message>
+    <message>
+        <source>The venue becomes yours again, and only yours.</source>
+        <translation>De zaal wordt weer van jou, en alleen van jou.</translation>
+    </message>
+    <message>
+        <source>The part becomes yours again, and only yours.</source>
+        <translation>Het onderdeel wordt weer van jou, en alleen van jou.</translation>
+    </message>
+    <message>
+        <source>%1 keeps its own copy, credited to you, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>%1 houdt een eigen kopie, die op jouw naam blijft, zodat er niets verandert aan wat de club ermee heeft gebouwd. Leden met de rechten Clubitems verwijderen krijgen bericht.</translation>
+    </message>
+    <message>
+        <source>The club keeps its own copy, credited to you, so nothing the club built with it changes. Members with the Delete club items permission are told.</source>
+        <translation>De club houdt een eigen kopie, die op jouw naam blijft, zodat er niets verandert aan wat de club ermee heeft gebouwd. Leden met de rechten Clubitems verwijderen krijgen bericht.</translation>
     </message>
     <message>
         <source>Take back</source>
@@ -9389,8 +9505,8 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>‘%1’ opslaan in de modulebibliotheek</translation>
     </message>
     <message>
-        <source>module</source>
-        <translation>module</translation>
+        <source>Save to the Module library</source>
+        <translation>Opslaan in de modulebibliotheek</translation>
     </message>
     <message>
         <source>e.g. First version</source>
@@ -9454,8 +9570,20 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Opslaan op server</translation>
     </message>
     <message>
-        <source>A copy of this %1 goes to %2, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
-        <translation>Een kopie van deze %1 gaat naar %2, waar jij, je clubs en het web hem kunnen gebruiken. Die op deze computer blijft zoals hij is.</translation>
+        <source>A copy of this layout goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>Een kopie van deze layout gaat naar %1, waar jij, je clubs en het web hem kunnen gebruiken. Die op deze computer blijft zoals hij is.</translation>
+    </message>
+    <message>
+        <source>A copy of this module goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>Een kopie van deze module gaat naar %1, waar jij, je clubs en het web hem kunnen gebruiken. Die op deze computer blijft zoals hij is.</translation>
+    </message>
+    <message>
+        <source>A copy of this part goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>Een kopie van dit onderdeel gaat naar %1, waar jij, je clubs en het web het kunnen gebruiken. Dat op deze computer blijft zoals het is.</translation>
+    </message>
+    <message>
+        <source>A copy of this venue goes to %1, where you, your clubs and the web can use it. The one on this computer stays as it is.</source>
+        <translation>Een kopie van deze zaal gaat naar %1, waar jij, je clubs en het web hem kunnen gebruiken. Die op deze computer blijft zoals hij is.</translation>
     </message>
     <message>
         <source>Me</source>
@@ -9522,10 +9650,6 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Module name</source>
         <translation>Modulenaam</translation>
-    </message>
-    <message>
-        <source>module</source>
-        <translation>module</translation>
     </message>
     <message>
         <source>No saved modules yet. Make a module in a layout, then choose Save to Module library… from its menu.</source>
@@ -9831,10 +9955,6 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Opslaan als BlueBrick-kaart (.bbm) op deze computer</translation>
     </message>
     <message>
-        <source>layout</source>
-        <translation>layout</translation>
-    </message>
-    <message>
         <source>Delete…</source>
         <translation>Verwijderen…</translation>
     </message>
@@ -9885,10 +10005,6 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Keep a copy in the Venue library on this computer</source>
         <translation>Een kopie bewaren in de zaalbibliotheek op deze computer</translation>
-    </message>
-    <message>
-        <source>venue</source>
-        <translation>zaal</translation>
     </message>
     <message>
         <source>No venues match.</source>
@@ -9947,10 +10063,6 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Een kopie bewaren in de modulebibliotheekmap op deze computer</translation>
     </message>
     <message>
-        <source>module</source>
-        <translation>module</translation>
-    </message>
-    <message>
         <source>No modules match.</source>
         <translation>Geen modules gevonden.</translation>
     </message>
@@ -9985,10 +10097,6 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Download it into your parts, to use in any layout</source>
         <translation>Downloaden naar je onderdelen, om in elke layout te gebruiken</translation>
-    </message>
-    <message>
-        <source>part</source>
-        <translation>onderdeel</translation>
     </message>
     <message>
         <source>No parts match.</source>
