@@ -4,6 +4,7 @@
 
 #include "MainWindow.h"
 
+#include "ActiveSheet.h"
 #include "LayerPanel.h"
 #include "LiveLayout.h"
 #include "LoadingCard.h"
@@ -255,7 +256,7 @@ void MainWindow::onPublishToServer() {
     const auto published = dialog.result();
     if (!published) return;
     // The published layout is now the live one; the local file stays as it was.
-    openLive(*published);
+    openLiveFromHere(*published);
     statusBar()->showMessage(tr("Saved “%1” on %2").arg(published->title, liveServerName()),
                              5000);
     // Parts of yours the server lacks would show as missing there: offer them.
@@ -264,10 +265,19 @@ void MainWindow::onPublishToServer() {
 
 void MainWindow::offerPartsUpload(bool quiet) {
     if (!live_->active() || liveToken_.isEmpty()) return;
-    uploadPartsTo(liveServer_, liveToken_, quiet);
+    // Only your own parts this layout uses, unticked: never every part of a
+    // Download Center pack, and nothing goes up unless you tick it.
+    const QStringList used = ownPartsInLayout();
+    if (used.isEmpty()) return;
+    uploadPartsTo(liveServer_, liveToken_, quiet, used, false);
 }
 
 void MainWindow::openLive(const sync::ConnectResult& r) {
+    liveSheet_ = {};
+    if (const core::Map* m = mapView_->currentMap(); m && carrySheetIntoLive_)
+        if (const int i = placementLayer(*m); i >= 0) liveSheet_ = { i, m->layers()[i]->name };
+    carrySheetIntoLive_ = false;
+    connect(layerPanel_, &LayerPanel::activeLayerChanged, this, &MainWindow::rememberLiveSheet, Qt::UniqueConnection);
     // The live layout is now what's open; the file it may have come from isn't.
     forgetFileSource();
     liveServer_ = r.server;
@@ -662,9 +672,44 @@ void MainWindow::onLiveReloaded() {
                 if (live_->active()) makeSetsOfSetModules();
             });
     }
+    const bool moved = keepLiveSheet();
     layerPanel_->setMap(mapView_->currentMap(), mapView_->builder());
+    // What names the active sheet ("Sheet: …" in the status bar) reads it again.
+    if (moved) emit layerPanel_->activeLayerChanged(mapView_->currentMap()->selectedLayerIndex);
     modulesPanel_->setMap(mapView_->currentMap());
     updateTitle();
+}
+
+void MainWindow::rememberLiveSheet(int index) {
+    const core::Map* m = mapView_->currentMap();
+    if (!live_->active() || !m || index < 0 || index >= static_cast<int>(m->layers().size())) return;
+    liveSheet_ = { index, m->layers()[index]->name };
+}
+
+bool MainWindow::keepLiveSheet() {
+    core::Map* m = live_->active() ? mapView_->currentMap() : nullptr;
+    if (!m) return false;
+    const auto& layers = m->layers();
+    const int n = static_cast<int>(layers.size());
+    const auto takesParts = [&](int i) {
+        return i >= 0 && i < n && layers[i] && layers[i]->kind() == core::LayerKind::Brick;
+    };
+    // The one chosen (here, or before going live), found again by its place
+    // and name, else by name; else the rule a file opens by.
+    int want = -1;
+    if (!liveSheet_.name.isNull()) {
+        if (takesParts(liveSheet_.index) && layers[liveSheet_.index]->name == liveSheet_.name) want = liveSheet_.index;
+        for (int i = 0; i < n && want < 0; ++i)
+            if (takesParts(i) && layers[i]->name == liveSheet_.name) want = i;
+    }
+    if (want < 0) want = startingSheet(*m);
+    if (want < 0 || want == m->selectedLayerIndex) return false;
+    // The shared copy keeps its own choice when this one is written back.
+    const int saved = m->selectedLayerIndex;
+    const core::Layer* l = saved >= 0 && saved < n ? layers[saved].get() : nullptr;
+    m->fileSelection = core::Map::FileSelection{ saved, l, l ? l->guid : QString() };
+    m->selectedLayerIndex = want;
+    return true;
 }
 
 void MainWindow::updateLiveUi() {
@@ -683,13 +728,36 @@ void MainWindow::updateLiveUi() {
     liveRedoAct_->setVisible(on);
     liveUndoAct_->setEnabled(on && live_->canUndo());
     liveRedoAct_->setEnabled(on && live_->canRedo());
-    reviewOfflineAct_->setEnabled(on && live_->session().offlineEdits()
-                                  && live_->session().status() == sync::SyncClient::Status::Synced);
+    const bool waiting = on && live_->session().offlineEdits()
+                         && live_->session().status() == sync::SyncClient::Status::Synced;
+    reviewOfflineAct_->setEnabled(waiting);
+    // Edits waiting for review: this window shows only its own copy and keeps
+    // every new edit back, so it isn't live until they're reviewed. Said for
+    // as long as that lasts (the status bar says "Not live" too).
+    const int n = live_->session().unsyncedEdits();
+    const auto* comparing = findChild<sync::CompareDialog*>(QString(), Qt::FindDirectChildrenOnly);
+    if (waiting && !(comparing && comparing->isVisible())) {
+        if (liveReviewNotice_ == n) return updateTitle();
+        liveReviewNotice_ = n;
+        notices_->showNotice(QStringLiteral("live-review"), tr("You're not live"),
+                             tr("%n of your change(s) wait for review. Until then you don't see what others change, "
+                                "and they don't see your changes.",
+                                nullptr, n),
+                             { NoticeAction{ tr("Review now"),
+                                             [this] { QTimer::singleShot(0, this, &MainWindow::onReviewOfflineEdits); },
+                                             true } });
+    } else if (liveReviewNotice_ != -1) {
+        liveReviewNotice_ = -1;
+        notices_->hideNotice(QStringLiteral("live-review"));
+    }
     updateTitle();
 }
 
 void MainWindow::onReviewOfflineEdits() {
     if (!live_->active()) return;
+    // (Shown again afterwards if the edits still wait: Later.)
+    notices_->hideNotice(QStringLiteral("live-review"));
+    liveReviewNotice_ = -1;
     // One compare window at a time: a reconnect while it is open says
     // "back in step" again.
     if (findChild<sync::CompareDialog*>(QString(), Qt::FindDirectChildrenOnly)) return;
@@ -709,6 +777,26 @@ void MainWindow::onReviewOfflineEdits() {
         statusBar()->showMessage(tr("Your offline edits left the layout as it was; nothing to apply."), 5000);
         updateLiveUi();
         return;
+    }
+    // Nothing clashes with what others changed meanwhile (a Wi-Fi drop of a
+    // few seconds, say): sent as they are, as the web does, without asking.
+    const bool clash = std::any_of(changes.cbegin(), changes.cend(), [](const sync::merge::ItemChange& c) {
+        return c.status == sync::merge::Status::Conflict;
+    });
+    if (!clash) {
+        QString error;
+        const auto merged = sync::merge::mergeLayouts(mine, server, changes, {}, &error);
+        if (merged) {
+            const int n = static_cast<int>(std::count_if(changes.cbegin(), changes.cend(), [](const sync::merge::ItemChange& c) {
+                return c.mine != sync::merge::Side::Unchanged;
+            }));
+            session.resolveOffline(merged.get());
+            notices_->showNotice(QStringLiteral("live-offline-sent"), tr("You're live again"),
+                                 tr("Your %n offline change(s) were sent.", nullptr, n), { NoticeAction{ tr("OK"), {} } });
+            updateLiveUi();
+            return;
+        }
+        // Couldn't be merged by itself: the window lets the person choose.
     }
 
     sync::CompareDialog dlg(changes, this);

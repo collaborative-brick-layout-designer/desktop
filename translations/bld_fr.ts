@@ -3358,6 +3358,10 @@
         <translation>Ces pièces à vous ne sont pas encore sur le serveur. Envoyez celles dont les plans là-bas auront besoin :</translation>
     </message>
     <message>
+        <source>This layout uses these parts of yours, which the server doesn&apos;t have yet. Tick the ones to share there, so others see them in the layout:</source>
+        <translation>Ce plan utilise ces pièces à vous, que le serveur n&apos;a pas encore. Cochez celles à y partager, pour que les autres les voient dans le plan :</translation>
+    </message>
+    <message>
         <source>Me</source>
         <translation>Moi</translation>
     </message>
@@ -4677,10 +4681,10 @@
         <translation>%1, lecture seule</translation>
     </message>
     <message numerus="yes">
-        <source>Connected, %n offline edit(s) to review</source>
+        <source>Not live, %n change(s) wait for review</source>
         <translation>
-            <numerusform>Connecté, %n modification hors ligne à revoir</numerusform>
-            <numerusform>Connecté, %n modifications hors ligne à revoir</numerusform>
+            <numerusform>Pas en direct, %n modification attend d&apos;être examinée</numerusform>
+            <numerusform>Pas en direct, %n modifications attendent d&apos;être examinées</numerusform>
         </translation>
     </message>
     <message>
@@ -6720,8 +6724,34 @@ Enregistrer quand même ?</translation>
         <translation>En direct sur %1 : %2</translation>
     </message>
     <message>
+        <source>You&apos;re not live</source>
+        <translation>Vous n&apos;êtes pas en direct</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <translation>
+            <numerusform>%n de vos modifications attend d&apos;être examinée. D&apos;ici là, vous ne voyez pas ce que les autres modifient, et ils ne voient pas vos modifications.</numerusform>
+            <numerusform>%n de vos modifications attendent d&apos;être examinées. D&apos;ici là, vous ne voyez pas ce que les autres modifient, et ils ne voient pas vos modifications.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Review now</source>
+        <translation>Examiner maintenant</translation>
+    </message>
+    <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
         <translation>Vos modifications hors ligne ont laissé le plan tel quel ; rien à appliquer.</translation>
+    </message>
+    <message>
+        <source>You&apos;re live again</source>
+        <translation>Vous êtes de nouveau en direct</translation>
+    </message>
+    <message numerus="yes">
+        <source>Your %n offline change(s) were sent.</source>
+        <translation>
+            <numerusform>Votre modification hors ligne a été envoyée.</numerusform>
+            <numerusform>Vos %n modifications hors ligne ont été envoyées.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Review Offline Changes</source>

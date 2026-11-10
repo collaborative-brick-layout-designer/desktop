@@ -20,9 +20,9 @@ inline int translationPercent(const QString& code) {
         { "it", 7 },
         { "ja", 5 },
         { "nl", 7 },
-        { "no", 5 },
+        { "no", 6 },
         { "pt", 7 },
-        { "sv", 5 },
+        { "sv", 6 },
         { "zh", 5 },
     };
     for (const auto& c : kCoverage)

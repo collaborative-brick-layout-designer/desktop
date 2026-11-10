@@ -227,10 +227,10 @@
         </translation>
     </message>
     <message numerus="yes">
-        <source>Connected, %n offline edit(s) to review</source>
+        <source>Not live, %n change(s) wait for review</source>
         <translation>
-            <numerusform>Connected, %n offline edit to review</numerusform>
-            <numerusform>Connected, %n offline edits to review</numerusform>
+            <numerusform>Not live, %n change wait for review</numerusform>
+            <numerusform>Not live, %n changes wait for review</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -416,6 +416,20 @@
         <translation>
             <numerusform>…and %n more</numerusform>
             <numerusform>…and %n more</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <translation>
+            <numerusform>%n of your change wait for review. Until then you don't see what others change, and they don't see your changes.</numerusform>
+            <numerusform>%n of your changes wait for review. Until then you don't see what others change, and they don't see your changes.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Your %n offline change(s) were sent.</source>
+        <translation>
+            <numerusform>Your %n offline change were sent.</numerusform>
+            <numerusform>Your %n offline changes were sent.</numerusform>
         </translation>
     </message>
     <message numerus="yes">

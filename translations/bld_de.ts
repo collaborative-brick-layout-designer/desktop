@@ -3358,6 +3358,10 @@
         <translation>Diese Teile von dir sind noch nicht auf dem Server. Lade die hoch, die Layouts dort brauchen:</translation>
     </message>
     <message>
+        <source>This layout uses these parts of yours, which the server doesn&apos;t have yet. Tick the ones to share there, so others see them in the layout:</source>
+        <translation>Dieses Layout verwendet diese eigenen Teile, die der Server noch nicht hat. Hake die an, die du dort teilen willst, damit andere sie im Layout sehen:</translation>
+    </message>
+    <message>
         <source>Me</source>
         <translation>Ich</translation>
     </message>
@@ -4677,10 +4681,10 @@
         <translation>%1, nur ansehen</translation>
     </message>
     <message numerus="yes">
-        <source>Connected, %n offline edit(s) to review</source>
+        <source>Not live, %n change(s) wait for review</source>
         <translation>
-            <numerusform>Verbunden, %n Offline-Bearbeitung zu prüfen</numerusform>
-            <numerusform>Verbunden, %n Offline-Bearbeitungen zu prüfen</numerusform>
+            <numerusform>Nicht live, %n Änderung wartet auf Prüfung</numerusform>
+            <numerusform>Nicht live, %n Änderungen warten auf Prüfung</numerusform>
         </translation>
     </message>
     <message>
@@ -6720,8 +6724,34 @@ Trotzdem speichern?</translation>
         <translation>Live auf %1: %2</translation>
     </message>
     <message>
+        <source>You&apos;re not live</source>
+        <translation>Du bist nicht live</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <translation>
+            <numerusform>%n deiner Änderungen wartet auf Prüfung. Bis dahin siehst du nicht, was andere ändern, und sie sehen deine Änderungen nicht.</numerusform>
+            <numerusform>%n deiner Änderungen warten auf Prüfung. Bis dahin siehst du nicht, was andere ändern, und sie sehen deine Änderungen nicht.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Review now</source>
+        <translation>Jetzt prüfen</translation>
+    </message>
+    <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
         <translation>Deine Offline-Bearbeitungen haben das Layout unverändert gelassen; nichts zu übernehmen.</translation>
+    </message>
+    <message>
+        <source>You&apos;re live again</source>
+        <translation>Du bist wieder live</translation>
+    </message>
+    <message numerus="yes">
+        <source>Your %n offline change(s) were sent.</source>
+        <translation>
+            <numerusform>Deine Offline-Änderung wurde gesendet.</numerusform>
+            <numerusform>Deine %n Offline-Änderungen wurden gesendet.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Review Offline Changes</source>
