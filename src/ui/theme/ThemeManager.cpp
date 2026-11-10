@@ -236,11 +236,14 @@ void ThemeManager::apply() {
     mode_ = resolveMode(p.theme, system_);
     const Accent& a = accent(p.accent);
     // Once: setting a style again re-polishes every widget.
+    // (QApplication owns the style it is given; the analyzer can't see that.)
+    // NOLINTBEGIN(clang-analyzer-cplusplus.NewDeleteLeaks)
     static bool fusion = false;
     if (!fusion) {
         QApplication::setStyle(new IndicatorStyle(QStyleFactory::create(QStringLiteral("Fusion"))));
         fusion = true;
     }
+    // NOLINTEND(clang-analyzer-cplusplus.NewDeleteLeaks)
     QFont f = baseFont_;
     if (p.largeText) {
         if (f.pointSizeF() > 0) f.setPointSizeF(f.pointSizeF() * kLargeTextScale);
