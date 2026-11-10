@@ -7353,19 +7353,19 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
     </message>
     <message>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar</translation>
     </message>
     <message>
         <source>You already have a part called “%1”.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ya tienes una pieza llamada «%1».</translation>
     </message>
     <message>
         <source>Replace it with this model, or keep both? Replacing it changes the part everywhere it is used. Keeping both adds this one as a new part.</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Reemplazarla por este modelo o conservar ambas? Reemplazar cambia la pieza dondequiera que se use. Conservar ambas añade esta como pieza nueva.</translation>
     </message>
     <message>
         <source>Replace the existing part</source>
-        <translation type="unfinished"></translation>
+        <translation>Reemplazar la pieza existente</translation>
     </message>
     <message>
         <source>Keep both</source>
@@ -7373,14 +7373,14 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
     </message>
     <message numerus="yes">
         <source>Do the same for the other %n part(s) you already have</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Hacer lo mismo con la otra %n pieza que ya tienes</numerusform>
+            <numerusform>Hacer lo mismo con las otras %n piezas que ya tienes</numerusform>
         </translation>
     </message>
     <message>
         <source>the part “%1” isn&apos;t in your parts any more</source>
-        <translation type="unfinished"></translation>
+        <translation>la pieza «%1» ya no está en tus piezas</translation>
     </message>
     <message>
         <source>Import canceled.</source>
@@ -7388,100 +7388,100 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
     </message>
     <message>
         <source>Replaced “%1” with %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Se reemplazó «%1» por %2</translation>
     </message>
     <message>
         <source>Part imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Pieza importada</translation>
     </message>
     <message>
         <source>“%1” is in your parts library and on the map. Send it to your server so your club can use it too?</source>
-        <translation type="unfinished"></translation>
+        <translation>«%1» está en tu biblioteca de piezas y en el mapa. ¿Enviarla a tu servidor para que tu club también pueda usarla?</translation>
     </message>
     <message>
         <source>Send to server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar al servidor…</translation>
     </message>
     <message>
         <source>“%1” is on %2 too. Update it there so everyone sees the new version?</source>
-        <translation type="unfinished"></translation>
+        <translation>«%1» también está en %2. ¿Actualizarla allí para que todos vean la versión nueva?</translation>
     </message>
     <message numerus="yes">
         <source>%n of these parts are on %1 too. Update them there so everyone sees the new versions?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n de estas piezas también está en %1. ¿Actualizarla allí para que todos vean la versión nueva?</numerusform>
+            <numerusform>%n de estas piezas también están en %1. ¿Actualizarlas allí para que todos vean las versiones nuevas?</numerusform>
         </translation>
     </message>
     <message>
         <source>Part changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Pieza cambiada</translation>
     </message>
     <message>
         <source>Update on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar en el servidor</translation>
     </message>
     <message numerus="yes">
         <source>Updated %n part(s) on %1</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Se actualizó %n pieza en %1</numerusform>
+            <numerusform>Se actualizaron %n piezas en %1</numerusform>
         </translation>
     </message>
     <message>
         <source>Couldn&apos;t update “%1” on %2: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo actualizar «%1» en %2: %3</translation>
     </message>
     <message>
         <source>The original file for “%1” has moved or been deleted.</source>
-        <translation type="unfinished"></translation>
+        <translation>El archivo original de «%1» se movió o se borró.</translation>
     </message>
     <message>
         <source>It was %1. Choose where it is now, and the part is made again from it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Estaba en %1. Elige dónde está ahora y la pieza se rehace a partir de él.</translation>
     </message>
     <message>
         <source>Choose the file…</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir el archivo…</translation>
     </message>
     <message>
         <source>Choose a model for “%1”</source>
-        <translation type="unfinished"></translation>
+        <translation>Elige un modelo para «%1»</translation>
     </message>
     <message>
         <source>Replace %1 with %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Reemplazar %1 por %2</translation>
     </message>
     <message>
         <source>Replaced %1 with %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Se reemplazó %1 por %2</translation>
     </message>
     <message>
         <source>No imported part&apos;s original file has changed since it was imported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ningún archivo original de pieza importada ha cambiado desde la importación.</translation>
     </message>
     <message numerus="yes">
         <source>The original files of %n imported part(s) changed. Re-import them now?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>El archivo original de %n pieza importada cambió. ¿Reimportarla ahora?</numerusform>
+            <numerusform>Los archivos originales de %n piezas importadas cambiaron. ¿Reimportarlas ahora?</numerusform>
         </translation>
     </message>
     <message>
         <source>Original files moved</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos originales movidos</translation>
     </message>
     <message>
         <source>The original files of these parts have moved or been deleted. Choose where each one is now to re-import it, or skip them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Los archivos originales de estas piezas se movieron o se borraron. Elige dónde está cada uno ahora para reimportarlo, o sáltalos.</translation>
     </message>
     <message>
         <source>It was %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Estaba en %1</translation>
     </message>
     <message>
         <source>Re-imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Reimportada</translation>
     </message>
     <message>
         <source>Skip</source>
@@ -7489,7 +7489,7 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
     </message>
     <message>
         <source>Importing…</source>
-        <translation type="unfinished"></translation>
+        <translation>Importando…</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -7497,7 +7497,7 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
     </message>
     <message>
         <source>Importing %1 (%2 of %3)…</source>
-        <translation type="unfinished"></translation>
+        <translation>Importando %1 (%2 de %3)…</translation>
     </message>
     <message>
         <source>%1: %2</source>
@@ -7505,144 +7505,146 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
     </message>
     <message>
         <source>%1 → %2 (replaced)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 → %2 (reemplazada)</translation>
     </message>
     <message numerus="yes">
         <source>%1 → %2 (%3 × %4 studs, %n connection point(s))</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%1 → %2 (%3 × %4 studs, %n punto de conexión)</numerusform>
+            <numerusform>%1 → %2 (%3 × %4 studs, %n puntos de conexión)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Imported %1 of %n file(s) into “%2”.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Se importaron %1 de %n archivo en «%2».</numerusform>
+            <numerusform>Se importaron %1 de %n archivos en «%2».</numerusform>
         </translation>
     </message>
     <message>
         <source>Imported:</source>
-        <translation type="unfinished"></translation>
+        <translation>Importadas:</translation>
     </message>
     <message>
         <source>Failed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fallidas:</translation>
     </message>
     <message numerus="yes">
         <source>%n file(s) skipped (canceled).</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n archivo saltado (cancelado).</numerusform>
+            <numerusform>%n archivos saltados (cancelados).</numerusform>
         </translation>
     </message>
     <message>
         <source>&amp;Parts</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Piezas</translation>
     </message>
     <message>
         <source>&amp;Get More Parts…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Conseguir más piezas…</translation>
     </message>
     <message>
         <source>Find part packs online and add them to your parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar packs de piezas en línea y añadirlos a tus piezas</translation>
     </message>
     <message>
         <source>Add Parts from a &amp;Zip…</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir piezas desde un &amp;zip…</translation>
     </message>
     <message>
         <source>Add a folder of parts sent as a zip, such as a Brick Track Designer export</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir una carpeta de piezas enviada como zip, como una exportación de Brick Track Designer</translation>
     </message>
     <message>
         <source>Add Parts from a Zip</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir piezas desde un zip</translation>
     </message>
     <message>
         <source>Zip files (*.zip);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos zip (*.zip);;Todos los archivos (*)</translation>
     </message>
     <message>
         <source>No parts were added from %1.
 
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>No se añadieron piezas de %1.
+
+%2</translation>
     </message>
     <message>
         <source>Parts &amp;Folders…</source>
-        <translation type="unfinished"></translation>
+        <translation>Carpetas de &amp;piezas…</translation>
     </message>
     <message>
         <source>Choose the folders on this computer your parts come from</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir las carpetas de este ordenador de donde vienen tus piezas</translation>
     </message>
     <message>
         <source>&amp;Reload Parts</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Recargar piezas</translation>
     </message>
     <message>
         <source>Read the parts folders again after you changed files in them</source>
-        <translation type="unfinished"></translation>
+        <translation>Volver a leer las carpetas de piezas tras cambiar archivos en ellas</translation>
     </message>
     <message>
         <source>&amp;LDraw (.ldr / .dat / .mpd)…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;LDraw (.ldr / .dat / .mpd)…</translation>
     </message>
     <message>
         <source>Import LDraw file</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar archivo de LDraw</translation>
     </message>
     <message>
         <source>LDraw (*.ldr *.dat *.mpd);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>LDraw (*.ldr *.dat *.mpd);;Todos los archivos (*)</translation>
     </message>
     <message>
         <source>Turn an LDraw model into a part you can place</source>
-        <translation type="unfinished"></translation>
+        <translation>Convertir un modelo de LDraw en una pieza que puedes colocar</translation>
     </message>
     <message>
         <source>&amp;Studio (.io)…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Studio (.io)…</translation>
     </message>
     <message>
         <source>Import Studio .io</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar .io de Studio</translation>
     </message>
     <message>
         <source>Studio (*.io);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Studio (*.io);;Todos los archivos (*)</translation>
     </message>
     <message>
         <source>Turn a BrickLink Studio model into a part you can place</source>
-        <translation type="unfinished"></translation>
+        <translation>Convertir un modelo de BrickLink Studio en una pieza que puedes colocar</translation>
     </message>
     <message>
         <source>L&amp;DD (.lxf / .lxfml)…</source>
-        <translation type="unfinished"></translation>
+        <translation>L&amp;DD (.lxf / .lxfml)…</translation>
     </message>
     <message>
         <source>Import LDD file</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar archivo de LDD</translation>
     </message>
     <message>
         <source>LDD (*.lxf *.lxfml);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>LDD (*.lxf *.lxfml);;Todos los archivos (*)</translation>
     </message>
     <message>
         <source>Re-import every imported part whose original file changed since, and find the ones whose file has moved</source>
-        <translation type="unfinished"></translation>
+        <translation>Reimportar cada pieza importada cuyo archivo original cambió desde entonces, y encontrar las que tienen el archivo movido</translation>
     </message>
     <message>
         <source>Part &amp;List</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lista de piezas</translation>
     </message>
     <message numerus="yes">
         <source>Installed %n part pack(s); parts reloaded.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Se instaló %n pack de piezas; piezas recargadas.</numerusform>
+            <numerusform>Se instalaron %n packs de piezas; piezas recargadas.</numerusform>
         </translation>
     </message>
     <message>
@@ -7687,25 +7689,25 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
     </message>
     <message numerus="yes">
         <source>%n set(s) such as flex track were kept as modules by an older version.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n set como una vía flexible se había guardado como módulo en una versión anterior.</numerusform>
+            <numerusform>%n sets como vías flexibles se habían guardado como módulos en una versión anterior.</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n flex track piece(s) had come apart into loose halves.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n pieza de vía flexible se había separado en mitades sueltas.</numerusform>
+            <numerusform>%n piezas de vía flexible se habían separado en mitades sueltas.</numerusform>
         </translation>
     </message>
     <message>
         <source>Sets are sets again</source>
-        <translation type="unfinished"></translation>
+        <translation>Los sets vuelven a ser sets</translation>
     </message>
     <message>
         <source>%1 They are now sets: each one selects, moves and counts as one part, as in BlueBrick. Undo puts them back as they were.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Ahora son sets: cada uno se selecciona, se mueve y se cuenta como una pieza, como en BlueBrick. Deshacer los devuelve a como estaban.</translation>
     </message>
     <message>
         <source>A copy of %1 couldn&apos;t be kept before saving over it, so nothing was saved. Use File › Save As… to save under a new name.</source>
@@ -7731,58 +7733,58 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
     </message>
     <message numerus="yes">
         <source>%n part(s) from the layout added to your parts</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Se añadió %n pieza de la maqueta a tus piezas</numerusform>
+            <numerusform>Se añadieron %n piezas de la maqueta a tus piezas</numerusform>
         </translation>
     </message>
     <message>
         <source>could not save %1</source>
-        <translation type="unfinished"></translation>
+        <translation>no se pudo guardar %1</translation>
     </message>
     <message>
         <source>your own %1 kept, which differ from the layout&apos;s</source>
-        <translation type="unfinished"></translation>
+        <translation>se conservaron tus propias %1, que difieren de las de la maqueta</translation>
     </message>
     <message>
         <source>%1 as %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 como %2</translation>
     </message>
     <message>
         <source>the layout&apos;s %1 replaced yours (backed up in %2)</source>
-        <translation type="unfinished"></translation>
+        <translation>las %1 de la maqueta reemplazaron las tuyas (copia en %2)</translation>
     </message>
     <message>
         <source>the layout&apos;s %1 added</source>
-        <translation type="unfinished"></translation>
+        <translation>se añadieron las %1 de la maqueta</translation>
     </message>
     <message>
         <source>your own %1 kept</source>
-        <translation type="unfinished"></translation>
+        <translation>se conservaron tus propias %1</translation>
     </message>
     <message>
         <source>could not take the layout&apos;s %1</source>
-        <translation type="unfinished"></translation>
+        <translation>no se pudieron tomar las %1 de la maqueta</translation>
     </message>
     <message>
         <source>Save layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar maqueta</translation>
     </message>
     <message>
         <source>Save as .bld-layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar como .bld-layout</translation>
     </message>
     <message>
         <source>Keep %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mantener %1</translation>
     </message>
     <message>
         <source>Export BlueBrick map</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar mapa de BlueBrick</translation>
     </message>
     <message>
         <source>anchored labels</source>
-        <translation type="unfinished"></translation>
+        <translation>etiquetas sujetas</translation>
     </message>
     <message>
         <source>modules</source>
@@ -7790,11 +7792,11 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
     </message>
     <message>
         <source>the venue</source>
-        <translation type="unfinished"></translation>
+        <translation>la sala</translation>
     </message>
     <message>
         <source>the background image</source>
-        <translation type="unfinished"></translation>
+        <translation>la imagen de fondo</translation>
     </message>
     <message>
         <source>saved views</source>
@@ -7808,33 +7810,37 @@ Tus cambios sin conexión se conservan; Archivo &gt; Revisar cambios sin conexi�
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>BlueBrick no puede guardar %1, así que el .bbm los deja fuera. Tu maqueta los conserva.
+
+¿Exportar de todos modos?</translation>
     </message>
     <message>
         <source>Exported %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Se exportó %1</translation>
     </message>
     <message>
         <source>New layout from venue &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Maqueta nueva a partir de la sala «%1»</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Collaborative Brick Layout Designer&lt;/h3&gt;&lt;p&gt;Cross-platform C++/Qt 6 fork of &lt;b&gt;BlueBrick&lt;/b&gt; by Alban Nanty and contributors.&lt;/p&gt;&lt;p&gt;Adds modules, labels, venues and live editing with your club, and saves everything in one &lt;i&gt;.bld-layout&lt;/i&gt; file. It still opens and exports BlueBrick &lt;i&gt;.bbm&lt;/i&gt; files.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Made with AI.&lt;/b&gt; Much of this app was written with the help of AI (Anthropic&apos;s Claude), directed and reviewed by a person. It is tested, but it can still contain mistakes. Please report any you find.&lt;/p&gt;&lt;p&gt;Licensed under GPL-3.0, like BlueBrick.&lt;/p&gt;&lt;p&gt;Parts library: %1 parts indexed.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;Collaborative Brick Layout Designer&lt;/h3&gt;&lt;p&gt;Versión multiplataforma en C++/Qt 6 de &lt;b&gt;BlueBrick&lt;/b&gt;, de Alban Nanty y colaboradores.&lt;/p&gt;&lt;p&gt;Añade módulos, etiquetas, salas y edición en directo con tu club, y lo guarda todo en un solo archivo &lt;i&gt;.bld-layout&lt;/i&gt;. Sigue abriendo y exportando archivos &lt;i&gt;.bbm&lt;/i&gt; de BlueBrick.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Hecha con IA.&lt;/b&gt; Gran parte de esta aplicación se escribió con ayuda de IA (Claude de Anthropic), dirigida y revisada por una persona. Está probada, pero aún puede tener errores. Avísanos de los que encuentres.&lt;/p&gt;&lt;p&gt;Con licencia GPL-3.0, como BlueBrick.&lt;/p&gt;&lt;p&gt;Biblioteca de piezas: %1 piezas indexadas.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>%1 — on %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 — en %2</translation>
     </message>
     <message>
         <source>File not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivo no encontrado</translation>
     </message>
     <message>
         <source>%1 isn&apos;t there any more. It may have been moved, renamed or deleted, so it&apos;s been taken off the recent files.
 
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ya no está. Puede que se moviera, renombrara o borrara, así que se ha quitado de los archivos recientes.
+
+%2</translation>
     </message>
     <message>
         <source>Autosave failed</source>
@@ -7932,31 +7938,31 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>The picked part becomes one module in this layout. It moves as one piece.</source>
-        <translation type="unfinished"></translation>
+        <translation>La pieza elegida pasa a ser un módulo de esta maqueta. Se mueve como una sola pieza.</translation>
     </message>
     <message>
         <source>The %1 picked parts become one module in this layout. It moves as one piece.</source>
-        <translation type="unfinished"></translation>
+        <translation>Las %1 piezas elegidas pasan a ser un módulo de esta maqueta. Se mueve como una sola pieza.</translation>
     </message>
     <message>
         <source>e.g. Desert corner</source>
-        <translation type="unfinished"></translation>
+        <translation>p. ej. Esquina del desierto</translation>
     </message>
     <message>
         <source>Module name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del módulo</translation>
     </message>
     <message>
         <source>Also save to my Module library, to use it in other layouts</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar también en mi biblioteca de módulos, para usarlo en otras maquetas</translation>
     </message>
     <message>
         <source>Me (on %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Yo (en %1)</translation>
     </message>
     <message>
         <source>This computer only (Module library folder)</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo este ordenador (carpeta de la biblioteca de módulos)</translation>
     </message>
     <message>
         <source>Save to</source>
@@ -7964,26 +7970,26 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>Make module</source>
-        <translation type="unfinished"></translation>
+        <translation>Hacer módulo</translation>
     </message>
     <message>
         <source>Make and save</source>
-        <translation type="unfinished"></translation>
+        <translation>Hacer y guardar</translation>
     </message>
     <message>
         <source>Give the module a name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponle un nombre al módulo.</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
     <message>
         <source>Ruler length: %1 studs  (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Longitud de la regla: %1 studs  (%2)</translation>
     </message>
     <message>
         <source>Ruler radius: %1 studs  (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio de la regla: %1 studs  (%2)</translation>
     </message>
     <message>
         <source>Rulers</source>
@@ -7991,11 +7997,11 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>Venue updated</source>
-        <translation type="unfinished"></translation>
+        <translation>Sala actualizada</translation>
     </message>
     <message>
         <source>Move selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover selección</translation>
     </message>
     <message>
         <source>Area</source>
@@ -8003,15 +8009,15 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>%1 studs (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 studs (%2)</translation>
     </message>
     <message>
         <source>r=%1 studs (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>r=%1 studs (%2)</translation>
     </message>
     <message>
         <source>A venue needs at least 3 corners</source>
-        <translation type="unfinished"></translation>
+        <translation>Una sala necesita al menos 3 esquinas</translation>
     </message>
     <message>
         <source>Turn</source>
@@ -8019,35 +8025,35 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>“%1” is only used inside a set, so it isn’t placed by itself. Place its set instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>«%1» solo se usa dentro de un set, así que no se coloca sola. Coloca su set.</translation>
     </message>
     <message>
         <source>Place set %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Colocar set %1</translation>
     </message>
     <message>
         <source>Placed set: %1 (%2 parts)</source>
-        <translation type="unfinished"></translation>
+        <translation>Set colocado: %1 (%2 piezas)</translation>
     </message>
     <message>
         <source>Add part</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir pieza</translation>
     </message>
     <message>
         <source>Connection snap: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuste de conexión: %1</translation>
     </message>
     <message>
         <source>Placed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Colocada: %1</translation>
     </message>
     <message>
         <source>Move to a new sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover a una hoja nueva</translation>
     </message>
     <message>
         <source>This set is always used whole, so it can&apos;t be ungrouped</source>
-        <translation type="unfinished"></translation>
+        <translation>Este set siempre se usa entero, así que no se puede desagrupar</translation>
     </message>
     <message>
         <source>Edit text</source>
@@ -8059,15 +8065,15 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>Edit label</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar etiqueta</translation>
     </message>
     <message>
         <source>Budget reached: part not added</source>
-        <translation type="unfinished"></translation>
+        <translation>Presupuesto alcanzado: pieza no añadida</translation>
     </message>
     <message>
         <source>Budget reached</source>
-        <translation type="unfinished"></translation>
+        <translation>Presupuesto alcanzado</translation>
     </message>
     <message>
         <source>Cannot add this part because the budget is reached. If you want to add this part, increase the budget for this part, disable the Budget Limitation or close the budget file.</source>
@@ -9283,15 +9289,15 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Module name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del módulo</translation>
     </message>
     <message>
         <source>Me (on %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Yo (en %1)</translation>
     </message>
     <message>
         <source>This computer only (Module library folder)</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo este ordenador (carpeta de la biblioteca de módulos)</translation>
     </message>
     <message>
         <source>Save to</source>
@@ -9450,7 +9456,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Module name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del módulo</translation>
     </message>
     <message>
         <source>module</source>
@@ -10890,7 +10896,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Add part</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir pieza</translation>
     </message>
     <message>
         <source>Undo</source>
