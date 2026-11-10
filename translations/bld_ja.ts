@@ -3514,6 +3514,18 @@
         <translation>ビュー「%1」</translation>
     </message>
     <message>
+        <source>Custom set</source>
+        <translation>カスタムセット</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1 (yours: %2, the server&apos;s: %3)</source>
+        <translation>%1 の予算の上限（あなた: %2、サーバー: %3）</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1</source>
+        <translation>%1 の予算の上限</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>会場</translation>
     </message>

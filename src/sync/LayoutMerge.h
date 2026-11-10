@@ -14,6 +14,12 @@
 //   area:<layer>:<x>,<y>       area cells
 //   ruler:<layer>:<hash>       rulers, keyed by content
 //   label:<id> module:<id> view:<id> venue background   sidecar data
+//
+// and two the server's compare doesn't report (the desktop's own, so nothing
+// made offline is dropped):
+//
+//   set:<group id>             a placed custom set's record
+//   budget:<part number>       one part's budget limit
 
 #include <QHash>
 #include <QJsonObject>
@@ -49,7 +55,7 @@ enum class Choice { Mine, Server, Both };
 
 struct ItemChange {
     QString key;
-    QString kind;     // map, layer, brick, group, text, area, ruler, label, module, view, venue, background
+    QString kind;     // map, layer, brick, group, text, area, ruler, label, module, view, set, budget, venue, background
     QString layerId;  // for layer items
     QString layerName;  // that layer's name, from mine, else the server's, else base
     Status status = Status::Mine;

@@ -3,6 +3,7 @@
 
 #include "FakeSyncServer.h"
 #include "Compat.h"
+#include "LayoutMerge.h"
 #include "ServerRefusal.h"
 #include "SyncSession.h"
 
@@ -605,4 +606,148 @@ TEST(SyncSession, OfflineEditsHandedToTheWindowLeaveTheDisk) {
     EXPECT_EQ(firstBrick(*sync::merge::mapOf(*session.notTaken())).displayArea, firstBrick(*map).displayArea);
     EXPECT_FALSE(QFile::exists(offline));
     session.close();
+}
+
+namespace {
+
+using Budget = QMap<QString, int>;
+
+std::optional<Budget> budgetOn(const sync::SyncDoc& d) { return sync::mapFromDocJson(d.toJson())->sidecar.budgetLimits; }
+
+// The session's layout with one budget limit set (or taken out), as an edit.
+void setLimit(sync::SyncSession& session, const QString& part, std::optional<int> limit) {
+    auto map = session.editorMap();
+    if (!map->sidecar.budgetLimits) map->sidecar.budgetLimits = Budget{};
+    if (limit) map->sidecar.budgetLimits->insert(part, *limit);
+    else map->sidecar.budgetLimits->remove(part);
+    session.localEdit(*map);
+}
+
+void goOffline(FakeServer& server, sync::SyncSession& session) {
+    server.dropAll(QWebSocketProtocol::CloseCodeGoingAway);
+    ASSERT_TRUE(waitFor([&] { return session.status() != Status::Synced; }));
+}
+
+}  // namespace
+
+// A budget limit set while offline, and nothing else: back in step it
+// reaches the server by itself (it was dropped: the compare didn't see it).
+TEST(SyncSession, ABudgetChangedOfflineReachesTheServer) {
+    FakeServer server;
+    sync::SyncSession session;
+    session.client().setReconnectDelays(50ms, 200ms);
+    session.open(server.url(), {}, false);
+    ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced; }));
+    ASSERT_FALSE(budgetOn(server.doc));
+
+    goOffline(server, session);
+    setLimit(session, QStringLiteral("3001.1"), 5);
+    EXPECT_EQ(session.unsyncedEdits(), 1);
+    ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced; }));
+    ASSERT_TRUE(waitFor([&] { return budgetOn(server.doc) == Budget{ { QStringLiteral("3001.1"), 5 } }; }));
+    EXPECT_FALSE(session.offlineEdits());
+    EXPECT_EQ(session.currentMap()->sidecar.budgetLimits, (Budget{ { QStringLiteral("3001.1"), 5 } }));
+    session.close();
+}
+
+// The same while someone else changed the layout meanwhile: the budget goes
+// on top of the server's layout, and their change stays.
+TEST(SyncSession, ABudgetChangedOfflineReachesTheServerOthersChangedMeanwhile) {
+    FakeServer server;
+    sync::SyncSession session;
+    session.client().setReconnectDelays(50ms, 200ms);
+    session.open(server.url(), {}, false);
+    ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced; }));
+
+    goOffline(server, session);
+    setLimit(session, QStringLiteral("3001.1"), 5);
+    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 90.0f; });
+    ASSERT_TRUE(waitFor([&] { return budgetOn(server.doc) == Budget{ { QStringLiteral("3001.1"), 5 } }; }));
+    EXPECT_FALSE(session.offlineEdits());
+    EXPECT_EQ(firstBrick(*sync::mapFromDocJson(server.doc.toJson())).orientation, 90.0f);
+    EXPECT_EQ(firstBrick(*session.currentMap()).orientation, 90.0f);
+    session.close();
+}
+
+// Two people on one layout. One sets a limit while offline, the other sets
+// another part's limit meanwhile: both limits end up with both of them.
+TEST(SyncSession, BudgetLimitsForDifferentPartsBothSurviveAReconnect) {
+    FakeServer server;
+    sync::SyncSession mine, theirs;
+    mine.client().setReconnectDelays(50ms, 200ms);
+    mine.open(server.url(), {}, false);  // first, so server.peers.front() is mine
+    ASSERT_TRUE(waitFor([&] { return mine.status() == Status::Synced; }));
+    theirs.open(server.url(), {}, false);
+    ASSERT_TRUE(waitFor([&] { return theirs.status() == Status::Synced; }));
+    setLimit(theirs, QStringLiteral("3001.1"), 2);
+    setLimit(theirs, QStringLiteral("3002.1"), 3);
+    const Budget start{ { QStringLiteral("3001.1"), 2 }, { QStringLiteral("3002.1"), 3 } };
+    ASSERT_TRUE(waitFor([&] { return mine.currentMap()->sidecar.budgetLimits == start; }));
+
+    // Only my connection drops.
+    closeWith(server.peers.front(), QWebSocketProtocol::CloseCodeGoingAway, {});
+    ASSERT_TRUE(waitFor([&] { return mine.status() != Status::Synced; }));
+    ASSERT_EQ(theirs.status(), Status::Synced);
+    setLimit(mine, QStringLiteral("3001.1"), 5);
+    setLimit(mine, QStringLiteral("3003.1"), 8);  // a new row
+    setLimit(theirs, QStringLiteral("3002.1"), 7);
+
+    const Budget both{ { QStringLiteral("3001.1"), 5 }, { QStringLiteral("3002.1"), 7 }, { QStringLiteral("3003.1"), 8 } };
+    ASSERT_TRUE(waitFor([&] { return budgetOn(server.doc) == both; }));
+    ASSERT_TRUE(waitFor([&] { return theirs.currentMap()->sidecar.budgetLimits == both; }));
+    EXPECT_FALSE(mine.offlineEdits());
+    EXPECT_EQ(mine.editorMap()->sidecar.budgetLimits, both);
+    mine.close();
+    theirs.close();
+}
+
+// Both set the same part's limit: a clash. Nothing is overwritten on either
+// side; the review lists it as a budget change, and what's chosen there
+// reaches the other person.
+TEST(SyncSession, ABudgetLimitBothChangedWaitsForReview) {
+    FakeServer server;
+    sync::SyncSession mine, theirs;
+    mine.client().setReconnectDelays(50ms, 200ms);
+    int ready = 0;
+    QObject::connect(&mine, &sync::SyncSession::offlineEditsReady, [&] { ++ready; });
+    mine.open(server.url(), {}, false);  // first, so server.peers.front() is mine
+    ASSERT_TRUE(waitFor([&] { return mine.status() == Status::Synced; }));
+    theirs.open(server.url(), {}, false);
+    ASSERT_TRUE(waitFor([&] { return theirs.status() == Status::Synced; }));
+    setLimit(theirs, QStringLiteral("3001.1"), 2);
+    setLimit(theirs, QStringLiteral("3002.1"), 3);
+    ASSERT_TRUE(waitFor([&] { return mine.currentMap()->sidecar.budgetLimits.has_value()
+                                  && mine.currentMap()->sidecar.budgetLimits->size() == 2; }));
+
+    closeWith(server.peers.front(), QWebSocketProtocol::CloseCodeGoingAway, {});
+    ASSERT_TRUE(waitFor([&] { return mine.status() != Status::Synced; }));
+    setLimit(mine, QStringLiteral("3001.1"), 5);
+    setLimit(mine, QStringLiteral("3002.1"), std::nullopt);  // no clash: goes by itself
+    setLimit(theirs, QStringLiteral("3001.1"), 9);
+
+    ASSERT_TRUE(waitFor([&] { return ready == 1; }));
+    EXPECT_EQ(mine.unsyncedEdits(), 1);
+    // The server keeps theirs on the clash; the row I took out is gone.
+    ASSERT_TRUE(waitFor([&] { return budgetOn(server.doc) == Budget{ { QStringLiteral("3001.1"), 9 } }; }));
+    // My editor still shows mine.
+    EXPECT_EQ(mine.editorMap()->sidecar.budgetLimits, (Budget{ { QStringLiteral("3001.1"), 5 } }));
+
+    const auto serverNow = sync::merge::snapshotOf(*mine.currentMap());
+    const auto changes = sync::merge::compareLayouts(mine.offlineEdits()->base, mine.offlineEdits()->mine, serverNow);
+    ASSERT_EQ(changes.size(), 1);
+    EXPECT_EQ(changes[0].key, QStringLiteral("budget:3001.1"));
+    EXPECT_EQ(changes[0].kind, QStringLiteral("budget"));
+    EXPECT_EQ(changes[0].status, sync::merge::Status::Conflict);
+    EXPECT_EQ(sync::merge::describe(changes[0]).toStdString(),
+              "Budget limit for 3001.1 (yours: 5, the server's: 9): you changed it, the server changed it");
+
+    // "Keep mine" in the review.
+    const auto merged = sync::merge::mergeLayouts(mine.offlineEdits()->mine, serverNow, changes,
+                                                  { { changes[0].key, sync::merge::Choice::Mine } });
+    ASSERT_TRUE(merged);
+    mine.resolveOffline(merged.get());
+    ASSERT_TRUE(waitFor([&] { return budgetOn(server.doc) == Budget{ { QStringLiteral("3001.1"), 5 } }; }));
+    ASSERT_TRUE(waitFor([&] { return theirs.currentMap()->sidecar.budgetLimits == Budget{ { QStringLiteral("3001.1"), 5 } }; }));
+    mine.close();
+    theirs.close();
 }

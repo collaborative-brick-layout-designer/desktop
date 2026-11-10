@@ -3530,6 +3530,18 @@
         <translation>Weergave &quot;%1&quot;</translation>
     </message>
     <message>
+        <source>Custom set</source>
+        <translation>Eigen set</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1 (yours: %2, the server&apos;s: %3)</source>
+        <translation>Budgetlimiet voor %1 (de jouwe: %2, die van de server: %3)</translation>
+    </message>
+    <message>
+        <source>Budget limit for %1</source>
+        <translation>Budgetlimiet voor %1</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Zaal</translation>
     </message>
