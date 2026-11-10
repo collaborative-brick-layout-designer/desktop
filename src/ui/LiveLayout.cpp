@@ -295,7 +295,7 @@ QString LiveLayout::statusText() const {
     default:
         s = !session_.loaded() ? tr("Connecting…")
             : session_.unsyncedEdits() > 0
-                ? tr("Reconnecting…, %n unsynced edit(s)", nullptr, session_.unsyncedEdits())
+                ? tr("Reconnecting… %n unsynced edit(s)", nullptr, session_.unsyncedEdits())
                 : tr("Reconnecting…");
     }
     return session_.readOnly() ? tr("%1, view only").arg(s) : s;

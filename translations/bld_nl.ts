@@ -2813,8 +2813,8 @@
         <translation>Later</translation>
     </message>
     <message>
-        <source>Keep your offline changes waiting; File &gt; Review Offline Changes brings this back</source>
-        <translation>Laat je offline wijzigingen wachten; Bestand &gt; Offline wijzigingen bekijken brengt dit terug</translation>
+        <source>Keep your offline changes waiting; File › Review Offline Changes brings this back</source>
+        <translation>Laat je offline wijzigingen wachten; Bestand › Offline wijzigingen bekijken brengt dit terug</translation>
     </message>
     <message>
         <source>Throw away the changes you made offline?</source>
@@ -3720,7 +3720,7 @@
         <translation>Toevoegen aan (%1)</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server. Its admins can turn it on.</source>
+        <source>This server&apos;s catalog is turned off. Its admins can turn it on.</source>
         <translation>De catalogus staat niet aan op deze server. De beheerders kunnen hem aanzetten.</translation>
     </message>
     <message>
@@ -4787,10 +4787,10 @@
         <translation>Verbinden…</translation>
     </message>
     <message numerus="yes">
-        <source>Reconnecting…, %n unsynced edit(s)</source>
+        <source>Reconnecting… %n unsynced edit(s)</source>
         <translation>
-            <numerusform>Opnieuw verbinden…, %n niet-gesynchroniseerde wijziging</numerusform>
-            <numerusform>Opnieuw verbinden…, %n niet-gesynchroniseerde wijzigingen</numerusform>
+            <numerusform>Opnieuw verbinden… %n niet-gesynchroniseerde wijziging</numerusform>
+            <numerusform>Opnieuw verbinden… %n niet-gesynchroniseerde wijzigingen</numerusform>
         </translation>
     </message>
     <message>
@@ -6895,6 +6895,12 @@ Toch opslaan?</translation>
         <translation>Live op %1: %2</translation>
     </message>
     <message>
+        <source>Could not publish your version: %1
+Your offline changes are kept; File › Review Offline Changes brings them back.</source>
+        <translation>Je versie kon niet worden gepubliceerd: %1
+Je offline wijzigingen blijven bewaard; Bestand › Offline wijzigingen bekijken brengt ze terug.</translation>
+    </message>
+    <message>
         <source>Review now</source>
         <translation>Nu bekijken</translation>
     </message>
@@ -6963,12 +6969,6 @@ Toch opslaan?</translation>
     <message>
         <source>Your version was saved as &quot;%1&quot; in your layouts on %2. The live layout stays as the server has it.</source>
         <translation>Je versie is opgeslagen als &quot;%1&quot; in je layouts op %2. De live layout blijft zoals de server hem heeft.</translation>
-    </message>
-    <message>
-        <source>Could not publish your version: %1
-Your offline changes are kept; File &gt; Review Offline Changes brings them back.</source>
-        <translation>Je versie kon niet worden gepubliceerd: %1
-Je offline wijzigingen blijven bewaard; Bestand &gt; Offline wijzigingen bekijken brengt ze terug.</translation>
     </message>
     <message>
         <source>Publishing your version as &quot;%1&quot;…</source>
@@ -8763,6 +8763,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <translation>Importeren in kaart</translation>
     </message>
     <message>
+        <source>No parts yet: open it in a layout and add some</source>
+        <translation>Nog geen onderdelen: open het in een layout en voeg er een paar toe</translation>
+    </message>
+    <message>
         <source>Delete…</source>
         <translation>Verwijderen…</translation>
     </message>
@@ -8781,6 +8785,16 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     <message>
         <source>On this computer: %1</source>
         <translation>Op deze computer: %1</translation>
+    </message>
+    <message>
+        <source>%1  ·  No parts yet</source>
+        <translation>%1  ·  Nog geen onderdelen</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it in a layout and add some, then save it here again.
+%1</source>
+        <translation>Nog geen onderdelen: open het in een layout, voeg er een paar toe en sla het hier opnieuw op.
+%1</translation>
     </message>
     <message>
         <source>No modules here yet. Make a module in a layout (Modules › Make a Module…), then choose Save to Module library… from its menu.</source>
@@ -9706,7 +9720,7 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Dat kun je met deze module niet doen. Vraag de eigenaar, of de beheerders van je club, om bewerkrechten.</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server.</source>
+        <source>This server&apos;s catalog is turned off.</source>
         <translation>De catalogus staat niet aan op deze server.</translation>
     </message>
     <message>
@@ -9749,6 +9763,14 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>v%1</translation>
     </message>
     <message>
+        <source>No parts yet</source>
+        <translation>Nog geen onderdelen</translation>
+    </message>
+    <message>
+        <source>Open it to add some parts, then it can go in a layout.</source>
+        <translation>Open het om onderdelen toe te voegen, dan kan het in een layout.</translation>
+    </message>
+    <message>
         <source>Editing now</source>
         <translation>Wordt nu bewerkt</translation>
     </message>
@@ -9763,6 +9785,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Add to layout</source>
         <translation>Toevoegen aan layout</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it to add some</source>
+        <translation>Nog geen onderdelen: open het om er toe te voegen</translation>
     </message>
     <message>
         <source>More for %1</source>
@@ -11431,6 +11457,14 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
             <numerusform>nog %n schatting te meten</numerusform>
             <numerusform>nog %n schattingen te meten</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq m</source>
+        <translation>Zaal %1 × %2 · %3 m²</translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq studs</source>
+        <translation>Zaal %1 × %2 · %3 noppen²</translation>
     </message>
     <message>
         <source>Venue %1 × %2 · %3 sq ft</source>

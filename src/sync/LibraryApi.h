@@ -47,6 +47,7 @@ struct ServerModule {
     OwnerTag owner;
     int docVersion = 0;
     int latestVersion = 0;  // the newest saved version; 0: no history yet
+    bool empty = false;     // no parts yet: adding it would place nothing (older servers leave it out)
     qint64 thumbnailAt = 0;  // when its picture was made (ms); 0: none yet
     QDateTime updatedAt;
     Credit credit; // who made it; Take back / Give back

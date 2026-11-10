@@ -2813,8 +2813,8 @@
         <translation>Später</translation>
     </message>
     <message>
-        <source>Keep your offline changes waiting; File &gt; Review Offline Changes brings this back</source>
-        <translation>Deine Offline-Änderungen warten lassen; Datei &gt; Offline-Änderungen prüfen holt das zurück</translation>
+        <source>Keep your offline changes waiting; File › Review Offline Changes brings this back</source>
+        <translation>Deine Offline-Änderungen warten lassen; Datei › Offline-Änderungen prüfen holt das zurück</translation>
     </message>
     <message>
         <source>Throw away the changes you made offline?</source>
@@ -3720,7 +3720,7 @@
         <translation>Hinzufügen zu (%1)</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server. Its admins can turn it on.</source>
+        <source>This server&apos;s catalog is turned off. Its admins can turn it on.</source>
         <translation>Der Katalog ist auf diesem Server nicht eingeschaltet. Seine Admins können ihn einschalten.</translation>
     </message>
     <message>
@@ -4787,10 +4787,10 @@
         <translation>Verbinde…</translation>
     </message>
     <message numerus="yes">
-        <source>Reconnecting…, %n unsynced edit(s)</source>
+        <source>Reconnecting… %n unsynced edit(s)</source>
         <translation>
-            <numerusform>Verbinde erneut…, %n nicht abgeglichene Bearbeitung</numerusform>
-            <numerusform>Verbinde erneut…, %n nicht abgeglichene Bearbeitungen</numerusform>
+            <numerusform>Verbinde erneut… %n nicht abgeglichene Bearbeitung</numerusform>
+            <numerusform>Verbinde erneut… %n nicht abgeglichene Bearbeitungen</numerusform>
         </translation>
     </message>
     <message>
@@ -6895,6 +6895,12 @@ Trotzdem speichern?</translation>
         <translation>Live auf %1: %2</translation>
     </message>
     <message>
+        <source>Could not publish your version: %1
+Your offline changes are kept; File › Review Offline Changes brings them back.</source>
+        <translation>Deine Version konnte nicht veröffentlicht werden: %1
+Deine Offline-Änderungen bleiben erhalten; Datei › Offline-Änderungen prüfen holt sie zurück.</translation>
+    </message>
+    <message>
         <source>Review now</source>
         <translation>Jetzt prüfen</translation>
     </message>
@@ -6963,12 +6969,6 @@ Trotzdem speichern?</translation>
     <message>
         <source>Your version was saved as &quot;%1&quot; in your layouts on %2. The live layout stays as the server has it.</source>
         <translation>Deine Version wurde als „%1“ in deinen Layouts auf %2 gespeichert. Das Live-Layout bleibt, wie der Server es hat.</translation>
-    </message>
-    <message>
-        <source>Could not publish your version: %1
-Your offline changes are kept; File &gt; Review Offline Changes brings them back.</source>
-        <translation>Deine Version konnte nicht veröffentlicht werden: %1
-Deine Offline-Änderungen bleiben erhalten; Datei &gt; Offline-Änderungen prüfen holt sie zurück.</translation>
     </message>
     <message>
         <source>Publishing your version as &quot;%1&quot;…</source>
@@ -8763,6 +8763,10 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
         <translation>In die Karte importieren</translation>
     </message>
     <message>
+        <source>No parts yet: open it in a layout and add some</source>
+        <translation>Noch keine Teile: Öffne es in einem Layout und füge welche hinzu</translation>
+    </message>
+    <message>
         <source>Delete…</source>
         <translation>Löschen…</translation>
     </message>
@@ -8781,6 +8785,16 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     <message>
         <source>On this computer: %1</source>
         <translation>Auf diesem Computer: %1</translation>
+    </message>
+    <message>
+        <source>%1  ·  No parts yet</source>
+        <translation>%1  ·  Noch keine Teile</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it in a layout and add some, then save it here again.
+%1</source>
+        <translation>Noch keine Teile: Öffne es in einem Layout, füge welche hinzu und speichere es dann hier erneut.
+%1</translation>
     </message>
     <message>
         <source>No modules here yet. Make a module in a layout (Modules › Make a Module…), then choose Save to Module library… from its menu.</source>
@@ -9706,7 +9720,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>Mit diesem Modul kannst du das nicht. Bitte seinen Eigentümer oder die Admins deines Clubs um Bearbeitungsrechte.</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server.</source>
+        <source>This server&apos;s catalog is turned off.</source>
         <translation>Der Katalog ist auf diesem Server nicht eingeschaltet.</translation>
     </message>
     <message>
@@ -9749,6 +9763,14 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>v%1</translation>
     </message>
     <message>
+        <source>No parts yet</source>
+        <translation>Noch keine Teile</translation>
+    </message>
+    <message>
+        <source>Open it to add some parts, then it can go in a layout.</source>
+        <translation>Öffne es, um Teile hinzuzufügen. Dann kann es in ein Layout.</translation>
+    </message>
+    <message>
         <source>Editing now</source>
         <translation>Wird gerade bearbeitet</translation>
     </message>
@@ -9763,6 +9785,10 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>Add to layout</source>
         <translation>Zum Layout hinzufügen</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it to add some</source>
+        <translation>Noch keine Teile: Öffne es, um welche hinzuzufügen</translation>
     </message>
     <message>
         <source>More for %1</source>
@@ -11431,6 +11457,14 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
             <numerusform>%n Schätzung noch zu messen</numerusform>
             <numerusform>%n Schätzungen noch zu messen</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq m</source>
+        <translation>Veranstaltungsort %1 × %2 · %3 m²</translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq studs</source>
+        <translation>Veranstaltungsort %1 × %2 · %3 Noppen²</translation>
     </message>
     <message>
         <source>Venue %1 × %2 · %3 sq ft</source>

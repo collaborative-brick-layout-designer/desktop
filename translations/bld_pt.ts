@@ -2813,8 +2813,8 @@
         <translation>Mais tarde</translation>
     </message>
     <message>
-        <source>Keep your offline changes waiting; File &gt; Review Offline Changes brings this back</source>
-        <translation>Deixe as suas alterações offline em espera; Ficheiro &gt; Rever alterações offline traz isto de volta</translation>
+        <source>Keep your offline changes waiting; File › Review Offline Changes brings this back</source>
+        <translation>Deixe as suas alterações offline em espera; Ficheiro › Rever alterações offline traz isto de volta</translation>
     </message>
     <message>
         <source>Throw away the changes you made offline?</source>
@@ -3720,7 +3720,7 @@
         <translation>Adicionar a (%1)</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server. Its admins can turn it on.</source>
+        <source>This server&apos;s catalog is turned off. Its admins can turn it on.</source>
         <translation>O catálogo não está ativado neste servidor. Os administradores podem ativá-lo.</translation>
     </message>
     <message>
@@ -4787,10 +4787,10 @@
         <translation>A ligar…</translation>
     </message>
     <message numerus="yes">
-        <source>Reconnecting…, %n unsynced edit(s)</source>
+        <source>Reconnecting… %n unsynced edit(s)</source>
         <translation>
-            <numerusform>A religar…, %n alteração por sincronizar</numerusform>
-            <numerusform>A religar…, %n alterações por sincronizar</numerusform>
+            <numerusform>A religar… %n alteração por sincronizar</numerusform>
+            <numerusform>A religar… %n alterações por sincronizar</numerusform>
         </translation>
     </message>
     <message>
@@ -6895,6 +6895,12 @@ Guardar mesmo assim?</translation>
         <translation>Ao vivo em %1: %2</translation>
     </message>
     <message>
+        <source>Could not publish your version: %1
+Your offline changes are kept; File › Review Offline Changes brings them back.</source>
+        <translation>Não foi possível publicar a sua versão: %1
+As suas alterações offline ficam guardadas; Ficheiro › Rever alterações offline trá-las de volta.</translation>
+    </message>
+    <message>
         <source>Review now</source>
         <translation>Rever agora</translation>
     </message>
@@ -6963,12 +6969,6 @@ Guardar mesmo assim?</translation>
     <message>
         <source>Your version was saved as &quot;%1&quot; in your layouts on %2. The live layout stays as the server has it.</source>
         <translation>A sua versão foi guardada como &quot;%1&quot; nos seus layouts em %2. O layout ao vivo fica como o servidor o tem.</translation>
-    </message>
-    <message>
-        <source>Could not publish your version: %1
-Your offline changes are kept; File &gt; Review Offline Changes brings them back.</source>
-        <translation>Não foi possível publicar a sua versão: %1
-As suas alterações offline ficam guardadas; Ficheiro &gt; Rever alterações offline trá-las de volta.</translation>
     </message>
     <message>
         <source>Publishing your version as &quot;%1&quot;…</source>
@@ -8763,6 +8763,10 @@ Mantenha-o como %2 se ainda o abre noutro programa; Ficheiro › Exportar como m
         <translation>Importar para o mapa</translation>
     </message>
     <message>
+        <source>No parts yet: open it in a layout and add some</source>
+        <translation>Ainda sem peças: abra-o num layout e adicione algumas</translation>
+    </message>
+    <message>
         <source>Delete…</source>
         <translation>Eliminar…</translation>
     </message>
@@ -8781,6 +8785,16 @@ Mantenha-o como %2 se ainda o abre noutro programa; Ficheiro › Exportar como m
     <message>
         <source>On this computer: %1</source>
         <translation>Neste computador: %1</translation>
+    </message>
+    <message>
+        <source>%1  ·  No parts yet</source>
+        <translation>%1  ·  Ainda sem peças</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it in a layout and add some, then save it here again.
+%1</source>
+        <translation>Ainda sem peças: abra-o num layout, adicione algumas e guarde-o aqui de novo.
+%1</translation>
     </message>
     <message>
         <source>No modules here yet. Make a module in a layout (Modules › Make a Module…), then choose Save to Module library… from its menu.</source>
@@ -9706,7 +9720,7 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>Você não pode fazer isso com este módulo. Peça permissões de editor ao dono ou aos administradores do seu clube.</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server.</source>
+        <source>This server&apos;s catalog is turned off.</source>
         <translation>O catálogo não está ativado neste servidor.</translation>
     </message>
     <message>
@@ -9749,6 +9763,14 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>v%1</translation>
     </message>
     <message>
+        <source>No parts yet</source>
+        <translation>Ainda sem peças</translation>
+    </message>
+    <message>
+        <source>Open it to add some parts, then it can go in a layout.</source>
+        <translation>Abra-o para adicionar peças e depois poderá ir para um layout.</translation>
+    </message>
+    <message>
         <source>Editing now</source>
         <translation>Em edição agora</translation>
     </message>
@@ -9763,6 +9785,10 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>Add to layout</source>
         <translation>Adicionar ao layout</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it to add some</source>
+        <translation>Ainda sem peças: abra-o para adicionar algumas</translation>
     </message>
     <message>
         <source>More for %1</source>
@@ -11431,6 +11457,14 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
             <numerusform>%n estimativa por medir</numerusform>
             <numerusform>%n estimativas por medir</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq m</source>
+        <translation>Local %1 × %2 · %3 m²</translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq studs</source>
+        <translation>Local %1 × %2 · %3 studs²</translation>
     </message>
     <message>
         <source>Venue %1 × %2 · %3 sq ft</source>

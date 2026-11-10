@@ -14,6 +14,7 @@
 #include <QComboBox>
 #include <QGraphicsItem>
 #include <QKeyEvent>
+#include <QLabel>
 #include <QPalette>
 #include <QPushButton>
 #include <QImage>
@@ -225,4 +226,31 @@ TEST(VenueDesignerDialog, WallLabelsFollowTheChosenUnits) {
     units->setCurrentIndex(static_cast<int>(ev::LengthUnit::FeetInches));
     QApplication::processEvents();
     EXPECT_EQ(labels(), walls(QStringLiteral("40.00 ft"), QStringLiteral("20.00 ft")));
+}
+
+// The status line's area follows the Units choice: sq ft, sq m, or sq studs.
+TEST(VenueDesignerDialog, TheRoomSizeLineFollowsTheChosenUnits) {
+    ui::VenueDesignerDialog dlg(ev::emptyVenue(QStringLiteral("Hall")), QStringLiteral("test"), QStringLiteral("Save"),
+                                [&](const core::Venue&) { return QString(); });
+    auto* view = dlg.findChild<ui::VenueDesignerView*>();
+    ASSERT_TRUE(view);
+    type(dlg, QStringLiteral("r"));
+    emit view->pressed(QPointF(10 * FT, 10 * FT), false);
+    emit view->moved(QPointF(40 * FT, 30 * FT), false);
+    type(dlg, QStringLiteral("40'x20'"));
+    key(dlg, Qt::Key_Return);
+    auto sizeLine = [&] {
+        for (QLabel* l : dlg.findChildren<QLabel*>())
+            if (l->text().startsWith(QStringLiteral("Venue "))) return l->text();
+        return QString();
+    };
+    EXPECT_TRUE(sizeLine().endsWith(QStringLiteral("800 sq ft"))) << sizeLine().toStdString();
+    QComboBox* units = nullptr;
+    for (QComboBox* c : dlg.findChildren<QComboBox*>())
+        if (c->findText(QStringLiteral("Meters")) >= 0) units = c;
+    ASSERT_TRUE(units);
+    units->setCurrentIndex(1); // Meters
+    EXPECT_TRUE(sizeLine().endsWith(QStringLiteral("74.3 sq m"))) << sizeLine().toStdString();
+    units->setCurrentIndex(2); // Studs
+    EXPECT_TRUE(sizeLine().contains(QStringLiteral("sq studs"))) << sizeLine().toStdString();
 }

@@ -2813,8 +2813,8 @@
         <translation>Senere</translation>
     </message>
     <message>
-        <source>Keep your offline changes waiting; File &gt; Review Offline Changes brings this back</source>
-        <translation>La de frakoblede endringene dine vente; Fil &gt; Gå gjennom frakoblede endringer henter dette tilbake</translation>
+        <source>Keep your offline changes waiting; File › Review Offline Changes brings this back</source>
+        <translation>La de frakoblede endringene dine vente; Fil › Gå gjennom frakoblede endringer henter dette tilbake</translation>
     </message>
     <message>
         <source>Throw away the changes you made offline?</source>
@@ -3720,7 +3720,7 @@
         <translation>Legg til i (%1)</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server. Its admins can turn it on.</source>
+        <source>This server&apos;s catalog is turned off. Its admins can turn it on.</source>
         <translation>Katalogen er ikke slått på på denne serveren. Administratorene kan slå den på.</translation>
     </message>
     <message>
@@ -4787,10 +4787,10 @@
         <translation>Kobler til…</translation>
     </message>
     <message numerus="yes">
-        <source>Reconnecting…, %n unsynced edit(s)</source>
+        <source>Reconnecting… %n unsynced edit(s)</source>
         <translation>
-            <numerusform>Kobler til igjen…, %n usynkronisert endring</numerusform>
-            <numerusform>Kobler til igjen…, %n usynkroniserte endringer</numerusform>
+            <numerusform>Kobler til igjen… %n usynkronisert endring</numerusform>
+            <numerusform>Kobler til igjen… %n usynkroniserte endringer</numerusform>
         </translation>
     </message>
     <message>
@@ -7334,6 +7334,12 @@ Lagre likevel?</translation>
         <translation>Direkte på %1: %2</translation>
     </message>
     <message>
+        <source>Could not publish your version: %1
+Your offline changes are kept; File › Review Offline Changes brings them back.</source>
+        <translation>Kunne ikke publisere din versjon: %1
+De frakoblede endringene dine er tatt vare på; Fil › Gå gjennom frakoblede endringer henter dem tilbake.</translation>
+    </message>
+    <message>
         <source>Review now</source>
         <translation>Gå gjennom nå</translation>
     </message>
@@ -7402,12 +7408,6 @@ Lagre likevel?</translation>
     <message>
         <source>Your version was saved as &quot;%1&quot; in your layouts on %2. The live layout stays as the server has it.</source>
         <translation>Din versjon ble lagret som «%1» i layoutene dine på %2. Direktelayouten forblir slik serveren har den.</translation>
-    </message>
-    <message>
-        <source>Could not publish your version: %1
-Your offline changes are kept; File &gt; Review Offline Changes brings them back.</source>
-        <translation>Kunne ikke publisere din versjon: %1
-De frakoblede endringene dine er tatt vare på; Fil &gt; Gå gjennom frakoblede endringer henter dem tilbake.</translation>
     </message>
     <message>
         <source>Publishing your version as &quot;%1&quot;…</source>
@@ -8763,6 +8763,10 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
         <translation>Importer til kartet</translation>
     </message>
     <message>
+        <source>No parts yet: open it in a layout and add some</source>
+        <translation>Ingen deler ennå: åpne den i en layout og legg til noen</translation>
+    </message>
+    <message>
         <source>Delete…</source>
         <translation>Slett…</translation>
     </message>
@@ -8781,6 +8785,16 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
     <message>
         <source>On this computer: %1</source>
         <translation>På denne datamaskinen: %1</translation>
+    </message>
+    <message>
+        <source>%1  ·  No parts yet</source>
+        <translation>%1  ·  Ingen deler ennå</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it in a layout and add some, then save it here again.
+%1</source>
+        <translation>Ingen deler ennå: åpne den i en layout, legg til noen og lagre den her igjen.
+%1</translation>
     </message>
     <message>
         <source>No modules here yet. Make a module in a layout (Modules › Make a Module…), then choose Save to Module library… from its menu.</source>
@@ -9706,7 +9720,7 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Du kan ikke gjøre det med denne modulen. Be eieren, eller klubbens administratorer, om redigeringsrettigheter.</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server.</source>
+        <source>This server&apos;s catalog is turned off.</source>
         <translation>Katalogen er ikke slått på på denne serveren.</translation>
     </message>
     <message>
@@ -9749,6 +9763,14 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>v%1</translation>
     </message>
     <message>
+        <source>No parts yet</source>
+        <translation>Ingen deler ennå</translation>
+    </message>
+    <message>
+        <source>Open it to add some parts, then it can go in a layout.</source>
+        <translation>Åpne den for å legge til deler, så kan den brukes i en layout.</translation>
+    </message>
+    <message>
         <source>Editing now</source>
         <translation>Redigeres nå</translation>
     </message>
@@ -9763,6 +9785,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Add to layout</source>
         <translation>Legg til i layout</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it to add some</source>
+        <translation>Ingen deler ennå: åpne den for å legge til noen</translation>
     </message>
     <message>
         <source>More for %1</source>
@@ -11431,6 +11457,14 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
             <numerusform>%n anslag igjen å måle</numerusform>
             <numerusform>%n anslag igjen å måle</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq m</source>
+        <translation>Lokale %1 × %2 · %3 m²</translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq studs</source>
+        <translation>Lokale %1 × %2 · %3 knotter²</translation>
     </message>
     <message>
         <source>Venue %1 × %2 · %3 sq ft</source>

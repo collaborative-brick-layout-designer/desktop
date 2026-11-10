@@ -2798,8 +2798,8 @@
         <translation>後で</translation>
     </message>
     <message>
-        <source>Keep your offline changes waiting; File &gt; Review Offline Changes brings this back</source>
-        <translation>オフラインの変更を待たせておきます。ファイル &gt; オフラインの変更を確認 でここに戻れます</translation>
+        <source>Keep your offline changes waiting; File › Review Offline Changes brings this back</source>
+        <translation>オフラインの変更を待たせておきます。ファイル › オフラインの変更を確認 でここに戻れます</translation>
     </message>
     <message>
         <source>Throw away the changes you made offline?</source>
@@ -3703,7 +3703,7 @@
         <translation>追加先（%1）</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server. Its admins can turn it on.</source>
+        <source>This server&apos;s catalog is turned off. Its admins can turn it on.</source>
         <translation>このサーバーではカタログがオンになっていません。管理者がオンにできます。</translation>
     </message>
     <message>
@@ -4757,9 +4757,9 @@
         <translation>接続しています…</translation>
     </message>
     <message numerus="yes">
-        <source>Reconnecting…, %n unsynced edit(s)</source>
+        <source>Reconnecting… %n unsynced edit(s)</source>
         <translation>
-            <numerusform>再接続しています…、未同期の編集 %n 件</numerusform>
+            <numerusform>再接続しています… 未同期の編集 %n 件</numerusform>
         </translation>
     </message>
     <message>
@@ -6853,6 +6853,12 @@ Save anyway?</source>
         <translation>%1 でライブ: %2</translation>
     </message>
     <message>
+        <source>Could not publish your version: %1
+Your offline changes are kept; File › Review Offline Changes brings them back.</source>
+        <translation>あなたの版を公開できませんでした: %1
+オフラインの変更は残っています。ファイル › オフラインの変更を確認 で戻せます。</translation>
+    </message>
+    <message>
         <source>Review now</source>
         <translation>今すぐ確認</translation>
     </message>
@@ -6919,12 +6925,6 @@ Save anyway?</source>
     <message>
         <source>Your version was saved as &quot;%1&quot; in your layouts on %2. The live layout stays as the server has it.</source>
         <translation>あなたの版を %2 の自分のレイアウトに「%1」として保存しました。ライブのレイアウトはサーバーにあるままです。</translation>
-    </message>
-    <message>
-        <source>Could not publish your version: %1
-Your offline changes are kept; File &gt; Review Offline Changes brings them back.</source>
-        <translation>あなたの版を公開できませんでした: %1
-オフラインの変更は残っています。ファイル &gt; オフラインの変更を確認 で戻せます。</translation>
     </message>
     <message>
         <source>Publishing your version as &quot;%1&quot;…</source>
@@ -8699,6 +8699,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <translation>マップにインポート</translation>
     </message>
     <message>
+        <source>No parts yet: open it in a layout and add some</source>
+        <translation>まだパーツがありません。レイアウトで開いて追加してください</translation>
+    </message>
+    <message>
         <source>Delete…</source>
         <translation>削除…</translation>
     </message>
@@ -8717,6 +8721,16 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     <message>
         <source>On this computer: %1</source>
         <translation>このコンピューター: %1</translation>
+    </message>
+    <message>
+        <source>%1  ·  No parts yet</source>
+        <translation>%1  ·  まだパーツがありません</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it in a layout and add some, then save it here again.
+%1</source>
+        <translation>まだパーツがありません。レイアウトで開いて追加し、もう一度ここに保存してください。
+%1</translation>
     </message>
     <message>
         <source>No modules here yet. Make a module in a layout (Modules › Make a Module…), then choose Save to Module library… from its menu.</source>
@@ -9637,7 +9651,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>このモジュールではそれはできません。持ち主かクラブの管理者に編集者の権限を頼んでください。</translation>
     </message>
     <message>
-        <source>The catalog isn&apos;t turned on on this server.</source>
+        <source>This server&apos;s catalog is turned off.</source>
         <translation>このサーバーではカタログがオンになっていません。</translation>
     </message>
     <message>
@@ -9680,6 +9694,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>v%1</translation>
     </message>
     <message>
+        <source>No parts yet</source>
+        <translation>まだパーツがありません</translation>
+    </message>
+    <message>
+        <source>Open it to add some parts, then it can go in a layout.</source>
+        <translation>開いてパーツを追加すると、レイアウトに入れられるようになります。</translation>
+    </message>
+    <message>
         <source>Editing now</source>
         <translation>編集中</translation>
     </message>
@@ -9694,6 +9716,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Add to layout</source>
         <translation>レイアウトに追加</translation>
+    </message>
+    <message>
+        <source>No parts yet: open it to add some</source>
+        <translation>まだパーツがありません。開いて追加してください</translation>
     </message>
     <message>
         <source>More for %1</source>
@@ -11360,6 +11386,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>
             <numerusform>まだ測っていない概算 %n 件</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq m</source>
+        <translation>会場 %1 × %2 · %3 平方メートル</translation>
+    </message>
+    <message>
+        <source>Venue %1 × %2 · %3 sq studs</source>
+        <translation>会場 %1 × %2 · %3 スタッド²</translation>
     </message>
     <message>
         <source>Venue %1 × %2 · %3 sq ft</source>

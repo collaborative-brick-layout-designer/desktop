@@ -407,10 +407,18 @@ void VenueDesignerDialog::refresh() {
     for (auto* b : toolButtons_) b->setChecked(b->property("tool").toInt() == static_cast<int>(state_.tool));
     const int est = ev::estimateCount(v);
     estimates_->setText(est ? tr("%n estimate(s) left to measure", nullptr, est) : QString());
-    if (const auto rs = ev::roomSize(v))
-        size_->setText(tr("Venue %1 × %2 · %3 sq ft")
-                           .arg(ev::formatLength(rs->w, state_.unit), ev::formatLength(rs->h, state_.unit))
-                           .arg(std::lround(rs->area / (kFt * kFt))));
+    if (const auto rs = ev::roomSize(v)) {
+        const QString w = ev::formatLength(rs->w, state_.unit), h = ev::formatLength(rs->h, state_.unit);
+        if (state_.unit == edit::venue::LengthUnit::Metres) {
+            const double m = 0.0254 / ev::kStudsPerInch; // metres per stud
+            size_->setText(tr("Venue %1 × %2 · %3 sq m")
+                               .arg(w, h, QString::number(rs->area * m * m, 'f', 1)));
+        } else if (state_.unit == edit::venue::LengthUnit::Studs) {
+            size_->setText(tr("Venue %1 × %2 · %3 sq studs").arg(w, h).arg(std::lround(rs->area)));
+        } else {
+            size_->setText(tr("Venue %1 × %2 · %3 sq ft").arg(w, h).arg(std::lround(rs->area / (kFt * kFt))));
+        }
+    }
     else size_->clear();
     QString hint;
     if (!state_.typed.isEmpty()) hint = tr("Typing %1 — Enter to apply").arg(state_.typed);

@@ -127,7 +127,7 @@ CompareDialog::CompareDialog(const QList<ItemChange>& changes, QWidget* parent)
     auto* saveNew = buttons->addButton(tr("Save Mine as a New Layout…"), QDialogButtonBox::ActionRole);
     auto* later = buttons->addButton(tr("Later"), QDialogButtonBox::RejectRole);
     apply->setDefault(true);
-    later->setToolTip(tr("Keep your offline changes waiting; File > Review Offline Changes brings this back"));
+    later->setToolTip(tr("Keep your offline changes waiting; File › Review Offline Changes brings this back"));
     connect(apply, &QPushButton::clicked, this, [this] { finish(Action::Apply); });
     connect(discard, &QPushButton::clicked, this, [this] {
         if (QMessageBox::question(this, windowTitle(), tr("Throw away the changes you made offline?"),
