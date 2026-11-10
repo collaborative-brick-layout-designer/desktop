@@ -359,10 +359,6 @@
         <translation>Alle brikkene du kan bygge med.</translation>
     </message>
     <message>
-        <source>Search by name or number, or pick a group like track or plates; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
-        <translation>Søk etter navn eller nummer, eller velg en gruppe som skinner eller plater; bokstavene du skriver kan ha hull, så «plt2» finner «plate2x4». Dra en del ut på kartet, eller dobbeltklikk den for å legge den til i midten. På et tomt kart holder det med ett klikk.</translation>
-    </message>
-    <message>
         <source>Sheets</source>
         <translation>Ark</translation>
     </message>
@@ -587,18 +583,6 @@
         <translation>Sier om layouten holder seg innenfor delene du har.</translation>
     </message>
     <message>
-        <source>A budget is how many of each part you own. “Over” means the layout uses more of some part than you have.</source>
-        <translation>Et budsjett er hvor mange du eier av hver del. «Over» betyr at layouten bruker flere av en del enn du har.</translation>
-    </message>
-    <message>
-        <source>Set how many of each part you have, so the layout never uses more.</source>
-        <translation>Angi hvor mange du har av hver del, så layouten aldri bruker flere.</translation>
-    </message>
-    <message>
-        <source>Type a number next to a part to set its limit. Save the budget to a file to use it again, or open one a friend made.</source>
-        <translation>Skriv et tall ved siden av en del for å sette grensen. Lagre budsjettet til en fil for å bruke det igjen, eller åpne et en venn har laget.</translation>
-    </message>
-    <message>
         <source>Sheet options</source>
         <translation>Arkvalg</translation>
     </message>
@@ -819,8 +803,24 @@
         <translation>Layoutfil</translation>
     </message>
     <message>
-        <source>Everything in one file: parts, sheets, venue, labels and modules.</source>
-        <translation>Alt i én fil: deler, ark, lokale, etiketter og moduler.</translation>
+        <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
+        <translation>Søk på navn eller nummer, eller velg en gruppe som Track eller Baseplate; bokstavene du skriver kan ha hull, så &quot;plt2&quot; finner &quot;plate2x4&quot;. Dra en del til kartet, eller dobbeltklikk på den for å legge den i midten. På et tomt kart holder det med ett klikk.</translation>
+    </message>
+    <message>
+        <source>A budget is how many of each part the layout may use. It is saved with the layout and shared with everyone who edits it. “Over” means the layout uses more of some part than the budget allows.</source>
+        <translation>Et budsjett er hvor mange av hver del layouten kan bruke. Det lagres med layouten og deles med alle som redigerer den. «Over» betyr at layouten bruker flere av en del enn budsjettet tillater.</translation>
+    </message>
+    <message>
+        <source>Set how many of each part the layout may use, so it never goes over.</source>
+        <translation>Angi hvor mange av hver del layouten kan bruke, så den aldri går over.</translation>
+    </message>
+    <message>
+        <source>Type a number next to a part to set its limit. The budget is saved with the layout and shared with everyone who edits it. A BlueBrick budget file (.bbb) can be imported or exported too.</source>
+        <translation>Skriv et tall ved siden av en del for å sette grensen dens. Budsjettet lagres med layouten og deles med alle som redigerer den. En BlueBrick-budsjettfil (.bbb) kan også importeres eller eksporteres.</translation>
+    </message>
+    <message>
+        <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
+        <translation>Alt i én fil: deler, ark, lokale, etiketter, moduler og budsjettet.</translation>
     </message>
     <message>
         <source>Pick this to keep a backup or to open the layout in the desktop app. Nothing is left out.</source>
@@ -2317,8 +2317,8 @@
         <translation>Alle brikkene dine bor her</translation>
     </message>
     <message>
-        <source>Search by name, or pick a group like Train track. Drag a piece onto the map to place it.</source>
-        <translation>Søk etter navn, eller velg en gruppe som Togskinner. Dra en brikke ut på kartet for å plassere den.</translation>
+        <source>Search by name, or pick a group like Track or Baseplate. Drag a piece onto the map to place it.</source>
+        <translation>Søk på navn, eller velg en gruppe som Track eller Baseplate. Dra en del til kartet for å plassere den.</translation>
     </message>
     <message>
         <source>Sheets</source>

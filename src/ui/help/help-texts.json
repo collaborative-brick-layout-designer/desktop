@@ -4,7 +4,7 @@
     "panel.parts": {
       "title": "Parts",
       "short": "All the pieces you can build with.",
-      "more": "Search by name or number, or pick a group like track or plates; the letters you type may have gaps, so \"plt2\" finds \"plate2x4\". Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.",
+      "more": "Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so \"plt2\" finds \"plate2x4\". Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.",
       "learnMoreUrl": "/help#getting-started"
     },
     "panel.sheets": {
@@ -108,12 +108,12 @@
     "status.budget": {
       "title": "Budget",
       "short": "Says whether the layout stays within the parts you have.",
-      "more": "A budget is how many of each part you own. “Over” means the layout uses more of some part than you have."
+      "more": "A budget is how many of each part the layout may use. It is saved with the layout and shared with everyone who edits it. “Over” means the layout uses more of some part than the budget allows."
     },
     "dialog.budget": {
       "title": "Budget",
-      "short": "Set how many of each part you have, so the layout never uses more.",
-      "more": "Type a number next to a part to set its limit. Save the budget to a file to use it again, or open one a friend made."
+      "short": "Set how many of each part the layout may use, so it never goes over.",
+      "more": "Type a number next to a part to set its limit. The budget is saved with the layout and shared with everyone who edits it. A BlueBrick budget file (.bbb) can be imported or exported too."
     },
     "dialog.sheetOptions": {
       "title": "Sheet options",
@@ -211,7 +211,7 @@
     },
     "download.layout": {
       "title": "Layout file",
-      "short": "Everything in one file: parts, sheets, venue, labels and modules.",
+      "short": "Everything in one file: parts, sheets, venue, labels, modules and the budget.",
       "more": "Pick this to keep a backup or to open the layout in the desktop app. Nothing is left out.",
       "learnMoreUrl": "/help#files"
     },
