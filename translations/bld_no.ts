@@ -4717,10 +4717,6 @@
 </context>
 <context>
     <name>bld::ui::LiveLayout</name>
-    <message>
-        <source>your access to this layout changed to view only, so your latest changes weren&apos;t taken. Nothing is lost: your copy stays open here, so save it (File &gt; Save As). Open the layout from the server again to view it live</source>
-        <translation>tilgangen din til denne layouten ble endret til kun visning, så de siste endringene dine ble ikke tatt imot. Ingenting er tapt: kopien din er fortsatt åpen her, så lagre den (Fil &gt; Lagre som). Åpne layouten fra serveren igjen for å se den direkte</translation>
-    </message>
     <message numerus="yes">
         <source>Signed out, %n edit(s) kept</source>
         <translation>
@@ -7049,6 +7045,22 @@ Lagre likevel?</translation>
         <translation>Noen andre endret det etter deg, så det var ingenting å gjøre om.</translation>
     </message>
     <message>
+        <source>Your latest changes weren&apos;t taken</source>
+        <translation>De siste endringene dine ble ikke tatt imot</translation>
+    </message>
+    <message>
+        <source>Your access to “%1” changed to view only before your latest changes reached the server, so it didn&apos;t take them. You&apos;re still live, viewing it. Nothing is lost: save your changes as a new layout, or let them go.</source>
+        <translation>Tilgangen din til «%1» ble endret til bare visning før de siste endringene dine nådde serveren, så den tok dem ikke imot. Du er fortsatt live og ser på oppsettet. Ingenting er tapt: lagre endringene som et nytt oppsett, eller la dem gå.</translation>
+    </message>
+    <message>
+        <source>Save My Changes as a New Layout</source>
+        <translation>Lagre endringene mine som nytt oppsett</translation>
+    </message>
+    <message>
+        <source>Let Them Go</source>
+        <translation>La dem gå</translation>
+    </message>
+    <message>
         <source>Live layout closed</source>
         <translation>Direktelayouten ble lukket</translation>
     </message>
@@ -7125,8 +7137,8 @@ Lagre likevel?</translation>
         <translation>Logg inn igjen for å jobbe videre direkte</translation>
     </message>
     <message>
-        <source>Your sign-in to %1 has run out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
-        <translation>Innloggingen din på %1 har utløpt, så endringene dine kan ikke nå serveren. De tas vare på her, og sendes når du logger inn igjen.</translation>
+        <source>You were signed out of %1 (on the website or another device), or your sign-in there ran out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
+        <translation>Du ble logget ut av %1 (på nettstedet eller en annen enhet), eller påloggingen din der gikk ut, så endringene dine når ikke serveren. De beholdes her og sendes når du logger inn igjen.</translation>
     </message>
     <message>
         <source>Sign In…</source>

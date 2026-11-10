@@ -4690,10 +4690,6 @@
 </context>
 <context>
     <name>bld::ui::LiveLayout</name>
-    <message>
-        <source>your access to this layout changed to view only, so your latest changes weren&apos;t taken. Nothing is lost: your copy stays open here, so save it (File &gt; Save As). Open the layout from the server again to view it live</source>
-        <translation>你对这个布局的权限已变为仅查看，所以你最近的更改没有被接受。不会丢失任何内容：你的副本仍在这里打开着，请保存它（文件 &gt; 另存为）。从服务器重新打开布局即可实时查看</translation>
-    </message>
     <message numerus="yes">
         <source>Signed out, %n edit(s) kept</source>
         <translation>
@@ -6561,6 +6557,22 @@ Save anyway?</source>
         <translation>别人在你之后改动了它，所以没有可重做的内容。</translation>
     </message>
     <message>
+        <source>Your latest changes weren&apos;t taken</source>
+        <translation>你最近的修改未被接收</translation>
+    </message>
+    <message>
+        <source>Your access to “%1” changed to view only before your latest changes reached the server, so it didn&apos;t take them. You&apos;re still live, viewing it. Nothing is lost: save your changes as a new layout, or let them go.</source>
+        <translation>在你最近的修改到达服务器之前，你对“%1”的权限已改为仅查看，因此服务器没有接收这些修改。你仍在实时查看。不会丢失任何内容：可以将修改另存为新布局，或放弃它们。</translation>
+    </message>
+    <message>
+        <source>Save My Changes as a New Layout</source>
+        <translation>将我的修改另存为新布局</translation>
+    </message>
+    <message>
+        <source>Let Them Go</source>
+        <translation>放弃修改</translation>
+    </message>
+    <message>
         <source>Live layout closed</source>
         <translation>实时布局已关闭</translation>
     </message>
@@ -6637,8 +6649,8 @@ Save anyway?</source>
         <translation>重新登录以继续实时编辑</translation>
     </message>
     <message>
-        <source>Your sign-in to %1 has run out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
-        <translation>你在 %1 的登录已过期，所以更改无法送达服务器。它们保留在这里，重新登录后会发送。</translation>
+        <source>You were signed out of %1 (on the website or another device), or your sign-in there ran out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
+        <translation>你已从 %1 退出登录（在网站或其他设备上），或登录已过期，因此你的修改无法到达服务器。修改会保存在这里，重新登录后即会发送。</translation>
     </message>
     <message>
         <source>Sign In…</source>

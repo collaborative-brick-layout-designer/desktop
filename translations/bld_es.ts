@@ -4717,10 +4717,6 @@
 </context>
 <context>
     <name>bld::ui::LiveLayout</name>
-    <message>
-        <source>your access to this layout changed to view only, so your latest changes weren&apos;t taken. Nothing is lost: your copy stays open here, so save it (File &gt; Save As). Open the layout from the server again to view it live</source>
-        <translation>tu acceso a esta maqueta pasó a solo lectura, así que no se aceptaron tus últimos cambios. No se pierde nada: tu copia sigue abierta aquí, así que guárdala (Archivo &gt; Guardar como). Abre de nuevo la maqueta desde el servidor para verla en directo</translation>
-    </message>
     <message numerus="yes">
         <source>Signed out, %n edit(s) kept</source>
         <translation>
@@ -6598,6 +6594,22 @@ Save anyway?</source>
         <translation>Otra persona lo cambió después de ti, así que no había nada que rehacer.</translation>
     </message>
     <message>
+        <source>Your latest changes weren&apos;t taken</source>
+        <translation>Tus últimos cambios no se aceptaron</translation>
+    </message>
+    <message>
+        <source>Your access to “%1” changed to view only before your latest changes reached the server, so it didn&apos;t take them. You&apos;re still live, viewing it. Nothing is lost: save your changes as a new layout, or let them go.</source>
+        <translation>Tu acceso a «%1» pasó a solo lectura antes de que tus últimos cambios llegaran al servidor, así que no los aceptó. Sigues en directo, viéndolo. No se pierde nada: guarda tus cambios como un diseño nuevo o descártalos.</translation>
+    </message>
+    <message>
+        <source>Save My Changes as a New Layout</source>
+        <translation>Guardar mis cambios como diseño nuevo</translation>
+    </message>
+    <message>
+        <source>Let Them Go</source>
+        <translation>Descartarlos</translation>
+    </message>
+    <message>
         <source>Live layout closed</source>
         <translation>Maqueta en directo cerrada</translation>
     </message>
@@ -6674,8 +6686,8 @@ Save anyway?</source>
         <translation>Vuelve a iniciar sesión para seguir en directo</translation>
     </message>
     <message>
-        <source>Your sign-in to %1 has run out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
-        <translation>Tu sesión en %1 caducó, así que tus cambios no llegan al servidor. Se guardan aquí y se envían en cuanto vuelvas a iniciar sesión.</translation>
+        <source>You were signed out of %1 (on the website or another device), or your sign-in there ran out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
+        <translation>Se cerró tu sesión en %1 (en el sitio web o en otro dispositivo), o tu sesión allí caducó, así que tus cambios no pueden llegar al servidor. Se guardan aquí y se envían cuando vuelvas a iniciar sesión.</translation>
     </message>
     <message>
         <source>Sign In…</source>

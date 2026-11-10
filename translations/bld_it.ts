@@ -4717,10 +4717,6 @@
 </context>
 <context>
     <name>bld::ui::LiveLayout</name>
-    <message>
-        <source>your access to this layout changed to view only, so your latest changes weren&apos;t taken. Nothing is lost: your copy stays open here, so save it (File &gt; Save As). Open the layout from the server again to view it live</source>
-        <translation>il tuo accesso a questo layout è diventato di sola lettura, quindi le tue ultime modifiche non sono state accettate. Non si è perso nulla: la tua copia resta aperta qui, quindi salvala (File &gt; Salva con nome). Riapri il layout dal server per vederlo in diretta</translation>
-    </message>
     <message numerus="yes">
         <source>Signed out, %n edit(s) kept</source>
         <translation>
@@ -6598,6 +6594,22 @@ Salvare comunque?</translation>
         <translation>Qualcun altro l’ha modificato dopo di te, quindi non c’era niente da ripetere.</translation>
     </message>
     <message>
+        <source>Your latest changes weren&apos;t taken</source>
+        <translation>Le tue ultime modifiche non sono state accettate</translation>
+    </message>
+    <message>
+        <source>Your access to “%1” changed to view only before your latest changes reached the server, so it didn&apos;t take them. You&apos;re still live, viewing it. Nothing is lost: save your changes as a new layout, or let them go.</source>
+        <translation>Il tuo accesso a «%1» è passato a sola visualizzazione prima che le tue ultime modifiche arrivassero al server, quindi non le ha accettate. Sei ancora in diretta, in visualizzazione. Non si perde nulla: salva le modifiche come nuovo layout o lasciale perdere.</translation>
+    </message>
+    <message>
+        <source>Save My Changes as a New Layout</source>
+        <translation>Salva le mie modifiche come nuovo layout</translation>
+    </message>
+    <message>
+        <source>Let Them Go</source>
+        <translation>Lasciale perdere</translation>
+    </message>
+    <message>
         <source>Live layout closed</source>
         <translation>Layout in diretta chiuso</translation>
     </message>
@@ -6674,8 +6686,8 @@ Salvare comunque?</translation>
         <translation>Accedi di nuovo per continuare a lavorare in diretta</translation>
     </message>
     <message>
-        <source>Your sign-in to %1 has run out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
-        <translation>Il tuo accesso a %1 è scaduto, quindi le tue modifiche non possono raggiungere il server. Restano qui e vengono inviate quando accedi di nuovo.</translation>
+        <source>You were signed out of %1 (on the website or another device), or your sign-in there ran out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
+        <translation>Sei stato disconnesso da %1 (sul sito web o su un altro dispositivo), oppure l&apos;accesso è scaduto, quindi le tue modifiche non possono raggiungere il server. Restano qui e verranno inviate quando accedi di nuovo.</translation>
     </message>
     <message>
         <source>Sign In…</source>

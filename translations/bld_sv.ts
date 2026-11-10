@@ -4717,10 +4717,6 @@
 </context>
 <context>
     <name>bld::ui::LiveLayout</name>
-    <message>
-        <source>your access to this layout changed to view only, so your latest changes weren&apos;t taken. Nothing is lost: your copy stays open here, so save it (File &gt; Save As). Open the layout from the server again to view it live</source>
-        <translation>din åtkomst till layouten ändrades till endast visning, så dina senaste ändringar togs inte emot. Inget går förlorat: din kopia är fortfarande öppen här, så spara den (Arkiv &gt; Spara som). Öppna layouten från servern igen för att se den live</translation>
-    </message>
     <message numerus="yes">
         <source>Signed out, %n edit(s) kept</source>
         <translation>
@@ -7049,6 +7045,22 @@ Spara ändå?</translation>
         <translation>Någon annan ändrade det efter dig, så det fanns inget att upprepa.</translation>
     </message>
     <message>
+        <source>Your latest changes weren&apos;t taken</source>
+        <translation>Dina senaste ändringar togs inte emot</translation>
+    </message>
+    <message>
+        <source>Your access to “%1” changed to view only before your latest changes reached the server, so it didn&apos;t take them. You&apos;re still live, viewing it. Nothing is lost: save your changes as a new layout, or let them go.</source>
+        <translation>Din åtkomst till ”%1” ändrades till endast visning innan dina senaste ändringar nådde servern, så den tog inte emot dem. Du är fortfarande live och visar layouten. Inget går förlorat: spara dina ändringar som en ny layout, eller släpp dem.</translation>
+    </message>
+    <message>
+        <source>Save My Changes as a New Layout</source>
+        <translation>Spara mina ändringar som ny layout</translation>
+    </message>
+    <message>
+        <source>Let Them Go</source>
+        <translation>Släpp dem</translation>
+    </message>
+    <message>
         <source>Live layout closed</source>
         <translation>Livelayouten stängdes</translation>
     </message>
@@ -7125,8 +7137,8 @@ Spara ändå?</translation>
         <translation>Logga in igen för att fortsätta arbeta live</translation>
     </message>
     <message>
-        <source>Your sign-in to %1 has run out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
-        <translation>Din inloggning på %1 har gått ut, så dina ändringar kan inte nå servern. De sparas här och skickas när du loggat in igen.</translation>
+        <source>You were signed out of %1 (on the website or another device), or your sign-in there ran out, so your changes can&apos;t reach the server. They&apos;re kept here, and sent once you sign in again.</source>
+        <translation>Du loggades ut från %1 (på webbplatsen eller en annan enhet), eller så gick din inloggning ut, så dina ändringar når inte servern. De sparas här och skickas när du loggar in igen.</translation>
     </message>
     <message>
         <source>Sign In…</source>
