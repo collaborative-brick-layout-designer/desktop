@@ -75,6 +75,11 @@ struct VenueDimension {
     bool operator==(const VenueDimension&) const = default;
 };
 
+// The unit a venue's lengths are shown in: the Venue Designer's Units pick,
+// kept with the venue (`lengthUnit`, references/VENUE-MODEL.md) so its wall
+// lengths read the same wherever it is drawn. Stored lengths stay in studs.
+enum class VenueLengthUnit { FeetInches, Metres, Studs };
+
 // Per-project venue definition. At most one venue per project.
 struct Venue {
     QString name;
@@ -86,6 +91,7 @@ struct Venue {
     double minWalkwayStuds = 112.5;   // ~900 mm @ 8 studs/mm
     QRectF layoutBoundsStuds;          // optional reserved layout footprint
     bool   enabled = true;
+    VenueLengthUnit lengthUnit = VenueLengthUnit::FeetInches;
     QJsonObject extras{};
     // Change detection (SceneBuilder::update redraws only what differs).
     bool operator==(const Venue&) const = default;

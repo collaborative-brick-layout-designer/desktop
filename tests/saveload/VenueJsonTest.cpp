@@ -127,3 +127,32 @@ TEST(VenueJson, AVenueWithoutTheNewPartsWritesNoneOfThem) {
     EXPECT_EQ(o.value(QLatin1String("edges")).toArray()[0].toObject().keys().size(), 4);
     EXPECT_EQ(o.value(QLatin1String("obstacles")).toArray()[0].toObject().keys().size(), 2);
 }
+
+// The unit a venue's lengths show in (`lengthUnit`): written only when not
+// feet and inches, read back, and a value this build doesn't know is kept
+// as it was (and shows as feet and inches).
+TEST(VenueJson, KeepsTheUnitTheVenueShowsLengthsIn) {
+    core::Venue v;
+    v.name = QStringLiteral("Hall");
+    EXPECT_FALSE(saveload::venueToJson(v).contains(QLatin1String("lengthUnit")));
+    v.lengthUnit = core::VenueLengthUnit::Metres;
+    QJsonObject o = saveload::venueToJson(v);
+    EXPECT_EQ(o.value(QLatin1String("lengthUnit")).toString(), QStringLiteral("m"));
+    EXPECT_EQ(saveload::venueFromJson(o).lengthUnit, core::VenueLengthUnit::Metres);
+    EXPECT_TRUE(saveload::venueFromJson(o).extras.isEmpty());
+    EXPECT_EQ(saveload::venueFromJson(o), v);
+    v.lengthUnit = core::VenueLengthUnit::Studs;
+    o = saveload::venueToJson(v);
+    EXPECT_EQ(o.value(QLatin1String("lengthUnit")).toString(), QStringLiteral("studs"));
+    EXPECT_EQ(saveload::venueFromJson(o).lengthUnit, core::VenueLengthUnit::Studs);
+
+    // The web's name for the default, should a file ever say it.
+    o.insert(QStringLiteral("lengthUnit"), QStringLiteral("ftin"));
+    EXPECT_EQ(saveload::venueFromJson(o).lengthUnit, core::VenueLengthUnit::FeetInches);
+    EXPECT_FALSE(saveload::venueToJson(saveload::venueFromJson(o)).contains(QLatin1String("lengthUnit")));
+    // From a newer version: feet and inches here, written back unchanged.
+    o.insert(QStringLiteral("lengthUnit"), QStringLiteral("cubits"));
+    const core::Venue newer = saveload::venueFromJson(o);
+    EXPECT_EQ(newer.lengthUnit, core::VenueLengthUnit::FeetInches);
+    EXPECT_EQ(saveload::venueToJson(newer).value(QLatin1String("lengthUnit")).toString(), QStringLiteral("cubits"));
+}
