@@ -126,7 +126,7 @@ QString BudgetSession::oldAppWideFile() {
         const QString last = settings.value(kLastFile).toString();
         if (!last.isEmpty()) settings.setValue(kOldFile, last);
     }
-    const QString old = settings.value(kOldFile).toString();
+    QString old = settings.value(kOldFile).toString();
     if (old.isEmpty()) return {};
     if (!QFileInfo(old).isFile()) {
         settings.remove(kOldFile);
