@@ -3952,6 +3952,32 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
         <source>Keep both copies of the layout&apos;s parts</source>
         <translation>Mantieni entrambe le versioni dei pezzi del layout</translation>
     </message>
+    <message>
+        <source>You&apos;re live again</source>
+        <translation>Sei di nuovo in diretta</translation>
+    </message>
+    <message numerus="yes">
+        <source>Your %n offline change(s) were sent.</source>
+        <translation>
+            <numerusform>La tua modifica offline è stata inviata.</numerusform>
+            <numerusform>Le tue %n modifiche offline sono state inviate.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>You&apos;re not live</source>
+        <translation>Non sei in diretta</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <translation>
+            <numerusform>%n delle tue modifiche attende la revisione. Fino ad allora non vedi cosa cambiano gli altri e loro non vedono le tue modifiche.</numerusform>
+            <numerusform>%n delle tue modifiche attendono la revisione. Fino ad allora non vedi cosa cambiano gli altri e loro non vedono le tue modifiche.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Review now</source>
+        <translation>Rivedi ora</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -5096,6 +5122,16 @@ This removes:
     <message>
         <source>Close</source>
         <translation>Chiudi</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::LiveLayout</name>
+    <message numerus="yes">
+        <source>Not live, %n change(s) wait for review</source>
+        <translation>
+            <numerusform>Non in diretta, %n modifica attende la revisione</numerusform>
+            <numerusform>Non in diretta, %n modifiche attendono la revisione</numerusform>
+        </translation>
     </message>
 </context>
 </TS>

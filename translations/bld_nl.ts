@@ -3952,6 +3952,32 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <source>Keep both copies of the layout&apos;s parts</source>
         <translation>Beide versies van de onderdelen van de layout houden</translation>
     </message>
+    <message>
+        <source>You&apos;re live again</source>
+        <translation>Je bent weer live</translation>
+    </message>
+    <message numerus="yes">
+        <source>Your %n offline change(s) were sent.</source>
+        <translation>
+            <numerusform>Je offline wijziging is verstuurd.</numerusform>
+            <numerusform>Je %n offline wijzigingen zijn verstuurd.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>You&apos;re not live</source>
+        <translation>Je bent niet live</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <translation>
+            <numerusform>%n van je wijzigingen wacht op controle. Tot dan zie je niet wat anderen wijzigen, en zien zij jouw wijzigingen niet.</numerusform>
+            <numerusform>%n van je wijzigingen wachten op controle. Tot dan zie je niet wat anderen wijzigen, en zien zij jouw wijzigingen niet.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Review now</source>
+        <translation>Nu controleren</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -5096,6 +5122,16 @@ This removes:
     <message>
         <source>Close</source>
         <translation>Sluiten</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::LiveLayout</name>
+    <message numerus="yes">
+        <source>Not live, %n change(s) wait for review</source>
+        <translation>
+            <numerusform>Niet live, %n wijziging wacht op controle</numerusform>
+            <numerusform>Niet live, %n wijzigingen wachten op controle</numerusform>
+        </translation>
     </message>
 </context>
 </TS>

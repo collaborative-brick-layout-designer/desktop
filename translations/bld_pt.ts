@@ -3952,6 +3952,32 @@ Mantenha-o como %2 se ainda o abre em outro programa; Arquivo › Exportar como 
         <source>Keep both copies of the layout&apos;s parts</source>
         <translation>Manter as duas versões das peças do layout</translation>
     </message>
+    <message>
+        <source>You&apos;re live again</source>
+        <translation>Você está ao vivo de novo</translation>
+    </message>
+    <message numerus="yes">
+        <source>Your %n offline change(s) were sent.</source>
+        <translation>
+            <numerusform>Sua alteração offline foi enviada.</numerusform>
+            <numerusform>Suas %n alterações offline foram enviadas.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>You&apos;re not live</source>
+        <translation>Você não está ao vivo</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <translation>
+            <numerusform>%n das suas alterações aguarda revisão. Até lá, você não vê o que os outros alteram, e eles não veem suas alterações.</numerusform>
+            <numerusform>%n das suas alterações aguardam revisão. Até lá, você não vê o que os outros alteram, e eles não veem suas alterações.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Review now</source>
+        <translation>Revisar agora</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -5096,6 +5122,16 @@ This removes:
     <message>
         <source>Close</source>
         <translation>Fechar</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::LiveLayout</name>
+    <message numerus="yes">
+        <source>Not live, %n change(s) wait for review</source>
+        <translation>
+            <numerusform>Não ao vivo, %n alteração aguarda revisão</numerusform>
+            <numerusform>Não ao vivo, %n alterações aguardam revisão</numerusform>
+        </translation>
     </message>
 </context>
 </TS>

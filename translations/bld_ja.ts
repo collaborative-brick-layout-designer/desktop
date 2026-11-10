@@ -3935,6 +3935,30 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <source>Keep both copies of the layout&apos;s parts</source>
         <translation>レイアウトのパーツを両方とも残す</translation>
     </message>
+    <message>
+        <source>You&apos;re live again</source>
+        <translation>再びライブになりました</translation>
+    </message>
+    <message numerus="yes">
+        <source>Your %n offline change(s) were sent.</source>
+        <translation>
+            <numerusform>オフラインでの %n 件の変更を送信しました。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>You&apos;re not live</source>
+        <translation>ライブではありません</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
+        <translation>
+            <numerusform>%n 件の変更が確認待ちです。それまでは他の人の変更は表示されず、あなたの変更も他の人に届きません。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Review now</source>
+        <translation>今すぐ確認</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -5077,6 +5101,15 @@ This removes:
     <message>
         <source>Close</source>
         <translation>閉じる</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::LiveLayout</name>
+    <message numerus="yes">
+        <source>Not live, %n change(s) wait for review</source>
+        <translation>
+            <numerusform>ライブではありません。%n 件の変更が確認待ちです</numerusform>
+        </translation>
     </message>
 </context>
 </TS>

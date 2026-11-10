@@ -226,15 +226,24 @@ protected:
     }
 
     // Offline: I move brick 0 right by 8 in the view while someone else
-    // moves brick 1 down by 16 on the server.
-    void editOffline() {
+    // moves brick 1 down by 16 on the server. With `clash`, we both move
+    // brick 2 too (I right by 4, they down by 24), so the compare window
+    // opens; without it, the edits are sent by themselves.
+    void editOffline(bool clash = true) {
         ws_.dropAll(QWebSocketProtocol::CloseCodeGoingAway);
         ASSERT_TRUE(waitFor([&] { return session().status() != Status::Synced; }));
         core::Map& m = *view_->currentMap();
         const QPointF at = brickAt(m, 0).displayArea.topLeft();
         view_->undoStack()->push(new edit::MoveBricksCommand(m, { { brickRef(m, 0), at, at + QPointF(8, 0) } }));
+        if (clash) {
+            const QPointF at2 = brickAt(m, 2).displayArea.topLeft();
+            view_->undoStack()->push(new edit::MoveBricksCommand(m, { { brickRef(m, 2), at2, at2 + QPointF(4, 0) } }));
+        }
         ASSERT_TRUE(waitFor([&] { return session().offlineEdits().has_value(); }));
-        ws_.remoteEdit([](core::Map& s) { brickAt(s, 1).displayArea.translate(0, 16); });
+        ws_.remoteEdit([clash](core::Map& s) {
+            brickAt(s, 1).displayArea.translate(0, 16);
+            if (clash) brickAt(s, 2).displayArea.translate(0, 24);
+        });
     }
 
     FakeHttp http_;
@@ -261,6 +270,21 @@ TEST_F(MainWindowLive, BackInStepTheCompareWindowOpensAndApplyMerges) {
     EXPECT_FALSE(reviewAction()->isEnabled());
 }
 
+// Full review area 4, Bug 6: a short drop with an edit nothing clashes with
+// opened the compare window (8 buttons, modal). Now it's sent by itself.
+TEST_F(MainWindowLive, OfflineEditsNothingClashesWithAreSentWithoutAsking) {
+    editOffline(false);
+    Answers none{ {} };
+    none.during([&] { ASSERT_TRUE(waitFor([&] { return !session().offlineEdits(); })); });
+    EXPECT_EQ(none.unexpected, 0);
+    ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 0) == original_.translated(8, 0); }));
+    EXPECT_EQ(brickArea(ws_.doc, 1), otherOriginal_.translated(0, 16));
+    auto* notices = window_->findChild<ui::NoticeArea*>();
+    EXPECT_TRUE(notices->isShown(QStringLiteral("live-offline-sent")));
+    EXPECT_FALSE(notices->isShown(QStringLiteral("live-review")));
+    EXPECT_EQ(live_->statusText(), QStringLiteral("Connected"));
+}
+
 TEST_F(MainWindowLive, LaterKeepsThemForReviewOfflineChangesAndDiscardLeavesTheServer) {
     QAction* review = reviewAction();
     ASSERT_NE(review, nullptr);
@@ -271,6 +295,11 @@ TEST_F(MainWindowLive, LaterKeepsThemForReviewOfflineChangesAndDiscardLeavesTheS
     EXPECT_EQ(later.unexpected, 0);
     ASSERT_TRUE(session().offlineEdits());
     EXPECT_TRUE(review->isEnabled());
+    // Full review area 4, Bug 5: not live until they're reviewed, and it says so.
+    auto* notices = window_->findChild<ui::NoticeArea*>();
+    EXPECT_TRUE(notices->isShown(QStringLiteral("live-review")));
+    EXPECT_TRUE(live_->statusText().startsWith(QStringLiteral("Not live, 2 change(s) wait for review")))
+        << live_->statusText().toStdString();
     // The editor still shows mine.
     EXPECT_EQ(brickAt(*view_->currentMap(), 0).displayArea, original_.translated(8, 0));
 
@@ -280,6 +309,7 @@ TEST_F(MainWindowLive, LaterKeepsThemForReviewOfflineChangesAndDiscardLeavesTheS
     EXPECT_EQ(discard.unexpected, 0);
     EXPECT_FALSE(session().offlineEdits());
     EXPECT_FALSE(review->isEnabled());
+    EXPECT_FALSE(notices->isShown(QStringLiteral("live-review")));
     waitFor([] { return false; }, 150);
     EXPECT_EQ(brickArea(ws_.doc, 0), original_);
     EXPECT_EQ(brickArea(ws_.doc, 1), otherOriginal_.translated(0, 16));
@@ -1091,7 +1121,7 @@ QAction* actionNamed(QWidget* window, const QString& text) {
 }  // namespace
 
 // Disconnected with offline edits, then the same layout opened again: they
-// come back in the compare window, and Apply puts them on the server.
+// come back, and (nothing clashes) go to the server without asking.
 TEST_F(MainWindowLive, OfflineEditsComeBackWhenTheLayoutIsOpenedAgain) {
     ws_.dropAll(QWebSocketProtocol::CloseCodeGoingAway);
     ASSERT_TRUE(waitFor([&] { return session().status() != Status::Synced; }));
@@ -1107,7 +1137,7 @@ TEST_F(MainWindowLive, OfflineEditsComeBackWhenTheLayoutIsOpenedAgain) {
     waitFor([] { return false; }, 150);
     EXPECT_EQ(brickArea(ws_.doc, 0), original_);
 
-    Answers answers{ { compare(QStringLiteral("Apply")) } };
+    Answers answers{ {} };
     answers.during([&] {
         window_->openLive({ http_.base(), QStringLiteral("bld_pat_test"), QStringLiteral("L1"),
                             QStringLiteral("Show 2026"), false, serverInfo() });
@@ -1210,7 +1240,7 @@ TEST_F(MainWindowLive, ASignInThatRanOutSaysToSignInAgainAndKeepsTheEdits) {
     view_->undoStack()->push(new edit::MoveBricksCommand(m, { { brickRef(m, 0), at, at + QPointF(8, 0) } }));
     ASSERT_TRUE(waitFor([&] { return session().offlineEdits().has_value(); }));
 
-    // Sign In...: back with a new token, in step, and the edit reviewed and applied.
+    // Sign In...: back with a new token, in step, and the edit sent.
     window_->newToken = QStringLiteral("bld_pat_new");
     http_.clear("/api/layouts/L1");
     http_.upgrade = [this](QTcpSocket* s) { ws_.take(s); };
@@ -1218,7 +1248,7 @@ TEST_F(MainWindowLive, ASignInThatRanOutSaysToSignInAgainAndKeepsTheEdits) {
     for (auto* b : notices->card(QStringLiteral("live-signin"))->findChildren<QPushButton*>())
         if (b->text() == QStringLiteral("Sign In…")) signIn = b;
     ASSERT_NE(signIn, nullptr);
-    Answers answers{ { compare(QStringLiteral("Apply")) } };
+    Answers answers{ {} };  // (nothing clashes: sent without asking)
     answers.during([&] {
         signIn->click();
         ASSERT_TRUE(waitFor([&] { return answers.done() && !session().offlineEdits(); }, 8000));
@@ -1265,13 +1295,13 @@ TEST_F(MainWindowLive, ASignInEndedByTheServerKeepsTheLayoutOpenAndSignInAgainSe
     ASSERT_TRUE(waitFor([&] { return session().offlineEdits().has_value(); }));
     EXPECT_TRUE(live_->statusText().contains(QStringLiteral("kept"))) << live_->statusText().toStdString();
 
-    // Sign In...: back with a new token, in step, and the edit reviewed and applied.
+    // Sign In...: back with a new token, in step, and the edit sent.
     window_->newToken = QStringLiteral("bld_pat_new");
     QPushButton* signIn = nullptr;
     for (auto* b : notices->card(QStringLiteral("live-signin"))->findChildren<QPushButton*>())
         if (b->text() == QStringLiteral("Sign In…")) signIn = b;
     ASSERT_NE(signIn, nullptr);
-    Answers answers{ { compare(QStringLiteral("Apply")) } };
+    Answers answers{ {} };  // (nothing clashes: sent without asking)
     answers.during([&] {
         signIn->click();
         ASSERT_TRUE(waitFor([&] { return answers.done() && !session().offlineEdits(); }, 8000));
