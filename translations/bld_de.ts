@@ -10165,19 +10165,19 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Gentle: pulls only when the ends are close. Recommended.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanft: zieht nur, wenn die Enden nah sind. Empfohlen.</translation>
     </message>
     <message>
         <source>Strong: reaches further, for quick rough placing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Stark: reicht weiter, für schnelles grobes Platzieren.</translation>
     </message>
     <message>
         <source>Tip: hold Alt (Option on a Mac) while dragging to place one part without snapping.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipp: Halte beim Ziehen Alt (Wahltaste auf dem Mac), um ein Teil ohne Einrasten zu platzieren.</translation>
     </message>
     <message>
         <source>Map labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartenbeschriftungen</translation>
     </message>
     <message>
         <source>Language</source>
@@ -10185,15 +10185,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Starting up</source>
-        <translation type="unfinished"></translation>
+        <translation>Beim Start</translation>
     </message>
     <message>
         <source>Parts and folders</source>
-        <translation type="unfinished"></translation>
+        <translation>Teile und Ordner</translation>
     </message>
     <message>
         <source>Bringing in models</source>
-        <translation type="unfinished"></translation>
+        <translation>Modelle übernehmen</translation>
     </message>
     <message>
         <source>Help</source>
@@ -10201,7 +10201,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Show the small &quot;?&quot; buttons that explain things</source>
-        <translation type="unfinished"></translation>
+        <translation>Die kleinen „?“-Knöpfe zeigen, die Dinge erklären</translation>
     </message>
     <message>
         <source>Tours</source>
@@ -10209,11 +10209,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Show tours again</source>
-        <translation type="unfinished"></translation>
+        <translation>Touren wieder zeigen</translation>
     </message>
     <message>
         <source>Take a tour:</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Tour machen:</translation>
     </message>
     <message>
         <source>Servers</source>
@@ -10221,23 +10221,23 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Manage servers…</source>
-        <translation type="unfinished"></translation>
+        <translation>Server verwalten…</translation>
     </message>
     <message>
         <source>Add a server, sign in or out, and pick your Main one</source>
-        <translation type="unfinished"></translation>
+        <translation>Einen Server hinzufügen, an- oder abmelden und den Hauptserver wählen</translation>
     </message>
     <message>
         <source>These settings are kept on this computer. While you&apos;re connected to a server, they sync with your account there, both ways.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Einstellungen liegen auf diesem Computer. Solange du mit einem Server verbunden bist, werden sie mit deinem Konto dort abgeglichen, in beide Richtungen.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Synced with %1&lt;/b&gt;&lt;br&gt;These settings are for this app. While you&apos;re connected to a server, they sync with your account there, both ways.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Abgeglichen mit %1&lt;/b&gt;&lt;br&gt;Diese Einstellungen gelten für diese App. Solange du mit einem Server verbunden bist, werden sie mit deinem Konto dort abgeglichen, in beide Richtungen.</translation>
     </message>
     <message>
         <source>Changes are saved as you make them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Änderungen werden gespeichert, sobald du sie machst.</translation>
     </message>
     <message>
         <source>Close</source>
@@ -10245,7 +10245,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>No servers yet. Add your club&apos;s server to share layouts and modules with it, and to keep these settings with your account.</source>
-        <translation type="unfinished"></translation>
+        <translation>Noch keine Server. Füge den Server deines Clubs hinzu, um Layouts und Module mit ihm zu teilen und diese Einstellungen bei deinem Konto zu behalten.</translation>
     </message>
     <message>
         <source>Add a server…</source>
@@ -10253,11 +10253,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Main: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Haupt: %1</translation>
     </message>
     <message>
         <source>Main: %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Haupt: %1 (%2)</translation>
     </message>
     <message numerus="yes">
         <source>and %n more</source>
@@ -10268,31 +10268,31 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>You haven&apos;t finished any tours yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast noch keine Tour beendet.</translation>
     </message>
     <message>
         <source>You&apos;ve seen one tour.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast eine Tour gesehen.</translation>
     </message>
     <message>
         <source>You&apos;ve seen %1 tours.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast %1 Touren gesehen.</translation>
     </message>
     <message>
         <source>Browse…</source>
-        <translation type="unfinished"></translation>
+        <translation>Durchsuchen…</translation>
     </message>
     <message>
         <source>Choose: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen: %1</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Aus</translation>
     </message>
     <message>
         <source>1 stud</source>
-        <translation type="unfinished"></translation>
+        <translation>1 Noppe</translation>
     </message>
     <message>
         <source>%1 studs</source>
@@ -10300,11 +10300,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Grid snap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Raster-Einrasten:</translation>
     </message>
     <message>
         <source>Turn step:</source>
-        <translation type="unfinished"></translation>
+        <translation>Drehschritt:</translation>
     </message>
     <message>
         <source>Paint color</source>
@@ -10312,47 +10312,47 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Paint color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Malfarbe:</translation>
     </message>
     <message>
         <source>Gentle</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanft</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Fast</source>
-        <translation type="unfinished"></translation>
+        <translation>Schnell</translation>
     </message>
     <message>
         <source>Zoom speed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoomgeschwindigkeit:</translation>
     </message>
     <message>
         <source>Always show connection points, not only on the picked pieces</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindungspunkte immer zeigen, nicht nur an den gewählten Teilen</translation>
     </message>
     <message>
         <source>%1 (%2% translated)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2 % übersetzt)</translation>
     </message>
     <message>
         <source>A new language shows the next time the app starts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine neue Sprache erscheint beim nächsten Start der App.</translation>
     </message>
     <message>
         <source>Open the layout I had open last time</source>
-        <translation type="unfinished"></translation>
+        <translation>Das zuletzt offene Layout öffnen</translation>
     </message>
     <message>
         <source>Check for a new version (at most once a day)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach einer neuen Version suchen (höchstens einmal am Tag)</translation>
     </message>
     <message>
         <source>Layout new layouts start from</source>
-        <translation type="unfinished"></translation>
+        <translation>Layout, mit dem neue Layouts beginnen</translation>
     </message>
     <message>
         <source>BlueBrick map (*.bbm)</source>
@@ -10360,39 +10360,39 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>None: new layouts start empty</source>
-        <translation type="unfinished"></translation>
+        <translation>Keines: Neue Layouts beginnen leer</translation>
     </message>
     <message>
         <source>New layouts start from:</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Layouts beginnen mit:</translation>
     </message>
     <message>
         <source> px</source>
-        <translation type="unfinished"></translation>
+        <translation> px</translation>
     </message>
     <message>
         <source>Module frame thickness:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stärke des Modulrahmens:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>How big a module&apos;s name is, compared with the module&apos;s longer side.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wie groß der Name eines Moduls ist, verglichen mit der längeren Seite des Moduls.</translation>
     </message>
     <message>
         <source>Module name size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe des Modulnamens:</translation>
     </message>
     <message>
         <source>How big the lengths along the venue&apos;s walls, doors and openings are.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wie groß die Längenangaben an Wänden, Türen und Öffnungen des Veranstaltungsorts sind.</translation>
     </message>
     <message>
         <source>Venue measurement size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe der Maße am Veranstaltungsort:</translation>
     </message>
     <message>
         <source>Module library folder</source>
@@ -10400,23 +10400,23 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Module library folder:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordner der Modulbibliothek:</translation>
     </message>
     <message>
         <source>Parts Folders…</source>
-        <translation type="unfinished"></translation>
+        <translation>Teileordner…</translation>
     </message>
     <message>
         <source>Extra folders of parts to show in the Parts panel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zusätzliche Teileordner für das Teile-Fenster.</translation>
     </message>
     <message>
         <source>Parts with no number in the budget can be used freely</source>
-        <translation type="unfinished"></translation>
+        <translation>Teile ohne Anzahl im Budget dürfen frei verwendet werden</translation>
     </message>
     <message>
         <source>While live on a server, also list other servers&apos; parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Live auf einem Server auch die Teile anderer Server auflisten</translation>
     </message>
     <message>
         <source>LDraw library</source>
@@ -10424,31 +10424,31 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>e.g. ~/ldraw (with LDConfig.ldr and parts/ in it)</source>
-        <translation type="unfinished"></translation>
+        <translation>z. B. ~/ldraw (mit LDConfig.ldr und parts/ darin)</translation>
     </message>
     <message>
         <source>LDraw library:</source>
-        <translation type="unfinished"></translation>
+        <translation>LDraw-Bibliothek:</translation>
     </message>
     <message>
         <source>Download the LDraw library…</source>
-        <translation type="unfinished"></translation>
+        <translation>Die LDraw-Bibliothek herunterladen…</translation>
     </message>
     <message>
         <source>About 140 MB from library.ldraw.org, kept in the app&apos;s own folder. Needs the internet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Etwa 140 MB von library.ldraw.org, im eigenen Ordner der App. Braucht Internet.</translation>
     </message>
     <message>
         <source>Download LDraw library</source>
-        <translation type="unfinished"></translation>
+        <translation>LDraw-Bibliothek herunterladen</translation>
     </message>
     <message>
         <source>This will download ~140 MB from library.ldraw.org and extract it to your app-data folder. Continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Das lädt etwa 140 MB von library.ldraw.org herunter und entpackt sie in deinen App-Daten-Ordner. Fortfahren?</translation>
     </message>
     <message>
         <source>Downloading LDraw library…</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade die LDraw-Bibliothek herunter…</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -10456,143 +10456,144 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Downloading LDraw library — %1 / %2 MB</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade die LDraw-Bibliothek herunter – %1 / %2 MB</translation>
     </message>
     <message>
         <source>Download failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Download fehlgeschlagen</translation>
     </message>
     <message>
         <source>Extract failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Entpacken fehlgeschlagen</translation>
     </message>
     <message>
         <source>Couldn&apos;t read the LDraw archive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das LDraw-Archiv konnte nicht gelesen werden.</translation>
     </message>
     <message>
         <source>Extracting %1 files…</source>
-        <translation type="unfinished"></translation>
+        <translation>Entpacke %1 Dateien…</translation>
     </message>
     <message>
         <source>Download canceled</source>
-        <translation type="unfinished"></translation>
+        <translation>Download abgebrochen</translation>
     </message>
     <message>
         <source>Extraction canceled — partial files may remain at %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Entpacken abgebrochen – unter %1 können Teildateien übrig sein</translation>
     </message>
     <message>
         <source>LDraw library installed at:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>LDraw-Bibliothek installiert unter:
+%1</translation>
     </message>
     <message>
         <source>Archive entries not written (write error or unsafe path): %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht geschriebene Archiveinträge (Schreibfehler oder unsicherer Pfad): %1</translation>
     </message>
     <message>
         <source>LDraw library installed</source>
-        <translation type="unfinished"></translation>
+        <translation>LDraw-Bibliothek installiert</translation>
     </message>
     <message>
         <source>Studio&apos;s LDraw library</source>
-        <translation type="unfinished"></translation>
+        <translation>LDraw-Bibliothek von Studio</translation>
     </message>
     <message>
         <source>Studio&apos;s own, else the LDraw library above</source>
-        <translation type="unfinished"></translation>
+        <translation>Die von Studio, sonst die LDraw-Bibliothek oben</translation>
     </message>
     <message>
         <source>Found Studio&apos;s: %1</source>
-        <translation type="unfinished">Die von Studio gefunden: %1</translation>
+        <translation>Von Studio gefunden: %1</translation>
     </message>
     <message>
         <source>Using Studio&apos;s: %1</source>
-        <translation type="unfinished">Die von Studio wird benutzt: %1</translation>
+        <translation>Verwende die von Studio: %1</translation>
     </message>
     <message>
         <source>Studio library:</source>
-        <translation type="unfinished"></translation>
+        <translation>Studio-Bibliothek:</translation>
     </message>
     <message>
         <source>LEGO Digital Designer</source>
-        <translation type="unfinished"></translation>
+        <translation>LEGO Digital Designer</translation>
     </message>
     <message>
         <source>LDD&apos;s program folder (Assets.lif) or data folder (db.lif)</source>
-        <translation type="unfinished"></translation>
+        <translation>Programmordner von LDD (Assets.lif) oder Datenordner (db.lif)</translation>
     </message>
     <message>
         <source>LEGO Digital Designer:</source>
-        <translation type="unfinished"></translation>
+        <translation>LEGO Digital Designer:</translation>
     </message>
     <message>
         <source>LDD to LDraw part list</source>
-        <translation type="unfinished"></translation>
+        <translation>Teileliste LDD zu LDraw</translation>
     </message>
     <message>
         <source>ldraw.xml (*.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>ldraw.xml (*.xml)</translation>
     </message>
     <message>
         <source>Optional: a newer ldraw.xml, e.g. from slswww.free.fr/ldraw.xml</source>
-        <translation type="unfinished"></translation>
+        <translation>Freiwillig: eine neuere ldraw.xml, z. B. von slswww.free.fr/ldraw.xml</translation>
     </message>
     <message>
         <source>LDD to LDraw part list:</source>
-        <translation type="unfinished"></translation>
+        <translation>Teileliste LDD zu LDraw:</translation>
     </message>
     <message>
         <source>Use Studio&apos;s LDraw library and part list when these are left empty</source>
-        <translation type="unfinished"></translation>
+        <translation>Die LDraw-Bibliothek und Teileliste von Studio verwenden, wenn diese leer bleiben</translation>
     </message>
     <message>
         <source>Brick red</source>
-        <translation type="unfinished"></translation>
+        <translation>Ziegelrot</translation>
     </message>
     <message>
         <source>Ocean blue</source>
-        <translation type="unfinished"></translation>
+        <translation>Ozeanblau</translation>
     </message>
     <message>
         <source>Forest green</source>
-        <translation type="unfinished"></translation>
+        <translation>Waldgrün</translation>
     </message>
     <message>
         <source>Plum</source>
-        <translation type="unfinished"></translation>
+        <translation>Pflaume</translation>
     </message>
     <message>
         <source>Sunny yellow</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonnengelb</translation>
     </message>
     <message>
         <source>Lagoon teal</source>
-        <translation type="unfinished"></translation>
+        <translation>Lagunentürkis</translation>
     </message>
     <message>
         <source>Pumpkin orange</source>
-        <translation type="unfinished"></translation>
+        <translation>Kürbisorange</translation>
     </message>
     <message>
         <source>Rose pink</source>
-        <translation type="unfinished"></translation>
+        <translation>Rosenrosa</translation>
     </message>
     <message>
         <source>Indigo</source>
-        <translation type="unfinished"></translation>
+        <translation>Indigo</translation>
     </message>
     <message>
         <source>Slate gray</source>
-        <translation type="unfinished"></translation>
+        <translation>Schiefergrau</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::SharePictureDialog</name>
     <message>
         <source>Share Picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild teilen</translation>
     </message>
     <message>
         <source>Share a picture</source>
@@ -10600,7 +10601,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Picture of:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild von:</translation>
     </message>
     <message>
         <source>Whole layout</source>
@@ -10608,7 +10609,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>What’s on screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Was auf dem Bildschirm ist</translation>
     </message>
     <message>
         <source>View</source>
@@ -10616,15 +10617,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Save as PNG…</source>
-        <translation type="unfinished"></translation>
+        <translation>Als PNG speichern…</translation>
     </message>
     <message>
         <source>Copy picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild kopieren</translation>
     </message>
     <message>
         <source>Paste it into a message or a document</source>
-        <translation type="unfinished"></translation>
+        <translation>In eine Nachricht oder ein Dokument einfügen</translation>
     </message>
     <message>
         <source>Export all views</source>
@@ -10632,15 +10633,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>No saved views yet, so this makes one picture of the whole layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>Noch keine gespeicherten Ansichten, daher wird ein Bild des ganzen Layouts gemacht.</translation>
     </message>
     <message>
         <source>A picture of your saved view, in a folder. Do it again after a change to get a new picture with the same name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Bild deiner gespeicherten Ansicht, in einem Ordner. Mach es nach einer Änderung noch einmal, um ein neues Bild mit demselben Namen zu bekommen.</translation>
     </message>
     <message>
         <source>One picture of each of your %1 saved views, in a folder. Do it again after a change to get new pictures with the same names.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Bild von jeder deiner %1 gespeicherten Ansichten, in einem Ordner. Mach es nach einer Änderung noch einmal, um neue Bilder mit denselben Namen zu bekommen.</translation>
     </message>
     <message>
         <source>Picture size</source>
@@ -10648,19 +10649,19 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Export picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild exportieren</translation>
     </message>
     <message>
         <source>Change folder…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordner ändern…</translation>
     </message>
     <message>
         <source>More options…</source>
-        <translation type="unfinished"></translation>
+        <translation>Mehr Optionen…</translation>
     </message>
     <message>
         <source>Pick the exact size, a see-through background or a watermark</source>
-        <translation type="unfinished"></translation>
+        <translation>Die genaue Größe, einen durchsichtigen Hintergrund oder ein Wasserzeichen wählen</translation>
     </message>
     <message>
         <source>Done</source>
@@ -10668,11 +10669,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Save picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild speichern</translation>
     </message>
     <message>
         <source>PNG picture (*.png)</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG-Bild (*.png)</translation>
     </message>
     <message>
         <source>There is nothing to show yet.</source>
@@ -10680,34 +10681,34 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>%1 × %2 pixels</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 × %2 Pixel</translation>
     </message>
     <message>
         <source>Could not save the picture to “%1”.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Bild konnte nicht in „%1“ gespeichert werden.</translation>
     </message>
     <message>
         <source>Saved as “%1”.</source>
-        <translation type="unfinished"></translation>
+        <translation>Als „%1“ gespeichert.</translation>
     </message>
     <message>
         <source>Copied. Paste it into a message or a document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiert. Füge es in eine Nachricht oder ein Dokument ein.</translation>
     </message>
     <message>
         <source>You pick a folder the first time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Beim ersten Mal wählst du einen Ordner.</translation>
     </message>
     <message>
         <source>Saves to: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichert in: %1</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ShareToCatalogDialog</name>
     <message>
         <source>Publish this update</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Update veröffentlichen</translation>
     </message>
     <message>
         <source>Share to the public catalog</source>
@@ -10715,23 +10716,23 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>A copy of it as it is now goes to the catalog. Later changes stay yours until you publish an update.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie im jetzigen Zustand kommt in den Katalog. Spätere Änderungen bleiben deine, bis du ein Update veröffentlichst.</translation>
     </message>
     <message>
         <source>Collaborators, comments, chat, file paths, the background picture and the venue’s notes stay private.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mitarbeitende, Kommentare, Chat, Dateipfade, das Hintergrundbild und die Notizen zum Veranstaltungsort bleiben privat.</translation>
     </message>
     <message>
         <source>Notes on the plan stay private.</source>
-        <translation type="unfinished"></translation>
+        <translation>Notizen zum Plan bleiben privat.</translation>
     </message>
     <message>
         <source>A moderator reviews it first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Moderator prüft es zuerst.</translation>
     </message>
     <message>
         <source>e.g. station, 9V</source>
-        <translation type="unfinished"></translation>
+        <translation>z. B. Bahnhof, 9V</translation>
     </message>
     <message>
         <source>Name</source>
@@ -10739,11 +10740,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Description (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschreibung (freiwillig)</translation>
     </message>
     <message>
         <source>Tags, separated by commas (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Stichwörter, durch Kommas getrennt (freiwillig)</translation>
     </message>
     <message>
         <source>What changed? (optional)</source>
@@ -10751,23 +10752,23 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Anyone can copy this into their own layouts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeder darf das in seine eigenen Layouts kopieren.</translation>
     </message>
     <message>
         <source>Publish update</source>
-        <translation type="unfinished"></translation>
+        <translation>Update veröffentlichen</translation>
     </message>
     <message>
         <source>Share</source>
-        <translation type="unfinished"></translation>
+        <translation>Teilen</translation>
     </message>
     <message>
         <source>Cards show its drawn picture. You can upload your own instead, like a photo of the real thing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Karten zeigen sein gezeichnetes Bild. Du kannst stattdessen ein eigenes hochladen, etwa ein Foto vom echten Modell.</translation>
     </message>
     <message>
         <source>Choose a cover picture on the web…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Titelbild im Web wählen…</translation>
     </message>
     <message>
         <source>Done</source>
@@ -10779,42 +10780,42 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Tick the box to agree that anyone can copy it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hake das Feld an, um zuzustimmen, dass jeder es kopieren darf.</translation>
     </message>
     <message>
         <source>Shared: it’s in the public catalog now.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geteilt: Es ist jetzt im öffentlichen Katalog.</translation>
     </message>
     <message>
         <source>Sent to %1’s own review: its admins and managers check it before it appears in the catalog.</source>
-        <translation type="unfinished"></translation>
+        <translation>An die eigene Prüfung von %1 geschickt: Seine Admins und Manager prüfen es, bevor es im Katalog erscheint.</translation>
     </message>
     <message>
         <source>Sent for review. A moderator looks at it before it appears in the catalog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zur Prüfung geschickt. Ein Moderator sieht es sich an, bevor es im Katalog erscheint.</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::SheetChoiceDialog</name>
     <message>
         <source>%1 or %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 oder %2</translation>
     </message>
     <message>
         <source>Where should these go?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wohin sollen diese?</translation>
     </message>
     <message>
         <source>“%1” uses a sheet. Your layout doesn’t have %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ verwendet ein Blatt. Dein Layout hat kein %2.</translation>
     </message>
     <message>
         <source>“%1” uses %2 sheets. Your layout doesn’t have %3.</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1“ verwendet %2 Blätter. Dein Layout hat kein %3.</translation>
     </message>
     <message>
         <source>Where the parts on %1 go</source>
-        <translation type="unfinished"></translation>
+        <translation>Wohin die Teile auf %1 kommen</translation>
     </message>
     <message>
         <source>untitled</source>
@@ -10822,11 +10823,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>%1 (picked sheet)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (gewähltes Blatt)</translation>
     </message>
     <message>
         <source>A new sheet named “%1”</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein neues Blatt namens „%1“</translation>
     </message>
     <message>
         <source>1 part</source>
@@ -10842,7 +10843,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Place</source>
-        <translation type="unfinished"></translation>
+        <translation>Platzieren</translation>
     </message>
     <message>
         <source>Module</source>
@@ -10854,15 +10855,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>This module uses %1 sheets: %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Modul verwendet %1 Blätter: %2.</translation>
     </message>
     <message>
         <source>When you add it to a layout, each sheet’s parts go on the layout’s sheet with the same name. If there isn’t one, you choose where they go.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügst du es einem Layout hinzu, kommen die Teile jedes Blatts auf das gleichnamige Blatt des Layouts. Gibt es keines, wählst du, wohin sie kommen.</translation>
     </message>
     <message>
         <source>Keep the sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Blätter behalten</translation>
     </message>
     <message>
         <source>Put everything on one sheet</source>
@@ -10913,23 +10914,24 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Tap the map to place %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tippe auf die Karte, um %1 zu platzieren</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::UpdateCheck</name>
     <message>
         <source>Check for Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach Updates suchen</translation>
     </message>
     <message>
         <source>Could not reach GitHub to check for updates:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>GitHub war zur Update-Suche nicht erreichbar:
+%1</translation>
     </message>
     <message>
         <source>You have the latest version (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast die neueste Version (%1).</translation>
     </message>
     <message>
         <source>Update available</source>
@@ -10937,11 +10939,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Collaborative Brick Layout Designer %1 is available (you have %2).</source>
-        <translation type="unfinished"></translation>
+        <translation>Collaborative Brick Layout Designer %1 ist verfügbar (du hast %2).</translation>
     </message>
     <message>
         <source>Download…</source>
-        <translation type="unfinished"></translation>
+        <translation>Herunterladen…</translation>
     </message>
     <message>
         <source>Later</source>
@@ -10956,7 +10958,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Click to select, drag to move, drag a corner to reshape</source>
-        <translation type="unfinished"></translation>
+        <translation>Klicken zum Auswählen, Ziehen zum Bewegen, eine Ecke ziehen zum Umformen</translation>
     </message>
     <message>
         <source>Wall</source>
@@ -10964,15 +10966,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Click corner to corner; type a length and press Enter; Enter or Esc to finish</source>
-        <translation type="unfinished"></translation>
+        <translation>Von Ecke zu Ecke klicken; eine Länge tippen und Enter drücken; Enter oder Esc zum Beenden</translation>
     </message>
     <message>
         <source>Room</source>
-        <translation type="unfinished"></translation>
+        <translation>Raum</translation>
     </message>
     <message>
         <source>Click two opposite corners, or click one and type width x depth</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwei gegenüberliegende Ecken anklicken, oder eine anklicken und Breite x Tiefe tippen</translation>
     </message>
     <message>
         <source>Door</source>
@@ -10980,55 +10982,55 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Click where the door starts on a wall, then where it ends (or type its width)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dort an eine Wand klicken, wo die Tür beginnt, dann wo sie endet (oder ihre Breite tippen)</translation>
     </message>
     <message>
         <source>Opening</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffnung</translation>
     </message>
     <message>
         <source>Click where the opening starts on a wall, then where it ends (or type its width)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dort an eine Wand klicken, wo die Öffnung beginnt, dann wo sie endet (oder ihre Breite tippen)</translation>
     </message>
     <message>
         <source>Column</source>
-        <translation type="unfinished"></translation>
+        <translation>Säule</translation>
     </message>
     <message>
         <source>Stairs</source>
-        <translation type="unfinished"></translation>
+        <translation>Treppe</translation>
     </message>
     <message>
         <source>Click two opposite corners; set the way up in the inspector</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwei gegenüberliegende Ecken anklicken; die Richtung nach oben im Inspektor festlegen</translation>
     </message>
     <message>
         <source>Elevator</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufzug</translation>
     </message>
     <message>
         <source>Click two opposite corners</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwei gegenüberliegende Ecken anklicken</translation>
     </message>
     <message>
         <source>Counter</source>
-        <translation type="unfinished"></translation>
+        <translation>Theke</translation>
     </message>
     <message>
         <source>Railing</source>
-        <translation type="unfinished"></translation>
+        <translation>Geländer</translation>
     </message>
     <message>
         <source>Click where it starts and where it ends (or type its length)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anklicken, wo es beginnt und wo es endet (oder seine Länge tippen)</translation>
     </message>
     <message>
         <source>Power</source>
-        <translation type="unfinished"></translation>
+        <translation>Strom</translation>
     </message>
     <message>
         <source>Click on a wall for a wall outlet, anywhere else for a floor outlet</source>
-        <translation type="unfinished"></translation>
+        <translation>An eine Wand klicken für eine Wandsteckdose, woanders für eine Bodensteckdose</translation>
     </message>
     <message>
         <source>Note</source>
@@ -11036,7 +11038,7 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Click where the note goes, then type it in the inspector</source>
-        <translation type="unfinished"></translation>
+        <translation>Dort klicken, wo die Notiz hinkommt, und sie dann im Inspektor tippen</translation>
     </message>
     <message>
         <source>Measure</source>
@@ -11044,11 +11046,11 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Click two points to add a measurement (or type its length)</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwei Punkte anklicken, um ein Maß hinzuzufügen (oder seine Länge tippen)</translation>
     </message>
     <message>
         <source>Venue Designer</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranstaltungsort-Designer</translation>
     </message>
     <message>
         <source>Units</source>
@@ -11056,15 +11058,15 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     </message>
     <message>
         <source>Feet &amp; inches</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuß &amp; Zoll</translation>
     </message>
     <message>
         <source>Meters</source>
-        <translation type="unfinished"></translation>
+        <translation>Meter</translation>
     </message>
     <message>
         <source>Studs</source>
-        <translation type="unfinished"></translation>
+        <translation>Noppen</translation>
     </message>
     <message>
         <source>Snap</source>

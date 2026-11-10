@@ -10165,19 +10165,19 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Gentle: pulls only when the ends are close. Recommended.</source>
-        <translation type="unfinished"></translation>
+        <translation>Suave: solo atrae cuando los extremos están cerca. Recomendado.</translation>
     </message>
     <message>
         <source>Strong: reaches further, for quick rough placing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuerte: llega más lejos, para colocar rápido y a ojo.</translation>
     </message>
     <message>
         <source>Tip: hold Alt (Option on a Mac) while dragging to place one part without snapping.</source>
-        <translation type="unfinished"></translation>
+        <translation>Consejo: mantén Alt (Opción en Mac) al arrastrar para colocar una pieza sin ajuste.</translation>
     </message>
     <message>
         <source>Map labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiquetas del mapa</translation>
     </message>
     <message>
         <source>Language</source>
@@ -10185,15 +10185,15 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Starting up</source>
-        <translation type="unfinished"></translation>
+        <translation>Al empezar</translation>
     </message>
     <message>
         <source>Parts and folders</source>
-        <translation type="unfinished"></translation>
+        <translation>Piezas y carpetas</translation>
     </message>
     <message>
         <source>Bringing in models</source>
-        <translation type="unfinished"></translation>
+        <translation>Traer modelos</translation>
     </message>
     <message>
         <source>Help</source>
@@ -10201,7 +10201,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Show the small &quot;?&quot; buttons that explain things</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar los pequeños botones «?» que explican las cosas</translation>
     </message>
     <message>
         <source>Tours</source>
@@ -10209,11 +10209,11 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Show tours again</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver recorridos otra vez</translation>
     </message>
     <message>
         <source>Take a tour:</source>
-        <translation type="unfinished"></translation>
+        <translation>Hacer un recorrido:</translation>
     </message>
     <message>
         <source>Servers</source>
@@ -10221,23 +10221,23 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Manage servers…</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestionar servidores…</translation>
     </message>
     <message>
         <source>Add a server, sign in or out, and pick your Main one</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir un servidor, iniciar o cerrar sesión y elegir el principal</translation>
     </message>
     <message>
         <source>These settings are kept on this computer. While you&apos;re connected to a server, they sync with your account there, both ways.</source>
-        <translation type="unfinished"></translation>
+        <translation>Estos ajustes se guardan en este ordenador. Mientras estás conectado a un servidor, se sincronizan con tu cuenta allí, en los dos sentidos.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Synced with %1&lt;/b&gt;&lt;br&gt;These settings are for this app. While you&apos;re connected to a server, they sync with your account there, both ways.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Sincronizado con %1&lt;/b&gt;&lt;br&gt;Estos ajustes son de esta aplicación. Mientras estás conectado a un servidor, se sincronizan con tu cuenta allí, en los dos sentidos.</translation>
     </message>
     <message>
         <source>Changes are saved as you make them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Los cambios se guardan según los haces.</translation>
     </message>
     <message>
         <source>Close</source>
@@ -10245,7 +10245,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>No servers yet. Add your club&apos;s server to share layouts and modules with it, and to keep these settings with your account.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no hay servidores. Añade el de tu club para compartir maquetas y módulos con él, y guardar estos ajustes con tu cuenta.</translation>
     </message>
     <message>
         <source>Add a server…</source>
@@ -10253,11 +10253,11 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Main: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Principal: %1</translation>
     </message>
     <message>
         <source>Main: %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Principal: %1 (%2)</translation>
     </message>
     <message numerus="yes">
         <source>and %n more</source>
@@ -10268,31 +10268,31 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>You haven&apos;t finished any tours yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no has terminado ningún recorrido.</translation>
     </message>
     <message>
         <source>You&apos;ve seen one tour.</source>
-        <translation type="unfinished"></translation>
+        <translation>Has visto un recorrido.</translation>
     </message>
     <message>
         <source>You&apos;ve seen %1 tours.</source>
-        <translation type="unfinished"></translation>
+        <translation>Has visto %1 recorridos.</translation>
     </message>
     <message>
         <source>Browse…</source>
-        <translation type="unfinished"></translation>
+        <translation>Examinar…</translation>
     </message>
     <message>
         <source>Choose: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir: %1</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactivado</translation>
     </message>
     <message>
         <source>1 stud</source>
-        <translation type="unfinished"></translation>
+        <translation>1 stud</translation>
     </message>
     <message>
         <source>%1 studs</source>
@@ -10300,11 +10300,11 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Grid snap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuste a la cuadrícula:</translation>
     </message>
     <message>
         <source>Turn step:</source>
-        <translation type="unfinished"></translation>
+        <translation>Paso de giro:</translation>
     </message>
     <message>
         <source>Paint color</source>
@@ -10312,47 +10312,47 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Paint color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Color de pintura:</translation>
     </message>
     <message>
         <source>Gentle</source>
-        <translation type="unfinished"></translation>
+        <translation>Suave</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Fast</source>
-        <translation type="unfinished"></translation>
+        <translation>Rápida</translation>
     </message>
     <message>
         <source>Zoom speed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Velocidad del zoom:</translation>
     </message>
     <message>
         <source>Always show connection points, not only on the picked pieces</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar siempre los puntos de conexión, no solo en las piezas elegidas</translation>
     </message>
     <message>
         <source>%1 (%2% translated)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (traducido al %2 %)</translation>
     </message>
     <message>
         <source>A new language shows the next time the app starts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un idioma nuevo aparece la próxima vez que se inicie la aplicación.</translation>
     </message>
     <message>
         <source>Open the layout I had open last time</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir la maqueta que tenía abierta la última vez</translation>
     </message>
     <message>
         <source>Check for a new version (at most once a day)</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar una versión nueva (como mucho una vez al día)</translation>
     </message>
     <message>
         <source>Layout new layouts start from</source>
-        <translation type="unfinished"></translation>
+        <translation>Maqueta de la que parten las maquetas nuevas</translation>
     </message>
     <message>
         <source>BlueBrick map (*.bbm)</source>
@@ -10360,39 +10360,39 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>None: new layouts start empty</source>
-        <translation type="unfinished"></translation>
+        <translation>Ninguna: las maquetas nuevas empiezan vacías</translation>
     </message>
     <message>
         <source>New layouts start from:</source>
-        <translation type="unfinished"></translation>
+        <translation>Las maquetas nuevas parten de:</translation>
     </message>
     <message>
         <source> px</source>
-        <translation type="unfinished"></translation>
+        <translation> px</translation>
     </message>
     <message>
         <source>Module frame thickness:</source>
-        <translation type="unfinished"></translation>
+        <translation>Grosor del marco de los módulos:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>How big a module&apos;s name is, compared with the module&apos;s longer side.</source>
-        <translation type="unfinished"></translation>
+        <translation>Qué tamaño tiene el nombre de un módulo, comparado con su lado más largo.</translation>
     </message>
     <message>
         <source>Module name size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño del nombre de los módulos:</translation>
     </message>
     <message>
         <source>How big the lengths along the venue&apos;s walls, doors and openings are.</source>
-        <translation type="unfinished"></translation>
+        <translation>Qué tamaño tienen las longitudes junto a las paredes, puertas y aberturas de la sala.</translation>
     </message>
     <message>
         <source>Venue measurement size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de las medidas de la sala:</translation>
     </message>
     <message>
         <source>Module library folder</source>
@@ -10400,23 +10400,23 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Module library folder:</source>
-        <translation type="unfinished"></translation>
+        <translation>Carpeta de la biblioteca de módulos:</translation>
     </message>
     <message>
         <source>Parts Folders…</source>
-        <translation type="unfinished"></translation>
+        <translation>Carpetas de piezas…</translation>
     </message>
     <message>
         <source>Extra folders of parts to show in the Parts panel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Carpetas extra de piezas para mostrar en el panel Piezas.</translation>
     </message>
     <message>
         <source>Parts with no number in the budget can be used freely</source>
-        <translation type="unfinished"></translation>
+        <translation>Las piezas sin cantidad en el presupuesto se pueden usar libremente</translation>
     </message>
     <message>
         <source>While live on a server, also list other servers&apos; parts</source>
-        <translation type="unfinished"></translation>
+        <translation>En directo en un servidor, listar también las piezas de otros servidores</translation>
     </message>
     <message>
         <source>LDraw library</source>
@@ -10424,31 +10424,31 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>e.g. ~/ldraw (with LDConfig.ldr and parts/ in it)</source>
-        <translation type="unfinished"></translation>
+        <translation>p. ej. ~/ldraw (con LDConfig.ldr y parts/ dentro)</translation>
     </message>
     <message>
         <source>LDraw library:</source>
-        <translation type="unfinished"></translation>
+        <translation>Biblioteca LDraw:</translation>
     </message>
     <message>
         <source>Download the LDraw library…</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargar la biblioteca LDraw…</translation>
     </message>
     <message>
         <source>About 140 MB from library.ldraw.org, kept in the app&apos;s own folder. Needs the internet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unos 140 MB desde library.ldraw.org, guardados en la carpeta propia de la aplicación. Necesita internet.</translation>
     </message>
     <message>
         <source>Download LDraw library</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargar la biblioteca LDraw</translation>
     </message>
     <message>
         <source>This will download ~140 MB from library.ldraw.org and extract it to your app-data folder. Continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Esto descargará unos 140 MB desde library.ldraw.org y los extraerá en la carpeta de datos de la aplicación. ¿Continuar?</translation>
     </message>
     <message>
         <source>Downloading LDraw library…</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargando la biblioteca LDraw…</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -10456,143 +10456,144 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Downloading LDraw library — %1 / %2 MB</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargando la biblioteca LDraw — %1 / %2 MB</translation>
     </message>
     <message>
         <source>Download failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Error en la descarga</translation>
     </message>
     <message>
         <source>Extract failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al extraer</translation>
     </message>
     <message>
         <source>Couldn&apos;t read the LDraw archive.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo leer el archivo de LDraw.</translation>
     </message>
     <message>
         <source>Extracting %1 files…</source>
-        <translation type="unfinished"></translation>
+        <translation>Extrayendo %1 archivos…</translation>
     </message>
     <message>
         <source>Download canceled</source>
-        <translation type="unfinished"></translation>
+        <translation>Descarga cancelada</translation>
     </message>
     <message>
         <source>Extraction canceled — partial files may remain at %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Extracción cancelada: pueden quedar archivos a medias en %1</translation>
     </message>
     <message>
         <source>LDraw library installed at:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Biblioteca LDraw instalada en:
+%1</translation>
     </message>
     <message>
         <source>Archive entries not written (write error or unsafe path): %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Entradas del archivo no escritas (error de escritura o ruta insegura): %1</translation>
     </message>
     <message>
         <source>LDraw library installed</source>
-        <translation type="unfinished"></translation>
+        <translation>Biblioteca LDraw instalada</translation>
     </message>
     <message>
         <source>Studio&apos;s LDraw library</source>
-        <translation type="unfinished"></translation>
+        <translation>Biblioteca LDraw de Studio</translation>
     </message>
     <message>
         <source>Studio&apos;s own, else the LDraw library above</source>
-        <translation type="unfinished"></translation>
+        <translation>La de Studio, si no la biblioteca LDraw de arriba</translation>
     </message>
     <message>
         <source>Found Studio&apos;s: %1</source>
-        <translation type="unfinished">Encontrada la de Studio: %1</translation>
+        <translation>Encontrada en Studio: %1</translation>
     </message>
     <message>
         <source>Using Studio&apos;s: %1</source>
-        <translation type="unfinished">Se usa la de Studio: %1</translation>
+        <translation>Usando la de Studio: %1</translation>
     </message>
     <message>
         <source>Studio library:</source>
-        <translation type="unfinished"></translation>
+        <translation>Biblioteca de Studio:</translation>
     </message>
     <message>
         <source>LEGO Digital Designer</source>
-        <translation type="unfinished"></translation>
+        <translation>LEGO Digital Designer</translation>
     </message>
     <message>
         <source>LDD&apos;s program folder (Assets.lif) or data folder (db.lif)</source>
-        <translation type="unfinished"></translation>
+        <translation>Carpeta del programa LDD (Assets.lif) o carpeta de datos (db.lif)</translation>
     </message>
     <message>
         <source>LEGO Digital Designer:</source>
-        <translation type="unfinished"></translation>
+        <translation>LEGO Digital Designer:</translation>
     </message>
     <message>
         <source>LDD to LDraw part list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de piezas de LDD a LDraw</translation>
     </message>
     <message>
         <source>ldraw.xml (*.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>ldraw.xml (*.xml)</translation>
     </message>
     <message>
         <source>Optional: a newer ldraw.xml, e.g. from slswww.free.fr/ldraw.xml</source>
-        <translation type="unfinished"></translation>
+        <translation>Opcional: un ldraw.xml más nuevo, p. ej. de slswww.free.fr/ldraw.xml</translation>
     </message>
     <message>
         <source>LDD to LDraw part list:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de piezas de LDD a LDraw:</translation>
     </message>
     <message>
         <source>Use Studio&apos;s LDraw library and part list when these are left empty</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar la biblioteca LDraw y la lista de piezas de Studio cuando estos campos estén vacíos</translation>
     </message>
     <message>
         <source>Brick red</source>
-        <translation type="unfinished"></translation>
+        <translation>Rojo ladrillo</translation>
     </message>
     <message>
         <source>Ocean blue</source>
-        <translation type="unfinished"></translation>
+        <translation>Azul océano</translation>
     </message>
     <message>
         <source>Forest green</source>
-        <translation type="unfinished"></translation>
+        <translation>Verde bosque</translation>
     </message>
     <message>
         <source>Plum</source>
-        <translation type="unfinished"></translation>
+        <translation>Ciruela</translation>
     </message>
     <message>
         <source>Sunny yellow</source>
-        <translation type="unfinished"></translation>
+        <translation>Amarillo sol</translation>
     </message>
     <message>
         <source>Lagoon teal</source>
-        <translation type="unfinished"></translation>
+        <translation>Turquesa laguna</translation>
     </message>
     <message>
         <source>Pumpkin orange</source>
-        <translation type="unfinished"></translation>
+        <translation>Naranja calabaza</translation>
     </message>
     <message>
         <source>Rose pink</source>
-        <translation type="unfinished"></translation>
+        <translation>Rosa</translation>
     </message>
     <message>
         <source>Indigo</source>
-        <translation type="unfinished"></translation>
+        <translation>Índigo</translation>
     </message>
     <message>
         <source>Slate gray</source>
-        <translation type="unfinished"></translation>
+        <translation>Gris pizarra</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::SharePictureDialog</name>
     <message>
         <source>Share Picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Compartir imagen</translation>
     </message>
     <message>
         <source>Share a picture</source>
@@ -10600,7 +10601,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Picture of:</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen de:</translation>
     </message>
     <message>
         <source>Whole layout</source>
@@ -10608,7 +10609,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>What’s on screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Lo que hay en pantalla</translation>
     </message>
     <message>
         <source>View</source>
@@ -10616,15 +10617,15 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Save as PNG…</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar como PNG…</translation>
     </message>
     <message>
         <source>Copy picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar imagen</translation>
     </message>
     <message>
         <source>Paste it into a message or a document</source>
-        <translation type="unfinished"></translation>
+        <translation>Pégala en un mensaje o un documento</translation>
     </message>
     <message>
         <source>Export all views</source>
@@ -10632,15 +10633,15 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>No saved views yet, so this makes one picture of the whole layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún no hay vistas guardadas, así que se hace una imagen de toda la maqueta.</translation>
     </message>
     <message>
         <source>A picture of your saved view, in a folder. Do it again after a change to get a new picture with the same name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Una imagen de tu vista guardada, en una carpeta. Hazlo otra vez tras un cambio para tener una imagen nueva con el mismo nombre.</translation>
     </message>
     <message>
         <source>One picture of each of your %1 saved views, in a folder. Do it again after a change to get new pictures with the same names.</source>
-        <translation type="unfinished"></translation>
+        <translation>Una imagen de cada una de tus %1 vistas guardadas, en una carpeta. Hazlo otra vez tras un cambio para tener imágenes nuevas con los mismos nombres.</translation>
     </message>
     <message>
         <source>Picture size</source>
@@ -10648,19 +10649,19 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Export picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar imagen</translation>
     </message>
     <message>
         <source>Change folder…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar carpeta…</translation>
     </message>
     <message>
         <source>More options…</source>
-        <translation type="unfinished"></translation>
+        <translation>Más opciones…</translation>
     </message>
     <message>
         <source>Pick the exact size, a see-through background or a watermark</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir el tamaño exacto, un fondo transparente o una marca de agua</translation>
     </message>
     <message>
         <source>Done</source>
@@ -10668,11 +10669,11 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Save picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar imagen</translation>
     </message>
     <message>
         <source>PNG picture (*.png)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen PNG (*.png)</translation>
     </message>
     <message>
         <source>There is nothing to show yet.</source>
@@ -10680,34 +10681,34 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>%1 × %2 pixels</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 × %2 píxeles</translation>
     </message>
     <message>
         <source>Could not save the picture to “%1”.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo guardar la imagen en «%1».</translation>
     </message>
     <message>
         <source>Saved as “%1”.</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardada como «%1».</translation>
     </message>
     <message>
         <source>Copied. Paste it into a message or a document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiada. Pégala en un mensaje o un documento.</translation>
     </message>
     <message>
         <source>You pick a folder the first time.</source>
-        <translation type="unfinished"></translation>
+        <translation>La primera vez eliges una carpeta.</translation>
     </message>
     <message>
         <source>Saves to: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Guarda en: %1</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::ShareToCatalogDialog</name>
     <message>
         <source>Publish this update</source>
-        <translation type="unfinished"></translation>
+        <translation>Publicar esta actualización</translation>
     </message>
     <message>
         <source>Share to the public catalog</source>
@@ -10715,23 +10716,23 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>A copy of it as it is now goes to the catalog. Later changes stay yours until you publish an update.</source>
-        <translation type="unfinished"></translation>
+        <translation>Una copia tal como está ahora va al catálogo. Los cambios posteriores siguen siendo tuyos hasta que publiques una actualización.</translation>
     </message>
     <message>
         <source>Collaborators, comments, chat, file paths, the background picture and the venue’s notes stay private.</source>
-        <translation type="unfinished"></translation>
+        <translation>Colaboradores, comentarios, chat, rutas de archivo, la imagen de fondo y las notas de la sala quedan privados.</translation>
     </message>
     <message>
         <source>Notes on the plan stay private.</source>
-        <translation type="unfinished"></translation>
+        <translation>Las notas del plano quedan privadas.</translation>
     </message>
     <message>
         <source>A moderator reviews it first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un moderador lo revisa primero.</translation>
     </message>
     <message>
         <source>e.g. station, 9V</source>
-        <translation type="unfinished"></translation>
+        <translation>p. ej. estación, 9V</translation>
     </message>
     <message>
         <source>Name</source>
@@ -10739,11 +10740,11 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Description (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción (opcional)</translation>
     </message>
     <message>
         <source>Tags, separated by commas (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiquetas, separadas por comas (opcional)</translation>
     </message>
     <message>
         <source>What changed? (optional)</source>
@@ -10751,23 +10752,23 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Anyone can copy this into their own layouts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cualquiera puede copiar esto en sus propias maquetas.</translation>
     </message>
     <message>
         <source>Publish update</source>
-        <translation type="unfinished"></translation>
+        <translation>Publicar actualización</translation>
     </message>
     <message>
         <source>Share</source>
-        <translation type="unfinished"></translation>
+        <translation>Compartir</translation>
     </message>
     <message>
         <source>Cards show its drawn picture. You can upload your own instead, like a photo of the real thing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Las fichas muestran su imagen dibujada. Puedes subir la tuya, como una foto del modelo real.</translation>
     </message>
     <message>
         <source>Choose a cover picture on the web…</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir una imagen de portada en la web…</translation>
     </message>
     <message>
         <source>Done</source>
@@ -10779,42 +10780,42 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Tick the box to agree that anyone can copy it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Marca la casilla para aceptar que cualquiera pueda copiarlo.</translation>
     </message>
     <message>
         <source>Shared: it’s in the public catalog now.</source>
-        <translation type="unfinished"></translation>
+        <translation>Compartido: ya está en el catálogo público.</translation>
     </message>
     <message>
         <source>Sent to %1’s own review: its admins and managers check it before it appears in the catalog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviado a la revisión propia de %1: sus admins y gestores lo revisan antes de que aparezca en el catálogo.</translation>
     </message>
     <message>
         <source>Sent for review. A moderator looks at it before it appears in the catalog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviado a revisión. Un moderador lo mira antes de que aparezca en el catálogo.</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::SheetChoiceDialog</name>
     <message>
         <source>%1 or %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 o %2</translation>
     </message>
     <message>
         <source>Where should these go?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Adónde deben ir?</translation>
     </message>
     <message>
         <source>“%1” uses a sheet. Your layout doesn’t have %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>«%1» usa una hoja. Tu maqueta no tiene %2.</translation>
     </message>
     <message>
         <source>“%1” uses %2 sheets. Your layout doesn’t have %3.</source>
-        <translation type="unfinished"></translation>
+        <translation>«%1» usa %2 hojas. Tu maqueta no tiene %3.</translation>
     </message>
     <message>
         <source>Where the parts on %1 go</source>
-        <translation type="unfinished"></translation>
+        <translation>Adónde van las piezas de %1</translation>
     </message>
     <message>
         <source>untitled</source>
@@ -10822,11 +10823,11 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>%1 (picked sheet)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (hoja elegida)</translation>
     </message>
     <message>
         <source>A new sheet named “%1”</source>
-        <translation type="unfinished"></translation>
+        <translation>Una hoja nueva llamada «%1»</translation>
     </message>
     <message>
         <source>1 part</source>
@@ -10842,7 +10843,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Place</source>
-        <translation type="unfinished"></translation>
+        <translation>Colocar</translation>
     </message>
     <message>
         <source>Module</source>
@@ -10854,15 +10855,15 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>This module uses %1 sheets: %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este módulo usa %1 hojas: %2.</translation>
     </message>
     <message>
         <source>When you add it to a layout, each sheet’s parts go on the layout’s sheet with the same name. If there isn’t one, you choose where they go.</source>
-        <translation type="unfinished"></translation>
+        <translation>Al añadirlo a una maqueta, las piezas de cada hoja van a la hoja de la maqueta con el mismo nombre. Si no la hay, eliges adónde van.</translation>
     </message>
     <message>
         <source>Keep the sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>Conservar las hojas</translation>
     </message>
     <message>
         <source>Put everything on one sheet</source>
@@ -10913,23 +10914,24 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Tap the map to place %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Toca el mapa para colocar %1</translation>
     </message>
 </context>
 <context>
     <name>bld::ui::UpdateCheck</name>
     <message>
         <source>Check for Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar actualizaciones</translation>
     </message>
     <message>
         <source>Could not reach GitHub to check for updates:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo contactar con GitHub para buscar actualizaciones:
+%1</translation>
     </message>
     <message>
         <source>You have the latest version (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>Tienes la última versión (%1).</translation>
     </message>
     <message>
         <source>Update available</source>
@@ -10937,11 +10939,11 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Collaborative Brick Layout Designer %1 is available (you have %2).</source>
-        <translation type="unfinished"></translation>
+        <translation>Collaborative Brick Layout Designer %1 está disponible (tienes la %2).</translation>
     </message>
     <message>
         <source>Download…</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargar…</translation>
     </message>
     <message>
         <source>Later</source>
@@ -10956,7 +10958,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Click to select, drag to move, drag a corner to reshape</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic para seleccionar, arrastra para mover, arrastra una esquina para cambiar la forma</translation>
     </message>
     <message>
         <source>Wall</source>
@@ -10964,15 +10966,15 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Click corner to corner; type a length and press Enter; Enter or Esc to finish</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic de esquina a esquina; escribe una longitud y pulsa Intro; Intro o Esc para terminar</translation>
     </message>
     <message>
         <source>Room</source>
-        <translation type="unfinished"></translation>
+        <translation>Habitación</translation>
     </message>
     <message>
         <source>Click two opposite corners, or click one and type width x depth</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic en dos esquinas opuestas, o en una y escribe ancho x fondo</translation>
     </message>
     <message>
         <source>Door</source>
@@ -10980,55 +10982,55 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Click where the door starts on a wall, then where it ends (or type its width)</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic en una pared donde empieza la puerta y luego donde termina (o escribe su ancho)</translation>
     </message>
     <message>
         <source>Opening</source>
-        <translation type="unfinished"></translation>
+        <translation>Abertura</translation>
     </message>
     <message>
         <source>Click where the opening starts on a wall, then where it ends (or type its width)</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic en una pared donde empieza la abertura y luego donde termina (o escribe su ancho)</translation>
     </message>
     <message>
         <source>Column</source>
-        <translation type="unfinished"></translation>
+        <translation>Columna</translation>
     </message>
     <message>
         <source>Stairs</source>
-        <translation type="unfinished"></translation>
+        <translation>Escalera</translation>
     </message>
     <message>
         <source>Click two opposite corners; set the way up in the inspector</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic en dos esquinas opuestas; fija el sentido de subida en el inspector</translation>
     </message>
     <message>
         <source>Elevator</source>
-        <translation type="unfinished"></translation>
+        <translation>Ascensor</translation>
     </message>
     <message>
         <source>Click two opposite corners</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic en dos esquinas opuestas</translation>
     </message>
     <message>
         <source>Counter</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrador</translation>
     </message>
     <message>
         <source>Railing</source>
-        <translation type="unfinished"></translation>
+        <translation>Barandilla</translation>
     </message>
     <message>
         <source>Click where it starts and where it ends (or type its length)</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic donde empieza y donde termina (o escribe su longitud)</translation>
     </message>
     <message>
         <source>Power</source>
-        <translation type="unfinished"></translation>
+        <translation>Electricidad</translation>
     </message>
     <message>
         <source>Click on a wall for a wall outlet, anywhere else for a floor outlet</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic en una pared para un enchufe de pared, en otro sitio para uno de suelo</translation>
     </message>
     <message>
         <source>Note</source>
@@ -11036,7 +11038,7 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Click where the note goes, then type it in the inspector</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic donde va la nota y luego escríbela en el inspector</translation>
     </message>
     <message>
         <source>Measure</source>
@@ -11044,11 +11046,11 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Click two points to add a measurement (or type its length)</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic en dos puntos para añadir una medida (o escribe su longitud)</translation>
     </message>
     <message>
         <source>Venue Designer</source>
-        <translation type="unfinished"></translation>
+        <translation>Diseñador de salas</translation>
     </message>
     <message>
         <source>Units</source>
@@ -11056,15 +11058,15 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
     <message>
         <source>Feet &amp; inches</source>
-        <translation type="unfinished"></translation>
+        <translation>Pies y pulgadas</translation>
     </message>
     <message>
         <source>Meters</source>
-        <translation type="unfinished"></translation>
+        <translation>Metros</translation>
     </message>
     <message>
         <source>Studs</source>
-        <translation type="unfinished"></translation>
+        <translation>Studs</translation>
     </message>
     <message>
         <source>Snap</source>

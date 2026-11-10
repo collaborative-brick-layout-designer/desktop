@@ -14,9 +14,9 @@ inline int translationPercent(const QString& code) {
         const char* code;
         int percent;
     } kCoverage[] = {
-        { "de", 88 },
-        { "es", 87 },
-        { "fr", 88 },
+        { "de", 93 },
+        { "es", 93 },
+        { "fr", 93 },
         { "it", 7 },
         { "ja", 5 },
         { "nl", 7 },
