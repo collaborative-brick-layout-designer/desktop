@@ -113,11 +113,26 @@ void LiveLayout::drawPeers() {
             others.push_back(std::move(peer));
         }
     view_.setPeersEditing(editing);
-    if (!active_ || !view_.currentMap() || others.empty()) return;
     // Colors as every app works them out from the same people.
     QStringList ids{ user_.id };
     for (const auto& peer : others) ids << peer.userId;
     const QHash<QString, QString> colors = sync::presence::colorsFor(ids, layoutId_);
+    // Who's here, for the status bar's list: one entry per person.
+    QList<Person> people;
+    QSet<QString> listed;
+    for (const auto& peer : others) {
+        const QString key = peer.userId.isEmpty() ? QStringLiteral("#") + peer.name : peer.userId;
+        if (listed.contains(key)) continue;
+        listed.insert(key);
+        people.push_back({ peer.name, colors.value(peer.userId, peer.color) });
+    }
+    std::sort(people.begin(), people.end(),
+              [](const Person& a, const Person& b) { return a.name.localeAwareCompare(b.name) < 0; });
+    if (people != people_) {
+        people_ = std::move(people);
+        emit peopleChanged();
+    }
+    if (!active_ || !view_.currentMap() || others.empty()) return;
     // Bricks by id, for selection outlines: where a drag here has them now.
     // (Only when someone has parts picked: it walks every part.)
     QHash<QString, QRectF> bricks;

@@ -48,6 +48,7 @@
 #include <QJsonDocument>
 #include <QLabel>
 #include <QMenu>
+#include <QPainter>
 #include <QMessageBox>
 #include <QToolButton>
 #include <QPointer>
@@ -67,6 +68,17 @@ void MainWindow::setupLiveMenu(QMenu* file) {
     liveStatus_ = new QLabel(this);
     liveStatus_->setVisible(false);
     statusBar()->addPermanentWidget(liveStatus_);
+    // Who else is here (cursors alone miss anyone with the mouse off the map,
+    // or on a phone): "People here (2)", listing them.
+    peopleHere_ = new QToolButton(this);
+    peopleHere_->setObjectName(QStringLiteral("peopleHere"));
+    peopleHere_->setAutoRaise(true);
+    peopleHere_->setPopupMode(QToolButton::InstantPopup);
+    peopleHere_->setToolTip(tr("Everyone else who has this layout open now"));
+    peopleHere_->setMenu(new QMenu(peopleHere_));
+    peopleHere_->setVisible(false);
+    statusBar()->addPermanentWidget(peopleHere_);
+    connect(live_, &LiveLayout::peopleChanged, this, &MainWindow::updatePeopleHere);
 
     file->addSeparator();
     auto* serversAct = file->addAction(tr("S&ervers…"));
@@ -172,6 +184,11 @@ void MainWindow::setupLiveMenu(QMenu* file) {
     connect(&live_->session(), &sync::SyncSession::statusChanged, this, [this](sync::SyncClient::Status s) {
         if ((s == sync::SyncClient::Status::Synced || s == sync::SyncClient::Status::Connecting) && live_->active())
             liveRoleCheck_->start();
+        // Back in step after the server's parts couldn't be had (the
+        // connection dropped mid-download): try again by itself.
+        if (s == sync::SyncClient::Status::Synced && live_->active() && partsSyncFailed_->isVisible() && !partsSyncRunning_)
+            syncServerParts(liveServer_, liveToken_);
+        updatePeopleHere();
     });
     // The server ended the sign-in while live: the layout stays open, and the
     // notice offers to sign in again; after that it reconnects and sends the
@@ -744,11 +761,34 @@ bool MainWindow::keepLiveSheet() {
     return true;
 }
 
+void MainWindow::updatePeopleHere() {
+    const auto& people = live_->people();
+    const bool on = live_->active() && !people.isEmpty();
+    peopleHere_->setVisible(on);
+    QMenu* menu = peopleHere_->menu();
+    menu->clear();
+    if (!on) return;
+    peopleHere_->setText(tr("People here (%1)").arg(people.size()));
+    for (const auto& person : people) {
+        QPixmap dot(12, 12);
+        dot.fill(Qt::transparent);
+        QPainter p(&dot);
+        p.setRenderHint(QPainter::Antialiasing);
+        p.setBrush(QColor(person.color));
+        p.setPen(Qt::NoPen);
+        p.drawEllipse(1, 1, 10, 10);
+        p.end();
+        // (Enabled, so the dot keeps its color; choosing one does nothing.)
+        menu->addAction(QIcon(dot), person.name);
+    }
+}
+
 void MainWindow::updateLiveUi() {
     const bool on = live_->active();
     // Live: the parts list offers this server's parts, not other servers'.
     if (partsBrowser_) partsBrowser_->setLiveServerFolder(on ? sync::ServerList::folderName(liveServer_) : QString());
     liveStatus_->setVisible(on);
+    updatePeopleHere();
     liveStatus_->setText(on ? tr("Live on %1: %2").arg(liveServerName(), live_->statusText()) : QString());
     updateServerStatus();
     disconnectAct_->setEnabled(on);

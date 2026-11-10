@@ -57,6 +57,7 @@
 #include <QStandardPaths>
 #include <QTabWidget>
 #include <QTimer>
+#include <QMenu>
 #include <QToolButton>
 #include <QUndoStack>
 
@@ -1592,4 +1593,23 @@ TEST_F(MainWindowLive, PicturesOfTheSheetAfterGoingLive) {
                                        .arg(mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark")
                                                                                   : QStringLiteral("light")));
     }
+}
+
+// Full review area 4, Unclear UI 2: the desktop had no list of who's here
+// (cursors miss anyone with the mouse off the map, or on a phone).
+TEST_F(MainWindowLive, PeopleHereListsEveryoneElse) {
+    auto* people = window_->findChild<QToolButton*>(QStringLiteral("peopleHere"));
+    ASSERT_NE(people, nullptr);
+    EXPECT_FALSE(people->isVisibleTo(window_.get()));
+    sync::SyncSession other;
+    other.open(ws_.url(), {}, false);
+    ASSERT_TRUE(waitFor([&] { return other.status() == Status::Synced; }));
+    other.setPresence(sync::presence::state({ QStringLiteral("u-sam"), QStringLiteral("Sam"), QStringLiteral("#60a5fa") },
+                                            std::nullopt, {}, 1));
+    ASSERT_TRUE(waitFor([&] { return people->isVisibleTo(window_.get()); }));
+    EXPECT_EQ(people->text(), QStringLiteral("People here (1)"));
+    ASSERT_EQ(people->menu()->actions().size(), 1);
+    EXPECT_EQ(people->menu()->actions()[0]->text(), QStringLiteral("Sam"));
+    other.setPresence(std::nullopt);
+    EXPECT_TRUE(waitFor([&] { return !people->isVisibleTo(window_.get()); }));
 }

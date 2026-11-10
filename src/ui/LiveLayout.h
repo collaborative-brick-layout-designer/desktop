@@ -71,6 +71,14 @@ public:
     void setUser(const QString& userId, const QString& displayName, const QString& layoutId);
     // Other people's cursors and selections drawn on the map right now.
     int drawnPeers() const { return drawnPeers_; }
+    // Everyone else here, one entry per person (however many apps or tabs
+    // they have open), in the colors every app gives them; by name.
+    struct Person {
+        QString name;
+        QString color;
+        bool operator==(const Person&) const = default;
+    };
+    const QList<Person>& people() const { return people_; }
 
 signals:
     // The map was replaced: panels bound to the old one must re-bind.
@@ -82,6 +90,7 @@ signals:
     // Down to view only before our latest edits reached the server: it didn't
     // take them. Still live; session().notTaken() holds them for saving.
     void editsNotTaken();
+    void peopleChanged();
     // The server ended the session (access revoked, layout deleted).
     void ended(const QString& reason);
     // The server ended the sign-in, not the layout: it stays open, and its
@@ -117,7 +126,8 @@ private:
     std::optional<QPointF> cursorStuds_;
     QTimer* presenceTimer_ = nullptr;
     QList<QGraphicsItem*> peerItems_;
-    int drawnPeers_ = 0; // the first load fits the view; later ones keep it
+    int drawnPeers_ = 0;
+    QList<Person> people_; // the first load fits the view; later ones keep it
 };
 
 } // namespace bld::ui

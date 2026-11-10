@@ -454,6 +454,9 @@ private:
     // When server parts didn't all download, a button in the status bar
     // says so (they draw as outlines until they do) and tries again.
     QToolButton* partsSyncFailed_ = nullptr;
+    // "People here (2)" in the status bar while live with others.
+    QToolButton* peopleHere_ = nullptr;
+    void updatePeopleHere();
     // "Downloading server parts… 1,204 of 2,853" over the map (a child of it).
     class LoadingCard* partsDownloadCard_ = nullptr;
     QAction* downloadPartsAct_ = nullptr;
