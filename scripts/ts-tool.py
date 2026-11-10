@@ -4,10 +4,10 @@
     ts-tool.py export <code> [--all] > todo.json
         The strings still to translate (or, with --all, every string), as
         {"source": "", ...}; a "%n" string's value is a list of its forms.
-    ts-tool.py fill <code> done.json
+    ts-tool.py fill <code> done.json [--keep]
         Writes the translations in done.json (the same shape) into every
         message with that source, in every context, and marks them done.
-        Empty values are skipped.
+        Empty values are skipped; with --keep, so are messages already done.
     ts-tool.py check <code>
         Clears (back to unfinished) translations that lost a placeholder
         (%1, %n) or an Alt letter (&File), or say "layer" for a sheet, so
@@ -95,7 +95,7 @@ def export(code: str, everything: bool) -> int:
     return 0
 
 
-def fill(code: str, done_path: str) -> int:
+def fill(code: str, done_path: str, keep: bool = False) -> int:
     done = json.loads(Path(done_path).read_text(encoding="utf-8"))
     path = ts_path(code)
     text = path.read_text(encoding="utf-8")
@@ -106,7 +106,7 @@ def fill(code: str, done_path: str) -> int:
         nonlocal count
         source = unescape(m.group("source"))
         value = done.get(source)
-        if not value:
+        if not value or (keep and "type=" not in m.group("attrs")):
             return m.group(0)
         numerus = bool(m.group("numerus"))
         forms = value if isinstance(value, list) else [value]
@@ -167,7 +167,7 @@ def main() -> int:
     if cmd == "export":
         return export(code, "--all" in sys.argv[3:])
     if cmd == "fill" and len(sys.argv) > 3:
-        return fill(code, sys.argv[3])
+        return fill(code, sys.argv[3], "--keep" in sys.argv[4:])
     if cmd == "check":
         return check(code)
     print(__doc__)

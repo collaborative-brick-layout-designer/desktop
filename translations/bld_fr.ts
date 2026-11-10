@@ -5,138 +5,138 @@
     <name>Compat</name>
     <message>
         <source>Editing a layout together, live</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier un plan à plusieurs, en direct</translation>
     </message>
     <message>
         <source>Signing in from the desktop app</source>
-        <translation type="unfinished"></translation>
+        <translation>Se connecter depuis l’application de bureau</translation>
     </message>
     <message>
         <source>Putting a layout on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre un plan sur le serveur</translation>
     </message>
     <message>
         <source>Your clubs</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos clubs</translation>
     </message>
     <message>
         <source>The venue library</source>
-        <translation type="unfinished"></translation>
+        <translation>La bibliothèque de salles</translation>
     </message>
     <message>
         <source>Getting the server&apos;s parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Récupérer les pièces du serveur</translation>
     </message>
     <message>
         <source>Downloading the server&apos;s part pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger les images des pièces du serveur</translation>
     </message>
     <message>
         <source>Sending your own parts to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoyer vos propres pièces au serveur</translation>
     </message>
     <message>
         <source>Your settings on every computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos réglages sur chaque ordinateur</translation>
     </message>
     <message>
         <source>Showing whose layouts and venues they are</source>
-        <translation type="unfinished"></translation>
+        <translation>Montrer à qui sont les plans et les salles</translation>
     </message>
     <message>
         <source>Usage limits, with plain messages when one is reached</source>
-        <translation type="unfinished"></translation>
+        <translation>Limites d’utilisation, avec des messages clairs quand l’une est atteinte</translation>
     </message>
     <message>
         <source>Downloading a copy of a layout, venue sizes in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger une copie d’un plan, tailles des salles dans la liste</translation>
     </message>
     <message>
         <source>Sharing to the public catalog from the desktop app</source>
-        <translation type="unfinished"></translation>
+        <translation>Partager au catalogue public depuis l’application de bureau</translation>
     </message>
     <message>
         <source>Uploading sets of your own parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoyer des sets de vos propres pièces</translation>
     </message>
     <message>
         <source>Deleting your own parts and sets from the desktop app</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer vos propres pièces et sets depuis l’application de bureau</translation>
     </message>
 </context>
 <context>
     <name>HelpTexts</name>
     <message>
         <source>Sending to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoyer au serveur</translation>
     </message>
     <message>
         <source>Put a copy of something from this computer on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre sur le serveur une copie de quelque chose qui est sur cet ordinateur.</translation>
     </message>
     <message>
         <source>Things marked Not on the server yet are only on this computer. Send… asks whether it’s yours or a club’s, then puts a copy there; the one here stays as it is. A club’s things belong to the club, and you stay credited as the author.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce qui est marqué « Pas encore sur le serveur » n’est que sur cet ordinateur. Envoyer… demande si c’est à vous ou à un club, puis y met une copie ; celui d’ici reste tel quel. Ce qui est à un club appartient au club, et vous restez cité comme auteur.</translation>
     </message>
     <message>
         <source>Share to the public catalog</source>
-        <translation type="unfinished"></translation>
+        <translation>Partager au catalogue public</translation>
     </message>
     <message>
         <source>Let anyone on this server copy it into their own layouts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tout le monde sur ce serveur peut le copier dans ses propres plans.</translation>
     </message>
     <message>
         <source>A copy of it as it is now goes to the catalog; your own stays yours. On most servers a moderator looks at it first. Later, Publish this update sends your changes. Its card shows the drawn picture; you can pick a photo of your own on the web.</source>
-        <translation type="unfinished"></translation>
+        <translation>Une copie dans son état actuel va au catalogue ; le vôtre reste à vous. Sur la plupart des serveurs, un modérateur le regarde d’abord. Plus tard, « Publier cette mise à jour » envoie vos changements. Sa fiche montre l’image dessinée ; vous pouvez choisir votre propre photo sur le web.</translation>
     </message>
     <message>
         <source>Open from Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir depuis le serveur</translation>
     </message>
     <message>
         <source>Everything you and your clubs keep on a server, in one place.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tout ce que vous et vos clubs gardez sur un serveur, au même endroit.</translation>
     </message>
     <message>
         <source>Pick a server at the top, and Show to see only yours or one club’s. Open a layout live to work on it with everyone, or download a copy. Start a layout in a venue, put a module in the layout that’s open, or bring a custom part into your parts. The Catalog and Collections tabs have what people shared for everyone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez un serveur en haut, et Afficher pour ne voir que les vôtres ou ceux d’un club. Ouvrez un plan en direct pour y travailler avec tout le monde, ou téléchargez-en une copie. Commencez un plan dans une salle, mettez un module dans le plan ouvert, ou ajoutez une pièce personnalisée à vos pièces. Les onglets Catalogue et Collections contiennent ce que les gens ont partagé pour tous.</translation>
     </message>
     <message>
         <source>Replace or keep both</source>
-        <translation type="unfinished"></translation>
+        <translation>Remplacer ou garder les deux</translation>
     </message>
     <message>
         <source>You already have a part with this name. Update it, or add this model as a new part.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous avez déjà une pièce de ce nom. Mettez-la à jour, ou ajoutez ce modèle comme nouvelle pièce.</translation>
     </message>
     <message>
         <source>Replace the existing part keeps its number, so every layout that uses it shows the new model straight away. Keep both adds this model with a -2 after its name, and the old part stays as it was. To swap the model of a part later, right-click it in the Parts panel or on the map and pick Replace with Another File.</source>
-        <translation type="unfinished"></translation>
+        <translation>« Remplacer la pièce existante » garde son numéro, donc chaque plan qui l’utilise montre aussitôt le nouveau modèle. « Garder les deux » ajoute ce modèle avec un -2 après son nom, et l’ancienne pièce reste telle quelle. Pour changer plus tard le modèle d’une pièce, faites un clic droit dessus dans le panneau Pièces ou sur la carte et choisissez « Remplacer par un autre fichier ».</translation>
     </message>
     <message>
         <source>The original file moved</source>
-        <translation type="unfinished"></translation>
+        <translation>Le fichier d’origine a été déplacé</translation>
     </message>
     <message>
         <source>The model this part was made from isn’t where it was. Show the app where it is now.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le modèle dont cette pièce est issue n’est plus là où il était. Montrez à l’application où il est maintenant.</translation>
     </message>
     <message>
         <source>Pick the model in its new place, or any other model, and the part is made again from it with the same number, turn and alignment. From then on, Re-import uses the file you picked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez le modèle à son nouvel emplacement, ou n’importe quel autre, et la pièce est refaite à partir de lui avec le même numéro, la même rotation et le même alignement. Ensuite, Réimporter utilise le fichier choisi.</translation>
     </message>
     <message>
         <source>Parts without a budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Pièces sans budget</translation>
     </message>
     <message>
         <source>Choose whether parts that have no number in the budget can be used freely.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez si les pièces sans nombre dans le budget peuvent être utilisées librement.</translation>
     </message>
     <message>
         <source>Ticked, a part with no number in the budget can be used as often as you like. Unticked, it can’t be used at all until you give it a number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Coché, une pièce sans nombre dans le budget peut être utilisée autant que vous voulez. Décoché, elle ne peut pas être utilisée du tout tant que vous ne lui donnez pas de nombre.</translation>
     </message>
     <message>
         <source>Recover unsaved work</source>
@@ -164,39 +164,39 @@
     </message>
     <message>
         <source>New layout template</source>
-        <translation type="unfinished"></translation>
+        <translation>Modèle de nouveau plan</translation>
     </message>
     <message>
         <source>A layout that every new layout starts from.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un plan dont part chaque nouveau plan.</translation>
     </message>
     <message>
         <source>Handy if your club always starts with the same baseplates or sheets. Leave it empty to start from a blank map.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pratique si votre club commence toujours avec les mêmes plaques de base ou les mêmes feuilles. Laissez vide pour partir d’une carte vierge.</translation>
     </message>
     <message>
         <source>Connection points</source>
-        <translation type="unfinished"></translation>
+        <translation>Points de connexion</translation>
     </message>
     <message>
         <source>The small dots where track and other pieces join.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les petits points où les rails et autres pièces se raccordent.</translation>
     </message>
     <message>
         <source>Normally they show only on the pieces you pick. Tick this to see them on every piece, which helps when joining long runs of track.</source>
-        <translation type="unfinished"></translation>
+        <translation>Normalement, ils n’apparaissent que sur les pièces choisies. Cochez ceci pour les voir sur chaque pièce, ce qui aide à raccorder de longues voies.</translation>
     </message>
     <message>
         <source>More part folders</source>
-        <translation type="unfinished"></translation>
+        <translation>Autres dossiers de pièces</translation>
     </message>
     <message>
         <source>Extra folders of parts to show in the Parts panel, like ones a friend shared.</source>
-        <translation type="unfinished"></translation>
+        <translation>Des dossiers de pièces en plus à montrer dans le panneau Pièces, comme ceux qu’un ami a partagés.</translation>
     </message>
     <message>
         <source>Add a folder and its parts appear next to the built-in ones. Removing a folder here doesn’t delete anything.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajoutez un dossier, et ses pièces apparaissent à côté de celles fournies. Retirer un dossier ici ne supprime rien.</translation>
     </message>
     <message>
         <source>Get more parts</source>
@@ -212,547 +212,547 @@
     </message>
     <message>
         <source>LDraw library</source>
-        <translation type="unfinished"></translation>
+        <translation>Bibliothèque LDraw</translation>
     </message>
     <message>
         <source>The LDraw parts, needed to bring in models from Studio, LDraw or LEGO Digital Designer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les pièces LDraw, nécessaires pour importer des modèles de Studio, LDraw ou LEGO Digital Designer.</translation>
     </message>
     <message>
         <source>If you don’t have it, press the download button and the app fetches it for you. You only need it for bringing in models.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si vous ne l’avez pas, appuyez sur le bouton de téléchargement et l’application la récupère pour vous. Vous n’en avez besoin que pour importer des modèles.</translation>
     </message>
     <message>
         <source>Zoom speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Vitesse du zoom</translation>
     </message>
     <message>
         <source>How far one turn of the mouse wheel zooms the map.</source>
-        <translation type="unfinished"></translation>
+        <translation>De combien un cran de la molette zoome la carte.</translation>
     </message>
     <message>
         <source>Gentle suits a touchpad or a wheel that spins freely; Fast gets from the whole layout to one part in a few turns.</source>
-        <translation type="unfinished"></translation>
+        <translation>Doux convient à un pavé tactile ou à une molette libre ; Rapide passe du plan entier à une pièce en quelques crans.</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Langue</translation>
     </message>
     <message>
         <source>The language of the app&apos;s menus, windows and help.</source>
-        <translation type="unfinished"></translation>
+        <translation>La langue des menus, fenêtres et de l’aide de l’application.</translation>
     </message>
     <message>
         <source>Match my computer uses your computer&apos;s language when the app has it, and English otherwise. A language you pick shows the next time the app starts.</source>
-        <translation type="unfinished"></translation>
+        <translation>« Comme mon ordinateur » utilise la langue de votre ordinateur quand l’application l’a, et l’anglais sinon. Une langue choisie s’affiche au prochain démarrage de l’application.</translation>
     </message>
     <message>
         <source>Server address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse du serveur</translation>
     </message>
     <message>
         <source>The address of your club’s layout server, the same one you open in your browser.</source>
-        <translation type="unfinished"></translation>
+        <translation>L’adresse du serveur de plans de votre club, la même que vous ouvrez dans votre navigateur.</translation>
     </message>
     <message>
         <source>Ask whoever runs your club’s server for it. You sign in once in your browser, and the app remembers you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Demandez-la à la personne qui gère le serveur de votre club. Vous vous connectez une fois dans le navigateur, et l’application se souvient de vous.</translation>
     </message>
     <message>
         <source>Your servers</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos serveurs</translation>
     </message>
     <message>
         <source>Every layout server you use: your club’s, a friend’s, and so on.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaque serveur de plans que vous utilisez : celui de votre club, celui d’un ami, etc.</translation>
     </message>
     <message>
         <source>Add a server by the web address you open in your browser, then sign in. Each server remembers your sign-in on its own, and its layouts and parts stay with it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajoutez un serveur par l’adresse web que vous ouvrez dans le navigateur, puis connectez-vous. Chaque serveur garde votre connexion pour lui, et ses plans et pièces restent chez lui.</translation>
     </message>
     <message>
         <source>Pick a server</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir un serveur</translation>
     </message>
     <message>
         <source>Choose the server your layout is on. The ones you opened lately are listed under it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez le serveur où est votre plan. Ceux ouverts récemment sont listés en dessous.</translation>
     </message>
     <message>
         <source>Double-click a recent layout to open it straight away, or a server to see all its layouts. Manage Servers adds, renames or removes them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Double-cliquez sur un plan récent pour l’ouvrir tout de suite, ou sur un serveur pour voir tous ses plans. Gérer les serveurs les ajoute, renomme ou retire.</translation>
     </message>
     <message>
         <source>Main server</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveur principal</translation>
     </message>
     <message>
         <source>Your settings follow your account on the Main server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos réglages suivent votre compte sur le serveur principal.</translation>
     </message>
     <message>
         <source>Theme, colors and the other settings are kept with your account there, so they are the same on every computer, whichever server you are working on.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le thème, les couleurs et les autres réglages sont gardés avec votre compte là-bas, donc ils sont les mêmes sur chaque ordinateur, quel que soit le serveur sur lequel vous travaillez.</translation>
     </message>
     <message>
         <source>Save to</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer chez</translation>
     </message>
     <message>
         <source>Who the layout belongs to on the server: you, or your club.</source>
-        <translation type="unfinished"></translation>
+        <translation>À qui le plan appartient sur le serveur : vous, ou votre club.</translation>
     </message>
     <message>
         <source>Pick your club to keep the layout with the club, not with one person. The owner decides who else can see or change it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez votre club pour garder le plan avec le club, et non avec une seule personne. Le propriétaire décide qui d’autre peut le voir ou le modifier.</translation>
     </message>
     <message>
         <source>Your offline changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos changements hors ligne</translation>
     </message>
     <message>
         <source>What you changed while offline, next to what changed on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce que vous avez changé hors ligne, à côté de ce qui a changé sur le serveur.</translation>
     </message>
     <message>
         <source>Pick a row to see it on the map. Changes that don’t clash are simply added; for the ones that clash, choose what to keep.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez une ligne pour la voir sur la carte. Les changements sans conflit sont simplement ajoutés ; pour ceux en conflit, choisissez ce que vous gardez.</translation>
     </message>
     <message>
         <source>Keep mine or the server’s</source>
-        <translation type="unfinished"></translation>
+        <translation>Garder le mien ou celui du serveur</translation>
     </message>
     <message>
         <source>For each clash, choose your version, the server’s, or both.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pour chaque conflit, choisissez votre version, celle du serveur, ou les deux.</translation>
     </message>
     <message>
         <source>“Keep both” adds yours as a copy next to the server’s. “Later” keeps your changes waiting, so nothing is lost.</source>
-        <translation type="unfinished"></translation>
+        <translation>« Garder les deux » ajoute la vôtre comme copie à côté de celle du serveur. « Plus tard » met vos changements en attente, pour que rien ne soit perdu.</translation>
     </message>
     <message>
         <source>Upload your parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoyer vos pièces</translation>
     </message>
     <message>
         <source>Parts you made yourself that the server doesn’t have yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les pièces que vous avez faites vous-même et que le serveur n’a pas encore.</translation>
     </message>
     <message>
         <source>Upload them so everyone who opens your layouts on the server sees them too. Pick your club as the owner to share them with the club.</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoyez-les pour que tous ceux qui ouvrent vos plans sur le serveur les voient aussi. Choisissez votre club comme propriétaire pour les partager avec le club.</translation>
     </message>
     <message>
         <source>One picture of every saved view, into a folder you choose.</source>
-        <translation type="unfinished"></translation>
+        <translation>Une image de chaque vue enregistrée, dans un dossier de votre choix.</translation>
     </message>
     <message>
         <source>This computer keeps modules as files in a folder. The server&apos;s tab has yours and your clubs&apos;, shared with everyone in the club, and Catalog has what people shared for everyone. Add to layout drops a copy in; to change a server module, pick ⋯ › Open to change it, then Save makes a new version.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cet ordinateur garde les modules comme fichiers dans un dossier. L’onglet du serveur contient les vôtres et ceux de vos clubs, partagés avec tout le club, et Catalogue contient ce que les gens ont partagé pour tous. « Ajouter au plan » y dépose une copie ; pour modifier un module du serveur, choisissez ⋯ › « Ouvrir pour le modifier », puis Enregistrer crée une nouvelle version.</translation>
     </message>
     <message>
         <source>Parts</source>
-        <translation type="unfinished">Pièces</translation>
+        <translation>Pièces</translation>
     </message>
     <message>
         <source>All the pieces you can build with.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toutes les pièces avec lesquelles vous pouvez construire.</translation>
     </message>
     <message>
         <source>Search by name or number, or pick a group like track or plates; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cherchez par nom ou numéro, ou choisissez un groupe comme rails ou plaques ; les lettres tapées peuvent avoir des trous, donc « plt2 » trouve « plate2x4 ». Faites glisser une pièce sur la carte, ou double-cliquez dessus pour l’ajouter au milieu. Sur une carte vide, un clic suffit.</translation>
     </message>
     <message>
         <source>Sheets</source>
-        <translation type="unfinished">Calques</translation>
+        <translation>Feuilles</translation>
     </message>
     <message>
         <source>Sheets are see-through pages stacked on the map, to keep things apart.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les feuilles sont des pages transparentes empilées sur la carte, pour séparer les choses.</translation>
     </message>
     <message>
         <source>Put track on one sheet and buildings on another. Hide a sheet to see under it, or lock it so nothing on it moves by accident. New parts go on the sheet that is picked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettez les rails sur une feuille et les bâtiments sur une autre. Masquez une feuille pour voir dessous, ou verrouillez-la pour que rien dessus ne bouge par accident. Les nouvelles pièces vont sur la feuille choisie.</translation>
     </message>
     <message>
         <source>Parts list</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste des pièces</translation>
     </message>
     <message>
         <source>Every part this layout uses, with how many of each.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaque pièce utilisée par ce plan, avec combien de chaque.</translation>
     </message>
     <message>
         <source>Use it to check what you need to bring to a show. If the layout has a budget, parts over their limit are marked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Servez-vous-en pour vérifier ce qu’il faut apporter à une expo. Si le plan a un budget, les pièces au-delà de leur limite sont marquées.</translation>
     </message>
     <message>
         <source>Modules</source>
-        <translation type="unfinished">Modules</translation>
+        <translation>Modules</translation>
     </message>
     <message>
         <source>Groups of pieces kept together, so you can move or reuse them as one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Des groupes de pièces gardées ensemble, pour les déplacer ou les réutiliser d’un bloc.</translation>
     </message>
     <message>
         <source>A module is like a table section: pick it to select everything in it at once. Make a module from the parts you picked; it belongs to this layout. To use it in other layouts, choose Save to Module library… from its ⋯ menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un module est comme une section de table : choisissez-le pour tout sélectionner d’un coup. Faites un module des pièces choisies ; il appartient à ce plan. Pour l’utiliser dans d’autres plans, choisissez « Enregistrer dans la bibliothèque de modules… » dans son menu ⋯.</translation>
     </message>
     <message>
         <source>Module library</source>
-        <translation type="unfinished">Bibliothèque de modules</translation>
+        <translation>Bibliothèque de modules</translation>
     </message>
     <message>
         <source>Modules saved to your account or your club, ready to drop in.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les modules enregistrés dans votre compte ou votre club, prêts à poser.</translation>
     </message>
     <message>
         <source>Drag a module from here onto the map to add a copy of it. Your club’s modules are shared with everyone in the club. To change a module, open it from Home: it opens on its own, and Save module keeps your changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Faites glisser un module d’ici sur la carte pour en ajouter une copie. Les modules de votre club sont partagés avec tout le club. Pour modifier un module, ouvrez-le depuis l’Accueil : il s’ouvre à part, et « Enregistrer le module » garde vos changements.</translation>
     </message>
     <message>
         <source>Venue library</source>
-        <translation type="unfinished"></translation>
+        <translation>Bibliothèque de salles</translation>
     </message>
     <message>
         <source>Venues saved to your account or your club.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les salles enregistrées dans votre compte ou votre club.</translation>
     </message>
     <message>
         <source>Put a venue under your layout to check that it fits, with space to walk around. Anyone in your club can use the club’s venues.</source>
-        <translation type="unfinished"></translation>
+        <translation>Placez une salle sous votre plan pour vérifier qu’il tient, avec de la place pour circuler. Tout le club peut utiliser les salles du club.</translation>
     </message>
     <message>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Vues</translation>
     </message>
     <message>
         <source>Saved views remember a part of the layout, so you can show it again in one tap.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les vues enregistrées retiennent une partie du plan, pour la remontrer d’un geste.</translation>
     </message>
     <message>
         <source>A view can fit the whole layout or keep one area, and show only some sheets. Share a picture of any view, or export a picture of every view at once after a change.</source>
-        <translation type="unfinished"></translation>
+        <translation>Une vue peut montrer tout le plan ou garder une zone, et n’afficher que certaines feuilles. Partagez l’image de n’importe quelle vue, ou exportez d’un coup une image de chaque vue après un changement.</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrement</translation>
     </message>
     <message>
         <source>Shows whether your changes are saved; everything saves by itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Indique si vos changements sont enregistrés ; tout s’enregistre tout seul.</translation>
     </message>
     <message>
         <source>“Saved” means the server has everything. If you go offline, keep working: your changes are kept here and saved when you are back.</source>
-        <translation type="unfinished"></translation>
+        <translation>« Enregistré » veut dire que le serveur a tout. Si vous passez hors ligne, continuez : vos changements sont gardés ici et enregistrés à votre retour.</translation>
     </message>
     <message>
         <source>Tasks</source>
-        <translation type="unfinished"></translation>
+        <translation>Tâches</translation>
     </message>
     <message>
         <source>Jump to what you want to do: build, draw the venue, add notes or see the parts list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Allez à ce que vous voulez faire : construire, dessiner la salle, ajouter des notes ou voir la liste des pièces.</translation>
     </message>
     <message>
         <source>Each task opens the panels you need for it. Nothing is lost when you switch between them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaque tâche ouvre les panneaux nécessaires. Rien n’est perdu quand vous passez de l’une à l’autre.</translation>
     </message>
     <message>
         <source>People here now</source>
-        <translation type="unfinished"></translation>
+        <translation>Présents maintenant</translation>
     </message>
     <message>
         <source>The people working on this layout right now.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les personnes qui travaillent sur ce plan en ce moment.</translation>
     </message>
     <message>
         <source>Everyone sees each other’s changes as they happen. A faded circle means that person has stepped away for a bit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chacun voit les changements des autres en direct. Un cercle pâle veut dire que la personne s’est absentée un moment.</translation>
     </message>
     <message>
         <source>Snap</source>
-        <translation type="unfinished"></translation>
+        <translation>Aimanter</translation>
     </message>
     <message>
         <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les pièces sautent à la ligne de grille la plus proche, pour garder les rangées droites.</translation>
     </message>
     <message>
         <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le nombre est l’écart entre les lignes de grille, en tenons ; les règles, étiquettes, textes et coins de salle s’y calent aussi. Maintenez Alt (⌥ sur Mac) pour les poser exactement où vous lâchez, ou choisissez « non » pour tout poser où vous le déposez. Les bouts de rails s’emboîtent toujours.</translation>
     </message>
     <message>
         <source>Turn step</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de rotation</translation>
     </message>
     <message>
         <source>How far a piece turns each time you press R.</source>
-        <translation type="unfinished"></translation>
+        <translation>De combien une pièce tourne à chaque appui sur R.</translation>
     </message>
     <message>
         <source>Pick 90° for square turns, or a smaller step for curves and angles. Shift+R turns the other way.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez 90° pour des angles droits, ou un pas plus petit pour les courbes et angles. Maj+R tourne dans l’autre sens.</translation>
     </message>
     <message>
         <source>Paint color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de peinture</translation>
     </message>
     <message>
         <source>The color the Paint tool uses.</source>
-        <translation type="unfinished"></translation>
+        <translation>La couleur utilisée par l’outil Peindre.</translation>
     </message>
     <message>
         <source>Pick a color here, then choose Paint and click on the map to color an area. It paints the ground, not the pieces.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez ici une couleur, puis Peindre, et cliquez sur la carte pour colorer une zone. Cela peint le sol, pas les pièces.</translation>
     </message>
     <message>
         <source>Panels</source>
-        <translation type="unfinished"></translation>
+        <translation>Panneaux</translation>
     </message>
     <message>
         <source>Show or hide the side panels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher ou masquer les panneaux latéraux.</translation>
     </message>
     <message>
         <source>Tick a panel to show it. You can also drag a panel by its handle to move it, or float it over the map.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cochez un panneau pour l’afficher. Vous pouvez aussi faire glisser un panneau par sa poignée pour le déplacer, ou le faire flotter au-dessus de la carte.</translation>
     </message>
     <message>
         <source>Adding to</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajout sur</translation>
     </message>
     <message>
         <source>The sheet new parts go on; click it to pick a different sheet.</source>
-        <translation type="unfinished"></translation>
+        <translation>La feuille où vont les nouvelles pièces ; cliquez pour en choisir une autre.</translation>
     </message>
     <message>
         <source>This is the active sheet, also marked Active in the Sheets panel. Parts you place or drop go on it. If it is a text, area or ruler sheet, parts go on a parts sheet instead, and you are told which.</source>
-        <translation type="unfinished"></translation>
+        <translation>C’est la feuille active, aussi marquée Active dans le panneau Feuilles. Les pièces que vous placez ou déposez vont dessus. Si c’est une feuille de texte, de zones ou de règles, les pièces vont plutôt sur une feuille de pièces, et on vous dit laquelle.</translation>
     </message>
     <message>
         <source>Fade other sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>Estomper les autres feuilles</translation>
     </message>
     <message>
         <source>Draws every sheet but the one you’re adding to faded, so that one stands out.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dessine estompées toutes les feuilles sauf celle où vous ajoutez, pour qu’elle ressorte.</translation>
     </message>
     <message>
         <source>The sheet in Adding to stays at full strength, and the fade follows when you pick another. It only changes what you see: pictures, PDFs and shared pictures never show it, and it isn’t saved in the layout or sent to anyone else.</source>
-        <translation type="unfinished"></translation>
+        <translation>La feuille de « Ajout sur » reste bien visible, et l’effet suit quand vous en choisissez une autre. Cela ne change que ce que vous voyez : les images, PDF et images partagées ne le montrent jamais, et ce n’est ni enregistré dans le plan ni envoyé à quelqu’un.</translation>
     </message>
     <message>
         <source>Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Outils</translation>
     </message>
     <message>
         <source>Pick what a click on the map does.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez ce que fait un clic sur la carte.</translation>
     </message>
     <message>
         <source>Select moves pieces, Turn turns the one you click, and Delete removes it. Paint colors the ground and Erase clears it. Measure and Circle add a ruler you can keep on the map, and Venue and Obstacle draw the venue’s walls and things to keep clear of.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner déplace les pièces, Tourner fait tourner celle cliquée, et Supprimer l’enlève. Peindre colore le sol et Gommer l’efface. Mesurer et Cercle ajoutent une règle qui peut rester sur la carte, et Salle et Obstacle dessinent les murs de la salle et ce qu’il faut laisser libre.</translation>
     </message>
     <message>
         <source>Current sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Feuille actuelle</translation>
     </message>
     <message>
         <source>New parts go on this sheet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les nouvelles pièces vont sur cette feuille.</translation>
     </message>
     <message>
         <source>Pick a different sheet in the Sheets panel to put new parts there instead. Each sheet keeps its own parts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez une autre feuille dans le panneau Feuilles pour y mettre les nouvelles pièces. Chaque feuille garde ses propres pièces.</translation>
     </message>
     <message>
         <source>Venue check</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérification de la salle</translation>
     </message>
     <message>
         <source>Says whether the layout fits the venue, with space to walk around.</source>
-        <translation type="unfinished"></translation>
+        <translation>Indique si le plan tient dans la salle, avec de la place pour circuler.</translation>
     </message>
     <message>
         <source>It checks for pieces outside the walls, on top of obstacles, or too close to leave a walkway. Point at it to see what needs fixing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Elle cherche les pièces hors des murs, sur des obstacles, ou trop proches pour laisser un passage. Survolez-la pour voir ce qu’il faut corriger.</translation>
     </message>
     <message>
         <source>Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget</translation>
     </message>
     <message>
         <source>Says whether the layout stays within the parts you have.</source>
-        <translation type="unfinished"></translation>
+        <translation>Indique si le plan reste dans les pièces que vous avez.</translation>
     </message>
     <message>
         <source>A budget is how many of each part you own. “Over” means the layout uses more of some part than you have.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un budget, c’est combien vous avez de chaque pièce. « Dépassé » veut dire que le plan utilise plus d’une pièce que vous n’en avez.</translation>
     </message>
     <message>
         <source>Set how many of each part you have, so the layout never uses more.</source>
-        <translation type="unfinished"></translation>
+        <translation>Indiquez combien vous avez de chaque pièce, pour que le plan n’en utilise jamais plus.</translation>
     </message>
     <message>
         <source>Type a number next to a part to set its limit. Save the budget to a file to use it again, or open one a friend made.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tapez un nombre à côté d’une pièce pour fixer sa limite. Enregistrez le budget dans un fichier pour le réutiliser, ou ouvrez celui d’un ami.</translation>
     </message>
     <message>
         <source>Sheet options</source>
-        <translation type="unfinished"></translation>
+        <translation>Options de la feuille</translation>
     </message>
     <message>
         <source>The name and look of this sheet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le nom et l’aspect de cette feuille.</translation>
     </message>
     <message>
         <source>Make a sheet see-through to show what is under it. Hidden and locked sheets stay in the layout; they just can’t be seen or changed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendez une feuille transparente pour montrer ce qui est dessous. Les feuilles masquées et verrouillées restent dans le plan ; elles ne peuvent juste pas être vues ou modifiées.</translation>
     </message>
     <message>
         <source>Labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Étiquettes</translation>
     </message>
     <message>
         <source>A label is a note pinned to a piece, and it moves with it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Une étiquette est une note attachée à une pièce, qui bouge avec elle.</translation>
     </message>
     <message>
         <source>Use labels to name a station or a street. If the piece moves, its label moves too.</source>
-        <translation type="unfinished"></translation>
+        <translation>Servez-vous des étiquettes pour nommer une gare ou une rue. Si la pièce bouge, son étiquette suit.</translation>
     </message>
     <message>
         <source>Measure</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesurer</translation>
     </message>
     <message>
         <source>A ruler on the map that shows a real distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Une règle sur la carte qui montre une vraie distance.</translation>
     </message>
     <message>
         <source>Rulers stay on the map until you delete them, so others can see them too. Change its color, or show the length in studs, meters or feet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les règles restent sur la carte jusqu’à ce que vous les supprimiez, pour que les autres les voient aussi. Changez sa couleur, ou affichez la longueur en tenons, mètres ou pieds.</translation>
     </message>
     <message>
         <source>Export or print</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter ou imprimer</translation>
     </message>
     <message>
         <source>Make a picture of the layout to share or print.</source>
-        <translation type="unfinished"></translation>
+        <translation>Faire une image du plan à partager ou imprimer.</translation>
     </message>
     <message>
         <source>Pick the part of the map and the size. Printing can spread a big layout over several pages.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez la partie de la carte et la taille. L’impression peut répartir un grand plan sur plusieurs pages.</translation>
     </message>
     <message>
         <source>Export the parts list</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter la liste des pièces</translation>
     </message>
     <message>
         <source>Save the list of parts as a file, for shopping or packing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer la liste des pièces dans un fichier, pour les achats ou le rangement.</translation>
     </message>
     <message>
         <source>HTML has pictures and opens in a browser. CSV opens in a spreadsheet.</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML a des images et s’ouvre dans un navigateur. CSV s’ouvre dans un tableur.</translation>
     </message>
     <message>
         <source>Module look</source>
-        <translation type="unfinished"></translation>
+        <translation>Aspect du module</translation>
     </message>
     <message>
         <source>This module’s own outline and name colors, and whether its name shows.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les couleurs propres au contour et au nom de ce module, et si son nom s’affiche.</translation>
     </message>
     <message>
         <source>With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits.</source>
-        <translation type="unfinished"></translation>
+        <translation>Avec « Même couleur », le contour et le nom changent ensemble. « Valeur par défaut » remet le bleu clair. Les noms longs passent à la ligne, rapetissent et ne sont coupés que si rien d’autre ne tient.</translation>
     </message>
     <message>
         <source>Edit module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier le module</translation>
     </message>
     <message>
         <source>Change this module part by part; the rest of the layout waits, dimmed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifiez ce module pièce par pièce ; le reste du plan attend, assombri.</translation>
     </message>
     <message>
         <source>A module moves as one piece until you edit it: then new parts you drop in join it, and a part dragged outside it asks whether to leave. Done, Esc or a click outside goes back to the whole layout. Pin in place stops the whole module moving, but you can still edit it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un module bouge d’un bloc jusqu’à ce que vous le modifiiez : alors les nouvelles pièces posées dedans le rejoignent, et une pièce sortie demande si elle doit le quitter. Terminé, Échap ou un clic à l’extérieur ramène au plan entier. « Épingler » empêche tout le module de bouger, mais vous pouvez encore le modifier.</translation>
     </message>
     <message>
         <source>Make a module</source>
-        <translation type="unfinished"></translation>
+        <translation>Faire un module</translation>
     </message>
     <message>
         <source>The parts you picked become one module in this layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les pièces choisies deviennent un module de ce plan.</translation>
     </message>
     <message>
         <source>A module moves as one piece, shows its name on the map and is listed in the Modules panel. It stays in this layout only. To use it in other layouts too, tick Also save to my Module library, or later choose Save to Module library… from its ⋯ menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un module bouge d’un bloc, affiche son nom sur la carte et figure dans le panneau Modules. Il reste dans ce plan uniquement. Pour l’utiliser aussi ailleurs, cochez « Enregistrer aussi dans ma bibliothèque de modules », ou choisissez plus tard « Enregistrer dans la bibliothèque de modules… » dans son menu ⋯.</translation>
     </message>
     <message>
         <source>Modules in the Module library</source>
-        <translation type="unfinished"></translation>
+        <translation>Modules de la bibliothèque</translation>
     </message>
     <message>
         <source>A module saved to the Module library stays linked to it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un module enregistré dans la bibliothèque de modules lui reste lié.</translation>
     </message>
     <message>
         <source>Save to Module library… puts a copy in your modules or a club’s; modules you add from the Module library are linked too. After changing it in a layout, Update Module library version makes that the next version, with a note on what changed. When the Module library has a newer version, Update from Module library brings it in where the module sits, and asks first if you changed it here.</source>
-        <translation type="unfinished"></translation>
+        <translation>« Enregistrer dans la bibliothèque de modules… » en met une copie dans vos modules ou ceux d’un club ; les modules ajoutés depuis la bibliothèque sont liés aussi. Après l’avoir changé dans un plan, « Mettre à jour la version de la bibliothèque » en fait la version suivante, avec une note sur ce qui a changé. Quand la bibliothèque a une version plus récente, « Mettre à jour depuis la bibliothèque » l’apporte à la place du module, et demande d’abord si vous l’avez changé ici.</translation>
     </message>
     <message>
         <source>Module sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>Feuilles du module</translation>
     </message>
     <message>
         <source>A module keeps the sheets its parts were on, like Track and Buildings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un module garde les feuilles où étaient ses pièces, comme Rails et Bâtiments.</translation>
     </message>
     <message>
         <source>When you add it to a layout, each sheet’s parts go on the layout’s sheet with the same name. If the layout has no sheet by that name, you choose where they go: the picked sheet, or a new sheet with that name. Put everything on one sheet saves the module with a single sheet instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quand vous l’ajoutez à un plan, les pièces de chaque feuille vont sur la feuille du plan de même nom. Si le plan n’a pas de feuille de ce nom, vous choisissez où elles vont : la feuille choisie, ou une nouvelle feuille de ce nom. « Tout sur une feuille » enregistre plutôt le module avec une seule feuille.</translation>
     </message>
     <message>
         <source>Sets</source>
-        <translation type="unfinished"></translation>
+        <translation>Sets</translation>
     </message>
     <message>
         <source>A set is a group of parts saved together, to place again in one go.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un set est un groupe de pièces enregistrées ensemble, à reposer d’un coup.</translation>
     </message>
     <message>
         <source>Save selection as set keeps the parts you picked, as they sit, under one name. Then you can place it in any layout as one group, and share it like one of your own parts.</source>
-        <translation type="unfinished"></translation>
+        <translation>« Enregistrer la sélection comme set » garde les pièces choisies, telles qu’elles sont, sous un nom. Vous pouvez ensuite le poser dans n’importe quel plan comme un groupe, et le partager comme l’une de vos pièces.</translation>
     </message>
     <message>
         <source>Sharing a set</source>
-        <translation type="unfinished"></translation>
+        <translation>Partager un set</translation>
     </message>
     <message>
         <source>Your own custom parts in a set come along when you share it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos propres pièces d’un set viennent avec lui quand vous le partagez.</translation>
     </message>
     <message>
         <source>The people you invite also get the custom parts of yours that the set uses, so it places properly for them, to look at and place but not change. Taking the set back takes those parts back too, unless you shared them on their own.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les personnes invitées reçoivent aussi les pièces personnalisées que le set utilise, pour qu’il se pose bien chez elles, à regarder et poser mais pas à modifier. Reprendre le set reprend aussi ces pièces, sauf si vous les avez partagées à part.</translation>
     </message>
     <message>
         <source>Moving or copying a set to a club</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer ou copier un set vers un club</translation>
     </message>
     <message>
         <source>Your own custom parts in a set go to the club with it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos propres pièces d’un set partent au club avec lui.</translation>
     </message>
     <message>
         <source>Everyone in the club can then place the set with all its parts. Moving takes your parts with it, except any that another of your sets uses: those stay yours, and the club gets its own copy; copying gives the club its own copy of each part, and yours stay as they are. Either way, if the club already has a part with the same number, the set uses the club’s.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tout le club peut alors poser le set avec toutes ses pièces. Déplacer emporte vos pièces, sauf celles qu’un autre de vos sets utilise : celles-là restent à vous, et le club a sa propre copie ; copier donne au club sa propre copie de chaque pièce, et les vôtres restent telles quelles. Dans les deux cas, si le club a déjà une pièce du même numéro, le set utilise celle du club.</translation>
     </message>
     <message>
         <source>Set updates</source>
@@ -1679,7 +1679,7 @@
     </message>
     <message>
         <source>Measure</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesurer</translation>
     </message>
     <message>
         <source>Line color:</source>
@@ -2322,7 +2322,7 @@
     </message>
     <message>
         <source>Sheets</source>
-        <translation type="unfinished">Calques</translation>
+        <translation>Feuilles</translation>
     </message>
     <message>
         <source>A layout is built on sheets, like see-through pages. Hide one to see what is under it.</source>
@@ -2442,7 +2442,7 @@
     </message>
     <message>
         <source>Save to</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer chez</translation>
     </message>
     <message>
         <source>When you make or publish a layout, Save to picks whether it is yours or your club&apos;s.</source>
@@ -2720,7 +2720,7 @@
     <name>bld::sync::CompareDialog</name>
     <message>
         <source>Your offline changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos changements hors ligne</translation>
     </message>
     <message>
         <source>While you were offline you made 1 change. It doesn&apos;t clash with what changed on the server meanwhile. Apply it to the live layout, or discard it.</source>
@@ -2833,7 +2833,7 @@
     </message>
     <message>
         <source>Your servers</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos serveurs</translation>
     </message>
     <message>
         <source>Manage Servers…</source>
@@ -2941,7 +2941,7 @@
     </message>
     <message>
         <source>Save to</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer chez</translation>
     </message>
     <message>
         <source>Save to Server</source>
@@ -3224,7 +3224,7 @@
     </message>
     <message>
         <source>Your servers</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos serveurs</translation>
     </message>
     <message>
         <source>The places your shared layouts live: your club&apos;s server, a friend&apos;s, and so on. Your settings follow your account on the Main one.</source>
@@ -3363,7 +3363,7 @@
     </message>
     <message>
         <source>Save to</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer chez</translation>
     </message>
     <message>
         <source>Save to server</source>
@@ -3539,7 +3539,7 @@
     </message>
     <message>
         <source>Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget</translation>
     </message>
     <message>
         <source>Part budgets</source>
@@ -3592,11 +3592,11 @@
     <name>bld::ui::CatalogTab</name>
     <message>
         <source>Modules</source>
-        <translation type="unfinished">Modules</translation>
+        <translation>Modules</translation>
     </message>
     <message>
         <source>Parts</source>
-        <translation type="unfinished">Pièces</translation>
+        <translation>Pièces</translation>
     </message>
     <message>
         <source>Layouts</source>
@@ -4452,7 +4452,7 @@
     <name>bld::ui::LayerPanel</name>
     <message>
         <source>Sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>Feuilles</translation>
     </message>
     <message>
         <source>Show all</source>
@@ -4743,7 +4743,7 @@
     </message>
     <message>
         <source>Sheet options</source>
-        <translation type="unfinished"></translation>
+        <translation>Options de la feuille</translation>
     </message>
     <message>
         <source>Visible</source>
@@ -4921,7 +4921,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>Make a module</source>
-        <translation type="unfinished"></translation>
+        <translation>Faire un module</translation>
     </message>
     <message>
         <source>Select one or more parts first, then choose Make a module.</source>
@@ -5329,7 +5329,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>Venue library</source>
-        <translation type="unfinished"></translation>
+        <translation>Bibliothèque de salles</translation>
     </message>
     <message>
         <source>Your part %1</source>
@@ -5453,11 +5453,11 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>Sheets</source>
-        <translation type="unfinished">Calques</translation>
+        <translation>Feuilles</translation>
     </message>
     <message>
         <source>Parts list</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste des pièces</translation>
     </message>
     <message>
         <source>Undo the last change</source>
@@ -5489,7 +5489,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>Measure</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesurer</translation>
     </message>
     <message>
         <source>Draw a ruler to measure a distance</source>
@@ -5565,7 +5565,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>Panels</source>
-        <translation type="unfinished"></translation>
+        <translation>Panneaux</translation>
     </message>
     <message>
         <source>Show or hide the side panels</source>
@@ -5709,7 +5709,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>Paint color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de peinture</translation>
     </message>
     <message>
         <source>Budget: OK</source>
@@ -7919,7 +7919,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     <name>bld::ui::MakeModuleDialog</name>
     <message>
         <source>Make a module</source>
-        <translation type="unfinished"></translation>
+        <translation>Faire un module</translation>
     </message>
     <message>
         <source>The picked part becomes one module in this layout. It moves as one piece.</source>
@@ -7951,7 +7951,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Save to</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer chez</translation>
     </message>
     <message>
         <source>Make module</source>
@@ -8082,7 +8082,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Étiquettes</translation>
     </message>
     <message>
         <source>No parts sheet — add one before dropping parts</source>
@@ -8246,7 +8246,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Edit module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier le module</translation>
     </message>
     <message>
         <source>Unpin</source>
@@ -8477,7 +8477,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     <name>bld::ui::ModuleEditBar</name>
     <message>
         <source>Edit module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier le module</translation>
     </message>
     <message>
         <source>Done</source>
@@ -8579,7 +8579,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     <name>bld::ui::ModuleLookDialog</name>
     <message>
         <source>Module look</source>
-        <translation type="unfinished"></translation>
+        <translation>Aspect du module</translation>
     </message>
     <message>
         <source>Show name</source>
@@ -8646,7 +8646,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Make a module</source>
-        <translation type="unfinished"></translation>
+        <translation>Faire un module</translation>
     </message>
     <message>
         <source>Make the picked parts one module in this layout</source>
@@ -8686,7 +8686,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Edit module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier le module</translation>
     </message>
     <message>
         <source>Unpin</source>
@@ -8863,7 +8863,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Budget</source>
-        <translation type="unfinished"></translation>
+        <translation>Budget</translation>
     </message>
     <message>
         <source>Over</source>
@@ -9286,7 +9286,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Save to</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer chez</translation>
     </message>
     <message>
         <source>%1  ·  v%2</source>
@@ -9387,7 +9387,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Save to</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer chez</translation>
     </message>
     <message>
         <source>Save to server</source>
@@ -9556,7 +9556,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Open from Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir depuis le serveur</translation>
     </message>
     <message>
         <source>Server</source>
@@ -9632,11 +9632,11 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Modules</source>
-        <translation type="unfinished">Modules</translation>
+        <translation>Modules</translation>
     </message>
     <message>
         <source>Parts</source>
-        <translation type="unfinished">Pièces</translation>
+        <translation>Pièces</translation>
     </message>
     <message>
         <source>Catalog</source>
@@ -10165,7 +10165,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Langue</translation>
     </message>
     <message>
         <source>Starting up</source>
@@ -10292,7 +10292,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Paint color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de peinture</translation>
     </message>
     <message>
         <source>Paint color:</source>
@@ -10404,7 +10404,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>LDraw library</source>
-        <translation type="unfinished"></translation>
+        <translation>Bibliothèque LDraw</translation>
     </message>
     <message>
         <source>e.g. ~/ldraw (with LDConfig.ldr and parts/ in it)</source>
@@ -10695,7 +10695,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Share to the public catalog</source>
-        <translation type="unfinished"></translation>
+        <translation>Partager au catalogue public</translation>
     </message>
     <message>
         <source>A copy of it as it is now goes to the catalog. Later changes stay yours until you publish an update.</source>
@@ -11024,7 +11024,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Measure</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesurer</translation>
     </message>
     <message>
         <source>Click two points to add a measurement (or type its length)</source>
@@ -11052,7 +11052,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Snap</source>
-        <translation type="unfinished"></translation>
+        <translation>Aimanter</translation>
     </message>
     <message>
         <source>Snap to corners, walls, 45° and whole inches (hold Shift for any angle)</source>
@@ -11507,7 +11507,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <name>bld::ui::VenueLibraryPanel</name>
     <message>
         <source>Venue library</source>
-        <translation type="unfinished"></translation>
+        <translation>Bibliothèque de salles</translation>
     </message>
     <message>
         <source>Folder…</source>
@@ -11693,7 +11693,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Vues</translation>
     </message>
     <message>
         <source>No saved views yet. A view remembers a part of the layout, so you can show it, or share a picture of it, in one click.</source>
@@ -11733,7 +11733,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Sheets</source>
-        <translation type="unfinished">Calques</translation>
+        <translation>Feuilles</translation>
     </message>
     <message>
         <source>All sheets</source>
