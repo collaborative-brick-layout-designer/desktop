@@ -688,7 +688,8 @@ void MainWindow::uploadModule(sync::LibraryApi& api, const std::shared_ptr<core:
                               const QString& updateId, const QString& title, const QString& orgSlug,
                               const QString& note,
                               const std::function<void(bool, const QString&, int)>& whenDone,
-                              int baseDocVersion) {
+                              int baseDocVersion,
+                              const std::function<void(const std::shared_ptr<core::Map>&, const QString&)>& changedElsewhere) {
     // Its picture now, while the parts are at hand: as big as the web's,
     // smaller when the server's limit can't take that.
     QByteArray png;
@@ -708,14 +709,15 @@ void MainWindow::uploadModule(sync::LibraryApi& api, const std::shared_ptr<core:
     });
     // Write the module into what the server holds (a new one starts with
     // the server's empty layout), then save it as a version.
+    const auto changed = std::make_shared<const std::function<void(const std::shared_ptr<core::Map>&, const QString&)>>(changedElsewhere);
     auto write = [this, &api, module, png, note, server, done, failed,
-                  baseDocVersion](const QString& id, const QString& name, bool created) {
+                  baseDocVersion, changed](const QString& id, const QString& name, bool created) {
         api.moduleSnapshot(
             id,
             sync::whileAlive(
                 this,
                 [this, &api, module, id, name, png, note, server, done, failed, created,
-                 baseDocVersion](const QByteArray& current) {
+                 baseDocVersion, changed](const QByteArray& current) {
                     QString error;
                     const QByteArray snapshot = sync::moduleSnapshotFor(*module, current, &error);
                     if (snapshot.isEmpty()) {
@@ -753,17 +755,23 @@ void MainWindow::uploadModule(sync::LibraryApi& api, const std::shared_ptr<core:
                                          }),
                         sync::whileAlive(this,
                                          [this, &api, id, created, failed, module, note,
-                                          done](const sync::ServerRefusal& r) {
+                                          done, changed](const sync::ServerRefusal& r) {
                                              // Don't leave an empty module behind when its contents didn't
                                              // arrive.
                                              if (created) api.deleteModule(id, {}, {});
                                              // Someone else saved it since this one started: ask, never
                                              // overwrite theirs.
-                                             if (r.status == 409 && r.code == QLatin1String("module_changed")
-                                                 && editingModule_.id == id) {
-                                                 if (*done) (*done)(false, {}, 0);
-                                                 moduleChangedElsewhere(module, note);
-                                                 return;
+                                             if (r.status == 409 && r.code == QLatin1String("module_changed")) {
+                                                 if (*changed) {
+                                                     if (*done) (*done)(false, {}, 0);
+                                                     (*changed)(module, note);
+                                                     return;
+                                                 }
+                                                 if (editingModule_.id == id) {
+                                                     if (*done) (*done)(false, {}, 0);
+                                                     moduleChangedElsewhere(module, note);
+                                                     return;
+                                                 }
                                              }
                                              failed(r);
                                          }),

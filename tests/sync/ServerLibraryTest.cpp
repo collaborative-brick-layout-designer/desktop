@@ -34,6 +34,9 @@
 #include "ui/UpdateCheck.h"
 #include "ui/VenueLibraryPanel.h"
 
+#include "ui/theme/ThemeManager.h"
+#include "ui/theme/Tokens.h"
+#include <QMessageBox>
 #include <gtest/gtest.h>
 
 #include <QApplication>
@@ -1286,6 +1289,134 @@ TEST_F(ServerModulesWindow, LinkedModulesUpdateTheLibraryAndFromIt) {
     view_->undoStack()->undo();
     EXPECT_EQ(bricksInMap(), 3);
     EXPECT_EQ(view_->currentMap()->sidecar.modules.front().libraryVersion, 1);
+}
+
+// Update Module library version names the version the dialog showed (If-Match),
+// as a module being changed here does. Someone else's save since then is
+// refused and asked about: Save mine saves over it as a new version.
+TEST_F(ServerModulesWindow, UpdateLibraryVersionNamesTheVersionItSawAndSaveMineSavesOverIt) {
+    const auto answers = answerNewSheets();
+    emit library_->insertRequested(QStringLiteral("m1"));
+    ASSERT_TRUE(waitFor([&] { return bricksInMap() == 3; }));
+    const QString id = view_->currentMap()->sidecar.modules.front().id;
+    // The first save: refused, someone saved meanwhile. The second (Save mine): taken.
+    http_.reply("/api/modules/m1/snapshot?note=Mine", 409,
+                { { QStringLiteral("error"), QStringLiteral("module_changed") }, { QStringLiteral("docVersion"), 2 } });
+    http_.reply("/api/modules/m1/snapshot?note=Mine", 200,
+                { { QStringLiteral("version"), 3 }, { QStringLiteral("docVersion"), 3 } });
+    http_.reply("/api/modules/m1/thumbnail", 200, { { QStringLiteral("ok"), true } });
+    QStringList asked;
+    window_->askModuleChanged = [&](const QString& title) {
+        asked << title;
+        return 2; // Save mine as a new version
+    };
+    QTimer::singleShot(0, [] {
+        auto* d = qobject_cast<ui::PublishModuleDialog*>(QApplication::activeModalWidget());
+        ASSERT_NE(d, nullptr);
+        d->noteEdit()->setText(QStringLiteral("Mine"));
+        d->accept();
+    });
+    emit window_->findChild<ui::ModulesPanel*>()->libraryActionRequested(id, QStringLiteral("publish"));
+    ASSERT_TRUE(waitFor([&] { return asked.size() == 1; }));
+    EXPECT_EQ(asked.front(), QStringLiteral("Freight yard"));
+    std::vector<const synctest::Request*> puts;
+    ASSERT_TRUE(waitFor([&] {
+        puts.clear();
+        for (const auto& r : http_.requests)
+            if (r.method == "PUT" && r.path == "/api/modules/m1/snapshot?note=Mine") puts.push_back(&r);
+        return puts.size() == 2;
+    }));
+    // The first named the version the dialog showed (the list's docVersion 1); Save mine names none.
+    EXPECT_EQ(puts[0]->ifMatch, QByteArray("\"1\""));
+    EXPECT_TRUE(puts[1]->ifMatch.isEmpty());
+    ASSERT_TRUE(waitFor([&] { return view_->currentMap()->sidecar.modules.front().libraryVersion == 3; }));
+}
+
+// Load theirs after a refused Update Module library version: the library's
+// newest version replaces this module's parts, without asking again, and
+// nothing is written over.
+TEST_F(ServerModulesWindow, UpdateLibraryVersionLoadTheirsBringsTheirVersionIn) {
+    const auto answers = answerNewSheets();
+    emit library_->insertRequested(QStringLiteral("m1"));
+    ASSERT_TRUE(waitFor([&] { return bricksInMap() == 3; }));
+    const QString id = view_->currentMap()->sidecar.modules.front().id;
+    // Someone saved version 3 (a fourth part) meanwhile; the list still says 1 until it's refreshed.
+    http_.reply("/api/modules/m1/snapshot?note=Mine", 409,
+                { { QStringLiteral("error"), QStringLiteral("module_changed") }, { QStringLiteral("docVersion"), 3 } });
+    http_.clear("/api/modules/m1/snapshot");
+    http_.replyRaw("/api/modules/m1/snapshot", 200, snapshotOf(*sampleModule(3)), "application/octet-stream");
+    http_.clear("/api/modules");
+    http_.reply("/api/modules", 200, modules({ moduleJson(QStringLiteral("m1"), QStringLiteral("Freight yard"), QStringLiteral("owner"), {}, 0, 3) }));
+    window_->askModuleChanged = [&](const QString&) { return 1; }; // Load theirs
+    int asked = 0;
+    window_->confirmModuleLibrary_ = [&](const ui::ConfirmOptions&) { ++asked; return true; };
+    QTimer::singleShot(0, [] {
+        auto* d = qobject_cast<ui::PublishModuleDialog*>(QApplication::activeModalWidget());
+        ASSERT_NE(d, nullptr);
+        d->noteEdit()->setText(QStringLiteral("Mine"));
+        d->accept();
+    });
+    emit window_->findChild<ui::ModulesPanel*>()->libraryActionRequested(id, QStringLiteral("publish"));
+    ASSERT_TRUE(waitFor([&] { return bricksInMap() == 4; }));
+    const core::Module& mod = view_->currentMap()->sidecar.modules.front();
+    EXPECT_EQ(mod.id, id);
+    EXPECT_EQ(mod.libraryVersion, 3);
+    EXPECT_EQ(asked, 0);
+    int puts = 0;
+    for (const auto& r : http_.requests) puts += r.method == "PUT";
+    EXPECT_EQ(puts, 1);
+    ASSERT_NE(lastRequest(http_, "PUT", "/api/modules/m1/snapshot?note=Mine"), nullptr);
+    EXPECT_EQ(lastRequest(http_, "PUT", "/api/modules/m1/snapshot?note=Mine")->ifMatch, QByteArray("\"1\""));
+}
+
+// BLD_CONFLICT_SHOTS=<dir>: pictures of the "Someone saved this module" question
+// after a refused Update Module library version, in the light and dark themes,
+// to look at (not compared).
+TEST_F(ServerModulesWindow, UpdateLibraryVersionConflictShots) {
+    const QString out = qEnvironmentVariable("BLD_CONFLICT_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_CONFLICT_SHOTS not set";
+    QDir().mkpath(out);
+    const auto answers = answerNewSheets();
+    emit library_->insertRequested(QStringLiteral("m1"));
+    ASSERT_TRUE(waitFor([&] { return bricksInMap() == 3; }));
+    const QString id = view_->currentMap()->sidecar.modules.front().id;
+    http_.reply("/api/modules/m1/snapshot?note=Mine", 409,
+                { { QStringLiteral("error"), QStringLiteral("module_changed") }, { QStringLiteral("docVersion"), 2 } });
+    const auto pause = [](int ms) {
+        QElapsedTimer t;
+        t.start();
+        while (t.elapsed() < ms) QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+    };
+    ui::theme::loadFonts();
+    const ui::theme::Accent accent = ui::theme::accent(QString::fromLatin1(ui::theme::kDefaultAccent));
+    for (const auto mode : { ui::theme::Mode::Light, ui::theme::Mode::Dark }) {
+        QApplication::setPalette(ui::theme::buildPalette(mode, accent));
+        qApp->setStyleSheet(ui::theme::buildStyleSheet(mode, accent));
+        pause(300);
+        const QString name = mode == ui::theme::Mode::Dark ? QStringLiteral("dark") : QStringLiteral("light");
+        bool shot = false;
+        QTimer::singleShot(0, [] {
+            auto* d = qobject_cast<ui::PublishModuleDialog*>(QApplication::activeModalWidget());
+            ASSERT_NE(d, nullptr);
+            d->noteEdit()->setText(QStringLiteral("Mine"));
+            d->accept();
+        });
+        auto poll = std::make_unique<QTimer>();
+        QObject::connect(poll.get(), &QTimer::timeout, [&] {
+            auto* box = qobject_cast<QMessageBox*>(QApplication::activeModalWidget());
+            if (!box || shot) return;
+            box->adjustSize();
+            pause(200);
+            box->grab().save(out + QStringLiteral("/conflict-%1-%2.png").arg(QStringLiteral("after"), name));
+            shot = true;
+            box->reject();
+        });
+        poll->start(50);
+        emit window_->findChild<ui::ModulesPanel*>()->libraryActionRequested(id, QStringLiteral("publish"));
+        ASSERT_TRUE(waitFor([&] { return shot; }));
+        poll->stop();
+    }
+    qApp->setStyleSheet(QString());
 }
 
 // Changed in this layout: Update from Module library asks first, and No keeps it.

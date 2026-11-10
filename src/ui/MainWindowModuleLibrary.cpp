@@ -37,6 +37,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QMessageBox>
+#include <QPushButton>
 #include <QStatusBar>
 #include <QUndoStack>
 
@@ -157,7 +158,7 @@ void MainWindow::saveModuleToLibrary(const QString& moduleId) {
 }
 
 void MainWindow::saveModuleMap(core::Map module, const QString& moduleId, const QString& title, bool onThisComputer,
-                               const QString& orgSlug, const QString& updateId, const QString& note) {
+                               const QString& orgSlug, const QString& updateId, const QString& note, int baseDocVersion) {
     const int partCount = sync::partCount(module);
     if (onThisComputer) {
         const QString path = saveModuleLocally(module, partCount, title);
@@ -165,7 +166,53 @@ void MainWindow::saveModuleMap(core::Map module, const QString& moduleId, const 
         return;
     }
     centre(module);
+    const auto linkSaved = sync::whileAlive(this, [this, moduleId](bool saved, const QString& id, int version) {
+        if (saved) linkModule(moduleId, id, version, serverLibrary_->api().moduleWebUrl(id).toString());
+    });
+    // Update Module library version: the save names the version this copy was made from, so someone else's
+    // save since then is asked about instead of written over.
+    const auto changedElsewhere = baseDocVersion >= 0 && !updateId.isEmpty()
+        ? std::function<void(const std::shared_ptr<core::Map>&, const QString&)>(sync::whileAlive(
+              this, [this, moduleId, updateId, title](const std::shared_ptr<core::Map>& m, const QString& n) {
+                  publishChangedElsewhere(moduleId, updateId, title, m, n);
+              }))
+        : std::function<void(const std::shared_ptr<core::Map>&, const QString&)>();
     uploadModule(serverLibrary_->api(), std::make_shared<core::Map>(std::move(module)), updateId, title, orgSlug, note,
+                 linkSaved, baseDocVersion, changedElsewhere);
+}
+
+void MainWindow::publishChangedElsewhere(const QString& moduleId, const QString& libraryId, const QString& title,
+                                         const std::shared_ptr<core::Map>& module, const QString& note) {
+    const int choice = askModuleChanged ? askModuleChanged(title) : [&] {
+        QMessageBox box(QMessageBox::Warning, tr("Someone saved this module"),
+                        tr("Someone else saved “%1” while you were changing it, so your save was held back. "
+                           "Nothing is lost.")
+                            .arg(title),
+                        QMessageBox::NoButton, this);
+        box.setInformativeText(
+            tr("Load theirs: their version replaces this module's parts in this layout, and your changes to it are dropped.\n"
+               "Save mine as a new version: this layout's copy becomes the module; theirs stays in its version history."));
+        auto* theirs = box.addButton(tr("Load Theirs"), QMessageBox::DestructiveRole);
+        auto* mine = box.addButton(tr("Save Mine as a New Version"), QMessageBox::AcceptRole);
+        box.addButton(tr("Not Now"), QMessageBox::RejectRole);
+        box.setDefaultButton(mine);
+        box.exec();
+        return box.clickedButton() == theirs ? 1 : box.clickedButton() == mine ? 2 : 0;
+    }();
+    if (choice == 1) {
+        // Theirs: the library's newest version, once the list says which that is.
+        auto conn = std::make_shared<QMetaObject::Connection>();
+        *conn = connect(serverLibrary_, &ServerLibrary::changed, this, [this, conn, moduleId] {
+            disconnect(*conn);
+            pullModule(moduleId, false);
+        });
+        serverLibrary_->refresh();
+        return;
+    }
+    if (choice != 2) return;
+    if (!serverLibrary_ || serverLibrary_->state() != ServerLibrary::State::Ready) return;
+    // Mine, as a new version: no base, so it's taken; theirs stays in the history.
+    uploadModule(serverLibrary_->api(), module, libraryId, title, QString(), note,
                  sync::whileAlive(this, [this, moduleId](bool saved, const QString& id, int version) {
                      if (saved) linkModule(moduleId, id, version, serverLibrary_->api().moduleWebUrl(id).toString());
                  }));
@@ -243,7 +290,8 @@ void MainWindow::publishModule(const QString& moduleId) {
         dialog.setSheets(edit::moduleSheetNames(*module), edit::oneSheetName(*module));
         if (dialog.exec() != QDialog::Accepted) return;
         if (dialog.oneSheet()) edit::putOnOneSheet(*module);
-        saveModuleMap(std::move(*module), moduleId, sm->title, false, QString(), sm->id, dialog.note());
+        // Names the version the dialog showed (its docVersion): someone else's save meanwhile is asked about.
+        saveModuleMap(std::move(*module), moduleId, sm->title, false, QString(), sm->id, dialog.note(), sm->docVersion);
         return;
     }
     const QString file = libraryFileOf(*mod);
@@ -268,12 +316,13 @@ bool MainWindow::confirmModuleLibrary(const ConfirmOptions& o) {
     return confirmModuleLibrary_ ? confirmModuleLibrary_(o) : ConfirmDialog::ask(this, o);
 }
 
-void MainWindow::pullModule(const QString& moduleId) {
+void MainWindow::pullModule(const QString& moduleId, bool askIfChanged) {
     auto* map = mapView_->currentMap();
     const core::Module* mod = map ? core::findModule(map->sidecar.modules, moduleId) : nullptr;
     if (!mod) return;
     const QString name = mod->name.isEmpty() ? tr("this module") : mod->name;
-    const auto ask = [this, name](int version) {
+    const auto ask = [this, name, askIfChanged](int version) {
+        if (!askIfChanged) return true;
         ConfirmOptions o;
         o.title = version > 0 ? tr("Replace “%1” with version %2?").arg(name).arg(version)
                               : tr("Replace “%1” with the Module library file's parts?").arg(name);

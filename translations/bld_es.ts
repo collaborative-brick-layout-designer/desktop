@@ -5015,6 +5015,12 @@ las celdas existentes con su numeración antigua: píntalas encima para limpiar.
         <translation>Este módulo no tiene piezas que guardar.</translation>
     </message>
     <message>
+        <source>Load theirs: their version replaces this module&apos;s parts in this layout, and your changes to it are dropped.
+Save mine as a new version: this layout&apos;s copy becomes the module; theirs stays in its version history.</source>
+        <translation>Cargar la suya: su versión reemplaza las piezas de este módulo en esta maqueta, y tus cambios en él se descartan.
+Guardar la mía como versión nueva: la copia de esta maqueta pasa a ser el módulo; la suya queda en su historial de versiones.</translation>
+    </message>
+    <message>
         <source>Link module to the Module library</source>
         <translation>Enlazar el módulo con la biblioteca de módulos</translation>
     </message>

@@ -4981,6 +4981,12 @@ existing cells at their old indexing — paint over to clean up.</source>
         <translation>このモジュールには保存するパーツがありません。</translation>
     </message>
     <message>
+        <source>Load theirs: their version replaces this module&apos;s parts in this layout, and your changes to it are dropped.
+Save mine as a new version: this layout&apos;s copy becomes the module; theirs stays in its version history.</source>
+        <translation>相手の版を読み込む: 相手の版がこのレイアウト内のこのモジュールのパーツを置き換え、あなたの変更は破棄されます。
+自分の版を新しい版として保存: このレイアウトのコピーがモジュールになり、相手の版は版の履歴に残ります。</translation>
+    </message>
+    <message>
         <source>Link module to the Module library</source>
         <translation>モジュールをモジュールライブラリにつなぐ</translation>
     </message>

@@ -5023,6 +5023,12 @@ de eksisterende rutene den gamle indekseringen — mal over for å rydde opp.</t
         <translation>Denne modulen har ingen deler å lagre.</translation>
     </message>
     <message>
+        <source>Load theirs: their version replaces this module&apos;s parts in this layout, and your changes to it are dropped.
+Save mine as a new version: this layout&apos;s copy becomes the module; theirs stays in its version history.</source>
+        <translation>Last inn deres: deres versjon erstatter denne modulens deler i denne layouten, og endringene dine i den forkastes.
+Lagre min som ny versjon: denne layoutens kopi blir modulen; deres blir liggende i versjonshistorikken.</translation>
+    </message>
+    <message>
         <source>Link module to the Module library</source>
         <translation>Koble modulen til Modulbiblioteket</translation>
     </message>

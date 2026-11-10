@@ -5015,6 +5015,12 @@ bestaande cellen hun oude nummering. Verf eroverheen om op te ruimen.</translati
         <translation>Deze module heeft geen onderdelen om op te slaan.</translation>
     </message>
     <message>
+        <source>Load theirs: their version replaces this module&apos;s parts in this layout, and your changes to it are dropped.
+Save mine as a new version: this layout&apos;s copy becomes the module; theirs stays in its version history.</source>
+        <translation>Die van hen laden: hun versie vervangt de onderdelen van deze module in deze layout, en je wijzigingen eraan vervallen.
+De mijne als nieuwe versie opslaan: de kopie van deze layout wordt de module; die van hen blijft in de versiegeschiedenis.</translation>
+    </message>
+    <message>
         <source>Link module to the Module library</source>
         <translation>Module koppelen aan de modulebibliotheek</translation>
     </message>

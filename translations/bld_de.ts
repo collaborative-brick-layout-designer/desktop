@@ -5015,6 +5015,12 @@ die vorhandenen Zellen ihre alte Zählung – übermalen, um aufzuräumen.</tran
         <translation>Dieses Modul hat keine Teile zum Speichern.</translation>
     </message>
     <message>
+        <source>Load theirs: their version replaces this module&apos;s parts in this layout, and your changes to it are dropped.
+Save mine as a new version: this layout&apos;s copy becomes the module; theirs stays in its version history.</source>
+        <translation>Ihre laden: ihre Version ersetzt die Teile dieses Moduls in diesem Layout, und deine Änderungen daran werden verworfen.
+Meine als neue Version speichern: die Kopie dieses Layouts wird das Modul; ihre bleibt in seinem Versionsverlauf.</translation>
+    </message>
+    <message>
         <source>Link module to the Module library</source>
         <translation>Modul mit der Modulbibliothek verbinden</translation>
     </message>
