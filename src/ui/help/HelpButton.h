@@ -39,6 +39,9 @@ public:
 
     // Adds a "?" to `toolbar` (its action is what hides it there).
     static HelpButton* addTo(QToolBar* toolbar, const QString& key, QWidget* target = nullptr);
+    // Put away while its toolbar has no room (the Help menu has the same
+    // help), whatever Settings says; back when there is room again.
+    void setCrowdedOut(bool out);
 
     QString key() const { return key_; }
     QWidget* target() const;
@@ -84,6 +87,7 @@ private:
     // this button owns; the popover is cleared when it is destroyed.
     QWidget* target_ = nullptr;
     QAction* visibilityAction_ = nullptr;
+    bool crowdedOut_ = false;
     QLabel* tip_ = nullptr;
     HelpPopover* popover_ = nullptr;
     bool hovered_ = false;

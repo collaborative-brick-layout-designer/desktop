@@ -105,8 +105,6 @@ add_library(bld_ui STATIC
     ImportPipeline.h
     ImportPreviewDialog.cpp
     ImportPreviewDialog.h
-    PreferencesDialog.cpp
-    PreferencesDialog.h
     FindDialog.cpp
     FindDialog.h
     BudgetDialog.cpp
@@ -127,6 +125,9 @@ add_library(bld_ui STATIC
     venue/VenueDesignerView.h
     MainWindowShell.cpp
     SettingsDialog.cpp
+    SettingsSections.cpp
+    SettingsSections.h
+    TranslationCoverage.h
     SettingsDialog.h
     theme/ThemeManager.cpp
     theme/ThemeManager.h

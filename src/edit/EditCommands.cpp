@@ -41,7 +41,7 @@ core::Brick* findBrick(core::Map& map, const BrickRef& ref) {
 
 MoveBricksCommand::MoveBricksCommand(core::Map& map, std::vector<Entry> entries, QUndoCommand* parent)
     : QUndoCommand(parent), map_(map), entries_(std::move(entries)) {
-    setText(QObject::tr("Move %1 brick(s)").arg(entries_.size()));
+    setText(QObject::tr("Move %n part(s)", nullptr, static_cast<int>(entries_.size())));
 }
 
 void MoveBricksCommand::redo() {
@@ -64,7 +64,7 @@ void MoveBricksCommand::undo() {
 
 RotateBricksCommand::RotateBricksCommand(core::Map& map, std::vector<Entry> entries, QUndoCommand* parent)
     : QUndoCommand(parent), map_(map), entries_(std::move(entries)) {
-    setText(QObject::tr("Turn %1 part(s)").arg(entries_.size()));
+    setText(QObject::tr("Turn %n part(s)", nullptr, static_cast<int>(entries_.size())));
 }
 
 void RotateBricksCommand::redo() {
@@ -89,7 +89,7 @@ void RotateBricksCommand::undo() {
 
 DeleteBricksCommand::DeleteBricksCommand(core::Map& map, std::vector<Entry> entries, QUndoCommand* parent)
     : QUndoCommand(parent), map_(map), entries_(std::move(entries)) {
-    setText(QObject::tr("Delete %1 brick(s)").arg(entries_.size()));
+    setText(QObject::tr("Delete %n part(s)", nullptr, static_cast<int>(entries_.size())));
 }
 
 void DeleteBricksCommand::redo() {
@@ -207,8 +207,8 @@ ReorderBricksCommand::ReorderBricksCommand(core::Map& map, std::vector<Target> t
                                            Direction dir, QUndoCommand* parent)
     : QUndoCommand(parent), map_(map), targets_(std::move(targets)), dir_(dir) {
     setText(dir_ == ToFront
-        ? QObject::tr("Bring %1 brick(s) to front").arg(targets_.size())
-        : QObject::tr("Send %1 brick(s) to back").arg(targets_.size()));
+        ? QObject::tr("Bring %n part(s) to front", nullptr, static_cast<int>(targets_.size()))
+        : QObject::tr("Send %n part(s) to back", nullptr, static_cast<int>(targets_.size())));
 }
 
 void ReorderBricksCommand::redo() {
@@ -653,7 +653,7 @@ GroupBricksCommand::GroupBricksCommand(core::Map& map, const std::vector<BrickRe
         before_.push_back(std::move(before));
         after_.push_back(std::move(after));
     }
-    setText(QObject::tr("Group %1 brick(s)").arg(targets.size()));
+    setText(QObject::tr("Group %n part(s)", nullptr, static_cast<int>(targets.size())));
 }
 
 UngroupBricksCommand::UngroupBricksCommand(core::Map& map, const std::vector<BrickRef>& targets,
@@ -682,7 +682,7 @@ UngroupBricksCommand::UngroupBricksCommand(core::Map& map, const std::vector<Bri
         before_.push_back(std::move(before));
         after_.push_back(std::move(after));
     }
-    setText(QObject::tr("Ungroup %1 brick(s)").arg(targets.size()));
+    setText(QObject::tr("Ungroup %n part(s)", nullptr, static_cast<int>(targets.size())));
 }
 
 // ----- AddBricksCommand -----
@@ -690,7 +690,7 @@ UngroupBricksCommand::UngroupBricksCommand(core::Map& map, const std::vector<Bri
 AddBricksCommand::AddBricksCommand(core::Map& map, int layerIndex, std::vector<core::Brick> bricks,
                                    QUndoCommand* parent)
     : QUndoCommand(parent), map_(map), layerIndex_(layerIndex), bricks_(std::move(bricks)) {
-    setText(QObject::tr("Add %1 brick(s)").arg(bricks_.size()));
+    setText(QObject::tr("Add %n part(s)", nullptr, static_cast<int>(bricks_.size())));
 }
 
 AddBricksCommand::AddBricksCommand(core::Map& map, int layerIndex, std::vector<core::Brick> bricks,

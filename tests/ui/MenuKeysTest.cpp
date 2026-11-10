@@ -1,12 +1,10 @@
 // The keys of the main window: no two menu items share a shortcut (Qt fires
 // neither when two do: Ctrl+P was both Print… and Select Path), no two items
 // of one menu share an Alt letter, Help > Keyboard Shortcuts lists each item
-// once, Export as Image waits for a file, and Preferences keeps the paint
-// color it was given.
+// once, and Export as Image waits for a file.
 
 #include "ui/MainWindow.h"
 #include "ui/MapView.h"
-#include "ui/PreferencesDialog.h"
 #include "ui/UpdateCheck.h"
 #include "ui/help/ShortcutsDialog.h"
 #include "parts/PartsLibrary.h"
@@ -167,33 +165,5 @@ TEST_F(MenuKeys, ExportAsImageWaitsForAFile) {
     });
     exportAct->trigger();
     EXPECT_TRUE(checked);
-    QCoreApplication::setAttribute(Qt::AA_DontUseNativeDialogs, false);
-}
-
-// The color lived in a local the button kept a reference to: the color
-// window opened on garbage and garbage was saved.
-TEST_F(MenuKeys, PreferencesKeepsThePaintColor) {
-    QCoreApplication::setAttribute(Qt::AA_DontUseNativeDialogs, true);
-    QSettings().setValue(QStringLiteral("editing/paintColor"), QStringLiteral("#ff008000"));
-    ui::PreferencesDialog dlg(nullptr);
-    dlg.show();
-    QApplication::processEvents();
-    auto* color = dlg.findChild<QPushButton*>(QStringLiteral("paintColorButton"));
-    ASSERT_TRUE(color);
-    EXPECT_EQ(color->text(), QStringLiteral("#ff008000"));
-    QString startedAt;
-    QTimer::singleShot(0, [&] {
-        auto* cd = qobject_cast<QColorDialog*>(QApplication::activeModalWidget());
-        ASSERT_TRUE(cd);
-        startedAt = cd->currentColor().name(QColor::HexArgb);
-        cd->setCurrentColor(QColor(255, 0, 0));
-        cd->accept();
-    });
-    color->click();
-    EXPECT_EQ(startedAt, QStringLiteral("#ff008000"));
-    EXPECT_EQ(color->text(), QStringLiteral("#ffff0000"));
-    dlg.accept();
-    EXPECT_EQ(QSettings().value(QStringLiteral("editing/paintColor")).toString(), QStringLiteral("#ffff0000"));
-    QSettings().remove(QStringLiteral("editing/paintColor"));
     QCoreApplication::setAttribute(Qt::AA_DontUseNativeDialogs, false);
 }

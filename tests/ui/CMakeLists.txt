@@ -59,10 +59,14 @@ add_executable(bld_ui_tests
     PlainWordsShotsTest.cpp
     MenuKeysTest.cpp
     ReviewShotsTest.cpp
+    SettingsApplyTest.cpp
+    ShellTest.cpp
+    TranslationsTest.cpp
 )
 
 target_compile_definitions(bld_ui_tests PRIVATE
     BLD_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
+    BLD_BINARY_DIR="${CMAKE_BINARY_DIR}"
     BLD_BBM_CORPUS_DIR="${CMAKE_SOURCE_DIR}/fixtures/bbm-corpus"
     BLD_PARTS_LIBRARY_ROOT="${CMAKE_SOURCE_DIR}/parts/BlueBrickParts/parts"
 )

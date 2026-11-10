@@ -156,7 +156,9 @@ bld_apply_warnings("${CMAKE_SOURCE_DIR}")
 # few we want to cover going forward. Translators populate the .ts files via
 # `lupdate`; `lrelease` compiles them to .qm which the build installs next to
 # the binary. See docs/TRANSLATING.md.
-set(BLD_LANGUAGES fr de es it nl pt sv no zh ja)
+# "en" holds only English's plurals ("1 part", "3 parts"; see
+# scripts/fill-english-plurals.py).
+set(BLD_LANGUAGES en fr de es it nl pt sv no zh ja)
 
 set(BLD_TS_FILES "")
 foreach(_lang IN LISTS BLD_LANGUAGES)
@@ -176,6 +178,10 @@ if(BLD_HAVE_TS AND TARGET bld_app AND Qt6LinguistTools_FOUND)
         TS_FILES ${BLD_TS_FILES}
         QM_FILES_OUTPUT_VARIABLE BLD_QM_FILES)
     install(FILES ${BLD_QM_FILES} DESTINATION "${BLD_INSTALL_DATADIR}/translations" OPTIONAL)
+    # The Translations test reads bld_en.qm (English's plurals).
+    if(TARGET bld_ui_tests AND TARGET release_translations)
+        add_dependencies(bld_ui_tests release_translations)
+    endif()
 endif()
 
 # ----- Data files -------------------------------------------------------------

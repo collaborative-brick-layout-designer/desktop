@@ -73,7 +73,7 @@ TEST(UiWordingTest, EllipsisIsOneCharacter) {
 // address", never "rotate", "org" or "slug" (and "sheet", above). A domain
 // such as library.ldraw.org isn't the word "org".
 TEST(UiWordingTest, SaysTurnClubAndWebAddress) {
-    static const QRegularExpression banned(QStringLiteral(R"((?<![.\w])(rotat\w*|orgs?|slugs?)\b)"),
+    static const QRegularExpression banned(QStringLiteral(R"((?<![.\w])(rotat\w*|orgs?|slugs?|packages?)\b)"),
                                            QRegularExpression::CaseInsensitiveOption);
     QList<Hit> bad;
     for (const Hit& h : trStrings()) {
@@ -164,7 +164,7 @@ TEST(UiWordingTest, SaysColorNotColour) {
 // help and tour words shared with the web.
 TEST(UiWordingTest, SaysUsSpelling) {
     static const QRegularExpression british(
-        QStringLiteral(R"(\b(centr(e|es|ed)|cancell(ed|ing)|metres?|catalogue|favourite|organis\w*|behaviour|grey|licence)\b)"),
+        QStringLiteral(R"(\b(centr(e|es|ed)|cancell(ed|ing)|metres?|catalogue|favourite|organis\w*|behaviour|grey\w*|licence)\b)"),
         QRegularExpression::CaseInsensitiveOption);
     static const QRegularExpression marked(QStringLiteral(R"(\b(tr|QT_TR_NOOP|QT_TRANSLATE_NOOP)\()"));
     static const QRegularExpression literal(QStringLiteral(R"re("((?:[^"\\]|\\.)*)")re"));
@@ -196,6 +196,23 @@ TEST(UiWordingTest, SaysUsSpelling) {
         ASSERT_TRUE(f.open(QIODevice::ReadOnly)) << shared;
         const QString text = QString::fromUtf8(f.readAll());
         for (auto m = british.globalMatch(text); m.hasNext();) found << QLatin1String(shared) + QStringLiteral(": ") + m.next().captured(0);
+    }
+    EXPECT_TRUE(found.isEmpty()) << found.join(QLatin1Char('\n')).toStdString();
+}
+
+// A drop-down's items are words people read: tr() them, not
+// QStringLiteral (they stayed English in every language).
+TEST(UiWordingTest, DropDownItemsAreTranslated) {
+    static const QRegularExpression plain(QStringLiteral(R"re(addItems?\(\s*(?:\{\s*)?QStringLiteral\("([^"]*[A-Za-z][^"]*)")re"));
+    QStringList found;
+    QDirIterator it(QStringLiteral(BLD_SOURCE_DIR "/src"), { QStringLiteral("*.cpp") }, QDir::Files, QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        const QString path = it.next();
+        QFile f(path);
+        if (!f.open(QIODevice::ReadOnly)) continue;
+        const QString text = QString::fromUtf8(f.readAll());
+        for (auto m = plain.globalMatch(text); m.hasNext();)
+            found << path.mid(QStringLiteral(BLD_SOURCE_DIR).size() + 1) + QStringLiteral(": ") + m.next().captured(1);
     }
     EXPECT_TRUE(found.isEmpty()) << found.join(QLatin1Char('\n')).toStdString();
 }

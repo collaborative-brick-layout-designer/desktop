@@ -251,6 +251,12 @@ jobs:
       - name: Lint
         run: scripts/ci/lint-changes.sh "origin/${{ github.base_ref }}" build
 
+      # Every string marked for translation is in every .ts file, and no
+      # .ts file keeps strings the source dropped (lupdate's view, whatever
+      # its version).
+      - name: Translations match the source
+        run: python3 scripts/ci/check-translations.py
+
   coverage:
     # Line / function / branch coverage of src/ by the test suite, as a job
     # summary and an HTML report artifact. Reported, not enforced.

@@ -382,6 +382,8 @@ TEST_F(ServerWindowTest, EmptyListsSayWhoseAndWhatToDoNext) {
     window_->showTab(Tab::Layouts);
     ASSERT_TRUE(waitFor([&] { return window_->row(Tab::Venues, QStringLiteral("V1")) && count(http_, "GET", "/api/custom-parts") == 1; }));
     ASSERT_TRUE(waitFor([&] { return !window_->emptyLine(Tab::Parts)->text().startsWith(QStringLiteral("Loading")); }));
+    // (The layouts list can still be loading on a slow machine.)
+    ASSERT_TRUE(waitFor([&] { return !window_->emptyLine(Tab::Layouts)->text().startsWith(QStringLiteral("Loading")); }));
     EXPECT_EQ(window_->emptyLine(Tab::Layouts)->text(),
               QStringLiteral("There are no layouts here yet. Send one with Save a file to the server…, or start one on the web."));
     pickShow(*window_, QStringLiteral("Mine"));

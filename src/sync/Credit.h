@@ -15,6 +15,10 @@
 
 namespace bld::sync {
 
+// lupdate reads the context from Q_DECLARE_TR_FUNCTIONS; call CreditText::tr().
+struct CreditText { Q_DECLARE_TR_FUNCTIONS(bld::sync::Credit) };
+
+
 struct Credit {
     QString by;           // "you", a name, "a former member" or "Builder #…"; empty: nobody recorded
     QString authorName;   // the author's name while their account exists
@@ -44,13 +48,12 @@ inline Credit creditFromJson(const QJsonObject& item) {
 
 // "by Sam · in ArkLUG · based on Yard by Sam" (the web shows the same words).
 inline QString creditLine(const Credit& c) {
-    const auto tr = [](const char* s) { return QCoreApplication::translate("bld::sync::Credit", s); };
     QStringList parts;
-    if (!c.by.isEmpty()) parts << tr("by %1").arg(c.by);
-    if (!c.club.isEmpty()) parts << tr("in %1").arg(c.club);
+    if (!c.by.isEmpty()) parts << CreditText::tr("by %1").arg(c.by);
+    if (!c.club.isEmpty()) parts << CreditText::tr("in %1").arg(c.club);
     if (!c.basedOnTitle.isEmpty())
-        parts << (c.basedOnBy.isEmpty() ? tr("based on %1").arg(c.basedOnTitle)
-                                        : tr("based on %1 by %2").arg(c.basedOnTitle, c.basedOnBy));
+        parts << (c.basedOnBy.isEmpty() ? CreditText::tr("based on %1").arg(c.basedOnTitle)
+                                        : CreditText::tr("based on %1 by %2").arg(c.basedOnTitle, c.basedOnBy));
     return parts.join(QStringLiteral(" · "));
 }
 
@@ -63,12 +66,11 @@ struct MoveToClubWording {
 
 // `saving`: a new thing saved straight into the club ("Save it to ‹club›?").
 inline MoveToClubWording moveToClubWording(const QString& club, bool saving = false) {
-    const auto tr = [](const char* s) { return QCoreApplication::translate("bld::sync::Credit", s); };
-    return { saving ? tr("Save it to %1?").arg(club) : tr("Move it to %1?").arg(club),
-             tr("%1 will own this. Members with the Delete club items permission can rename, share or "
+    return { saving ? CreditText::tr("Save it to %1?").arg(club) : CreditText::tr("Move it to %1?").arg(club),
+             CreditText::tr("%1 will own this. Members with the Delete club items permission can rename, share or "
                 "delete it.")
                  .arg(club),
-             tr("You stay credited as the author, and you can take it back while you’re a member.") };
+             CreditText::tr("You stay credited as the author, and you can take it back while you’re a member.") };
 }
 
 } // namespace bld::sync

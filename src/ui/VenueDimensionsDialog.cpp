@@ -113,10 +113,9 @@ VenueDimensionsDialog::VenueDimensionsDialog(QWidget* parent) : QDialog(parent) 
     });
 
     vbox->addWidget(new QLabel(tr(
-        "<b>Segments</b> — each row adds a new vertex at the given distance "
-        "and angle from the previous point, in the unit picked above. "
-        "Angle: 0° east, 90° south, 180° west, 270° north. The polygon is "
-        "closed automatically.")));
+        "<b>Sides</b>: each row is one side of the room, its length (in the unit "
+        "picked above) and its direction. 0° goes right, 90° down, 180° left "
+        "and 270° up. The last side back to the start is added for you.")));
 
     auto* table = new QTableWidget(0, 4, this);
     table->setAccessibleName(QObject::tr("Sides"));
@@ -262,7 +261,7 @@ VenueDimensionsDialog::VenueDimensionsDialog(QWidget* parent) : QDialog(parent) 
         }
         if (pts.size() < 3) {
             QMessageBox::information(this, tr("Venue outline"),
-                tr("Need at least three non-zero segments to build a polygon."));
+                tr("A room needs at least three sides that are longer than zero."));
             return;
         }
         // Drop the closing vertex if it duplicates the origin (common when

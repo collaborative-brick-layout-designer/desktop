@@ -35,7 +35,8 @@ namespace bld::ui::views {
 
 namespace {
 
-QString tr(const char* text) { return QCoreApplication::translate("SavedViews", text); }
+// lupdate reads the context from Q_DECLARE_TR_FUNCTIONS; call Text::tr().
+struct Text { Q_DECLARE_TR_FUNCTIONS(SavedViews) };
 
 // Grows a box point by point, like the web's contentBoundsStuds.
 struct Bounds {
@@ -125,7 +126,7 @@ void paintGrid(QPainter& p, const core::LayerGrid& g, const QRectF& region, doub
 core::SavedView newView(const QString& id, const QString& name, bool grid) {
     core::SavedView v;
     v.id = id;
-    v.name = name.trimmed().isEmpty() ? tr("View") : name.trimmed();
+    v.name = name.trimmed().isEmpty() ? Text::tr("View") : name.trimmed();
     v.fit = true;
     v.grid = grid;
     v.labels = true;
@@ -133,7 +134,7 @@ core::SavedView newView(const QString& id, const QString& name, bool grid) {
 }
 
 core::SavedView wholeLayout() {
-    core::SavedView v = newView(QStringLiteral("whole-layout"), tr("Whole layout"));
+    core::SavedView v = newView(QStringLiteral("whole-layout"), Text::tr("Whole layout"));
     v.grid = false;
     return v;
 }
@@ -241,20 +242,20 @@ QString safeFileName(const QString& name) {
 
 QString pictureFileName(const QString& layoutTitle, const QString& viewName) {
     return safeFileName(layoutTitle) + QStringLiteral(" - ")
-         + safeFileName(viewName.isEmpty() ? tr("View") : viewName) + QStringLiteral(".png");
+         + safeFileName(viewName.isEmpty() ? Text::tr("View") : viewName) + QStringLiteral(".png");
 }
 
 QString viewSummary(const core::SavedView& view, int sheetCount) {
-    const QString area = view.fit ? tr("Whole layout") : tr("One area");
+    const QString area = view.fit ? Text::tr("Whole layout") : Text::tr("One area");
     QString sheets;
-    if (!view.sheets) sheets = tr("all sheets");
-    else if (view.sheets->size() == 1) sheets = tr("1 sheet");
-    else sheets = tr("%1 of %2 sheets").arg(view.sheets->size()).arg(sheetCount);
+    if (!view.sheets) sheets = Text::tr("all sheets");
+    else if (view.sheets->size() == 1) sheets = Text::tr("1 sheet");
+    else sheets = Text::tr("%1 of %2 sheets").arg(view.sheets->size()).arg(sheetCount);
     return area + QStringLiteral(" · ") + sheets;
 }
 
 std::vector<ExportSize> exportSizes() {
-    return { { 1280, tr("Small") }, { kDefaultExportMaxSide, tr("Medium") }, { 5120, tr("Large") } };
+    return { { 1280, Text::tr("Small") }, { kDefaultExportMaxSide, Text::tr("Medium") }, { 5120, Text::tr("Large") } };
 }
 
 QImage renderSceneImage(QGraphicsScene& scene, const QRectF& source, QSize size, const SceneImageOptions& o) {

@@ -15,7 +15,6 @@
 #include "ModulesPanel.h"
 #include "PartsBrowser.h"
 #include "PartUsagePanel.h"
-#include "PreferencesDialog.h"
 #include "SavedViews.h"
 #include "VenueDialog.h"
 #include "VenueDimensionsDialog.h"
@@ -371,7 +370,7 @@ void MainWindow::setupMenus() {
         }
         p.end();
         statusBar()->showMessage(
-            tr("Printed %1 page(s)").arg(rows * cols), 5000);
+            tr("Printed %n page(s)", nullptr, rows * cols), 5000);
     });
 
     file->addSeparator();
@@ -550,26 +549,8 @@ void MainWindow::setupMenus() {
     settingsAct->setObjectName(QStringLiteral("action.settings"));
     settingsAct->setShortcut(QKeySequence::Preferences);
     settingsAct->setMenuRole(QAction::PreferencesRole);
-    settingsAct->setToolTip(tr("Light or dark, color, bigger text and help buttons"));
+    settingsAct->setToolTip(tr("Every setting: the look, editing, the language, folders and more"));
     connect(settingsAct, &QAction::triggered, this, &MainWindow::openSettings);
-    auto* prefsAct = edit->addAction(tr("Prefere&nces…"));
-    prefsAct->setToolTip(tr("Change how the app looks and works"));
-    prefsAct->setMenuRole(QAction::NoRole);
-    preferencesAct_ = prefsAct;
-    connect(prefsAct, &QAction::triggered, this, [this]{
-        PreferencesDialog dlg(this);
-        dlg.exec();
-        QSettings s; s.beginGroup(QStringLiteral("editing"));
-        mapView_->setSnapStepStuds(s.value(QStringLiteral("snapStepStuds"), 0.0).toDouble());
-        mapView_->setRotationStepDegrees(s.value(QStringLiteral("rotationStepDegrees"), 90.0).toDouble());
-        s.endGroup();
-        const QString libDir = QSettings().value(QStringLiteral("modules/libraryPath")).toString();
-        if (!libDir.isEmpty() && libDir != moduleLibraryPanel_->libraryPath()) {
-            moduleLibraryPanel_->setLibraryPath(libDir);
-        }
-        mapView_->rebuildScene();
-        partsBrowser_->rebuild();  // "list other servers' parts" may have changed
-    });
 
     auto* view = menuBar()->addMenu(tr("&View"));
     auto* zIn = view->addAction(tr("Zoom &In"));
@@ -606,6 +587,16 @@ void MainWindow::setupMenus() {
         const QList<QAction*> acts = panelsMenu_->actions();
         for (qsizetype i = 0; i < docks.size() && i < acts.size(); ++i)
             acts[i]->setChecked(!docks[i]->isHidden());
+    });
+
+    // Panels floated off the screen or closed: back where they start.
+    auto* resetPanels = view->addAction(tr("Reset Panel La&yout"));
+    resetPanels->setObjectName(QStringLiteral("view.resetPanels"));
+    resetPanels->setToolTip(tr("Put every panel back where it was when the app was new"));
+    connect(resetPanels, &QAction::triggered, this, [this] {
+        for (QDockWidget* d : panelDocks()) d->setFloating(false);
+        restoreState(defaultDockState_);
+        statusBar()->showMessage(tr("Panels are back where they started."), 4000);
     });
 
     view->addSeparator();

@@ -11,7 +11,8 @@
 namespace bld::sync {
 
 namespace {
-QString tr(const char* s) { return QCoreApplication::translate("ServerRefusal", s); }
+// lupdate reads the context from Q_DECLARE_TR_FUNCTIONS; call Text::tr().
+struct Text { Q_DECLARE_TR_FUNCTIONS(ServerRefusal) };
 }  // namespace
 
 ServerRefusal readRefusal(int status, const QByteArray& body, const QString& networkError) {
@@ -69,12 +70,12 @@ QString permissionLabel(const QString& permission) {
         { "export_data", QT_TRANSLATE_NOOP("ServerRefusal", "Download the club's data") },
     };
     for (const auto& [key, label] : labels)
-        if (permission == QLatin1String(key)) return tr(label);
+        if (permission == QLatin1String(key)) return Text::tr(label);
     return permission;
 }
 
 QString askForPermission(const QString& permission) {
-    return tr("Ask a club admin for the %1 permission.").arg(permissionLabel(permission));
+    return Text::tr("Ask a club admin for the %1 permission.").arg(permissionLabel(permission));
 }
 
 namespace {
@@ -87,55 +88,55 @@ bool isPermissionRefusal(const ServerRefusal& r) {
 
 QString describe(const ServerRefusal& r) {
     if (isFirewallBlock(r))
-        return tr("The site's firewall blocked this request. Please tell the site admin (what you were doing, and "
+        return Text::tr("The site's firewall blocked this request. Please tell the site admin (what you were doing, and "
                   "the time).");
     if (isLimitRefusal(r)) {
         // The server's own sentence names the limit; keep it short and plain.
         if (!r.message.isEmpty()) return r.message.left(400);
-        if (r.code == QLatin1String("suspended")) return tr("This account is read-only for now. Ask the site admin why.");
-        if (r.code == QLatin1String("rate_limited")) return tr("Too many requests at once. Please wait a minute and try again.");
-        if (r.code == QLatin1String("verify_email_first")) return tr("Please confirm your email address first.");
-        return tr("You have reached a limit on this server. Ask the site admin for more room.");
+        if (r.code == QLatin1String("suspended")) return Text::tr("This account is read-only for now. Ask the site admin why.");
+        if (r.code == QLatin1String("rate_limited")) return Text::tr("Too many requests at once. Please wait a minute and try again.");
+        if (r.code == QLatin1String("verify_email_first")) return Text::tr("Please confirm your email address first.");
+        return Text::tr("You have reached a limit on this server. Ask the site admin for more room.");
     }
     if (isAccountState(r)) {
         if (!r.message.isEmpty()) return r.message.left(400);
         if (r.code == QLatin1String("account_pending_deletion"))
-            return tr("This account is being deleted. To keep it, sign in on the website before then; then this app "
+            return Text::tr("This account is being deleted. To keep it, sign in on the website before then; then this app "
                       "works again.");
-        return tr("Your account is on hold (read only) while a privacy request is looked at. You can still see and "
+        return Text::tr("Your account is on hold (read only) while a privacy request is looked at. You can still see and "
                   "download your things. Ask the site admin.");
     }
     if (isUpdateRequired(r)) {
         if (!r.message.isEmpty()) return r.message.left(400);
-        return tr("This server needs a newer Collaborative Brick Layout Designer. Please download the new version.");
+        return Text::tr("This server needs a newer Collaborative Brick Layout Designer. Please download the new version.");
     }
-    if (r.status == 401) return tr("Your sign-in has run out. Sign in again (File › Servers…).");
+    if (r.status == 401) return Text::tr("Your sign-in has run out. Sign in again (File › Servers…).");
     if (r.code == QLatin1String("insufficient_scope") || r.code == QLatin1String("token_not_allowed"))
-        return tr("This sign-in can't do that. Sign in again (File › Servers…) to give the app the rights it "
+        return Text::tr("This sign-in can't do that. Sign in again (File › Servers…) to give the app the rights it "
                   "needs.");
-    if (r.code == QLatin1String("not_an_org_member")) return tr("You're not a member of that club.");
-    if (r.code.startsWith(QLatin1String("demo_account"))) return tr("The demo account can't do that.");
+    if (r.code == QLatin1String("not_an_org_member")) return Text::tr("You're not a member of that club.");
+    if (r.code.startsWith(QLatin1String("demo_account"))) return Text::tr("The demo account can't do that.");
     if (!r.permission.isEmpty()) {
         const QString why = r.code == QLatin1String("only_club_admins_can_add")
-                                ? tr("Your roles in this club can't add that.")
-                                : tr("Your roles in this club don't allow that.");
+                                ? Text::tr("Your roles in this club can't add that.")
+                                : Text::tr("Your roles in this club don't allow that.");
         return why + QLatin1Char(' ') + askForPermission(r.permission);
     }
     // Servers before club roles name no permission.
     if (r.code == QLatin1String("only_club_admins_can_add"))
-        return tr("This club only lets some of its members add things. Ask a club admin.");
+        return Text::tr("This club only lets some of its members add things. Ask a club admin.");
     if (isPermissionRefusal(r))
-        return tr("You don't have permission to do that. Ask its owner, or a club admin, for access.");
+        return Text::tr("You don't have permission to do that. Ask its owner, or a club admin, for access.");
     if (!r.code.isEmpty()) return r.code;
-    if (r.status == 0) return r.networkError.isEmpty() ? tr("The server could not be reached.") : r.networkError;
-    return tr("The server answered %1").arg(r.status);
+    if (r.status == 0) return r.networkError.isEmpty() ? Text::tr("The server could not be reached.") : r.networkError;
+    return Text::tr("The server answered %1").arg(r.status);
 }
 
 QString failureText(const ServerRefusal& r) {
     if (isFirewallBlock(r) || isLimitRefusal(r) || isAccountState(r) || isUpdateRequired(r) || isPermissionRefusal(r) ||
         r.status == 0)
         return describe(r);
-    return tr("The server answered %1").arg(r.status);
+    return Text::tr("The server answered %1").arg(r.status);
 }
 
 bool isSignInEnded(int code, const QString& reason) {
@@ -145,35 +146,35 @@ bool isSignInEnded(int code, const QString& reason) {
 
 QString liveCloseText(int code, const QString& reason) {
     if (code == 4415 && reason == QLatin1String("unreadable_doc"))
-        return tr("this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new "
+        return Text::tr("this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new "
                   "version (Help > Check for Updates) to keep working on it");
     if (code == 4416 && reason == QLatin1String("unreadable_update"))
-        return tr("this layout's live update couldn't be read. Please reopen the layout to keep working on it live");
+        return Text::tr("this layout's live update couldn't be read. Please reopen the layout to keep working on it live");
     if (code == 4426)
-        return tr("this version of Collaborative Brick Layout Designer is too old for this server. Please download the new "
+        return Text::tr("this version of Collaborative Brick Layout Designer is too old for this server. Please download the new "
                   "version (Help > Check for Updates)");
     if (code == 1008 && reason == QLatin1String("account_pending_deletion"))
-        return tr("this account is being deleted. To keep it, sign in on the website before the date in your email; "
+        return Text::tr("this account is being deleted. To keep it, sign in on the website before the date in your email; "
                   "then open the layout again");
     if (code == 1008 && reason == QLatin1String("account_restricted"))
-        return tr("your account is on hold (read only) while a privacy request is looked at. Ask the site admin");
+        return Text::tr("your account is on hold (read only) while a privacy request is looked at. Ask the site admin");
     // The server's merge guard (apps/server/src/ws/mergeGuard.ts): an update
     // that would bring another layout's layers into this one.
     if (code == 1008 && reason == QLatin1String("layout_merge_refused"))
-        return tr("your changes weren't taken because they looked like another layout's parts being merged into "
+        return Text::tr("your changes weren't taken because they looked like another layout's parts being merged into "
                   "this one. Nothing is lost: your copy stays open here, so save it (File > Save As) and tell the "
                   "site admin");
     // The layout went away, or who may open it changed (apps/server/src/ws/handler.ts, routes/ws.ts).
-    if (code == 4404 && reason == QLatin1String("layout_deleted")) return tr("this layout was deleted on the server");
+    if (code == 4404 && reason == QLatin1String("layout_deleted")) return Text::tr("this layout was deleted on the server");
     if (code == 4404 && (reason == QLatin1String("access_revoked") || reason == QLatin1String("not_found")))
-        return tr("you can't open this layout any more: it was deleted, or its owner or a club admin changed who can "
+        return Text::tr("you can't open this layout any more: it was deleted, or its owner or a club admin changed who can "
                   "open it");
     // The sign-in ended: it ran out, or was signed out elsewhere or removed on the website.
     if (isSignInEnded(code, reason))
-        return tr("your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the "
+        return Text::tr("your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the "
                   "website). Sign in again (File › Servers…), then open the layout again");
     if (code == 4429 && reason == QLatin1String("limit_reached"))
-        return tr("too many people have this layout open right now; try again in a little while");
+        return Text::tr("too many people have this layout open right now; try again in a little while");
     return {};
 }
 

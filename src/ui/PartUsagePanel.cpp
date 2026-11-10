@@ -234,11 +234,12 @@ void PartUsagePanel::refresh() {
 
     if (summary_) {
         if (overBudgetPartKinds > 0) {
-            summary_->setText(tr("%1 distinct part(s), %2 brick(s) total — %3 kind(s) over budget")
-                                  .arg(keys.size()).arg(totalBricks).arg(overBudgetPartKinds));
+            summary_->setText(tr("%n different part(s)", nullptr, static_cast<int>(keys.size())) + QStringLiteral(", ")
+                              + tr("%n piece(s) in all", nullptr, totalBricks) + QStringLiteral(" — ")
+                              + tr("%n kind(s) over budget", nullptr, overBudgetPartKinds));
         } else {
-            summary_->setText(tr("%1 distinct part(s), %2 brick(s) total")
-                                  .arg(keys.size()).arg(totalBricks));
+            summary_->setText(tr("%n different part(s)", nullptr, static_cast<int>(keys.size())) + QStringLiteral(", ")
+                              + tr("%n piece(s) in all", nullptr, totalBricks));
         }
     }
 }

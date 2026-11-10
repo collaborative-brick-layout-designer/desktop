@@ -519,8 +519,9 @@ void MapView::applyLiveConnectionSnap(bool fromMove) {
         } else if (bypass) {
             statusHint(tr("Connection snap: off while Alt is held"));
         } else {
-            statusHint(tr("Connection snap: %1 moving conn(s), no target within %2 studs")
-                .arg(moving.size()).arg(reach, 0, 'f', 1));
+            statusHint(tr("Connection snap: %n connection(s) moving, none to join within %1 studs", nullptr,
+                          static_cast<int>(moving.size()))
+                .arg(reach, 0, 'f', 1));
         }
         std::optional<QPointF> dot;
         if (shown >= 0) dot = (moving[shown].world + gridShiftStuds) * px;
@@ -528,8 +529,7 @@ void MapView::applyLiveConnectionSnap(bool fromMove) {
         return;
     }
 
-    statusHint(tr("Connection snap active (%1 candidate conn(s))")
-               .arg(moving.size()));
+    statusHint(tr("Connection snap on (%n connection(s) that can join)", nullptr, static_cast<int>(moving.size())));
 
     // Turn every dragged item about the joined connection so the ends
     // face (a straight join only moves), then land it on the target: the

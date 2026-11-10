@@ -159,7 +159,7 @@ PreparedPart fromBlueBrickParts(PreparedPart out, const import::LDrawReadResult&
     if (bounds.isEmpty()) {
         out.error = out.stats.unresolved > 0
             ? Text::tr("None of the %1 parts in this model are in the parts library. "
-                 "Set an LDraw library in Preferences to render any part.").arg(out.stats.unresolved)
+                 "Set an LDraw library in Settings › Bringing in models to draw any part.").arg(out.stats.unresolved)
             : Text::tr("The model is empty.");
         return out;
     }
@@ -284,8 +284,8 @@ QStringList friendlyImportWarnings(const QStringList& raw, bool fromLdd) {
                    .arg(named(order, times, true));
         out << (fromLdd
                     ? Text::tr(
-                          "A newer LDD → LDraw mapping (ldraw.xml) in Preferences › Import may know them.")
-                    : Text::tr("A newer LDraw library, set in Preferences › Import, may have them."));
+                          "A newer LDD → LDraw mapping (ldraw.xml) in Settings › Bringing in models may know them.")
+                    : Text::tr("A newer LDraw library, set in Settings › Bringing in models, may have them."));
     }
     if (!noGeo.isEmpty())
         out << Text::tr("LDD has no shape for %n brick(s), so they’re left out: %1.", nullptr,

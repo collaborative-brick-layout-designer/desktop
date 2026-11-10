@@ -240,6 +240,8 @@ void MainWindow::updateServerStatus() {
     const bool liveHere = live_ && live_->active() && serverLibrary_->server().isValid()
                           && sync::TokenStore::keyFor(serverLibrary_->server()) == sync::TokenStore::keyFor(liveServer_);
     serverStatus_->setVisible(!liveHere);
+    // "Browse the catalog on the web…" only while there is a server to browse (Idea 4).
+    if (partsBrowser_) partsBrowser_->setCatalogLinkVisible(serverLibrary_->state() != ServerLibrary::State::NoServer);
     serverStatus_->setText(text);
     serverStatus_->setToolTip(tip);
     serverStatus_->setAccessibleName(text);

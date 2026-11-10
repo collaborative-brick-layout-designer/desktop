@@ -1,4 +1,5 @@
 #include "SettingsDialog.h"
+#include "SettingsSections.h"
 
 #include "help/HelpButton.h"
 #include "theme/AppPrefs.h"
@@ -15,6 +16,9 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QListWidget>
+#include <QScrollBar>
+#include <QSignalBlocker>
 #include <QPainter>
 #include <QPainterPath>
 #include <QPushButton>
@@ -99,16 +103,29 @@ QIcon swatch(const QColor& color, const QColor& ringGap, bool chosen) {
 }  // namespace
 
 SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
-                               const std::function<void()>& openMoreOptions, QWidget* parent,
-                               const std::function<void(const QString&)>& startTour)
+                               const settings::Changed& changed, QWidget* parent,
+                               const std::function<void(const QString&)>& startTour,
+                               const std::function<void()>& openPartsFolders)
     : QDialog(parent), store_(store) {
     setObjectName(QStringLiteral("SettingsDialog"));
     setWindowTitle(tr("Settings"));
-    resize(760, 780);
+    resize(940, 780);
 
     auto* outer = new QVBoxLayout(this);
     outer->setContentsMargins(0, 0, 0, 0);
     outer->setSpacing(0);
+    // The sections down the side: a click goes to that one.
+    auto* body = new QHBoxLayout;
+    body->setContentsMargins(0, 0, 0, 0);
+    body->setSpacing(0);
+    auto* nav = new QListWidget(this);
+    nav->setObjectName(QStringLiteral("settingsSections"));
+    nav->setAccessibleName(tr("Sections"));
+    nav->setFrameShape(QFrame::NoFrame);
+    nav->setFixedWidth(210);
+    nav->setSpacing(2);
+    body->addWidget(nav);
+    outer->addLayout(body, 1);
     auto* scroll = new QScrollArea(this);
     scroll->setWidgetResizable(true);
     scroll->setFrameShape(QFrame::NoFrame);
@@ -117,7 +134,7 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
     page->setObjectName(QStringLiteral("SettingsPage"));
     page->setAttribute(Qt::WA_StyledBackground);
     scroll->setWidget(page);
-    outer->addWidget(scroll, 1);
+    body->addWidget(scroll, 1);
 
     auto* col = new QVBoxLayout(page);
     col->setContentsMargins(4 * kSpacing, 3 * kSpacing, 4 * kSpacing, 3 * kSpacing);
@@ -128,9 +145,11 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
     title->setFont(headingFont(2.0));
     col->addWidget(title);
 
-    const auto card = [page, col](const QString& heading, const QString& helpKey = {}) {
+    QList<QPair<QString, QFrame*>> sections;
+    const auto card = [page, col, &sections](const QString& heading, const QString& helpKey = {}) {
         auto* f = new QFrame(page);
         f->setObjectName(QStringLiteral("SettingsCard"));
+        sections << qMakePair(heading, f);
         auto* v = new QVBoxLayout(f);
         v->setContentsMargins(3 * kSpacing, 3 * kSpacing - 4, 3 * kSpacing, 3 * kSpacing - 4);
         v->setSpacing(2 * kSpacing);
@@ -255,7 +274,14 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
         tip->setObjectName(QStringLiteral("Muted"));
         tip->setWordWrap(true);
         v->addWidget(tip);
+        settings::addEditing(v, this, changed);
     }
+
+    settings::addMapLabels(card(tr("Map labels")), this, changed);
+    settings::addLanguage(card(tr("Language")), this);
+    settings::addStartingUp(card(tr("Starting up")), this);
+    settings::addParts(card(tr("Parts and folders")), this, changed, openPartsFolders);
+    settings::addImport(card(tr("Bringing in models"), QStringLiteral("prefs.ldraw")), this);
 
     // Help.
     {
@@ -349,20 +375,37 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
 
     auto* buttons = new QHBoxLayout;
     buttons->setContentsMargins(4 * kSpacing, 2 * kSpacing, 4 * kSpacing, 2 * kSpacing);
-    if (openMoreOptions) {
-        auto* more = new QPushButton(tr("More options…"), this);
-        more->setObjectName(QStringLiteral("moreOptions"));
-        more->setToolTip(tr("Language, folders, parts folders, import and editing defaults"));
-        more->setAutoDefault(false);
-        buttons->addWidget(more);
-        connect(more, &QPushButton::clicked, this, [openMoreOptions] { openMoreOptions(); });
-    }
+    auto* saved = new QLabel(tr("Changes are saved as you make them."), this);
+    saved->setObjectName(QStringLiteral("Muted"));
+    buttons->addWidget(saved);
     buttons->addStretch(1);
     auto* close = new QPushButton(tr("Close"), this);
     close->setDefault(true);
     buttons->addWidget(close);
     connect(close, &QPushButton::clicked, this, &QDialog::accept);
     outer->addLayout(buttons);
+
+    for (const auto& [heading, frame] : sections) {
+        auto* item = new QListWidgetItem(heading, nav);
+        item->setData(Qt::UserRole, QVariant::fromValue(static_cast<QObject*>(frame)));
+        item->setSizeHint(QSize(0, nav->fontMetrics().height() + 20));
+    }
+    nav->setCurrentRow(0);
+    connect(nav, &QListWidget::currentItemChanged, this, [scroll](QListWidgetItem* item) {
+        if (!item) return;
+        if (auto* f = qobject_cast<QWidget*>(item->data(Qt::UserRole).value<QObject*>()))
+            scroll->verticalScrollBar()->setValue(f->y() - kSpacing);
+    });
+    // Scrolling marks the section in view.
+    connect(scroll->verticalScrollBar(), &QScrollBar::valueChanged, nav, [nav](int value) {
+        int row = 0;
+        for (int i = 0; i < nav->count(); ++i)
+            if (auto* f = qobject_cast<QWidget*>(nav->item(i)->data(Qt::UserRole).value<QObject*>());
+                f && f->y() - 2 * kSpacing <= value)
+                row = i;
+        const QSignalBlocker quiet(nav);
+        nav->setCurrentRow(row);
+    });
 
     connect(&store_, &PrefsStore::changed, this, [this] { load(); });
     load();
@@ -429,6 +472,12 @@ void SettingsDialog::load() {
                .arg(n.okSoft.name(), n.ok.name())
                .arg(Radius::card)
                .arg(n.muted.name());
+    css += QStringLiteral("QListWidget#settingsSections { background: %1; border: none; padding: 16px 8px; }"
+                          "QListWidget#settingsSections::item { padding: 8px 12px; border-radius: %2px; color: %3; }"
+                          "QListWidget#settingsSections::item:selected { background: %4; color: %5; font-weight: 700; }")
+               .arg(n.bg.name())
+               .arg(Radius::control)
+               .arg(n.ink.name(), a.soft(mode).name(), a.text(mode).name());
     setStyleSheet(css);
     loading_ = false;
 }

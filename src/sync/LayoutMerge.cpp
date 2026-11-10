@@ -20,7 +20,8 @@ namespace bld::sync::merge {
 
 namespace {
 
-QString tr(const char* s) { return QCoreApplication::translate("bld::sync::merge", s); }
+// lupdate reads the context from Q_DECLARE_TR_FUNCTIONS; call Text::tr().
+struct Text { Q_DECLARE_TR_FUNCTIONS(bld::sync::merge) };
 
 const QStringList kItemLists{ QStringLiteral("bricks"), QStringLiteral("groups"), QStringLiteral("textCells"),
                               QStringLiteral("areas"), QStringLiteral("rulerItems") };
@@ -306,12 +307,12 @@ private:
 
 QString verb(Side s) {
     switch (s) {
-    case Side::Added: return tr("added it");
-    case Side::Edited: return tr("changed it");
-    case Side::Deleted: return tr("deleted it");
+    case Side::Added: return Text::tr("added it");
+    case Side::Edited: return Text::tr("changed it");
+    case Side::Deleted: return Text::tr("deleted it");
     case Side::Unchanged: break;
     }
-    return tr("left it as it was");
+    return Text::tr("left it as it was");
 }
 
 }  // namespace
@@ -399,12 +400,12 @@ QString studs(double v) { return QString::number(std::round(v * 10) / 10 + 0.0);
 QString at(const QJsonObject& v) {
     const QJsonObject area = v.value(QLatin1String("displayArea")).toObject();
     if (area.isEmpty()) return {};
-    return tr(" at (%1, %2)")
+    return Text::tr(" at (%1, %2)")
         .arg(studs(area.value(QLatin1String("x")).toDouble()), studs(area.value(QLatin1String("y")).toDouble()));
 }
 
 // " on "Layer"" for an item in a named layer, else nothing.
-QString on(const ItemChange& c) { return c.layerName.isEmpty() ? QString() : tr(" on \"%1\"").arg(c.layerName); }
+QString on(const ItemChange& c) { return c.layerName.isEmpty() ? QString() : Text::tr(" on \"%1\"").arg(c.layerName); }
 
 }  // namespace
 
@@ -413,26 +414,26 @@ QString describe(const ItemChange& c) {
                                                      : c.mineValue)
                               .toObject();
     QString what;
-    if (c.kind == QLatin1String("map")) what = tr("Layout details");
-    else if (c.kind == QLatin1String("layer")) what = tr("Sheet \"%1\"").arg(v.value(QLatin1String("name")).toString());
+    if (c.kind == QLatin1String("map")) what = Text::tr("Layout details");
+    else if (c.kind == QLatin1String("layer")) what = Text::tr("Sheet \"%1\"").arg(v.value(QLatin1String("name")).toString());
     else if (c.kind == QLatin1String("brick"))
-        what = tr("Brick %1").arg(v.value(QLatin1String("partNumber")).toString()) + at(v) + on(c);
+        what = Text::tr("Brick %1").arg(v.value(QLatin1String("partNumber")).toString()) + at(v) + on(c);
     else if (c.kind == QLatin1String("group")) {
         const QString part = v.value(QLatin1String("partNumber")).toString();
-        what = (part.isEmpty() ? tr("Group") : tr("Group %1").arg(part)) + on(c);
+        what = (part.isEmpty() ? Text::tr("Group") : Text::tr("Group %1").arg(part)) + on(c);
     } else if (c.kind == QLatin1String("text"))
-        what = tr("Text \"%1\"").arg(v.value(QLatin1String("text")).toString().left(40)) + at(v) + on(c);
-    else if (c.kind == QLatin1String("area")) what = tr("Area cell %1").arg(c.key.section(QLatin1Char(':'), 2)) + on(c);
-    else if (c.kind == QLatin1String("ruler")) what = tr("Ruler") + on(c);
-    else if (c.kind == QLatin1String("label")) what = tr("Label \"%1\"").arg(v.value(QLatin1String("text")).toString().left(40));
-    else if (c.kind == QLatin1String("module")) what = tr("Module \"%1\"").arg(v.value(QLatin1String("name")).toString());
-    else if (c.kind == QLatin1String("view")) what = tr("View \"%1\"").arg(v.value(QLatin1String("name")).toString());
-    else if (c.kind == QLatin1String("venue")) what = tr("Venue");
-    else what = tr("Background image");
-    if (c.status == Status::Same) return tr("%1: you and the server both %2").arg(what, verb(c.mine));
-    if (c.status == Status::Mine) return tr("%1: you %2").arg(what, verb(c.mine));
-    if (c.status == Status::Server) return tr("%1: the server %2").arg(what, verb(c.server));
-    return tr("%1: you %2, the server %3").arg(what, verb(c.mine), verb(c.server));
+        what = Text::tr("Text \"%1\"").arg(v.value(QLatin1String("text")).toString().left(40)) + at(v) + on(c);
+    else if (c.kind == QLatin1String("area")) what = Text::tr("Area cell %1").arg(c.key.section(QLatin1Char(':'), 2)) + on(c);
+    else if (c.kind == QLatin1String("ruler")) what = Text::tr("Ruler") + on(c);
+    else if (c.kind == QLatin1String("label")) what = Text::tr("Label \"%1\"").arg(v.value(QLatin1String("text")).toString().left(40));
+    else if (c.kind == QLatin1String("module")) what = Text::tr("Module \"%1\"").arg(v.value(QLatin1String("name")).toString());
+    else if (c.kind == QLatin1String("view")) what = Text::tr("View \"%1\"").arg(v.value(QLatin1String("name")).toString());
+    else if (c.kind == QLatin1String("venue")) what = Text::tr("Venue");
+    else what = Text::tr("Background image");
+    if (c.status == Status::Same) return Text::tr("%1: you and the server both %2").arg(what, verb(c.mine));
+    if (c.status == Status::Mine) return Text::tr("%1: you %2").arg(what, verb(c.mine));
+    if (c.status == Status::Server) return Text::tr("%1: the server %2").arg(what, verb(c.server));
+    return Text::tr("%1: you %2, the server %3").arg(what, verb(c.mine), verb(c.server));
 }
 
 }  // namespace bld::sync::merge

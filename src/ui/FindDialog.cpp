@@ -24,6 +24,9 @@
 #include <QTimer>
 #include <QUndoStack>
 #include <QVBoxLayout>
+#include <memory>
+#include <QSet>
+#include <QHash>
 
 namespace bld::ui {
 
@@ -86,44 +89,100 @@ FindDialog::FindDialog(MapView& view, QWidget* parent)
         return false;
     };
 
-    auto runSearch = [&view, scope, findE, caseChk, status, matchesText, matchesPart]{
-        auto* map = view.currentMap();
-        if (!map) return;
-        const Qt::CaseSensitivity cs = caseChk->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive;
-        const QString needle = findE->text();
-        if (needle.isEmpty()) { view.deselectAll(); status->clear(); return; }
+    // What was found, by id, and which one Find Next is on.
+    struct Found {
+        QStringList ids;
+        int at = -1;
+        QString key;  // the search they are for
+    };
+    auto found = std::make_shared<Found>();
 
-        view.deselectAll();
-        int matches = 0;
-        QList<QGraphicsItem*> pick;
-        for (const auto& it : view.scene()->items()) {
-            const int li = it->data(0).toInt();
-            const QString guid = it->data(1).toString();
-            const QString kind = it->data(2).toString();
-            if (scope->currentIndex() == 1 && kind == QStringLiteral("text")) {
-                auto* L = map->layers()[li].get();
-                if (!L) continue;
-                for (const auto& c : static_cast<core::LayerText&>(*L).textCells) {
-                    if (c.guid == guid && matchesText(needle, c.text, cs)) {
-                        pick.append(it); ++matches;
-                        break;
-                    }
-                }
-            } else if (scope->currentIndex() == 0 && kind == QStringLiteral("brick")) {
-                auto* L = map->layers()[li].get();
-                if (!L) continue;
-                for (const auto& b : static_cast<core::LayerBrick&>(*L).bricks) {
-                    if (b.guid == guid && matchesPart(needle, b.partNumber, cs)) {
-                        pick.append(it); ++matches;
-                        break;
-                    }
+    // One pass over the map's own lists (not every scene item times every
+    // cell, which crawled on big layouts): the ids that match, in order.
+    auto search = [&view, scope, findE, caseChk, matchesText, matchesPart]() {
+        QStringList ids;
+        auto* map = view.currentMap();
+        const QString needle = findE->text();
+        if (!map || needle.isEmpty()) return ids;
+        const Qt::CaseSensitivity cs = caseChk->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive;
+        QHash<QString, bool> partMatches;  // each part number looked up once
+        for (const auto& L : map->layers()) {
+            if (!L || !L->visible) continue;
+            if (scope->currentIndex() == 1 && L->kind() == core::LayerKind::Text) {
+                for (const auto& c : static_cast<const core::LayerText&>(*L).textCells)
+                    if (matchesText(needle, c.text, cs)) ids << c.guid;
+            } else if (scope->currentIndex() == 0 && L->kind() == core::LayerKind::Brick) {
+                for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks) {
+                    auto it = partMatches.constFind(b.partNumber);
+                    if (it == partMatches.cend()) it = partMatches.insert(b.partNumber, matchesPart(needle, b.partNumber, cs));
+                    if (*it) ids << b.guid;
                 }
             }
         }
-        view.selectItems(pick, false);
-        status->setText(QObject::tr("%1 match(es).").arg(matches));
+        return ids;
     };
-    connect(findBtn, &QPushButton::clicked, this, runSearch);
+    // The scene items for these ids (one pass over the scene).
+    auto itemsFor = [&view](const QStringList& ids) {
+        const QSet<QString> want(ids.cbegin(), ids.cend());
+        QHash<QString, QGraphicsItem*> byId;
+        for (QGraphicsItem* it : view.scene()->items()) {
+            const QString kind = it->data(2).toString();
+            if (kind != QLatin1String("brick") && kind != QLatin1String("text")) continue;
+            const QString id = it->data(1).toString();
+            if (want.contains(id) && !byId.contains(id)) byId.insert(id, it);
+        }
+        QList<QGraphicsItem*> out;
+        for (const QString& id : ids)
+            if (QGraphicsItem* it = byId.value(id)) out << it;
+        return out;
+    };
+    const auto keyOf = [scope, findE, caseChk] {
+        return QStringLiteral("%1|%2|%3").arg(scope->currentIndex()).arg(caseChk->isChecked()).arg(findE->text());
+    };
+
+    // Typing: every match is picked, and the count shown.
+    auto runSearch = [&view, findE, status, found, search, itemsFor, keyOf]{
+        if (!view.currentMap()) return;
+        found->ids = search();
+        found->at = -1;
+        found->key = keyOf();
+        view.deselectAll();
+        if (findE->text().isEmpty()) { status->clear(); return; }
+        view.selectItems(itemsFor(found->ids), false);
+        const int n = static_cast<int>(found->ids.size());
+        status->setText(n == 0 ? QObject::tr("No matches.")
+                        : n == 1 ? QObject::tr("1 match.")
+                                 : QObject::tr("%1 matches. Find Next goes through them one by one.").arg(n));
+    };
+    // Find Next: the next match alone, picked and brought into view.
+    auto findNext = [&view, findE, status, found, search, itemsFor, keyOf]{
+        if (!view.currentMap() || findE->text().isEmpty()) return;
+        if (found->key != keyOf()) {
+            found->ids = search();
+            found->at = -1;
+            found->key = keyOf();
+        }
+        const int n = static_cast<int>(found->ids.size());
+        if (n == 0) { view.deselectAll(); status->setText(QObject::tr("No matches.")); return; }
+        // Matches in one set or group pick the whole group: the next one
+        // outside what is picked now, so each click shows something new.
+        const QList<QGraphicsItem*> before = found->at >= 0 ? view.scene()->selectedItems() : QList<QGraphicsItem*>();
+        QList<QGraphicsItem*> one;
+        for (int tries = 0; tries < n; ++tries) {
+            found->at = (found->at + 1) % n;
+            one = itemsFor({ found->ids.at(found->at) });
+            if (one.isEmpty() || !before.contains(one.first())) break;
+        }
+        view.deselectAll();
+        view.selectItems(one, false);
+        if (!one.isEmpty()) view.centerOn(one.first());
+        status->setText(QObject::tr("Match %1 of %2.").arg(found->at + 1).arg(n));
+    };
+    findBtn->setObjectName(QStringLiteral("findNext"));
+    findE->setObjectName(QStringLiteral("findText"));
+    scope->setObjectName(QStringLiteral("findScope"));
+    connect(findBtn, &QPushButton::clicked, this, findNext);
+    connect(findE, &QLineEdit::returnPressed, this, findNext);
 
     // Live-update: debounce at 200 ms so typing doesn't redo the scan on
     // every keystroke but still feels responsive. Triggered from every

@@ -18,7 +18,6 @@
 #include "ui/UpdateCheck.h"
 #include "ui/ModuleLibraryDialogs.h"
 #include "ui/PartDifferencesDialog.h"
-#include "ui/PreferencesDialog.h"
 #include "ui/SaveSetDialog.h"
 #include "ui/SettingsDialog.h"
 #include "ui/SharePictureDialog.h"
@@ -267,11 +266,6 @@ TEST_F(DialogKeyboard, Settings) {
     ui::theme::PrefsStore store(QStringLiteral("dialogKeyboardTest"));
     ui::SettingsDialog d(store, QString());
     check("Settings", d);
-}
-
-TEST_F(DialogKeyboard, MoreOptions) {
-    ui::PreferencesDialog d;
-    check("More options", d);
 }
 
 TEST_F(DialogKeyboard, Confirm) {

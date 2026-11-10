@@ -42,7 +42,7 @@ PaintAreaCellsCommand::PaintAreaCellsCommand(core::Map& map, int layerIndex,
                                               std::vector<Change> changes, QUndoCommand* parent)
     : QUndoCommand(parent), map_(map), layerIndex_(layerIndex), changes_(std::move(changes)) {
     const int n = static_cast<int>(changes_.size());
-    setText(QObject::tr("Paint %1 area cell(s)").arg(n));
+    setText(QObject::tr("Paint %n area cell(s)", nullptr, static_cast<int>(n)));
 }
 
 void PaintAreaCellsCommand::redo() {

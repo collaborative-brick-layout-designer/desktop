@@ -41,7 +41,7 @@ VenueDialog::VenueDialog(const std::optional<core::Venue>& current, QWidget* par
     auto* form = new QFormLayout();
     auto* nameE = new QLineEdit(venue->name, this);
     form->addRow(tr("Name:"), nameE);
-    auto* enabledChk = new QCheckBox(tr("Render this venue"), this);
+    auto* enabledChk = new QCheckBox(tr("Show the venue on the map"), this);
     enabledChk->setChecked(venue->enabled);
     form->addRow(enabledChk);
     static constexpr double kStudsPerFoot = 38.09814081;
@@ -50,10 +50,10 @@ VenueDialog::VenueDialog(const std::optional<core::Venue>& current, QWidget* par
     walkwaySpin->setDecimals(2);
     walkwaySpin->setSuffix(tr(" ft"));
     walkwaySpin->setValue(venue->minWalkwayStuds / kStudsPerFoot);
-    form->addRow(tr("Min walkway:"), walkwaySpin);
+    form->addRow(tr("Narrowest walkway:"), walkwaySpin);
     vbox->addLayout(form);
 
-    vbox->addWidget(new QLabel(tr("<b>Edges</b> (from the drawn outline — classify each segment)")));
+    vbox->addWidget(new QLabel(tr("<b>Sides</b>: for each side of the outline, say whether it is a wall, a door or open")));
     auto* edgeTable = new QTableWidget(this);
     edgeTable->setAccessibleName(tr("Edges"));
     edgeTable->setTabKeyNavigation(false);  // Tab moves on; the arrow keys move between cells
@@ -95,7 +95,7 @@ VenueDialog::VenueDialog(const std::optional<core::Venue>& current, QWidget* par
     rebuildEdgeTable();
 
     auto* obstBox = new QLabel(
-        tr("<b>Obstacles</b>: %1 polygon(s) drawn.").arg(venue->obstacles.size()), this);
+        tr("<b>Obstacles</b>: %n drawn.", nullptr, static_cast<int>(venue->obstacles.size())), this);
     vbox->addWidget(obstBox);
 
     auto* btnRow = new QHBoxLayout();

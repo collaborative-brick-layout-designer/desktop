@@ -76,7 +76,7 @@ DownloadCenterDialog::DownloadCenterDialog(QString libraryRoot, QStringList libr
     auto* root = new QVBoxLayout(this);
 
     // ---- Source selection group (mirrors LibraryPackageSourceForm) ----
-    auto* srcGroup = new QGroupBox(tr("Search for parts packages from:"), this);
+    auto* srcGroup = new QGroupBox(tr("Look for part packs on:"), this);
     root->addWidget(
         help::withHelp(new QLabel(tr("Packs of parts made for BlueBrick. Search, tick the ones you want, "
                                      "then install them."),
@@ -119,10 +119,10 @@ DownloadCenterDialog::DownloadCenterDialog(QString libraryRoot, QStringList libr
     }
 
     // ---- Candidate list ----
-    auto* listLabel = new QLabel(tr("Packages (the ones you already have say Included):"), this);
+    auto* listLabel = new QLabel(tr("Part packs (the ones you already have say Included):"), this);
     root->addWidget(listLabel);
     candidates_ = new QListWidget(this);
-    candidates_->setAccessibleName(tr("Available packages"));
+    candidates_->setAccessibleName(tr("Part packs you can get"));
     listLabel->setBuddy(candidates_);
     candidates_->setSelectionMode(QAbstractItemView::NoSelection);
     root->addWidget(candidates_, 1);
@@ -333,9 +333,9 @@ void DownloadCenterDialog::onSearchClicked() {
     }
 
     QString status;
-    if (all.isEmpty()) status = tr("No packages found.");
-    else if (fresh + updates == 0) status = tr("You already have all %n package(s).", nullptr, included);
-    else status = tr("%1 new, %2 update(s), %3 already included.").arg(fresh).arg(updates).arg(included);
+    if (all.isEmpty()) status = tr("No part packs found.");
+    else if (fresh + updates == 0) status = tr("You already have all %n part pack(s).", nullptr, included);
+    else status = tr("%1 new, %n update(s), %2 already included.", nullptr, updates).arg(fresh).arg(included);
     if (!errors.isEmpty())
         status += QChar(' ') + tr("Couldn’t search:") + QChar(' ') + errors.join(QStringLiteral("; "));
     statusLabel_->setText(status);
@@ -429,7 +429,7 @@ bool DownloadCenterDialog::downloadAndInstall(const Package& pkg, QString* error
 bool DownloadCenterDialog::unpackAndMove(const QByteArray& zipBytes, QString* error) {
     const import::SafeZip zip(zipBytes);
     if (!zip.isValid()) {
-        if (error) *error = tr("The download isn't a package this app can read.");
+        if (error) *error = tr("The download isn't a part pack this app can read.");
         return false;
     }
     if (!QDir().mkpath(libraryRoot_)) {
@@ -528,7 +528,7 @@ void DownloadCenterDialog::onDownloadClicked() {
     }
     if (selected.isEmpty()) {
         QMessageBox::information(this, windowTitle(),
-            tr("Tick at least one package to install."));
+            tr("Tick at least one part pack to install."));
         return;
     }
 
@@ -572,12 +572,12 @@ void DownloadCenterDialog::onDownloadClicked() {
     closeBtn_->setEnabled(true);
     installedCount_ += ok;
 
-    QString status = tr("Installed %n package(s).", nullptr, ok);
+    QString status = tr("Installed %n part pack(s).", nullptr, ok);
     if (cancelled_) status += QChar(' ') + tr("The rest were canceled.");
     statusLabel_->setText(status);
     if (!failures.isEmpty()) {
         QMessageBox::warning(this, windowTitle(),
-                             tr("Some packages couldn't be installed:\n%1").arg(failures.join(QChar('\n'))));
+                             tr("Some part packs couldn't be installed:\n%1").arg(failures.join(QChar('\n'))));
     }
     searchBtn_->setEnabled(true);
     // More can be ticked and installed; the dialog stays open until Close.

@@ -10,7 +10,6 @@
 #include "UpdateCheck.h"
 #include "FindDialog.h"
 #include "LibraryPathsDialog.h"
-#include "PreferencesDialog.h"
 #include "VenueDialog.h"
 #include "VenueDimensionsDialog.h"
 #include "../edit/VenueCommands.h"
@@ -361,8 +360,7 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     // Your modules and your clubs' on the server, and the catalog, as tabs.
     connect(moduleLibraryPanel_, &ModuleLibraryPanel::browseCatalogRequested, this, [this] { openCatalogOnWeb(false); });
     connect(moduleLibraryPanel_, &ModuleLibraryPanel::webModulesRequested, this, [this] { openServerHomeOnWeb(); });
-    setupServerLibrary();
-    partsBrowser_->setCatalogLinkVisible(true);
+    setupServerLibrary();  // (shows "Browse the catalog on the web…" while there is a server)
     connect(partsBrowser_, &PartsBrowser::browseCatalogRequested, this, [this] { openCatalogOnWeb(true); });
     addDockWidget(Qt::RightDockWidgetArea, moduleLibraryPanel_);
     venueLibraryPanel_ = new VenueLibraryPanel(this);
@@ -774,6 +772,8 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     statusBar()->showMessage(
         tr("Parts library: %1 parts indexed").arg(parts_.partCount()));
 
+    // View > Reset Panel Layout goes back to this.
+    defaultDockState_ = saveState();
     // Restore the window geometry + dock layout the user left at last exit
     // (each dock is known by its object name, set where it is made).
     QSettings s;

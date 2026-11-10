@@ -109,6 +109,8 @@ ServerWindow::ServerWindow(ServerLibrary& library, QWidget* parent) : QWidget(pa
     head->addWidget(servers_, 1);
     head->addWidget(manage);
     head->addWidget(new help::HelpButton(QStringLiteral("server.window"), this, servers_));
+    // The Clubs tour's "Your server" step (on the main window: the status bar's).
+    tours::tag(manage, QStringLiteral("servers.status"));
     col->addLayout(head);
     account_ = libraryMutedLabel(QString(), this);
     account_->setObjectName(QStringLiteral("serverAccount"));
@@ -154,6 +156,7 @@ ServerWindow::ServerWindow(ServerLibrary& library, QWidget* parent) : QWidget(pa
     membersButton_->setToolTip(
         tr("See who is in this club, the roles they hold and when they were last active"));
     membersButton_->setVisible(false);
+    tours::tag(membersButton_, QStringLiteral("clubs.page"));
     connect(membersButton_, &QPushButton::clicked, this, [this] {
         const QString slug = pickedClub();
         if (!slug.isEmpty()) showMembers(slug);
@@ -172,6 +175,8 @@ ServerWindow::ServerWindow(ServerLibrary& library, QWidget* parent) : QWidget(pa
     saveFile->setObjectName(QStringLiteral("saveLayoutFile"));
     saveFile->setToolTip(tr("Put a layout file from this computer (.bld-layout, .bbm and more) on the server"));
     connect(saveFile, &QPushButton::clicked, this, [this] { QTimer::singleShot(0, this, [this] { emit saveLayoutFileRequested(); }); });
+    // Saving one asks whose it is: the Clubs tour's "Save to" step.
+    tours::tag(saveFile, QStringLiteral("publish.owner"));
     auto* uploadParts = new QPushButton(tr("Upload to server…"));
     uploadParts->setObjectName(QStringLiteral("uploadParts"));
     uploadParts->setToolTip(tr("Send your own parts the server doesn't have yet, all at once"));

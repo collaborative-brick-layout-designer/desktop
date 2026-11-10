@@ -685,7 +685,8 @@ TEST_F(MainWindowFile, ShellHasTaskTabsSheetsAndThePieceCount) {
     EXPECT_NE(window_->findChild<QLabel*>(QStringLiteral("ZoomLabel")), nullptr);
     // Everything the old toolbar did is still in the menus.
     EXPECT_NE(action(*window_, QStringLiteral("&Settings…")), nullptr);
-    EXPECT_NE(action(*window_, QStringLiteral("Prefere&nces…")), nullptr);
+    // One Settings window: Preferences joined it.
+    EXPECT_EQ(action(*window_, QStringLiteral("Prefere&nces…")), nullptr);
     EXPECT_NE(action(*window_, QStringLiteral("Cu&t")), nullptr);
     EXPECT_NE(action(*window_, QStringLiteral("Send to &Back")), nullptr);
 }

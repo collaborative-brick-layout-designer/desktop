@@ -33,8 +33,12 @@ public:
     // are). Areas with the "bldNoTouchScroll" property are left alone.
     static void enableFlick(QAbstractScrollArea* area);
 
-    // The smallest a target may be in touch mode, in pixels.
+    // The smallest a target may be in touch mode, in pixels (WCAG's floor:
+    // dividers, the map's handles).
     static constexpr int kMinTarget = 24;
+    // What buttons, fields and list rows get in touch mode: a comfortable
+    // fingertip (Apple and Google both ask for about 44).
+    static constexpr int kComfortTarget = 44;
 
 signals:
     void changed(bool active);

@@ -19,6 +19,10 @@
 
 #include <vector>
 
+// lupdate reads the context from Q_DECLARE_TR_FUNCTIONS; call ModuleEditText::tr().
+struct ModuleEditText { Q_DECLARE_TR_FUNCTIONS(ModuleEdit) };
+
+
 namespace bld::core {
 
 // The module each part belongs to (the first one listing it).
@@ -105,13 +109,12 @@ inline bool outsideOutline(const QRectF& area, const QRectF& outline) {
 // are here too"; empty for nobody.
 inline QString hereTooText(QStringList names) {
     names.removeDuplicates();
-    const auto tr = [](const char* s) { return QCoreApplication::translate("ModuleEdit", s); };
     if (names.isEmpty()) return {};
-    if (names.size() == 1) return tr("%1 is here too").arg(names[0]);
-    if (names.size() == 2) return tr("%1 and %2 are here too").arg(names[0], names[1]);
+    if (names.size() == 1) return ModuleEditText::tr("%1 is here too").arg(names[0]);
+    if (names.size() == 2) return ModuleEditText::tr("%1 and %2 are here too").arg(names[0], names[1]);
     const auto rest = names.size() - 2;
-    if (rest == 1) return tr("%1, %2 and one other are here too").arg(names[0], names[1]);
-    return tr("%1, %2 and %3 others are here too").arg(names[0], names[1]).arg(rest);
+    if (rest == 1) return ModuleEditText::tr("%1, %2 and one other are here too").arg(names[0], names[1]);
+    return ModuleEditText::tr("%1, %2 and %3 others are here too").arg(names[0], names[1]).arg(rest);
 }
 
 }  // namespace bld::core

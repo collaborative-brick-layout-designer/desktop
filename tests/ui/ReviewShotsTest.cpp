@@ -10,7 +10,13 @@
 #include "ui/LoadingCard.h"
 #include "ui/MainWindow.h"
 #include "ui/MapView.h"
-#include "ui/PreferencesDialog.h"
+#include "ui/FindDialog.h"
+#include "ui/ServerWindow.h"
+#include "ui/TouchMode.h"
+#include "ui/tours/Tours.h"
+#include "ui/LibraryPathsDialog.h"
+#include "ui/VenueDimensionsDialog.h"
+#include "ui/SettingsDialog.h"
 #include "ui/UpdateCheck.h"
 #include "ui/help/ShortcutsDialog.h"
 #include "ui/theme/AppPrefs.h"
@@ -24,11 +30,16 @@
 #include <QAction>
 #include <QApplication>
 #include <QDialog>
+#include <QAbstractItemView>
+#include <QComboBox>
 #include <QDir>
 #include <QElapsedTimer>
+#include <QFrame>
 #include <QLineEdit>
+#include <QListWidget>
 #include <QMenu>
 #include <QMenuBar>
+#include <QPushButton>
 #include <QSettings>
 #include <QStandardPaths>
 #include <QStatusBar>
@@ -116,13 +127,98 @@ TEST(ReviewShots, PicturesForReview) {
             return out + QStringLiteral("/review-%1-%2-%3.png").arg(tag, scene, name);
         };
         window.statusBar()->clearMessage();
+        for (QFrame* card : window.findChildren<QFrame*>(QStringLiteral("NoticeCard"))) card->hide();
 
-        // Preferences: the checkboxes show their boxes.
+        // Settings: every setting in one window, with sections down the side.
         {
-            ui::PreferencesDialog d(&window);
+            ui::SettingsDialog d(store, QString(), {}, &window, {}, [] {});
+            d.resize(940, 900);
             d.show();
             QTest::qWait(300);
-            d.grab().save(file(QStringLiteral("preferences")));
+            d.grab().save(file(QStringLiteral("settings-top")));
+            auto* nav = d.findChild<QListWidget*>(QStringLiteral("settingsSections"));
+            // The language list, each saying how far it got.
+            if (auto* lang = d.findChild<QComboBox*>(QStringLiteral("general/language"))) {
+                lang->showPopup();
+                QTest::qWait(400);
+                if (lang->view() && lang->view()->window()) lang->view()->window()->grab().save(file(QStringLiteral("languages")));
+                lang->hidePopup();
+            }
+            for (const auto& [row, scene] : { std::pair{ 2, "settings-editing" }, std::pair{ 6, "settings-parts" } }) {
+                if (!nav || row >= nav->count()) continue;
+                nav->setCurrentRow(row);
+                QTest::qWait(300);
+                d.grab().save(file(QString::fromLatin1(scene)));
+            }
+        }
+        // The window at 1440 px, help buttons on: the task tabs, Help and
+        // "✓ Saved" all show; then in touch mode, the layout where it was.
+        {
+            ui::theme::AppPrefs hp = store.prefs();
+            hp.helpIcons = true;
+            store.update(hp);
+            ui::theme::PrefsStore::instance().update(hp);
+            view->fitAll();
+            QTest::qWait(400);
+            window.grab().save(file(QStringLiteral("main")));
+            ui::TouchMode::instance().setActive(true);
+            QTest::qWait(600);
+            window.grab().save(file(QStringLiteral("main-touch")));
+            ui::TouchMode::instance().setActive(false);
+            QTest::qWait(400);
+        }
+        // Find & Replace stepping through matches.
+        {
+            ui::FindDialog d(*view, &window);
+            d.show();
+            if (auto* e = d.findChild<QLineEdit*>(QStringLiteral("findText"))) e->setText(QStringLiteral("straight"));
+            QTest::qWait(400);
+            if (auto* b = d.findChild<QPushButton*>(QStringLiteral("findNext"))) b->click();
+            QTest::qWait(300);
+            d.grab().save(file(QStringLiteral("find")));
+            view->deselectAll();
+        }
+        // The Clubs tour in Open from Server, with no server yet.
+        {
+            window.showServerWindow();
+            if (auto* sw = window.serverWindow()) {
+                QTest::qWait(400);
+                if (auto* o = ui::tours::startTour(sw, QStringLiteral("clubs"), store)) {
+                    QTest::qWait(400);
+                    sw->grab().save(file(QStringLiteral("tour-clubs")));
+                    o->deleteLater();
+                }
+                sw->close();
+            }
+        }
+        // The older dialogs, in plain words.
+        {
+            ui::LibraryPathsDialog d({ QStringLiteral("/usr/share/collaborative-brick-layout-designer/parts/BlueBrickParts/parts"),
+                                       QStringLiteral("/home/someone/.local/share/Collaborative Brick Layout Designer/parts/TrixBrix/parts/with/a/long/path") },
+                                     &window);
+            d.show();
+            QTest::qWait(300);
+            d.grab().save(file(QStringLiteral("parts-folders")));
+        }
+        {
+            ui::VenueDimensionsDialog d(&window);
+            d.show();
+            QTest::qWait(300);
+            d.grab().save(file(QStringLiteral("venue-dimensions")));
+        }
+        if (QAction* a = actionNamed(window, QStringLiteral("Background Image…")))
+            grabModal([a] { a->trigger(); }, file(QStringLiteral("background-image")));
+        // The Map menu's Venue items, folded into the Venue Designer.
+        for (QAction* top : window.menuBar()->actions()) {
+            if (plain(top->text()) != QStringLiteral("Map") || !top->menu()) continue;
+            for (QAction* a : top->menu()->actions())
+                if (a->menu() && plain(a->text()) == QStringLiteral("Venue")) {
+                    QMenu* m = a->menu();
+                    m->popup(window.mapToGlobal(QPoint(200, 30)));
+                    QTest::qWait(400);
+                    m->grab().save(file(QStringLiteral("venue-menu")));
+                    m->close();
+                }
         }
         // Keyboard shortcuts: Undo and Redo once.
         {
