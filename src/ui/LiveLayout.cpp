@@ -32,6 +32,10 @@ LiveLayout::LiveLayout(MapView& view, QObject* parent) : QObject(parent), view_(
         emit statusTextChanged(statusText());
         emit offlineEditsReady();
     });
+    connect(&session_, &sync::SyncSession::offlineEditsSent, this, [this](int sent, int clashesLeft) {
+        emit statusTextChanged(statusText());
+        emit offlineEditsSent(sent, clashesLeft);
+    });
     // Down to view only with edits the server didn't take: still live, as a
     // viewer (the map is the server's copy); the window offers to save them
     // as a new layout (session_.notTaken()), as the web does.
@@ -278,9 +282,9 @@ QString LiveLayout::statusText() const {
     }
     switch (session_.status()) {
     case sync::SyncClient::Status::Synced:
-        // Edits waiting for review: connected, but not live until they're reviewed.
+        // Clashing edits waiting for review: live for everything else.
         s = session_.unsyncedEdits() > 0
-                ? tr("Not live, %n change(s) wait for review", nullptr, session_.unsyncedEdits())
+                ? tr("Connected, %n change(s) waiting for review", nullptr, session_.unsyncedEdits())
                 : tr("Connected");
         break;
     case sync::SyncClient::Status::Offline:

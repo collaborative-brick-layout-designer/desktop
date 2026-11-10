@@ -32,6 +32,7 @@
 
 #include <QCoreApplication>
 #include <QLabel>
+#include <QTranslator>
 
 #include <QAction>
 #include <QApplication>
@@ -219,6 +220,7 @@ protected:
         ASSERT_TRUE(waitFor([&] { return session().status() == Status::Synced && view_->currentMap(); }));
         original_ = brickArea(ws_.doc, 0);
         otherOriginal_ = brickArea(ws_.doc, 1);
+        original2_ = brickArea(ws_.doc, 2);
     }
     void TearDown() override {
         window_.reset();
@@ -267,7 +269,7 @@ protected:
     std::unique_ptr<TestWindow> window_;
     ui::MapView* view_ = nullptr;
     ui::LiveLayout* live_ = nullptr;
-    QRectF original_, otherOriginal_;
+    QRectF original_, otherOriginal_, original2_;
 };
 
 }  // namespace
@@ -309,13 +311,16 @@ TEST_F(MainWindowLive, LaterKeepsThemForReviewOfflineChangesAndDiscardLeavesTheS
     EXPECT_EQ(later.unexpected, 0);
     ASSERT_TRUE(session().offlineEdits());
     EXPECT_TRUE(review->isEnabled());
-    // Full review area 4, Bug 5: not live until they're reviewed, and it says so.
+    // Full review area 4, Bug 5: brick 0, which nothing clashed with, went by
+    // itself; only the clash (brick 2) waits, and it says so.
     auto* notices = window_->findChild<ui::NoticeArea*>();
     EXPECT_TRUE(notices->isShown(QStringLiteral("live-review")));
-    EXPECT_TRUE(live_->statusText().startsWith(QStringLiteral("Not live, 2 change(s) wait for review")))
+    EXPECT_TRUE(live_->statusText().startsWith(QStringLiteral("Connected, 1 change")))
         << live_->statusText().toStdString();
-    // The editor still shows mine.
+    ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 0) == original_.translated(8, 0); }));
+    // The editor shows mine on the clash, and theirs elsewhere.
     EXPECT_EQ(brickAt(*view_->currentMap(), 0).displayArea, original_.translated(8, 0));
+    EXPECT_EQ(brickAt(*view_->currentMap(), 1).displayArea, otherOriginal_.translated(0, 16));
 
     Answers discard{ { compare(QStringLiteral("Discard My Changes")),
                        box(QStringLiteral("Throw away"), QStringLiteral("Yes")) } };
@@ -325,9 +330,80 @@ TEST_F(MainWindowLive, LaterKeepsThemForReviewOfflineChangesAndDiscardLeavesTheS
     EXPECT_FALSE(review->isEnabled());
     EXPECT_FALSE(notices->isShown(QStringLiteral("live-review")));
     waitFor([] { return false; }, 150);
-    EXPECT_EQ(brickArea(ws_.doc, 0), original_);
+    // Discard throws away the clash (brick 2); brick 0 was sent before.
+    EXPECT_EQ(brickArea(ws_.doc, 0), original_.translated(8, 0));
     EXPECT_EQ(brickArea(ws_.doc, 1), otherOriginal_.translated(0, 16));
-    EXPECT_EQ(brickAt(*view_->currentMap(), 0).displayArea, original_);
+    EXPECT_EQ(brickArea(ws_.doc, 2), brickAt(*view_->currentMap(), 2).displayArea);
+}
+
+// Full review area 4, Bug 5, the fuller fix: after "Later", the desktop
+// stays live. Others' changes show, its own edits that don't clash are
+// sent, only the clash waits, and both sides end up the same.
+TEST_F(MainWindowLive, AfterLaterOthersChangesShowAndEditsThatDontClashAreSent) {
+    editOffline();
+    Answers later{ { compare(QStringLiteral("Later")) } };
+    later.during([&] { ASSERT_TRUE(waitFor([&] { return later.done(); })); });
+    EXPECT_EQ(later.unexpected, 0);
+    auto* notices = window_->findChild<ui::NoticeArea*>();
+    // Said: what was sent, and what waits.
+    EXPECT_TRUE(notices->isShown(QStringLiteral("live-offline-sent")));
+    const QString sentText = notices->card(QStringLiteral("live-offline-sent"))->findChild<QLabel*>(QStringLiteral("NoticeText"))->text();
+    EXPECT_TRUE(sentText.contains(QStringLiteral("1 offline change"))) << sentText.toStdString();
+    EXPECT_TRUE(sentText.contains(QStringLiteral("Waiting for review: 1 change"))) << sentText.toStdString();
+    EXPECT_TRUE(notices->isShown(QStringLiteral("live-review")));
+    EXPECT_TRUE(live_->statusText().startsWith(QStringLiteral("Connected, 1 change"))) << live_->statusText().toStdString();
+    ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 0) == original_.translated(8, 0); }));
+
+    // Someone else adds a part: it shows here while the clash waits.
+    const auto hasBrick = [](core::Map& m, const QString& guid) {
+        for (auto& l : m.layers())
+            if (l->kind() == core::LayerKind::Brick)
+                for (const auto& b : static_cast<core::LayerBrick&>(*l).bricks)
+                    if (b.guid == guid) return true;
+        return false;
+    };
+    ws_.remoteEdit([](core::Map& s) {
+        core::Brick b;
+        b.guid = QStringLiteral("theirs-new");
+        b.partNumber = QStringLiteral("3001.1");
+        b.displayArea = QRectF(400, 400, 8, 8);
+        for (auto& l : s.layers())
+            if (l->kind() == core::LayerKind::Brick) { static_cast<core::LayerBrick&>(*l).bricks.push_back(b); break; }
+    });
+    ASSERT_TRUE(waitFor([&] { return hasBrick(*view_->currentMap(), QStringLiteral("theirs-new")); }));
+    // I move brick 1 a little further: nothing clashes, so it reaches the server by itself.
+    core::Map& m = *view_->currentMap();
+    const QPointF at1 = brickAt(m, 1).displayArea.topLeft();
+    view_->undoStack()->push(new edit::MoveBricksCommand(m, { { brickRef(m, 1), at1, at1 + QPointF(8, 0) } }));
+    ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 1).topLeft() == at1 + QPointF(8, 0); }));
+    EXPECT_EQ(session().unsyncedEdits(), 1);
+
+    // Reviewed, keeping the server's brick 2: both sides are the same, and nothing was lost.
+    Answers apply{ { compare(QStringLiteral("Apply")) } };
+    apply.during([&] { reviewAction()->trigger(); });
+    EXPECT_EQ(apply.unexpected, 0);
+    ASSERT_TRUE(waitFor([&] { return !session().offlineEdits(); }));
+    waitFor([] { return false; }, 200);
+    sync::SyncSession other;
+    other.open(ws_.url(), {}, false);
+    ASSERT_TRUE(waitFor([&] { return other.status() == Status::Synced && other.currentMap(); }));
+    const auto theirs = other.currentMap();
+    core::Map* mine = view_->currentMap();
+    const auto areas = [](core::Map& m) {
+        QMap<QString, QRectF> out;
+        for (auto& l : m.layers())
+            if (l->kind() == core::LayerKind::Brick)
+                for (const auto& b : static_cast<core::LayerBrick&>(*l).bricks) out.insert(b.guid, b.displayArea);
+        return out;
+    };
+    EXPECT_EQ(areas(*mine), areas(*theirs));
+    EXPECT_EQ(brickAt(*mine, 0).displayArea, original_.translated(8, 0));
+    EXPECT_EQ(brickAt(*mine, 1).displayArea.topLeft(), otherOriginal_.translated(0, 16).topLeft() + QPointF(8, 0));
+    EXPECT_EQ(brickAt(*mine, 2).displayArea, original2_.translated(0, 24));  // the server's version of the clash
+    EXPECT_TRUE(hasBrick(*mine, QStringLiteral("theirs-new")));
+    EXPECT_FALSE(notices->isShown(QStringLiteral("live-review")));
+    EXPECT_EQ(live_->statusText(), QStringLiteral("Connected"));
+    other.close();
 }
 
 TEST_F(MainWindowLive, ReplaceServerWithMineAsksThenPutsMyVersionInPlace) {
@@ -336,9 +412,12 @@ TEST_F(MainWindowLive, ReplaceServerWithMineAsksThenPutsMyVersionInPlace) {
                        box(QStringLiteral("in place of the server's"), QStringLiteral("Yes")) } };
     answers.during([&] { ASSERT_TRUE(waitFor([&] { return answers.done() && !session().offlineEdits(); })); });
     EXPECT_EQ(answers.unexpected, 0);
-    // Mine as it was: their move is undone.
+    // Mine wins the clash (brick 2); brick 0 went by itself; their move of
+    // brick 1, which nothing clashed with, stays.
     ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 0) == original_.translated(8, 0); }));
-    ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 1) == otherOriginal_; }));
+    ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 2) == brickAt(*view_->currentMap(), 2).displayArea; }));
+    EXPECT_EQ(brickArea(ws_.doc, 2).topLeft(), original2_.topLeft() + QPointF(4, 0));
+    EXPECT_EQ(brickArea(ws_.doc, 1), otherOriginal_.translated(0, 16));
 }
 
 TEST_F(MainWindowLive, ReplaceServerCanBeCancelledAtTheConfirmation) {
@@ -349,7 +428,8 @@ TEST_F(MainWindowLive, ReplaceServerCanBeCancelledAtTheConfirmation) {
     answers.during([&] { ASSERT_TRUE(waitFor([&] { return answers.done(); })); });
     EXPECT_EQ(answers.unexpected, 0);
     EXPECT_TRUE(session().offlineEdits());
-    EXPECT_EQ(brickArea(ws_.doc, 0), original_);
+    EXPECT_EQ(brickArea(ws_.doc, 0), original_.translated(8, 0));  // (sent by itself; the clash waits)
+    EXPECT_EQ(brickArea(ws_.doc, 2), original2_.translated(0, 24));
 }
 
 // Someone else edits while the compare window is open: Apply puts mine on
@@ -425,11 +505,13 @@ TEST_F(MainWindowLive, SaveMineAsANewLayoutPublishesItAndLeavesTheLiveOne) {
     EXPECT_FALSE(body.value(QStringLiteral("bbm")).toString().isEmpty());
     EXPECT_FALSE(body.contains(QStringLiteral("orgSlug")));
 
-    // The live layout keeps the server's: my move isn't there, theirs is.
+    // The live layout keeps the server's on the clash (brick 2): theirs is
+    // there, mine isn't. Brick 0, which nothing clashed with, went by itself.
     waitFor([] { return false; }, 150);
-    EXPECT_EQ(brickArea(ws_.doc, 0), original_);
+    EXPECT_EQ(brickArea(ws_.doc, 0), original_.translated(8, 0));
     EXPECT_EQ(brickArea(ws_.doc, 1), otherOriginal_.translated(0, 16));
-    EXPECT_EQ(brickAt(*view_->currentMap(), 0).displayArea, original_);
+    EXPECT_EQ(brickArea(ws_.doc, 2), original2_.translated(0, 24));
+    EXPECT_EQ(brickAt(*view_->currentMap(), 2).displayArea, original2_.translated(0, 24));
     EXPECT_FALSE(reviewAction()->isEnabled());
 }
 
@@ -442,7 +524,7 @@ TEST_F(MainWindowLive, AFailedSaveAsNewKeepsTheOfflineEdits) {
     EXPECT_EQ(answers.unexpected, 0);
     EXPECT_TRUE(session().offlineEdits());
     EXPECT_TRUE(reviewAction()->isEnabled());
-    EXPECT_EQ(brickArea(ws_.doc, 0), original_);
+    EXPECT_EQ(brickArea(ws_.doc, 2), original2_.translated(0, 24));  // the clash still waits
 }
 
 namespace {
@@ -1567,6 +1649,48 @@ TEST_F(MainWindowLive, TheSheetPartsGoOnStaysWhenGoingLiveAndThroughOthersEdits)
     bool named = false;
     for (QLabel* l : window_->findChildren<QLabel*>()) named |= l->text() == QStringLiteral("Sheet: ") + name;
     EXPECT_TRUE(named);
+}
+
+// BLD_REVIEW_SHOTS=<dir> BLD_PARTS=<library dirs, ':'-separated>: the live
+// window after "Later" in the offline review, light and dark, for a PR
+// (skipped otherwise). Finds the window by its menu text, so the same test
+// takes the "before" pictures on an older build.
+TEST_F(MainWindowLive, PicturesAfterLaterInTheOfflineReview) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    const QStringList libs = qEnvironmentVariable("BLD_PARTS").split(QLatin1Char(':'), Qt::SkipEmptyParts);
+    if (out.isEmpty() || libs.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS / BLD_PARTS not set";
+    for (const QString& p : libs) parts_.addSearchPath(p);
+    ASSERT_GT(parts_.scan(), 700);
+    ui::theme::PrefsStore store(QStringLiteral("review-offline-shots"));
+    ui::theme::ThemeManager themer(store);
+    window_->resize(1440, 900);
+    window_->show();
+    waitFor([] { return false; }, 300);
+    view_->rebuildScene();
+    waitFor([&] { return !view_->loadingCard() || !view_->loadingCard()->isVisible(); }, 30000);
+    // English plurals ("1 change", "2 changes"), as the app shows them.
+    QTranslator english;
+    for (const QString& qm : { QStringLiteral(":/i18n/bld_en.qm"), QStringLiteral(":/translations/bld_en.qm"),
+                               qEnvironmentVariable("BLD_EN_QM") })
+        if (!qm.isEmpty() && english.load(qm)) {
+            QCoreApplication::installTranslator(&english);
+            break;
+        }
+    editOffline();
+    Answers later{ { compare(QStringLiteral("Later")) } };
+    later.during([&] { ASSERT_TRUE(waitFor([&] { return later.done(); })); });
+    waitFor([] { return false; }, 500);
+    window_->findChild<ui::NoticeArea*>()->hideNotice(QStringLiteral("server-features"));  // (the fake server's age)
+    for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+        ui::theme::AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        waitFor([] { return false; }, 600);
+        window_->statusBar()->clearMessage();
+        window_->grab().save(out + QStringLiteral("/after-later-%1.png")
+                                       .arg(mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark")
+                                                                                  : QStringLiteral("light")));
+    }
 }
 
 // BLD_REVIEW_SHOTS=<dir> BLD_PARTS=<library dirs, ':'-separated>: the live

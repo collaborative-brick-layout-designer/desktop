@@ -148,6 +148,22 @@ void MainWindow::setupLiveMenu(QMenu* file) {
                              { NoticeAction{ tr("OK"), {} } });
     });
     connect(live_, &LiveLayout::offlineEditsReady, this, &MainWindow::onReviewOfflineEdits);
+    // Offline edits nothing clashed with went by themselves (area 4, Bugs 5
+    // and 6); the clashes, if any, wait for review.
+    connect(live_, &LiveLayout::offlineEditsSent, this, [this](int sent, int clashesLeft) {
+        QString text = tr("Your %n offline change(s) were sent.", nullptr, sent);
+        QList<NoticeAction> actions;
+        if (clashesLeft > 0) {
+            text += QLatin1Char(' ')
+                    + tr("Waiting for review: %n change(s) clashing with someone else's.", nullptr, clashesLeft);
+            actions << NoticeAction{ tr("Review now"),
+                                     [this] { QTimer::singleShot(0, this, &MainWindow::onReviewOfflineEdits); }, true };
+        }
+        actions << NoticeAction{ tr("OK"), {} };
+        notices_->showNotice(QStringLiteral("live-offline-sent"),
+                             clashesLeft > 0 ? tr("Your changes were sent") : tr("You're live again"), text, actions);
+        updateLiveUi();
+    });
     connect(live_, &LiveLayout::editsNotTaken, this, [this] {
         // Said here instead of "You can only view this layout now".
         notices_->hideNotice(QStringLiteral("live-access"));
@@ -806,17 +822,17 @@ void MainWindow::updateLiveUi() {
     const bool waiting = on && live_->session().offlineEdits()
                          && live_->session().status() == sync::SyncClient::Status::Synced;
     reviewOfflineAct_->setEnabled(waiting);
-    // Edits waiting for review: this window shows only its own copy and keeps
-    // every new edit back, so it isn't live until they're reviewed. Said for
-    // as long as that lasts (the status bar says "Not live" too).
+    // Clashing edits waiting for review: everything else is live (others'
+    // changes show, and edits that don't clash are sent). Said for as long
+    // as that lasts (the status bar counts them too).
     const int n = live_->session().unsyncedEdits();
     const auto* comparing = findChild<sync::CompareDialog*>(QString(), Qt::FindDirectChildrenOnly);
     if (waiting && !(comparing && comparing->isVisible())) {
         if (liveReviewNotice_ == n) return updateTitle();
         liveReviewNotice_ = n;
-        notices_->showNotice(QStringLiteral("live-review"), tr("You're not live"),
-                             tr("%n of your change(s) wait for review. Until then you don't see what others change, "
-                                "and they don't see your changes.",
+        notices_->showNotice(QStringLiteral("live-review"), tr("Some of your changes wait for review"),
+                             tr("Waiting for review: %n change(s) clashing with someone else's. Everything else is "
+                                "live: you see what others change, and your other changes are sent.",
                                 nullptr, n),
                              { NoticeAction{ tr("Review now"),
                                              [this] { QTimer::singleShot(0, this, &MainWindow::onReviewOfflineEdits); },

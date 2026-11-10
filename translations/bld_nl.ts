@@ -4749,10 +4749,10 @@
         <translation>%1, alleen bekijken</translation>
     </message>
     <message numerus="yes">
-        <source>Not live, %n change(s) wait for review</source>
+        <source>Connected, %n change(s) waiting for review</source>
         <translation>
-            <numerusform>Niet live, %n wijziging wacht op beoordeling</numerusform>
-            <numerusform>Niet live, %n wijzigingen wachten op beoordeling</numerusform>
+            <numerusform>Verbonden, %n wijziging wacht op beoordeling</numerusform>
+            <numerusform>Verbonden, %n wijzigingen wachten op beoordeling</numerusform>
         </translation>
     </message>
     <message>
@@ -6617,6 +6617,13 @@ Toch opslaan?</translation>
         <source>Someone else changed that after you, so there was nothing to redo.</source>
         <translation>Iemand anders heeft dat na jou gewijzigd, dus er was niets om opnieuw te doen.</translation>
     </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s.</source>
+        <translation>
+            <numerusform>Wacht op beoordeling: %n wijziging die botst met die van iemand anders.</numerusform>
+            <numerusform>Wachten op beoordeling: %n wijzigingen die botsen met die van iemand anders.</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Your latest changes weren&apos;t taken</source>
         <translation>Je laatste wijzigingen zijn niet overgenomen</translation>
@@ -6664,6 +6671,10 @@ Toch opslaan?</translation>
     <message>
         <source>Everyone else who has this layout open now</source>
         <translation>Iedereen anders die deze layout nu open heeft</translation>
+    </message>
+    <message>
+        <source>Your changes were sent</source>
+        <translation>Je wijzigingen zijn verzonden</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
@@ -6866,19 +6877,15 @@ Toch opslaan?</translation>
         <translation>Live op %1: %2</translation>
     </message>
     <message>
-        <source>You&apos;re not live</source>
-        <translation>Je bent niet live</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
-        <translation>
-            <numerusform>%n van je wijzigingen wacht op beoordeling. Tot dan zie je niet wat anderen veranderen, en zij zien jouw wijzigingen niet.</numerusform>
-            <numerusform>%n van je wijzigingen wachten op beoordeling. Tot dan zie je niet wat anderen veranderen, en zij zien jouw wijzigingen niet.</numerusform>
-        </translation>
-    </message>
-    <message>
         <source>Review now</source>
         <translation>Nu bekijken</translation>
+    </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s. Everything else is live: you see what others change, and your other changes are sent.</source>
+        <translation>
+            <numerusform>Wacht op beoordeling: %n wijziging die botst met die van iemand anders. Al het andere is live: je ziet wat anderen veranderen, en je overige wijzigingen worden verzonden.</numerusform>
+            <numerusform>Wachten op beoordeling: %n wijzigingen die botsen met die van iemand anders. Al het andere is live: je ziet wat anderen veranderen, en je overige wijzigingen worden verzonden.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
@@ -6894,6 +6901,10 @@ Toch opslaan?</translation>
             <numerusform>Je %n offline wijziging is verzonden.</numerusform>
             <numerusform>Je %n offline wijzigingen zijn verzonden.</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Some of your changes wait for review</source>
+        <translation>Sommige van je wijzigingen wachten op beoordeling</translation>
     </message>
     <message>
         <source>Review Offline Changes</source>

@@ -4749,10 +4749,10 @@
         <translation>%1, lecture seule</translation>
     </message>
     <message numerus="yes">
-        <source>Not live, %n change(s) wait for review</source>
+        <source>Connected, %n change(s) waiting for review</source>
         <translation>
-            <numerusform>Pas en direct, %n modification attend d&apos;être examinée</numerusform>
-            <numerusform>Pas en direct, %n modifications attendent d&apos;être examinées</numerusform>
+            <numerusform>Connecté, %n modification en attente de revue</numerusform>
+            <numerusform>Connecté, %n modifications en attente de revue</numerusform>
         </translation>
     </message>
     <message>
@@ -6617,6 +6617,13 @@ Enregistrer quand même ?</translation>
         <source>Someone else changed that after you, so there was nothing to redo.</source>
         <translation>Quelqu&apos;un d&apos;autre l&apos;a modifié après vous : il n&apos;y avait donc rien à rétablir.</translation>
     </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s.</source>
+        <translation>
+            <numerusform>En attente de revue : %n modification en conflit avec celle de quelqu’un d’autre.</numerusform>
+            <numerusform>En attente de revue : %n modifications en conflit avec celles de quelqu’un d’autre.</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Your latest changes weren&apos;t taken</source>
         <translation>Vos dernières modifications n&apos;ont pas été prises en compte</translation>
@@ -6664,6 +6671,10 @@ Enregistrer quand même ?</translation>
     <message>
         <source>Everyone else who has this layout open now</source>
         <translation>Toutes les autres personnes qui ont cette disposition ouverte en ce moment</translation>
+    </message>
+    <message>
+        <source>Your changes were sent</source>
+        <translation>Vos modifications ont été envoyées</translation>
     </message>
     <message>
         <source>This file is a copy of “%1”. Open the live version to work on it with everyone, or keep working on this copy.</source>
@@ -6866,19 +6877,15 @@ Enregistrer quand même ?</translation>
         <translation>En direct sur %1 : %2</translation>
     </message>
     <message>
-        <source>You&apos;re not live</source>
-        <translation>Vous n&apos;êtes pas en direct</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n of your change(s) wait for review. Until then you don&apos;t see what others change, and they don&apos;t see your changes.</source>
-        <translation>
-            <numerusform>%n de vos modifications attend d&apos;être examinée. D&apos;ici là, vous ne voyez pas ce que les autres modifient, et ils ne voient pas vos modifications.</numerusform>
-            <numerusform>%n de vos modifications attendent d&apos;être examinées. D&apos;ici là, vous ne voyez pas ce que les autres modifient, et ils ne voient pas vos modifications.</numerusform>
-        </translation>
-    </message>
-    <message>
         <source>Review now</source>
         <translation>Examiner maintenant</translation>
+    </message>
+    <message numerus="yes">
+        <source>Waiting for review: %n change(s) clashing with someone else&apos;s. Everything else is live: you see what others change, and your other changes are sent.</source>
+        <translation>
+            <numerusform>En attente de revue : %n modification en conflit avec celle de quelqu’un d’autre. Tout le reste est en direct : vous voyez ce que les autres changent, et vos autres modifications sont envoyées.</numerusform>
+            <numerusform>En attente de revue : %n modifications en conflit avec celles de quelqu’un d’autre. Tout le reste est en direct : vous voyez ce que les autres changent, et vos autres modifications sont envoyées.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Your offline edits left the layout as it was; nothing to apply.</source>
@@ -6894,6 +6901,10 @@ Enregistrer quand même ?</translation>
             <numerusform>Votre modification hors ligne a été envoyée.</numerusform>
             <numerusform>Vos %n modifications hors ligne ont été envoyées.</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Some of your changes wait for review</source>
+        <translation>Certaines de vos modifications attendent une revue</translation>
     </message>
     <message>
         <source>Review Offline Changes</source>

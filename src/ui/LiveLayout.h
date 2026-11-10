@@ -98,6 +98,9 @@ signals:
     void signInEnded();
     // Back in step with offline edits to resolve (SyncSession::resolveOffline).
     void offlineEditsReady();
+    // Offline edits nothing clashed with went to the server by themselves;
+    // `clashesLeft` still wait for review.
+    void offlineEditsSent(int sent, int clashesLeft);
     // One of this desktop's own edits went to the shared layout.
     void localEdited();
 
