@@ -7995,6 +7995,10 @@ Exporter quand même ?</translation>
         <translation>&lt;h3&gt;Collaborative Brick Layout Designer&lt;/h3&gt;&lt;p&gt;Version multiplateforme en C++/Qt 6 de &lt;b&gt;BlueBrick&lt;/b&gt;, d’Alban Nanty et ses contributeurs.&lt;/p&gt;&lt;p&gt;Ajoute les modules, les étiquettes, les salles et la modification en direct avec votre club, et enregistre tout dans un seul fichier &lt;i&gt;.bld-layout&lt;/i&gt;. Elle ouvre et exporte toujours les fichiers BlueBrick &lt;i&gt;.bbm&lt;/i&gt;.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Faite avec l’IA.&lt;/b&gt; Une grande partie de cette application a été écrite avec l’aide de l’IA (Claude d’Anthropic), dirigée et relue par une personne. Elle est testée, mais peut encore contenir des erreurs. Signalez celles que vous trouvez.&lt;/p&gt;&lt;p&gt;Sous licence GPL-3.0, comme BlueBrick.&lt;/p&gt;&lt;p&gt;Bibliothèque de pièces : %1 pièces indexées.&lt;/p&gt;</translation>
     </message>
     <message>
+        <source>Third-party licenses</source>
+        <translation>Licences tierces</translation>
+    </message>
+    <message>
         <source>%1 — on %2</source>
         <translation>%1 — sur %2</translation>
     </message>
@@ -11135,6 +11139,14 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
 </context>
 <context>
     <name>bld::ui::UpdateCheck</name>
+    <message>
+        <source>Version %1, a nightly build</source>
+        <translation>Version %1, une compilation nocturne</translation>
+    </message>
+    <message>
+        <source>Version %1</source>
+        <translation>Version %1</translation>
+    </message>
     <message>
         <source>Check for Updates</source>
         <translation>Rechercher des mises à jour</translation>
