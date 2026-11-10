@@ -13,6 +13,8 @@ add_executable(bld_ui_tests
     ConnectivityTest.cpp
     FlexMoveTest.cpp
     UpdateCheckTest.cpp
+    QtCatalogsTest.cpp
+    QtCatalogsShotsTest.cpp
     FuzzRegressionTest.cpp
     VenueLibraryPanelTest.cpp
     VenueDesignerDialogTest.cpp

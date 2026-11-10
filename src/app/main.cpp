@@ -1,4 +1,5 @@
 #include "../core/NameMigration.h"
+#include "../core/QtCatalogs.h"
 #include "../parts/PartsLibrary.h"
 #include "../ui/MainWindow.h"
 #include "../ui/theme/AppIcon.h"
@@ -12,6 +13,7 @@
 #include <QDir>
 #include <QEvent>
 #include <QFile>
+#include <QFileInfo>
 #include <QFileOpenEvent>
 #include <QGuiApplication>
 #include <QLibraryInfo>
@@ -20,6 +22,8 @@
 #include <QSettings>
 #include <QTimer>
 #include <QTranslator>
+
+#include <cstdio>
 
 namespace {
 
@@ -92,10 +96,32 @@ int main(int argc, char** argv) {
     parser.setApplicationDescription(QStringLiteral("Cross-platform maintainer fork of BlueBrick"));
     parser.addHelpOption();
     parser.addVersionOption();
+    // Packaging check (CI runs it on every package): which catalogs each UI
+    // language would load, from this install. Exits 1 if one is missing.
+    const QCommandLineOption checkTranslations(
+        QStringLiteral("check-translations"),
+        QStringLiteral("List the translation catalogs each language loads from this install, and exit."));
+    parser.addOption(checkTranslations);
     parser.addPositionalArgument(QStringLiteral("file"),
                                  QStringLiteral("Layout (.bld-layout) or BlueBrick map (.bbm) to open."),
                                  QStringLiteral("[file]"));
     parser.process(app);
+
+    const QStringList qtCatalogDirs{ translationsDir(), QLibraryInfo::path(QLibraryInfo::TranslationsPath) };
+    if (parser.isSet(checkTranslations)) {
+        int missing = 0;
+        for (const QString& code : bld::core::uiLanguages()) {
+            const QString own = QDir(translationsDir()).filePath(QStringLiteral("bld_%1.qm").arg(code));
+            const QString qt = bld::core::findQtCatalog(code, QLocale::system().name(), qtCatalogDirs);
+            const bool ok = QFileInfo::exists(own) && !qt.isEmpty();
+            if (!ok) ++missing;
+            std::printf("%s %s: %s, %s\n", ok ? "ok     " : "MISSING", qPrintable(code),
+                        QFileInfo::exists(own) ? qPrintable(own) : "no bld catalog",
+                        qt.isEmpty() ? "no Qt catalog" : qPrintable(qt));
+        }
+        std::fflush(stdout);
+        return missing == 0 ? 0 : 1;
+    }
 
     // Before the first QSettings read, and after --version / --help (which
     // exit, so the version test leaves your settings alone): the first start
@@ -105,8 +131,9 @@ int main(int argc, char** argv) {
     if (!moved.error.isEmpty()) qWarning("%s", qPrintable(moved.error));
 
     // Load the user-selected UI language's bld_<code>.qm plus Qt's own
-    // qtbase_<code>.qm. Deployed builds carry qtbase_*.qm next to ours
-    // (windeployqt / macdeployqt); dev builds find it under the Qt install.
+    // catalog: beside ours in a package (qt_<code>.qm from windeployqt,
+    // qtbase_<code>.qm in the macOS bundle), or under the Qt install (Linux
+    // packages, dev builds).
     static QTranslator appTranslator;
     static QTranslator qtTranslator;
     // English's own catalog first, whatever the language: the singular and
@@ -124,11 +151,10 @@ int main(int argc, char** argv) {
         if (appTranslator.load(QStringLiteral("bld_") + langCode, dir)) {
             QCoreApplication::installTranslator(&appTranslator);
         }
-        // Qt's own catalogues name Norwegian "nb".
-        const QString qtCode = langCode == QLatin1String("no") ? QStringLiteral("nb") : langCode;
-        if (qtTranslator.load(QStringLiteral("qtbase_") + qtCode, dir)
-            || qtTranslator.load(QStringLiteral("qtbase_") + qtCode,
-                                 QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
+        // Qt's own words (its dialogs' buttons), under whichever name this
+        // package has them (core/QtCatalogs.h).
+        const QString qtCatalog = bld::core::findQtCatalog(langCode, QLocale::system().name(), qtCatalogDirs);
+        if (!qtCatalog.isEmpty() && qtTranslator.load(qtCatalog)) {
             QCoreApplication::installTranslator(&qtTranslator);
         }
     }

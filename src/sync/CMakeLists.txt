@@ -94,6 +94,30 @@ FetchContent_Declare(
     SYSTEM
 )
 FetchContent_MakeAvailable(qtkeychain)
+# QtKeychain is linked in statically, but its own install rules (which have
+# no switch) add its headers, static library, CMake package and qmake .pri to
+# every package. Take them back out right after they're installed (install
+# rules run in the order they're declared, CMP0082).
+install(CODE [[
+    set(_bld_kept "")
+    foreach(_f IN LISTS CMAKE_INSTALL_MANIFEST_FILES)
+        if(_f MATCHES "/include/qt6keychain/|/cmake/Qt6Keychain/|/qt_Qt6Keychain\\.pri$|/(lib)?qt6keychain\\.(a|lib)$")
+            file(REMOVE "${_f}")
+        else()
+            list(APPEND _bld_kept "${_f}")
+        endif()
+    endforeach()
+    set(CMAKE_INSTALL_MANIFEST_FILES "${_bld_kept}")
+    foreach(_d include/qt6keychain include lib/cmake/Qt6Keychain lib/cmake mkspecs/modules mkspecs)
+        set(_dir "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${_d}")
+        if(IS_DIRECTORY "${_dir}")
+            file(GLOB _left "${_dir}/*")
+            if(NOT _left)
+                file(REMOVE_RECURSE "${_dir}")
+            endif()
+        endif()
+    endforeach()
+]])
 # Third-party: its own warnings aren't ours to fix.
 if(NOT MSVC)
     target_compile_options(qt6keychain PRIVATE -w)

@@ -4,6 +4,8 @@ add_library(bld_core STATIC
     DrawnLimits.cpp
     Version.h
     Version.cpp
+    QtCatalogs.h
+    QtCatalogs.cpp
     NameMigration.h
     NameMigration.cpp
     Ids.h
