@@ -353,12 +353,13 @@ void addImport(QVBoxLayout* into, QWidget* parent) {
             [rep, &cancelled]{ cancelled = true; rep->abort(); });
         QObject::connect(rep, &QNetworkReply::downloadProgress, &dlg,
             [&dlg](qint64 done, qint64 total){
+                constexpr qint64 kMegabyte = qint64{1024} * 1024;
                 if (total <= 0) { dlg.setRange(0, 0); return; }
-                const int mb = std::max(1, static_cast<int>(total / (1024 * 1024)));
+                const int mb = std::max(1, static_cast<int>(total / kMegabyte));
                 dlg.setMaximum(mb);
-                dlg.setValue(static_cast<int>(done / (1024 * 1024)));
+                dlg.setValue(static_cast<int>(done / kMegabyte));
                 dlg.setLabelText(Text::tr("Downloading LDraw library — %1 / %2 MB")
-                    .arg(done / (1024 * 1024)).arg(mb));
+                    .arg(done / kMegabyte).arg(mb));
             });
         QEventLoop loop;
         QObject::connect(rep, &QNetworkReply::finished, &loop, &QEventLoop::quit);
