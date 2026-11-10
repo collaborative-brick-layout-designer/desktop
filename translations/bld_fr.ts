@@ -1148,534 +1148,534 @@
     </message>
     <message>
         <source>Show in the club list</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher dans la liste des clubs</translation>
     </message>
     <message>
         <source>Let people find the club under Find a club.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permettre de trouver le club dans « Trouver un club ».</translation>
     </message>
     <message>
         <source>Everyone signed in sees its name, its description and how many members it has. Leave it off to keep the club hidden, so only people you invite know about it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toute personne connectée voit son nom, sa description et son nombre de membres. Laissez désactivé pour garder le club caché, connu seulement de ceux que vous invitez.</translation>
     </message>
     <message>
         <source>Requests to join</source>
-        <translation type="unfinished"></translation>
+        <translation>Demandes d’adhésion</translation>
     </message>
     <message>
         <source>People who asked to join the club, waiting for an admin.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les personnes qui ont demandé à rejoindre le club, en attente d’un admin.</translation>
     </message>
     <message>
         <source>Approve to make them a member. Decline to say no; they aren’t told, and they can ask again later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Accepter en fait un membre. Refuser dit non ; elles n’en sont pas informées et peuvent redemander plus tard.</translation>
     </message>
     <message>
         <source>Roles in the club</source>
-        <translation type="unfinished"></translation>
+        <translation>Rôles du club</translation>
     </message>
     <message>
         <source>Roles decide what people can do in the club, and someone can hold several.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les rôles décident de ce que chacun peut faire dans le club, et une personne peut en avoir plusieurs.</translation>
     </message>
     <message>
         <source>Every club starts with Admin, Manager, Member and Viewer, and its admins can change them or add their own, such as Track crew. Someone with several roles can do everything those roles allow. A layout or module shared with someone still works on top of their roles.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaque club commence avec Admin, Gestionnaire, Membre et Lecteur, et ses admins peuvent les modifier ou ajouter les leurs, comme Équipe des rails. Une personne avec plusieurs rôles peut faire tout ce que ces rôles permettent. Un plan ou un module partagé avec quelqu’un s’ajoute à ses rôles.</translation>
     </message>
     <message>
         <source>What a role allows</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce qu’un rôle permet</translation>
     </message>
     <message>
         <source>Tick what people with this role may do in the club.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cochez ce que les personnes de ce rôle peuvent faire dans le club.</translation>
     </message>
     <message>
         <source>Everyone in the club can view its things. The other boxes add to that: editing layouts, adding modules or parts, inviting people and so on. Changes reach people at once, even in a layout they have open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tout le club peut voir ses affaires. Les autres cases s’y ajoutent : modifier des plans, ajouter des modules ou des pièces, inviter des gens, etc. Les changements s’appliquent aussitôt, même dans un plan ouvert.</translation>
     </message>
     <message>
         <source>Find a club</source>
-        <translation type="unfinished"></translation>
+        <translation>Trouver un club</translation>
     </message>
     <message>
         <source>Clubs that chose to be listed here, for anyone to find.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les clubs qui ont choisi d’être listés ici, pour que tout le monde les trouve.</translation>
     </message>
     <message>
         <source>Join an open club straight away, or ask to join and wait for an admin to say yes. Some clubs take new members by invite only.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rejoignez tout de suite un club ouvert, ou demandez à rejoindre et attendez qu’un admin accepte. Certains clubs n’accueillent de nouveaux membres que sur invitation.</translation>
     </message>
     <message>
         <source>Featured</source>
-        <translation type="unfinished"></translation>
+        <translation>À la une</translation>
     </message>
     <message>
         <source>Collections the site’s moderators picked as a good place to start.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les collections choisies par les modérateurs du site comme bon point de départ.</translation>
     </message>
     <message>
         <source>Open one to see what’s in it, then add one item or Add all to copy everything to you or your club. Below them, each kind of thing has its own row: See all opens the whole list, which you can search and sort.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrez-en une pour voir son contenu, puis ajoutez un élément, ou « Tout ajouter » pour tout copier chez vous ou votre club. En dessous, chaque type a sa propre rangée : « Tout voir » ouvre la liste complète, que vous pouvez chercher et trier.</translation>
     </message>
     <message>
         <source>Collections</source>
-        <translation type="unfinished"></translation>
+        <translation>Collections</translation>
     </message>
     <message>
         <source>Sets of modules and parts that go well together, like “Starter town”.</source>
-        <translation type="unfinished"></translation>
+        <translation>Des ensembles de modules et de pièces qui vont bien ensemble, comme « Ville de départ ».</translation>
     </message>
     <message>
         <source>Open one to see what’s in it, then add one item or Add all to copy everything to you or your club. Anyone signed in can make a collection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrez-en une pour voir son contenu, puis ajoutez un élément, ou « Tout ajouter » pour tout copier chez vous ou votre club. Toute personne connectée peut créer une collection.</translation>
     </message>
     <message>
         <source>Your collections</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos collections</translation>
     </message>
     <message>
         <source>Collections you made: private ones only you see, public ones are in the catalog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les collections que vous avez faites : les privées que vous seul voyez, les publiques dans le catalogue.</translation>
     </message>
     <message>
         <source>Make one with New collection, or use “Add to a collection…” on any module or part. A public collection’s title, description and cover are checked by a moderator first; each item is checked on its own.</source>
-        <translation type="unfinished"></translation>
+        <translation>Créez-en une avec « Nouvelle collection », ou utilisez « Ajouter à une collection… » sur un module ou une pièce. Le titre, la description et la couverture d’une collection publique sont d’abord vérifiés par un modérateur ; chaque élément est vérifié à part.</translation>
     </message>
     <message>
         <source>Your clubs’ collections</source>
-        <translation type="unfinished"></translation>
+        <translation>Les collections de vos clubs</translation>
     </message>
     <message>
         <source>Collections your clubs made: every member sees them, and members with the Send to the catalog permission change them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les collections faites par vos clubs : chaque membre les voit, et les membres ayant la permission « Envoyer au catalogue » les modifient.</translation>
     </message>
     <message>
         <source>A club can keep a collection to itself, like its show standards, or share it with everyone in the catalog under the club’s name. Pinned ones come first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un club peut garder une collection pour lui, comme ses standards d’expo, ou la partager avec tous dans le catalogue sous le nom du club. Celles épinglées viennent en premier.</translation>
     </message>
     <message>
         <source>Trusted club</source>
-        <translation type="unfinished"></translation>
+        <translation>Club de confiance</translation>
     </message>
     <message>
         <source>A trusted club checks what it shares itself, instead of the site’s moderators.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un club de confiance vérifie lui-même ce qu’il partage, au lieu des modérateurs du site.</translation>
     </message>
     <message>
         <source>Members with the Send to the catalog permission review it: what they share under the club’s name goes public at once, and what other members share waits in the club’s own review. The site’s moderators can still see and take down anything, and can stop trusting a club.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les membres ayant la permission « Envoyer au catalogue » vérifient : ce qu’ils partagent sous le nom du club devient public aussitôt, et ce que partagent les autres membres attend dans la propre file du club. Les modérateurs du site peuvent toujours tout voir et retirer, et cesser de faire confiance à un club.</translation>
     </message>
     <message>
         <source>Who can see this</source>
-        <translation type="unfinished"></translation>
+        <translation>Qui peut voir ceci</translation>
     </message>
     <message>
         <source>Private is only you or your club’s members; Everyone puts it in the public catalog after a check.</source>
-        <translation type="unfinished"></translation>
+        <translation>Privé, c’est vous seul ou les membres de votre club ; Tout le monde le met dans le catalogue public après vérification.</translation>
     </message>
     <message>
         <source>A moderator checks a public collection’s title, description and cover first. Adding or moving items never needs a check, but your own modules and parts are each checked before they show publicly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un modérateur vérifie d’abord le titre, la description et la couverture d’une collection publique. Ajouter ou déplacer des éléments ne demande jamais de vérification, mais vos propres modules et pièces sont chacun vérifiés avant d’être publics.</translation>
     </message>
     <message>
         <source>Your name</source>
-        <translation type="unfinished"></translation>
+        <translation>Votre nom</translation>
     </message>
     <message>
         <source>Other people see this name, so pick one you are happy to share; your email stays private.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les autres voient ce nom, alors choisissez-en un que vous acceptez de partager ; votre e-mail reste privé.</translation>
     </message>
     <message>
         <source>It shows in club member lists, next to your cursor when you edit with others, and on things you share in the public catalog. You can change it any time on your Profile page.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il apparaît dans les listes de membres des clubs, à côté de votre curseur quand vous modifiez avec d’autres, et sur ce que vous partagez dans le catalogue public. Vous pouvez le changer à tout moment sur votre page Profil.</translation>
     </message>
 </context>
 <context>
     <name>ModuleEdit</name>
     <message>
         <source>%1 is here too</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 est aussi là</translation>
     </message>
     <message>
         <source>%1 and %2 are here too</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 et %2 sont aussi là</translation>
     </message>
     <message>
         <source>%1, %2 and one other are here too</source>
-        <translation type="unfinished"></translation>
+        <translation>%1, %2 et une autre personne sont aussi là</translation>
     </message>
     <message>
         <source>%1, %2 and %3 others are here too</source>
-        <translation type="unfinished"></translation>
+        <translation>%1, %2 et %3 autres sont aussi là</translation>
     </message>
 </context>
 <context>
     <name>PartsZip</name>
     <message>
         <source>The file isn&apos;t there any more.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le fichier n’est plus là.</translation>
     </message>
     <message>
         <source>The zip is too big to be a parts folder (over %1 MB).</source>
-        <translation type="unfinished"></translation>
+        <translation>Le zip est trop gros pour un dossier de pièces (plus de %1 Mo).</translation>
     </message>
     <message>
         <source>This file isn&apos;t a zip, or it is damaged.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce fichier n’est pas un zip, ou il est endommagé.</translation>
     </message>
     <message>
         <source>The zip has too many files to be a parts folder (over %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>Le zip a trop de fichiers pour un dossier de pièces (plus de %1).</translation>
     </message>
     <message>
         <source>The zip holds a link (%1), which parts folders never do.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le zip contient un lien (%1), ce qu’un dossier de pièces n’a jamais.</translation>
     </message>
     <message>
         <source>The zip holds a file that would land outside the parts folder (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>Le zip contient un fichier qui atterrirait hors du dossier de pièces (%1).</translation>
     </message>
     <message>
         <source>%1 in the zip is too big for a part.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 dans le zip est trop gros pour une pièce.</translation>
     </message>
     <message>
         <source>The zip unpacks to more than %1 MB, too much for a parts folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le zip se décompresse en plus de %1 Mo, trop pour un dossier de pièces.</translation>
     </message>
     <message>
         <source>There are no parts in this zip (no part .xml files).</source>
-        <translation type="unfinished"></translation>
+        <translation>Il n’y a pas de pièces dans ce zip (aucun fichier .xml de pièce).</translation>
     </message>
     <message>
         <source>%1 in the zip is damaged.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 dans le zip est endommagé.</translation>
     </message>
     <message>
         <source>Couldn&apos;t write %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d’écrire %1.</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message numerus="yes">
         <source>Paint %n area cell(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Peindre %n cellule de zone</numerusform>
+            <numerusform>Peindre %n cellules de zone</numerusform>
         </translation>
     </message>
     <message>
         <source>Move area</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer la zone</translation>
     </message>
     <message>
         <source>Add brick %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter la brique %1</translation>
     </message>
     <message numerus="yes">
         <source>Move %n part(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Déplacer %n pièce</numerusform>
+            <numerusform>Déplacer %n pièces</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Turn %n part(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Tourner %n pièce</numerusform>
+            <numerusform>Tourner %n pièces</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Delete %n part(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Supprimer %n pièce</numerusform>
+            <numerusform>Supprimer %n pièces</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Bring %n part(s) to front</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Mettre %n pièce au premier plan</numerusform>
+            <numerusform>Mettre %n pièces au premier plan</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Send %n part(s) to back</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Mettre %n pièce à l’arrière-plan</numerusform>
+            <numerusform>Mettre %n pièces à l’arrière-plan</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Move %n part(s) to another sheet</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Déplacer %n pièce vers une autre feuille</numerusform>
+            <numerusform>Déplacer %n pièces vers une autre feuille</numerusform>
         </translation>
     </message>
     <message>
         <source>Bring to front</source>
-        <translation type="unfinished">Mettre en avant plan</translation>
+        <translation>Mettre au premier plan</translation>
     </message>
     <message>
         <source>Send to back</source>
-        <translation type="unfinished">Envoyer en arrière plan</translation>
+        <translation>Mettre à l’arrière-plan</translation>
     </message>
     <message>
         <source>Turn</source>
-        <translation type="unfinished"></translation>
+        <translation>Tourner</translation>
     </message>
     <message>
         <source>Edit brick %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier la brique %1</translation>
     </message>
     <message numerus="yes">
         <source>Group %n part(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Grouper %n pièce</numerusform>
+            <numerusform>Grouper %n pièces</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Ungroup %n part(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Dégrouper %n pièce</numerusform>
+            <numerusform>Dégrouper %n pièces</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Add %n part(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Ajouter %n pièce</numerusform>
+            <numerusform>Ajouter %n pièces</numerusform>
         </translation>
     </message>
     <message>
         <source>Add label &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter l’étiquette « %1 »</translation>
     </message>
     <message>
         <source>Delete label</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer l’étiquette</translation>
     </message>
     <message>
         <source>Edit label text</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier le texte de l’étiquette</translation>
     </message>
     <message>
         <source>Move label</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer l’étiquette</translation>
     </message>
     <message>
         <source>New Sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvelle feuille</translation>
     </message>
     <message>
         <source>Add sheet &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter la feuille « %1 »</translation>
     </message>
     <message>
         <source>Remove sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Retirer la feuille</translation>
     </message>
     <message>
         <source>Move sheet up</source>
-        <translation type="unfinished"></translation>
+        <translation>Monter la feuille</translation>
     </message>
     <message>
         <source>Move sheet down</source>
-        <translation type="unfinished"></translation>
+        <translation>Descendre la feuille</translation>
     </message>
     <message>
         <source>Rename sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer la feuille</translation>
     </message>
     <message>
         <source>Change sheet opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer l’opacité de la feuille</translation>
     </message>
     <message>
         <source>Change background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer la couleur de fond</translation>
     </message>
     <message>
         <source>Edit map information</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier les informations de la carte</translation>
     </message>
     <message>
         <source>Move grid origin</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer l’origine de la grille</translation>
     </message>
     <message>
         <source>Group as module %1 (%2 parts)</source>
-        <translation type="unfinished"></translation>
+        <translation>Grouper en module %1 (%2 pièces)</translation>
     </message>
     <message>
         <source>Add module %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter le module %1</translation>
     </message>
     <message>
         <source>Delete module %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer le module %1</translation>
     </message>
     <message>
         <source>Delete module</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer le module</translation>
     </message>
     <message>
         <source>Move module</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer le module</translation>
     </message>
     <message>
         <source>Turn module %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>Tourner le module de %1°</translation>
     </message>
     <message>
         <source>Rename module</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer le module</translation>
     </message>
     <message>
         <source>Duplicate module</source>
-        <translation type="unfinished"></translation>
+        <translation>Dupliquer le module</translation>
     </message>
     <message>
         <source>Update module from the Module library</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre à jour le module depuis la bibliothèque de modules</translation>
     </message>
     <message>
         <source>Ungroup module</source>
-        <translation type="unfinished"></translation>
+        <translation>Dégrouper le module</translation>
     </message>
     <message>
         <source>Import module (%1 parts)</source>
-        <translation type="unfinished"></translation>
+        <translation>Importer un module (%1 pièces)</translation>
     </message>
     <message>
         <source>Add linear ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter une règle</translation>
     </message>
     <message>
         <source>Add circular ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter une règle circulaire</translation>
     </message>
     <message>
         <source>Delete ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer la règle</translation>
     </message>
     <message>
         <source>Edit ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier la règle</translation>
     </message>
     <message>
         <source>Move ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer la règle</translation>
     </message>
     <message>
         <source>Move ruler endpoint</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer le bout de la règle</translation>
     </message>
     <message>
         <source>Detach ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Détacher la règle</translation>
     </message>
     <message>
         <source>Attach ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Attacher la règle</translation>
     </message>
     <message>
         <source>Scale ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre la règle à l’échelle</translation>
     </message>
     <message>
         <source>Add text &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter le texte « %1 »</translation>
     </message>
     <message>
         <source>Delete text</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer le texte</translation>
     </message>
     <message>
         <source>Edit text</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier le texte</translation>
     </message>
     <message>
         <source>Move text</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer le texte</translation>
     </message>
     <message>
         <source>Update venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre à jour la salle</translation>
     </message>
     <message>
         <source>Clear venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Retirer la salle</translation>
     </message>
     <message>
         <source>Brick extends past the venue outline</source>
-        <translation type="unfinished"></translation>
+        <translation>La brique dépasse du contour de la salle</translation>
     </message>
     <message>
         <source>Brick is %1 studs from a door/open edge (buffer %2)</source>
-        <translation type="unfinished"></translation>
+        <translation>La brique est à %1 tenons d’une porte ou d’un bord ouvert (marge %2)</translation>
     </message>
     <message>
         <source>Brick overlaps a venue obstacle</source>
-        <translation type="unfinished"></translation>
+        <translation>La brique chevauche un obstacle de la salle</translation>
     </message>
     <message>
         <source>Brick overlaps venue obstacle &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>La brique chevauche l’obstacle « %1 »</translation>
     </message>
     <message>
         <source>Pick color</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir une couleur</translation>
     </message>
     <message>
         <source>Edit brick</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier la brique</translation>
     </message>
     <message>
         <source>Part key — e.g. 3001.1. Empty keeps current.</source>
-        <translation type="unfinished"></translation>
+        <translation>Numéro de pièce, p. ex. 3001.1. Vide garde l’actuel.</translation>
     </message>
     <message>
         <source>Part:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pièce :</translation>
     </message>
     <message>
         <source>X (studs):</source>
-        <translation type="unfinished"></translation>
+        <translation>X (tenons) :</translation>
     </message>
     <message>
         <source>Y (studs):</source>
-        <translation type="unfinished"></translation>
+        <translation>Y (tenons) :</translation>
     </message>
     <message>
         <source>Angle:</source>
-        <translation type="unfinished"></translation>
+        <translation>Angle :</translation>
     </message>
     <message>
         <source>Altitude:</source>
-        <translation type="unfinished"></translation>
+        <translation>Altitude :</translation>
     </message>
     <message>
         <source>Active connection #:</source>
-        <translation type="unfinished"></translation>
+        <translation>N° de connexion active :</translation>
     </message>
     <message>
         <source>Designed by &lt;a href=&quot;%1&quot;&gt;%2&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Conçu par &lt;a href=&quot;%1&quot;&gt;%2&lt;/a&gt;</translation>
     </message>
     <message>
         <source>Designed by %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Conçu par %1</translation>
     </message>
     <message>
         <source>Imported from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Importé de %1</translation>
     </message>
     <message>
         <source>Measure</source>
@@ -1683,163 +1683,163 @@
     </message>
     <message>
         <source>Line color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur du trait :</translation>
     </message>
     <message>
         <source>Line thickness:</source>
-        <translation type="unfinished"></translation>
+        <translation>Épaisseur du trait :</translation>
     </message>
     <message>
         <source>Display distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher la distance</translation>
     </message>
     <message>
         <source>Append unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter l’unité</translation>
     </message>
     <message>
         <source>Unit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Unité :</translation>
     </message>
     <message>
         <source>Guideline color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur du repère :</translation>
     </message>
     <message>
         <source>Guideline thickness:</source>
-        <translation type="unfinished"></translation>
+        <translation>Épaisseur du repère :</translation>
     </message>
     <message>
         <source>Comma-separated dash lengths from 0 to 1000 (e.g. 4,2,1,2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Longueurs de tirets de 0 à 1000, séparées par des virgules (p. ex. 4,2,1,2)</translation>
     </message>
     <message>
         <source>Detach center</source>
-        <translation type="unfinished"></translation>
+        <translation>Détacher le centre</translation>
     </message>
     <message>
         <source>Dash pattern:</source>
-        <translation type="unfinished"></translation>
+        <translation>Motif de tirets :</translation>
     </message>
     <message>
         <source>Label color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de l’étiquette :</translation>
     </message>
     <message>
         <source>Label font:</source>
-        <translation type="unfinished"></translation>
+        <translation>Police de l’étiquette :</translation>
     </message>
     <message>
         <source>Label size (pt):</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille de l’étiquette (pt) :</translation>
     </message>
     <message>
         <source>Not attached</source>
-        <translation type="unfinished"></translation>
+        <translation>Non attachée</translation>
     </message>
     <message>
         <source>Detach endpoint 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Détacher le bout 1</translation>
     </message>
     <message>
         <source>Endpoint 1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bout 1 :</translation>
     </message>
     <message>
         <source>Detach endpoint 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Détacher le bout 2</translation>
     </message>
     <message>
         <source>Endpoint 2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bout 2 :</translation>
     </message>
     <message>
         <source>Attachment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Attachée à :</translation>
     </message>
     <message>
         <source>Text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Texte :</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation type="unfinished"></translation>
+        <translation>Police :</translation>
     </message>
     <message>
         <source>Size (pt):</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille (pt) :</translation>
     </message>
     <message>
         <source>Bold</source>
-        <translation type="unfinished"></translation>
+        <translation>Gras</translation>
     </message>
     <message>
         <source>Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>Italique</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur :</translation>
     </message>
     <message>
         <source>No matches.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun résultat.</translation>
     </message>
     <message>
         <source>1 match.</source>
-        <translation type="unfinished"></translation>
+        <translation>1 résultat.</translation>
     </message>
     <message>
         <source>%1 matches. Find Next goes through them one by one.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 résultats. « Suivant » les parcourt un par un.</translation>
     </message>
     <message>
         <source>Match %1 of %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Résultat %1 sur %2.</translation>
     </message>
     <message>
         <source> and %1 more</source>
-        <translation type="unfinished"></translation>
+        <translation> et %1 autres</translation>
     </message>
     <message>
         <source>%1 isn’t in the parts library</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 n’est pas dans la bibliothèque de pièces</translation>
     </message>
     <message>
         <source>These aren’t in the parts library</source>
-        <translation type="unfinished"></translation>
+        <translation>Celles-ci ne sont pas dans la bibliothèque de pièces</translation>
     </message>
     <message>
         <source>A part that isn’t in the parts library shows on the map as a red ✕, and can’t be counted or snapped.</source>
-        <translation type="unfinished"></translation>
+        <translation>Une pièce absente de la bibliothèque apparaît sur la carte comme une ✕ rouge, et ne peut être ni comptée ni aimantée.</translation>
     </message>
     <message>
         <source>Check the part number in the Parts panel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérifiez le numéro de pièce dans le panneau Pièces.</translation>
     </message>
     <message>
         <source>Replace Anyway</source>
-        <translation type="unfinished"></translation>
+        <translation>Remplacer quand même</translation>
     </message>
     <message>
         <source>Find &amp; Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechercher et remplacer</translation>
     </message>
     <message>
         <source>Nothing changed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rien n’a changé.</translation>
     </message>
     <message>
         <source>Replaced 1 part.</source>
-        <translation type="unfinished"></translation>
+        <translation>1 pièce remplacée.</translation>
     </message>
     <message>
         <source>Replaced %1 parts.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 pièces remplacées.</translation>
     </message>
     <message>
         <source>Replaced 1 text.</source>
-        <translation type="unfinished"></translation>
+        <translation>1 texte remplacé.</translation>
     </message>
     <message>
         <source>Replaced %1 texts.</source>
@@ -3608,7 +3608,7 @@
     </message>
     <message>
         <source>Collections</source>
-        <translation type="unfinished"></translation>
+        <translation>Collections</translation>
     </message>
     <message>
         <source>Search the catalog</source>
@@ -3704,7 +3704,7 @@
     </message>
     <message>
         <source>Featured</source>
-        <translation type="unfinished"></translation>
+        <translation>À la une</translation>
     </message>
     <message>
         <source>Add all</source>
@@ -4556,7 +4556,7 @@
     </message>
     <message>
         <source>Rename sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer la feuille</translation>
     </message>
     <message>
         <source>Sheet name:</source>
@@ -4596,7 +4596,7 @@
     </message>
     <message>
         <source>Remove sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Retirer la feuille</translation>
     </message>
     <message>
         <source>Add Sheet</source>
@@ -4827,7 +4827,7 @@ existing cells at their old indexing — paint over to clean up.</source>
     </message>
     <message>
         <source>Rename module</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer le module</translation>
     </message>
     <message>
         <source>Module name:</source>
@@ -6144,11 +6144,11 @@ Save anyway?</source>
     </message>
     <message>
         <source>X (studs):</source>
-        <translation type="unfinished"></translation>
+        <translation>X (tenons) :</translation>
     </message>
     <message>
         <source>Y (studs):</source>
-        <translation type="unfinished"></translation>
+        <translation>Y (tenons) :</translation>
     </message>
     <message>
         <source>Width (studs):</source>
@@ -8006,7 +8006,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Turn</source>
-        <translation type="unfinished"></translation>
+        <translation>Tourner</translation>
     </message>
     <message>
         <source>“%1” is only used inside a set, so it isn’t placed by itself. Place its set instead.</source>
@@ -8042,7 +8042,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Edit text</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier le texte</translation>
     </message>
     <message>
         <source>Label text:</source>
@@ -8170,7 +8170,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>New Sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvelle feuille</translation>
     </message>
     <message>
         <source>Update set “%1” (update available)</source>
@@ -8552,7 +8552,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Delete module</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer le module</translation>
     </message>
     <message>
         <source>Could not delete %1.</source>
@@ -8706,7 +8706,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Move module</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer le module</translation>
     </message>
     <message>
         <source>ΔX (studs):</source>
@@ -8718,7 +8718,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Turn</source>
-        <translation type="unfinished"></translation>
+        <translation>Tourner</translation>
     </message>
     <message>
         <source>%1°</source>
@@ -8746,7 +8746,7 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Delete module</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer le module</translation>
     </message>
     <message>
         <source>[unnamed]</source>
@@ -9027,7 +9027,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Designed by %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Conçu par %1</translation>
     </message>
     <message>
         <source>From the server %1</source>
@@ -9437,7 +9437,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Rename module</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer le module</translation>
     </message>
     <message>
         <source>Module name</source>
@@ -9545,7 +9545,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Delete module</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer le module</translation>
     </message>
 </context>
 <context>
@@ -9644,7 +9644,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Collections</source>
-        <translation type="unfinished"></translation>
+        <translation>Collections</translation>
     </message>
     <message>
         <source>Modules, parts, layouts and venues people shared for everyone</source>
@@ -10012,7 +10012,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Delete module</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer le module</translation>
     </message>
     <message>
         <source>Gave “%1” back to %2; the club kept its own copy.</source>
@@ -11452,7 +11452,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Unit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Unité :</translation>
     </message>
     <message>
         <source>Start X:</source>
