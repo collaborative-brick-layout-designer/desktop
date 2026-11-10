@@ -5816,95 +5816,95 @@ las celdas existentes con su numeración antigua: píntalas encima para limpiar.
     </message>
     <message>
         <source>Imported %1 bricks as module &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Se importaron %1 piezas como módulo «%2»</translation>
     </message>
     <message>
         <source>[untitled]</source>
-        <translation type="unfinished"></translation>
+        <translation>[sin título]</translation>
     </message>
     <message>
         <source>%1 — Live on %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 — En directo en %2</translation>
     </message>
     <message>
         <source>%1 — Module on %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 — Módulo en %2</translation>
     </message>
     <message>
         <source>Changes are shared as you make them</source>
-        <translation type="unfinished"></translation>
+        <translation>Los cambios se comparten según los haces</translation>
     </message>
     <message>
         <source>This layout is on a server: everyone&apos;s changes are saved there and appear live.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta maqueta está en un servidor: los cambios de todos se guardan allí y aparecen en directo.</translation>
     </message>
     <message>
         <source>● Not saved</source>
-        <translation type="unfinished"></translation>
+        <translation>● Sin guardar</translation>
     </message>
     <message>
         <source>You have changes that aren&apos;t saved yet. File › Save (Ctrl+S) saves them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tienes cambios que aún no están guardados. Archivo › Guardar (Ctrl+S) los guarda.</translation>
     </message>
     <message>
         <source>✓ Saved</source>
-        <translation type="unfinished"></translation>
+        <translation>✓ Guardado</translation>
     </message>
     <message>
         <source>Every change is saved in %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cada cambio está guardado en %1.</translation>
     </message>
     <message>
         <source>Not saved yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Aún sin guardar</translation>
     </message>
     <message>
         <source>A new layout: File › Save (Ctrl+S) saves it on this computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Una maqueta nueva: Archivo › Guardar (Ctrl+S) la guarda en este ordenador.</translation>
     </message>
     <message>
         <source>All supported maps (*.bld-layout *.bbm *.ldr *.mpd *.tdl *.ncp);;Collaborative Brick Layout Designer layout (*.bld-layout);;BlueBrick map (*.bbm);;LDraw (*.ldr);;LDraw multi-part (*.mpd);;TrackDesigner (*.tdl);;4DBrix nControl (*.ncp);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos los mapas admitidos (*.bld-layout *.bbm *.ldr *.mpd *.tdl *.ncp);;Maqueta de Collaborative Brick Layout Designer (*.bld-layout);;Mapa de BlueBrick (*.bbm);;LDraw (*.ldr);;LDraw de varias partes (*.mpd);;TrackDesigner (*.tdl);;4DBrix nControl (*.ncp);;Todos los archivos (*)</translation>
     </message>
     <message>
         <source>Collaborative Brick Layout Designer layout (*.bld-layout);;BlueBrick map (*.bbm);;LDraw (*.ldr);;LDraw multi-part (*.mpd);;TrackDesigner (*.tdl);;4DBrix nControl (*.ncp)</source>
-        <translation type="unfinished"></translation>
+        <translation>Maqueta de Collaborative Brick Layout Designer (*.bld-layout);;Mapa de BlueBrick (*.bbm);;LDraw (*.ldr);;LDraw de varias partes (*.mpd);;TrackDesigner (*.tdl);;4DBrix nControl (*.ncp)</translation>
     </message>
     <message>
         <source>Reading the layout file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Leyendo el archivo de maqueta.</translation>
     </message>
     <message>
         <source>Open failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al abrir</translation>
     </message>
     <message>
         <source>Opened %1 — %2 sheets, %3 items</source>
-        <translation type="unfinished"></translation>
+        <translation>Se abrió %1 — %2 hojas, %3 elementos</translation>
     </message>
     <message>
         <source>Save failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al guardar</translation>
     </message>
     <message>
         <source>Saved %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Se guardó %1</translation>
     </message>
     <message>
         <source>Unsaved changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambios sin guardar</translation>
     </message>
     <message>
         <source>The current layout has unsaved changes. Save before continuing?</source>
-        <translation type="unfinished"></translation>
+        <translation>La maqueta actual tiene cambios sin guardar. ¿Guardar antes de seguir?</translation>
     </message>
     <message>
         <source>New layout from template %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Maqueta nueva a partir de la plantilla %1</translation>
     </message>
     <message>
         <source>Bricks</source>
-        <translation type="unfinished"></translation>
+        <translation>Piezas</translation>
     </message>
     <message>
         <source>New layout</source>
@@ -5912,49 +5912,51 @@ las celdas existentes con su numeración antigua: píntalas encima para limpiar.
     </message>
     <message>
         <source>Export part list</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar lista de piezas</translation>
     </message>
     <message>
         <source>The current layout contains no bricks.</source>
-        <translation type="unfinished"></translation>
+        <translation>La maqueta actual no contiene piezas.</translation>
     </message>
     <message>
         <source>Export failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al exportar</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>No se puede escribir %1: %2</translation>
     </message>
     <message>
         <source>%1%2%3 — Collaborative Brick Layout Designer</source>
-        <translation type="unfinished"></translation>
+        <translation>%1%2%3 — Collaborative Brick Layout Designer</translation>
     </message>
     <message>
         <source>Opened %1 — %2 sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>Se abrió %1 — %2 hojas</translation>
     </message>
     <message>
         <source>Open map</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir mapa</translation>
     </message>
     <message>
         <source>Save map</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar mapa</translation>
     </message>
     <message>
         <source>Save as %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar como %1</translation>
     </message>
     <message>
         <source>This format can&apos;t store everything in the map: text, area and grid sheets, module / label / venue data and parts the format has no equivalent for are lost, and sheet names may change. Keep a .bbm copy if you need them.
 
 Save anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Este formato no puede guardar todo lo del mapa: se pierden las hojas de texto, de zonas y de cuadrícula, los datos de módulos, etiquetas y sala y las piezas sin equivalente en el formato, y los nombres de las hojas pueden cambiar. Guarda una copia .bbm si los necesitas.
+
+¿Guardar de todos modos?</translation>
     </message>
     <message>
         <source>Don&apos;t show this again</source>
-        <translation type="unfinished"></translation>
+        <translation>No volver a mostrar</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -5962,7 +5964,7 @@ Save anyway?</source>
     </message>
     <message>
         <source>HTML (*.html *.htm);;Text (*.txt);;CSV (*.csv)</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML (*.html *.htm);;Texto (*.txt);;CSV (*.csv)</translation>
     </message>
     <message>
         <source>Untitled.bbm</source>
@@ -5970,55 +5972,55 @@ Save anyway?</source>
     </message>
     <message>
         <source>Part List for file &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de piezas del archivo «%1»</translation>
     </message>
     <message>
         <source>Exported %1 part rows, %2 bricks, to %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Se exportaron %1 filas de piezas, %2 piezas, a %3</translation>
     </message>
     <message>
         <source>About Collaborative Brick Layout Designer</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de Collaborative Brick Layout Designer</translation>
     </message>
     <message>
         <source>(no recent files)</source>
-        <translation type="unfinished"></translation>
+        <translation>(no hay archivos recientes)</translation>
     </message>
     <message>
         <source>Clear Menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaciar menú</translation>
     </message>
     <message>
         <source>Autosaved (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardado automático (%1)</translation>
     </message>
     <message>
         <source>Reloaded parts: %1 parts in %2 folder(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Piezas recargadas: %1 piezas en %2 carpetas</translation>
     </message>
     <message>
         <source>There is no folder on this computer to keep your own parts in.</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay ninguna carpeta en este ordenador para guardar tus propias piezas.</translation>
     </message>
     <message numerus="yes">
         <source>Reloaded parts: %1 parts in %n folder(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Piezas recargadas: %1 piezas en %n carpeta</numerusform>
+            <numerusform>Piezas recargadas: %1 piezas en %n carpetas</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Added %n part(s) from %1, in the Parts panel under “%2”.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Se añadió %n pieza de %1, en el panel Piezas bajo «%2».</numerusform>
+            <numerusform>Se añadieron %n piezas de %1, en el panel Piezas bajo «%2».</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n part(s) only used inside its sets are hidden; tick Show hidden parts to see them.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n pieza que solo se usa dentro de sus sets está oculta; marca «Mostrar piezas ocultas» para verla.</numerusform>
+            <numerusform>%n piezas que solo se usan dentro de sus sets están ocultas; marca «Mostrar piezas ocultas» para verlas.</numerusform>
         </translation>
     </message>
     <message>
@@ -6031,19 +6033,19 @@ Save anyway?</source>
     </message>
     <message>
         <source>Pick the color behind the layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir el color detrás de la maqueta</translation>
     </message>
     <message>
         <source>Background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color de fondo</translation>
     </message>
     <message>
         <source>Background &amp;Image…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Imagen de fondo…</translation>
     </message>
     <message>
         <source>A picture shown under the layout, such as a floor plan. It&apos;s kept with the layout in this app; BlueBrick doesn&apos;t show it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Una imagen bajo la maqueta, como un plano. Se guarda con la maqueta en esta aplicación; BlueBrick no la muestra.</translation>
     </message>
     <message>
         <source>Background image</source>
@@ -6051,43 +6053,43 @@ Save anyway?</source>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitar</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen</translation>
     </message>
     <message>
         <source>Choose the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir la imagen</translation>
     </message>
     <message>
         <source>Picture:</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen:</translation>
     </message>
     <message>
         <source>Where it goes (a width of 0 keeps its own size):</source>
-        <translation type="unfinished"></translation>
+        <translation>Dónde va (un ancho de 0 mantiene su tamaño):</translation>
     </message>
     <message>
         <source>&amp;General Info…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Datos generales…</translation>
     </message>
     <message>
         <source>Who made the layout, for which event, and notes about it</source>
-        <translation type="unfinished"></translation>
+        <translation>Quién hizo la maqueta, para qué evento, y notas</translation>
     </message>
     <message>
         <source>Club (LUG):</source>
-        <translation type="unfinished"></translation>
+        <translation>Club (LUG):</translation>
     </message>
     <message>
         <source>Open Venue &amp;Designer…</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir el diseñador de &amp;sala…</translation>
     </message>
     <message>
         <source>Design this layout&apos;s venue: walls, doors, openings, columns, stairs, power, measurements.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diseñar la sala de esta maqueta: paredes, puertas, aberturas, columnas, escaleras, electricidad, medidas.</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -6095,39 +6097,39 @@ Save anyway?</source>
     </message>
     <message>
         <source>Venue of this layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Sala de esta maqueta</translation>
     </message>
     <message>
         <source>Save to Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar en la maqueta</translation>
     </message>
     <message>
         <source>The layout was closed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se cerró la maqueta.</translation>
     </message>
     <message>
         <source>&amp;Remove Venue…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Quitar la sala…</translation>
     </message>
     <message>
         <source>Take the venue out of this layout (asks first)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sacar la sala de esta maqueta (pregunta antes)</translation>
     </message>
     <message>
         <source>This layout has no venue to remove.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta maqueta no tiene sala que quitar.</translation>
     </message>
     <message>
         <source>Remove the venue from this layout?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Quitar la sala de esta maqueta?</translation>
     </message>
     <message>
         <source>The venue’s outline, walls, doors and obstacles leave this layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>El contorno, las paredes, las puertas y los obstáculos de la sala salen de esta maqueta.</translation>
     </message>
     <message>
         <source>Your parts stay where they are, and the venue stays in the Venue library if you saved it there.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tus piezas se quedan donde están, y la sala sigue en la biblioteca de salas si la guardaste allí.</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -6135,15 +6137,15 @@ Save anyway?</source>
     </message>
     <message>
         <source>Choose background image</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir imagen de fondo</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg *.bmp *.gif);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes (*.png *.jpg *.jpeg *.bmp *.gif);;Todos los archivos (*)</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Opacidad:</translation>
     </message>
     <message>
         <source>X (studs):</source>
@@ -6155,15 +6157,15 @@ Save anyway?</source>
     </message>
     <message>
         <source>Width (studs):</source>
-        <translation type="unfinished"></translation>
+        <translation>Ancho (studs):</translation>
     </message>
     <message>
         <source>Height (studs):</source>
-        <translation type="unfinished"></translation>
+        <translation>Alto (studs):</translation>
     </message>
     <message>
         <source>Map information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información del mapa</translation>
     </message>
     <message>
         <source>Author:</source>
@@ -6187,39 +6189,39 @@ Save anyway?</source>
     </message>
     <message>
         <source>Venue &amp;library…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Biblioteca de salas…</translation>
     </message>
     <message>
         <source>Open the Venue library panel to browse, load, or save venues.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir el panel Biblioteca de salas para explorar, cargar o guardar salas.</translation>
     </message>
     <message>
         <source>Use a room saved as a .bld-venue file</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar una sala guardada como archivo .bld-venue</translation>
     </message>
     <message>
         <source>Load venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar sala</translation>
     </message>
     <message>
         <source>Replace venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Reemplazar sala</translation>
     </message>
     <message>
         <source>This project already has a venue. Replace it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Este proyecto ya tiene una sala. ¿Reemplazarla?</translation>
     </message>
     <message>
         <source>Load Venue from &amp;File…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar sala desde un &amp;archivo…</translation>
     </message>
     <message>
         <source>Load venue file</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar archivo de sala</translation>
     </message>
     <message>
         <source>Venue (*.bld-venue);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sala (*.bld-venue);;Todos los archivos (*)</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -6235,7 +6237,7 @@ Save anyway?</source>
     </message>
     <message>
         <source>Open a layout file from this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir un archivo de maqueta de este ordenador</translation>
     </message>
     <message>
         <source>Open &amp;Recent</source>
@@ -6251,71 +6253,71 @@ Save anyway?</source>
     </message>
     <message>
         <source>Save this layout under a new name or in a new place</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar esta maqueta con otro nombre o en otro sitio</translation>
     </message>
     <message>
         <source>Export as &amp;BlueBrick Map (.bbm)…</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar como mapa de &amp;BlueBrick (.bbm)…</translation>
     </message>
     <message>
         <source>A copy BlueBrick can open, with what BlueBrick supports</source>
-        <translation type="unfinished"></translation>
+        <translation>Una copia que BlueBrick puede abrir, con lo que BlueBrick admite</translation>
     </message>
     <message>
         <source>Export as &amp;Image…</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar como &amp;imagen…</translation>
     </message>
     <message>
         <source>Save the whole layout as a PNG or JPEG picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar toda la maqueta como imagen PNG o JPEG</translation>
     </message>
     <message>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar</translation>
     </message>
     <message>
         <source>The map is empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>El mapa está vacío.</translation>
     </message>
     <message>
         <source>Export image</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar imagen</translation>
     </message>
     <message>
         <source>…</source>
-        <translation type="unfinished"></translation>
+        <translation>…</translation>
     </message>
     <message>
         <source>Output file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivo de salida:</translation>
     </message>
     <message>
         <source>Export map as image</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar mapa como imagen</translation>
     </message>
     <message>
         <source>PNG (*.png);;JPEG (*.jpg *.jpeg)</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG (*.png);;JPEG (*.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>Width (px):</source>
-        <translation type="unfinished"></translation>
+        <translation>Ancho (px):</translation>
     </message>
     <message>
         <source>Keep aspect ratio (height auto)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mantener proporciones (alto automático)</translation>
     </message>
     <message>
         <source>Height (px):</source>
-        <translation type="unfinished"></translation>
+        <translation>Alto (px):</translation>
     </message>
     <message>
         <source>Transparent background</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondo transparente</translation>
     </message>
     <message>
         <source>%1 / %2 / %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 / %2 / %3</translation>
     </message>
     <message>
         <source>Could not write %1</source>
@@ -6323,75 +6325,75 @@ Save anyway?</source>
     </message>
     <message>
         <source>Exported %1x%2 to %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportado a %1x%2 en %3</translation>
     </message>
     <message>
         <source>S&amp;hare Picture…</source>
-        <translation type="unfinished"></translation>
+        <translation>Com&amp;partir imagen…</translation>
     </message>
     <message>
         <source>Save or copy a picture of the layout, what&apos;s on screen or a saved view</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar o copiar una imagen de la maqueta, de lo que hay en pantalla o de una vista guardada</translation>
     </message>
     <message>
         <source>Export All &amp;Views…</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar todas las &amp;vistas…</translation>
     </message>
     <message>
         <source>One picture of each saved view, in a folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Una imagen de cada vista guardada, en una carpeta</translation>
     </message>
     <message>
         <source>Export as P&amp;DF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar como P&amp;DF…</translation>
     </message>
     <message>
         <source>Save the layout as a PDF, ready to print or send</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar la maqueta como PDF, lista para imprimir o enviar</translation>
     </message>
     <message>
         <source>Export map as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar mapa como PDF</translation>
     </message>
     <message>
         <source>PDF (*.pdf)</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF (*.pdf)</translation>
     </message>
     <message>
         <source>Could not open the PDF for writing.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo abrir el PDF para escribir.</translation>
     </message>
     <message>
         <source>Exported PDF to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF exportado a %1</translation>
     </message>
     <message>
         <source>&amp;Print…</source>
-        <translation type="unfinished"></translation>
+        <translation>Im&amp;primir…</translation>
     </message>
     <message>
         <source>Print the layout on paper</source>
-        <translation type="unfinished"></translation>
+        <translation>Imprimir la maqueta en papel</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>Imprimir</translation>
     </message>
     <message>
         <source>Print layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Imprimir maqueta</translation>
     </message>
     <message>
         <source>Print failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al imprimir</translation>
     </message>
     <message>
         <source>Could not start the print job.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo iniciar la impresión.</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Salir</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
@@ -6399,99 +6401,99 @@ Save anyway?</source>
     </message>
     <message>
         <source>&amp;Panels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Paneles</translation>
     </message>
     <message>
         <source>Reset Panel La&amp;yout</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer disposición de pane&amp;les</translation>
     </message>
     <message>
         <source>Put every panel back where it was when the app was new</source>
-        <translation type="unfinished"></translation>
+        <translation>Volver a poner cada panel donde estaba cuando la aplicación era nueva</translation>
     </message>
     <message>
         <source>Panels are back where they started.</source>
-        <translation type="unfinished"></translation>
+        <translation>Los paneles han vuelto a su sitio inicial.</translation>
     </message>
     <message>
         <source>Map Scroll &amp;Bars</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Barras de desplazamiento del mapa</translation>
     </message>
     <message>
         <source>&amp;Connection Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Puntos de &amp;conexión</translation>
     </message>
     <message>
         <source>&amp;Ruler Attach Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Puntos de sujeción de &amp;reglas</translation>
     </message>
     <message>
         <source>M&amp;odules</source>
-        <translation type="unfinished"></translation>
+        <translation>M&amp;ódulos</translation>
     </message>
     <message>
         <source>&amp;Make a Module…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hacer un módulo…</translation>
     </message>
     <message>
         <source>Make the picked parts one module in this layout. To use it in other layouts, choose Save to Module library... from its menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Convertir las piezas elegidas en un módulo de esta maqueta. Para usarlo en otras, elige «Guardar en la biblioteca de módulos…» en su menú.</translation>
     </message>
     <message>
         <source>Bring a BlueBrick file into this layout as one module</source>
-        <translation type="unfinished"></translation>
+        <translation>Traer un archivo de BlueBrick a esta maqueta como un solo módulo</translation>
     </message>
     <message>
         <source>Save the picked parts as a set in your parts, to place again in one go</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar las piezas elegidas como set en tus piezas, para colocarlas de nuevo de una vez</translation>
     </message>
     <message>
         <source>The Qt toolkit this app is built with</source>
-        <translation type="unfinished"></translation>
+        <translation>El kit de herramientas Qt con el que está hecha esta aplicación</translation>
     </message>
     <message>
         <source>S&amp;ervers…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ser&amp;vidores…</translation>
     </message>
     <message>
         <source>Your servers: add one, sign in, or pick your Main one</source>
-        <translation type="unfinished"></translation>
+        <translation>Tus servidores: añadir uno, iniciar sesión o elegir el principal</translation>
     </message>
     <message>
         <source>Open &amp;from Server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir desde el ser&amp;vidor…</translation>
     </message>
     <message>
         <source>Your layouts, venues, modules and parts on the server, and your clubs&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Tus maquetas, salas, módulos y piezas en el servidor, y los de tus clubes</translation>
     </message>
     <message>
         <source>Save &amp;to Server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar en el servi&amp;dor…</translation>
     </message>
     <message>
         <source>Put this layout on a server, yours or a club&apos;s, and keep editing it live</source>
-        <translation type="unfinished"></translation>
+        <translation>Poner esta maqueta en un servidor, tuyo o de un club, y seguir editándola en directo</translation>
     </message>
     <message>
         <source>Dis&amp;connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Desco&amp;nectar</translation>
     </message>
     <message>
         <source>Do&amp;wnload Server Parts Again</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargar de nuevo las piezas del servidor (&amp;w)</translation>
     </message>
     <message>
         <source>Fetch the live layout&apos;s server parts that are missing or changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Obtener las piezas del servidor de la maqueta en directo que faltan o cambiaron</translation>
     </message>
     <message>
         <source>Review Off&amp;line Changes…</source>
-        <translation type="unfinished"></translation>
+        <translation>Revisar cambios sin cone&amp;xión…</translation>
     </message>
     <message>
         <source>Compare what you changed offline with the server&apos;s layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Comparar lo que cambiaste sin conexión con la maqueta del servidor</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
@@ -6503,43 +6505,43 @@ Save anyway?</source>
     </message>
     <message>
         <source>Live layout closed</source>
-        <translation type="unfinished"></translation>
+        <translation>Maqueta en directo cerrada</translation>
     </message>
     <message>
         <source>The server ended the live session%1. The layout stays open here as an unsaved copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>El servidor terminó la sesión en directo%1. La maqueta sigue abierta aquí como copia sin guardar.</translation>
     </message>
     <message>
         <source>a layout</source>
-        <translation type="unfinished"></translation>
+        <translation>una maqueta</translation>
     </message>
     <message>
         <source>Keep working on this copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Seguir trabajando en esta copia</translation>
     </message>
     <message>
         <source>This layout is on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta maqueta está en %1</translation>
     </message>
     <message>
         <source>This file is a copy of %1. Open the live version to work on it with everyone, or keep working on this copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este archivo es una copia de %1. Abre la versión en directo para trabajar en ella con todos, o sigue en esta copia.</translation>
     </message>
     <message>
         <source>Open the live version</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir la versión en directo</translation>
     </message>
     <message>
         <source>This layout came from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta maqueta vino de %1</translation>
     </message>
     <message>
         <source>This file is a copy of %1, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este archivo es una copia de %1, de un servidor que no es de los tuyos. Añade el servidor para abrir la versión en directo, o sigue en esta copia.</translation>
     </message>
     <message>
         <source>Add %1 to your servers</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir %1 a tus servidores</translation>
     </message>
     <message>
         <source>Save to Server</source>
@@ -6547,11 +6549,11 @@ Save anyway?</source>
     </message>
     <message>
         <source>This layout is already live on a server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta maqueta ya está en directo en un servidor.</translation>
     </message>
     <message>
         <source>Could not write the layout to send it.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo escribir la maqueta para enviarla.</translation>
     </message>
     <message>
         <source>Untitled Layout</source>
@@ -6559,15 +6561,15 @@ Save anyway?</source>
     </message>
     <message>
         <source>Saved “%1” on %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Se guardó «%1» en %2</translation>
     </message>
     <message>
         <source>Getting the layout from the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Obteniendo la maqueta del servidor.</translation>
     </message>
     <message>
         <source>Your settings didn&apos;t sync with the server. Sign in again to sync them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tus ajustes no se sincronizaron con el servidor. Vuelve a iniciar sesión para sincronizarlos.</translation>
     </message>
     <message>
         <source>Sign in again to keep working live</source>
@@ -8121,15 +8123,15 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>Remove the venue from this layout?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Quitar la sala de esta maqueta?</translation>
     </message>
     <message>
         <source>The venue’s outline, walls, doors and obstacles leave this layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>El contorno, las paredes, las puertas y los obstáculos de la sala salen de esta maqueta.</translation>
     </message>
     <message>
         <source>Your parts stay where they are, and the venue stays in the Venue library if you saved it there.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tus piezas se quedan donde están, y la sala sigue en la biblioteca de salas si la guardaste allí.</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -11408,15 +11410,15 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Remove the venue from this layout?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Quitar la sala de esta maqueta?</translation>
     </message>
     <message>
         <source>The venue’s outline, walls, doors and obstacles leave this layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>El contorno, las paredes, las puertas y los obstáculos de la sala salen de esta maqueta.</translation>
     </message>
     <message>
         <source>Your parts stay where they are, and the venue stays in the Venue library if you saved it there.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tus piezas se quedan donde están, y la sala sigue en la biblioteca de salas si la guardaste allí.</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -11570,7 +11572,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Load venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar sala</translation>
     </message>
     <message>
         <source>Could not read %1: %2</source>

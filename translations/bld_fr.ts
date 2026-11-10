@@ -5816,95 +5816,95 @@ les cellules existantes à leur ancienne numérotation — repeignez pour nettoy
     </message>
     <message>
         <source>Imported %1 bricks as module &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 briques importées comme module « %2 »</translation>
     </message>
     <message>
         <source>[untitled]</source>
-        <translation type="unfinished"></translation>
+        <translation>[sans titre]</translation>
     </message>
     <message>
         <source>%1 — Live on %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 — En direct sur %2</translation>
     </message>
     <message>
         <source>%1 — Module on %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 — Module sur %2</translation>
     </message>
     <message>
         <source>Changes are shared as you make them</source>
-        <translation type="unfinished"></translation>
+        <translation>Les changements sont partagés au fur et à mesure</translation>
     </message>
     <message>
         <source>This layout is on a server: everyone&apos;s changes are saved there and appear live.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce plan est sur un serveur : les changements de chacun y sont enregistrés et apparaissent en direct.</translation>
     </message>
     <message>
         <source>● Not saved</source>
-        <translation type="unfinished"></translation>
+        <translation>● Non enregistré</translation>
     </message>
     <message>
         <source>You have changes that aren&apos;t saved yet. File › Save (Ctrl+S) saves them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous avez des changements pas encore enregistrés. Fichier › Enregistrer (Ctrl+S) les enregistre.</translation>
     </message>
     <message>
         <source>✓ Saved</source>
-        <translation type="unfinished"></translation>
+        <translation>✓ Enregistré</translation>
     </message>
     <message>
         <source>Every change is saved in %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaque changement est enregistré dans %1.</translation>
     </message>
     <message>
         <source>Not saved yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas encore enregistré</translation>
     </message>
     <message>
         <source>A new layout: File › Save (Ctrl+S) saves it on this computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un nouveau plan : Fichier › Enregistrer (Ctrl+S) l’enregistre sur cet ordinateur.</translation>
     </message>
     <message>
         <source>All supported maps (*.bld-layout *.bbm *.ldr *.mpd *.tdl *.ncp);;Collaborative Brick Layout Designer layout (*.bld-layout);;BlueBrick map (*.bbm);;LDraw (*.ldr);;LDraw multi-part (*.mpd);;TrackDesigner (*.tdl);;4DBrix nControl (*.ncp);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Toutes les cartes prises en charge (*.bld-layout *.bbm *.ldr *.mpd *.tdl *.ncp);;Plan Collaborative Brick Layout Designer (*.bld-layout);;Carte BlueBrick (*.bbm);;LDraw (*.ldr);;LDraw multi-parties (*.mpd);;TrackDesigner (*.tdl);;4DBrix nControl (*.ncp);;Tous les fichiers (*)</translation>
     </message>
     <message>
         <source>Collaborative Brick Layout Designer layout (*.bld-layout);;BlueBrick map (*.bbm);;LDraw (*.ldr);;LDraw multi-part (*.mpd);;TrackDesigner (*.tdl);;4DBrix nControl (*.ncp)</source>
-        <translation type="unfinished"></translation>
+        <translation>Plan Collaborative Brick Layout Designer (*.bld-layout);;Carte BlueBrick (*.bbm);;LDraw (*.ldr);;LDraw multi-parties (*.mpd);;TrackDesigner (*.tdl);;4DBrix nControl (*.ncp)</translation>
     </message>
     <message>
         <source>Reading the layout file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture du fichier de plan.</translation>
     </message>
     <message>
         <source>Open failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec de l’ouverture</translation>
     </message>
     <message>
         <source>Opened %1 — %2 sheets, %3 items</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ouvert — %2 feuilles, %3 éléments</translation>
     </message>
     <message>
         <source>Save failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec de l’enregistrement</translation>
     </message>
     <message>
         <source>Saved %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 enregistré</translation>
     </message>
     <message>
         <source>Unsaved changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Changements non enregistrés</translation>
     </message>
     <message>
         <source>The current layout has unsaved changes. Save before continuing?</source>
-        <translation type="unfinished"></translation>
+        <translation>Le plan actuel a des changements non enregistrés. Enregistrer avant de continuer ?</translation>
     </message>
     <message>
         <source>New layout from template %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouveau plan à partir du modèle %1</translation>
     </message>
     <message>
         <source>Bricks</source>
-        <translation type="unfinished"></translation>
+        <translation>Briques</translation>
     </message>
     <message>
         <source>New layout</source>
@@ -5912,49 +5912,51 @@ les cellules existantes à leur ancienne numérotation — repeignez pour nettoy
     </message>
     <message>
         <source>Export part list</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter la liste des pièces</translation>
     </message>
     <message>
         <source>The current layout contains no bricks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le plan actuel ne contient aucune brique.</translation>
     </message>
     <message>
         <source>Export failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec de l’export</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d’écrire %1 : %2</translation>
     </message>
     <message>
         <source>%1%2%3 — Collaborative Brick Layout Designer</source>
-        <translation type="unfinished"></translation>
+        <translation>%1%2%3 — Collaborative Brick Layout Designer</translation>
     </message>
     <message>
         <source>Opened %1 — %2 sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ouvert — %2 feuilles</translation>
     </message>
     <message>
         <source>Open map</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir une carte</translation>
     </message>
     <message>
         <source>Save map</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer la carte</translation>
     </message>
     <message>
         <source>Save as %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer en %1</translation>
     </message>
     <message>
         <source>This format can&apos;t store everything in the map: text, area and grid sheets, module / label / venue data and parts the format has no equivalent for are lost, and sheet names may change. Keep a .bbm copy if you need them.
 
 Save anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce format ne peut pas tout garder de la carte : les feuilles de texte, de zones et de grille, les données de modules, d’étiquettes et de salle, et les pièces sans équivalent dans le format sont perdues, et les noms de feuilles peuvent changer. Gardez une copie .bbm si vous en avez besoin.
+
+Enregistrer quand même ?</translation>
     </message>
     <message>
         <source>Don&apos;t show this again</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne plus afficher</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -5962,7 +5964,7 @@ Save anyway?</source>
     </message>
     <message>
         <source>HTML (*.html *.htm);;Text (*.txt);;CSV (*.csv)</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML (*.html *.htm);;Texte (*.txt);;CSV (*.csv)</translation>
     </message>
     <message>
         <source>Untitled.bbm</source>
@@ -5970,55 +5972,55 @@ Save anyway?</source>
     </message>
     <message>
         <source>Part List for file &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste des pièces du fichier « %1 »</translation>
     </message>
     <message>
         <source>Exported %1 part rows, %2 bricks, to %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 lignes de pièces, %2 briques, exportées vers %3</translation>
     </message>
     <message>
         <source>About Collaborative Brick Layout Designer</source>
-        <translation type="unfinished"></translation>
+        <translation>À propos de Collaborative Brick Layout Designer</translation>
     </message>
     <message>
         <source>(no recent files)</source>
-        <translation type="unfinished"></translation>
+        <translation>(aucun fichier récent)</translation>
     </message>
     <message>
         <source>Clear Menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Vider le menu</translation>
     </message>
     <message>
         <source>Autosaved (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sauvegarde automatique (%1)</translation>
     </message>
     <message>
         <source>Reloaded parts: %1 parts in %2 folder(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pièces rechargées : %1 pièces dans %2 dossiers</translation>
     </message>
     <message>
         <source>There is no folder on this computer to keep your own parts in.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il n’y a pas de dossier sur cet ordinateur pour garder vos propres pièces.</translation>
     </message>
     <message numerus="yes">
         <source>Reloaded parts: %1 parts in %n folder(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Pièces rechargées : %1 pièces dans %n dossier</numerusform>
+            <numerusform>Pièces rechargées : %1 pièces dans %n dossiers</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Added %n part(s) from %1, in the Parts panel under “%2”.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n pièce ajoutée depuis %1, dans le panneau Pièces sous « %2 ».</numerusform>
+            <numerusform>%n pièces ajoutées depuis %1, dans le panneau Pièces sous « %2 ».</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n part(s) only used inside its sets are hidden; tick Show hidden parts to see them.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n pièce utilisée seulement dans ses sets est masquée ; cochez « Afficher les pièces masquées » pour la voir.</numerusform>
+            <numerusform>%n pièces utilisées seulement dans ses sets sont masquées ; cochez « Afficher les pièces masquées » pour les voir.</numerusform>
         </translation>
     </message>
     <message>
@@ -6031,19 +6033,19 @@ Save anyway?</source>
     </message>
     <message>
         <source>Pick the color behind the layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir la couleur derrière le plan</translation>
     </message>
     <message>
         <source>Background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de fond</translation>
     </message>
     <message>
         <source>Background &amp;Image…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Image de fond…</translation>
     </message>
     <message>
         <source>A picture shown under the layout, such as a floor plan. It&apos;s kept with the layout in this app; BlueBrick doesn&apos;t show it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Une image montrée sous le plan, comme un plan au sol. Elle est gardée avec le plan dans cette application ; BlueBrick ne l’affiche pas.</translation>
     </message>
     <message>
         <source>Background image</source>
@@ -6051,43 +6053,43 @@ Save anyway?</source>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Image</translation>
     </message>
     <message>
         <source>Choose the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir l’image</translation>
     </message>
     <message>
         <source>Picture:</source>
-        <translation type="unfinished"></translation>
+        <translation>Image :</translation>
     </message>
     <message>
         <source>Where it goes (a width of 0 keeps its own size):</source>
-        <translation type="unfinished"></translation>
+        <translation>Où elle va (une largeur de 0 garde sa taille) :</translation>
     </message>
     <message>
         <source>&amp;General Info…</source>
-        <translation type="unfinished"></translation>
+        <translation>Infos &amp;générales…</translation>
     </message>
     <message>
         <source>Who made the layout, for which event, and notes about it</source>
-        <translation type="unfinished"></translation>
+        <translation>Qui a fait le plan, pour quel événement, et des notes</translation>
     </message>
     <message>
         <source>Club (LUG):</source>
-        <translation type="unfinished"></translation>
+        <translation>Club (LUG) :</translation>
     </message>
     <message>
         <source>Open Venue &amp;Designer…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir le &amp;concepteur de salle…</translation>
     </message>
     <message>
         <source>Design this layout&apos;s venue: walls, doors, openings, columns, stairs, power, measurements.</source>
-        <translation type="unfinished"></translation>
+        <translation>Concevoir la salle de ce plan : murs, portes, ouvertures, colonnes, escaliers, électricité, mesures.</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -6095,39 +6097,39 @@ Save anyway?</source>
     </message>
     <message>
         <source>Venue of this layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Salle de ce plan</translation>
     </message>
     <message>
         <source>Save to Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer dans le plan</translation>
     </message>
     <message>
         <source>The layout was closed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le plan a été fermé.</translation>
     </message>
     <message>
         <source>&amp;Remove Venue…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Retirer la salle…</translation>
     </message>
     <message>
         <source>Take the venue out of this layout (asks first)</source>
-        <translation type="unfinished"></translation>
+        <translation>Retirer la salle de ce plan (demande d’abord)</translation>
     </message>
     <message>
         <source>This layout has no venue to remove.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce plan n’a pas de salle à retirer.</translation>
     </message>
     <message>
         <source>Remove the venue from this layout?</source>
-        <translation type="unfinished"></translation>
+        <translation>Retirer la salle de ce plan ?</translation>
     </message>
     <message>
         <source>The venue’s outline, walls, doors and obstacles leave this layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le contour, les murs, les portes et les obstacles de la salle quittent ce plan.</translation>
     </message>
     <message>
         <source>Your parts stay where they are, and the venue stays in the Venue library if you saved it there.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos pièces restent où elles sont, et la salle reste dans la bibliothèque de salles si vous l’y avez enregistrée.</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -6135,15 +6137,15 @@ Save anyway?</source>
     </message>
     <message>
         <source>Choose background image</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir l’image de fond</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg *.bmp *.gif);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Images (*.png *.jpg *.jpeg *.bmp *.gif);;Tous les fichiers (*)</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Opacité :</translation>
     </message>
     <message>
         <source>X (studs):</source>
@@ -6155,15 +6157,15 @@ Save anyway?</source>
     </message>
     <message>
         <source>Width (studs):</source>
-        <translation type="unfinished"></translation>
+        <translation>Largeur (tenons) :</translation>
     </message>
     <message>
         <source>Height (studs):</source>
-        <translation type="unfinished"></translation>
+        <translation>Hauteur (tenons) :</translation>
     </message>
     <message>
         <source>Map information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informations de la carte</translation>
     </message>
     <message>
         <source>Author:</source>
@@ -6187,39 +6189,39 @@ Save anyway?</source>
     </message>
     <message>
         <source>Venue &amp;library…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bibliothèque de salles…</translation>
     </message>
     <message>
         <source>Open the Venue library panel to browse, load, or save venues.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir le panneau Bibliothèque de salles pour parcourir, charger ou enregistrer des salles.</translation>
     </message>
     <message>
         <source>Use a room saved as a .bld-venue file</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser une salle enregistrée dans un fichier .bld-venue</translation>
     </message>
     <message>
         <source>Load venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger une salle</translation>
     </message>
     <message>
         <source>Replace venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Remplacer la salle</translation>
     </message>
     <message>
         <source>This project already has a venue. Replace it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce projet a déjà une salle. La remplacer ?</translation>
     </message>
     <message>
         <source>Load Venue from &amp;File…</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger une salle depuis un &amp;fichier…</translation>
     </message>
     <message>
         <source>Load venue file</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger un fichier de salle</translation>
     </message>
     <message>
         <source>Venue (*.bld-venue);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Salle (*.bld-venue);;Tous les fichiers (*)</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -6235,7 +6237,7 @@ Save anyway?</source>
     </message>
     <message>
         <source>Open a layout file from this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir un fichier de plan de cet ordinateur</translation>
     </message>
     <message>
         <source>Open &amp;Recent</source>
@@ -6251,71 +6253,71 @@ Save anyway?</source>
     </message>
     <message>
         <source>Save this layout under a new name or in a new place</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer ce plan sous un nouveau nom ou à un nouvel endroit</translation>
     </message>
     <message>
         <source>Export as &amp;BlueBrick Map (.bbm)…</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter en carte &amp;BlueBrick (.bbm)…</translation>
     </message>
     <message>
         <source>A copy BlueBrick can open, with what BlueBrick supports</source>
-        <translation type="unfinished"></translation>
+        <translation>Une copie que BlueBrick peut ouvrir, avec ce que BlueBrick prend en charge</translation>
     </message>
     <message>
         <source>Export as &amp;Image…</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter en &amp;image…</translation>
     </message>
     <message>
         <source>Save the whole layout as a PNG or JPEG picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer tout le plan en image PNG ou JPEG</translation>
     </message>
     <message>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter</translation>
     </message>
     <message>
         <source>The map is empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>La carte est vide.</translation>
     </message>
     <message>
         <source>Export image</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter l’image</translation>
     </message>
     <message>
         <source>…</source>
-        <translation type="unfinished"></translation>
+        <translation>…</translation>
     </message>
     <message>
         <source>Output file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier de sortie :</translation>
     </message>
     <message>
         <source>Export map as image</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter la carte en image</translation>
     </message>
     <message>
         <source>PNG (*.png);;JPEG (*.jpg *.jpeg)</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG (*.png);;JPEG (*.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>Width (px):</source>
-        <translation type="unfinished"></translation>
+        <translation>Largeur (px) :</translation>
     </message>
     <message>
         <source>Keep aspect ratio (height auto)</source>
-        <translation type="unfinished"></translation>
+        <translation>Garder les proportions (hauteur auto)</translation>
     </message>
     <message>
         <source>Height (px):</source>
-        <translation type="unfinished"></translation>
+        <translation>Hauteur (px) :</translation>
     </message>
     <message>
         <source>Transparent background</source>
-        <translation type="unfinished"></translation>
+        <translation>Fond transparent</translation>
     </message>
     <message>
         <source>%1 / %2 / %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 / %2 / %3</translation>
     </message>
     <message>
         <source>Could not write %1</source>
@@ -6323,75 +6325,75 @@ Save anyway?</source>
     </message>
     <message>
         <source>Exported %1x%2 to %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporté en %1x%2 vers %3</translation>
     </message>
     <message>
         <source>S&amp;hare Picture…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Partager une image…</translation>
     </message>
     <message>
         <source>Save or copy a picture of the layout, what&apos;s on screen or a saved view</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer ou copier une image du plan, de ce qui est à l’écran ou d’une vue enregistrée</translation>
     </message>
     <message>
         <source>Export All &amp;Views…</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter toutes les &amp;vues…</translation>
     </message>
     <message>
         <source>One picture of each saved view, in a folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Une image de chaque vue enregistrée, dans un dossier</translation>
     </message>
     <message>
         <source>Export as P&amp;DF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter en P&amp;DF…</translation>
     </message>
     <message>
         <source>Save the layout as a PDF, ready to print or send</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer le plan en PDF, prêt à imprimer ou envoyer</translation>
     </message>
     <message>
         <source>Export map as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter la carte en PDF</translation>
     </message>
     <message>
         <source>PDF (*.pdf)</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF (*.pdf)</translation>
     </message>
     <message>
         <source>Could not open the PDF for writing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d’ouvrir le PDF en écriture.</translation>
     </message>
     <message>
         <source>Exported PDF to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF exporté vers %1</translation>
     </message>
     <message>
         <source>&amp;Print…</source>
-        <translation type="unfinished"></translation>
+        <translation>Im&amp;primer…</translation>
     </message>
     <message>
         <source>Print the layout on paper</source>
-        <translation type="unfinished"></translation>
+        <translation>Imprimer le plan sur papier</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>Imprimer</translation>
     </message>
     <message>
         <source>Print layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Imprimer le plan</translation>
     </message>
     <message>
         <source>Print failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec de l’impression</translation>
     </message>
     <message>
         <source>Could not start the print job.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de lancer l’impression.</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Quitter</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
@@ -6399,99 +6401,99 @@ Save anyway?</source>
     </message>
     <message>
         <source>&amp;Panels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Panneaux</translation>
     </message>
     <message>
         <source>Reset Panel La&amp;yout</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser la disposition des panneau&amp;x</translation>
     </message>
     <message>
         <source>Put every panel back where it was when the app was new</source>
-        <translation type="unfinished"></translation>
+        <translation>Remettre chaque panneau là où il était quand l’application était neuve</translation>
     </message>
     <message>
         <source>Panels are back where they started.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les panneaux sont revenus à leur place de départ.</translation>
     </message>
     <message>
         <source>Map Scroll &amp;Bars</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Barres de défilement de la carte</translation>
     </message>
     <message>
         <source>&amp;Connection Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Points de &amp;connexion</translation>
     </message>
     <message>
         <source>&amp;Ruler Attach Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Points d’attache des &amp;règles</translation>
     </message>
     <message>
         <source>M&amp;odules</source>
-        <translation type="unfinished"></translation>
+        <translation>M&amp;odules</translation>
     </message>
     <message>
         <source>&amp;Make a Module…</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Faire un module…</translation>
     </message>
     <message>
         <source>Make the picked parts one module in this layout. To use it in other layouts, choose Save to Module library... from its menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Faire des pièces choisies un module de ce plan. Pour l’utiliser dans d’autres plans, choisissez « Enregistrer dans la bibliothèque de modules… » dans son menu.</translation>
     </message>
     <message>
         <source>Bring a BlueBrick file into this layout as one module</source>
-        <translation type="unfinished"></translation>
+        <translation>Apporter un fichier BlueBrick dans ce plan comme un seul module</translation>
     </message>
     <message>
         <source>Save the picked parts as a set in your parts, to place again in one go</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer les pièces choisies comme set dans vos pièces, pour les reposer d’un coup</translation>
     </message>
     <message>
         <source>The Qt toolkit this app is built with</source>
-        <translation type="unfinished"></translation>
+        <translation>La boîte à outils Qt avec laquelle cette application est faite</translation>
     </message>
     <message>
         <source>S&amp;ervers…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ser&amp;veurs…</translation>
     </message>
     <message>
         <source>Your servers: add one, sign in, or pick your Main one</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos serveurs : en ajouter un, se connecter, ou choisir le principal</translation>
     </message>
     <message>
         <source>Open &amp;from Server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ou&amp;vrir depuis le serveur…</translation>
     </message>
     <message>
         <source>Your layouts, venues, modules and parts on the server, and your clubs&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos plans, salles, modules et pièces sur le serveur, et ceux de vos clubs</translation>
     </message>
     <message>
         <source>Save &amp;to Server…</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer sur le ser&amp;veur…</translation>
     </message>
     <message>
         <source>Put this layout on a server, yours or a club&apos;s, and keep editing it live</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre ce plan sur un serveur, le vôtre ou celui d’un club, et continuer à le modifier en direct</translation>
     </message>
     <message>
         <source>Dis&amp;connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Se &amp;déconnecter</translation>
     </message>
     <message>
         <source>Do&amp;wnload Server Parts Again</source>
-        <translation type="unfinished"></translation>
+        <translation>Re&amp;télécharger les pièces du serveur</translation>
     </message>
     <message>
         <source>Fetch the live layout&apos;s server parts that are missing or changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Récupérer les pièces du serveur du plan en direct qui manquent ou ont changé</translation>
     </message>
     <message>
         <source>Review Off&amp;line Changes…</source>
-        <translation type="unfinished"></translation>
+        <translation>Revoir les changements &amp;hors ligne…</translation>
     </message>
     <message>
         <source>Compare what you changed offline with the server&apos;s layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Comparer ce que vous avez changé hors ligne avec le plan du serveur</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
@@ -6503,43 +6505,43 @@ Save anyway?</source>
     </message>
     <message>
         <source>Live layout closed</source>
-        <translation type="unfinished"></translation>
+        <translation>Plan en direct fermé</translation>
     </message>
     <message>
         <source>The server ended the live session%1. The layout stays open here as an unsaved copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le serveur a terminé la session en direct%1. Le plan reste ouvert ici comme copie non enregistrée.</translation>
     </message>
     <message>
         <source>a layout</source>
-        <translation type="unfinished"></translation>
+        <translation>un plan</translation>
     </message>
     <message>
         <source>Keep working on this copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Continuer sur cette copie</translation>
     </message>
     <message>
         <source>This layout is on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce plan est sur %1</translation>
     </message>
     <message>
         <source>This file is a copy of %1. Open the live version to work on it with everyone, or keep working on this copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce fichier est une copie de %1. Ouvrez la version en direct pour y travailler avec tout le monde, ou continuez sur cette copie.</translation>
     </message>
     <message>
         <source>Open the live version</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir la version en direct</translation>
     </message>
     <message>
         <source>This layout came from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce plan vient de %1</translation>
     </message>
     <message>
         <source>This file is a copy of %1, from a server that isn&apos;t one of yours. Add the server to open the live version, or keep working on this copy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce fichier est une copie de %1, d’un serveur qui n’est pas parmi les vôtres. Ajoutez le serveur pour ouvrir la version en direct, ou continuez sur cette copie.</translation>
     </message>
     <message>
         <source>Add %1 to your servers</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter %1 à vos serveurs</translation>
     </message>
     <message>
         <source>Save to Server</source>
@@ -6547,11 +6549,11 @@ Save anyway?</source>
     </message>
     <message>
         <source>This layout is already live on a server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce plan est déjà en direct sur un serveur.</translation>
     </message>
     <message>
         <source>Could not write the layout to send it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d’écrire le plan pour l’envoyer.</translation>
     </message>
     <message>
         <source>Untitled Layout</source>
@@ -6559,15 +6561,15 @@ Save anyway?</source>
     </message>
     <message>
         <source>Saved “%1” on %2</source>
-        <translation type="unfinished"></translation>
+        <translation>« %1 » enregistré sur %2</translation>
     </message>
     <message>
         <source>Getting the layout from the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Récupération du plan depuis le serveur.</translation>
     </message>
     <message>
         <source>Your settings didn&apos;t sync with the server. Sign in again to sync them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos réglages ne se sont pas synchronisés avec le serveur. Reconnectez-vous pour les synchroniser.</translation>
     </message>
     <message>
         <source>Sign in again to keep working live</source>
@@ -8121,15 +8123,15 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
     <message>
         <source>Remove the venue from this layout?</source>
-        <translation type="unfinished"></translation>
+        <translation>Retirer la salle de ce plan ?</translation>
     </message>
     <message>
         <source>The venue’s outline, walls, doors and obstacles leave this layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le contour, les murs, les portes et les obstacles de la salle quittent ce plan.</translation>
     </message>
     <message>
         <source>Your parts stay where they are, and the venue stays in the Venue library if you saved it there.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos pièces restent où elles sont, et la salle reste dans la bibliothèque de salles si vous l’y avez enregistrée.</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -11408,15 +11410,15 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Remove the venue from this layout?</source>
-        <translation type="unfinished"></translation>
+        <translation>Retirer la salle de ce plan ?</translation>
     </message>
     <message>
         <source>The venue’s outline, walls, doors and obstacles leave this layout.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le contour, les murs, les portes et les obstacles de la salle quittent ce plan.</translation>
     </message>
     <message>
         <source>Your parts stay where they are, and the venue stays in the Venue library if you saved it there.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vos pièces restent où elles sont, et la salle reste dans la bibliothèque de salles si vous l’y avez enregistrée.</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -11570,7 +11572,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Load venue</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger une salle</translation>
     </message>
     <message>
         <source>Could not read %1: %2</source>
