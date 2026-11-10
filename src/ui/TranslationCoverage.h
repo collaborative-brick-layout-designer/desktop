@@ -18,12 +18,12 @@ inline int translationPercent(const QString& code) {
         { "es", 100 },
         { "fr", 100 },
         { "it", 100 },
-        { "ja", 5 },
+        { "ja", 100 },
         { "nl", 100 },
         { "no", 100 },
         { "pt", 100 },
         { "sv", 100 },
-        { "zh", 5 },
+        { "zh", 100 },
     };
     for (const auto& c : kCoverage)
         if (code == QLatin1String(c.code)) return c.percent;
