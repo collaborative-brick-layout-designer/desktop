@@ -2279,6 +2279,21 @@
     </message>
 </context>
 <context>
+    <name>SignOut</name>
+    <message>
+        <source>Signed out of %1.</source>
+        <translation>Déconnecté de %1.</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>Déconnecté ici. Le serveur n’a pas pu être joint, donc cette connexion reste valide jusqu’à son expiration ; vous pouvez y mettre fin depuis Profile › Browsers and devices sur le site web.</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until %1; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>Déconnecté ici. Le serveur n’a pas pu être joint, donc cette connexion reste valide jusqu’au %1 ; vous pouvez y mettre fin depuis Profile › Browsers and devices sur le site web.</translation>
+    </message>
+</context>
+<context>
     <name>Tours</name>
     <message>
         <source>Welcome to Collaborative Brick Layout Designer</source>
@@ -3367,8 +3382,8 @@
         <translation>Comment appelez-vous %1 ?</translation>
     </message>
     <message>
-        <source>%1 leaves your list of servers, and you’re signed out of it here.</source>
-        <translation>%1 quitte votre liste de serveurs, et vous en êtes déconnecté ici.</translation>
+        <source>%1 leaves your list of servers, and you’re signed out of it.</source>
+        <translation>%1 quitte votre liste de serveurs, et vous en êtes déconnecté.</translation>
     </message>
     <message>
         <source>Your layouts stay on the server.</source>

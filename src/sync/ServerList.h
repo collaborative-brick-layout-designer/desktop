@@ -37,6 +37,7 @@ struct ServerEntry {
     bool main = false;
     QDateTime lastUsed;  // last connected (invalid: never)
     QString userName;    // who was signed in there, last we heard
+    TokenLifetime signIn; // how long its sign-in lasts, last we heard (never the token itself)
     QString version;     // the server's version, last we heard
     std::optional<QStringList> features;  // its features, last we heard (nullopt: unknown or unlisted)
     QList<RecentLayout> recent;  // newest first
@@ -87,6 +88,7 @@ public:
     // What the server said about itself.
     void remember(const QUrl& url, const ServerInfo& info);
     void rememberUser(const QUrl& url, const QString& userName);
+    void rememberSignIn(const QUrl& url, const TokenLifetime& lifetime);
 
     // Whose account your settings follow: the Main server's. Empty when
     // there is none (no servers).

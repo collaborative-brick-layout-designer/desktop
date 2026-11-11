@@ -54,6 +54,8 @@ public:
     bool isSignedIn(const QUrl& url) const;
     // The server picked in the list (invalid when none).
     QUrl selectedServer() const;
+    // What the window last said happened ("Signed out of Train club."); empty when nothing.
+    QString noticeText() const;
     void selectServer(const QUrl& url);
 
 private:
@@ -65,6 +67,9 @@ private:
     void check(const ServerEntry& e);
     void updateRow(const QUrl& url);
     void updateButtons();
+    // Sign out of `url` here and on the server, and say how it went.
+    void endSignIn(const QUrl& url, const QString& label, bool removed);
+    void showNotice(const QString& text);
     void onAdd();
     void onRename();
     void onRemove();
@@ -80,6 +85,7 @@ private:
 
     QListWidget* rows_ = nullptr;
     QLabel* empty_ = nullptr;
+    QLabel* notice_ = nullptr;
     QPushButton* renameBtn_ = nullptr;
     QPushButton* removeBtn_ = nullptr;
     QPushButton* signBtn_ = nullptr;

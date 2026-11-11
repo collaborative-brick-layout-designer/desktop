@@ -2279,6 +2279,21 @@
     </message>
 </context>
 <context>
+    <name>SignOut</name>
+    <message>
+        <source>Signed out of %1.</source>
+        <translation>Sesión cerrada en %1.</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>Sesión cerrada aquí. No se pudo contactar con el servidor, así que ese inicio de sesión sigue siendo válido hasta que caduque; puedes terminarlo en Profile › Browsers and devices en el sitio web.</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until %1; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>Sesión cerrada aquí. No se pudo contactar con el servidor, así que ese inicio de sesión sigue siendo válido hasta el %1; puedes terminarlo en Profile › Browsers and devices en el sitio web.</translation>
+    </message>
+</context>
+<context>
     <name>Tours</name>
     <message>
         <source>Welcome to Collaborative Brick Layout Designer</source>
@@ -3367,8 +3382,8 @@
         <translation>¿Cómo llamas a %1?</translation>
     </message>
     <message>
-        <source>%1 leaves your list of servers, and you’re signed out of it here.</source>
-        <translation>%1 sale de tu lista de servidores, y aquí se cierra tu sesión en él.</translation>
+        <source>%1 leaves your list of servers, and you’re signed out of it.</source>
+        <translation>%1 sale de tu lista de servidores, y se cierra tu sesión en él.</translation>
     </message>
     <message>
         <source>Your layouts stay on the server.</source>

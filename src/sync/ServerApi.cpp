@@ -339,9 +339,39 @@ void ServerApi::fetchCurrentUser() {
         r->deleteLater();
         const auto o = okJson(r, QStringLiteral("user"));
         if (!o) return;
+        const QJsonObject t = o->value(QLatin1String("token")).toObject();
+        lifetime_ = {};
+        lifetime_.idleSeconds = static_cast<qint64>(t.value(QLatin1String("idleSeconds")).toDouble());
+        if (t.value(QLatin1String("longestAt")).isDouble())
+            lifetime_.longestAt = QDateTime::fromMSecsSinceEpoch(static_cast<qint64>(t.value(QLatin1String("longestAt")).toDouble()));
         const QJsonObject u = o->value(QLatin1String("user")).toObject();
         emit currentUserReady(u.value(QLatin1String("id")).toString(),
                               u.value(QLatin1String("displayName")).toString());
+    });
+}
+
+QDateTime TokenLifetime::endsBy(const QDateTime& now) const {
+    QDateTime end = idleSeconds > 0 ? now.addSecs(idleSeconds) : QDateTime();
+    if (longestAt.isValid() && (!end.isValid() || longestAt < end)) end = longestAt;
+    return end;
+}
+
+void ServerApi::endSignIn() {
+    QUrl url = base_;
+    url.setPath(QStringLiteral("/api/tokens/current"));
+    QNetworkRequest req(url);
+    req.setHeader(QNetworkRequest::UserAgentHeader, userAgent());
+    if (!token_.isEmpty()) req.setRawHeader("Authorization", "Bearer " + token_.toUtf8());
+    // Signing out never waits long for a server that doesn't answer.
+    req.setTransferTimeout(8000);
+    QNetworkReply* r = net_.deleteResource(req);
+    connect(r, &QNetworkReply::finished, this, [this, r] {
+        r->deleteLater();
+        const int status = r->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        // 401: the server no longer knows the token, so there is nothing left
+        // to end. Anything else (no answer, a firewall, a server from before
+        // this route, which answers 403 token_not_allowed) leaves it valid.
+        emit signInEnded(status == 200 || status == 401 ? SignInEnd::Ended : SignInEnd::NotEnded);
     });
 }
 

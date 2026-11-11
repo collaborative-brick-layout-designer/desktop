@@ -44,6 +44,10 @@ public:
         replies_[path].push_back({ status, QJsonDocument(body).toJson(QJsonDocument::Compact),
                                    QByteArrayLiteral("application/json") });
     }
+    // A reply for one method only ("DELETE"), ahead of the path's own replies.
+    void replyTo(const QByteArray& method, const QByteArray& path, int status, const QJsonObject& body) {
+        reply(method + ' ' + path, status, body);
+    }
     // Whether a reply is queued for the path (anything else gets a 404).
     bool answers(const QByteArray& path) const { return replies_.contains(path) && !replies_.value(path).empty(); }
     // Forget the replies queued for a path (to answer differently from now on).
@@ -105,7 +109,8 @@ private:
             held_.emplace_back(s, req.path);
             return;
         }
-        answer(s, req.path);
+        const QByteArray forMethod = req.method + ' ' + req.path;
+        answer(s, answers(forMethod) ? forMethod : req.path);
     }
 
     void answer(QTcpSocket* s, const QByteArray& path) {

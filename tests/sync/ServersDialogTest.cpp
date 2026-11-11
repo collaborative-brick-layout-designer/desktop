@@ -17,6 +17,7 @@
 #include <QJsonArray>
 #include <QLabel>
 #include <QListWidget>
+#include <QLocale>
 #include <QPushButton>
 #include <QSettings>
 
@@ -49,6 +50,24 @@ QJsonObject version(const QString& v, const std::optional<QStringList>& features
 QJsonObject user(const QString& name) {
     return { { QStringLiteral("user"),
                QJsonObject{ { QStringLiteral("id"), name.toLower() }, { QStringLiteral("displayName"), name } } } };
+}
+
+// The same, from a server that says how long the sign-in lasts: 90 days
+// unused, and `longest` at the latest.
+QJsonObject userWithLifetime(const QString& name, const QDateTime& longest) {
+    QJsonObject o = user(name);
+    o.insert(QStringLiteral("token"),
+             QJsonObject{ { QStringLiteral("idleSeconds"), 90 * 24 * 3600 },
+                          { QStringLiteral("longestAt"), static_cast<double>(longest.toMSecsSinceEpoch()) } });
+    return o;
+}
+
+// The DELETE /api/tokens/current requests a server got (Sign Out).
+std::vector<bld::synctest::Request> signOuts(const FakeHttp& http) {
+    std::vector<bld::synctest::Request> out;
+    for (const auto& r : http.requests)
+        if (r.method == "DELETE" && r.path == "/api/tokens/current") out.push_back(r);
+    return out;
 }
 
 // Every request each server got carried no token or its own.
@@ -182,6 +201,117 @@ TEST_F(ServersDialogTest, SignOutRemoveAndMainTouchOneServerOnly) {
     const ServerList list = ServerList::load();
     ASSERT_EQ(list.servers().size(), 1);
     EXPECT_EQ(list.settingsAccount(), pal.base());
+}
+
+// Sign Out ends the sign-in on the server too (it used to stay valid there
+// until it ran out): the server is asked with its own token, and only it.
+TEST_F(ServersDialogTest, SignOutEndsTheSignInOnTheServerToo) {
+    pal.replyTo("DELETE", "/api/tokens/current", 200, { { QStringLiteral("ok"), true } });
+    auto d = open();
+    ASSERT_TRUE(waitFor([&] { return settled(); }));
+    EXPECT_TRUE(dialog->noticeText().isEmpty());
+    dialog->selectServer(pal.base());
+    auto* sign = dialog->findChild<QPushButton*>(QStringLiteral("signInOut"));
+    ASSERT_EQ(sign->text(), QStringLiteral("Sign Out"));
+    sign->click();
+    ASSERT_TRUE(waitFor([&] { return !dialog->noticeText().isEmpty(); }));
+
+    const auto asked = signOuts(pal);
+    ASSERT_EQ(asked.size(), 1U);
+    EXPECT_EQ(asked[0].authorization, QByteArray("Bearer bld_pat_pal"));
+    EXPECT_TRUE(signOuts(club).empty());
+    EXPECT_FALSE(tokens.tokens.contains(TokenStore::keyFor(pal.base())));
+    EXPECT_TRUE(tokens.tokens.contains(TokenStore::keyFor(club.base())));
+    EXPECT_EQ(dialog->noticeText(), QStringLiteral("Signed out of %1.").arg(ServerList::load().find(pal.base())->label()));
+    auto* notice = dialog->findChild<QLabel*>(QStringLiteral("serversNotice"));
+    ASSERT_NE(notice, nullptr);
+    EXPECT_FALSE(notice->isHidden());
+    EXPECT_EQ(notice->text(), dialog->noticeText());
+    EXPECT_TRUE(dialog->statusText(pal.base()).startsWith(QStringLiteral("Not signed in")));
+    EXPECT_EQ(sign->text(), QStringLiteral("Sign In"));
+    expectOnlyOwnToken(club, "bld_pat_club");
+    expectOnlyOwnToken(pal, "bld_pat_pal");
+}
+
+// The server can't be reached: signed out here all the same, and the window
+// says until when that sign-in still works and where to end it.
+TEST_F(ServersDialogTest, SignOutWithoutTheServerSaysUntilWhenTheSignInStaysValid) {
+    const QDateTime longest = QDateTime::currentDateTime().addDays(30);
+    auto away = std::make_unique<FakeHttp>();
+    const QUrl url = away->base();
+    away->reply("/api/version", 200, version(QStringLiteral("2.4.0"), desktopFeatures()));
+    away->reply("/api/tokens/current", 200, userWithLifetime(QStringLiteral("Cy"), longest));
+    {
+        ServerList list = ServerList::load();
+        list.add(url, QStringLiteral("Show hall"));
+        list.save();
+    }
+    tokens.save(url, QStringLiteral("bld_pat_away"));
+    auto d = open();
+    ASSERT_TRUE(waitFor([&] { return settled() && dialog->statusText(url).startsWith(QStringLiteral("Signed in as Cy")); }));
+    EXPECT_EQ(ServerList::load().find(url)->signIn.longestAt.toMSecsSinceEpoch(), longest.toMSecsSinceEpoch());
+
+    away.reset();  // the server is gone
+    dialog->selectServer(url);
+    dialog->findChild<QPushButton*>(QStringLiteral("signInOut"))->click();
+    // Signed out here at once, whatever the server does.
+    ASSERT_TRUE(waitFor([&] { return !tokens.tokens.contains(TokenStore::keyFor(url)); }));
+    ASSERT_TRUE(waitFor([&] { return !dialog->noticeText().isEmpty(); }, 15000));
+    EXPECT_EQ(dialog->noticeText(),
+              QStringLiteral("Signed out here. The server couldn’t be reached, so that sign-in stays valid until %1; "
+                             "you can end it from Profile › Browsers and devices on the website.")
+                  .arg(QLocale().toString(longest.date(), QLocale::LongFormat)));
+    EXPECT_TRUE(dialog->statusText(url).startsWith(QStringLiteral("Not signed in")));
+    EXPECT_TRUE(tokens.tokens.contains(TokenStore::keyFor(club.base())));
+}
+
+// A server from before the route refuses (403 token_not_allowed) and never
+// said how long its sign-ins last: the same message, without a date.
+TEST_F(ServersDialogTest, SignOutOfAnOlderServerSaysTheSignInStaysValid) {
+    pal.replyTo("DELETE", "/api/tokens/current", 403, { { QStringLiteral("error"), QStringLiteral("token_not_allowed") } });
+    auto d = open();
+    ASSERT_TRUE(waitFor([&] { return settled(); }));
+    dialog->signOut(pal.base());
+    EXPECT_FALSE(tokens.tokens.contains(TokenStore::keyFor(pal.base())));
+    ASSERT_TRUE(waitFor([&] { return !dialog->noticeText().isEmpty(); }));
+    EXPECT_EQ(dialog->noticeText(),
+              QStringLiteral("Signed out here. The server couldn’t be reached, so that sign-in stays valid until it "
+                             "runs out; you can end it from Profile › Browsers and devices on the website."));
+    ASSERT_EQ(signOuts(pal).size(), 1U);
+}
+
+// Remove server ends its sign-in on the server too; it only speaks up when
+// the server couldn't end it.
+TEST_F(ServersDialogTest, RemovingAServerEndsItsSignInOnTheServerToo) {
+    const QDateTime longest = QDateTime::currentDateTime().addDays(400);
+    club.clear("/api/tokens/current");
+    club.reply("/api/tokens/current", 200, userWithLifetime(QStringLiteral("Ann"), longest));
+    club.replyTo("DELETE", "/api/tokens/current", 200, { { QStringLiteral("ok"), true } });
+    pal.replyTo("DELETE", "/api/tokens/current", 500, { { QStringLiteral("error"), QStringLiteral("internal") } });
+    auto d = open();
+    ASSERT_TRUE(waitFor([&] { return settled(); }));
+    ASSERT_TRUE(waitFor([&] { return ServerList::load().find(club.base())->signIn.idleSeconds > 0; }));
+
+    dialog->removeServer(club.base());
+    ASSERT_TRUE(waitFor([&] { return signOuts(club).size() == 1; }));
+    EXPECT_EQ(signOuts(club)[0].authorization, QByteArray("Bearer bld_pat_club"));
+    EXPECT_FALSE(tokens.tokens.contains(TokenStore::keyFor(club.base())));
+    EXPECT_EQ(ServerList::load().servers().size(), 1);
+    // Ended there: nothing to add.
+    QElapsedTimer t;
+    t.start();
+    while (t.elapsed() < 200) QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
+    EXPECT_TRUE(dialog->noticeText().isEmpty()) << dialog->noticeText().toStdString();
+
+    // The friend's server fails to end it: removed and signed out here, and the window says so.
+    dialog->removeServer(pal.base());
+    EXPECT_TRUE(tokens.tokens.isEmpty());
+    EXPECT_TRUE(ServerList::load().isEmpty());
+    ASSERT_TRUE(waitFor([&] { return !dialog->noticeText().isEmpty(); }));
+    EXPECT_TRUE(dialog->noticeText().startsWith(QStringLiteral("Signed out here. The server couldn’t be reached")))
+        << dialog->noticeText().toStdString();
+    EXPECT_EQ(signOuts(pal).size(), 1U);
+    EXPECT_EQ(signOuts(pal)[0].authorization, QByteArray("Bearer bld_pat_pal"));
 }
 
 TEST_F(ServersDialogTest, AddsAServerByItsAddressAndSignsInToIt) {

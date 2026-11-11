@@ -168,6 +168,8 @@ add_library(bld_sync STATIC
     TokenStore.cpp
     ServerList.h
     ServerList.cpp
+    SignOut.h
+    SignOut.cpp
     LayoutMerge.h
     LayoutMerge.cpp
     LibraryApi.h

@@ -488,6 +488,7 @@ void MainWindow::openLive(const sync::ConnectResult& r) {
                 if (live_->active() && server == liveServer_ && layout == liveLayoutId_) live_->setUser(id, name, layout);
                 sync::ServerList servers = sync::ServerList::load();
                 servers.rememberUser(server, name);
+                servers.rememberSignIn(server, who->tokenLifetime());
                 servers.save();
                 who->deleteLater();
             });

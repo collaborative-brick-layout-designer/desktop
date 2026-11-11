@@ -23,6 +23,9 @@ QJsonObject toJson(const ServerEntry& e) {
                    { QStringLiteral("userName"), e.userName },
                    { QStringLiteral("version"), e.version } };
     if (e.features) o.insert(QStringLiteral("features"), QJsonArray::fromStringList(*e.features));
+    if (e.signIn.idleSeconds > 0) o.insert(QStringLiteral("signInIdleSeconds"), static_cast<double>(e.signIn.idleSeconds));
+    if (e.signIn.longestAt.isValid())
+        o.insert(QStringLiteral("signInLongestAt"), e.signIn.longestAt.toUTC().toString(Qt::ISODateWithMs));
     QJsonArray recent;
     for (const auto& r : e.recent)
         recent.append(QJsonObject{ { QStringLiteral("id"), r.id },
@@ -43,6 +46,8 @@ std::optional<ServerEntry> fromJson(const QJsonObject& o) {
     e.lastUsed = QDateTime::fromString(o.value(QStringLiteral("lastUsed")).toString(), Qt::ISODateWithMs);
     e.userName = o.value(QStringLiteral("userName")).toString();
     e.version = o.value(QStringLiteral("version")).toString();
+    e.signIn.idleSeconds = static_cast<qint64>(o.value(QStringLiteral("signInIdleSeconds")).toDouble());
+    e.signIn.longestAt = QDateTime::fromString(o.value(QStringLiteral("signInLongestAt")).toString(), Qt::ISODateWithMs);
     if (o.contains(QStringLiteral("features"))) {
         QStringList f;
         for (const auto& v : o.value(QStringLiteral("features")).toArray()) f << v.toString();
@@ -220,6 +225,8 @@ void ServerList::remember(const QUrl& url, const ServerInfo& info) {
 }
 
 void ServerList::rememberUser(const QUrl& url, const QString& userName) { add(url).userName = userName; }
+
+void ServerList::rememberSignIn(const QUrl& url, const TokenLifetime& lifetime) { add(url).signIn = lifetime; }
 
 QUrl ServerList::settingsAccount() const {
     const ServerEntry* m = mainServer();

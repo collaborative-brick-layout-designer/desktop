@@ -2268,6 +2268,21 @@
     </message>
 </context>
 <context>
+    <name>SignOut</name>
+    <message>
+        <source>Signed out of %1.</source>
+        <translation>%1 からサインアウトしました。</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>ここではサインアウトしました。サーバーに接続できなかったため、そのサインインは期限が切れるまで有効なままです。ウェブサイトの Profile › Browsers and devices から終了できます。</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until %1; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>ここではサインアウトしました。サーバーに接続できなかったため、そのサインインは %1 まで有効なままです。ウェブサイトの Profile › Browsers and devices から終了できます。</translation>
+    </message>
+</context>
+<context>
     <name>Tours</name>
     <message>
         <source>Welcome to Collaborative Brick Layout Designer</source>
@@ -3352,8 +3367,8 @@
         <translation>%1 を何と呼びますか?</translation>
     </message>
     <message>
-        <source>%1 leaves your list of servers, and you’re signed out of it here.</source>
-        <translation>%1 がサーバー一覧から外れ、ここではサインアウトされます。</translation>
+        <source>%1 leaves your list of servers, and you’re signed out of it.</source>
+        <translation>%1 がサーバー一覧から外れ、サインアウトされます。</translation>
     </message>
     <message>
         <source>Your layouts stay on the server.</source>
