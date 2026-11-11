@@ -4,6 +4,7 @@
 
 #include "ConnectDialog.h"
 #include "ServerApi.h"
+#include "SignOut.h"
 #include "TokenStore.h"
 #include "ui/help/HelpButton.h"
 
@@ -61,6 +62,13 @@ ServersDialog::ServersDialog(TokenStore& tokens, std::function<void(const QUrl&)
     empty_->setObjectName(QStringLiteral("noServers"));
     empty_->setWordWrap(true);
     col->addWidget(empty_);
+    // What just happened, in a sentence (signing out, most of all).
+    notice_ = new QLabel(this);
+    notice_->setObjectName(QStringLiteral("serversNotice"));
+    notice_->setWordWrap(true);
+    notice_->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    notice_->hide();
+    col->addWidget(notice_);
 
     auto* buttons = new QHBoxLayout();
     auto* addBtn = new QPushButton(tr("Add a Server…"), this);
@@ -205,6 +213,7 @@ void ServersDialog::check(const ServerEntry& e) {
             status_[key].sign = Status::Sign::In;
             list_ = ServerList::load();
             list_.rememberUser(url, name);
+            list_.rememberSignIn(url, who->tokenLifetime());
             list_.save();
             updateRow(url);
         });
@@ -285,6 +294,8 @@ void ServersDialog::updateButtons() {
     signBtn_->setText(e && isSignedIn(url) ? tr("Sign Out") : tr("Sign In"));
 }
 
+QString ServersDialog::noticeText() const { return notice_->isHidden() ? QString() : notice_->text(); }
+
 QUrl ServersDialog::selectedServer() const {
     const QListWidgetItem* item = rows_->currentItem();
     return item ? item->data(kUrlRole).toUrl() : QUrl();
@@ -321,12 +332,30 @@ void ServersDialog::renameServer(const QUrl& url, const QString& name) {
 
 void ServersDialog::removeServer(const QUrl& url) {
     list_ = ServerList::load();
-    if (!list_.remove(url)) return;
+    const ServerEntry* e = list_.find(url);
+    if (!e) return;
+    const QString label = e->label();
+    // Its sign-in goes with it, on the server too (asked while the list
+    // still knows how long that sign-in lasts).
+    endSignIn(url, label, true);
+    list_.remove(url);
     list_.save();
-    // Its sign-in goes with it.
-    tokens_.remove(url);
     status_.remove(TokenStore::keyFor(url));
     rebuild();
+}
+
+void ServersDialog::endSignIn(const QUrl& url, const QString& label, bool removed) {
+    showNotice({});
+    bld::sync::signOut(tokens_, url, this, [this, label, removed](const SignedOut& result) {
+        // A removed server that ended the sign-in has nothing left to say.
+        if (removed && result.how == SignInEnd::Ended) return;
+        showNotice(signedOutText(result, label));
+    });
+}
+
+void ServersDialog::showNotice(const QString& text) {
+    notice_->setText(text);
+    notice_->setVisible(!text.isEmpty());
 }
 
 void ServersDialog::makeMain(const QUrl& url) {
@@ -340,7 +369,7 @@ void ServersDialog::makeMain(const QUrl& url) {
 void ServersDialog::signOut(const QUrl& url) {
     const ServerEntry* e = list_.find(url);
     if (!e) return;
-    tokens_.remove(url);
+    endSignIn(url, e->label(), false);
     status_[e->key()].sign = Status::Sign::Out;
     updateRow(url);
 }
@@ -407,7 +436,7 @@ void ServersDialog::onRemove() {
     if (!e) return;
     bld::ui::DeleteWording w;
     w.verb = tr("Remove");
-    w.removes = tr("%1 leaves your list of servers, and you’re signed out of it here.").arg(e->label());
+    w.removes = tr("%1 leaves your list of servers, and you’re signed out of it.").arg(e->label());
     w.keeps = tr("Your layouts stay on the server.");
     w.undo = tr("You can add it again later.");
     if (bld::ui::ConfirmDialog::confirmDelete(this, e->label(), w)) removeServer(url);

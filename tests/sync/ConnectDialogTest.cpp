@@ -341,9 +341,31 @@ TEST(ConnectDialog, SignOutForgetsTheToken) {
                  { { QStringLiteral("layouts"), QJsonArray{ layout("L1", "Show 2026", "owner") } } });
     h.dialog.connectToServer();
     ASSERT_TRUE(waitFor([&] { return h.listed(); }));
+    h.http.replyTo("DELETE", "/api/tokens/current", 200, { { QStringLiteral("ok"), true } });
     h.dialog.signOut();
     EXPECT_TRUE(h.tokens.tokens.isEmpty());
     EXPECT_EQ(h.page(), 0);
+    // The server is asked to end that sign-in, with the token itself.
+    ASSERT_TRUE(waitFor([&] { return h.http.requests.back().method == "DELETE"; }));
+    EXPECT_EQ(h.http.requests.back().path, QByteArray("/api/tokens/current"));
+    EXPECT_EQ(h.http.requests.back().authorization, QByteArray("Bearer bld_pat_saved"));
+    EXPECT_EQ(h.message(), QStringLiteral("Signed out of 127.0.0.1."));
+}
+
+// A server that can't end the sign-in (here: one from before the route): signed
+// out here all the same, and the window says the sign-in is still valid there.
+TEST(ConnectDialog, SignOutSaysWhenTheServerCouldNotEndTheSignIn) {
+    Harness h;
+    h.tokens.save(h.http.base(), QStringLiteral("bld_pat_saved"));
+    h.http.reply("/api/layouts", 200,
+                 { { QStringLiteral("layouts"), QJsonArray{ layout("L1", "Show 2026", "owner") } } });
+    h.dialog.connectToServer();
+    ASSERT_TRUE(waitFor([&] { return h.listed(); }));
+    h.http.replyTo("DELETE", "/api/tokens/current", 403, { { QStringLiteral("error"), QStringLiteral("token_not_allowed") } });
+    h.dialog.signOut();
+    EXPECT_TRUE(h.tokens.tokens.isEmpty());
+    ASSERT_TRUE(waitFor([&] { return h.message().startsWith(QStringLiteral("Signed out here.")); }));
+    EXPECT_TRUE(h.message().contains(QStringLiteral("Profile › Browsers and devices"))) << h.message().toStdString();
 }
 
 // Clubs you can find and join are on the server's Clubs page, in the browser.

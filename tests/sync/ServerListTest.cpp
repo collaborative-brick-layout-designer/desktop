@@ -151,3 +151,21 @@ TEST_F(ServerListTest, RecentLayoutsAreKeptPerServerNewestFirst) {
     ASSERT_EQ(list.find(b)->recent.size(), 1);
     EXPECT_TRUE(list.find(b)->recent.first().readOnly);
 }
+
+// How long a server's sign-in lasts is remembered with it (never the token),
+// so signing out offline can say until when it stays valid.
+TEST_F(ServerListTest, HowLongASignInLastsIsRememberedPerServer) {
+    const QUrl a(QStringLiteral("https://a.example.org")), b(QStringLiteral("https://b.example.org"));
+    const QDateTime longest = QDateTime::fromMSecsSinceEpoch(1900000000000LL);
+    ServerList list;
+    list.add(a);
+    list.add(b);
+    list.rememberSignIn(a, { 7776000, longest });
+    list.save();
+    list = ServerList::load();
+    EXPECT_EQ(list.find(a)->signIn.idleSeconds, 7776000);
+    EXPECT_EQ(list.find(a)->signIn.longestAt, longest);
+    EXPECT_EQ(list.find(b)->signIn.idleSeconds, 0);
+    EXPECT_FALSE(list.find(b)->signIn.longestAt.isValid());
+    EXPECT_FALSE(QString::fromUtf8(QSettings().value(QLatin1String(ServerList::kKey)).toByteArray()).contains(QStringLiteral("bld_pat")));
+}

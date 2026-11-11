@@ -6,6 +6,7 @@
 #include "RefreshOnFocus.h"
 #include "ServerList.h"
 #include "ServersDialog.h"
+#include "SignOut.h"
 #include "TokenStore.h"
 #include "core/Version.h"
 #include "ui/ConfirmDialog.h"
@@ -718,7 +719,12 @@ void ConnectDialog::openSelected() {
 }
 
 void ConnectDialog::signOut() {
-    tokens_.remove(server_);
+    // Here and on the server; the message below is replaced when the server
+    // couldn't end the sign-in.
+    const QString label = server_.host();
+    bld::sync::signOut(tokens_, server_, this, [this, label](const SignedOut& result) {
+        if (result.how != SignInEnd::Ended && pages_->currentIndex() == AddressPage) showMessage(signedOutText(result, label));
+    });
     token_.clear();
     api_.setToken({});
     layouts_->clear();

@@ -347,6 +347,80 @@ TEST(ServerApi, AsksWhoTheTokenBelongsTo) {
     EXPECT_EQ(http.requests.back().authorization, QByteArray("Bearer bld_pat_abc"));
 }
 
+// GET /api/tokens/current also says how long the sign-in lasts.
+TEST(ServerApi, HearsHowLongTheSignInLasts) {
+    FakeHttp http;
+    ServerApi api;
+    api.setBase(http.base());
+    api.setToken(QStringLiteral("bld_pat_abc"));
+    bool got = false;
+    QObject::connect(&api, &ServerApi::currentUserReady, [&] { got = true; });
+    const QDateTime longest = QDateTime::fromMSecsSinceEpoch(1900000000000LL);
+    http.reply("/api/tokens/current", 200,
+               { { QStringLiteral("user"), QJsonObject{ { QStringLiteral("id"), QStringLiteral("u1") } } },
+                 { QStringLiteral("token"),
+                   QJsonObject{ { QStringLiteral("idleSeconds"), 7776000 },
+                                { QStringLiteral("longestAt"), 1900000000000.0 } } } });
+    api.fetchCurrentUser();
+    ASSERT_TRUE(waitFor([&] { return got; }));
+    EXPECT_EQ(api.tokenLifetime().idleSeconds, 7776000);
+    EXPECT_EQ(api.tokenLifetime().longestAt, longest);
+
+    // Unused from now it ends after the idle time, and never after its longest.
+    const QDateTime early = longest.addDays(-200);
+    EXPECT_EQ(api.tokenLifetime().endsBy(early), early.addSecs(7776000));
+    EXPECT_EQ(api.tokenLifetime().endsBy(longest.addDays(-3)), longest);
+    // A server that doesn't say (before 2.0.x), or a sign-in with no longest.
+    EXPECT_FALSE(TokenLifetime{}.endsBy(early).isValid());
+    EXPECT_EQ((TokenLifetime{ 60, {} }).endsBy(early), early.addSecs(60));
+    EXPECT_EQ((TokenLifetime{ 0, longest }).endsBy(early), longest);
+}
+
+// Sign Out: DELETE /api/tokens/current with the token itself.
+TEST(ServerApi, EndsItsOwnSignInOnTheServer) {
+    FakeHttp http;
+    ServerApi api;
+    api.setBase(http.base());
+    api.setToken(QStringLiteral("bld_pat_abc"));
+    std::optional<SignInEnd> how;
+    QObject::connect(&api, &ServerApi::signInEnded, [&](SignInEnd h) { how = h; });
+    const auto ask = [&] {
+        how.reset();
+        api.endSignIn();
+        return waitFor([&] { return how.has_value(); });
+    };
+
+    http.replyTo("DELETE", "/api/tokens/current", 200, { { QStringLiteral("ok"), true } });
+    ASSERT_TRUE(ask());
+    EXPECT_EQ(*how, SignInEnd::Ended);
+    EXPECT_EQ(http.requests.back().method, QByteArray("DELETE"));
+    EXPECT_EQ(http.requests.back().path, QByteArray("/api/tokens/current"));
+    EXPECT_EQ(http.requests.back().authorization, QByteArray("Bearer bld_pat_abc"));
+
+    // Already over on the server (run out, or ended on the website): nothing left to end.
+    http.clear("DELETE /api/tokens/current");
+    http.replyTo("DELETE", "/api/tokens/current", 401, { { QStringLiteral("error"), QStringLiteral("invalid_token") } });
+    ASSERT_TRUE(ask());
+    EXPECT_EQ(*how, SignInEnd::Ended);
+
+    // A server from before the route, a busy one, a firewall: the sign-in is still valid there.
+    for (const auto& [status, error] : { std::pair{ 403, "token_not_allowed" }, std::pair{ 429, "rate_limited" },
+                                         std::pair{ 500, "internal" } }) {
+        http.clear("DELETE /api/tokens/current");
+        http.replyTo("DELETE", "/api/tokens/current", status, { { QStringLiteral("error"), QLatin1String(error) } });
+        ASSERT_TRUE(ask());
+        EXPECT_EQ(*how, SignInEnd::NotEnded) << status;
+    }
+
+    // No server at all.
+    QTcpServer gone;
+    gone.listen(QHostAddress::LocalHost, 0);
+    api.setBase(QUrl(QStringLiteral("http://127.0.0.1:%1").arg(gone.serverPort())));
+    gone.close();
+    ASSERT_TRUE(ask());
+    EXPECT_EQ(*how, SignInEnd::NotEnded);
+}
+
 TEST(ServerApi, NamesTheAppInEveryRequest) {
     EXPECT_TRUE(userAgent().startsWith("CollaborativeBrickLayoutDesigner/"));
     EXPECT_TRUE(userAgent().endsWith(" (desktop)"));

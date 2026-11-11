@@ -65,6 +65,23 @@ struct ServerInfo {
     QStringList missing() const { return missingFeatures(features); }
 };
 
+// When a sign-in ends by itself, as the server said with GET
+// /api/tokens/current: after this long without use, and at the latest then.
+// Servers before 2.0.x don't say: 0 and invalid.
+struct TokenLifetime {
+    qint64 idleSeconds = 0;
+    QDateTime longestAt;
+    // The latest the sign-in could still work if it was last used `now`;
+    // invalid when the server never said.
+    QDateTime endsBy(const QDateTime& now) const;
+};
+
+// How the server took the app's Sign Out (DELETE /api/tokens/current).
+enum class SignInEnd {
+    Ended,    // the sign-in is over on the server (or was already)
+    NotEnded, // the server wasn't reached, refused, or is too old to do it
+};
+
 struct DeviceCode {
     QString userCode;          // shown to the user, e.g. BCDF-GHJK
     QUrl    verificationUri;   // where they enter it
@@ -164,6 +181,11 @@ public:
     void fetchLayouts();
     // Who the token belongs to (GET /api/tokens/current): id and display name.
     void fetchCurrentUser();
+    // What the last fetchCurrentUser answer said about the token's lifetime.
+    TokenLifetime tokenLifetime() const { return lifetime_; }
+    // Sign Out: the server ends this token (DELETE /api/tokens/current).
+    // Always answers with signInEnded, within a few seconds.
+    void endSignIn();
     // Publish to Server (token scopes layouts:read for the orgs,
     // layouts:create to publish): the user's organisations, and a new
     // layout from a .bbm and its sidecar, personal or in an org.
@@ -217,6 +239,7 @@ signals:
     void signedIn(const QString& token);
     // access_denied, expired_token, or a network / server error.
     void signInFailed(const QString& reason);
+    void signInEnded(bld::sync::SignInEnd how);
     // A request failed: `what` is "version", "layouts", "orgs", "delete",
     // "return", "publish" or "preferences"; unauthorized is
     // true for a missing, revoked or expired token (sign in again).
@@ -236,6 +259,7 @@ private:
     QNetworkAccessManager net_;
     QUrl base_;
     QString token_;
+    TokenLifetime lifetime_;
     QString deviceCode_;
     int intervalSeconds_ = 5;
     double msPerSecond_ = 1000.0;

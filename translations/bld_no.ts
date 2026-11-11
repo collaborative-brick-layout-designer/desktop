@@ -2279,6 +2279,21 @@
     </message>
 </context>
 <context>
+    <name>SignOut</name>
+    <message>
+        <source>Signed out of %1.</source>
+        <translation>Logget ut av %1.</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>Logget ut her. Serveren kunne ikke nås, så den påloggingen er gyldig til den utløper; du kan avslutte den fra Profile › Browsers and devices på nettstedet.</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until %1; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>Logget ut her. Serveren kunne ikke nås, så den påloggingen er gyldig til %1; du kan avslutte den fra Profile › Browsers and devices på nettstedet.</translation>
+    </message>
+</context>
+<context>
     <name>Tours</name>
     <message>
         <source>Welcome to Collaborative Brick Layout Designer</source>
@@ -3367,8 +3382,8 @@
         <translation>Hva kaller du %1?</translation>
     </message>
     <message>
-        <source>%1 leaves your list of servers, and you’re signed out of it here.</source>
-        <translation>%1 forsvinner fra serverlisten din, og du logges ut av den her.</translation>
+        <source>%1 leaves your list of servers, and you’re signed out of it.</source>
+        <translation>%1 forsvinner fra serverlisten din, og du logges ut av den.</translation>
     </message>
     <message>
         <source>Your layouts stay on the server.</source>

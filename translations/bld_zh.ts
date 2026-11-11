@@ -2268,6 +2268,21 @@
     </message>
 </context>
 <context>
+    <name>SignOut</name>
+    <message>
+        <source>Signed out of %1.</source>
+        <translation>已退出 %1 的登录。</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>已在这里退出登录。无法连接服务器，因此该登录在过期前仍然有效；你可以在网站的 Profile › Browsers and devices 中结束它。</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until %1; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>已在这里退出登录。无法连接服务器，因此该登录在 %1 之前仍然有效；你可以在网站的 Profile › Browsers and devices 中结束它。</translation>
+    </message>
+</context>
+<context>
     <name>Tours</name>
     <message>
         <source>Welcome to Collaborative Brick Layout Designer</source>
@@ -3352,8 +3367,8 @@
         <translation>你怎么称呼 %1？</translation>
     </message>
     <message>
-        <source>%1 leaves your list of servers, and you’re signed out of it here.</source>
-        <translation>%1 会从你的服务器列表中移除，并在这里退出它的登录。</translation>
+        <source>%1 leaves your list of servers, and you’re signed out of it.</source>
+        <translation>%1 会从你的服务器列表中移除，并退出它的登录。</translation>
     </message>
     <message>
         <source>Your layouts stay on the server.</source>
