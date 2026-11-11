@@ -335,6 +335,9 @@ private:
     // and the server layout it was saved from (MainWindowFileIO.cpp).
     QJsonObject keptManifest_;
     std::optional<import::LayoutSource> fileSource_;
+    // The live layout stopped being live and its copy stays open: the copy's
+    // source is that layout, so a file saved from it names the server.
+    void keepLiveSource();
     // A new document, another file, or a live layout: forget both.
     void forgetFileSource();
 protected:
@@ -372,6 +375,11 @@ private:
     void onPublishToServer();
     // File › Servers…: your servers (add, rename, remove, sign in, Main).
     void onManageServers();
+    // After Servers… closed, while a layout is live: settings follow the Main
+    // server as it is now, and a layout whose server was signed out of (or
+    // removed) stops being live, with a card that says so.
+    // `liveSignInWasKept`: the live server's sign-in was in the keychain before.
+    void afterServersChanged(bool liveSignInWasKept);
     // "Browse the catalog on the web…" in the Parts panel and Module library:
     // the last-used server's catalog page in the browser.
     void openCatalogOnWeb(bool parts);
@@ -415,6 +423,12 @@ private:
     void startPrefsSync(const bld::sync::ConnectResult& r);
     // The live server's name as you call it (Servers), for the title and status bar.
     QString liveServerName() const;
+protected:
+    // While live: why these parts (`what`: MapView::Placing) can't go in the
+    // layout, when only another server than the live one has one of them
+    // (a set's own parts count); empty when they all can.
+    QString otherServerRefusal(const QStringList& partKeys, int what) const;
+private:
     // Offer to upload the user's parts the live server lacks; `quiet`: say
     // nothing when there are none (after publishing).
     QUrl liveServer_;

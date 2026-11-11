@@ -118,6 +118,11 @@ void ServerLibrary::setServer(const QUrl& url, const QString& label, const QStri
     } else if (token.isEmpty()) {
         setState(State::SignedOut);
     } else {
+        // Another server (or sign-in), even when the one before was Ready:
+        // whoever shows this library hears of it and drops that one's lists.
+        // (Ready stayed Ready, so the Server window kept showing the first
+        // server's layouts under the second server's name.)
+        setState(State::Loading);
         refresh();
         return;
     }

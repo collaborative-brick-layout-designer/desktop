@@ -199,6 +199,18 @@
         <translation>フォルダーを追加すると、そのパーツが組み込みのパーツと並んで表示されます。ここでフォルダーを外しても、何も削除されません。</translation>
     </message>
     <message>
+        <source>Other servers’ parts</source>
+        <translation>ほかのサーバーのパーツ</translation>
+    </message>
+    <message>
+        <source>While a layout is live on a server, parts that only another of your servers has are grayed out and can’t be placed.</source>
+        <translation>レイアウトがサーバーでライブ中は、ほかのサーバーにしかないパーツはグレー表示になり、置けません。</translation>
+    </message>
+    <message>
+        <source>Everyone working on a live layout gets its parts from that server, so nobody else could see a part it doesn’t have. Your own parts and the built-in ones are not affected. Untick this to leave the grayed parts out of the list.</source>
+        <translation>ライブレイアウトで作業する人は全員、そのサーバーからパーツを受け取ります。そのサーバーにないパーツは、ほかの人には見えません。自分のパーツと付属のパーツには影響しません。チェックを外すと、グレー表示のパーツは一覧に出なくなります。</translation>
+    </message>
+    <message>
         <source>Get more parts</source>
         <translation>パーツを追加入手</translation>
     </message>
@@ -6697,6 +6709,14 @@ Save anyway?</source>
         <translation>%1 をサーバーに追加</translation>
     </message>
     <message>
+        <source>This layout is no longer live</source>
+        <translation>このレイアウトはライブではなくなりました</translation>
+    </message>
+    <message>
+        <source>You’re no longer signed in to %1, so your changes don’t reach the server any more. The layout stays open here as an unsaved copy. To keep it, save it (File &gt; Save As).</source>
+        <translation>%1 にサインインしていないため、変更はサーバーに届かなくなりました。レイアウトは未保存のコピーとしてここで開いたままです。残すには保存してください（ファイル &gt; 名前を付けて保存）。</translation>
+    </message>
+    <message>
         <source>Save to Server</source>
         <translation>サーバーに保存</translation>
     </message>
@@ -6715,6 +6735,14 @@ Save anyway?</source>
     <message>
         <source>Saved “%1” on %2</source>
         <translation>「%1」を %2 に保存しました</translation>
+    </message>
+    <message>
+        <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>このモジュールには別のサーバー（%1）にあるパーツが含まれています。ここにいるほかの人には見えないため、このライブレイアウトには置けません。</translation>
+    </message>
+    <message>
+        <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>コピーしたパーツの一部は別のサーバー（%1）にあります。ここにいるほかの人には見えないため、このライブレイアウトには置けません。</translation>
     </message>
     <message>
         <source>Getting the layout from the server.</source>
@@ -9149,6 +9177,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>「%1」をマップに追加（セット内でのみ使用）</translation>
     </message>
     <message>
+        <source>Add &apos;%1&apos; to map (it’s on another server)</source>
+        <translation>「%1」をマップに追加（別のサーバーにあります）</translation>
+    </message>
+    <message>
         <source>Show Its Parts</source>
         <translation>そのパーツを表示</translation>
     </message>
@@ -9219,6 +9251,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Also delete it from %1</source>
         <translation>%1 からも削除する</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1). It can’t go in this live layout, because nobody else here could see it.</source>
+        <translation>このパーツは別のサーバー（%1）にあります。ここにいるほかの人には見えないため、このライブレイアウトには置けません。</translation>
     </message>
     <message>
         <source>Loading part pictures…</source>
@@ -10668,8 +10704,8 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>予算に数が入っていないパーツは自由に使える</translation>
     </message>
     <message>
-        <source>While live on a server, also list other servers&apos; parts</source>
-        <translation>サーバーでライブ中、ほかのサーバーのパーツも表示する</translation>
+        <source>While live on a server, also list other servers&apos; parts (grayed out)</source>
+        <translation>サーバーでライブ中、ほかのサーバーのパーツも表示する（グレー表示）</translation>
     </message>
     <message>
         <source>LDraw library</source>

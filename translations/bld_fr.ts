@@ -199,6 +199,18 @@
         <translation>Ajoutez un dossier, et ses pièces apparaissent à côté de celles fournies. Retirer un dossier ici ne supprime rien.</translation>
     </message>
     <message>
+        <source>Other servers’ parts</source>
+        <translation>Pièces des autres serveurs</translation>
+    </message>
+    <message>
+        <source>While a layout is live on a server, parts that only another of your servers has are grayed out and can’t be placed.</source>
+        <translation>Quand un plan est en direct sur un serveur, les pièces que seul un autre de vos serveurs possède sont grisées et ne peuvent pas être posées.</translation>
+    </message>
+    <message>
+        <source>Everyone working on a live layout gets its parts from that server, so nobody else could see a part it doesn’t have. Your own parts and the built-in ones are not affected. Untick this to leave the grayed parts out of the list.</source>
+        <translation>Tous ceux qui travaillent sur un plan en direct reçoivent ses pièces de ce serveur : personne d’autre ne pourrait donc voir une pièce qu’il n’a pas. Vos propres pièces et celles fournies avec l’application ne sont pas concernées. Décochez cette case pour retirer les pièces grisées de la liste.</translation>
+    </message>
+    <message>
         <source>Get more parts</source>
         <translation>Obtenir plus de pièces</translation>
     </message>
@@ -6735,6 +6747,14 @@ Enregistrer quand même ?</translation>
         <translation>Ajouter %1 à vos serveurs</translation>
     </message>
     <message>
+        <source>This layout is no longer live</source>
+        <translation>Ce plan n’est plus en direct</translation>
+    </message>
+    <message>
+        <source>You’re no longer signed in to %1, so your changes don’t reach the server any more. The layout stays open here as an unsaved copy. To keep it, save it (File &gt; Save As).</source>
+        <translation>Vous n’êtes plus connecté à %1, donc vos modifications n’arrivent plus au serveur. Le plan reste ouvert ici comme copie non enregistrée. Pour la garder, enregistrez-la (Fichier &gt; Enregistrer sous).</translation>
+    </message>
+    <message>
         <source>Save to Server</source>
         <translation>Enregistrer sur le serveur</translation>
     </message>
@@ -6753,6 +6773,14 @@ Enregistrer quand même ?</translation>
     <message>
         <source>Saved “%1” on %2</source>
         <translation>« %1 » enregistré sur %2</translation>
+    </message>
+    <message>
+        <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>Ce module contient des pièces qui sont sur un autre serveur (%1). Il ne peut pas aller dans ce plan en direct, car personne d’autre ici ne pourrait les voir.</translation>
+    </message>
+    <message>
+        <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>Certaines des pièces copiées sont sur un autre serveur (%1). Elles ne peuvent pas aller dans ce plan en direct, car personne d’autre ici ne pourrait les voir.</translation>
     </message>
     <message>
         <source>Getting the layout from the server.</source>
@@ -9217,6 +9245,10 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Ajouter « %1 » à la carte (ne sert que dans un set)</translation>
     </message>
     <message>
+        <source>Add &apos;%1&apos; to map (it’s on another server)</source>
+        <translation>Ajouter « %1 » à la carte (elle est sur un autre serveur)</translation>
+    </message>
+    <message>
         <source>Show Its Parts</source>
         <translation>Afficher ses pièces</translation>
     </message>
@@ -9287,6 +9319,10 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Also delete it from %1</source>
         <translation>Le supprimer aussi de %1</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1). It can’t go in this live layout, because nobody else here could see it.</source>
+        <translation>Cette pièce est sur un autre serveur (%1). Elle ne peut pas aller dans ce plan en direct, car personne d’autre ici ne pourrait la voir.</translation>
     </message>
     <message>
         <source>Loading part pictures…</source>
@@ -10738,8 +10774,8 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Les pièces sans nombre dans le budget peuvent être utilisées librement</translation>
     </message>
     <message>
-        <source>While live on a server, also list other servers&apos; parts</source>
-        <translation>En direct sur un serveur, lister aussi les pièces des autres serveurs</translation>
+        <source>While live on a server, also list other servers&apos; parts (grayed out)</source>
+        <translation>En direct sur un serveur, lister aussi les pièces des autres serveurs (grisées)</translation>
     </message>
     <message>
         <source>LDraw library</source>

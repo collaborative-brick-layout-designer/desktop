@@ -427,7 +427,12 @@ QString PartsLibrary::scanFile(const QString& xmlPath) {
     const QString key = colorCode.isEmpty()
         ? partNum.toLower()
         : QStringLiteral("%1.%2").arg(partNum, colorCode).toLower();
-    if (index_.contains(key)) return {};
+    if (const auto first = index_.constFind(key); first != index_.constEnd()) {
+        // Another copy of a part already read (a second server's, say): remembered, not indexed.
+        if (first->xmlFilePath != meta.xmlFilePath && !otherCopies_.value(key).contains(meta.xmlFilePath))
+            otherCopies_[key] << meta.xmlFilePath;
+        return {};
+    }
     for (const QString& old : meta.oldNames) renamed_.insert(old.toLower(), key);
     if (meta.trackDesigner) {
         QSet<int> ids{ meta.trackDesigner->defaultId };
@@ -515,6 +520,12 @@ std::optional<PartMetadata> PartsLibrary::metadata(const QString& key) const {
         if (it == index_.constEnd()) return std::nullopt;
     }
     return it.value();
+}
+
+QStringList PartsLibrary::otherCopies(const QString& key) const {
+    QString lk = key.toLower();
+    if (!index_.contains(lk)) lk = renamed_.value(lk);
+    return otherCopies_.value(lk);
 }
 
 std::optional<PartsLibrary::Footprint> PartsLibrary::footprint(const QString& key, double orientationDegrees) {
@@ -907,6 +918,7 @@ void PartsLibrary::forget(const QString& key) {
     for (auto it = fourDBrixNames_.begin(); it != fourDBrixNames_.end();)
         it = it.value() == lk ? fourDBrixNames_.erase(it) : std::next(it);
     index_.remove(lk);
+    otherCopies_.remove(lk);
     pixmapCache_.remove(lk);
     hullCache_.remove(lk);
     outlineCache_.remove(lk);
@@ -923,6 +935,7 @@ void PartsLibrary::forgetPixmap(const QString& key) {
 
 void PartsLibrary::clear() {
     index_.clear();
+    otherCopies_.clear();
     renamed_.clear();
     trackDesignerIds_.clear();
     fourDBrixNames_.clear();

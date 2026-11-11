@@ -302,6 +302,8 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     connect(mapView_, &MapView::layersChanged, this, recountBudget);
     connect(partsBrowser_, &PartsBrowser::partActivated,
             mapView_, &MapView::addPartAtViewCenter);
+    // Live on a server: a part only another server has isn't placed.
+    mapView_->placementRefusal = [this](const QStringList& keys, int what) { return otherServerRefusal(keys, what); };
     partsBrowser_->mapIsEmpty = [this] {
         const core::Map* map = mapView_->currentMap();
         if (!map) return false;

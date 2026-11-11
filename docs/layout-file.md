@@ -75,6 +75,9 @@ A file saved from a layout on a server says which one, in `manifest.json`:
 - The desktop writes it when it saves a live layout, and when it saves a file
   that already had a `source`. That `source` is kept unchanged, with its
   `exportedAt`.
+- The desktop also writes it for the copy that stays open when a layout stops
+  being live (File › Disconnect, signing out of its server, or the server
+  closing it), so the saved copy still says which server layout it came from.
 - Purely local layouts have no `source`.
 
 **Reading.**

@@ -38,6 +38,16 @@ class BudgetSession;
 // each folder to the server's name in "Your servers").
 // The server folder (server-parts/<folder>/...) a part came from, or empty.
 QString serverFolderOf(const parts::PartMetadata& meta);
+// While a layout is live on a server (`liveFolder`, its ServerList::
+// folderName): the server folder of a part that only another server has. Such
+// a part can't go in the live layout, because nobody else there could see it.
+// Empty for a part of your own or a bundled one, for one the live server has
+// too (a copy in its folder), and when not live.
+QString otherServerOf(const parts::PartsLibrary& lib, const QString& key, const QString& liveFolder);
+// Why such a part isn't placed, with the name of the server it is on.
+QString otherServerReason(const QString& serverLabel);
+// Each server's parts folder (server-parts/<folder>) with the name it has in "Your servers".
+QHash<QString, QString> serverPartLabels();
 QString partTooltip(const parts::PartMetadata& meta, const QString& key, const QString& desc,
                     const QHash<QString, QString>& serverLabels);
 
@@ -67,10 +77,14 @@ public:
     explicit PartsBrowser(parts::PartsLibrary& lib, QWidget* parent = nullptr);
 
     void rebuild();   // re-read the library and repopulate
-    // While live on a server: its folder name (ServerList::folderName), so
-    // only its parts show of the servers' parts (unless the "parts/
-    // showAllServers" setting says to show every server's). Empty: all.
+    // While live on a server: its folder name (ServerList::folderName).
+    // Parts only another server has are grayed out and can't be dragged or
+    // added, with the reason in their tooltip; the "parts/showAllServers"
+    // setting, unticked, leaves them out of the list. Empty: not live.
     void setLiveServerFolder(const QString& folder);
+    // Whether other servers' parts are listed (grayed) while live: the
+    // "parts/showAllServers" setting, on unless it was unticked.
+    static bool listsOtherServers();
 
     // Insert a single library entry into the grid without touching the
     // other thousands of items. Used by the importer right after a
@@ -87,7 +101,8 @@ public:
     // A part's picture as an icon `size` px across, drawn for screens of
     // `dpr` device pixels per pixel: at 150% or 200% scaling, a picture
     // made at `size` px would be stretched again and look blurred.
-    static QIcon partIcon(const QPixmap& picture, int size, qreal dpr);
+    // `opacity` under 1 draws it faint (a part that can't be placed).
+    static QIcon partIcon(const QPixmap& picture, int size, qreal dpr, qreal opacity = 1.0);
 
     // Follow the budget: Show Only Budgeted Parts hides the rest, Show
     // Budget Numbers adds "used/limit" under each part (red when over).

@@ -199,6 +199,18 @@
         <translation>Aggiungi una cartella e i suoi pezzi compaiono accanto a quelli inclusi. Rimuovere una cartella da qui non elimina nulla.</translation>
     </message>
     <message>
+        <source>Other servers’ parts</source>
+        <translation>Pezzi degli altri server</translation>
+    </message>
+    <message>
+        <source>While a layout is live on a server, parts that only another of your servers has are grayed out and can’t be placed.</source>
+        <translation>Mentre un layout è in diretta su un server, i pezzi che ha solo un altro dei tuoi server sono in grigio e non si possono posizionare.</translation>
+    </message>
+    <message>
+        <source>Everyone working on a live layout gets its parts from that server, so nobody else could see a part it doesn’t have. Your own parts and the built-in ones are not affected. Untick this to leave the grayed parts out of the list.</source>
+        <translation>Chi lavora a un layout in diretta riceve i pezzi da quel server, quindi nessun altro potrebbe vedere un pezzo che il server non ha. I tuoi pezzi e quelli inclusi non sono interessati. Togli la spunta per lasciare fuori dall’elenco i pezzi in grigio.</translation>
+    </message>
+    <message>
         <source>Get more parts</source>
         <translation>Scarica altri pezzi</translation>
     </message>
@@ -6735,6 +6747,14 @@ Salvare comunque?</translation>
         <translation>Aggiungi %1 ai tuoi server</translation>
     </message>
     <message>
+        <source>This layout is no longer live</source>
+        <translation>Questo layout non è più in diretta</translation>
+    </message>
+    <message>
+        <source>You’re no longer signed in to %1, so your changes don’t reach the server any more. The layout stays open here as an unsaved copy. To keep it, save it (File &gt; Save As).</source>
+        <translation>Non hai più effettuato l’accesso a %1, quindi le tue modifiche non arrivano più al server. Il layout resta aperto qui come copia non salvata. Per tenerla, salvala (File &gt; Salva con nome).</translation>
+    </message>
+    <message>
         <source>Save to Server</source>
         <translation>Salva sul server</translation>
     </message>
@@ -6753,6 +6773,14 @@ Salvare comunque?</translation>
     <message>
         <source>Saved “%1” on %2</source>
         <translation>“%1” salvato su %2</translation>
+    </message>
+    <message>
+        <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>Questo modulo ha pezzi che sono su un altro server (%1). Non può andare in questo layout in diretta, perché nessun altro qui potrebbe vederli.</translation>
+    </message>
+    <message>
+        <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>Alcuni dei pezzi copiati sono su un altro server (%1). Non possono andare in questo layout in diretta, perché nessun altro qui potrebbe vederli.</translation>
     </message>
     <message>
         <source>Getting the layout from the server.</source>
@@ -9217,6 +9245,10 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>Aggiungi &apos;%1&apos; alla mappa (usato solo dentro un set)</translation>
     </message>
     <message>
+        <source>Add &apos;%1&apos; to map (it’s on another server)</source>
+        <translation>Aggiungi &apos;%1&apos; alla mappa (è su un altro server)</translation>
+    </message>
+    <message>
         <source>Show Its Parts</source>
         <translation>Mostra i suoi pezzi</translation>
     </message>
@@ -9287,6 +9319,10 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>Also delete it from %1</source>
         <translation>Eliminalo anche da %1</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1). It can’t go in this live layout, because nobody else here could see it.</source>
+        <translation>Questo pezzo è su un altro server (%1). Non può andare in questo layout in diretta, perché nessun altro qui potrebbe vederlo.</translation>
     </message>
     <message>
         <source>Loading part pictures…</source>
@@ -10738,8 +10774,8 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>I pezzi senza un numero nel budget possono essere usati liberamente</translation>
     </message>
     <message>
-        <source>While live on a server, also list other servers&apos; parts</source>
-        <translation>Mentre sei in diretta su un server, elenca anche i pezzi degli altri server</translation>
+        <source>While live on a server, also list other servers&apos; parts (grayed out)</source>
+        <translation>Mentre sei in diretta su un server, elenca anche i pezzi degli altri server (in grigio)</translation>
     </message>
     <message>
         <source>LDraw library</source>

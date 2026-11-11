@@ -297,9 +297,10 @@ void addParts(QVBoxLayout* into, QWidget* parent, const Changed& changed,
     budget->setChecked(BudgetSession::defaultBudgetIsInfinite());
     QObject::connect(budget, &QCheckBox::toggled, budget, [](bool on) { BudgetSession::setDefaultBudgetIsInfinite(on); });
     into->addWidget(help::withHelp(budget, QStringLiteral("prefs.budgetUnlimited"), parent));
-    into->addWidget(checkbox(parent, Text::tr("While live on a server, also list other servers' parts"),
-                             QStringLiteral("parts/showAllServers"), false,
-                             [changed] { if (changed) changed(Change::PartsList); }));
+    into->addWidget(help::withHelp(
+        checkbox(parent, Text::tr("While live on a server, also list other servers' parts (grayed out)"),
+                 QStringLiteral("parts/showAllServers"), true, [changed] { if (changed) changed(Change::PartsList); }),
+        QStringLiteral("prefs.otherServersParts"), parent));
 }
 
 void addImport(QVBoxLayout* into, QWidget* parent) {

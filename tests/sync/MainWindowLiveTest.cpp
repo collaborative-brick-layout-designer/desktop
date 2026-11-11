@@ -9,8 +9,10 @@
 #include "ConnectDialog.h"
 #include "Presence.h"
 #include "ServerList.h"
+#include "ServersDialog.h"
 #include "TokenStore.h"
 #include "CompareDialog.h"
+#include "core/LayerBrick.h"
 #include "core/ModuleEdit.h"
 #include "edit/EditCommands.h"
 #include "edit/ModuleCommands.h"
@@ -26,6 +28,7 @@
 #include "ui/tours/Tours.h"
 #include "ui/MapView.h"
 #include "ui/NoticeArea.h"
+#include "ui/PartsBrowser.h"
 #include "LayoutMerge.h"
 #include "ui/UpdateCheck.h"
 #include "ui/theme/AppPrefs.h"
@@ -44,6 +47,7 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QImage>
 #include <QLineEdit>
 #include <QTemporaryDir>
 #include <QListWidget>
@@ -53,6 +57,7 @@
 #include <QJsonObject>
 #include <QMessageBox>
 #include <QPointer>
+#include <QRegularExpression>
 #include <QPushButton>
 #include <QSettings>
 #include <QStatusBar>
@@ -306,6 +311,10 @@ protected:
         EXPECT_EQ(brickAt(*view_->currentMap(), 0).displayArea, original_.translated(0, 8));
         EXPECT_FALSE(view_->undoStack()->isClean());
         EXPECT_FALSE(window_->windowTitle().contains(QStringLiteral("Live on"))) << window_->windowTitle().toStdString();
+        // The copy still knows which server layout it came from.
+        const auto extras = window_->manifestExtras();
+        ASSERT_TRUE(extras.source);
+        EXPECT_EQ(extras.source->layoutId, QStringLiteral("L1"));
     }
     // The end of every such message but a refused merge's, which says it its own way.
     static QString kept() { return QStringLiteral(" Your copy stays open here, unsaved. To keep it, save it (File > Save As)."); }
@@ -1021,6 +1030,73 @@ TEST_F(MainWindowLive, AFileSavedWhileLiveNamesTheServerLayout) {
     EXPECT_LT(qAbs(at.secsTo(QDateTime::currentDateTimeUtc())), 60);
 }
 
+// Disconnecting leaves a copy of the live layout open. A file saved from that
+// copy still says which server layout it is a copy of, so opening it later
+// offers the live version on the right server.
+TEST_F(MainWindowLive, TheCopyLeftAfterDisconnectingStillNamesTheServerLayout) {
+    for (QAction* a : window_->findChildren<QAction*>())
+        if (QString(a->text()).remove(QLatin1Char('&')) == QStringLiteral("Disconnect")) a->trigger();
+    ASSERT_FALSE(live_->active());
+    const auto extras = window_->manifestExtras();
+    ASSERT_TRUE(extras.source);
+    EXPECT_EQ(extras.source->server, import::layoutServerBase(http_.base().toString()));
+    EXPECT_EQ(extras.source->layoutId, QStringLiteral("L1"));
+    EXPECT_EQ(extras.source->title, QStringLiteral("Show 2026"));
+    // Saved and read back: the file names it.
+    QTemporaryDir dir;
+    const QString path = dir.filePath(QStringLiteral("copy.bld-layout"));
+    QString error;
+    ASSERT_TRUE(import::writeLayoutFile(*view_->currentMap(), path, &error, nullptr, {}, extras)) << error.toStdString();
+    const auto read = import::readLayoutFile(path, dir.path());
+    ASSERT_TRUE(read.source);
+    EXPECT_EQ(read.source->layoutId, QStringLiteral("L1"));
+}
+
+// File > Servers…, Sign Out on the server the layout is live on: the layout
+// stops being live (it used to go on with the sign-in that was given up, and
+// nothing said so). A card says why; the copy stays open, unsaved, and still
+// knows which server layout it came from.
+TEST_F(MainWindowLive, SigningOutOfTheLiveLayoutsServerEndsLiveAndSaysSo) {
+    tokens_->save(http_.base(), QStringLiteral("bld_pat_test"));
+    QAction* servers = window_->findChild<QAction*>(QStringLiteral("manageServers"));
+    ASSERT_NE(servers, nullptr);
+    Answers answers{ { [&](QWidget* w) {
+        auto* d = qobject_cast<sync::ServersDialog*>(w);
+        ASSERT_NE(d, nullptr) << w->metaObject()->className();
+        d->signOut(http_.base());
+        QMetaObject::invokeMethod(d, "reject", Qt::QueuedConnection);
+    } } };
+    answers.during([&] { servers->trigger(); });
+    EXPECT_EQ(answers.unexpected, 0);
+    ASSERT_TRUE(waitFor([&] { return !live_->active(); }));
+    EXPECT_TRUE(tokens_->tokens.isEmpty());
+    ASSERT_TRUE(window_->notices()->isShown(QStringLiteral("live-signed-out")));
+    auto* card = window_->notices()->card(QStringLiteral("live-signed-out"));
+    EXPECT_EQ(card->findChild<QLabel*>(QStringLiteral("NoticeTitle"))->text(), QStringLiteral("This layout is no longer live"));
+    EXPECT_TRUE(card->findChild<QLabel*>(QStringLiteral("NoticeText"))->text().startsWith(QStringLiteral("You’re no longer signed in to ")))
+        << card->findChild<QLabel*>(QStringLiteral("NoticeText"))->text().toStdString();
+    EXPECT_FALSE(window_->windowTitle().contains(QStringLiteral("Live on"))) << window_->windowTitle().toStdString();
+    ASSERT_NE(view_->currentMap(), nullptr);
+    EXPECT_FALSE(view_->undoStack()->isClean());
+    const auto extras = window_->manifestExtras();
+    ASSERT_TRUE(extras.source);
+    EXPECT_EQ(extras.source->layoutId, QStringLiteral("L1"));
+    ASSERT_TRUE(waitFor([&] { return ws_.peers.empty(); }));
+}
+
+// Closing Servers… with the sign-in as it was changes nothing: still live, no card.
+TEST_F(MainWindowLive, ClosingServersWithTheSignInAsItWasStaysLive) {
+    tokens_->save(http_.base(), QStringLiteral("bld_pat_test"));
+    QAction* servers = window_->findChild<QAction*>(QStringLiteral("manageServers"));
+    ASSERT_NE(servers, nullptr);
+    Answers answers{ { [&](QWidget* w) { QMetaObject::invokeMethod(w, "reject", Qt::QueuedConnection); } } };
+    answers.during([&] { servers->trigger(); });
+    waitFor([] { return false; }, 200);
+    EXPECT_TRUE(live_->active());
+    EXPECT_EQ(session().status(), Status::Synced);
+    EXPECT_FALSE(window_->notices()->isShown(QStringLiteral("live-signed-out")));
+}
+
 TEST_F(MainWindowLive, AServerFromBeforeTheChecksAsksNothing) {
     // No "please update"; only a quiet note that it may not do everything.
     EXPECT_FALSE(window_->notices()->isShown(QStringLiteral("server-update")));
@@ -1344,6 +1420,85 @@ TEST_F(MainWindowLive, OpeningALayoutOnAnotherServerLeavesTheFirst) {
     EXPECT_TRUE(ws_.peers.empty());
     EXPECT_TRUE(window_->windowTitle().contains(QStringLiteral("Club table"))) << window_->windowTitle().toStdString();
     window_.reset();  // before the other server goes
+}
+
+namespace {
+// A part with a picture in `dir` (a server's parts folder, say).
+void writeServerPart(const QString& dir, const QString& name) {
+    ASSERT_TRUE(QDir().mkpath(dir));
+    QFile f(dir + QLatin1Char('/') + name + QStringLiteral(".xml"));
+    ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+    f.write("<part><Author>t</Author></part>");
+    f.close();
+    QImage img(16, 16, QImage::Format_ARGB32);
+    img.fill(Qt::red);
+    ASSERT_TRUE(img.save(dir + QLatin1Char('/') + name + QStringLiteral(".png"), "PNG"));
+}
+int partsIn(const core::Map& m) {
+    int n = 0;
+    for (const auto& l : m.layers())
+        if (l->kind() == core::LayerKind::Brick) n += static_cast<int>(static_cast<const core::LayerBrick&>(*l).bricks.size());
+    return n;
+}
+}  // namespace
+
+// Live on one server, a part only another of your servers has can't go in the
+// layout (nobody else there could see it): not from the Parts panel, not
+// inside a module, not pasted. The status bar says why, naming the server.
+// This server's own parts, and one both servers have, are placed as ever; and
+// once the layout is no longer live, so is the other server's.
+TEST_F(MainWindowLive, APartOnlyAnotherServerHasIsntPlacedWhileLiveAndTheStatusBarSaysWhy) {
+    QTemporaryDir root;
+    const QString base = root.path() + QStringLiteral("/server-parts/");
+    const QString here = sync::ServerList::folderName(http_.base());
+    writeServerPart(base + QStringLiteral("friend.example/custom"), QStringLiteral("FRIENDPART"));
+    writeServerPart(base + QStringLiteral("friend.example/custom"), QStringLiteral("BOTHPART"));
+    writeServerPart(base + here + QStringLiteral("/custom"), QStringLiteral("HEREPART"));
+    writeServerPart(base + here + QStringLiteral("/custom"), QStringLiteral("BOTHPART"));
+    parts_.addSearchPath(base + QStringLiteral("friend.example"));
+    parts_.addSearchPath(base + here);
+    parts_.scan();
+    {
+        sync::ServerList list = sync::ServerList::load();
+        list.add(QUrl(QStringLiteral("https://friend.example")), QStringLiteral("Sam’s server"));
+        list.save();
+    }
+    core::Map& m = *view_->currentMap();
+    const int before = partsIn(m);
+    const QString why = QStringLiteral("This part is on another server (Sam’s server). It can’t go in this live layout, "
+                                       "because nobody else here could see it.");
+
+    view_->addPartAtViewCenter(QStringLiteral("FRIENDPART"));
+    EXPECT_EQ(partsIn(m), before);
+    EXPECT_EQ(window_->statusBar()->currentMessage(), why);
+    window_->statusBar()->clearMessage();
+
+    view_->addPartAtViewCenter(QStringLiteral("HEREPART"));
+    view_->addPartAtViewCenter(QStringLiteral("BOTHPART"));
+    EXPECT_EQ(partsIn(m), before + 2);
+    EXPECT_NE(window_->statusBar()->currentMessage(), why);
+
+    // A module with the other server's part in it.
+    core::Map module;
+    auto layer = std::make_unique<core::LayerBrick>();
+    core::Brick b;
+    b.guid = QStringLiteral("mod-1");
+    b.partNumber = QStringLiteral("FRIENDPART");
+    b.displayArea = QRectF(0, 0, 2, 2);
+    layer->bricks.push_back(b);
+    module.layers().push_back(std::move(layer));
+    EXPECT_FALSE(view_->placeModule(module, QStringLiteral("Yard"), QString(), QPointF(0, 0)));
+    EXPECT_EQ(partsIn(m), before + 2);
+    EXPECT_EQ(window_->statusBar()->currentMessage(),
+              QStringLiteral("This module has parts that are on another server (Sam’s server). It can’t go in this live "
+                             "layout, because nobody else here could see them."));
+
+    // No longer live: the copy here is yours alone, and takes any part.
+    for (QAction* a : window_->findChildren<QAction*>())
+        if (QString(a->text()).remove(QLatin1Char('&')) == QStringLiteral("Disconnect")) a->trigger();
+    ASSERT_FALSE(live_->active());
+    view_->addPartAtViewCenter(QStringLiteral("FRIENDPART"));
+    EXPECT_EQ(partsIn(*view_->currentMap()), before + 3);
 }
 
 // The "Live layout closed" box, one test per ending. Each is one plain
@@ -1999,6 +2154,129 @@ TEST_F(MainWindowLive, PicturesOfTheSheetAfterGoingLive) {
                                        .arg(mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark")
                                                                                   : QStringLiteral("light")));
     }
+}
+
+// BLD_REVIEW_SHOTS=<dir> BLD_PARTS=<library dirs, ':'-separated>: pictures to
+// look at (not compared), in the light and dark themes, of
+// - the Parts panel while live, with a part only another of your servers has
+//   (grayed) beside the same part on this server, and the status bar after
+//   trying to add the grayed one. BLD_SHOTS_TAG=before leaves other servers'
+//   parts out of the list, as the app did before they were listed grayed;
+// - the card after signing out of the server the layout is live on.
+TEST_F(MainWindowLive, PicturesOfAnotherServersPartsAndOfSigningOutWhileLive) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    const QStringList libs = qEnvironmentVariable("BLD_PARTS").split(QLatin1Char(':'), Qt::SkipEmptyParts);
+    if (out.isEmpty() || libs.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS / BLD_PARTS not set";
+    const QString tag = qEnvironmentVariable("BLD_SHOTS_TAG", QStringLiteral("after"));
+    QDir().mkpath(out);
+    for (const QString& p : libs) parts_.addSearchPath(p);
+    ASSERT_GT(parts_.scan(), 1000);
+    // A real part of the library, as a server part of this server and of a friend's.
+    QString model;
+    for (const QString& key : parts_.keys()) {
+        const auto meta = parts_.metadata(key);
+        if (meta && meta->kind != parts::PartKind::Group && !meta->notListed && !meta->gifFilePath.isEmpty()
+            && key.startsWith(QStringLiteral("30"))) {
+            model = key;
+            break;
+        }
+    }
+    ASSERT_FALSE(model.isEmpty());
+    QTemporaryDir root;
+    const QString base = root.path() + QStringLiteral("/server-parts/");
+    const QString here = sync::ServerList::folderName(http_.base());
+    const auto serverPart = [&](const QString& folder, const QString& number, const QString& name) {
+        const auto meta = parts_.metadata(model);
+        const QString dir = base + folder + QStringLiteral("/custom");
+        ASSERT_TRUE(QDir().mkpath(dir));
+        QFile in(meta->xmlFilePath);
+        ASSERT_TRUE(in.open(QIODevice::ReadOnly));
+        QString xml = QString::fromUtf8(in.readAll());
+        xml.replace(QRegularExpression(QStringLiteral("<en>[^<]*</en>")), QStringLiteral("<en>%1</en>").arg(name));
+        QFile outXml(dir + QLatin1Char('/') + number + QStringLiteral(".xml"));
+        ASSERT_TRUE(outXml.open(QIODevice::WriteOnly));
+        outXml.write(xml.toUtf8());
+        ASSERT_TRUE(QFile::copy(meta->gifFilePath,
+                                dir + QLatin1Char('/') + number + QLatin1Char('.') + QFileInfo(meta->gifFilePath).suffix()));
+    };
+    ASSERT_NO_FATAL_FAILURE(serverPart(here, QStringLiteral("CLUBSTATION"), QStringLiteral("Station brick (club)")));
+    ASSERT_NO_FATAL_FAILURE(serverPart(QStringLiteral("friend.example"), QStringLiteral("SAMSTATION"), QStringLiteral("Station brick (Sam)")));
+    parts_.addSearchPath(base + here);
+    parts_.addSearchPath(base + QStringLiteral("friend.example"));
+    parts_.scan();
+    {
+        sync::ServerList list = sync::ServerList::load();
+        list.rename(http_.base(), QStringLiteral("Club server"));
+        list.add(QUrl(QStringLiteral("https://friend.example")), QStringLiteral("Sam’s server"));
+        list.save();
+    }
+    tokens_->save(http_.base(), QStringLiteral("bld_pat_test"));
+    QSettings().setValue(QStringLiteral("parts/showAllServers"), tag != QLatin1String("before"));
+    ui::theme::PrefsStore store(QStringLiteral("review-live-shots"));
+    ui::theme::ThemeManager themer(store);
+    window_->resize(1440, 900);
+    window_->show();
+    waitFor([] { return false; }, 300);
+    window_->openLiveFromHere({ http_.base(), QStringLiteral("bld_pat_test"), QStringLiteral("L1"),
+                                QStringLiteral("Show 2026"), false, {} });
+    ASSERT_TRUE(waitFor([&] { return session().status() == Status::Synced && view_->currentMap(); }));
+    view_->rebuildScene();
+    waitFor([&] { return !view_->loadingCard() || !view_->loadingCard()->isVisible(); }, 30000);
+    for (QFrame* card : window_->findChildren<QFrame*>(QStringLiteral("NoticeCard"))) card->hide();
+    int missing = 0;
+    for (const auto& L : view_->currentMap()->layers())
+        if (L->kind() == core::LayerKind::Brick)
+            for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks)
+                if (!parts_.metadata(b.partNumber) || parts_.pixmap(b.partNumber).isNull()) ++missing;
+    ASSERT_EQ(missing, 0);
+    auto* browser = window_->findChild<ui::PartsBrowser*>();
+    ASSERT_NE(browser, nullptr);
+    browser->rebuild();
+    for (auto* edit : browser->findChildren<QLineEdit*>())
+        if (edit->placeholderText().startsWith(QStringLiteral("Search parts"))) edit->setText(QStringLiteral("station brick"));
+    waitFor([] { return false; }, 1500);
+    const auto shoot = [&](const QString& name) {
+        for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+            ui::theme::AppPrefs p = store.prefs();
+            p.theme = mode;
+            store.update(p);
+            waitFor([] { return false; }, 600);
+            window_->grab().save(out + QStringLiteral("/servers-%1-%2-%3.png")
+                                           .arg(tag, name, mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark") : QStringLiteral("light")));
+        }
+    };
+    // Trying to add Sam's part says why it can't go in (nothing to try while it isn't listed).
+    if (tag != QLatin1String("before")) view_->addPartAtViewCenter(QStringLiteral("SAMSTATION"));
+    else window_->statusBar()->clearMessage();
+    shoot(QStringLiteral("parts"));
+    if (tag == QLatin1String("before")) {
+        QSettings().remove(QStringLiteral("parts/showAllServers"));
+        return;
+    }
+    // Signed out of the live layout's server in File > Servers….
+    window_->statusBar()->clearMessage();
+    QAction* servers = window_->findChild<QAction*>(QStringLiteral("manageServers"));
+    ASSERT_NE(servers, nullptr);
+    Answers answers{ { [&](QWidget* w) {
+        auto* d = qobject_cast<sync::ServersDialog*>(w);
+        ASSERT_NE(d, nullptr);
+        waitFor([] { return false; }, 400);
+        for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+            ui::theme::AppPrefs p = store.prefs();
+            p.theme = mode;
+            store.update(p);
+            waitFor([] { return false; }, 600);
+            d->grab().save(out + QStringLiteral("/servers-%1-your-servers-%2.png")
+                                     .arg(tag, mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark") : QStringLiteral("light")));
+        }
+        d->signOut(http_.base());
+        QMetaObject::invokeMethod(d, "reject", Qt::QueuedConnection);
+    } } };
+    answers.during([&] { servers->trigger(); });
+    ASSERT_TRUE(waitFor([&] { return !live_->active() && window_->notices()->isShown(QStringLiteral("live-signed-out")); }));
+    shoot(QStringLiteral("signed-out"));
+    QSettings().remove(QStringLiteral("parts/showAllServers"));
+    view_->undoStack()->setClean();
 }
 
 // Full review area 4, Unclear UI 2: the desktop had no list of who's here

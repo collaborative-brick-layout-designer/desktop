@@ -1104,7 +1104,10 @@ void MainWindow::forgetFileSource() {
     clearEditingModule();
     keptManifest_ = {};
     fileSource_.reset();
-    if (notices_) notices_->hideNotice(QStringLiteral("layoutSource"));
+    if (notices_) {
+        notices_->hideNotice(QStringLiteral("layoutSource"));
+        notices_->hideNotice(QStringLiteral("live-signed-out"));
+    }
 }
 
 import::LayoutManifestExtras MainWindow::manifestExtras() const {
