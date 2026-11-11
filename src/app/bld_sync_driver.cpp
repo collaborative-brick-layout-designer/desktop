@@ -33,6 +33,8 @@
 
 #include "sync/LayoutMerge.h"
 #include "sync/Presence.h"
+#include "sync/ServerApi.h"
+#include "sync/SidecarItems.h"
 #include "sync/SyncSession.h"
 
 #include "core/LayerBrick.h"
@@ -134,6 +136,21 @@ class Driver {
 public:
     explicit Driver(QUrl server) : server_(std::move(server)) {}
 
+    // Whether the server lists the feature for module part keys
+    // (GET /api/version). No answer in time: it doesn't.
+    bool serverReadsMemberKeys() {
+        sync::ServerApi api;
+        api.setBase(server_);
+        bool answered = false, reads = false;
+        QObject::connect(&api, &sync::ServerApi::versionReady, &api, [&](const sync::ServerInfo& info) {
+            answered = true;
+            reads = info.features && info.features->contains(QLatin1String(sync::kMemberKeysFeature));
+        });
+        api.fetchVersion();
+        waitFor([&] { return answered; }, 10000);
+        return reads;
+    }
+
     // One command; false to quit.
     bool run(const QString& line) {
         const QStringList a = line.split(QLatin1Char(' '), Qt::SkipEmptyParts);
@@ -150,6 +167,10 @@ public:
             socket_.setScheme(server_.scheme() == QLatin1String("https") ? QStringLiteral("wss") : QStringLiteral("ws"));
             socket_.setPath(QStringLiteral("/ws/layout/") + layoutId_);
             session_.setCacheDir(cache_.path());
+            // As the app does when it opens a live layout (MainWindow::openLive):
+            // a module's part changes are written one key each only where the
+            // server's web app reads them (docs/module-members.md).
+            session_.setMemberKeys(serverReadsMemberKeys());
             session_.open(socket_, token_, false);
             reply(QStringLiteral("ok"));
         } else if (cmd == QLatin1String("wait-synced")) {
