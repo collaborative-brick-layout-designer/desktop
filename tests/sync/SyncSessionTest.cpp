@@ -814,3 +814,44 @@ TEST(SyncSession, ABudgetLimitBothChangedWaitsForReview) {
     mine.close();
     theirs.close();
 }
+
+// "Your 1 offline change was sent" is for coming back after being away. An
+// ordinary edit made while a clash still waits goes to the server the same
+// way, and says nothing; the next reconnect says it again.
+TEST(SyncSession, OnlyAReconnectSaysOfflineChangesWereSent) {
+    FakeServer server;
+    sync::SyncSession mine, theirs;
+    mine.client().setReconnectDelays(50ms, 200ms);
+    int ready = 0;
+    QList<std::pair<int, int>> said;
+    QObject::connect(&mine, &sync::SyncSession::offlineEditsReady, [&] { ++ready; });
+    QObject::connect(&mine, &sync::SyncSession::offlineEditsSent, [&](int sent, int left) { said.append({ sent, left }); });
+    mine.open(server.url(), {}, false);  // first, so server.peers.front() is mine
+    ASSERT_TRUE(waitFor([&] { return mine.status() == Status::Synced; }));
+    theirs.open(server.url(), {}, false);
+    ASSERT_TRUE(waitFor([&] { return theirs.status() == Status::Synced; }));
+    setLimit(theirs, QStringLiteral("3001.1"), 2);
+    ASSERT_TRUE(waitFor([&] { return mine.currentMap()->sidecar.budgetLimits.has_value(); }));
+
+    closeWith(server.peers.front(), QWebSocketProtocol::CloseCodeGoingAway, {});
+    ASSERT_TRUE(waitFor([&] { return mine.status() != Status::Synced; }));
+    setLimit(mine, QStringLiteral("3001.1"), 5);  // a clash
+    setLimit(mine, QStringLiteral("3002.1"), 3);  // goes by itself
+    setLimit(theirs, QStringLiteral("3001.1"), 9);
+
+    // Back: said once, with the clash left waiting.
+    ASSERT_TRUE(waitFor([&] { return ready == 1; }));
+    ASSERT_EQ(said.size(), 1);
+    EXPECT_EQ(said[0], (std::pair{ 1, 1 }));
+
+    // Two ordinary edits while the clash waits: both reach the server, neither is announced.
+    setLimit(mine, QStringLiteral("3003.1"), 4);
+    setLimit(mine, QStringLiteral("3004.1"), 6);
+    ASSERT_TRUE(waitFor([&] { return budgetOn(server.doc).value_or(Budget{}).value(QStringLiteral("3004.1")) == 6; }));
+    EXPECT_EQ(budgetOn(server.doc).value_or(Budget{}).value(QStringLiteral("3003.1")), 4);
+    waitFor([] { return false; }, 100);
+    EXPECT_EQ(said.size(), 1);
+    EXPECT_EQ(mine.unsyncedEdits(), 1);
+    mine.close();
+    theirs.close();
+}

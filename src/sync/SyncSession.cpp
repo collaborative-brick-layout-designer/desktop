@@ -34,6 +34,10 @@ SyncSession::SyncSession(QObject* parent)
     connect(&client_, &SyncClient::statusChanged, this, [this](SyncClient::Status s) {
         if (s == SyncClient::Status::Synced) {
             if (before_) checkNothingDropped();
+            // Back after being away: what goes out now is said ("Your 2
+            // offline changes were sent"). An ordinary edit made later,
+            // while a clash still waits, goes out without a word.
+            announceSent_ = offline_.has_value();
             if (offline_) QTimer::singleShot(0, this, [this] {
                     if (!offline_ || client_.status() != SyncClient::Status::Synced) return;
                     // What doesn't clash goes by itself; the clashes are asked about.
@@ -266,6 +270,8 @@ int SyncSession::reconcileOffline() {
     if (!offline_ || readOnly_ || held_ || client_.status() != SyncClient::Status::Synced) return 0;
     const auto server = currentMap();
     if (!server) return 0;
+    // Only the first step after a reconnect says what it sent.
+    const bool announce = std::exchange(announceSent_, false);
     const merge::Snapshot serverNow = merge::snapshotOf(*server);
     const QList<merge::ItemChange> changes = merge::compareLayouts(offline_->base, offline_->mine, serverNow);
     int clashes = 0, mineOnly = 0;
@@ -309,7 +315,7 @@ int SyncSession::reconcileOffline() {
         offline_.reset();
         saveOffline();
         emit mapChanged();
-        if (sent > 0) emit offlineEditsSent(sent, 0);
+        if (sent > 0 && announce) emit offlineEditsSent(sent, 0);
         return sent;
     }
     // 2. Only the clashes stay: the shared layout as it is now (others'
@@ -333,7 +339,7 @@ int SyncSession::reconcileOffline() {
     offline_->count = clashes;
     saveOffline();
     emit mapChanged();
-    if (sent > 0) emit offlineEditsSent(sent, clashes);
+    if (sent > 0 && announce) emit offlineEditsSent(sent, clashes);
     return sent;
 }
 
