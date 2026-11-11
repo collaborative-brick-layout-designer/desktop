@@ -6826,6 +6826,14 @@ Trotzdem speichern?</translation>
         <translation>Einige der kopierten Teile liegen auf einem anderen Server (%1). Sie können nicht in dieses Live-Layout, weil sie sonst niemand hier sehen könnte.</translation>
     </message>
     <message>
+        <source>You can save anyway, or cancel and replace those parts first.</source>
+        <translation>Du kannst trotzdem speichern oder abbrechen und diese Teile zuerst ersetzen.</translation>
+    </message>
+    <message>
+        <source>Save Anyway</source>
+        <translation>Trotzdem speichern</translation>
+    </message>
+    <message>
         <source>Getting the layout from the server.</source>
         <translation>Hole das Layout vom Server.</translation>
     </message>
@@ -7019,6 +7027,20 @@ Deine Offline-Änderungen bleiben erhalten; Datei › Offline-Änderungen prüfe
         <translation>
             <numerusform>Deine Offline-Änderung wurde gesendet.</numerusform>
             <numerusform>Deine %n Offline-Änderungen wurden gesendet.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from %1. People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n Teil in diesem Layout stammt von %1. Leute auf %2 sehen es als fehlend.</numerusform>
+            <numerusform>%n Teile in diesem Layout stammen von %1. Leute auf %2 sehen sie als fehlend.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from other servers (%1). People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n Teil in diesem Layout stammt von anderen Servern (%1). Leute auf %2 sehen es als fehlend.</numerusform>
+            <numerusform>%n Teile in diesem Layout stammen von anderen Servern (%1). Leute auf %2 sehen sie als fehlend.</numerusform>
         </translation>
     </message>
     <message>

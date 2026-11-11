@@ -428,6 +428,12 @@ protected:
     // layout, when only another server than the live one has one of them
     // (a set's own parts count); empty when they all can.
     QString otherServerRefusal(const QStringList& partKeys, int what) const;
+    // Before the open layout is saved to `server`: when it uses parts that
+    // only another of your servers has (and `server`'s own catalog lacks),
+    // say how many and from where, and that people there will see them as
+    // missing. `then(true)` to save (nothing to warn about, or Save Anyway).
+    void confirmOtherServerParts(const QUrl& server, const QString& token, QWidget* parent,
+                                 const std::function<void(bool)>& then);
 private:
     // Offer to upload the user's parts the live server lacks; `quiet`: say
     // nothing when there are none (after publishing).

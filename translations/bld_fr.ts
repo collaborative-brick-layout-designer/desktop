@@ -6826,6 +6826,14 @@ Enregistrer quand même ?</translation>
         <translation>Certaines des pièces copiées sont sur un autre serveur (%1). Elles ne peuvent pas aller dans ce plan en direct, car personne d’autre ici ne pourrait les voir.</translation>
     </message>
     <message>
+        <source>You can save anyway, or cancel and replace those parts first.</source>
+        <translation>Vous pouvez enregistrer quand même, ou annuler et remplacer d’abord ces pièces.</translation>
+    </message>
+    <message>
+        <source>Save Anyway</source>
+        <translation>Enregistrer quand même</translation>
+    </message>
+    <message>
         <source>Getting the layout from the server.</source>
         <translation>Récupération du plan depuis le serveur.</translation>
     </message>
@@ -7019,6 +7027,20 @@ Vos changements hors ligne sont gardés ; Fichier › Revoir les changements hor
         <translation>
             <numerusform>Votre modification hors ligne a été envoyée.</numerusform>
             <numerusform>Vos %n modifications hors ligne ont été envoyées.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from %1. People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n pièce de ce plan vient de %1. Les personnes sur %2 la verront comme manquante.</numerusform>
+            <numerusform>%n pièces de ce plan viennent de %1. Les personnes sur %2 les verront comme manquantes.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from other servers (%1). People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n pièce de ce plan vient d’autres serveurs (%1). Les personnes sur %2 la verront comme manquante.</numerusform>
+            <numerusform>%n pièces de ce plan viennent d’autres serveurs (%1). Les personnes sur %2 les verront comme manquantes.</numerusform>
         </translation>
     </message>
     <message>

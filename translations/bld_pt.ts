@@ -6826,6 +6826,14 @@ Guardar mesmo assim?</translation>
         <translation>Algumas das peças copiadas estão noutro servidor (%1). Não podem ir para este layout ao vivo, porque mais ninguém aqui as conseguiria ver.</translation>
     </message>
     <message>
+        <source>You can save anyway, or cancel and replace those parts first.</source>
+        <translation>Pode guardar mesmo assim, ou cancelar e substituir primeiro essas peças.</translation>
+    </message>
+    <message>
+        <source>Save Anyway</source>
+        <translation>Guardar mesmo assim</translation>
+    </message>
+    <message>
         <source>Getting the layout from the server.</source>
         <translation>A obter o layout do servidor.</translation>
     </message>
@@ -7019,6 +7027,20 @@ As suas alterações offline ficam guardadas; Ficheiro › Rever alterações of
         <translation>
             <numerusform>A sua %n alteração offline foi enviada.</numerusform>
             <numerusform>As suas %n alterações offline foram enviadas.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from %1. People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n peça deste layout vem de %1. As pessoas em %2 vão vê-la como em falta.</numerusform>
+            <numerusform>%n peças deste layout vêm de %1. As pessoas em %2 vão vê-las como em falta.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from other servers (%1). People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n peça deste layout vem de outros servidores (%1). As pessoas em %2 vão vê-la como em falta.</numerusform>
+            <numerusform>%n peças deste layout vêm de outros servidores (%1). As pessoas em %2 vão vê-las como em falta.</numerusform>
         </translation>
     </message>
     <message>

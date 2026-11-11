@@ -6826,6 +6826,14 @@ Save anyway?</source>
         <translation>Algunas de las piezas copiadas están en otro servidor (%1). No pueden ir en esta maqueta en directo, porque nadie más aquí podría verlas.</translation>
     </message>
     <message>
+        <source>You can save anyway, or cancel and replace those parts first.</source>
+        <translation>Puedes guardar de todos modos, o cancelar y reemplazar antes esas piezas.</translation>
+    </message>
+    <message>
+        <source>Save Anyway</source>
+        <translation>Guardar de todos modos</translation>
+    </message>
+    <message>
         <source>Getting the layout from the server.</source>
         <translation>Obteniendo la maqueta del servidor.</translation>
     </message>
@@ -7019,6 +7027,20 @@ Tus cambios sin conexión se conservan; Archivo › Revisar cambios sin conexió
         <translation>
             <numerusform>Se envió tu cambio sin conexión.</numerusform>
             <numerusform>Se enviaron tus %n cambios sin conexión.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from %1. People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n pieza de esta maqueta viene de %1. La gente en %2 la verá como faltante.</numerusform>
+            <numerusform>%n piezas de esta maqueta vienen de %1. La gente en %2 las verá como faltantes.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from other servers (%1). People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n pieza de esta maqueta viene de otros servidores (%1). La gente en %2 la verá como faltante.</numerusform>
+            <numerusform>%n piezas de esta maqueta vienen de otros servidores (%1). La gente en %2 las verá como faltantes.</numerusform>
         </translation>
     </message>
     <message>

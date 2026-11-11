@@ -14,6 +14,7 @@
 #include "MapViewInternal.h"
 
 #include "../core/Map.h"
+#include "../core/LayerBrick.h"
 #include "../parts/PartsLibrary.h"
 #include "../saveload/BbmWriter.h"
 #include "../saveload/SidecarIO.h"
@@ -61,6 +62,7 @@
 #include <QUndoStack>
 
 #include <algorithm>
+#include <memory>
 #include <utility>
 
 namespace bld::ui {
@@ -384,6 +386,9 @@ void MainWindow::onPublishToServer() {
         api, *tokens_, [](const QUrl& u) { QDesktopServices::openUrl(u); }, this,
         sync::ConnectDialog::Purpose::Publish);
     dialog.setPublishContent(bbm.data(), sidecar, title);
+    dialog.setBeforePublish([this, &dialog](const QUrl& server, const QString& token, const std::function<void(bool)>& go) {
+        confirmOtherServerParts(server, token, &dialog, go);
+    });
     if (dialog.exec() != QDialog::Accepted) return;
     const auto published = dialog.result();
     if (!published) return;
@@ -430,6 +435,81 @@ QString MainWindow::otherServerRefusal(const QStringList& partKeys, int what) co
         for (const parts::PartSubPart& sub : meta->subparts) pending << sub.subKey;
     }
     return {};
+}
+
+void MainWindow::confirmOtherServerParts(const QUrl& server, const QString& token, QWidget* parent,
+                                         const std::function<void(bool)>& then) {
+    const core::Map* map = mapView_->currentMap();
+    if (!map) {
+        then(true);
+        return;
+    }
+    // Each placed part whose only copy here came from another server's parts.
+    const QString here = sync::ServerList::folderName(server);
+    QHash<QString, QString> folderOf;  // part number (upper) -> the other server's folder, or empty
+    QList<QPair<QString, QString>> placed;  // (part number, folder), one per placed part
+    for (const auto& layer : map->layers()) {
+        if (layer->kind() != core::LayerKind::Brick) continue;
+        for (const auto& b : static_cast<const core::LayerBrick&>(*layer).bricks) {
+            const QString key = b.partNumber.toUpper();
+            if (key.isEmpty()) continue;
+            auto it = folderOf.find(key);
+            if (it == folderOf.end()) it = folderOf.insert(key, otherServerOf(parts_, b.partNumber, here));
+            if (!it->isEmpty()) placed.append({ key, *it });
+        }
+    }
+    if (placed.isEmpty()) {
+        then(true);
+        return;
+    }
+    // The box opens over `parent` while it is still there, else over this window.
+    // (A flag, not a QPointer: the analyzer misreads one copied through lambdas.)
+    auto parentAlive = std::make_shared<bool>(parent != nullptr);
+    if (parent) connect(parent, &QObject::destroyed, this, [parentAlive] { *parentAlive = false; });
+    const auto ask = [this, server, parent, parentAlive, then](const QList<QPair<QString, QString>>& parts) {
+        if (parts.isEmpty()) {
+            then(true);
+            return;
+        }
+        const QHash<QString, QString> labels = serverPartLabels();
+        QStringList from;
+        for (const auto& p : parts)
+            if (const QString name = labels.value(p.second, p.second); !from.contains(name)) from << name;
+        const sync::ServerList servers = sync::ServerList::load();
+        const sync::ServerEntry* entry = servers.find(server);
+        const QString to = entry ? entry->label() : server.host();
+        const int n = static_cast<int>(parts.size());
+        const QString text =
+            from.size() == 1
+                ? tr("%n parts in this layout come from %1. People on %2 will see them as missing.", nullptr, n)
+                      .arg(from.first(), to)
+                : tr("%n parts in this layout come from other servers (%1). People on %2 will see them as missing.",
+                     nullptr, n)
+                      .arg(from.join(QStringLiteral(", ")), to);
+        QMessageBox warning(QMessageBox::Warning, tr("Save to Server"), text, QMessageBox::NoButton, *parentAlive ? parent : this);
+        warning.setObjectName(QStringLiteral("otherServerPartsWarning"));
+        warning.setInformativeText(tr("You can save anyway, or cancel and replace those parts first."));
+        auto* save = warning.addButton(tr("Save Anyway"), QMessageBox::AcceptRole);
+        warning.setDefaultButton(warning.addButton(QMessageBox::Cancel));
+        warning.exec();
+        then(warning.clickedButton() == save);
+    };
+    // The server may have those parts itself (its catalog isn't downloaded
+    // until a layout is opened from it): ask it. Without an answer, go by
+    // what is on this computer.
+    auto* catalog = new sync::PartsUpload(server, token, this);
+    connect(catalog, &sync::PartsUpload::catalogReady, this, [catalog, placed, ask](const QSet<QString>& known) {
+        catalog->deleteLater();
+        QList<QPair<QString, QString>> missing;
+        for (const auto& p : placed)
+            if (!known.contains(p.first)) missing << p;
+        ask(missing);
+    });
+    connect(catalog, &sync::PartsUpload::failed, this, [catalog, placed, ask] {
+        catalog->deleteLater();
+        ask(placed);
+    });
+    catalog->fetchCatalog();
 }
 
 void MainWindow::offerPartsUpload(bool quiet) {

@@ -7289,6 +7289,14 @@ Spara ändå?</translation>
         <translation>Några av de kopierade delarna finns på en annan server (%1). De kan inte läggas i den här livelayouten, eftersom ingen annan här skulle kunna se dem.</translation>
     </message>
     <message>
+        <source>You can save anyway, or cancel and replace those parts first.</source>
+        <translation>Du kan spara ändå, eller avbryta och byta ut de delarna först.</translation>
+    </message>
+    <message>
+        <source>Save Anyway</source>
+        <translation>Spara ändå</translation>
+    </message>
+    <message>
         <source>Getting the layout from the server.</source>
         <translation>Hämtar layouten från servern.</translation>
     </message>
@@ -7482,6 +7490,20 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
         <translation>
             <numerusform>Din %n offlineändring skickades.</numerusform>
             <numerusform>Dina %n offlineändringar skickades.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from %1. People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n del i den här layouten kommer från %1. Personer på %2 ser den som saknad.</numerusform>
+            <numerusform>%n delar i den här layouten kommer från %1. Personer på %2 ser dem som saknade.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from other servers (%1). People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n del i den här layouten kommer från andra servrar (%1). Personer på %2 ser den som saknad.</numerusform>
+            <numerusform>%n delar i den här layouten kommer från andra servrar (%1). Personer på %2 ser dem som saknade.</numerusform>
         </translation>
     </message>
     <message>

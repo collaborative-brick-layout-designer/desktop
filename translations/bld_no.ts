@@ -7289,6 +7289,14 @@ Lagre likevel?</translation>
         <translation>Noen av de kopierte delene ligger på en annen server (%1). De kan ikke brukes i denne direktelayouten, fordi ingen andre her ville kunne se dem.</translation>
     </message>
     <message>
+        <source>You can save anyway, or cancel and replace those parts first.</source>
+        <translation>Du kan lagre likevel, eller avbryte og bytte ut de delene først.</translation>
+    </message>
+    <message>
+        <source>Save Anyway</source>
+        <translation>Lagre likevel</translation>
+    </message>
+    <message>
         <source>Getting the layout from the server.</source>
         <translation>Henter layouten fra serveren.</translation>
     </message>
@@ -7482,6 +7490,20 @@ De frakoblede endringene dine er tatt vare på; Fil › Gå gjennom frakoblede e
         <translation>
             <numerusform>%n frakoblet endring ble sendt.</numerusform>
             <numerusform>%n frakoblede endringer ble sendt.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from %1. People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n del i denne layouten kommer fra %1. Folk på %2 ser den som manglende.</numerusform>
+            <numerusform>%n deler i denne layouten kommer fra %1. Folk på %2 ser dem som manglende.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from other servers (%1). People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n del i denne layouten kommer fra andre servere (%1). Folk på %2 ser den som manglende.</numerusform>
+            <numerusform>%n deler i denne layouten kommer fra andre servere (%1). Folk på %2 ser dem som manglende.</numerusform>
         </translation>
     </message>
     <message>
