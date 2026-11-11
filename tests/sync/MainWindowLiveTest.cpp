@@ -198,6 +198,7 @@ public:
     using ui::MainWindow::offerPartsUpload;
     using ui::MainWindow::openLiveFromHere;
     using ui::MainWindow::ownPartsInLayout;
+    using ui::MainWindow::confirmOtherServerParts;
     using ui::MainWindow::runUploadPartsDialog;
     using ui::MainWindow::scanOwnParts;
 };
@@ -1499,6 +1500,125 @@ TEST_F(MainWindowLive, APartOnlyAnotherServerHasIsntPlacedWhileLiveAndTheStatusB
     ASSERT_FALSE(live_->active());
     view_->addPartAtViewCenter(QStringLiteral("FRIENDPART"));
     EXPECT_EQ(partsIn(*view_->currentMap()), before + 3);
+}
+
+// Save to Server with parts that only another of your servers has: before the
+// layout is sent, a box says how many, from where, and that people on the
+// server it is going to will see them as missing; Cancel leaves it unsent,
+// Save Anyway sends it. Parts the server has itself aren't counted, and a
+// layout without such parts is saved without a question.
+TEST_F(MainWindowLive, SavingToAServerWarnsAboutPartsOnlyAnotherServerHas) {
+    QTemporaryDir root;
+    const QString base = root.path() + QStringLiteral("/server-parts/");
+    writeServerPart(base + QStringLiteral("friend.example/custom"), QStringLiteral("FRIENDPART"));
+    writeServerPart(base + QStringLiteral("friend.example/custom"), QStringLiteral("SHAREDPART"));
+    parts_.addSearchPath(base + QStringLiteral("friend.example"));
+    parts_.scan();
+    {
+        sync::ServerList list = sync::ServerList::load();
+        list.add(QUrl(QStringLiteral("https://friend.example")), QStringLiteral("Sam’s server"));
+        list.rename(http_.base(), QStringLiteral("Train club"));
+        list.save();
+    }
+    // A copy of my own, no longer live.
+    for (QAction* a : window_->findChildren<QAction*>())
+        if (QString(a->text()).remove(QLatin1Char('&')) == QStringLiteral("Disconnect")) a->trigger();
+    ASSERT_FALSE(live_->active());
+    const auto catalogAsks = [&] {
+        int n = 0;
+        for (const auto& r : http_.requests) n += r.path == "/api/parts/catalog";
+        return n;
+    };
+    std::optional<bool> go;
+    const auto check = [&] {
+        go.reset();
+        window_->confirmOtherServerParts(http_.base(), QStringLiteral("bld_pat_test"), window_.get(), [&](bool g) { go = g; });
+    };
+
+    // Nothing from another server: saved without a question, and the server isn't even asked.
+    {
+        Answers none{ {} };
+        none.during([&] {
+            check();
+            ASSERT_TRUE(waitFor([&] { return go.has_value(); }));
+        });
+        EXPECT_EQ(none.unexpected, 0);
+        EXPECT_EQ(go, true);
+        EXPECT_EQ(catalogAsks(), 0);
+    }
+
+    view_->addPartAtViewCenter(QStringLiteral("FRIENDPART"));
+    view_->addPartAtViewCenter(QStringLiteral("FRIENDPART"));
+    view_->addPartAtViewCenter(QStringLiteral("SHAREDPART"));
+    // The club's own catalog has SHAREDPART (never downloaded here), not FRIENDPART.
+    http_.reply("/api/parts/catalog", 200,
+                { { QStringLiteral("parts"),
+                    QJsonArray{ QJsonObject{ { QStringLiteral("key"), QStringLiteral("SHAREDPART") },
+                                             { QStringLiteral("partNumber"), QStringLiteral("SHAREDPART") } } } } });
+    QString said, more;
+    QStringList buttons;
+    const auto answer = [&](const QString& button) {
+        return [&, button](QWidget* w) {
+            auto* b = qobject_cast<QMessageBox*>(w);
+            ASSERT_NE(b, nullptr) << w->metaObject()->className();
+            EXPECT_EQ(b->objectName(), QStringLiteral("otherServerPartsWarning"));
+            said = b->text();
+            more = b->informativeText();
+            buttons.clear();
+            for (auto* p : b->findChildren<QPushButton*>()) buttons << QString(p->text()).remove(QLatin1Char('&'));
+            press(button)(w);
+        };
+    };
+    {
+        Answers cancel{ { answer(QStringLiteral("Cancel")) } };
+        cancel.during([&] {
+            check();
+            ASSERT_TRUE(waitFor([&] { return go.has_value() && cancel.done(); }));
+        });
+        EXPECT_EQ(cancel.unexpected, 0);
+        EXPECT_EQ(go, false);
+    }
+    // Two placed parts, from the server as it is named in Servers, to the server by its name.
+    EXPECT_TRUE(said.startsWith(QStringLiteral("2 part"))) << said.toStdString();
+    EXPECT_TRUE(said.contains(QStringLiteral("in this layout come from Sam’s server. People on Train club will see them as missing.")))
+        << said.toStdString();
+    EXPECT_EQ(more, QStringLiteral("You can save anyway, or cancel and replace those parts first."));
+    EXPECT_TRUE(buttons.contains(QStringLiteral("Save Anyway")) && buttons.contains(QStringLiteral("Cancel")))
+        << buttons.join(QLatin1Char(',')).toStdString();
+    {
+        Answers save{ { answer(QStringLiteral("Save Anyway")) } };
+        save.during([&] {
+            check();
+            ASSERT_TRUE(waitFor([&] { return go.has_value() && save.done(); }));
+        });
+        EXPECT_EQ(go, true);
+    }
+
+    // The server can't be asked: go by what is on this computer (all three).
+    http_.clear("/api/parts/catalog");
+    http_.reply("/api/parts/catalog", 500, { { QStringLiteral("error"), QStringLiteral("internal") } });
+    {
+        Answers cancel{ { answer(QStringLiteral("Cancel")) } };
+        cancel.during([&] {
+            check();
+            ASSERT_TRUE(waitFor([&] { return go.has_value() && cancel.done(); }));
+        });
+        EXPECT_EQ(go, false);
+        EXPECT_TRUE(said.startsWith(QStringLiteral("3 part"))) << said.toStdString();
+    }
+
+    // Saving to the server those parts came from: nothing to warn about.
+    {
+        Answers none{ {} };
+        none.during([&] {
+            go.reset();
+            window_->confirmOtherServerParts(QUrl(QStringLiteral("https://friend.example")), QStringLiteral("t"), window_.get(),
+                                             [&](bool g) { go = g; });
+            ASSERT_TRUE(waitFor([&] { return go.has_value(); }));
+        });
+        EXPECT_EQ(none.unexpected, 0);
+        EXPECT_EQ(go, true);
+    }
 }
 
 // The "Live layout closed" box, one test per ending. Each is one plain

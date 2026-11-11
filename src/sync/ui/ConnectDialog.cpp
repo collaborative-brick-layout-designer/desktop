@@ -32,6 +32,7 @@
 #include <QTreeWidget>
 #include <QVBoxLayout>
 
+#include <memory>
 #include <utility>
 
 namespace bld::sync {
@@ -597,6 +598,24 @@ void ConnectDialog::publishNow() {
         && !confirmSaveToClub_(owner_->currentText()))
         return;
     publishBtn_->setEnabled(false);
+    if (!beforePublish_) {
+        sendPublish();
+        return;
+    }
+    // (The answer may come later: the app may ask the server first.)
+    // Only while this dialog is still open. (A flag, not a QPointer: the
+    // analyzer misreads one copied through lambdas.)
+    auto alive = std::make_shared<bool>(true);
+    connect(this, &QObject::destroyed, [alive] { *alive = false; });
+    beforePublish_(server_, token_, [this, alive](bool go) {
+        if (!*alive) return;
+        if (go) sendPublish();
+        else publishBtn_->setEnabled(true);
+    });
+}
+
+void ConnectDialog::sendPublish() {
+    const QString title = publishTitle_->text().trimmed();
     showMessage(tr("Saving to the server…"));
     api_.publishLayout(title.isEmpty() ? tr("Untitled Layout") : title, publishBbm_, publishSidecar_,
                        owner_->currentData().toString());

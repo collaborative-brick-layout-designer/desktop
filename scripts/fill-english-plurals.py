@@ -33,6 +33,12 @@ SPECIAL = {
     "%n of these parts are on %1 too. Update them there so everyone sees the new versions?": (
         "%n of these parts is on %1 too. Update it there so everyone sees the new version?"
     ),
+    "%n parts in this layout come from %1. People on %2 will see them as missing.": (
+        "%n part in this layout comes from %1. People on %2 will see it as missing."
+    ),
+    "%n parts in this layout come from other servers (%1). People on %2 will see them as missing.": (
+        "%n part in this layout comes from other servers (%1). People on %2 will see it as missing."
+    ),
     "This layout has its own version of %n parts you already have. Choose which to use for each.": (
         "This layout has its own version of %n part you already have. Choose which to use."
     ),

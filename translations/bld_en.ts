@@ -398,6 +398,20 @@
         </translation>
     </message>
     <message numerus="yes">
+        <source>%n parts in this layout come from %1. People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n part in this layout comes from %1. People on %2 will see it as missing.</numerusform>
+            <numerusform>%n parts in this layout come from %1. People on %2 will see them as missing.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from other servers (%1). People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n part in this layout comes from other servers (%1). People on %2 will see it as missing.</numerusform>
+            <numerusform>%n parts in this layout come from other servers (%1). People on %2 will see them as missing.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Uploaded %n part(s) to the server</source>
         <translation>
             <numerusform>Uploaded %n part to the server</numerusform>

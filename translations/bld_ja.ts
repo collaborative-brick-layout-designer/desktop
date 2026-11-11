@@ -6788,6 +6788,14 @@ Save anyway?</source>
         <translation>コピーしたパーツの一部は別のサーバー（%1）にあります。ここにいるほかの人には見えないため、このライブレイアウトには置けません。</translation>
     </message>
     <message>
+        <source>You can save anyway, or cancel and replace those parts first.</source>
+        <translation>このまま保存するか、キャンセルして先にそれらのパーツを置き換えることができます。</translation>
+    </message>
+    <message>
+        <source>Save Anyway</source>
+        <translation>このまま保存</translation>
+    </message>
+    <message>
         <source>Getting the layout from the server.</source>
         <translation>サーバーからレイアウトを取得しています。</translation>
     </message>
@@ -6975,6 +6983,18 @@ Your offline changes are kept; File › Review Offline Changes brings them back.
         <source>Your %n offline change(s) were sent.</source>
         <translation>
             <numerusform>オフラインでの変更 %n 件を送信しました。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from %1. People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>このレイアウトの %n 個のパーツは %1 のものです。%2 の人には、ないパーツとして表示されます。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from other servers (%1). People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>このレイアウトの %n 個のパーツは他のサーバー (%1) のものです。%2 の人には、ないパーツとして表示されます。</numerusform>
         </translation>
     </message>
     <message>

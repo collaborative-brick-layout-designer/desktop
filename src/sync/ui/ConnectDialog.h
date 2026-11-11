@@ -94,6 +94,11 @@ public:
     void setConfirmSaveToClub(std::function<bool(const QString& club)> f) {
         confirmSaveToClub_ = std::move(f);
     }
+    // Save to Server asks this just before it sends the layout, with the
+    // server picked and its token: `go(false)` leaves the layout unsent and
+    // the window as it was. (The app warns about parts only another server has.)
+    using BeforePublish = std::function<void(const QUrl& server, const QString& token, std::function<void(bool)> go)>;
+    void setBeforePublish(BeforePublish f) { beforePublish_ = std::move(f); }
     QPushButton* moreButton() const { return moreBtn_; }
 
 private:
@@ -130,6 +135,8 @@ private:
     std::function<bool(const QString&, bool)> confirmDelete_;
     std::function<bool(const QString&, const Credit&, bool)> confirmReturn_;
     std::function<bool(const QString&)> confirmSaveToClub_;
+    BeforePublish beforePublish_;
+    void sendPublish();
     QString returning_; // the name being taken or given back
     void updateDeleteButton();
 

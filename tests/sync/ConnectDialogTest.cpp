@@ -370,6 +370,50 @@ TEST(ConnectDialog, SignOutSaysWhenTheServerCouldNotEndTheSignIn) {
     EXPECT_TRUE(h.message().contains(QStringLiteral("Profile › Browsers and devices"))) << h.message().toStdString();
 }
 
+// Save to Server asks the app before it sends the layout (the app warns about
+// parts only another server has): no means nothing is sent and Save can be
+// pressed again; yes sends it.
+TEST(ConnectDialog, SaveToServerAsksBeforeSendingAndCancelSendsNothing) {
+    Harness h(ConnectDialog::Purpose::Publish);
+    h.tokens.save(h.http.base(), QStringLiteral("bld_pat_saved"));
+    h.http.reply("/api/orgs", 200, { { QStringLiteral("orgs"), QJsonArray{} } });
+    h.http.reply("/api/layouts", 201,
+                 { { QStringLiteral("id"), QStringLiteral("L9") }, { QStringLiteral("title"), QStringLiteral("Yard") } });
+    h.dialog.setPublishContent("<Map/>", {}, QStringLiteral("Yard"));
+    QList<QPair<QUrl, QString>> asked;
+    std::function<void(bool)> answer;
+    h.dialog.setBeforePublish([&](const QUrl& server, const QString& token, std::function<void(bool)> go) {
+        asked.append({ server, token });
+        answer = std::move(go);
+    });
+    h.dialog.connectToServer();
+    auto* save = h.dialog.findChild<QPushButton*>(QStringLiteral("publish"));
+    ASSERT_TRUE(waitFor([&] { return h.page() == 3 && save->isEnabled(); }));
+    const auto posts = [&] {
+        int n = 0;
+        for (const auto& r : h.http.requests) n += r.method == "POST" && r.path == "/api/layouts";
+        return n;
+    };
+
+    save->click();
+    ASSERT_EQ(asked.size(), 1);
+    EXPECT_EQ(asked[0].first, h.http.base());
+    EXPECT_EQ(asked[0].second, QStringLiteral("bld_pat_saved"));
+    EXPECT_FALSE(save->isEnabled());  // not pressed twice while the app asks
+    answer(false);
+    waitFor([] { return false; }, 150);
+    EXPECT_EQ(posts(), 0);
+    EXPECT_TRUE(save->isEnabled());
+    EXPECT_EQ(h.page(), 3);
+
+    save->click();
+    ASSERT_EQ(asked.size(), 2);
+    answer(true);
+    ASSERT_TRUE(waitFor([&] { return h.dialog.result().has_value(); }));
+    EXPECT_EQ(posts(), 1);
+    EXPECT_EQ(h.dialog.result()->layoutId, QStringLiteral("L9"));
+}
+
 // Clubs you can find and join are on the server's Clubs page, in the browser.
 TEST(ConnectDialog, FindAClubOpensTheServersClubsPage) {
     Harness h;

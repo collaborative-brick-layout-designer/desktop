@@ -6826,6 +6826,14 @@ Toch opslaan?</translation>
         <translation>Sommige gekopieerde onderdelen staan op een andere server (%1). Ze kunnen niet in deze live layout, omdat niemand anders hier ze zou kunnen zien.</translation>
     </message>
     <message>
+        <source>You can save anyway, or cancel and replace those parts first.</source>
+        <translation>Je kunt toch opslaan, of annuleren en die onderdelen eerst vervangen.</translation>
+    </message>
+    <message>
+        <source>Save Anyway</source>
+        <translation>Toch opslaan</translation>
+    </message>
+    <message>
         <source>Getting the layout from the server.</source>
         <translation>De layout ophalen van de server.</translation>
     </message>
@@ -7019,6 +7027,20 @@ Je offline wijzigingen blijven bewaard; Bestand › Offline wijzigingen bekijken
         <translation>
             <numerusform>Je %n offline wijziging is verzonden.</numerusform>
             <numerusform>Je %n offline wijzigingen zijn verzonden.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from %1. People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n onderdeel in deze layout komt van %1. Mensen op %2 zien het als ontbrekend.</numerusform>
+            <numerusform>%n onderdelen in deze layout komen van %1. Mensen op %2 zien ze als ontbrekend.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from other servers (%1). People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>%n onderdeel in deze layout komt van andere servers (%1). Mensen op %2 zien het als ontbrekend.</numerusform>
+            <numerusform>%n onderdelen in deze layout komen van andere servers (%1). Mensen op %2 zien ze als ontbrekend.</numerusform>
         </translation>
     </message>
     <message>

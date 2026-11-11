@@ -6788,6 +6788,14 @@ Save anyway?</source>
         <translation>复制的零件中有一些在另一台服务器（%1）上。它们不能放进这个实时布局，因为这里的其他人都看不到它们。</translation>
     </message>
     <message>
+        <source>You can save anyway, or cancel and replace those parts first.</source>
+        <translation>你可以仍然保存，也可以取消并先替换这些零件。</translation>
+    </message>
+    <message>
+        <source>Save Anyway</source>
+        <translation>仍然保存</translation>
+    </message>
+    <message>
         <source>Getting the layout from the server.</source>
         <translation>正在从服务器获取布局。</translation>
     </message>
@@ -6975,6 +6983,18 @@ Your offline changes are kept; File › Review Offline Changes brings them back.
         <source>Your %n offline change(s) were sent.</source>
         <translation>
             <numerusform>你的 %n 处离线更改已发送。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from %1. People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>此布局中有 %n 个零件来自 %1。%2 上的人会看到它们缺失。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n parts in this layout come from other servers (%1). People on %2 will see them as missing.</source>
+        <translation>
+            <numerusform>此布局中有 %n 个零件来自其他服务器（%1）。%2 上的人会看到它们缺失。</numerusform>
         </translation>
     </message>
     <message>
