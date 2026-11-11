@@ -67,6 +67,7 @@ bool hasServerKey(const QString& xmlPath, const QString& id) {
 
 PartsSync::PartsSync(QUrl server, QString token, const QString& cacheDir, QObject* parent)
     : QObject(parent), server_(std::move(server)), token_(std::move(token)), cache_(cacheDir) {
+    net_.setTransferTimeout(kServerStallTimeoutMs);
     QFile f(cache_.filePath(QStringLiteral("state.json")));
     if (f.open(QIODevice::ReadOnly)) {
         const QJsonObject s = QJsonDocument::fromJson(f.readAll()).object();
@@ -106,7 +107,7 @@ void PartsSync::start() {
         r->deleteLater();
         const int status = r->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         if (status != 200) {
-            const ServerRefusal refusal = readRefusal(status, r->readAll(), r->errorString());
+            const ServerRefusal refusal = readRefusal(status, r->readAll(), networkFailureText(r));
             emit failed(failureText(refusal), needsSignIn(refusal));
             return;
         }
@@ -160,7 +161,10 @@ void PartsSync::onManifest(const QJsonObject& manifest) {
             if (r->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 200)
                 onLibrary(slug, QJsonDocument::fromJson(r->readAll()).object());
             else {
-                result_.failed << tr("parts library %1: %2").arg(slug, r->errorString());
+                const int status = r->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+                result_.failed << tr("parts library %1: %2")
+                                      .arg(slug, failureText(readRefusal(status, r->readAll(),
+                                                                         networkFailureText(r))));
                 failedLibraries_.insert(slug);
             }
             next();

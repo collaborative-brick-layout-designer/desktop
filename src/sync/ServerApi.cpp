@@ -110,6 +110,8 @@ QJsonObject jsonOf(QNetworkReply* r) { return QJsonDocument::fromJson(r->readAll
 }  // namespace
 
 ServerApi::ServerApi(QObject* parent) : QObject(parent) {
+    // A server that takes the connection and never answers: "took too long", not waiting for good.
+    net_.setTransferTimeout(kServerStallTimeoutMs);
     poll_.setSingleShot(true);
     // RFC 8628 §3.5: never poll before the interval is up, or the server says
     // slow_down and the wait grows. A coarse timer may fire early (up to 5%,
@@ -240,12 +242,22 @@ void ServerApi::fetchVersion() {
         r->deleteLater();
         const int status = r->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         if (r->error() != QNetworkReply::NoError && status == 0) {
-            emit requestFailed(QStringLiteral("version"), r->errorString(), false);
+            emit requestFailed(QStringLiteral("version"), networkFailureText(r), false);
             return;
         }
         if (status != 200) {
-            const ServerRefusal refusal = readRefusal(status, r->readAll(), r->errorString());
-            emit requestFailed(QStringLiteral("version"), failureText(refusal), needsSignIn(refusal));
+            const ServerRefusal refusal = readRefusal(status, r->readAll(), networkFailureText(r));
+            QString text = failureText(refusal);
+            // An answer, but not one of ours: most often a wrong address (another website).
+            ServerRefusal plain;
+            plain.status = status;
+            if (!isFirewallBlock(refusal) && text == failureText(plain))
+                text =
+                    tr("%1 answered, but it isn't a Collaborative Brick Layout Designer server (it said %2). "
+                       "Check the address.")
+                        .arg(base_.host())
+                        .arg(status);
+            emit requestFailed(QStringLiteral("version"), text, needsSignIn(refusal));
             return;
         }
         const QJsonObject o = jsonOf(r);
@@ -326,7 +338,7 @@ std::optional<QJsonObject> ServerApi::okJson(QNetworkReply* r, const QString& wh
         // 403 is a token without the scope this needs (or one revoked since),
         // unless it is a usage limit or a read-only account.
         // A 403 with no JSON body is the site's firewall, not the server.
-        const ServerRefusal refusal = readRefusal(status, r->readAll(), r->errorString());
+        const ServerRefusal refusal = readRefusal(status, r->readAll(), networkFailureText(r));
         emit requestFailed(what, failureText(refusal), needsSignIn(refusal));
         return std::nullopt;
     }
@@ -420,7 +432,7 @@ void ServerApi::publishLayout(const QString& title, const QByteArray& bbm, const
             // A usage limit (or a read-only account) comes with a sentence to
             // show, and is not a reason to sign in again; an empty 403 is the
             // site's firewall.
-            const ServerRefusal refusal = readRefusal(status, raw, r->errorString());
+            const ServerRefusal refusal = readRefusal(status, raw, networkFailureText(r));
             emit requestFailed(QStringLiteral("publish"), describe(refusal), needsSignIn(refusal));
             return;
         }
@@ -440,7 +452,7 @@ void ServerApi::startSignIn(const QString& clientName) {
         const int status = r->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         const QJsonObject o = jsonOf(r);
         if (status != 200 || o.value(QLatin1String("device_code")).toString().isEmpty()) {
-            emit signInFailed(status == 0 ? r->errorString() : tr("The server answered %1").arg(status));
+            emit signInFailed(status == 0 ? networkFailureText(r) : tr("The server answered %1").arg(status));
             return;
         }
         deviceCode_ = o.value(QLatin1String("device_code")).toString();

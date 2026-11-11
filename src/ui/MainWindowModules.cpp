@@ -389,7 +389,7 @@ void MainWindow::openServerLayout(const sync::LayoutEntry& layout) {
     });
     connect(api, &sync::ServerApi::requestFailed, this, [this, api](const QString&, const QString& message, bool) {
         api->deleteLater();
-        QMessageBox::warning(this, tr("Open live"), tr("Couldn't reach the server: %1").arg(message));
+        QMessageBox::warning(this, tr("Open live"), message);
     });
     api->fetchVersion();
 }

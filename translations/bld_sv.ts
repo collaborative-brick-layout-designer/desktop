@@ -2211,6 +2211,38 @@
         <translation>Servern svarade %1</translation>
     </message>
     <message>
+        <source>%1 isn&apos;t answering. The server may be down or restarting: try again in a minute. If it keeps happening, check the address with whoever runs the server.</source>
+        <translation>%1 svarar inte. Servern kanske är nere eller startar om: försök igen om en minut. Om det fortsätter, kontrollera adressen med den som driver servern.</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t find a server at %1. Check the address for typing mistakes, and that this computer is online.</source>
+        <translation>Hittade ingen server på %1. Kontrollera adressen efter skrivfel, och att den här datorn är ansluten.</translation>
+    </message>
+    <message>
+        <source>%1&apos;s security certificate isn&apos;t valid, so the app didn&apos;t connect, to keep your sign-in safe. Whoever runs the server needs to fix its certificate. (A server on this computer or your own network may use http:// instead of https://.)</source>
+        <translation>Säkerhetscertifikatet för %1 är inte giltigt, så appen anslöt inte, för att skydda din inloggning. Den som driver servern behöver rätta certifikatet. (En server på den här datorn eller ditt eget nätverk använder kanske http:// i stället för https://.)</translation>
+    </message>
+    <message>
+        <source>%1 took too long to answer. Check this computer&apos;s internet connection, then try again.</source>
+        <translation>%1 tog för lång tid att svara. Kontrollera den här datorns internetanslutning och försök igen.</translation>
+    </message>
+    <message>
+        <source>The connection to %1 dropped. Check this computer&apos;s internet connection, then try again.</source>
+        <translation>Anslutningen till %1 bröts. Kontrollera den här datorns internetanslutning och försök igen.</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t reach %1 through this computer&apos;s proxy. Check the proxy settings, then try again.</source>
+        <translation>Kunde inte nå %1 via den här datorns proxy. Kontrollera proxyinställningarna och försök igen.</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t reach %1. Check the address and this computer&apos;s internet connection, then try again.</source>
+        <translation>Kunde inte nå %1. Kontrollera adressen och den här datorns internetanslutning och försök igen.</translation>
+    </message>
+    <message>
+        <source>the server</source>
+        <translation>servern</translation>
+    </message>
+    <message>
         <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
         <translation>Layouten sparades av en nyare version av Collaborative Brick Layout Designer, så den här versionen kan inte hålla den live. Hämta den nya versionen (Hjälp &gt; Sök efter uppdateringar) för att arbeta med den live igen.</translation>
     </message>
@@ -3095,10 +3127,6 @@
         <translation>Kunde inte publicera: %1</translation>
     </message>
     <message>
-        <source>Could not reach %1: %2</source>
-        <translation>Kunde inte nå %1: %2</translation>
-    </message>
-    <message>
         <source>Could not load your clubs: %1</source>
         <translation>Kunde inte läsa in dina klubbar: %1</translation>
     </message>
@@ -3257,6 +3285,10 @@
     <message>
         <source>Use https:// for a server on another machine (http:// only works for this computer).</source>
         <translation>Använd https:// för en server på en annan dator (http:// fungerar bara för den här datorn).</translation>
+    </message>
+    <message>
+        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
+        <translation>%1 svarade, men det är inte en Collaborative Brick Layout Designer-server (svaret var %2). Kontrollera adressen.</translation>
     </message>
     <message>
         <source>The server answered %1</source>
@@ -5274,10 +5306,6 @@ Spara min som ny version: layoutens kopia blir modulen; deras finns kvar i versi
     <message>
         <source>This server keeps its layouts in a newer form than this version of Collaborative Brick Layout Designer can read. Download the new version, then open the layout again.</source>
         <translation>Den här servern sparar sina layouter i en nyare form än vad den här versionen av Collaborative Brick Layout Designer kan läsa. Hämta den nya versionen och öppna sedan layouten igen.</translation>
-    </message>
-    <message>
-        <source>Couldn&apos;t reach the server: %1</source>
-        <translation>Kunde inte nå servern: %1</translation>
     </message>
     <message>
         <source>Use this venue</source>
