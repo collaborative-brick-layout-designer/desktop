@@ -67,6 +67,10 @@
         <source>Recently deleted: a deleted layout, module or venue waits 30 days</source>
         <translation>Recently deleted：删除的布局、模块或场地会保留 30 天</translation>
     </message>
+    <message>
+        <source>Two people changing one module&apos;s parts at the same moment</source>
+        <translation>两人同时更改同一模块的零件</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>

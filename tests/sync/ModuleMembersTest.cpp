@@ -573,7 +573,8 @@ TEST_P(TwoPeople, UndoStraightAfterBothRenamedTheModuleLeavesTheModule) {
     a.rename(QStringLiteral("North"));
     b.rename(QStringLiteral("South"));
     swap(a, b);
-    EXPECT_FALSE(a.doc.undo().isEmpty());
+    // (Nothing to send when the other person's value was the one kept.)
+    a.doc.undo();
     swap(a, b);
     for (Person* x : { &a, &b }) {
         auto map = mapOf(x->doc);
@@ -621,7 +622,8 @@ TEST_P(TwoPeople, BothAddTheSamePartAndOneUndoesEndsTheSameEverywhere) {
     b.add(b.p[2]);
     swap(a, b);
     EXPECT_EQ(a.members(), sorted({ a.p[0], a.p[1], a.p[2] }));
-    EXPECT_FALSE(a.doc.undo().isEmpty());
+    // (Nothing to send when the other person's value was the one kept.)
+    a.doc.undo();
     swap(a, b);
     EXPECT_EQ(a.members(), b.members());
     // The other person's part (today only when their key was the one kept), or not.

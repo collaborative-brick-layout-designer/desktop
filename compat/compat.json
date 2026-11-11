@@ -32,7 +32,7 @@
     { "id": "uploadSets", "label": "Uploading sets of your own parts" },
     { "id": "deletePartsFromDesktop", "label": "Deleting your own parts and sets from the desktop app" },
     { "id": "recentlyDeleted", "label": "Recently deleted: a deleted layout, module or venue waits 30 days" },
-    { "id": "moduleMemberKeys", "label": "Doc shape 3: its web app reads a module's part keys, so a desktop may write them" }
+    { "id": "moduleMemberKeys", "label": "Two people changing one module's parts at the same moment" }
   ],
   "serverFeatures": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "limits", "layoutDownload", "catalogShare", "uploadSets", "deletePartsFromDesktop", "recentlyDeleted", "moduleMemberKeys"],
   "desktopUses": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags"],
