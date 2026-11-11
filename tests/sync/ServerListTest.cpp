@@ -10,6 +10,7 @@
 
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QSettings>
 #include <QStandardPaths>
 
@@ -168,4 +169,42 @@ TEST_F(ServerListTest, HowLongASignInLastsIsRememberedPerServer) {
     EXPECT_EQ(list.find(b)->signIn.idleSeconds, 0);
     EXPECT_FALSE(list.find(b)->signIn.longestAt.isValid());
     EXPECT_FALSE(QString::fromUtf8(QSettings().value(QLatin1String(ServerList::kKey)).toByteArray()).contains(QStringLiteral("bld_pat")));
+}
+
+// What this computer keeps for a server (its downloaded parts and its live
+// layouts' copies) is measured and deleted per server, and the parts library
+// stops listing the deleted parts folder.
+TEST_F(ServerListTest, AServersDownloadsAreMeasuredAndRemovedAlone) {
+    const QUrl a(QStringLiteral("https://a.example.org")), b(QStringLiteral("https://b.example.org:8443"));
+    const auto write = [](const QString& path, int bytes) {
+        ASSERT_TRUE(QDir().mkpath(QFileInfo(path).absolutePath()));
+        QFile f(path);
+        ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+        f.write(QByteArray(bytes, 'x'));
+    };
+    const QStringList fa = ServerList::dataFolders(a), fb = ServerList::dataFolders(b);
+    ASSERT_EQ(fa.size(), 2);
+    EXPECT_TRUE(fa[0].endsWith(QStringLiteral("/server-parts/a.example.org")));
+    EXPECT_TRUE(fa[1].endsWith(QStringLiteral("/live/a.example.org")));
+    EXPECT_TRUE(fb[0].endsWith(QStringLiteral("/server-parts/b.example.org_8443")));
+    for (const QString& f : fa + fb) QDir(f).removeRecursively();
+    EXPECT_EQ(ServerList::dataSize(a), 0);
+
+    write(fa[0] + QStringLiteral("/custom/P.xml"), 1000);
+    write(fa[0] + QStringLiteral("/libs/Town/parts/Q.png"), 2000);
+    write(fa[1] + QStringLiteral("/L1/doc.bin"), 300);
+    write(fb[0] + QStringLiteral("/custom/R.xml"), 50);
+    EXPECT_EQ(ServerList::dataSize(a), 3300);
+    EXPECT_EQ(ServerList::dataSize(b), 50);
+    QSettings().setValue(QStringLiteral("partsLibrary/userPaths"), QStringList{ fa[0], fb[0], QStringLiteral("/somewhere/else") });
+
+    ServerList::removeData(a);
+    EXPECT_FALSE(QDir(fa[0]).exists());
+    EXPECT_FALSE(QDir(fa[1]).exists());
+    EXPECT_EQ(ServerList::dataSize(a), 0);
+    EXPECT_EQ(ServerList::dataSize(b), 50);
+    EXPECT_EQ(QSettings().value(QStringLiteral("partsLibrary/userPaths")).toStringList(),
+              (QStringList{ fb[0], QStringLiteral("/somewhere/else") }));
+    ServerList::removeData(b);
+    QSettings().remove(QStringLiteral("partsLibrary/userPaths"));
 }

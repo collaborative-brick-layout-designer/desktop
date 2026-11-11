@@ -8,6 +8,7 @@
 #include "TokenStore.h"
 #include "ui/help/HelpButton.h"
 
+#include <QCheckBox>
 #include <QDialogButtonBox>
 #include <QFormLayout>
 #include <QHBoxLayout>
@@ -15,6 +16,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QListWidget>
+#include <QLocale>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QTimer>
@@ -330,7 +332,7 @@ void ServersDialog::renameServer(const QUrl& url, const QString& name) {
     updateRow(url);
 }
 
-void ServersDialog::removeServer(const QUrl& url) {
+void ServersDialog::removeServer(const QUrl& url, bool alsoData) {
     list_ = ServerList::load();
     const ServerEntry* e = list_.find(url);
     if (!e) return;
@@ -342,6 +344,18 @@ void ServersDialog::removeServer(const QUrl& url) {
     list_.save();
     status_.remove(TokenStore::keyFor(url));
     rebuild();
+    if (!alsoData) return;
+    emit removingServerData(url);
+    ServerList::removeData(url);
+    emit serverDataRemoved(url);
+}
+
+QString ServersDialog::removeDataOffer(const QUrl& url) const {
+    const ServerEntry* e = list_.find(url);
+    const qint64 bytes = ServerList::dataSize(url);
+    if (!e || bytes <= 0) return {};
+    return tr("Also remove the parts downloaded from %1? (%2)")
+        .arg(e->label(), QLocale().formattedDataSize(bytes, 1, QLocale::DataSizeTraditionalFormat));
 }
 
 void ServersDialog::endSignIn(const QUrl& url, const QString& label, bool removed) {
@@ -439,7 +453,16 @@ void ServersDialog::onRemove() {
     w.removes = tr("%1 leaves your list of servers, and you’re signed out of it.").arg(e->label());
     w.keeps = tr("Your layouts stay on the server.");
     w.undo = tr("You can add it again later.");
-    if (bld::ui::ConfirmDialog::confirmDelete(this, e->label(), w)) removeServer(url);
+    bld::ui::ConfirmDialog ask(bld::ui::ConfirmDialog::deleteOptions(e->label(), w), this);
+    ask.setObjectName(QStringLiteral("removeServerQuestion"));
+    // What this computer downloaded from it can go too (it says how much room that frees).
+    if (const QString offer = removeDataOffer(url); !offer.isEmpty()) {
+        ask.showOption(offer);
+        ask.optionBox()->setToolTip(tr("The parts this computer downloaded from the server, and the copies of its live "
+                                       "layouts kept here. Changes made offline that never reached the server go with "
+                                       "them. Layouts you saved as files stay."));
+    }
+    if (ask.exec() == QDialog::Accepted) removeServer(url, ask.optionChosen());
 }
 
 void ServersDialog::onSignInOut() {

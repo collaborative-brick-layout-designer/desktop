@@ -3382,6 +3382,10 @@
         <translation>Cerrar sesión</translation>
     </message>
     <message>
+        <source>Also remove the parts downloaded from %1? (%2)</source>
+        <translation>¿Quitar también las piezas descargadas de %1? (%2)</translation>
+    </message>
+    <message>
         <source>Add a Server</source>
         <translation>Añadir un servidor</translation>
     </message>
@@ -3424,6 +3428,10 @@
     <message>
         <source>You can add it again later.</source>
         <translation>Puedes volver a añadirlo más tarde.</translation>
+    </message>
+    <message>
+        <source>The parts this computer downloaded from the server, and the copies of its live layouts kept here. Changes made offline that never reached the server go with them. Layouts you saved as files stay.</source>
+        <translation>Las piezas que este equipo descargó del servidor y las copias de sus maquetas en directo guardadas aquí. Los cambios hechos sin conexión que nunca llegaron al servidor se van con ellas. Las maquetas que guardaste como archivos se quedan.</translation>
     </message>
 </context>
 <context>
@@ -6818,12 +6826,24 @@ Save anyway?</source>
         <translation>Se guardó «%1» en %2</translation>
     </message>
     <message>
+        <source>This module has parts on another server (%1).</source>
+        <translation>Este módulo tiene piezas en otro servidor (%1).</translation>
+    </message>
+    <message>
         <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
         <translation>Este módulo tiene piezas que están en otro servidor (%1). No puede ir en esta maqueta en directo, porque nadie más aquí podría verlas.</translation>
     </message>
     <message>
+        <source>Some copied parts are on another server (%1).</source>
+        <translation>Algunas piezas copiadas están en otro servidor (%1).</translation>
+    </message>
+    <message>
         <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
         <translation>Algunas de las piezas copiadas están en otro servidor (%1). No pueden ir en esta maqueta en directo, porque nadie más aquí podría verlas.</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1).</source>
+        <translation>Esta pieza está en otro servidor (%1).</translation>
     </message>
     <message>
         <source>You can save anyway, or cancel and replace those parts first.</source>

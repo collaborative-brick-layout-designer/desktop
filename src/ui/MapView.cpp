@@ -2540,10 +2540,20 @@ void MapView::setGridOrigin(QPoint corner) {
 
 bool MapView::placementRefused(const QStringList& partKeys, Placing what) {
     if (!placementRefusal) return false;
-    const QString why = placementRefusal(partKeys, what);
-    if (why.isEmpty()) return false;
+    const PlacementRefusal why = placementRefusal(partKeys, what);
+    if (why.brief.isEmpty()) return false;
     if (auto* mw = window())
-        if (auto* sb = mw->findChild<QStatusBar*>()) sb->showMessage(why, 10000);
+        if (auto* sb = mw->findChild<QStatusBar*>()) {
+            sb->showMessage(why.brief, 10000);
+            // The whole reason for as long as the phrase is there.
+            sb->setToolTip(why.reason);
+            auto gone = std::make_shared<QMetaObject::Connection>();
+            *gone = connect(sb, &QStatusBar::messageChanged, sb, [sb, gone, brief = why.brief](const QString& now) {
+                if (now == brief) return;
+                sb->setToolTip(QString());
+                QObject::disconnect(*gone);
+            });
+        }
     return true;
 }
 

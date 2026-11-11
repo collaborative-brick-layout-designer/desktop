@@ -5,6 +5,7 @@
 // toolbar only gathers the everyday ones. UI text says "Sheets" for layers;
 // code and files keep their names.
 
+#include "StatusMessages.h"
 #include "MainWindow.h"
 #include "SheetNames.h"
 
@@ -499,6 +500,7 @@ void MainWindow::addZoomReadout() {
     statusBar()->addPermanentWidget(zoom);
     auto* watcher = new ZoomWatcher(mapView_, zoom);
     watcher->refresh();
+    letMessagesFit(statusBar());
 }
 
 void MainWindow::refreshShellIcons() {

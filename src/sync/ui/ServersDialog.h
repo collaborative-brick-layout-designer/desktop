@@ -35,7 +35,8 @@ public:
     // False, with `error` set, when the address isn't a server address.
     bool addServer(const QString& address, const QString& name, QString* error = nullptr);
     void renameServer(const QUrl& url, const QString& name);
-    void removeServer(const QUrl& url);
+    // `alsoData`: the parts downloaded from it and its live layouts' copies go too.
+    void removeServer(const QUrl& url, bool alsoData = false);
     void makeMain(const QUrl& url);
     void signOut(const QUrl& url);
     // Opens the sign-in window for `url` (once the current signal returns).
@@ -57,6 +58,16 @@ public:
     // What the window last said happened ("Signed out of Train club."); empty when nothing.
     QString noticeText() const;
     void selectServer(const QUrl& url);
+    // The Remove question's "Also remove the parts downloaded from …? (12 MB)";
+    // empty when this computer keeps nothing from the server.
+    QString removeDataOffer(const QUrl& url) const;
+
+signals:
+    // A removed server's parts and live copies are about to be deleted from
+    // this computer (the app stops using them first), and have been (the
+    // Parts panel drops them).
+    void removingServerData(const QUrl& url);
+    void serverDataRemoved(const QUrl& url);
 
 private:
     struct Status {

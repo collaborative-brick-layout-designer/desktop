@@ -38,6 +38,7 @@ add_library(bld_ui STATIC
     MainWindowViews.cpp
     MapView.cpp
     MapView.h
+    PlacementRefusal.h
     MapViewDrag.cpp
     MapViewClipboard.cpp
     MapViewContextMenu.cpp

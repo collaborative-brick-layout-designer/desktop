@@ -3,6 +3,7 @@
 #include "TokenStore.h"
 
 #include <QDir>
+#include <QDirIterator>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -227,6 +228,38 @@ void ServerList::remember(const QUrl& url, const ServerInfo& info) {
 void ServerList::rememberUser(const QUrl& url, const QString& userName) { add(url).userName = userName; }
 
 void ServerList::rememberSignIn(const QUrl& url, const TokenLifetime& lifetime) { add(url).signIn = lifetime; }
+
+QStringList ServerList::dataFolders(const QUrl& url) {
+    const QString name = folderName(url);
+    if (name.isEmpty()) return {};
+    return { appData() + QStringLiteral("/server-parts/") + name, appData() + QStringLiteral("/live/") + name };
+}
+
+qint64 ServerList::dataSize(const QUrl& url) {
+    qint64 bytes = 0;
+    for (const QString& folder : dataFolders(url)) {
+        QDirIterator it(folder, QDir::Files | QDir::Hidden, QDirIterator::Subdirectories);
+        while (it.hasNext()) {
+            it.next();
+            bytes += it.fileInfo().size();
+        }
+    }
+    return bytes;
+}
+
+void ServerList::removeData(const QUrl& url) {
+    const QStringList folders = dataFolders(url);
+    if (folders.isEmpty()) return;
+    for (const QString& folder : folders) QDir(folder).removeRecursively();
+    // The parts library no longer lists the folder.
+    QSettings s;
+    const QString key = QStringLiteral("partsLibrary/userPaths");
+    if (!s.contains(key)) return;
+    QStringList paths = s.value(key).toStringList();
+    const QString gone = QDir::cleanPath(folders.first());
+    paths.removeIf([&gone](const QString& p) { return QDir::cleanPath(p) == gone; });
+    s.setValue(key, paths);
+}
 
 QUrl ServerList::settingsAccount() const {
     const ServerEntry* m = mainServer();

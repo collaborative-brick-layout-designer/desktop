@@ -311,6 +311,13 @@ void MainWindow::onManageServers() {
     const auto kept = std::make_shared<bool>(false);
     if (live_->active()) tokens_->load(liveServer_, [kept](const QString& token) { *kept = !token.isEmpty(); });
     sync::ServersDialog dialog(*tokens_, [](const QUrl& u) { QDesktopServices::openUrl(u); }, this);
+    // A removed server's downloads are deleted with it when asked: a layout
+    // live on it lets go of its copy first, and the Parts panel drops the
+    // server's parts at once.
+    connect(&dialog, &sync::ServersDialog::removingServerData, this, [this](const QUrl& server) {
+        if (live_->active() && sync::TokenStore::keyFor(server) == sync::TokenStore::keyFor(liveServer_)) endLiveSignedOut();
+    });
+    connect(&dialog, &sync::ServersDialog::serverDataRemoved, this, [this] { onReloadLibrary(); });
     dialog.exec();
     // A renamed live server shows its new name; a new or signed-in one
     // fills the Module library and the status bar.
@@ -339,6 +346,12 @@ void MainWindow::afterServersChanged(bool liveSignInWasKept) {
             resumeLive(token);
             return;
         }
+        endLiveSignedOut();
+    });
+}
+
+void MainWindow::endLiveSignedOut() {
+    {
         const QString name = liveServerName();
         keepLiveSource();
         live_->close();
@@ -358,7 +371,7 @@ void MainWindow::afterServersChanged(bool liveSignInWasKept) {
                                 "layout stays open here as an unsaved copy. To keep it, save it (File > Save As).")
                                  .arg(name),
                              { NoticeAction{ tr("OK"), {} } });
-    });
+    }
 }
 
 void MainWindow::onPublishToServer() {
@@ -400,7 +413,7 @@ void MainWindow::onPublishToServer() {
     offerPartsUpload(true);
 }
 
-QString MainWindow::otherServerRefusal(const QStringList& partKeys, int what) const {
+PlacementRefusal MainWindow::otherServerRefusal(const QStringList& partKeys, int what) const {
     if (!live_ || !live_->active()) return {};
     const QString here = sync::ServerList::folderName(liveServer_);
     QStringList pending = partKeys;
@@ -420,15 +433,17 @@ QString MainWindow::otherServerRefusal(const QStringList& partKeys, int what) co
             const QString server = serverPartLabels().value(folder, folder);
             switch (what) {
             case MapView::PlacingModule:
-                return tr("This module has parts that are on another server (%1). It can’t go in this live layout, "
-                          "because nobody else here could see them.")
-                    .arg(server);
+                return { tr("This module has parts on another server (%1).").arg(server),
+                         tr("This module has parts that are on another server (%1). It can’t go in this live layout, "
+                            "because nobody else here could see them.")
+                             .arg(server) };
             case MapView::PlacingPaste:
-                return tr("Some of the copied parts are on another server (%1). They can’t go in this live layout, "
-                          "because nobody else here could see them.")
-                    .arg(server);
+                return { tr("Some copied parts are on another server (%1).").arg(server),
+                         tr("Some of the copied parts are on another server (%1). They can’t go in this live layout, "
+                            "because nobody else here could see them.")
+                             .arg(server) };
             default:
-                return otherServerReason(server);
+                return { tr("This part is on another server (%1).").arg(server), otherServerReason(server) };
             }
         }
         // A set: its own parts too.

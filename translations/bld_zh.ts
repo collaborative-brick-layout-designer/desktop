@@ -3367,6 +3367,10 @@
         <translation>退出登录</translation>
     </message>
     <message>
+        <source>Also remove the parts downloaded from %1? (%2)</source>
+        <translation>同时移除从 %1 下载的零件吗？（%2）</translation>
+    </message>
+    <message>
         <source>Add a Server</source>
         <translation>添加服务器</translation>
     </message>
@@ -3409,6 +3413,10 @@
     <message>
         <source>You can add it again later.</source>
         <translation>以后可以再次添加它。</translation>
+    </message>
+    <message>
+        <source>The parts this computer downloaded from the server, and the copies of its live layouts kept here. Changes made offline that never reached the server go with them. Layouts you saved as files stay.</source>
+        <translation>这台电脑从服务器下载的零件，以及保存在这里的实时布局副本。离线时所做、从未传到服务器的更改也会一并删除。你另存为文件的布局会保留。</translation>
     </message>
 </context>
 <context>
@@ -6780,12 +6788,24 @@ Save anyway?</source>
         <translation>已在 %2 上保存“%1”</translation>
     </message>
     <message>
+        <source>This module has parts on another server (%1).</source>
+        <translation>这个模块有零件在另一台服务器（%1）上。</translation>
+    </message>
+    <message>
         <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
         <translation>这个模块里有零件在另一台服务器（%1）上。它不能放进这个实时布局，因为这里的其他人都看不到这些零件。</translation>
     </message>
     <message>
+        <source>Some copied parts are on another server (%1).</source>
+        <translation>部分复制的零件在另一台服务器（%1）上。</translation>
+    </message>
+    <message>
         <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
         <translation>复制的零件中有一些在另一台服务器（%1）上。它们不能放进这个实时布局，因为这里的其他人都看不到它们。</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1).</source>
+        <translation>这个零件在另一台服务器（%1）上。</translation>
     </message>
     <message>
         <source>You can save anyway, or cancel and replace those parts first.</source>

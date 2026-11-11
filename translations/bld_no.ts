@@ -3382,6 +3382,10 @@
         <translation>Logg ut</translation>
     </message>
     <message>
+        <source>Also remove the parts downloaded from %1? (%2)</source>
+        <translation>Fjerne også delene som er lastet ned fra %1? (%2)</translation>
+    </message>
+    <message>
         <source>Add a Server</source>
         <translation>Legg til en server</translation>
     </message>
@@ -3424,6 +3428,10 @@
     <message>
         <source>You can add it again later.</source>
         <translation>Du kan legge den til igjen senere.</translation>
+    </message>
+    <message>
+        <source>The parts this computer downloaded from the server, and the copies of its live layouts kept here. Changes made offline that never reached the server go with them. Layouts you saved as files stay.</source>
+        <translation>Delene denne datamaskinen lastet ned fra serveren, og kopiene av direktelayoutene som er lagret her. Endringer gjort frakoblet som aldri nådde serveren, forsvinner sammen med dem. Layouter du har lagret som filer, blir værende.</translation>
     </message>
 </context>
 <context>
@@ -7281,12 +7289,24 @@ Lagre likevel?</translation>
         <translation>Lagret «%1» på %2</translation>
     </message>
     <message>
+        <source>This module has parts on another server (%1).</source>
+        <translation>Denne modulen har deler på en annen server (%1).</translation>
+    </message>
+    <message>
         <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
         <translation>Denne modulen har deler som ligger på en annen server (%1). Den kan ikke brukes i denne direktelayouten, fordi ingen andre her ville kunne se dem.</translation>
     </message>
     <message>
+        <source>Some copied parts are on another server (%1).</source>
+        <translation>Noen av de kopierte delene ligger på en annen server (%1).</translation>
+    </message>
+    <message>
         <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
         <translation>Noen av de kopierte delene ligger på en annen server (%1). De kan ikke brukes i denne direktelayouten, fordi ingen andre her ville kunne se dem.</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1).</source>
+        <translation>Denne delen ligger på en annen server (%1).</translation>
     </message>
     <message>
         <source>You can save anyway, or cancel and replace those parts first.</source>

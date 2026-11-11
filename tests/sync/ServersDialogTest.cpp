@@ -7,12 +7,19 @@
 #include "ServerList.h"
 #include "ServersDialog.h"
 #include "TokenStore.h"
+#include "ui/ConfirmDialog.h"
 #include "ui/help/HelpButton.h"
 #include "ui/help/HelpTexts.h"
 
 #include <gtest/gtest.h>
 
+#include <QApplication>
+#include <QCheckBox>
 #include <QCoreApplication>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QTimer>
 #include <QElapsedTimer>
 #include <QJsonArray>
 #include <QLabel>
@@ -23,6 +30,7 @@
 
 #include <functional>
 #include <memory>
+#include <optional>
 
 using namespace bld::sync;
 using bld::synctest::FakeHttp;
@@ -312,6 +320,115 @@ TEST_F(ServersDialogTest, RemovingAServerEndsItsSignInOnTheServerToo) {
         << dialog->noticeText().toStdString();
     EXPECT_EQ(signOuts(pal).size(), 1U);
     EXPECT_EQ(signOuts(pal)[0].authorization, QByteArray("Bearer bld_pat_pal"));
+}
+
+namespace {
+void writeBytes(const QString& path, int bytes) {
+    ASSERT_TRUE(QDir().mkpath(QFileInfo(path).absolutePath()));
+    QFile f(path);
+    ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+    f.write(QByteArray(bytes, 'x'));
+}
+
+// Answers the Remove question when it opens: ticks or unticks its "Also
+// remove…" box (when it is offered) and presses Remove. Says what it saw.
+struct RemoveQuestion {
+    bool seen = false, offered = false, wasTicked = false;
+    QString offer, tip, body;
+    QTimer poll;
+    explicit RemoveQuestion(std::optional<bool> tick = std::nullopt) {
+        poll.setInterval(20);
+        QObject::connect(&poll, &QTimer::timeout, [this, tick] {
+            auto* ask = qobject_cast<bld::ui::ConfirmDialog*>(QApplication::activeModalWidget());
+            if (!ask || seen) return;
+            seen = true;
+            offered = !ask->optionBox()->isHidden();
+            wasTicked = ask->optionChosen();
+            offer = ask->optionBox()->text();
+            tip = ask->optionBox()->toolTip();
+            body = ask->bodyText();
+            if (offered && tick) ask->optionBox()->setChecked(*tick);
+            QMetaObject::invokeMethod(ask->confirmButton(), &QPushButton::click, Qt::QueuedConnection);
+        });
+        poll.start();
+    }
+};
+}  // namespace
+
+// Removing a server offers to delete what this computer downloaded from it,
+// saying how much room that frees: its parts and its live layouts' copies go,
+// the app is told at once (the Parts panel drops the parts), and the other
+// server's downloads stay.
+TEST_F(ServersDialogTest, RemovingAServerOffersToDeleteItsDownloadedParts) {
+    const QStringList palData = ServerList::dataFolders(pal.base()), clubData = ServerList::dataFolders(club.base());
+    for (const QString& f : palData + clubData) QDir(f).removeRecursively();
+    writeBytes(palData[0] + QStringLiteral("/custom/P.xml"), 3 * 1024 * 1024);
+    writeBytes(palData[1] + QStringLiteral("/L1/doc.bin"), 512 * 1024);
+    writeBytes(clubData[0] + QStringLiteral("/custom/C.xml"), 2048);
+    auto d = open();
+    ASSERT_TRUE(waitFor([&] { return settled(); }));
+    const QString label = ServerList::load().find(pal.base())->label();
+    EXPECT_EQ(dialog->removeDataOffer(pal.base()),
+              QStringLiteral("Also remove the parts downloaded from %1? (%2)")
+                  .arg(label, QLocale().formattedDataSize(3 * 1024 * 1024 + 512 * 1024, 1, QLocale::DataSizeTraditionalFormat)));
+    EXPECT_TRUE(dialog->removeDataOffer(pal.base()).contains(QStringLiteral("3.5 MB"))) << dialog->removeDataOffer(pal.base()).toStdString();
+
+    QList<QPair<QString, bool>> told;  // (signal, the folder was still there)
+    QObject::connect(dialog, &ServersDialog::removingServerData, [&](const QUrl& u) {
+        EXPECT_EQ(u, pal.base());
+        told.append({ QStringLiteral("removing"), QDir(palData[0]).exists() });
+    });
+    QObject::connect(dialog, &ServersDialog::serverDataRemoved, [&](const QUrl& u) {
+        EXPECT_EQ(u, pal.base());
+        told.append({ QStringLiteral("removed"), QDir(palData[0]).exists() });
+    });
+
+    dialog->selectServer(pal.base());
+    RemoveQuestion question;
+    dialog->findChild<QPushButton*>(QStringLiteral("removeServer"))->click();
+    ASSERT_TRUE(waitFor([&] { return ServerList::load().servers().size() == 1; }));
+    EXPECT_TRUE(question.seen);
+    EXPECT_TRUE(question.offered);
+    EXPECT_TRUE(question.wasTicked);
+    EXPECT_EQ(question.offer, QStringLiteral("Also remove the parts downloaded from %1? (3.5 MB)").arg(label));
+    EXPECT_TRUE(question.tip.contains(QStringLiteral("live layouts"))) << question.tip.toStdString();
+    EXPECT_FALSE(QDir(palData[0]).exists());
+    EXPECT_FALSE(QDir(palData[1]).exists());
+    EXPECT_TRUE(QFileInfo::exists(clubData[0] + QStringLiteral("/custom/C.xml")));
+    EXPECT_EQ(told, (QList<QPair<QString, bool>>{ { QStringLiteral("removing"), true }, { QStringLiteral("removed"), false } }));
+    for (const QString& f : clubData) QDir(f).removeRecursively();
+}
+
+// Unticked, the downloads stay; and a server this computer keeps nothing from isn't asked about them.
+TEST_F(ServersDialogTest, RemovingAServerKeepsItsDownloadsWhenUntickedAndDoesntOfferWhenThereAreNone) {
+    const QStringList palData = ServerList::dataFolders(pal.base()), clubData = ServerList::dataFolders(club.base());
+    for (const QString& f : palData + clubData) QDir(f).removeRecursively();
+    writeBytes(palData[0] + QStringLiteral("/custom/P.xml"), 4096);
+    auto d = open();
+    ASSERT_TRUE(waitFor([&] { return settled(); }));
+    EXPECT_TRUE(dialog->removeDataOffer(club.base()).isEmpty());
+    int told = 0;
+    QObject::connect(dialog, &ServersDialog::removingServerData, [&] { ++told; });
+    QObject::connect(dialog, &ServersDialog::serverDataRemoved, [&] { ++told; });
+
+    {
+        dialog->selectServer(pal.base());
+        RemoveQuestion question(false);
+        dialog->findChild<QPushButton*>(QStringLiteral("removeServer"))->click();
+        ASSERT_TRUE(waitFor([&] { return ServerList::load().servers().size() == 1; }));
+        EXPECT_TRUE(question.offered);
+        EXPECT_TRUE(QFileInfo::exists(palData[0] + QStringLiteral("/custom/P.xml")));
+    }
+    {
+        dialog->selectServer(club.base());
+        RemoveQuestion question;
+        dialog->findChild<QPushButton*>(QStringLiteral("removeServer"))->click();
+        ASSERT_TRUE(waitFor([&] { return ServerList::load().isEmpty(); }));
+        EXPECT_TRUE(question.seen);
+        EXPECT_FALSE(question.offered);
+    }
+    EXPECT_EQ(told, 0);
+    for (const QString& f : palData) QDir(f).removeRecursively();
 }
 
 TEST_F(ServersDialogTest, AddsAServerByItsAddressAndSignsInToIt) {

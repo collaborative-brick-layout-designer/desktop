@@ -99,6 +99,14 @@ public:
     // servers on one machine never share a folder.
     static QString folderName(const QUrl& url);
 
+    // What this computer keeps for a server: the parts downloaded from it
+    // (server-parts/<name>) and the copies of its live layouts (live/<name>).
+    static QStringList dataFolders(const QUrl& url);
+    // How much room those take, in bytes (0: nothing kept).
+    static qint64 dataSize(const QUrl& url);
+    // Delete them, and take the parts folder out of the parts library's list.
+    static void removeData(const QUrl& url);
+
 private:
     // The single-server setting becomes the first entry, marked Main. A
     // server with a port had its folders named by host alone: they move to

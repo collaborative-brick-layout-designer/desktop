@@ -3382,6 +3382,10 @@
         <translation>Logga ut</translation>
     </message>
     <message>
+        <source>Also remove the parts downloaded from %1? (%2)</source>
+        <translation>Ta även bort delarna som laddats ned från %1? (%2)</translation>
+    </message>
+    <message>
         <source>Add a Server</source>
         <translation>Lägg till en server</translation>
     </message>
@@ -3424,6 +3428,10 @@
     <message>
         <source>You can add it again later.</source>
         <translation>Du kan lägga till den igen senare.</translation>
+    </message>
+    <message>
+        <source>The parts this computer downloaded from the server, and the copies of its live layouts kept here. Changes made offline that never reached the server go with them. Layouts you saved as files stay.</source>
+        <translation>Delarna som den här datorn laddade ned från servern, och kopiorna av dess livelayouter som sparas här. Ändringar som gjorts offline och aldrig nådde servern försvinner med dem. Layouter som du sparat som filer finns kvar.</translation>
     </message>
 </context>
 <context>
@@ -7281,12 +7289,24 @@ Spara ändå?</translation>
         <translation>Sparade ”%1” på %2</translation>
     </message>
     <message>
+        <source>This module has parts on another server (%1).</source>
+        <translation>Den här modulen har delar på en annan server (%1).</translation>
+    </message>
+    <message>
         <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
         <translation>Den här modulen har delar som finns på en annan server (%1). Den kan inte läggas i den här livelayouten, eftersom ingen annan här skulle kunna se dem.</translation>
     </message>
     <message>
+        <source>Some copied parts are on another server (%1).</source>
+        <translation>Några kopierade delar finns på en annan server (%1).</translation>
+    </message>
+    <message>
         <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
         <translation>Några av de kopierade delarna finns på en annan server (%1). De kan inte läggas i den här livelayouten, eftersom ingen annan här skulle kunna se dem.</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1).</source>
+        <translation>Den här delen finns på en annan server (%1).</translation>
     </message>
     <message>
         <source>You can save anyway, or cancel and replace those parts first.</source>

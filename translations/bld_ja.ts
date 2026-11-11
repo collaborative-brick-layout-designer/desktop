@@ -3367,6 +3367,10 @@
         <translation>サインアウト</translation>
     </message>
     <message>
+        <source>Also remove the parts downloaded from %1? (%2)</source>
+        <translation>%1 からダウンロードしたパーツも削除しますか? (%2)</translation>
+    </message>
+    <message>
         <source>Add a Server</source>
         <translation>サーバーを追加</translation>
     </message>
@@ -3409,6 +3413,10 @@
     <message>
         <source>You can add it again later.</source>
         <translation>あとでまた追加できます。</translation>
+    </message>
+    <message>
+        <source>The parts this computer downloaded from the server, and the copies of its live layouts kept here. Changes made offline that never reached the server go with them. Layouts you saved as files stay.</source>
+        <translation>このコンピューターがサーバーからダウンロードしたパーツと、ここに保存されているライブレイアウトのコピーです。オフラインで行い、サーバーに届かなかった変更も一緒に消えます。ファイルとして保存したレイアウトは残ります。</translation>
     </message>
 </context>
 <context>
@@ -6780,12 +6788,24 @@ Save anyway?</source>
         <translation>「%1」を %2 に保存しました</translation>
     </message>
     <message>
+        <source>This module has parts on another server (%1).</source>
+        <translation>このモジュールには別のサーバー（%1）にあるパーツがあります。</translation>
+    </message>
+    <message>
         <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
         <translation>このモジュールには別のサーバー（%1）にあるパーツが含まれています。ここにいるほかの人には見えないため、このライブレイアウトには置けません。</translation>
     </message>
     <message>
+        <source>Some copied parts are on another server (%1).</source>
+        <translation>コピーしたパーツの一部は別のサーバー（%1）にあります。</translation>
+    </message>
+    <message>
         <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
         <translation>コピーしたパーツの一部は別のサーバー（%1）にあります。ここにいるほかの人には見えないため、このライブレイアウトには置けません。</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1).</source>
+        <translation>このパーツは別のサーバー（%1）にあります。</translation>
     </message>
     <message>
         <source>You can save anyway, or cancel and replace those parts first.</source>
