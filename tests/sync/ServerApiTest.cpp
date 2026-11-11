@@ -529,8 +529,9 @@ TEST(ServerRefusal, ReadsLimitsReadOnlyAndRateLimits) {
     EXPECT_EQ(describe(readRefusal(500, "")), QStringLiteral("The server answered 500"));
     EXPECT_EQ(describe(readRefusal(0, "", QStringLiteral("Connection refused"))), QStringLiteral("Connection refused"));
 
-    EXPECT_FALSE(liveCloseText(4429, QStringLiteral("limit_reached")).isEmpty());
-    EXPECT_TRUE(liveCloseText(4429, QStringLiteral("too_many_connections")).isEmpty());
+    EXPECT_TRUE(isKnownLiveClose(4429, QStringLiteral("limit_reached")));
+    EXPECT_TRUE(liveCloseText(4429, QStringLiteral("limit_reached")).startsWith(QStringLiteral("Too many people have this layout open")));
+    EXPECT_FALSE(isKnownLiveClose(4429, QStringLiteral("too_many_connections")));
 }
 
 // An account being deleted, or on hold for a privacy request: the server's
@@ -568,11 +569,19 @@ TEST(ServerRefusal, SaysWhyALiveLayoutEndedInPlainWords) {
     EXPECT_FALSE(isSignInEnded(1008, QStringLiteral("layout_merge_refused")));
     EXPECT_FALSE(isSignInEnded(1008, QStringLiteral("account_restricted")));
     for (const char* reason : { "access_revoked", "not_found" })
-        EXPECT_TRUE(liveCloseText(4404, QLatin1String(reason)).startsWith(QStringLiteral("you can't open this layout any more")))
+        EXPECT_TRUE(liveCloseText(4404, QLatin1String(reason)).startsWith(QStringLiteral("You can't open this layout any more")))
             << reason;
-    EXPECT_EQ(liveCloseText(4404, QStringLiteral("layout_deleted")), QStringLiteral("this layout was deleted on the server"));
-    // Not a reason this server gives with that code.
-    EXPECT_TRUE(liveCloseText(4404, QStringLiteral("token_revoked")).isEmpty());
+    EXPECT_EQ(liveCloseText(4404, QStringLiteral("layout_deleted")),
+              QStringLiteral("This layout was deleted on the server. Your copy stays open here, unsaved. To keep it, save it "
+                             "(File > Save As)."));
+    // Not a reason this server gives with that code: the general sentence, and the code as details.
+    EXPECT_FALSE(isKnownLiveClose(4404, QStringLiteral("token_revoked")));
+    EXPECT_EQ(liveCloseText(4404, QStringLiteral("token_revoked")),
+              QStringLiteral("The server closed this live layout. Your copy stays open here, unsaved. To keep it, save it "
+                             "(File > Save As)."));
+    EXPECT_EQ(liveCloseDetail(4404, QStringLiteral("token_revoked")), QStringLiteral("The server's close code: 4404 (token_revoked)"));
+    EXPECT_EQ(liveCloseDetail(4404, QString()), QStringLiteral("The server's close code: 4404"));
+    EXPECT_TRUE(liveCloseDetail(4404, QStringLiteral("layout_deleted")).isEmpty());
 }
 
 // The server's merge guard refused an update: say what happened, and that
@@ -580,13 +589,16 @@ TEST(ServerRefusal, SaysWhyALiveLayoutEndedInPlainWords) {
 TEST(ServerRefusal, ExplainsARefusedMergeAndThatTheCopyIsKept) {
     const QString text = liveCloseText(1008, QStringLiteral("layout_merge_refused"));
     ASSERT_FALSE(text.isEmpty());
-    // Dropped into "The server ended the live session (…)": lower case first.
-    EXPECT_TRUE(text.at(0).isLower()) << text.toStdString();
+    // The whole message of the box, not a piece dropped into another sentence.
+    EXPECT_TRUE(text.at(0).isUpper()) << text.toStdString();
+    EXPECT_TRUE(text.endsWith(QLatin1Char('.'))) << text.toStdString();
+    // It says what to do with the copy itself, once.
+    EXPECT_EQ(text.count(QStringLiteral("unsaved")), 1) << text.toStdString();
     EXPECT_TRUE(text.contains(QStringLiteral("another layout's parts"))) << text.toStdString();
     EXPECT_TRUE(text.contains(QStringLiteral("Nothing is lost"))) << text.toStdString();
     EXPECT_TRUE(text.contains(QStringLiteral("File > Save As"))) << text.toStdString();
     // Only for 1008.
-    EXPECT_TRUE(liveCloseText(4404, QStringLiteral("layout_merge_refused")).isEmpty());
+    EXPECT_FALSE(isKnownLiveClose(4404, QStringLiteral("layout_merge_refused")));
 }
 
 // Every HTTP caller shows the account's state instead of asking to sign in again.

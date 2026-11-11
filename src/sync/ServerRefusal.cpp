@@ -144,38 +144,66 @@ bool isSignInEnded(int code, const QString& reason) {
                             reason == QLatin1String("unauthorized"));
 }
 
-QString liveCloseText(int code, const QString& reason) {
+namespace {
+// Why, in whole sentences; empty for an ending this version doesn't know.
+QString liveCloseWhy(int code, const QString& reason) {
     if (code == 4415 && reason == QLatin1String("unreadable_doc"))
-        return Text::tr("this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new "
-                  "version (Help > Check for Updates) to keep working on it");
+        return Text::tr("This layout was saved by a newer version of Collaborative Brick Layout Designer, so this "
+                        "version can't keep it live. Download the new version (Help > Check for Updates) to work on "
+                        "it live again.");
     if (code == 4416 && reason == QLatin1String("unreadable_update"))
-        return Text::tr("this layout's live update couldn't be read. Please reopen the layout to keep working on it live");
+        return Text::tr("A live update to this layout couldn't be read, so it's no longer live here. Open it from the "
+                        "server again to keep working on it with everyone.");
     if (code == 4426)
-        return Text::tr("this version of Collaborative Brick Layout Designer is too old for this server. Please download the new "
-                  "version (Help > Check for Updates)");
+        return Text::tr("This version of Collaborative Brick Layout Designer is too old for this server, so the layout "
+                        "is no longer live here. Download the new version (Help > Check for Updates).");
     if (code == 1008 && reason == QLatin1String("account_pending_deletion"))
-        return Text::tr("this account is being deleted. To keep it, sign in on the website before the date in your email; "
-                  "then open the layout again");
+        return Text::tr("This account is being deleted, so the layout is no longer live here. To keep the account, "
+                        "sign in on the website before the date in your email, then open the layout again.");
     if (code == 1008 && reason == QLatin1String("account_restricted"))
-        return Text::tr("your account is on hold (read only) while a privacy request is looked at. Ask the site admin");
-    // The server's merge guard (apps/server/src/ws/mergeGuard.ts): an update
-    // that would bring another layout's layers into this one.
-    if (code == 1008 && reason == QLatin1String("layout_merge_refused"))
-        return Text::tr("your changes weren't taken because they looked like another layout's parts being merged into "
-                  "this one. Nothing is lost: your copy stays open here, so save it (File > Save As) and tell the "
-                  "site admin");
+        return Text::tr("Your account is on hold (read only) while a privacy request is looked at, so the layout is no "
+                        "longer live here. Ask the site admin.");
     // The layout went away, or who may open it changed (apps/server/src/ws/handler.ts, routes/ws.ts).
-    if (code == 4404 && reason == QLatin1String("layout_deleted")) return Text::tr("this layout was deleted on the server");
+    if (code == 4404 && reason == QLatin1String("layout_deleted")) return Text::tr("This layout was deleted on the server.");
     if (code == 4404 && (reason == QLatin1String("access_revoked") || reason == QLatin1String("not_found")))
-        return Text::tr("you can't open this layout any more: it was deleted, or its owner or a club admin changed who can "
-                  "open it");
-    // The sign-in ended: it ran out, or was signed out elsewhere or removed on the website.
+        return Text::tr("You can't open this layout any more: it was deleted, or its owner or a club admin changed who "
+                        "can open it.");
+    // The sign-in ended: it ran out, or was signed out elsewhere or removed
+    // on the website. (The window keeps the layout open for this one and
+    // offers to sign in again; this is for a caller that closes it.)
     if (isSignInEnded(code, reason))
-        return Text::tr("your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the "
-                  "website). Sign in again (File › Servers…), then open the layout again");
+        return Text::tr("Your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the "
+                        "website), so the layout is no longer live here. Sign in again (File › Servers…), then open "
+                        "the layout again.");
     if (code == 4429 && reason == QLatin1String("limit_reached"))
-        return Text::tr("too many people have this layout open right now; try again in a little while");
+        return Text::tr("Too many people have this layout open right now, so it's no longer live here. Try again in a "
+                        "little while.");
     return {};
+}
+}  // namespace
+
+bool isKnownLiveClose(int code, const QString& reason) {
+    return (code == 1008 && reason == QLatin1String("layout_merge_refused")) || !liveCloseWhy(code, reason).isEmpty();
+}
+
+QString liveCloseText(int code, const QString& reason) {
+    // The server's merge guard (apps/server/src/ws/mergeGuard.ts): an update
+    // that would bring another layout's layers into this one. It says what
+    // to do with the copy itself.
+    if (code == 1008 && reason == QLatin1String("layout_merge_refused"))
+        return Text::tr("Your latest changes weren't taken, because they looked like another layout's parts being "
+                        "merged into this one, so the layout is no longer live here. Nothing is lost: your copy stays "
+                        "open here, unsaved. Save it (File > Save As) and tell the site admin.");
+    QString why = liveCloseWhy(code, reason);
+    if (why.isEmpty()) why = Text::tr("The server closed this live layout.");
+    // (the sentence that follows why, the same for every ending)
+    return why + QLatin1Char(' ') + Text::tr("Your copy stays open here, unsaved. To keep it, save it (File > Save As).");
+}
+
+QString liveCloseDetail(int code, const QString& reason) {
+    if (isKnownLiveClose(code, reason)) return {};
+    return reason.isEmpty() ? Text::tr("The server's close code: %1").arg(code)
+                            : Text::tr("The server's close code: %1 (%2)").arg(code).arg(reason);
 }
 
 }  // namespace bld::sync

@@ -57,8 +57,7 @@ LiveLayout::LiveLayout(MapView& view, QObject* parent) : QObject(parent), view_(
             return;
         }
         close();
-        const QString friendly = sync::liveCloseText(code, reason);
-        emit ended(friendly.isEmpty() ? reason : friendly);
+        emit ended(sync::liveCloseText(code, reason), sync::liveCloseDetail(code, reason));
     });
     connect(view_.undoStack(), &QUndoStack::indexChanged, this, [this](int) {
         onLocalStep();

@@ -2199,44 +2199,60 @@
         <translation>O servidor respondeu %1</translation>
     </message>
     <message>
-        <source>this layout was saved by a newer version of Collaborative Brick Layout Designer. Please download the new version (Help &gt; Check for Updates) to keep working on it</source>
-        <translation>este layout foi guardado por uma versão mais recente do Collaborative Brick Layout Designer. Por favor, transfira a nova versão (Ajuda &gt; Procurar atualizações) para continuar a trabalhar nele</translation>
+        <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
+        <translation>Este layout foi guardado por uma versão mais recente do Collaborative Brick Layout Designer, por isso esta versão não o consegue manter ao vivo. Transfira a nova versão (Ajuda &gt; Procurar atualizações) para voltar a trabalhar nele ao vivo.</translation>
     </message>
     <message>
-        <source>this layout&apos;s live update couldn&apos;t be read. Please reopen the layout to keep working on it live</source>
-        <translation>não foi possível ler a atualização ao vivo deste layout. Por favor, reabra o layout para continuar a trabalhar nele ao vivo</translation>
+        <source>A live update to this layout couldn&apos;t be read, so it&apos;s no longer live here. Open it from the server again to keep working on it with everyone.</source>
+        <translation>Não foi possível ler uma atualização ao vivo deste layout, por isso já não está ao vivo aqui. Abra-o de novo a partir do servidor para continuar a trabalhar nele com todos.</translation>
     </message>
     <message>
-        <source>this version of Collaborative Brick Layout Designer is too old for this server. Please download the new version (Help &gt; Check for Updates)</source>
-        <translation>esta versão do Collaborative Brick Layout Designer é demasiado antiga para este servidor. Por favor, transfira a nova versão (Ajuda &gt; Procurar atualizações)</translation>
+        <source>This version of Collaborative Brick Layout Designer is too old for this server, so the layout is no longer live here. Download the new version (Help &gt; Check for Updates).</source>
+        <translation>Esta versão do Collaborative Brick Layout Designer é demasiado antiga para este servidor, por isso o layout já não está ao vivo aqui. Transfira a nova versão (Ajuda &gt; Procurar atualizações).</translation>
     </message>
     <message>
-        <source>this account is being deleted. To keep it, sign in on the website before the date in your email; then open the layout again</source>
-        <translation>esta conta está a ser eliminada. Para a manter, inicie sessão no site antes da data indicada no seu e-mail; depois abra o layout de novo</translation>
+        <source>This account is being deleted, so the layout is no longer live here. To keep the account, sign in on the website before the date in your email, then open the layout again.</source>
+        <translation>Esta conta está a ser eliminada, por isso o layout já não está ao vivo aqui. Para manter a conta, inicie sessão no site antes da data indicada no seu e-mail e depois abra o layout de novo.</translation>
     </message>
     <message>
-        <source>your account is on hold (read only) while a privacy request is looked at. Ask the site admin</source>
-        <translation>a sua conta está em espera (só de leitura) enquanto um pedido de privacidade é analisado. Fale com o administrador do site</translation>
+        <source>Your account is on hold (read only) while a privacy request is looked at, so the layout is no longer live here. Ask the site admin.</source>
+        <translation>A sua conta está em espera (só de leitura) enquanto um pedido de privacidade é analisado, por isso o layout já não está ao vivo aqui. Fale com o administrador do site.</translation>
     </message>
     <message>
-        <source>your changes weren&apos;t taken because they looked like another layout&apos;s parts being merged into this one. Nothing is lost: your copy stays open here, so save it (File &gt; Save As) and tell the site admin</source>
-        <translation>as suas alterações não foram aceites porque pareciam peças de outro layout a ser fundidas neste. Nada se perdeu: a sua cópia fica aberta aqui, por isso guarde-a (Ficheiro &gt; Guardar como) e avise o administrador do site</translation>
+        <source>This layout was deleted on the server.</source>
+        <translation>Este layout foi eliminado no servidor.</translation>
     </message>
     <message>
-        <source>this layout was deleted on the server</source>
-        <translation>este layout foi eliminado no servidor</translation>
+        <source>You can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it.</source>
+        <translation>Você já não pode abrir este layout: foi eliminado, ou o dono ou um administrador do clube mudou quem o pode abrir.</translation>
     </message>
     <message>
-        <source>you can&apos;t open this layout any more: it was deleted, or its owner or a club admin changed who can open it</source>
-        <translation>você já não pode abrir este layout: foi eliminado, ou o dono ou um administrador do clube mudou quem o pode abrir</translation>
+        <source>Your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website), so the layout is no longer live here. Sign in again (File › Servers…), then open the layout again.</source>
+        <translation>A sua sessão neste servidor terminou (expirou, ou foi terminada noutro lado ou removida no site), por isso o layout já não está ao vivo aqui. Inicie sessão de novo (Ficheiro › Servidores…) e depois abra o layout de novo.</translation>
     </message>
     <message>
-        <source>your sign-in on this server ended (it ran out, or was signed out elsewhere or removed on the website). Sign in again (File › Servers…), then open the layout again</source>
-        <translation>a sua sessão neste servidor terminou (expirou, ou foi terminada noutro lado ou removida no site). Inicie sessão de novo (Ficheiro › Servidores…) e depois abra o layout de novo</translation>
+        <source>Too many people have this layout open right now, so it&apos;s no longer live here. Try again in a little while.</source>
+        <translation>Demasiadas pessoas têm este layout aberto neste momento, por isso já não está ao vivo aqui. Tente de novo daqui a pouco.</translation>
     </message>
     <message>
-        <source>too many people have this layout open right now; try again in a little while</source>
-        <translation>demasiadas pessoas têm este layout aberto neste momento; tente de novo daqui a pouco</translation>
+        <source>Your latest changes weren&apos;t taken, because they looked like another layout&apos;s parts being merged into this one, so the layout is no longer live here. Nothing is lost: your copy stays open here, unsaved. Save it (File &gt; Save As) and tell the site admin.</source>
+        <translation>As suas últimas alterações não foram aceites porque pareciam peças de outro layout a ser fundidas neste, por isso o layout já não está ao vivo aqui. Nada se perdeu: a sua cópia fica aberta aqui, não guardada. Guarde-a (Ficheiro &gt; Guardar como) e avise o administrador do site.</translation>
+    </message>
+    <message>
+        <source>The server closed this live layout.</source>
+        <translation>O servidor fechou este layout ao vivo.</translation>
+    </message>
+    <message>
+        <source>Your copy stays open here, unsaved. To keep it, save it (File &gt; Save As).</source>
+        <translation>A sua cópia fica aberta aqui, não guardada. Para a manter, guarde-a (Ficheiro &gt; Guardar como).</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1</source>
+        <translation>Código de fecho do servidor: %1</translation>
+    </message>
+    <message>
+        <source>The server&apos;s close code: %1 (%2)</source>
+        <translation>Código de fecho do servidor: %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -6661,10 +6677,6 @@ Guardar mesmo assim?</translation>
     <message>
         <source>Live layout closed</source>
         <translation>Layout ao vivo fechado</translation>
-    </message>
-    <message>
-        <source>The server ended the live session%1. The layout stays open here as an unsaved copy.</source>
-        <translation>O servidor terminou a sessão ao vivo%1. O layout fica aberto aqui como uma cópia não guardada.</translation>
     </message>
     <message>
         <source>Keep working on this copy</source>
