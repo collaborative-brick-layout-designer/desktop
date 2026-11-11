@@ -154,6 +154,49 @@ TEST(PartsUpload, StopsWhenTheTokenCantUpload) {
     EXPECT_TRUE(unauthorized);
 }
 
+// A server that takes the connection and then never answers: the upload
+// gives up ("took too long") instead of waiting for good, and doesn't wait
+// as long again for every other part.
+TEST(PartsUpload, AServerThatNeverAnswersIsGivenUpOn) {
+    FakeHttp http;
+    http.hold.insert("/api/custom-parts");
+    http.hold.insert("/api/parts/catalog");
+    QTemporaryDir dir;
+    for (const char* name : { "A", "B", "C" }) {
+        write(dir.filePath(QLatin1String(name) + QStringLiteral(".xml")), "<part/>");
+        write(dir.filePath(QLatin1String(name) + QStringLiteral(".gif")), "G");
+    }
+    PartsUpload upload(http.base(), QStringLiteral("t"));
+    upload.setStallTimeout(300);
+    int count = -1;
+    QStringList failures, said;
+    bool unauthorized = true;
+    QObject::connect(&upload, &PartsUpload::failed, [&](const QString& m, bool u) {
+        said << m;
+        unauthorized = u;
+    });
+    QObject::connect(&upload, &PartsUpload::uploaded, [&](int c, const QStringList& f) {
+        count = c;
+        failures = f;
+    });
+    upload.upload(PartsUpload::scanFolder(dir.path()), {});
+    ASSERT_TRUE(waitFor([&] { return count >= 0; }, 3000));
+    EXPECT_EQ(count, 0);
+    EXPECT_EQ(failures.size(), 1);  // stopped after the first: B and C weren't waited for
+    ASSERT_EQ(said.size(), 1);
+    EXPECT_TRUE(said[0].contains(QStringLiteral("took too long"))) << said[0].toStdString();
+    EXPECT_FALSE(unauthorized);  // not a reason to sign in again
+    int posts = 0;
+    for (const auto& r : http.requests) posts += r.method == "POST";
+    EXPECT_EQ(posts, 1);
+
+    // Asking what the server lacks gives up the same way.
+    said.clear();
+    upload.findMissing(PartsUpload::scanFolder(dir.path()));
+    ASSERT_TRUE(waitFor([&] { return !said.isEmpty(); }, 3000));
+    EXPECT_TRUE(said[0].contains(QStringLiteral("took too long"))) << said[0].toStdString();
+}
+
 // Placing a part while live: only your own parts the server lacks are
 // offered, each once.
 namespace {

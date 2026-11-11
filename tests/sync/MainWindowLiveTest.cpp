@@ -432,11 +432,15 @@ TEST_F(MainWindowLive, AfterLaterOthersChangesShowAndEditsThatDontClashAreSent) 
     });
     ASSERT_TRUE(waitFor([&] { return hasBrick(*view_->currentMap(), QStringLiteral("theirs-new")); }));
     // I move brick 1 a little further: nothing clashes, so it reaches the server by itself.
+    // An ordinary edit, made while connected: no "Your 1 offline change was sent" for it.
+    notices->hideNotice(QStringLiteral("live-offline-sent"));
     core::Map& m = *view_->currentMap();
     const QPointF at1 = brickAt(m, 1).displayArea.topLeft();
     view_->undoStack()->push(new edit::MoveBricksCommand(m, { { brickRef(m, 1), at1, at1 + QPointF(8, 0) } }));
     ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 1).topLeft() == at1 + QPointF(8, 0); }));
     EXPECT_EQ(session().unsyncedEdits(), 1);
+    waitFor([] { return false; }, 100);
+    EXPECT_FALSE(notices->isShown(QStringLiteral("live-offline-sent")));
 
     // Reviewed, keeping the server's brick 2: both sides are the same, and nothing was lost.
     Answers apply{ { compare(QStringLiteral("Apply")) } };

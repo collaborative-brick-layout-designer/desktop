@@ -153,6 +153,9 @@ bool isSetXml(const QByteArray& xml) {
 
 PartsUpload::PartsUpload(QUrl server, QString token, QObject* parent)
     : QObject(parent), server_(std::move(server)), token_(std::move(token)) {
+    // A server that takes the connection and never answers: "took too
+    // long", not Save to Server waiting for good.
+    net_.setTransferTimeout(kServerStallTimeoutMs);
 }
 
 QList<LocalPart> PartsUpload::scanFolder(const QString& dir) {
@@ -339,6 +342,11 @@ void PartsUpload::uploadNext() {
                 emit failed(refusal.code.isEmpty() && !isFirewallBlock(refusal) ? tr("The server refused the upload")
                                                                                  : describe(refusal),
                             needsSignIn(refusal));
+            } else if (status == 0) {
+                // No answer at all (it took too long, or the connection is
+                // gone): the rest would each wait as long for the same.
+                queue_.clear();
+                emit failed(networkFailureText(r), false);
             }
         }
         uploadNext();

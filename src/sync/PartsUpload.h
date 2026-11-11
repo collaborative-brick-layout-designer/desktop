@@ -58,6 +58,9 @@ public:
     // Whether the server takes sets (its features list "uploadSets"). Without
     // it, findMissing never lists a set and upload skips them.
     void setServerTakesSets(bool takes) { takesSets_ = takes; }
+    // How long a request may go without a byte either way before it is given
+    // up as "took too long" (kServerStallTimeoutMs; shorter in tests).
+    void setStallTimeout(int ms) { net_.setTransferTimeout(ms); }
 
     // The XML and sprite to upload for `part`. A hi-res part sends its
     // .png; one too big for `maxBytes` is sent at a lower resolution, its

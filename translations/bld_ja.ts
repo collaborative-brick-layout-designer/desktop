@@ -63,6 +63,10 @@
         <source>Deleting your own parts and sets from the desktop app</source>
         <translation>デスクトップアプリから自分のパーツとセットを削除する</translation>
     </message>
+    <message>
+        <source>Recently deleted: a deleted layout, module or venue waits 30 days</source>
+        <translation>Recently deleted: 削除したレイアウト、モジュール、会場は 30 日間残ります</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>
@@ -2310,6 +2314,14 @@
         <translation>%1 からサインアウトしました。</translation>
     </message>
     <message>
+        <source>Signed out here. The server didn’t end that sign-in, so it stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>ここではサインアウトしました。サーバーがそのサインインを終了しなかったため、期限が切れるまで有効なままです。ウェブサイトの Profile › Browsers and devices から終了できます。</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server didn’t end that sign-in, so it stays valid until %1; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>ここではサインアウトしました。サーバーがそのサインインを終了しなかったため、%1 まで有効なままです。ウェブサイトの Profile › Browsers and devices から終了できます。</translation>
+    </message>
+    <message>
         <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
         <translation>ここではサインアウトしました。サーバーに接続できなかったため、そのサインインは期限が切れるまで有効なままです。ウェブサイトの Profile › Browsers and devices から終了できます。</translation>
     </message>
@@ -3367,8 +3379,30 @@
         <translation>サインアウト</translation>
     </message>
     <message>
-        <source>Also remove the parts downloaded from %1? (%2)</source>
-        <translation>%1 からダウンロードしたパーツも削除しますか? (%2)</translation>
+        <source>Also remove the parts and layout copies downloaded from %1? (%2)</source>
+        <translation>%1 からダウンロードしたパーツとレイアウトのコピーも削除しますか? (%2)</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to “%1” never reached the server.</source>
+        <translation>
+            <numerusform>「%1」にオフラインで加えた変更 %n 件が、サーバーに届いていません。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to a layout never reached the server.</source>
+        <translation>
+            <numerusform>レイアウトにオフラインで加えた変更 %n 件が、サーバーに届いていません。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to %1 layouts never reached the server.</source>
+        <translation>
+            <numerusform>%1 個のレイアウトにオフラインで加えた変更 %n 件が、サーバーに届いていません。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Removing the layout copies deletes them for good. To send them first, cancel and open the layout from this server.</source>
+        <translation>レイアウトのコピーを削除すると、これらの変更は完全に失われます。先に送信するには、キャンセルして、このサーバーからレイアウトを開いてください。</translation>
     </message>
     <message>
         <source>Add a Server</source>
@@ -4006,6 +4040,10 @@
     <message>
         <source>You can undo this with Ctrl+Z.</source>
         <translation>Ctrl+Z で元に戻せます。</translation>
+    </message>
+    <message>
+        <source>It waits 30 days in Recently deleted on the website’s Home, where you can restore it.</source>
+        <translation>ウェブサイトの Home にある Recently deleted に 30 日間残り、そこから復元できます。</translation>
     </message>
     <message>
         <source>The layout, its history and its share links are deleted for everyone who can open it.</source>

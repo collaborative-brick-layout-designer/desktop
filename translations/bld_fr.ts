@@ -63,6 +63,10 @@
         <source>Deleting your own parts and sets from the desktop app</source>
         <translation>Supprimer vos propres pièces et sets depuis l’application de bureau</translation>
     </message>
+    <message>
+        <source>Recently deleted: a deleted layout, module or venue waits 30 days</source>
+        <translation>Recently deleted : un plan, un module ou une salle supprimé attend 30 jours</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>
@@ -2321,6 +2325,14 @@
         <translation>Déconnecté de %1.</translation>
     </message>
     <message>
+        <source>Signed out here. The server didn’t end that sign-in, so it stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>Déconnecté ici. Le serveur n’a pas mis fin à cette connexion, donc elle reste valide jusqu’à son expiration ; vous pouvez y mettre fin depuis Profile › Browsers and devices sur le site web.</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server didn’t end that sign-in, so it stays valid until %1; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>Déconnecté ici. Le serveur n’a pas mis fin à cette connexion, donc elle reste valide jusqu’au %1 ; vous pouvez y mettre fin depuis Profile › Browsers and devices sur le site web.</translation>
+    </message>
+    <message>
         <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
         <translation>Déconnecté ici. Le serveur n’a pas pu être joint, donc cette connexion reste valide jusqu’à son expiration ; vous pouvez y mettre fin depuis Profile › Browsers and devices sur le site web.</translation>
     </message>
@@ -3382,8 +3394,33 @@
         <translation>Se déconnecter</translation>
     </message>
     <message>
-        <source>Also remove the parts downloaded from %1? (%2)</source>
-        <translation>Supprimer aussi les pièces téléchargées depuis %1 ? (%2)</translation>
+        <source>Also remove the parts and layout copies downloaded from %1? (%2)</source>
+        <translation>Supprimer aussi les pièces et les copies de plans téléchargées depuis %1 ? (%2)</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to “%1” never reached the server.</source>
+        <translation>
+            <numerusform>%n changement fait hors ligne dans « %1 » n’est jamais arrivé au serveur.</numerusform>
+            <numerusform>%n changements faits hors ligne dans « %1 » ne sont jamais arrivés au serveur.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to a layout never reached the server.</source>
+        <translation>
+            <numerusform>%n changement fait hors ligne dans un plan n’est jamais arrivé au serveur.</numerusform>
+            <numerusform>%n changements faits hors ligne dans un plan ne sont jamais arrivés au serveur.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to %1 layouts never reached the server.</source>
+        <translation>
+            <numerusform>%n changement fait hors ligne dans %1 plans n’est jamais arrivé au serveur.</numerusform>
+            <numerusform>%n changements faits hors ligne dans %1 plans ne sont jamais arrivés au serveur.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Removing the layout copies deletes them for good. To send them first, cancel and open the layout from this server.</source>
+        <translation>Supprimer les copies des plans les efface pour de bon. Pour les envoyer d’abord, annulez et ouvrez le plan depuis ce serveur.</translation>
     </message>
     <message>
         <source>Add a Server</source>
@@ -4023,6 +4060,10 @@
     <message>
         <source>You can undo this with Ctrl+Z.</source>
         <translation>Vous pouvez l’annuler avec Ctrl+Z.</translation>
+    </message>
+    <message>
+        <source>It waits 30 days in Recently deleted on the website’s Home, where you can restore it.</source>
+        <translation>Il attend 30 jours dans Recently deleted, sur la page Home du site web, où vous pouvez le restaurer.</translation>
     </message>
     <message>
         <source>The layout, its history and its share links are deleted for everyone who can open it.</source>

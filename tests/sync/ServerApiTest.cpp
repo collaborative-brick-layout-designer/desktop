@@ -404,13 +404,17 @@ TEST(ServerApi, EndsItsOwnSignInOnTheServer) {
     ASSERT_TRUE(ask());
     EXPECT_EQ(*how, SignInEnd::Ended);
 
-    // A server from before the route, a busy one, a firewall: the sign-in is still valid there.
-    for (const auto& [status, error] : { std::pair{ 403, "token_not_allowed" }, std::pair{ 429, "rate_limited" },
-                                         std::pair{ 500, "internal" } }) {
+    // A server from before the route, an older one turning away an account on
+    // hold or this version, a busy one, a firewall: the sign-in is still valid
+    // there, and the server did answer.
+    for (const auto& [status, error] :
+         { std::pair{ 403, "token_not_allowed" }, std::pair{ 403, "account_restricted" },
+           std::pair{ 403, "account_pending_deletion" }, std::pair{ 426, "update_required" },
+           std::pair{ 429, "rate_limited" }, std::pair{ 500, "internal" } }) {
         http.clear("DELETE /api/tokens/current");
         http.replyTo("DELETE", "/api/tokens/current", status, { { QStringLiteral("error"), QLatin1String(error) } });
         ASSERT_TRUE(ask());
-        EXPECT_EQ(*how, SignInEnd::NotEnded) << status;
+        EXPECT_EQ(*how, SignInEnd::Refused) << status;
     }
 
     // No server at all.

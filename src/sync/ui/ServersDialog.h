@@ -61,6 +61,9 @@ public:
     // The Remove question's "Also remove the parts downloaded from …? (12 MB)";
     // empty when this computer keeps nothing from the server.
     QString removeDataOffer(const QUrl& url) const;
+    // The changes made offline to the server's live layouts that never reached
+    // it, in words: they go with the copies kept here. Empty when there are none.
+    QString unsentWarning(const QUrl& url) const;
 
 signals:
     // A removed server's parts and live copies are about to be deleted from

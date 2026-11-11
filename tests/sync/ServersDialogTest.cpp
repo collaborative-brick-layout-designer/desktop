@@ -22,6 +22,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QTimer>
+#include <QTranslator>
 #include <QElapsedTimer>
 #include <QJsonArray>
 #include <QLabel>
@@ -278,7 +279,8 @@ TEST_F(ServersDialogTest, SignOutWithoutTheServerSaysUntilWhenTheSignInStaysVali
 }
 
 // A server from before the route refuses (403 token_not_allowed) and never
-// said how long its sign-ins last: the same message, without a date.
+// said how long its sign-ins last. It answered, so it isn't called
+// "couldn't be reached": it didn't end the sign-in.
 TEST_F(ServersDialogTest, SignOutOfAnOlderServerSaysTheSignInStaysValid) {
     pal.replyTo("DELETE", "/api/tokens/current", 403, { { QStringLiteral("error"), QStringLiteral("token_not_allowed") } });
     auto d = open();
@@ -287,9 +289,35 @@ TEST_F(ServersDialogTest, SignOutOfAnOlderServerSaysTheSignInStaysValid) {
     EXPECT_FALSE(tokens.tokens.contains(TokenStore::keyFor(pal.base())));
     ASSERT_TRUE(waitFor([&] { return !dialog->noticeText().isEmpty(); }));
     EXPECT_EQ(dialog->noticeText(),
-              QStringLiteral("Signed out here. The server couldn’t be reached, so that sign-in stays valid until it "
+              QStringLiteral("Signed out here. The server didn’t end that sign-in, so it stays valid until it "
                              "runs out; you can end it from Profile › Browsers and devices on the website."));
     ASSERT_EQ(signOuts(pal).size(), 1U);
+}
+
+// An older server that turns away an account on hold (403), one waiting to
+// be deleted (403) or this version of the app (426): the same plain words,
+// with the date the sign-in runs out when the server said one.
+TEST_F(ServersDialogTest, ARefusedSignOutSaysTheServerDidntEndItNotThatItWasUnreachable) {
+    const QDateTime longest = QDateTime::currentDateTime().addDays(30);
+    pal.clear("/api/tokens/current");
+    pal.reply("/api/tokens/current", 200, userWithLifetime(QStringLiteral("Pat"), longest));
+    auto d = open();
+    ASSERT_TRUE(waitFor([&] { return settled() && dialog->statusText(pal.base()).startsWith(QStringLiteral("Signed in as Pat")); }));
+    const QString expected =
+        QStringLiteral("Signed out here. The server didn’t end that sign-in, so it stays valid until %1; you can end "
+                       "it from Profile › Browsers and devices on the website.")
+            .arg(QLocale().toString(longest.date(), QLocale::LongFormat));
+    for (const auto& [status, error] : { std::pair{ 403, "account_restricted" }, std::pair{ 403, "account_pending_deletion" },
+                                         std::pair{ 426, "update_required" } }) {
+        tokens.save(pal.base(), QStringLiteral("bld_pat_pal"));
+        pal.clear("DELETE /api/tokens/current");
+        pal.replyTo("DELETE", "/api/tokens/current", status, { { QStringLiteral("error"), QLatin1String(error) } });
+        dialog->signOut(pal.base());
+        EXPECT_FALSE(tokens.tokens.contains(TokenStore::keyFor(pal.base())));
+        ASSERT_TRUE(waitFor([&] { return !dialog->noticeText().isEmpty(); }));
+        EXPECT_EQ(dialog->noticeText(), expected) << error;
+        EXPECT_FALSE(dialog->noticeText().contains(QStringLiteral("reached")));
+    }
 }
 
 // Remove server ends its sign-in on the server too; it only speaks up when
@@ -320,7 +348,8 @@ TEST_F(ServersDialogTest, RemovingAServerEndsItsSignInOnTheServerToo) {
     EXPECT_TRUE(tokens.tokens.isEmpty());
     EXPECT_TRUE(ServerList::load().isEmpty());
     ASSERT_TRUE(waitFor([&] { return !dialog->noticeText().isEmpty(); }));
-    EXPECT_TRUE(dialog->noticeText().startsWith(QStringLiteral("Signed out here. The server couldn’t be reached")))
+    // (It answered, with an error: not "couldn't be reached".)
+    EXPECT_TRUE(dialog->noticeText().startsWith(QStringLiteral("Signed out here. The server didn’t end that sign-in")))
         << dialog->noticeText().toStdString();
     EXPECT_EQ(signOuts(pal).size(), 1U);
     EXPECT_EQ(signOuts(pal)[0].authorization, QByteArray("Bearer bld_pat_pal"));
@@ -338,7 +367,7 @@ void writeBytes(const QString& path, int bytes) {
 // remove…" box (when it is offered) and presses Remove. Says what it saw.
 struct RemoveQuestion {
     bool seen = false, offered = false, wasTicked = false;
-    QString offer, tip, body;
+    QString offer, tip, body, warning;
     QTimer poll;
     explicit RemoveQuestion(std::optional<bool> tick = std::nullopt) {
         poll.setInterval(20);
@@ -351,6 +380,7 @@ struct RemoveQuestion {
             offer = ask->optionBox()->text();
             tip = ask->optionBox()->toolTip();
             body = ask->bodyText();
+            warning = ask->warningText();
             if (offered && tick) ask->optionBox()->setChecked(*tick);
             QMetaObject::invokeMethod(ask->confirmButton(), &QPushButton::click, Qt::QueuedConnection);
         });
@@ -373,7 +403,7 @@ TEST_F(ServersDialogTest, RemovingAServerOffersToDeleteItsDownloadedParts) {
     ASSERT_TRUE(waitFor([&] { return settled(); }));
     const QString label = ServerList::load().find(pal.base())->label();
     EXPECT_EQ(dialog->removeDataOffer(pal.base()),
-              QStringLiteral("Also remove the parts downloaded from %1? (%2)")
+              QStringLiteral("Also remove the parts and layout copies downloaded from %1? (%2)")
                   .arg(label, QLocale().formattedDataSize(3 * 1024 * 1024 + 512 * 1024, 1, QLocale::DataSizeTraditionalFormat)));
     EXPECT_TRUE(dialog->removeDataOffer(pal.base()).contains(QStringLiteral("3.5 MB"))) << dialog->removeDataOffer(pal.base()).toStdString();
 
@@ -394,13 +424,85 @@ TEST_F(ServersDialogTest, RemovingAServerOffersToDeleteItsDownloadedParts) {
     EXPECT_TRUE(question.seen);
     EXPECT_TRUE(question.offered);
     EXPECT_TRUE(question.wasTicked);
-    EXPECT_EQ(question.offer, QStringLiteral("Also remove the parts downloaded from %1? (3.5 MB)").arg(label));
+    EXPECT_EQ(question.offer, QStringLiteral("Also remove the parts and layout copies downloaded from %1? (3.5 MB)").arg(label));
     EXPECT_TRUE(question.tip.contains(QStringLiteral("live layouts"))) << question.tip.toStdString();
     EXPECT_FALSE(QDir(palData[0]).exists());
     EXPECT_FALSE(QDir(palData[1]).exists());
     EXPECT_TRUE(QFileInfo::exists(clubData[0] + QStringLiteral("/custom/C.xml")));
     EXPECT_EQ(told, (QList<QPair<QString, bool>>{ { QStringLiteral("removing"), true }, { QStringLiteral("removed"), false } }));
     for (const QString& f : clubData) QDir(f).removeRecursively();
+}
+
+// Changes made offline that never reached the server go with the layout
+// copies. The box says so in plain sight (how many, and to which layout),
+// and doesn't tick "Also remove…" for you; left unticked, they stay.
+TEST_F(ServersDialogTest, RemovingAServerNamesTheOfflineChangesThatNeverReachedIt) {
+    const QStringList palData = ServerList::dataFolders(pal.base());
+    for (const QString& f : palData) QDir(f).removeRecursively();
+    const QString layoutId = QStringLiteral("0b9c2f6e-1111-4222-8333-444455556666");
+    {
+        ServerList list = ServerList::load();
+        list.addRecent(pal.base(), { layoutId, QStringLiteral("Club yard"), false, {} });
+        list.save();
+    }
+    writeBytes(palData[0] + QStringLiteral("/custom/P.xml"), 4096);
+    const QString offline = palData[1] + QLatin1Char('/') + ServerList::layoutFolder(layoutId) + QStringLiteral("/offline.json");
+    ASSERT_TRUE(QDir().mkpath(QFileInfo(offline).absolutePath()));
+    {
+        QFile f(offline);
+        ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+        f.write(R"({"base":{},"mine":{},"count":2})");
+    }
+    // A copy with nothing waiting isn't counted.
+    writeBytes(palData[1] + QStringLiteral("/other/layout.ydoc"), 128);
+    ASSERT_EQ(ServerList::unsentChanges(pal.base()).size(), 1);
+    EXPECT_EQ(ServerList::unsentChanges(pal.base()).first().changes, 2);
+    EXPECT_TRUE(ServerList::unsentChanges(club.base()).isEmpty());
+
+    auto d = open();
+    ASSERT_TRUE(waitFor([&] { return settled(); }));
+    // (This suite runs without the English plurals catalog, so "%n change(s)" shows as written.)
+    const QString expected =
+        QStringLiteral("2 change(s) you made offline to “Club yard” never reached the server. Removing the layout copies "
+                       "deletes them for good. To send them first, cancel and open the layout from this server.");
+    EXPECT_EQ(dialog->unsentWarning(pal.base()), expected);
+    EXPECT_TRUE(dialog->unsentWarning(club.base()).isEmpty());
+
+    dialog->selectServer(pal.base());
+    RemoveQuestion question;  // presses Remove, leaving the box as it was offered
+    dialog->findChild<QPushButton*>(QStringLiteral("removeServer"))->click();
+    ASSERT_TRUE(waitFor([&] { return ServerList::load().servers().size() == 1; }));
+    EXPECT_TRUE(question.seen);
+    EXPECT_TRUE(question.offered);
+    EXPECT_FALSE(question.wasTicked);
+    EXPECT_EQ(question.warning, expected);
+    // Not ticked: the changes are still here.
+    EXPECT_TRUE(QFileInfo::exists(offline));
+    for (const QString& f : palData) QDir(f).removeRecursively();
+}
+
+// One change, and a layout the list no longer knows by name.
+TEST_F(ServersDialogTest, TheOfflineChangesWarningCountsInPlainWords) {
+    const QStringList palData = ServerList::dataFolders(pal.base());
+    for (const QString& f : palData) QDir(f).removeRecursively();
+    const auto waiting = [&](const QString& folder, const char* json) {
+        const QString path = palData[1] + QLatin1Char('/') + folder + QStringLiteral("/offline.json");
+        ASSERT_TRUE(QDir().mkpath(QFileInfo(path).absolutePath()));
+        QFile f(path);
+        ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+        f.write(json);
+    };
+    waiting(QStringLiteral("a"), R"({"base":{},"mine":{}})");
+    auto d = open();
+    ASSERT_TRUE(waitFor([&] { return settled(); }));
+    EXPECT_TRUE(dialog->unsentWarning(pal.base()).startsWith(QStringLiteral("1 change(s) you made offline to a layout never reached the server. ")))
+        << dialog->unsentWarning(pal.base()).toStdString();
+    waiting(QStringLiteral("b"), R"({"base":{},"mine":{},"count":4})");
+    EXPECT_TRUE(dialog->unsentWarning(pal.base()).startsWith(QStringLiteral("5 change(s) you made offline to 2 layouts never reached the server. ")))
+        << dialog->unsentWarning(pal.base()).toStdString();
+    // Nothing waiting, no warning in the box, and the box is ticked as before.
+    for (const QString& f : palData) QDir(f).removeRecursively();
+    EXPECT_TRUE(dialog->unsentWarning(pal.base()).isEmpty());
 }
 
 // Unticked, the downloads stay; and a server this computer keeps nothing from isn't asked about them.
@@ -560,4 +662,92 @@ TEST_F(ServersDialogTest, PicturesOfSigningOutAndRemoving) {
     EXPECT_TRUE(waitFor([&] { return pictured; }, 10000));
     poll.stop();
     QDir(partsDir).removeRecursively();
+}
+
+// (An older build, for the "before" pictures, has no argument here.)
+#define BLD_SHOTS_KEEPS_DELETED true
+
+// BLD_REVIEW_SHOTS=<dir>: the Remove server box with offline changes
+// waiting, a sign-out the server refused, and the box for deleting a layout
+// from a server that keeps deleted things, light and dark, for a PR
+// (skipped otherwise; an older build takes the "before" pictures the same way).
+TEST_F(ServersDialogTest, PicturesOfRemoveSignOutAndDelete) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    // English's plurals, as the app loads them ("2 changes", not "2 change(s)").
+    QTranslator english;
+    if (english.load(QStringLiteral("bld_en"), QCoreApplication::applicationDirPath() + QStringLiteral("/../..")))
+        QCoreApplication::installTranslator(&english);
+    bld::ui::theme::PrefsStore store(QStringLiteral("review-area9-shots"));
+    bld::ui::theme::ThemeManager themer(store);
+    const QStringList palData = ServerList::dataFolders(pal.base());
+    for (const QString& f : palData) QDir(f).removeRecursively();
+    const QString layoutId = QStringLiteral("0b9c2f6e-1111-4222-8333-444455556666");
+    {
+        ServerList list = ServerList::load();
+        list.rename(pal.base(), QStringLiteral("Friend's server"));
+        list.addRecent(pal.base(), { layoutId, QStringLiteral("Club yard"), false, {} });
+        list.save();
+    }
+    writeBytes(palData[0] + QStringLiteral("/custom/P.xml"), 3 * 1024 * 1024);
+    {
+        const QString offline = palData[1] + QLatin1Char('/') + layoutId + QStringLiteral("/offline.json");
+        ASSERT_TRUE(QDir().mkpath(QFileInfo(offline).absolutePath()));
+        QFile f(offline);
+        ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+        f.write(R"({"base":{},"mine":{},"count":2})");
+    }
+    pal.clear("/api/tokens/current");
+    pal.reply("/api/tokens/current", 200, userWithLifetime(QStringLiteral("Bob"), QDateTime::currentDateTime().addDays(30)));
+    pal.replyTo("DELETE", "/api/tokens/current", 403, { { QStringLiteral("error"), QStringLiteral("account_restricted") } });
+    const auto settle = [] { waitFor([] { return false; }, 300); };
+    for (const auto mode : { bld::ui::theme::ThemeChoice::Light, bld::ui::theme::ThemeChoice::Dark }) {
+        bld::ui::theme::AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        const QString scheme = mode == bld::ui::theme::ThemeChoice::Dark ? QStringLiteral("dark") : QStringLiteral("light");
+        tokens.save(pal.base(), QStringLiteral("bld_pat_pal"));
+        auto d = open();
+        d->resize(760, 440);
+        d->show();
+        ASSERT_TRUE(waitFor([&] { return settled(); }));
+
+        // Remove server, with two offline changes that never reached it.
+        dialog->selectServer(pal.base());
+        // (The question is modal, and asked a moment later from the event
+        // loop: it is pictured and answered from inside its own loop.)
+        bool shot = false;
+        QTimer poll;
+        poll.setInterval(20);
+        QObject::connect(&poll, &QTimer::timeout, [&] {
+            auto* ask = qobject_cast<bld::ui::ConfirmDialog*>(QApplication::activeModalWidget());
+            if (!ask) return;
+            poll.stop();
+            const QPointer<bld::ui::ConfirmDialog> question(ask);
+            settle();
+            if (question) {
+                EXPECT_TRUE(question->grab().save(out + QStringLiteral("/remove-server-%1.png").arg(scheme)));
+            }
+            shot = true;
+            if (question) question->reject();
+        });
+        poll.start();
+        dialog->findChild<QPushButton*>(QStringLiteral("removeServer"))->click();
+        EXPECT_TRUE(waitFor([&] { return shot; }, 10000));
+        poll.stop();
+
+        // Sign Out, refused by the server (an account on hold on an older server).
+        dialog->signOut(pal.base());
+        ASSERT_TRUE(waitFor([&] { return !dialog->noticeText().isEmpty(); }));
+        settle();
+        EXPECT_TRUE(d->grab().save(out + QStringLiteral("/sign-out-refused-%1.png").arg(scheme)));
+
+        // Deleting a layout from a server that keeps deleted things for 30 days.
+        bld::ui::ConfirmDialog box(
+            bld::ui::ConfirmDialog::deleteOptions(QStringLiteral("Main yard"), bld::ui::ConfirmDialog::layoutWording(BLD_SHOTS_KEEPS_DELETED)));
+        box.show();
+        settle();
+        EXPECT_TRUE(box.grab().save(out + QStringLiteral("/delete-layout-%1.png").arg(scheme)));
+    }
+    for (const QString& f : palData) QDir(f).removeRecursively();
 }

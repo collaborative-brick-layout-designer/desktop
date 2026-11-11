@@ -63,6 +63,10 @@
         <source>Deleting your own parts and sets from the desktop app</source>
         <translation>Eliminar as suas próprias peças e conjuntos a partir da aplicação de desktop</translation>
     </message>
+    <message>
+        <source>Recently deleted: a deleted layout, module or venue waits 30 days</source>
+        <translation>Recently deleted: um layout, módulo ou local eliminado espera 30 dias</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>
@@ -2321,6 +2325,14 @@
         <translation>Sessão terminada em %1.</translation>
     </message>
     <message>
+        <source>Signed out here. The server didn’t end that sign-in, so it stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>Sessão terminada aqui. O servidor não terminou esse início de sessão, por isso continua válido até expirar; pode terminá-lo em Profile › Browsers and devices no site.</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server didn’t end that sign-in, so it stays valid until %1; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>Sessão terminada aqui. O servidor não terminou esse início de sessão, por isso continua válido até %1; pode terminá-lo em Profile › Browsers and devices no site.</translation>
+    </message>
+    <message>
         <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
         <translation>Sessão terminada aqui. Não foi possível contactar o servidor, por isso esse início de sessão continua válido até expirar; pode terminá-lo em Profile › Browsers and devices no site.</translation>
     </message>
@@ -3382,8 +3394,33 @@
         <translation>Terminar sessão</translation>
     </message>
     <message>
-        <source>Also remove the parts downloaded from %1? (%2)</source>
-        <translation>Remover também as peças descarregadas de %1? (%2)</translation>
+        <source>Also remove the parts and layout copies downloaded from %1? (%2)</source>
+        <translation>Remover também as peças e as cópias de layouts descarregadas de %1? (%2)</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to “%1” never reached the server.</source>
+        <translation>
+            <numerusform>%n alteração que fez offline em “%1” nunca chegou ao servidor.</numerusform>
+            <numerusform>%n alterações que fez offline em “%1” nunca chegaram ao servidor.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to a layout never reached the server.</source>
+        <translation>
+            <numerusform>%n alteração que fez offline num layout nunca chegou ao servidor.</numerusform>
+            <numerusform>%n alterações que fez offline num layout nunca chegaram ao servidor.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to %1 layouts never reached the server.</source>
+        <translation>
+            <numerusform>%n alteração que fez offline em %1 layouts nunca chegou ao servidor.</numerusform>
+            <numerusform>%n alterações que fez offline em %1 layouts nunca chegaram ao servidor.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Removing the layout copies deletes them for good. To send them first, cancel and open the layout from this server.</source>
+        <translation>Remover as cópias dos layouts elimina-as de vez. Para as enviar primeiro, cancele e abra o layout a partir deste servidor.</translation>
     </message>
     <message>
         <source>Add a Server</source>
@@ -4023,6 +4060,10 @@
     <message>
         <source>You can undo this with Ctrl+Z.</source>
         <translation>Pode anular isto com Ctrl+Z.</translation>
+    </message>
+    <message>
+        <source>It waits 30 days in Recently deleted on the website’s Home, where you can restore it.</source>
+        <translation>Fica 30 dias em Recently deleted, na página Home do site, onde o pode restaurar.</translation>
     </message>
     <message>
         <source>The layout, its history and its share links are deleted for everyone who can open it.</source>

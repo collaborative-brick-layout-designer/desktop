@@ -63,6 +63,10 @@
         <source>Deleting your own parts and sets from the desktop app</source>
         <translation>Eigene Teile und Sets aus der Desktop-App löschen</translation>
     </message>
+    <message>
+        <source>Recently deleted: a deleted layout, module or venue waits 30 days</source>
+        <translation>Recently deleted: ein gelöschtes Layout, Modul oder ein gelöschter Veranstaltungsort wartet 30 Tage</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>
@@ -2321,6 +2325,14 @@
         <translation>Von %1 abgemeldet.</translation>
     </message>
     <message>
+        <source>Signed out here. The server didn’t end that sign-in, so it stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>Hier abgemeldet. Der Server hat diese Anmeldung nicht beendet, deshalb bleibt sie gültig, bis sie abläuft; du kannst sie auf der Website unter Profile › Browsers and devices beenden.</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server didn’t end that sign-in, so it stays valid until %1; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>Hier abgemeldet. Der Server hat diese Anmeldung nicht beendet, deshalb bleibt sie bis %1 gültig; du kannst sie auf der Website unter Profile › Browsers and devices beenden.</translation>
+    </message>
+    <message>
         <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
         <translation>Hier abgemeldet. Der Server war nicht erreichbar, deshalb bleibt diese Anmeldung gültig, bis sie abläuft; du kannst sie auf der Website unter Profile › Browsers and devices beenden.</translation>
     </message>
@@ -3382,8 +3394,33 @@
         <translation>Abmelden</translation>
     </message>
     <message>
-        <source>Also remove the parts downloaded from %1? (%2)</source>
-        <translation>Auch die von %1 heruntergeladenen Teile entfernen? (%2)</translation>
+        <source>Also remove the parts and layout copies downloaded from %1? (%2)</source>
+        <translation>Auch die von %1 heruntergeladenen Teile und Layout-Kopien entfernen? (%2)</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to “%1” never reached the server.</source>
+        <translation>
+            <numerusform>%n Änderung, die du offline an „%1“ gemacht hast, hat den Server nie erreicht.</numerusform>
+            <numerusform>%n Änderungen, die du offline an „%1“ gemacht hast, haben den Server nie erreicht.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to a layout never reached the server.</source>
+        <translation>
+            <numerusform>%n Änderung, die du offline an einem Layout gemacht hast, hat den Server nie erreicht.</numerusform>
+            <numerusform>%n Änderungen, die du offline an einem Layout gemacht hast, haben den Server nie erreicht.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to %1 layouts never reached the server.</source>
+        <translation>
+            <numerusform>%n Änderung, die du offline an %1 Layouts gemacht hast, hat den Server nie erreicht.</numerusform>
+            <numerusform>%n Änderungen, die du offline an %1 Layouts gemacht hast, haben den Server nie erreicht.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Removing the layout copies deletes them for good. To send them first, cancel and open the layout from this server.</source>
+        <translation>Wenn du die Layout-Kopien entfernst, sind sie endgültig gelöscht. Um sie vorher zu senden, brich ab und öffne das Layout von diesem Server.</translation>
     </message>
     <message>
         <source>Add a Server</source>
@@ -4023,6 +4060,10 @@
     <message>
         <source>You can undo this with Ctrl+Z.</source>
         <translation>Du kannst das mit Strg+Z rückgängig machen.</translation>
+    </message>
+    <message>
+        <source>It waits 30 days in Recently deleted on the website’s Home, where you can restore it.</source>
+        <translation>Es wartet 30 Tage unter Recently deleted auf der Startseite (Home) der Website; dort kannst du es wiederherstellen.</translation>
     </message>
     <message>
         <source>The layout, its history and its share links are deleted for everyone who can open it.</source>

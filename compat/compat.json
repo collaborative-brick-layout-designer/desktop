@@ -30,9 +30,10 @@
     { "id": "layoutDownload", "label": "Downloading a copy of a layout, venue sizes in the list" },
     { "id": "catalogShare", "label": "Sharing to the public catalog from the desktop app" },
     { "id": "uploadSets", "label": "Uploading sets of your own parts" },
-    { "id": "deletePartsFromDesktop", "label": "Deleting your own parts and sets from the desktop app" }
+    { "id": "deletePartsFromDesktop", "label": "Deleting your own parts and sets from the desktop app" },
+    { "id": "recentlyDeleted", "label": "Recently deleted: a deleted layout, module or venue waits 30 days" }
   ],
-  "serverFeatures": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "limits", "layoutDownload", "catalogShare", "uploadSets", "deletePartsFromDesktop"],
+  "serverFeatures": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "limits", "layoutDownload", "catalogShare", "uploadSets", "deletePartsFromDesktop", "recentlyDeleted"],
   "desktopUses": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags"],
   "assumedWhenUnlisted": ["liveSync", "signIn"],
   "cases": {

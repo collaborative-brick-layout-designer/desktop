@@ -1058,7 +1058,7 @@ void ServerWindow::downloadLayout(const sync::LayoutEntry& l) {
 
 void ServerWindow::deleteLayout(const sync::LayoutEntry& l) {
     const QString title = l.title.isEmpty() ? tr("Untitled Layout") : l.title;
-    if (!ask(ConfirmDialog::deleteOptions(title, ConfirmDialog::layoutWording()))) return;
+    if (!ask(ConfirmDialog::deleteOptions(title, ConfirmDialog::layoutWording(hasFeature(QStringLiteral("recentlyDeleted")))))) return;
     library_.api().deleteLayout(l.id, sync::whileAlive(this, [this, title, id = l.id] {
         emit message(tr("Deleted “%1”").arg(title));
         layouts_.erase(std::remove_if(layouts_.begin(), layouts_.end(), [&](const auto& e) { return e.id == id; }), layouts_.end());
@@ -1070,7 +1070,7 @@ void ServerWindow::deleteLayout(const sync::LayoutEntry& l) {
 }
 
 void ServerWindow::deleteVenue(const sync::VenueEntry& v) {
-    if (!ask(ConfirmDialog::deleteOptions(v.name, ConfirmDialog::venueWording()))) return;
+    if (!ask(ConfirmDialog::deleteOptions(v.name, ConfirmDialog::venueWording(hasFeature(QStringLiteral("recentlyDeleted")))))) return;
     library_.api().deleteVenue(v.id, sync::whileAlive(this, [this, name = v.name, id = v.id] {
         emit message(tr("Deleted “%1”").arg(name));
         venues_.erase(std::remove_if(venues_.begin(), venues_.end(), [&](const auto& e) { return e.id == id; }), venues_.end());
@@ -1082,7 +1082,7 @@ void ServerWindow::deleteVenue(const sync::VenueEntry& v) {
 }
 
 void ServerWindow::deleteModule(const sync::ServerModule& m) {
-    if (!ask(ConfirmDialog::deleteOptions(m.title, ConfirmDialog::moduleWording()))) return;
+    if (!ask(ConfirmDialog::deleteOptions(m.title, ConfirmDialog::moduleWording(hasFeature(QStringLiteral("recentlyDeleted")))))) return;
     library_.api().deleteModule(m.id, sync::whileAlive(this, [this, title = m.title] {
         emit message(tr("Deleted “%1”").arg(title));
         library_.refresh();

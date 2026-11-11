@@ -83,7 +83,9 @@ public:
     // Back in step with offline edits waiting: the ones that don't clash
     // with what others changed are sent by themselves, others' changes come
     // into what the editor shows, and only the clashes stay for review.
-    // Returns how many were sent (and emits offlineEditsSent when any were).
+    // Returns how many were sent. offlineEditsSent is emitted only for the
+    // first step after a reconnect: an ordinary edit made while a clash
+    // still waits goes out the same way, and isn't an "offline change".
     int reconcileOffline();
 
     // The shared layout as a desktop map; nullptr (and *error) when the
@@ -120,8 +122,8 @@ signals:
     void peersChanged();
     // Back in step with the server, with offline edits to resolve.
     void offlineEditsReady();
-    // Offline edits that didn't clash went to the server by themselves;
-    // `clashesLeft` of them still wait for review.
+    // Back after being away: offline edits that didn't clash went to the
+    // server by themselves; `clashesLeft` of them still wait for review.
     void offlineEditsSent(int sent, int clashesLeft);
     // The server ended the session for good (access revoked, layout gone),
     // or the layout is in a form this version can't read (kUnreadableDocCode).
@@ -156,6 +158,8 @@ private:
     bool held_ = false;
     bool pending_ = false;
     std::optional<OfflineEdits> offline_;
+    // Just reconnected with offline edits: the next reconcileOffline says what it sent.
+    bool announceSent_ = false;
     QUrl socketUrl_;
     QString token_;
     // Started again read only: what we showed and held, until the server's copy is in.

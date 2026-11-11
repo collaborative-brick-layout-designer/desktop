@@ -380,9 +380,12 @@ void ServerApi::endSignIn() {
         r->deleteLater();
         const int status = r->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         // 401: the server no longer knows the token, so there is nothing left
-        // to end. Anything else (no answer, a firewall, a server from before
-        // this route, which answers 403 token_not_allowed) leaves it valid.
-        emit signInEnded(status == 200 || status == 401 ? SignInEnd::Ended : SignInEnd::NotEnded);
+        // to end. Anything else leaves it valid: no answer at all (NotEnded),
+        // or an answer that isn't a yes (Refused): a firewall, a busy server,
+        // one from before this route (403 token_not_allowed), or an older one
+        // that turns away an account on hold (403) or this version (426).
+        if (status == 200 || status == 401) emit signInEnded(SignInEnd::Ended);
+        else emit signInEnded(status > 0 ? SignInEnd::Refused : SignInEnd::NotEnded);
     });
 }
 

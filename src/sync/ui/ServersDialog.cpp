@@ -354,8 +354,29 @@ QString ServersDialog::removeDataOffer(const QUrl& url) const {
     const ServerEntry* e = list_.find(url);
     const qint64 bytes = ServerList::dataSize(url);
     if (!e || bytes <= 0) return {};
-    return tr("Also remove the parts downloaded from %1? (%2)")
+    return tr("Also remove the parts and layout copies downloaded from %1? (%2)")
         .arg(e->label(), QLocale().formattedDataSize(bytes, 1, QLocale::DataSizeTraditionalFormat));
+}
+
+QString ServersDialog::unsentWarning(const QUrl& url) const {
+    const QList<ServerList::Unsent> unsent = ServerList::unsentChanges(url);
+    if (unsent.isEmpty()) return {};
+    int changes = 0;
+    for (const auto& u : unsent) changes += u.changes;
+    // One layout the list still knows by name is named.
+    QString title;
+    if (const ServerEntry* e = list_.find(url); e && unsent.size() == 1)
+        for (const RecentLayout& r : e->recent)
+            if (ServerList::layoutFolder(r.id) == unsent.first().folder) title = r.title;
+    const QString what =
+        !title.isEmpty() ? tr("%n change(s) you made offline to “%1” never reached the server.", nullptr, changes).arg(title)
+        : unsent.size() == 1
+            ? tr("%n change(s) you made offline to a layout never reached the server.", nullptr, changes)
+            : tr("%n change(s) you made offline to %1 layouts never reached the server.", nullptr, changes)
+                  .arg(unsent.size());
+    return what + QLatin1Char(' ')
+           + tr("Removing the layout copies deletes them for good. To send them first, cancel and open the layout "
+                "from this server.");
 }
 
 void ServersDialog::endSignIn(const QUrl& url, const QString& label, bool removed) {
@@ -457,7 +478,11 @@ void ServersDialog::onRemove() {
     ask.setObjectName(QStringLiteral("removeServerQuestion"));
     // What this computer downloaded from it can go too (it says how much room that frees).
     if (const QString offer = removeDataOffer(url); !offer.isEmpty()) {
-        ask.showOption(offer);
+        // Changes made offline that never reached the server go with the
+        // copies: said in the box itself, and then nothing is ticked for you.
+        const QString unsent = unsentWarning(url);
+        ask.showOption(offer, unsent.isEmpty());
+        if (!unsent.isEmpty()) ask.showWarning(unsent);
         ask.optionBox()->setToolTip(tr("The parts this computer downloaded from the server, and the copies of its live "
                                        "layouts kept here. Changes made offline that never reached the server go with "
                                        "them. Layouts you saved as files stay."));
