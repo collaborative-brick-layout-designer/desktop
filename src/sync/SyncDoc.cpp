@@ -5,6 +5,7 @@
 #include "DocJsonDetail.h"
 #include "DocShape.h"
 #include "UpdateGuard.h"
+#include "WebModel.h"
 #include "WebModelWriter.h"
 #include "../saveload/SidecarIO.h"
 
@@ -1249,8 +1250,11 @@ QByteArray SyncDoc::writeMap(const core::Map& map) {
     d.txn = ydoc_write_transaction(d.doc, sizeof(kLocalOrigin) - 1, kLocalOrigin);
     const QJsonObject curMeta = cur.value(QLatin1String("meta")).toObject();
     QJsonObject wantMeta = want.value(QLatin1String("meta")).toObject();
+    // Modules without parts that aren't on the map (WebModel.h dropGoneModuleMembers).
+    core::Sidecar sidecar = map.sidecar;
+    dropGoneModuleMembers(sidecar.modules, map);
     const QJsonObject cache =
-        mergeSidecarCache(curMeta.value(QLatin1String("cache")).toObject(), map.sidecar);
+        mergeSidecarCache(curMeta.value(QLatin1String("cache")).toObject(), sidecar);
     if (curMeta.contains(QLatin1String("cache")) || !cache.isEmpty())
         wantMeta.insert(QStringLiteral("cache"), cache);
     d.setFields(d.meta, curMeta, wantMeta, false);
