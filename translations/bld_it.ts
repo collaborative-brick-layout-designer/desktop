@@ -2211,6 +2211,38 @@
         <translation>Il server ha risposto %1</translation>
     </message>
     <message>
+        <source>%1 isn&apos;t answering. The server may be down or restarting: try again in a minute. If it keeps happening, check the address with whoever runs the server.</source>
+        <translation>%1 non risponde. Il server potrebbe essere spento o in riavvio: riprova tra un minuto. Se continua, controlla l&apos;indirizzo con chi gestisce il server.</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t find a server at %1. Check the address for typing mistakes, and that this computer is online.</source>
+        <translation>Nessun server trovato all&apos;indirizzo %1. Controlla che non ci siano errori di battitura e che questo computer sia online.</translation>
+    </message>
+    <message>
+        <source>%1&apos;s security certificate isn&apos;t valid, so the app didn&apos;t connect, to keep your sign-in safe. Whoever runs the server needs to fix its certificate. (A server on this computer or your own network may use http:// instead of https://.)</source>
+        <translation>Il certificato di sicurezza di %1 non è valido, quindi l&apos;app non si è collegata, per tenere al sicuro il tuo accesso. Chi gestisce il server deve sistemare il certificato. (Un server su questo computer o sulla tua rete potrebbe usare http:// invece di https://.)</translation>
+    </message>
+    <message>
+        <source>%1 took too long to answer. Check this computer&apos;s internet connection, then try again.</source>
+        <translation>%1 ha impiegato troppo a rispondere. Controlla la connessione a internet di questo computer, poi riprova.</translation>
+    </message>
+    <message>
+        <source>The connection to %1 dropped. Check this computer&apos;s internet connection, then try again.</source>
+        <translation>La connessione a %1 si è interrotta. Controlla la connessione a internet di questo computer, poi riprova.</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t reach %1 through this computer&apos;s proxy. Check the proxy settings, then try again.</source>
+        <translation>Impossibile raggiungere %1 tramite il proxy di questo computer. Controlla le impostazioni del proxy, poi riprova.</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t reach %1. Check the address and this computer&apos;s internet connection, then try again.</source>
+        <translation>Impossibile raggiungere %1. Controlla l&apos;indirizzo e la connessione a internet di questo computer, poi riprova.</translation>
+    </message>
+    <message>
+        <source>the server</source>
+        <translation>il server</translation>
+    </message>
+    <message>
         <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
         <translation>Questo layout è stato salvato da una versione più recente di Collaborative Brick Layout Designer, quindi questa versione non può tenerlo in diretta. Scarica la nuova versione (Aiuto &gt; Controlla aggiornamenti) per lavorarci di nuovo in diretta.</translation>
     </message>
@@ -3095,10 +3127,6 @@
         <translation>Impossibile pubblicare: %1</translation>
     </message>
     <message>
-        <source>Could not reach %1: %2</source>
-        <translation>Impossibile raggiungere %1: %2</translation>
-    </message>
-    <message>
         <source>Could not load your clubs: %1</source>
         <translation>Impossibile caricare i tuoi club: %1</translation>
     </message>
@@ -3257,6 +3285,10 @@
     <message>
         <source>Use https:// for a server on another machine (http:// only works for this computer).</source>
         <translation>Usa https:// per un server su un&apos;altra macchina (http:// funziona solo per questo computer).</translation>
+    </message>
+    <message>
+        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
+        <translation>%1 ha risposto, ma non è un server di Collaborative Brick Layout Designer (ha detto %2). Controlla l&apos;indirizzo.</translation>
     </message>
     <message>
         <source>The server answered %1</source>
@@ -5266,10 +5298,6 @@ Salva la mia come nuova versione: la copia di questo layout diventa il modulo; l
     <message>
         <source>This server keeps its layouts in a newer form than this version of Collaborative Brick Layout Designer can read. Download the new version, then open the layout again.</source>
         <translation>Questo server conserva i layout in un formato più recente di quello che questa versione di Collaborative Brick Layout Designer sa leggere. Scarica la nuova versione, poi riapri il layout.</translation>
-    </message>
-    <message>
-        <source>Couldn&apos;t reach the server: %1</source>
-        <translation>Impossibile raggiungere il server: %1</translation>
     </message>
     <message>
         <source>Use this venue</source>

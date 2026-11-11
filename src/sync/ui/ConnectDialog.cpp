@@ -559,7 +559,7 @@ void ConnectDialog::onFailed(const QString& what, const QString& message, bool u
     pendingLayout_.clear();
     connectBtn_->setEnabled(true);
     pages_->setCurrentIndex(AddressPage);
-    showMessage(what == QLatin1String("version") ? tr("Could not reach %1: %2").arg(server_.host(), message)
+    showMessage(what == QLatin1String("version") ? message
                 : what == QLatin1String("orgs")  ? tr("Could not load your clubs: %1").arg(message)
                                                  : tr("Could not load the layouts: %1").arg(message));
 }

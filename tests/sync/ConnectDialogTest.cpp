@@ -8,6 +8,8 @@
 #include "core/Version.h"
 #include "ServerList.h"
 #include "FakeHttp.h"
+#include <QHostAddress>
+#include <QTcpServer>
 #include "TokenStore.h"
 #include "ui/help/HelpButton.h"
 #include "ui/help/HelpTexts.h"
@@ -872,4 +874,32 @@ TEST(ConnectDialog, TakesALayoutBackAfterAskingAndShowsWhoMadeEach) {
     EXPECT_EQ(it->path, QByteArray("/api/layouts/L1/take-back"));
     EXPECT_EQ(it->authorization, QByteArray("Bearer bld_pat_saved"));
     EXPECT_TRUE(h.message().contains(QStringLiteral("the club kept its own copy")));
+}
+
+// A server that is down, or an address with nobody there: the dialog says
+// what happened and what to do, not Qt's "Connection refused" or "Host x
+// not found", and stays on the address page to try again.
+TEST(ConnectDialog, ADownServerOrAnAddressWithNobodyThereIsSaidPlainly) {
+    Harness h;
+    QTcpServer probe;
+    ASSERT_TRUE(probe.listen(QHostAddress::LocalHost));
+    const quint16 port = probe.serverPort();
+    probe.close();
+    h.dialog.setAddress(QStringLiteral("http://127.0.0.1:%1").arg(port));
+    h.dialog.connectToServer();
+    ASSERT_TRUE(waitFor([&] { return h.message().contains(QStringLiteral("answering")); }));
+    EXPECT_EQ(h.message(), QStringLiteral("127.0.0.1 isn't answering. The server may be down or restarting: try again "
+                                          "in a minute. If it keeps happening, check the address with whoever runs the "
+                                          "server."));
+    EXPECT_EQ(h.page(), 0);
+
+    // Something else at the address: it says so, rather than "The server answered 404".
+    FakeHttp other;
+    other.replyRaw("/api/version", 404, QByteArray("<html>Not found</html>"), "text/html");
+    h.dialog.setAddress(other.base().toString());
+    h.dialog.connectToServer();
+    ASSERT_TRUE(waitFor([&] { return h.message().contains(QStringLiteral("404")); }));
+    EXPECT_TRUE(h.message().contains(QStringLiteral("isn't a Collaborative Brick Layout Designer server")))
+        << h.message().toStdString();
+    EXPECT_EQ(h.page(), 0);
 }

@@ -18,6 +18,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QHostAddress>
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QTemporaryDir>
@@ -744,4 +745,68 @@ TEST(ServerApi, SaysTheFirewallBlockedAnEmpty403) {
     ASSERT_TRUE(waitFor([&] { return messages.size() == 3; }));
     for (const QString& m : messages) EXPECT_TRUE(m.startsWith(QStringLiteral("The site's firewall blocked"))) << m.toStdString();
     EXPECT_FALSE(anySignIn);
+}
+
+// ---- a server that can't be reached, in plain words --------------------
+//
+// Qt's own words ("Host x not found", "SSL handshake failed: The certificate
+// is self-signed, and untrusted", "Connection refused") reached people as
+// they were. Each case now says what happened and what to do.
+
+TEST(ServerRefusal, SaysWhyAServerCantBeReachedAndWhatToDo) {
+    const QString host = QStringLiteral("layouts.example.org");
+    const auto text = [&](QNetworkReply::NetworkError e) { return networkFailureText(e, host); };
+    EXPECT_EQ(text(QNetworkReply::ConnectionRefusedError),
+              QStringLiteral("layouts.example.org isn't answering. The server may be down or restarting: try again in "
+                             "a minute. If it keeps happening, check the address with whoever runs the server."));
+    EXPECT_EQ(text(QNetworkReply::HostNotFoundError),
+              QStringLiteral("Couldn't find a server at layouts.example.org. Check the address for typing mistakes, "
+                             "and that this computer is online."));
+    EXPECT_TRUE(text(QNetworkReply::SslHandshakeFailedError).startsWith(QStringLiteral("layouts.example.org's security certificate isn't valid")));
+    EXPECT_TRUE(text(QNetworkReply::SslHandshakeFailedError).contains(QStringLiteral("http://")));
+    // The stall timeout ends a request as "canceled": it is said as taking too long.
+    for (auto e : { QNetworkReply::TimeoutError, QNetworkReply::OperationCanceledError })
+        EXPECT_EQ(text(e), QStringLiteral("layouts.example.org took too long to answer. Check this computer's internet "
+                                          "connection, then try again."));
+    EXPECT_TRUE(text(QNetworkReply::RemoteHostClosedError).startsWith(QStringLiteral("The connection to layouts.example.org dropped.")));
+    EXPECT_TRUE(text(QNetworkReply::ProxyNotFoundError).contains(QStringLiteral("proxy")));
+    EXPECT_TRUE(text(QNetworkReply::UnknownNetworkError).startsWith(QStringLiteral("Couldn't reach layouts.example.org.")));
+    // No host known: still a sentence.
+    EXPECT_TRUE(networkFailureText(QNetworkReply::HostNotFoundError, QString()).contains(QStringLiteral("the server")));
+    EXPECT_TRUE(networkFailureText(QNetworkReply::ConnectionRefusedError, QString()).startsWith(QStringLiteral("The server isn't answering.")));
+    // A request that never got an answer is said the same way everywhere.
+    ServerRefusal none = readRefusal(0, {}, text(QNetworkReply::ConnectionRefusedError));
+    EXPECT_EQ(failureText(none), text(QNetworkReply::ConnectionRefusedError));
+}
+
+TEST(ServerApi, ADownServerOrAWrongAddressIsSaidPlainly) {
+    // A port nothing listens on: the server is down.
+    QTcpServer probe;
+    ASSERT_TRUE(probe.listen(QHostAddress::LocalHost));
+    const quint16 port = probe.serverPort();
+    probe.close();
+    ServerApi api;
+    api.setBase(QUrl(QStringLiteral("http://127.0.0.1:%1").arg(port)));
+    QStringList messages;
+    QObject::connect(&api, &ServerApi::requestFailed, [&](const QString&, const QString& m, bool) { messages << m; });
+    api.fetchVersion();
+    api.fetchOrgs();
+    ASSERT_TRUE(waitFor([&] { return messages.size() == 2; }));
+    for (const QString& m : messages) {
+        EXPECT_TRUE(m.startsWith(QStringLiteral("127.0.0.1 isn't answering."))) << m.toStdString();
+        EXPECT_FALSE(m.contains(QStringLiteral("refused"), Qt::CaseInsensitive)) << m.toStdString();
+    }
+
+    // Something answered, but not this app (another website at that address).
+    FakeHttp other;
+    other.replyRaw("/api/version", 404, QByteArray("<html>Not found</html>"), "text/html");
+    ServerApi wrong;
+    wrong.setBase(other.base());
+    QString said;
+    QObject::connect(&wrong, &ServerApi::requestFailed, [&](const QString&, const QString& m, bool) { said = m; });
+    wrong.fetchVersion();
+    ASSERT_TRUE(waitFor([&] { return !said.isEmpty(); }));
+    EXPECT_EQ(said, QStringLiteral("%1 answered, but it isn't a Collaborative Brick Layout Designer server (it said 404). "
+                                   "Check the address.")
+                        .arg(other.base().host()));
 }

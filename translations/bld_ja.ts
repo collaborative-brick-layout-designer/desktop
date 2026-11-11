@@ -2200,6 +2200,38 @@
         <translation>サーバーの応答: %1</translation>
     </message>
     <message>
+        <source>%1 isn&apos;t answering. The server may be down or restarting: try again in a minute. If it keeps happening, check the address with whoever runs the server.</source>
+        <translation>%1 が応答しません。サーバーが停止中か再起動中かもしれません。1 分ほどしてからもう一度試してください。続くようなら、サーバーの管理者にアドレスを確認してください。</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t find a server at %1. Check the address for typing mistakes, and that this computer is online.</source>
+        <translation>%1 にサーバーが見つかりません。アドレスに入力ミスがないか、このコンピューターがオンラインかを確認してください。</translation>
+    </message>
+    <message>
+        <source>%1&apos;s security certificate isn&apos;t valid, so the app didn&apos;t connect, to keep your sign-in safe. Whoever runs the server needs to fix its certificate. (A server on this computer or your own network may use http:// instead of https://.)</source>
+        <translation>%1 のセキュリティ証明書が有効ではないため、サインインを守るために接続しませんでした。サーバーの管理者が証明書を直す必要があります。(このコンピューターや自分のネットワーク上のサーバーなら、https:// ではなく http:// を使っているかもしれません。)</translation>
+    </message>
+    <message>
+        <source>%1 took too long to answer. Check this computer&apos;s internet connection, then try again.</source>
+        <translation>%1 の応答に時間がかかりすぎました。このコンピューターのインターネット接続を確認して、もう一度試してください。</translation>
+    </message>
+    <message>
+        <source>The connection to %1 dropped. Check this computer&apos;s internet connection, then try again.</source>
+        <translation>%1 との接続が切れました。このコンピューターのインターネット接続を確認して、もう一度試してください。</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t reach %1 through this computer&apos;s proxy. Check the proxy settings, then try again.</source>
+        <translation>このコンピューターのプロキシ経由で %1 に接続できませんでした。プロキシの設定を確認して、もう一度試してください。</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t reach %1. Check the address and this computer&apos;s internet connection, then try again.</source>
+        <translation>%1 に接続できませんでした。アドレスとこのコンピューターのインターネット接続を確認して、もう一度試してください。</translation>
+    </message>
+    <message>
+        <source>the server</source>
+        <translation>サーバー</translation>
+    </message>
+    <message>
         <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
         <translation>このレイアウトは新しいバージョンの Collaborative Brick Layout Designer で保存されているため、このバージョンではライブのままにできません。もう一度ライブで作業するには、新しいバージョンをダウンロードしてください（ヘルプ &gt; 更新を確認）。</translation>
     </message>
@@ -3080,10 +3112,6 @@
         <translation>公開できませんでした: %1</translation>
     </message>
     <message>
-        <source>Could not reach %1: %2</source>
-        <translation>%1 に接続できませんでした: %2</translation>
-    </message>
-    <message>
         <source>Could not load your clubs: %1</source>
         <translation>クラブを読み込めませんでした: %1</translation>
     </message>
@@ -3242,6 +3270,10 @@
     <message>
         <source>Use https:// for a server on another machine (http:// only works for this computer).</source>
         <translation>別のマシンのサーバーには https:// を使ってください（http:// はこのコンピューター上でのみ使えます）。</translation>
+    </message>
+    <message>
+        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
+        <translation>%1 は応答しましたが、Collaborative Brick Layout Designer のサーバーではありません (応答: %2)。アドレスを確認してください。</translation>
     </message>
     <message>
         <source>The server answered %1</source>
@@ -5232,10 +5264,6 @@ Save mine as a new version: this layout&apos;s copy becomes the module; theirs s
     <message>
         <source>This server keeps its layouts in a newer form than this version of Collaborative Brick Layout Designer can read. Download the new version, then open the layout again.</source>
         <translation>このサーバーのレイアウトは、このバージョンの Collaborative Brick Layout Designer では読めない新しい形式で保存されています。新しいバージョンをダウンロードしてから、レイアウトを開き直してください。</translation>
-    </message>
-    <message>
-        <source>Couldn&apos;t reach the server: %1</source>
-        <translation>サーバーに接続できませんでした: %1</translation>
     </message>
     <message>
         <source>Use this venue</source>

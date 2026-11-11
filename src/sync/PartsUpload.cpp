@@ -247,7 +247,7 @@ void PartsUpload::getCatalog(std::function<void(const QSet<QString>&)> done) {
         r->deleteLater();
         const int status = r->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         if (status != 200) {
-            const ServerRefusal refusal = readRefusal(status, r->readAll(), r->errorString());
+            const ServerRefusal refusal = readRefusal(status, r->readAll(), networkFailureText(r));
             emit failed(failureText(refusal), needsSignIn(refusal));
             return;
         }
@@ -323,7 +323,7 @@ void PartsUpload::uploadNext() {
         const int status = r->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         if (status == 201 || status == 200) ++done_;
         else {
-            const ServerRefusal refusal = readRefusal(status, r->readAll(), r->errorString());
+            const ServerRefusal refusal = readRefusal(status, r->readAll(), networkFailureText(r));
             refusals_.insert(key, refusal.code);
             const QString err = refusal.code.isEmpty() && !isLimitRefusal(refusal) && !isFirewallBlock(refusal) && status != 0
                                     ? tr("the server answered %1").arg(status)

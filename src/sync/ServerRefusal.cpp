@@ -132,6 +132,67 @@ QString describe(const ServerRefusal& r) {
     return Text::tr("The server answered %1").arg(r.status);
 }
 
+namespace {
+QString networkFailureWords(QNetworkReply::NetworkError error, const QString& h) {
+    switch (error) {
+    case QNetworkReply::ConnectionRefusedError:
+        return Text::tr(
+                   "%1 isn't answering. The server may be down or restarting: try again in a minute. If it "
+                   "keeps happening, check the address with whoever runs the server.")
+            .arg(h);
+    case QNetworkReply::HostNotFoundError:
+        return Text::
+            tr("Couldn't find a server at %1. Check the address for typing mistakes, and that this computer "
+               "is online.")
+                .arg(h);
+    case QNetworkReply::SslHandshakeFailedError:
+    case QNetworkReply::InsecureRedirectError:
+        return Text::
+            tr("%1's security certificate isn't valid, so the app didn't connect, to keep your sign-in safe. "
+               "Whoever runs the server needs to fix its certificate. (A server on this computer or your "
+               "own network may use http:// instead of https://.)")
+                .arg(h);
+    case QNetworkReply::TimeoutError:
+    case QNetworkReply::OperationCanceledError: // the transfer timeout
+        return Text::tr(
+                   "%1 took too long to answer. Check this computer's internet connection, then try again.")
+            .arg(h);
+    case QNetworkReply::RemoteHostClosedError:
+    case QNetworkReply::TemporaryNetworkFailureError:
+    case QNetworkReply::NetworkSessionFailedError:
+        return Text::tr(
+                   "The connection to %1 dropped. Check this computer's internet connection, then try again.")
+            .arg(h);
+    case QNetworkReply::ProxyConnectionRefusedError:
+    case QNetworkReply::ProxyConnectionClosedError:
+    case QNetworkReply::ProxyNotFoundError:
+    case QNetworkReply::ProxyTimeoutError:
+    case QNetworkReply::ProxyAuthenticationRequiredError:
+        return Text::
+            tr("Couldn't reach %1 through this computer's proxy. Check the proxy settings, then try again.")
+                .arg(h);
+    default:
+        return Text::tr(
+                   "Couldn't reach %1. Check the address and this computer's internet connection, then try "
+                   "again.")
+            .arg(h);
+    }
+}
+} // namespace
+
+QString networkFailureText(QNetworkReply::NetworkError error, const QString& host) {
+    if (!host.isEmpty()) return networkFailureWords(error, host);
+    // "the server isn't answering" starts a sentence.
+    QString text = networkFailureWords(error, Text::tr("the server"));
+    if (!text.isEmpty()) text[0] = text[0].toUpper();
+    return text;
+}
+
+QString networkFailureText(const QNetworkReply* reply) {
+    if (!reply) return networkFailureText(QNetworkReply::UnknownNetworkError, QString());
+    return networkFailureText(reply->error(), reply->url().host());
+}
+
 QString failureText(const ServerRefusal& r) {
     if (isFirewallBlock(r) || isLimitRefusal(r) || isAccountState(r) || isUpdateRequired(r) || isPermissionRefusal(r) ||
         r.status == 0)

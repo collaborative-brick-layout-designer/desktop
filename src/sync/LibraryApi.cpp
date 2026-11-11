@@ -47,7 +47,9 @@ QString ServerModule::thumbnailPath() const {
     return QStringLiteral("/api/modules/%1/thumbnail?v=%2").arg(idPath(id)).arg(thumbnailAt);
 }
 
-LibraryApi::LibraryApi(QObject* parent) : QObject(parent) {}
+LibraryApi::LibraryApi(QObject* parent) : QObject(parent) {
+    net_.setTransferTimeout(kServerStallTimeoutMs);
+}
 
 QUrl LibraryApi::moduleWebUrl(const QString& id) const { return url(QStringLiteral("/modules/") + idPath(id)); }
 
@@ -78,7 +80,7 @@ void LibraryApi::send(const QByteArray& verb, const QString& path, const QByteAr
             if (ok) ok(r);
             return;
         }
-        if (failed) failed(readRefusal(status, r->readAll(), r->errorString()));
+        if (failed) failed(readRefusal(status, r->readAll(), networkFailureText(r)));
     });
 }
 

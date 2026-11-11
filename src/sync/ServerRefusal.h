@@ -9,6 +9,7 @@
 // for an account that is being deleted or is on hold (isAccountState).
 
 #include <QByteArray>
+#include <QNetworkReply>
 #include <QString>
 
 namespace bld::sync {
@@ -62,6 +63,18 @@ QString askForPermission(const QString& permission);
 
 // What to show for a failed request, in plain words: the firewall message,
 // a limit's own sentence, "The server answered 500", or Qt's network error.
+// How long a request to a server may go without a byte either way before
+// it is given up as "took too long" (a server that accepts the connection
+// and then never answers would otherwise leave the app waiting for good).
+constexpr int kServerStallTimeoutMs = 30000;
+
+// A request that never got an answer (no HTTP status), in plain words:
+// what happened and what to do. Never Qt's own text ("Host x not found",
+// "SSL handshake failed: ..."). `host` names the server.
+QString networkFailureText(QNetworkReply::NetworkError error, const QString& host);
+// The same for a finished reply, named by its host.
+QString networkFailureText(const QNetworkReply* reply);
+
 QString failureText(const ServerRefusal& r);
 
 // One sentence to show.
