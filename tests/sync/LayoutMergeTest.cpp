@@ -366,3 +366,94 @@ TEST(LayoutMerge, BudgetLimitsAndPlacedSetsAreComparedAndMerged) {
     ASSERT_TRUE(merged);
     EXPECT_FALSE(merged->sidecar.budgetLimits.has_value());
 }
+
+// ── A module both sides changed (offline, then back) ──
+
+namespace {
+
+Snapshot withModule(const QString& moduleName, const QSet<QString>& members, const QString& outline = {}) {
+    core::Map map;
+    core::Module m;
+    m.id = QStringLiteral("M");
+    m.name = moduleName;
+    m.memberIds = members;
+    m.outlineColor = outline;
+    map.sidecar.modules.push_back(m);
+    return snapshotOf(map);
+}
+
+const core::Module& onlyModule(const core::Map& map) {
+    EXPECT_EQ(map.sidecar.modules.size(), 1U);
+    return map.sidecar.modules.front();
+}
+
+}  // namespace
+
+// The parts I added or took out offline go on top of the server's list, and
+// a field only one side changed is kept: nothing to ask about.
+TEST(LayoutMerge, AModuleBothSidesChangedMergesItsPartsWithoutAsking) {
+    const Snapshot base = withModule(QStringLiteral("Yard"), { QStringLiteral("a"), QStringLiteral("b") });
+    const Snapshot mine =
+        withModule(QStringLiteral("Yard"), { QStringLiteral("b"), QStringLiteral("c") }, QStringLiteral("#ff8800"));
+    const Snapshot server = withModule(QStringLiteral("Harbour"), { QStringLiteral("a"), QStringLiteral("b"), QStringLiteral("d") });
+    const QList<ItemChange> changes = compareLayouts(base, mine, server);
+    ASSERT_EQ(changes.size(), 1);
+    EXPECT_EQ(changes[0].key, QStringLiteral("module:M"));
+    EXPECT_EQ(changes[0].status, Status::Mine) << name(changes[0].status);
+    EXPECT_EQ(changes[0].defaultChoice(), Choice::Mine);
+    QString error;
+    const auto merged = mergeLayouts(mine, server, changes, {}, &error);
+    ASSERT_TRUE(merged) << error.toStdString();
+    const core::Module& m = onlyModule(*merged);
+    // Mine: a out, c in. The server's: d in, the new name.
+    EXPECT_EQ(m.memberIds, (QSet<QString>{ QStringLiteral("b"), QStringLiteral("c"), QStringLiteral("d") }));
+    EXPECT_EQ(m.name, QStringLiteral("Harbour"));
+    EXPECT_EQ(m.outlineColor, QStringLiteral("#ff8800"));
+}
+
+TEST(LayoutMerge, AModuleWhereBothMadeTheSamePartChangeHasNothingLeftToPutIn) {
+    const Snapshot base = withModule(QStringLiteral("Yard"), { QStringLiteral("a"), QStringLiteral("b") });
+    const Snapshot mine = withModule(QStringLiteral("Yard"), { QStringLiteral("a"), QStringLiteral("b"), QStringLiteral("c") });
+    const Snapshot server =
+        withModule(QStringLiteral("Harbour"), { QStringLiteral("a"), QStringLiteral("b"), QStringLiteral("c") });
+    const QList<ItemChange> changes = compareLayouts(base, mine, server);
+    ASSERT_EQ(changes.size(), 1);
+    EXPECT_EQ(changes[0].status, Status::Same) << name(changes[0].status);
+    const auto merged = mergeLayouts(mine, server, changes, {});
+    ASSERT_TRUE(merged);
+    EXPECT_EQ(onlyModule(*merged).name, QStringLiteral("Harbour"));
+    EXPECT_EQ(onlyModule(*merged).memberIds, (QSet<QString>{ QStringLiteral("a"), QStringLiteral("b"), QStringLiteral("c") }));
+}
+
+// Both renamed it, differently: that is asked about. Whichever name is
+// kept, keeping mine keeps the parts of both.
+TEST(LayoutMerge, AModuleBothRenamedIsAClashAndKeepingMineStillMergesTheParts) {
+    const Snapshot base = withModule(QStringLiteral("Yard"), { QStringLiteral("a"), QStringLiteral("b") });
+    const Snapshot mine = withModule(QStringLiteral("North yard"), { QStringLiteral("a"), QStringLiteral("b"), QStringLiteral("c") });
+    const Snapshot server = withModule(QStringLiteral("South yard"), { QStringLiteral("b"), QStringLiteral("d") });
+    const QList<ItemChange> changes = compareLayouts(base, mine, server);
+    ASSERT_EQ(changes.size(), 1);
+    EXPECT_EQ(changes[0].status, Status::Conflict) << name(changes[0].status);
+    // Unasked: the server's.
+    const auto byDefault = mergeLayouts(mine, server, changes, {});
+    ASSERT_TRUE(byDefault);
+    EXPECT_EQ(onlyModule(*byDefault).name, QStringLiteral("South yard"));
+    EXPECT_EQ(onlyModule(*byDefault).memberIds, (QSet<QString>{ QStringLiteral("b"), QStringLiteral("d") }));
+    // Keep mine: my name, and the parts as both changed them.
+    const auto kept = mergeLayouts(mine, server, changes, { { QStringLiteral("module:M"), Choice::Mine } });
+    ASSERT_TRUE(kept);
+    EXPECT_EQ(onlyModule(*kept).name, QStringLiteral("North yard"));
+    EXPECT_EQ(onlyModule(*kept).memberIds, (QSet<QString>{ QStringLiteral("b"), QStringLiteral("c"), QStringLiteral("d") }));
+}
+
+// Only one side changed it: as before.
+TEST(LayoutMerge, AModuleOnlyOneSideChangedIsThatSides) {
+    const Snapshot base = withModule(QStringLiteral("Yard"), { QStringLiteral("a"), QStringLiteral("b") });
+    const Snapshot mine = withModule(QStringLiteral("Yard"), { QStringLiteral("a") });
+    const QList<ItemChange> changes = compareLayouts(base, mine, base);
+    ASSERT_EQ(changes.size(), 1);
+    EXPECT_EQ(changes[0].status, Status::Mine);
+    const auto merged = mergeLayouts(mine, base, changes, {});
+    ASSERT_TRUE(merged);
+    EXPECT_EQ(onlyModule(*merged).memberIds, QSet<QString>{ QStringLiteral("a") });
+}

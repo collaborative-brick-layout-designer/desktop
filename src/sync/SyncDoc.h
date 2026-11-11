@@ -64,6 +64,12 @@ public:
     // are left alone. Returns the change as a v1 update, empty when the
     // document already matched.
     QByteArray writeMap(const core::Map& map);
+    // Whether writeMap may write a module's part changes one key each
+    // (ModuleMembers.h, doc shape 3). On by default; off for a server whose
+    // web app doesn't read the keys (SidecarItems.h kMemberKeysFeature): a
+    // module's list is then written whole, as before, unless the layout
+    // already has part keys.
+    void setMemberKeys(bool on);
     // Set one meta field (as another writer would, e.g. a newer app stamping
     // meta.schemaVersion); not an undoable step. Returns the update to send.
     QByteArray setMeta(const QString& key, const QJsonValue& value);

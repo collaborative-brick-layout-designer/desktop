@@ -11,7 +11,7 @@
     "downloadUrl": "https://github.com/collaborative-brick-layout-designer/desktop/releases/latest",
     "userAgentPattern": "^(?:Collaborative)?BrickLayoutDesigner/([0-9][0-9A-Za-z.+-]{0,31}) \\(desktop\\)"
   },
-  "doc": { "schemaVersion": 2, "createdAs": 1, "minReadable": 1, "why": { "2": "Ruler items are Y.Maps, area sheets have a cellOffset, parts and rulers are ordered by z, so concurrent edits merge. A layout is made in shape createdAs and moves to 2 when an edit needs it; builds that read only 1 then refuse it." } },
+  "doc": { "schemaVersion": 3, "createdAs": 1, "minReadable": 1, "why": { "2": "Ruler items are Y.Maps, area sheets have a cellOffset, parts and rulers are ordered by z, so concurrent edits merge. A layout is made in shape createdAs and moves to 2 when an edit needs it; builds that read only 1 then refuse it.", "3": "A part added to a module or taken out of it is a key of its own (sidecarItems p:<n>:<moduleId>:<partId>) on top of the list the module was made with, so two people changing one module's parts at once both keep their change (docs/module-members.md). A layout moves to 3 with its first such key; builds that read only 2 would miss the keys, and refuse it." } },
   "sidecar": { "schemaVersion": 1 },
   "layoutFile": { "version": 1 },
   "protocols": ["y-websocket/1"],
@@ -31,9 +31,10 @@
     { "id": "catalogShare", "label": "Sharing to the public catalog from the desktop app" },
     { "id": "uploadSets", "label": "Uploading sets of your own parts" },
     { "id": "deletePartsFromDesktop", "label": "Deleting your own parts and sets from the desktop app" },
-    { "id": "recentlyDeleted", "label": "Recently deleted: a deleted layout, module or venue waits 30 days" }
+    { "id": "recentlyDeleted", "label": "Recently deleted: a deleted layout, module or venue waits 30 days" },
+    { "id": "moduleMemberKeys", "label": "Two people changing one module's parts at the same moment" }
   ],
-  "serverFeatures": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "limits", "layoutDownload", "catalogShare", "uploadSets", "deletePartsFromDesktop", "recentlyDeleted"],
+  "serverFeatures": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "limits", "layoutDownload", "catalogShare", "uploadSets", "deletePartsFromDesktop", "recentlyDeleted", "moduleMemberKeys"],
   "desktopUses": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags"],
   "assumedWhenUnlisted": ["liveSync", "signIn"],
   "cases": {
@@ -80,7 +81,10 @@
       { "doc": 1, "schemaVersion": 1, "minReadable": 1, "expect": true },
       { "doc": 2, "schemaVersion": 1, "minReadable": 1, "expect": false },
       { "doc": 1, "schemaVersion": 3, "minReadable": 2, "expect": false },
-      { "doc": 2, "schemaVersion": 3, "minReadable": 2, "expect": true }
+      { "doc": 2, "schemaVersion": 3, "minReadable": 2, "expect": true },
+      { "doc": 3, "schemaVersion": 2, "minReadable": 1, "expect": false },
+      { "doc": 3, "schemaVersion": 3, "minReadable": 1, "expect": true },
+      { "doc": 1, "schemaVersion": 3, "minReadable": 1, "expect": true }
     ]
   }
 }

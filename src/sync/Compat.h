@@ -15,8 +15,9 @@ namespace bld::sync {
 
 // The shared-document schema this build writes, and the oldest it reads
 // (the web's DOC_SCHEMA_VERSION / DOC_MIN_READABLE).
-// 2: doc shape 2 (DocShape.h). Docs are still made in kDocBaseSchema.
-constexpr int kDocSchemaVersion = 2;
+// 2: doc shape 2 (DocShape.h). 3: a module's part changes are keys of
+// their own (ModuleMembers.h). Docs are still made in kDocBaseSchema.
+constexpr int kDocSchemaVersion = 3;
 constexpr int kDocMinReadable = 1;
 
 // SyncSession::ended's code when the shared layout is in a form this

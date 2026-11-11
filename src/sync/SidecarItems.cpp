@@ -1,5 +1,7 @@
 #include "SidecarItems.h"
 
+#include "ModuleMembers.h"
+
 #include <QSet>
 #include <QJsonArray>
 #include <QLocale>
@@ -137,11 +139,25 @@ bool sidecarIdsUnique(const QJsonObject& blob) {
     return true;
 }
 
-QJsonObject mergedSidecarCache(const QJsonObject& blob, const QJsonObject& items) {
-    if (items.isEmpty() || items.value(QLatin1String(kBlobKey)).toString() != sidecarBlobHash(blob)
-        || !sidecarIdsUnique(blob))
-        return blob;
+namespace {
+
+// Every module's part keys in `items`: module id -> part id -> value
+// (valid ones only).
+QHash<QString, MemberKeys> memberKeysByModule(const QJsonObject& items) {
+    QHash<QString, MemberKeys> out;
+    for (auto it = items.begin(); it != items.end(); ++it) {
+        if (!it.key().startsWith(QLatin1String(kMemberPrefix)) || !validMemberValue(it.value())) continue;
+        const auto at = parseMemberKey(it.key());
+        if (!at) continue;
+        out[at->moduleId].insert(at->partId, it.value());
+    }
+    return out;
+}
+
+// `blob` with its modules and anchored labels as `items` hold them.
+QJsonObject withItems(const QJsonObject& blob, const QJsonObject& items) {
     QJsonObject out = blob;
+    const QHash<QString, MemberKeys> memberKeys = memberKeysByModule(items);
     for (const Kind& kind : kKinds) {
         struct Entry {
             double order;
@@ -150,11 +166,19 @@ QJsonObject mergedSidecarCache(const QJsonObject& blob, const QJsonObject& items
         };
         std::vector<Entry> entries;
         const QString prefix = QString::fromLatin1(kind.prefix);
+        const bool modules = prefix == QLatin1String("m:");
         for (auto it = items.begin(); it != items.end(); ++it) {
             if (!it.key().startsWith(prefix) || !it.value().isObject()) continue;
             QJsonObject value = it.value().toObject();
             const double order = value.value(QLatin1String(kOrderKey)).toDouble(0);
             value.remove(QLatin1String(kOrderKey));
+            // A module's parts: its starting list with what the `p:` keys changed.
+            if (modules) {
+                const auto keys = memberKeys.constFind(it.key().mid(prefix.size()));
+                if (keys != memberKeys.constEnd())
+                    value.insert(QStringLiteral("members"),
+                                 QJsonArray::fromStringList(moduleMembers(value.value(QLatin1String("members")), *keys)));
+            }
             entries.push_back({ order, it.key(), value });
         }
         const QString field = QString::fromLatin1(kind.field);
@@ -166,6 +190,15 @@ QJsonObject mergedSidecarCache(const QJsonObject& blob, const QJsonObject& items
         out.insert(field, list);
     }
     return out;
+}
+
+}  // namespace
+
+QJsonObject mergedSidecarCache(const QJsonObject& blob, const QJsonObject& items) {
+    if (items.isEmpty() || items.value(QLatin1String(kBlobKey)).toString() != sidecarBlobHash(blob)
+        || !sidecarIdsUnique(blob))
+        return blob;
+    return withItems(blob, items);
 }
 
 QJsonObject sidecarItemsFor(const QJsonObject& blob) {
@@ -181,6 +214,86 @@ QJsonObject sidecarItemsFor(const QJsonObject& blob) {
         }
     }
     out.insert(QLatin1String(kBlobKey), sidecarBlobHash(blob));
+    return out;
+}
+
+bool hasMemberKeys(const QJsonObject& items) {
+    for (auto it = items.begin(); it != items.end(); ++it)
+        if (it.key().startsWith(QLatin1String(kMemberPrefix))) return true;
+    return false;
+}
+
+SidecarWrite sidecarWriteFor(const QJsonObject& cache, const QJsonObject& curBlob, const QJsonObject& curItems,
+                             bool memberKeys) {
+    // Each module whole, with its list (the shape before the keys).
+    const bool whole = !memberKeys && !hasMemberKeys(curItems);
+    // Whether the items are what the layout holds now. When they aren't (a
+    // writer that doesn't know them replaced meta.cache, or ids are missing
+    // or shared), each module starts again from the list written here.
+    const bool splittable = sidecarIdsUnique(cache);
+    const bool current = splittable && !curItems.isEmpty()
+                         && curItems.value(QLatin1String(kBlobKey)).toString() == sidecarBlobHash(curBlob)
+                         && sidecarIdsUnique(curBlob);
+    const QHash<QString, MemberKeys> keysByModule = memberKeysByModule(curItems);
+    const QString memberPrefix = QLatin1String(kMemberPrefix);
+    QJsonObject items;
+    // Part keys stay unless a module below drops or changes them (one whose
+    // module is gone is ignored by every reader).
+    for (auto it = curItems.begin(); it != curItems.end(); ++it)
+        if (it.key().startsWith(memberPrefix)) items.insert(it.key(), it.value());
+    const auto dropMemberKeys = [&](const QString& moduleId) {
+        for (const QString& k : items.keys())
+            if (k.startsWith(memberPrefix)) {
+                const auto at = parseMemberKey(k);
+                if (at && at->moduleId == moduleId) items.remove(k);
+            }
+    };
+    for (const Kind& kind : kKinds) {
+        const QString prefix = QString::fromLatin1(kind.prefix);
+        const bool modules = prefix == QLatin1String("m:");
+        const QJsonArray list = cache.value(QString::fromLatin1(kind.field)).toArray();
+        QSet<QString> wanted;
+        for (qsizetype i = 0; i < list.size(); ++i) {
+            QJsonObject v = list[i].toObject();
+            const QJsonValue idValue = v.value(QLatin1String("id"));
+            if (!list[i].isObject() || !idValue.isString()) continue;
+            const QString id = idValue.toString();
+            const QString k = prefix + id;
+            wanted.insert(k);
+            v.insert(QLatin1String(kOrderKey), static_cast<double>(i));
+            if (!modules) {
+                items.insert(k, v);
+                continue;
+            }
+            const QJsonValue had = curItems.value(k);
+            if (whole || !current || !had.isObject()) {
+                // A new module (or one read from meta.cache): the list is its starting list.
+                if (keysByModule.contains(id)) dropMemberKeys(id);
+                items.insert(k, v);
+                continue;
+            }
+            const QJsonValue start = had.toObject().value(QLatin1String("members"));
+            const QJsonValue members = v.value(QLatin1String("members"));
+            if (start.isUndefined()) v.remove(QStringLiteral("members"));
+            else v.insert(QStringLiteral("members"), start);
+            items.insert(k, v);
+            if (!members.isArray()) continue;
+            QStringList want;
+            for (const auto& m : members.toArray())
+                if (m.isString()) want << m.toString();
+            const MemberWrites writes = memberWrites(start, keysByModule.value(id), want);
+            for (const QString& part : writes.remove) items.remove(memberKey(id, part));
+            for (const auto& [part, value] : writes.set) items.insert(memberKey(id, part), value);
+        }
+        // A module that is gone takes its part keys with it.
+        if (modules)
+            for (auto it = curItems.begin(); it != curItems.end(); ++it)
+                if (it.key().startsWith(prefix) && !wanted.contains(it.key())) dropMemberKeys(it.key().mid(prefix.size()));
+    }
+    SidecarWrite out;
+    out.blob = splittable ? withItems(cache, items) : cache;
+    items.insert(QLatin1String(kBlobKey), sidecarBlobHash(out.blob));
+    out.items = items;
     return out;
 }
 

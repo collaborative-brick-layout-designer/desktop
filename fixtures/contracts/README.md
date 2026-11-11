@@ -24,13 +24,22 @@ change in one repo fails until the other has the same copy.
   desktop makes at the same time) with what the doc must hold after.
   The web's `BLD_WRITE_CONTRACTS=1 vitest run src/editor/test/docShape.test.ts`
   writes the concurrent ones.
+- `module-members.json`: a module's parts one key per part (doc shape 3;
+  packages/ydoc moduleMembers.ts, desktop sync/ModuleMembers.cpp): the
+  keys, the values a key may hold, what a starting list and its keys read
+  as, and the keys a writer writes for a wanted list; and `docs`: a layout
+  from before the keys, edits the web made on it with the edit the desktop
+  makes at the same time and what the module must hold after, and a layout
+  with keys. The web's
+  `BLD_WRITE_CONTRACTS=1 vitest run src/editor/test/moduleMembersTogether.test.ts`
+  writes `docs`.
 - `part-naming.json`: a server custom part, placed on the website as
   `custom:<id>`, which every export names by its part number and the
   desktop's parts cache finds by either.
 
 To change them: edit (or, for the imported part, run the desktop's
 `bld_sync_tests --gtest_filter='Contracts.*'` with `BLD_WRITE_CONTRACTS=1`),
-then `sha256sum doc-shape.json imported-part.json imported-part.xml part-naming.json sidecar-hash.json update-guard.json > MANIFEST.sha256`
+then `sha256sum doc-shape.json imported-part.json imported-part.xml module-members.json part-naming.json presence-colors.json sidecar-hash.json update-guard.json > MANIFEST.sha256`
 and copy the folder to the other repo.
 - `presence-colors.json`: each person's first-choice presence color on a
   layout, and the colors a group of people here get (web

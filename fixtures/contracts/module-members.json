@@ -1,0 +1,605 @@
+{
+  "about": "A module's parts in the shared layout, one key per part (doc shape 3; web packages/ydoc moduleMembers.ts, desktop src/sync/ModuleMembers.cpp; docs/module-members.md). `keys`: the sidecarItems key of a part in a module. `badKeys`: p: keys no writer makes (both apps skip them, the server refuses them). `values`: what a key may hold. `read`: a module's starting list (`members`, absent when the module's value has none) and its keys (part id to value) with the parts it reads as. `write`: the same, the parts wanted, and the keys a writer sets (in order) and deletes. `docs`: a layout (`base`, a Yjs update v1 in base64) with five parts (`parts`) and a module (`moduleId`) of the first two, written before the keys; `concurrent`: an update the web made on it (`web`), the edit the desktop makes at the same time (`desktop`) and every module's name and sorted parts after both (`expect`); `keyed`: the layout after the web added part 2 and took part 0 out, what it reads as (`keyedExpect`) and its part keys (`keyedKeys`), and the part keys after either app then adds part 3 and takes part 1 out (`keyedThenKeys`).",
+  "shape": 3,
+  "keys": [
+    {
+      "moduleId": "m1",
+      "partId": "42",
+      "key": "p:2:m1:42"
+    },
+    {
+      "moduleId": "",
+      "partId": "7",
+      "key": "p:0::7"
+    },
+    {
+      "moduleId": "a:b",
+      "partId": "c:d",
+      "key": "p:3:a:b:c:d"
+    },
+    {
+      "moduleId": "0b6f0c0e-5d0e-4c55-9a43-1f3a2c9f7d10",
+      "partId": "4611686018427387903",
+      "key": "p:36:0b6f0c0e-5d0e-4c55-9a43-1f3a2c9f7d10:4611686018427387903"
+    },
+    {
+      "moduleId": "häfen 🚂",
+      "partId": "9",
+      "key": "p:8:häfen 🚂:9"
+    }
+  ],
+  "badKeys": [
+    "p:",
+    "p:2:m1:",
+    "p:2",
+    "p:2:m1",
+    "p:2:m142",
+    "p:02:m1:42",
+    "p:x:m1:42",
+    "p:-1:m1:42",
+    "p:9:m1:42",
+    "p:2.0:m1:42",
+    "p:1234567890:m1:42",
+    "p: 2:m1:42"
+  ],
+  "values": [
+    {
+      "value": 0,
+      "valid": true
+    },
+    {
+      "value": 3,
+      "valid": true
+    },
+    {
+      "value": 2.5,
+      "valid": true
+    },
+    {
+      "value": false,
+      "valid": true
+    },
+    {
+      "value": -1,
+      "valid": false
+    },
+    {
+      "value": true,
+      "valid": false
+    },
+    {
+      "value": null,
+      "valid": false
+    },
+    {
+      "value": "1",
+      "valid": false
+    },
+    {
+      "value": [],
+      "valid": false
+    },
+    {
+      "value": {},
+      "valid": false
+    }
+  ],
+  "read": [
+    {
+      "what": "a list and no keys (every layout before shape 3)",
+      "members": [
+        "a",
+        "b",
+        "c"
+      ],
+      "keys": {},
+      "expect": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    {
+      "what": "a part added by key goes after the starting list",
+      "members": [
+        "a",
+        "b"
+      ],
+      "keys": {
+        "c": 0
+      },
+      "expect": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    {
+      "what": "added parts sort by number, then by id",
+      "members": [
+        "a"
+      ],
+      "keys": {
+        "z": 0,
+        "y": 1,
+        "x": 1,
+        "w": 0.5
+      },
+      "expect": [
+        "a",
+        "z",
+        "w",
+        "x",
+        "y"
+      ]
+    },
+    {
+      "what": "false takes a part out of the starting list",
+      "members": [
+        "a",
+        "b",
+        "c"
+      ],
+      "keys": {
+        "b": false
+      },
+      "expect": [
+        "a",
+        "c"
+      ]
+    },
+    {
+      "what": "a number on a part of the starting list leaves it where it is",
+      "members": [
+        "a",
+        "b"
+      ],
+      "keys": {
+        "a": 5,
+        "c": 0
+      },
+      "expect": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    {
+      "what": "false on a part that isn't in the starting list does nothing",
+      "members": [
+        "a"
+      ],
+      "keys": {
+        "q": false
+      },
+      "expect": [
+        "a"
+      ]
+    },
+    {
+      "what": "a module made without a list",
+      "keys": {
+        "b": 1,
+        "a": 1
+      },
+      "expect": [
+        "a",
+        "b"
+      ]
+    },
+    {
+      "what": "an empty starting list",
+      "members": [],
+      "keys": {
+        "9": 0,
+        "10": 0
+      },
+      "expect": [
+        "10",
+        "9"
+      ]
+    },
+    {
+      "what": "everything taken out",
+      "members": [
+        "a",
+        "b"
+      ],
+      "keys": {
+        "a": false,
+        "b": false
+      },
+      "expect": []
+    },
+    {
+      "what": "values that aren't valid are skipped",
+      "members": [
+        "a",
+        "b"
+      ],
+      "keys": {
+        "a": true,
+        "b": null,
+        "c": -1,
+        "d": "0",
+        "e": 2
+      },
+      "expect": [
+        "a",
+        "b",
+        "e"
+      ]
+    }
+  ],
+  "write": [
+    {
+      "what": "nothing changed",
+      "members": [
+        "a",
+        "b"
+      ],
+      "keys": {
+        "c": 0
+      },
+      "want": [
+        "a",
+        "b",
+        "c"
+      ],
+      "set": [],
+      "delete": []
+    },
+    {
+      "what": "the same parts in another order: nothing to write",
+      "members": [
+        "a",
+        "b"
+      ],
+      "keys": {
+        "c": 0
+      },
+      "want": [
+        "c",
+        "b",
+        "a"
+      ],
+      "set": [],
+      "delete": []
+    },
+    {
+      "what": "the first added part",
+      "members": [
+        "a"
+      ],
+      "keys": {},
+      "want": [
+        "a",
+        "b"
+      ],
+      "set": [
+        [
+          "b",
+          0
+        ]
+      ],
+      "delete": []
+    },
+    {
+      "what": "added parts take the next numbers, in the order wanted",
+      "members": [
+        "a"
+      ],
+      "keys": {
+        "b": 4
+      },
+      "want": [
+        "a",
+        "b",
+        "d",
+        "c"
+      ],
+      "set": [
+        [
+          "d",
+          5
+        ],
+        [
+          "c",
+          6
+        ]
+      ],
+      "delete": []
+    },
+    {
+      "what": "the next number counts from the highest whole number below a fraction",
+      "members": [],
+      "keys": {
+        "b": 2.5
+      },
+      "want": [
+        "b",
+        "c"
+      ],
+      "set": [
+        [
+          "c",
+          3
+        ]
+      ],
+      "delete": []
+    },
+    {
+      "what": "a part of the starting list taken out",
+      "members": [
+        "a",
+        "b"
+      ],
+      "keys": {},
+      "want": [
+        "a"
+      ],
+      "set": [
+        [
+          "b",
+          false
+        ]
+      ],
+      "delete": []
+    },
+    {
+      "what": "a part added by key taken out",
+      "members": [
+        "a"
+      ],
+      "keys": {
+        "b": 0
+      },
+      "want": [
+        "a"
+      ],
+      "set": [],
+      "delete": [
+        "b"
+      ]
+    },
+    {
+      "what": "a part of the starting list put back",
+      "members": [
+        "a",
+        "b"
+      ],
+      "keys": {
+        "b": false
+      },
+      "want": [
+        "a",
+        "b"
+      ],
+      "set": [],
+      "delete": [
+        "b"
+      ]
+    },
+    {
+      "what": "one out, one in",
+      "members": [
+        "a",
+        "b"
+      ],
+      "keys": {
+        "c": 1
+      },
+      "want": [
+        "b",
+        "d"
+      ],
+      "set": [
+        [
+          "a",
+          false
+        ],
+        [
+          "d",
+          2
+        ]
+      ],
+      "delete": [
+        "c"
+      ]
+    },
+    {
+      "what": "a module made without a list",
+      "keys": {},
+      "want": [
+        "x"
+      ],
+      "set": [
+        [
+          "x",
+          0
+        ]
+      ],
+      "delete": []
+    },
+    {
+      "what": "a part marked false that was never in the starting list is added by number",
+      "members": [
+        "a"
+      ],
+      "keys": {
+        "q": false
+      },
+      "want": [
+        "a",
+        "q"
+      ],
+      "set": [
+        [
+          "q",
+          0
+        ]
+      ],
+      "delete": []
+    }
+  ],
+  "docs": {
+    "parts": [
+      "5286857084410279209",
+      "5543495335166402808",
+      "6583273503222665971",
+      "829392512613537654",
+      "7265940352387453519"
+    ],
+    "moduleId": "yard-module",
+    "base": "AVwBACgBBG1ldGEHdmVyc2lvbgF9CSgBBG1ldGEHbmJJdGVtcwF9ACgBBG1ldGEPYmFja2dyb3VuZENvbG9yAXYCBGtpbmR3BWtub3duBG5hbWV3DkNvcm5mbG93ZXJCbHVlKAEEbWV0YQZhdXRob3IBdwAoAQRtZXRhA2x1ZwF3ACgBBG1ldGEFZXZlbnQBdwAoAQRtZXRhBGRhdGUBdgMDZGF5fQsFbW9udGh9CwR5ZWFyfaofKAEEbWV0YQdjb21tZW50AXcAKAEEbWV0YQpleHBvcnRJbmZvAXYHCmV4cG9ydFBhdGh3AA5leHBvcnRGaWxlVHlwZX0ECmV4cG9ydEFyZWF2BAF4fQABeX0ABXdpZHRofQAGaGVpZ2h0fQALZXhwb3J0U2NhbGV9AA9leHBvcnRXYXRlcm1hcmt4FWV4cG9ydEVsZWN0cmljQ2lyY3VpdHkWZXhwb3J0Q29ubmVjdGlvblBvaW50c3koAQRtZXRhEnNlbGVjdGVkTGF5ZXJJbmRleAF9ASgBBG1ldGENc2NoZW1hVmVyc2lvbgF9AScBCWxheWVyRGF0YQZncmlkLTEBKAABCwJpZAF3BmdyaWQtMSgAAQsEdHlwZQF3BGdyaWQoAAELBG5hbWUBdwRHcmlkKAABCwd2aXNpYmxlAXgoAAELDHRyYW5zcGFyZW5jeQF9pAEoAAELDmh1bGxQcm9wZXJ0aWVzAXYDCWlzVmlzaWJsZXkJaHVsbENvbG9ydgIEa2luZHcFa25vd24EbmFtZXcFQmxhY2sNaHVsbFRoaWNrbmVzc30BKAABCwlncmlkQ29sb3IBdgIEa2luZHcEYXJnYgRhcmdidwhmZmZmZmZmZigAAQsNZ3JpZFRoaWNrbmVzcwF9AigAAQsMc3ViR3JpZENvbG9yAXYCBGtpbmR3BGFyZ2IEYXJnYncIZmZkM2QzZDMoAAELEHN1YkdyaWRUaGlja25lc3MBfQEoAAELDmdyaWRTaXplSW5TdHVkAX2gASgAAQsRc3ViRGl2aXNpb25OdW1iZXIBfQMoAAELC2Rpc3BsYXlHcmlkAXgoAAELDmRpc3BsYXlTdWJHcmlkAXgoAAELEGRpc3BsYXlDZWxsSW5kZXgBeCgAAQsNY2VsbEluZGV4Rm9udAF2AwZmYW1pbHl3BUFyaWFsBHNpemV9EgVzdHlsZXcHUmVndWxhcigAAQsOY2VsbEluZGV4Q29sb3IBdgIEa2luZHcEYXJnYgRhcmdidwhmZjAwMDAwMCgAAQsTY2VsbEluZGV4Q29sdW1uVHlwZQF3ATAoAAELEGNlbGxJbmRleFJvd1R5cGUBdwExKAABCw9jZWxsSW5kZXhDb3JuZXIBdgIBeH0AAXl9AAgBBmxheWVycwF3BmdyaWQtMScBCWxheWVyRGF0YQdicmljay0xASgAASECaWQBdwdicmljay0xKAABIQR0eXBlAXcFYnJpY2soAAEhBG5hbWUBdwZMYXlvdXQoAAEhB3Zpc2libGUBeCgAASEMdHJhbnNwYXJlbmN5AX2kASgAASEOaHVsbFByb3BlcnRpZXMBdgMJaXNWaXNpYmxleQlodWxsQ29sb3J2AgRraW5kdwVrbm93bgRuYW1ldwVCbGFjaw1odWxsVGhpY2tuZXNzfQEoAAEhFWRpc3BsYXlCcmlja0VsZXZhdGlvbgF5JwABIQZicmlja3MAJwABIQZncm91cHMAiAEgAXcHYnJpY2stMQcAASkBKAABLAJpZAF3EzUyODY4NTcwODQ0MTAyNzkyMDkoAAEsC2Rpc3BsYXlBcmVhAXYEAXh9AAF5fQAFd2lkdGh9BAZoZWlnaHR9AigAASwHbXlHcm91cAF3ACgAASwKcGFydE51bWJlcgF3BjMwMDEuMSgAASwLb3JpZW50YXRpb24BfQAoAAEsGmFjdGl2ZUNvbm5lY3Rpb25Qb2ludEluZGV4AX0AKAABLAhhbHRpdHVkZQF9ACgAASwKY29ubmV4aW9ucwF1AIcBLAEoAAE1AmlkAXcTNTU0MzQ5NTMzNTE2NjQwMjgwOCgAATULZGlzcGxheUFyZWEBdgQBeH0IAXl9AAV3aWR0aH0EBmhlaWdodH0CKAABNQdteUdyb3VwAXcAKAABNQpwYXJ0TnVtYmVyAXcGMzAwMS4xKAABNQtvcmllbnRhdGlvbgF9ACgAATUaYWN0aXZlQ29ubmVjdGlvblBvaW50SW5kZXgBfQAoAAE1CGFsdGl0dWRlAX0AKAABNQpjb25uZXhpb25zAXUAhwE1ASgAAT4CaWQBdxM2NTgzMjczNTAzMjIyNjY1OTcxKAABPgtkaXNwbGF5QXJlYQF2BAF4fRABeX0ABXdpZHRofQQGaGVpZ2h0fQIoAAE+B215R3JvdXABdwAoAAE+CnBhcnROdW1iZXIBdwYzMDAxLjEoAAE+C29yaWVudGF0aW9uAX0AKAABPhphY3RpdmVDb25uZWN0aW9uUG9pbnRJbmRleAF9ACgAAT4IYWx0aXR1ZGUBfQAoAAE+CmNvbm5leGlvbnMBdQCHAT4BKAABRwJpZAF3EjgyOTM5MjUxMjYxMzUzNzY1NCgAAUcLZGlzcGxheUFyZWEBdgQBeH0YAXl9AAV3aWR0aH0EBmhlaWdodH0CKAABRwdteUdyb3VwAXcAKAABRwpwYXJ0TnVtYmVyAXcGMzAwMS4xKAABRwtvcmllbnRhdGlvbgF9ACgAAUcaYWN0aXZlQ29ubmVjdGlvblBvaW50SW5kZXgBfQAoAAFHCGFsdGl0dWRlAX0AKAABRwpjb25uZXhpb25zAXUAhwFHASgAAVACaWQBdxM3MjY1OTQwMzUyMzg3NDUzNTE5KAABUAtkaXNwbGF5QXJlYQF2BAF4fSABeX0ABXdpZHRofQQGaGVpZ2h0fQIoAAFQB215R3JvdXABdwAoAAFQCnBhcnROdW1iZXIBdwYzMDAxLjEoAAFQC29yaWVudGF0aW9uAX0AKAABUBphY3RpdmVDb25uZWN0aW9uUG9pbnRJbmRleAF9ACgAAVAIYWx0aXR1ZGUBfQAoAAFQCmNvbm5leGlvbnMBdQAoAQxzaWRlY2FySXRlbXMNbTp5YXJkLW1vZHVsZQF2BQJpZHcLeWFyZC1tb2R1bGUEbmFtZXcEWWFyZAdtZW1iZXJzdQJ3EzUyODY4NTcwODQ0MTAyNzkyMDl3EzU1NDM0OTUzMzUxNjY0MDI4MDgJdHJhbnNmb3JtdQl9AX0AfQB9AH0BfQB9AH0AfQEGX29yZGVyfQAoAQRtZXRhBWNhY2hlAXYDDXNjaGVtYVZlcnNpb259AQ1iYm1IYXNoU2hhMjU2dwAHbW9kdWxlc3UBdgQCaWR3C3lhcmQtbW9kdWxlBG5hbWV3BFlhcmQHbWVtYmVyc3UCdxM1Mjg2ODU3MDg0NDEwMjc5MjA5dxM1NTQzNDk1MzM1MTY2NDAyODA4CXRyYW5zZm9ybXUJfQF9AH0AfQB9AX0AfQB9AH0BKAEMc2lkZWNhckl0ZW1zBl9fYmxvYgF3DDE3Mzo2MDA5MTY2YgA=",
+    "concurrent": [
+      {
+        "name": "both add a part",
+        "web": "AQQCACgBDHNpZGVjYXJJdGVtcyRwOjExOnlhcmQtbW9kdWxlOjY1ODMyNzM1MDMyMjI2NjU5NzEBfQCIAVoBdgMNc2NoZW1hVmVyc2lvbn0BDWJibUhhc2hTaGEyNTZ3AAdtb2R1bGVzdQF2BAJpZHcLeWFyZC1tb2R1bGUEbmFtZXcEWWFyZAdtZW1iZXJzdQN3EzUyODY4NTcwODQ0MTAyNzkyMDl3EzU1NDM0OTUzMzUxNjY0MDI4MDh3EzY1ODMyNzM1MDMyMjI2NjU5NzEJdHJhbnNmb3JtdQl9AX0AfQB9AH0BfQB9AH0AfQGIAVsBdwwxOTU6MzhkMDZhYjWIAQoBfQMBAQIKAVoC",
+        "desktop": "add part 3 to the module",
+        "expect": {
+          "modules": [
+            {
+              "name": "Yard",
+              "members": [
+                "5286857084410279209",
+                "5543495335166402808",
+                "6583273503222665971",
+                "829392512613537654"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "the web adds a part, the desktop takes one out",
+        "web": "AQQCACgBDHNpZGVjYXJJdGVtcyRwOjExOnlhcmQtbW9kdWxlOjY1ODMyNzM1MDMyMjI2NjU5NzEBfQCIAVoBdgMNc2NoZW1hVmVyc2lvbn0BDWJibUhhc2hTaGEyNTZ3AAdtb2R1bGVzdQF2BAJpZHcLeWFyZC1tb2R1bGUEbmFtZXcEWWFyZAdtZW1iZXJzdQN3EzUyODY4NTcwODQ0MTAyNzkyMDl3EzU1NDM0OTUzMzUxNjY0MDI4MDh3EzY1ODMyNzM1MDMyMjI2NjU5NzEJdHJhbnNmb3JtdQl9AX0AfQB9AH0BfQB9AH0AfQGIAVsBdwwxOTU6MzhkMDZhYjWIAQoBfQMBAQIKAVoC",
+        "desktop": "take part 0 out of the module",
+        "expect": {
+          "modules": [
+            {
+              "name": "Yard",
+              "members": [
+                "5543495335166402808",
+                "6583273503222665971"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "the web takes a part out, the desktop adds one",
+        "web": "AQQCACgBDHNpZGVjYXJJdGVtcyRwOjExOnlhcmQtbW9kdWxlOjU1NDM0OTUzMzUxNjY0MDI4MDgBeYgBWgF2Aw1zY2hlbWFWZXJzaW9ufQENYmJtSGFzaFNoYTI1NncAB21vZHVsZXN1AXYEAmlkdwt5YXJkLW1vZHVsZQRuYW1ldwRZYXJkB21lbWJlcnN1AXcTNTI4Njg1NzA4NDQxMDI3OTIwOQl0cmFuc2Zvcm11CX0BfQB9AH0AfQF9AH0AfQB9AYgBWwF3DDE1MToyMGJjMGNiOIgBCgF9AwEBAgoBWgI=",
+        "desktop": "add part 3 to the module",
+        "expect": {
+          "modules": [
+            {
+              "name": "Yard",
+              "members": [
+                "5286857084410279209",
+                "829392512613537654"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "the web renames the module, the desktop adds a part",
+        "web": "AQMCAKgBWQF2BQJpZHcLeWFyZC1tb2R1bGUEbmFtZXcFRGVwb3QJdHJhbnNmb3JtdQl9AX0AfQB9AH0BfQB9AH0AfQEHbWVtYmVyc3UCdxM1Mjg2ODU3MDg0NDEwMjc5MjA5dxM1NTQzNDk1MzM1MTY2NDAyODA4Bl9vcmRlcn0AqAFaAXYDDXNjaGVtYVZlcnNpb259AQ1iYm1IYXNoU2hhMjU2dwAHbW9kdWxlc3UBdgQCaWR3C3lhcmQtbW9kdWxlBG5hbWV3BURlcG90CXRyYW5zZm9ybXUJfQF9AH0AfQB9AX0AfQB9AH0BB21lbWJlcnN1AncTNTI4Njg1NzA4NDQxMDI3OTIwOXcTNTU0MzQ5NTMzNTE2NjQwMjgwOKgBWwF3DDE3NDpmMTNkYmY5NwEBAVkD",
+        "desktop": "add part 3 to the module",
+        "expect": {
+          "modules": [
+            {
+              "name": "Depot",
+              "members": [
+                "5286857084410279209",
+                "5543495335166402808",
+                "829392512613537654"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "the web adds a part and takes one out, the desktop renames the module",
+        "web": "AQcCACgBDHNpZGVjYXJJdGVtcyRwOjExOnlhcmQtbW9kdWxlOjY1ODMyNzM1MDMyMjI2NjU5NzEBfQCIAVoBdgMNc2NoZW1hVmVyc2lvbn0BDWJibUhhc2hTaGEyNTZ3AAdtb2R1bGVzdQF2BAJpZHcLeWFyZC1tb2R1bGUEbmFtZXcEWWFyZAdtZW1iZXJzdQN3EzUyODY4NTcwODQ0MTAyNzkyMDl3EzU1NDM0OTUzMzUxNjY0MDI4MDh3EzY1ODMyNzM1MDMyMjI2NjU5NzEJdHJhbnNmb3JtdQl9AX0AfQB9AH0BfQB9AH0AfQGIAVsBdwwxOTU6MzhkMDZhYjWIAQoBfQMoAQxzaWRlY2FySXRlbXMkcDoxMTp5YXJkLW1vZHVsZTo1Mjg2ODU3MDg0NDEwMjc5MjA5AXmIAgEBdgMNc2NoZW1hVmVyc2lvbn0BDWJibUhhc2hTaGEyNTZ3AAdtb2R1bGVzdQF2BAJpZHcLeWFyZC1tb2R1bGUEbmFtZXcEWWFyZAdtZW1iZXJzdQJ3EzU1NDM0OTUzMzUxNjY0MDI4MDh3EzY1ODMyNzM1MDMyMjI2NjU5NzEJdHJhbnNmb3JtdQl9AX0AfQB9AH0BfQB9AH0AfQGIAgIBdwwxNzM6MmEyOTUzN2UCAgEBAgECCgFaAg==",
+        "desktop": "rename the module Harbour",
+        "expect": {
+          "modules": [
+            {
+              "name": "Harbour",
+              "members": [
+                "5543495335166402808",
+                "6583273503222665971"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "a web build from before the keys adds a part (the list written whole), the desktop adds one",
+        "web": "AQMCAKgBWQF2BQJpZHcLeWFyZC1tb2R1bGUEbmFtZXcEWWFyZAdtZW1iZXJzdQN3EzUyODY4NTcwODQ0MTAyNzkyMDl3EzU1NDM0OTUzMzUxNjY0MDI4MDh3EzcyNjU5NDAzNTIzODc0NTM1MTkJdHJhbnNmb3JtdQl9AX0AfQB9AH0BfQB9AH0AfQEGX29yZGVyfQCoAVoBdgMNc2NoZW1hVmVyc2lvbn0BDWJibUhhc2hTaGEyNTZ3AAdtb2R1bGVzdQF2BAJpZHcLeWFyZC1tb2R1bGUEbmFtZXcEWWFyZAdtZW1iZXJzdQN3EzUyODY4NTcwODQ0MTAyNzkyMDl3EzU1NDM0OTUzMzUxNjY0MDI4MDh3EzcyNjU5NDAzNTIzODc0NTM1MTkJdHJhbnNmb3JtdQl9AX0AfQB9AH0BfQB9AH0AfQGoAVsBdwwxOTU6YzVlZGM4OGIBAQFZAw==",
+        "desktop": "add part 3 to the module",
+        "expect": {
+          "modules": [
+            {
+              "name": "Yard",
+              "members": [
+                "5286857084410279209",
+                "5543495335166402808",
+                "7265940352387453519",
+                "829392512613537654"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "the web adds a part, the desktop deletes a part of the module from the map",
+        "web": "AQQCACgBDHNpZGVjYXJJdGVtcyRwOjExOnlhcmQtbW9kdWxlOjY1ODMyNzM1MDMyMjI2NjU5NzEBfQCIAVoBdgMNc2NoZW1hVmVyc2lvbn0BDWJibUhhc2hTaGEyNTZ3AAdtb2R1bGVzdQF2BAJpZHcLeWFyZC1tb2R1bGUEbmFtZXcEWWFyZAdtZW1iZXJzdQN3EzUyODY4NTcwODQ0MTAyNzkyMDl3EzU1NDM0OTUzMzUxNjY0MDI4MDh3EzY1ODMyNzM1MDMyMjI2NjU5NzEJdHJhbnNmb3JtdQl9AX0AfQB9AH0BfQB9AH0AfQGIAVsBdwwxOTU6MzhkMDZhYjWIAQoBfQMBAQIKAVoC",
+        "desktop": "delete part 1 from the map",
+        "expect": {
+          "modules": [
+            {
+              "name": "Yard",
+              "members": [
+                "5286857084410279209",
+                "6583273503222665971"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "the web ungroups the module, the desktop adds a part: it stays ungrouped",
+        "web": "AQICAKgBWgF2Aw1zY2hlbWFWZXJzaW9ufQENYmJtSGFzaFNoYTI1NncAB21vZHVsZXN1AKgBWwF3CzUxOjQ0NDk1ZmVjAQEBWQM=",
+        "desktop": "add part 3 to the module",
+        "expect": {
+          "modules": []
+        }
+      }
+    ],
+    "keyed": "AgcCACgBDHNpZGVjYXJJdGVtcyRwOjExOnlhcmQtbW9kdWxlOjY1ODMyNzM1MDMyMjI2NjU5NzEBfQChAVoBoQFbAagBCgF9AygBDHNpZGVjYXJJdGVtcyRwOjExOnlhcmQtbW9kdWxlOjUyODY4NTcwODQ0MTAyNzkyMDkBeagCAQF2Aw1zY2hlbWFWZXJzaW9ufQENYmJtSGFzaFNoYTI1NncAB21vZHVsZXN1AXYEAmlkdwt5YXJkLW1vZHVsZQRuYW1ldwRZYXJkB21lbWJlcnN1AncTNTU0MzQ5NTMzNTE2NjQwMjgwOHcTNjU4MzI3MzUwMzIyMjY2NTk3MQl0cmFuc2Zvcm11CX0BfQB9AH0AfQF9AH0AfQB9AagCAgF3DDE3MzoyYTI5NTM3ZVwBACgBBG1ldGEHdmVyc2lvbgF9CSgBBG1ldGEHbmJJdGVtcwF9ACgBBG1ldGEPYmFja2dyb3VuZENvbG9yAXYCBGtpbmR3BWtub3duBG5hbWV3DkNvcm5mbG93ZXJCbHVlKAEEbWV0YQZhdXRob3IBdwAoAQRtZXRhA2x1ZwF3ACgBBG1ldGEFZXZlbnQBdwAoAQRtZXRhBGRhdGUBdgMDZGF5fQsFbW9udGh9CwR5ZWFyfaofKAEEbWV0YQdjb21tZW50AXcAKAEEbWV0YQpleHBvcnRJbmZvAXYHCmV4cG9ydFBhdGh3AA5leHBvcnRGaWxlVHlwZX0ECmV4cG9ydEFyZWF2BAF4fQABeX0ABXdpZHRofQAGaGVpZ2h0fQALZXhwb3J0U2NhbGV9AA9leHBvcnRXYXRlcm1hcmt4FWV4cG9ydEVsZWN0cmljQ2lyY3VpdHkWZXhwb3J0Q29ubmVjdGlvblBvaW50c3koAQRtZXRhEnNlbGVjdGVkTGF5ZXJJbmRleAF9ASEBBG1ldGENc2NoZW1hVmVyc2lvbgEnAQlsYXllckRhdGEGZ3JpZC0xASgAAQsCaWQBdwZncmlkLTEoAAELBHR5cGUBdwRncmlkKAABCwRuYW1lAXcER3JpZCgAAQsHdmlzaWJsZQF4KAABCwx0cmFuc3BhcmVuY3kBfaQBKAABCw5odWxsUHJvcGVydGllcwF2Awlpc1Zpc2libGV5CWh1bGxDb2xvcnYCBGtpbmR3BWtub3duBG5hbWV3BUJsYWNrDWh1bGxUaGlja25lc3N9ASgAAQsJZ3JpZENvbG9yAXYCBGtpbmR3BGFyZ2IEYXJnYncIZmZmZmZmZmYoAAELDWdyaWRUaGlja25lc3MBfQIoAAELDHN1YkdyaWRDb2xvcgF2AgRraW5kdwRhcmdiBGFyZ2J3CGZmZDNkM2QzKAABCxBzdWJHcmlkVGhpY2tuZXNzAX0BKAABCw5ncmlkU2l6ZUluU3R1ZAF9oAEoAAELEXN1YkRpdmlzaW9uTnVtYmVyAX0DKAABCwtkaXNwbGF5R3JpZAF4KAABCw5kaXNwbGF5U3ViR3JpZAF4KAABCxBkaXNwbGF5Q2VsbEluZGV4AXgoAAELDWNlbGxJbmRleEZvbnQBdgMGZmFtaWx5dwVBcmlhbARzaXplfRIFc3R5bGV3B1JlZ3VsYXIoAAELDmNlbGxJbmRleENvbG9yAXYCBGtpbmR3BGFyZ2IEYXJnYncIZmYwMDAwMDAoAAELE2NlbGxJbmRleENvbHVtblR5cGUBdwEwKAABCxBjZWxsSW5kZXhSb3dUeXBlAXcBMSgAAQsPY2VsbEluZGV4Q29ybmVyAXYCAXh9AAF5fQAIAQZsYXllcnMBdwZncmlkLTEnAQlsYXllckRhdGEHYnJpY2stMQEoAAEhAmlkAXcHYnJpY2stMSgAASEEdHlwZQF3BWJyaWNrKAABIQRuYW1lAXcGTGF5b3V0KAABIQd2aXNpYmxlAXgoAAEhDHRyYW5zcGFyZW5jeQF9pAEoAAEhDmh1bGxQcm9wZXJ0aWVzAXYDCWlzVmlzaWJsZXkJaHVsbENvbG9ydgIEa2luZHcFa25vd24EbmFtZXcFQmxhY2sNaHVsbFRoaWNrbmVzc30BKAABIRVkaXNwbGF5QnJpY2tFbGV2YXRpb24BeScAASEGYnJpY2tzACcAASEGZ3JvdXBzAIgBIAF3B2JyaWNrLTEHAAEpASgAASwCaWQBdxM1Mjg2ODU3MDg0NDEwMjc5MjA5KAABLAtkaXNwbGF5QXJlYQF2BAF4fQABeX0ABXdpZHRofQQGaGVpZ2h0fQIoAAEsB215R3JvdXABdwAoAAEsCnBhcnROdW1iZXIBdwYzMDAxLjEoAAEsC29yaWVudGF0aW9uAX0AKAABLBphY3RpdmVDb25uZWN0aW9uUG9pbnRJbmRleAF9ACgAASwIYWx0aXR1ZGUBfQAoAAEsCmNvbm5leGlvbnMBdQCHASwBKAABNQJpZAF3EzU1NDM0OTUzMzUxNjY0MDI4MDgoAAE1C2Rpc3BsYXlBcmVhAXYEAXh9CAF5fQAFd2lkdGh9BAZoZWlnaHR9AigAATUHbXlHcm91cAF3ACgAATUKcGFydE51bWJlcgF3BjMwMDEuMSgAATULb3JpZW50YXRpb24BfQAoAAE1GmFjdGl2ZUNvbm5lY3Rpb25Qb2ludEluZGV4AX0AKAABNQhhbHRpdHVkZQF9ACgAATUKY29ubmV4aW9ucwF1AIcBNQEoAAE+AmlkAXcTNjU4MzI3MzUwMzIyMjY2NTk3MSgAAT4LZGlzcGxheUFyZWEBdgQBeH0QAXl9AAV3aWR0aH0EBmhlaWdodH0CKAABPgdteUdyb3VwAXcAKAABPgpwYXJ0TnVtYmVyAXcGMzAwMS4xKAABPgtvcmllbnRhdGlvbgF9ACgAAT4aYWN0aXZlQ29ubmVjdGlvblBvaW50SW5kZXgBfQAoAAE+CGFsdGl0dWRlAX0AKAABPgpjb25uZXhpb25zAXUAhwE+ASgAAUcCaWQBdxI4MjkzOTI1MTI2MTM1Mzc2NTQoAAFHC2Rpc3BsYXlBcmVhAXYEAXh9GAF5fQAFd2lkdGh9BAZoZWlnaHR9AigAAUcHbXlHcm91cAF3ACgAAUcKcGFydE51bWJlcgF3BjMwMDEuMSgAAUcLb3JpZW50YXRpb24BfQAoAAFHGmFjdGl2ZUNvbm5lY3Rpb25Qb2ludEluZGV4AX0AKAABRwhhbHRpdHVkZQF9ACgAAUcKY29ubmV4aW9ucwF1AIcBRwEoAAFQAmlkAXcTNzI2NTk0MDM1MjM4NzQ1MzUxOSgAAVALZGlzcGxheUFyZWEBdgQBeH0gAXl9AAV3aWR0aH0EBmhlaWdodH0CKAABUAdteUdyb3VwAXcAKAABUApwYXJ0TnVtYmVyAXcGMzAwMS4xKAABUAtvcmllbnRhdGlvbgF9ACgAAVAaYWN0aXZlQ29ubmVjdGlvblBvaW50SW5kZXgBfQAoAAFQCGFsdGl0dWRlAX0AKAABUApjb25uZXhpb25zAXUAKAEMc2lkZWNhckl0ZW1zDW06eWFyZC1tb2R1bGUBdgUCaWR3C3lhcmQtbW9kdWxlBG5hbWV3BFlhcmQHbWVtYmVyc3UCdxM1Mjg2ODU3MDg0NDEwMjc5MjA5dxM1NTQzNDk1MzM1MTY2NDAyODA4CXRyYW5zZm9ybXUJfQF9AH0AfQB9AX0AfQB9AH0BBl9vcmRlcn0AIQEEbWV0YQVjYWNoZQEhAQxzaWRlY2FySXRlbXMGX19ibG9iAQICAQECAQIKAVoC",
+    "keyedExpect": {
+      "modules": [
+        {
+          "name": "Yard",
+          "members": [
+            "5543495335166402808",
+            "6583273503222665971"
+          ]
+        }
+      ]
+    },
+    "keyedKeys": {
+      "p:11:yard-module:6583273503222665971": 0,
+      "p:11:yard-module:5286857084410279209": false
+    },
+    "keyedThenKeys": {
+      "p:11:yard-module:6583273503222665971": 0,
+      "p:11:yard-module:5286857084410279209": false,
+      "p:11:yard-module:829392512613537654": 1,
+      "p:11:yard-module:5543495335166402808": false
+    }
+  }
+}

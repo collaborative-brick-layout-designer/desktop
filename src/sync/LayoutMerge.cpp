@@ -1,5 +1,7 @@
 #include "LayoutMerge.h"
 
+#include <algorithm>
+
 #include "WebModel.h"
 #include "WebModelWriter.h"
 
@@ -118,6 +120,70 @@ Side sideChange(const Item* base, const Item* side) {
     if (!base) return Side::Added;
     if (!side) return Side::Deleted;
     return base->value == side->value ? Side::Unchanged : Side::Edited;
+}
+
+// A module both sides changed. Its parts merge: each part I added or took
+// out offline is put on top of the server's list (as the live layout does,
+// one key per part: ModuleMembers.h), and so does every other field only
+// one side changed. `c.mineValue` becomes that merged module. Only a field
+// both sides changed to different values is left as a clash (keeping mine
+// then keeps my fields with the merged parts).
+void mergeModuleChange(ItemChange& c) {
+    const QJsonObject base = c.base.toObject(), mine = c.mineValue.toObject(), server = c.serverValue.toObject();
+    QJsonObject merged = server;
+    QJsonObject mineKept = mine;
+    bool clash = false;
+    QSet<QString> keys;
+    for (const QJsonObject* o : { &base, &mine, &server })
+        for (auto it = o->begin(); it != o->end(); ++it) keys.insert(it.key());
+    const QString membersKey = QStringLiteral("members");
+    for (const QString& k : keys) {
+        if (k == membersKey) continue;
+        const QJsonValue b = base.value(k), m = mine.value(k), s = server.value(k);
+        if (m == b) {
+            // Only the server changed it (or nobody): the server's stands on my side too.
+            if (s.isUndefined()) mineKept.remove(k);
+            else mineKept.insert(k, s);
+            continue;
+        }
+        if (s == b) {
+            if (m.isUndefined()) merged.remove(k);
+            else merged.insert(k, m);
+        } else if (s != m) {
+            clash = true;
+        }
+    }
+    const auto setOf = [&](const QJsonObject& o) {
+        QSet<QString> out;
+        for (const auto& v : o.value(membersKey).toArray()) out.insert(v.toString());
+        return out;
+    };
+    const QSet<QString> b = setOf(base), m = setOf(mine);
+    QSet<QString> parts = setOf(server);
+    for (const QString& id : b)
+        if (!m.contains(id)) parts.remove(id);
+    for (const QString& id : m)
+        if (!b.contains(id)) parts.insert(id);
+    // In order (numbers by value), as a saved sidecar lists them.
+    QStringList ids(parts.cbegin(), parts.cend());
+    std::sort(ids.begin(), ids.end(),
+              [](const QString& x, const QString& y) { return x.size() != y.size() ? x.size() < y.size() : x < y; });
+    const QJsonArray list = QJsonArray::fromStringList(ids);
+    if (clash) {
+        mineKept.insert(membersKey, list);
+        c.mineValue = mineKept;
+        return;
+    }
+    merged.insert(membersKey, list);
+    c.mineValue = merged;
+    QJsonObject serverSorted = server;
+    QStringList theirs;
+    for (const auto& v : server.value(membersKey).toArray()) theirs << v.toString();
+    std::sort(theirs.begin(), theirs.end(),
+              [](const QString& x, const QString& y) { return x.size() != y.size() ? x.size() < y.size() : x < y; });
+    serverSorted.insert(membersKey, QJsonArray::fromStringList(theirs));
+    // Nothing of mine left to put in: the server's already says it.
+    c.status = merged == serverSorted ? Status::Same : Status::Mine;
 }
 
 int indexOf(const QJsonArray& list, const QString& value) {
@@ -438,6 +504,9 @@ QList<ItemChange> compareLayouts(const Snapshot& base, const Snapshot& mine, con
         if (bi) c.base = bi->value;
         if (mi) c.mineValue = mi->value;
         if (si) c.serverValue = si->value;
+        if (c.kind == QLatin1String("module") && c.status == Status::Conflict && c.mine == Side::Edited
+            && c.server == Side::Edited)
+            mergeModuleChange(c);
         out << c;
     }
     return out;

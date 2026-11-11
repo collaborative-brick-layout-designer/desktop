@@ -27,6 +27,7 @@
 #include "PartsUpload.h"
 #include "PartsSync.h"
 #include "ServerApi.h"
+#include "SidecarItems.h"
 #include "PartsBrowser.h"
 #include "ServerList.h"
 #include "CatalogLink.h"
@@ -564,6 +565,9 @@ void MainWindow::openLive(const sync::ConnectResult& r) {
         servers.save();
     }
     mapView_->showOpening(tr("Getting the layout from the server."));
+    // A module's part changes are written one key each only where the
+    // server's web app reads them (docs/module-members.md).
+    live_->session().setMemberKeys(r.info.features && r.info.features->contains(QLatin1String(sync::kMemberKeysFeature)));
     live_->open(api.layoutSocketUrl(r.layoutId), r.token, r.readOnly, r.title, cacheDir);
     // Name and color our cursor as the web does, once we know who we are.
     auto* who = new sync::ServerApi(this);

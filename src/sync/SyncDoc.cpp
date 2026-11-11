@@ -1,6 +1,7 @@
 #include "SyncDoc.h"
 
 #include "SidecarItems.h"
+#include "ModuleMembers.h"
 
 #include "DocJsonDetail.h"
 #include "DocShape.h"
@@ -354,6 +355,18 @@ struct SyncDoc::Impl {
     Branch* layers = nullptr;
     Branch* layerData = nullptr;
     Branch* sidecarItems = nullptr;
+
+    // What each undo step did to the sidecar's keys, beside yrs's own
+    // stacks (the same order): undo and redo put back a sidecar value they
+    // left missing when it wasn't theirs to take (restoreSidecar).
+    struct SidecarStep {
+        bool madeCache = false;      // the step wrote the layout's first meta.cache
+        QSet<QString> made;          // sidecarItems keys it added
+        QSet<QString> removed;       // sidecarItems keys it deleted
+    };
+    std::vector<SidecarStep> undoSteps, redoSteps;
+    // writeMap may write module part keys (setMemberKeys).
+    bool memberKeys = true;
     YTransaction* txn = nullptr;
     Arena arena;
     int ops = 0;  // changes made by the current writeMap
@@ -759,7 +772,10 @@ struct SyncDoc::Impl {
     // sheet's plain entries into Y.Maps and mark the doc 2, in a step of its
     // own that undo never takes back. Builds that read only shape 1 then
     // refuse the doc rather than misread it.
-    void shapePass(const QJsonObject& cur, const QJsonObject& want) {
+    //
+    // `partKeys`: the write after this leaves module part keys in the doc
+    // (ModuleMembers.h), which is doc shape 3.
+    void shapePass(const QJsonObject& cur, const QJsonObject& want, bool partKeys) {
         const QJsonObject curData = cur.value(QLatin1String("layerData")).toObject();
         const QJsonObject wantData = want.value(QLatin1String("layerData")).toObject();
         txn = ydoc_write_transaction(doc, 0, nullptr);
@@ -812,13 +828,78 @@ struct SyncDoc::Impl {
                 if (sheetMove(c.value(QLatin1String("areas")).toArray(), rel)) mark = true;
             }
         }
-        if (mark && !shaped) {
-            const YInput sv = yinput_float(kDocShapeInPlace);
+        const int stamped = schema.isDouble() ? schema.toInt() : 0;
+        const int stamp = partKeys ? kDocShapeMemberKeys : mark ? kDocShapeInPlace : 0;
+        if (stamp > stamped) {
+            const YInput sv = yinput_float(stamp);
             ymap_insert(meta, txn, "schemaVersion", &sv);
         }
         ytransaction_commit(txn);
         txn = nullptr;
         arena = Arena();
+    }
+
+    // After an undo or redo. yrs takes back the value this desktop wrote
+    // and puts the one before it back; but when someone else wrote the same
+    // key at the same instant and ours was the one kept, theirs sits
+    // between, and yrs then puts nothing back: the key is gone. For
+    // meta.cache that is the whole sidecar (venue, views, every module and
+    // label), for "m:<id>" the module, for a part key the part someone else
+    // also added or took out. So a sidecar value that was there before
+    // (`was`: the doc before the undo or redo) and is gone now, and that
+    // the step had no reason to take (`mayGo`: the keys it may remove;
+    // `cacheMayGo`: it may remove meta.cache), is written again as it was,
+    // meta.cache with its modules and labels as the items now hold them.
+    // Not an undo step. (The web does the same: packages/ydoc
+    // keepSidecarThroughUndo.)
+    void restoreSidecar(const QJsonObject& was, const QSet<QString>& mayGo, bool cacheMayGo) {
+        const QJsonObject wasMeta = was.value(QLatin1String("meta")).toObject();
+        const QJsonObject wasItems = was.value(QLatin1String("sidecarItems")).toObject();
+        const QJsonObject now = currentJson();
+        const QJsonObject nowMeta = now.value(QLatin1String("meta")).toObject();
+        QJsonObject items = now.value(QLatin1String("sidecarItems")).toObject();
+        static const QString kHash = QStringLiteral("__blob");
+        QJsonObject back;
+        for (auto it = wasItems.begin(); it != wasItems.end(); ++it)
+            if (it.key() != kHash && !items.contains(it.key()) && !mayGo.contains(it.key())) back.insert(it.key(), it.value());
+        const bool hadCache = wasMeta.value(QLatin1String("cache")).isObject();
+        const bool cacheGone = hadCache && !nowMeta.contains(QLatin1String("cache")) && !cacheMayGo;
+        const bool hashGone = wasItems.contains(kHash) && !items.contains(kHash) && !cacheMayGo;
+        if (back.isEmpty() && !cacheGone && !hashGone) return;
+        for (auto it = back.begin(); it != back.end(); ++it) items.insert(it.key(), it.value());
+        txn = ydoc_write_transaction(doc, 0, nullptr);
+        for (auto it = back.begin(); it != back.end(); ++it) {
+            const YInput v = arena.plain(it.value());
+            ymap_insert(sidecarItems, txn, arena.str(it.key()), &v);
+        }
+        if (cacheGone || hashGone) {
+            const QJsonObject wasBlob = wasMeta.value(QLatin1String("cache")).toObject();
+            const QJsonObject blob = cacheGone ? wasBlob : nowMeta.value(QLatin1String("cache")).toObject();
+            // The items went with the blob (a writer of both made it): its
+            // modules and labels are the items'. Else the blob as it was.
+            const QString wasHash = wasItems.value(kHash).toString();
+            const bool paired = hadCache && wasHash == sidecarBlobHash(wasBlob) && sidecarIdsUnique(blob);
+            QJsonObject out = blob;
+            QString hash = wasHash;
+            if (paired) {
+                // (sidecarWriteFor's blob for these items: each as it is.)
+                items.insert(kHash, sidecarBlobHash(blob));
+                out = mergedSidecarCache(blob, items);
+                hash = sidecarBlobHash(out);
+            }
+            if (nowMeta.contains(QLatin1String("cache")) || hadCache) {
+                const YInput v = arena.plain(out);
+                ymap_insert(meta, txn, "cache", &v);
+            }
+            if (!hash.isEmpty()) {
+                const YInput h = arena.plain(QJsonValue(hash));
+                ymap_insert(sidecarItems, txn, arena.str(kHash), &h);
+            }
+        }
+        ytransaction_commit(txn);
+        txn = nullptr;
+        arena = Arena();
+        absorb();
     }
 
     // The budget: a Y.Map at meta.budgetLimits (part number -> limit), as
@@ -1143,11 +1224,13 @@ void SyncDoc::init() {
 void SyncDoc::reset() {
     const quint64 id = d_->clientId;
     const bool keep = d_->keepJson;
+    const bool keys = d_->memberKeys;
     yundo_manager_destroy(d_->undo);
     ydoc_destroy(d_->doc);
     d_ = std::make_unique<Impl>();
     d_->clientId = id != 0 ? id + 1 : 0;  // (never one the old doc wrote with)
     d_->keepJson = keep;
+    d_->memberKeys = keys;
     init();
 }
 
@@ -1238,34 +1321,51 @@ void SyncDoc::setKeepJson(bool keep) {
     d_->changes.clear();
 }
 
+void SyncDoc::setMemberKeys(bool on) { d_->memberKeys = on; }
+
 QByteArray SyncDoc::writeMap(const core::Map& map) {
     Impl& d = *d_;
     const QJsonObject want = docJsonFromMap(map, d.keepJson ? &d.parts : nullptr);
     const QByteArray before = stateVector();
 
-    d.shapePass(d.currentJson(), want);
+    // The sidecar, worked out before anything is written: modules and
+    // labels one per key, as the web keeps them, so edits made here and on
+    // the web at the same time merge (SidecarItems.h); a module's part
+    // changes one key each (ModuleMembers.h).
+    // Modules without parts that aren't on the map (WebModel.h dropGoneModuleMembers).
+    core::Sidecar sidecar = map.sidecar;
+    dropGoneModuleMembers(sidecar.modules, map);
+    SidecarWrite sidecarWrite;
+    bool writesSidecar = false;
+    {
+        const QJsonObject before0 = d.currentJson();
+        const QJsonObject meta0 = before0.value(QLatin1String("meta")).toObject();
+        const QJsonObject blob0 = meta0.value(QLatin1String("cache")).toObject();
+        const QJsonObject cache = mergeSidecarCache(blob0, sidecar);
+        writesSidecar = meta0.contains(QLatin1String("cache")) || !cache.isEmpty();
+        if (!cache.isEmpty())
+            sidecarWrite =
+                sidecarWriteFor(cache, blob0, before0.value(QLatin1String("sidecarItems")).toObject(), d.memberKeys);
+        else sidecarWrite.blob = cache;
+        // Part keys: the doc is shape 3 from here (stamped below, in the
+        // shape step that undo never takes back).
+        d.shapePass(before0, want, hasMemberKeys(sidecarWrite.items));
+    }
     d.absorb();
     const QJsonObject cur = d.currentJson();
     d.ops = 0;
     d.txn = ydoc_write_transaction(d.doc, sizeof(kLocalOrigin) - 1, kLocalOrigin);
     const QJsonObject curMeta = cur.value(QLatin1String("meta")).toObject();
     QJsonObject wantMeta = want.value(QLatin1String("meta")).toObject();
-    // Modules without parts that aren't on the map (WebModel.h dropGoneModuleMembers).
-    core::Sidecar sidecar = map.sidecar;
-    dropGoneModuleMembers(sidecar.modules, map);
-    const QJsonObject cache =
-        mergeSidecarCache(curMeta.value(QLatin1String("cache")).toObject(), sidecar);
-    if (curMeta.contains(QLatin1String("cache")) || !cache.isEmpty())
-        wantMeta.insert(QStringLiteral("cache"), cache);
+    if (writesSidecar) wantMeta.insert(QStringLiteral("cache"), sidecarWrite.blob);
     d.setFields(d.meta, curMeta, wantMeta, false);
     d.writeBudget(curMeta, map.sidecar.budgetLimits);
-    // Modules and labels one per key too, as the web keeps them, so edits
-    // made here and on the web at the same time merge (SidecarItems.h).
-    if (!cache.isEmpty()) {
+    if (!sidecarWrite.items.isEmpty()) {
         const QJsonObject curItems = cur.value(QLatin1String("sidecarItems")).toObject();
-        const QJsonObject wantItems = sidecarItemsFor(cache);
+        const QJsonObject& wantItems = sidecarWrite.items;
         for (auto it = curItems.begin(); it != curItems.end(); ++it)
-            if ((it.key().startsWith(QLatin1String("m:")) || it.key().startsWith(QLatin1String("l:")))
+            if ((it.key().startsWith(QLatin1String("m:")) || it.key().startsWith(QLatin1String("l:"))
+                 || it.key().startsWith(QLatin1String(kMemberPrefix)))
                 && !wantItems.contains(it.key())) {
                 ymap_remove(d.sidecarItems, d.txn, d.arena.str(it.key()));
                 ++d.ops;
@@ -1311,6 +1411,24 @@ QByteArray SyncDoc::writeMap(const core::Map& map) {
     d.brickIds.clear();
     d.baseline = d.jsonValid && d.keepJson;
     yundo_manager_stop(d.undo);  // seal this write as one step
+    // What this step did to the sidecar's keys (restoreSidecar).
+    if (yundo_manager_undo_stack_len(d.undo) == d.undoSteps.size() + 1) {
+        Impl::SidecarStep step;
+        step.madeCache = writesSidecar && !curMeta.contains(QLatin1String("cache"));
+        if (!sidecarWrite.items.isEmpty()) {
+            const QJsonObject curItems = cur.value(QLatin1String("sidecarItems")).toObject();
+            for (auto it = sidecarWrite.items.begin(); it != sidecarWrite.items.end(); ++it)
+                if (!curItems.contains(it.key())) step.made.insert(it.key());
+            for (auto it = curItems.begin(); it != curItems.end(); ++it)
+                if (!sidecarWrite.items.contains(it.key())) step.removed.insert(it.key());
+        }
+        d.undoSteps.push_back(std::move(step));
+        d.redoSteps.clear();
+    } else if (yundo_manager_undo_stack_len(d.undo) != d.undoSteps.size()) {
+        // Out of step with yrs's stack: nothing is known about its steps.
+        d.undoSteps.clear();
+        d.redoSteps.clear();
+    }
 
     YTransaction* read = ydoc_read_transaction(d.doc);
     uint32_t len = 0;
@@ -1336,17 +1454,44 @@ QByteArray SyncDoc::setMeta(const QString& key, const QJsonValue& value) {
 
 QByteArray SyncDoc::undo() {
     const QByteArray before = stateVector();
-    const bool undone = yundo_manager_undo(d_->undo) != 0;
-    d_->absorb();
+    Impl& d = *d_;
+    const QJsonObject was = d.currentJson();
+    const bool known = !d.undoSteps.empty() && yundo_manager_undo_stack_len(d.undo) == d.undoSteps.size();
+    const Impl::SidecarStep step = known ? d.undoSteps.back() : Impl::SidecarStep{};
+    const bool undone = yundo_manager_undo(d.undo) != 0;
+    d.absorb();
     if (!undone) return {};
+    if (known) {
+        d.undoSteps.pop_back();
+        d.redoSteps.push_back(step);
+    } else {
+        d.undoSteps.clear();
+        d.redoSteps.clear();
+    }
+    // Undo takes back the keys the step added; any other that is gone now
+    // wasn't the step's to take.
+    d.restoreSidecar(was, step.made, step.madeCache);
     return diffSince(before);
 }
 
 QByteArray SyncDoc::redo() {
     const QByteArray before = stateVector();
-    const bool redone = yundo_manager_redo(d_->undo) != 0;
-    d_->absorb();
+    Impl& d = *d_;
+    const QJsonObject was = d.currentJson();
+    const bool known = !d.redoSteps.empty() && yundo_manager_redo_stack_len(d.undo) == d.redoSteps.size();
+    const Impl::SidecarStep step = known ? d.redoSteps.back() : Impl::SidecarStep{};
+    const bool redone = yundo_manager_redo(d.undo) != 0;
+    d.absorb();
     if (!redone) return {};
+    if (known) {
+        d.redoSteps.pop_back();
+        d.undoSteps.push_back(step);
+    } else {
+        d.undoSteps.clear();
+        d.redoSteps.clear();
+    }
+    // Redo deletes again the keys the step deleted, and never meta.cache.
+    d.restoreSidecar(was, step.removed, false);
     return diffSince(before);
 }
 

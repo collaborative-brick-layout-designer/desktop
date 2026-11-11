@@ -67,6 +67,10 @@
         <source>Recently deleted: a deleted layout, module or venue waits 30 days</source>
         <translation>Recently deleted: 削除したレイアウト、モジュール、会場は 30 日間残ります</translation>
     </message>
+    <message>
+        <source>Two people changing one module&apos;s parts at the same moment</source>
+        <translation>2人が同じモジュールのパーツを同時に変更</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>

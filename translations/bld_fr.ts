@@ -67,6 +67,10 @@
         <source>Recently deleted: a deleted layout, module or venue waits 30 days</source>
         <translation>Recently deleted : un plan, un module ou une salle supprimé attend 30 jours</translation>
     </message>
+    <message>
+        <source>Two people changing one module&apos;s parts at the same moment</source>
+        <translation>Deux personnes modifient en même temps les pièces d&apos;un même module</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>

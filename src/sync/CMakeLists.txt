@@ -139,6 +139,8 @@ add_library(bld_sync STATIC
     DocJsonDetail.h
     SyncDoc.h
     DocShape.cpp
+    ModuleMembers.cpp
+    ModuleMembers.h
     SidecarItems.cpp
     SidecarItems.h
     SyncDoc.cpp

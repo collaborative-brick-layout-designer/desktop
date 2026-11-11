@@ -59,6 +59,8 @@ QString featureLabel(const QString& id) {
         return Text::tr("Deleting your own parts and sets from the desktop app");
     if (id == QLatin1String("recentlyDeleted"))
         return Text::tr("Recently deleted: a deleted layout, module or venue waits 30 days");
+    if (id == QLatin1String("moduleMemberKeys"))
+        return Text::tr("Two people changing one module's parts at the same moment");
     return id;
 }
 

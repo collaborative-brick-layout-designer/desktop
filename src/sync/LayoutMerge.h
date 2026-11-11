@@ -15,6 +15,11 @@
 //   ruler:<layer>:<hash>       rulers, keyed by content
 //   label:<id> module:<id> view:<id> venue background   sidecar data
 //
+// A module both sides changed is merged where it can be: the parts I added
+// or took out go on top of the server's list, and so does a field only one
+// side changed. It is a clash only when both changed the same field (its
+// name, say) to different values.
+//
 // and two the server's compare doesn't report (the desktop's own, so nothing
 // made offline is dropped):
 //
