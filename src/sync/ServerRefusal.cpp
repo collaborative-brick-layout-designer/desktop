@@ -193,6 +193,21 @@ QString networkFailureText(const QNetworkReply* reply) {
     return networkFailureText(reply->error(), reply->url().host());
 }
 
+bool isNotOurServer(const ServerRefusal& r) {
+    return r.status != 0 && !r.jsonBody && !isFirewallBlock(r) && r.status < 500;
+}
+
+bool isServerDown(const ServerRefusal& r) {
+    return !r.jsonBody && (r.status == 502 || r.status == 503 || r.status == 504);
+}
+
+QString notOurServerText(const QString& host, int status) {
+    return Text::tr("%1 answered, but it isn't a Collaborative Brick Layout Designer server (it said %2). Check the "
+                    "address.")
+        .arg(host)
+        .arg(status);
+}
+
 QString failureText(const ServerRefusal& r) {
     if (isFirewallBlock(r) || isLimitRefusal(r) || isAccountState(r) || isUpdateRequired(r) || isPermissionRefusal(r) ||
         r.status == 0)

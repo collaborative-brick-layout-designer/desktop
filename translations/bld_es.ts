@@ -2243,6 +2243,10 @@
         <translation>el servidor</translation>
     </message>
     <message>
+        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
+        <translation>%1 respondió, pero no es un servidor de Collaborative Brick Layout Designer (dijo %2). Comprueba la dirección.</translation>
+    </message>
+    <message>
         <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
         <translation>Esta maqueta se guardó con una versión más nueva de Collaborative Brick Layout Designer, así que esta versión no puede mantenerla en directo. Descarga la nueva versión (Ayuda &gt; Buscar actualizaciones) para volver a trabajar en ella en directo.</translation>
     </message>
@@ -3285,10 +3289,6 @@
     <message>
         <source>Use https:// for a server on another machine (http:// only works for this computer).</source>
         <translation>Usa https:// para un servidor en otra máquina (http:// solo sirve para este ordenador).</translation>
-    </message>
-    <message>
-        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
-        <translation>%1 respondió, pero no es un servidor de Collaborative Brick Layout Designer (dijo %2). Comprueba la dirección.</translation>
     </message>
     <message>
         <source>The server answered %1</source>
@@ -9879,6 +9879,10 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>Loading…</source>
         <translation>Cargando…</translation>
+    </message>
+    <message>
+        <source>Your modules on this computer still work.</source>
+        <translation>Tus módulos de este ordenador siguen funcionando.</translation>
     </message>
     <message>
         <source>Can&apos;t reach %1 right now. Your modules on this computer still work.</source>

@@ -2243,6 +2243,10 @@
         <translation>de server</translation>
     </message>
     <message>
+        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
+        <translation>%1 antwoordde, maar is geen Collaborative Brick Layout Designer-server (antwoord %2). Controleer het adres.</translation>
+    </message>
+    <message>
         <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
         <translation>Deze layout is opgeslagen met een nieuwere versie van Collaborative Brick Layout Designer, dus deze versie kan hem niet live houden. Download de nieuwe versie (Help &gt; Controleren op updates) om er weer live aan te werken.</translation>
     </message>
@@ -3285,10 +3289,6 @@
     <message>
         <source>Use https:// for a server on another machine (http:// only works for this computer).</source>
         <translation>Gebruik https:// voor een server op een andere machine (http:// werkt alleen voor deze computer).</translation>
-    </message>
-    <message>
-        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
-        <translation>%1 antwoordde, maar is geen Collaborative Brick Layout Designer-server (antwoord %2). Controleer het adres.</translation>
     </message>
     <message>
         <source>The server answered %1</source>
@@ -9879,6 +9879,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Loading…</source>
         <translation>Laden…</translation>
+    </message>
+    <message>
+        <source>Your modules on this computer still work.</source>
+        <translation>Je modules op deze computer werken nog wel.</translation>
     </message>
     <message>
         <source>Can&apos;t reach %1 right now. Your modules on this computer still work.</source>

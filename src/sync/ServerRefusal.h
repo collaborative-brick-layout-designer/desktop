@@ -77,6 +77,18 @@ QString networkFailureText(const QNetworkReply* reply);
 
 QString failureText(const ServerRefusal& r);
 
+// An answer that didn't come from this app: a web page where the app's
+// JSON should be (most often a wrong address: another website, or a
+// server that isn't a Collaborative Brick Layout Designer one). Not the
+// site's firewall, and not a proxy saying the app behind it is down (5xx).
+bool isNotOurServer(const ServerRefusal& r);
+// "<host> answered, but it isn't a Collaborative Brick Layout Designer
+// server (it said 404). Check the address."
+QString notOurServerText(const QString& host, int status);
+// A proxy answered for an app that is down or restarting (a 502, 503 or
+// 504 that is a web page, not the app's JSON).
+bool isServerDown(const ServerRefusal& r);
+
 // One sentence to show.
 QString describe(const ServerRefusal& r);
 

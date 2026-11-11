@@ -138,6 +138,8 @@ QString ServerLibrary::stateText() const {
     case State::Loading:
         return tr("Loading…");
     case State::Offline:
+        // Why, in the words Connect uses (not reachable, the certificate, took too long), and what to do.
+        if (!why_.isEmpty()) return why_ + QLatin1Char(' ') + tr("Your modules on this computer still work.");
         return tr("Can't reach %1 right now. Your modules on this computer still work.").arg(label_);
     case State::Refused:
         return why_;
@@ -168,7 +170,13 @@ QString ServerLibrary::refusalText(const sync::ServerRefusal& r) {
 
 void ServerLibrary::fail(const sync::ServerRefusal& r) {
     if (r.status == 0) {
-        setState(State::Offline);
+        setState(State::Offline, r.networkError);
+    } else if (sync::isServerDown(r)) {
+        // A proxy's page: the app behind it is down or restarting.
+        setState(State::Offline, sync::networkFailureText(QNetworkReply::ConnectionRefusedError, server_.host()));
+    } else if (sync::isNotOurServer(r)) {
+        // A web page where the app's answer should be: another website at this address.
+        setState(State::Refused, sync::notOurServerText(server_.host(), r.status));
     } else if (r.status == 401 || r.code == QLatin1String("invalid_token")) {
         // The token was revoked or ran out: back to "Sign in".
         api_.setToken({});
