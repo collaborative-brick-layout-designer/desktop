@@ -660,7 +660,7 @@ QString otherServerOf(const parts::PartsLibrary& lib, const QString& key, const 
     if (liveFolder.isEmpty()) return {};
     const auto meta = lib.metadata(key);
     if (!meta) return {};
-    const QString folder = serverFolderOf(*meta);
+    QString folder = serverFolderOf(*meta);
     if (folder.isEmpty() || folder == liveFolder) return {};
     // The part the library shows is another server's, but the live server may have it too.
     for (const QString& copy : lib.otherCopies(key))
