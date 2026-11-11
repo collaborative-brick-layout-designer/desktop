@@ -83,8 +83,9 @@ QPixmap themePreview(ThemeChoice t) {
     return pm;
 }
 
-// A color swatch, ringed when chosen.
-QIcon swatch(const QColor& color, const QColor& ringGap, bool chosen) {
+// A color swatch, ringed when chosen (in `ring`, the swatch's own color
+// unless given: a dark LEGO color's ring is the lighter accent in dark mode).
+QIcon swatch(const QColor& color, const QColor& ringGap, bool chosen, const QColor& ring = QColor()) {
     const int s = 52;
     QPixmap pm(QSize(s, s) * 2);
     pm.setDevicePixelRatio(2);
@@ -93,7 +94,7 @@ QIcon swatch(const QColor& color, const QColor& ringGap, bool chosen) {
     p.setRenderHint(QPainter::Antialiasing);
     p.setPen(Qt::NoPen);
     if (chosen) {
-        p.setBrush(color);
+        p.setBrush(ring.isValid() ? ring : color);
         p.drawEllipse(QRectF(0.5, 0.5, s - 1, s - 1));
         p.setBrush(ringGap);
         p.drawEllipse(QRectF(3, 3, s - 6, s - 6));
@@ -607,7 +608,7 @@ void SettingsDialog::load() {
         tile->setChecked(lego != nullptr);
         tile->setText(lego ? lego->lego : tr("Any LEGO color"));
         tile->setAccessibleName(lego ? tr("Any LEGO color, now %1").arg(lego->lego) : tr("Any LEGO color"));
-        tile->setIcon(lego ? swatch(lego->color, n.panel, true) : legoRainbow());
+        tile->setIcon(lego ? swatch(lego->color, n.panel, true, effectiveAccent(p, mode).main) : legoRainbow());
     }
     if (lego) legoPicker_->show();
     for (int i = 0; i < legoList_->count(); ++i) {
