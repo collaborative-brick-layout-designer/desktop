@@ -49,10 +49,15 @@ public:
     /** Same name, ignoring case and the spaces around it. */
     static bool typedMatches(const QString& typed, const QString& name);
 
-    // The same words as the website's ui/deleteWording.ts.
-    static DeleteWording layoutWording();
-    static DeleteWording moduleWording();
-    static DeleteWording venueWording();
+    // The same words as the website's ui/deleteWording.ts. `recentlyDeleted`:
+    // deleted from a server that keeps it 30 days in Recently deleted, so the
+    // box says where it waits instead of "This can’t be undone." (a file on
+    // this computer, or an older server, is deleted for good).
+    static DeleteWording layoutWording(bool recentlyDeleted = false);
+    static DeleteWording moduleWording(bool recentlyDeleted = false);
+    static DeleteWording venueWording(bool recentlyDeleted = false);
+    // "It waits 30 days in Recently deleted on the website’s Home, where you can restore it."
+    static QString waitsInRecentlyDeleted();
     static DeleteWording customPartWording();
     // A set of parts (Save selection as set): its placed parts stay.
     static DeleteWording setWording();
@@ -65,6 +70,10 @@ public:
     QCheckBox* optionBox() const { return option_; }
     // Shown and ticked.
     bool optionChosen() const;
+    // A warning under the checkbox, for what ticking it loses ("2 changes you
+    // made offline never reached the server…"). Hidden until this shows it.
+    void showWarning(const QString& text);
+    QString warningText() const;
 
     QPushButton* confirmButton() const { return confirm_; }
     QPushButton* cancelButton() const { return cancel_; }
@@ -78,6 +87,7 @@ private:
     QLabel* body_ = nullptr;
     QLineEdit* typed_ = nullptr;
     QCheckBox* option_ = nullptr;
+    QLabel* warning_ = nullptr;
     QPushButton* confirm_ = nullptr;
     QPushButton* cancel_ = nullptr;
 };

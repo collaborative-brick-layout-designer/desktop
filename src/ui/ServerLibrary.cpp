@@ -381,7 +381,8 @@ ServerModulesTab::ServerModulesTab(ServerLibrary& library, QWidget* parent) : QW
         return ok ? t.trimmed() : QString();
     };
     confirmDelete = [this](const sync::ServerModule& m) {
-        return ConfirmDialog::confirmDelete(this, m.title, ConfirmDialog::moduleWording());
+        return ConfirmDialog::confirmDelete(this, m.title,
+                                            ConfirmDialog::moduleWording(sync::ServerList::keepsDeleted(library_.server())));
     };
     confirmReturn = [this](const sync::ServerModule& m, bool give) {
         return ConfirmDialog::ask(this, returnOptions(ReturnKind::Module, m.title, m.credit, give));

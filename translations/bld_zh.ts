@@ -63,6 +63,10 @@
         <source>Deleting your own parts and sets from the desktop app</source>
         <translation>在桌面应用中删除你自己的零件和套件</translation>
     </message>
+    <message>
+        <source>Recently deleted: a deleted layout, module or venue waits 30 days</source>
+        <translation>Recently deleted：删除的布局、模块或场地会保留 30 天</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>
@@ -2310,6 +2314,14 @@
         <translation>已退出 %1 的登录。</translation>
     </message>
     <message>
+        <source>Signed out here. The server didn’t end that sign-in, so it stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>已在这里退出登录。服务器没有结束该登录，因此它在过期前仍然有效；你可以在网站的 Profile › Browsers and devices 中结束它。</translation>
+    </message>
+    <message>
+        <source>Signed out here. The server didn’t end that sign-in, so it stays valid until %1; you can end it from Profile › Browsers and devices on the website.</source>
+        <translation>已在这里退出登录。服务器没有结束该登录，因此它在 %1 之前仍然有效；你可以在网站的 Profile › Browsers and devices 中结束它。</translation>
+    </message>
+    <message>
         <source>Signed out here. The server couldn’t be reached, so that sign-in stays valid until it runs out; you can end it from Profile › Browsers and devices on the website.</source>
         <translation>已在这里退出登录。无法连接服务器，因此该登录在过期前仍然有效；你可以在网站的 Profile › Browsers and devices 中结束它。</translation>
     </message>
@@ -3367,8 +3379,30 @@
         <translation>退出登录</translation>
     </message>
     <message>
-        <source>Also remove the parts downloaded from %1? (%2)</source>
-        <translation>同时移除从 %1 下载的零件吗？（%2）</translation>
+        <source>Also remove the parts and layout copies downloaded from %1? (%2)</source>
+        <translation>同时移除从 %1 下载的零件和布局副本吗？（%2）</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to “%1” never reached the server.</source>
+        <translation>
+            <numerusform>你离线时对“%1”做的 %n 处更改从未送达服务器。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to a layout never reached the server.</source>
+        <translation>
+            <numerusform>你离线时对一个布局做的 %n 处更改从未送达服务器。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to %1 layouts never reached the server.</source>
+        <translation>
+            <numerusform>你离线时对 %1 个布局做的 %n 处更改从未送达服务器。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Removing the layout copies deletes them for good. To send them first, cancel and open the layout from this server.</source>
+        <translation>移除布局副本会永久删除这些更改。要先发送它们，请取消，然后从这个服务器打开该布局。</translation>
     </message>
     <message>
         <source>Add a Server</source>
@@ -4006,6 +4040,10 @@
     <message>
         <source>You can undo this with Ctrl+Z.</source>
         <translation>可以用 Ctrl+Z 撤销此操作。</translation>
+    </message>
+    <message>
+        <source>It waits 30 days in Recently deleted on the website’s Home, where you can restore it.</source>
+        <translation>它会在网站 Home 页的 Recently deleted 中保留 30 天，你可以在那里恢复它。</translation>
     </message>
     <message>
         <source>The layout, its history and its share links are deleted for everyone who can open it.</source>

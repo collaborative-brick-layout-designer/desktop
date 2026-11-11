@@ -49,6 +49,15 @@ void signOut(TokenStore& tokens, const QUrl& server, QObject* context, std::func
 
 QString signedOutText(const SignedOut& result, const QString& serverLabel) {
     if (result.how == SignInEnd::Ended) return Text::tr("Signed out of %1.").arg(serverLabel);
+    // The server answered, and said no: it was reached, so not "couldn't be reached".
+    if (result.how == SignInEnd::Refused) {
+        if (!result.endsBy.isValid())
+            return Text::tr("Signed out here. The server didn’t end that sign-in, so it stays valid until it runs "
+                            "out; you can end it from Profile › Browsers and devices on the website.");
+        return Text::tr("Signed out here. The server didn’t end that sign-in, so it stays valid until %1; you can "
+                        "end it from Profile › Browsers and devices on the website.")
+            .arg(QLocale().toString(result.endsBy.toLocalTime().date(), QLocale::LongFormat));
+    }
     if (!result.endsBy.isValid())
         return Text::tr("Signed out here. The server couldn’t be reached, so that sign-in stays valid until it runs "
                         "out; you can end it from Profile › Browsers and devices on the website.");

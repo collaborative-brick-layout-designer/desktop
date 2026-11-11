@@ -23,7 +23,7 @@ class TokenStore;
 
 struct SignedOut {
     SignInEnd how = SignInEnd::Ended;
-    // NotEnded only: the latest the sign-in still works on the server
+    // NotEnded and Refused: the latest the sign-in still works on the server
     // (invalid when the server never said how long its sign-ins last).
     QDateTime endsBy;
 };
@@ -35,7 +35,8 @@ struct SignedOut {
 void signOut(TokenStore& tokens, const QUrl& server, QObject* context, std::function<void(const SignedOut&)> done);
 
 // What to tell the person: "Signed out of Train club.", or that the
-// sign-in stays valid until a date and where to end it.
+// sign-in stays valid until a date and where to end it. A server that
+// answered and said no is never called "couldn't be reached".
 QString signedOutText(const SignedOut& result, const QString& serverLabel);
 
 }  // namespace bld::sync

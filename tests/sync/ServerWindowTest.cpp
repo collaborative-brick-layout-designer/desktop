@@ -259,6 +259,7 @@ protected:
         window_ = std::make_unique<ui::ServerWindow>(library_);
         window_->confirm = [this](const ui::ConfirmOptions& o) {
             asked_ << o.title;
+            askedUndo_ << o.undo;
             return answer_;
         };
     }
@@ -289,6 +290,7 @@ protected:
     std::unique_ptr<ui::ServerWindow> window_;
     QString cache_;
     QStringList asked_;
+    QStringList askedUndo_;  // what each question said about getting it back
     bool answer_ = true;
 };
 
@@ -560,12 +562,46 @@ TEST_F(ServerWindowTest, ALayoutOpensLiveDownloadsAsACopyAndItsOwnerCanDeleteIt)
     moreAction(window_->row(Tab::Layouts, QStringLiteral("L1")), "deleteLayout")->trigger();
     ASSERT_TRUE(waitFor([&] { return asked_.size() == 1; }));
     EXPECT_EQ(asked_.back(), QStringLiteral("Delete “Fordyce 2026”?"));
+    // A server that doesn't say it keeps deleted things: gone for good.
+    EXPECT_EQ(askedUndo_.back(), QStringLiteral("This can’t be undone."));
     EXPECT_EQ(count(http_, "DELETE", "/api/layouts/L1"), 0);
     answer_ = true;
     http_.reply("/api/layouts/L1", 200, { { QStringLiteral("ok"), true } });
     moreAction(window_->row(Tab::Layouts, QStringLiteral("L1")), "deleteLayout")->trigger();
     ASSERT_TRUE(waitFor([&] { return count(http_, "DELETE", "/api/layouts/L1") == 1; }));
     ASSERT_TRUE(waitFor([&] { return !window_->row(Tab::Layouts, QStringLiteral("L1")); }));
+}
+
+// A server with Recently deleted: every delete box says the thing waits 30
+// days there and can be restored, never "This can't be undone."
+class KeepsDeletedServerWindow : public ServerWindowTest {
+protected:
+    QStringList features() override {
+        return { QStringLiteral("venues"), QStringLiteral("layoutDownload"), QStringLiteral("recentlyDeleted") };
+    }
+};
+
+TEST_F(KeepsDeletedServerWindow, DeleteBoxesSayItWaitsThirtyDaysInRecentlyDeleted) {
+    const QString waits =
+        QStringLiteral("It waits 30 days in Recently deleted on the website’s Home, where you can restore it.");
+    answer_ = false;
+    open(Tab::Layouts);
+    ASSERT_TRUE(waitFor([&] { return window_->row(Tab::Layouts, QStringLiteral("L1")); }));
+    moreAction(window_->row(Tab::Layouts, QStringLiteral("L1")), "deleteLayout")->trigger();
+    ASSERT_TRUE(waitFor([&] { return asked_.size() == 1; }));
+    EXPECT_EQ(askedUndo_.back(), waits);
+    window_->showTab(Tab::Venues);
+    ASSERT_TRUE(waitFor([&] { return window_->row(Tab::Venues, QStringLiteral("V1")); }));
+    moreAction(window_->row(Tab::Venues, QStringLiteral("V1")), "deleteVenue")->trigger();
+    ASSERT_TRUE(waitFor([&] { return asked_.size() == 2; }));
+    EXPECT_EQ(askedUndo_.back(), waits);
+    window_->showTab(Tab::Modules);
+    ASSERT_TRUE(waitFor([&] { return window_->row(Tab::Modules, QStringLiteral("m1")) && moreAction(window_->row(Tab::Modules, QStringLiteral("m1")), "deleteModule"); }));
+    moreAction(window_->row(Tab::Modules, QStringLiteral("m1")), "deleteModule")->trigger();
+    ASSERT_TRUE(waitFor([&] { return asked_.size() == 3; }));
+    EXPECT_EQ(askedUndo_.back(), waits);
+    // Nothing was deleted: every box was answered "Cancel".
+    EXPECT_EQ(count(http_, "DELETE", "/api/layouts/L1"), 0);
 }
 
 class OlderServerWindow : public ServerWindowTest {

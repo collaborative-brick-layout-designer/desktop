@@ -103,6 +103,26 @@ TEST(ConfirmDialog, Words) {
     EXPECT_TRUE(ConfirmDialog::layoutWording().typeName);
 }
 
+// Deleted from a server that keeps it in Recently deleted: the box says
+// where it waits and for how long, not "This can’t be undone."; a file on
+// this computer (or an older server) still says that.
+TEST(ConfirmDialog, AServerDeleteSaysItWaitsInRecentlyDeleted) {
+    const QString waits =
+        QStringLiteral("It waits 30 days in Recently deleted on the website’s Home, where you can restore it.");
+    for (const DeleteWording& w : { ConfirmDialog::layoutWording(true), ConfirmDialog::moduleWording(true),
+                                    ConfirmDialog::venueWording(true) }) {
+        ConfirmDialog d(ConfirmDialog::deleteOptions(QStringLiteral("Yard"), w));
+        EXPECT_TRUE(d.bodyText().contains(waits)) << d.bodyText().toStdString();
+        EXPECT_FALSE(d.bodyText().contains(QStringLiteral("can’t be undone"))) << d.bodyText().toStdString();
+    }
+    for (const DeleteWording& w : { ConfirmDialog::layoutWording(), ConfirmDialog::moduleWording(),
+                                    ConfirmDialog::venueWording(), ConfirmDialog::customPartWording() }) {
+        ConfirmDialog d(ConfirmDialog::deleteOptions(QStringLiteral("Yard"), w));
+        EXPECT_FALSE(d.bodyText().contains(QStringLiteral("Recently deleted")));
+        EXPECT_TRUE(d.bodyText().contains(QStringLiteral("This can’t be undone.")));
+    }
+}
+
 TEST(ConfirmDialog, AskWaitsForTheAnswer) {
     QTimer::singleShot(0, [] {
         auto* d = qobject_cast<ConfirmDialog*>(QApplication::activeModalWidget());

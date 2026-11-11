@@ -61,6 +61,9 @@ struct ServerInfo {
     // The server has usage limits, and may refuse with limit_reached and a
     // sentence to show (ServerRefusal).
     bool hasLimits() const { return features && features->contains(QStringLiteral("limits")); }
+    // The server keeps a deleted layout, module or venue for 30 days in
+    // Recently deleted; one that doesn't say so deletes for good.
+    bool keepsDeleted() const { return features && features->contains(QStringLiteral("recentlyDeleted")); }
     // What this desktop uses that the server lacks (or, listing none, may lack).
     QStringList missing() const { return missingFeatures(features); }
 };
@@ -79,7 +82,9 @@ struct TokenLifetime {
 // How the server took the app's Sign Out (DELETE /api/tokens/current).
 enum class SignInEnd {
     Ended,    // the sign-in is over on the server (or was already)
-    NotEnded, // the server wasn't reached, refused, or is too old to do it
+    NotEnded, // the server wasn't reached: no answer at all
+    Refused,  // the server answered, and didn't end it (a server from before
+              // the route, or one that turns this account or this version away)
 };
 
 struct DeviceCode {

@@ -90,6 +90,10 @@ public:
     void rememberUser(const QUrl& url, const QString& userName);
     void rememberSignIn(const QUrl& url, const TokenLifetime& lifetime);
 
+    // The server keeps what is deleted for 30 days in Recently deleted, as it
+    // last said about itself ("recentlyDeleted"); false for one not in the list.
+    static bool keepsDeleted(const QUrl& url);
+
     // Whose account your settings follow: the Main server's. Empty when
     // there is none (no servers).
     QUrl settingsAccount() const;
@@ -106,6 +110,19 @@ public:
     static qint64 dataSize(const QUrl& url);
     // Delete them, and take the parts folder out of the parts library's list.
     static void removeData(const QUrl& url);
+
+    // The folder a live layout's copy is kept in, under live/<server>: its
+    // id when that is in the server's format (a UUID, as every layout id the
+    // server makes is), else the id's hash.
+    static QString layoutFolder(const QString& layoutId);
+    // Changes made offline to one of a server's live layouts that never
+    // reached it: they wait in the layout's copy here (SyncSession), and go
+    // when that copy is deleted.
+    struct Unsent {
+        QString folder;  // layoutFolder() of the layout
+        int changes = 0;
+    };
+    static QList<Unsent> unsentChanges(const QUrl& url);
 
 private:
     // The single-server setting becomes the first entry, marked Main. A

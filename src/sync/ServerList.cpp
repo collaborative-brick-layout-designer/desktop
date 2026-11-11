@@ -2,11 +2,14 @@
 
 #include "TokenStore.h"
 
+#include <QCryptographicHash>
 #include <QDir>
 #include <QDirIterator>
+#include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QRegularExpression>
 #include <QSettings>
 #include <QStandardPaths>
 
@@ -259,6 +262,36 @@ void ServerList::removeData(const QUrl& url) {
     const QString gone = QDir::cleanPath(folders.first());
     paths.removeIf([&gone](const QString& p) { return QDir::cleanPath(p) == gone; });
     s.setValue(key, paths);
+}
+
+bool ServerList::keepsDeleted(const QUrl& url) {
+    const ServerList list = load();
+    const ServerEntry* e = list.find(url);
+    return e && e->features && e->features->contains(QStringLiteral("recentlyDeleted"));
+}
+
+QString ServerList::layoutFolder(const QString& layoutId) {
+    static const QRegularExpression uuidId(
+        QStringLiteral("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"));
+    return uuidId.match(layoutId).hasMatch()
+               ? layoutId
+               : QString::fromLatin1(QCryptographicHash::hash(layoutId.toUtf8(), QCryptographicHash::Sha256).toHex());
+}
+
+QList<ServerList::Unsent> ServerList::unsentChanges(const QUrl& url) {
+    const QString name = folderName(url);
+    if (name.isEmpty()) return {};
+    QList<Unsent> out;
+    const QDir live(appData() + QStringLiteral("/live/") + name);
+    for (const QString& folder : live.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name)) {
+        QFile f(live.filePath(folder + QStringLiteral("/offline.json")));
+        if (!f.open(QIODevice::ReadOnly)) continue;
+        const QJsonObject o = QJsonDocument::fromJson(f.readAll()).object();
+        // As SyncSession reads it: edits wait when "mine" is there; a count that is missing is one.
+        if (!o.contains(QLatin1String("mine"))) continue;
+        out.append({ folder, std::max(1, o.value(QLatin1String("count")).toInt(1)) });
+    }
+    return out;
 }
 
 QUrl ServerList::settingsAccount() const {

@@ -275,8 +275,8 @@ ConnectDialog::ConnectDialog(ServerApi& api, TokenStore& tokens, std::function<v
     });
     connect(deleteBtn_, &QPushButton::clicked, this, &ConnectDialog::deleteSelected);
     confirmDelete_ = [this](const QString& name, bool layout) {
-        return bld::ui::ConfirmDialog::confirmDelete(this, name, layout ? bld::ui::ConfirmDialog::layoutWording()
-                                                                        : bld::ui::DeleteWording{});
+        return bld::ui::ConfirmDialog::confirmDelete(
+            this, name, layout ? bld::ui::ConfirmDialog::layoutWording(info_.keepsDeleted()) : bld::ui::DeleteWording{});
     };
     confirmReturn_ = [this](const QString& name, const Credit& credit, bool give) {
         return bld::ui::ConfirmDialog::ask(this, bld::ui::returnOptions(bld::ui::ReturnKind::Layout, name, credit, give));

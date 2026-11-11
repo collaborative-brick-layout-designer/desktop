@@ -39,6 +39,13 @@ ConfirmDialog::ConfirmDialog(const ConfirmOptions& opts, QWidget* parent) : QDia
     option_->setObjectName(QStringLiteral("confirmOption"));
     option_->hide();
     col->addWidget(option_);
+    warning_ = new QLabel(this);
+    warning_->setObjectName(QStringLiteral("confirmWarning"));
+    warning_->setTextFormat(Qt::PlainText);  // it carries names
+    warning_->setWordWrap(true);
+    warning_->setProperty("danger", true);
+    warning_->hide();
+    col->addWidget(warning_);
 
     if (!opts.typeName.isEmpty()) {
         auto* hint = new QLabel(tr("Type <b>%1</b> to confirm").arg(opts.typeName.toHtmlEscaped()), this);
@@ -87,6 +94,14 @@ void ConfirmDialog::showOption(const QString& text, bool checked) {
     adjustSize();
 }
 
+void ConfirmDialog::showWarning(const QString& text) {
+    warning_->setText(text);
+    warning_->show();
+    adjustSize();
+}
+
+QString ConfirmDialog::warningText() const { return warning_->isHidden() ? QString() : warning_->text(); }
+
 bool ConfirmDialog::optionChosen() const {
     return !option_->isHidden() && option_->isChecked();
 }
@@ -124,23 +139,30 @@ bool ConfirmDialog::confirmDelete(QWidget* parent, const QString& name, const De
 
 QString ConfirmDialog::undoWithCtrlZ() { return tr("You can undo this with Ctrl+Z."); }
 
-DeleteWording ConfirmDialog::layoutWording() {
+QString ConfirmDialog::waitsInRecentlyDeleted() {
+    return tr("It waits 30 days in Recently deleted on the website’s Home, where you can restore it.");
+}
+
+DeleteWording ConfirmDialog::layoutWording(bool recentlyDeleted) {
     DeleteWording w;
+    if (recentlyDeleted) w.undo = waitsInRecentlyDeleted();
     w.removes = tr("The layout, its history and its share links are deleted for everyone who can open it.");
     w.keeps = tr("The modules, parts and venues it uses aren’t deleted.");
     w.typeName = true;
     return w;
 }
 
-DeleteWording ConfirmDialog::moduleWording() {
+DeleteWording ConfirmDialog::moduleWording(bool recentlyDeleted) {
     DeleteWording w;
+    if (recentlyDeleted) w.undo = waitsInRecentlyDeleted();
     w.removes = tr("The module and its versions are deleted, and it leaves any collections it was in.");
     w.keeps = tr("Layouts that already use it don’t change.");
     return w;
 }
 
-DeleteWording ConfirmDialog::venueWording() {
+DeleteWording ConfirmDialog::venueWording(bool recentlyDeleted) {
     DeleteWording w;
+    if (recentlyDeleted) w.undo = waitsInRecentlyDeleted();
     w.removes = tr("The venue is deleted from the Venue library.");
     w.keeps = tr("Layouts made from it keep their own copy of the venue.");
     return w;

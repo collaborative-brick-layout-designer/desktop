@@ -119,6 +119,30 @@
     </message>
 </context>
 <context>
+    <name>bld::sync::ServersDialog</name>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to “%1” never reached the server.</source>
+        <translation>
+            <numerusform>%n change you made offline to “%1” never reached the server.</numerusform>
+            <numerusform>%n changes you made offline to “%1” never reached the server.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to a layout never reached the server.</source>
+        <translation>
+            <numerusform>%n change you made offline to a layout never reached the server.</numerusform>
+            <numerusform>%n changes you made offline to a layout never reached the server.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s) you made offline to %1 layouts never reached the server.</source>
+        <translation>
+            <numerusform>%n change you made offline to %1 layouts never reached the server.</numerusform>
+            <numerusform>%n changes you made offline to %1 layouts never reached the server.</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::sync::UploadPartsDialog</name>
     <message numerus="yes">
         <source>Uploading %n part(s)…</source>
