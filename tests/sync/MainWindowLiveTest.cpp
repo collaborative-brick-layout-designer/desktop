@@ -2604,3 +2604,58 @@ TEST_F(MainWindowLive, PicturesOfTheStatusBarInANarrowWindow) {
                                                                                               : QStringLiteral("light"))));
     }
 }
+
+// BLD_REVIEW_SHOTS=<dir>: pictures for a PR, light and dark (skipped
+// otherwise): the question Save to Server asks when the layout uses parts
+// only another of your servers has.
+TEST_F(MainWindowLive, PicturesOfTheSaveToServerWarning) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    QTemporaryDir root;
+    const QString base = root.path() + QStringLiteral("/server-parts/");
+    writeServerPart(base + QStringLiteral("friend.example/custom"), QStringLiteral("FRIENDPART"));
+    parts_.addSearchPath(base + QStringLiteral("friend.example"));
+    parts_.scan();
+    {
+        sync::ServerList list = sync::ServerList::load();
+        list.add(QUrl(QStringLiteral("https://friend.example")), QStringLiteral("Sam’s server"));
+        list.rename(http_.base(), QStringLiteral("Train club"));
+        list.save();
+    }
+    // English plurals ("1 part", "3 parts"), as the app shows them.
+    QTranslator english;
+    for (const QString& qm : { QStringLiteral(":/i18n/bld_en.qm"), QStringLiteral(":/translations/bld_en.qm"),
+                               qEnvironmentVariable("BLD_EN_QM") })
+        if (!qm.isEmpty() && english.load(qm)) {
+            QCoreApplication::installTranslator(&english);
+            break;
+        }
+    for (QAction* a : window_->findChildren<QAction*>())
+        if (QString(a->text()).remove(QLatin1Char('&')) == QStringLiteral("Disconnect")) a->trigger();
+    ASSERT_FALSE(live_->active());
+    for (int i = 0; i < 3; ++i) view_->addPartAtViewCenter(QStringLiteral("FRIENDPART"));
+    http_.reply("/api/parts/catalog", 200, { { QStringLiteral("parts"), QJsonArray{} } });
+    ui::theme::PrefsStore store(QStringLiteral("review-save-warning-shots"));
+    ui::theme::ThemeManager themer(store);
+    for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+        ui::theme::AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        waitFor([] { return false; }, 400);
+        std::optional<bool> go;
+        Answers cancel{ { [&](QWidget* w) {
+            waitFor([] { return false; }, 300);
+            EXPECT_TRUE(w->grab().save(out + QStringLiteral("/save-warning-%1.png")
+                                                 .arg(mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark")
+                                                                                            : QStringLiteral("light"))));
+            press(QStringLiteral("Cancel"))(w);
+        } } };
+        cancel.during([&] {
+            window_->confirmOtherServerParts(http_.base(), QStringLiteral("bld_pat_test"), window_.get(), [&](bool g) { go = g; });
+            ASSERT_TRUE(waitFor([&] { return go.has_value() && cancel.done(); }));
+        });
+        QCoreApplication::removeTranslator(&english);
+        QCoreApplication::installTranslator(&english);
+    }
+    QCoreApplication::removeTranslator(&english);
+}
