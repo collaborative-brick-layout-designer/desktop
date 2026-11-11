@@ -140,6 +140,14 @@ constexpr Raw kDesktopOnly[] = {
                                      "friend shared."),
       QT_TRANSLATE_NOOP("HelpTexts", "Add a folder and its parts appear next to the built-in ones. "
                                      "Removing a folder here doesn’t delete anything.") },
+    { "prefs.otherServersParts", "",
+      QT_TRANSLATE_NOOP("HelpTexts", "Other servers’ parts"),
+      QT_TRANSLATE_NOOP("HelpTexts", "While a layout is live on a server, parts that only another of your "
+                                     "servers has are grayed out and can’t be placed."),
+      QT_TRANSLATE_NOOP("HelpTexts", "Everyone working on a live layout gets its parts from that server, so "
+                                     "nobody else could see a part it doesn’t have. Your own parts and the "
+                                     "built-in ones are not affected. Untick this to leave the grayed parts "
+                                     "out of the list.") },
     { "parts.getMore", "",
       QT_TRANSLATE_NOOP("HelpTexts", "Get more parts"),
       QT_TRANSLATE_NOOP("HelpTexts", "Packs of parts for BlueBrick layouts, like trains, roads or Duplo."),

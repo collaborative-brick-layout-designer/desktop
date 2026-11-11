@@ -222,6 +222,11 @@ public:
     // Old part numbers (<OldNameList>) resolve to the part that replaced them.
     std::optional<PartMetadata> metadata(const QString& key) const;
 
+    // The other files found under this key's name (their .xml paths): the
+    // first part read wins, and these are the copies it stood in front of,
+    // e.g. the same part downloaded from a second server.
+    QStringList otherCopies(const QString& key) const;
+
     // The part TrackDesigner id `tdId` maps to (BlueBrick's preference: the
     // current registry's id, then a default id, then any), or empty.
     QString partForTrackDesignerId(int tdId, const QString& registry = QStringLiteral("default")) const;
@@ -290,6 +295,7 @@ private:
     QStringList searchPaths_;
     QHash<QString, PartMetadata> index_;
     QHash<QString, QString>      renamed_;   // lower-cased old name -> current key
+    QHash<QString, QStringList>  otherCopies_;  // key -> the .xml files the indexed one stood in front of
     QHash<int, QStringList>      trackDesignerIds_;  // TD id -> keys using it
     QHash<QString, QString>      fourDBrixNames_;    // 4DBrix name -> key
     QHash<QString, QPixmap>      pixmapCache_;

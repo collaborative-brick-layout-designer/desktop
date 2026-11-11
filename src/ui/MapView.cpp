@@ -2088,6 +2088,7 @@ void MapView::addPartAtScenePos(const QString& partKey, QPointF sceneCenterPx, s
                                 7000);
         return;
     }
+    if (placementRefused({ partKey }, PlacingPart)) return;
     if (!budgetAllows(partKey)) return;
 
     // Use the active (selected) layer if it's a brick layer — matches
@@ -2535,6 +2536,15 @@ void MapView::setGridOrigin(QPoint corner) {
     if (grid.cellIndexCorner == corner) return;
     grid.cellIndexCorner = corner;
     viewport()->update();  // indices are painted with the background
+}
+
+bool MapView::placementRefused(const QStringList& partKeys, Placing what) {
+    if (!placementRefusal) return false;
+    const QString why = placementRefusal(partKeys, what);
+    if (why.isEmpty()) return false;
+    if (auto* mw = window())
+        if (auto* sb = mw->findChild<QStatusBar*>()) sb->showMessage(why, 10000);
+    return true;
 }
 
 bool MapView::budgetAllows(const QString& part, int quantity) {
@@ -3289,6 +3299,14 @@ std::optional<MapView::ModuleSnap> MapView::moduleSnapShift(const std::vector<co
 bool MapView::placeModule(core::Map& loaded, const QString& name, const QString& source, QPointF scenePos,
                           snapfeel::Session* dragSnap, const QString& libraryId, int libraryVersion) {
     if (!map_) return false;
+    {
+        QStringList keys;
+        for (const auto& L : loaded.layers()) {
+            if (!L || L->kind() != core::LayerKind::Brick) continue;
+            for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks) keys << b.partNumber;
+        }
+        if (placementRefused(keys, PlacingModule)) return false;
+    }
     parts::placement::fixStaleAreas(loaded, parts_);
     // Its pictures first, with the loading card ("Loading part pictures… 3 of 12").
     if (preloadPictures(loaded)) finishLoading();

@@ -80,6 +80,11 @@ void MapView::cutSelection() {
 
 void MapView::pasteClipboard() {
     if (!map_ || clipboard_.empty()) return;
+    {
+        QStringList keys;
+        for (const auto& src : clipboard_) keys << src.brick.partNumber;
+        if (placementRefused(keys, PlacingPaste)) return;
+    }
 
     // Compute the clipboard group's own centre across every entry regardless
     // of source layer, so the paste group stays rigid.

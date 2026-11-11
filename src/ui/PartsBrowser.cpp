@@ -72,6 +72,8 @@ constexpr int kFuzzyHayRole = Qt::UserRole + 3;
 constexpr int kCaptionRole  = Qt::UserRole + 4;
 // The part is only used inside sets (<NotListedInLibrary>).
 constexpr int kHiddenRole   = Qt::UserRole + 5;
+// Only another server than the live layout's has the part: it can't be placed.
+constexpr int kElsewhereRole = Qt::UserRole + 6;
 
 // Local QListWidget that supplies a custom MIME payload on drag so MapView
 // can identify a drop as a part-from-the-library rather than generic text.
@@ -366,6 +368,10 @@ void PartsBrowser::showPartMenu(const QPoint& pos) {
     if (it->data(kHiddenRole).toBool()) {
         add->setEnabled(false);
         add->setText(tr("Add '%1' to map (only used inside a set)").arg(key));
+    } else if (it->data(kElsewhereRole).toBool()) {
+        // Only another server has it: it can't go in this live layout.
+        add->setEnabled(false);
+        add->setText(tr("Add '%1' to map (it’s on another server)").arg(key));
     }
     if (const auto set = lib_.metadata(key); set && set->kind == parts::PartKind::Group && !set->subparts.isEmpty()) {
         auto* open = menu.addAction(tr("Show Its Parts"));
@@ -637,13 +643,35 @@ QString PartsBrowser::categoryForPath(const QString& absPath) const {
 }
 
 // The server folder (server-parts/<folder>/...) a part came from, or empty.
-QString serverFolderOf(const parts::PartMetadata& meta) {
-    const QString path = QDir::fromNativeSeparators(meta.xmlFilePath);
+namespace {
+QString serverFolderOfPath(const QString& xmlPath) {
+    const QString path = QDir::fromNativeSeparators(xmlPath);
     const QString marker = QStringLiteral("/server-parts/");
     const qsizetype at = path.indexOf(marker);
     if (at < 0) return {};
     const qsizetype from = at + marker.size();
     return path.mid(from, path.indexOf(QLatin1Char('/'), from) - from);
+}
+}  // namespace
+
+QString serverFolderOf(const parts::PartMetadata& meta) { return serverFolderOfPath(meta.xmlFilePath); }
+
+QString otherServerOf(const parts::PartsLibrary& lib, const QString& key, const QString& liveFolder) {
+    if (liveFolder.isEmpty()) return {};
+    const auto meta = lib.metadata(key);
+    if (!meta) return {};
+    const QString folder = serverFolderOf(*meta);
+    if (folder.isEmpty() || folder == liveFolder) return {};
+    // The part the library shows is another server's, but the live server may have it too.
+    for (const QString& copy : lib.otherCopies(key))
+        if (serverFolderOfPath(copy) == liveFolder) return {};
+    return folder;
+}
+
+QString otherServerReason(const QString& serverLabel) {
+    return PartsBrowser::tr("This part is on another server (%1). It can’t go in this live layout, because nobody else "
+                            "here could see it.")
+        .arg(serverLabel);
 }
 
 QString partTooltip(const parts::PartMetadata& meta, const QString& key, const QString& desc,
@@ -656,7 +684,11 @@ QString partTooltip(const parts::PartMetadata& meta, const QString& key, const Q
     return tip;
 }
 
-QIcon PartsBrowser::partIcon(const QPixmap& picture, int size, qreal dpr) {
+bool PartsBrowser::listsOtherServers() {
+    return QSettings().value(QStringLiteral("parts/showAllServers"), true).toBool();
+}
+
+QIcon PartsBrowser::partIcon(const QPixmap& picture, int size, qreal dpr, qreal opacity) {
     if (picture.isNull() || size <= 0) return {};
     dpr = std::max<qreal>(1.0, dpr);
     const QSize box = QSize(size, size) * dpr;
@@ -668,13 +700,12 @@ QIcon PartsBrowser::partIcon(const QPixmap& picture, int size, qreal dpr) {
     pm.fill(Qt::transparent);
     {
         QPainter painter(&pm);
+        painter.setOpacity(opacity);
         painter.drawPixmap((box.width() - scaled.width()) / 2, (box.height() - scaled.height()) / 2, scaled);
     }
     pm.setDevicePixelRatio(dpr);
     return QIcon(pm);
 }
-
-namespace {
 
 // Each server's parts folder (server-parts/<folder>) with the name it has in "Your servers".
 QHash<QString, QString> serverPartLabels() {
@@ -684,8 +715,11 @@ QHash<QString, QString> serverPartLabels() {
     return out;
 }
 
+namespace {
+
 void setPartIcon(parts::PartsLibrary& lib, const QString& key, QListWidgetItem* item, int size, qreal dpr) {
-    const QIcon icon = PartsBrowser::partIcon(lib.pixmap(key), size, dpr);
+    // A part that can't be placed (another server's) is drawn faint.
+    const QIcon icon = PartsBrowser::partIcon(lib.pixmap(key), size, dpr, item->data(kElsewhereRole).toBool() ? 0.35 : 1.0);
     if (!icon.isNull()) item->setIcon(icon);
 }
 
@@ -696,6 +730,7 @@ QListWidgetItem* makePartItem(parts::PartsLibrary& lib,
                               const QString& key,
                               const QString& cat,
                               const QHash<QString, QString>& serverLabels,
+                              const QString& liveFolder,
                               int iconSize = 0, qreal dpr = 1.0) {
     auto meta = lib.metadata(key);
     if (!meta) return nullptr;
@@ -715,6 +750,13 @@ QListWidgetItem* makePartItem(parts::PartsLibrary& lib,
     auto* item = new QListWidgetItem(caption);
     item->setToolTip(partTooltip(*meta, key, desc, serverLabels));
     item->setTextAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    if (const QString elsewhere = otherServerOf(lib, key, liveFolder); !elsewhere.isEmpty()) {
+        // Grayed, not dragged out: the live layout's server doesn't have it.
+        item->setData(kElsewhereRole, true);
+        item->setFlags(item->flags() & ~Qt::ItemIsDragEnabled);
+        item->setForeground(QApplication::palette().color(QPalette::Disabled, QPalette::Text));
+        item->setToolTip(item->toolTip() + QStringLiteral("\n") + otherServerReason(serverLabels.value(elsewhere, elsewhere)));
+    }
 
     // Go through PartsLibrary::pixmap() rather than loading meta->gifFilePath
     // directly — sets without a companion image (BrickTracks/4DBrix/TrixBrix
@@ -761,11 +803,10 @@ void PartsBrowser::rebuild() {
 
     const auto keys = lib_.keys();
     const auto serverLabels = serverPartLabels();
-    // Live on a server: other servers' parts aren't offered (that server
-    // wouldn't have them), unless the setting says to show them all.
-    const QString onlyServer = QSettings().value(QStringLiteral("parts/showAllServers"), false).toBool()
-                                   ? QString()
-                                   : liveServerFolder_;
+    // Live on a server: parts only another server has can't be placed (nobody
+    // else there could see them). They're listed grayed, or left out when
+    // the setting says so.
+    const bool listOthers = listsOtherServers();
     hiddenCount_ = 0;
     const bool withHidden = listsHidden();
     for (const QString& key : keys) {
@@ -776,13 +817,10 @@ void PartsBrowser::rebuild() {
             ++hiddenCount_;
             if (!withHidden) continue;
         }
-        if (!onlyServer.isEmpty()) {
-            const QString folder = serverFolderOf(*meta);
-            if (!folder.isEmpty() && folder != onlyServer) continue;
-        }
+        if (!listOthers && !otherServerOf(lib_, key, liveServerFolder_).isEmpty()) continue;
         const QString cat = categoryForPath(meta->xmlFilePath);
         cats.insert(cat);
-        if (auto* item = makePartItem(lib_, key, cat, serverLabels)) {
+        if (auto* item = makePartItem(lib_, key, cat, serverLabels, liveServerFolder_)) {
             grid_->addItem(item);
         }
     }
@@ -859,6 +897,7 @@ void PartsBrowser::addOne(const QString& key) {
         refreshHiddenCount();
         return;
     }
+    if (!listsOtherServers() && !otherServerOf(lib_, key, liveServerFolder_).isEmpty()) return;
     const QString cat = categoryForPath(meta->xmlFilePath);
     // Add the category to the dropdown if it's new. blockSignals so the
     // category-changed handler doesn't trigger applyFilter() mid-add.
@@ -877,7 +916,7 @@ void PartsBrowser::addOne(const QString& key) {
         category_->setCurrentIndex(restoreIdx >= 0 ? restoreIdx : 0);
         category_->blockSignals(false);
     }
-    if (auto* item = makePartItem(lib_, key, cat, serverPartLabels(), iconSize_, grid_->devicePixelRatioF())) {
+    if (auto* item = makePartItem(lib_, key, cat, serverPartLabels(), liveServerFolder_, iconSize_, grid_->devicePixelRatioF())) {
         grid_->addItem(item);
         grid_->sortItems(Qt::AscendingOrder);
         refreshBudget();

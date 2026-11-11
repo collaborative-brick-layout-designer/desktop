@@ -176,8 +176,10 @@ TEST_F(SettingsDialogTest, EveryComputerSettingSavesAtOnceAndSaysWhatChanged) {
     EXPECT_FALSE(QSettings().value(QStringLiteral("general/reopenLastFile")).toBool());
     box("updates/checkAtStartup")->click();
     EXPECT_FALSE(QSettings().value(QStringLiteral("updates/checkAtStartup")).toBool());
+    // Other servers' parts are listed (grayed) while live, until this is unticked.
+    EXPECT_TRUE(box("parts/showAllServers")->isChecked());
     box("parts/showAllServers")->click();
-    EXPECT_TRUE(QSettings().value(QStringLiteral("parts/showAllServers")).toBool());
+    EXPECT_FALSE(QSettings().value(QStringLiteral("parts/showAllServers"), true).toBool());
 
     using C = settings::Change;
     EXPECT_EQ(heard, (QList<C>{ C::SnapStep, C::TurnStep, C::ZoomSpeed, C::MapLook, C::MapLook, C::MapLook, C::MapLook,

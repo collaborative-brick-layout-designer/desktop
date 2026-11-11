@@ -211,6 +211,14 @@ public:
     static constexpr double kMinGridSpacingPx = 4.0;
     bool clipboardEmpty() const { return clipboard_.empty(); }
 
+    // What is about to go in the layout, for placementRefusal.
+    enum Placing { PlacingPart, PlacingModule, PlacingPaste };
+    // Why these parts can't go in this layout now, or empty (MainWindow:
+    // live on a server, and only another server has one of them). Asked
+    // before a part or a module is placed and before a paste; the reason is
+    // said in the status bar and nothing is placed.
+    std::function<QString(const QStringList& partKeys, int what)> placementRefusal;
+
     void bringSelectionToFront();
     void sendSelectionToBack();
     // Move the selected parts to that part sheet (an index into the map's
@@ -689,6 +697,8 @@ private:
     // Whether `quantity` more of `part` fit the budget; tells the user
     // when not (as BlueBrick, with an opt-out).
     bool budgetAllows(const QString& part, int quantity = 1);
+    // Whether placementRefusal says no; then the reason is in the status bar.
+    bool placementRefused(const QStringList& partKeys, Placing what);
     void reportBudgetRefusal();
     class BudgetSession* budget_ = nullptr;
 
