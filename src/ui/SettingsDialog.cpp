@@ -304,6 +304,10 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
         legoList_->setIconSize(QSize(28, 28));
         legoList_->setMinimumHeight(260);
         legoList_->setUniformItemSizes(true);
+        legoList_->setTextElideMode(Qt::ElideNone);
+        // Two lines a row (LEGO name and number, then BrickLink's), sized up
+        // front: the list may first be laid out while it is still hidden.
+        const QSize rowSize(240, 2 * legoList_->fontMetrics().lineSpacing() + 14);
         for (const LegoColor& c : legoColors()) {
             const QString bl = c.bl.isEmpty() ? tr("No BrickLink match")
                                : c.blId > 0  ? tr("BrickLink: %1 (%2)").arg(c.bl).arg(c.blId)
@@ -312,6 +316,7 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
             if (c.pearl) text += QStringLiteral(" · ") + tr("pearl, shown flat");
             auto* item = new QListWidgetItem(text, legoList_);
             item->setData(Qt::UserRole, c.id);
+            item->setSizeHint(rowSize);
             item->setData(Qt::AccessibleTextRole, QStringLiteral("%1 (LEGO %2), %3").arg(c.lego).arg(c.id).arg(bl));
             QPixmap pm(QSize(28, 28) * 2);
             pm.setDevicePixelRatio(2);
