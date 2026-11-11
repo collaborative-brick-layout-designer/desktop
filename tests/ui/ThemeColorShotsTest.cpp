@@ -90,9 +90,15 @@ TEST(ThemeColorShots, PicturesForReview) {
             p.colorStyle = look.full ? QStringLiteral("full") : QStringLiteral("original");
 #endif
             store.update(p);
-            QTest::qWait(500);
+            // A new look draws the part pictures again: wait until they have
+            // been loaded for a whole second.
             t.restart();
-            while (loadingParts() && t.elapsed() < 180000) QTest::qWait(200);
+            QElapsedTimer quiet;
+            quiet.start();
+            while (quiet.elapsed() < 1000 && t.elapsed() < 180000) {
+                QTest::qWait(100);
+                if (loadingParts()) quiet.restart();
+            }
             ASSERT_FALSE(loadingParts());
             window.statusBar()->clearMessage();
             QTest::qWait(300);
