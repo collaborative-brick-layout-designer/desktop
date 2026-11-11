@@ -18,9 +18,12 @@
 
 #include <gtest/gtest.h>
 
+#include <QApplication>
+#include <QContextMenuEvent>
 #include <QGraphicsRectItem>
 #include <QGraphicsSimpleTextItem>
 #include <QMouseEvent>
+#include <QTimer>
 #include <QUndoStack>
 
 using namespace bld;
@@ -167,6 +170,43 @@ TEST(LiveLayout, OthersChangesWaitWhileTheMouseIsDownAndKeepTheZoom) {
     ASSERT_TRUE(waitFor([&] { return h.reloads == before + 1; }));
     EXPECT_EQ(firstBrick(*h.view.currentMap()).orientation, 90.0f);
     EXPECT_EQ(h.view.transform(), zoom);
+}
+
+// A right-click opens the map's menu, and the menu takes the button's
+// release. The hold the press began used to last until the next click on
+// the map, so nothing others did showed until then.
+TEST(LiveLayout, ARightClickMenuDoesntLeaveOthersChangesWaiting) {
+    Harness h;
+    h.open();
+    h.view.resize(600, 400);
+    h.view.show();
+    const QPoint at(10, 10);
+    const QPoint global = h.view.viewport()->mapToGlobal(at);
+    QMouseEvent press(QEvent::MouseButtonPress, QPointF(at), QPointF(global), Qt::RightButton, Qt::RightButton, Qt::NoModifier);
+    QCoreApplication::sendEvent(h.view.viewport(), &press);
+    // The menu opens and is closed again, with no release reaching the map.
+    bool menuShown = false;
+    QTimer closer;
+    closer.setInterval(20);
+    QObject::connect(&closer, &QTimer::timeout, [&] {
+        if (QWidget* menu = QApplication::activePopupWidget()) {
+            menuShown = true;
+            menu->close();
+        }
+    });
+    closer.start();
+    QContextMenuEvent menu(QContextMenuEvent::Mouse, at, global);
+    QCoreApplication::sendEvent(h.view.viewport(), &menu);
+    closer.stop();
+    ASSERT_TRUE(menuShown);
+
+    const int before = h.reloads;
+    h.server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 90.0f; });
+    // The next thing the map hears (the mouse moving over it) lets it in.
+    QMouseEvent move(QEvent::MouseMove, QPointF(at) + QPointF(5, 5), QPointF(global) + QPointF(5, 5), Qt::NoButton, Qt::NoButton, Qt::NoModifier);
+    QCoreApplication::sendEvent(h.view.viewport(), &move);
+    ASSERT_TRUE(waitFor([&] { return h.reloads == before + 1; }));
+    EXPECT_EQ(firstBrick(*h.view.currentMap()).orientation, 90.0f);
 }
 
 TEST(LiveLayout, ViewOnlyPutsEditsBackAndSendsNothing) {

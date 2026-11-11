@@ -126,6 +126,9 @@ private:
     bool active_ = false;
     bool signedOut_ = false;
     bool reloading_ = false;
+    // A right-click's menu opened: it takes the button's release, so the
+    // hold the press began ends once the menu has closed (eventFilter).
+    bool afterMenu_ = false;
     bool clearing_ = false;
     bool reloadedOnce_ = false;
     // The parts on the map before an undo or redo, until its reload picks what came back.

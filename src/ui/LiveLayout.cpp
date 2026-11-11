@@ -8,6 +8,7 @@
 #include "core/Map.h"
 #include "core/ModuleEdit.h"
 
+#include <QApplication>
 #include <QDateTime>
 #include <QEvent>
 #include <QGraphicsItem>
@@ -380,7 +381,19 @@ bool LiveLayout::eventFilter(QObject* watched, QEvent* event) {
         cursorStuds_.reset();
         schedulePresence();
     }
+    // A menu opened from the map (a right-click) took the release of the
+    // press that opened it, so the hold never ended: others' changes stayed
+    // off the map until the next click. The first thing the map hears once
+    // the menu has closed ends it. (A new press starts its own hold.)
+    if (afterMenu_ && event->type() != QEvent::ContextMenu && !QApplication::activePopupWidget()) {
+        afterMenu_ = false;
+        if (event->type() != QEvent::MouseButtonPress && event->type() != QEvent::MouseButtonDblClick)
+            QTimer::singleShot(0, this, [this] { session_.holdRemoteChanges(false); });
+    }
     switch (event->type()) {
+    case QEvent::ContextMenu:
+        afterMenu_ = true;
+        break;
     case QEvent::MouseButtonPress:
     case QEvent::MouseButtonDblClick:
         if (session_.readOnly() && leftButton()) return true;
