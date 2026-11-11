@@ -173,33 +173,45 @@ void SyncClient::onMessage(const QByteArray& message) {
     }
 }
 
-void SyncClient::incoming(bool syncStep2, const QByteArray& payload) {
+bool SyncClient::takeIn(bool syncStep2, const QByteArray& payload) {
     QString error;
-    if (!doc_.applyUpdate(payload, &error)) {
-        unreadableUpdate(syncStep2, error);
-        return;
-    }
+    if (doc_.applyUpdate(payload, &error)) return true;
+    unreadableUpdate(syncStep2, error);
+    return false;
+}
+
+void SyncClient::inStep() {
+    resyncAsked_ = false;
+    closedForSize_ = false;
+    setStatus(Status::Synced);
+}
+
+void SyncClient::incoming(bool syncStep2, const QByteArray& payload) {
+    if (!takeIn(syncStep2, payload)) return;
     emit remoteChange();
     // The answer to our step 1: we now have everything the server had.
-    if (syncStep2) {
-        resyncAsked_ = false;
-        closedForSize_ = false;
-        setStatus(Status::Synced);
-    }
+    if (syncStep2) inStep();
 }
 
 void SyncClient::holdIncoming(bool hold) {
     held_ = hold;
     if (held_ || waiting_.empty()) return;
+    // Everything that waited goes in, then the editor is told once (it
+    // reads the layout again for each telling).
     const auto waited = std::exchange(waiting_, {});
+    bool any = false;
+    bool answered = false;
     for (const auto& [syncStep2, payload] : waited) {
         // Closed meanwhile (an update that can't be read ends the session).
         if (!wantOpen_) break;
-        // A step 2 from a connection that has since dropped still holds
-        // changes to take in, but it no longer says we're in step.
-        const bool connected = socket_.state() == QAbstractSocket::ConnectedState;
-        incoming(syncStep2 && connected, payload);
+        if (!takeIn(syncStep2, payload)) continue;
+        any = true;
+        answered = answered || syncStep2;
     }
+    if (any) emit remoteChange();
+    // A step 2 from a connection that has since dropped held changes to
+    // take in, but it no longer says we're in step.
+    if (answered && wantOpen_ && socket_.state() == QAbstractSocket::ConnectedState) inStep();
 }
 
 void SyncClient::unreadableUpdate(bool syncStep2, const QString& why) {

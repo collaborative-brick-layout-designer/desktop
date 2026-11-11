@@ -95,8 +95,13 @@ private:
     void onConnected();
     void onDisconnected();
     void onMessage(const QByteArray& message);
-    // A sync step 2 or an update from the server goes into the document.
+    // A sync step 2 or an update from the server goes into the document,
+    // and the editor is told.
     void incoming(bool syncStep2, const QByteArray& payload);
+    // Into the document only; false when it couldn't be read (dealt with).
+    bool takeIn(bool syncStep2, const QByteArray& payload);
+    // The server's answer to our step 1 is in: we have all it had.
+    void inStep();
     void unreadableUpdate(bool syncStep2, const QString& why);
     void send(const QByteArray& message);
     void ping();

@@ -68,10 +68,20 @@ TEST(SyncSession, RemoteChangesWaitWhileHeld) {
     session.holdRemoteChanges(false);
     EXPECT_EQ(changed, before + 1);
     EXPECT_EQ(firstBrick(*session.currentMap()).orientation, 180.0f);
+    // Several changes that waited are told as one.
+    session.holdRemoteChanges(true);
+    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 90.0f; });
+    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 270.0f; });
+    server.remoteEdit([](core::Map& m) { firstBrick(m).displayArea.translate(8, 0); });
+    waitFor([] { return false; }, 200);
+    EXPECT_EQ(changed, before + 1);
+    session.holdRemoteChanges(false);
+    EXPECT_EQ(changed, before + 2);
+    EXPECT_EQ(firstBrick(*session.currentMap()).orientation, 270.0f);
     // Nothing pending: releasing again says nothing.
     session.holdRemoteChanges(true);
     session.holdRemoteChanges(false);
-    EXPECT_EQ(changed, before + 1);
+    EXPECT_EQ(changed, before + 2);
 }
 
 // The edit a drag ends with is made on the layout as the editor showed it,
