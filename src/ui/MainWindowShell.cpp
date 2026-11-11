@@ -26,7 +26,9 @@
 #include "theme/Icons.h"
 #include "theme/PanelHeader.h"
 #include "PrefsSync.h"
+#include "ServerLibrary.h"
 #include "ServerList.h"
+#include "ServerWindow.h"
 
 #include "../core/Layer.h"
 #include "../core/LayerBrick.h"
@@ -622,7 +624,16 @@ void MainWindow::startTourNamed(const QString& id) {
         }
     }
     if (id == QLatin1String("clubs")) {
-        tours::startTourOnNext("bld::ui::ServerWindow", id, store);
+        // Once the server has said which clubs you're in: the steps about a
+        // club's page and whose things to show need that.
+        const auto ready = [this] { return serverLibrary_->state() != ServerLibrary::State::Loading; };
+        if (serverWindow_ && serverWindow_->isVisible()) {
+            // Already open: there is no "next window" to wait for.
+            showServerWindow(static_cast<int>(serverWindow_->currentTab()));
+            tours::startTourWhenReady(serverWindow_, id, store, ready);
+            return;
+        }
+        tours::startTourOnNext("bld::ui::ServerWindow", id, store, ready);
         QTimer::singleShot(0, this, [this] { showServerWindow(); });
         return;
     }

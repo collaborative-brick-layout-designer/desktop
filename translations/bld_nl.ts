@@ -10105,6 +10105,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Van mij</translation>
     </message>
     <message>
+        <source>See who is in your club, the roles they hold and when they were last active</source>
+        <translation>Zien wie er in je club zit, welke rollen ze hebben en wanneer ze voor het laatst actief waren</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Terugnemen naar mij…</translation>
     </message>

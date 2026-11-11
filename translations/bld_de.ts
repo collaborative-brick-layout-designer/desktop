@@ -10105,6 +10105,10 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>Meine</translation>
     </message>
     <message>
+        <source>See who is in your club, the roles they hold and when they were last active</source>
+        <translation>Sehen, wer in deinem Club ist, welche Rollen sie haben und wann sie zuletzt aktiv waren</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Zurück zu mir holen…</translation>
     </message>

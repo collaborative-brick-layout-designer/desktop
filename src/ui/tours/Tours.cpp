@@ -6,6 +6,7 @@
 
 #include <QAbstractButton>
 #include <QApplication>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QFrame>
 #include <QHBoxLayout>
@@ -22,6 +23,8 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
+#include <memory>
+
 static void initTourResources() { Q_INIT_RESOURCE(tours); }
 
 namespace bld::ui::tours {
@@ -33,6 +36,7 @@ constexpr int kEdge = 8;    // the card keeps this far from the window's edges
 constexpr int kGap = 12;    // between the control and the card
 constexpr int kCardWidth = 340;
 constexpr int kFollowMs = 250;
+constexpr int kReadyWaitMs = 3000;  // how long a tour waits for a window still getting its lists
 constexpr int kLookTries = 8;  // two seconds to find a control that is still opening
 
 const char* const kTargetProperty = "tourTarget";
@@ -440,13 +444,33 @@ TourOverlay* startTour(QWidget* host, const QString& id, theme::PrefsStore& stor
     return overlay;
 }
 
+void startTourWhenReady(QWidget* host, const QString& id, theme::PrefsStore& store, TourReady ready) {
+    if (!host) return;
+    if (!ready || ready()) {
+        startTour(host, id, store);
+        return;
+    }
+    // Asked a few times a second; the window may close meanwhile (the timer goes with it).
+    auto* poll = new QTimer(host);
+    poll->setInterval(100);
+    const auto waited = std::make_shared<QElapsedTimer>();
+    waited->start();
+    QObject::connect(poll, &QTimer::timeout, host, [host, id, &store, ready = std::move(ready), poll, waited] {
+        if (!ready() && waited->elapsed() < kReadyWaitMs) return;
+        poll->stop();
+        poll->deleteLater();
+        if (host->isVisible()) startTour(host, id, store);
+    });
+    poll->start();
+}
+
 namespace {
 
 // Waits for the next window of a kind to open, then starts the tour on it.
 class StartOnShow : public QObject {
 public:
-    StartOnShow(const char* className, QString id, theme::PrefsStore& store)
-        : QObject(qApp), className_(className), id_(std::move(id)), store_(store) {
+    StartOnShow(const char* className, QString id, theme::PrefsStore& store, TourReady ready)
+        : QObject(qApp), className_(className), id_(std::move(id)), store_(store), ready_(std::move(ready)) {
         qApp->installEventFilter(this);
         QTimer::singleShot(5000, this, [this] { deleteLater(); });
     }
@@ -458,7 +482,9 @@ protected:
             if (w && w->isWindow() && w->inherits(className_)) {
                 fired_ = true;
                 // Once the window has laid itself out.
-                QTimer::singleShot(0, w, [w, id = id_, &store = store_] { startTour(w, id, store); });
+                QTimer::singleShot(0, w, [w, id = id_, &store = store_, ready = ready_] {
+                    startTourWhenReady(w, id, store, ready);
+                });
                 deleteLater();
             }
         }
@@ -469,13 +495,14 @@ private:
     const char* className_;
     QString id_;
     theme::PrefsStore& store_;
+    TourReady ready_;
     bool fired_ = false;
 };
 
 }  // namespace
 
-void startTourOnNext(const char* className, const QString& id, theme::PrefsStore& store) {
-    new StartOnShow(className, id, store);
+void startTourOnNext(const char* className, const QString& id, theme::PrefsStore& store, TourReady ready) {
+    new StartOnShow(className, id, store, std::move(ready));
 }
 
 // ---- the welcome ----------------------------------------------------------

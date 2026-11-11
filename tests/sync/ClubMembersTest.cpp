@@ -12,6 +12,8 @@
 #include "ui/ClubMembersDialog.h"
 #include "ui/ServerLibrary.h"
 #include "ui/ServerWindow.h"
+#include "ui/theme/AppPrefs.h"
+#include "ui/tours/Tours.h"
 
 #include <gtest/gtest.h>
 
@@ -22,6 +24,7 @@
 #include <QImage>
 #include <QJsonArray>
 #include <QLabel>
+#include <QMenu>
 #include <QPointer>
 #include <QPushButton>
 #include <QSettings>
@@ -170,8 +173,8 @@ protected:
         window_->openLink = [this](const QUrl& url) { opened_ << url; };
         window_->showTab(ui::ServerWindow::Tab::Layouts);
         QCoreApplication::processEvents();
-        // All: no club picked, so no Members….
-        EXPECT_TRUE(window_->clubMembersButton()->isHidden());
+        // All: no club picked, and Members… is there all the same (you're in a club).
+        EXPECT_FALSE(window_->clubMembersButton()->isHidden());
         QComboBox* show = window_->showFilter();
         const int at = show->findData(QStringLiteral("train"));
         EXPECT_GE(at, 0);
@@ -402,4 +405,112 @@ TEST_F(ClubMembersTest, ClosingTheWindowWhileTheMembersLoadIsSafe) {
     d = window_->membersDialog();
     ASSERT_NE(d, nullptr);
     ASSERT_TRUE(waitFor([&] { return d->row(QStringLiteral("cy")) != nullptr; }));
+}
+
+// ---- Members… without picking the club in Show, and the Clubs tour ---------
+//
+// Members… used to show only with a club picked in Show, so with "All" (the
+// default) nobody found the club's page, and the Clubs tour left its "Your
+// club's page" step out for people who are in a club.
+
+namespace {
+
+QJsonObject club(const char* slug, const char* name) {
+    return { { QStringLiteral("slug"), QString::fromLatin1(slug) },
+             { QStringLiteral("name"), QString::fromLatin1(name) },
+             { QStringLiteral("myRole"), QStringLiteral("member") },
+             { QStringLiteral("permissions"), QJsonArray{ QStringLiteral("view_items") } } };
+}
+
+}  // namespace
+
+TEST_F(ClubMembersTest, InOneClubMembersOpensItWithShowOnAllOrMine) {
+    http_.reply("/api/orgs", 200, orgsJson(Me::Member));
+    http_.reply(kMembers, 200, membersJson(false));
+    library_.setServer(http_.base(), QStringLiteral("Club server"), QStringLiteral("bld_pat_members"));
+    ASSERT_TRUE(waitFor([&] { return library_.state() == ui::ServerLibrary::State::Ready; }));
+    window_ = std::make_unique<ui::ServerWindow>(library_);
+    window_->showTab(ui::ServerWindow::Tab::Layouts);
+    QCoreApplication::processEvents();
+    QComboBox* show = window_->showFilter();
+    for (const char* key : { "all", "me" }) {
+        const int at = show->findData(QString::fromLatin1(key));
+        ASSERT_GE(at, 0) << key;
+        show->setCurrentIndex(at);
+        emit show->activated(at);
+        EXPECT_FALSE(window_->clubMembersButton()->isHidden()) << key;
+        EXPECT_EQ(window_->clubMembersButton()->toolTip(),
+                  QStringLiteral("See who is in your club, the roles they hold and when they were last active"));
+    }
+    window_->clubMembersButton()->click();
+    ui::ClubMembersDialog* dialog = window_->membersDialog();
+    ASSERT_NE(dialog, nullptr);
+    EXPECT_EQ(dialog->slug(), QStringLiteral("train"));
+    EXPECT_TRUE(waitFor([&] { return dialog->row(QStringLiteral("cy")) != nullptr; }));
+    // With the club picked the words are about "this club", as before.
+    const int at = show->findData(QStringLiteral("train"));
+    show->setCurrentIndex(at);
+    emit show->activated(at);
+    EXPECT_EQ(window_->clubMembersButton()->toolTip(),
+              QStringLiteral("See who is in this club, the roles they hold and when they were last active"));
+}
+
+TEST_F(ClubMembersTest, InSeveralClubsMembersAsksWhichAndInNoneItIsHidden) {
+    http_.reply("/api/orgs", 200,
+                { { QStringLiteral("orgs"), QJsonArray{ club("train", "Train Club"), club("city", "City Builders") } } });
+    http_.reply(kMembers, 200, membersJson(false));
+    library_.setServer(http_.base(), QStringLiteral("Club server"), QStringLiteral("bld_pat_members"));
+    ASSERT_TRUE(waitFor([&] { return library_.state() == ui::ServerLibrary::State::Ready; }));
+    window_ = std::make_unique<ui::ServerWindow>(library_);
+    window_->showTab(ui::ServerWindow::Tab::Layouts);
+    QCoreApplication::processEvents();
+    ASSERT_FALSE(window_->clubMembersButton()->isHidden());
+    window_->clubMembersButton()->click();
+    EXPECT_EQ(window_->membersDialog(), nullptr);
+    auto* menu = window_->clubMembersButton()->findChild<QMenu*>(QStringLiteral("clubMembersMenu"));
+    ASSERT_NE(menu, nullptr);
+    QStringList names;
+    for (QAction* a : menu->actions()) names << a->text();
+    EXPECT_EQ(names, (QStringList{ QStringLiteral("Train Club"), QStringLiteral("City Builders") }));
+    menu->actions().first()->trigger();
+    menu->close();
+    ASSERT_NE(window_->membersDialog(), nullptr);
+    EXPECT_EQ(window_->membersDialog()->slug(), QStringLiteral("train"));
+    window_->membersDialog()->close();
+
+    // Out of every club (as the server says after you leave): no Members….
+    http_.clear("/api/orgs");
+    http_.reply("/api/orgs", 200, { { QStringLiteral("orgs"), QJsonArray{} } });
+    library_.refresh();
+    EXPECT_TRUE(waitFor([&] { return window_->clubMembersButton()->isHidden(); }));
+}
+
+TEST_F(ClubMembersTest, TheClubsTourShowsEveryStepToSomeoneInAClub) {
+    http_.reply("/api/orgs", 200, orgsJson(Me::Member));
+    library_.setServer(http_.base(), QStringLiteral("Club server"), QStringLiteral("bld_pat_members"));
+    ASSERT_TRUE(waitFor([&] { return library_.state() == ui::ServerLibrary::State::Ready; }));
+    window_ = std::make_unique<ui::ServerWindow>(library_);
+    window_->showTab(ui::ServerWindow::Tab::Layouts);
+    QCoreApplication::processEvents();
+    // Show is on All, as it is the first time.
+    EXPECT_EQ(window_->showFilter()->currentData().toString(), QStringLiteral("all"));
+    auto& store = ui::theme::PrefsStore::instance();
+    ui::tours::TourOverlay* tour = ui::tours::startTour(window_.get(), QStringLiteral("clubs"), store);
+    ASSERT_NE(tour, nullptr);
+    QStringList targets;
+    for (const auto& st : tour->tour().steps) targets << st.target;
+    EXPECT_EQ(targets, (QStringList{ QStringLiteral("servers.status"), QStringLiteral("server.window"),
+                                     QStringLiteral("owners.filter"), QStringLiteral("publish.owner"),
+                                     QStringLiteral("clubs.page"), QStringLiteral("clubs.join") }));
+    // Each step outlines a control: the club's page is Members…, joining is where a new club shows up (Show).
+    QList<QWidget*> outlined;
+    for (int i = 0; i < targets.size(); ++i) {
+        ASSERT_NE(tour->target(), nullptr) << targets.at(i).toStdString();
+        EXPECT_FALSE(tour->hole().isEmpty()) << targets.at(i).toStdString();
+        outlined << tour->target();
+        tour->next();
+    }
+    EXPECT_EQ(outlined.at(4), window_->clubMembersButton());
+    EXPECT_EQ(outlined.at(5), window_->showFilter());
+    tour->finish();
 }

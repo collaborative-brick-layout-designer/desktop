@@ -28,6 +28,7 @@
 #include "ui/PartsBrowser.h"
 #include "ui/ServerWindow.h"
 #include "ui/UpdateCheck.h"
+#include "ui/tours/Tours.h"
 #include "ui/VenueLibraryPanel.h"
 #include "core/Venue.h"
 #include "saveload/BbmWriter.h"
@@ -1088,6 +1089,42 @@ TEST_F(ServerWindowMain, FileOpenFromServerReplacesConnectAndDownloadVenuesAndTh
     EXPECT_TRUE(window_->serverWindow()->isVisible());
     // The same window each time.
     EXPECT_EQ(window_->findChildren<ui::ServerWindow*>().size(), 1);
+}
+
+// Help › Tour: Clubs runs in the Server window. With that window already
+// open it used to do nothing at all: it waited for a window to open.
+TEST_F(ServerWindowMain, TheClubsTourStartsWhetherOrNotTheServerWindowIsAlreadyOpen) {
+    QAction* tourAct = window_->findChild<QAction*>(QStringLiteral("help.tour.clubs"));
+    ASSERT_TRUE(tourAct);
+    const auto overlay = [&]() -> ui::tours::TourOverlay* {
+        ui::ServerWindow* w = window_->serverWindow();
+        if (!w) return nullptr;
+        // A finished tour hides at once and is deleted later.
+        for (auto* o : w->findChildren<ui::tours::TourOverlay*>(QString(), Qt::FindDirectChildrenOnly))
+            if (o->isVisible()) return o;
+        return nullptr;
+    };
+    // Closed: it opens the window and starts there.
+    EXPECT_FALSE(window_->serverWindow());
+    tourAct->trigger();
+    ASSERT_TRUE(waitFor([&] { return overlay() != nullptr; }));
+    EXPECT_TRUE(window_->serverWindow()->isVisible());
+    // In a club: the club's page (Members…) is one of the steps.
+    QStringList targets;
+    for (const auto& st : overlay()->tour().steps) targets << st.target;
+    EXPECT_TRUE(targets.contains(QStringLiteral("clubs.page")));
+    EXPECT_TRUE(targets.contains(QStringLiteral("clubs.join")));
+    overlay()->finish();
+    ASSERT_TRUE(waitFor([&] { return overlay() == nullptr; }));
+
+    // Still open: the tour starts again, in the same window.
+    ASSERT_TRUE(window_->serverWindow()->isVisible());
+    tourAct->trigger();
+    ASSERT_TRUE(waitFor([&] { return overlay() != nullptr; }));
+    EXPECT_EQ(overlay()->tour().id, QStringLiteral("clubs"));
+    overlay()->finish();
+    ASSERT_TRUE(waitFor([&] { return overlay() == nullptr; }));
+    window_->serverWindow()->close();
 }
 
 TEST_F(ServerWindowMain, OpenLiveChecksTheServerThenOpensTheLayout) {

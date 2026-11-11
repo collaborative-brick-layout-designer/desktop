@@ -10036,6 +10036,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>自分</translation>
     </message>
     <message>
+        <source>See who is in your club, the roles they hold and when they were last active</source>
+        <translation>あなたのクラブのメンバー、その役割、最後にアクティブだった時期を見ます</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>自分のものに戻す…</translation>
     </message>

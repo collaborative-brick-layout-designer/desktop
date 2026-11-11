@@ -10105,6 +10105,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Mine</translation>
     </message>
     <message>
+        <source>See who is in your club, the roles they hold and when they were last active</source>
+        <translation>Se hvem som er med i klubben din, rollene de har og når de sist var aktive</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Ta tilbake til mine…</translation>
     </message>

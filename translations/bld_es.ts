@@ -10105,6 +10105,10 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <translation>Lo mío</translation>
     </message>
     <message>
+        <source>See who is in your club, the roles they hold and when they were last active</source>
+        <translation>Ver quién está en tu club, qué roles tiene y cuándo estuvo activo por última vez</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Recuperar para mí…</translation>
     </message>

@@ -10036,6 +10036,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>我的</translation>
     </message>
     <message>
+        <source>See who is in your club, the roles they hold and when they were last active</source>
+        <translation>查看你的俱乐部里有谁、他们的角色以及上次活跃时间</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>收回为我的…</translation>
     </message>
