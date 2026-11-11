@@ -87,10 +87,19 @@ void LibraryApi::send(const QByteArray& verb, const QString& path, const QByteAr
 void LibraryApi::sendJson(const QByteArray& verb, const QString& path, const QJsonObject& body,
                           std::function<void(const QJsonObject&)> ok, Fail failed) {
     const bool get = verb == "GET";
+    Fail notJson = failed;
     send(verb, path, get ? QByteArray() : QJsonDocument(body).toJson(QJsonDocument::Compact),
          get ? QByteArray() : QByteArrayLiteral("application/json"),
-         [ok = std::move(ok)](QNetworkReply* r) {
-             if (ok) ok(QJsonDocument::fromJson(r->readAll()).object());
+         [ok = std::move(ok), notJson = std::move(notJson)](QNetworkReply* r) {
+             const QByteArray raw = r->readAll();
+             const QJsonDocument doc = QJsonDocument::fromJson(raw);
+             // A web page where the JSON should be: another website at this
+             // address answered (its "page not found" page, often with a 200).
+             if (doc.isNull() && !raw.trimmed().isEmpty()) {
+                 if (notJson) notJson(readRefusal(r->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(), raw));
+                 return;
+             }
+             if (ok) ok(doc.object());
          },
          std::move(failed));
 }

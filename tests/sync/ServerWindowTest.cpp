@@ -28,6 +28,7 @@
 #include "ui/PartsBrowser.h"
 #include "ui/ServerWindow.h"
 #include "ui/UpdateCheck.h"
+#include "ui/theme/ThemeManager.h"
 #include "ui/tours/Tours.h"
 #include "ui/VenueLibraryPanel.h"
 #include "core/Venue.h"
@@ -433,6 +434,90 @@ TEST_F(ServerWindowTest, NoServerSignedOutAndOfflineAreFriendlyWithTheButtonThat
     ASSERT_TRUE(waitFor([&] { return window_->row(Tab::Layouts, QStringLiteral("L1")); }));
     EXPECT_TRUE(window_->tabs()->isVisible());
     EXPECT_FALSE(window_->statusLine()->isVisible());
+}
+
+// "Can't reach" says why, in the words Connect uses, and what to do, with
+// Try again: nothing answering, another website at the address, and a
+// proxy's page while the app behind it restarts (the 11-11 checks).
+TEST_F(ServerWindowTest, CantReachSaysWhyAndWhatToDoAndTryAgainBringsTheListsBack) {
+    window_->showTab(Tab::Layouts);
+    const QString keep = QStringLiteral(" Your modules on this computer still work.");
+    // Nothing answers at the address.
+    QTcpServer gone;
+    gone.listen(QHostAddress::LocalHost, 0);
+    const QUrl away(QStringLiteral("http://127.0.0.1:%1").arg(gone.serverPort()));
+    gone.close();
+    library_.setServer(away, QStringLiteral("Away"), QStringLiteral("bld_pat_w"));
+    ASSERT_TRUE(waitFor([&] { return library_.state() == ui::ServerLibrary::State::Offline; }));
+    EXPECT_EQ(window_->statusLine()->text()->text(),
+              QStringLiteral("127.0.0.1 isn't answering. The server may be down or restarting: try again in a minute. If it "
+                             "keeps happening, check the address with whoever runs the server.") +
+                  keep);
+    EXPECT_EQ(window_->statusLine()->button()->text(), QStringLiteral("Try again"));
+    EXPECT_TRUE(window_->statusLine()->button()->isVisible());
+
+    // Another website at the address: its own page where the app's answer should be.
+    FakeHttp site;
+    const QByteArray page = "<!doctype html><html><title>Welcome</title><body>Our shop</body></html>";
+    for (const char* path : { "/api/modules", "/api/orgs", "/api/catalog/settings" }) site.replyRaw(path, 200, page, "text/html");
+    library_.setServer(site.base(), QStringLiteral("Club site"), QStringLiteral("bld_pat_w"));
+    ASSERT_TRUE(waitFor([&] { return library_.state() == ui::ServerLibrary::State::Refused; }));
+    EXPECT_EQ(window_->statusLine()->text()->text(),
+              QStringLiteral("127.0.0.1 answered, but it isn't a Collaborative Brick Layout Designer server (it said 200). "
+                             "Check the address."));
+    EXPECT_EQ(window_->statusLine()->button()->text(), QStringLiteral("Try again"));
+    EXPECT_FALSE(window_->tabs()->isVisible());
+
+    // The club's server, while a proxy in front of it says the app is down.
+    http_.clear("/api/modules");
+    http_.replyRaw("/api/modules", 502, "<html><body><h1>502 Bad Gateway</h1></body></html>", "text/html");
+    http_.reply("/api/modules", 200, modulesJson());
+    library_.setServer(http_.base(), QStringLiteral("Club server"), QStringLiteral("bld_pat_w"));
+    ASSERT_TRUE(waitFor([&] { return library_.state() == ui::ServerLibrary::State::Offline; }));
+    EXPECT_TRUE(window_->statusLine()->text()->text().startsWith(QStringLiteral("127.0.0.1 isn't answering.")))
+        << window_->statusLine()->text()->text().toStdString();
+    EXPECT_TRUE(window_->statusLine()->text()->text().endsWith(keep));
+    // Try again, now it's back: the lists come and the line goes.
+    window_->statusLine()->button()->click();
+    ASSERT_TRUE(waitFor([&] { return library_.state() == ui::ServerLibrary::State::Ready; }));
+    ASSERT_TRUE(waitFor([&] { return window_->row(Tab::Layouts, QStringLiteral("L1")); }));
+    EXPECT_FALSE(window_->statusLine()->isVisible());
+    EXPECT_TRUE(window_->tabs()->isVisible());
+}
+
+// BLD_REVIEW_SHOTS=<dir>: the Server window when it can't reach the server
+// and when another website answers, light and dark, for a PR (skipped
+// otherwise; an older build takes the "before" pictures the same way).
+TEST_F(ServerWindowTest, PicturesOfCantReach) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    ui::theme::PrefsStore store(QStringLiteral("review-cant-reach-shots"));
+    ui::theme::ThemeManager themer(store);
+    window_->resize(900, 560);
+    window_->showTab(Tab::Layouts);
+    QTcpServer gone;
+    gone.listen(QHostAddress::LocalHost, 0);
+    const QUrl away(QStringLiteral("http://127.0.0.1:%1").arg(gone.serverPort()));
+    gone.close();
+    FakeHttp site;
+    const QByteArray page = "<!doctype html><html><title>Welcome</title></html>";
+    for (const char* path : { "/api/modules", "/api/orgs", "/api/catalog/settings" }) site.replyRaw(path, 404, page, "text/html");
+    int n = 0;
+    for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+        ui::theme::AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        const QString scheme = mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark") : QStringLiteral("light");
+        const QString token = QStringLiteral("bld_pat_shot%1").arg(++n);
+        library_.setServer(away, QStringLiteral("Away"), token);
+        ASSERT_TRUE(waitFor([&] { return library_.state() == ui::ServerLibrary::State::Offline; }));
+        waitFor([] { return false; }, 300);
+        EXPECT_TRUE(window_->grab().save(out + QStringLiteral("/server-cant-reach-%1.png").arg(scheme)));
+        library_.setServer(site.base(), QStringLiteral("Club site"), token);
+        ASSERT_TRUE(waitFor([&] { return library_.state() != ui::ServerLibrary::State::Loading && library_.state() != ui::ServerLibrary::State::Offline; }));
+        waitFor([] { return false; }, 300);
+        EXPECT_TRUE(window_->grab().save(out + QStringLiteral("/server-not-ours-%1.png").arg(scheme)));
+    }
 }
 
 TEST_F(ServerWindowTest, ALayoutOpensLiveDownloadsAsACopyAndItsOwnerCanDeleteIt) {

@@ -251,12 +251,11 @@ void ServerApi::fetchVersion() {
             // An answer, but not one of ours: most often a wrong address (another website).
             ServerRefusal plain;
             plain.status = status;
-            if (!isFirewallBlock(refusal) && text == failureText(plain))
-                text =
-                    tr("%1 answered, but it isn't a Collaborative Brick Layout Designer server (it said %2). "
-                       "Check the address.")
-                        .arg(base_.host())
-                        .arg(status);
+            // A proxy's page for an app that is down: "isn't answering, try again in a minute".
+            if (isServerDown(refusal))
+                text = networkFailureText(QNetworkReply::ConnectionRefusedError, base_.host());
+            else if (!isFirewallBlock(refusal) && text == failureText(plain))
+                text = notOurServerText(base_.host(), status);
             emit requestFailed(QStringLiteral("version"), text, needsSignIn(refusal));
             return;
         }

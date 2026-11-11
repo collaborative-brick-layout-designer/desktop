@@ -2232,6 +2232,10 @@
         <translation>サーバー</translation>
     </message>
     <message>
+        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
+        <translation>%1 は応答しましたが、Collaborative Brick Layout Designer のサーバーではありません (応答: %2)。アドレスを確認してください。</translation>
+    </message>
+    <message>
         <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
         <translation>このレイアウトは新しいバージョンの Collaborative Brick Layout Designer で保存されているため、このバージョンではライブのままにできません。もう一度ライブで作業するには、新しいバージョンをダウンロードしてください（ヘルプ &gt; 更新を確認）。</translation>
     </message>
@@ -3270,10 +3274,6 @@
     <message>
         <source>Use https:// for a server on another machine (http:// only works for this computer).</source>
         <translation>別のマシンのサーバーには https:// を使ってください（http:// はこのコンピューター上でのみ使えます）。</translation>
-    </message>
-    <message>
-        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
-        <translation>%1 は応答しましたが、Collaborative Brick Layout Designer のサーバーではありません (応答: %2)。アドレスを確認してください。</translation>
     </message>
     <message>
         <source>The server answered %1</source>
@@ -9808,6 +9808,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Loading…</source>
         <translation>読み込み中…</translation>
+    </message>
+    <message>
+        <source>Your modules on this computer still work.</source>
+        <translation>このコンピューターのモジュールはそのまま使えます。</translation>
     </message>
     <message>
         <source>Can&apos;t reach %1 right now. Your modules on this computer still work.</source>

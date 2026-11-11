@@ -731,7 +731,9 @@ TEST_F(LibraryTabs, SignedOutOfflineAndRefusedEachSayWhatToDo) {
     gone.close();
     library_.setServer(unreachable, QStringLiteral("Away"), QStringLiteral("bld_pat_t"));
     ASSERT_TRUE(waitFor([&] { return library_.state() == ui::ServerLibrary::State::Offline; }));
-    EXPECT_TRUE(line->text()->text().contains(QStringLiteral("Can't reach Away")));
+    // Why, in Connect's words, and that the modules here still work.
+    EXPECT_TRUE(line->text()->text().startsWith(QStringLiteral("127.0.0.1 isn't answering."))) << line->text()->text().toStdString();
+    EXPECT_TRUE(line->text()->text().endsWith(QStringLiteral("Your modules on this computer still work.")));
     EXPECT_EQ(line->button()->text(), QStringLiteral("Try again"));
 }
 

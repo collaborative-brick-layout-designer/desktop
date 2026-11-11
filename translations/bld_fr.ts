@@ -2243,6 +2243,10 @@
         <translation>le serveur</translation>
     </message>
     <message>
+        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
+        <translation>%1 a répondu, mais ce n&apos;est pas un serveur Collaborative Brick Layout Designer (réponse %2). Vérifiez l&apos;adresse.</translation>
+    </message>
+    <message>
         <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
         <translation>Ce plan a été enregistré par une version plus récente de Collaborative Brick Layout Designer, donc cette version ne peut pas le garder en direct. Téléchargez la nouvelle version (Aide &gt; Rechercher des mises à jour) pour y travailler de nouveau en direct.</translation>
     </message>
@@ -3285,10 +3289,6 @@
     <message>
         <source>Use https:// for a server on another machine (http:// only works for this computer).</source>
         <translation>Utilisez https:// pour un serveur sur une autre machine (http:// ne marche que pour cet ordinateur).</translation>
-    </message>
-    <message>
-        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
-        <translation>%1 a répondu, mais ce n&apos;est pas un serveur Collaborative Brick Layout Designer (réponse %2). Vérifiez l&apos;adresse.</translation>
     </message>
     <message>
         <source>The server answered %1</source>
@@ -9879,6 +9879,10 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Loading…</source>
         <translation>Chargement…</translation>
+    </message>
+    <message>
+        <source>Your modules on this computer still work.</source>
+        <translation>Vos modules sur cet ordinateur fonctionnent toujours.</translation>
     </message>
     <message>
         <source>Can&apos;t reach %1 right now. Your modules on this computer still work.</source>

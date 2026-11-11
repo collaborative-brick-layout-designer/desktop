@@ -2232,6 +2232,10 @@
         <translation>服务器</translation>
     </message>
     <message>
+        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
+        <translation>%1 有响应，但它不是 Collaborative Brick Layout Designer 服务器（它返回了 %2）。请检查地址。</translation>
+    </message>
+    <message>
         <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
         <translation>这个布局是由较新版本的 Collaborative Brick Layout Designer 保存的，所以这个版本无法让它保持实时。请下载新版本（帮助 &gt; 检查更新）以再次实时编辑。</translation>
     </message>
@@ -3270,10 +3274,6 @@
     <message>
         <source>Use https:// for a server on another machine (http:// only works for this computer).</source>
         <translation>其他机器上的服务器请使用 https://（http:// 只适用于这台电脑）。</translation>
-    </message>
-    <message>
-        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
-        <translation>%1 有响应，但它不是 Collaborative Brick Layout Designer 服务器（它返回了 %2）。请检查地址。</translation>
     </message>
     <message>
         <source>The server answered %1</source>
@@ -9808,6 +9808,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Loading…</source>
         <translation>正在加载…</translation>
+    </message>
+    <message>
+        <source>Your modules on this computer still work.</source>
+        <translation>这台电脑上的模块仍然可用。</translation>
     </message>
     <message>
         <source>Can&apos;t reach %1 right now. Your modules on this computer still work.</source>

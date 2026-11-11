@@ -2243,6 +2243,10 @@
         <translation>der Server</translation>
     </message>
     <message>
+        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
+        <translation>%1 hat geantwortet, ist aber kein Collaborative-Brick-Layout-Designer-Server (Antwort: %2). Prüf die Adresse.</translation>
+    </message>
+    <message>
         <source>This layout was saved by a newer version of Collaborative Brick Layout Designer, so this version can&apos;t keep it live. Download the new version (Help &gt; Check for Updates) to work on it live again.</source>
         <translation>Dieses Layout wurde von einer neueren Version von Collaborative Brick Layout Designer gespeichert, deshalb kann diese Version es nicht live halten. Lade die neue Version herunter (Hilfe &gt; Nach Updates suchen), um wieder live daran zu arbeiten.</translation>
     </message>
@@ -3285,10 +3289,6 @@
     <message>
         <source>Use https:// for a server on another machine (http:// only works for this computer).</source>
         <translation>Verwende https:// für einen Server auf einem anderen Rechner (http:// geht nur für diesen Computer).</translation>
-    </message>
-    <message>
-        <source>%1 answered, but it isn&apos;t a Collaborative Brick Layout Designer server (it said %2). Check the address.</source>
-        <translation>%1 hat geantwortet, ist aber kein Collaborative-Brick-Layout-Designer-Server (Antwort: %2). Prüf die Adresse.</translation>
     </message>
     <message>
         <source>The server answered %1</source>
@@ -9879,6 +9879,10 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>Loading…</source>
         <translation>Lade…</translation>
+    </message>
+    <message>
+        <source>Your modules on this computer still work.</source>
+        <translation>Deine Module auf diesem Computer funktionieren weiter.</translation>
     </message>
     <message>
         <source>Can&apos;t reach %1 right now. Your modules on this computer still work.</source>
