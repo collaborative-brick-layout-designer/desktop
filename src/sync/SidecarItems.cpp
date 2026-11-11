@@ -223,7 +223,10 @@ bool hasMemberKeys(const QJsonObject& items) {
     return false;
 }
 
-SidecarWrite sidecarWriteFor(const QJsonObject& cache, const QJsonObject& curBlob, const QJsonObject& curItems) {
+SidecarWrite sidecarWriteFor(const QJsonObject& cache, const QJsonObject& curBlob, const QJsonObject& curItems,
+                             bool memberKeys) {
+    // Each module whole, with its list (the shape before the keys).
+    const bool whole = !memberKeys && !hasMemberKeys(curItems);
     // Whether the items are what the layout holds now. When they aren't (a
     // writer that doesn't know them replaced meta.cache, or ids are missing
     // or shared), each module starts again from the list written here.
@@ -231,7 +234,7 @@ SidecarWrite sidecarWriteFor(const QJsonObject& cache, const QJsonObject& curBlo
     const bool current = splittable && !curItems.isEmpty()
                          && curItems.value(QLatin1String(kBlobKey)).toString() == sidecarBlobHash(curBlob)
                          && sidecarIdsUnique(curBlob);
-    const QHash<QString, MemberKeys> memberKeys = memberKeysByModule(curItems);
+    const QHash<QString, MemberKeys> keysByModule = memberKeysByModule(curItems);
     const QString memberPrefix = QLatin1String(kMemberPrefix);
     QJsonObject items;
     // Part keys stay unless a module below drops or changes them (one whose
@@ -263,9 +266,9 @@ SidecarWrite sidecarWriteFor(const QJsonObject& cache, const QJsonObject& curBlo
                 continue;
             }
             const QJsonValue had = curItems.value(k);
-            if (!current || !had.isObject()) {
+            if (whole || !current || !had.isObject()) {
                 // A new module (or one read from meta.cache): the list is its starting list.
-                if (memberKeys.contains(id)) dropMemberKeys(id);
+                if (keysByModule.contains(id)) dropMemberKeys(id);
                 items.insert(k, v);
                 continue;
             }
@@ -278,7 +281,7 @@ SidecarWrite sidecarWriteFor(const QJsonObject& cache, const QJsonObject& curBlo
             QStringList want;
             for (const auto& m : members.toArray())
                 if (m.isString()) want << m.toString();
-            const MemberWrites writes = memberWrites(start, memberKeys.value(id), want);
+            const MemberWrites writes = memberWrites(start, keysByModule.value(id), want);
             for (const QString& part : writes.remove) items.remove(memberKey(id, part));
             for (const auto& [part, value] : writes.set) items.insert(memberKey(id, part), value);
         }

@@ -92,6 +92,13 @@ again. A layout whose modules nobody changes stays in the shape it has.
   reload", the desktop ends the live session and asks for an update. It
   never writes, so nothing is damaged. Edits it made offline stay in its
   own file.
+- **A newer desktop, an older server:** the web app such a server serves
+  would refuse a shape 3 layout, so the desktop doesn't make one there.
+  A server that reads the keys lists the feature `moduleMemberKeys`
+  (`/api/version`, `compat.json`); on a server without it the desktop
+  writes a module's list whole, as before (and still reads and writes keys
+  in a layout that already has them). So the desktop release can go out
+  before the server is updated, and nobody is shut out.
 - **Files:** a file saved or downloaded from a shape 3 layout is the same
   file as before (a full `members` list per module), so an older desktop
   still opens the file.

@@ -55,6 +55,10 @@ public:
     void open(const QUrl& socketUrl, const QString& token, bool readOnly);
     // Where this layout is kept on disk (call before open); empty for none.
     void setCacheDir(const QString& dir) { cacheDir_ = dir; }
+    // Whether the server's web app reads module part keys (it lists the
+    // feature sync::kMemberKeysFeature): only then are they written
+    // (SyncDoc::setMemberKeys). Call before open.
+    void setMemberKeys(bool on) { doc_.setMemberKeys(on); }
     void close();
 
     SyncClient::Status status() const { return client_.status(); }

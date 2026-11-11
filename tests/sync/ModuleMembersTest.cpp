@@ -340,6 +340,59 @@ TEST(ModuleMembers, TheSidecarAFileSavesListsEveryPartAsBefore) {
     EXPECT_EQ(rest, restBefore);
 }
 
+// ── A server whose web app doesn't read the keys ──
+
+TEST(ModuleMembers, TheFeatureIsOneTheContractListsForServers) {
+    QFile f(QStringLiteral(BLD_SOURCE_DIR "/compat/compat.json"));
+    ASSERT_TRUE(f.open(QIODevice::ReadOnly));
+    const QJsonObject c = QJsonDocument::fromJson(f.readAll()).object();
+    EXPECT_TRUE(stringsOf(c.value(QLatin1String("serverFeatures"))).contains(QLatin1String(sync::kMemberKeysFeature)));
+    // Not one the desktop tells people is missing: it simply writes the list whole.
+    EXPECT_FALSE(stringsOf(c.value(QLatin1String("desktopUses"))).contains(QLatin1String(sync::kMemberKeysFeature)));
+}
+
+// There the desktop writes a module's list whole, as before: the layout
+// stays in the shape that web app reads.
+TEST(ModuleMembers, OnAServerWithoutTheFeatureTheListIsWrittenWholeAndTheShapeStays) {
+    Person me(7);
+    me.doc.setMemberKeys(false);
+    me.add(me.p[2]);
+    me.takeOut(me.p[0]);
+    EXPECT_TRUE(partKeys(me.doc).isEmpty());
+    EXPECT_EQ(schemaOf(me.doc), 1);
+    EXPECT_TRUE(sync::canReadDoc(schemaOf(me.doc), 2, 1));
+    EXPECT_EQ(sorted(stringsOf(itemsOf(me.doc).value(QStringLiteral("m:") + me.module).toObject().value(QLatin1String("members")))),
+              sorted({ me.p[1], me.p[2] }));
+    EXPECT_EQ(me.members(), sorted({ me.p[1], me.p[2] }));
+    EXPECT_EQ(cachedMembers(me.doc, me.module), sorted({ me.p[1], me.p[2] }));
+    // Undo and redo as ever.
+    EXPECT_FALSE(me.doc.undo().isEmpty());
+    EXPECT_EQ(me.members(), sorted({ me.p[0], me.p[1], me.p[2] }));
+    EXPECT_FALSE(me.doc.redo().isEmpty());
+    EXPECT_EQ(me.members(), sorted({ me.p[1], me.p[2] }));
+    // A build that knows the keys reads it, and its first part change
+    // starts from that list.
+    Person other(8);
+    ASSERT_TRUE(other.doc.applyUpdate(me.doc.diffSince(other.doc.stateVector())));
+    other.add(other.p[4]);
+    EXPECT_EQ(other.members(), sorted({ me.p[1], me.p[2], me.p[4] }));
+    EXPECT_EQ(schemaOf(other.doc), 3);
+}
+
+// A layout that already has part keys (someone who reads them wrote them):
+// the keys are used, whatever the server says.
+TEST(ModuleMembers, ALayoutThatAlreadyHasKeysKeepsUsingThem) {
+    Person me(7);
+    me.add(me.p[2]);
+    ASSERT_EQ(partKeys(me.doc).size(), 1);
+    me.doc.setMemberKeys(false);
+    me.add(me.p[3]);
+    me.takeOut(me.p[0]);
+    EXPECT_EQ(partKeys(me.doc).size(), 3);
+    EXPECT_EQ(me.members(), sorted({ me.p[1], me.p[2], me.p[3] }));
+    EXPECT_EQ(schemaOf(me.doc), 3);
+}
+
 // ── Two desktops, the same instant ──
 
 class TwoPeople : public ::testing::TestWithParam<bool> {

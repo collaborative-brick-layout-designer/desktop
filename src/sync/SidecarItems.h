@@ -48,7 +48,17 @@ struct SidecarWrite {
     QJsonObject items;
     QJsonObject blob;
 };
-SidecarWrite sidecarWriteFor(const QJsonObject& cache, const QJsonObject& curBlob, const QJsonObject& curItems);
+//
+// `memberKeys` false: for a server whose web app doesn't read part keys
+// (it lacks the feature kMemberKeysFeature). A module's list is then
+// written whole in its value, as before the keys, unless the layout
+// already has part keys (someone who reads them wrote them).
+SidecarWrite sidecarWriteFor(const QJsonObject& cache, const QJsonObject& curBlob, const QJsonObject& curItems,
+                             bool memberKeys = true);
+
+// The feature a server lists when its web app reads module part keys
+// (compat/compat.json).
+constexpr char kMemberKeysFeature[] = "moduleMemberKeys";
 
 // Whether `items` holds a module part key (the doc is then shape 3).
 bool hasMemberKeys(const QJsonObject& items);

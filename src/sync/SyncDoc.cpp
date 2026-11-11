@@ -365,6 +365,8 @@ struct SyncDoc::Impl {
         QSet<QString> removed;       // sidecarItems keys it deleted
     };
     std::vector<SidecarStep> undoSteps, redoSteps;
+    // writeMap may write module part keys (setMemberKeys).
+    bool memberKeys = true;
     YTransaction* txn = nullptr;
     Arena arena;
     int ops = 0;  // changes made by the current writeMap
@@ -1222,11 +1224,13 @@ void SyncDoc::init() {
 void SyncDoc::reset() {
     const quint64 id = d_->clientId;
     const bool keep = d_->keepJson;
+    const bool memberKeys = d_->memberKeys;
     yundo_manager_destroy(d_->undo);
     ydoc_destroy(d_->doc);
     d_ = std::make_unique<Impl>();
     d_->clientId = id != 0 ? id + 1 : 0;  // (never one the old doc wrote with)
     d_->keepJson = keep;
+    d_->memberKeys = memberKeys;
     init();
 }
 
@@ -1317,6 +1321,8 @@ void SyncDoc::setKeepJson(bool keep) {
     d_->changes.clear();
 }
 
+void SyncDoc::setMemberKeys(bool on) { d_->memberKeys = on; }
+
 QByteArray SyncDoc::writeMap(const core::Map& map) {
     Impl& d = *d_;
     const QJsonObject want = docJsonFromMap(map, d.keepJson ? &d.parts : nullptr);
@@ -1338,7 +1344,8 @@ QByteArray SyncDoc::writeMap(const core::Map& map) {
         const QJsonObject cache = mergeSidecarCache(blob0, sidecar);
         writesSidecar = meta0.contains(QLatin1String("cache")) || !cache.isEmpty();
         if (!cache.isEmpty())
-            sidecarWrite = sidecarWriteFor(cache, blob0, before0.value(QLatin1String("sidecarItems")).toObject());
+            sidecarWrite =
+                sidecarWriteFor(cache, blob0, before0.value(QLatin1String("sidecarItems")).toObject(), d.memberKeys);
         else sidecarWrite.blob = cache;
         // Part keys: the doc is shape 3 from here (stamped below, in the
         // shape step that undo never takes back).
