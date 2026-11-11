@@ -329,16 +329,14 @@ TEST_F(TwoDesktops, APartDeletedAsTheOtherAddsItToAModuleDropsOutOfTheModule) {
     EXPECT_EQ(mods[0].toObject().value(QLatin1String("members")).toArray(), QJsonArray{ p0 });
 }
 
-// KNOWN LIMIT, written down here so a fix has a test to tighten. A module
-// is one value in the shared layout, so when two desktops change the same
-// module at the very same instant (before either hears of the other), one
-// whole value stays and the other's change to the module is lost. The
-// parts themselves are never lost, and everyone ends up showing the same
-// module. The web puts its own lost change back (moduleMergeGuard.ts); the
-// desktop can't yet: yrs doesn't tell it which value a new one replaced.
+// A module's parts merge: each part added to a module or taken out of it is
+// a key of its own in the shared layout (sync/ModuleMembers.h, doc shape 3),
+// so when two desktops change the same module at the very same instant
+// (before either hears of the other), both changes stay. (Before that the
+// module was one value, and one of the two changes was lost.)
 
 // Both add a part to the same module at the same instant.
-TEST_F(TwoDesktops, BothAddingAPartToTheModuleAtTheSameInstantEndTheSameEverywhere) {
+TEST_F(TwoDesktops, BothAddingAPartToTheModuleAtTheSameInstantBothPartsAreInIt) {
     const QString id = moduleOnBoth();
     a.view.setEditingModule(id);
     b.view.setEditingModule(id);
@@ -346,29 +344,96 @@ TEST_F(TwoDesktops, BothAddingAPartToTheModuleAtTheSameInstantEndTheSameEverywhe
     b.view.undoStack()->push(new edit::SetModuleMembersCommand(b.map(), id, { p0, p2 }, QStringLiteral("Add to module")));
     ASSERT_TRUE(settled());
     ASSERT_NE(a.module(id), nullptr);
-    // One of the two lists (today), or both parts (once it merges).
-    const QSet<QString> members = a.module(id)->memberIds;
-    EXPECT_TRUE(members == (QSet<QString>{ p0, p1 }) || members == (QSet<QString>{ p0, p2 })
-                || members == (QSet<QString>{ p0, p1, p2 }));
+    EXPECT_EQ(a.module(id)->memberIds, (QSet<QString>{ p0, p1, p2 }));
+    EXPECT_EQ(b.module(id)->memberIds, (QSet<QString>{ p0, p1, p2 }));
     // Both parts are still on the map, each once.
     EXPECT_EQ(shown(a.map()).parts.size(), count);
     // And both people are still editing the module.
     EXPECT_EQ(a.view.editingModule(), id);
     EXPECT_EQ(b.view.editingModule(), id);
+    // The layout is doc shape 3 from here: builds that don't know the keys refuse it.
+    EXPECT_EQ(server.doc.toJson().value(QLatin1String("meta")).toObject().value(QLatin1String("schemaVersion")).toInt(), 3);
+}
+
+// One adds a part while the other takes one out, at the same instant.
+TEST_F(TwoDesktops, OneAddsAPartAsTheOtherTakesOneOutBothHappen) {
+    const QString id = moduleOnBoth();
+    a.view.undoStack()->push(new edit::SetModuleMembersCommand(a.map(), id, { p0, p1 }, QStringLiteral("Add to module")));
+    ASSERT_TRUE(waitFor([&] { return b.module(id) && b.module(id)->memberIds == QSet<QString>{ p0, p1 }; }));
+    ASSERT_TRUE(settled());
+    for (int round = 0; round < 3; ++round) {
+        // A takes p0 out while B adds p2; then A puts p0 back while B takes p2 out.
+        a.view.undoStack()->push(new edit::SetModuleMembersCommand(a.map(), id, { p1 }, QStringLiteral("Remove from module")));
+        b.view.undoStack()->push(new edit::SetModuleMembersCommand(b.map(), id, { p0, p1, p2 }, QStringLiteral("Add to module")));
+        ASSERT_TRUE(settled()) << "round " << round;
+        EXPECT_EQ(a.module(id)->memberIds, (QSet<QString>{ p1, p2 })) << "round " << round;
+        a.view.undoStack()->push(new edit::SetModuleMembersCommand(a.map(), id, { p0, p1, p2 }, QStringLiteral("Add to module")));
+        b.view.undoStack()->push(new edit::SetModuleMembersCommand(b.map(), id, { p1 }, QStringLiteral("Remove from module")));
+        ASSERT_TRUE(settled()) << "round " << round;
+        EXPECT_EQ(b.module(id)->memberIds, (QSet<QString>{ p0, p1 })) << "round " << round;
+    }
+    EXPECT_EQ(shown(a.map()).parts.size(), count);
 }
 
 // One renames the module while the other adds a part to it, at the same instant.
-TEST_F(TwoDesktops, ARenameAndAnAddedPartAtTheSameInstantEndTheSameEverywhere) {
+TEST_F(TwoDesktops, ARenameAndAnAddedPartAtTheSameInstantBothStay) {
     const QString id = moduleOnBoth();
     a.view.undoStack()->push(new edit::RenameModuleCommand(a.map(), id, QStringLiteral("Harbour East")));
     b.view.undoStack()->push(new edit::SetModuleMembersCommand(b.map(), id, { p0, p1 }, QStringLiteral("Add to module")));
     ASSERT_TRUE(settled());
-    ASSERT_NE(a.module(id), nullptr);
-    // The new name, the added part (today: one of them), or both.
-    const bool renamed = a.module(id)->name == QStringLiteral("Harbour East");
-    const bool added = a.module(id)->memberIds == (QSet<QString>{ p0, p1 });
-    EXPECT_TRUE(renamed || added);
-    EXPECT_TRUE(a.module(id)->memberIds.contains(p0));
+    for (Desk* d : { &a, &b }) {
+        ASSERT_NE(d->module(id), nullptr);
+        EXPECT_EQ(d->module(id)->name, QStringLiteral("Harbour East"));
+        EXPECT_EQ(d->module(id)->memberIds, (QSet<QString>{ p0, p1 }));
+    }
+}
+
+// Undo on one desktop takes back its own part and leaves the part the other
+// added at the same instant; Redo puts it back.
+TEST_F(TwoDesktops, UndoOfMyAddedPartLeavesThePartTheOtherAdded) {
+    const QString id = moduleOnBoth();
+    a.view.undoStack()->push(new edit::SetModuleMembersCommand(a.map(), id, { p0, p1 }, QStringLiteral("Add to module")));
+    b.view.undoStack()->push(new edit::SetModuleMembersCommand(b.map(), id, { p0, p2 }, QStringLiteral("Add to module")));
+    ASSERT_TRUE(settled());
+    ASSERT_EQ(a.module(id)->memberIds, (QSet<QString>{ p0, p1, p2 }));
+    ASSERT_TRUE(waitFor([&] { return a.live.canUndo(); }));
+    EXPECT_TRUE(a.live.undo());
+    ASSERT_TRUE(settled());
+    EXPECT_EQ(a.module(id)->memberIds, (QSet<QString>{ p0, p2 }));
+    EXPECT_EQ(b.module(id)->memberIds, (QSet<QString>{ p0, p2 }));
+    ASSERT_TRUE(a.live.canRedo());
+    EXPECT_TRUE(a.live.redo());
+    ASSERT_TRUE(settled());
+    EXPECT_EQ(a.module(id)->memberIds, (QSet<QString>{ p0, p1, p2 }));
+    EXPECT_EQ(b.module(id)->memberIds, (QSet<QString>{ p0, p1, p2 }));
+    // And B's undo takes back only B's.
+    ASSERT_TRUE(b.live.canUndo());
+    EXPECT_TRUE(b.live.undo());
+    ASSERT_TRUE(settled());
+    EXPECT_EQ(a.module(id)->memberIds, (QSet<QString>{ p0, p1 }));
+}
+
+// One desktop loses its connection, both change the same module's parts,
+// and it comes back: both changes are there, without a question asked.
+TEST_F(TwoDesktops, OneOfflineWhileBothChangeTheModulesPartsThenBothChangesAreThere) {
+    const QString id = moduleOnBoth();
+    ASSERT_TRUE(settled());
+    ASSERT_EQ(server.peers.size(), 2U);
+    // (A connected first.)
+    closeWith(server.peers[0], QWebSocketProtocol::CloseCodeGoingAway, {});
+    ASSERT_TRUE(waitFor([&] { return a.live.session().status() != Status::Synced; }));
+    a.view.undoStack()->push(new edit::SetModuleMembersCommand(a.map(), id, { p0, p1 }, QStringLiteral("Add to module")));
+    b.view.undoStack()->push(new edit::SetModuleMembersCommand(b.map(), id, { p0, p2 }, QStringLiteral("Add to module")));
+    b.view.undoStack()->push(new edit::RenameModuleCommand(b.map(), id, QStringLiteral("Harbour East")));
+    ASSERT_TRUE(waitFor([&] { return a.live.session().status() == Status::Synced; }));
+    ASSERT_TRUE(waitFor([&] { return a.live.session().unsyncedEdits() == 0; }));
+    ASSERT_TRUE(settled());
+    for (Desk* d : { &a, &b }) {
+        ASSERT_NE(d->module(id), nullptr);
+        EXPECT_EQ(d->module(id)->memberIds, (QSet<QString>{ p0, p1, p2 }));
+        EXPECT_EQ(d->module(id)->name, QStringLiteral("Harbour East"));
+    }
+    EXPECT_EQ(a.live.statusText(), QStringLiteral("Connected"));
 }
 
 // One deletes the module while the other is editing it: the other isn't

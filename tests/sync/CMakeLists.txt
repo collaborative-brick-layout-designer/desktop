@@ -8,6 +8,7 @@ add_executable(bld_sync_tests
     SyncDocKeptJsonTest.cpp
     DocShapeTest.cpp
     SidecarItemsTest.cpp
+    ModuleMembersTest.cpp
     ContractsTest.cpp
     SyncProtocolTest.cpp
     SyncClientTest.cpp
