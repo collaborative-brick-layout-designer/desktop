@@ -199,6 +199,18 @@
         <translation>Adicione uma pasta e as peças dela aparecem ao lado das incluídas. Remover uma pasta aqui não elimina nada.</translation>
     </message>
     <message>
+        <source>Other servers’ parts</source>
+        <translation>Peças dos outros servidores</translation>
+    </message>
+    <message>
+        <source>While a layout is live on a server, parts that only another of your servers has are grayed out and can’t be placed.</source>
+        <translation>Enquanto um layout está ao vivo num servidor, as peças que só outro dos seus servidores tem ficam a cinzento e não podem ser colocadas.</translation>
+    </message>
+    <message>
+        <source>Everyone working on a live layout gets its parts from that server, so nobody else could see a part it doesn’t have. Your own parts and the built-in ones are not affected. Untick this to leave the grayed parts out of the list.</source>
+        <translation>Todos os que trabalham num layout ao vivo recebem as peças desse servidor, por isso mais ninguém conseguiria ver uma peça que ele não tenha. As suas próprias peças e as incluídas não são afetadas. Desmarque isto para deixar as peças a cinzento fora da lista.</translation>
+    </message>
+    <message>
         <source>Get more parts</source>
         <translation>Obter mais peças</translation>
     </message>
@@ -6735,6 +6747,14 @@ Guardar mesmo assim?</translation>
         <translation>Adicionar %1 aos seus servidores</translation>
     </message>
     <message>
+        <source>This layout is no longer live</source>
+        <translation>Este layout já não está ao vivo</translation>
+    </message>
+    <message>
+        <source>You’re no longer signed in to %1, so your changes don’t reach the server any more. The layout stays open here as an unsaved copy. To keep it, save it (File &gt; Save As).</source>
+        <translation>Já não tem sessão iniciada em %1, por isso as suas alterações já não chegam ao servidor. O layout fica aberto aqui como uma cópia não guardada. Para a manter, guarde-a (Ficheiro &gt; Guardar como).</translation>
+    </message>
+    <message>
         <source>Save to Server</source>
         <translation>Guardar no servidor</translation>
     </message>
@@ -6753,6 +6773,14 @@ Guardar mesmo assim?</translation>
     <message>
         <source>Saved “%1” on %2</source>
         <translation>“%1” guardado em %2</translation>
+    </message>
+    <message>
+        <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>Este módulo tem peças que estão noutro servidor (%1). Não pode ir para este layout ao vivo, porque mais ninguém aqui as conseguiria ver.</translation>
+    </message>
+    <message>
+        <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>Algumas das peças copiadas estão noutro servidor (%1). Não podem ir para este layout ao vivo, porque mais ninguém aqui as conseguiria ver.</translation>
     </message>
     <message>
         <source>Getting the layout from the server.</source>
@@ -9217,6 +9245,10 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>Adicionar &apos;%1&apos; ao mapa (só usada dentro de um conjunto)</translation>
     </message>
     <message>
+        <source>Add &apos;%1&apos; to map (it’s on another server)</source>
+        <translation>Adicionar &apos;%1&apos; ao mapa (está noutro servidor)</translation>
+    </message>
+    <message>
         <source>Show Its Parts</source>
         <translation>Mostrar as peças dele</translation>
     </message>
@@ -9287,6 +9319,10 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>Also delete it from %1</source>
         <translation>Eliminar também de %1</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1). It can’t go in this live layout, because nobody else here could see it.</source>
+        <translation>Esta peça está noutro servidor (%1). Não pode ir para este layout ao vivo, porque mais ninguém aqui a conseguiria ver.</translation>
     </message>
     <message>
         <source>Loading part pictures…</source>
@@ -10738,8 +10774,8 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>As peças sem número no orçamento podem ser usadas livremente</translation>
     </message>
     <message>
-        <source>While live on a server, also list other servers&apos; parts</source>
-        <translation>Enquanto estiver ao vivo num servidor, listar também as peças dos outros servidores</translation>
+        <source>While live on a server, also list other servers&apos; parts (grayed out)</source>
+        <translation>Enquanto estiver ao vivo num servidor, listar também as peças dos outros servidores (a cinzento)</translation>
     </message>
     <message>
         <source>LDraw library</source>

@@ -63,6 +63,7 @@
 #include <QTcpServer>
 #include <QTemporaryDir>
 #include <QTimer>
+#include <QVariantMap>
 #include <QToolButton>
 #include <QUndoStack>
 #include <algorithm>
@@ -642,6 +643,44 @@ TEST_F(ServerWindowTest, TheCatalogAndCollectionsTabsAskOnlyWhenShown) {
     EXPECT_TRUE(unanswered(http_).isEmpty()) << unanswered(http_).join(QStringLiteral(", ")).toStdString();
 }
 
+// Signed in to two servers: going from one to the other lists the second
+// server's things. The first server's layouts used to stay in the window
+// under the second server's name (both were "connected", so nothing told the
+// window to list again), and Open live then asked the wrong server for them.
+TEST_F(ServerWindowTest, SwitchingToAnotherSignedInServerListsThatServersThings) {
+    open();
+    FakeHttp other;
+    other.reply("/api/orgs", 200, { { QStringLiteral("orgs"), QJsonArray{} } });
+    other.reply("/api/catalog/settings", 200, { { QStringLiteral("modules"), false } });
+    other.reply("/api/modules", 200, { { QStringLiteral("modules"), QJsonArray{} } });
+    other.reply("/api/layouts", 200,
+                { { QStringLiteral("layouts"),
+                    QJsonArray{ QJsonObject{ { QStringLiteral("id"), QStringLiteral("H1") }, { QStringLiteral("title"), QStringLiteral("Hall plan") },
+                                             { QStringLiteral("role"), QStringLiteral("owner") }, { QStringLiteral("updatedAt"), kWhen },
+                                             { QStringLiteral("owner"), myOwner() }, { QStringLiteral("credit"), credit("you") } } } } });
+    other.reply("/api/venues", 200, { { QStringLiteral("venues"), QJsonArray{} } });
+    other.reply("/api/custom-parts", 200, { { QStringLiteral("parts"), QJsonArray{} } });
+    {
+        sync::ServerList list = sync::ServerList::load();
+        list.add(other.base(), QStringLiteral("Show hall"));
+        list.save();
+    }
+    library_.setServer(other.base(), QStringLiteral("Show hall"), QStringLiteral("bld_pat_hall"));
+    ASSERT_TRUE(waitFor([&] { return window_->row(Tab::Layouts, QStringLiteral("H1")) != nullptr; }));
+    for (const char* id : { "L1", "L2", "L3" }) EXPECT_EQ(window_->row(Tab::Layouts, QString::fromLatin1(id)), nullptr) << id;
+    EXPECT_EQ(window_->row(Tab::Venues, QStringLiteral("V1")), nullptr);
+    EXPECT_EQ(window_->row(Tab::Modules, QStringLiteral("m1")), nullptr);
+    EXPECT_EQ(window_->row(Tab::Parts, QStringLiteral("p1")), nullptr);
+    for (const auto& r : other.requests) EXPECT_EQ(r.authorization, QByteArray("Bearer bld_pat_hall")) << r.path.toStdString();
+    // And back: the first server's again, with its own sign-in.
+    http_.requests.clear();
+    library_.setServer(http_.base(), QStringLiteral("Club server"), QStringLiteral("bld_pat_w"));
+    ASSERT_TRUE(waitFor([&] { return window_->row(Tab::Layouts, QStringLiteral("L1")) != nullptr; }));
+    EXPECT_EQ(window_->row(Tab::Layouts, QStringLiteral("H1")), nullptr);
+    for (const auto& r : http_.requests) EXPECT_TRUE(r.authorization.isEmpty() || r.authorization == "Bearer bld_pat_w") << r.path.toStdString();
+    window_.reset();  // before the other server goes
+}
+
 TEST_F(ServerWindowTest, PickingAnotherServerAsksForIt) {
     {
         sync::ServerList list = sync::ServerList::load();
@@ -1201,6 +1240,34 @@ TEST_F(ServerWindowMain, TheServerWindowListsWhatsOnlyHereAndFollowsTheFolders) 
     ASSERT_TRUE(thumbnailed) << seen.join(QStringLiteral(", ")).toStdString() << " / boxes: " << boxes.join(QStringLiteral(", ")).toStdString();
     EXPECT_EQ(count(http_, "PUT", "/api/modules/n1/snapshot"), 1);
     EXPECT_TRUE(boxes.isEmpty()) << boxes.join(QStringLiteral(", ")).toStdString();
+}
+
+// Recent files are offered as "not on the server yet", except a file saved
+// from a layout on this very server: that one is there already, and Send…
+// would only make a second copy. A file from another server is still offered.
+TEST_F(ServerWindowMain, ARecentFileSavedFromThisServerIsntOfferedAsNotOnTheServerYet) {
+    QTemporaryDir dir;
+    const auto touch = [&](const QString& name) {
+        const QString path = dir.filePath(name);
+        QFile f(path);
+        EXPECT_TRUE(f.open(QIODevice::WriteOnly));
+        f.write("x");
+        return path;
+    };
+    const QString fromHere = touch(QStringLiteral("Saved from the club.bld-layout"));
+    const QString fromElsewhere = touch(QStringLiteral("Saved from a friend.bld-layout"));
+    const QString local = touch(QStringLiteral("Only here.bld-layout"));
+    QSettings().setValue(QStringLiteral("recent/list"), QStringList{ fromHere, fromElsewhere, local });
+    QSettings().setValue(QStringLiteral("recent/servers"),
+                         QVariantMap{ { fromHere, http_.base().toString() },
+                                      { fromElsewhere, QStringLiteral("https://friend.example") } });
+    ui::ServerWindow* w = openWindow();
+    ASSERT_TRUE(waitFor([&] { return w->localShown(Tab::Layouts).contains(QStringLiteral("Only here")); }));
+    EXPECT_TRUE(w->localShown(Tab::Layouts).contains(QStringLiteral("Saved from a friend")));
+    EXPECT_FALSE(w->localShown(Tab::Layouts).contains(QStringLiteral("Saved from the club")))
+        << w->localShown(Tab::Layouts).join(QStringLiteral(", ")).toStdString();
+    QSettings().remove(QStringLiteral("recent/list"));
+    QSettings().remove(QStringLiteral("recent/servers"));
 }
 
 TEST_F(ServerWindowMain, YourPartsFromEveryPartsFolderAreOfferedButNotTheBundledOrServerOnes) {

@@ -199,6 +199,18 @@
         <translation>Añade una carpeta y sus piezas aparecen junto a las incluidas. Quitar una carpeta aquí no borra nada.</translation>
     </message>
     <message>
+        <source>Other servers’ parts</source>
+        <translation>Piezas de otros servidores</translation>
+    </message>
+    <message>
+        <source>While a layout is live on a server, parts that only another of your servers has are grayed out and can’t be placed.</source>
+        <translation>Mientras una maqueta está en directo en un servidor, las piezas que solo tiene otro de tus servidores salen atenuadas y no se pueden colocar.</translation>
+    </message>
+    <message>
+        <source>Everyone working on a live layout gets its parts from that server, so nobody else could see a part it doesn’t have. Your own parts and the built-in ones are not affected. Untick this to leave the grayed parts out of the list.</source>
+        <translation>Todos los que trabajan en una maqueta en directo reciben sus piezas de ese servidor, así que nadie más podría ver una pieza que no tenga. Tus propias piezas y las incluidas no se ven afectadas. Desmarca esto para quitar de la lista las piezas atenuadas.</translation>
+    </message>
+    <message>
         <source>Get more parts</source>
         <translation>Conseguir más piezas</translation>
     </message>
@@ -6735,6 +6747,14 @@ Save anyway?</source>
         <translation>Añadir %1 a tus servidores</translation>
     </message>
     <message>
+        <source>This layout is no longer live</source>
+        <translation>Esta maqueta ya no está en directo</translation>
+    </message>
+    <message>
+        <source>You’re no longer signed in to %1, so your changes don’t reach the server any more. The layout stays open here as an unsaved copy. To keep it, save it (File &gt; Save As).</source>
+        <translation>Ya no tienes la sesión iniciada en %1, así que tus cambios ya no llegan al servidor. La maqueta sigue abierta aquí como copia sin guardar. Para conservarla, guárdala (Archivo &gt; Guardar como).</translation>
+    </message>
+    <message>
         <source>Save to Server</source>
         <translation>Guardar en el servidor</translation>
     </message>
@@ -6753,6 +6773,14 @@ Save anyway?</source>
     <message>
         <source>Saved “%1” on %2</source>
         <translation>Se guardó «%1» en %2</translation>
+    </message>
+    <message>
+        <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>Este módulo tiene piezas que están en otro servidor (%1). No puede ir en esta maqueta en directo, porque nadie más aquí podría verlas.</translation>
+    </message>
+    <message>
+        <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>Algunas de las piezas copiadas están en otro servidor (%1). No pueden ir en esta maqueta en directo, porque nadie más aquí podría verlas.</translation>
     </message>
     <message>
         <source>Getting the layout from the server.</source>
@@ -9217,6 +9245,10 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <translation>Añadir «%1» al mapa (solo se usa dentro de un set)</translation>
     </message>
     <message>
+        <source>Add &apos;%1&apos; to map (it’s on another server)</source>
+        <translation>Añadir «%1» al mapa (está en otro servidor)</translation>
+    </message>
+    <message>
         <source>Show Its Parts</source>
         <translation>Mostrar sus piezas</translation>
     </message>
@@ -9287,6 +9319,10 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>Also delete it from %1</source>
         <translation>Borrarlo también de %1</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1). It can’t go in this live layout, because nobody else here could see it.</source>
+        <translation>Esta pieza está en otro servidor (%1). No puede ir en esta maqueta en directo, porque nadie más aquí podría verla.</translation>
     </message>
     <message>
         <source>Loading part pictures…</source>
@@ -10738,8 +10774,8 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <translation>Las piezas sin cantidad en el presupuesto se pueden usar libremente</translation>
     </message>
     <message>
-        <source>While live on a server, also list other servers&apos; parts</source>
-        <translation>En directo en un servidor, listar también las piezas de otros servidores</translation>
+        <source>While live on a server, also list other servers&apos; parts (grayed out)</source>
+        <translation>En directo en un servidor, listar también las piezas de otros servidores (atenuadas)</translation>
     </message>
     <message>
         <source>LDraw library</source>

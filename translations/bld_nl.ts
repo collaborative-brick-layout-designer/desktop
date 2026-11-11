@@ -199,6 +199,18 @@
         <translation>Voeg een map toe en de onderdelen erin verschijnen naast de ingebouwde. Een map hier weghalen verwijdert niets.</translation>
     </message>
     <message>
+        <source>Other servers’ parts</source>
+        <translation>Onderdelen van andere servers</translation>
+    </message>
+    <message>
+        <source>While a layout is live on a server, parts that only another of your servers has are grayed out and can’t be placed.</source>
+        <translation>Terwijl een layout live is op een server, zijn onderdelen die alleen een andere van je servers heeft grijs en kun je ze niet plaatsen.</translation>
+    </message>
+    <message>
+        <source>Everyone working on a live layout gets its parts from that server, so nobody else could see a part it doesn’t have. Your own parts and the built-in ones are not affected. Untick this to leave the grayed parts out of the list.</source>
+        <translation>Iedereen die aan een live layout werkt, krijgt de onderdelen van die server. Een onderdeel dat die server niet heeft, zou dus niemand anders kunnen zien. Je eigen onderdelen en de meegeleverde blijven gewoon werken. Haal het vinkje weg om de grijze onderdelen uit de lijst te laten.</translation>
+    </message>
+    <message>
         <source>Get more parts</source>
         <translation>Meer onderdelen ophalen</translation>
     </message>
@@ -6735,6 +6747,14 @@ Toch opslaan?</translation>
         <translation>%1 toevoegen aan je servers</translation>
     </message>
     <message>
+        <source>This layout is no longer live</source>
+        <translation>Deze layout is niet meer live</translation>
+    </message>
+    <message>
+        <source>You’re no longer signed in to %1, so your changes don’t reach the server any more. The layout stays open here as an unsaved copy. To keep it, save it (File &gt; Save As).</source>
+        <translation>Je bent niet meer ingelogd bij %1, dus je wijzigingen komen niet meer bij de server aan. De layout blijft hier open als niet-opgeslagen kopie. Sla hem op om hem te bewaren (Bestand &gt; Opslaan als).</translation>
+    </message>
+    <message>
         <source>Save to Server</source>
         <translation>Opslaan op server</translation>
     </message>
@@ -6753,6 +6773,14 @@ Toch opslaan?</translation>
     <message>
         <source>Saved “%1” on %2</source>
         <translation>‘%1’ opgeslagen op %2</translation>
+    </message>
+    <message>
+        <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>Deze module heeft onderdelen die op een andere server staan (%1). Ze kan niet in deze live layout, omdat niemand anders hier ze zou kunnen zien.</translation>
+    </message>
+    <message>
+        <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>Sommige gekopieerde onderdelen staan op een andere server (%1). Ze kunnen niet in deze live layout, omdat niemand anders hier ze zou kunnen zien.</translation>
     </message>
     <message>
         <source>Getting the layout from the server.</source>
@@ -9217,6 +9245,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>&apos;%1&apos; toevoegen aan kaart (alleen binnen een set gebruikt)</translation>
     </message>
     <message>
+        <source>Add &apos;%1&apos; to map (it’s on another server)</source>
+        <translation>&apos;%1&apos; toevoegen aan kaart (staat op een andere server)</translation>
+    </message>
+    <message>
         <source>Show Its Parts</source>
         <translation>Onderdelen tonen</translation>
     </message>
@@ -9287,6 +9319,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Also delete it from %1</source>
         <translation>Ook verwijderen van %1</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1). It can’t go in this live layout, because nobody else here could see it.</source>
+        <translation>Dit onderdeel staat op een andere server (%1). Het kan niet in deze live layout, omdat niemand anders hier het zou kunnen zien.</translation>
     </message>
     <message>
         <source>Loading part pictures…</source>
@@ -10738,8 +10774,8 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Onderdelen zonder aantal in het budget mogen vrij gebruikt worden</translation>
     </message>
     <message>
-        <source>While live on a server, also list other servers&apos; parts</source>
-        <translation>Ook de onderdelen van andere servers tonen terwijl je live op een server werkt</translation>
+        <source>While live on a server, also list other servers&apos; parts (grayed out)</source>
+        <translation>Ook de onderdelen van andere servers tonen terwijl je live op een server werkt (grijs)</translation>
     </message>
     <message>
         <source>LDraw library</source>

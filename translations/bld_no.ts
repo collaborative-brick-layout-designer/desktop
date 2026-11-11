@@ -199,6 +199,18 @@
         <translation>Legg til en mappe, så vises delene i den ved siden av de innebygde. Å fjerne en mappe her sletter ingenting.</translation>
     </message>
     <message>
+        <source>Other servers’ parts</source>
+        <translation>Andre serveres deler</translation>
+    </message>
+    <message>
+        <source>While a layout is live on a server, parts that only another of your servers has are grayed out and can’t be placed.</source>
+        <translation>Mens en layout er direkte på en server, er deler som bare en annen av serverne dine har, grået ut og kan ikke plasseres.</translation>
+    </message>
+    <message>
+        <source>Everyone working on a live layout gets its parts from that server, so nobody else could see a part it doesn’t have. Your own parts and the built-in ones are not affected. Untick this to leave the grayed parts out of the list.</source>
+        <translation>Alle som jobber med en direktelayout, får delene fra den serveren, så ingen andre ville kunne se en del den ikke har. Dine egne deler og de innebygde påvirkes ikke. Fjern haken for å utelate de grå delene fra listen.</translation>
+    </message>
+    <message>
         <source>Get more parts</source>
         <translation>Hent flere deler</translation>
     </message>
@@ -7198,6 +7210,14 @@ Lagre likevel?</translation>
         <translation>Legg %1 til i serverne dine</translation>
     </message>
     <message>
+        <source>This layout is no longer live</source>
+        <translation>Denne layouten er ikke lenger direkte</translation>
+    </message>
+    <message>
+        <source>You’re no longer signed in to %1, so your changes don’t reach the server any more. The layout stays open here as an unsaved copy. To keep it, save it (File &gt; Save As).</source>
+        <translation>Du er ikke lenger logget inn på %1, så endringene dine når ikke serveren lenger. Layouten er fortsatt åpen her som en ulagret kopi. Lagre den for å beholde den (Fil &gt; Lagre som).</translation>
+    </message>
+    <message>
         <source>Save to Server</source>
         <translation>Lagre til server</translation>
     </message>
@@ -7216,6 +7236,14 @@ Lagre likevel?</translation>
     <message>
         <source>Saved “%1” on %2</source>
         <translation>Lagret «%1» på %2</translation>
+    </message>
+    <message>
+        <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>Denne modulen har deler som ligger på en annen server (%1). Den kan ikke brukes i denne direktelayouten, fordi ingen andre her ville kunne se dem.</translation>
+    </message>
+    <message>
+        <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>Noen av de kopierte delene ligger på en annen server (%1). De kan ikke brukes i denne direktelayouten, fordi ingen andre her ville kunne se dem.</translation>
     </message>
     <message>
         <source>Getting the layout from the server.</source>
@@ -9217,6 +9245,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Legg «%1» til på kartet (brukes bare inni et sett)</translation>
     </message>
     <message>
+        <source>Add &apos;%1&apos; to map (it’s on another server)</source>
+        <translation>Legg «%1» til på kartet (ligger på en annen server)</translation>
+    </message>
+    <message>
         <source>Show Its Parts</source>
         <translation>Vis delene i det</translation>
     </message>
@@ -9287,6 +9319,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Also delete it from %1</source>
         <translation>Slett det også fra %1</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1). It can’t go in this live layout, because nobody else here could see it.</source>
+        <translation>Denne delen ligger på en annen server (%1). Den kan ikke brukes i denne direktelayouten, fordi ingen andre her ville kunne se den.</translation>
     </message>
     <message>
         <source>Loading part pictures…</source>
@@ -10738,8 +10774,8 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Deler uten tall i budsjettet kan brukes fritt</translation>
     </message>
     <message>
-        <source>While live on a server, also list other servers&apos; parts</source>
-        <translation>Mens du er direkte på en server, list også andre serveres deler</translation>
+        <source>While live on a server, also list other servers&apos; parts (grayed out)</source>
+        <translation>Mens du er direkte på en server, list også andre serveres deler (grået ut)</translation>
     </message>
     <message>
         <source>LDraw library</source>

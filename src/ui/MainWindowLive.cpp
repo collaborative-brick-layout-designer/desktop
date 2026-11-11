@@ -14,6 +14,7 @@
 #include "MapViewInternal.h"
 
 #include "../core/Map.h"
+#include "../parts/PartsLibrary.h"
 #include "../saveload/BbmWriter.h"
 #include "../saveload/SidecarIO.h"
 #include "ModulesPanel.h"
@@ -29,6 +30,7 @@
 #include "ServerList.h"
 #include "CatalogLink.h"
 #include "ServersDialog.h"
+#include "ServerWindow.h"
 #include "TokenStore.h"
 #include "PrefsSync.h"
 #include "theme/AppPrefs.h"
@@ -230,6 +232,7 @@ void MainWindow::setupLiveMenu(QMenu* file) {
         liveSignInNeeded();
     });
     connect(live_, &LiveLayout::ended, this, [this](const QString& message, const QString& detail) {
+        keepLiveSource();
         if (prefsSync_) prefsSync_->stop();
         liveRolePoll_->stop();
         notices_->hideNotice(QStringLiteral("live-access"));
@@ -300,12 +303,60 @@ void MainWindow::openSourceLive(const import::LayoutSource& source) {
 }
 
 void MainWindow::onManageServers() {
+    const QHash<QString, QString> namesBefore = serverPartLabels();
+    // Whether the live layout's sign-in is one the keychain keeps (one it
+    // couldn't keep is only in memory, and isn't "signed out" for not being there).
+    const auto kept = std::make_shared<bool>(false);
+    if (live_->active()) tokens_->load(liveServer_, [kept](const QString& token) { *kept = !token.isEmpty(); });
     sync::ServersDialog dialog(*tokens_, [](const QUrl& u) { QDesktopServices::openUrl(u); }, this);
     dialog.exec();
     // A renamed live server shows its new name; a new or signed-in one
     // fills the Module library and the status bar.
     updateLiveUi();
     updateLibraryServer();
+    // Open Recent, the Server window's list and the parts' tooltips name the servers too.
+    rebuildRecentMenu();
+    if (serverWindow_) serverWindow_->refreshServers();
+    if (partsBrowser_ && serverPartLabels() != namesBefore) partsBrowser_->rebuild();
+    afterServersChanged(*kept);
+}
+
+void MainWindow::afterServersChanged(bool liveSignInWasKept) {
+    if (!live_->active()) return;
+    // Another server may be Main now, or Main signed out of: settings follow that.
+    startPrefsSync({ liveServer_, liveToken_, liveLayoutId_, live_->title(), live_->readOnly(), liveInfo_ });
+    // Signed out of the live layout's server (or it was removed): the layout
+    // can't stay live on a sign-in that was given up.
+    if (!liveSignInWasKept) return;
+    tokens_->load(liveServer_, [this, alive = std::weak_ptr<int>(alive_), server = liveServer_,
+                                was = liveToken_](const QString& token) {
+        if (alive.expired() || !live_->active() || server != liveServer_ || was != liveToken_) return;
+        if (token == liveToken_) return;
+        // Signed in again there meanwhile: live goes on with the new sign-in.
+        if (!token.isEmpty()) {
+            resumeLive(token);
+            return;
+        }
+        const QString name = liveServerName();
+        keepLiveSource();
+        live_->close();
+        liveToken_.clear();
+        liveRolePoll_->stop();
+        notices_->hideNotice(QStringLiteral("live-access"));
+        notices_->hideNotice(QStringLiteral("live-signin"));
+        mapView_->hideOpening();
+        if (partsDownloadCard_) partsDownloadCard_->finish();
+        if (prefsSync_) prefsSync_->stop();
+        // The copy is the person's work and no longer on the server: unsaved.
+        mapView_->undoStack()->resetClean();
+        updateLiveUi();
+        updateLibraryServer();
+        notices_->showNotice(QStringLiteral("live-signed-out"), tr("This layout is no longer live"),
+                             tr("You’re no longer signed in to %1, so your changes don’t reach the server any more. The "
+                                "layout stays open here as an unsaved copy. To keep it, save it (File > Save As).")
+                                 .arg(name),
+                             { NoticeAction{ tr("OK"), {} } });
+    });
 }
 
 void MainWindow::onPublishToServer() {
@@ -342,6 +393,43 @@ void MainWindow::onPublishToServer() {
                              5000);
     // Parts of yours the server lacks would show as missing there: offer them.
     offerPartsUpload(true);
+}
+
+QString MainWindow::otherServerRefusal(const QStringList& partKeys, int what) const {
+    if (!live_ || !live_->active()) return {};
+    const QString here = sync::ServerList::folderName(liveServer_);
+    QStringList pending = partKeys;
+    QSet<QString> seen;
+    while (!pending.isEmpty()) {
+        QString key = pending.takeFirst();
+        if (seen.contains(key.toUpper())) continue;
+        seen.insert(key.toUpper());
+        // (The library knows a set by its file name with ".set".)
+        auto meta = parts_.metadata(key);
+        if (!meta && !key.endsWith(QStringLiteral(".set"), Qt::CaseInsensitive)) {
+            key += QStringLiteral(".set");
+            meta = parts_.metadata(key);
+        }
+        if (!meta) continue;
+        if (const QString folder = otherServerOf(parts_, key, here); !folder.isEmpty()) {
+            const QString server = serverPartLabels().value(folder, folder);
+            switch (what) {
+            case MapView::PlacingModule:
+                return tr("This module has parts that are on another server (%1). It can’t go in this live layout, "
+                          "because nobody else here could see them.")
+                    .arg(server);
+            case MapView::PlacingPaste:
+                return tr("Some of the copied parts are on another server (%1). They can’t go in this live layout, "
+                          "because nobody else here could see them.")
+                    .arg(server);
+            default:
+                return otherServerReason(server);
+            }
+        }
+        // A set: its own parts too.
+        for (const parts::PartSubPart& sub : meta->subparts) pending << sub.subKey;
+    }
+    return {};
 }
 
 void MainWindow::offerPartsUpload(bool quiet) {
@@ -430,6 +518,7 @@ void MainWindow::openLive(const sync::ConnectResult& r) {
     showServerNotices(r.info);
     notices_->hideNotice(QStringLiteral("live-access"));
     notices_->hideNotice(QStringLiteral("live-signin"));
+    notices_->hideNotice(QStringLiteral("live-signed-out"));
     liveRolePoll_->start();
     // The Server window and the Module library show the live layout's server.
     browseServer_ = r.server;
@@ -727,7 +816,15 @@ void MainWindow::showPartsSyncFailed(const QString& summary, const QStringList& 
     partsSyncFailed_->setVisible(live_->active());
 }
 
+void MainWindow::keepLiveSource() {
+    if (liveLayoutId_.isEmpty() || !liveServer_.isValid()) return;
+    fileSource_ = import::LayoutSource{ import::layoutServerBase(liveServer_.toString()), liveLayoutId_, live_->title(),
+                                        QDateTime::currentDateTimeUtc().toString(Qt::ISODateWithMs) };
+}
+
 void MainWindow::onDisconnect() {
+    // The copy left here came from that layout: a file saved from it says so.
+    if (live_->active()) keepLiveSource();
     live_->close();
     liveRolePoll_->stop();
     notices_->hideNotice(QStringLiteral("live-access"));

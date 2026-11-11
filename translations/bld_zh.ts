@@ -199,6 +199,18 @@
         <translation>添加文件夹后，里面的零件会和内置零件一起显示。在这里移除文件夹不会删除任何文件。</translation>
     </message>
     <message>
+        <source>Other servers’ parts</source>
+        <translation>其他服务器的零件</translation>
+    </message>
+    <message>
+        <source>While a layout is live on a server, parts that only another of your servers has are grayed out and can’t be placed.</source>
+        <translation>布局在某台服务器上实时编辑时，只有你的其他服务器才有的零件会显示为灰色，不能放置。</translation>
+    </message>
+    <message>
+        <source>Everyone working on a live layout gets its parts from that server, so nobody else could see a part it doesn’t have. Your own parts and the built-in ones are not affected. Untick this to leave the grayed parts out of the list.</source>
+        <translation>参与实时布局的每个人都从那台服务器获取零件，所以它没有的零件，其他人都看不到。你自己的零件和内置零件不受影响。取消勾选可让灰色零件不出现在列表中。</translation>
+    </message>
+    <message>
         <source>Get more parts</source>
         <translation>获取更多零件</translation>
     </message>
@@ -6697,6 +6709,14 @@ Save anyway?</source>
         <translation>把 %1 添加到你的服务器</translation>
     </message>
     <message>
+        <source>This layout is no longer live</source>
+        <translation>这个布局不再是实时的了</translation>
+    </message>
+    <message>
+        <source>You’re no longer signed in to %1, so your changes don’t reach the server any more. The layout stays open here as an unsaved copy. To keep it, save it (File &gt; Save As).</source>
+        <translation>你已不再登录 %1，所以你的更改不会再传到服务器。布局作为未保存的副本仍在这里打开着。要保留它，请保存（文件 &gt; 另存为）。</translation>
+    </message>
+    <message>
         <source>Save to Server</source>
         <translation>保存到服务器</translation>
     </message>
@@ -6715,6 +6735,14 @@ Save anyway?</source>
     <message>
         <source>Saved “%1” on %2</source>
         <translation>已在 %2 上保存“%1”</translation>
+    </message>
+    <message>
+        <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>这个模块里有零件在另一台服务器（%1）上。它不能放进这个实时布局，因为这里的其他人都看不到这些零件。</translation>
+    </message>
+    <message>
+        <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
+        <translation>复制的零件中有一些在另一台服务器（%1）上。它们不能放进这个实时布局，因为这里的其他人都看不到它们。</translation>
     </message>
     <message>
         <source>Getting the layout from the server.</source>
@@ -9149,6 +9177,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>把“%1”添加到地图（只在套件内部使用）</translation>
     </message>
     <message>
+        <source>Add &apos;%1&apos; to map (it’s on another server)</source>
+        <translation>把“%1”添加到地图（它在另一台服务器上）</translation>
+    </message>
+    <message>
         <source>Show Its Parts</source>
         <translation>显示它的零件</translation>
     </message>
@@ -9219,6 +9251,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Also delete it from %1</source>
         <translation>同时从 %1 删除</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1). It can’t go in this live layout, because nobody else here could see it.</source>
+        <translation>这个零件在另一台服务器（%1）上。它不能放进这个实时布局，因为这里的其他人都看不到它。</translation>
     </message>
     <message>
         <source>Loading part pictures…</source>
@@ -10668,8 +10704,8 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>预算中没有数量的零件可以随意使用</translation>
     </message>
     <message>
-        <source>While live on a server, also list other servers&apos; parts</source>
-        <translation>在服务器上实时编辑时，也列出其他服务器的零件</translation>
+        <source>While live on a server, also list other servers&apos; parts (grayed out)</source>
+        <translation>在服务器上实时编辑时，也列出其他服务器的零件（显示为灰色）</translation>
     </message>
     <message>
         <source>LDraw library</source>

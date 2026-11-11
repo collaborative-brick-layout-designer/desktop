@@ -55,6 +55,7 @@
 #include <QTemporaryDir>
 #include <QTimer>
 #include <QUndoStack>
+#include <QVariantMap>
 
 namespace bld::ui {
 
@@ -124,8 +125,14 @@ void MainWindow::refreshServerLocal() {
         layouts << ServerWindow::LocalItem{ QStringLiteral("open"), layoutTitle(),
                                             currentFilePath_.isEmpty() ? tr("Open now, not saved as a file yet")
                                                                        : tr("Open now · %1").arg(QFileInfo(currentFilePath_).fileName()) };
+    // (A recent file saved from a layout on this server is on it already.)
+    const QVariantMap recentServers = QSettings().value(QStringLiteral("recent/servers")).toMap();
+    const QString thisServer = sync::TokenStore::keyFor(serverLibrary_->server());
     for (const QString& path : QSettings().value(QStringLiteral("recent/list")).toStringList()) {
         if (path == currentFilePath_ || !QFileInfo::exists(path)) continue;
+        if (const QString from = recentServers.value(path).toString();
+            !from.isEmpty() && sync::TokenStore::keyFor(QUrl(from)) == thisServer)
+            continue;
         layouts << ServerWindow::LocalItem{ path, QFileInfo(path).completeBaseName(),
                                             tr("Recent file · %1").arg(QDir::toNativeSeparators(QFileInfo(path).absolutePath())) };
     }
