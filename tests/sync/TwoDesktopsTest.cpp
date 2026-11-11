@@ -20,6 +20,7 @@
 
 #include <gtest/gtest.h>
 
+#include <QJsonArray>
 #include <QMouseEvent>
 #include <QUndoStack>
 
@@ -301,6 +302,31 @@ TEST_F(TwoDesktops, AMemberMovedByOneWhileTheOtherAddsAPartBothStay) {
     ASSERT_TRUE(settled());
     EXPECT_EQ(placeOf(b, p0), at0.translated(8, 0));
     EXPECT_EQ(a.module(id)->memberIds, (QSet<QString>{ p0, p1 }));
+}
+
+// One deletes a part at the same instant the other adds it to a module
+// (the 11-11 checks): the module doesn't go on naming a part that's gone,
+// on either desktop or in the layout the server keeps.
+TEST_F(TwoDesktops, APartDeletedAsTheOtherAddsItToAModuleDropsOutOfTheModule) {
+    const QString id = moduleOnBoth();
+    b.view.setEditingModule(id);
+    a.remove(p1);
+    b.view.undoStack()->push(new edit::SetModuleMembersCommand(b.map(), id, { p0, p1 }, QStringLiteral("Add to module")));
+    ASSERT_TRUE(settled());
+    for (Desk* d : { &a, &b }) {
+        EXPECT_EQ(brick(d->map(), p1), nullptr);
+        ASSERT_NE(d->module(id), nullptr);
+        EXPECT_EQ(d->module(id)->memberIds, QSet<QString>{ p0 });
+    }
+    const auto onServer = sync::mapFromDocJson(server.doc.toJson());
+    ASSERT_NE(core::findModule(onServer->sidecar.modules, id), nullptr);
+    EXPECT_EQ(core::findModule(onServer->sidecar.modules, id)->memberIds, QSet<QString>{ p0 });
+    // The next change written from here writes the module without it too.
+    a.view.undoStack()->push(new edit::RenameModuleCommand(a.map(), id, QStringLiteral("Harbour East")));
+    ASSERT_TRUE(settled());
+    const QJsonArray mods = server.doc.toJson().value(QLatin1String("meta")).toObject().value(QLatin1String("cache")).toObject().value(QLatin1String("modules")).toArray();
+    ASSERT_EQ(mods.size(), 1);
+    EXPECT_EQ(mods[0].toObject().value(QLatin1String("members")).toArray(), QJsonArray{ p0 });
 }
 
 // KNOWN LIMIT, written down here so a fix has a test to tighten. A module

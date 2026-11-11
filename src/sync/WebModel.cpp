@@ -326,6 +326,40 @@ void readBudget(const QJsonObject& meta, core::Sidecar& out) {
 
 } // namespace
 
+bool dropGoneModuleMembers(std::vector<core::Module>& modules, const core::Map& map) {
+    if (modules.empty()) return false;
+    QSet<QString> here;
+    for (const auto& layer : map.layers()) {
+        if (!layer) continue;
+        switch (layer->kind()) {
+        case core::LayerKind::Brick:
+            for (const auto& b : static_cast<const core::LayerBrick&>(*layer).bricks) here.insert(b.guid);
+            break;
+        case core::LayerKind::Text:
+            for (const auto& t : static_cast<const core::LayerText&>(*layer).textCells) here.insert(t.guid);
+            break;
+        case core::LayerKind::Ruler:
+            for (const auto& r : static_cast<const core::LayerRuler&>(*layer).rulers) here.insert(rulerId(r));
+            break;
+        default: break;
+        }
+    }
+    bool changed = false;
+    for (auto it = modules.begin(); it != modules.end();) {
+        const qsizetype had = it->memberIds.size();
+        it->memberIds.intersect(here);
+        if (it->memberIds.size() == had) {
+            ++it;
+            continue;
+        }
+        changed = true;
+        // (One with no parts to begin with stays: only one that lost them goes.)
+        if (it->memberIds.isEmpty()) it = modules.erase(it);
+        else ++it;
+    }
+    return changed;
+}
+
 std::unique_ptr<core::Map> mapFromDocJson(const QJsonObject& doc, QString* error) {
     const QJsonObject meta = obj(doc, "meta");
     auto map = std::make_unique<core::Map>();
@@ -341,6 +375,7 @@ std::unique_ptr<core::Map> mapFromDocJson(const QJsonObject& doc, QString* error
         if (!out) return nullptr;
         map->layers().push_back(std::move(out));
     }
+    dropGoneModuleMembers(map->sidecar.modules, *map);
     // Drawn settings in range, as a .bbm's are (any writer may put any number there).
     core::keepDrawnSettingsInRange(*map);
     return map;
@@ -660,6 +695,7 @@ std::unique_ptr<core::Map> MapReader::read(const QJsonObject& doc, QString* erro
         map->layers().push_back(Impl::layerOf(s));
     }
     d.sheets = std::move(next);
+    dropGoneModuleMembers(map->sidecar.modules, *map);
     // Drawn settings in range, as a .bbm's are (any writer may put any number there).
     core::keepDrawnSettingsInRange(*map);
     return map;
