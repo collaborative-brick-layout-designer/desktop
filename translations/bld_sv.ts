@@ -7166,6 +7166,18 @@ Spara ändå?</translation>
         <translation>Alla andra som har den här layouten öppen nu</translation>
     </message>
     <message>
+        <source>Edit module closed</source>
+        <translation>Redigera modul stängdes</translation>
+    </message>
+    <message>
+        <source>The module you were editing isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>Modulen du redigerade är inte längre en modul: någon löste upp den eller tog bort den. Du är tillbaka i hela layouten.</translation>
+    </message>
+    <message>
+        <source>“%1” isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>”%1” är inte längre en modul: någon löste upp den eller tog bort den. Du är tillbaka i hela layouten.</translation>
+    </message>
+    <message>
         <source>Your changes were sent</source>
         <translation>Dina ändringar skickades</translation>
     </message>

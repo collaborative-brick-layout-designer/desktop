@@ -21,6 +21,7 @@ add_executable(bld_sync_tests
     ServersDialogTest.cpp
     RefreshOnFocusTest.cpp
     LiveLayoutTest.cpp
+    TwoDesktopsTest.cpp
     RemoteEditTest.cpp
     LayoutMergeTest.cpp
     CompareDialogTest.cpp

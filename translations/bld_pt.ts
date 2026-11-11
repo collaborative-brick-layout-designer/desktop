@@ -6703,6 +6703,18 @@ Guardar mesmo assim?</translation>
         <translation>Todas as outras pessoas com este layout aberto agora</translation>
     </message>
     <message>
+        <source>Edit module closed</source>
+        <translation>Editar módulo foi fechado</translation>
+    </message>
+    <message>
+        <source>The module you were editing isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>O módulo que você estava a editar já não é um módulo: alguém o desagrupou ou eliminou. Você está de volta ao layout inteiro.</translation>
+    </message>
+    <message>
+        <source>“%1” isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>“%1” já não é um módulo: alguém o desagrupou ou eliminou. Você está de volta ao layout inteiro.</translation>
+    </message>
+    <message>
         <source>Your changes were sent</source>
         <translation>As suas alterações foram enviadas</translation>
     </message>

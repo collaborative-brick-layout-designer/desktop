@@ -6703,6 +6703,18 @@ Toch opslaan?</translation>
         <translation>Iedereen anders die deze layout nu open heeft</translation>
     </message>
     <message>
+        <source>Edit module closed</source>
+        <translation>Module bewerken is gesloten</translation>
+    </message>
+    <message>
+        <source>The module you were editing isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>De module die je bewerkte is geen module meer: iemand heeft hem gedegroepeerd of verwijderd. Je bent terug in de hele layout.</translation>
+    </message>
+    <message>
+        <source>“%1” isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>“%1” is geen module meer: iemand heeft hem gedegroepeerd of verwijderd. Je bent terug in de hele layout.</translation>
+    </message>
+    <message>
         <source>Your changes were sent</source>
         <translation>Je wijzigingen zijn verzonden</translation>
     </message>

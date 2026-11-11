@@ -10,6 +10,8 @@
 #include <QNetworkRequest>
 #include <QWebSocketProtocol>
 
+#include <utility>
+
 namespace bld::sync {
 
 using protocol::Kind;
@@ -53,6 +55,7 @@ void SyncClient::open(const QUrl& url, const QString& bearerToken) {
     url_ = url;
     token_ = bearerToken;
     wantOpen_ = true;
+    waiting_.clear();
     resyncAsked_ = false;
     closedForSize_ = false;
     delay_ = initialDelay_;
@@ -61,6 +64,7 @@ void SyncClient::open(const QUrl& url, const QString& bearerToken) {
 
 void SyncClient::close() {
     wantOpen_ = false;
+    waiting_.clear();
     retry_.stop();
     ping_.stop();
     answer_.stop();
@@ -159,25 +163,55 @@ void SyncClient::onMessage(const QByteArray& message) {
         send(protocol::encode(Kind::SyncStep2, doc_.diffSince(msg->payload)));
         break;
     case Kind::SyncStep2:
-    case Kind::Update: {
-        QString error;
-        if (!doc_.applyUpdate(msg->payload, &error)) {
-            unreadableUpdate(msg->kind == Kind::SyncStep2, error);
-            return;
-        }
-        emit remoteChange();
-        // The answer to our step 1: we now have everything the server had.
-        if (msg->kind == Kind::SyncStep2) {
-            resyncAsked_ = false;
-            closedForSize_ = false;
-            setStatus(Status::Synced);
-        }
+    case Kind::Update:
+        if (held_) waiting_.emplace_back(msg->kind == Kind::SyncStep2, msg->payload);
+        else incoming(msg->kind == Kind::SyncStep2, msg->payload);
         break;
-    }
     case Kind::Awareness:
         emit awarenessReceived(msg->payload);
         break;
     }
+}
+
+bool SyncClient::takeIn(bool syncStep2, const QByteArray& payload) {
+    QString error;
+    if (doc_.applyUpdate(payload, &error)) return true;
+    unreadableUpdate(syncStep2, error);
+    return false;
+}
+
+void SyncClient::inStep() {
+    resyncAsked_ = false;
+    closedForSize_ = false;
+    setStatus(Status::Synced);
+}
+
+void SyncClient::incoming(bool syncStep2, const QByteArray& payload) {
+    if (!takeIn(syncStep2, payload)) return;
+    emit remoteChange();
+    // The answer to our step 1: we now have everything the server had.
+    if (syncStep2) inStep();
+}
+
+void SyncClient::holdIncoming(bool hold) {
+    held_ = hold;
+    if (held_ || waiting_.empty()) return;
+    // Everything that waited goes in, then the editor is told once (it
+    // reads the layout again for each telling).
+    const auto waited = std::exchange(waiting_, {});
+    bool any = false;
+    bool answered = false;
+    for (const auto& [syncStep2, payload] : waited) {
+        // Closed meanwhile (an update that can't be read ends the session).
+        if (!wantOpen_) break;
+        if (!takeIn(syncStep2, payload)) continue;
+        any = true;
+        answered = answered || syncStep2;
+    }
+    if (any) emit remoteChange();
+    // A step 2 from a connection that has since dropped held changes to
+    // take in, but it no longer says we're in step.
+    if (answered && wantOpen_ && socket_.state() == QAbstractSocket::ConnectedState) inStep();
 }
 
 void SyncClient::unreadableUpdate(bool syncStep2, const QString& why) {

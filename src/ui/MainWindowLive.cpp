@@ -147,6 +147,18 @@ void MainWindow::setupLiveMenu(QMenu* file) {
                                   : tr("Someone else changed that after you, so there was nothing to redo."),
                              { NoticeAction{ tr("OK"), {} } });
     });
+    // Someone else ungrouped or deleted the module being edited here: say
+    // why Edit module closed (it used to close without a word).
+    connect(live_, &LiveLayout::editedModuleGone, this, [this](const QString& name) {
+        notices_->showNotice(
+            QStringLiteral("live-module-gone"), tr("Edit module closed"),
+            name.isEmpty() ? tr("The module you were editing isn't a module any more: someone ungrouped or deleted "
+                                "it. You're back in the whole layout.")
+                           : tr("“%1” isn't a module any more: someone ungrouped or deleted it. You're back in the "
+                                "whole layout.")
+                                 .arg(name),
+            { NoticeAction{ tr("OK"), {} } });
+    });
     connect(live_, &LiveLayout::offlineEditsReady, this, &MainWindow::onReviewOfflineEdits);
     // Offline edits nothing clashed with went by themselves (area 4, Bugs 5
     // and 6); the clashes, if any, wait for review.

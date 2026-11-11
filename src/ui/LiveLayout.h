@@ -91,6 +91,9 @@ signals:
     // take them. Still live; session().notTaken() holds them for saving.
     void editsNotTaken();
     void peopleChanged();
+    // Someone else ungrouped or deleted the module being edited here: Edit
+    // module has closed (MapView leaves it); `name` is the module's.
+    void editedModuleGone(const QString& name);
     // The live layout closed for good (access taken away, the layout
     // deleted, a refused merge…): the whole message to show
     // (sync::liveCloseText), and the server's own code as details when the
@@ -123,6 +126,9 @@ private:
     bool active_ = false;
     bool signedOut_ = false;
     bool reloading_ = false;
+    // A right-click's menu opened: it takes the button's release, so the
+    // hold the press began ends once the menu has closed (eventFilter).
+    bool afterMenu_ = false;
     bool clearing_ = false;
     bool reloadedOnce_ = false;
     // The parts on the map before an undo or redo, until its reload picks what came back.

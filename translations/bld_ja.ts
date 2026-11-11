@@ -6665,6 +6665,18 @@ Save anyway?</source>
         <translation>今このレイアウトを開いている他のすべての人</translation>
     </message>
     <message>
+        <source>Edit module closed</source>
+        <translation>「モジュールを編集」を閉じました</translation>
+    </message>
+    <message>
+        <source>The module you were editing isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>編集していたモジュールは、もうモジュールではありません。ほかの人がグループを解除したか、削除しました。レイアウト全体に戻りました。</translation>
+    </message>
+    <message>
+        <source>“%1” isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>「%1」は、もうモジュールではありません。ほかの人がグループを解除したか、削除しました。レイアウト全体に戻りました。</translation>
+    </message>
+    <message>
         <source>Your changes were sent</source>
         <translation>変更を送信しました</translation>
     </message>

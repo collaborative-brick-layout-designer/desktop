@@ -21,6 +21,13 @@
 //                              resolve offline edits: clashes go to my side,
 //                              the server's, or the merge default (server)
 //   dump [shared]              the editor's bricks as JSON (shared: the shared layout)
+//   modules                    the editor's modules as JSON: id, name, members
+//   module-add <moduleId> <brickId>
+//                              add a part to a module, as one edit
+//   module-remove <moduleId> <brickId>
+//                              take a part out of a module, as one edit
+//   module-rename <moduleId> <name>
+//                              rename a module, as one edit
 //   peers                      everyone else's presence as JSON
 //   quit
 
@@ -194,6 +201,28 @@ public:
             const auto map = shared ? session_.currentMap(&error) : session_.editorMap(&error);
             reply(map ? QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(bricksJson(*map)).toJson(QJsonDocument::Compact))
                       : QStringLiteral("error ") + error);
+        } else if (cmd == QLatin1String("modules")) {
+            QString error;
+            const auto map = session_.editorMap(&error);
+            if (!map) {
+                reply(QStringLiteral("error ") + error);
+                return true;
+            }
+            QJsonArray out;
+            for (const auto& m : map->sidecar.modules) {
+                QStringList members(m.memberIds.begin(), m.memberIds.end());
+                members.sort();
+                out.append(QJsonObject{ { QStringLiteral("id"), m.id },
+                                        { QStringLiteral("name"), m.name },
+                                        { QStringLiteral("members"), QJsonArray::fromStringList(members) } });
+            }
+            reply(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(out).toJson(QJsonDocument::Compact)));
+        } else if (cmd == QLatin1String("module-add") && a.size() == 3) {
+            editModule(a[1], [&](core::Module& m) { m.memberIds.insert(a[2]); });
+        } else if (cmd == QLatin1String("module-remove") && a.size() == 3) {
+            editModule(a[1], [&](core::Module& m) { m.memberIds.remove(a[2]); });
+        } else if (cmd == QLatin1String("module-rename") && a.size() > 2) {
+            editModule(a[1], [&](core::Module& m) { m.name = a.mid(2).join(QLatin1Char(' ')); });
         } else if (cmd == QLatin1String("peers")) {
             QJsonArray peers;
             for (const auto& state : session_.peers()) peers.append(state);
@@ -218,6 +247,21 @@ private:
         change(*b);
         session_.localEdit(*map);
         reply(QStringLiteral("ok"));
+    }
+
+    // One editor edit to a module of what the editor shows (its parts, its
+    // name), handed to the session as the Modules panel's commands do.
+    void editModule(const QString& id, const std::function<void(core::Module&)>& change) {
+        QString error;
+        auto map = session_.editorMap(&error);
+        if (!map) return reply(QStringLiteral("error ") + error);
+        for (auto& m : map->sidecar.modules) {
+            if (m.id != id) continue;
+            change(m);
+            session_.localEdit(*map);
+            return reply(QStringLiteral("ok"));
+        }
+        reply(QStringLiteral("error no module ") + id);
     }
 
     // What MainWindow::onReviewOfflineEdits does, with the compare

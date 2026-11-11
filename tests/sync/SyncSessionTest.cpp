@@ -57,20 +57,83 @@ TEST(SyncSession, RemoteChangesWaitWhileHeld) {
     session.open(server.url(), {}, false);
     ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced; }));
 
-    // Mid-drag: the change lands in the document but the editor isn't
-    // told until the drag ends.
+    // Mid-drag: the change waits, out of the document and unknown to the
+    // editor, until the drag ends.
     session.holdRemoteChanges(true);
     const int before = changed;
     server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 180.0f; });
-    ASSERT_TRUE(waitFor([&] { return firstBrick(*session.currentMap()).orientation == 180.0f; }));
-    waitFor([] { return false; }, 100);
+    waitFor([] { return false; }, 200);
     EXPECT_EQ(changed, before);
+    EXPECT_NE(firstBrick(*session.currentMap()).orientation, 180.0f);
     session.holdRemoteChanges(false);
     EXPECT_EQ(changed, before + 1);
+    EXPECT_EQ(firstBrick(*session.currentMap()).orientation, 180.0f);
+    // Several changes that waited are told as one.
+    session.holdRemoteChanges(true);
+    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 90.0f; });
+    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 270.0f; });
+    server.remoteEdit([](core::Map& m) { firstBrick(m).displayArea.translate(8, 0); });
+    waitFor([] { return false; }, 200);
+    EXPECT_EQ(changed, before + 1);
+    session.holdRemoteChanges(false);
+    EXPECT_EQ(changed, before + 2);
+    EXPECT_EQ(firstBrick(*session.currentMap()).orientation, 270.0f);
     // Nothing pending: releasing again says nothing.
     session.holdRemoteChanges(true);
     session.holdRemoteChanges(false);
-    EXPECT_EQ(changed, before + 1);
+    EXPECT_EQ(changed, before + 2);
+}
+
+// The edit a drag ends with is made on the layout as the editor showed it,
+// before what others changed during the drag. It must not take their
+// changes back: written into a document that already had them, it did
+// (the part someone turned went back, a part someone deleted came back).
+TEST(SyncSession, AnEditMadeWhileHeldKeepsWhatOthersChangedMeanwhile) {
+    FakeServer server;
+    sync::SyncSession session;
+    session.open(server.url(), {}, false);
+    ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced; }));
+    auto map = session.currentMap();
+    ASSERT_TRUE(map);
+    const QRectF original = firstBrick(*map).displayArea;
+    const auto second = [](core::Map& m) -> core::Brick& {
+        for (auto& l : m.layers())
+            if (l->kind() == core::LayerKind::Brick) return static_cast<core::LayerBrick&>(*l).bricks[1];
+        throw std::runtime_error("no bricks");
+    };
+    const float turned = second(*map).orientation + 90.0f;
+
+    session.holdRemoteChanges(true);
+    server.remoteEdit([&](core::Map& m) { second(m).orientation = turned; });
+    waitFor([] { return false; }, 200);
+    // The drag ends: the editor's layout, which never heard of the turn, with its own move.
+    firstBrick(*map).displayArea.translate(8, 0);
+    session.localEdit(*map);
+    session.holdRemoteChanges(false);
+
+    ASSERT_TRUE(waitFor([&] { return firstBrickArea(server.doc) == original.translated(8, 0); }));
+    const auto onServer = sync::mapFromDocJson(server.doc.toJson());
+    EXPECT_EQ(second(*onServer).orientation, turned) << "the other person's turn was taken back";
+    // And the editor now shows both.
+    const auto shown = session.currentMap();
+    EXPECT_EQ(firstBrick(*shown).displayArea, original.translated(8, 0));
+    EXPECT_EQ(second(*shown).orientation, turned);
+}
+
+// A layout closed while held (the mouse still down) and another opened:
+// the new one's first copy must not wait for a release that already came.
+TEST(SyncSession, AHoldLeftOverDoesntKeepTheNextLayoutWaiting) {
+    FakeServer server;
+    sync::SyncSession session;
+    session.open(server.url(), {}, false);
+    ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced; }));
+    session.holdRemoteChanges(true);
+    session.close();
+    session.open(server.url(), {}, false);
+    ASSERT_TRUE(waitFor([&] { return session.status() == Status::Synced && session.loaded(); }));
+    // And someone else's change arrives.
+    server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 270.0f; });
+    ASSERT_TRUE(waitFor([&] { return firstBrick(*session.currentMap()).orientation == 270.0f; }));
 }
 
 TEST(SyncSession, UndoRevertsOnlyOurOwnEditOnTheServerToo) {

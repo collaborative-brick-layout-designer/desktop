@@ -6703,6 +6703,18 @@ Trotzdem speichern?</translation>
         <translation>Alle anderen, die dieses Layout gerade geöffnet haben</translation>
     </message>
     <message>
+        <source>Edit module closed</source>
+        <translation>„Modul bearbeiten“ wurde beendet</translation>
+    </message>
+    <message>
+        <source>The module you were editing isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>Das Modul, das du bearbeitet hast, ist kein Modul mehr: Jemand hat es aufgelöst oder gelöscht. Du bist wieder im ganzen Layout.</translation>
+    </message>
+    <message>
+        <source>“%1” isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>„%1“ ist kein Modul mehr: Jemand hat es aufgelöst oder gelöscht. Du bist wieder im ganzen Layout.</translation>
+    </message>
+    <message>
         <source>Your changes were sent</source>
         <translation>Deine Änderungen wurden gesendet</translation>
     </message>

@@ -6,7 +6,9 @@
 
 #include "core/LayerBrick.h"
 #include "core/Map.h"
+#include "core/ModuleEdit.h"
 
+#include <QApplication>
 #include <QDateTime>
 #include <QEvent>
 #include <QGraphicsItem>
@@ -309,11 +311,21 @@ void LiveLayout::reload() {
     if (!map) return;
     // The first copy fits the view; a newer one keeps the zoom, the scroll
     // and the pick, and draws again only what changed.
+    // The module being edited, to say so when someone else's change took it away.
+    const QString editing = view_.editingModule();
+    QString editingName;
+    if (!editing.isEmpty() && view_.currentMap())
+        if (const core::Module* m = core::findModule(view_.currentMap()->sidecar.modules, editing)) editingName = m->name;
+    // (Our own undo or redo can take it away too: that needs no telling.)
+    const bool ownStep = partsBeforeStep_.has_value();
     reloading_ = true;
     if (reloadedOnce_) view_.updateMap(std::move(map));
     else view_.loadMap(std::move(map));
     reloading_ = false;
     reloadedOnce_ = true;
+    if (!editing.isEmpty() && !ownStep && view_.currentMap()
+        && !core::findModule(view_.currentMap()->sidecar.modules, editing))
+        emit editedModuleGone(editingName);
 
     // After an undo or redo, the parts it brought back are picked instead.
     if (partsBeforeStep_) {
@@ -369,7 +381,19 @@ bool LiveLayout::eventFilter(QObject* watched, QEvent* event) {
         cursorStuds_.reset();
         schedulePresence();
     }
+    // A menu opened from the map (a right-click) took the release of the
+    // press that opened it, so the hold never ended: others' changes stayed
+    // off the map until the next click. The first thing the map hears once
+    // the menu has closed ends it. (A new press starts its own hold.)
+    if (afterMenu_ && event->type() != QEvent::ContextMenu && !QApplication::activePopupWidget()) {
+        afterMenu_ = false;
+        if (event->type() != QEvent::MouseButtonPress && event->type() != QEvent::MouseButtonDblClick)
+            QTimer::singleShot(0, this, [this] { session_.holdRemoteChanges(false); });
+    }
     switch (event->type()) {
+    case QEvent::ContextMenu:
+        afterMenu_ = true;
+        break;
     case QEvent::MouseButtonPress:
     case QEvent::MouseButtonDblClick:
         if (session_.readOnly() && leftButton()) return true;
