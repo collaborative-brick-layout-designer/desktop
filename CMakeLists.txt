@@ -15,7 +15,7 @@ endforeach()
 # nightly CI stamps the latest release plus its run number
 # (-DBLD_VERSION=1.2.3.456 -DBLD_CHANNEL=nightly), so a nightly is newer
 # than the release it follows and older than the next one.
-set(BLD_VERSION "2.0.0" CACHE STRING "Version stamped into binaries and packages (X.Y.Z or X.Y.Z.N)")
+set(BLD_VERSION "2.1.3" CACHE STRING "Version stamped into binaries and packages (X.Y.Z or X.Y.Z.N)")
 set(BLD_CHANNEL "" CACHE STRING "Build channel shown in About: empty for a release, nightly for a nightly build")
 
 # The oldest macOS the app runs on. Qt's own frameworks set the floor: Qt
