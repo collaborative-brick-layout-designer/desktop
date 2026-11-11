@@ -10105,6 +10105,10 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>Miei</translation>
     </message>
     <message>
+        <source>See who is in your club, the roles they hold and when they were last active</source>
+        <translation>Vedi chi fa parte del tuo club, i ruoli che ha e quando è stato attivo l&apos;ultima volta</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Riprendi tra i miei…</translation>
     </message>

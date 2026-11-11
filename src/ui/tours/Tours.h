@@ -20,6 +20,8 @@
 #include <QStringList>
 #include <QWidget>
 
+#include <functional>
+
 class QLabel;
 class QPushButton;
 class QTimer;
@@ -143,9 +145,16 @@ private:
 
 // Starts tour `id` over `host`. Null for an unknown id.
 TourOverlay* startTour(QWidget* host, const QString& id, theme::PrefsStore& store);
+// Whether a window is ready to be toured: one still getting its lists from
+// a server hasn't got all its controls yet.
+using TourReady = std::function<bool()>;
+// Starts tour `id` over `host` once `ready` says yes, or after three
+// seconds at most. (With no `ready`: at once, as startTour.) A step whose
+// control only comes with the server's answer would otherwise be left out.
+void startTourWhenReady(QWidget* host, const QString& id, theme::PrefsStore& store, TourReady ready = {});
 // Starts tour `id` on the next window that opens and inherits `className`
-// (a dialog about to be opened). Gives up after a few seconds.
-void startTourOnNext(const char* className, const QString& id, theme::PrefsStore& store);
+// (a dialog about to be opened), once it is `ready`. Gives up after a few seconds.
+void startTourOnNext(const char* className, const QString& id, theme::PrefsStore& store, TourReady ready = {});
 
 // The first-launch welcome: what the app is for, and three ways in.
 // "Start or open a layout" opens out into its own three: a new layout,

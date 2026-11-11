@@ -10105,6 +10105,10 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Mina</translation>
     </message>
     <message>
+        <source>See who is in your club, the roles they hold and when they were last active</source>
+        <translation>Se vilka som är med i din klubb, vilka roller de har och när de senast var aktiva</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Ta tillbaka till mina…</translation>
     </message>

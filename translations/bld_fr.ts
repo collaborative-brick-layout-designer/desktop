@@ -10105,6 +10105,10 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Les miens</translation>
     </message>
     <message>
+        <source>See who is in your club, the roles they hold and when they were last active</source>
+        <translation>Voir qui fait partie de votre club, leurs rôles et quand ils ont été actifs</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Reprendre pour moi…</translation>
     </message>

@@ -490,3 +490,59 @@ TEST_F(Tours, SettingsStartsToursAndShowsThemAgain) {
     SettingsDialog plain(store, QString());
     EXPECT_EQ(plain.findChild<QPushButton*>(QStringLiteral("tour.clubs")), nullptr);
 }
+
+// A window still getting its lists from a server isn't toured until it is
+// ready (or three seconds have gone by): a step about a control that only
+// comes with the server's answer would be left out.
+TEST_F(Tours, ATourWaitsForAWindowThatIsStillLoadingButNotForever) {
+    QStandardPaths::setTestModeEnabled(true);
+    auto& store = theme::PrefsStore::instance();
+    const auto overlayOf = [](QWidget& w) { return w.findChild<tours::TourOverlay*>(QString(), Qt::FindDirectChildrenOnly); };
+    {
+        QWidget host;
+        host.resize(600, 400);
+        auto* late = new QPushButton(QStringLiteral("Members"), &host);
+        tours::tag(late, QStringLiteral("clubs.page"));
+        late->hide();
+        auto* always = new QPushButton(QStringLiteral("Servers"), &host);
+        tours::tag(always, QStringLiteral("servers.status"));
+        host.show();
+        bool ready = false;
+        tours::startTourWhenReady(&host, QStringLiteral("clubs"), store, [&ready] { return ready; });
+        QTest::qWait(400);
+        EXPECT_EQ(overlayOf(host), nullptr);
+        // The server answers: the control shows, and the tour starts with its step.
+        late->show();
+        ready = true;
+        QTRY_VERIFY_WITH_TIMEOUT(overlayOf(host) != nullptr, 2000);
+        QStringList targets;
+        for (const auto& st : overlayOf(host)->tour().steps) targets << st.target;
+        EXPECT_EQ(targets, (QStringList{ QStringLiteral("servers.status"), QStringLiteral("clubs.page") }));
+        overlayOf(host)->finish();
+    }
+    {
+        // Never ready (a server that doesn't answer): it starts anyway, with what is there.
+        QWidget host;
+        host.resize(600, 400);
+        auto* always = new QPushButton(QStringLiteral("Servers"), &host);
+        tours::tag(always, QStringLiteral("servers.status"));
+        host.show();
+        tours::startTourWhenReady(&host, QStringLiteral("clubs"), store, [] { return false; });
+        QTest::qWait(1000);
+        EXPECT_EQ(overlayOf(host), nullptr);
+        QTRY_VERIFY_WITH_TIMEOUT(overlayOf(host) != nullptr, 4000);
+        overlayOf(host)->finish();
+    }
+    {
+        // Nothing to wait for: at once.
+        QWidget host;
+        host.resize(600, 400);
+        auto* always = new QPushButton(QStringLiteral("Servers"), &host);
+        tours::tag(always, QStringLiteral("servers.status"));
+        host.show();
+        tours::startTourWhenReady(&host, QStringLiteral("clubs"), store);
+        EXPECT_NE(overlayOf(host), nullptr);
+        if (auto* o = overlayOf(host)) o->finish();
+    }
+    QStandardPaths::setTestModeEnabled(false);
+}

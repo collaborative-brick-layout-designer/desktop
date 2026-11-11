@@ -136,6 +136,8 @@ ServerWindow::ServerWindow(ServerLibrary& library, QWidget* parent) : QWidget(pa
     filters->addWidget(search_, 1);
     filters->addWidget(new QLabel(tr("Show:"), content_));
     filters->addWidget(help::withHelp(show_, QStringLiteral("owners.filter"), content_));
+    // The Clubs tour's "Joining a club" step: a club you join shows up here.
+    tours::tag(show_, QStringLiteral("clubs.join"), true);
     c->addLayout(filters);
     // A club you run, picked in Show: its logo is changed on the website.
     logoLink_ = new QLabel(content_);
@@ -150,16 +152,31 @@ ServerWindow::ServerWindow(ServerLibrary& library, QWidget* parent) : QWidget(pa
         const QUrl url = clubLogoPage();
         if (url.isValid() && openLink) openLink(url);
     });
-    // A club of yours, picked in Show: who is in it, and their roles.
+    // Who is in a club of yours, and their roles: the club picked in Show,
+    // else your only club, else it asks which. (It used to show only with a
+    // club picked in Show, so nobody found it, the Clubs tour included.)
     membersButton_ = new QPushButton(tr("Members…"), content_);
     membersButton_->setObjectName(QStringLiteral("clubMembers"));
-    membersButton_->setToolTip(
-        tr("See who is in this club, the roles they hold and when they were last active"));
     membersButton_->setVisible(false);
     tours::tag(membersButton_, QStringLiteral("clubs.page"));
     connect(membersButton_, &QPushButton::clicked, this, [this] {
         const QString slug = pickedClub();
-        if (!slug.isEmpty()) showMembers(slug);
+        if (!slug.isEmpty()) {
+            showMembers(slug);
+            return;
+        }
+        const auto& orgs = library_.orgs();
+        if (orgs.isEmpty()) return;
+        if (orgs.size() == 1) {
+            showMembers(orgs.first().slug);
+            return;
+        }
+        auto* menu = new QMenu(membersButton_);
+        menu->setObjectName(QStringLiteral("clubMembersMenu"));
+        menu->setAttribute(Qt::WA_DeleteOnClose);
+        for (const auto& o : orgs)
+            connect(menu->addAction(o.name), &QAction::triggered, this, [this, club = o.slug] { showMembers(club); });
+        menu->popup(membersButton_->mapToGlobal(QPoint(0, membersButton_->height())));
     });
     auto* clubRow = new QHBoxLayout();
     clubRow->addWidget(membersButton_);
@@ -686,7 +703,10 @@ void ServerWindow::showMembers(const QString& slug) {
 
 void ServerWindow::updateLogoLink() {
     logoLink_->setVisible(clubLogoPage().isValid());
-    membersButton_->setVisible(!pickedClub().isEmpty());
+    const bool picked = !pickedClub().isEmpty();
+    membersButton_->setVisible(picked || !library_.orgs().isEmpty());
+    membersButton_->setToolTip(picked ? tr("See who is in this club, the roles they hold and when they were last active")
+                                      : tr("See who is in your club, the roles they hold and when they were last active"));
 }
 
 void ServerWindow::rebuild() {

@@ -10105,6 +10105,10 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>Meus</translation>
     </message>
     <message>
+        <source>See who is in your club, the roles they hold and when they were last active</source>
+        <translation>Veja quem está no seu clube, os papéis que têm e quando estiveram ativos pela última vez</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Voltar a ser meu…</translation>
     </message>
