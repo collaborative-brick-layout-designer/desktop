@@ -172,21 +172,52 @@ jobs:
 
       # The render goldens (tests/rendering/RenderGoldensTest.cpp) run on
       # Linux only, where they were captured, with the packs the corpus maps
-      # use beyond the bundled library, checksum-checked.
+      # use beyond the bundled library, checksum-checked. A copy of each pack
+      # is cached, keyed on its file name and checksum, so one blip on the
+      # packs' site doesn't fail every pull request (TrixBrix 1.8.5 vanished
+      # from it once). A new version means a new key and a fresh download.
+      - name: Cached parts packs for the render goldens (Linux)
+        if: runner.os == 'Linux'
+        id: golden-packs
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ${{ runner.temp }}/golden-packs/TrixBrix.zip
+            ${{ runner.temp }}/golden-packs/BrickTracks.zip
+          key: golden-packs-TrixBrix.1.8.6.zip-82742af6ad77d5e28122e39ec41d976fcf6ad1542b8b88d85abc3a629478b67a-BrickTracks.1.1.zip-e25ab99a02fcd6ae02828fc00e7bc8b00cedcb52778f25940da36fbfc269aac4
+
       - name: Parts packs for the render goldens (Linux)
         if: runner.os == 'Linux'
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/golden-packs" && cd "$RUNNER_TEMP/golden-packs"
-          curl -fsSL --retry 3 -o TrixBrix.zip https://bluebrick.lswproject.com/download/package/TrixBrix.1.8.5.zip
-          curl -fsSL --retry 3 -o BrickTracks.zip https://bluebrick.lswproject.com/download/package/BrickTracks.1.1.zip
+          # Downloaded only when the cache has no copy; a failed download names the URL.
+          fetch() {
+            [ -f "$1" ] && return 0
+            curl -fsSL --retry 3 -o "$1" "$2" || {
+              echo "::error title=Parts pack download failed::Couldn't download $2 (and the cache has no copy of it)"
+              exit 1
+            }
+          }
+          fetch TrixBrix.zip https://bluebrick.lswproject.com/download/package/TrixBrix.1.8.6.zip
+          fetch BrickTracks.zip https://bluebrick.lswproject.com/download/package/BrickTracks.1.1.zip
           sha256sum -c - <<'SUMS'
-          79c4bf6dbb28b03f6cd7e5b783db2743423700795e839ef3ee3df5ed71aebd8f  TrixBrix.zip
+          82742af6ad77d5e28122e39ec41d976fcf6ad1542b8b88d85abc3a629478b67a  TrixBrix.zip
           e25ab99a02fcd6ae02828fc00e7bc8b00cedcb52778f25940da36fbfc269aac4  BrickTracks.zip
           SUMS
           unzip -q TrixBrix.zip && unzip -q BrickTracks.zip
           echo "BLD_RENDER_GOLDENS_PARTS=$PWD/TrixBrix:$PWD/BrickTracks" >> "$GITHUB_ENV"
           echo "BLD_ENABLE_RENDER_GOLDENS=1" >> "$GITHUB_ENV"
+
+      # Kept as soon as they're downloaded and checked, whatever the tests do.
+      - name: Keep the parts packs in the cache (Linux)
+        if: runner.os == 'Linux' && steps.golden-packs.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ${{ runner.temp }}/golden-packs/TrixBrix.zip
+            ${{ runner.temp }}/golden-packs/BrickTracks.zip
+          key: ${{ steps.golden-packs.outputs.cache-primary-key }}
 
       - name: Test
         run: ctest --test-dir build --build-config Release --output-on-failure --timeout 300
