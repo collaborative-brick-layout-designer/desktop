@@ -29,6 +29,8 @@
 > below). This fork exists to experiment with cross-platform parity and
 > club-collaboration features while keeping the `.bbm` format intact.
 
+**Try it online:** [collab.aronwk.com](https://collab.aronwk.com) is the project's own instance, running the [web app](https://github.com/collaborative-brick-layout-designer/web). Click **Try the demo** on the sign-in page to look around without signing up.
+
 ---
 
 A cross-platform maintainer fork of **[BlueBrick](https://github.com/Lswbanban/BlueBrick)**
