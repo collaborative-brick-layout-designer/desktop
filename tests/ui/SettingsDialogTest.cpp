@@ -102,8 +102,9 @@ TEST_F(SettingsDialogTest, AnyLegoColorIsFoundByEitherNameOrNumberAndApplies) {
     };
     search->setText(QStringLiteral("dark blue"));  // BrickLink's name for Earth Blue
     EXPECT_TRUE(shown().contains(QStringLiteral("Earth Blue (LEGO 140), BrickLink: Dark Blue (63)")));
-    search->setText(QStringLiteral("24"));  // LEGO's number
-    EXPECT_EQ(shown(), QStringList{ QStringLiteral("Bright Yellow (LEGO 24), BrickLink: Yellow (3)") });
+    search->setText(QStringLiteral("24"));  // LEGO's number (and BrickLink's 24, Purple, too)
+    EXPECT_TRUE(shown().contains(QStringLiteral("Bright Yellow (LEGO 24), BrickLink: Yellow (3)")));
+    EXPECT_EQ(shown().size(), 2);
     search->setText(QStringLiteral("trans clear"));
     auto* none = dialog.findChild<QLabel*>(QStringLiteral("legoColorNone"));
     auto* showAll = dialog.findChild<QPushButton*>(QStringLiteral("legoColorShowAll"));

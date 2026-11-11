@@ -36,6 +36,7 @@ add_executable(bld_ui_tests
     LayerPanelTest.cpp
     ActiveSheetTest.cpp
     ActiveSheetShotsTest.cpp
+    ThemeColorShotsTest.cpp
     ThemeSwitchTest.cpp
     ToursTest.cpp
     RecentFilesTest.cpp

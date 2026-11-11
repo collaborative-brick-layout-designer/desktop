@@ -177,7 +177,7 @@ TEST_F(Theme, SettingsKeepTheirValuesAndTheServersJson) {
     const QJsonObject json = again.prefs().toJson();
     EXPECT_EQ(json.value(QStringLiteral("theme")).toString(), QStringLiteral("dark"));
     EXPECT_EQ(json.value(QStringLiteral("toursSeen")).toArray().size(), 1);
-    EXPECT_EQ(json.keys().size(), 8);
+    EXPECT_EQ(json.keys().size(), 10);  // with legoColor and colorStyle
     EXPECT_EQ(json.value(QStringLiteral("partsIconSize")).toInt(), 96);
     EXPECT_EQ(json.value(QStringLiteral("connectionSnap")).toString(), QStringLiteral("gentle"));
 

@@ -56,6 +56,8 @@ QJsonObject serverPrefs(const QString& accent, const QString& theme) {
     QJsonObject json = p.toJson();
     json.remove(QStringLiteral("partsIconSize"));  // a server from before the Parts list's size was synced
     json.remove(QStringLiteral("connectionSnap"));  // ...and before the Snap strength was
+    json.remove(QStringLiteral("legoColor"));       // ...and before LEGO colors
+    json.remove(QStringLiteral("colorStyle"));
     return json;
 }
 
@@ -196,6 +198,45 @@ TEST_F(PrefsSyncTest, EachServerIsRememberedByItsHost) {
     EXPECT_EQ(PrefsSync::syncedPrefs(one.base()).value(QStringLiteral("accent")).toString(), QStringLiteral("forest"));
     EXPECT_EQ(PrefsSync::syncedPrefs(two.base()).value(QStringLiteral("accent")).toString(), QStringLiteral("plum"));
     EXPECT_EQ(store.prefs().accent, QStringLiteral("plum"));  // the newest won
+}
+
+TEST_F(PrefsSyncTest, ALegoColorGoesOnlyToAServerThatKeepsIt) {
+    // An older server never gets legoColor or colorStyle (it refuses unknown
+    // keys); a newer one answers with them, gets them, and its are taken in.
+    PrefsStore store(QString::fromLatin1(kGroup));
+    AppPrefs mine;
+    mine.legoColor = 24;
+    mine.colorStyle = QStringLiteral("full");
+    store.update(mine);
+    {
+        FakeHttp http;
+        http.reply(kPath, 200, answer(serverPrefs(QStringLiteral("brick"), QStringLiteral("system")),
+                                      QStringLiteral("2020-01-01T00:00:00.000Z")));
+        http.reply(kPath, 200, answer(serverPrefs(QStringLiteral("brick"), QStringLiteral("system")),
+                                      QStringLiteral("2031-01-01T00:00:00.000Z")));
+        PrefsSync sync(store);
+        sync.start(http.base(), QStringLiteral("bld_pat_test"));
+        ASSERT_TRUE(waitFor([&] { return count(http, "PUT") == 1; }));
+        const QJsonObject sent =
+            QJsonDocument::fromJson(http.requests.back().body).object().value(QStringLiteral("prefs")).toObject();
+        EXPECT_FALSE(sent.contains(QStringLiteral("legoColor")));
+        EXPECT_FALSE(sent.contains(QStringLiteral("colorStyle")));
+        EXPECT_EQ(store.prefs().legoColor, 24);  // kept here all the same
+    }
+    store.update(store.prefs());  // newer than the server's again
+    FakeHttp http;
+    QJsonObject theirs = serverPrefs(QStringLiteral("brick"), QStringLiteral("system"));
+    theirs.insert(QStringLiteral("legoColor"), QJsonValue());
+    theirs.insert(QStringLiteral("colorStyle"), QStringLiteral("original"));
+    http.reply(kPath, 200, answer(theirs, QStringLiteral("2020-01-01T00:00:00.000Z")));
+    http.reply(kPath, 200, answer(store.prefs().toJson(), QStringLiteral("2032-01-01T00:00:00.000Z")));
+    PrefsSync sync(store);
+    sync.start(http.base(), QStringLiteral("bld_pat_test"));
+    ASSERT_TRUE(waitFor([&] { return count(http, "PUT") == 1; }));
+    const QJsonObject sent =
+        QJsonDocument::fromJson(http.requests.back().body).object().value(QStringLiteral("prefs")).toObject();
+    EXPECT_EQ(sent.value(QStringLiteral("legoColor")).toInt(), 24);
+    EXPECT_EQ(sent.value(QStringLiteral("colorStyle")).toString(), QStringLiteral("full"));
 }
 
 TEST_F(PrefsSyncTest, ThePartsPictureSizeGoesOnlyToAServerThatKeepsIt) {
