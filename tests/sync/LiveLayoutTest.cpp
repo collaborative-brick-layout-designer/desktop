@@ -158,9 +158,10 @@ TEST(LiveLayout, OthersChangesWaitWhileTheMouseIsDownAndKeepTheZoom) {
     mouse(h.view, QEvent::MouseButtonPress);
     const int before = h.reloads;
     h.server.remoteEdit([](core::Map& m) { firstBrick(m).orientation = 90.0f; });
-    ASSERT_TRUE(waitFor([&] { return firstBrick(*h.live.session().currentMap()).orientation == 90.0f; }));
-    waitFor([] { return false; }, 100);
+    // (It waits outside the document too: SyncClient::holdIncoming.)
+    waitFor([] { return false; }, 200);
     EXPECT_EQ(h.reloads, before);
+    EXPECT_NE(firstBrick(*h.view.currentMap()).orientation, 90.0f);
 
     mouse(h.view, QEvent::MouseButtonRelease);
     ASSERT_TRUE(waitFor([&] { return h.reloads == before + 1; }));

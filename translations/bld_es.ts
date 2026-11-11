@@ -6703,6 +6703,18 @@ Save anyway?</source>
         <translation>Todas las demás personas que tienen este diseño abierto ahora</translation>
     </message>
     <message>
+        <source>Edit module closed</source>
+        <translation>Se cerró Editar módulo</translation>
+    </message>
+    <message>
+        <source>The module you were editing isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>El módulo que estabas editando ya no es un módulo: alguien lo desagrupó o lo borró. Vuelves a estar en la maqueta entera.</translation>
+    </message>
+    <message>
+        <source>“%1” isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>«%1» ya no es un módulo: alguien lo desagrupó o lo borró. Vuelves a estar en la maqueta entera.</translation>
+    </message>
+    <message>
         <source>Your changes were sent</source>
         <translation>Tus cambios se enviaron</translation>
     </message>

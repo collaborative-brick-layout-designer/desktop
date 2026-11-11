@@ -6703,6 +6703,18 @@ Enregistrer quand même ?</translation>
         <translation>Toutes les autres personnes qui ont cette disposition ouverte en ce moment</translation>
     </message>
     <message>
+        <source>Edit module closed</source>
+        <translation>« Modifier le module » s’est fermé</translation>
+    </message>
+    <message>
+        <source>The module you were editing isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>Le module que vous modifiiez n’est plus un module : quelqu’un l’a dégroupé ou supprimé. Vous êtes de retour dans le plan entier.</translation>
+    </message>
+    <message>
+        <source>“%1” isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>« %1 » n’est plus un module : quelqu’un l’a dégroupé ou supprimé. Vous êtes de retour dans le plan entier.</translation>
+    </message>
+    <message>
         <source>Your changes were sent</source>
         <translation>Vos modifications ont été envoyées</translation>
     </message>

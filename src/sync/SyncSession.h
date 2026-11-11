@@ -15,7 +15,9 @@
 // - With a cache folder, the shared layout and any offline edits are kept
 //   on disk: the layout opens without a connection, and offline edits
 //   survive a crash.
-// - Remote changes wait while held (mid-drag) and arrive on release.
+// - Remote changes wait while held (mid-drag) and arrive on release: until
+//   then they aren't in the document either (SyncClient::holdIncoming), so
+//   the edit the drag ends with can't take them back.
 // - Undo / redo revert only this desktop's own edits.
 // - A read-only session (view-only access) never sends edits.
 // - Access that changes while open (setReadOnly): up to editor, edits flow

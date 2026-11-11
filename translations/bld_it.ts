@@ -6703,6 +6703,18 @@ Salvare comunque?</translation>
         <translation>Tutte le altre persone che hanno questo layout aperto ora</translation>
     </message>
     <message>
+        <source>Edit module closed</source>
+        <translation>Modifica modulo si è chiusa</translation>
+    </message>
+    <message>
+        <source>The module you were editing isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>Il modulo che stavi modificando non è più un modulo: qualcuno l’ha separato o eliminato. Sei di nuovo in tutto il layout.</translation>
+    </message>
+    <message>
+        <source>“%1” isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>“%1” non è più un modulo: qualcuno l’ha separato o eliminato. Sei di nuovo in tutto il layout.</translation>
+    </message>
+    <message>
         <source>Your changes were sent</source>
         <translation>Le tue modifiche sono state inviate</translation>
     </message>

@@ -30,6 +30,8 @@
 #include <QWebSocket>
 
 #include <chrono>
+#include <utility>
+#include <vector>
 
 namespace bld::sync {
 
@@ -59,6 +61,16 @@ public:
 
     Status status() const { return status_; }
 
+    // While held (the editor is in the middle of a drag), the layout's
+    // changes from the server wait instead of going into the document; on
+    // release they go in, in the order they came. So the document stays
+    // what the editor is showing, and the edit the drag ends with is a
+    // change to that: applied after it, what the others did meanwhile
+    // merges with it. (Written into a document that already had their
+    // changes, the editor's older picture of the layout would take them
+    // back.) Presence isn't held.
+    void holdIncoming(bool hold);
+
     // Retry backoff: `initial`, doubling up to `max`.
     void setReconnectDelays(std::chrono::milliseconds initial, std::chrono::milliseconds max);
     // How often to ping, how long to wait for the answer, and how long the
@@ -83,6 +95,8 @@ private:
     void onConnected();
     void onDisconnected();
     void onMessage(const QByteArray& message);
+    // A sync step 2 or an update from the server goes into the document.
+    void incoming(bool syncStep2, const QByteArray& payload);
     void unreadableUpdate(bool syncStep2, const QString& why);
     void send(const QByteArray& message);
     void ping();
@@ -99,6 +113,9 @@ private:
     QUrl url_;
     QString token_;
     Status status_ = Status::Offline;
+    bool held_ = false;
+    // What arrived while held: whether it was a sync step 2, and its payload.
+    std::vector<std::pair<bool, QByteArray>> waiting_;
     bool wantOpen_ = false;
     // A full resync asked for after an unreadable update, not answered yet.
     bool resyncAsked_ = false;

@@ -6,6 +6,7 @@
 
 #include "core/LayerBrick.h"
 #include "core/Map.h"
+#include "core/ModuleEdit.h"
 
 #include <QDateTime>
 #include <QEvent>
@@ -309,11 +310,21 @@ void LiveLayout::reload() {
     if (!map) return;
     // The first copy fits the view; a newer one keeps the zoom, the scroll
     // and the pick, and draws again only what changed.
+    // The module being edited, to say so when someone else's change took it away.
+    const QString editing = view_.editingModule();
+    QString editingName;
+    if (!editing.isEmpty() && view_.currentMap())
+        if (const core::Module* m = core::findModule(view_.currentMap()->sidecar.modules, editing)) editingName = m->name;
+    // (Our own undo or redo can take it away too: that needs no telling.)
+    const bool ownStep = partsBeforeStep_.has_value();
     reloading_ = true;
     if (reloadedOnce_) view_.updateMap(std::move(map));
     else view_.loadMap(std::move(map));
     reloading_ = false;
     reloadedOnce_ = true;
+    if (!editing.isEmpty() && !ownStep && view_.currentMap()
+        && !core::findModule(view_.currentMap()->sidecar.modules, editing))
+        emit editedModuleGone(editingName);
 
     // After an undo or redo, the parts it brought back are picked instead.
     if (partsBeforeStep_) {

@@ -7166,6 +7166,18 @@ Lagre likevel?</translation>
         <translation>Alle andre som har dette oppsettet åpent nå</translation>
     </message>
     <message>
+        <source>Edit module closed</source>
+        <translation>Rediger modul ble lukket</translation>
+    </message>
+    <message>
+        <source>The module you were editing isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>Modulen du redigerte er ikke lenger en modul: noen løste den opp eller slettet den. Du er tilbake i hele layouten.</translation>
+    </message>
+    <message>
+        <source>“%1” isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>«%1» er ikke lenger en modul: noen løste den opp eller slettet den. Du er tilbake i hele layouten.</translation>
+    </message>
+    <message>
         <source>Your changes were sent</source>
         <translation>Endringene dine ble sendt</translation>
     </message>

@@ -91,6 +91,9 @@ signals:
     // take them. Still live; session().notTaken() holds them for saving.
     void editsNotTaken();
     void peopleChanged();
+    // Someone else ungrouped or deleted the module being edited here: Edit
+    // module has closed (MapView leaves it); `name` is the module's.
+    void editedModuleGone(const QString& name);
     // The live layout closed for good (access taken away, the layout
     // deleted, a refused merge…): the whole message to show
     // (sync::liveCloseText), and the server's own code as details when the

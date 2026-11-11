@@ -97,6 +97,10 @@ void SyncSession::open(const QUrl& socketUrl, const QString& token, bool readOnl
     doc_.reset();
     loaded_ = false;
     pending_ = false;
+    // A hold left over from the layout before (closed with the mouse down)
+    // would keep this one's first copy waiting.
+    held_ = false;
+    client_.holdIncoming(false);
     offline_.reset();
     peers_.clear();
     loadCache();
@@ -361,6 +365,8 @@ bool SyncSession::redo() {
 
 void SyncSession::holdRemoteChanges(bool hold) {
     held_ = hold;
+    // What came in meanwhile goes into the document now (remoteArrived).
+    client_.holdIncoming(hold);
     if (!held_ && pending_) {
         pending_ = false;
         if (offline_) reconcileOffline();

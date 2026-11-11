@@ -6665,6 +6665,18 @@ Save anyway?</source>
         <translation>现在打开此布局的其他所有人</translation>
     </message>
     <message>
+        <source>Edit module closed</source>
+        <translation>“编辑模块”已关闭</translation>
+    </message>
+    <message>
+        <source>The module you were editing isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>你正在编辑的模块已不再是模块：有人取消了它的编组或删除了它。你已回到整个布局。</translation>
+    </message>
+    <message>
+        <source>“%1” isn&apos;t a module any more: someone ungrouped or deleted it. You&apos;re back in the whole layout.</source>
+        <translation>“%1”已不再是模块：有人取消了它的编组或删除了它。你已回到整个布局。</translation>
+    </message>
+    <message>
         <source>Your changes were sent</source>
         <translation>你的更改已发送</translation>
     </message>

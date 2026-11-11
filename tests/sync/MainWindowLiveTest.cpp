@@ -11,7 +11,9 @@
 #include "ServerList.h"
 #include "TokenStore.h"
 #include "CompareDialog.h"
+#include "core/ModuleEdit.h"
 #include "edit/EditCommands.h"
+#include "edit/ModuleCommands.h"
 #include "import/LayoutFile.h"
 #include "parts/PartsLibrary.h"
 #include "ui/LayerPanel.h"
@@ -1496,6 +1498,98 @@ TEST_F(MainWindowLive, PicturesOfTheLiveLayoutClosedBox) {
                 ASSERT_TRUE(waitFor([&] { return closed.done() && !live_->active() && QFile::exists(file); }));
             });
         }
+    }
+}
+
+// I'm in Edit module when someone else ungroups (or deletes) that module:
+// Edit module closes, and a notice says why (it used to close without a word).
+TEST_F(MainWindowLive, TheModuleIEditUngroupedBySomeoneElseSaysWhyEditModuleClosed) {
+    auto* notices = window_->findChild<ui::NoticeArea*>();
+    ASSERT_NE(notices, nullptr);
+    core::Map& m = *view_->currentMap();
+    auto* create = new edit::CreateModuleCommand(m, QStringLiteral("Harbour"), { { brickRef(m, 0).layerIndex, brickRef(m, 0).guid } });
+    const QString id = create->moduleId();
+    view_->undoStack()->push(create);
+    ASSERT_TRUE(waitFor([&] { return sync::mapFromDocJson(ws_.doc.toJson())->sidecar.modules.size() == 1; }));
+    ASSERT_TRUE(waitFor([&] { return core::findModule(view_->currentMap()->sidecar.modules, id) != nullptr; }));
+    view_->setEditingModule(id);
+    ASSERT_EQ(view_->editingModule(), id);
+    EXPECT_FALSE(notices->isShown(QStringLiteral("live-module-gone")));
+
+    // Someone else ungroups it: the parts stay, the module goes.
+    ws_.remoteEdit([](core::Map& s) { s.sidecar.modules.clear(); });
+    ASSERT_TRUE(waitFor([&] { return view_->editingModule().isEmpty(); }));
+    ASSERT_TRUE(waitFor([&] { return notices->isShown(QStringLiteral("live-module-gone")); }));
+    auto* card = notices->card(QStringLiteral("live-module-gone"));
+    EXPECT_EQ(card->findChild<QLabel*>(QStringLiteral("NoticeTitle"))->text(), QStringLiteral("Edit module closed"));
+    EXPECT_EQ(card->findChild<QLabel*>(QStringLiteral("NoticeText"))->text(),
+              QStringLiteral("“Harbour” isn't a module any more: someone ungrouped or deleted it. You're back in the whole "
+                             "layout."));
+    EXPECT_EQ(brickAt(*view_->currentMap(), 0).displayArea, original_);
+    // My own Undo taking a module away needs no telling.
+    notices->hideNotice(QStringLiteral("live-module-gone"));
+    core::Map& now = *view_->currentMap();
+    auto* again = new edit::CreateModuleCommand(now, QStringLiteral("Quay"), { { brickRef(now, 0).layerIndex, brickRef(now, 0).guid } });
+    const QString second = again->moduleId();
+    view_->undoStack()->push(again);
+    ASSERT_TRUE(waitFor([&] { return sync::mapFromDocJson(ws_.doc.toJson())->sidecar.modules.size() == 1 && live_->canUndo(); }));
+    view_->setEditingModule(second);
+    ASSERT_TRUE(live_->undo());
+    ASSERT_TRUE(waitFor([&] { return view_->editingModule().isEmpty(); }));
+    waitFor([] { return false; }, 100);
+    EXPECT_FALSE(notices->isShown(QStringLiteral("live-module-gone")));
+}
+
+// BLD_REVIEW_SHOTS=<dir> BLD_PARTS=<library dirs, ':'-separated>: the live
+// window right after someone else ungrouped the module being edited, light
+// and dark, for a PR (skipped otherwise). The same test takes the "before"
+// pictures on an older build, where nothing says why Edit module closed.
+TEST_F(MainWindowLive, PicturesOfEditModuleClosedBySomeoneElse) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    const QStringList libs = qEnvironmentVariable("BLD_PARTS").split(QLatin1Char(':'), Qt::SkipEmptyParts);
+    if (out.isEmpty() || libs.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS / BLD_PARTS not set";
+    for (const QString& p : libs) parts_.addSearchPath(p);
+    ASSERT_GT(parts_.scan(), 700);
+    ui::theme::PrefsStore store(QStringLiteral("review-module-gone-shots"));
+    ui::theme::ThemeManager themer(store);
+    window_->resize(1440, 900);
+    window_->show();
+    waitFor([] { return false; }, 300);
+    view_->rebuildScene();
+    waitFor([&] { return !view_->loadingCard() || !view_->loadingCard()->isVisible(); }, 30000);
+    // No part without its picture in these.
+    int missing = 0;
+    for (const auto& L : view_->currentMap()->layers())
+        if (L->kind() == core::LayerKind::Brick)
+            for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks)
+                if (!parts_.metadata(b.partNumber) || parts_.pixmap(b.partNumber).isNull()) ++missing;
+    ASSERT_EQ(missing, 0);
+    window_->findChild<ui::NoticeArea*>()->hideNotice(QStringLiteral("server-features"));  // (the fake server's age)
+    // (And its lack of a parts list: not what the pictures are of.)
+    if (auto* warning = window_->findChild<QWidget*>(QStringLiteral("partsSyncFailed"))) warning->hide();
+    view_->fitAll();
+
+    core::Map& m = *view_->currentMap();
+    auto* create = new edit::CreateModuleCommand(
+        m, QStringLiteral("Harbour"),
+        { { brickRef(m, 0).layerIndex, brickRef(m, 0).guid }, { brickRef(m, 1).layerIndex, brickRef(m, 1).guid } });
+    const QString id = create->moduleId();
+    view_->undoStack()->push(create);
+    ASSERT_TRUE(waitFor([&] { return sync::mapFromDocJson(ws_.doc.toJson())->sidecar.modules.size() == 1; }));
+    ASSERT_TRUE(waitFor([&] { return core::findModule(view_->currentMap()->sidecar.modules, id) != nullptr; }));
+    view_->setEditingModule(id);
+    ws_.remoteEdit([](core::Map& s) { s.sidecar.modules.clear(); });
+    ASSERT_TRUE(waitFor([&] { return view_->editingModule().isEmpty(); }));
+    waitFor([] { return false; }, 500);
+    for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+        ui::theme::AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        waitFor([] { return false; }, 600);
+        window_->statusBar()->clearMessage();
+        EXPECT_TRUE(window_->grab().save(out + QStringLiteral("/module-ungrouped-%1.png")
+                                                   .arg(mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark")
+                                                                                              : QStringLiteral("light"))));
     }
 }
 
