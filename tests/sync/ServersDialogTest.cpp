@@ -10,6 +10,8 @@
 #include "ui/ConfirmDialog.h"
 #include "ui/help/HelpButton.h"
 #include "ui/help/HelpTexts.h"
+#include "ui/theme/AppPrefs.h"
+#include "ui/theme/ThemeManager.h"
 
 #include <gtest/gtest.h>
 
@@ -26,7 +28,9 @@
 #include <QListWidget>
 #include <QLocale>
 #include <QPushButton>
+#include <QPointer>
 #include <QSettings>
+#include <QStandardPaths>
 
 #include <functional>
 #include <memory>
@@ -473,4 +477,87 @@ TEST_F(ServersDialogTest, HasHelpForTheListAndMain) {
     }
     EXPECT_TRUE(keys.contains(QStringLiteral("servers.list")));
     EXPECT_TRUE(keys.contains(QStringLiteral("servers.main")));
+}
+
+// BLD_REVIEW_SHOTS=<dir>: pictures for a PR, light and dark (skipped
+// otherwise): the window after Sign Out of a server that can't be reached,
+// and the Remove question for a server with downloaded parts. Uses only the
+// buttons, so the same test takes the "before" pictures on an older build.
+TEST_F(ServersDialogTest, PicturesOfSigningOutAndRemoving) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    bld::ui::theme::PrefsStore store(QStringLiteral("servers-shots"));
+    bld::ui::theme::ThemeManager themer(store);
+    const auto shoot = [&](QWidget* w, const QString& name) {
+        for (const auto mode : { bld::ui::theme::ThemeChoice::Light, bld::ui::theme::ThemeChoice::Dark }) {
+            bld::ui::theme::AppPrefs p = store.prefs();
+            p.theme = mode;
+            store.update(p);
+            waitFor([] { return false; }, 600);
+            ASSERT_TRUE(w->grab().save(out + QLatin1Char('/') + name
+                                       + (mode == bld::ui::theme::ThemeChoice::Dark ? QStringLiteral("-dark.png")
+                                                                                    : QStringLiteral("-light.png"))));
+        }
+    };
+    // A third server that answers, then is gone; its sign-in lasts 30 more days at the longest.
+    auto away = std::make_unique<FakeHttp>();
+    const QUrl url = away->base();
+    QJsonObject who{ { QStringLiteral("user"), QJsonObject{ { QStringLiteral("id"), QStringLiteral("cy") },
+                                                             { QStringLiteral("displayName"), QStringLiteral("Cy") } } },
+                     { QStringLiteral("token"),
+                       QJsonObject{ { QStringLiteral("idleSeconds"), 90 * 24 * 3600 },
+                                    { QStringLiteral("longestAt"),
+                                      static_cast<double>(QDateTime::currentDateTime().addDays(30).toMSecsSinceEpoch()) } } } };
+    away->reply("/api/version", 200, version(QStringLiteral("2.4.0"), desktopFeatures()));
+    away->reply("/api/tokens/current", 200, who);
+    {
+        ServerList list = ServerList::load();
+        list.add(url, QStringLiteral("Show hall"));
+        list.rename(pal.base(), QStringLiteral("Sam’s server"));
+        list.save();
+    }
+    tokens.save(url, QStringLiteral("bld_pat_away"));
+    // What this computer downloaded from Sam's server.
+    const QString appData = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    const QString folder = pal.base().host() + QLatin1Char('_') + QString::number(pal.base().port());
+    const QString partsDir = appData + QStringLiteral("/server-parts/") + folder;
+    QDir(partsDir).removeRecursively();
+    ASSERT_TRUE(QDir().mkpath(partsDir + QStringLiteral("/custom")));
+    {
+        QFile f(partsDir + QStringLiteral("/custom/P.xml"));
+        ASSERT_TRUE(f.open(QIODevice::WriteOnly));
+        f.write(QByteArray(12 * 1024 * 1024 + 300 * 1024, 'x'));
+    }
+
+    auto d = open();
+    dialog->show();
+    ASSERT_TRUE(waitFor([&] { return settled() && dialog->statusText(url).startsWith(QStringLiteral("Signed in as Cy")); }));
+    away.reset();
+    dialog->selectServer(url);
+    dialog->findChild<QPushButton*>(QStringLiteral("signInOut"))->click();
+    ASSERT_TRUE(waitFor([&] { return !tokens.tokens.contains(TokenStore::keyFor(url)); }));
+    waitFor([] { return false; }, 2500);
+    shoot(dialog, QStringLiteral("servers-signed-out"));
+
+    dialog->selectServer(pal.base());
+    // The question is modal: it is pictured and answered from inside its own loop.
+    bool pictured = false;
+    QTimer poll;
+    poll.setInterval(20);
+    QObject::connect(&poll, &QTimer::timeout, [&] {
+        auto* modal = qobject_cast<QDialog*>(QApplication::activeModalWidget());
+        if (!modal || modal == dialog) return;
+        poll.stop();
+        const QPointer<QDialog> question(modal);
+        waitFor([] { return false; }, 300);
+        shoot(question, QStringLiteral("servers-remove-question"));
+        pictured = true;
+        if (question) question->reject();
+    });
+    poll.start();
+    // (The button asks a moment later, from the event loop.)
+    dialog->findChild<QPushButton*>(QStringLiteral("removeServer"))->click();
+    EXPECT_TRUE(waitFor([&] { return pictured; }, 10000));
+    poll.stop();
+    QDir(partsDir).removeRecursively();
 }

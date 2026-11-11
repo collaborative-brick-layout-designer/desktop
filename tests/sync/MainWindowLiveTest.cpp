@@ -2556,3 +2556,51 @@ TEST_F(MainWindowLive, InANarrowWindowTheStatusBarPhraseShowsWhole) {
     EXPECT_EQ(room(), before);
     window_->hide();
 }
+
+// BLD_REVIEW_SHOTS=<dir> BLD_PARTS=<library dirs, ':'-separated>: pictures for
+// a PR, light and dark (skipped otherwise): a narrow window whose status bar
+// says why another server's part wasn't placed. Places the part the way the
+// Parts panel does, so the same test takes the "before" picture on an older build.
+TEST_F(MainWindowLive, PicturesOfTheStatusBarInANarrowWindow) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    const QStringList libs = qEnvironmentVariable("BLD_PARTS").split(QLatin1Char(':'), Qt::SkipEmptyParts);
+    if (out.isEmpty() || libs.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS / BLD_PARTS not set";
+    QTemporaryDir root;
+    const QString base = root.path() + QStringLiteral("/server-parts/");
+    writeServerPart(base + QStringLiteral("friend.example/custom"), QStringLiteral("FRIENDPART"));
+    for (const QString& p : libs) parts_.addSearchPath(p);
+    parts_.addSearchPath(base + QStringLiteral("friend.example"));
+    ASSERT_GT(parts_.scan(), 1000);
+    {
+        sync::ServerList list = sync::ServerList::load();
+        list.add(QUrl(QStringLiteral("https://friend.example")), QStringLiteral("Sam’s server"));
+        list.rename(http_.base(), QStringLiteral("Train club"));
+        list.save();
+    }
+    ui::theme::PrefsStore store(QStringLiteral("review-statusbar-shots"));
+    ui::theme::ThemeManager themer(store);
+    window_->resize(760, 560);
+    window_->show();
+    waitFor([] { return false; }, 300);
+    if (auto* browser = window_->findChild<ui::PartsBrowser*>()) browser->rebuild();
+    view_->rebuildScene();
+    waitFor([&] { return !view_->loadingCard() || !view_->loadingCard()->isVisible(); }, 30000);
+    for (QFrame* card : window_->findChildren<QFrame*>(QStringLiteral("NoticeCard"))) card->hide();
+    int missing = 0;
+    for (const auto& L : view_->currentMap()->layers())
+        if (L->kind() == core::LayerKind::Brick)
+            for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks)
+                if (!parts_.metadata(b.partNumber) || parts_.pixmap(b.partNumber).isNull()) ++missing;
+    ASSERT_EQ(missing, 0);
+    for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+        ui::theme::AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        waitFor([] { return false; }, 600);
+        view_->addPartAtViewCenter(QStringLiteral("FRIENDPART"));
+        waitFor([] { return false; }, 200);
+        ASSERT_TRUE(window_->grab().save(out + QStringLiteral("/statusbar-narrow-%1.png")
+                                                   .arg(mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark")
+                                                                                              : QStringLiteral("light"))));
+    }
+}
