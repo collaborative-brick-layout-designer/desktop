@@ -288,7 +288,10 @@ protected:
             ASSERT_TRUE(waitFor([&] { return closed.done() && !live_->active(); }));
         });
         EXPECT_EQ(closed.unexpected, 0);
+#ifndef Q_OS_MACOS
+        // (A message box has no title on macOS: the message says it all there.)
         EXPECT_EQ(said.title, QStringLiteral("Live layout closed"));
+#endif
         // One plain message: no sentence wrapped around another, and never the server's own word for it.
         EXPECT_FALSE(said.text.contains(QStringLiteral("ended the live session"))) << said.text.toStdString();
         EXPECT_FALSE(said.text.contains(reason)) << said.text.toStdString();
