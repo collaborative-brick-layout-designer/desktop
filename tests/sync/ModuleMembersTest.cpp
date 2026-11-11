@@ -25,6 +25,7 @@
 #include <QJsonObject>
 
 #include <algorithm>
+#include <functional>
 
 using namespace bld;
 

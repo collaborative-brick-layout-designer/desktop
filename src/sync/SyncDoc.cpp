@@ -773,9 +773,9 @@ struct SyncDoc::Impl {
     // own that undo never takes back. Builds that read only shape 1 then
     // refuse the doc rather than misread it.
     //
-    // `memberKeys`: the write after this leaves module part keys in the doc
+    // `partKeys`: the write after this leaves module part keys in the doc
     // (ModuleMembers.h), which is doc shape 3.
-    void shapePass(const QJsonObject& cur, const QJsonObject& want, bool memberKeys) {
+    void shapePass(const QJsonObject& cur, const QJsonObject& want, bool partKeys) {
         const QJsonObject curData = cur.value(QLatin1String("layerData")).toObject();
         const QJsonObject wantData = want.value(QLatin1String("layerData")).toObject();
         txn = ydoc_write_transaction(doc, 0, nullptr);
@@ -829,7 +829,7 @@ struct SyncDoc::Impl {
             }
         }
         const int stamped = schema.isDouble() ? schema.toInt() : 0;
-        const int stamp = memberKeys ? kDocShapeMemberKeys : mark ? kDocShapeInPlace : 0;
+        const int stamp = partKeys ? kDocShapeMemberKeys : mark ? kDocShapeInPlace : 0;
         if (stamp > stamped) {
             const YInput sv = yinput_float(stamp);
             ymap_insert(meta, txn, "schemaVersion", &sv);
@@ -1224,13 +1224,13 @@ void SyncDoc::init() {
 void SyncDoc::reset() {
     const quint64 id = d_->clientId;
     const bool keep = d_->keepJson;
-    const bool memberKeys = d_->memberKeys;
+    const bool keys = d_->memberKeys;
     yundo_manager_destroy(d_->undo);
     ydoc_destroy(d_->doc);
     d_ = std::make_unique<Impl>();
     d_->clientId = id != 0 ? id + 1 : 0;  // (never one the old doc wrote with)
     d_->keepJson = keep;
-    d_->memberKeys = memberKeys;
+    d_->memberKeys = keys;
     init();
 }
 
