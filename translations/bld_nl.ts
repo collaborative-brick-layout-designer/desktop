@@ -3382,6 +3382,10 @@
         <translation>Uitloggen</translation>
     </message>
     <message>
+        <source>Also remove the parts downloaded from %1? (%2)</source>
+        <translation>Ook de onderdelen verwijderen die van %1 zijn gedownload? (%2)</translation>
+    </message>
+    <message>
         <source>Add a Server</source>
         <translation>Een server toevoegen</translation>
     </message>
@@ -3424,6 +3428,10 @@
     <message>
         <source>You can add it again later.</source>
         <translation>Je kunt hem later weer toevoegen.</translation>
+    </message>
+    <message>
+        <source>The parts this computer downloaded from the server, and the copies of its live layouts kept here. Changes made offline that never reached the server go with them. Layouts you saved as files stay.</source>
+        <translation>De onderdelen die deze computer van de server heeft gedownload, en de kopieën van zijn live layouts die hier worden bewaard. Wijzigingen die offline zijn gemaakt en de server nooit hebben bereikt, gaan mee weg. Layouts die je als bestand hebt opgeslagen, blijven.</translation>
     </message>
 </context>
 <context>
@@ -6818,12 +6826,24 @@ Toch opslaan?</translation>
         <translation>‘%1’ opgeslagen op %2</translation>
     </message>
     <message>
+        <source>This module has parts on another server (%1).</source>
+        <translation>Deze module heeft onderdelen op een andere server (%1).</translation>
+    </message>
+    <message>
         <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
         <translation>Deze module heeft onderdelen die op een andere server staan (%1). Ze kan niet in deze live layout, omdat niemand anders hier ze zou kunnen zien.</translation>
     </message>
     <message>
+        <source>Some copied parts are on another server (%1).</source>
+        <translation>Sommige gekopieerde onderdelen staan op een andere server (%1).</translation>
+    </message>
+    <message>
         <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
         <translation>Sommige gekopieerde onderdelen staan op een andere server (%1). Ze kunnen niet in deze live layout, omdat niemand anders hier ze zou kunnen zien.</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1).</source>
+        <translation>Dit onderdeel staat op een andere server (%1).</translation>
     </message>
     <message>
         <source>You can save anyway, or cancel and replace those parts first.</source>

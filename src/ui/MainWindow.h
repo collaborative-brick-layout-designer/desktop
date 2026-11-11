@@ -16,6 +16,7 @@
 #include <utility>
 
 #include "Autosave.h"
+#include "PlacementRefusal.h"
 #include "LibraryApi.h"
 #include "PartsUpload.h"
 #include "ServerApi.h"
@@ -380,6 +381,10 @@ private:
     // removed) stops being live, with a card that says so.
     // `liveSignInWasKept`: the live server's sign-in was in the keychain before.
     void afterServersChanged(bool liveSignInWasKept);
+    // The live layout's sign-in was given up (signed out of its server, or
+    // the server removed): it stops being live, stays open as an unsaved
+    // copy, and a card says why.
+    void endLiveSignedOut();
     // "Browse the catalog on the web…" in the Parts panel and Module library:
     // the last-used server's catalog page in the browser.
     void openCatalogOnWeb(bool parts);
@@ -427,7 +432,7 @@ protected:
     // While live: why these parts (`what`: MapView::Placing) can't go in the
     // layout, when only another server than the live one has one of them
     // (a set's own parts count); empty when they all can.
-    QString otherServerRefusal(const QStringList& partKeys, int what) const;
+    PlacementRefusal otherServerRefusal(const QStringList& partKeys, int what) const;
     // Before the open layout is saved to `server`: when it uses parts that
     // only another of your servers has (and `server`'s own catalog lacks),
     // say how many and from where, and that people there will see them as

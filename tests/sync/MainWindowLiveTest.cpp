@@ -60,6 +60,7 @@
 #include <QRegularExpression>
 #include <QPushButton>
 #include <QSettings>
+#include <QSizeGrip>
 #include <QStatusBar>
 
 #include <algorithm>
@@ -71,6 +72,7 @@
 #include <QUndoStack>
 
 #include <functional>
+#include <optional>
 #include <utility>
 #include <vector>
 
@@ -1445,7 +1447,9 @@ int partsIn(const core::Map& m) {
 
 // Live on one server, a part only another of your servers has can't go in the
 // layout (nobody else there could see it): not from the Parts panel, not
-// inside a module, not pasted. The status bar says why, naming the server.
+// inside a module, not pasted. The status bar says why, naming the server,
+// in a short phrase a narrow window doesn't cut off; the whole reason is
+// its tooltip, for as long as the phrase is there.
 // This server's own parts, and one both servers have, are placed as ever; and
 // once the layout is no longer live, so is the other server's.
 TEST_F(MainWindowLive, APartOnlyAnotherServerHasIsntPlacedWhileLiveAndTheStatusBarSaysWhy) {
@@ -1471,13 +1475,21 @@ TEST_F(MainWindowLive, APartOnlyAnotherServerHasIsntPlacedWhileLiveAndTheStatusB
 
     view_->addPartAtViewCenter(QStringLiteral("FRIENDPART"));
     EXPECT_EQ(partsIn(m), before);
-    EXPECT_EQ(window_->statusBar()->currentMessage(), why);
+    const QString brief = QStringLiteral("This part is on another server (Sam’s server).");
+    EXPECT_EQ(window_->statusBar()->currentMessage(), brief);
+    EXPECT_EQ(window_->statusBar()->toolTip(), why);
+    // The phrase fits a narrow window whole (the reason didn't: it was cut off mid-sentence).
+    EXPECT_LT(window_->statusBar()->fontMetrics().horizontalAdvance(brief), 480);
+    EXPECT_GT(window_->statusBar()->fontMetrics().horizontalAdvance(why), 480);
     window_->statusBar()->clearMessage();
+    // The tooltip goes with the phrase.
+    EXPECT_TRUE(window_->statusBar()->toolTip().isEmpty());
 
     view_->addPartAtViewCenter(QStringLiteral("HEREPART"));
     view_->addPartAtViewCenter(QStringLiteral("BOTHPART"));
     EXPECT_EQ(partsIn(m), before + 2);
-    EXPECT_NE(window_->statusBar()->currentMessage(), why);
+    EXPECT_NE(window_->statusBar()->currentMessage(), brief);
+    EXPECT_TRUE(window_->statusBar()->toolTip().isEmpty());
 
     // A module with the other server's part in it.
     core::Map module;
@@ -1490,9 +1502,13 @@ TEST_F(MainWindowLive, APartOnlyAnotherServerHasIsntPlacedWhileLiveAndTheStatusB
     module.layers().push_back(std::move(layer));
     EXPECT_FALSE(view_->placeModule(module, QStringLiteral("Yard"), QString(), QPointF(0, 0)));
     EXPECT_EQ(partsIn(m), before + 2);
-    EXPECT_EQ(window_->statusBar()->currentMessage(),
+    EXPECT_EQ(window_->statusBar()->currentMessage(), QStringLiteral("This module has parts on another server (Sam’s server)."));
+    EXPECT_EQ(window_->statusBar()->toolTip(),
               QStringLiteral("This module has parts that are on another server (Sam’s server). It can’t go in this live "
                              "layout, because nobody else here could see them."));
+    // Another message takes the phrase's place: its tooltip goes too.
+    window_->statusBar()->showMessage(QStringLiteral("Saved"));
+    EXPECT_TRUE(window_->statusBar()->toolTip().isEmpty());
 
     // No longer live: the copy here is yours alone, and takes any part.
     for (QAction* a : window_->findChildren<QAction*>())
@@ -1619,6 +1635,89 @@ TEST_F(MainWindowLive, SavingToAServerWarnsAboutPartsOnlyAnotherServerHas) {
         EXPECT_EQ(none.unexpected, 0);
         EXPECT_EQ(go, true);
     }
+}
+
+// File > Servers…, Remove with "Also remove the parts downloaded from …":
+// the removed server's parts leave the parts library and the Parts panel at
+// once, while the window is still open, and its folder is gone.
+TEST_F(MainWindowLive, RemovingAServerWithItsDownloadsDropsItsPartsFromThePartsPanelAtOnce) {
+    const QUrl gone(QStringLiteral("https://friend.example"));
+    const QStringList data = sync::ServerList::dataFolders(gone);
+    for (const QString& f : data) QDir(f).removeRecursively();
+    writeServerPart(data[0] + QStringLiteral("/custom"), QStringLiteral("FRIENDPART"));
+    {
+        sync::ServerList list = sync::ServerList::load();
+        list.add(gone, QStringLiteral("Sam’s server"));
+        list.save();
+    }
+    QSettings().setValue(QStringLiteral("partsLibrary/userPaths"), QStringList{ data[0] });
+    ASSERT_TRUE(QMetaObject::invokeMethod(window_.get(), "onReloadLibrary"));
+    ASSERT_TRUE(parts_.metadata(QStringLiteral("FRIENDPART")));
+    auto* browser = window_->findChild<ui::PartsBrowser*>();
+    ASSERT_NE(browser, nullptr);
+    const auto listed = [&] {
+        for (auto* grid : browser->findChildren<QListWidget*>())
+            for (int i = 0; i < grid->count(); ++i)
+                if (grid->item(i)->toolTip().startsWith(QStringLiteral("FRIENDPART"), Qt::CaseInsensitive)) return true;
+        return false;
+    };
+    ASSERT_TRUE(listed());
+
+    QAction* servers = window_->findChild<QAction*>(QStringLiteral("manageServers"));
+    ASSERT_NE(servers, nullptr);
+    bool inLibraryAfter = true, listedAfter = true;
+    Answers answers{ { [&](QWidget* w) {
+        auto* d = qobject_cast<sync::ServersDialog*>(w);
+        ASSERT_NE(d, nullptr) << w->metaObject()->className();
+        EXPECT_FALSE(d->removeDataOffer(gone).isEmpty());
+        d->removeServer(gone, true);
+        // At once: the window is still open.
+        inLibraryAfter = parts_.metadata(QStringLiteral("FRIENDPART")).has_value();
+        listedAfter = listed();
+        QMetaObject::invokeMethod(d, "reject", Qt::QueuedConnection);
+    } } };
+    answers.during([&] { servers->trigger(); });
+    EXPECT_EQ(answers.unexpected, 0);
+    EXPECT_FALSE(inLibraryAfter);
+    EXPECT_FALSE(listedAfter);
+    EXPECT_FALSE(QDir(data[0]).exists());
+    EXPECT_FALSE(QSettings().value(QStringLiteral("partsLibrary/userPaths")).toStringList().contains(data[0]));
+    // The layout live on the other server carries on.
+    EXPECT_TRUE(live_->active());
+    QSettings().remove(QStringLiteral("partsLibrary/userPaths"));
+}
+
+// Removing the server a layout is live on, downloads and all: the layout
+// lets go of its copy there first and stays open as an unsaved copy, with
+// the card that says why; the server's live copies are gone from this computer.
+TEST_F(MainWindowLive, RemovingTheLiveLayoutsServerWithItsDownloadsEndsLiveFirst) {
+    tokens_->save(http_.base(), QStringLiteral("bld_pat_test"));
+    const QStringList data = sync::ServerList::dataFolders(http_.base());
+    // The live layout's copy (its folder is made on the first save there).
+    ASSERT_TRUE(QDir().mkpath(data[1] + QStringLiteral("/L1")));
+    {
+        QFile copy(data[1] + QStringLiteral("/L1/layout.bbm"));
+        ASSERT_TRUE(copy.open(QIODevice::WriteOnly));
+        copy.write("x");
+    }
+    QAction* servers = window_->findChild<QAction*>(QStringLiteral("manageServers"));
+    ASSERT_NE(servers, nullptr);
+    Answers answers{ { [&](QWidget* w) {
+        auto* d = qobject_cast<sync::ServersDialog*>(w);
+        ASSERT_NE(d, nullptr) << w->metaObject()->className();
+        d->removeServer(http_.base(), true);
+        EXPECT_FALSE(live_->active());
+        QMetaObject::invokeMethod(d, "reject", Qt::QueuedConnection);
+    } } };
+    answers.during([&] { servers->trigger(); });
+    EXPECT_EQ(answers.unexpected, 0);
+    EXPECT_FALSE(live_->active());
+    EXPECT_TRUE(window_->notices()->isShown(QStringLiteral("live-signed-out")));
+    ASSERT_NE(view_->currentMap(), nullptr);
+    EXPECT_FALSE(view_->undoStack()->isClean());
+    waitFor([] { return false; }, 200);
+    EXPECT_FALSE(QDir(data[1]).exists());
+    EXPECT_TRUE(sync::ServerList::load().isEmpty());
 }
 
 // The "Live layout closed" box, one test per ending. Each is one plain
@@ -2416,4 +2515,147 @@ TEST_F(MainWindowLive, PeopleHereListsEveryoneElse) {
     EXPECT_EQ(people->menu()->actions()[0]->text(), QStringLiteral("Sam"));
     other.setPresence(std::nullopt);
     EXPECT_TRUE(waitFor([&] { return !people->isVisibleTo(window_.get()); }));
+}
+
+// A narrow window: the status bar's readouts left no room, so the phrase
+// about another server's part didn't show at all. While it is up, the
+// readouts beside it step aside; they come back when it goes.
+TEST_F(MainWindowLive, InANarrowWindowTheStatusBarPhraseShowsWhole) {
+    QTemporaryDir root;
+    const QString base = root.path() + QStringLiteral("/server-parts/");
+    writeServerPart(base + QStringLiteral("friend.example/custom"), QStringLiteral("FRIENDPART"));
+    parts_.addSearchPath(base + QStringLiteral("friend.example"));
+    parts_.scan();
+    {
+        sync::ServerList list = sync::ServerList::load();
+        list.add(QUrl(QStringLiteral("https://friend.example")), QStringLiteral("Sam’s server"));
+        list.save();
+    }
+    window_->resize(760, 560);
+    window_->show();
+    waitFor([] { return false; }, 300);
+    QStatusBar* bar = window_->statusBar();
+    const auto room = [bar] {
+        int used = 0;
+        for (QWidget* w : bar->findChildren<QWidget*>(Qt::FindDirectChildrenOnly))
+            if (w->isVisible() && !qobject_cast<QSizeGrip*>(w)) used += w->width();
+        return bar->contentsRect().width() - used;
+    };
+    const QString brief = QStringLiteral("This part is on another server (Sam’s server).");
+    const int need = bar->fontMetrics().horizontalAdvance(brief);
+    // Without a message the readouts fill the bar.
+    ASSERT_LT(room(), need);
+    const int before = room();
+
+    view_->addPartAtViewCenter(QStringLiteral("FRIENDPART"));
+    ASSERT_EQ(bar->currentMessage(), brief);
+    waitFor([] { return false; }, 200);
+    EXPECT_GE(room(), need);
+    bar->clearMessage();
+    waitFor([] { return false; }, 200);
+    EXPECT_EQ(room(), before);
+    window_->hide();
+}
+
+// BLD_REVIEW_SHOTS=<dir> BLD_PARTS=<library dirs, ':'-separated>: pictures for
+// a PR, light and dark (skipped otherwise): a narrow window whose status bar
+// says why another server's part wasn't placed. Places the part the way the
+// Parts panel does, so the same test takes the "before" picture on an older build.
+TEST_F(MainWindowLive, PicturesOfTheStatusBarInANarrowWindow) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    const QStringList libs = qEnvironmentVariable("BLD_PARTS").split(QLatin1Char(':'), Qt::SkipEmptyParts);
+    if (out.isEmpty() || libs.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS / BLD_PARTS not set";
+    QTemporaryDir root;
+    const QString base = root.path() + QStringLiteral("/server-parts/");
+    writeServerPart(base + QStringLiteral("friend.example/custom"), QStringLiteral("FRIENDPART"));
+    for (const QString& p : libs) parts_.addSearchPath(p);
+    parts_.addSearchPath(base + QStringLiteral("friend.example"));
+    ASSERT_GT(parts_.scan(), 1000);
+    {
+        sync::ServerList list = sync::ServerList::load();
+        list.add(QUrl(QStringLiteral("https://friend.example")), QStringLiteral("Sam’s server"));
+        list.rename(http_.base(), QStringLiteral("Train club"));
+        list.save();
+    }
+    ui::theme::PrefsStore store(QStringLiteral("review-statusbar-shots"));
+    ui::theme::ThemeManager themer(store);
+    window_->resize(760, 560);
+    window_->show();
+    waitFor([] { return false; }, 300);
+    if (auto* browser = window_->findChild<ui::PartsBrowser*>()) browser->rebuild();
+    view_->rebuildScene();
+    waitFor([&] { return !view_->loadingCard() || !view_->loadingCard()->isVisible(); }, 30000);
+    for (QFrame* card : window_->findChildren<QFrame*>(QStringLiteral("NoticeCard"))) card->hide();
+    int missing = 0;
+    for (const auto& L : view_->currentMap()->layers())
+        if (L->kind() == core::LayerKind::Brick)
+            for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks)
+                if (!parts_.metadata(b.partNumber) || parts_.pixmap(b.partNumber).isNull()) ++missing;
+    ASSERT_EQ(missing, 0);
+    for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+        ui::theme::AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        waitFor([] { return false; }, 600);
+        view_->addPartAtViewCenter(QStringLiteral("FRIENDPART"));
+        waitFor([] { return false; }, 200);
+        ASSERT_TRUE(window_->grab().save(out + QStringLiteral("/statusbar-narrow-%1.png")
+                                                   .arg(mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark")
+                                                                                              : QStringLiteral("light"))));
+    }
+}
+
+// BLD_REVIEW_SHOTS=<dir>: pictures for a PR, light and dark (skipped
+// otherwise): the question Save to Server asks when the layout uses parts
+// only another of your servers has.
+TEST_F(MainWindowLive, PicturesOfTheSaveToServerWarning) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    QTemporaryDir root;
+    const QString base = root.path() + QStringLiteral("/server-parts/");
+    writeServerPart(base + QStringLiteral("friend.example/custom"), QStringLiteral("FRIENDPART"));
+    parts_.addSearchPath(base + QStringLiteral("friend.example"));
+    parts_.scan();
+    {
+        sync::ServerList list = sync::ServerList::load();
+        list.add(QUrl(QStringLiteral("https://friend.example")), QStringLiteral("Sam’s server"));
+        list.rename(http_.base(), QStringLiteral("Train club"));
+        list.save();
+    }
+    // English plurals ("1 part", "3 parts"), as the app shows them.
+    QTranslator english;
+    for (const QString& qm : { QStringLiteral(":/i18n/bld_en.qm"), QStringLiteral(":/translations/bld_en.qm"),
+                               qEnvironmentVariable("BLD_EN_QM") })
+        if (!qm.isEmpty() && english.load(qm)) {
+            QCoreApplication::installTranslator(&english);
+            break;
+        }
+    for (QAction* a : window_->findChildren<QAction*>())
+        if (QString(a->text()).remove(QLatin1Char('&')) == QStringLiteral("Disconnect")) a->trigger();
+    ASSERT_FALSE(live_->active());
+    for (int i = 0; i < 3; ++i) view_->addPartAtViewCenter(QStringLiteral("FRIENDPART"));
+    http_.reply("/api/parts/catalog", 200, { { QStringLiteral("parts"), QJsonArray{} } });
+    ui::theme::PrefsStore store(QStringLiteral("review-save-warning-shots"));
+    ui::theme::ThemeManager themer(store);
+    for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+        ui::theme::AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        waitFor([] { return false; }, 400);
+        std::optional<bool> go;
+        Answers cancel{ { [&](QWidget* w) {
+            waitFor([] { return false; }, 300);
+            EXPECT_TRUE(w->grab().save(out + QStringLiteral("/save-warning-%1.png")
+                                                 .arg(mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark")
+                                                                                            : QStringLiteral("light"))));
+            press(QStringLiteral("Cancel"))(w);
+        } } };
+        cancel.during([&] {
+            window_->confirmOtherServerParts(http_.base(), QStringLiteral("bld_pat_test"), window_.get(), [&](bool g) { go = g; });
+            ASSERT_TRUE(waitFor([&] { return go.has_value() && cancel.done(); }));
+        });
+        QCoreApplication::removeTranslator(&english);
+        QCoreApplication::installTranslator(&english);
+    }
+    QCoreApplication::removeTranslator(&english);
 }

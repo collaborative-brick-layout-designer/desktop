@@ -3382,6 +3382,10 @@
         <translation>Esci</translation>
     </message>
     <message>
+        <source>Also remove the parts downloaded from %1? (%2)</source>
+        <translation>Rimuovere anche i pezzi scaricati da %1? (%2)</translation>
+    </message>
+    <message>
         <source>Add a Server</source>
         <translation>Aggiungi un server</translation>
     </message>
@@ -3424,6 +3428,10 @@
     <message>
         <source>You can add it again later.</source>
         <translation>Puoi aggiungerlo di nuovo più tardi.</translation>
+    </message>
+    <message>
+        <source>The parts this computer downloaded from the server, and the copies of its live layouts kept here. Changes made offline that never reached the server go with them. Layouts you saved as files stay.</source>
+        <translation>I pezzi che questo computer ha scaricato dal server e le copie dei suoi layout in diretta conservate qui. Le modifiche fatte offline che non hanno mai raggiunto il server vanno via con loro. I layout salvati come file restano.</translation>
     </message>
 </context>
 <context>
@@ -6818,12 +6826,24 @@ Salvare comunque?</translation>
         <translation>“%1” salvato su %2</translation>
     </message>
     <message>
+        <source>This module has parts on another server (%1).</source>
+        <translation>Questo modulo ha pezzi su un altro server (%1).</translation>
+    </message>
+    <message>
         <source>This module has parts that are on another server (%1). It can’t go in this live layout, because nobody else here could see them.</source>
         <translation>Questo modulo ha pezzi che sono su un altro server (%1). Non può andare in questo layout in diretta, perché nessun altro qui potrebbe vederli.</translation>
     </message>
     <message>
+        <source>Some copied parts are on another server (%1).</source>
+        <translation>Alcuni pezzi copiati sono su un altro server (%1).</translation>
+    </message>
+    <message>
         <source>Some of the copied parts are on another server (%1). They can’t go in this live layout, because nobody else here could see them.</source>
         <translation>Alcuni dei pezzi copiati sono su un altro server (%1). Non possono andare in questo layout in diretta, perché nessun altro qui potrebbe vederli.</translation>
+    </message>
+    <message>
+        <source>This part is on another server (%1).</source>
+        <translation>Questo pezzo è su un altro server (%1).</translation>
     </message>
     <message>
         <source>You can save anyway, or cancel and replace those parts first.</source>
