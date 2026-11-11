@@ -17,6 +17,9 @@
 #include <functional>
 
 class QLabel;
+class QLineEdit;
+class QListWidget;
+class QFrame;
 
 namespace bld::ui {
 
@@ -47,6 +50,8 @@ public:
 private:
     void load();
     void loadServers();
+    // Hide the LEGO colors that don't match the search, or say none does.
+    void filterLegoColors();
     theme::PrefsStore& store_;
     QLabel* syncNote_ = nullptr;
     QLabel* toursNote_ = nullptr;
@@ -55,6 +60,11 @@ private:
     std::function<void()> manage_;
     class QPushButton* showToursAgain_ = nullptr;
     bool loading_ = false;
+    QFrame* legoPicker_ = nullptr;
+    QLineEdit* legoSearch_ = nullptr;
+    QListWidget* legoList_ = nullptr;
+    QLabel* legoNone_ = nullptr;
+    class QPushButton* legoShowAll_ = nullptr;
 };
 
 }  // namespace bld::ui

@@ -27,6 +27,13 @@ int clampPartsIconSize(int px);
 struct AppPrefs {
     ThemeChoice theme = ThemeChoice::System;
     QString accent = QStringLiteral("brick");
+    // A LEGO color (LEGO's number, LegoColors.h) used instead of `accent`;
+    // 0 for the preset. On the server it is `legoColor`, null for none.
+    int legoColor = 0;
+    // How far the color reaches: "original" (just the highlights, the
+    // original look) or "full" (the whole app: toolbars, panel headers,
+    // menu and status bars, the window).
+    QString colorStyle = QStringLiteral("original");
     bool largeText = false;
     bool expertMode = false;
     bool helpIcons = true;

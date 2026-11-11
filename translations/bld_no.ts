@@ -823,6 +823,38 @@
         <translation>Layoutfil</translation>
     </message>
     <message>
+        <source>The color of buttons and highlights, or of the whole app; your bricks keep their own colors.</source>
+        <translation>Fargen på knapper og uthevinger, eller på hele appen; klossene dine beholder sine egne farger.</translation>
+    </message>
+    <message>
+        <source>Pick one of ours or any LEGO color. It only changes how the app looks for you.</source>
+        <translation>Velg en av våre eller en valgfri LEGO-farge. Det endrer bare hvordan appen ser ut for deg.</translation>
+    </message>
+    <message>
+        <source>Any LEGO color</source>
+        <translation>Valgfri LEGO-farge</translation>
+    </message>
+    <message>
+        <source>Theme the app in any solid LEGO color, by its LEGO or BrickLink name or number.</source>
+        <translation>Gi appen hvilken som helst ensfarget LEGO-farge, funnet via LEGO- eller BrickLink-navn eller -nummer.</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
+        <translation>Søk for eksempel etter Bright Red, Red eller 21. Gjennomsiktige farger, glitter- og kromfarger er ikke med i listen, og perlemor- og metallicfarger vises som sin flate farge. Svært lyse eller mørke farger gjøres litt dypere eller lysere, så alt forblir lett å lese.</translation>
+    </message>
+    <message>
+        <source>How much color</source>
+        <translation>Hvor mye farge</translation>
+    </message>
+    <message>
+        <source>Just the buttons and highlights (the original look), or the whole app: header, toolbars and page too.</source>
+        <translation>Bare knappene og uthevingene (det opprinnelige utseendet), eller hele appen: også toppfelt, verktøylinjer og side.</translation>
+    </message>
+    <message>
+        <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
+        <translation>Advarsels- og feilfarger beholder betydningen sin i begge tilfeller. Teksten forblir lett å lese med alle farger.</translation>
+    </message>
+    <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
         <translation>Søk på navn eller nummer, eller velg en gruppe som Track eller Baseplate; bokstavene du skriver kan ha hull, så &quot;plt2&quot; finner &quot;plate2x4&quot;. Dra en del til kartet, eller dobbeltklikk på den for å legge den i midten. På et tomt kart holder det med ett klikk.</translation>
     </message>
@@ -969,14 +1001,6 @@
     <message>
         <source>Color</source>
         <translation>Farge</translation>
-    </message>
-    <message>
-        <source>The color of buttons and highlights; your bricks keep their own colors.</source>
-        <translation>Fargen på knapper og uthevinger; klossene dine beholder sine egne farger.</translation>
-    </message>
-    <message>
-        <source>Pick the one you like best. It only changes how the app looks for you.</source>
-        <translation>Velg den du liker best. Det endrer bare hvordan appen ser ut for deg.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10613,6 +10637,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
 <context>
     <name>bld::ui::SettingsDialog</name>
     <message>
+        <source>No LEGO color matches “%1”. Try a name like Bright Red, or a number like 21.</source>
+        <translation>Ingen LEGO-farge passer med «%1». Prøv et navn som Bright Red, eller et nummer som 21.</translation>
+    </message>
+    <message>
         <source>Settings</source>
         <translation>Innstillinger</translation>
     </message>
@@ -10639,6 +10667,50 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Color</source>
         <translation>Farge</translation>
+    </message>
+    <message>
+        <source>Any LEGO color</source>
+        <translation>Valgfri LEGO-farge</translation>
+    </message>
+    <message>
+        <source>Search by LEGO or BrickLink name or number</source>
+        <translation>Søk etter LEGO- eller BrickLink-navn eller -nummer</translation>
+    </message>
+    <message>
+        <source>For example Bright Red, Dark Blue or 21</source>
+        <translation>For eksempel Bright Red, Dark Blue eller 21</translation>
+    </message>
+    <message>
+        <source>No BrickLink match</source>
+        <translation>Ingen tilsvarende hos BrickLink</translation>
+    </message>
+    <message>
+        <source>BrickLink: %1 (%2)</source>
+        <translation>BrickLink: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>BrickLink: %1</source>
+        <translation>BrickLink: %1</translation>
+    </message>
+    <message>
+        <source>pearl, shown flat</source>
+        <translation>perlemor, vist flatt</translation>
+    </message>
+    <message>
+        <source>Show all colors</source>
+        <translation>Vis alle farger</translation>
+    </message>
+    <message>
+        <source>How much color</source>
+        <translation>Hvor mye farge</translation>
+    </message>
+    <message>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>Bare uthevingene: knapper, det valgte elementet og fokusrammer. Det opprinnelige utseendet.</translation>
+    </message>
+    <message>
+        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
+        <translation>Hele appen: også verktøylinjene, meny- og statuslinjen, toppen av panelene og vinduet bak dem.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10762,6 +10834,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
             <numerusform>og %n til</numerusform>
             <numerusform>og %n til</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Any LEGO color, now %1</source>
+        <translation>Valgfri LEGO-farge, nå %1</translation>
     </message>
     <message>
         <source>You haven&apos;t finished any tours yet.</source>

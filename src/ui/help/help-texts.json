@@ -271,8 +271,18 @@
     },
     "settings.color": {
       "title": "Color",
-      "short": "The color of buttons and highlights; your bricks keep their own colors.",
-      "more": "Pick the one you like best. It only changes how the app looks for you."
+      "short": "The color of buttons and highlights, or of the whole app; your bricks keep their own colors.",
+      "more": "Pick one of ours or any LEGO color. It only changes how the app looks for you."
+    },
+    "settings.legoColor": {
+      "title": "Any LEGO color",
+      "short": "Theme the app in any solid LEGO color, by its LEGO or BrickLink name or number.",
+      "more": "Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren't in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read."
+    },
+    "settings.colorStyle": {
+      "title": "How much color",
+      "short": "Just the buttons and highlights (the original look), or the whole app: header, toolbars and page too.",
+      "more": "Warning and error colors keep their meaning either way. Text stays easy to read with any color."
     },
     "settings.largeText": {
       "title": "Bigger text and buttons",

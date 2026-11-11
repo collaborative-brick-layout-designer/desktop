@@ -823,6 +823,38 @@
         <translation>Layoutbestand</translation>
     </message>
     <message>
+        <source>The color of buttons and highlights, or of the whole app; your bricks keep their own colors.</source>
+        <translation>De kleur van knoppen en markeringen, of van de hele app; je stenen houden hun eigen kleuren.</translation>
+    </message>
+    <message>
+        <source>Pick one of ours or any LEGO color. It only changes how the app looks for you.</source>
+        <translation>Kies een van de onze of elke LEGO-kleur. Het verandert alleen hoe de app er voor jou uitziet.</translation>
+    </message>
+    <message>
+        <source>Any LEGO color</source>
+        <translation>Elke LEGO-kleur</translation>
+    </message>
+    <message>
+        <source>Theme the app in any solid LEGO color, by its LEGO or BrickLink name or number.</source>
+        <translation>Geef de app elke effen LEGO-kleur, gevonden op LEGO- of BrickLink-naam of -nummer.</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
+        <translation>Zoek bijvoorbeeld op Bright Red, Red of 21. Doorzichtige, glitter- en chroomkleuren staan niet in de lijst, en parelmoer- en metallickleuren worden als hun vlakke kleur getoond. Heel lichte of donkere kleuren worden iets dieper of lichter gemaakt, zodat alles goed leesbaar blijft.</translation>
+    </message>
+    <message>
+        <source>How much color</source>
+        <translation>Hoeveel kleur</translation>
+    </message>
+    <message>
+        <source>Just the buttons and highlights (the original look), or the whole app: header, toolbars and page too.</source>
+        <translation>Alleen de knoppen en markeringen (het oorspronkelijke uiterlijk), of de hele app: ook de kop, de werkbalken en de pagina.</translation>
+    </message>
+    <message>
+        <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
+        <translation>Waarschuwings- en foutkleuren houden in beide gevallen hun betekenis. Tekst blijft met elke kleur goed leesbaar.</translation>
+    </message>
+    <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
         <translation>Zoek op naam of nummer, of kies een groep zoals Track of Baseplate; de letters die je typt mogen gaten hebben, dus &quot;plt2&quot; vindt &quot;plate2x4&quot;. Sleep een onderdeel naar de kaart, of dubbelklik erop om het in het midden toe te voegen. Op een lege kaart is één klik genoeg.</translation>
     </message>
@@ -969,14 +1001,6 @@
     <message>
         <source>Color</source>
         <translation>Kleur</translation>
-    </message>
-    <message>
-        <source>The color of buttons and highlights; your bricks keep their own colors.</source>
-        <translation>De kleur van knoppen en markeringen; je stenen houden hun eigen kleuren.</translation>
-    </message>
-    <message>
-        <source>Pick the one you like best. It only changes how the app looks for you.</source>
-        <translation>Kies de kleur die je het mooist vindt. Het verandert alleen hoe de app er voor jou uitziet.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10613,6 +10637,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
 <context>
     <name>bld::ui::SettingsDialog</name>
     <message>
+        <source>No LEGO color matches “%1”. Try a name like Bright Red, or a number like 21.</source>
+        <translation>Geen LEGO-kleur past bij ‘%1’. Probeer een naam zoals Bright Red, of een nummer zoals 21.</translation>
+    </message>
+    <message>
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
@@ -10639,6 +10667,50 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Color</source>
         <translation>Kleur</translation>
+    </message>
+    <message>
+        <source>Any LEGO color</source>
+        <translation>Elke LEGO-kleur</translation>
+    </message>
+    <message>
+        <source>Search by LEGO or BrickLink name or number</source>
+        <translation>Zoek op LEGO- of BrickLink-naam of -nummer</translation>
+    </message>
+    <message>
+        <source>For example Bright Red, Dark Blue or 21</source>
+        <translation>Bijvoorbeeld Bright Red, Dark Blue of 21</translation>
+    </message>
+    <message>
+        <source>No BrickLink match</source>
+        <translation>Geen BrickLink-tegenhanger</translation>
+    </message>
+    <message>
+        <source>BrickLink: %1 (%2)</source>
+        <translation>BrickLink: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>BrickLink: %1</source>
+        <translation>BrickLink: %1</translation>
+    </message>
+    <message>
+        <source>pearl, shown flat</source>
+        <translation>parelmoer, vlak getoond</translation>
+    </message>
+    <message>
+        <source>Show all colors</source>
+        <translation>Alle kleuren tonen</translation>
+    </message>
+    <message>
+        <source>How much color</source>
+        <translation>Hoeveel kleur</translation>
+    </message>
+    <message>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>Alleen de markeringen: knoppen, het gekozen item en focusranden. Het oorspronkelijke uiterlijk.</translation>
+    </message>
+    <message>
+        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
+        <translation>De hele app: ook de werkbalken, de menu- en statusbalk, de bovenkant van de panelen en het venster erachter.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10762,6 +10834,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
             <numerusform>en nog %n</numerusform>
             <numerusform>en nog %n</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Any LEGO color, now %1</source>
+        <translation>Elke LEGO-kleur, nu %1</translation>
     </message>
     <message>
         <source>You haven&apos;t finished any tours yet.</source>

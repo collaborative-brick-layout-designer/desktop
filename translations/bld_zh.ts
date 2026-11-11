@@ -823,6 +823,38 @@
         <translation>布局文件</translation>
     </message>
     <message>
+        <source>The color of buttons and highlights, or of the whole app; your bricks keep their own colors.</source>
+        <translation>按钮和高亮的颜色，或整个应用的颜色；你的积木保持自己的颜色。</translation>
+    </message>
+    <message>
+        <source>Pick one of ours or any LEGO color. It only changes how the app looks for you.</source>
+        <translation>选我们的一种颜色或任意乐高颜色。它只改变应用在你这里的外观。</translation>
+    </message>
+    <message>
+        <source>Any LEGO color</source>
+        <translation>任意乐高颜色</translation>
+    </message>
+    <message>
+        <source>Theme the app in any solid LEGO color, by its LEGO or BrickLink name or number.</source>
+        <translation>用任意乐高纯色作为应用的颜色，可按乐高或 BrickLink 的名称或编号查找。</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
+        <translation>例如搜索 Bright Red、Red 或 21。透明、闪粉和电镀颜色不在列表中，珠光和金属色按平色显示。很浅或很深的颜色会稍微加深或调亮，让所有内容都容易阅读。</translation>
+    </message>
+    <message>
+        <source>How much color</source>
+        <translation>颜色用多少</translation>
+    </message>
+    <message>
+        <source>Just the buttons and highlights (the original look), or the whole app: header, toolbars and page too.</source>
+        <translation>只用于按钮和高亮（原来的样子），或整个应用：还有页眉、工具栏和页面。</translation>
+    </message>
+    <message>
+        <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
+        <translation>警告和错误的颜色在两种情况下都保持原意。任何颜色下文字都容易阅读。</translation>
+    </message>
+    <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
         <translation>按名称或编号搜索，或选择一个组，如 Track 或 Baseplate；输入的字母可以不连续，所以 &quot;plt2&quot; 能找到 &quot;plate2x4&quot;。把零件拖到地图上，或双击它加到中间。空地图上点一下就行。</translation>
     </message>
@@ -969,14 +1001,6 @@
     <message>
         <source>Color</source>
         <translation>颜色</translation>
-    </message>
-    <message>
-        <source>The color of buttons and highlights; your bricks keep their own colors.</source>
-        <translation>按钮和高亮的颜色；你的积木保持自己的颜色。</translation>
-    </message>
-    <message>
-        <source>Pick the one you like best. It only changes how the app looks for you.</source>
-        <translation>选你最喜欢的。它只改变应用在你这里的外观。</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10539,6 +10563,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
 <context>
     <name>bld::ui::SettingsDialog</name>
     <message>
+        <source>No LEGO color matches “%1”. Try a name like Bright Red, or a number like 21.</source>
+        <translation>没有乐高颜色与“%1”匹配。试试 Bright Red 这样的名称，或 21 这样的编号。</translation>
+    </message>
+    <message>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
@@ -10565,6 +10593,50 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Color</source>
         <translation>颜色</translation>
+    </message>
+    <message>
+        <source>Any LEGO color</source>
+        <translation>任意乐高颜色</translation>
+    </message>
+    <message>
+        <source>Search by LEGO or BrickLink name or number</source>
+        <translation>按乐高或 BrickLink 的名称或编号搜索</translation>
+    </message>
+    <message>
+        <source>For example Bright Red, Dark Blue or 21</source>
+        <translation>例如 Bright Red、Dark Blue 或 21</translation>
+    </message>
+    <message>
+        <source>No BrickLink match</source>
+        <translation>BrickLink 没有对应颜色</translation>
+    </message>
+    <message>
+        <source>BrickLink: %1 (%2)</source>
+        <translation>BrickLink：%1（%2）</translation>
+    </message>
+    <message>
+        <source>BrickLink: %1</source>
+        <translation>BrickLink：%1</translation>
+    </message>
+    <message>
+        <source>pearl, shown flat</source>
+        <translation>珠光色，按平色显示</translation>
+    </message>
+    <message>
+        <source>Show all colors</source>
+        <translation>显示所有颜色</translation>
+    </message>
+    <message>
+        <source>How much color</source>
+        <translation>颜色用多少</translation>
+    </message>
+    <message>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>只用于高亮：按钮、选中的项目和焦点框。原来的样子。</translation>
+    </message>
+    <message>
+        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
+        <translation>整个应用：还有工具栏、菜单栏和状态栏、面板顶部以及它们后面的窗口。</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10687,6 +10759,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>
             <numerusform>以及另外 %n 个</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Any LEGO color, now %1</source>
+        <translation>任意乐高颜色，当前为 %1</translation>
     </message>
     <message>
         <source>You haven&apos;t finished any tours yet.</source>

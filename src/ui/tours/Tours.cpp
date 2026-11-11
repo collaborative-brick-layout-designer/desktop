@@ -417,7 +417,8 @@ void TourOverlay::paintEvent(QPaintEvent*) {
     }
     p.fillPath(dim, QColor(20, 22, 25, 128));
     if (!hole_.isEmpty()) {
-        p.setPen(QPen(theme::accent(store_.prefs().accent).main, 4));
+        // The accent ThemeManager set (a preset's, or a LEGO color's).
+        p.setPen(QPen(QApplication::palette().color(QPalette::Accent), 4));
         p.setBrush(Qt::NoBrush);
         p.drawRoundedRect(QRectF(hole_).adjusted(-2, -2, 2, 2), 11, 11);
     }
@@ -607,7 +608,7 @@ WelcomeDialog::WelcomeDialog(QWidget* parent) : QDialog(parent) {
     bottom->addWidget(notNow);
     col->addLayout(bottom);
 
-    const theme::Accent& accent = theme::accent(theme::PrefsStore::instance().prefs().accent);
+    const QColor accent = QApplication::palette().color(QPalette::Accent);
     setStyleSheet(QStringLiteral(
         "QAbstractButton#WelcomeLayout, QAbstractButton#WelcomeConnect, QAbstractButton#WelcomeClub,"
         " QAbstractButton#WelcomeTour {"
@@ -620,7 +621,7 @@ WelcomeDialog::WelcomeDialog(QWidget* parent) : QDialog(parent) {
         "QAbstractButton#WelcomeTour QLabel { color: %6; }"
         "QLabel#WelcomeText { color: %7; }")
                       .arg(theme::Radius::card)
-                      .arg(n.panel.name(), n.line.name(), accent.main.name(), n.tourBg.name(), n.tourInk.name(),
+                      .arg(n.panel.name(), n.line.name(), accent.name(), n.tourBg.name(), n.tourInk.name(),
                            n.muted.name()));
     layout->setFocus(Qt::OtherFocusReason);
 }

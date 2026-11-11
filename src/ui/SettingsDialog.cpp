@@ -3,6 +3,8 @@
 
 #include "help/HelpButton.h"
 #include "theme/AppPrefs.h"
+#include "theme/ColorTheme.h"
+#include "theme/LegoColors.h"
 #include "theme/Tokens.h"
 #include "tours/Tours.h"
 
@@ -16,6 +18,7 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QLineEdit>
 #include <QListWidget>
 #include <QScrollBar>
 #include <QSignalBlocker>
@@ -100,7 +103,43 @@ QIcon swatch(const QColor& color, const QColor& ringGap, bool chosen) {
     return QIcon(pm);
 }
 
+// The "Any LEGO color" tile before one is picked: a ring of brick colors.
+QIcon legoRainbow() {
+    const int s = 52;
+    QPixmap pm(QSize(s, s) * 2);
+    pm.setDevicePixelRatio(2);
+    pm.fill(Qt::transparent);
+    QPainter p(&pm);
+    p.setRenderHint(QPainter::Antialiasing);
+    QConicalGradient g(QPointF(s / 2.0, s / 2.0), 90);
+    const char* stops[] = { "#B40000", "#FAC80A", "#00852B", "#1E5AA8", "#A06EB9", "#B40000" };
+    for (int i = 0; i < 6; ++i) g.setColorAt(i / 5.0, QColor(QLatin1String(stops[i])));
+    p.setPen(Qt::NoPen);
+    p.setBrush(g);
+    p.drawEllipse(QRectF(5.5, 5.5, s - 11, s - 11));
+    return QIcon(pm);
+}
+
 }  // namespace
+
+void SettingsDialog::filterLegoColors() {
+    const QString q = legoSearch_->text();
+    int shown = 0;
+    for (int i = 0; i < legoList_->count(); ++i) {
+        QListWidgetItem* item = legoList_->item(i);
+        const LegoColor* c = legoColor(item->data(Qt::UserRole).toInt());
+        const bool match = c && legoColorMatches(*c, q);
+        item->setHidden(!match);
+        if (match) ++shown;
+    }
+    const bool none = shown == 0;
+    legoList_->setVisible(!none);
+    legoNone_->setVisible(none);
+    legoShowAll_->setVisible(none);
+    if (none)
+        legoNone_->setText(tr("No LEGO color matches “%1”. Try a name like Bright Red, or a number like 21.")
+                               .arg(q.trimmed()));
+}
 
 SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
                                const settings::Changed& changed, QWidget* parent,
@@ -224,11 +263,120 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
                 if (!on || loading_) return;
                 AppPrefs p = store_.prefs();
                 p.accent = id;
+                p.legoColor = 0;
                 store_.update(p);
             });
         }
+        // The eleventh tile: any LEGO color. It opens the list below, and
+        // shows the LEGO color in use.
+        auto* legoTile = new QToolButton(this);
+        legoTile->setObjectName(QStringLiteral("legoColorTile"));
+        legoTile->setProperty("swatch", true);
+        legoTile->setCheckable(true);
+        legoTile->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        legoTile->setIconSize(QSize(52, 52));
+        legoTile->setCursor(Qt::PointingHandCursor);
+        row->addWidget(legoTile, index / 5, index % 5);
         row->setColumnStretch(5, 1);
         v->addLayout(row);
+
+        legoPicker_ = new QFrame(this);
+        legoPicker_->setObjectName(QStringLiteral("LegoPicker"));
+        auto* pv = new QVBoxLayout(legoPicker_);
+        pv->setContentsMargins(12, 12, 12, 12);
+        pv->setSpacing(kSpacing);
+        auto* pickerTitle = new QLabel(tr("Any LEGO color"), legoPicker_);
+        pickerTitle->setStyleSheet(QStringLiteral("font-weight: 600;"));
+        pv->addWidget(help::withHelp(pickerTitle, QStringLiteral("settings.legoColor"), legoPicker_));
+        auto* searchLabel = new QLabel(tr("Search by LEGO or BrickLink name or number"), legoPicker_);
+        searchLabel->setObjectName(QStringLiteral("Muted"));
+        pv->addWidget(searchLabel);
+        legoSearch_ = new QLineEdit(legoPicker_);
+        legoSearch_->setObjectName(QStringLiteral("legoColorSearch"));
+        legoSearch_->setPlaceholderText(tr("For example Bright Red, Dark Blue or 21"));
+        legoSearch_->setClearButtonEnabled(true);
+        legoSearch_->setAccessibleName(searchLabel->text());
+        searchLabel->setBuddy(legoSearch_);
+        pv->addWidget(legoSearch_);
+        legoList_ = new QListWidget(legoPicker_);
+        legoList_->setObjectName(QStringLiteral("legoColorList"));
+        legoList_->setAccessibleName(tr("Any LEGO color"));
+        legoList_->setIconSize(QSize(28, 28));
+        legoList_->setMinimumHeight(260);
+        legoList_->setUniformItemSizes(true);
+        for (const LegoColor& c : legoColors()) {
+            const QString bl = c.bl.isEmpty() ? tr("No BrickLink match")
+                               : c.blId > 0  ? tr("BrickLink: %1 (%2)").arg(c.bl).arg(c.blId)
+                                             : tr("BrickLink: %1").arg(c.bl);
+            QString text = QStringLiteral("%1 · %2\n%3").arg(c.lego).arg(c.id).arg(bl);
+            if (c.pearl) text += QStringLiteral(" · ") + tr("pearl, shown flat");
+            auto* item = new QListWidgetItem(text, legoList_);
+            item->setData(Qt::UserRole, c.id);
+            item->setData(Qt::AccessibleTextRole, QStringLiteral("%1 (LEGO %2), %3").arg(c.lego).arg(c.id).arg(bl));
+            QPixmap pm(QSize(28, 28) * 2);
+            pm.setDevicePixelRatio(2);
+            pm.fill(Qt::transparent);
+            QPainter sp(&pm);
+            sp.setRenderHint(QPainter::Antialiasing);
+            sp.setPen(QPen(QColor(0, 0, 0, 40), 1));
+            sp.setBrush(c.color);
+            sp.drawRoundedRect(QRectF(0.5, 0.5, 27, 27), 6, 6);
+            item->setIcon(QIcon(pm));
+        }
+        pv->addWidget(legoList_);
+        auto* noneRow = new QHBoxLayout;
+        legoNone_ = new QLabel(legoPicker_);
+        legoNone_->setObjectName(QStringLiteral("legoColorNone"));
+        legoNone_->setWordWrap(true);
+        noneRow->addWidget(legoNone_, 1);
+        legoShowAll_ = new QPushButton(tr("Show all colors"), legoPicker_);
+        legoShowAll_->setObjectName(QStringLiteral("legoColorShowAll"));
+        legoShowAll_->setAutoDefault(false);
+        noneRow->addWidget(legoShowAll_);
+        pv->addLayout(noneRow);
+        legoNone_->hide();
+        legoShowAll_->hide();
+        legoPicker_->hide();
+        v->addWidget(legoPicker_);
+        connect(legoTile, &QToolButton::clicked, this, [this, legoTile] {
+            legoPicker_->setVisible(!legoPicker_->isVisible());
+            // The tile is "on" while a LEGO color is in use, whatever the list does.
+            legoTile->setChecked(store_.prefs().legoColor > 0);
+            if (legoPicker_->isVisible()) legoSearch_->setFocus();
+        });
+        connect(legoSearch_, &QLineEdit::textChanged, this, [this] { filterLegoColors(); });
+        connect(legoShowAll_, &QPushButton::clicked, legoSearch_, &QLineEdit::clear);
+        connect(legoList_, &QListWidget::itemClicked, this, [this](QListWidgetItem* item) {
+            if (loading_ || !item) return;
+            AppPrefs p = store_.prefs();
+            p.legoColor = item->data(Qt::UserRole).toInt();
+            store_.update(p);
+        });
+
+        // How much color: just the highlights (the original look) or the whole app.
+        auto* styleTitle = new QLabel(tr("How much color"), this);
+        styleTitle->setStyleSheet(QStringLiteral("font-weight: 600;"));
+        v->addWidget(help::withHelp(styleTitle, QStringLiteral("settings.colorStyle"), this));
+        auto* styleGroup = new QButtonGroup(this);
+        styleGroup->setObjectName(QStringLiteral("colorStyleGroup"));
+        const std::pair<QString, QString> styles[] = {
+            { QStringLiteral("original"),
+              tr("Just the highlights: buttons, the selected item and focus rings. The original look.") },
+            { QStringLiteral("full"), tr("The whole app: also the toolbars, the menu and status bars, the panel tops and "
+                                         "the window behind them.") },
+        };
+        for (const auto& [id, label] : styles) {
+            auto* b = new QRadioButton(label, this);
+            b->setObjectName(QStringLiteral("colorStyle_") + id);
+            styleGroup->addButton(b);
+            v->addWidget(b);
+            connect(b, &QRadioButton::toggled, this, [this, id](bool on) {
+                if (!on || loading_) return;
+                AppPrefs p = store_.prefs();
+                p.colorStyle = id;
+                store_.update(p);
+            });
+        }
         auto* large = new QCheckBox(tr("Bigger text and buttons"), this);
         large->setObjectName(QStringLiteral("largeText"));
         v->addWidget(help::withHelp(large, QStringLiteral("settings.largeText"), this));
@@ -440,12 +588,28 @@ void SettingsDialog::load() {
     const Mode mode = modeOf(palette());
     const Neutrals& n = neutrals(mode);
     if (auto* b = findChild<QToolButton*>(QStringLiteral("theme_") + themeChoiceId(p.theme))) b->setChecked(true);
+    const LegoColor* lego = legoColor(p.legoColor);
+    // A LEGO color in use leaves every preset unticked.
+    if (auto* group = findChild<QButtonGroup*>(QStringLiteral("accentGroup"))) group->setExclusive(false);
     for (const Accent& a : accents()) {
         auto* b = findChild<QToolButton*>(QStringLiteral("accent_") + a.id);
         if (!b) continue;
-        b->setChecked(a.id == accent(p.accent).id);
+        b->setChecked(!lego && a.id == accent(p.accent).id);
         b->setIcon(swatch(a.main, n.panel, b->isChecked()));
     }
+    if (auto* group = findChild<QButtonGroup*>(QStringLiteral("accentGroup"))) group->setExclusive(true);
+    if (auto* tile = findChild<QToolButton*>(QStringLiteral("legoColorTile"))) {
+        tile->setChecked(lego != nullptr);
+        tile->setText(lego ? lego->lego : tr("Any LEGO color"));
+        tile->setAccessibleName(lego ? tr("Any LEGO color, now %1").arg(lego->lego) : tr("Any LEGO color"));
+        tile->setIcon(lego ? swatch(lego->color, n.panel, true) : legoRainbow());
+    }
+    if (lego) legoPicker_->show();
+    for (int i = 0; i < legoList_->count(); ++i) {
+        QListWidgetItem* item = legoList_->item(i);
+        item->setSelected(lego && item->data(Qt::UserRole).toInt() == lego->id);
+    }
+    if (auto* style = findChild<QRadioButton*>(QStringLiteral("colorStyle_") + p.colorStyle)) style->setChecked(true);
     findChild<QCheckBox*>(QStringLiteral("largeText"))->setChecked(p.largeText);
     findChild<QCheckBox*>(QStringLiteral("helpIcons"))->setChecked(p.helpIcons);
     if (auto* snap = findChild<QRadioButton*>(QStringLiteral("snap_") + p.connectionSnap)) snap->setChecked(true);
@@ -454,7 +618,7 @@ void SettingsDialog::load() {
                                   : done == 1 ? tr("You've seen one tour.") : tr("You've seen %1 tours.").arg(done));
     showToursAgain_->setEnabled(done > 0);
 
-    const Accent& a = accent(p.accent);
+    const Accent a = effectiveAccent(p, mode);
     QString css = QStringLiteral(
         "QWidget#SettingsPage { background: %1; }"
         "QFrame#SettingsCard { background: %2; border: 1px solid %3; border-radius: %8px; }"
@@ -472,6 +636,14 @@ void SettingsDialog::load() {
                .arg(n.okSoft.name(), n.ok.name())
                .arg(Radius::card)
                .arg(n.muted.name());
+    css += QStringLiteral("QFrame#LegoPicker { background: %1; border: 1px solid %2; border-radius: 14px; }"
+                          "QListWidget#legoColorList { background: %3; border: 1px solid %2; border-radius: %4px; }"
+                          "QListWidget#legoColorList::item { padding: 4px; border-radius: 8px; color: %5; }"
+                          "QListWidget#legoColorList::item:selected { background: %6; color: %5;"
+                          " border: 2px solid %7; }")
+               .arg(n.soft.name(), n.line.name(), n.panel.name())
+               .arg(Radius::control)
+               .arg(n.ink.name(), a.soft(mode).name(), a.main.name());
     css += QStringLiteral("QListWidget#settingsSections { background: %1; border: none; padding: 16px 8px; }"
                           "QListWidget#settingsSections::item { padding: 8px 12px; border-radius: %2px; color: %3; }"
                           "QListWidget#settingsSections::item:selected { background: %4; color: %5; font-weight: 700; }")

@@ -6,6 +6,7 @@
 #include "ui/SettingsDialog.h"
 #include "ui/TranslationCoverage.h"
 #include "ui/theme/AppPrefs.h"
+#include "ui/theme/LegoColors.h"
 #include "ServerList.h"
 
 #include <gtest/gtest.h>
@@ -20,6 +21,7 @@
 #include <QTimer>
 #include <QCheckBox>
 #include <QLabel>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QRadioButton>
 #include <QSettings>
@@ -72,6 +74,66 @@ TEST_F(SettingsDialogTest, ShowsTheSettingsAndChangesThemAtOnce) {
     theirs.accent = QStringLiteral("plum");
     store.adopt(theirs);
     EXPECT_TRUE(dialog.findChild<QToolButton*>(QStringLiteral("accent_plum"))->isChecked());
+}
+
+// Any LEGO color: a searchable list with LEGO and BrickLink names; picking
+// one unticks the presets, and a preset clears it again. How much color is
+// the original look until changed.
+TEST_F(SettingsDialogTest, AnyLegoColorIsFoundByEitherNameOrNumberAndApplies) {
+    PrefsStore store(QString::fromLatin1(kGroup));
+    SettingsDialog dialog(store, QString());
+    auto* tile = dialog.findChild<QToolButton*>(QStringLiteral("legoColorTile"));
+    auto* picker = dialog.findChild<QFrame*>(QStringLiteral("LegoPicker"));
+    auto* search = dialog.findChild<QLineEdit*>(QStringLiteral("legoColorSearch"));
+    auto* list = dialog.findChild<QListWidget*>(QStringLiteral("legoColorList"));
+    ASSERT_TRUE(tile && picker && search && list);
+    EXPECT_EQ(tile->text(), QStringLiteral("Any LEGO color"));
+    EXPECT_TRUE(picker->isHidden());
+    EXPECT_EQ(list->count(), 122);
+    EXPECT_TRUE(dialog.findChild<QRadioButton*>(QStringLiteral("colorStyle_original"))->isChecked());
+    tile->click();
+    EXPECT_FALSE(picker->isHidden());
+
+    const auto shown = [list] {
+        QStringList out;
+        for (int i = 0; i < list->count(); ++i)
+            if (!list->item(i)->isHidden()) out << list->item(i)->data(Qt::AccessibleTextRole).toString();
+        return out;
+    };
+    search->setText(QStringLiteral("dark blue"));  // BrickLink's name for Earth Blue
+    EXPECT_TRUE(shown().contains(QStringLiteral("Earth Blue (LEGO 140), BrickLink: Dark Blue (63)")));
+    search->setText(QStringLiteral("24"));  // LEGO's number
+    EXPECT_EQ(shown(), QStringList{ QStringLiteral("Bright Yellow (LEGO 24), BrickLink: Yellow (3)") });
+    search->setText(QStringLiteral("trans clear"));
+    auto* none = dialog.findChild<QLabel*>(QStringLiteral("legoColorNone"));
+    auto* showAll = dialog.findChild<QPushButton*>(QStringLiteral("legoColorShowAll"));
+    EXPECT_FALSE(none->isHidden());
+    EXPECT_TRUE(none->text().startsWith(QStringLiteral("No LEGO color matches")));
+    showAll->click();
+    EXPECT_TRUE(search->text().isEmpty());
+    EXPECT_EQ(shown().size(), 122);
+    EXPECT_TRUE(none->isHidden());
+
+    search->setText(QStringLiteral("earth blue"));
+    QListWidgetItem* earthBlue = nullptr;
+    for (int i = 0; i < list->count(); ++i)
+        if (list->item(i)->data(Qt::UserRole).toInt() == 140) earthBlue = list->item(i);
+    ASSERT_NE(earthBlue, nullptr);
+    emit list->itemClicked(earthBlue);
+    EXPECT_EQ(store.prefs().legoColor, 140);
+    EXPECT_EQ(tile->text(), QStringLiteral("Earth Blue"));
+    EXPECT_TRUE(tile->isChecked());
+    EXPECT_FALSE(dialog.findChild<QToolButton*>(QStringLiteral("accent_brick"))->isChecked());
+
+    dialog.findChild<QRadioButton*>(QStringLiteral("colorStyle_full"))->click();
+    EXPECT_EQ(store.prefs().colorStyle, QStringLiteral("full"));
+
+    dialog.findChild<QToolButton*>(QStringLiteral("accent_ocean"))->click();
+    EXPECT_EQ(store.prefs().accent, QStringLiteral("ocean"));
+    EXPECT_EQ(store.prefs().legoColor, 0);
+    EXPECT_EQ(tile->text(), QStringLiteral("Any LEGO color"));
+    EXPECT_FALSE(tile->isChecked());
+    EXPECT_EQ(store.prefs().colorStyle, QStringLiteral("full"));  // kept
 }
 
 TEST_F(SettingsDialogTest, SnapStrengthIsGentleUntilChanged) {

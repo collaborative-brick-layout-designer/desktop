@@ -52,6 +52,7 @@ void PrefsSync::start(const QUrl& server, const QString& token) {
     connect(api_, &sync::ServerApi::preferencesSaved, this, [this](const QJsonObject& prefs, const QDateTime& at) {
         knowsIconSize_ = knowsIconSize_ || prefs.contains(QLatin1String("partsIconSize"));
         knowsSnap_ = knowsSnap_ || prefs.contains(QLatin1String("connectionSnap"));
+        knowsColor_ = knowsColor_ || prefs.contains(QLatin1String("legoColor"));
         remember(prefs, at);
         // Still what we have (no change since): keep the server's time.
         if (AppPrefs::fromJson(prefs, store_.prefs()).sameSettings(store_.prefs())) store_.confirm(at);
@@ -72,6 +73,7 @@ void PrefsSync::stop() {
     pulling_ = false;
     knowsIconSize_ = false;
     knowsSnap_ = false;
+    knowsColor_ = false;
     server_ = QUrl();
     if (api_) {
         api_->disconnect(this);
@@ -84,6 +86,7 @@ void PrefsSync::onPulled(const QJsonObject& prefs, const QDateTime& updatedAt) {
     pulling_ = false;
     knowsIconSize_ = prefs.contains(QLatin1String("partsIconSize"));
     knowsSnap_ = prefs.contains(QLatin1String("connectionSnap"));
+    knowsColor_ = prefs.contains(QLatin1String("legoColor"));
     remember(prefs, updatedAt);
     const AppPrefs& local = store_.prefs();
     if (!updatedAt.isValid()) {
@@ -120,6 +123,11 @@ QJsonObject PrefsSync::outgoing() const {
     QJsonObject json = store_.prefs().toJson();
     if (!knowsIconSize_) json.remove(QLatin1String("partsIconSize"));
     if (!knowsSnap_) json.remove(QLatin1String("connectionSnap"));
+    // A server from before LEGO colors refuses both keys.
+    if (!knowsColor_) {
+        json.remove(QLatin1String("legoColor"));
+        json.remove(QLatin1String("colorStyle"));
+    }
     return json;
 }
 

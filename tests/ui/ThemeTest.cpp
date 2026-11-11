@@ -4,6 +4,8 @@
 // JSON as the server's /api/me/preferences has it.
 
 #include "ui/theme/AppPrefs.h"
+#include "ui/theme/ColorTheme.h"
+#include "ui/theme/LegoColors.h"
 #include "ui/theme/ThemeManager.h"
 #include "ui/theme/Tokens.h"
 
@@ -192,23 +194,7 @@ TEST_F(Theme, SettingsKeepTheirValuesAndTheServersJson) {
     EXPECT_EQ(merged.toursSeen, QStringList{ QStringLiteral("ok.1") });
 }
 
-namespace {
-
-// WCAG 2 contrast ratio of two colors (1 to 21).
-double contrast(const QColor& a, const QColor& b) {
-    const auto lum = [](const QColor& c) {
-        const auto ch = [](int v) {
-            const double x = v / 255.0;
-            return x <= 0.03928 ? x / 12.92 : std::pow((x + 0.055) / 1.055, 2.4);
-        };
-        return 0.2126 * ch(c.red()) + 0.7152 * ch(c.green()) + 0.0722 * ch(c.blue());
-    };
-    double x = lum(a), y = lum(b);
-    if (x < y) std::swap(x, y);
-    return (x + 0.05) / (y + 0.05);
-}
-
-}  // namespace
+// contrast() is ColorTheme.h's (WCAG 2.1).
 
 // Text is readable in light and dark, with every accent: at least 4.5:1
 // (WCAG AA for normal text) for every pair of text and background the
@@ -292,4 +278,120 @@ TEST_F(Theme, CheckboxAndRadioBoxesShowInLightAndDark) {
             }
         }
     }
+}
+
+// A theme from any color: the extremes give exactly the web's colors
+// (apps/web/src/theme/test/colorTheme.test.ts pins the same), and every
+// LEGO color reads in both modes.
+TEST(ColorTheme, ExtremesMatchTheWeb) {
+    const auto t = [](int lego, Mode m) {
+        const ColorTheme c = colorTheme(legoColor(lego)->color, m);
+        return QStringList{ hex(c.main), hex(c.onMain), hex(c.soft), hex(c.text) }.join(QLatin1Char(' '));
+    };
+    EXPECT_EQ(t(1, Mode::Light), QStringLiteral("#929292 #1E2124 #F2F2F2 #6C6C6C"));     // White
+    EXPECT_EQ(t(1, Mode::Dark), QStringLiteral("#F4F4F4 #1E2124 #4A4C4F #F4F4F4"));
+    EXPECT_EQ(t(26, Mode::Light), QStringLiteral("#1B2A34 #FFFFFF #E4E5E7 #1B2A34"));    // Black
+    EXPECT_EQ(t(26, Mode::Dark), QStringLiteral("#646E75 #FFFFFF #2D3136 #939A9E"));
+    EXPECT_EQ(t(24, Mode::Light), QStringLiteral("#B49007 #1E2124 #F6F2E1 #836905"));    // Bright Yellow
+    EXPECT_EQ(t(24, Mode::Dark), QStringLiteral("#FAC80A #1E2124 #4B4320 #FAC80A"));
+    EXPECT_EQ(t(140, Mode::Light), QStringLiteral("#19325A #FFFFFF #E3E6EB #19325A"));   // Earth Blue
+    EXPECT_EQ(t(140, Mode::Dark), QStringLiteral("#5C6D8A #FFFFFF #2B313A #8D99AD"));
+    const ChromeTheme light = chromeTheme(QColor(QLatin1String("#B49007")), Mode::Light);
+    EXPECT_EQ(hex(light.chrome), QStringLiteral("#F3EDD7"));
+    EXPECT_EQ(hex(light.chromeLine), QStringLiteral("#D6C899"));
+    EXPECT_EQ(hex(light.bg), QStringLiteral("#F2EEE1"));
+    const ChromeTheme dark = chromeTheme(QColor(QLatin1String("#5C6D8A")), Mode::Dark);
+    EXPECT_EQ(hex(dark.chrome), QStringLiteral("#2C333C"));
+    EXPECT_EQ(hex(dark.chromeLine), QStringLiteral("#3F4856"));
+    EXPECT_EQ(hex(dark.bg), QStringLiteral("#1C1F24"));
+}
+
+TEST(ColorTheme, EveryLegoColorIsReadableInLightAndDark) {
+    EXPECT_EQ(legoColors().size(), 122);
+    for (Mode m : { Mode::Light, Mode::Dark }) {
+        const Neutrals& n = neutrals(m);
+        for (const LegoColor& c : legoColors()) {
+            const ColorTheme t = colorTheme(c.color, m);
+            const std::string what = c.lego.toStdString() + (m == Mode::Dark ? " dark" : " light");
+            EXPECT_GE(contrast(t.onMain, t.main), 4.5) << what << ": text on the accent";
+            EXPECT_GE(contrast(t.main, n.panel), 3.0) << what << ": the accent on the panel";
+            for (const QColor& s : { n.bg, n.panel, n.soft, t.soft })
+                EXPECT_GE(contrast(t.text, s), 4.5) << what << ": accent text on " << hex(s).toStdString();
+            const ChromeTheme ch = chromeTheme(t.main, m);
+            for (const QColor& s : { ch.chrome, ch.bg }) {
+                EXPECT_GE(contrast(n.ink, s), 4.5) << what << ": text on " << hex(s).toStdString();
+                EXPECT_GE(contrast(n.muted, s), 4.5) << what << ": muted text on " << hex(s).toStdString();
+            }
+        }
+    }
+}
+
+TEST(ColorTheme, NamesEachColorAsLegoAndBrickLinkDoAndLeavesOutSeeThroughOnes) {
+    const LegoColor* yellow = legoColor(24);
+    ASSERT_NE(yellow, nullptr);
+    EXPECT_EQ(yellow->lego, QStringLiteral("Bright Yellow"));
+    EXPECT_EQ(yellow->bl, QStringLiteral("Yellow"));
+    EXPECT_EQ(yellow->blId, 3);
+    EXPECT_EQ(hex(yellow->color), QStringLiteral("#FAC80A"));
+    EXPECT_EQ(legoColor(140)->bl, QStringLiteral("Dark Blue"));
+    EXPECT_EQ(legoColor(194)->bl, QStringLiteral("Light Bluish Gray"));
+    EXPECT_EQ(legoColor(41), nullptr);  // Trans-Red
+    for (const LegoColor& c : legoColors())
+        for (const char* word : { "trans", "glitter", "chrome", "speckle", "opal", "glow" })
+            EXPECT_FALSE(c.lego.contains(QLatin1String(word), Qt::CaseInsensitive)) << c.lego.toStdString();
+    // Search: either name, either number, "grey" or "gray".
+    const LegoColor& lbg = *legoColor(194);
+    EXPECT_TRUE(legoColorMatches(lbg, QStringLiteral("medium stone gray")));
+    EXPECT_TRUE(legoColorMatches(lbg, QStringLiteral("Light Bluish Grey")));
+    EXPECT_TRUE(legoColorMatches(lbg, QStringLiteral("194")));
+    EXPECT_TRUE(legoColorMatches(lbg, QStringLiteral("86")));
+    EXPECT_FALSE(legoColorMatches(lbg, QStringLiteral("19")));
+    EXPECT_FALSE(legoColorMatches(lbg, QStringLiteral("red")));
+}
+
+// The server keeps legoColor (null for none) and colorStyle; a number not
+// in the list, or an unknown style, is skipped.
+TEST(ColorTheme, LegoColorAndStyleGoToAndFromTheServersJson) {
+    AppPrefs p;
+    EXPECT_TRUE(p.toJson().value(QLatin1String("legoColor")).isNull());
+    EXPECT_EQ(p.toJson().value(QLatin1String("colorStyle")).toString(), QStringLiteral("original"));
+    p.legoColor = 140;
+    p.colorStyle = QStringLiteral("full");
+    const QJsonObject json = p.toJson();
+    EXPECT_EQ(json.value(QLatin1String("legoColor")).toInt(), 140);
+    const AppPrefs back = AppPrefs::fromJson(json);
+    EXPECT_EQ(back.legoColor, 140);
+    EXPECT_EQ(back.colorStyle, QStringLiteral("full"));
+    EXPECT_TRUE(back.sameSettings(p));
+    const AppPrefs bad = AppPrefs::fromJson(
+        QJsonObject{ { QStringLiteral("legoColor"), 41 }, { QStringLiteral("colorStyle"), QStringLiteral("loud") } }, back);
+    EXPECT_EQ(bad.legoColor, 140);
+    EXPECT_EQ(bad.colorStyle, QStringLiteral("full"));
+    EXPECT_EQ(AppPrefs::fromJson(QJsonObject{ { QStringLiteral("legoColor"), QJsonValue() } }, back).legoColor, 0);
+}
+
+// The app follows at once: a LEGO color becomes the accent (lightened in
+// dark mode), and "The whole app" tints the toolbars and panel tops.
+TEST_F(Theme, ALegoColorAndTheWholeAppApplyAtOnce) {
+    PrefsStore store(QString::fromLatin1(kGroup));
+    ThemeManager manager(store);
+    AppPrefs p;
+    p.theme = ThemeChoice::Dark;
+    p.legoColor = 26;  // Black
+    store.update(p);
+    EXPECT_EQ(hex(QApplication::palette().color(QPalette::Accent)), QStringLiteral("#646E75"));
+    EXPECT_EQ(hex(QApplication::palette().color(QPalette::HighlightedText)), QStringLiteral("#FFFFFF"));
+    EXPECT_FALSE(qApp->styleSheet().contains(QStringLiteral("QMainWindow { background:")));  // just the highlights
+    p.colorStyle = QStringLiteral("full");
+    store.update(p);
+    const ChromeTheme c = chromeTheme(QColor(QLatin1String("#646E75")), Mode::Dark);
+    EXPECT_TRUE(qApp->styleSheet().contains(QStringLiteral("QWidget#PanelHeader { background: %1").arg(c.chrome.name())));
+    EXPECT_TRUE(qApp->styleSheet().contains(QStringLiteral("QToolBar[mainToolbar=\"true\"] { background: %1").arg(c.chrome.name())));
+    // A preset and just the highlights: the original look again.
+    p.legoColor = 0;
+    p.accent = QStringLiteral("ocean");
+    p.colorStyle = QStringLiteral("original");
+    store.update(p);
+    EXPECT_EQ(hex(QApplication::palette().color(QPalette::Accent)), QStringLiteral("#2459C4"));
+    EXPECT_FALSE(qApp->styleSheet().contains(QStringLiteral("QMainWindow { background:")));
 }

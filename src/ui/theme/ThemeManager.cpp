@@ -99,7 +99,7 @@ QPalette buildPalette(Mode mode, const Accent& accent) {
     return p;
 }
 
-QString buildStyleSheet(Mode mode, const Accent& a, bool touch) {
+QString buildStyleSheet(Mode mode, const Accent& a, bool touch, const ChromeTheme* chrome) {
     const Neutrals& n = neutrals(mode);
     QString css = QStringLiteral(R"(
 QMainWindow::separator { background: @line; width: 1px; height: 1px; }
@@ -207,6 +207,22 @@ QListWidget#settingsSections::item { min-height: 44px; }
 QToolBar[mainToolbar="true"] QToolButton { min-height: 44px; min-width: 44px; }
 QToolButton#qt_toolbar_ext_button { min-width: 44px; min-height: 44px; }
 )");
+    // The whole app: the bars and panel tops take the color, and the window
+    // behind the panels a fainter tint of it (ColorTheme.h keeps the text
+    // on them readable).
+    if (chrome) {
+        css += QStringLiteral(R"(
+QMainWindow { background: @cbg; }
+QMainWindow::separator { background: @cline; }
+QToolBar[mainToolbar="true"] { background: @chrome; border-bottom: 1px solid @cline; }
+QWidget#PanelHeader { background: @chrome; border-bottom: 1px solid @cline; }
+QMenuBar { background: @chrome; border-bottom: 1px solid @cline; }
+QStatusBar { background: @chrome; border-top: 1px solid @cline; }
+)");
+        css.replace(QLatin1String("@chrome"), chrome->chrome.name());
+        css.replace(QLatin1String("@cline"), chrome->chromeLine.name());
+        css.replace(QLatin1String("@cbg"), chrome->bg.name());
+    }
     const QList<std::pair<const char*, QColor>> vars{
         { "@panel", n.panel }, { "@line", n.line }, { "@border", n.border }, { "@ink", n.ink },
         { "@muted", n.muted }, { "@soft", n.soft }, { "@tourBg", n.tourBg }, { "@tourInk", n.tourInk },
@@ -237,7 +253,8 @@ void ThemeManager::onColorSchemeChanged(Qt::ColorScheme scheme) {
 void ThemeManager::apply() {
     const AppPrefs& p = store_.prefs();
     mode_ = resolveMode(p.theme, system_);
-    const Accent& a = accent(p.accent);
+    const Accent a = effectiveAccent(p, mode_);
+    const ChromeTheme chrome = chromeTheme(a.main, mode_);
     // Once: setting a style again re-polishes every widget.
     // (QApplication owns the style it is given; the analyzer can't see that.)
     // NOLINTBEGIN(clang-analyzer-cplusplus.NewDeleteLeaks)
@@ -254,7 +271,8 @@ void ThemeManager::apply() {
     }
     QApplication::setFont(f);
     QApplication::setPalette(buildPalette(mode_, a));
-    qApp->setStyleSheet(buildStyleSheet(mode_, a, TouchMode::instance().active()));
+    qApp->setStyleSheet(buildStyleSheet(mode_, a, TouchMode::instance().active(),
+                                        p.colorStyle == QLatin1String("full") ? &chrome : nullptr));
     emit applied();
 }
 
