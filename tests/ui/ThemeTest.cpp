@@ -153,6 +153,28 @@ TEST_F(Theme, ColorsAndBiggerTextApply) {
     EXPECT_DOUBLE_EQ(QApplication::font().pointSizeF(), base);
 }
 
+// The whole app is the default, also for settings saved before there was
+// a choice (no colorStyle key); a saved "original" is a choice and stays.
+TEST_F(Theme, TheWholeAppIsTheDefaultAndAChosenHighlightsLookStays) {
+    {
+        QSettings s;
+        s.beginGroup(QString::fromLatin1(kGroup));
+        s.setValue(QStringLiteral("theme"), QStringLiteral("dark"));
+    }
+    EXPECT_EQ(PrefsStore(QString::fromLatin1(kGroup)).prefs().colorStyle, QStringLiteral("full"));
+    {
+        QSettings s;
+        s.beginGroup(QString::fromLatin1(kGroup));
+        s.setValue(QStringLiteral("colorStyle"), QStringLiteral("original"));
+    }
+    PrefsStore chose(QString::fromLatin1(kGroup));
+    EXPECT_EQ(chose.prefs().colorStyle, QStringLiteral("original"));
+    AppPrefs p = chose.prefs();
+    p.accent = QStringLiteral("ocean");
+    chose.update(p);
+    EXPECT_EQ(PrefsStore(QString::fromLatin1(kGroup)).prefs().colorStyle, QStringLiteral("original"));
+}
+
 TEST_F(Theme, SettingsKeepTheirValuesAndTheServersJson) {
     {
         PrefsStore store(QString::fromLatin1(kGroup));
@@ -354,19 +376,21 @@ TEST(ColorTheme, NamesEachColorAsLegoAndBrickLinkDoAndLeavesOutSeeThroughOnes) {
 TEST(ColorTheme, LegoColorAndStyleGoToAndFromTheServersJson) {
     AppPrefs p;
     EXPECT_TRUE(p.toJson().value(QLatin1String("legoColor")).isNull());
-    EXPECT_EQ(p.toJson().value(QLatin1String("colorStyle")).toString(), QStringLiteral("original"));
+    EXPECT_EQ(p.toJson().value(QLatin1String("colorStyle")).toString(), QStringLiteral("full"));  // the default
     p.legoColor = 140;
-    p.colorStyle = QStringLiteral("full");
+    p.colorStyle = QStringLiteral("original");
     const QJsonObject json = p.toJson();
     EXPECT_EQ(json.value(QLatin1String("legoColor")).toInt(), 140);
     const AppPrefs back = AppPrefs::fromJson(json);
     EXPECT_EQ(back.legoColor, 140);
-    EXPECT_EQ(back.colorStyle, QStringLiteral("full"));
+    EXPECT_EQ(back.colorStyle, QStringLiteral("original"));
     EXPECT_TRUE(back.sameSettings(p));
     const AppPrefs bad = AppPrefs::fromJson(
         QJsonObject{ { QStringLiteral("legoColor"), 41 }, { QStringLiteral("colorStyle"), QStringLiteral("loud") } }, back);
     EXPECT_EQ(bad.legoColor, 140);
-    EXPECT_EQ(bad.colorStyle, QStringLiteral("full"));
+    EXPECT_EQ(bad.colorStyle, QStringLiteral("original"));
+    // A server's prefs saved before there was a choice: the default stays.
+    EXPECT_EQ(AppPrefs::fromJson(QJsonObject{ { QStringLiteral("theme"), QStringLiteral("dark") } }).colorStyle, QStringLiteral("full"));
     EXPECT_EQ(AppPrefs::fromJson(QJsonObject{ { QStringLiteral("legoColor"), QJsonValue() } }, back).legoColor, 0);
 }
 
@@ -378,6 +402,7 @@ TEST_F(Theme, ALegoColorAndTheWholeAppApplyAtOnce) {
     AppPrefs p;
     p.theme = ThemeChoice::Dark;
     p.legoColor = 26;  // Black
+    p.colorStyle = QStringLiteral("original");
     store.update(p);
     EXPECT_EQ(hex(QApplication::palette().color(QPalette::Accent)), QStringLiteral("#646E75"));
     EXPECT_EQ(hex(QApplication::palette().color(QPalette::HighlightedText)), QStringLiteral("#FFFFFF"));

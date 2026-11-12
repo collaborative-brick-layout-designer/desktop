@@ -75,7 +75,9 @@ TEST(ThemeColorShots, PicturesForReview) {
     struct Look { QString name; QString accent; int lego; bool full; };
     QList<Look> looks{ { QStringLiteral("brick"), QStringLiteral("brick"), 0, false } };
 #if __has_include("ui/theme/LegoColors.h")
-    looks << Look{ QStringLiteral("earth-blue"), QStringLiteral("brick"), 140, true }
+    // The default look (the whole app in the default color), then a few LEGO colors.
+    looks << Look{ QStringLiteral("brick-full"), QStringLiteral("brick"), 0, true }
+          << Look{ QStringLiteral("earth-blue"), QStringLiteral("brick"), 140, true }
           << Look{ QStringLiteral("bright-yellow"), QStringLiteral("brick"), 24, true }
           << Look{ QStringLiteral("bright-red"), QStringLiteral("brick"), 21, true };
 #endif
@@ -103,7 +105,8 @@ TEST(ThemeColorShots, PicturesForReview) {
             window.statusBar()->clearMessage();
             QTest::qWait(300);
             window.grab().save(out + QStringLiteral("/theme-%1-window-%2-%3.png").arg(tag, look.name, m));
-            if (look.name == QLatin1String("brick") || look.name == QLatin1String("earth-blue")) {
+            if (look.name == QLatin1String("brick") || look.name == QLatin1String("brick-full")
+                || look.name == QLatin1String("earth-blue")) {
                 ui::SettingsDialog dialog(store, QString());
                 dialog.resize(940, 900);
                 dialog.show();

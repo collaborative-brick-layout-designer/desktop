@@ -90,7 +90,9 @@ TEST_F(SettingsDialogTest, AnyLegoColorIsFoundByEitherNameOrNumberAndApplies) {
     EXPECT_EQ(tile->text(), QStringLiteral("Any LEGO color"));
     EXPECT_TRUE(picker->isHidden());
     EXPECT_EQ(list->count(), 122);
-    EXPECT_TRUE(dialog.findChild<QRadioButton*>(QStringLiteral("colorStyle_original"))->isChecked());
+    // The whole app is the default.
+    EXPECT_TRUE(dialog.findChild<QRadioButton*>(QStringLiteral("colorStyle_full"))->isChecked());
+    EXPECT_FALSE(dialog.findChild<QRadioButton*>(QStringLiteral("colorStyle_original"))->isChecked());
     tile->click();
     EXPECT_FALSE(picker->isHidden());
 
@@ -126,15 +128,15 @@ TEST_F(SettingsDialogTest, AnyLegoColorIsFoundByEitherNameOrNumberAndApplies) {
     EXPECT_TRUE(tile->isChecked());
     EXPECT_FALSE(dialog.findChild<QToolButton*>(QStringLiteral("accent_brick"))->isChecked());
 
-    dialog.findChild<QRadioButton*>(QStringLiteral("colorStyle_full"))->click();
-    EXPECT_EQ(store.prefs().colorStyle, QStringLiteral("full"));
+    dialog.findChild<QRadioButton*>(QStringLiteral("colorStyle_original"))->click();
+    EXPECT_EQ(store.prefs().colorStyle, QStringLiteral("original"));
 
     dialog.findChild<QToolButton*>(QStringLiteral("accent_ocean"))->click();
     EXPECT_EQ(store.prefs().accent, QStringLiteral("ocean"));
     EXPECT_EQ(store.prefs().legoColor, 0);
     EXPECT_EQ(tile->text(), QStringLiteral("Any LEGO color"));
     EXPECT_FALSE(tile->isChecked());
-    EXPECT_EQ(store.prefs().colorStyle, QStringLiteral("full"));  // kept
+    EXPECT_EQ(store.prefs().colorStyle, QStringLiteral("original"));  // a choice, kept
 }
 
 TEST_F(SettingsDialogTest, SnapStrengthIsGentleUntilChanged) {
