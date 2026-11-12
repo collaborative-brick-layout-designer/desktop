@@ -823,6 +823,38 @@
         <translation>レイアウトファイル</translation>
     </message>
     <message>
+        <source>The color of buttons and highlights, or of the whole app; your bricks keep their own colors.</source>
+        <translation>ボタンや強調表示、またはアプリ全体の色です。ブロックの色は変わりません。</translation>
+    </message>
+    <message>
+        <source>Pick one of ours or any LEGO color. It only changes how the app looks for you.</source>
+        <translation>用意した色か、好きな LEGO カラーを選んでください。変わるのは自分のアプリの見た目だけです。</translation>
+    </message>
+    <message>
+        <source>Any LEGO color</source>
+        <translation>好きな LEGO カラー</translation>
+    </message>
+    <message>
+        <source>Theme the app in any solid LEGO color, by its LEGO or BrickLink name or number.</source>
+        <translation>LEGO や BrickLink の名前か番号で、好きな単色の LEGO カラーをアプリの色にできます。</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
+        <translation>たとえば Bright Red、Red、21 で検索できます。透明、ラメ、クロームの色は一覧にありません。パールやメタリックの色は平らな色で表示します。とても明るい色や暗い色は、読みやすいように少し濃く、または明るくします。</translation>
+    </message>
+    <message>
+        <source>How much color</source>
+        <translation>色をどこまで使うか</translation>
+    </message>
+    <message>
+        <source>Just the buttons and highlights (the original look), or the whole app: header, toolbars and page too.</source>
+        <translation>ボタンと強調表示だけ (もとの見た目)、またはアプリ全体: ヘッダー、ツールバー、ページも。</translation>
+    </message>
+    <message>
+        <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
+        <translation>警告やエラーの色はどちらでも意味が変わりません。どの色でも文字は読みやすいままです。</translation>
+    </message>
+    <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
         <translation>名前か番号で検索するか、Track や Baseplate などのグループを選びます。入力した文字は飛び飛びでもよく、&quot;plt2&quot; で &quot;plate2x4&quot; が見つかります。パーツをマップにドラッグするか、ダブルクリックして中央に追加します。空のマップではクリック一回で置けます。</translation>
     </message>
@@ -969,14 +1001,6 @@
     <message>
         <source>Color</source>
         <translation>色</translation>
-    </message>
-    <message>
-        <source>The color of buttons and highlights; your bricks keep their own colors.</source>
-        <translation>ボタンや強調表示の色です。ブロックの色は変わりません。</translation>
-    </message>
-    <message>
-        <source>Pick the one you like best. It only changes how the app looks for you.</source>
-        <translation>好きなものを選んでください。変わるのは自分のアプリの見た目だけです。</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10539,6 +10563,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
 <context>
     <name>bld::ui::SettingsDialog</name>
     <message>
+        <source>No LEGO color matches “%1”. Try a name like Bright Red, or a number like 21.</source>
+        <translation>「%1」に合う LEGO カラーはありません。Bright Red のような名前か、21 のような番号で探してください。</translation>
+    </message>
+    <message>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
@@ -10565,6 +10593,50 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Color</source>
         <translation>色</translation>
+    </message>
+    <message>
+        <source>Any LEGO color</source>
+        <translation>好きな LEGO カラー</translation>
+    </message>
+    <message>
+        <source>Search by LEGO or BrickLink name or number</source>
+        <translation>LEGO や BrickLink の名前か番号で検索</translation>
+    </message>
+    <message>
+        <source>For example Bright Red, Dark Blue or 21</source>
+        <translation>例: Bright Red、Dark Blue、21</translation>
+    </message>
+    <message>
+        <source>No BrickLink match</source>
+        <translation>BrickLink に対応する色なし</translation>
+    </message>
+    <message>
+        <source>BrickLink: %1 (%2)</source>
+        <translation>BrickLink: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>BrickLink: %1</source>
+        <translation>BrickLink: %1</translation>
+    </message>
+    <message>
+        <source>pearl, shown flat</source>
+        <translation>パール、平らな色で表示</translation>
+    </message>
+    <message>
+        <source>Show all colors</source>
+        <translation>すべての色を表示</translation>
+    </message>
+    <message>
+        <source>How much color</source>
+        <translation>色をどこまで使うか</translation>
+    </message>
+    <message>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>強調表示だけ: ボタン、選んだ項目、フォーカスの枠。もとの見た目です。</translation>
+    </message>
+    <message>
+        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
+        <translation>アプリ全体: ツールバー、メニューバーとステータスバー、パネルの上部、その後ろのウィンドウも。</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10687,6 +10759,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>
             <numerusform>ほか %n 件</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Any LEGO color, now %1</source>
+        <translation>好きな LEGO カラー、今は %1</translation>
     </message>
     <message>
         <source>You haven&apos;t finished any tours yet.</source>

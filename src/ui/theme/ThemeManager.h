@@ -6,6 +6,7 @@
 // my computer". Follows PrefsStore and the system color scheme.
 
 #include "AppPrefs.h"
+#include "ColorTheme.h"
 #include "Tokens.h"
 
 #include <QFont>
@@ -22,8 +23,10 @@ bool loadFonts();
 Mode resolveMode(ThemeChoice choice, Qt::ColorScheme system);
 
 QPalette buildPalette(Mode mode, const Accent& accent);
-// `touch`: touch mode's bigger dividers (TouchMode.h).
-QString buildStyleSheet(Mode mode, const Accent& accent, bool touch = false);
+// `touch`: touch mode's bigger dividers (TouchMode.h). `chrome`: "The
+// whole app"'s tints for the toolbars, menu and status bars, panel headers
+// and the window (none for the original look).
+QString buildStyleSheet(Mode mode, const Accent& accent, bool touch = false, const ChromeTheme* chrome = nullptr);
 
 class ThemeManager : public QObject {
     Q_OBJECT

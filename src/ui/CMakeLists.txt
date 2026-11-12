@@ -3,6 +3,11 @@
 add_library(bld_ui_common STATIC
     theme/Tokens.cpp
     theme/Tokens.h
+    theme/LegoColors.cpp
+    theme/LegoColors.h
+    theme/LegoColorSearch.cpp
+    theme/ColorTheme.cpp
+    theme/ColorTheme.h
     theme/AppPrefs.cpp
     theme/AppPrefs.h
     help/HelpTexts.cpp

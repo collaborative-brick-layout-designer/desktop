@@ -1,5 +1,6 @@
 #include "AppPrefs.h"
 
+#include "LegoColors.h"
 #include "Tokens.h"
 #include "../SnapFeel.h"
 
@@ -47,6 +48,8 @@ QStringList cleanTours(const QStringList& in) {
 
 bool knownSnap(const QString& id) { return snapfeel::strengthFromId(id).has_value(); }
 
+bool knownColorStyle(const QString& id) { return id == QLatin1String("original") || id == QLatin1String("full"); }
+
 }  // namespace
 
 int clampPartsIconSize(int px) { return std::clamp(px, kPartsIconMin, kPartsIconMax); }
@@ -55,6 +58,8 @@ QJsonObject AppPrefs::toJson() const {
     return QJsonObject{
         { QStringLiteral("theme"), themeChoiceId(theme) },
         { QStringLiteral("accent"), accent },
+        { QStringLiteral("legoColor"), legoColor > 0 ? QJsonValue(legoColor) : QJsonValue(QJsonValue::Null) },
+        { QStringLiteral("colorStyle"), colorStyle },
         { QStringLiteral("largeText"), largeText },
         { QStringLiteral("expertMode"), expertMode },
         { QStringLiteral("helpIcons"), helpIcons },
@@ -70,6 +75,11 @@ AppPrefs AppPrefs::fromJson(const QJsonObject& json, const AppPrefs& base) {
     if (theme.isString()) p.theme = themeChoiceFromId(theme.toString(), p.theme);
     const QJsonValue acc = json.value(QLatin1String("accent"));
     if (acc.isString() && knownAccent(acc.toString())) p.accent = acc.toString();
+    const QJsonValue lego = json.value(QLatin1String("legoColor"));
+    if (lego.isNull()) p.legoColor = 0;
+    else if (lego.isDouble() && theme::legoColor(lego.toInt(-1)) && lego.toDouble() == lego.toInt()) p.legoColor = lego.toInt();
+    const QJsonValue style = json.value(QLatin1String("colorStyle"));
+    if (style.isString() && knownColorStyle(style.toString())) p.colorStyle = style.toString();
     const auto flag = [&json](const char* key, bool& out) {
         const QJsonValue v = json.value(QLatin1String(key));
         if (v.isBool()) out = v.toBool();
@@ -92,7 +102,8 @@ AppPrefs AppPrefs::fromJson(const QJsonObject& json, const AppPrefs& base) {
 }
 
 bool AppPrefs::sameSettings(const AppPrefs& o) const {
-    return theme == o.theme && accent == o.accent && largeText == o.largeText && expertMode == o.expertMode
+    return theme == o.theme && accent == o.accent && legoColor == o.legoColor && colorStyle == o.colorStyle
+           && largeText == o.largeText && expertMode == o.expertMode
            && helpIcons == o.helpIcons && toursSeen == o.toursSeen && partsIconSize == o.partsIconSize
            && connectionSnap == o.connectionSnap;
 }
@@ -103,6 +114,10 @@ PrefsStore::PrefsStore(const QString& group, QObject* parent) : QObject(parent),
     prefs_.theme = themeChoiceFromId(s.value(QStringLiteral("theme")).toString());
     const QString acc = s.value(QStringLiteral("accent")).toString();
     if (knownAccent(acc)) prefs_.accent = acc;
+    const int lego = s.value(QStringLiteral("legoColor"), 0).toInt();
+    if (legoColor(lego)) prefs_.legoColor = lego;
+    const QString style = s.value(QStringLiteral("colorStyle")).toString();
+    if (knownColorStyle(style)) prefs_.colorStyle = style;
     prefs_.largeText = s.value(QStringLiteral("largeText"), false).toBool();
     prefs_.expertMode = s.value(QStringLiteral("expertMode"), false).toBool();
     prefs_.helpIcons = s.value(QStringLiteral("helpIcons"), true).toBool();
@@ -143,6 +158,8 @@ void PrefsStore::save() {
     s.beginGroup(group_);
     s.setValue(QStringLiteral("theme"), themeChoiceId(prefs_.theme));
     s.setValue(QStringLiteral("accent"), prefs_.accent);
+    s.setValue(QStringLiteral("legoColor"), prefs_.legoColor);
+    s.setValue(QStringLiteral("colorStyle"), prefs_.colorStyle);
     s.setValue(QStringLiteral("largeText"), prefs_.largeText);
     s.setValue(QStringLiteral("expertMode"), prefs_.expertMode);
     s.setValue(QStringLiteral("helpIcons"), prefs_.helpIcons);

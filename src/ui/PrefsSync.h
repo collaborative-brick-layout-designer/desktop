@@ -70,6 +70,8 @@ private:
     bool knowsIconSize_ = false;
     // The same for connectionSnap.
     bool knowsSnap_ = false;
+    // The server stores legoColor and colorStyle (it returns them).
+    bool knowsColor_ = false;
 };
 
 }  // namespace bld::ui

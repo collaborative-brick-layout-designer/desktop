@@ -1,6 +1,6 @@
-# Help-button keys shared with the web app, one per line, in catalogue order.
-# Copied from apps/web/src/help/help-keys.txt in the web repo; keep the two identical.
-# HelpTextsTest fails when this list and src/ui/help/HelpTexts.cpp disagree.
+# Help-button keys, one per line, in catalogue order (apps/web/src/help/helpTexts.ts).
+# The desktop app copies this file to check its catalogue has the same keys.
+# helpTexts.test.ts fails when this list and the catalogue disagree.
 panel.parts
 panel.sheets
 panel.partsList
@@ -52,6 +52,8 @@ share.picture
 share.exportAllViews
 settings.sync
 settings.color
+settings.legoColor
+settings.colorStyle
 settings.largeText
 settings.helpIcons
 settings.tours

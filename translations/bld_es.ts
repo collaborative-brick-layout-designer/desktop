@@ -823,6 +823,38 @@
         <translation>Archivo de maqueta</translation>
     </message>
     <message>
+        <source>The color of buttons and highlights, or of the whole app; your bricks keep their own colors.</source>
+        <translation>El color de botones y resaltados, o de toda la aplicación; tus piezas mantienen sus propios colores.</translation>
+    </message>
+    <message>
+        <source>Pick one of ours or any LEGO color. It only changes how the app looks for you.</source>
+        <translation>Elige uno de los nuestros o cualquier color LEGO. Solo cambia cómo ves tú la aplicación.</translation>
+    </message>
+    <message>
+        <source>Any LEGO color</source>
+        <translation>Cualquier color LEGO</translation>
+    </message>
+    <message>
+        <source>Theme the app in any solid LEGO color, by its LEGO or BrickLink name or number.</source>
+        <translation>Pon la aplicación en cualquier color LEGO liso, por su nombre o número de LEGO o BrickLink.</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
+        <translation>Busca, por ejemplo, Bright Red, Red o 21. Los colores transparentes, con purpurina y cromados no están en la lista, y los perlados y metalizados se ven en su color liso. Los colores muy claros u oscuros se oscurecen o aclaran un poco para que todo se lea bien.</translation>
+    </message>
+    <message>
+        <source>How much color</source>
+        <translation>Cuánto color</translation>
+    </message>
+    <message>
+        <source>Just the buttons and highlights (the original look), or the whole app: header, toolbars and page too.</source>
+        <translation>Solo los botones y los resaltados (el aspecto original) o toda la aplicación: también la cabecera, las barras de herramientas y la página.</translation>
+    </message>
+    <message>
+        <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
+        <translation>Los colores de aviso y de error mantienen su significado en ambos casos. El texto se lee bien con cualquier color.</translation>
+    </message>
+    <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
         <translation>Busca por nombre o número, o elige un grupo como Track o Baseplate; las letras que escribas pueden tener huecos, así que «plt2» encuentra «plate2x4». Arrastra una pieza al mapa o haz doble clic para añadirla en el centro. En un mapa vacío basta un clic.</translation>
     </message>
@@ -969,14 +1001,6 @@
     <message>
         <source>Color</source>
         <translation>Color</translation>
-    </message>
-    <message>
-        <source>The color of buttons and highlights; your bricks keep their own colors.</source>
-        <translation>El color de botones y resaltados; tus piezas mantienen sus propios colores.</translation>
-    </message>
-    <message>
-        <source>Pick the one you like best. It only changes how the app looks for you.</source>
-        <translation>Elige el que más te guste. Solo cambia cómo ves tú la aplicación.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10613,6 +10637,10 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
 <context>
     <name>bld::ui::SettingsDialog</name>
     <message>
+        <source>No LEGO color matches “%1”. Try a name like Bright Red, or a number like 21.</source>
+        <translation>Ningún color LEGO coincide con «%1». Prueba un nombre como Bright Red o un número como 21.</translation>
+    </message>
+    <message>
         <source>Settings</source>
         <translation>Ajustes</translation>
     </message>
@@ -10639,6 +10667,50 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>Color</source>
         <translation>Color</translation>
+    </message>
+    <message>
+        <source>Any LEGO color</source>
+        <translation>Cualquier color LEGO</translation>
+    </message>
+    <message>
+        <source>Search by LEGO or BrickLink name or number</source>
+        <translation>Busca por nombre o número de LEGO o BrickLink</translation>
+    </message>
+    <message>
+        <source>For example Bright Red, Dark Blue or 21</source>
+        <translation>Por ejemplo Bright Red, Dark Blue o 21</translation>
+    </message>
+    <message>
+        <source>No BrickLink match</source>
+        <translation>Sin equivalente en BrickLink</translation>
+    </message>
+    <message>
+        <source>BrickLink: %1 (%2)</source>
+        <translation>BrickLink: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>BrickLink: %1</source>
+        <translation>BrickLink: %1</translation>
+    </message>
+    <message>
+        <source>pearl, shown flat</source>
+        <translation>perlado, se ve liso</translation>
+    </message>
+    <message>
+        <source>Show all colors</source>
+        <translation>Mostrar todos los colores</translation>
+    </message>
+    <message>
+        <source>How much color</source>
+        <translation>Cuánto color</translation>
+    </message>
+    <message>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>Solo los resaltados: los botones, el elemento elegido y los contornos de foco. El aspecto original.</translation>
+    </message>
+    <message>
+        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
+        <translation>Toda la aplicación: también las barras de herramientas, las barras de menú y de estado, la parte de arriba de los paneles y la ventana detrás.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10762,6 +10834,10 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
             <numerusform>y %n más</numerusform>
             <numerusform>y %n más</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Any LEGO color, now %1</source>
+        <translation>Cualquier color LEGO, ahora %1</translation>
     </message>
     <message>
         <source>You haven&apos;t finished any tours yet.</source>
