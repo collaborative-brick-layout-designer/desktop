@@ -164,7 +164,7 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("HelpTexts", "Pick one of ours or any LEGO color. It only changes how the app looks for you."),
     QT_TRANSLATE_NOOP("HelpTexts", "Any LEGO color"),
     QT_TRANSLATE_NOOP("HelpTexts", "Theme the app in any solid LEGO color, by its LEGO or BrickLink name or number."),
-    QT_TRANSLATE_NOOP("HelpTexts", "Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren't in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read."),
+    QT_TRANSLATE_NOOP("HelpTexts", "Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren't in the list, pearl and metallic ones show as their flat color, and very light or dark ones are made a little deeper or brighter so everything stays easy to read. The colors come from LDraw, and the BrickLink names and numbers from Rebrickable (rebrickable.com) and BrickLink Studio."),
     QT_TRANSLATE_NOOP("HelpTexts", "How much color"),
     QT_TRANSLATE_NOOP("HelpTexts", "Just the buttons and highlights (the original look), or the whole app: header, toolbars and page too."),
     QT_TRANSLATE_NOOP("HelpTexts", "Warning and error colors keep their meaning either way. Text stays easy to read with any color."),

@@ -839,10 +839,6 @@
         <translation>用任意乐高纯色作为应用的颜色，可按乐高或 BrickLink 的名称或编号查找。</translation>
     </message>
     <message>
-        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
-        <translation>例如搜索 Bright Red、Red 或 21。透明、闪粉和电镀颜色不在列表中，珠光和金属色按平色显示。很浅或很深的颜色会稍微加深或调亮，让所有内容都容易阅读。</translation>
-    </message>
-    <message>
         <source>How much color</source>
         <translation>颜色用多少</translation>
     </message>
@@ -1001,6 +997,10 @@
     <message>
         <source>Color</source>
         <translation>颜色</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, pearl and metallic ones show as their flat color, and very light or dark ones are made a little deeper or brighter so everything stays easy to read. The colors come from LDraw, and the BrickLink names and numbers from Rebrickable (rebrickable.com) and BrickLink Studio.</source>
+        <translation>例如搜索 Bright Red、Red 或 21。透明、闪粉和电镀颜色不在列表中，珠光和金属色按平色显示，很浅或很深的颜色会稍微加深或调亮，让所有内容都容易阅读。颜色来自 LDraw，BrickLink 名称和编号来自 Rebrickable (rebrickable.com) 和 BrickLink Studio。</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10631,12 +10631,12 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>颜色用多少</translation>
     </message>
     <message>
-        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
-        <translation>只用于高亮：按钮、选中的项目和焦点框。原来的样子。</translation>
+        <source>The whole app: the toolbars, the menu and status bars, the panel tops and the window behind them, as well as the buttons.</source>
+        <translation>整个应用：工具栏、菜单栏和状态栏、面板顶部以及它们后面的窗口，还有按钮。</translation>
     </message>
     <message>
-        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
-        <translation>整个应用：还有工具栏、菜单栏和状态栏、面板顶部以及它们后面的窗口。</translation>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>只用于高亮：按钮、选中的项目和焦点框。原来的样子。</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>

@@ -839,10 +839,6 @@
         <translation>Donnez à l’application n’importe quelle couleur LEGO unie, par son nom ou son numéro LEGO ou BrickLink.</translation>
     </message>
     <message>
-        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
-        <translation>Cherchez par exemple Bright Red, Red ou 21. Les couleurs transparentes, pailletées et chromées ne sont pas dans la liste, et les couleurs nacrées et métallisées sont montrées à plat. Les couleurs très claires ou très foncées sont un peu foncées ou éclaircies pour que tout reste facile à lire.</translation>
-    </message>
-    <message>
         <source>How much color</source>
         <translation>Quelle part de couleur</translation>
     </message>
@@ -1001,6 +997,10 @@
     <message>
         <source>Color</source>
         <translation>Couleur</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, pearl and metallic ones show as their flat color, and very light or dark ones are made a little deeper or brighter so everything stays easy to read. The colors come from LDraw, and the BrickLink names and numbers from Rebrickable (rebrickable.com) and BrickLink Studio.</source>
+        <translation>Cherchez par exemple Bright Red, Red ou 21. Les couleurs transparentes, pailletées et chromées ne sont pas dans la liste, les couleurs nacrées et métallisées sont montrées à plat, et les couleurs très claires ou très foncées sont un peu foncées ou éclaircies pour que tout reste facile à lire. Les couleurs viennent de LDraw, et les noms et numéros BrickLink de Rebrickable (rebrickable.com) et de BrickLink Studio.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10705,12 +10705,12 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Quelle part de couleur</translation>
     </message>
     <message>
-        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
-        <translation>Juste les surlignages : les boutons, l’élément choisi et les contours de focus. L’aspect d’origine.</translation>
+        <source>The whole app: the toolbars, the menu and status bars, the panel tops and the window behind them, as well as the buttons.</source>
+        <translation>Toute l’application : les barres d’outils, les barres de menu et d’état, le haut des panneaux et la fenêtre derrière eux, en plus des boutons.</translation>
     </message>
     <message>
-        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
-        <translation>Toute l’application : aussi les barres d’outils, les barres de menu et d’état, le haut des panneaux et la fenêtre derrière eux.</translation>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>Juste les surlignages : les boutons, l’élément choisi et les contours de focus. L’aspect d’origine.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>

@@ -839,10 +839,6 @@
         <translation>Geef de app elke effen LEGO-kleur, gevonden op LEGO- of BrickLink-naam of -nummer.</translation>
     </message>
     <message>
-        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
-        <translation>Zoek bijvoorbeeld op Bright Red, Red of 21. Doorzichtige, glitter- en chroomkleuren staan niet in de lijst, en parelmoer- en metallickleuren worden als hun vlakke kleur getoond. Heel lichte of donkere kleuren worden iets dieper of lichter gemaakt, zodat alles goed leesbaar blijft.</translation>
-    </message>
-    <message>
         <source>How much color</source>
         <translation>Hoeveel kleur</translation>
     </message>
@@ -1001,6 +997,10 @@
     <message>
         <source>Color</source>
         <translation>Kleur</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, pearl and metallic ones show as their flat color, and very light or dark ones are made a little deeper or brighter so everything stays easy to read. The colors come from LDraw, and the BrickLink names and numbers from Rebrickable (rebrickable.com) and BrickLink Studio.</source>
+        <translation>Zoek bijvoorbeeld op Bright Red, Red of 21. Doorzichtige, glitter- en chroomkleuren staan niet in de lijst, parelmoer- en metallickleuren worden als hun vlakke kleur getoond, en heel lichte of donkere kleuren worden iets dieper of lichter gemaakt, zodat alles goed leesbaar blijft. De kleuren komen van LDraw, en de BrickLink-namen en -nummers van Rebrickable (rebrickable.com) en BrickLink Studio.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10705,12 +10705,12 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Hoeveel kleur</translation>
     </message>
     <message>
-        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
-        <translation>Alleen de markeringen: knoppen, het gekozen item en focusranden. Het oorspronkelijke uiterlijk.</translation>
+        <source>The whole app: the toolbars, the menu and status bars, the panel tops and the window behind them, as well as the buttons.</source>
+        <translation>De hele app: de werkbalken, de menu- en statusbalk, de bovenkant van de panelen en het venster erachter, en ook de knoppen.</translation>
     </message>
     <message>
-        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
-        <translation>De hele app: ook de werkbalken, de menu- en statusbalk, de bovenkant van de panelen en het venster erachter.</translation>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>Alleen de markeringen: knoppen, het gekozen item en focusranden. Het oorspronkelijke uiterlijk.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>

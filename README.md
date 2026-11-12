@@ -80,6 +80,14 @@ possible:
   in the designer was authored, modeled, drawn, or catalogued by someone
   in that community. Contributing a new part? Contribute it to
   BlueBrickParts, not here.
+- **[LDraw](https://www.ldraw.org/)** and **[Rebrickable](https://rebrickable.com/)** —
+  the LEGO color list behind Settings › Color (any LEGO color, by its LEGO
+  or BrickLink name or number) is built by `scripts/gen-lego-colors.py`
+  from LDraw's `LDConfig.ldr` (LEGO numbers, names and colors; CC BY 2.0)
+  and Rebrickable's free [catalog downloads](https://rebrickable.com/downloads/)
+  (BrickLink numbers and names; data from Rebrickable, which its terms ask
+  us to say), with BrickLink Studio's color table for the matches
+  Rebrickable doesn't have.
 - **The train-club and LUG community** — BlueBrick exists because LEGO
   train clubs needed a way to plan collaborative layouts. The sidecar
   Module / AnchoredLabel / Venue features in this fork came from those

@@ -839,10 +839,6 @@
         <translation>Pon la aplicación en cualquier color LEGO liso, por su nombre o número de LEGO o BrickLink.</translation>
     </message>
     <message>
-        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
-        <translation>Busca, por ejemplo, Bright Red, Red o 21. Los colores transparentes, con purpurina y cromados no están en la lista, y los perlados y metalizados se ven en su color liso. Los colores muy claros u oscuros se oscurecen o aclaran un poco para que todo se lea bien.</translation>
-    </message>
-    <message>
         <source>How much color</source>
         <translation>Cuánto color</translation>
     </message>
@@ -1001,6 +997,10 @@
     <message>
         <source>Color</source>
         <translation>Color</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, pearl and metallic ones show as their flat color, and very light or dark ones are made a little deeper or brighter so everything stays easy to read. The colors come from LDraw, and the BrickLink names and numbers from Rebrickable (rebrickable.com) and BrickLink Studio.</source>
+        <translation>Busca, por ejemplo, Bright Red, Red o 21. Los colores transparentes, con purpurina y cromados no están en la lista, los perlados y metalizados se ven en su color liso, y los muy claros u oscuros se oscurecen o aclaran un poco para que todo se lea bien. Los colores vienen de LDraw, y los nombres y números de BrickLink, de Rebrickable (rebrickable.com) y BrickLink Studio.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10705,12 +10705,12 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <translation>Cuánto color</translation>
     </message>
     <message>
-        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
-        <translation>Solo los resaltados: los botones, el elemento elegido y los contornos de foco. El aspecto original.</translation>
+        <source>The whole app: the toolbars, the menu and status bars, the panel tops and the window behind them, as well as the buttons.</source>
+        <translation>Toda la aplicación: las barras de herramientas, las barras de menú y de estado, la parte de arriba de los paneles y la ventana detrás, además de los botones.</translation>
     </message>
     <message>
-        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
-        <translation>Toda la aplicación: también las barras de herramientas, las barras de menú y de estado, la parte de arriba de los paneles y la ventana detrás.</translation>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>Solo los resaltados: los botones, el elemento elegido y los contornos de foco. El aspecto original.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>

@@ -839,10 +839,6 @@
         <translation>Dê à aplicação qualquer cor LEGO lisa, pelo nome ou número da LEGO ou da BrickLink.</translation>
     </message>
     <message>
-        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
-        <translation>Pesquise, por exemplo, Bright Red, Red ou 21. As cores transparentes, com brilhantes e cromadas não estão na lista, e as peroladas e metalizadas aparecem na sua cor lisa. As cores muito claras ou escuras ficam um pouco mais fortes ou claras para que tudo continue fácil de ler.</translation>
-    </message>
-    <message>
         <source>How much color</source>
         <translation>Quanta cor</translation>
     </message>
@@ -1001,6 +997,10 @@
     <message>
         <source>Color</source>
         <translation>Cor</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, pearl and metallic ones show as their flat color, and very light or dark ones are made a little deeper or brighter so everything stays easy to read. The colors come from LDraw, and the BrickLink names and numbers from Rebrickable (rebrickable.com) and BrickLink Studio.</source>
+        <translation>Pesquise, por exemplo, Bright Red, Red ou 21. As cores transparentes, com brilhantes e cromadas não estão na lista, as peroladas e metalizadas aparecem na sua cor lisa, e as muito claras ou escuras ficam um pouco mais fortes ou claras para que tudo continue fácil de ler. As cores vêm do LDraw, e os nomes e números do BrickLink, do Rebrickable (rebrickable.com) e do BrickLink Studio.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10705,12 +10705,12 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>Quanta cor</translation>
     </message>
     <message>
-        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
-        <translation>Só os destaques: os botões, o item escolhido e os contornos de foco. O aspeto original.</translation>
+        <source>The whole app: the toolbars, the menu and status bars, the panel tops and the window behind them, as well as the buttons.</source>
+        <translation>A aplicação toda: as barras de ferramentas, as barras de menu e de estado, o topo dos painéis e a janela por trás, além dos botões.</translation>
     </message>
     <message>
-        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
-        <translation>A aplicação toda: também as barras de ferramentas, as barras de menu e de estado, o topo dos painéis e a janela por trás.</translation>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>Só os destaques: os botões, o item escolhido e os contornos de foco. O aspeto original.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
