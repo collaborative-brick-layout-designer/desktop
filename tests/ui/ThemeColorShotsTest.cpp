@@ -90,6 +90,7 @@ TEST(ThemeColorShots, PicturesForReview) {
 #if __has_include("ui/theme/LegoColors.h")
             p.legoColor = look.lego;
             p.colorStyle = look.full ? QStringLiteral("full") : QStringLiteral("original");
+            p.colorStyleChosen = true;
 #endif
             store.update(p);
             // A new look draws the part pictures again: wait until they have

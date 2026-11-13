@@ -381,6 +381,7 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
                 if (!on || loading_) return;
                 AppPrefs p = store_.prefs();
                 p.colorStyle = id;
+                p.colorStyleChosen = true;
                 store_.update(p);
             });
         }

@@ -53,6 +53,7 @@ void PrefsSync::start(const QUrl& server, const QString& token) {
         knowsIconSize_ = knowsIconSize_ || prefs.contains(QLatin1String("partsIconSize"));
         knowsSnap_ = knowsSnap_ || prefs.contains(QLatin1String("connectionSnap"));
         knowsColor_ = knowsColor_ || prefs.contains(QLatin1String("legoColor"));
+        knowsChosen_ = knowsChosen_ || prefs.contains(QLatin1String("colorStyleChosen"));
         remember(prefs, at);
         // Still what we have (no change since): keep the server's time.
         if (AppPrefs::fromJson(prefs, store_.prefs()).sameSettings(store_.prefs())) store_.confirm(at);
@@ -74,6 +75,7 @@ void PrefsSync::stop() {
     knowsIconSize_ = false;
     knowsSnap_ = false;
     knowsColor_ = false;
+    knowsChosen_ = false;
     server_ = QUrl();
     if (api_) {
         api_->disconnect(this);
@@ -87,6 +89,7 @@ void PrefsSync::onPulled(const QJsonObject& prefs, const QDateTime& updatedAt) {
     knowsIconSize_ = prefs.contains(QLatin1String("partsIconSize"));
     knowsSnap_ = prefs.contains(QLatin1String("connectionSnap"));
     knowsColor_ = prefs.contains(QLatin1String("legoColor"));
+    knowsChosen_ = prefs.contains(QLatin1String("colorStyleChosen"));
     remember(prefs, updatedAt);
     const AppPrefs& local = store_.prefs();
     if (!updatedAt.isValid()) {
@@ -128,6 +131,8 @@ QJsonObject PrefsSync::outgoing() const {
         json.remove(QLatin1String("legoColor"));
         json.remove(QLatin1String("colorStyle"));
     }
+    // A server from before the marker refuses it too.
+    if (!knowsChosen_) json.remove(QLatin1String("colorStyleChosen"));
     return json;
 }
 

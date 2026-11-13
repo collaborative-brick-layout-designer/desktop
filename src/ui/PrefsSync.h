@@ -72,6 +72,8 @@ private:
     bool knowsSnap_ = false;
     // The server stores legoColor and colorStyle (it returns them).
     bool knowsColor_ = false;
+    // The server stores colorStyleChosen (it returns it; newer servers).
+    bool knowsChosen_ = false;
 };
 
 }  // namespace bld::ui

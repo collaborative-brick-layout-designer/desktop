@@ -154,7 +154,9 @@ TEST_F(Theme, ColorsAndBiggerTextApply) {
 }
 
 // The whole app is the default, also for settings saved before there was
-// a choice (no colorStyle key); a saved "original" is a choice and stays.
+// a choice (no colorStyle key) and for a saved "original" without the
+// marker (every save stored it then, chosen or not); a marked "original"
+// is a choice and stays.
 TEST_F(Theme, TheWholeAppIsTheDefaultAndAChosenHighlightsLookStays) {
     {
         QSettings s;
@@ -167,7 +169,14 @@ TEST_F(Theme, TheWholeAppIsTheDefaultAndAChosenHighlightsLookStays) {
         s.beginGroup(QString::fromLatin1(kGroup));
         s.setValue(QStringLiteral("colorStyle"), QStringLiteral("original"));
     }
+    EXPECT_EQ(PrefsStore(QString::fromLatin1(kGroup)).prefs().colorStyle, QStringLiteral("full"));
+    {
+        QSettings s;
+        s.beginGroup(QString::fromLatin1(kGroup));
+        s.setValue(QStringLiteral("colorStyleChosen"), true);
+    }
     PrefsStore chose(QString::fromLatin1(kGroup));
+    EXPECT_TRUE(chose.prefs().colorStyleChosen);
     EXPECT_EQ(chose.prefs().colorStyle, QStringLiteral("original"));
     AppPrefs p = chose.prefs();
     p.accent = QStringLiteral("ocean");
@@ -199,7 +208,8 @@ TEST_F(Theme, SettingsKeepTheirValuesAndTheServersJson) {
     const QJsonObject json = again.prefs().toJson();
     EXPECT_EQ(json.value(QStringLiteral("theme")).toString(), QStringLiteral("dark"));
     EXPECT_EQ(json.value(QStringLiteral("toursSeen")).toArray().size(), 1);
-    EXPECT_EQ(json.keys().size(), 10);  // with legoColor and colorStyle
+    EXPECT_EQ(json.keys().size(), 11);  // with legoColor, colorStyle and colorStyleChosen
+    EXPECT_FALSE(json.value(QStringLiteral("colorStyleChosen")).toBool());
     EXPECT_EQ(json.value(QStringLiteral("partsIconSize")).toInt(), 96);
     EXPECT_EQ(json.value(QStringLiteral("connectionSnap")).toString(), QStringLiteral("gentle"));
 
@@ -379,11 +389,14 @@ TEST(ColorTheme, LegoColorAndStyleGoToAndFromTheServersJson) {
     EXPECT_EQ(p.toJson().value(QLatin1String("colorStyle")).toString(), QStringLiteral("full"));  // the default
     p.legoColor = 140;
     p.colorStyle = QStringLiteral("original");
+    p.colorStyleChosen = true;
     const QJsonObject json = p.toJson();
+    EXPECT_TRUE(json.value(QLatin1String("colorStyleChosen")).toBool());
     EXPECT_EQ(json.value(QLatin1String("legoColor")).toInt(), 140);
     const AppPrefs back = AppPrefs::fromJson(json);
     EXPECT_EQ(back.legoColor, 140);
     EXPECT_EQ(back.colorStyle, QStringLiteral("original"));
+    EXPECT_TRUE(back.colorStyleChosen);
     EXPECT_TRUE(back.sameSettings(p));
     const AppPrefs bad = AppPrefs::fromJson(
         QJsonObject{ { QStringLiteral("legoColor"), 41 }, { QStringLiteral("colorStyle"), QStringLiteral("loud") } }, back);
@@ -391,6 +404,14 @@ TEST(ColorTheme, LegoColorAndStyleGoToAndFromTheServersJson) {
     EXPECT_EQ(bad.colorStyle, QStringLiteral("original"));
     // A server's prefs saved before there was a choice: the default stays.
     EXPECT_EQ(AppPrefs::fromJson(QJsonObject{ { QStringLiteral("theme"), QStringLiteral("dark") } }).colorStyle, QStringLiteral("full"));
+    // An "original" without the marker is the old default, not a choice.
+    const QJsonObject unmarked{ { QStringLiteral("colorStyle"), QStringLiteral("original") } };
+    EXPECT_EQ(AppPrefs::fromJson(unmarked).colorStyle, QStringLiteral("full"));
+    QJsonObject cleared = unmarked;
+    cleared.insert(QStringLiteral("colorStyleChosen"), false);
+    EXPECT_EQ(AppPrefs::fromJson(cleared, back).colorStyle, QStringLiteral("full"));
+    const QJsonObject wrong{ { QStringLiteral("colorStyleChosen"), QStringLiteral("yes") } };
+    EXPECT_TRUE(AppPrefs::fromJson(wrong, back).colorStyleChosen);  // skipped: back's stays
     EXPECT_EQ(AppPrefs::fromJson(QJsonObject{ { QStringLiteral("legoColor"), QJsonValue() } }, back).legoColor, 0);
 }
 
@@ -403,6 +424,7 @@ TEST_F(Theme, ALegoColorAndTheWholeAppApplyAtOnce) {
     p.theme = ThemeChoice::Dark;
     p.legoColor = 26;  // Black
     p.colorStyle = QStringLiteral("original");
+    p.colorStyleChosen = true;
     store.update(p);
     EXPECT_EQ(hex(QApplication::palette().color(QPalette::Accent)), QStringLiteral("#646E75"));
     EXPECT_EQ(hex(QApplication::palette().color(QPalette::HighlightedText)), QStringLiteral("#FFFFFF"));

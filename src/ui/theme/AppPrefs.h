@@ -32,9 +32,12 @@ struct AppPrefs {
     int legoColor = 0;
     // How far the color reaches: "full" (the whole app: toolbars, panel
     // headers, menu and status bars, the window; the default) or
-    // "original" (just the highlights, the original look). A stored
-    // "original" is someone's choice; a missing one means "full".
+    // "original" (just the highlights, the original look).
     QString colorStyle = QStringLiteral("full");
+    // Set when the person picks a style in Settings. Before the whole app
+    // was the default, every save stored colorStyle "original" whether or
+    // not anyone chose it, so "original" without this is read as "full".
+    bool colorStyleChosen = false;
     bool largeText = false;
     bool expertMode = false;
     bool helpIcons = true;

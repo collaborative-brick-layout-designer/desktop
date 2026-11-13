@@ -130,6 +130,7 @@ TEST_F(SettingsDialogTest, AnyLegoColorIsFoundByEitherNameOrNumberAndApplies) {
 
     dialog.findChild<QRadioButton*>(QStringLiteral("colorStyle_original"))->click();
     EXPECT_EQ(store.prefs().colorStyle, QStringLiteral("original"));
+    EXPECT_TRUE(store.prefs().colorStyleChosen);  // picked, so it stays
 
     dialog.findChild<QToolButton*>(QStringLiteral("accent_ocean"))->click();
     EXPECT_EQ(store.prefs().accent, QStringLiteral("ocean"));
