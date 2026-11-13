@@ -359,17 +359,18 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
             store_.update(p);
         });
 
-        // How much color: just the highlights (the original look) or the whole app.
+        // How much color: the whole app (the default, listed first) or just
+        // the highlights (the original look).
         auto* styleTitle = new QLabel(tr("How much color"), this);
         styleTitle->setStyleSheet(QStringLiteral("font-weight: 600;"));
         v->addWidget(help::withHelp(styleTitle, QStringLiteral("settings.colorStyle"), this));
         auto* styleGroup = new QButtonGroup(this);
         styleGroup->setObjectName(QStringLiteral("colorStyleGroup"));
         const std::pair<QString, QString> styles[] = {
+            { QStringLiteral("full"), tr("The whole app: the toolbars, the menu and status bars, the panel tops and the "
+                                         "window behind them, as well as the buttons.") },
             { QStringLiteral("original"),
               tr("Just the highlights: buttons, the selected item and focus rings. The original look.") },
-            { QStringLiteral("full"), tr("The whole app: also the toolbars, the menu and status bars, the panel tops and "
-                                         "the window behind them.") },
         };
         for (const auto& [id, label] : styles) {
             auto* b = new QRadioButton(label, this);
@@ -380,6 +381,7 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
                 if (!on || loading_) return;
                 AppPrefs p = store_.prefs();
                 p.colorStyle = id;
+                p.colorStyleChosen = true;
                 store_.update(p);
             });
         }

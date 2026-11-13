@@ -839,10 +839,6 @@
         <translation>Gestalte die App in jeder einfarbigen LEGO-Farbe, gefunden über ihren LEGO- oder BrickLink-Namen oder ihre Nummer.</translation>
     </message>
     <message>
-        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
-        <translation>Such zum Beispiel nach Bright Red, Red oder 21. Durchsichtige, Glitzer- und Chromfarben sind nicht in der Liste, und Perlglanz- und Metallicfarben erscheinen in ihrer flachen Farbe. Sehr helle oder dunkle Farben werden etwas kräftiger oder heller, damit alles gut lesbar bleibt.</translation>
-    </message>
-    <message>
         <source>How much color</source>
         <translation>Wie viel Farbe</translation>
     </message>
@@ -1001,6 +997,10 @@
     <message>
         <source>Color</source>
         <translation>Farbe</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, pearl and metallic ones show as their flat color, and very light or dark ones are made a little deeper or brighter so everything stays easy to read. The colors come from LDraw, and the BrickLink names and numbers from Rebrickable (rebrickable.com) and BrickLink Studio.</source>
+        <translation>Such zum Beispiel nach Bright Red, Red oder 21. Durchsichtige, Glitzer- und Chromfarben sind nicht in der Liste, Perlglanz- und Metallicfarben erscheinen in ihrer flachen Farbe, und sehr helle oder dunkle Farben werden etwas kräftiger oder heller, damit alles gut lesbar bleibt. Die Farben stammen von LDraw, die BrickLink-Namen und -Nummern von Rebrickable (rebrickable.com) und BrickLink Studio.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10705,12 +10705,12 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>Wie viel Farbe</translation>
     </message>
     <message>
-        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
-        <translation>Nur die Hervorhebungen: Knöpfe, das ausgewählte Element und Fokusrahmen. Das ursprüngliche Aussehen.</translation>
+        <source>The whole app: the toolbars, the menu and status bars, the panel tops and the window behind them, as well as the buttons.</source>
+        <translation>Die ganze App: die Werkzeugleisten, die Menü- und Statusleiste, die Bereichsköpfe und das Fenster dahinter, dazu die Schaltflächen.</translation>
     </message>
     <message>
-        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
-        <translation>Die ganze App: auch die Werkzeugleisten, die Menü- und Statusleiste, die Bereichsköpfe und das Fenster dahinter.</translation>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>Nur die Hervorhebungen: Knöpfe, das ausgewählte Element und Fokusrahmen. Das ursprüngliche Aussehen.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>

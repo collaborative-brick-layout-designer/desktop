@@ -839,10 +839,6 @@
         <translation>LEGO や BrickLink の名前か番号で、好きな単色の LEGO カラーをアプリの色にできます。</translation>
     </message>
     <message>
-        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
-        <translation>たとえば Bright Red、Red、21 で検索できます。透明、ラメ、クロームの色は一覧にありません。パールやメタリックの色は平らな色で表示します。とても明るい色や暗い色は、読みやすいように少し濃く、または明るくします。</translation>
-    </message>
-    <message>
         <source>How much color</source>
         <translation>色をどこまで使うか</translation>
     </message>
@@ -1001,6 +997,10 @@
     <message>
         <source>Color</source>
         <translation>色</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, pearl and metallic ones show as their flat color, and very light or dark ones are made a little deeper or brighter so everything stays easy to read. The colors come from LDraw, and the BrickLink names and numbers from Rebrickable (rebrickable.com) and BrickLink Studio.</source>
+        <translation>たとえば Bright Red、Red、21 で検索できます。透明、ラメ、クロームの色は一覧になく、パールやメタリックの色は平らな色で表示し、とても明るい色や暗い色は読みやすいように少し濃く、または明るくします。色は LDraw から、BrickLink の名前と番号は Rebrickable (rebrickable.com) と BrickLink Studio から取っています。</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10631,12 +10631,12 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>色をどこまで使うか</translation>
     </message>
     <message>
-        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
-        <translation>強調表示だけ: ボタン、選んだ項目、フォーカスの枠。もとの見た目です。</translation>
+        <source>The whole app: the toolbars, the menu and status bars, the panel tops and the window behind them, as well as the buttons.</source>
+        <translation>アプリ全体: ツールバー、メニューバーとステータスバー、パネルの上部、その後ろのウィンドウ、そしてボタン。</translation>
     </message>
     <message>
-        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
-        <translation>アプリ全体: ツールバー、メニューバーとステータスバー、パネルの上部、その後ろのウィンドウも。</translation>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>強調表示だけ: ボタン、選んだ項目、フォーカスの枠。もとの見た目です。</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>

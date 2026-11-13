@@ -839,10 +839,6 @@
         <translation>Dai all’app qualsiasi colore LEGO pieno, cercandolo per nome o numero LEGO o BrickLink.</translation>
     </message>
     <message>
-        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
-        <translation>Cerca per esempio Bright Red, Red o 21. I colori trasparenti, glitter e cromati non sono nella lista, e quelli perlati e metallizzati si vedono nel loro colore pieno. I colori molto chiari o scuri vengono resi un po’ più scuri o più chiari, così tutto resta facile da leggere.</translation>
-    </message>
-    <message>
         <source>How much color</source>
         <translation>Quanto colore</translation>
     </message>
@@ -1001,6 +997,10 @@
     <message>
         <source>Color</source>
         <translation>Colore</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, pearl and metallic ones show as their flat color, and very light or dark ones are made a little deeper or brighter so everything stays easy to read. The colors come from LDraw, and the BrickLink names and numbers from Rebrickable (rebrickable.com) and BrickLink Studio.</source>
+        <translation>Cerca per esempio Bright Red, Red o 21. I colori trasparenti, glitter e cromati non sono nella lista, quelli perlati e metallizzati si vedono nel loro colore pieno, e quelli molto chiari o scuri vengono resi un po’ più scuri o più chiari, così tutto resta facile da leggere. I colori vengono da LDraw, e i nomi e i numeri BrickLink da Rebrickable (rebrickable.com) e BrickLink Studio.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10705,12 +10705,12 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>Quanto colore</translation>
     </message>
     <message>
-        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
-        <translation>Solo le evidenziazioni: i pulsanti, l’elemento scelto e i contorni di fuoco. L’aspetto originale.</translation>
+        <source>The whole app: the toolbars, the menu and status bars, the panel tops and the window behind them, as well as the buttons.</source>
+        <translation>Tutta l’app: le barre degli strumenti, la barra dei menu e di stato, la parte alta dei pannelli e la finestra dietro, oltre ai pulsanti.</translation>
     </message>
     <message>
-        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
-        <translation>Tutta l’app: anche le barre degli strumenti, la barra dei menu e di stato, la parte alta dei pannelli e la finestra dietro.</translation>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>Solo le evidenziazioni: i pulsanti, l’elemento scelto e i contorni di fuoco. L’aspetto originale.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>

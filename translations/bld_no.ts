@@ -839,10 +839,6 @@
         <translation>Gi appen hvilken som helst ensfarget LEGO-farge, funnet via LEGO- eller BrickLink-navn eller -nummer.</translation>
     </message>
     <message>
-        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
-        <translation>Søk for eksempel etter Bright Red, Red eller 21. Gjennomsiktige farger, glitter- og kromfarger er ikke med i listen, og perlemor- og metallicfarger vises som sin flate farge. Svært lyse eller mørke farger gjøres litt dypere eller lysere, så alt forblir lett å lese.</translation>
-    </message>
-    <message>
         <source>How much color</source>
         <translation>Hvor mye farge</translation>
     </message>
@@ -1001,6 +997,10 @@
     <message>
         <source>Color</source>
         <translation>Farge</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, pearl and metallic ones show as their flat color, and very light or dark ones are made a little deeper or brighter so everything stays easy to read. The colors come from LDraw, and the BrickLink names and numbers from Rebrickable (rebrickable.com) and BrickLink Studio.</source>
+        <translation>Søk for eksempel etter Bright Red, Red eller 21. Gjennomsiktige farger, glitter- og kromfarger er ikke med i listen, perlemor- og metallicfarger vises som sin flate farge, og svært lyse eller mørke farger gjøres litt dypere eller lysere, så alt forblir lett å lese. Fargene kommer fra LDraw, og BrickLink-navnene og -numrene fra Rebrickable (rebrickable.com) og BrickLink Studio.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10705,12 +10705,12 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Hvor mye farge</translation>
     </message>
     <message>
-        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
-        <translation>Bare uthevingene: knapper, det valgte elementet og fokusrammer. Det opprinnelige utseendet.</translation>
+        <source>The whole app: the toolbars, the menu and status bars, the panel tops and the window behind them, as well as the buttons.</source>
+        <translation>Hele appen: verktøylinjene, meny- og statuslinjen, toppen av panelene og vinduet bak dem, i tillegg til knappene.</translation>
     </message>
     <message>
-        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
-        <translation>Hele appen: også verktøylinjene, meny- og statuslinjen, toppen av panelene og vinduet bak dem.</translation>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>Bare uthevingene: knapper, det valgte elementet og fokusrammer. Det opprinnelige utseendet.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>

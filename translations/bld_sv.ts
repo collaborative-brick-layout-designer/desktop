@@ -839,10 +839,6 @@
         <translation>Ge appen valfri enfärgad LEGO-färg, hittad via LEGO- eller BrickLink-namn eller -nummer.</translation>
     </message>
     <message>
-        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, and pearl and metallic ones show as their flat color. Very light or dark colors are made a little deeper or brighter so everything stays easy to read.</source>
-        <translation>Sök till exempel på Bright Red, Red eller 21. Genomskinliga, glitter- och kromfärger finns inte i listan, och pärlemor- och metallicfärger visas som sin platta färg. Mycket ljusa eller mörka färger görs lite djupare eller ljusare så att allt förblir lätt att läsa.</translation>
-    </message>
-    <message>
         <source>How much color</source>
         <translation>Hur mycket färg</translation>
     </message>
@@ -1001,6 +997,10 @@
     <message>
         <source>Color</source>
         <translation>Färg</translation>
+    </message>
+    <message>
+        <source>Search for Bright Red, Red or 21, for example. See-through, glitter and chrome colors aren&apos;t in the list, pearl and metallic ones show as their flat color, and very light or dark ones are made a little deeper or brighter so everything stays easy to read. The colors come from LDraw, and the BrickLink names and numbers from Rebrickable (rebrickable.com) and BrickLink Studio.</source>
+        <translation>Sök till exempel på Bright Red, Red eller 21. Genomskinliga, glitter- och kromfärger finns inte i listan, pärlemor- och metallicfärger visas som sin platta färg, och mycket ljusa eller mörka färger görs lite djupare eller ljusare så att allt förblir lätt att läsa. Färgerna kommer från LDraw, och BrickLink-namnen och -numren från Rebrickable (rebrickable.com) och BrickLink Studio.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>
@@ -10705,12 +10705,12 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Hur mycket färg</translation>
     </message>
     <message>
-        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
-        <translation>Bara markeringarna: knappar, det valda objektet och fokusramar. Det ursprungliga utseendet.</translation>
+        <source>The whole app: the toolbars, the menu and status bars, the panel tops and the window behind them, as well as the buttons.</source>
+        <translation>Hela appen: verktygsfälten, meny- och statusfälten, panelernas överkant och fönstret bakom dem, och dessutom knapparna.</translation>
     </message>
     <message>
-        <source>The whole app: also the toolbars, the menu and status bars, the panel tops and the window behind them.</source>
-        <translation>Hela appen: även verktygsfälten, meny- och statusfälten, panelernas överkant och fönstret bakom dem.</translation>
+        <source>Just the highlights: buttons, the selected item and focus rings. The original look.</source>
+        <translation>Bara markeringarna: knappar, det valda objektet och fokusramar. Det ursprungliga utseendet.</translation>
     </message>
     <message>
         <source>Bigger text and buttons</source>

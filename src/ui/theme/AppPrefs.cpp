@@ -50,6 +50,11 @@ bool knownSnap(const QString& id) { return snapfeel::strengthFromId(id).has_valu
 
 bool knownColorStyle(const QString& id) { return id == QLatin1String("original") || id == QLatin1String("full"); }
 
+// "Just the highlights" only when chosen in Settings; otherwise the default.
+void withChosenStyle(AppPrefs& p) {
+    if (p.colorStyle == QLatin1String("original") && !p.colorStyleChosen) p.colorStyle = QStringLiteral("full");
+}
+
 }  // namespace
 
 int clampPartsIconSize(int px) { return std::clamp(px, kPartsIconMin, kPartsIconMax); }
@@ -60,6 +65,7 @@ QJsonObject AppPrefs::toJson() const {
         { QStringLiteral("accent"), accent },
         { QStringLiteral("legoColor"), legoColor > 0 ? QJsonValue(legoColor) : QJsonValue(QJsonValue::Null) },
         { QStringLiteral("colorStyle"), colorStyle },
+        { QStringLiteral("colorStyleChosen"), colorStyleChosen },
         { QStringLiteral("largeText"), largeText },
         { QStringLiteral("expertMode"), expertMode },
         { QStringLiteral("helpIcons"), helpIcons },
@@ -84,6 +90,7 @@ AppPrefs AppPrefs::fromJson(const QJsonObject& json, const AppPrefs& base) {
         const QJsonValue v = json.value(QLatin1String(key));
         if (v.isBool()) out = v.toBool();
     };
+    flag("colorStyleChosen", p.colorStyleChosen);
     flag("largeText", p.largeText);
     flag("expertMode", p.expertMode);
     flag("helpIcons", p.helpIcons);
@@ -98,11 +105,13 @@ AppPrefs AppPrefs::fromJson(const QJsonObject& json, const AppPrefs& base) {
     if (icons.isDouble()) p.partsIconSize = clampPartsIconSize(static_cast<int>(std::lround(icons.toDouble())));
     const QJsonValue snap = json.value(QLatin1String("connectionSnap"));
     if (snap.isString() && knownSnap(snap.toString())) p.connectionSnap = snap.toString();
+    withChosenStyle(p);
     return p;
 }
 
 bool AppPrefs::sameSettings(const AppPrefs& o) const {
     return theme == o.theme && accent == o.accent && legoColor == o.legoColor && colorStyle == o.colorStyle
+           && colorStyleChosen == o.colorStyleChosen
            && largeText == o.largeText && expertMode == o.expertMode
            && helpIcons == o.helpIcons && toursSeen == o.toursSeen && partsIconSize == o.partsIconSize
            && connectionSnap == o.connectionSnap;
@@ -118,6 +127,8 @@ PrefsStore::PrefsStore(const QString& group, QObject* parent) : QObject(parent),
     if (legoColor(lego)) prefs_.legoColor = lego;
     const QString style = s.value(QStringLiteral("colorStyle")).toString();
     if (knownColorStyle(style)) prefs_.colorStyle = style;
+    prefs_.colorStyleChosen = s.value(QStringLiteral("colorStyleChosen"), false).toBool();
+    withChosenStyle(prefs_);
     prefs_.largeText = s.value(QStringLiteral("largeText"), false).toBool();
     prefs_.expertMode = s.value(QStringLiteral("expertMode"), false).toBool();
     prefs_.helpIcons = s.value(QStringLiteral("helpIcons"), true).toBool();
@@ -160,6 +171,7 @@ void PrefsStore::save() {
     s.setValue(QStringLiteral("accent"), prefs_.accent);
     s.setValue(QStringLiteral("legoColor"), prefs_.legoColor);
     s.setValue(QStringLiteral("colorStyle"), prefs_.colorStyle);
+    s.setValue(QStringLiteral("colorStyleChosen"), prefs_.colorStyleChosen);
     s.setValue(QStringLiteral("largeText"), prefs_.largeText);
     s.setValue(QStringLiteral("expertMode"), prefs_.expertMode);
     s.setValue(QStringLiteral("helpIcons"), prefs_.helpIcons);

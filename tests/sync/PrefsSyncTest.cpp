@@ -58,6 +58,7 @@ QJsonObject serverPrefs(const QString& accent, const QString& theme) {
     json.remove(QStringLiteral("connectionSnap"));  // ...and before the Snap strength was
     json.remove(QStringLiteral("legoColor"));       // ...and before LEGO colors
     json.remove(QStringLiteral("colorStyle"));
+    json.remove(QStringLiteral("colorStyleChosen"));  // ...and before the marker
     return json;
 }
 
@@ -237,6 +238,45 @@ TEST_F(PrefsSyncTest, ALegoColorGoesOnlyToAServerThatKeepsIt) {
         QJsonDocument::fromJson(http.requests.back().body).object().value(QStringLiteral("prefs")).toObject();
     EXPECT_EQ(sent.value(QStringLiteral("legoColor")).toInt(), 24);
     EXPECT_EQ(sent.value(QStringLiteral("colorStyle")).toString(), QStringLiteral("full"));
+    // That server is from before colorStyleChosen, and would refuse it.
+    EXPECT_FALSE(sent.contains(QStringLiteral("colorStyleChosen")));
+}
+
+TEST_F(PrefsSyncTest, AChosenStyleIsMarkedOnlyForAServerThatKeepsTheMarker) {
+    // A server with the marker answers with it, gets it, and a picked
+    // "Just the highlights" stays; its unmarked "original" is the old default.
+    PrefsStore store(QString::fromLatin1(kGroup));
+    AppPrefs mine;
+    mine.colorStyle = QStringLiteral("original");
+    mine.colorStyleChosen = true;
+    store.update(mine);
+    {
+        FakeHttp http;
+        QJsonObject theirs = serverPrefs(QStringLiteral("brick"), QStringLiteral("system"));
+        theirs.insert(QStringLiteral("legoColor"), QJsonValue());
+        theirs.insert(QStringLiteral("colorStyle"), QStringLiteral("full"));
+        theirs.insert(QStringLiteral("colorStyleChosen"), false);
+        http.reply(kPath, 200, answer(theirs, QStringLiteral("2020-01-01T00:00:00.000Z")));
+        http.reply(kPath, 200, answer(store.prefs().toJson(), QStringLiteral("2031-01-01T00:00:00.000Z")));
+        PrefsSync sync(store);
+        sync.start(http.base(), QStringLiteral("bld_pat_test"));
+        ASSERT_TRUE(waitFor([&] { return count(http, "PUT") == 1; }));
+        const QJsonObject sent =
+            QJsonDocument::fromJson(http.requests.back().body).object().value(QStringLiteral("prefs")).toObject();
+        EXPECT_EQ(sent.value(QStringLiteral("colorStyle")).toString(), QStringLiteral("original"));
+        EXPECT_TRUE(sent.value(QStringLiteral("colorStyleChosen")).toBool());
+    }
+    // A newer account whose "original" was never chosen: the whole app here too.
+    FakeHttp http;
+    QJsonObject theirs = serverPrefs(QStringLiteral("brick"), QStringLiteral("system"));
+    theirs.insert(QStringLiteral("legoColor"), QJsonValue());
+    theirs.insert(QStringLiteral("colorStyle"), QStringLiteral("original"));
+    theirs.insert(QStringLiteral("colorStyleChosen"), false);
+    http.reply(kPath, 200, answer(theirs, QStringLiteral("2040-01-01T00:00:00.000Z")));
+    PrefsSync sync(store);
+    sync.start(http.base(), QStringLiteral("bld_pat_test"));
+    ASSERT_TRUE(waitFor([&] { return !store.prefs().colorStyleChosen; }));
+    EXPECT_EQ(store.prefs().colorStyle, QStringLiteral("full"));
 }
 
 TEST_F(PrefsSyncTest, ThePartsPictureSizeGoesOnlyToAServerThatKeepsIt) {

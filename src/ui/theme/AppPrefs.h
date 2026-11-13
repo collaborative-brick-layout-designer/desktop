@@ -30,10 +30,14 @@ struct AppPrefs {
     // A LEGO color (LEGO's number, LegoColors.h) used instead of `accent`;
     // 0 for the preset. On the server it is `legoColor`, null for none.
     int legoColor = 0;
-    // How far the color reaches: "original" (just the highlights, the
-    // original look) or "full" (the whole app: toolbars, panel headers,
-    // menu and status bars, the window).
-    QString colorStyle = QStringLiteral("original");
+    // How far the color reaches: "full" (the whole app: toolbars, panel
+    // headers, menu and status bars, the window; the default) or
+    // "original" (just the highlights, the original look).
+    QString colorStyle = QStringLiteral("full");
+    // Set when the person picks a style in Settings. Before the whole app
+    // was the default, every save stored colorStyle "original" whether or
+    // not anyone chose it, so "original" without this is read as "full".
+    bool colorStyleChosen = false;
     bool largeText = false;
     bool expertMode = false;
     bool helpIcons = true;
