@@ -71,6 +71,10 @@
         <source>Two people changing one module&apos;s parts at the same moment</source>
         <translation>Två personer ändrar delarna i samma modul samtidigt</translation>
     </message>
+    <message>
+        <source>Modules shared with you and your clubs, with their owner&apos;s updates</source>
+        <translation>Moduler som delats med dig och dina klubbar, med ägarens uppdateringar</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>
@@ -867,6 +871,42 @@
         <translation>Skriv ett tal bredvid en del för att sätta dess gräns. Budgeten sparas med layouten och delas med alla som redigerar den. En BlueBrick-budgetfil (.bbb) kan också importeras eller exporteras.</translation>
     </message>
     <message>
+        <source>Shared modules</source>
+        <translation>Delade moduler</translation>
+    </message>
+    <message>
+        <source>A module shared with you or your club: place it, and it follows its owner’s updates.</source>
+        <translation>En modul som delats med dig eller din klubb: placera den, så följer den ägarens uppdateringar.</translation>
+    </message>
+    <message>
+        <source>You can move it, turn it, pin it, recolor its outline, duplicate it and remove it, always as a whole; its parts and its name stay as its owner made them. If its owner stops sharing it or deletes it, the copies already placed stay and just get no more updates. The layout’s owner (a club’s admins and managers) can choose Make it mine to unlock a copy, which then stops following its owner.</source>
+        <translation>Du kan flytta den, vrida den, fästa den, byta färg på konturen, duplicera den och ta bort den, alltid som en helhet; delarna och namnet förblir som ägaren gjorde dem. Om ägaren slutar dela den eller tar bort den finns de kopior som redan placerats kvar, men de får inga fler uppdateringar. Layoutens ägare (i en klubblayout klubbens administratörer och ledare) kan välja ”Gör den till min” för att låsa upp en kopia, som då inte längre följer sin ägare.</translation>
+    </message>
+    <message>
+        <source>Updates from shared modules</source>
+        <translation>Uppdateringar från delade moduler</translation>
+    </message>
+    <message>
+        <source>When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.</source>
+        <translation>När ägaren sparar en ny version säger layouten till; inget ändras förrän någon väljer ”Uppdatera”.</translation>
+    </message>
+    <message>
+        <source>Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back.</source>
+        <translation>”Uppdatera” sätter in den nya versionen där modulen sitter nu, för alla i layouten på en gång. ”Ångra” tar inte tillbaka den: välj ”Gå tillbaka till versionen” för att sätta in den tidigare versionen igen. En uppdatering väntar aldrig på plats, så om den nya versionen överlappar andra delar, flytta den eller dess grannar, eller gå tillbaka.</translation>
+    </message>
+    <message>
+        <source>Sharing a module</source>
+        <translation>Dela en modul</translation>
+    </message>
+    <message>
+        <source>People and clubs you share with can place this module and get your updates; they can’t change its parts.</source>
+        <translation>Personer och klubbar du delar med kan placera den här modulen och få dina uppdateringar; de kan inte ändra delarna.</translation>
+    </message>
+    <message>
+        <source>Share with a person by email, or with a club you’re in so its members can place it in the club’s layouts; your own parts that it uses come along, to look at only. You see how many layouts use it and in which clubs, never the names of other people’s layouts. Stopping a share, or a club’s admins taking the module off their club, leaves the copies already placed as they are, with no more updates.</source>
+        <translation>Dela med en person via e-post, eller med en klubb du är med i så att medlemmarna kan placera den i klubbens layouter; dina egna delar som den använder följer med, bara för att titta på. Du ser hur många layouter som använder den och i vilka klubbar, aldrig namnen på andras layouter. Om du slutar dela, eller en klubbs administratörer tar bort modulen från sin klubb, blir de kopior som redan placerats som de är, utan fler uppdateringar.</translation>
+    </message>
+    <message>
         <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
         <translation>Allt i en fil: delar, blad, lokal, etiketter, moduler och budgeten.</translation>
     </message>
@@ -1336,6 +1376,28 @@
     </message>
 </context>
 <context>
+    <name>LibraryApi</name>
+    <message>
+        <source>shared with you</source>
+        <translation>delad med dig</translation>
+    </message>
+    <message>
+        <source>via %1</source>
+        <translation>via %1</translation>
+    </message>
+    <message>
+        <source>others: %1</source>
+        <translation>andra: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Used in %n layout(s)</source>
+        <translation>
+            <numerusform>Används i %n layout</numerusform>
+            <numerusform>Används i %n layouter</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>ModuleEdit</name>
     <message>
         <source>%1 is here too</source>
@@ -1588,6 +1650,10 @@
     <message>
         <source>Update module from the Module library</source>
         <translation>Uppdatera modul från modulbiblioteket</translation>
+    </message>
+    <message>
+        <source>Make shared module mine</source>
+        <translation>Gör den delade modulen till min</translation>
     </message>
     <message>
         <source>Ungroup module</source>
@@ -1892,6 +1958,13 @@
     <message>
         <source>Replaced %1 texts.</source>
         <translation>Ersatte %1 texter.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Skipped %n part(s) of shared modules: their parts stay as their owner made them.</source>
+        <translation>
+            <numerusform>Hoppade över %n del i delade moduler: delarna förblir som ägaren gjorde dem.</numerusform>
+            <numerusform>Hoppade över %n delar i delade moduler: delarna förblir som ägaren gjorde dem.</numerusform>
+        </translation>
     </message>
     <message>
         <source>BlueBrick budget (*.bbb)</source>
@@ -2333,6 +2406,240 @@
     <message>
         <source>The server&apos;s close code: %1 (%2)</source>
         <translation>Serverns stängningskod: %1 (%2)</translation>
+    </message>
+</context>
+<context>
+    <name>SharedModule</name>
+    <message>
+        <source>This module</source>
+        <translation>Den här modulen</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>”%1”</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its name is its owner&apos;s. You can move it, turn it and change its outline color.</source>
+        <translation>%1 är en delad modul, så namnet är ägarens. Du kan flytta den, vrida den och byta färg på konturen.</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so parts can&apos;t be added to it or taken out of it here.</source>
+        <translation>%1 är en delad modul, så här kan inga delar läggas till eller tas bort.</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so it stays one module. You can remove it from this layout, or its layout&apos;s owner can make it theirs.</source>
+        <translation>%1 är en delad modul, så den förblir en enda modul. Du kan ta bort den från den här layouten, eller så kan ägaren av dess layout göra den till sin.</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
+        <translation>%1 är en delad modul, så dess räls kan inte böjas här. Du kan flytta och vrida hela modulen.</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
+        <translation>%1 är en delad modul, så dess delar kan inte ändras här. Du kan flytta den, vrida den eller ta bort den som en helhet.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its name is %2&apos;s. You can move it, turn it and change its outline color.</source>
+        <translation>%1 delas av %2, så namnet är %2s. Du kan flytta den, vrida den och byta färg på konturen.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so parts can&apos;t be added to it or taken out of it here.</source>
+        <translation>%1 delas av %2, så här kan inga delar läggas till eller tas bort.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so it stays one module. You can remove it from this layout, or its layout&apos;s owner can make it theirs.</source>
+        <translation>%1 delas av %2, så den förblir en enda modul. Du kan ta bort den från den här layouten, eller så kan ägaren av dess layout göra den till sin.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
+        <translation>%1 delas av %2, så dess räls kan inte böjas här. Du kan flytta och vrida hela modulen.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
+        <translation>%1 delas av %2, så dess delar kan inte ändras här. Du kan flytta den, vrida den eller ta bort den som en helhet.</translation>
+    </message>
+</context>
+<context>
+    <name>SharedModules</name>
+    <message>
+        <source>Shared</source>
+        <translation>Delad</translation>
+    </message>
+    <message>
+        <source> · v%1</source>
+        <translation> · v%1</translation>
+    </message>
+    <message>
+        <source>No longer shared%1: no more updates</source>
+        <translation>Delas inte längre%1: inga fler uppdateringar</translation>
+    </message>
+    <message>
+        <source>Deleted by its owner%1: no more updates</source>
+        <translation>Borttagen av ägaren%1: inga fler uppdateringar</translation>
+    </message>
+    <message>
+        <source>Shared%1</source>
+        <translation>Delad%1</translation>
+    </message>
+    <message>
+        <source>Shared by %1%2</source>
+        <translation>Delad av %1%2</translation>
+    </message>
+    <message>
+        <source>%1 · v%2 is ready</source>
+        <translation>%1 · v%2 är klar</translation>
+    </message>
+    <message>
+        <source>Changed outside the app</source>
+        <translation>Ändrad utanför appen</translation>
+    </message>
+    <message numerus="yes">
+        <source>Overlaps %n part(s)</source>
+        <translation>
+            <numerusform>Överlappar %n del</numerusform>
+            <numerusform>Överlappar %n delar</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Can&apos;t check for updates (offline)</source>
+        <translation>Det går inte att söka efter uppdateringar (offline)</translation>
+    </message>
+    <message>
+        <source>🔗 %1 ● v%2 is ready</source>
+        <translation>🔗 %1 ● v%2 är klar</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n shared module(s) have new versions.</source>
+        <translation>
+            <numerusform>%n delad modul har nya versioner.</numerusform>
+            <numerusform>%n delade moduler har nya versioner.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>A shared module</source>
+        <translation>En delad modul</translation>
+    </message>
+    <message>
+        <source>“%1” has a new version (v%2)</source>
+        <translation>”%1” har en ny version (v%2)</translation>
+    </message>
+    <message>
+        <source>“%1” has a new version from %2 (v%3)</source>
+        <translation>”%1” har en ny version från %2 (v%3)</translation>
+    </message>
+    <message>
+        <source>%1: “%2”.</source>
+        <translation>%1: ”%2”.</translation>
+    </message>
+    <message>
+        <source>“%1” v%2</source>
+        <translation>”%1” v%2</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>Modul</translation>
+    </message>
+    <message numerus="yes">
+        <source>It overlaps %n part(s).</source>
+        <translation>
+            <numerusform>Den överlappar %n del.</numerusform>
+            <numerusform>Den överlappar %n delar.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n track end(s) no longer meet.</source>
+        <translation>
+            <numerusform>%n rälsände möts inte längre.</numerusform>
+            <numerusform>%n rälsändar möts inte längre.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The shared module</source>
+        <translation>Den delade modulen</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>”%1”</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2.</source>
+        <translation>%1 är nu version %2.</translation>
+    </message>
+    <message>
+        <source>%1 was updated.</source>
+        <translation>%1 uppdaterades.</translation>
+    </message>
+    <message>
+        <source>its owner</source>
+        <translation>dess ägare</translation>
+    </message>
+    <message>
+        <source>“%1” can&apos;t go in this layout yet</source>
+        <translation>”%1” kan inte läggas i den här layouten än</translation>
+    </message>
+    <message>
+        <source>this club</source>
+        <translation>den här klubben</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with you, not with %3. Ask %1 to share it with the club.</source>
+        <translation>%1 delade ”%2” med dig, inte med %3. Be %1 dela den med klubben.</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with %3? I&apos;d like to place it in one of the club&apos;s layouts.</source>
+        <translation>Hej %1, kan du dela din modul ”%2” med %3? Jag skulle vilja placera den i en av klubbens layouter.</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with a club you&apos;re in, for the club&apos;s layouts, not with you. Ask %1 to share it with you too.</source>
+        <translation>%1 delade ”%2” med en klubb du är med i, för klubbens layouter, inte med dig. Be %1 dela den med dig också.</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with me as well? I&apos;d like to place it in one of my own layouts.</source>
+        <translation>Hej %1, kan du dela din modul ”%2” med mig också? Jag skulle vilja placera den i en av mina egna layouter.</translation>
+    </message>
+    <message>
+        <source>this layout&apos;s owner</source>
+        <translation>den här layoutens ägare</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with you, not with %3. Ask %1 to share it with them.</source>
+        <translation>%1 delade ”%2” med dig, inte med %3. Be %1 dela den med dem.</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with %3? I&apos;d like to place it in one of their layouts.</source>
+        <translation>Hej %1, kan du dela din modul ”%2” med %3? Jag skulle vilja placera den i en av deras layouter.</translation>
+    </message>
+    <message>
+        <source>This module is no longer shared with this layout, so it stays at the version it has. You can remove it, or its owner can share it again.</source>
+        <translation>Den här modulen delas inte längre med den här layouten, så den stannar på den version den har. Du kan ta bort den, eller så kan ägaren dela den igen.</translation>
+    </message>
+    <message>
+        <source>Its owner deleted this module, so it stays at the version it has.</source>
+        <translation>Ägaren tog bort den här modulen, så den stannar på den version den har.</translation>
+    </message>
+    <message>
+        <source>You can&apos;t see this module in the Module library, so you can&apos;t update it. Ask whoever added it.</source>
+        <translation>Du ser inte den här modulen i modulbiblioteket, så du kan inte uppdatera den. Fråga den som lade till den.</translation>
+    </message>
+    <message>
+        <source>That module is no longer in this layout.</source>
+        <translation>Den modulen finns inte längre i den här layouten.</translation>
+    </message>
+    <message>
+        <source>This module doesn&apos;t follow a Module library module any more.</source>
+        <translation>Den här modulen följer inte längre någon modul i modulbiblioteket.</translation>
+    </message>
+    <message>
+        <source>That version isn&apos;t kept any more (the newest 20 are).</source>
+        <translation>Den versionen sparas inte längre (de 20 nyaste sparas).</translation>
+    </message>
+    <message>
+        <source>This layout has no parts sheet to put the module on. Add a parts sheet first.</source>
+        <translation>Den här layouten har inget delblad att lägga modulen på. Lägg först till ett delblad.</translation>
+    </message>
+    <message>
+        <source>Only the layout&apos;s owner can make a shared module theirs. In a club&apos;s layout, ask a club admin or manager.</source>
+        <translation>Bara layoutens ägare kan göra en delad modul till sin. I en klubblayout kan du fråga en klubbadministratör eller ledare.</translation>
     </message>
 </context>
 <context>
@@ -5197,6 +5504,46 @@ Spara min som ny version: layoutens kopia blir modulen; deras finns kvar i versi
         <translation>Länka modulen till modulbiblioteket</translation>
     </message>
     <message>
+        <source>What Changed (Versions)…</source>
+        <translation>Vad som ändrats (versioner)…</translation>
+    </message>
+    <message>
+        <source>It no longer follows its owner, so there is nothing new to see</source>
+        <translation>Den följer inte längre sin ägare, så det finns inget nytt att se</translation>
+    </message>
+    <message>
+        <source>Update to Version %1</source>
+        <translation>Uppdatera till version %1</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can update it</source>
+        <translation>Den som kan ändra den här layouten kan uppdatera den</translation>
+    </message>
+    <message>
+        <source>Put Back the Owner&apos;s Version</source>
+        <translation>Sätt tillbaka ägarens version</translation>
+    </message>
+    <message>
+        <source>Put Back %1&apos;s Version</source>
+        <translation>Sätt tillbaka %1s version</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can do this</source>
+        <translation>Den som kan ändra den här layouten kan göra det här</translation>
+    </message>
+    <message>
+        <source>Make It Mine…</source>
+        <translation>Gör den till min…</translation>
+    </message>
+    <message>
+        <source>Unlock this copy. It stops following its owner.</source>
+        <translation>Lås upp den här kopian. Den följer inte längre sin ägare.</translation>
+    </message>
+    <message>
+        <source>Only the layout&apos;s owner can do this (in a club&apos;s layout, its admins and managers)</source>
+        <translation>Bara layoutens ägare kan göra det här (i en klubblayout dess administratörer och ledare)</translation>
+    </message>
+    <message>
         <source>Save to Module library…</source>
         <translation>Spara till modulbiblioteket…</translation>
     </message>
@@ -5265,6 +5612,26 @@ Spara min som ny version: layoutens kopia blir modulen; deras finns kvar i versi
         <translation>Sparade ”%1” över %2</translation>
     </message>
     <message>
+        <source>The module</source>
+        <translation>Modulen</translation>
+    </message>
+    <message>
+        <source>“%1” already matches the Module library.</source>
+        <translation>”%1” stämmer redan med modulbiblioteket.</translation>
+    </message>
+    <message>
+        <source>Go Back to Version %1</source>
+        <translation>Gå tillbaka till version %1</translation>
+    </message>
+    <message>
+        <source>Updated from the Module library</source>
+        <translation>Uppdaterad från modulbiblioteket</translation>
+    </message>
+    <message>
+        <source>“%1” is now version %2, for everyone in this layout.</source>
+        <translation>”%1” är nu version %2, för alla i den här layouten.</translation>
+    </message>
+    <message>
         <source>this module</source>
         <translation>den här modulen</translation>
     </message>
@@ -5279,6 +5646,10 @@ Spara min som ny version: layoutens kopia blir modulen; deras finns kvar i versi
     <message>
         <source>This module was changed in this layout. Those changes are replaced by the Module library&apos;s version.</source>
         <translation>Modulen ändrades i den här layouten. De ändringarna ersätts av modulbibliotekets version.</translation>
+    </message>
+    <message>
+        <source>Its name, colors and place on the map stay. You can go back to the version it has now.</source>
+        <translation>Namnet, färgerna och platsen på kartan finns kvar. Du kan gå tillbaka till den version den har nu.</translation>
     </message>
     <message>
         <source>Its name, colors and place on the map stay. You can undo this.</source>
@@ -5887,8 +6258,179 @@ Spara min som ny version: din blir modulen; deras finns kvar i versionshistorike
         <translation>(namnlös)</translation>
     </message>
     <message>
+        <source>This module</source>
+        <translation>Den här modulen</translation>
+    </message>
+    <message>
+        <source>This module is shared</source>
+        <translation>Den här modulen är delad</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n shared module(s) were updated.</source>
+        <translation>
+            <numerusform>%n delad modul uppdaterades.</numerusform>
+            <numerusform>%n delade moduler uppdaterades.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>“%1” was changed outside the app</source>
+        <translation>”%1” ändrades utanför appen</translation>
+    </message>
+    <message>
+        <source>Its parts aren&apos;t its owner&apos;s version %1 anymore: another app changed this layout. Put the owner&apos;s version back, or make the module yours.</source>
+        <translation>Delarna är inte längre ägarens version %1: en annan app har ändrat den här layouten. Sätt tillbaka ägarens version, eller gör modulen till din.</translation>
+    </message>
+    <message>
+        <source>Its parts aren&apos;t %1&apos;s version %2 anymore: another app changed this layout. Put %1&apos;s version back, or make the module yours.</source>
+        <translation>Delarna är inte längre %1s version %2: en annan app har ändrat den här layouten. Sätt tillbaka %1s version, eller gör modulen till din.</translation>
+    </message>
+    <message>
+        <source>That didn&apos;t work</source>
+        <translation>Det fungerade inte</translation>
+    </message>
+    <message>
+        <source>“%1” already has version %2.</source>
+        <translation>”%1” har redan version %2.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t reach this module&apos;s server</source>
+        <translation>Det går inte att nå den här modulens server</translation>
+    </message>
+    <message>
+        <source>Sign in to the server “%1” lives on, then try again.</source>
+        <translation>Logga in på servern där ”%1” finns och försök sedan igen.</translation>
+    </message>
+    <message>
+        <source>“%1” lives on %2. Sign in there (File › Servers…), then try again.</source>
+        <translation>”%1” finns på %2. Logga in där (Arkiv › Servrar…) och försök sedan igen.</translation>
+    </message>
+    <message>
+        <source>Put back the owner&apos;s version</source>
+        <translation>Sätt tillbaka ägarens version</translation>
+    </message>
+    <message>
+        <source>Update shared module</source>
+        <translation>Uppdatera delad modul</translation>
+    </message>
+    <message>
+        <source>Put the owner&apos;s version of “%1” back. Undo (Ctrl+Z) takes that back.</source>
+        <translation>Sätt tillbaka ägarens version av ”%1”. Ångra (Ctrl+Z) tar tillbaka det.</translation>
+    </message>
+    <message>
+        <source>Updated %1. %2 couldn&apos;t be updated: they are no longer shared.</source>
+        <translation>%1 uppdaterades. %2 kunde inte uppdateras: de delas inte längre.</translation>
+    </message>
+    <message>
+        <source>Mark shared module updates as seen</source>
+        <translation>Markera uppdateringar av delade moduler som sedda</translation>
+    </message>
+    <message>
+        <source>Mark shared module update as seen</source>
+        <translation>Markera uppdatering av delad modul som sedd</translation>
+    </message>
+    <message>
+        <source>Make “%1” yours?</source>
+        <translation>Göra ”%1” till din?</translation>
+    </message>
+    <message>
+        <source>its owner</source>
+        <translation>dess ägare</translation>
+    </message>
+    <message>
+        <source>It stops following %1: no more updates, and this can&apos;t be undone.</source>
+        <translation>Den slutar följa %1: inga fler uppdateringar, och det här kan inte ångras.</translation>
+    </message>
+    <message>
+        <source>It stops following %1: no more updates.</source>
+        <translation>Den slutar följa %1: inga fler uppdateringar.</translation>
+    </message>
+    <message>
+        <source>Its parts stay where they are, and you can change them like any module of this layout.</source>
+        <translation>Delarna stannar där de är, och du kan ändra dem som i vilken modul som helst i den här layouten.</translation>
+    </message>
+    <message>
+        <source>You can undo this.</source>
+        <translation>Du kan ångra det här.</translation>
+    </message>
+    <message>
+        <source>Make It Mine</source>
+        <translation>Gör den till min</translation>
+    </message>
+    <message>
+        <source>“%1” is now a module of this layout.</source>
+        <translation>”%1” är nu en modul i den här layouten.</translation>
+    </message>
+    <message>
+        <source>Versions of “%1”</source>
+        <translation>Versioner av ”%1”</translation>
+    </message>
+    <message>
+        <source>This layout has version %1. Putting another one in changes it for everyone in the layout.</source>
+        <translation>Den här layouten har version %1. Att sätta in en annan ändrar den för alla i layouten.</translation>
+    </message>
+    <message>
+        <source>%1 saves the versions. This layout has version %2. Putting another one in changes it for everyone in the layout.</source>
+        <translation>%1 sparar versionerna. Den här layouten har version %2. Att sätta in en annan ändrar den för alla i layouten.</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Läser in…</translation>
+    </message>
+    <message>
+        <source>No versions are kept for this module.</source>
+        <translation>Inga versioner sparas för den här modulen.</translation>
+    </message>
+    <message>
+        <source>Version %1 (in this layout)</source>
+        <translation>Version %1 (i den här layouten)</translation>
+    </message>
+    <message>
+        <source>Version %1</source>
+        <translation>Version %1</translation>
+    </message>
+    <message>
         <source>“%1”</source>
         <translation>”%1”</translation>
+    </message>
+    <message>
+        <source>No note</source>
+        <translation>Ingen anteckning</translation>
+    </message>
+    <message>
+        <source>Update to This</source>
+        <translation>Uppdatera till den här</translation>
+    </message>
+    <message>
+        <source>Go Back to This</source>
+        <translation>Gå tillbaka till den här</translation>
+    </message>
+    <message>
+        <source>Shared modules</source>
+        <translation>Delade moduler</translation>
+    </message>
+    <message>
+        <source>Shared modules follow their owner&apos;s updates. You can move and turn them; their parts stay as the owner made them.</source>
+        <translation>Delade moduler följer ägarens uppdateringar. Du kan flytta och vrida dem; delarna förblir som ägaren gjorde dem.</translation>
+    </message>
+    <message>
+        <source>Copy a Message to Send</source>
+        <translation>Kopiera ett meddelande att skicka</translation>
+    </message>
+    <message>
+        <source>Copied. Send it to %1.</source>
+        <translation>Kopierat. Skicka det till %1.</translation>
+    </message>
+    <message>
+        <source>the module&apos;s owner</source>
+        <translation>modulens ägare</translation>
+    </message>
+    <message>
+        <source>“%1” can&apos;t go in this layout</source>
+        <translation>”%1” kan inte läggas i den här layouten</translation>
+    </message>
+    <message>
+        <source>This layout is on %1, and “%2” is shared with you on %3. A shared module follows its owner only in layouts on its own server, or in a file on this computer.</source>
+        <translation>Den här layouten finns på %1, och ”%2” är delad med dig på %3. En delad modul följer sin ägare bara i layouter på sin egen server, eller i en fil på den här datorn.</translation>
     </message>
     <message>
         <source>The pasted part</source>
@@ -9091,6 +9633,96 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     </message>
 </context>
 <context>
+    <name>bld::ui::ModuleShareDialog</name>
+    <message>
+        <source>This module belongs to a club, so its members already have it. A club&apos;s module can&apos;t be shared with another club.</source>
+        <translation>Den här modulen tillhör en klubb, så medlemmarna har den redan. En klubbs modul kan inte delas med en annan klubb.</translation>
+    </message>
+    <message>
+        <source>This module is shared with as many clubs as it can be. Stop sharing with one first.</source>
+        <translation>Den här modulen delas med så många klubbar den kan. Sluta först dela med en.</translation>
+    </message>
+    <message>
+        <source>It isn&apos;t shared with that club any more.</source>
+        <translation>Den delas inte längre med den klubben.</translation>
+    </message>
+    <message>
+        <source> (version %1)</source>
+        <translation> (version %1)</translation>
+    </message>
+    <message>
+        <source>Stop sharing with %1?</source>
+        <translation>Sluta dela med %1?</translation>
+    </message>
+    <message numerus="yes">
+        <source>Its %n layout(s) keep “%1” as it is now%2.</source>
+        <translation>
+            <numerusform>Dess %n layout behåller ”%1” som den är nu%2.</numerusform>
+            <numerusform>Dess %n layouter behåller ”%1” som den är nu%2.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nothing changes in any layout: “%1” isn&apos;t placed in one of theirs.</source>
+        <translation>Inget ändras i någon layout: ”%1” är inte placerad i någon av deras.</translation>
+    </message>
+    <message>
+        <source>They won&apos;t get your updates anymore, and can&apos;t place it again.</source>
+        <translation>De får inte dina uppdateringar längre och kan inte placera den igen.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Sluta</translation>
+    </message>
+    <message>
+        <source>Share “%1”</source>
+        <translation>Dela ”%1”</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. Its members can&apos;t change its parts.</source>
+        <translation>En klubb du delar med kan placera den här modulen i klubbens layouter och får dina uppdateringar. Medlemmarna kan inte ändra delarna.</translation>
+    </message>
+    <message>
+        <source>Share with a club</source>
+        <translation>Dela med en klubb</translation>
+    </message>
+    <message>
+        <source>Share</source>
+        <translation>Dela</translation>
+    </message>
+    <message>
+        <source>To share with one person by email, open this module on the website.</source>
+        <translation>Öppna den här modulen på webbplatsen för att dela med en enskild person via e-post.</translation>
+    </message>
+    <message>
+        <source>Open on the Website</source>
+        <translation>Öppna på webbplatsen</translation>
+    </message>
+    <message>
+        <source>This is a club&apos;s module: its members already have it.</source>
+        <translation>Det här är en klubbs modul: medlemmarna har den redan.</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. You&apos;re not in a club yet: join or start one to share with it.</source>
+        <translation>En klubb du delar med kan placera den här modulen i klubbens layouter och får dina uppdateringar. Du är inte med i någon klubb än: gå med i en eller starta en för att dela med den.</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. Its members can&apos;t change its parts. It&apos;s shared with every club you&apos;re in.</source>
+        <translation>En klubb du delar med kan placera den här modulen i klubbens layouter och får dina uppdateringar. Medlemmarna kan inte ändra delarna. Den delas med alla klubbar du är med i.</translation>
+    </message>
+    <message>
+        <source>Pick a club…</source>
+        <translation>Välj en klubb…</translation>
+    </message>
+    <message>
+        <source>%1 (club) · can place it</source>
+        <translation>%1 (klubb) · kan placera den</translation>
+    </message>
+    <message>
+        <source>Stop sharing with %1</source>
+        <translation>Sluta dela med %1</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::ModulesPanel</name>
     <message>
         <source>Modules</source>
@@ -9993,6 +10625,54 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Inga moduler matchar.</translation>
     </message>
     <message>
+        <source>Whose modules</source>
+        <translation>Vems moduler</translation>
+    </message>
+    <message>
+        <source>Mine</source>
+        <translation>Mina</translation>
+    </message>
+    <message>
+        <source>Clubs</source>
+        <translation>Klubbar</translation>
+    </message>
+    <message>
+        <source>Shared with me</source>
+        <translation>Delade med mig</translation>
+    </message>
+    <message>
+        <source>Take “%1” off %2?</source>
+        <translation>Ta bort ”%1” från %2?</translation>
+    </message>
+    <message>
+        <source>The club&apos;s layouts keep it as it is now.</source>
+        <translation>Klubbens layouter behåller den som den är nu.</translation>
+    </message>
+    <message>
+        <source>The club gets no more updates of it, and its members can&apos;t place it again. Its owner is told.</source>
+        <translation>Klubben får inga fler uppdateringar av den, och medlemmarna kan inte placera den igen. Ägaren får veta.</translation>
+    </message>
+    <message>
+        <source>The club gets no more updates of it, and its members can&apos;t place it again. %1 is told.</source>
+        <translation>Klubben får inga fler uppdateringar av den, och medlemmarna kan inte placera den igen. %1 får veta.</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Ta bort</translation>
+    </message>
+    <message>
+        <source>Modules other people shared with you or your clubs. Place one, and it follows its owner&apos;s updates.</source>
+        <translation>Moduler som andra har delat med dig eller dina klubbar. Placera en, så följer den ägarens uppdateringar.</translation>
+    </message>
+    <message>
+        <source>Nothing is shared with you yet. When someone shares a module with you or one of your clubs, it shows here, ready to place.</source>
+        <translation>Inget har delats med dig än. När någon delar en modul med dig eller en av dina klubbar visas den här, redo att placeras.</translation>
+    </message>
+    <message>
+        <source>Your clubs have no modules yet.</source>
+        <translation>Dina klubbar har inga moduler än.</translation>
+    </message>
+    <message>
         <source>A club</source>
         <translation>En klubb</translation>
     </message>
@@ -10049,6 +10729,14 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Byt namn…</translation>
     </message>
     <message>
+        <source>Share with a Club…</source>
+        <translation>Dela med en klubb…</translation>
+    </message>
+    <message>
+        <source>A club you share with can place it in the club&apos;s layouts and gets your updates.</source>
+        <translation>En klubb du delar med kan placera den i klubbens layouter och får dina uppdateringar.</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Ta tillbaka till mina…</translation>
     </message>
@@ -10067,6 +10755,30 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Delete…</source>
         <translation>Ta bort…</translation>
+    </message>
+    <message>
+        <source>A shared module goes in a layout, not inside another module.</source>
+        <translation>En delad modul läggs i en layout, inte inuti en annan modul.</translation>
+    </message>
+    <message>
+        <source>Remove from %1…</source>
+        <translation>Ta bort från %1…</translation>
+    </message>
+    <message>
+        <source>Take this module off the club&apos;s list. Copies already placed stay as they are.</source>
+        <translation>Ta bort den här modulen från klubbens lista. Kopior som redan placerats förblir som de är.</translation>
+    </message>
+    <message>
+        <source>“%1” is off %2&apos;s list.</source>
+        <translation>”%1” är borta från %2s lista.</translation>
+    </message>
+    <message>
+        <source>Remove from club</source>
+        <translation>Ta bort från klubben</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t remove “%1”: %2</source>
+        <translation>Kunde inte ta bort ”%1”: %2</translation>
     </message>
     <message>
         <source>Renamed to &quot;%1&quot;</source>
@@ -11366,6 +12078,25 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Sent for review. A moderator looks at it before it appears in the catalog.</source>
         <translation>Skickad för granskning. En moderator tittar på den innan den visas i katalogen.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::SharedModulesBar</name>
+    <message>
+        <source>Shared modules</source>
+        <translation>Delade moduler</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can update it.</source>
+        <translation>Den som kan ändra den här layouten kan uppdatera den.</translation>
+    </message>
+    <message>
+        <source>Go back to version %1</source>
+        <translation>Gå tillbaka till version %1</translation>
     </message>
 </context>
 <context>

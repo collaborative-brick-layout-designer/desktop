@@ -71,6 +71,10 @@
         <source>Two people changing one module&apos;s parts at the same moment</source>
         <translation>Twee mensen wijzigen tegelijk de onderdelen van dezelfde module</translation>
     </message>
+    <message>
+        <source>Modules shared with you and your clubs, with their owner&apos;s updates</source>
+        <translation>Modules die met jou en je clubs zijn gedeeld, met de updates van hun eigenaar</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>
@@ -867,6 +871,42 @@
         <translation>Typ een getal naast een onderdeel om de limiet in te stellen. Het budget wordt met de layout opgeslagen en gedeeld met iedereen die hem bewerkt. Een BlueBrick-budgetbestand (.bbb) kan ook worden geïmporteerd of geëxporteerd.</translation>
     </message>
     <message>
+        <source>Shared modules</source>
+        <translation>Gedeelde modules</translation>
+    </message>
+    <message>
+        <source>A module shared with you or your club: place it, and it follows its owner’s updates.</source>
+        <translation>Een module die met jou of je club is gedeeld: plaats hem, en hij volgt de updates van zijn eigenaar.</translation>
+    </message>
+    <message>
+        <source>You can move it, turn it, pin it, recolor its outline, duplicate it and remove it, always as a whole; its parts and its name stay as its owner made them. If its owner stops sharing it or deletes it, the copies already placed stay and just get no more updates. The layout’s owner (a club’s admins and managers) can choose Make it mine to unlock a copy, which then stops following its owner.</source>
+        <translation>Je kunt hem verplaatsen, draaien, vastzetten, de kleur van zijn omtrek veranderen, dupliceren en verwijderen, altijd als geheel; zijn onderdelen en zijn naam blijven zoals zijn eigenaar ze heeft gemaakt. Als zijn eigenaar stopt met delen of hem verwijdert, blijven de al geplaatste kopieën staan en krijgen ze alleen geen updates meer. De eigenaar van de layout (bij een clublayout de beheerders en managers) kan “Maak er de mijne van” kiezen om een kopie te ontgrendelen; die volgt zijn eigenaar dan niet meer.</translation>
+    </message>
+    <message>
+        <source>Updates from shared modules</source>
+        <translation>Updates van gedeelde modules</translation>
+    </message>
+    <message>
+        <source>When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.</source>
+        <translation>Als de eigenaar een nieuwe versie opslaat, laat de layout dat weten; er verandert niets tot iemand “Bijwerken” kiest.</translation>
+    </message>
+    <message>
+        <source>Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back.</source>
+        <translation>“Bijwerken” zet de nieuwe versie waar de module nu staat, voor iedereen in de layout tegelijk. “Ongedaan maken” draait dat niet terug: kies “Terug naar versie” om de eerdere versie weer te plaatsen. Een update wacht nooit tot er ruimte is, dus als de nieuwe versie andere onderdelen overlapt, verplaats hem of zijn buren, of ga terug.</translation>
+    </message>
+    <message>
+        <source>Sharing a module</source>
+        <translation>Een module delen</translation>
+    </message>
+    <message>
+        <source>People and clubs you share with can place this module and get your updates; they can’t change its parts.</source>
+        <translation>Mensen en clubs met wie je deelt kunnen deze module plaatsen en krijgen je updates; ze kunnen de onderdelen niet veranderen.</translation>
+    </message>
+    <message>
+        <source>Share with a person by email, or with a club you’re in so its members can place it in the club’s layouts; your own parts that it uses come along, to look at only. You see how many layouts use it and in which clubs, never the names of other people’s layouts. Stopping a share, or a club’s admins taking the module off their club, leaves the copies already placed as they are, with no more updates.</source>
+        <translation>Deel met een persoon via e-mail, of met een club waar je lid van bent, zodat de leden hem in de layouts van de club kunnen plaatsen; je eigen onderdelen die hij gebruikt gaan mee, alleen om te bekijken. Je ziet hoeveel layouts hem gebruiken en in welke clubs, maar nooit de namen van layouts van anderen. Als je stopt met delen, of de beheerders van een club de module uit hun club halen, blijven de al geplaatste kopieën zoals ze zijn, zonder verdere updates.</translation>
+    </message>
+    <message>
         <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
         <translation>Alles in één bestand: onderdelen, bladen, zaal, labels, modules en het budget.</translation>
     </message>
@@ -1336,6 +1376,28 @@
     </message>
 </context>
 <context>
+    <name>LibraryApi</name>
+    <message>
+        <source>shared with you</source>
+        <translation>met jou gedeeld</translation>
+    </message>
+    <message>
+        <source>via %1</source>
+        <translation>via %1</translation>
+    </message>
+    <message>
+        <source>others: %1</source>
+        <translation>anderen: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Used in %n layout(s)</source>
+        <translation>
+            <numerusform>Gebruikt in %n layout</numerusform>
+            <numerusform>Gebruikt in %n layouts</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>ModuleEdit</name>
     <message>
         <source>%1 is here too</source>
@@ -1588,6 +1650,10 @@
     <message>
         <source>Update module from the Module library</source>
         <translation>Module bijwerken vanuit de modulebibliotheek</translation>
+    </message>
+    <message>
+        <source>Make shared module mine</source>
+        <translation>Gedeelde module van mij maken</translation>
     </message>
     <message>
         <source>Ungroup module</source>
@@ -1888,6 +1954,13 @@
     <message>
         <source>Replaced %1 texts.</source>
         <translation>%1 teksten vervangen.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Skipped %n part(s) of shared modules: their parts stay as their owner made them.</source>
+        <translation>
+            <numerusform>%n onderdeel van gedeelde modules overgeslagen: hun onderdelen blijven zoals hun eigenaar ze heeft gemaakt.</numerusform>
+            <numerusform>%n onderdelen van gedeelde modules overgeslagen: hun onderdelen blijven zoals hun eigenaar ze heeft gemaakt.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Sides</source>
@@ -2333,6 +2406,240 @@
     <message>
         <source>The server&apos;s close code: %1 (%2)</source>
         <translation>Sluitcode van de server: %1 (%2)</translation>
+    </message>
+</context>
+<context>
+    <name>SharedModule</name>
+    <message>
+        <source>This module</source>
+        <translation>Deze module</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>‘%1’</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its name is its owner&apos;s. You can move it, turn it and change its outline color.</source>
+        <translation>%1 is een gedeelde module, dus de naam is van zijn eigenaar. Je kunt hem verplaatsen, draaien en de kleur van zijn omtrek veranderen.</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so parts can&apos;t be added to it or taken out of it here.</source>
+        <translation>%1 is een gedeelde module, dus hier kun je er geen onderdelen aan toevoegen of uit halen.</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so it stays one module. You can remove it from this layout, or its layout&apos;s owner can make it theirs.</source>
+        <translation>%1 is een gedeelde module, dus hij blijft één module. Je kunt hem uit deze layout verwijderen, of de eigenaar van zijn layout kan hem van zichzelf maken.</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
+        <translation>%1 is een gedeelde module, dus zijn rails kunnen hier niet worden gebogen. Je kunt de hele module verplaatsen en draaien.</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
+        <translation>%1 is een gedeelde module, dus zijn onderdelen kunnen hier niet worden veranderd. Je kunt hem als geheel verplaatsen, draaien of verwijderen.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its name is %2&apos;s. You can move it, turn it and change its outline color.</source>
+        <translation>%1 wordt gedeeld door %2, dus de naam is van %2. Je kunt hem verplaatsen, draaien en de kleur van zijn omtrek veranderen.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so parts can&apos;t be added to it or taken out of it here.</source>
+        <translation>%1 wordt gedeeld door %2, dus hier kun je er geen onderdelen aan toevoegen of uit halen.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so it stays one module. You can remove it from this layout, or its layout&apos;s owner can make it theirs.</source>
+        <translation>%1 wordt gedeeld door %2, dus hij blijft één module. Je kunt hem uit deze layout verwijderen, of de eigenaar van zijn layout kan hem van zichzelf maken.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
+        <translation>%1 wordt gedeeld door %2, dus zijn rails kunnen hier niet worden gebogen. Je kunt de hele module verplaatsen en draaien.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
+        <translation>%1 wordt gedeeld door %2, dus zijn onderdelen kunnen hier niet worden veranderd. Je kunt hem als geheel verplaatsen, draaien of verwijderen.</translation>
+    </message>
+</context>
+<context>
+    <name>SharedModules</name>
+    <message>
+        <source>Shared</source>
+        <translation>Gedeeld</translation>
+    </message>
+    <message>
+        <source> · v%1</source>
+        <translation> · v%1</translation>
+    </message>
+    <message>
+        <source>No longer shared%1: no more updates</source>
+        <translation>Niet meer gedeeld%1: geen updates meer</translation>
+    </message>
+    <message>
+        <source>Deleted by its owner%1: no more updates</source>
+        <translation>Door de eigenaar verwijderd%1: geen updates meer</translation>
+    </message>
+    <message>
+        <source>Shared%1</source>
+        <translation>Gedeeld%1</translation>
+    </message>
+    <message>
+        <source>Shared by %1%2</source>
+        <translation>Gedeeld door %1%2</translation>
+    </message>
+    <message>
+        <source>%1 · v%2 is ready</source>
+        <translation>%1 · v%2 staat klaar</translation>
+    </message>
+    <message>
+        <source>Changed outside the app</source>
+        <translation>Buiten de app gewijzigd</translation>
+    </message>
+    <message numerus="yes">
+        <source>Overlaps %n part(s)</source>
+        <translation>
+            <numerusform>Overlapt %n onderdeel</numerusform>
+            <numerusform>Overlapt %n onderdelen</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Can&apos;t check for updates (offline)</source>
+        <translation>Kan niet op updates controleren (offline)</translation>
+    </message>
+    <message>
+        <source>🔗 %1 ● v%2 is ready</source>
+        <translation>🔗 %1 ● v%2 staat klaar</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n shared module(s) have new versions.</source>
+        <translation>
+            <numerusform>%n gedeelde module heeft nieuwe versies.</numerusform>
+            <numerusform>%n gedeelde modules hebben nieuwe versies.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>A shared module</source>
+        <translation>Een gedeelde module</translation>
+    </message>
+    <message>
+        <source>“%1” has a new version (v%2)</source>
+        <translation>‘%1’ heeft een nieuwe versie (v%2)</translation>
+    </message>
+    <message>
+        <source>“%1” has a new version from %2 (v%3)</source>
+        <translation>‘%1’ heeft een nieuwe versie van %2 (v%3)</translation>
+    </message>
+    <message>
+        <source>%1: “%2”.</source>
+        <translation>%1: ‘%2’.</translation>
+    </message>
+    <message>
+        <source>“%1” v%2</source>
+        <translation>‘%1’ v%2</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>Module</translation>
+    </message>
+    <message numerus="yes">
+        <source>It overlaps %n part(s).</source>
+        <translation>
+            <numerusform>Hij overlapt %n onderdeel.</numerusform>
+            <numerusform>Hij overlapt %n onderdelen.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n track end(s) no longer meet.</source>
+        <translation>
+            <numerusform>%n railuiteinde sluit niet meer aan.</numerusform>
+            <numerusform>%n railuiteinden sluiten niet meer aan.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The shared module</source>
+        <translation>De gedeelde module</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>‘%1’</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2.</source>
+        <translation>%1 is nu versie %2.</translation>
+    </message>
+    <message>
+        <source>%1 was updated.</source>
+        <translation>%1 is bijgewerkt.</translation>
+    </message>
+    <message>
+        <source>its owner</source>
+        <translation>zijn eigenaar</translation>
+    </message>
+    <message>
+        <source>“%1” can&apos;t go in this layout yet</source>
+        <translation>‘%1’ kan nog niet in deze layout</translation>
+    </message>
+    <message>
+        <source>this club</source>
+        <translation>deze club</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with you, not with %3. Ask %1 to share it with the club.</source>
+        <translation>%1 heeft ‘%2’ met jou gedeeld, niet met %3. Vraag %1 om hem met de club te delen.</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with %3? I&apos;d like to place it in one of the club&apos;s layouts.</source>
+        <translation>Hoi %1, kun je je module ‘%2’ met %3 delen? Ik wil hem graag in een van de layouts van de club plaatsen.</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with a club you&apos;re in, for the club&apos;s layouts, not with you. Ask %1 to share it with you too.</source>
+        <translation>%1 heeft ‘%2’ gedeeld met een club waar je lid van bent, voor de layouts van de club, niet met jou. Vraag %1 om hem ook met jou te delen.</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with me as well? I&apos;d like to place it in one of my own layouts.</source>
+        <translation>Hoi %1, kun je je module ‘%2’ ook met mij delen? Ik wil hem graag in een van mijn eigen layouts plaatsen.</translation>
+    </message>
+    <message>
+        <source>this layout&apos;s owner</source>
+        <translation>de eigenaar van deze layout</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with you, not with %3. Ask %1 to share it with them.</source>
+        <translation>%1 heeft ‘%2’ met jou gedeeld, niet met %3. Vraag %1 om hem met hen te delen.</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with %3? I&apos;d like to place it in one of their layouts.</source>
+        <translation>Hoi %1, kun je je module ‘%2’ met %3 delen? Ik wil hem graag in een van hun layouts plaatsen.</translation>
+    </message>
+    <message>
+        <source>This module is no longer shared with this layout, so it stays at the version it has. You can remove it, or its owner can share it again.</source>
+        <translation>Deze module wordt niet meer met deze layout gedeeld, dus hij blijft op de versie die hij heeft. Je kunt hem verwijderen, of zijn eigenaar kan hem opnieuw delen.</translation>
+    </message>
+    <message>
+        <source>Its owner deleted this module, so it stays at the version it has.</source>
+        <translation>Zijn eigenaar heeft deze module verwijderd, dus hij blijft op de versie die hij heeft.</translation>
+    </message>
+    <message>
+        <source>You can&apos;t see this module in the Module library, so you can&apos;t update it. Ask whoever added it.</source>
+        <translation>Je ziet deze module niet in de modulebibliotheek, dus je kunt hem niet bijwerken. Vraag het degene die hem heeft toegevoegd.</translation>
+    </message>
+    <message>
+        <source>That module is no longer in this layout.</source>
+        <translation>Die module zit niet meer in deze layout.</translation>
+    </message>
+    <message>
+        <source>This module doesn&apos;t follow a Module library module any more.</source>
+        <translation>Deze module volgt geen module uit de modulebibliotheek meer.</translation>
+    </message>
+    <message>
+        <source>That version isn&apos;t kept any more (the newest 20 are).</source>
+        <translation>Die versie wordt niet meer bewaard (de nieuwste 20 wel).</translation>
+    </message>
+    <message>
+        <source>This layout has no parts sheet to put the module on. Add a parts sheet first.</source>
+        <translation>Deze layout heeft geen onderdelenblad om de module op te zetten. Voeg eerst een onderdelenblad toe.</translation>
+    </message>
+    <message>
+        <source>Only the layout&apos;s owner can make a shared module theirs. In a club&apos;s layout, ask a club admin or manager.</source>
+        <translation>Alleen de eigenaar van de layout kan een gedeelde module van zichzelf maken. Vraag het in een clublayout aan een clubbeheerder of manager.</translation>
     </message>
 </context>
 <context>
@@ -5189,6 +5496,46 @@ De mijne als nieuwe versie opslaan: de kopie van deze layout wordt de module; di
         <translation>Module koppelen aan de modulebibliotheek</translation>
     </message>
     <message>
+        <source>What Changed (Versions)…</source>
+        <translation>Wat er veranderd is (versies)…</translation>
+    </message>
+    <message>
+        <source>It no longer follows its owner, so there is nothing new to see</source>
+        <translation>Hij volgt zijn eigenaar niet meer, dus er is niets nieuws te zien</translation>
+    </message>
+    <message>
+        <source>Update to Version %1</source>
+        <translation>Bijwerken naar versie %1</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can update it</source>
+        <translation>Wie deze layout mag wijzigen, kan hem bijwerken</translation>
+    </message>
+    <message>
+        <source>Put Back the Owner&apos;s Version</source>
+        <translation>De versie van de eigenaar terugzetten</translation>
+    </message>
+    <message>
+        <source>Put Back %1&apos;s Version</source>
+        <translation>De versie van %1 terugzetten</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can do this</source>
+        <translation>Wie deze layout mag wijzigen, kan dit doen</translation>
+    </message>
+    <message>
+        <source>Make It Mine…</source>
+        <translation>Maak er de mijne van…</translation>
+    </message>
+    <message>
+        <source>Unlock this copy. It stops following its owner.</source>
+        <translation>Ontgrendel deze kopie. Hij volgt zijn eigenaar dan niet meer.</translation>
+    </message>
+    <message>
+        <source>Only the layout&apos;s owner can do this (in a club&apos;s layout, its admins and managers)</source>
+        <translation>Alleen de eigenaar van de layout kan dit doen (in een clublayout de beheerders en managers)</translation>
+    </message>
+    <message>
         <source>Save to Module library…</source>
         <translation>Opslaan in modulebibliotheek…</translation>
     </message>
@@ -5257,6 +5604,26 @@ De mijne als nieuwe versie opslaan: de kopie van deze layout wordt de module; di
         <translation>‘%1’ over %2 heen opgeslagen</translation>
     </message>
     <message>
+        <source>The module</source>
+        <translation>De module</translation>
+    </message>
+    <message>
+        <source>“%1” already matches the Module library.</source>
+        <translation>‘%1’ komt al overeen met de modulebibliotheek.</translation>
+    </message>
+    <message>
+        <source>Go Back to Version %1</source>
+        <translation>Terug naar versie %1</translation>
+    </message>
+    <message>
+        <source>Updated from the Module library</source>
+        <translation>Bijgewerkt vanuit de modulebibliotheek</translation>
+    </message>
+    <message>
+        <source>“%1” is now version %2, for everyone in this layout.</source>
+        <translation>‘%1’ is nu versie %2, voor iedereen in deze layout.</translation>
+    </message>
+    <message>
         <source>this module</source>
         <translation>deze module</translation>
     </message>
@@ -5271,6 +5638,10 @@ De mijne als nieuwe versie opslaan: de kopie van deze layout wordt de module; di
     <message>
         <source>This module was changed in this layout. Those changes are replaced by the Module library&apos;s version.</source>
         <translation>Deze module is in deze layout gewijzigd. Die wijzigingen worden vervangen door de versie uit de modulebibliotheek.</translation>
+    </message>
+    <message>
+        <source>Its name, colors and place on the map stay. You can go back to the version it has now.</source>
+        <translation>Zijn naam, kleuren en plek op de kaart blijven. Je kunt teruggaan naar de versie die hij nu heeft.</translation>
     </message>
     <message>
         <source>Its name, colors and place on the map stay. You can undo this.</source>
@@ -5879,8 +6250,179 @@ De mijne als nieuwe versie opslaan: jouw versie wordt de module; die van hen bli
         <translation>(zonder titel)</translation>
     </message>
     <message>
+        <source>This module</source>
+        <translation>Deze module</translation>
+    </message>
+    <message>
+        <source>This module is shared</source>
+        <translation>Deze module is gedeeld</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n shared module(s) were updated.</source>
+        <translation>
+            <numerusform>%n gedeelde module is bijgewerkt.</numerusform>
+            <numerusform>%n gedeelde modules zijn bijgewerkt.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>“%1” was changed outside the app</source>
+        <translation>‘%1’ is buiten de app gewijzigd</translation>
+    </message>
+    <message>
+        <source>Its parts aren&apos;t its owner&apos;s version %1 anymore: another app changed this layout. Put the owner&apos;s version back, or make the module yours.</source>
+        <translation>Zijn onderdelen zijn niet meer versie %1 van de eigenaar: een andere app heeft deze layout gewijzigd. Zet de versie van de eigenaar terug, of maak de module van jou.</translation>
+    </message>
+    <message>
+        <source>Its parts aren&apos;t %1&apos;s version %2 anymore: another app changed this layout. Put %1&apos;s version back, or make the module yours.</source>
+        <translation>Zijn onderdelen zijn niet meer versie %2 van %1: een andere app heeft deze layout gewijzigd. Zet de versie van %1 terug, of maak de module van jou.</translation>
+    </message>
+    <message>
+        <source>That didn&apos;t work</source>
+        <translation>Dat is niet gelukt</translation>
+    </message>
+    <message>
+        <source>“%1” already has version %2.</source>
+        <translation>‘%1’ heeft al versie %2.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t reach this module&apos;s server</source>
+        <translation>Kan de server van deze module niet bereiken</translation>
+    </message>
+    <message>
+        <source>Sign in to the server “%1” lives on, then try again.</source>
+        <translation>Log in op de server waar ‘%1’ staat en probeer het dan opnieuw.</translation>
+    </message>
+    <message>
+        <source>“%1” lives on %2. Sign in there (File › Servers…), then try again.</source>
+        <translation>‘%1’ staat op %2. Log daar in (Bestand › Servers…) en probeer het dan opnieuw.</translation>
+    </message>
+    <message>
+        <source>Put back the owner&apos;s version</source>
+        <translation>De versie van de eigenaar terugzetten</translation>
+    </message>
+    <message>
+        <source>Update shared module</source>
+        <translation>Gedeelde module bijwerken</translation>
+    </message>
+    <message>
+        <source>Put the owner&apos;s version of “%1” back. Undo (Ctrl+Z) takes that back.</source>
+        <translation>De versie van de eigenaar van ‘%1’ terugzetten. Ongedaan maken (Ctrl+Z) draait dat terug.</translation>
+    </message>
+    <message>
+        <source>Updated %1. %2 couldn&apos;t be updated: they are no longer shared.</source>
+        <translation>%1 bijgewerkt. %2 kon niet worden bijgewerkt: ze worden niet meer gedeeld.</translation>
+    </message>
+    <message>
+        <source>Mark shared module updates as seen</source>
+        <translation>Updates van gedeelde modules als gezien markeren</translation>
+    </message>
+    <message>
+        <source>Mark shared module update as seen</source>
+        <translation>Update van gedeelde module als gezien markeren</translation>
+    </message>
+    <message>
+        <source>Make “%1” yours?</source>
+        <translation>‘%1’ van jou maken?</translation>
+    </message>
+    <message>
+        <source>its owner</source>
+        <translation>zijn eigenaar</translation>
+    </message>
+    <message>
+        <source>It stops following %1: no more updates, and this can&apos;t be undone.</source>
+        <translation>Hij volgt %1 niet meer: geen updates meer, en dit kan niet ongedaan worden gemaakt.</translation>
+    </message>
+    <message>
+        <source>It stops following %1: no more updates.</source>
+        <translation>Hij volgt %1 niet meer: geen updates meer.</translation>
+    </message>
+    <message>
+        <source>Its parts stay where they are, and you can change them like any module of this layout.</source>
+        <translation>Zijn onderdelen blijven waar ze zijn, en je kunt ze veranderen zoals bij elke module van deze layout.</translation>
+    </message>
+    <message>
+        <source>You can undo this.</source>
+        <translation>Je kunt dit ongedaan maken.</translation>
+    </message>
+    <message>
+        <source>Make It Mine</source>
+        <translation>Maak er de mijne van</translation>
+    </message>
+    <message>
+        <source>“%1” is now a module of this layout.</source>
+        <translation>‘%1’ is nu een module van deze layout.</translation>
+    </message>
+    <message>
+        <source>Versions of “%1”</source>
+        <translation>Versies van ‘%1’</translation>
+    </message>
+    <message>
+        <source>This layout has version %1. Putting another one in changes it for everyone in the layout.</source>
+        <translation>Deze layout heeft versie %1. Een andere plaatsen verandert het voor iedereen in de layout.</translation>
+    </message>
+    <message>
+        <source>%1 saves the versions. This layout has version %2. Putting another one in changes it for everyone in the layout.</source>
+        <translation>%1 bewaart de versies. Deze layout heeft versie %2. Een andere plaatsen verandert het voor iedereen in de layout.</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Laden…</translation>
+    </message>
+    <message>
+        <source>No versions are kept for this module.</source>
+        <translation>Voor deze module worden geen versies bewaard.</translation>
+    </message>
+    <message>
+        <source>Version %1 (in this layout)</source>
+        <translation>Versie %1 (in deze layout)</translation>
+    </message>
+    <message>
+        <source>Version %1</source>
+        <translation>Versie %1</translation>
+    </message>
+    <message>
         <source>“%1”</source>
         <translation>‘%1’</translation>
+    </message>
+    <message>
+        <source>No note</source>
+        <translation>Geen notitie</translation>
+    </message>
+    <message>
+        <source>Update to This</source>
+        <translation>Bijwerken naar deze</translation>
+    </message>
+    <message>
+        <source>Go Back to This</source>
+        <translation>Terug naar deze</translation>
+    </message>
+    <message>
+        <source>Shared modules</source>
+        <translation>Gedeelde modules</translation>
+    </message>
+    <message>
+        <source>Shared modules follow their owner&apos;s updates. You can move and turn them; their parts stay as the owner made them.</source>
+        <translation>Gedeelde modules volgen de updates van hun eigenaar. Je kunt ze verplaatsen en draaien; hun onderdelen blijven zoals de eigenaar ze heeft gemaakt.</translation>
+    </message>
+    <message>
+        <source>Copy a Message to Send</source>
+        <translation>Een bericht kopiëren om te sturen</translation>
+    </message>
+    <message>
+        <source>Copied. Send it to %1.</source>
+        <translation>Gekopieerd. Stuur het naar %1.</translation>
+    </message>
+    <message>
+        <source>the module&apos;s owner</source>
+        <translation>de eigenaar van de module</translation>
+    </message>
+    <message>
+        <source>“%1” can&apos;t go in this layout</source>
+        <translation>‘%1’ kan niet in deze layout</translation>
+    </message>
+    <message>
+        <source>This layout is on %1, and “%2” is shared with you on %3. A shared module follows its owner only in layouts on its own server, or in a file on this computer.</source>
+        <translation>Deze layout staat op %1, en ‘%2’ is met jou gedeeld op %3. Een gedeelde module volgt zijn eigenaar alleen in layouts op zijn eigen server, of in een bestand op deze computer.</translation>
     </message>
     <message>
         <source>The pasted part</source>
@@ -9091,6 +9633,96 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     </message>
 </context>
 <context>
+    <name>bld::ui::ModuleShareDialog</name>
+    <message>
+        <source>This module belongs to a club, so its members already have it. A club&apos;s module can&apos;t be shared with another club.</source>
+        <translation>Deze module is van een club, dus de leden hebben hem al. De module van een club kan niet met een andere club worden gedeeld.</translation>
+    </message>
+    <message>
+        <source>This module is shared with as many clubs as it can be. Stop sharing with one first.</source>
+        <translation>Deze module is met zoveel clubs gedeeld als kan. Stop eerst met delen met een van hen.</translation>
+    </message>
+    <message>
+        <source>It isn&apos;t shared with that club any more.</source>
+        <translation>Hij wordt niet meer met die club gedeeld.</translation>
+    </message>
+    <message>
+        <source> (version %1)</source>
+        <translation> (versie %1)</translation>
+    </message>
+    <message>
+        <source>Stop sharing with %1?</source>
+        <translation>Stoppen met delen met %1?</translation>
+    </message>
+    <message numerus="yes">
+        <source>Its %n layout(s) keep “%1” as it is now%2.</source>
+        <translation>
+            <numerusform>Zijn %n layout houdt ‘%1’ zoals hij nu is%2.</numerusform>
+            <numerusform>Zijn %n layouts houden ‘%1’ zoals hij nu is%2.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nothing changes in any layout: “%1” isn&apos;t placed in one of theirs.</source>
+        <translation>Er verandert niets in een layout: ‘%1’ is niet in een van hun layouts geplaatst.</translation>
+    </message>
+    <message>
+        <source>They won&apos;t get your updates anymore, and can&apos;t place it again.</source>
+        <translation>Ze krijgen je updates niet meer en kunnen hem niet opnieuw plaatsen.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stoppen</translation>
+    </message>
+    <message>
+        <source>Share “%1”</source>
+        <translation>‘%1’ delen</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. Its members can&apos;t change its parts.</source>
+        <translation>Een club met wie je deelt kan deze module in de layouts van de club plaatsen en krijgt je updates. De leden kunnen de onderdelen niet veranderen.</translation>
+    </message>
+    <message>
+        <source>Share with a club</source>
+        <translation>Met een club delen</translation>
+    </message>
+    <message>
+        <source>Share</source>
+        <translation>Delen</translation>
+    </message>
+    <message>
+        <source>To share with one person by email, open this module on the website.</source>
+        <translation>Om met één persoon via e-mail te delen, open je deze module op de website.</translation>
+    </message>
+    <message>
+        <source>Open on the Website</source>
+        <translation>Openen op de website</translation>
+    </message>
+    <message>
+        <source>This is a club&apos;s module: its members already have it.</source>
+        <translation>Dit is de module van een club: de leden hebben hem al.</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. You&apos;re not in a club yet: join or start one to share with it.</source>
+        <translation>Een club met wie je deelt kan deze module in de layouts van de club plaatsen en krijgt je updates. Je zit nog niet in een club: word lid van een club of start er een om ermee te delen.</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. Its members can&apos;t change its parts. It&apos;s shared with every club you&apos;re in.</source>
+        <translation>Een club met wie je deelt kan deze module in de layouts van de club plaatsen en krijgt je updates. De leden kunnen de onderdelen niet veranderen. Hij is gedeeld met elke club waar je in zit.</translation>
+    </message>
+    <message>
+        <source>Pick a club…</source>
+        <translation>Kies een club…</translation>
+    </message>
+    <message>
+        <source>%1 (club) · can place it</source>
+        <translation>%1 (club) · kan hem plaatsen</translation>
+    </message>
+    <message>
+        <source>Stop sharing with %1</source>
+        <translation>Stoppen met delen met %1</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::ModulesPanel</name>
     <message>
         <source>Modules</source>
@@ -9993,6 +10625,54 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Geen modules gevonden.</translation>
     </message>
     <message>
+        <source>Whose modules</source>
+        <translation>Van wie de modules zijn</translation>
+    </message>
+    <message>
+        <source>Mine</source>
+        <translation>Van mij</translation>
+    </message>
+    <message>
+        <source>Clubs</source>
+        <translation>Clubs</translation>
+    </message>
+    <message>
+        <source>Shared with me</source>
+        <translation>Met mij gedeeld</translation>
+    </message>
+    <message>
+        <source>Take “%1” off %2?</source>
+        <translation>‘%1’ uit %2 halen?</translation>
+    </message>
+    <message>
+        <source>The club&apos;s layouts keep it as it is now.</source>
+        <translation>De layouts van de club houden hem zoals hij nu is.</translation>
+    </message>
+    <message>
+        <source>The club gets no more updates of it, and its members can&apos;t place it again. Its owner is told.</source>
+        <translation>De club krijgt geen updates meer en de leden kunnen hem niet opnieuw plaatsen. De eigenaar krijgt een bericht.</translation>
+    </message>
+    <message>
+        <source>The club gets no more updates of it, and its members can&apos;t place it again. %1 is told.</source>
+        <translation>De club krijgt geen updates meer en de leden kunnen hem niet opnieuw plaatsen. %1 krijgt een bericht.</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>Modules other people shared with you or your clubs. Place one, and it follows its owner&apos;s updates.</source>
+        <translation>Modules die andere mensen met jou of je clubs hebben gedeeld. Plaats er een, en hij volgt de updates van zijn eigenaar.</translation>
+    </message>
+    <message>
+        <source>Nothing is shared with you yet. When someone shares a module with you or one of your clubs, it shows here, ready to place.</source>
+        <translation>Er is nog niets met jou gedeeld. Als iemand een module met jou of een van je clubs deelt, verschijnt hij hier, klaar om te plaatsen.</translation>
+    </message>
+    <message>
+        <source>Your clubs have no modules yet.</source>
+        <translation>Je clubs hebben nog geen modules.</translation>
+    </message>
+    <message>
         <source>A club</source>
         <translation>Een club</translation>
     </message>
@@ -10049,6 +10729,14 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Hernoemen…</translation>
     </message>
     <message>
+        <source>Share with a Club…</source>
+        <translation>Met een club delen…</translation>
+    </message>
+    <message>
+        <source>A club you share with can place it in the club&apos;s layouts and gets your updates.</source>
+        <translation>Een club met wie je deelt kan hem in de layouts van de club plaatsen en krijgt je updates.</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Terugnemen naar mij…</translation>
     </message>
@@ -10067,6 +10755,30 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Delete…</source>
         <translation>Verwijderen…</translation>
+    </message>
+    <message>
+        <source>A shared module goes in a layout, not inside another module.</source>
+        <translation>Een gedeelde module gaat in een layout, niet in een andere module.</translation>
+    </message>
+    <message>
+        <source>Remove from %1…</source>
+        <translation>Verwijderen uit %1…</translation>
+    </message>
+    <message>
+        <source>Take this module off the club&apos;s list. Copies already placed stay as they are.</source>
+        <translation>Haal deze module van de lijst van de club. Al geplaatste kopieën blijven zoals ze zijn.</translation>
+    </message>
+    <message>
+        <source>“%1” is off %2&apos;s list.</source>
+        <translation>‘%1’ staat niet meer op de lijst van %2.</translation>
+    </message>
+    <message>
+        <source>Remove from club</source>
+        <translation>Uit de club verwijderen</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t remove “%1”: %2</source>
+        <translation>Kon ‘%1’ niet verwijderen: %2</translation>
     </message>
     <message>
         <source>Renamed to &quot;%1&quot;</source>
@@ -11366,6 +12078,25 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Sent for review. A moderator looks at it before it appears in the catalog.</source>
         <translation>Verstuurd ter beoordeling. Een moderator kijkt ernaar voordat het in de catalogus verschijnt.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::SharedModulesBar</name>
+    <message>
+        <source>Shared modules</source>
+        <translation>Gedeelde modules</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can update it.</source>
+        <translation>Wie deze layout mag wijzigen, kan hem bijwerken.</translation>
+    </message>
+    <message>
+        <source>Go back to version %1</source>
+        <translation>Terug naar versie %1</translation>
     </message>
 </context>
 <context>
