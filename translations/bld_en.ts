@@ -110,7 +110,7 @@
     <message numerus="yes">
         <source>%n shared module(s) have new versions.</source>
         <translation>
-            <numerusform>%n shared module have new versions.</numerusform>
+            <numerusform>%n shared module has a new version.</numerusform>
             <numerusform>%n shared modules have new versions.</numerusform>
         </translation>
     </message>
@@ -124,7 +124,7 @@
     <message numerus="yes">
         <source>%n track end(s) no longer meet.</source>
         <translation>
-            <numerusform>%n track end no longer meet.</numerusform>
+            <numerusform>%n track end no longer meets.</numerusform>
             <numerusform>%n track ends no longer meet.</numerusform>
         </translation>
     </message>
