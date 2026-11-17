@@ -733,9 +733,12 @@ void ServerModulesTab::share(const QString& id) {
         shareDialog_ = nullptr;
         old->close();
     }
+    if (!dialogGone_) dialogGone_ = new QObject(this);
     auto* dialog = new ModuleShareDialog(library_, *m, this);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
-    connect(dialog, &QObject::destroyed, this, [this, dialog] {
+    // (Heard through a child made before the dialog: when this tab itself
+    // goes, that child goes first, and nothing is told to a tab half gone.)
+    connect(dialog, &QObject::destroyed, dialogGone_, [this, dialog] {
         if (shareDialog_ == dialog) shareDialog_ = nullptr;
     });
     shareDialog_ = dialog;

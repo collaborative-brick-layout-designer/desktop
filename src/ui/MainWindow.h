@@ -751,6 +751,7 @@ public:
     // The dialog "What changed (versions)…" opened, or null.
     QDialog* sharedVersionsDialog() const { return sharedVersions_; }
     QDialog* sharedVersions_ = nullptr;
+    QObject* sharedVersionsGone_ = nullptr;
 private:
 
     // Auto-save: flushes the current map to a sidecar file every N seconds if

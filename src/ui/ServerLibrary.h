@@ -223,6 +223,7 @@ private:
     QTabBar* tabs_ = nullptr;
     // (Set to null when it goes: QObject::destroyed.)
     QDialog* shareDialog_ = nullptr;
+    QObject* dialogGone_ = nullptr;
     QWidget* listHost_ = nullptr;
     QVBoxLayout* list_ = nullptr;
     QLabel* empty_ = nullptr;

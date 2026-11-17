@@ -559,8 +559,10 @@ void MainWindow::showSharedVersions(const QString& placedId) {
         sharedVersions_ = nullptr;
         old->close();
     }
+    // (Heard through a child made before the dialog, so a window being closed isn't told.)
+    if (!sharedVersionsGone_) sharedVersionsGone_ = new QObject(this);
     auto* dlg = new QDialog(this);
-    connect(dlg, &QObject::destroyed, this, [this, dlg] {
+    connect(dlg, &QObject::destroyed, sharedVersionsGone_, [this, dlg] {
         if (sharedVersions_ == dlg) sharedVersions_ = nullptr;
     });
     sharedVersions_ = dlg;
