@@ -2875,6 +2875,14 @@
         <translation>Quand vous créez ou publiez un plan, « Enregistrer chez » choisit s’il est à vous ou à votre club.</translation>
     </message>
     <message>
+        <source>Modules shared with you</source>
+        <translation>Modules partagés avec vous</translation>
+    </message>
+    <message>
+        <source>Share a module with your club from its ⋯ menu. Ones shared with you are in Shared with me, with their owner&apos;s updates.</source>
+        <translation>Partagez un module avec votre club depuis son menu ⋯. Ceux partagés avec vous sont dans « Partagés avec moi », avec les mises à jour de leur propriétaire.</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>La page de votre club</translation>
     </message>

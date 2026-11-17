@@ -2858,6 +2858,14 @@
         <translation>レイアウトを作ったり公開したりするとき、「保存先」で自分のものかクラブのものかを選びます。</translation>
     </message>
     <message>
+        <source>Modules shared with you</source>
+        <translation>共有されたモジュール</translation>
+    </message>
+    <message>
+        <source>Share a module with your club from its ⋯ menu. Ones shared with you are in Shared with me, with their owner&apos;s updates.</source>
+        <translation>モジュールは ⋯ メニューからクラブと共有できます。共有されたモジュールは「共有されたもの」にあり、持ち主の更新が届きます。</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>クラブのページ</translation>
     </message>

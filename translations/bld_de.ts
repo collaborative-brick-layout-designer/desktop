@@ -2875,6 +2875,14 @@
         <translation>Wenn du ein Layout anlegst oder veröffentlichst, wählt „Speichern bei“, ob es dir oder deinem Club gehört.</translation>
     </message>
     <message>
+        <source>Modules shared with you</source>
+        <translation>Mit dir geteilte Module</translation>
+    </message>
+    <message>
+        <source>Share a module with your club from its ⋯ menu. Ones shared with you are in Shared with me, with their owner&apos;s updates.</source>
+        <translation>Teile ein Modul über sein ⋯-Menü mit deinem Club. Module, die mit dir geteilt sind, findest du unter „Mit mir geteilt“, mit den Updates ihrer Besitzer.</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>Die Seite deines Clubs</translation>
     </message>

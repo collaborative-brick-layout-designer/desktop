@@ -2858,6 +2858,14 @@
         <translation>创建或发布布局时，“保存到”决定它属于你还是你的俱乐部。</translation>
     </message>
     <message>
+        <source>Modules shared with you</source>
+        <translation>与你共享的模块</translation>
+    </message>
+    <message>
+        <source>Share a module with your club from its ⋯ menu. Ones shared with you are in Shared with me, with their owner&apos;s updates.</source>
+        <translation>在模块的 ⋯ 菜单中可以与你的俱乐部共享它。与你共享的模块在“与我共享”中，并会收到所有者的更新。</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>你俱乐部的页面</translation>
     </message>

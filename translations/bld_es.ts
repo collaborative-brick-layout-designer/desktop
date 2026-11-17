@@ -2875,6 +2875,14 @@
         <translation>Cuando creas o publicas una maqueta, «Guardar en» elige si es tuya o de tu club.</translation>
     </message>
     <message>
+        <source>Modules shared with you</source>
+        <translation>Módulos compartidos contigo</translation>
+    </message>
+    <message>
+        <source>Share a module with your club from its ⋯ menu. Ones shared with you are in Shared with me, with their owner&apos;s updates.</source>
+        <translation>Comparte un módulo con tu club desde su menú ⋯. Los que te comparten están en «Compartidos conmigo», con las actualizaciones de su dueño.</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>La página de tu club</translation>
     </message>

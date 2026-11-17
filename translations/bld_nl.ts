@@ -2875,6 +2875,14 @@
         <translation>Als je een layout maakt of publiceert, bepaalt Opslaan bij of hij van jou of van je club is.</translation>
     </message>
     <message>
+        <source>Modules shared with you</source>
+        <translation>Met jou gedeelde modules</translation>
+    </message>
+    <message>
+        <source>Share a module with your club from its ⋯ menu. Ones shared with you are in Shared with me, with their owner&apos;s updates.</source>
+        <translation>Deel een module met je club via het ⋯-menu. Modules die met jou gedeeld zijn staan bij Met mij gedeeld, met de updates van hun eigenaar.</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>De pagina van je club</translation>
     </message>
