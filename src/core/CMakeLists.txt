@@ -29,6 +29,8 @@ add_library(bld_core STATIC
     Module.h
     ModuleLook.h
     ModuleEdit.h
+    SharedModule.h
+    SharedModule.cpp
     Venue.h
     Sidecar.h
     SavedView.h

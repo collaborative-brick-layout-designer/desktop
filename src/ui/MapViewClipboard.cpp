@@ -4,6 +4,7 @@
 // declaration in MapView.h.
 
 #include "MapView.h"
+#include "../core/SharedModule.h"
 
 #include "../core/Groups.h"
 #include "BudgetSession.h"
@@ -187,9 +188,13 @@ void MapView::pasteClipboard() {
     // Editing a module, pasted parts join it. Otherwise a whole module copied
     // pastes as a module of its own: "X (copy)", its look, unlinked, unpinned.
     absorbIntoEditedModule(newGuids);
-    if (clipboardModule_ && refused == 0 && editingModuleId_.isEmpty() && !newGuids.isEmpty())
-        undoStack_->push(new edit::AddModuleCommand(
-            *map_, core::copyOfModule(*clipboardModule_, newGuids, core::newBbmId())));
+    // (A shared module's copy is another shared placement: its owner's name,
+    // the same link and lock. Where it sits is worked out from its parts.)
+    if (clipboardModule_ && refused == 0 && editingModuleId_.isEmpty() && !newGuids.isEmpty()) {
+        core::Module copy = core::copyOfPlaced(*clipboardModule_, newGuids, core::newBbmId(), QPointF());
+        if (copy.shared) copy.shared->remove(QStringLiteral("placement"));
+        undoStack_->push(new edit::AddModuleCommand(*map_, std::move(copy)));
+    }
     undoStack_->endMacro();
 
     // endMacro fires indexChanged → scene rebuild → selection restore by

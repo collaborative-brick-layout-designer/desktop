@@ -1,5 +1,11 @@
 #include "LayoutMerge.h"
 
+#include "core/SharedModule.h"
+
+#include <QtMath>
+
+#include <optional>
+
 #include <algorithm>
 
 #include "WebModel.h"
@@ -332,7 +338,7 @@ private:
         QJsonObject d = data();
         QJsonObject layer = d.value(c.layerId).toObject();
         QJsonArray list = layer.value(listName).toArray();
-        QJsonObject item = mineItem(c).toObject();
+        QJsonObject item = c.mineWhole.isObject() ? c.mineWhole.toObject() : mineItem(c).toObject();
         const int i = findItem(list, c.kind, c.key);
         if (copy) {
             item.insert(QStringLiteral("id"), newId());
@@ -473,6 +479,168 @@ Snapshot snapshotFromJson(const QJsonObject& o) {
     return { o.value(QLatin1String("doc")).toObject(), o.value(QLatin1String("sidecar")).toObject() };
 }
 
+namespace {
+
+SharedMover& sharedMover() {
+    static SharedMover mover;
+    return mover;
+}
+
+// A part moved by its box (no picture geometry here): its box's middle goes
+// where the placement takes it, and a quarter turn swaps the box's sides.
+QJsonObject moveByBox(const QJsonObject& brick, const core::SharedPlacement& from, const core::SharedPlacement& to) {
+    QJsonObject out = brick;
+    QJsonObject a = brick.value(QLatin1String("displayArea")).toObject();
+    double w = a.value(QLatin1String("width")).toDouble(), h = a.value(QLatin1String("height")).toDouble();
+    const QPointF centre(a.value(QLatin1String("x")).toDouble() + w / 2, a.value(QLatin1String("y")).toDouble() + h / 2);
+    const double turn = core::norm360(to.degrees - from.degrees);
+    const double back = qDegreesToRadians(-from.degrees);
+    const QPointF d = centre - QPointF(from.x, from.y);
+    const QPointF own(d.x() * std::cos(back) - d.y() * std::sin(back), d.x() * std::sin(back) + d.y() * std::cos(back));
+    const QPointF now = core::placePoint(to, own);
+    if (std::abs(std::fmod(turn, 180.0) - 90.0) < 1e-6) std::swap(w, h);
+    a.insert(QStringLiteral("x"), now.x() - w / 2);
+    a.insert(QStringLiteral("y"), now.y() - h / 2);
+    a.insert(QStringLiteral("width"), w);
+    a.insert(QStringLiteral("height"), h);
+    out.insert(QStringLiteral("displayArea"), a);
+    if (turn != 0.0) out.insert(QStringLiteral("orientation"), core::norm360(brick.value(QLatin1String("orientation")).toDouble() + turn));
+    return out;
+}
+
+QHash<QString, QJsonObject> modulesOf(const Snapshot& s) {
+    QHash<QString, QJsonObject> out;
+    for (const auto& v : s.sidecar.value(QLatin1String("modules")).toArray())
+        out.insert(v.toObject().value(QLatin1String("id")).toString(), v.toObject());
+    return out;
+}
+
+QSet<QString> membersOf(const QJsonObject& module) {
+    QSet<QString> out;
+    for (const auto& v : module.value(QLatin1String("members")).toArray()) out.insert(v.toString());
+    return out;
+}
+
+bool sharedValue(const QJsonObject& module) {
+    return module.value(QLatin1String("shared")).isObject() && !module.value(QLatin1String("libraryModuleId")).toString().isEmpty();
+}
+
+std::optional<core::SharedPlacement> placementIn(const QJsonObject& module) {
+    return core::readPlacement(module.value(QLatin1String("shared")).toObject().value(QLatin1String("placement")));
+}
+
+// The rule for shared modules the server updated while I was offline (LayoutMerge.h).
+void settleSharedModules(QList<ItemChange>& out, const Snapshot& base, const Snapshot& mine, const Snapshot& server) {
+    const auto serverMods = modulesOf(server);
+    if (std::none_of(serverMods.begin(), serverMods.end(), sharedValue)) return;
+    const auto baseMods = modulesOf(base), mineMods = modulesOf(mine);
+    const auto find = [&](const QString& key) {
+        for (qsizetype i = 0; i < out.size(); ++i)
+            if (out[i].key == key) return i;
+        return qsizetype(-1);
+    };
+    for (auto sm = serverMods.begin(); sm != serverMods.end(); ++sm) {
+        const QJsonObject& serverMod = sm.value();
+        const auto bm = baseMods.constFind(sm.key());
+        if (!sharedValue(serverMod) || bm == baseMods.constEnd()) continue;
+        const QSet<QString> was = membersOf(*bm), now = membersOf(serverMod);
+        if (was == now && bm->value(QLatin1String("libraryVersion")) == serverMod.value(QLatin1String("libraryVersion"))) continue;
+
+        // Its old parts: the server took them out; whatever I did to them offline goes with them.
+        QSet<QString> old = was;
+        const auto mm = mineMods.constFind(sm.key());
+        if (mm != mineMods.constEnd()) old.unite(membersOf(*mm));
+        for (qsizetype i = out.size() - 1; i >= 0; --i) {
+            ItemChange& c = out[i];
+            if (c.kind != QLatin1String("brick") || c.mine == Side::Unchanged) continue;
+            if (!old.contains(c.key.section(QLatin1Char(':'), 2)) || now.contains(c.key.section(QLatin1Char(':'), 2))) continue;
+            if (c.server == Side::Unchanged && c.serverValue.isUndefined()) {
+                out.removeAt(i);  // (a part only I had: it isn't the module's any more)
+                continue;
+            }
+            c.mine = Side::Unchanged;
+            c.mineValue = c.base;
+            c.status = Status::Server;
+            if (c.server == Side::Unchanged) out.removeAt(i);
+        }
+
+        // The module itself: the server's, and my offline move of it on top.
+        const auto baseAt = placementIn(*bm), serverAt = placementIn(serverMod);
+        const auto mineAt = mm != mineMods.constEnd() ? placementIn(*mm) : std::nullopt;
+        bool movedByMe = false;
+        core::SharedPlacement from, to;
+        if (baseAt && serverAt && mineAt && !(mineAt->degrees == baseAt->degrees && mineAt->x == baseAt->x && mineAt->y == baseAt->y)) {
+            movedByMe = true;
+            from = *serverAt;
+            const double turn = mineAt->degrees - baseAt->degrees;
+            core::SharedPlacement mineOnly{ turn, mineAt->x, mineAt->y, std::nullopt };
+            const QPointF xy = core::placePoint(mineOnly, QPointF(serverAt->x - baseAt->x, serverAt->y - baseAt->y));
+            to = core::SharedPlacement{ core::norm360(serverAt->degrees + turn), xy.x(), xy.y(), serverAt->sheets };
+        }
+        const QString moduleKey = QStringLiteral("module:") + sm.key();
+        qsizetype mi = find(moduleKey);
+        if (!movedByMe) {
+            if (mi >= 0) {
+                ItemChange& c = out[mi];
+                c.mine = Side::Unchanged;
+                c.mineValue = c.base;
+                c.status = Status::Server;
+                if (c.server == Side::Unchanged) out.removeAt(mi);
+            }
+            continue;
+        }
+        QJsonObject moved = serverMod;
+        QJsonObject shared = moved.value(QLatin1String("shared")).toObject();
+        shared.insert(QStringLiteral("placement"), core::placementJson(to));
+        moved.insert(QStringLiteral("shared"), shared);
+        ItemChange mc;
+        mc.key = moduleKey;
+        mc.kind = QStringLiteral("module");
+        mc.status = Status::Mine;
+        mc.mine = Side::Edited;
+        mc.server = Side::Unchanged;
+        mc.base = serverMod;
+        mc.serverValue = serverMod;
+        mc.mineValue = moved;
+        if (mi >= 0) out[mi] = mc;
+        else out << mc;
+        // Its new parts, moved the way I moved the module.
+        const QJsonObject data = server.doc.value(QLatin1String("layerData")).toObject();
+        for (auto layer = data.begin(); layer != data.end(); ++layer) {
+            const QJsonObject l = layer.value().toObject();
+            for (const auto& b : l.value(QLatin1String("bricks")).toArray()) {
+                const QJsonObject brick = b.toObject();
+                const QString id = brick.value(QLatin1String("id")).toString();
+                if (!now.contains(id)) continue;
+                const QJsonObject there = sharedMover() ? sharedMover()(brick, from, to) : moveByBox(brick, from, to);
+                QJsonObject shown = there, serverShown = brick;
+                shown.remove(QStringLiteral("connexions"));
+                serverShown.remove(QStringLiteral("connexions"));
+                ItemChange c;
+                c.key = QStringLiteral("brick:%1:%2").arg(layer.key(), id);
+                c.kind = QStringLiteral("brick");
+                c.layerId = layer.key();
+                c.layerName = l.value(QLatin1String("name")).toString();
+                c.status = Status::Mine;
+                c.mine = Side::Edited;
+                c.server = Side::Unchanged;
+                c.base = serverShown;
+                c.serverValue = serverShown;
+                c.mineValue = shown;
+                c.mineWhole = there;
+                const qsizetype at = find(c.key);
+                if (at >= 0) out[at] = c;
+                else out << c;
+            }
+        }
+    }
+    std::sort(out.begin(), out.end(), [](const ItemChange& a, const ItemChange& b) { return a.key < b.key; });
+}
+
+}  // namespace
+
+void setSharedMover(SharedMover mover) { sharedMover() = std::move(mover); }
+
 QList<ItemChange> compareLayouts(const Snapshot& base, const Snapshot& mine, const Snapshot& server) {
     const Items b = itemsOf(base), m = itemsOf(mine), s = itemsOf(server);
     QSet<QString> keys;
@@ -509,6 +677,7 @@ QList<ItemChange> compareLayouts(const Snapshot& base, const Snapshot& mine, con
             mergeModuleChange(c);
         out << c;
     }
+    settleSharedModules(out, base, mine, server);
     return out;
 }
 

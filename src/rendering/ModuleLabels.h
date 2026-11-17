@@ -54,12 +54,22 @@ inline constexpr double kModuleEditPadStuds = 0.5;
 inline constexpr double kModuleFrameDash[2] = { 6.0, 4.0 };
 // A module with some parts on hidden sheets: short, far-apart dashes ("there's more you can't see").
 inline constexpr double kModuleFramePartlyHiddenDash[2] = { 2.0, 6.0 };
-// QGraphicsItem data role naming a module drawing: "frame" or "name".
+// A shared (read-only) module's frame: longer dashes, with a dot between
+// (the web's SHARED_FRAME_DASH). The badge over it says the rest; a color
+// never does.
+inline constexpr double kModuleFrameSharedDash[4] = { 14.0, 6.0, 2.0, 6.0 };
+// The badge over a shared module's frame ("🔗 Alice ● v8 is ready"): bold,
+// this many screen px, this far above the frame's top-left corner.
+inline constexpr double kModuleSharedBadgePx = 12.0;
+inline constexpr double kModuleSharedBadgeAbovePx = 16.0;
+// QGraphicsItem data role naming a module drawing: "frame", "name", or "badge" (a shared module's).
 inline constexpr int kModuleAnnotationRole = 3;
 // QGraphicsItem data role holding the module id on its frame and name.
 inline constexpr int kModuleIdRole = 4;
 // QGraphicsItem data role on a module frame: true when some of its parts are on hidden sheets.
 inline constexpr int kModulePartlyHiddenRole = 13;
+// QGraphicsItem data role on a shared module's badge: what it says.
+inline constexpr int kModuleBadgeTextRole = 14;
 
 // A bold line's width in px at a font size.
 using NameWidthAt = std::function<double(const QString& text, double fontPx)>;

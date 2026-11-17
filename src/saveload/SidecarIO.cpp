@@ -125,7 +125,7 @@ const QStringList& knownModuleKeys() {
                                    QStringLiteral("showName"),   QStringLiteral("outlineColor"),
                                    QStringLiteral("nameColor"),  QStringLiteral("sameColor"),
                                    QStringLiteral("pinned"),     QStringLiteral("libraryModuleId"),
-                                   QStringLiteral("libraryVersion") };
+                                   QStringLiteral("libraryVersion"), QStringLiteral("shared") };
     return keys;
 }
 
@@ -156,6 +156,7 @@ QJsonObject encodeModule(const core::Module& m) {
     if (m.pinned) o[QStringLiteral("pinned")] = true;
     if (!m.libraryModuleId.isEmpty()) o[QStringLiteral("libraryModuleId")] = m.libraryModuleId;
     if (m.libraryVersion > 0) o[QStringLiteral("libraryVersion")] = m.libraryVersion;
+    if (m.shared) o[QStringLiteral("shared")] = *m.shared;
     return o;
 }
 
@@ -183,6 +184,9 @@ core::Module decodeModule(const QJsonObject& o) {
     m.pinned = o.value(QStringLiteral("pinned")).toBool(false);
     m.libraryModuleId = o.value(QStringLiteral("libraryModuleId")).toString();
     m.libraryVersion = std::max(0, o.value(QStringLiteral("libraryVersion")).toInt(0));
+    // Shared (read-only): an object, as the web reads it (packages/ydoc sharedShape.ts).
+    if (const QJsonValue shared = o.value(QStringLiteral("shared")); shared.isObject()) m.shared = shared.toObject();
+    else if (!shared.isUndefined()) m.extras.insert(QStringLiteral("shared"), shared);
     for (auto it = o.constBegin(); it != o.constEnd(); ++it)
         if (!knownModuleKeys().contains(it.key())) m.extras.insert(it.key(), it.value());
     return m;

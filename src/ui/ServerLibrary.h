@@ -19,7 +19,9 @@
 #include <QHash>
 #include <QImage>
 #include <QList>
+#include <QDialog>
 #include <QObject>
+#include <QPointer>
 #include <QSet>
 #include <QString>
 #include <QUrl>
@@ -27,6 +29,7 @@
 
 #include <functional>
 #include <memory>
+#include <optional>
 
 class QComboBox;
 class QFrame;
@@ -35,6 +38,7 @@ class QLineEdit;
 class QPushButton;
 class QScrollArea;
 class QStackedWidget;
+class QTabBar;
 class QVBoxLayout;
 
 namespace bld::ui {
@@ -71,6 +75,19 @@ public:
     const QList<sync::OrgEntry>& orgs() const { return orgs_; }
     const sync::CatalogSettings& catalog() const { return catalog_; }
     const sync::ServerModule* module(const QString& id) const;
+    // Other people's modules shared with you, in person or through a club
+    // ("Shared with me", docs/shared-modules.md); empty on a server without
+    // the sharedModules feature.
+    const QList<sync::ServerModule>& sharedModules() const { return shared_; }
+    const sync::ServerModule* sharedModule(const QString& id) const;
+    // Whether the server has shared modules (its features list
+    // sync::kSharedModulesFeature, as the server list last heard). Tests
+    // and a live layout's server may say so outright.
+    bool knowsSharedModules() const;
+    void setKnowsSharedModules(std::optional<bool> knows);
+    // Your club with this slug, when you may take things off it (its admins
+    // and managers: whoever may delete the club's items).
+    bool mayRemoveFromClub(const QString& slug) const;
     // Ones you may save a new version of (owner or editor).
     QList<sync::ServerModule> editableModules() const;
 
@@ -124,6 +141,8 @@ private:
     State state_ = State::NoServer;
     QString why_;
     QList<sync::ServerModule> modules_;
+    QList<sync::ServerModule> shared_;
+    std::optional<bool> knowsShared_;
     QList<sync::OrgEntry> orgs_;
     sync::CatalogSettings catalog_;
     QString editing_;
@@ -182,15 +201,29 @@ public:
     std::function<bool(const sync::ServerModule&, bool give)> confirmReturn;
     // Take a club's module back (its author), or give it back (`give`, the club's runners).
     void giveOrTakeBack(const QString& id, bool give);
+    // Mine / Clubs / Shared with me (on a server with shared modules; hidden otherwise).
+    QTabBar* tabs() const { return tabs_; }
+    enum Tab { Mine = 0, Clubs = 1, Shared = 2 };
+    // Confirms taking a shared module off a club (its admins and managers); tests answer instead.
+    std::function<bool(const sync::ServerModule&, const sync::ClubRef& club)> confirmRemoveFromClub;
+    // The Share dialog a row's "Share with a club…" opened (tests).
+    class ModuleShareDialog* shareDialog() const;
 
 private:
     QWidget* makeRow(const sync::ServerModule& m);
+    QWidget* makeSharedRow(const sync::ServerModule& m);
+    void share(const QString& id);
+    void removeFromClub(const QString& id, const sync::ClubRef& club);
     void rename(const QString& id);
     void remove(const QString& id);
 
     ServerLibrary& library_;
     LibraryStatusLine* status_ = nullptr;
     QLineEdit* filter_ = nullptr;
+    QTabBar* tabs_ = nullptr;
+    // (Set to null when it goes: QObject::destroyed.)
+    QDialog* shareDialog_ = nullptr;
+    QObject* dialogGone_ = nullptr;
     QWidget* listHost_ = nullptr;
     QVBoxLayout* list_ = nullptr;
     QLabel* empty_ = nullptr;

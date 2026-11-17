@@ -150,6 +150,41 @@ TEST(Sidecar, RoundTripModuleLook) {
     EXPECT_TRUE(back.modules[1].extras.isEmpty());
 }
 
+// A shared (read-only) module's `shared` value (docs/shared-modules.md) is
+// kept as it is, with whatever a newer build put in it; a module without
+// one writes none.
+TEST(Sidecar, RoundTripSharedModule) {
+    core::Sidecar sc;
+    core::Module m;
+    m.id = QStringLiteral("m1");
+    m.name = QStringLiteral("Harbor crane");
+    m.libraryModuleId = QStringLiteral("11111111-1111-4111-8111-111111111111");
+    m.libraryVersion = 7;
+    m.shared = QJsonObject{ { QStringLiteral("by"), QStringLiteral("Alice") },
+                            { QStringLiteral("server"), QStringLiteral("https://bricks.example") },
+                            { QStringLiteral("placement"),
+                              QJsonObject{ { QStringLiteral("degrees"), 90 }, { QStringLiteral("x"), 120.5 }, { QStringLiteral("y"), -48 },
+                                           { QStringLiteral("sheets"), QJsonObject{ { QStringLiteral("Track"), QStringLiteral("l1") } } } } },
+                            { QStringLiteral("later"), QStringLiteral("kept") } };
+    sc.modules.push_back(m);
+    core::Module plain;
+    plain.id = QStringLiteral("m2");
+    sc.modules.push_back(plain);
+    const QJsonObject json = saveload::sidecarToJson(sc);
+    const QJsonArray mods = json.value(QStringLiteral("modules")).toArray();
+    EXPECT_EQ(mods[0].toObject().value(QStringLiteral("shared")).toObject(), *m.shared);
+    EXPECT_FALSE(mods[1].toObject().contains(QStringLiteral("shared")));
+
+    core::Sidecar back;
+    saveload::sidecarFromJson(json, back);
+    ASSERT_EQ(back.modules.size(), 2u);
+    EXPECT_EQ(back.modules[0].shared, m.shared);
+    EXPECT_EQ(back.modules[0].libraryVersion, 7);
+    EXPECT_TRUE(back.modules[0].extras.isEmpty());
+    EXPECT_FALSE(back.modules[1].shared);
+    EXPECT_EQ(saveload::sidecarToJson(back), json) << "saving it again changes nothing";
+}
+
 // The link to the library (libraryModuleId, libraryVersion): written only
 // when set, read back, and never kept among the unknown fields.
 TEST(Sidecar, RoundTripModuleLibraryLink) {

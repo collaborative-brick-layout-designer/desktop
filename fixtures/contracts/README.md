@@ -33,13 +33,21 @@ change in one repo fails until the other has the same copy.
   with keys. The web's
   `BLD_WRITE_CONTRACTS=1 vitest run src/editor/test/moduleMembersTogether.test.ts`
   writes `docs`.
+- `shared-module-placement.json`: where a library version of a module sits
+  in a layout (docs/shared-modules.md; web packages/modules placement.ts,
+  desktop src/edit/SharedModulePlacement.cpp): a version's parts placed by
+  a placement, the placement after a move, a turn or a drop, the placement
+  worked out from the parts, and whether placed parts are still the
+  version's. The web's
+  `BLD_WRITE_CONTRACTS=1 pnpm --filter @cld/modules test` writes the
+  `expect` values.
 - `part-naming.json`: a server custom part, placed on the website as
   `custom:<id>`, which every export names by its part number and the
   desktop's parts cache finds by either.
 
 To change them: edit (or, for the imported part, run the desktop's
 `bld_sync_tests --gtest_filter='Contracts.*'` with `BLD_WRITE_CONTRACTS=1`),
-then `sha256sum doc-shape.json imported-part.json imported-part.xml module-members.json part-naming.json presence-colors.json sidecar-hash.json update-guard.json > MANIFEST.sha256`
+then `sha256sum doc-shape.json imported-part.json imported-part.xml module-members.json part-naming.json presence-colors.json shared-module-placement.json sidecar-hash.json update-guard.json > MANIFEST.sha256`
 and copy the folder to the other repo.
 - `presence-colors.json`: each person's first-choice presence color on a
   layout, and the colors a group of people here get (web

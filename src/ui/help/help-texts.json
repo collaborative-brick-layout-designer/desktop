@@ -161,6 +161,21 @@
       "short": "A module saved to the Module library stays linked to it.",
       "more": "Save to Module library… puts a copy in your modules or a club’s; modules you add from the Module library are linked too. After changing it in a layout, Update Module library version makes that the next version, with a note on what changed. When the Module library has a newer version, Update from Module library brings it in where the module sits, and asks first if you changed it here."
     },
+    "module.shared": {
+      "title": "Shared modules",
+      "short": "A module shared with you or your club: place it, and it follows its owner’s updates.",
+      "more": "You can move it, turn it, pin it, recolor its outline, duplicate it and remove it, always as a whole; its parts and its name stay as its owner made them. If its owner stops sharing it or deletes it, the copies already placed stay and just get no more updates. The layout’s owner (a club’s admins and managers) can choose Make it mine to unlock a copy, which then stops following its owner."
+    },
+    "module.sharedUpdates": {
+      "title": "Updates from shared modules",
+      "short": "When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.",
+      "more": "Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back."
+    },
+    "module.share": {
+      "title": "Sharing a module",
+      "short": "People and clubs you share with can place this module and get your updates; they can’t change its parts.",
+      "more": "Share with a person by email, or with a club you’re in so its members can place it in the club’s layouts; your own parts that it uses come along, to look at only. You see how many layouts use it and in which clubs, never the names of other people’s layouts. Stopping a share, or a club’s admins taking the module off their club, leaves the copies already placed as they are, with no more updates."
+    },
     "module.sheets": {
       "title": "Module sheets",
       "short": "A module keeps the sheets its parts were on, like Track and Buildings.",

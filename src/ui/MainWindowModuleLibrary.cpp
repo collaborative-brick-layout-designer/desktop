@@ -17,6 +17,10 @@
 #include "ModuleLibraryMenu.h"
 #include "ModulesPanel.h"
 #include "SaveModuleDialog.h"
+#include "LiveLayout.h"
+#include "NoticeArea.h"
+#include "SharedModuleWords.h"
+#include "../edit/SharedMarks.h"
 #include "ServerLibrary.h"
 #include "SheetChoiceDialog.h"
 
@@ -237,6 +241,35 @@ void MainWindow::linkModule(const QString& moduleId, const QString& libraryId, i
 
 ModuleLibraryInfo MainWindow::moduleLibraryInfo(const core::Module& m) const {
     ModuleLibraryInfo info;
+    // Shared, read-only: its state in words, and its owner's versions. (It
+    // isn't yours to save or publish.)
+    if (const auto shared = core::sharedPlaced(m)) {
+        const sync::LayoutSharedModule* row = sharedRow(shared->placedId);
+        sharedwords::Extra extra;
+        extra.changedOutside = sharedChangedOutside_.contains(shared->placedId);
+        extra.cantCheck = sharedCantCheck_ && !row;
+        if (shared->review && mapView_->currentMap()) extra.marks = edit::sharedMarks(*mapView_->currentMap(), shared->members, parts_);
+        info.note = QStringLiteral("🔗 ") + sharedwords::sharedNote(*shared, row, extra);
+        const bool live = live_ && live_->active();
+        const bool canUpdate = sharedRowsKnown_ && sharedRows_.canUpdate && !(live && live_->readOnly());
+        const bool following = row && row->following();
+        if (live)
+            info.entries << ModuleLibraryEntry{ QStringLiteral("shared-versions"), tr("What Changed (Versions)…"), following,
+                                                following ? QString()
+                                                          : tr("It no longer follows its owner, so there is nothing new to see") };
+        if (const int newer = sharedwords::newerVersion(*shared, row))
+            info.entries << ModuleLibraryEntry{ QStringLiteral("shared-update"), tr("Update to Version %1").arg(newer), canUpdate,
+                                                canUpdate ? QString() : tr("Someone who can change this layout can update it") };
+        if (extra.changedOutside)
+            info.entries << ModuleLibraryEntry{ QStringLiteral("shared-putback"),
+                                                shared->by.isEmpty() ? tr("Put Back the Owner's Version") : tr("Put Back %1's Version").arg(shared->by),
+                                                canUpdate, canUpdate ? QString() : tr("Someone who can change this layout can do this") };
+        const bool canDetach = sharedRowsKnown_ ? sharedRows_.canDetach : !live;
+        info.entries << ModuleLibraryEntry{ QStringLiteral("shared-detach"), tr("Make It Mine…"), canDetach,
+                                            canDetach ? tr("Unlock this copy. It stops following its owner.")
+                                                      : tr("Only the layout's owner can do this (in a club's layout, its admins and managers)") };
+        return info;
+    }
     const ModuleLibraryEntry save{ QStringLiteral("save"), tr("Save to Module library…"), true,
                                    tr("Save a copy to your Module library or a club's, to use in other layouts") };
     if (const auto link = edit::libraryLink(m)) {
@@ -275,6 +308,7 @@ void MainWindow::onModuleLibraryAction(const QString& moduleId, const QString& a
     if (action == QLatin1String("save")) saveModuleToLibrary(moduleId);
     else if (action == QLatin1String("publish")) publishModule(moduleId);
     else if (action == QLatin1String("pull")) pullModule(moduleId);
+    else if (action.startsWith(QLatin1String("shared-"))) sharedModuleAction(moduleId, action);
 }
 
 void MainWindow::publishModule(const QString& moduleId) {
@@ -312,6 +346,34 @@ void MainWindow::publishModule(const QString& moduleId) {
     statusBar()->showMessage(tr("Saved “%1” over %2").arg(mod->name, QFileInfo(file).fileName()), 5000);
 }
 
+// Update from Module library on a live layout: the server puts the version
+// in (LibraryApi::applySharedModule), in the layout's room, so everyone gets
+// it once however many people pressed Update.
+void MainWindow::pullThroughServer(const QString& moduleId, int version) {
+    const core::Module* mod = mapView_->currentMap() ? core::findModule(mapView_->currentMap()->sidecar.modules, moduleId) : nullptr;
+    if (!mod) return;
+    const QString name = mod->name.isEmpty() ? tr("The module") : mod->name;
+    sharedLiveApi().applySharedModule(liveLayoutId_, moduleId, version, false, sync::whileAlive(this, [this, moduleId, name](const sync::SharedModuleApplied& a) {
+        if (!a.changed) {
+            statusBar()->showMessage(tr("“%1” already matches the Module library.").arg(name), 5000);
+            return;
+        }
+        QList<NoticeAction> actions;
+        if (a.from > 0) {
+            const int from = a.from;
+            actions << NoticeAction{ tr("Go Back to Version %1").arg(from), [this, moduleId, from] { applySharedVersion(moduleId, from); }, false };
+        }
+        actions << NoticeAction{ tr("OK"), {}, true };
+        notices_->showNotice(QStringLiteral("module-pulled"), tr("Updated from the Module library"),
+                             tr("“%1” is now version %2, for everyone in this layout.").arg(name).arg(a.version), actions);
+        notices_->addHelp(QStringLiteral("module-pulled"), QStringLiteral("module.sharedUpdates"));
+    }), sync::whileAlive(this, [this](const sync::ServerRefusal& r) {
+        QMessageBox::warning(this, tr("Update from Module library"),
+                             tr("Couldn't update from the Module library: %1")
+                                 .arg(sharedwords::stepRefusal(r, ServerLibrary::refusalText(r))));
+    }));
+}
+
 bool MainWindow::confirmModuleLibrary(const ConfirmOptions& o) {
     return confirmModuleLibrary_ ? confirmModuleLibrary_(o) : ConfirmDialog::ask(this, o);
 }
@@ -321,13 +383,19 @@ void MainWindow::pullModule(const QString& moduleId, bool askIfChanged) {
     const core::Module* mod = map ? core::findModule(map->sidecar.modules, moduleId) : nullptr;
     if (!mod) return;
     const QString name = mod->name.isEmpty() ? tr("this module") : mod->name;
-    const auto ask = [this, name, askIfChanged](int version) {
+    const bool byServer = sharedByServer() && serverLibrary_
+                          && liveServer_.toString(QUrl::StripTrailingSlash) == serverLibrary_->server().toString(QUrl::StripTrailingSlash);
+    const auto ask = [this, name, askIfChanged, byServer](int version) {
         if (!askIfChanged) return true;
         ConfirmOptions o;
         o.title = version > 0 ? tr("Replace “%1” with version %2?").arg(name).arg(version)
                               : tr("Replace “%1” with the Module library file's parts?").arg(name);
         o.removes = tr("This module was changed in this layout. Those changes are replaced by the Module library's version.");
-        o.keeps = tr("Its name, colors and place on the map stay. You can undo this.");
+        // On a live layout the server puts the version in, for everyone at
+        // once (two people pressing Update get the parts once). That isn't an
+        // undo step: Go back puts the earlier version in again.
+        o.keeps = byServer ? tr("Its name, colors and place on the map stay. You can go back to the version it has now.")
+                           : tr("Its name, colors and place on the map stay. You can undo this.");
         o.confirmLabel = tr("Update");
         o.danger = false;
         return confirmModuleLibrary(o);
@@ -342,14 +410,17 @@ void MainWindow::pullModule(const QString& moduleId, bool askIfChanged) {
             QMessageBox::warning(this, tr("Update from Module library"),
                                  tr("Couldn't update from the Module library: %1").arg(ServerLibrary::refusalText(r)));
         });
-        serverLibrary_->api().moduleSnapshot(libraryId, sync::whileAlive(this, [this, moduleId, libraryId, latest, was, ask](const QByteArray& bytes) {
+        serverLibrary_->api().moduleSnapshot(libraryId, sync::whileAlive(this, [this, moduleId, libraryId, latest, was, ask, byServer](const QByteArray& bytes) {
             QString error;
             std::shared_ptr<core::Map> lib(sync::mapFromModuleSnapshot(bytes, &error).release());
             if (!lib) {
                 QMessageBox::warning(this, tr("Update from Module library"), tr("The module from the Module library couldn't be read (%1).").arg(error));
                 return;
             }
-            auto apply = [this, moduleId, libraryId, latest, lib] { replaceWithLibrary(moduleId, *lib, libraryId, latest); };
+            auto apply = [this, moduleId, libraryId, latest, lib, byServer] {
+                if (byServer && sharedByServer()) pullThroughServer(moduleId, latest);
+                else replaceWithLibrary(moduleId, *lib, libraryId, latest);
+            };
             if (was <= 0) {
                 if (ask(latest)) apply();
                 return;

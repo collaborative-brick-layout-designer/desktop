@@ -71,6 +71,10 @@
         <source>Two people changing one module&apos;s parts at the same moment</source>
         <translation>两人同时更改同一模块的零件</translation>
     </message>
+    <message>
+        <source>Modules shared with you and your clubs, with their owner&apos;s updates</source>
+        <translation>与你和你的俱乐部共享的模块，附带所有者的更新</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>
@@ -867,6 +871,42 @@
         <translation>在零件旁边输入一个数字来设置它的上限。预算随布局一起保存，并与所有编辑它的人共享。也可以导入或导出 BlueBrick 预算文件 (.bbb)。</translation>
     </message>
     <message>
+        <source>Shared modules</source>
+        <translation>共享模块</translation>
+    </message>
+    <message>
+        <source>A module shared with you or your club: place it, and it follows its owner’s updates.</source>
+        <translation>与你或你的俱乐部共享的模块：放进布局后，它会跟随所有者的更新。</translation>
+    </message>
+    <message>
+        <source>You can move it, turn it, pin it, recolor its outline, duplicate it and remove it, always as a whole; its parts and its name stay as its owner made them. If its owner stops sharing it or deletes it, the copies already placed stay and just get no more updates. The layout’s owner (a club’s admins and managers) can choose Make it mine to unlock a copy, which then stops following its owner.</source>
+        <translation>你可以移动、旋转、固定、重新设置轮廓颜色、复制和移除它，始终是作为一个整体；它的零件和名称保持所有者做成的样子。如果所有者停止共享或删除了它，已经放好的副本会保留，只是不再收到更新。布局的所有者（俱乐部布局则是管理员和经理）可以选择“设为我的”来解锁一个副本，之后它就不再跟随所有者。</translation>
+    </message>
+    <message>
+        <source>Updates from shared modules</source>
+        <translation>共享模块的更新</translation>
+    </message>
+    <message>
+        <source>When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.</source>
+        <translation>所有者保存新版本后，布局会告诉你；在有人选择“更新”之前，什么都不会变。</translation>
+    </message>
+    <message>
+        <source>Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back.</source>
+        <translation>“更新”会把新版本放到模块现在所在的位置，布局里的所有人同时生效。“撤销”无法取消它：请选择“回到版本”，把之前的版本放回去。更新不会等待有没有空位，所以如果新版本与其他零件重叠，请移动它或它旁边的零件，或者回到旧版本。</translation>
+    </message>
+    <message>
+        <source>Sharing a module</source>
+        <translation>共享模块</translation>
+    </message>
+    <message>
+        <source>People and clubs you share with can place this module and get your updates; they can’t change its parts.</source>
+        <translation>你共享的对象和俱乐部可以放置这个模块并收到你的更新；他们不能更改它的零件。</translation>
+    </message>
+    <message>
+        <source>Share with a person by email, or with a club you’re in so its members can place it in the club’s layouts; your own parts that it uses come along, to look at only. You see how many layouts use it and in which clubs, never the names of other people’s layouts. Stopping a share, or a club’s admins taking the module off their club, leaves the copies already placed as they are, with no more updates.</source>
+        <translation>可以通过电子邮件共享给个人，也可以共享给你所在的俱乐部，让成员把它放进俱乐部的布局；它用到的你自己的零件会一起带上，只供查看。你能看到有多少个布局用了它、在哪些俱乐部里，但看不到别人布局的名称。停止共享，或俱乐部管理员把模块从他们的俱乐部移除后，已经放好的副本保持原样，不再收到更新。</translation>
+    </message>
+    <message>
         <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
         <translation>全部在一个文件里：零件、图纸、场地、标签、模块和预算。</translation>
     </message>
@@ -1336,6 +1376,27 @@
     </message>
 </context>
 <context>
+    <name>LibraryApi</name>
+    <message>
+        <source>shared with you</source>
+        <translation>与你共享</translation>
+    </message>
+    <message>
+        <source>via %1</source>
+        <translation>通过 %1</translation>
+    </message>
+    <message>
+        <source>others: %1</source>
+        <translation>其他：%1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Used in %n layout(s)</source>
+        <translation>
+            <numerusform>用于 %n 个布局</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>ModuleEdit</name>
     <message>
         <source>%1 is here too</source>
@@ -1578,6 +1639,10 @@
     <message>
         <source>Update module from the Module library</source>
         <translation>从模块库更新模块</translation>
+    </message>
+    <message>
+        <source>Make shared module mine</source>
+        <translation>把共享模块设为我的</translation>
     </message>
     <message>
         <source>Ungroup module</source>
@@ -1878,6 +1943,12 @@
     <message>
         <source>Replaced %1 texts.</source>
         <translation>已替换 %1 处文字。</translation>
+    </message>
+    <message numerus="yes">
+        <source>Skipped %n part(s) of shared modules: their parts stay as their owner made them.</source>
+        <translation>
+            <numerusform>已跳过共享模块的 %n 个零件：它们的零件保持所有者做成的样子。</numerusform>
+        </translation>
     </message>
     <message>
         <source>Sides</source>
@@ -2322,6 +2393,236 @@
     <message>
         <source>The server&apos;s close code: %1 (%2)</source>
         <translation>服务器的关闭代码：%1（%2）</translation>
+    </message>
+</context>
+<context>
+    <name>SharedModule</name>
+    <message>
+        <source>This module</source>
+        <translation>这个模块</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>“%1”</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its name is its owner&apos;s. You can move it, turn it and change its outline color.</source>
+        <translation>%1 是共享模块，所以它的名称属于所有者。你可以移动它、旋转它并更改它的轮廓颜色。</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so parts can&apos;t be added to it or taken out of it here.</source>
+        <translation>%1 是共享模块，所以这里不能给它添加零件，也不能取出零件。</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so it stays one module. You can remove it from this layout, or its layout&apos;s owner can make it theirs.</source>
+        <translation>%1 是共享模块，所以它始终是一个模块。你可以把它从这个布局中移除，或者由它所在布局的所有者把它设为自己的。</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
+        <translation>%1 是共享模块，所以这里不能弯曲它的轨道。你可以移动和旋转整个模块。</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
+        <translation>%1 是共享模块，所以这里不能更改它的零件。你可以把它作为整体移动、旋转或移除。</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its name is %2&apos;s. You can move it, turn it and change its outline color.</source>
+        <translation>%1 由 %2 共享，所以它的名称是 %2 的。你可以移动它、旋转它并更改它的轮廓颜色。</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so parts can&apos;t be added to it or taken out of it here.</source>
+        <translation>%1 由 %2 共享，所以这里不能给它添加零件，也不能取出零件。</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so it stays one module. You can remove it from this layout, or its layout&apos;s owner can make it theirs.</source>
+        <translation>%1 由 %2 共享，所以它始终是一个模块。你可以把它从这个布局中移除，或者由它所在布局的所有者把它设为自己的。</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
+        <translation>%1 由 %2 共享，所以这里不能弯曲它的轨道。你可以移动和旋转整个模块。</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
+        <translation>%1 由 %2 共享，所以这里不能更改它的零件。你可以把它作为整体移动、旋转或移除。</translation>
+    </message>
+</context>
+<context>
+    <name>SharedModules</name>
+    <message>
+        <source>Shared</source>
+        <translation>已共享</translation>
+    </message>
+    <message>
+        <source> · v%1</source>
+        <translation> · v%1</translation>
+    </message>
+    <message>
+        <source>No longer shared%1: no more updates</source>
+        <translation>不再共享%1：没有更多更新</translation>
+    </message>
+    <message>
+        <source>Deleted by its owner%1: no more updates</source>
+        <translation>所有者已删除%1：没有更多更新</translation>
+    </message>
+    <message>
+        <source>Shared%1</source>
+        <translation>已共享%1</translation>
+    </message>
+    <message>
+        <source>Shared by %1%2</source>
+        <translation>由 %1 共享%2</translation>
+    </message>
+    <message>
+        <source>%1 · v%2 is ready</source>
+        <translation>%1 · v%2 已就绪</translation>
+    </message>
+    <message>
+        <source>Changed outside the app</source>
+        <translation>在应用之外被更改</translation>
+    </message>
+    <message numerus="yes">
+        <source>Overlaps %n part(s)</source>
+        <translation>
+            <numerusform>与 %n 个零件重叠</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Can&apos;t check for updates (offline)</source>
+        <translation>无法检查更新（离线）</translation>
+    </message>
+    <message>
+        <source>🔗 %1 ● v%2 is ready</source>
+        <translation>🔗 %1 ● v%2 已就绪</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n shared module(s) have new versions.</source>
+        <translation>
+            <numerusform>%n 个共享模块有新版本。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>A shared module</source>
+        <translation>一个共享模块</translation>
+    </message>
+    <message>
+        <source>“%1” has a new version (v%2)</source>
+        <translation>“%1”有新版本（v%2）</translation>
+    </message>
+    <message>
+        <source>“%1” has a new version from %2 (v%3)</source>
+        <translation>“%1”有来自 %2 的新版本（v%3）</translation>
+    </message>
+    <message>
+        <source>%1: “%2”.</source>
+        <translation>%1：“%2”。</translation>
+    </message>
+    <message>
+        <source>“%1” v%2</source>
+        <translation>“%1” v%2</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>模块</translation>
+    </message>
+    <message numerus="yes">
+        <source>It overlaps %n part(s).</source>
+        <translation>
+            <numerusform>它与 %n 个零件重叠。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n track end(s) no longer meet.</source>
+        <translation>
+            <numerusform>%n 个轨道端口不再对接。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The shared module</source>
+        <translation>这个共享模块</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>“%1”</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2.</source>
+        <translation>%1 现在是版本 %2。</translation>
+    </message>
+    <message>
+        <source>%1 was updated.</source>
+        <translation>%1 已更新。</translation>
+    </message>
+    <message>
+        <source>its owner</source>
+        <translation>它的所有者</translation>
+    </message>
+    <message>
+        <source>“%1” can&apos;t go in this layout yet</source>
+        <translation>“%1”暂时还不能放进这个布局</translation>
+    </message>
+    <message>
+        <source>this club</source>
+        <translation>这个俱乐部</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with you, not with %3. Ask %1 to share it with the club.</source>
+        <translation>%1 把“%2”共享给了你，没有共享给 %3。请 %1 把它也共享给俱乐部。</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with %3? I&apos;d like to place it in one of the club&apos;s layouts.</source>
+        <translation>你好 %1，能把你的模块“%2”共享给 %3 吗？我想把它放进俱乐部的一个布局里。</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with a club you&apos;re in, for the club&apos;s layouts, not with you. Ask %1 to share it with you too.</source>
+        <translation>%1 把“%2”共享给了你所在的俱乐部，用于俱乐部的布局，没有共享给你。请 %1 也共享给你。</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with me as well? I&apos;d like to place it in one of my own layouts.</source>
+        <translation>你好 %1，能把你的模块“%2”也共享给我吗？我想把它放进我自己的一个布局里。</translation>
+    </message>
+    <message>
+        <source>this layout&apos;s owner</source>
+        <translation>这个布局的所有者</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with you, not with %3. Ask %1 to share it with them.</source>
+        <translation>%1 把“%2”共享给了你，没有共享给 %3。请 %1 把它也共享给对方。</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with %3? I&apos;d like to place it in one of their layouts.</source>
+        <translation>你好 %1，能把你的模块“%2”共享给 %3 吗？我想把它放进对方的一个布局里。</translation>
+    </message>
+    <message>
+        <source>This module is no longer shared with this layout, so it stays at the version it has. You can remove it, or its owner can share it again.</source>
+        <translation>这个模块已不再与这个布局共享，所以它保持现有版本。你可以移除它，或者由它的所有者再次共享。</translation>
+    </message>
+    <message>
+        <source>Its owner deleted this module, so it stays at the version it has.</source>
+        <translation>它的所有者删除了这个模块，所以它保持现有版本。</translation>
+    </message>
+    <message>
+        <source>You can&apos;t see this module in the Module library, so you can&apos;t update it. Ask whoever added it.</source>
+        <translation>你在模块库里看不到这个模块，所以无法更新它。请询问添加它的人。</translation>
+    </message>
+    <message>
+        <source>That module is no longer in this layout.</source>
+        <translation>那个模块已不在这个布局里。</translation>
+    </message>
+    <message>
+        <source>This module doesn&apos;t follow a Module library module any more.</source>
+        <translation>这个模块不再跟随模块库里的模块。</translation>
+    </message>
+    <message>
+        <source>That version isn&apos;t kept any more (the newest 20 are).</source>
+        <translation>那个版本已不再保存（只保存最新的 20 个）。</translation>
+    </message>
+    <message>
+        <source>This layout has no parts sheet to put the module on. Add a parts sheet first.</source>
+        <translation>这个布局没有可以放模块的零件图纸。请先添加一张零件图纸。</translation>
+    </message>
+    <message>
+        <source>Only the layout&apos;s owner can make a shared module theirs. In a club&apos;s layout, ask a club admin or manager.</source>
+        <translation>只有布局的所有者才能把共享模块设为自己的。在俱乐部的布局里，请询问俱乐部管理员或经理。</translation>
     </message>
 </context>
 <context>
@@ -5152,6 +5453,46 @@ Save mine as a new version: this layout&apos;s copy becomes the module; theirs s
         <translation>将模块关联到模块库</translation>
     </message>
     <message>
+        <source>What Changed (Versions)…</source>
+        <translation>有什么变化（版本）…</translation>
+    </message>
+    <message>
+        <source>It no longer follows its owner, so there is nothing new to see</source>
+        <translation>它不再跟随所有者，所以没有新内容可看</translation>
+    </message>
+    <message>
+        <source>Update to Version %1</source>
+        <translation>更新到版本 %1</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can update it</source>
+        <translation>能更改这个布局的人可以更新它</translation>
+    </message>
+    <message>
+        <source>Put Back the Owner&apos;s Version</source>
+        <translation>放回所有者的版本</translation>
+    </message>
+    <message>
+        <source>Put Back %1&apos;s Version</source>
+        <translation>放回 %1 的版本</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can do this</source>
+        <translation>能更改这个布局的人可以这样做</translation>
+    </message>
+    <message>
+        <source>Make It Mine…</source>
+        <translation>设为我的…</translation>
+    </message>
+    <message>
+        <source>Unlock this copy. It stops following its owner.</source>
+        <translation>解锁这个副本。它将不再跟随所有者。</translation>
+    </message>
+    <message>
+        <source>Only the layout&apos;s owner can do this (in a club&apos;s layout, its admins and managers)</source>
+        <translation>只有布局的所有者可以这样做（俱乐部的布局则是它的管理员和经理）</translation>
+    </message>
+    <message>
         <source>Save to Module library…</source>
         <translation>保存到模块库…</translation>
     </message>
@@ -5220,6 +5561,26 @@ Save mine as a new version: this layout&apos;s copy becomes the module; theirs s
         <translation>已用“%1”覆盖 %2</translation>
     </message>
     <message>
+        <source>The module</source>
+        <translation>这个模块</translation>
+    </message>
+    <message>
+        <source>“%1” already matches the Module library.</source>
+        <translation>“%1”已经与模块库一致。</translation>
+    </message>
+    <message>
+        <source>Go Back to Version %1</source>
+        <translation>回到版本 %1</translation>
+    </message>
+    <message>
+        <source>Updated from the Module library</source>
+        <translation>已从模块库更新</translation>
+    </message>
+    <message>
+        <source>“%1” is now version %2, for everyone in this layout.</source>
+        <translation>“%1”现在是版本 %2，对这个布局里的所有人生效。</translation>
+    </message>
+    <message>
         <source>this module</source>
         <translation>这个模块</translation>
     </message>
@@ -5234,6 +5595,10 @@ Save mine as a new version: this layout&apos;s copy becomes the module; theirs s
     <message>
         <source>This module was changed in this layout. Those changes are replaced by the Module library&apos;s version.</source>
         <translation>这个模块在这个布局中被修改过。那些更改会被模块库的版本替换。</translation>
+    </message>
+    <message>
+        <source>Its name, colors and place on the map stay. You can go back to the version it has now.</source>
+        <translation>它的名称、颜色和在地图上的位置保持不变。你可以回到它现在的版本。</translation>
     </message>
     <message>
         <source>Its name, colors and place on the map stay. You can undo this.</source>
@@ -5842,8 +6207,178 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>（无标题）</translation>
     </message>
     <message>
+        <source>This module</source>
+        <translation>这个模块</translation>
+    </message>
+    <message>
+        <source>This module is shared</source>
+        <translation>这个模块是共享的</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n shared module(s) were updated.</source>
+        <translation>
+            <numerusform>已更新 %n 个共享模块。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>“%1” was changed outside the app</source>
+        <translation>“%1”在应用之外被更改</translation>
+    </message>
+    <message>
+        <source>Its parts aren&apos;t its owner&apos;s version %1 anymore: another app changed this layout. Put the owner&apos;s version back, or make the module yours.</source>
+        <translation>它的零件已不是所有者的版本 %1：另一个应用更改了这个布局。请放回所有者的版本，或者把模块设为你自己的。</translation>
+    </message>
+    <message>
+        <source>Its parts aren&apos;t %1&apos;s version %2 anymore: another app changed this layout. Put %1&apos;s version back, or make the module yours.</source>
+        <translation>它的零件已不是 %1 的版本 %2：另一个应用更改了这个布局。请放回 %1 的版本，或者把模块设为你自己的。</translation>
+    </message>
+    <message>
+        <source>That didn&apos;t work</source>
+        <translation>没有成功</translation>
+    </message>
+    <message>
+        <source>“%1” already has version %2.</source>
+        <translation>“%1”已经是版本 %2。</translation>
+    </message>
+    <message>
+        <source>Can&apos;t reach this module&apos;s server</source>
+        <translation>无法连接到这个模块所在的服务器</translation>
+    </message>
+    <message>
+        <source>Sign in to the server “%1” lives on, then try again.</source>
+        <translation>请登录“%1”所在的服务器，然后再试一次。</translation>
+    </message>
+    <message>
+        <source>“%1” lives on %2. Sign in there (File › Servers…), then try again.</source>
+        <translation>“%1”在 %2 上。请在那里登录（文件 › 服务器…），然后再试一次。</translation>
+    </message>
+    <message>
+        <source>Put back the owner&apos;s version</source>
+        <translation>放回所有者的版本</translation>
+    </message>
+    <message>
+        <source>Update shared module</source>
+        <translation>更新共享模块</translation>
+    </message>
+    <message>
+        <source>Put the owner&apos;s version of “%1” back. Undo (Ctrl+Z) takes that back.</source>
+        <translation>放回“%1”所有者的版本。撤销（Ctrl+Z）可以取消这一步。</translation>
+    </message>
+    <message>
+        <source>Updated %1. %2 couldn&apos;t be updated: they are no longer shared.</source>
+        <translation>已更新 %1。%2 无法更新：它们不再共享。</translation>
+    </message>
+    <message>
+        <source>Mark shared module updates as seen</source>
+        <translation>把共享模块的更新标为已读</translation>
+    </message>
+    <message>
+        <source>Mark shared module update as seen</source>
+        <translation>把共享模块的更新标为已读</translation>
+    </message>
+    <message>
+        <source>Make “%1” yours?</source>
+        <translation>把“%1”设为你的吗？</translation>
+    </message>
+    <message>
+        <source>its owner</source>
+        <translation>它的所有者</translation>
+    </message>
+    <message>
+        <source>It stops following %1: no more updates, and this can&apos;t be undone.</source>
+        <translation>它将不再跟随 %1：没有更多更新，而且无法撤销。</translation>
+    </message>
+    <message>
+        <source>It stops following %1: no more updates.</source>
+        <translation>它将不再跟随 %1：没有更多更新。</translation>
+    </message>
+    <message>
+        <source>Its parts stay where they are, and you can change them like any module of this layout.</source>
+        <translation>它的零件保持原位，你可以像更改这个布局里的任何模块一样更改它们。</translation>
+    </message>
+    <message>
+        <source>You can undo this.</source>
+        <translation>你可以撤销这一步。</translation>
+    </message>
+    <message>
+        <source>Make It Mine</source>
+        <translation>设为我的</translation>
+    </message>
+    <message>
+        <source>“%1” is now a module of this layout.</source>
+        <translation>“%1”现在是这个布局的一个模块。</translation>
+    </message>
+    <message>
+        <source>Versions of “%1”</source>
+        <translation>“%1”的版本</translation>
+    </message>
+    <message>
+        <source>This layout has version %1. Putting another one in changes it for everyone in the layout.</source>
+        <translation>这个布局是版本 %1。放入另一个版本会改变布局里所有人看到的内容。</translation>
+    </message>
+    <message>
+        <source>%1 saves the versions. This layout has version %2. Putting another one in changes it for everyone in the layout.</source>
+        <translation>%1 保存各个版本。这个布局是版本 %2。放入另一个版本会改变布局里所有人看到的内容。</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>正在加载…</translation>
+    </message>
+    <message>
+        <source>No versions are kept for this module.</source>
+        <translation>这个模块没有保存任何版本。</translation>
+    </message>
+    <message>
+        <source>Version %1 (in this layout)</source>
+        <translation>版本 %1（在这个布局里）</translation>
+    </message>
+    <message>
+        <source>Version %1</source>
+        <translation>版本 %1</translation>
+    </message>
+    <message>
         <source>“%1”</source>
         <translation>“%1”</translation>
+    </message>
+    <message>
+        <source>No note</source>
+        <translation>没有备注</translation>
+    </message>
+    <message>
+        <source>Update to This</source>
+        <translation>更新到这个版本</translation>
+    </message>
+    <message>
+        <source>Go Back to This</source>
+        <translation>回到这个版本</translation>
+    </message>
+    <message>
+        <source>Shared modules</source>
+        <translation>共享模块</translation>
+    </message>
+    <message>
+        <source>Shared modules follow their owner&apos;s updates. You can move and turn them; their parts stay as the owner made them.</source>
+        <translation>共享模块会跟随所有者的更新。你可以移动和旋转它们；它们的零件保持所有者做成的样子。</translation>
+    </message>
+    <message>
+        <source>Copy a Message to Send</source>
+        <translation>复制一条要发送的消息</translation>
+    </message>
+    <message>
+        <source>Copied. Send it to %1.</source>
+        <translation>已复制。把它发给 %1。</translation>
+    </message>
+    <message>
+        <source>the module&apos;s owner</source>
+        <translation>模块的所有者</translation>
+    </message>
+    <message>
+        <source>“%1” can&apos;t go in this layout</source>
+        <translation>“%1”不能放进这个布局</translation>
+    </message>
+    <message>
+        <source>This layout is on %1, and “%2” is shared with you on %3. A shared module follows its owner only in layouts on its own server, or in a file on this computer.</source>
+        <translation>这个布局在 %1 上，而“%2”是在 %3 上共享给你的。共享模块只在它自己服务器上的布局里，或在这台电脑上的文件里，才会跟随所有者。</translation>
     </message>
     <message>
         <source>The pasted part</source>
@@ -9022,6 +9557,95 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     </message>
 </context>
 <context>
+    <name>bld::ui::ModuleShareDialog</name>
+    <message>
+        <source>This module belongs to a club, so its members already have it. A club&apos;s module can&apos;t be shared with another club.</source>
+        <translation>这个模块属于一个俱乐部，所以成员已经有了。俱乐部的模块不能共享给另一个俱乐部。</translation>
+    </message>
+    <message>
+        <source>This module is shared with as many clubs as it can be. Stop sharing with one first.</source>
+        <translation>这个模块已共享给了尽可能多的俱乐部。请先停止与其中一个共享。</translation>
+    </message>
+    <message>
+        <source>It isn&apos;t shared with that club any more.</source>
+        <translation>它已不再与那个俱乐部共享。</translation>
+    </message>
+    <message>
+        <source> (version %1)</source>
+        <translation>（版本 %1）</translation>
+    </message>
+    <message>
+        <source>Stop sharing with %1?</source>
+        <translation>停止与 %1 共享吗？</translation>
+    </message>
+    <message numerus="yes">
+        <source>Its %n layout(s) keep “%1” as it is now%2.</source>
+        <translation>
+            <numerusform>它的 %n 个布局会保留“%1”现在的样子%2。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nothing changes in any layout: “%1” isn&apos;t placed in one of theirs.</source>
+        <translation>任何布局都不会有变化：“%1”没有放在他们的任何布局里。</translation>
+    </message>
+    <message>
+        <source>They won&apos;t get your updates anymore, and can&apos;t place it again.</source>
+        <translation>他们将不再收到你的更新，也不能再次放置它。</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <source>Share “%1”</source>
+        <translation>共享“%1”</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. Its members can&apos;t change its parts.</source>
+        <translation>你共享的俱乐部可以把这个模块放进俱乐部的布局，并收到你的更新。成员不能更改它的零件。</translation>
+    </message>
+    <message>
+        <source>Share with a club</source>
+        <translation>共享给俱乐部</translation>
+    </message>
+    <message>
+        <source>Share</source>
+        <translation>共享</translation>
+    </message>
+    <message>
+        <source>To share with one person by email, open this module on the website.</source>
+        <translation>要通过电子邮件共享给个人，请在网站上打开这个模块。</translation>
+    </message>
+    <message>
+        <source>Open on the Website</source>
+        <translation>在网站上打开</translation>
+    </message>
+    <message>
+        <source>This is a club&apos;s module: its members already have it.</source>
+        <translation>这是俱乐部的模块：成员已经有了。</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. You&apos;re not in a club yet: join or start one to share with it.</source>
+        <translation>你共享的俱乐部可以把这个模块放进俱乐部的布局，并收到你的更新。你还没有加入俱乐部：加入一个或创建一个，就能与它共享。</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. Its members can&apos;t change its parts. It&apos;s shared with every club you&apos;re in.</source>
+        <translation>你共享的俱乐部可以把这个模块放进俱乐部的布局，并收到你的更新。成员不能更改它的零件。它已共享给你所在的每个俱乐部。</translation>
+    </message>
+    <message>
+        <source>Pick a club…</source>
+        <translation>选择一个俱乐部…</translation>
+    </message>
+    <message>
+        <source>%1 (club) · can place it</source>
+        <translation>%1（俱乐部）· 可以放置</translation>
+    </message>
+    <message>
+        <source>Stop sharing with %1</source>
+        <translation>停止与 %1 共享</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::ModulesPanel</name>
     <message>
         <source>Modules</source>
@@ -9919,6 +10543,54 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>没有匹配的模块。</translation>
     </message>
     <message>
+        <source>Whose modules</source>
+        <translation>谁的模块</translation>
+    </message>
+    <message>
+        <source>Mine</source>
+        <translation>我的</translation>
+    </message>
+    <message>
+        <source>Clubs</source>
+        <translation>俱乐部</translation>
+    </message>
+    <message>
+        <source>Shared with me</source>
+        <translation>与我共享</translation>
+    </message>
+    <message>
+        <source>Take “%1” off %2?</source>
+        <translation>把“%1”从 %2 移除吗？</translation>
+    </message>
+    <message>
+        <source>The club&apos;s layouts keep it as it is now.</source>
+        <translation>俱乐部的布局会保留它现在的样子。</translation>
+    </message>
+    <message>
+        <source>The club gets no more updates of it, and its members can&apos;t place it again. Its owner is told.</source>
+        <translation>俱乐部不再收到它的更新，成员也不能再次放置它。会通知它的所有者。</translation>
+    </message>
+    <message>
+        <source>The club gets no more updates of it, and its members can&apos;t place it again. %1 is told.</source>
+        <translation>俱乐部不再收到它的更新，成员也不能再次放置它。会通知 %1。</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>移除</translation>
+    </message>
+    <message>
+        <source>Modules other people shared with you or your clubs. Place one, and it follows its owner&apos;s updates.</source>
+        <translation>其他人与你或你的俱乐部共享的模块。放进布局后，它会跟随所有者的更新。</translation>
+    </message>
+    <message>
+        <source>Nothing is shared with you yet. When someone shares a module with you or one of your clubs, it shows here, ready to place.</source>
+        <translation>还没有人与你共享模块。有人把模块共享给你或你的某个俱乐部后，它会出现在这里，随时可以放置。</translation>
+    </message>
+    <message>
+        <source>Your clubs have no modules yet.</source>
+        <translation>你的俱乐部还没有模块。</translation>
+    </message>
+    <message>
         <source>A club</source>
         <translation>俱乐部</translation>
     </message>
@@ -9975,6 +10647,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>重命名…</translation>
     </message>
     <message>
+        <source>Share with a Club…</source>
+        <translation>共享给俱乐部…</translation>
+    </message>
+    <message>
+        <source>A club you share with can place it in the club&apos;s layouts and gets your updates.</source>
+        <translation>你共享的俱乐部可以把它放进俱乐部的布局，并收到你的更新。</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>收回为我的…</translation>
     </message>
@@ -9993,6 +10673,30 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Delete…</source>
         <translation>删除…</translation>
+    </message>
+    <message>
+        <source>A shared module goes in a layout, not inside another module.</source>
+        <translation>共享模块放进布局，而不是放进另一个模块里。</translation>
+    </message>
+    <message>
+        <source>Remove from %1…</source>
+        <translation>从 %1 移除…</translation>
+    </message>
+    <message>
+        <source>Take this module off the club&apos;s list. Copies already placed stay as they are.</source>
+        <translation>把这个模块从俱乐部的列表中移除。已经放好的副本保持原样。</translation>
+    </message>
+    <message>
+        <source>“%1” is off %2&apos;s list.</source>
+        <translation>“%1”已从 %2 的列表中移除。</translation>
+    </message>
+    <message>
+        <source>Remove from club</source>
+        <translation>从俱乐部移除</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t remove “%1”: %2</source>
+        <translation>无法移除“%1”：%2</translation>
     </message>
     <message>
         <source>Renamed to &quot;%1&quot;</source>
@@ -11258,7 +11962,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>Share</source>
-        <translation>分享</translation>
+        <translation>共享</translation>
     </message>
     <message>
         <source>Cards show its drawn picture. You can upload your own instead, like a photo of the real thing.</source>
@@ -11291,6 +11995,25 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Sent for review. A moderator looks at it before it appears in the catalog.</source>
         <translation>已发送审核。审核员会在它出现在目录之前查看。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::SharedModulesBar</name>
+    <message>
+        <source>Shared modules</source>
+        <translation>共享模块</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>确定</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can update it.</source>
+        <translation>能更改这个布局的人可以更新它。</translation>
+    </message>
+    <message>
+        <source>Go back to version %1</source>
+        <translation>回到版本 %1</translation>
     </message>
 </context>
 <context>

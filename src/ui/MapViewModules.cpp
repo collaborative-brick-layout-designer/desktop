@@ -8,6 +8,7 @@
 #include "MapViewInternal.h"
 #include "ModuleEditBar.h"
 #include "SetUpdatesBar.h"
+#include "SharedModulesBar.h"
 
 #include "../core/Groups.h"
 #include "../core/LayerBrick.h"
@@ -51,9 +52,66 @@ void MapView::showStatus(const QString& text, int ms) {
         if (auto* sb = mw->findChild<QStatusBar*>()) sb->showMessage(text, ms);
 }
 
+// ---- The lock on shared (read-only) modules (edit/SharedLock.h) ----
+
+void MapView::tellSharedLock(const QString& message) {
+    showStatus(message, 8000);
+    emit sharedLockTold(message);
+}
+
+bool MapView::refusedByLock(const QString& moduleId, core::LockedAction what) {
+    const core::Module* m = map_ ? core::findModule(map_->sidecar.modules, moduleId) : nullptr;
+    const auto s = m ? core::sharedPlaced(*m) : std::nullopt;
+    if (!s) return false;
+    tellSharedLock(core::lockMessage(*s, what));
+    return true;
+}
+
+bool MapView::refusedByLock(const QSet<QString>& ids, core::LockedAction what, bool whole) {
+    const auto s = map_ ? core::sharedLockOn(map_->sidecar.modules, ids, whole) : std::nullopt;
+    if (!s) return false;
+    tellSharedLock(core::lockMessage(*s, what));
+    return true;
+}
+
+void MapView::rebaseSharedLock() {
+    sharedLockIndex_ = undoStack_ ? undoStack_->index() : 0;
+    if (map_) sharedLock_.rebase(*map_, parts_);
+    else sharedLock_.clear();
+}
+
+void MapView::onSharedLockStep(int index) {
+    if (sharedLockBusy_) return;
+    const int was = sharedLockIndex_;
+    sharedLockIndex_ = index;
+    if (!map_) return;
+    // The step that just ran: the one below the index after a push or a
+    // redo, the one at it after an undo. (An emptied stack: nothing ran.)
+    const bool forward = index > was;
+    const QUndoCommand* step = undoStack_->count() == 0 ? nullptr : undoStack_->command(forward ? index - 1 : index);
+    if (step && index != was && !sharedLock_.empty() && !edit::exemptFromSharedLock(step)) {
+        if (const auto broken = sharedLock_.check(*map_)) {
+            // Taken back the way it came. (It stays in the stack's other
+            // half; running it again is refused again.)
+            sharedLockBusy_ = true;
+            if (forward) undoStack_->undo();
+            else undoStack_->redo();
+            sharedLockBusy_ = false;
+            sharedLockIndex_ = undoStack_->index();
+            tellSharedLock(broken->message());
+            return;
+        }
+    }
+    // Moved or turned as a whole: its placement follows, in the same edit.
+    if (step && !sharedLock_.empty()) sharedLock_.keepPlacements(*map_, parts_);
+    sharedLock_.rebase(*map_, parts_);
+}
+
 void MapView::setEditingModule(const QString& moduleId) {
     if (moduleId == editingModuleId_) return;
     if (!moduleId.isEmpty() && (!map_ || !core::findModule(map_->sidecar.modules, moduleId))) return;
+    // A shared module's parts are its owner's: it says why instead.
+    if (!moduleId.isEmpty() && refusedByLock(moduleId, core::LockedAction::Edit)) return;
     editingModuleId_ = moduleId;
     if (scene()) scene()->clearSelection();
     lastBrickSelection_.clear();
@@ -306,6 +364,7 @@ void MapView::refreshSetUpdates() {
                                        : std::vector<edit::SetUpdate>{};
     if (setUpdates_.empty()) {
         if (updatesBar_) updatesBar_->hide();
+        placeBottomBars();
         return;
     }
     if (!updatesBar_) {
@@ -321,7 +380,47 @@ void MapView::refreshSetUpdates() {
         key += u.link.groupId + QLatin1Char(':') + u.version + QLatin1Char(',');
     }
     updatesBar_->setUpdates(names, key);
-    if (updatesBar_->isVisible()) updatesBar_->place(viewport()->geometry());
+    placeBottomBars();
+}
+
+// The set updates bar at the bottom, the shared modules' notices above it.
+void MapView::placeBottomBars() {
+    const QRect area = viewport()->geometry();
+    int above = 0;
+    if (updatesBar_ && updatesBar_->isVisible()) {
+        updatesBar_->place(area);
+        above = updatesBar_->height() + 8;
+    }
+    if (sharedBar_ && sharedBar_->isVisible()) sharedBar_->place(area, above);
+}
+
+SharedModulesBar* MapView::sharedModulesBar() {
+    if (!sharedBar_) {
+        sharedBar_ = new SharedModulesBar(this);
+        connect(sharedBar_, &SharedModulesBar::resized, this, &MapView::placeBottomBars);
+    }
+    return sharedBar_;
+}
+
+void MapView::setSharedBadges(const QHash<QString, QString>& badges) {
+    if (!builder_) return;
+    builder_->setSharedBadges(badges);
+    if (map_) builder_->refreshModuleLabels(*map_);
+}
+
+void MapView::showParts(const QSet<QString>& guids) {
+    if (!map_ || guids.isEmpty()) return;
+    const PickIndex& index = pickIndex();
+    QList<QGraphicsItem*> pick;
+    QRectF box;
+    for (const QString& guid : guids)
+        for (QGraphicsItem* it : index.bricks.value(guid)) {
+            pick.append(it);
+            box = box.united(it->sceneBoundingRect());
+        }
+    if (pick.isEmpty()) return;
+    selectItems(pick);
+    centerOn(box.center());
 }
 
 void MapView::updatePlacedSets(const std::vector<edit::SetUpdate>& updates) {

@@ -1,0 +1,3435 @@
+{
+  "about": "Where a library version of a module sits in a layout (docs/shared-modules.md; web packages/modules placement.ts, desktop src/edit/SharedModulePlacement.cpp). A placement {degrees, x, y} turns the version's own coordinates by `degrees` about its origin, then moves them to (x, y); each part turns about its pivot (its sprite centre: the box centre plus the footprint's image offset, which is non-zero only for a part with a hull) and its box is its footprint at the new angle (a part no catalog knows keeps its box size). `parts`: the geometry of each part number (lower case; `mystery.1` is in no catalog). `place`: a version's parts, a placement, and the parts as placed. `move`, `turn`, `drop`: the placement after the placed module is moved, turned about a point, or dropped (moved by dx, dy, then turned by a connection snap about `pivot` onto `to`). `align`: the placement worked out from the parts, and how many agree. `matches`: whether the placed parts are exactly the version's. `resolve`: the placement to use, the one kept while at least half the parts are where it puts them, else the one worked out. Numbers agree within `tolerance`; angles also across 0/360.",
+  "tolerance": 0.0001,
+  "parts": {
+    "straight.1": {
+      "pxPerStud": 8,
+      "spriteSize": {
+        "w": 128,
+        "h": 32
+      }
+    },
+    "tile.1": {
+      "pxPerStud": 32,
+      "spriteSize": {
+        "w": 256,
+        "h": 256
+      }
+    },
+    "switch.1": {
+      "pxPerStud": 8,
+      "spriteSize": {
+        "w": 256,
+        "h": 96
+      },
+      "hullPts": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 255,
+          "y": 0
+        },
+        {
+          "x": 255,
+          "y": 31
+        },
+        {
+          "x": 128,
+          "y": 95
+        },
+        {
+          "x": 0,
+          "y": 31
+        }
+      ]
+    },
+    "ramp.1": {
+      "pxPerStud": 8,
+      "spriteSize": {
+        "w": 64,
+        "h": 48
+      },
+      "hullPts": [
+        {
+          "x": 0,
+          "y": 47
+        },
+        {
+          "x": 63,
+          "y": 0
+        },
+        {
+          "x": 63,
+          "y": 47
+        }
+      ]
+    }
+  },
+  "place": [
+    {
+      "name": "as it is",
+      "bricks": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placement": {
+        "degrees": 0,
+        "x": 0,
+        "y": 0
+      },
+      "expect": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ]
+    },
+    {
+      "name": "moved",
+      "bricks": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placement": {
+        "degrees": 0,
+        "x": 120.5,
+        "y": -48
+      },
+      "expect": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 104.5,
+            "y": -50,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 120.5,
+            "y": -50,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 136.5,
+            "y": -50,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 116.5,
+            "y": -38,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 100.5,
+            "y": -42,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 150.5,
+            "y": -28,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ]
+    },
+    {
+      "name": "quarter turn",
+      "bricks": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placement": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48
+      },
+      "expect": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -64,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -48,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 110.5,
+            "y": -32,
+            "width": 12,
+            "height": 32
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 102.5,
+            "y": -52,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 108.5,
+            "y": -68,
+            "width": 6,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 96,
+            "y": -16.5,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 90
+        }
+      ]
+    },
+    {
+      "name": "half turn",
+      "bricks": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placement": {
+        "degrees": 180,
+        "x": -7.25,
+        "y": 3.125
+      },
+      "expect": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -7.25,
+            "y": 1.125,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 180
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -23.25,
+            "y": 1.125,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 180
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": -55.25,
+            "y": -6.875,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 180
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -11.25,
+            "y": -14.875,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 180
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 4.75,
+            "y": -8.875,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 180
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": -43.25,
+            "y": -19.875,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 180
+        }
+      ]
+    },
+    {
+      "name": "any angle",
+      "bricks": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placement": {
+        "degrees": 37.5,
+        "x": 64,
+        "y": 64
+      },
+      "expect": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 50.113956,
+            "y": 52.698243,
+            "width": 15.078434,
+            "height": 12.863332
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 62.80761,
+            "y": 62.438426,
+            "width": 15.078434,
+            "height": 12.863332
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 75.501263,
+            "y": 72.178608,
+            "width": 27.772087,
+            "height": 22.603516
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 49.875164,
+            "y": 69.504771,
+            "width": 11.204351,
+            "height": 11.204351
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 40.852928,
+            "y": 61.270975,
+            "width": 9.949131,
+            "height": 4.918996
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 74.09229,
+            "y": 99.646224,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 37.5
+        }
+      ]
+    },
+    {
+      "name": "past a full turn",
+      "bricks": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placement": {
+        "degrees": 450,
+        "x": 0,
+        "y": 0
+      },
+      "expect": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -2,
+            "y": -16,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -2,
+            "y": 0,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": -10,
+            "y": 16,
+            "width": 12,
+            "height": 32
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -18,
+            "y": -4,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -12,
+            "y": -20,
+            "width": 6,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": -24.5,
+            "y": 31.5,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 90
+        }
+      ]
+    },
+    {
+      "name": "a negative turn",
+      "bricks": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placement": {
+        "degrees": -22.5,
+        "x": 10,
+        "y": 10
+      },
+      "expect": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -5.52828,
+            "y": 8.171401,
+            "width": 16.274487,
+            "height": 9.780132
+          },
+          "orientation": 337.5
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 9.253793,
+            "y": 2.048466,
+            "width": 16.274487,
+            "height": 9.780132
+          },
+          "orientation": 337.5
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 24.035866,
+            "y": -10.197404,
+            "width": 31.056559,
+            "height": 17.171169
+          },
+          "orientation": 337.5
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 10.136107,
+            "y": 17.712852,
+            "width": 10.442923,
+            "height": 10.442923
+          },
+          "orientation": 337.5
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -3.914065,
+            "y": 20.154639,
+            "width": 7.400551,
+            "height": 8.566424
+          },
+          "orientation": 337.5
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 45.715718,
+            "y": 15.734857,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 337.5
+        }
+      ]
+    },
+    {
+      "name": "parts already turned",
+      "bricks": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": 0,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 4,
+            "y": 0,
+            "width": 12,
+            "height": 32
+          },
+          "orientation": 270
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 20,
+            "y": 20,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 180
+        }
+      ],
+      "placement": {
+        "degrees": 45,
+        "x": 5,
+        "y": 5
+      },
+      "expect": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -6.28782,
+            "y": 5.025888,
+            "width": 14.090359,
+            "height": 14.090359
+          },
+          "orientation": 135
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": -14.773102,
+            "y": 7.854315,
+            "width": 25.404068,
+            "height": 25.404068
+          },
+          "orientation": 315
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 0.783248,
+            "y": 33.31016,
+            "width": 9.847717,
+            "height": 5.693465
+          },
+          "orientation": 225
+        }
+      ]
+    }
+  ],
+  "move": [
+    {
+      "placement": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48
+      },
+      "dx": 16,
+      "dy": -8,
+      "expect": {
+        "degrees": 90,
+        "x": 136.5,
+        "y": -56
+      }
+    },
+    {
+      "placement": {
+        "degrees": 0,
+        "x": 0,
+        "y": 0,
+        "sheets": {
+          "Track": "layer-1"
+        }
+      },
+      "dx": -0.5,
+      "dy": 0.25,
+      "expect": {
+        "degrees": 0,
+        "x": -0.5,
+        "y": 0.25,
+        "sheets": {
+          "Track": "layer-1"
+        }
+      }
+    }
+  ],
+  "turn": [
+    {
+      "placement": {
+        "degrees": 0,
+        "x": 10,
+        "y": 0
+      },
+      "degrees": 90,
+      "about": {
+        "x": 0,
+        "y": 0
+      },
+      "expect": {
+        "degrees": 90,
+        "x": 0,
+        "y": 10
+      }
+    },
+    {
+      "placement": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48
+      },
+      "degrees": 45,
+      "about": {
+        "x": 100,
+        "y": -40
+      },
+      "expect": {
+        "degrees": 135,
+        "x": 120.152543,
+        "y": -31.161165
+      }
+    },
+    {
+      "placement": {
+        "degrees": 350,
+        "x": 3,
+        "y": 4
+      },
+      "degrees": 22.5,
+      "about": {
+        "x": 3,
+        "y": 4
+      },
+      "expect": {
+        "degrees": 12.5,
+        "x": 3,
+        "y": 4
+      }
+    },
+    {
+      "placement": {
+        "degrees": 10,
+        "x": 3,
+        "y": 4,
+        "sheets": {
+          "Track": "layer-1"
+        }
+      },
+      "degrees": -90,
+      "about": {
+        "x": -8,
+        "y": 16
+      },
+      "expect": {
+        "degrees": 280,
+        "x": -20,
+        "y": 5,
+        "sheets": {
+          "Track": "layer-1"
+        }
+      }
+    }
+  ],
+  "drop": [
+    {
+      "drop": {
+        "dx": 40,
+        "dy": 24
+      },
+      "expect": {
+        "degrees": 0,
+        "x": 40,
+        "y": 24
+      }
+    },
+    {
+      "drop": {
+        "dx": 40,
+        "dy": 24,
+        "turn": {
+          "degrees": 22.5,
+          "pivotX": 56,
+          "pivotY": 22,
+          "toX": 57.5,
+          "toY": 21
+        }
+      },
+      "expect": {
+        "degrees": 22.5,
+        "x": 41.952561,
+        "y": 16.724824
+      }
+    },
+    {
+      "drop": {
+        "dx": -12,
+        "dy": 6,
+        "turn": {
+          "degrees": -90,
+          "pivotX": 0,
+          "pivotY": 0,
+          "toX": 8,
+          "toY": 8
+        }
+      },
+      "expect": {
+        "degrees": 270,
+        "x": 14,
+        "y": 20
+      }
+    }
+  ],
+  "align": [
+    {
+      "name": "where it was placed, a quarter turn",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -64,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -48,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 110.5,
+            "y": -32,
+            "width": 12,
+            "height": 32
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 102.5,
+            "y": -52,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 108.5,
+            "y": -68,
+            "width": 6,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 96,
+            "y": -16.5,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 90
+        }
+      ],
+      "expect": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48,
+        "matched": 6
+      }
+    },
+    {
+      "name": "at any angle",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 50.113956,
+            "y": 52.698243,
+            "width": 15.078434,
+            "height": 12.863332
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 62.80761,
+            "y": 62.438426,
+            "width": 15.078434,
+            "height": 12.863332
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 75.501263,
+            "y": 72.178608,
+            "width": 27.772087,
+            "height": 22.603516
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 49.875164,
+            "y": 69.504771,
+            "width": 11.204351,
+            "height": 11.204351
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 40.852928,
+            "y": 61.270975,
+            "width": 9.949131,
+            "height": 4.918996
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 74.09229,
+            "y": 99.646224,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 37.5
+        }
+      ],
+      "expect": {
+        "degrees": 37.5,
+        "x": 64,
+        "y": 64,
+        "matched": 6
+      }
+    },
+    {
+      "name": "one part moved and one swapped: the rest still say where",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -64,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 121.5,
+            "y": -48,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 110.5,
+            "y": -32,
+            "width": 12,
+            "height": 32
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 102.5,
+            "y": -52,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 108.5,
+            "y": -68,
+            "width": 6,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 96,
+            "y": -16.5,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 90
+        }
+      ],
+      "expect": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48,
+        "matched": 4
+      }
+    },
+    {
+      "name": "some parts gone",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 50.113956,
+            "y": 52.698243,
+            "width": 15.078434,
+            "height": 12.863332
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 62.80761,
+            "y": 62.438426,
+            "width": 15.078434,
+            "height": 12.863332
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 75.501263,
+            "y": 72.178608,
+            "width": 27.772087,
+            "height": 22.603516
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 49.875164,
+            "y": 69.504771,
+            "width": 11.204351,
+            "height": 11.204351
+          },
+          "orientation": 37.5
+        }
+      ],
+      "expect": {
+        "degrees": 37.5,
+        "x": 64,
+        "y": 64,
+        "matched": 4
+      }
+    },
+    {
+      "name": "nothing alike: middle on middle, unturned",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "plate.9",
+          "displayArea": {
+            "x": 40,
+            "y": 40,
+            "width": 4,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "plate.9",
+          "displayArea": {
+            "x": 60,
+            "y": 60,
+            "width": 4,
+            "height": 4
+          },
+          "orientation": 0
+        }
+      ],
+      "expect": {
+        "degrees": 0,
+        "x": 43.833333,
+        "y": 43.916667,
+        "matched": 0
+      }
+    },
+    {
+      "name": "no parts placed",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [],
+      "expect": {
+        "degrees": 0,
+        "x": -8.166667,
+        "y": -8.083333,
+        "matched": 0
+      }
+    }
+  ],
+  "matches": [
+    {
+      "name": "as placed, the placement known",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -64,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -48,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 110.5,
+            "y": -32,
+            "width": 12,
+            "height": 32
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 102.5,
+            "y": -52,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 108.5,
+            "y": -68,
+            "width": 6,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 96,
+            "y": -16.5,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 90
+        }
+      ],
+      "placement": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48
+      },
+      "expect": true
+    },
+    {
+      "name": "as placed, the placement not known",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 50.113956,
+            "y": 52.698243,
+            "width": 15.078434,
+            "height": 12.863332
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 62.80761,
+            "y": 62.438426,
+            "width": 15.078434,
+            "height": 12.863332
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 75.501263,
+            "y": 72.178608,
+            "width": 27.772087,
+            "height": 22.603516
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 49.875164,
+            "y": 69.504771,
+            "width": 11.204351,
+            "height": 11.204351
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 40.852928,
+            "y": 61.270975,
+            "width": 9.949131,
+            "height": 4.918996
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 74.09229,
+            "y": 99.646224,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 37.5
+        }
+      ],
+      "expect": true
+    },
+    {
+      "name": "moved as a whole since the placement was written",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 126.5,
+            "y": -56,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 126.5,
+            "y": -40,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -24,
+            "width": 12,
+            "height": 32
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 110.5,
+            "y": -44,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 116.5,
+            "y": -60,
+            "width": 6,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 104,
+            "y": -8.5,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 90
+        }
+      ],
+      "placement": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48
+      },
+      "expect": true
+    },
+    {
+      "name": "one part moved, one swapped",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -64,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 121.5,
+            "y": -48,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 110.5,
+            "y": -32,
+            "width": 12,
+            "height": 32
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 102.5,
+            "y": -52,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 108.5,
+            "y": -68,
+            "width": 6,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 96,
+            "y": -16.5,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 90
+        }
+      ],
+      "placement": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48
+      },
+      "expect": false
+    },
+    {
+      "name": "a part gone",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 50.113956,
+            "y": 52.698243,
+            "width": 15.078434,
+            "height": 12.863332
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 62.80761,
+            "y": 62.438426,
+            "width": 15.078434,
+            "height": 12.863332
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 75.501263,
+            "y": 72.178608,
+            "width": 27.772087,
+            "height": 22.603516
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 49.875164,
+            "y": 69.504771,
+            "width": 11.204351,
+            "height": 11.204351
+          },
+          "orientation": 37.5
+        }
+      ],
+      "expect": false
+    },
+    {
+      "name": "a part moved by less than a hair",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 104.55,
+            "y": -50,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 120.5,
+            "y": -50,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 136.5,
+            "y": -50,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 116.5,
+            "y": -38,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 100.5,
+            "y": -42,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 150.5,
+            "y": -28,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "expect": true
+    },
+    {
+      "name": "a part turned a degree",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 104.5,
+            "y": -50,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 1
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 120.5,
+            "y": -50,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 136.5,
+            "y": -50,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 116.5,
+            "y": -38,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 100.5,
+            "y": -42,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 150.5,
+            "y": -28,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "expect": false
+    }
+  ],
+  "resolve": [
+    {
+      "name": "kept and still right",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -64,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -48,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 110.5,
+            "y": -32,
+            "width": 12,
+            "height": 32
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 102.5,
+            "y": -52,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 108.5,
+            "y": -68,
+            "width": 6,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 96,
+            "y": -16.5,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 90
+        }
+      ],
+      "kept": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48,
+        "sheets": {
+          "Track": "layer-1"
+        }
+      },
+      "expect": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48,
+        "sheets": {
+          "Track": "layer-1"
+        }
+      }
+    },
+    {
+      "name": "kept, one part changed: still the kept one",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -64,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 121.5,
+            "y": -48,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 110.5,
+            "y": -32,
+            "width": 12,
+            "height": 32
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 102.5,
+            "y": -52,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 108.5,
+            "y": -68,
+            "width": 6,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 96,
+            "y": -16.5,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 90
+        }
+      ],
+      "kept": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48
+      },
+      "expect": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48
+      }
+    },
+    {
+      "name": "an older app moved the module: worked out, sheets kept",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 126.5,
+            "y": -56,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 126.5,
+            "y": -40,
+            "width": 4,
+            "height": 16
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 118.5,
+            "y": -24,
+            "width": 12,
+            "height": 32
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 110.5,
+            "y": -44,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 116.5,
+            "y": -60,
+            "width": 6,
+            "height": 8
+          },
+          "orientation": 90
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 104,
+            "y": -8.5,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 90
+        }
+      ],
+      "kept": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48,
+        "sheets": {
+          "Track": "layer-1"
+        }
+      },
+      "expect": {
+        "degrees": 90,
+        "x": 128.5,
+        "y": -40,
+        "sheets": {
+          "Track": "layer-1"
+        }
+      }
+    },
+    {
+      "name": "none kept",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 50.113956,
+            "y": 52.698243,
+            "width": 15.078434,
+            "height": 12.863332
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 62.80761,
+            "y": 62.438426,
+            "width": 15.078434,
+            "height": 12.863332
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 75.501263,
+            "y": 72.178608,
+            "width": 27.772087,
+            "height": 22.603516
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": 49.875164,
+            "y": 69.504771,
+            "width": 11.204351,
+            "height": 11.204351
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": 40.852928,
+            "y": 61.270975,
+            "width": 9.949131,
+            "height": 4.918996
+          },
+          "orientation": 37.5
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 74.09229,
+            "y": 99.646224,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 37.5
+        }
+      ],
+      "kept": null,
+      "expect": {
+        "degrees": 37.5,
+        "x": 64,
+        "y": 64
+      }
+    },
+    {
+      "name": "no parts left: the kept one",
+      "version": [
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": -16,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "straight.1",
+          "displayArea": {
+            "x": 0,
+            "y": -2,
+            "width": 16,
+            "height": 4
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "switch.1",
+          "displayArea": {
+            "x": 16,
+            "y": -2,
+            "width": 32,
+            "height": 12
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "tile.1",
+          "displayArea": {
+            "x": -4,
+            "y": 10,
+            "width": 8,
+            "height": 8
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "ramp.1",
+          "displayArea": {
+            "x": -20,
+            "y": 6,
+            "width": 8,
+            "height": 6
+          },
+          "orientation": 0
+        },
+        {
+          "partNumber": "mystery.1",
+          "displayArea": {
+            "x": 30,
+            "y": 20,
+            "width": 6,
+            "height": 3
+          },
+          "orientation": 0
+        }
+      ],
+      "placed": [],
+      "kept": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48
+      },
+      "expect": {
+        "degrees": 90,
+        "x": 120.5,
+        "y": -48
+      }
+    }
+  ]
+}

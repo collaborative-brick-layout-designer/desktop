@@ -5,6 +5,7 @@
 #include "core/LayerBrick.h"
 #include "core/LayerText.h"
 #include "core/Map.h"
+#include "core/SharedModule.h"
 #include "sync/SyncDoc.h"
 #include "sync/WebModel.h"
 
@@ -456,4 +457,118 @@ TEST(LayoutMerge, AModuleOnlyOneSideChangedIsThatSides) {
     const auto merged = mergeLayouts(mine, base, changes, {});
     ASSERT_TRUE(merged);
     EXPECT_EQ(onlyModule(*merged).memberIds, QSet<QString>{ QStringLiteral("a") });
+}
+
+// ---- Shared (read-only) modules (docs/shared-modules.md) --------------------
+
+namespace {
+
+const QString kSharedLib = QStringLiteral("5f0c1a2b-3c4d-4e5f-8a9b-0c1d2e3f4a5b");
+
+// A layout with a loose part and the shared module "M" at `version`, its
+// parts (id, x) on one sheet, sitting at `at` (the version's origin).
+Snapshot withShared(int version, const QList<std::pair<QString, double>>& parts, QPointF at, double degrees = 0,
+                    double looseX = 500) {
+    core::Map map;
+    auto sheet = std::make_unique<core::LayerBrick>();
+    sheet->guid = QStringLiteral("L1");
+    sheet->name = QStringLiteral("Track");
+    const auto add = [&](const QString& id, double x, double y) {
+        core::Brick b;
+        b.guid = id;
+        b.partNumber = QStringLiteral("3001.1");
+        b.displayArea = QRectF(x - 2, y - 1, 4, 2);
+        b.orientation = static_cast<float>(degrees);
+        sheet->bricks.push_back(b);
+    };
+    core::Module m;
+    m.id = QStringLiteral("M");
+    m.name = QStringLiteral("Harbor crane");
+    m.libraryModuleId = kSharedLib;
+    m.libraryVersion = version;
+    const core::SharedPlacement placement{ degrees, at.x(), at.y(), QMap<QString, QString>{ { QStringLiteral("Track"), QStringLiteral("L1") } } };
+    for (const auto& [id, x] : parts) {
+        // (x along the version's own x axis, from its origin)
+        const QPointF p = core::placePoint(placement, QPointF(x, 0));
+        add(id, p.x(), p.y());
+        m.memberIds.insert(id);
+    }
+    add(QStringLiteral("loose"), looseX, 300);
+    m.shared = QJsonObject{ { QStringLiteral("by"), QStringLiteral("Alice") }, { QStringLiteral("placement"), core::placementJson(placement) } };
+    map.sidecar.modules.push_back(m);
+    map.layers().push_back(std::move(sheet));
+    return snapshotOf(map);
+}
+
+}  // namespace
+
+// Offline I moved a shared module; meanwhile the server put its owner's
+// next version in. Back online it is the server's: its parts are the new
+// version's, nothing clashes, and my move is put back on top through its
+// placement, so the new parts sit where I moved the module to.
+TEST(LayoutMerge, ASharedModuleTheServerUpdatedIsTheServersWithMyOfflineMoveOnTop) {
+    const Snapshot base = withShared(7, { { "a", 0 }, { "b", 10 } }, QPointF(100, 50));
+    // Mine: moved by (40, -8), and the loose part too.
+    const Snapshot mine = withShared(7, { { "a", 0 }, { "b", 10 } }, QPointF(140, 42), 0, 520);
+    // The server: version 8, new part ids, one part more, where it sat.
+    const Snapshot server = withShared(8, { { "n1", 0 }, { "n2", 10 }, { "n3", 20 } }, QPointF(100, 50));
+    const QList<ItemChange> changes = compareLayouts(base, mine, server);
+    for (const auto& c : changes) EXPECT_NE(c.status, Status::Conflict) << c.key.toStdString() << ": nothing to ask about";
+
+    const auto merged = mergeLayouts(mine, server, changes, {});
+    ASSERT_TRUE(merged);
+    const core::Module& m = onlyModule(*merged);
+    EXPECT_EQ(m.libraryVersion, 8);
+    EXPECT_EQ(m.memberIds, (QSet<QString>{ QStringLiteral("n1"), QStringLiteral("n2"), QStringLiteral("n3") }));
+    EXPECT_FALSE(brick(*merged, QStringLiteral("a"))) << "the old version's parts are gone, moved or not";
+    EXPECT_FALSE(brick(*merged, QStringLiteral("b")));
+    EXPECT_EQ(brickCount(*merged), 4);
+    // The new parts, where I moved the module.
+    ASSERT_TRUE(brick(*merged, QStringLiteral("n1")));
+    EXPECT_DOUBLE_EQ(brick(*merged, QStringLiteral("n1"))->displayArea.center().x(), 140);
+    EXPECT_DOUBLE_EQ(brick(*merged, QStringLiteral("n1"))->displayArea.center().y(), 42);
+    EXPECT_DOUBLE_EQ(brick(*merged, QStringLiteral("n3"))->displayArea.center().x(), 160);
+    const auto at = core::sharedPlaced(m)->placement;
+    ASSERT_TRUE(at);
+    EXPECT_DOUBLE_EQ(at->x, 140);
+    EXPECT_DOUBLE_EQ(at->y, 42);
+    // My other offline edit is kept as ever.
+    EXPECT_DOUBLE_EQ(brick(*merged, QStringLiteral("loose"))->displayArea.center().x(), 520);
+}
+
+// A quarter turn offline goes on top of the server's version too.
+TEST(LayoutMerge, ASharedModuleITurnedOfflineIsTurnedAgainOverTheServersVersion) {
+    const Snapshot base = withShared(7, { { "a", 0 }, { "b", 10 } }, QPointF(100, 50));
+    const Snapshot mine = withShared(7, { { "a", 0 }, { "b", 10 } }, QPointF(100, 50), 90);
+    const Snapshot server = withShared(8, { { "n1", 0 }, { "n2", 12 } }, QPointF(100, 50));
+    const QList<ItemChange> changes = compareLayouts(base, mine, server);
+    const auto merged = mergeLayouts(mine, server, changes, {});
+    ASSERT_TRUE(merged);
+    const core::Brick* n2 = brick(*merged, QStringLiteral("n2"));
+    ASSERT_TRUE(n2);
+    EXPECT_NEAR(n2->displayArea.center().x(), 100, 1e-9);
+    EXPECT_NEAR(n2->displayArea.center().y(), 62, 1e-9);
+    EXPECT_NEAR(n2->orientation, 90, 1e-6);
+    EXPECT_NEAR(n2->displayArea.width(), 2, 1e-9) << "its box turned with it";
+    EXPECT_NEAR(core::sharedPlaced(onlyModule(*merged))->placement->degrees, 90, 1e-9);
+}
+
+// The server updated it and I didn't touch it: simply the server's. And a
+// shared module only I moved (no update meanwhile) is my move, as for any module.
+TEST(LayoutMerge, ASharedModuleOnlyOneSideTouchedIsThatSides) {
+    const Snapshot base = withShared(7, { { "a", 0 }, { "b", 10 } }, QPointF(100, 50));
+    const Snapshot server = withShared(8, { { "n1", 0 } }, QPointF(100, 50));
+    auto changes = compareLayouts(base, base, server);
+    for (const auto& c : changes) EXPECT_EQ(c.status, Status::Server) << c.key.toStdString();
+    auto merged = mergeLayouts(base, server, changes, {});
+    ASSERT_TRUE(merged);
+    EXPECT_EQ(onlyModule(*merged).memberIds, QSet<QString>{ QStringLiteral("n1") });
+
+    const Snapshot mine = withShared(7, { { "a", 0 }, { "b", 10 } }, QPointF(132, 50));
+    changes = compareLayouts(base, mine, base);
+    for (const auto& c : changes) EXPECT_EQ(c.status, Status::Mine) << c.key.toStdString();
+    merged = mergeLayouts(mine, base, changes, {});
+    ASSERT_TRUE(merged);
+    EXPECT_DOUBLE_EQ(brick(*merged, QStringLiteral("a"))->displayArea.center().x(), 132);
+    EXPECT_DOUBLE_EQ(core::sharedPlaced(onlyModule(*merged))->placement->x, 132);
 }

@@ -2,6 +2,16 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en" sourcelanguage="en">
 <context>
+    <name>LibraryApi</name>
+    <message numerus="yes">
+        <source>Used in %n layout(s)</source>
+        <translation>
+            <numerusform>Used in %n layout</numerusform>
+            <numerusform>Used in %n layouts</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message numerus="yes">
         <source>Paint %n area cell(s)</source>
@@ -78,6 +88,44 @@
         <translation>
             <numerusform>Make %n set of their modules</numerusform>
             <numerusform>Make %n sets of their modules</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Skipped %n part(s) of shared modules: their parts stay as their owner made them.</source>
+        <translation>
+            <numerusform>Skipped %n part of shared modules: their parts stay as their owner made them.</numerusform>
+            <numerusform>Skipped %n parts of shared modules: their parts stay as their owner made them.</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>SharedModules</name>
+    <message numerus="yes">
+        <source>Overlaps %n part(s)</source>
+        <translation>
+            <numerusform>Overlaps %n part</numerusform>
+            <numerusform>Overlaps %n parts</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n shared module(s) have new versions.</source>
+        <translation>
+            <numerusform>%n shared module have new versions.</numerusform>
+            <numerusform>%n shared modules have new versions.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>It overlaps %n part(s).</source>
+        <translation>
+            <numerusform>It overlaps %n part.</numerusform>
+            <numerusform>It overlaps %n parts.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n track end(s) no longer meet.</source>
+        <translation>
+            <numerusform>%n track end no longer meet.</numerusform>
+            <numerusform>%n track ends no longer meet.</numerusform>
         </translation>
     </message>
 </context>
@@ -491,6 +539,13 @@
             <numerusform>Installed %n part packs; parts reloaded.</numerusform>
         </translation>
     </message>
+    <message numerus="yes">
+        <source>%n shared module(s) were updated.</source>
+        <translation>
+            <numerusform>%n shared module were updated.</numerusform>
+            <numerusform>%n shared modules were updated.</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MapView</name>
@@ -520,6 +575,16 @@
         <translation>
             <numerusform>Updated %n set to their newest versions. Undo (Ctrl+Z) puts them back.</numerusform>
             <numerusform>Updated %n sets to their newest versions. Undo (Ctrl+Z) puts them back.</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::ModuleShareDialog</name>
+    <message numerus="yes">
+        <source>Its %n layout(s) keep “%1” as it is now%2.</source>
+        <translation>
+            <numerusform>Its %n layout keep “%1” as it is now%2.</numerusform>
+            <numerusform>Its %n layouts keep “%1” as it is now%2.</numerusform>
         </translation>
     </message>
 </context>

@@ -16,8 +16,16 @@ namespace bld::sync {
 // The shared-document schema this build writes, and the oldest it reads
 // (the web's DOC_SCHEMA_VERSION / DOC_MIN_READABLE).
 // 2: doc shape 2 (DocShape.h). 3: a module's part changes are keys of
-// their own (ModuleMembers.h). Docs are still made in kDocBaseSchema.
-constexpr int kDocSchemaVersion = 3;
+// their own (ModuleMembers.h). 4: a module may be shared, read-only
+// (core/SharedModule.h). Docs are still made in kDocBaseSchema.
+constexpr int kDocSchemaVersion = 4;
+// The shape that has shared (read-only) modules: a doc moves to it with
+// its first one.
+constexpr int kDocShapeShared = 4;
+// The feature a server lists when its web app knows a shared module is
+// locked and the server applies its updates (compat/compat.json): only
+// there does the desktop offer "Shared with me" and make a shape 4 layout.
+constexpr char kSharedModulesFeature[] = "sharedModules";
 constexpr int kDocMinReadable = 1;
 
 // SyncSession::ended's code when the shared layout is in a form this

@@ -31,6 +31,9 @@ dialog.moduleLook
 module.edit
 module.make
 module.library
+module.shared
+module.sharedUpdates
+module.share
 module.sheets
 set.about
 set.sharing

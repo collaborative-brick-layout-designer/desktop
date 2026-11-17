@@ -71,6 +71,10 @@
         <source>Two people changing one module&apos;s parts at the same moment</source>
         <translation>Deux personnes modifient en même temps les pièces d&apos;un même module</translation>
     </message>
+    <message>
+        <source>Modules shared with you and your clubs, with their owner&apos;s updates</source>
+        <translation>Modules partagés avec vous et vos clubs, avec les mises à jour de leur propriétaire</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>
@@ -867,6 +871,42 @@
         <translation>Tapez un nombre à côté d’une pièce pour fixer sa limite. Le budget est enregistré avec le plan et partagé avec tous ceux qui le modifient. Un fichier de budget BlueBrick (.bbb) peut aussi être importé ou exporté.</translation>
     </message>
     <message>
+        <source>Shared modules</source>
+        <translation>Modules partagés</translation>
+    </message>
+    <message>
+        <source>A module shared with you or your club: place it, and it follows its owner’s updates.</source>
+        <translation>Un module partagé avec vous ou votre club : placez-le, et il suit les mises à jour de son propriétaire.</translation>
+    </message>
+    <message>
+        <source>You can move it, turn it, pin it, recolor its outline, duplicate it and remove it, always as a whole; its parts and its name stay as its owner made them. If its owner stops sharing it or deletes it, the copies already placed stay and just get no more updates. The layout’s owner (a club’s admins and managers) can choose Make it mine to unlock a copy, which then stops following its owner.</source>
+        <translation>Vous pouvez le déplacer, le tourner, l’épingler, recolorer son contour, le dupliquer et le retirer, toujours en entier ; ses pièces et son nom restent comme son propriétaire les a faits. Si son propriétaire cesse de le partager ou le supprime, les copies déjà placées restent et ne reçoivent simplement plus de mises à jour. Le propriétaire du plan (pour un plan de club, les admins et les gestionnaires) peut choisir « Me l’approprier » pour déverrouiller une copie, qui cesse alors de suivre son propriétaire.</translation>
+    </message>
+    <message>
+        <source>Updates from shared modules</source>
+        <translation>Mises à jour des modules partagés</translation>
+    </message>
+    <message>
+        <source>When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.</source>
+        <translation>Quand le propriétaire enregistre une nouvelle version, le plan vous le dit ; rien ne change tant que personne ne choisit « Mettre à jour ».</translation>
+    </message>
+    <message>
+        <source>Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back.</source>
+        <translation>« Mettre à jour » met la nouvelle version là où se trouve le module maintenant, pour tout le monde dans le plan en même temps. « Défaire » ne l’annule pas : choisissez « Revenir à la version » pour remettre la version précédente. Une mise à jour n’attend jamais qu’il y ait de la place ; si la nouvelle version chevauche d’autres pièces, déplacez-la ou déplacez ses voisines, ou revenez en arrière.</translation>
+    </message>
+    <message>
+        <source>Sharing a module</source>
+        <translation>Partager un module</translation>
+    </message>
+    <message>
+        <source>People and clubs you share with can place this module and get your updates; they can’t change its parts.</source>
+        <translation>Les personnes et les clubs avec qui vous partagez peuvent placer ce module et recevoir vos mises à jour ; ils ne peuvent pas changer ses pièces.</translation>
+    </message>
+    <message>
+        <source>Share with a person by email, or with a club you’re in so its members can place it in the club’s layouts; your own parts that it uses come along, to look at only. You see how many layouts use it and in which clubs, never the names of other people’s layouts. Stopping a share, or a club’s admins taking the module off their club, leaves the copies already placed as they are, with no more updates.</source>
+        <translation>Partagez avec une personne par e-mail, ou avec un club dont vous faites partie pour que ses membres puissent le placer dans les plans du club ; vos propres pièces qu’il utilise suivent, à regarder seulement. Vous voyez combien de plans l’utilisent et dans quels clubs, jamais les noms des plans des autres. Si vous cessez de partager, ou si les admins d’un club retirent le module de leur club, les copies déjà placées restent telles quelles, sans plus de mises à jour.</translation>
+    </message>
+    <message>
         <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
         <translation>Tout dans un seul fichier : pièces, feuilles, salle, étiquettes, modules et le budget.</translation>
     </message>
@@ -1336,6 +1376,28 @@
     </message>
 </context>
 <context>
+    <name>LibraryApi</name>
+    <message>
+        <source>shared with you</source>
+        <translation>partagé avec vous</translation>
+    </message>
+    <message>
+        <source>via %1</source>
+        <translation>via %1</translation>
+    </message>
+    <message>
+        <source>others: %1</source>
+        <translation>autres : %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Used in %n layout(s)</source>
+        <translation>
+            <numerusform>Utilisé dans %n plan</numerusform>
+            <numerusform>Utilisé dans %n plans</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>ModuleEdit</name>
     <message>
         <source>%1 is here too</source>
@@ -1588,6 +1650,10 @@
     <message>
         <source>Update module from the Module library</source>
         <translation>Mettre à jour le module depuis la bibliothèque de modules</translation>
+    </message>
+    <message>
+        <source>Make shared module mine</source>
+        <translation>M’approprier le module partagé</translation>
     </message>
     <message>
         <source>Ungroup module</source>
@@ -1888,6 +1954,13 @@
     <message>
         <source>Replaced %1 texts.</source>
         <translation>%1 textes remplacés.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Skipped %n part(s) of shared modules: their parts stay as their owner made them.</source>
+        <translation>
+            <numerusform>%n pièce de modules partagés ignorée : leurs pièces restent comme leur propriétaire les a faites.</numerusform>
+            <numerusform>%n pièces de modules partagés ignorées : leurs pièces restent comme leur propriétaire les a faites.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Sides</source>
@@ -2333,6 +2406,240 @@
     <message>
         <source>The server&apos;s close code: %1 (%2)</source>
         <translation>Code de fermeture du serveur : %1 (%2)</translation>
+    </message>
+</context>
+<context>
+    <name>SharedModule</name>
+    <message>
+        <source>This module</source>
+        <translation>Ce module</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>« %1 »</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its name is its owner&apos;s. You can move it, turn it and change its outline color.</source>
+        <translation>%1 est un module partagé, donc son nom est celui de son propriétaire. Vous pouvez le déplacer, le tourner et changer la couleur de son contour.</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so parts can&apos;t be added to it or taken out of it here.</source>
+        <translation>%1 est un module partagé, donc on ne peut pas y ajouter de pièces ni en retirer ici.</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so it stays one module. You can remove it from this layout, or its layout&apos;s owner can make it theirs.</source>
+        <translation>%1 est un module partagé, donc il reste un seul module. Vous pouvez le retirer de ce plan, ou le propriétaire de son plan peut se l’approprier.</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
+        <translation>%1 est un module partagé, donc ses rails ne peuvent pas être courbés ici. Vous pouvez déplacer et tourner le module entier.</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
+        <translation>%1 est un module partagé, donc ses pièces ne peuvent pas être changées ici. Vous pouvez le déplacer, le tourner ou le retirer en entier.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its name is %2&apos;s. You can move it, turn it and change its outline color.</source>
+        <translation>%1 est partagé par %2, donc son nom est celui de %2. Vous pouvez le déplacer, le tourner et changer la couleur de son contour.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so parts can&apos;t be added to it or taken out of it here.</source>
+        <translation>%1 est partagé par %2, donc on ne peut pas y ajouter de pièces ni en retirer ici.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so it stays one module. You can remove it from this layout, or its layout&apos;s owner can make it theirs.</source>
+        <translation>%1 est partagé par %2, donc il reste un seul module. Vous pouvez le retirer de ce plan, ou le propriétaire de son plan peut se l’approprier.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
+        <translation>%1 est partagé par %2, donc ses rails ne peuvent pas être courbés ici. Vous pouvez déplacer et tourner le module entier.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
+        <translation>%1 est partagé par %2, donc ses pièces ne peuvent pas être changées ici. Vous pouvez le déplacer, le tourner ou le retirer en entier.</translation>
+    </message>
+</context>
+<context>
+    <name>SharedModules</name>
+    <message>
+        <source>Shared</source>
+        <translation>Partagé</translation>
+    </message>
+    <message>
+        <source> · v%1</source>
+        <translation> · v%1</translation>
+    </message>
+    <message>
+        <source>No longer shared%1: no more updates</source>
+        <translation>N’est plus partagé%1 : plus de mises à jour</translation>
+    </message>
+    <message>
+        <source>Deleted by its owner%1: no more updates</source>
+        <translation>Supprimé par son propriétaire%1 : plus de mises à jour</translation>
+    </message>
+    <message>
+        <source>Shared%1</source>
+        <translation>Partagé%1</translation>
+    </message>
+    <message>
+        <source>Shared by %1%2</source>
+        <translation>Partagé par %1%2</translation>
+    </message>
+    <message>
+        <source>%1 · v%2 is ready</source>
+        <translation>%1 · v%2 est prête</translation>
+    </message>
+    <message>
+        <source>Changed outside the app</source>
+        <translation>Modifié en dehors de l’application</translation>
+    </message>
+    <message numerus="yes">
+        <source>Overlaps %n part(s)</source>
+        <translation>
+            <numerusform>Chevauche %n pièce</numerusform>
+            <numerusform>Chevauche %n pièces</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Can&apos;t check for updates (offline)</source>
+        <translation>Impossible de chercher des mises à jour (hors ligne)</translation>
+    </message>
+    <message>
+        <source>🔗 %1 ● v%2 is ready</source>
+        <translation>🔗 %1 ● v%2 est prête</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n shared module(s) have new versions.</source>
+        <translation>
+            <numerusform>%n module partagé a de nouvelles versions.</numerusform>
+            <numerusform>%n modules partagés ont de nouvelles versions.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>A shared module</source>
+        <translation>Un module partagé</translation>
+    </message>
+    <message>
+        <source>“%1” has a new version (v%2)</source>
+        <translation>« %1 » a une nouvelle version (v%2)</translation>
+    </message>
+    <message>
+        <source>“%1” has a new version from %2 (v%3)</source>
+        <translation>« %1 » a une nouvelle version de %2 (v%3)</translation>
+    </message>
+    <message>
+        <source>%1: “%2”.</source>
+        <translation>%1 : « %2 ».</translation>
+    </message>
+    <message>
+        <source>“%1” v%2</source>
+        <translation>« %1 » v%2</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>Module</translation>
+    </message>
+    <message numerus="yes">
+        <source>It overlaps %n part(s).</source>
+        <translation>
+            <numerusform>Il chevauche %n pièce.</numerusform>
+            <numerusform>Il chevauche %n pièces.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n track end(s) no longer meet.</source>
+        <translation>
+            <numerusform>%n extrémité de rail ne se rejoint plus.</numerusform>
+            <numerusform>%n extrémités de rail ne se rejoignent plus.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The shared module</source>
+        <translation>Le module partagé</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>« %1 »</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2.</source>
+        <translation>%1 est maintenant en version %2.</translation>
+    </message>
+    <message>
+        <source>%1 was updated.</source>
+        <translation>%1 a été mis à jour.</translation>
+    </message>
+    <message>
+        <source>its owner</source>
+        <translation>son propriétaire</translation>
+    </message>
+    <message>
+        <source>“%1” can&apos;t go in this layout yet</source>
+        <translation>« %1 » ne peut pas encore aller dans ce plan</translation>
+    </message>
+    <message>
+        <source>this club</source>
+        <translation>ce club</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with you, not with %3. Ask %1 to share it with the club.</source>
+        <translation>%1 a partagé « %2 » avec vous, pas avec %3. Demandez à %1 de le partager avec le club.</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with %3? I&apos;d like to place it in one of the club&apos;s layouts.</source>
+        <translation>Bonjour %1, pourriez-vous partager votre module « %2 » avec %3 ? J’aimerais le placer dans l’un des plans du club.</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with a club you&apos;re in, for the club&apos;s layouts, not with you. Ask %1 to share it with you too.</source>
+        <translation>%1 a partagé « %2 » avec un club dont vous faites partie, pour les plans du club, pas avec vous. Demandez à %1 de le partager aussi avec vous.</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with me as well? I&apos;d like to place it in one of my own layouts.</source>
+        <translation>Bonjour %1, pourriez-vous partager votre module « %2 » aussi avec moi ? J’aimerais le placer dans l’un de mes propres plans.</translation>
+    </message>
+    <message>
+        <source>this layout&apos;s owner</source>
+        <translation>le propriétaire de ce plan</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with you, not with %3. Ask %1 to share it with them.</source>
+        <translation>%1 a partagé « %2 » avec vous, pas avec %3. Demandez à %1 de le partager avec eux.</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with %3? I&apos;d like to place it in one of their layouts.</source>
+        <translation>Bonjour %1, pourriez-vous partager votre module « %2 » avec %3 ? J’aimerais le placer dans l’un de leurs plans.</translation>
+    </message>
+    <message>
+        <source>This module is no longer shared with this layout, so it stays at the version it has. You can remove it, or its owner can share it again.</source>
+        <translation>Ce module n’est plus partagé avec ce plan, donc il reste à la version qu’il a. Vous pouvez le retirer, ou son propriétaire peut le partager de nouveau.</translation>
+    </message>
+    <message>
+        <source>Its owner deleted this module, so it stays at the version it has.</source>
+        <translation>Son propriétaire a supprimé ce module, donc il reste à la version qu’il a.</translation>
+    </message>
+    <message>
+        <source>You can&apos;t see this module in the Module library, so you can&apos;t update it. Ask whoever added it.</source>
+        <translation>Vous ne voyez pas ce module dans la bibliothèque de modules, donc vous ne pouvez pas le mettre à jour. Demandez à la personne qui l’a ajouté.</translation>
+    </message>
+    <message>
+        <source>That module is no longer in this layout.</source>
+        <translation>Ce module n’est plus dans ce plan.</translation>
+    </message>
+    <message>
+        <source>This module doesn&apos;t follow a Module library module any more.</source>
+        <translation>Ce module ne suit plus un module de la bibliothèque de modules.</translation>
+    </message>
+    <message>
+        <source>That version isn&apos;t kept any more (the newest 20 are).</source>
+        <translation>Cette version n’est plus conservée (les 20 plus récentes le sont).</translation>
+    </message>
+    <message>
+        <source>This layout has no parts sheet to put the module on. Add a parts sheet first.</source>
+        <translation>Ce plan n’a pas de feuille de pièces où mettre le module. Ajoutez d’abord une feuille de pièces.</translation>
+    </message>
+    <message>
+        <source>Only the layout&apos;s owner can make a shared module theirs. In a club&apos;s layout, ask a club admin or manager.</source>
+        <translation>Seul le propriétaire du plan peut s’approprier un module partagé. Dans un plan de club, demandez à un admin ou gestionnaire du club.</translation>
     </message>
 </context>
 <context>
@@ -5189,6 +5496,46 @@ Enregistrer la mienne comme nouvelle version : la copie de ce plan devient le mo
         <translation>Lier le module à la bibliothèque de modules</translation>
     </message>
     <message>
+        <source>What Changed (Versions)…</source>
+        <translation>Ce qui a changé (versions)…</translation>
+    </message>
+    <message>
+        <source>It no longer follows its owner, so there is nothing new to see</source>
+        <translation>Il ne suit plus son propriétaire, donc il n’y a rien de nouveau à voir</translation>
+    </message>
+    <message>
+        <source>Update to Version %1</source>
+        <translation>Mettre à jour vers la version %1</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can update it</source>
+        <translation>Une personne qui peut modifier ce plan peut le mettre à jour</translation>
+    </message>
+    <message>
+        <source>Put Back the Owner&apos;s Version</source>
+        <translation>Remettre la version du propriétaire</translation>
+    </message>
+    <message>
+        <source>Put Back %1&apos;s Version</source>
+        <translation>Remettre la version de %1</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can do this</source>
+        <translation>Une personne qui peut modifier ce plan peut le faire</translation>
+    </message>
+    <message>
+        <source>Make It Mine…</source>
+        <translation>Me l’approprier…</translation>
+    </message>
+    <message>
+        <source>Unlock this copy. It stops following its owner.</source>
+        <translation>Déverrouiller cette copie. Elle cesse de suivre son propriétaire.</translation>
+    </message>
+    <message>
+        <source>Only the layout&apos;s owner can do this (in a club&apos;s layout, its admins and managers)</source>
+        <translation>Seul le propriétaire du plan peut le faire (dans un plan de club, ses admins et gestionnaires)</translation>
+    </message>
+    <message>
         <source>Save to Module library…</source>
         <translation>Enregistrer dans la bibliothèque de modules…</translation>
     </message>
@@ -5257,6 +5604,26 @@ Enregistrer la mienne comme nouvelle version : la copie de ce plan devient le mo
         <translation>« %1 » enregistré par-dessus %2</translation>
     </message>
     <message>
+        <source>The module</source>
+        <translation>Le module</translation>
+    </message>
+    <message>
+        <source>“%1” already matches the Module library.</source>
+        <translation>« %1 » correspond déjà à la bibliothèque de modules.</translation>
+    </message>
+    <message>
+        <source>Go Back to Version %1</source>
+        <translation>Revenir à la version %1</translation>
+    </message>
+    <message>
+        <source>Updated from the Module library</source>
+        <translation>Mis à jour depuis la bibliothèque de modules</translation>
+    </message>
+    <message>
+        <source>“%1” is now version %2, for everyone in this layout.</source>
+        <translation>« %1 » est maintenant en version %2, pour tout le monde dans ce plan.</translation>
+    </message>
+    <message>
         <source>this module</source>
         <translation>ce module</translation>
     </message>
@@ -5271,6 +5638,10 @@ Enregistrer la mienne comme nouvelle version : la copie de ce plan devient le mo
     <message>
         <source>This module was changed in this layout. Those changes are replaced by the Module library&apos;s version.</source>
         <translation>Ce module a été modifié dans ce plan. Ces changements sont remplacés par la version de la bibliothèque de modules.</translation>
+    </message>
+    <message>
+        <source>Its name, colors and place on the map stay. You can go back to the version it has now.</source>
+        <translation>Son nom, ses couleurs et sa place sur la carte restent. Vous pouvez revenir à la version qu’il a maintenant.</translation>
     </message>
     <message>
         <source>Its name, colors and place on the map stay. You can undo this.</source>
@@ -5879,8 +6250,179 @@ Enregistrer la mienne comme nouvelle version : la vôtre devient le module ; la 
         <translation>(sans titre)</translation>
     </message>
     <message>
+        <source>This module</source>
+        <translation>Ce module</translation>
+    </message>
+    <message>
+        <source>This module is shared</source>
+        <translation>Ce module est partagé</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n shared module(s) were updated.</source>
+        <translation>
+            <numerusform>%n module partagé a été mis à jour.</numerusform>
+            <numerusform>%n modules partagés ont été mis à jour.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>“%1” was changed outside the app</source>
+        <translation>« %1 » a été modifié en dehors de l’application</translation>
+    </message>
+    <message>
+        <source>Its parts aren&apos;t its owner&apos;s version %1 anymore: another app changed this layout. Put the owner&apos;s version back, or make the module yours.</source>
+        <translation>Ses pièces ne sont plus la version %1 du propriétaire : une autre application a modifié ce plan. Remettez la version du propriétaire, ou faites du module le vôtre.</translation>
+    </message>
+    <message>
+        <source>Its parts aren&apos;t %1&apos;s version %2 anymore: another app changed this layout. Put %1&apos;s version back, or make the module yours.</source>
+        <translation>Ses pièces ne sont plus la version %2 de %1 : une autre application a modifié ce plan. Remettez la version de %1, ou faites du module le vôtre.</translation>
+    </message>
+    <message>
+        <source>That didn&apos;t work</source>
+        <translation>Ça n’a pas marché</translation>
+    </message>
+    <message>
+        <source>“%1” already has version %2.</source>
+        <translation>« %1 » a déjà la version %2.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t reach this module&apos;s server</source>
+        <translation>Impossible de joindre le serveur de ce module</translation>
+    </message>
+    <message>
+        <source>Sign in to the server “%1” lives on, then try again.</source>
+        <translation>Connectez-vous au serveur où se trouve « %1 », puis réessayez.</translation>
+    </message>
+    <message>
+        <source>“%1” lives on %2. Sign in there (File › Servers…), then try again.</source>
+        <translation>« %1 » se trouve sur %2. Connectez-vous là-bas (Fichier › Serveurs…), puis réessayez.</translation>
+    </message>
+    <message>
+        <source>Put back the owner&apos;s version</source>
+        <translation>Remettre la version du propriétaire</translation>
+    </message>
+    <message>
+        <source>Update shared module</source>
+        <translation>Mettre à jour le module partagé</translation>
+    </message>
+    <message>
+        <source>Put the owner&apos;s version of “%1” back. Undo (Ctrl+Z) takes that back.</source>
+        <translation>Remettre la version du propriétaire de « %1 ». « Défaire » (Ctrl+Z) l’annule.</translation>
+    </message>
+    <message>
+        <source>Updated %1. %2 couldn&apos;t be updated: they are no longer shared.</source>
+        <translation>%1 mis à jour. %2 n’a pas pu être mis à jour : ils ne sont plus partagés.</translation>
+    </message>
+    <message>
+        <source>Mark shared module updates as seen</source>
+        <translation>Marquer les mises à jour des modules partagés comme vues</translation>
+    </message>
+    <message>
+        <source>Mark shared module update as seen</source>
+        <translation>Marquer la mise à jour du module partagé comme vue</translation>
+    </message>
+    <message>
+        <source>Make “%1” yours?</source>
+        <translation>Vous approprier « %1 » ?</translation>
+    </message>
+    <message>
+        <source>its owner</source>
+        <translation>son propriétaire</translation>
+    </message>
+    <message>
+        <source>It stops following %1: no more updates, and this can&apos;t be undone.</source>
+        <translation>Il cesse de suivre %1 : plus de mises à jour, et c’est irréversible.</translation>
+    </message>
+    <message>
+        <source>It stops following %1: no more updates.</source>
+        <translation>Il cesse de suivre %1 : plus de mises à jour.</translation>
+    </message>
+    <message>
+        <source>Its parts stay where they are, and you can change them like any module of this layout.</source>
+        <translation>Ses pièces restent où elles sont, et vous pouvez les modifier comme celles de n’importe quel module de ce plan.</translation>
+    </message>
+    <message>
+        <source>You can undo this.</source>
+        <translation>Vous pouvez annuler cela.</translation>
+    </message>
+    <message>
+        <source>Make It Mine</source>
+        <translation>Me l’approprier</translation>
+    </message>
+    <message>
+        <source>“%1” is now a module of this layout.</source>
+        <translation>« %1 » est maintenant un module de ce plan.</translation>
+    </message>
+    <message>
+        <source>Versions of “%1”</source>
+        <translation>Versions de « %1 »</translation>
+    </message>
+    <message>
+        <source>This layout has version %1. Putting another one in changes it for everyone in the layout.</source>
+        <translation>Ce plan a la version %1. En mettre une autre la change pour tout le monde dans le plan.</translation>
+    </message>
+    <message>
+        <source>%1 saves the versions. This layout has version %2. Putting another one in changes it for everyone in the layout.</source>
+        <translation>%1 enregistre les versions. Ce plan a la version %2. En mettre une autre la change pour tout le monde dans le plan.</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Chargement…</translation>
+    </message>
+    <message>
+        <source>No versions are kept for this module.</source>
+        <translation>Aucune version n’est conservée pour ce module.</translation>
+    </message>
+    <message>
+        <source>Version %1 (in this layout)</source>
+        <translation>Version %1 (dans ce plan)</translation>
+    </message>
+    <message>
+        <source>Version %1</source>
+        <translation>Version %1</translation>
+    </message>
+    <message>
         <source>“%1”</source>
         <translation>« %1 »</translation>
+    </message>
+    <message>
+        <source>No note</source>
+        <translation>Pas de note</translation>
+    </message>
+    <message>
+        <source>Update to This</source>
+        <translation>Mettre à jour vers celle-ci</translation>
+    </message>
+    <message>
+        <source>Go Back to This</source>
+        <translation>Revenir à celle-ci</translation>
+    </message>
+    <message>
+        <source>Shared modules</source>
+        <translation>Modules partagés</translation>
+    </message>
+    <message>
+        <source>Shared modules follow their owner&apos;s updates. You can move and turn them; their parts stay as the owner made them.</source>
+        <translation>Les modules partagés suivent les mises à jour de leur propriétaire. Vous pouvez les déplacer et les tourner ; leurs pièces restent comme le propriétaire les a faites.</translation>
+    </message>
+    <message>
+        <source>Copy a Message to Send</source>
+        <translation>Copier un message à envoyer</translation>
+    </message>
+    <message>
+        <source>Copied. Send it to %1.</source>
+        <translation>Copié. Envoyez-le à %1.</translation>
+    </message>
+    <message>
+        <source>the module&apos;s owner</source>
+        <translation>le propriétaire du module</translation>
+    </message>
+    <message>
+        <source>“%1” can&apos;t go in this layout</source>
+        <translation>« %1 » ne peut pas aller dans ce plan</translation>
+    </message>
+    <message>
+        <source>This layout is on %1, and “%2” is shared with you on %3. A shared module follows its owner only in layouts on its own server, or in a file on this computer.</source>
+        <translation>Ce plan est sur %1, et « %2 » est partagé avec vous sur %3. Un module partagé ne suit son propriétaire que dans les plans de son propre serveur, ou dans un fichier sur cet ordinateur.</translation>
     </message>
     <message>
         <source>The pasted part</source>
@@ -9091,6 +9633,96 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
 </context>
 <context>
+    <name>bld::ui::ModuleShareDialog</name>
+    <message>
+        <source>This module belongs to a club, so its members already have it. A club&apos;s module can&apos;t be shared with another club.</source>
+        <translation>Ce module appartient à un club, donc ses membres l’ont déjà. Le module d’un club ne peut pas être partagé avec un autre club.</translation>
+    </message>
+    <message>
+        <source>This module is shared with as many clubs as it can be. Stop sharing with one first.</source>
+        <translation>Ce module est partagé avec autant de clubs que possible. Cessez d’abord de le partager avec l’un d’eux.</translation>
+    </message>
+    <message>
+        <source>It isn&apos;t shared with that club any more.</source>
+        <translation>Il n’est plus partagé avec ce club.</translation>
+    </message>
+    <message>
+        <source> (version %1)</source>
+        <translation> (version %1)</translation>
+    </message>
+    <message>
+        <source>Stop sharing with %1?</source>
+        <translation>Cesser de partager avec %1 ?</translation>
+    </message>
+    <message numerus="yes">
+        <source>Its %n layout(s) keep “%1” as it is now%2.</source>
+        <translation>
+            <numerusform>Son %n plan garde « %1 » tel qu’il est maintenant%2.</numerusform>
+            <numerusform>Ses %n plans gardent « %1 » tel qu’il est maintenant%2.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nothing changes in any layout: “%1” isn&apos;t placed in one of theirs.</source>
+        <translation>Rien ne change dans aucun plan : « %1 » n’est placé dans aucun des leurs.</translation>
+    </message>
+    <message>
+        <source>They won&apos;t get your updates anymore, and can&apos;t place it again.</source>
+        <translation>Ils ne recevront plus vos mises à jour et ne pourront plus le placer.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Arrêter</translation>
+    </message>
+    <message>
+        <source>Share “%1”</source>
+        <translation>Partager « %1 »</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. Its members can&apos;t change its parts.</source>
+        <translation>Un club avec qui vous partagez peut placer ce module dans les plans du club et reçoit vos mises à jour. Ses membres ne peuvent pas changer ses pièces.</translation>
+    </message>
+    <message>
+        <source>Share with a club</source>
+        <translation>Partager avec un club</translation>
+    </message>
+    <message>
+        <source>Share</source>
+        <translation>Partager</translation>
+    </message>
+    <message>
+        <source>To share with one person by email, open this module on the website.</source>
+        <translation>Pour partager avec une personne par e-mail, ouvrez ce module sur le site web.</translation>
+    </message>
+    <message>
+        <source>Open on the Website</source>
+        <translation>Ouvrir sur le site web</translation>
+    </message>
+    <message>
+        <source>This is a club&apos;s module: its members already have it.</source>
+        <translation>C’est le module d’un club : ses membres l’ont déjà.</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. You&apos;re not in a club yet: join or start one to share with it.</source>
+        <translation>Un club avec qui vous partagez peut placer ce module dans les plans du club et reçoit vos mises à jour. Vous n’êtes pas encore dans un club : rejoignez-en un ou créez-en un pour partager avec lui.</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. Its members can&apos;t change its parts. It&apos;s shared with every club you&apos;re in.</source>
+        <translation>Un club avec qui vous partagez peut placer ce module dans les plans du club et reçoit vos mises à jour. Ses membres ne peuvent pas changer ses pièces. Il est partagé avec chaque club dont vous faites partie.</translation>
+    </message>
+    <message>
+        <source>Pick a club…</source>
+        <translation>Choisir un club…</translation>
+    </message>
+    <message>
+        <source>%1 (club) · can place it</source>
+        <translation>%1 (club) · peut le placer</translation>
+    </message>
+    <message>
+        <source>Stop sharing with %1</source>
+        <translation>Cesser de partager avec %1</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::ModulesPanel</name>
     <message>
         <source>Modules</source>
@@ -9993,6 +10625,54 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Aucun module ne correspond.</translation>
     </message>
     <message>
+        <source>Whose modules</source>
+        <translation>À qui sont les modules</translation>
+    </message>
+    <message>
+        <source>Mine</source>
+        <translation>Les miens</translation>
+    </message>
+    <message>
+        <source>Clubs</source>
+        <translation>Clubs</translation>
+    </message>
+    <message>
+        <source>Shared with me</source>
+        <translation>Partagés avec moi</translation>
+    </message>
+    <message>
+        <source>Take “%1” off %2?</source>
+        <translation>Retirer « %1 » de %2 ?</translation>
+    </message>
+    <message>
+        <source>The club&apos;s layouts keep it as it is now.</source>
+        <translation>Les plans du club le gardent tel qu’il est maintenant.</translation>
+    </message>
+    <message>
+        <source>The club gets no more updates of it, and its members can&apos;t place it again. Its owner is told.</source>
+        <translation>Le club ne reçoit plus de mises à jour, et ses membres ne peuvent plus le placer. Son propriétaire est prévenu.</translation>
+    </message>
+    <message>
+        <source>The club gets no more updates of it, and its members can&apos;t place it again. %1 is told.</source>
+        <translation>Le club ne reçoit plus de mises à jour, et ses membres ne peuvent plus le placer. %1 est prévenu.</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Retirer</translation>
+    </message>
+    <message>
+        <source>Modules other people shared with you or your clubs. Place one, and it follows its owner&apos;s updates.</source>
+        <translation>Les modules que d’autres personnes ont partagés avec vous ou vos clubs. Placez-en un, et il suit les mises à jour de son propriétaire.</translation>
+    </message>
+    <message>
+        <source>Nothing is shared with you yet. When someone shares a module with you or one of your clubs, it shows here, ready to place.</source>
+        <translation>Rien n’est encore partagé avec vous. Quand quelqu’un partage un module avec vous ou l’un de vos clubs, il apparaît ici, prêt à placer.</translation>
+    </message>
+    <message>
+        <source>Your clubs have no modules yet.</source>
+        <translation>Vos clubs n’ont pas encore de modules.</translation>
+    </message>
+    <message>
         <source>A club</source>
         <translation>Un club</translation>
     </message>
@@ -10049,6 +10729,14 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Renommer…</translation>
     </message>
     <message>
+        <source>Share with a Club…</source>
+        <translation>Partager avec un club…</translation>
+    </message>
+    <message>
+        <source>A club you share with can place it in the club&apos;s layouts and gets your updates.</source>
+        <translation>Un club avec qui vous partagez peut le placer dans les plans du club et reçoit vos mises à jour.</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Reprendre pour moi…</translation>
     </message>
@@ -10067,6 +10755,30 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Delete…</source>
         <translation>Supprimer…</translation>
+    </message>
+    <message>
+        <source>A shared module goes in a layout, not inside another module.</source>
+        <translation>Un module partagé va dans un plan, pas dans un autre module.</translation>
+    </message>
+    <message>
+        <source>Remove from %1…</source>
+        <translation>Retirer de %1…</translation>
+    </message>
+    <message>
+        <source>Take this module off the club&apos;s list. Copies already placed stay as they are.</source>
+        <translation>Retire ce module de la liste du club. Les copies déjà placées restent telles quelles.</translation>
+    </message>
+    <message>
+        <source>“%1” is off %2&apos;s list.</source>
+        <translation>« %1 » n’est plus dans la liste de %2.</translation>
+    </message>
+    <message>
+        <source>Remove from club</source>
+        <translation>Retirer du club</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t remove “%1”: %2</source>
+        <translation>Impossible de retirer « %1 » : %2</translation>
     </message>
     <message>
         <source>Renamed to &quot;%1&quot;</source>
@@ -11366,6 +12078,25 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Sent for review. A moderator looks at it before it appears in the catalog.</source>
         <translation>Envoyé pour vérification. Un modérateur le regarde avant qu’il apparaisse dans le catalogue.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::SharedModulesBar</name>
+    <message>
+        <source>Shared modules</source>
+        <translation>Modules partagés</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can update it.</source>
+        <translation>Une personne qui peut modifier ce plan peut le mettre à jour.</translation>
+    </message>
+    <message>
+        <source>Go back to version %1</source>
+        <translation>Revenir à la version %1</translation>
     </message>
 </context>
 <context>

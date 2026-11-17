@@ -1,3 +1,4 @@
+#include "../core/SharedModule.h"
 #include "FindDialog.h"
 #include "MapView.h"
 
@@ -248,6 +249,11 @@ FindDialog::FindDialog(MapView& view, QWidget* parent)
         }
 
         int replaced = 0;
+        // Parts of shared (read-only) modules are their owner's: skipped, and the result says how many.
+        int skippedShared = 0;
+        QSet<QString> lockedParts;
+        for (const auto& m : map->sidecar.modules)
+            if (core::isSharedModule(m)) lockedParts.unite(m.memberIds);
         view.undoStack()->beginMacro(QObject::tr("Find & Replace"));
         if (scope->currentIndex() == 1) {
             for (int li = 0; li < static_cast<int>(map->layers().size()); ++li) {
@@ -274,6 +280,10 @@ FindDialog::FindDialog(MapView& view, QWidget* parent)
                     if (!matchesPart(needle, b.partNumber, cs)) continue;
                     const QString next = newPartNumber(b.partNumber, needle, with, cs);
                     if (next.isEmpty()) continue;
+                    if (lockedParts.contains(b.guid)) {
+                        ++skippedShared;
+                        continue;
+                    }
                     edit::EditBrickCommand::State before{
                         b.partNumber, b.displayArea.topLeft(),
                         b.orientation, b.altitude, b.activeConnectionPointIndex };
@@ -289,9 +299,14 @@ FindDialog::FindDialog(MapView& view, QWidget* parent)
         }
         view.undoStack()->endMacro();
         const bool parts = scope->currentIndex() == 0;
-        status->setText(replaced == 0 ? QObject::tr("Nothing changed.")
-                        : parts ? (replaced == 1 ? QObject::tr("Replaced 1 part.") : QObject::tr("Replaced %1 parts.").arg(replaced))
-                                : (replaced == 1 ? QObject::tr("Replaced 1 text.") : QObject::tr("Replaced %1 texts.").arg(replaced)));
+        QString said = replaced == 0 ? QObject::tr("Nothing changed.")
+                       : parts ? (replaced == 1 ? QObject::tr("Replaced 1 part.") : QObject::tr("Replaced %1 parts.").arg(replaced))
+                               : (replaced == 1 ? QObject::tr("Replaced 1 text.") : QObject::tr("Replaced %1 texts.").arg(replaced));
+        if (skippedShared > 0)
+            said += QLatin1Char(' ')
+                    + QObject::tr("Skipped %n part(s) of shared modules: their parts stay as their owner made them.", nullptr,
+                                  skippedShared);
+        status->setText(said);
     };
     connect(replaceBtn, &QPushButton::clicked, this, [doReplace]{ doReplace(false); });
     connect(replaceAllBtn, &QPushButton::clicked, this, [doReplace]{ doReplace(true); });

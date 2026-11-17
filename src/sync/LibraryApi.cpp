@@ -1,4 +1,6 @@
 #include "LibraryApi.h"
+
+#include <QCoreApplication>
 #include "ServerApi.h"
 #include "ClubLogos.h"
 
@@ -120,6 +122,99 @@ ServerModule LibraryApi::moduleFromJson(const QJsonObject& o) {
     return m;
 }
 
+namespace {
+ClubRef clubRefOf(const QJsonObject& o) {
+    ClubRef c;
+    c.id = o.value(QLatin1String("orgId")).toString(o.value(QLatin1String("id")).toString());
+    if (c.id.isEmpty()) c.id = o.value(QLatin1String("userId")).toString();
+    c.name = o.value(QLatin1String("name")).toString();
+    c.slug = o.value(QLatin1String("slug")).toString();
+    c.layouts = intOf(o.value(QLatin1String("layouts")));
+    return c;
+}
+SharedPlaceCheck::Owner checkOwnerOf(const QJsonObject& o) {
+    return { o.value(QLatin1String("kind")).toString(), o.value(QLatin1String("name")).toString(),
+             o.value(QLatin1String("mine")).toBool(false) };
+}
+struct SharingText { Q_DECLARE_TR_FUNCTIONS(LibraryApi) };
+}  // namespace
+
+QString ServerModule::sharedViaText() const {
+    QStringList clubs;
+    for (const auto& c : sharedClubs) clubs << c.name;
+    const QString via = clubs.isEmpty() ? SharingText::tr("shared with you")
+                                        : SharingText::tr("via %1").arg(clubs.join(QStringLiteral(", ")));
+    return owner.name.isEmpty() ? via : QStringLiteral("%1 · %2").arg(owner.name, via);
+}
+
+QString ModuleShares::usedInText() const {
+    if (usedIn.layouts <= 0) return {};
+    QStringList parts;
+    for (const auto& c : usedIn.clubs) parts << QStringLiteral("%1: %2").arg(c.name).arg(c.layouts);
+    for (const auto& p : usedIn.people) parts << QStringLiteral("%1: %2").arg(p.name).arg(p.layouts);
+    if (usedIn.others > 0) parts << SharingText::tr("others: %1").arg(usedIn.others);
+    const QString used = SharingText::tr("Used in %n layout(s)", nullptr, usedIn.layouts);
+    return parts.isEmpty() ? used : QStringLiteral("%1 (%2)").arg(used, parts.join(QStringLiteral(", ")));
+}
+
+int ModuleShares::layoutsOf(const QString& orgId) const {
+    for (const auto& c : usedIn.clubs)
+        if (c.id == orgId) return c.layouts;
+    return 0;
+}
+
+const LayoutSharedModule* LayoutSharedModules::row(const QString& placedId) const {
+    for (const auto& m : modules)
+        if (m.placedId == placedId) return &m;
+    return nullptr;
+}
+
+ModuleShares LibraryApi::moduleSharesFromJson(const QJsonObject& o) {
+    ModuleShares out;
+    out.latestVersion = intOf(o.value(QLatin1String("latestVersion")));
+    out.canShareWithClubs = o.value(QLatin1String("canShareWithClubs")).toBool(true);
+    for (const auto& v : o.value(QLatin1String("clubs")).toArray()) out.clubs << clubRefOf(v.toObject());
+    for (const auto& v : o.value(QLatin1String("myClubs")).toArray()) out.myClubs << clubRefOf(v.toObject());
+    for (const auto& v : o.value(QLatin1String("people")).toArray())
+        if (v.toObject().value(QLatin1String("role")).toString() != QLatin1String("owner")) ++out.people;
+    const QJsonObject used = o.value(QLatin1String("usedIn")).toObject();
+    out.usedIn.layouts = intOf(used.value(QLatin1String("layouts")));
+    out.usedIn.others = intOf(used.value(QLatin1String("others")));
+    for (const auto& v : used.value(QLatin1String("clubs")).toArray()) out.usedIn.clubs << clubRefOf(v.toObject());
+    for (const auto& v : used.value(QLatin1String("people")).toArray()) out.usedIn.people << clubRefOf(v.toObject());
+    return out;
+}
+
+LayoutSharedModules LibraryApi::layoutSharedModulesFromJson(const QJsonObject& o) {
+    LayoutSharedModules out;
+    out.canUpdate = o.value(QLatin1String("canUpdate")).toBool(false);
+    out.canDetach = o.value(QLatin1String("canDetach")).toBool(false);
+    for (const auto& v : o.value(QLatin1String("modules")).toArray()) {
+        const QJsonObject m = v.toObject();
+        LayoutSharedModule row;
+        row.placedId = m.value(QLatin1String("placedId")).toString();
+        row.moduleId = m.value(QLatin1String("moduleId")).toString();
+        row.state = m.value(QLatin1String("state")).toString();
+        row.version = intOf(m.value(QLatin1String("version")));
+        row.title = m.value(QLatin1String("title")).toString();
+        row.ownerName = m.value(QLatin1String("owner")).toObject().value(QLatin1String("name")).toString();
+        row.latest = intOf(m.value(QLatin1String("latest")));
+        row.latestNote = m.value(QLatin1String("latestNote")).toString();
+        out.modules << row;
+    }
+    if (const QJsonValue c = o.value(QLatin1String("check")); c.isObject()) {
+        const QJsonObject co = c.toObject();
+        SharedPlaceCheck check;
+        check.moduleId = co.value(QLatin1String("moduleId")).toString();
+        check.state = co.value(QLatin1String("state")).toString();
+        check.title = co.value(QLatin1String("title")).toString();
+        check.moduleOwner = checkOwnerOf(co.value(QLatin1String("moduleOwner")).toObject());
+        check.layoutOwner = checkOwnerOf(co.value(QLatin1String("layoutOwner")).toObject());
+        out.check = check;
+    }
+    return out;
+}
+
 ServerPart LibraryApi::partFromJson(const QJsonObject& o) {
     ServerPart p;
     p.id = o.value(QLatin1String("id")).toString();
@@ -180,6 +275,131 @@ void LibraryApi::listModules(std::function<void(const QList<ServerModule>&)> don
         for (const auto& v : o.value(QLatin1String("modules")).toArray()) out << moduleFromJson(v.toObject());
         if (done) done(out);
     }, std::move(failed));
+}
+
+void LibraryApi::sharedWithMe(std::function<void(const QList<ServerModule>&)> done, Fail failed) {
+    sendJson("GET", QStringLiteral("/api/modules?owner=shared"), {}, [done = std::move(done)](const QJsonObject& o) {
+        QList<ServerModule> out;
+        for (const auto& v : o.value(QLatin1String("modules")).toArray()) {
+            const QJsonObject mo = v.toObject();
+            ServerModule m = moduleFromJson(mo);
+            const QJsonObject via = mo.value(QLatin1String("sharedVia")).toObject();
+            m.sharedWithMe = true;
+            m.sharedDirect = via.value(QLatin1String("direct")).toBool(false);
+            for (const auto& c : via.value(QLatin1String("clubs")).toArray()) m.sharedClubs << clubRefOf(c.toObject());
+            out << m;
+        }
+        if (done) done(out);
+    }, std::move(failed));
+}
+
+void LibraryApi::moduleShares(const QString& id, std::function<void(const ModuleShares&)> done, Fail failed) {
+    sendJson("GET", QStringLiteral("/api/modules/%1/shares").arg(idPath(id)), {},
+             [done = std::move(done)](const QJsonObject& o) {
+                 if (done) done(moduleSharesFromJson(o));
+             },
+             std::move(failed));
+}
+
+void LibraryApi::shareWithClub(const QString& id, const QString& orgSlug, std::function<void()> done, Fail failed) {
+    sendJson("POST", QStringLiteral("/api/modules/%1/club-shares").arg(idPath(id)),
+             QJsonObject{ { QStringLiteral("orgSlug"), orgSlug } },
+             [done = std::move(done)](const QJsonObject&) {
+                 if (done) done();
+             },
+             std::move(failed));
+}
+
+void LibraryApi::stopClubShare(const QString& id, const QString& orgId, std::function<void()> done, Fail failed) {
+    send("DELETE", QStringLiteral("/api/modules/%1/club-shares/%2").arg(idPath(id), idPath(orgId)), {}, {},
+         [done = std::move(done)](QNetworkReply*) {
+             if (done) done();
+         },
+         std::move(failed));
+}
+
+void LibraryApi::layoutSharedModules(const QString& layoutId, const QString& checkModuleId,
+                                     std::function<void(const LayoutSharedModules&)> done, Fail failed) {
+    QString path = QStringLiteral("/api/layouts/%1/shared-modules").arg(idPath(layoutId));
+    if (!checkModuleId.isEmpty())
+        path += QStringLiteral("?check=") + QString::fromLatin1(QUrl::toPercentEncoding(checkModuleId));
+    sendJson("GET", path, {},
+             [done = std::move(done)](const QJsonObject& o) {
+                 if (done) done(layoutSharedModulesFromJson(o));
+             },
+             std::move(failed));
+}
+
+void LibraryApi::sharedModuleVersions(const QString& layoutId, const QString& placedId,
+                                      std::function<void(const QList<SharedModuleVersion>&)> done, Fail failed) {
+    sendJson("GET", QStringLiteral("/api/layouts/%1/shared-modules/%2/versions").arg(idPath(layoutId), idPath(placedId)),
+             {},
+             [done = std::move(done)](const QJsonObject& o) {
+                 QList<SharedModuleVersion> out;
+                 for (const auto& v : o.value(QLatin1String("versions")).toArray()) {
+                     const QJsonObject vo = v.toObject();
+                     SharedModuleVersion ver;
+                     ver.version = intOf(vo.value(QLatin1String("version")));
+                     ver.note = vo.value(QLatin1String("note")).toString();
+                     ver.author = vo.value(QLatin1String("author")).toString();
+                     ver.createdAt = timeOf(vo.value(QLatin1String("createdAt")));
+                     out << ver;
+                 }
+                 if (done) done(out);
+             },
+             std::move(failed));
+}
+
+void LibraryApi::sharedModuleVersionSnapshot(const QString& layoutId, const QString& placedId, int version,
+                                             std::function<void(const QByteArray&)> done, Fail failed) {
+    send("GET",
+         QStringLiteral("/api/layouts/%1/shared-modules/%2/versions/%3/snapshot")
+             .arg(idPath(layoutId), idPath(placedId))
+             .arg(version),
+         {}, {},
+         [done = std::move(done)](QNetworkReply* r) {
+             if (done) done(r->readAll());
+         },
+         std::move(failed));
+}
+
+void LibraryApi::applySharedModule(const QString& layoutId, const QString& placedId, int version, bool again,
+                                   std::function<void(const SharedModuleApplied&)> done, Fail failed) {
+    QJsonObject body;
+    if (version > 0) body.insert(QStringLiteral("version"), version);
+    if (again) body.insert(QStringLiteral("again"), true);
+    sendJson("POST", QStringLiteral("/api/layouts/%1/shared-modules/%2/apply").arg(idPath(layoutId), idPath(placedId)),
+             body,
+             [done = std::move(done), placedId](const QJsonObject& o) {
+                 SharedModuleApplied a;
+                 a.placedId = o.value(QLatin1String("placedId")).toString(placedId);
+                 a.changed = o.value(QLatin1String("changed")).toBool(false);
+                 a.version = intOf(o.value(QLatin1String("version")));
+                 a.from = intOf(o.value(QLatin1String("from")));
+                 a.parts = intOf(o.value(QLatin1String("parts")));
+                 if (done) done(a);
+             },
+             std::move(failed));
+}
+
+void LibraryApi::applyAllSharedModules(const QString& layoutId, std::function<void(int, int)> done, Fail failed) {
+    sendJson("POST", QStringLiteral("/api/layouts/%1/shared-modules/apply-all").arg(idPath(layoutId)), QJsonObject{},
+             [done = std::move(done)](const QJsonObject& o) {
+                 if (done)
+                     done(static_cast<int>(o.value(QLatin1String("updated")).toArray().size()),
+                          static_cast<int>(o.value(QLatin1String("skipped")).toArray().size()));
+             },
+             std::move(failed));
+}
+
+void LibraryApi::detachSharedModule(const QString& layoutId, const QString& placedId,
+                                    std::function<void(bool)> done, Fail failed) {
+    sendJson("POST", QStringLiteral("/api/layouts/%1/shared-modules/%2/detach").arg(idPath(layoutId), idPath(placedId)),
+             QJsonObject{},
+             [done = std::move(done)](const QJsonObject& o) {
+                 if (done) done(o.value(QLatin1String("changed")).toBool(false));
+             },
+             std::move(failed));
 }
 
 void LibraryApi::moduleSnapshot(const QString& id, std::function<void(const QByteArray&)> done, Fail failed) {

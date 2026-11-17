@@ -71,6 +71,10 @@
         <source>Two people changing one module&apos;s parts at the same moment</source>
         <translation>2人が同じモジュールのパーツを同時に変更</translation>
     </message>
+    <message>
+        <source>Modules shared with you and your clubs, with their owner&apos;s updates</source>
+        <translation>あなたやクラブと共有されたモジュールです。持ち主の更新も届きます</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>
@@ -867,6 +871,42 @@
         <translation>パーツの横に数を入力すると上限になります。予算はレイアウトと一緒に保存され、編集する全員と共有されます。BlueBrick の予算ファイル (.bbb) の読み込みと書き出しもできます。</translation>
     </message>
     <message>
+        <source>Shared modules</source>
+        <translation>共有モジュール</translation>
+    </message>
+    <message>
+        <source>A module shared with you or your club: place it, and it follows its owner’s updates.</source>
+        <translation>あなたやクラブと共有されたモジュールです。置くと、持ち主の更新に追従します。</translation>
+    </message>
+    <message>
+        <source>You can move it, turn it, pin it, recolor its outline, duplicate it and remove it, always as a whole; its parts and its name stay as its owner made them. If its owner stops sharing it or deletes it, the copies already placed stay and just get no more updates. The layout’s owner (a club’s admins and managers) can choose Make it mine to unlock a copy, which then stops following its owner.</source>
+        <translation>移動、回転、固定、枠線の色の変更、複製、削除ができます。いつもモジュール全体が対象で、パーツと名前は持ち主が作ったままです。持ち主が共有をやめたり削除したりしても、すでに置いたコピーは残り、更新が届かなくなるだけです。レイアウトの持ち主（クラブのレイアウトでは管理者とマネージャー）は「自分のものにする」を選んでコピーのロックを解除できます。解除したコピーは、持ち主に追従しなくなります。</translation>
+    </message>
+    <message>
+        <source>Updates from shared modules</source>
+        <translation>共有モジュールの更新</translation>
+    </message>
+    <message>
+        <source>When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.</source>
+        <translation>持ち主が新しいバージョンを保存すると、レイアウトでお知らせします。だれかが「更新」を選ぶまで、何も変わりません。</translation>
+    </message>
+    <message>
+        <source>Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back.</source>
+        <translation>「更新」を選ぶと、モジュールが今ある場所に新しいバージョンが入り、レイアウトの全員に同時に反映されます。「元に戻す」では取り消せません。前のバージョンに戻すには「バージョンに戻す」を選んでください。更新は空きができるのを待ちません。新しいバージョンがほかのパーツと重なったら、そのモジュールや隣のパーツを動かすか、元のバージョンに戻してください。</translation>
+    </message>
+    <message>
+        <source>Sharing a module</source>
+        <translation>モジュールを共有する</translation>
+    </message>
+    <message>
+        <source>People and clubs you share with can place this module and get your updates; they can’t change its parts.</source>
+        <translation>共有した相手やクラブは、このモジュールを置いて、あなたの更新を受け取れます。パーツは変更できません。</translation>
+    </message>
+    <message>
+        <source>Share with a person by email, or with a club you’re in so its members can place it in the club’s layouts; your own parts that it uses come along, to look at only. You see how many layouts use it and in which clubs, never the names of other people’s layouts. Stopping a share, or a club’s admins taking the module off their club, leaves the copies already placed as they are, with no more updates.</source>
+        <translation>メールで個人と共有するか、自分が入っているクラブと共有すると、そのメンバーがクラブのレイアウトにモジュールを置けます。使われているあなたのパーツもいっしょに渡りますが、見るだけです。いくつのレイアウトで、どのクラブで使われているかは分かりますが、ほかの人のレイアウト名は表示されません。共有をやめたり、クラブの管理者がクラブからモジュールを外したりしても、すでに置いたコピーはそのまま残り、更新だけが届かなくなります。</translation>
+    </message>
+    <message>
         <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
         <translation>すべてが一つのファイルに: パーツ、シート、会場、ラベル、モジュール、予算。</translation>
     </message>
@@ -1336,6 +1376,27 @@
     </message>
 </context>
 <context>
+    <name>LibraryApi</name>
+    <message>
+        <source>shared with you</source>
+        <translation>あなたと共有</translation>
+    </message>
+    <message>
+        <source>via %1</source>
+        <translation>%1 経由</translation>
+    </message>
+    <message>
+        <source>others: %1</source>
+        <translation>ほか: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Used in %n layout(s)</source>
+        <translation>
+            <numerusform>%n 個のレイアウトで使用中</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>ModuleEdit</name>
     <message>
         <source>%1 is here too</source>
@@ -1578,6 +1639,10 @@
     <message>
         <source>Update module from the Module library</source>
         <translation>モジュールライブラリからモジュールを更新</translation>
+    </message>
+    <message>
+        <source>Make shared module mine</source>
+        <translation>共有モジュールを自分のものにする</translation>
     </message>
     <message>
         <source>Ungroup module</source>
@@ -1878,6 +1943,12 @@
     <message>
         <source>Replaced %1 texts.</source>
         <translation>テキスト %1 件を置き換えました。</translation>
+    </message>
+    <message numerus="yes">
+        <source>Skipped %n part(s) of shared modules: their parts stay as their owner made them.</source>
+        <translation>
+            <numerusform>共有モジュールのパーツ %n 個をスキップしました。パーツは持ち主が作ったままです。</numerusform>
+        </translation>
     </message>
     <message>
         <source>Sides</source>
@@ -2322,6 +2393,236 @@
     <message>
         <source>The server&apos;s close code: %1 (%2)</source>
         <translation>サーバーの終了コード: %1（%2）</translation>
+    </message>
+</context>
+<context>
+    <name>SharedModule</name>
+    <message>
+        <source>This module</source>
+        <translation>このモジュール</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>「%1」</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its name is its owner&apos;s. You can move it, turn it and change its outline color.</source>
+        <translation>%1 は共有モジュールなので、名前は持ち主のものです。移動、回転、枠線の色の変更ができます。</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so parts can&apos;t be added to it or taken out of it here.</source>
+        <translation>%1 は共有モジュールなので、ここではパーツの追加も取り外しもできません。</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so it stays one module. You can remove it from this layout, or its layout&apos;s owner can make it theirs.</source>
+        <translation>%1 は共有モジュールなので、1つのモジュールのままです。このレイアウトから削除するか、元のレイアウトの持ち主が自分のものにできます。</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
+        <translation>%1 は共有モジュールなので、ここでは線路を曲げられません。モジュール全体の移動と回転はできます。</translation>
+    </message>
+    <message>
+        <source>%1 is a shared module, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
+        <translation>%1 は共有モジュールなので、ここではパーツを変更できません。モジュール全体の移動、回転、削除はできます。</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its name is %2&apos;s. You can move it, turn it and change its outline color.</source>
+        <translation>%1 は %2 が共有しているので、名前は %2 のものです。移動、回転、枠線の色の変更ができます。</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so parts can&apos;t be added to it or taken out of it here.</source>
+        <translation>%1 は %2 が共有しているので、ここではパーツの追加も取り外しもできません。</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so it stays one module. You can remove it from this layout, or its layout&apos;s owner can make it theirs.</source>
+        <translation>%1 は %2 が共有しているので、1つのモジュールのままです。このレイアウトから削除するか、元のレイアウトの持ち主が自分のものにできます。</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
+        <translation>%1 は %2 が共有しているので、ここでは線路を曲げられません。モジュール全体の移動と回転はできます。</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
+        <translation>%1 は %2 が共有しているので、ここではパーツを変更できません。モジュール全体の移動、回転、削除はできます。</translation>
+    </message>
+</context>
+<context>
+    <name>SharedModules</name>
+    <message>
+        <source>Shared</source>
+        <translation>共有</translation>
+    </message>
+    <message>
+        <source> · v%1</source>
+        <translation> · v%1</translation>
+    </message>
+    <message>
+        <source>No longer shared%1: no more updates</source>
+        <translation>共有は終了しました%1：更新は届きません</translation>
+    </message>
+    <message>
+        <source>Deleted by its owner%1: no more updates</source>
+        <translation>持ち主が削除しました%1：更新は届きません</translation>
+    </message>
+    <message>
+        <source>Shared%1</source>
+        <translation>共有%1</translation>
+    </message>
+    <message>
+        <source>Shared by %1%2</source>
+        <translation>%1 が共有%2</translation>
+    </message>
+    <message>
+        <source>%1 · v%2 is ready</source>
+        <translation>%1 · v%2 が利用できます</translation>
+    </message>
+    <message>
+        <source>Changed outside the app</source>
+        <translation>アプリの外で変更されました</translation>
+    </message>
+    <message numerus="yes">
+        <source>Overlaps %n part(s)</source>
+        <translation>
+            <numerusform>パーツ %n 個と重なっています</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Can&apos;t check for updates (offline)</source>
+        <translation>更新を確認できません（オフライン）</translation>
+    </message>
+    <message>
+        <source>🔗 %1 ● v%2 is ready</source>
+        <translation>🔗 %1 ● v%2 が利用できます</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n shared module(s) have new versions.</source>
+        <translation>
+            <numerusform>共有モジュール %n 個に新しいバージョンがあります。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>A shared module</source>
+        <translation>共有モジュール</translation>
+    </message>
+    <message>
+        <source>“%1” has a new version (v%2)</source>
+        <translation>「%1」に新しいバージョンがあります（v%2）</translation>
+    </message>
+    <message>
+        <source>“%1” has a new version from %2 (v%3)</source>
+        <translation>「%1」に %2 の新しいバージョンがあります（v%3）</translation>
+    </message>
+    <message>
+        <source>%1: “%2”.</source>
+        <translation>%1：「%2」。</translation>
+    </message>
+    <message>
+        <source>“%1” v%2</source>
+        <translation>「%1」 v%2</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>モジュール</translation>
+    </message>
+    <message numerus="yes">
+        <source>It overlaps %n part(s).</source>
+        <translation>
+            <numerusform>パーツ %n 個と重なっています。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n track end(s) no longer meet.</source>
+        <translation>
+            <numerusform>線路の端 %n 個がつながらなくなりました。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The shared module</source>
+        <translation>共有モジュール</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>「%1」</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2.</source>
+        <translation>%1 はバージョン %2 になりました。</translation>
+    </message>
+    <message>
+        <source>%1 was updated.</source>
+        <translation>%1 を更新しました。</translation>
+    </message>
+    <message>
+        <source>its owner</source>
+        <translation>持ち主</translation>
+    </message>
+    <message>
+        <source>“%1” can&apos;t go in this layout yet</source>
+        <translation>「%1」はまだこのレイアウトに入れられません</translation>
+    </message>
+    <message>
+        <source>this club</source>
+        <translation>このクラブ</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with you, not with %3. Ask %1 to share it with the club.</source>
+        <translation>%1 は「%2」を%3ではなく、あなたと共有しています。%1 に、クラブとも共有してもらうよう頼んでください。</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with %3? I&apos;d like to place it in one of the club&apos;s layouts.</source>
+        <translation>%1 さん、モジュール「%2」を %3 と共有してもらえませんか？ クラブのレイアウトに置きたいです。</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with a club you&apos;re in, for the club&apos;s layouts, not with you. Ask %1 to share it with you too.</source>
+        <translation>%1 は「%2」を、あなたではなく、あなたが入っているクラブのレイアウト用に共有しています。%1 に、あなたとも共有してもらうよう頼んでください。</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with me as well? I&apos;d like to place it in one of my own layouts.</source>
+        <translation>%1 さん、モジュール「%2」を私とも共有してもらえませんか？ 自分のレイアウトに置きたいです。</translation>
+    </message>
+    <message>
+        <source>this layout&apos;s owner</source>
+        <translation>このレイアウトの持ち主</translation>
+    </message>
+    <message>
+        <source>%1 shared “%2” with you, not with %3. Ask %1 to share it with them.</source>
+        <translation>%1 は「%2」を%3ではなく、あなたと共有しています。%1 に、その人とも共有してもらうよう頼んでください。</translation>
+    </message>
+    <message>
+        <source>Hi %1, could you share your module “%2” with %3? I&apos;d like to place it in one of their layouts.</source>
+        <translation>%1 さん、モジュール「%2」を %3 と共有してもらえませんか？ その人のレイアウトに置きたいです。</translation>
+    </message>
+    <message>
+        <source>This module is no longer shared with this layout, so it stays at the version it has. You can remove it, or its owner can share it again.</source>
+        <translation>このモジュールはこのレイアウトとの共有が終わっているので、今のバージョンのままです。削除するか、持ち主にもう一度共有してもらってください。</translation>
+    </message>
+    <message>
+        <source>Its owner deleted this module, so it stays at the version it has.</source>
+        <translation>持ち主がこのモジュールを削除したので、今のバージョンのままです。</translation>
+    </message>
+    <message>
+        <source>You can&apos;t see this module in the Module library, so you can&apos;t update it. Ask whoever added it.</source>
+        <translation>このモジュールはモジュールライブラリに表示されないため、更新できません。追加した人に聞いてください。</translation>
+    </message>
+    <message>
+        <source>That module is no longer in this layout.</source>
+        <translation>そのモジュールはもうこのレイアウトにありません。</translation>
+    </message>
+    <message>
+        <source>This module doesn&apos;t follow a Module library module any more.</source>
+        <translation>このモジュールは、もうモジュールライブラリのモジュールに追従していません。</translation>
+    </message>
+    <message>
+        <source>That version isn&apos;t kept any more (the newest 20 are).</source>
+        <translation>そのバージョンはもう保存されていません（新しい 20 件だけ保存されます）。</translation>
+    </message>
+    <message>
+        <source>This layout has no parts sheet to put the module on. Add a parts sheet first.</source>
+        <translation>このレイアウトには、モジュールを置くパーツのシートがありません。先にパーツのシートを追加してください。</translation>
+    </message>
+    <message>
+        <source>Only the layout&apos;s owner can make a shared module theirs. In a club&apos;s layout, ask a club admin or manager.</source>
+        <translation>共有モジュールを自分のものにできるのは、レイアウトの持ち主だけです。クラブのレイアウトでは、クラブの管理者かマネージャーに頼んでください。</translation>
     </message>
 </context>
 <context>
@@ -5152,6 +5453,46 @@ Save mine as a new version: this layout&apos;s copy becomes the module; theirs s
         <translation>モジュールをモジュールライブラリにつなぐ</translation>
     </message>
     <message>
+        <source>What Changed (Versions)…</source>
+        <translation>変更内容（バージョン）…</translation>
+    </message>
+    <message>
+        <source>It no longer follows its owner, so there is nothing new to see</source>
+        <translation>持ち主に追従していないので、新しい内容はありません</translation>
+    </message>
+    <message>
+        <source>Update to Version %1</source>
+        <translation>バージョン %1 に更新</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can update it</source>
+        <translation>このレイアウトを変更できる人が更新できます</translation>
+    </message>
+    <message>
+        <source>Put Back the Owner&apos;s Version</source>
+        <translation>持ち主のバージョンに戻す</translation>
+    </message>
+    <message>
+        <source>Put Back %1&apos;s Version</source>
+        <translation>%1 のバージョンに戻す</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can do this</source>
+        <translation>このレイアウトを変更できる人ができます</translation>
+    </message>
+    <message>
+        <source>Make It Mine…</source>
+        <translation>自分のものにする…</translation>
+    </message>
+    <message>
+        <source>Unlock this copy. It stops following its owner.</source>
+        <translation>このコピーのロックを解除します。持ち主には追従しなくなります。</translation>
+    </message>
+    <message>
+        <source>Only the layout&apos;s owner can do this (in a club&apos;s layout, its admins and managers)</source>
+        <translation>レイアウトの持ち主だけができます（クラブのレイアウトでは、管理者とマネージャー）</translation>
+    </message>
+    <message>
         <source>Save to Module library…</source>
         <translation>モジュールライブラリに保存…</translation>
     </message>
@@ -5220,6 +5561,26 @@ Save mine as a new version: this layout&apos;s copy becomes the module; theirs s
         <translation>「%1」を %2 に上書き保存しました</translation>
     </message>
     <message>
+        <source>The module</source>
+        <translation>このモジュール</translation>
+    </message>
+    <message>
+        <source>“%1” already matches the Module library.</source>
+        <translation>「%1」はすでにモジュールライブラリと同じです。</translation>
+    </message>
+    <message>
+        <source>Go Back to Version %1</source>
+        <translation>バージョン %1 に戻す</translation>
+    </message>
+    <message>
+        <source>Updated from the Module library</source>
+        <translation>モジュールライブラリから更新しました</translation>
+    </message>
+    <message>
+        <source>“%1” is now version %2, for everyone in this layout.</source>
+        <translation>「%1」はバージョン %2 になりました。このレイアウトの全員に反映されます。</translation>
+    </message>
+    <message>
         <source>this module</source>
         <translation>このモジュール</translation>
     </message>
@@ -5234,6 +5595,10 @@ Save mine as a new version: this layout&apos;s copy becomes the module; theirs s
     <message>
         <source>This module was changed in this layout. Those changes are replaced by the Module library&apos;s version.</source>
         <translation>このモジュールはこのレイアウト内で変更されています。その変更はモジュールライブラリの版で置き換えられます。</translation>
+    </message>
+    <message>
+        <source>Its name, colors and place on the map stay. You can go back to the version it has now.</source>
+        <translation>名前、色、マップ上の位置はそのままです。今のバージョンに戻すこともできます。</translation>
     </message>
     <message>
         <source>Its name, colors and place on the map stay. You can undo this.</source>
@@ -5842,8 +6207,178 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>（無題）</translation>
     </message>
     <message>
+        <source>This module</source>
+        <translation>このモジュール</translation>
+    </message>
+    <message>
+        <source>This module is shared</source>
+        <translation>このモジュールは共有されています</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n shared module(s) were updated.</source>
+        <translation>
+            <numerusform>共有モジュール %n 個を更新しました。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>“%1” was changed outside the app</source>
+        <translation>「%1」がアプリの外で変更されました</translation>
+    </message>
+    <message>
+        <source>Its parts aren&apos;t its owner&apos;s version %1 anymore: another app changed this layout. Put the owner&apos;s version back, or make the module yours.</source>
+        <translation>パーツが持ち主のバージョン %1 ではなくなりました。ほかのアプリがこのレイアウトを変更したようです。持ち主のバージョンに戻すか、モジュールを自分のものにしてください。</translation>
+    </message>
+    <message>
+        <source>Its parts aren&apos;t %1&apos;s version %2 anymore: another app changed this layout. Put %1&apos;s version back, or make the module yours.</source>
+        <translation>パーツが %1 のバージョン %2 ではなくなりました。ほかのアプリがこのレイアウトを変更したようです。%1 のバージョンに戻すか、モジュールを自分のものにしてください。</translation>
+    </message>
+    <message>
+        <source>That didn&apos;t work</source>
+        <translation>うまくいきませんでした</translation>
+    </message>
+    <message>
+        <source>“%1” already has version %2.</source>
+        <translation>「%1」はすでにバージョン %2 です。</translation>
+    </message>
+    <message>
+        <source>Can&apos;t reach this module&apos;s server</source>
+        <translation>このモジュールのサーバーに接続できません</translation>
+    </message>
+    <message>
+        <source>Sign in to the server “%1” lives on, then try again.</source>
+        <translation>「%1」があるサーバーにサインインして、もう一度お試しください。</translation>
+    </message>
+    <message>
+        <source>“%1” lives on %2. Sign in there (File › Servers…), then try again.</source>
+        <translation>「%1」は %2 にあります。そこにサインインして（ファイル › サーバー…）、もう一度お試しください。</translation>
+    </message>
+    <message>
+        <source>Put back the owner&apos;s version</source>
+        <translation>持ち主のバージョンに戻す</translation>
+    </message>
+    <message>
+        <source>Update shared module</source>
+        <translation>共有モジュールを更新</translation>
+    </message>
+    <message>
+        <source>Put the owner&apos;s version of “%1” back. Undo (Ctrl+Z) takes that back.</source>
+        <translation>「%1」を持ち主のバージョンに戻します。元に戻す（Ctrl+Z）で取り消せます。</translation>
+    </message>
+    <message>
+        <source>Updated %1. %2 couldn&apos;t be updated: they are no longer shared.</source>
+        <translation>%1 を更新しました。%2 は共有が終わっているため更新できませんでした。</translation>
+    </message>
+    <message>
+        <source>Mark shared module updates as seen</source>
+        <translation>共有モジュールの更新を確認済みにする</translation>
+    </message>
+    <message>
+        <source>Mark shared module update as seen</source>
+        <translation>共有モジュールの更新を確認済みにする</translation>
+    </message>
+    <message>
+        <source>Make “%1” yours?</source>
+        <translation>「%1」を自分のものにしますか？</translation>
+    </message>
+    <message>
+        <source>its owner</source>
+        <translation>持ち主</translation>
+    </message>
+    <message>
+        <source>It stops following %1: no more updates, and this can&apos;t be undone.</source>
+        <translation>%1 には追従しなくなります。更新は届かなくなり、元に戻せません。</translation>
+    </message>
+    <message>
+        <source>It stops following %1: no more updates.</source>
+        <translation>%1 には追従しなくなります。更新は届かなくなります。</translation>
+    </message>
+    <message>
+        <source>Its parts stay where they are, and you can change them like any module of this layout.</source>
+        <translation>パーツは今の場所のままで、このレイアウトのほかのモジュールと同じように変更できます。</translation>
+    </message>
+    <message>
+        <source>You can undo this.</source>
+        <translation>元に戻せます。</translation>
+    </message>
+    <message>
+        <source>Make It Mine</source>
+        <translation>自分のものにする</translation>
+    </message>
+    <message>
+        <source>“%1” is now a module of this layout.</source>
+        <translation>「%1」はこのレイアウトのモジュールになりました。</translation>
+    </message>
+    <message>
+        <source>Versions of “%1”</source>
+        <translation>「%1」のバージョン</translation>
+    </message>
+    <message>
+        <source>This layout has version %1. Putting another one in changes it for everyone in the layout.</source>
+        <translation>このレイアウトはバージョン %1 です。別のバージョンを入れると、レイアウトの全員に反映されます。</translation>
+    </message>
+    <message>
+        <source>%1 saves the versions. This layout has version %2. Putting another one in changes it for everyone in the layout.</source>
+        <translation>%1 がバージョンを保存しています。このレイアウトはバージョン %2 です。別のバージョンを入れると、レイアウトの全員に反映されます。</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>読み込み中…</translation>
+    </message>
+    <message>
+        <source>No versions are kept for this module.</source>
+        <translation>このモジュールには保存されたバージョンがありません。</translation>
+    </message>
+    <message>
+        <source>Version %1 (in this layout)</source>
+        <translation>バージョン %1（このレイアウト）</translation>
+    </message>
+    <message>
+        <source>Version %1</source>
+        <translation>バージョン %1</translation>
+    </message>
+    <message>
         <source>“%1”</source>
         <translation>「%1」</translation>
+    </message>
+    <message>
+        <source>No note</source>
+        <translation>メモなし</translation>
+    </message>
+    <message>
+        <source>Update to This</source>
+        <translation>これに更新</translation>
+    </message>
+    <message>
+        <source>Go Back to This</source>
+        <translation>これに戻す</translation>
+    </message>
+    <message>
+        <source>Shared modules</source>
+        <translation>共有モジュール</translation>
+    </message>
+    <message>
+        <source>Shared modules follow their owner&apos;s updates. You can move and turn them; their parts stay as the owner made them.</source>
+        <translation>共有モジュールは持ち主の更新に追従します。移動と回転はできますが、パーツは持ち主が作ったままです。</translation>
+    </message>
+    <message>
+        <source>Copy a Message to Send</source>
+        <translation>送るメッセージをコピー</translation>
+    </message>
+    <message>
+        <source>Copied. Send it to %1.</source>
+        <translation>コピーしました。%1 に送ってください。</translation>
+    </message>
+    <message>
+        <source>the module&apos;s owner</source>
+        <translation>モジュールの持ち主</translation>
+    </message>
+    <message>
+        <source>“%1” can&apos;t go in this layout</source>
+        <translation>「%1」はこのレイアウトに入れられません</translation>
+    </message>
+    <message>
+        <source>This layout is on %1, and “%2” is shared with you on %3. A shared module follows its owner only in layouts on its own server, or in a file on this computer.</source>
+        <translation>このレイアウトは %1 にあり、「%2」は %3 であなたと共有されています。共有モジュールが持ち主に追従するのは、同じサーバーのレイアウトか、このコンピューター上のファイルの中だけです。</translation>
     </message>
     <message>
         <source>The pasted part</source>
@@ -9022,6 +9557,95 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     </message>
 </context>
 <context>
+    <name>bld::ui::ModuleShareDialog</name>
+    <message>
+        <source>This module belongs to a club, so its members already have it. A club&apos;s module can&apos;t be shared with another club.</source>
+        <translation>このモジュールはクラブのものなので、メンバーはすでに持っています。クラブのモジュールを別のクラブと共有することはできません。</translation>
+    </message>
+    <message>
+        <source>This module is shared with as many clubs as it can be. Stop sharing with one first.</source>
+        <translation>このモジュールは、共有できる上限までクラブと共有されています。先にどれかの共有をやめてください。</translation>
+    </message>
+    <message>
+        <source>It isn&apos;t shared with that club any more.</source>
+        <translation>そのクラブとはもう共有されていません。</translation>
+    </message>
+    <message>
+        <source> (version %1)</source>
+        <translation>（バージョン %1）</translation>
+    </message>
+    <message>
+        <source>Stop sharing with %1?</source>
+        <translation>%1 との共有をやめますか？</translation>
+    </message>
+    <message numerus="yes">
+        <source>Its %n layout(s) keep “%1” as it is now%2.</source>
+        <translation>
+            <numerusform>そのレイアウト %n 個は、「%1」を今のままで残します%2。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nothing changes in any layout: “%1” isn&apos;t placed in one of theirs.</source>
+        <translation>どのレイアウトでも何も変わりません。「%1」は相手のレイアウトには置かれていません。</translation>
+    </message>
+    <message>
+        <source>They won&apos;t get your updates anymore, and can&apos;t place it again.</source>
+        <translation>あなたの更新が届かなくなり、もう一度置くこともできなくなります。</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>やめる</translation>
+    </message>
+    <message>
+        <source>Share “%1”</source>
+        <translation>「%1」を共有</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. Its members can&apos;t change its parts.</source>
+        <translation>共有したクラブは、このモジュールをクラブのレイアウトに置けて、あなたの更新を受け取ります。メンバーはパーツを変更できません。</translation>
+    </message>
+    <message>
+        <source>Share with a club</source>
+        <translation>クラブと共有</translation>
+    </message>
+    <message>
+        <source>Share</source>
+        <translation>共有</translation>
+    </message>
+    <message>
+        <source>To share with one person by email, open this module on the website.</source>
+        <translation>メールで個人と共有するには、ウェブサイトでこのモジュールを開いてください。</translation>
+    </message>
+    <message>
+        <source>Open on the Website</source>
+        <translation>ウェブサイトで開く</translation>
+    </message>
+    <message>
+        <source>This is a club&apos;s module: its members already have it.</source>
+        <translation>これはクラブのモジュールです。メンバーはすでに持っています。</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. You&apos;re not in a club yet: join or start one to share with it.</source>
+        <translation>共有したクラブは、このモジュールをクラブのレイアウトに置けて、あなたの更新を受け取ります。まだクラブに入っていません。共有するには、クラブに参加するか、新しく作ってください。</translation>
+    </message>
+    <message>
+        <source>A club you share with can place this module in the club&apos;s layouts and gets your updates. Its members can&apos;t change its parts. It&apos;s shared with every club you&apos;re in.</source>
+        <translation>共有したクラブは、このモジュールをクラブのレイアウトに置けて、あなたの更新を受け取ります。メンバーはパーツを変更できません。あなたが入っているすべてのクラブと共有されています。</translation>
+    </message>
+    <message>
+        <source>Pick a club…</source>
+        <translation>クラブを選ぶ…</translation>
+    </message>
+    <message>
+        <source>%1 (club) · can place it</source>
+        <translation>%1（クラブ）· 置くことができます</translation>
+    </message>
+    <message>
+        <source>Stop sharing with %1</source>
+        <translation>%1 との共有をやめる</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::ModulesPanel</name>
     <message>
         <source>Modules</source>
@@ -9919,6 +10543,54 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>一致するモジュールがありません。</translation>
     </message>
     <message>
+        <source>Whose modules</source>
+        <translation>だれのモジュール</translation>
+    </message>
+    <message>
+        <source>Mine</source>
+        <translation>自分</translation>
+    </message>
+    <message>
+        <source>Clubs</source>
+        <translation>クラブ</translation>
+    </message>
+    <message>
+        <source>Shared with me</source>
+        <translation>共有されたもの</translation>
+    </message>
+    <message>
+        <source>Take “%1” off %2?</source>
+        <translation>「%1」を %2 から外しますか？</translation>
+    </message>
+    <message>
+        <source>The club&apos;s layouts keep it as it is now.</source>
+        <translation>クラブのレイアウトには、今のままで残ります。</translation>
+    </message>
+    <message>
+        <source>The club gets no more updates of it, and its members can&apos;t place it again. Its owner is told.</source>
+        <translation>クラブには更新が届かなくなり、メンバーはもう一度置くこともできなくなります。持ち主に知らせが届きます。</translation>
+    </message>
+    <message>
+        <source>The club gets no more updates of it, and its members can&apos;t place it again. %1 is told.</source>
+        <translation>クラブには更新が届かなくなり、メンバーはもう一度置くこともできなくなります。%1 に知らせが届きます。</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>削除</translation>
+    </message>
+    <message>
+        <source>Modules other people shared with you or your clubs. Place one, and it follows its owner&apos;s updates.</source>
+        <translation>ほかの人があなたやクラブと共有したモジュールです。置くと、持ち主の更新に追従します。</translation>
+    </message>
+    <message>
+        <source>Nothing is shared with you yet. When someone shares a module with you or one of your clubs, it shows here, ready to place.</source>
+        <translation>まだ何も共有されていません。だれかがあなたやクラブとモジュールを共有すると、ここに表示され、すぐに置けます。</translation>
+    </message>
+    <message>
+        <source>Your clubs have no modules yet.</source>
+        <translation>クラブにはまだモジュールがありません。</translation>
+    </message>
+    <message>
         <source>A club</source>
         <translation>クラブ</translation>
     </message>
@@ -9975,6 +10647,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>名前を変更…</translation>
     </message>
     <message>
+        <source>Share with a Club…</source>
+        <translation>クラブと共有…</translation>
+    </message>
+    <message>
+        <source>A club you share with can place it in the club&apos;s layouts and gets your updates.</source>
+        <translation>共有したクラブは、クラブのレイアウトに置けて、あなたの更新を受け取ります。</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>自分のものに戻す…</translation>
     </message>
@@ -9993,6 +10673,30 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Delete…</source>
         <translation>削除…</translation>
+    </message>
+    <message>
+        <source>A shared module goes in a layout, not inside another module.</source>
+        <translation>共有モジュールはレイアウトに入れるもので、ほかのモジュールの中には入れられません。</translation>
+    </message>
+    <message>
+        <source>Remove from %1…</source>
+        <translation>%1 から削除…</translation>
+    </message>
+    <message>
+        <source>Take this module off the club&apos;s list. Copies already placed stay as they are.</source>
+        <translation>このモジュールをクラブの一覧から外します。すでに置いたコピーはそのまま残ります。</translation>
+    </message>
+    <message>
+        <source>“%1” is off %2&apos;s list.</source>
+        <translation>「%1」を %2 の一覧から外しました。</translation>
+    </message>
+    <message>
+        <source>Remove from club</source>
+        <translation>クラブから削除</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t remove “%1”: %2</source>
+        <translation>「%1」を削除できませんでした：%2</translation>
     </message>
     <message>
         <source>Renamed to &quot;%1&quot;</source>
@@ -11291,6 +11995,25 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Sent for review. A moderator looks at it before it appears in the catalog.</source>
         <translation>確認に送りました。カタログに載る前に、モデレーターが確認します。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::SharedModulesBar</name>
+    <message>
+        <source>Shared modules</source>
+        <translation>共有モジュール</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can update it.</source>
+        <translation>このレイアウトを変更できる人が更新できます。</translation>
+    </message>
+    <message>
+        <source>Go back to version %1</source>
+        <translation>バージョン %1 に戻す</translation>
     </message>
 </context>
 <context>

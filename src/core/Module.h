@@ -6,6 +6,7 @@
 #include <QString>
 #include <QTransform>
 
+#include <optional>
 #include <utility>
 #include <vector>
 
@@ -41,6 +42,11 @@ struct Module {
     // libraryVersion). Sidecar only: BlueBrick never sees them.
     QString libraryModuleId;
     int     libraryVersion = 0;
+    // Shared, read-only (docs/shared-modules.md): set, next to the link
+    // above, on a module someone else shared; its parts are its owner's.
+    // Kept as the sidecar has it ({by, server, placement, review}, and
+    // whatever a newer build adds); core/SharedModule.h reads it.
+    std::optional<QJsonObject> shared;
 
     // Fields a newer build (or the web) wrote that this one doesn't know,
     // kept so reading and writing the module again doesn't lose them.
@@ -52,6 +58,8 @@ struct Module {
 // A copy of `m` holding `members` (Duplicate or paste of one whole module,
 // the Modules panel's Duplicate): "X (copy)", the same look, not linked to
 // the Module library, not pinned (it is there to be moved), no source file.
+// (A shared module's copy is another shared placement: core/SharedModule.h
+// sharedCopyOf.)
 inline Module copyOfModule(const Module& m, QSet<QString> members, QString newId) {
     Module c = m;
     c.id = std::move(newId);
@@ -63,6 +71,7 @@ inline Module copyOfModule(const Module& m, QSet<QString> members, QString newId
     c.pinned = false;
     c.libraryModuleId.clear();
     c.libraryVersion = 0;
+    c.shared.reset();
     return c;
 }
 

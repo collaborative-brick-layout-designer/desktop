@@ -10,7 +10,9 @@
 #include "WebModelWriter.h"
 #include "../saveload/SidecarIO.h"
 
+#include "Compat.h"
 #include "core/Map.h"
+#include "core/SharedModule.h"
 
 extern "C" {
 #include "libyrs.h"
@@ -367,6 +369,8 @@ struct SyncDoc::Impl {
     std::vector<SidecarStep> undoSteps, redoSteps;
     // writeMap may write module part keys (setMemberKeys).
     bool memberKeys = true;
+    // writeMap may stamp the doc shape 4 for a shared module (setSharedModules).
+    bool sharedModules = true;
     YTransaction* txn = nullptr;
     Arena arena;
     int ops = 0;  // changes made by the current writeMap
@@ -774,8 +778,9 @@ struct SyncDoc::Impl {
     // refuse the doc rather than misread it.
     //
     // `partKeys`: the write after this leaves module part keys in the doc
-    // (ModuleMembers.h), which is doc shape 3.
-    void shapePass(const QJsonObject& cur, const QJsonObject& want, bool partKeys) {
+    // (ModuleMembers.h), which is doc shape 3. `sharedModule`: it leaves a
+    // shared, read-only module (core/SharedModule.h), which is shape 4.
+    void shapePass(const QJsonObject& cur, const QJsonObject& want, bool partKeys, bool sharedModule) {
         const QJsonObject curData = cur.value(QLatin1String("layerData")).toObject();
         const QJsonObject wantData = want.value(QLatin1String("layerData")).toObject();
         txn = ydoc_write_transaction(doc, 0, nullptr);
@@ -829,7 +834,7 @@ struct SyncDoc::Impl {
             }
         }
         const int stamped = schema.isDouble() ? schema.toInt() : 0;
-        const int stamp = partKeys ? kDocShapeMemberKeys : mark ? kDocShapeInPlace : 0;
+        const int stamp = sharedModule ? kDocShapeShared : partKeys ? kDocShapeMemberKeys : mark ? kDocShapeInPlace : 0;
         if (stamp > stamped) {
             const YInput sv = yinput_float(stamp);
             ymap_insert(meta, txn, "schemaVersion", &sv);
@@ -1322,6 +1327,7 @@ void SyncDoc::setKeepJson(bool keep) {
 }
 
 void SyncDoc::setMemberKeys(bool on) { d_->memberKeys = on; }
+void SyncDoc::setSharedModules(bool on) { d_->sharedModules = on; }
 
 QByteArray SyncDoc::writeMap(const core::Map& map) {
     Impl& d = *d_;
@@ -1349,7 +1355,9 @@ QByteArray SyncDoc::writeMap(const core::Map& map) {
         else sidecarWrite.blob = cache;
         // Part keys: the doc is shape 3 from here (stamped below, in the
         // shape step that undo never takes back).
-        d.shapePass(before0, want, hasMemberKeys(sidecarWrite.items));
+        // A shared module: shape 4, on a server whose web app knows the lock.
+        d.shapePass(before0, want, hasMemberKeys(sidecarWrite.items),
+                    d.sharedModules && core::holdsSharedMark(sidecar.modules));
     }
     d.absorb();
     const QJsonObject cur = d.currentJson();

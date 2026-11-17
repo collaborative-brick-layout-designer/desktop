@@ -7,6 +7,7 @@
 // per-layer pipeline; the sidecar overlays are self-contained and only
 // touch SceneBuilder::{venueItems_, worldLabelItems_, moduleLabelItems_}.
 
+#include "../core/SharedModule.h"
 #include "SceneBuilder.h"
 #include "SceneBuilderInternal.h"
 #include "MapText.h"
@@ -399,8 +400,15 @@ void SceneBuilder::addModuleLabels(const core::Map& map, bool posed) {
         framePen.setWidthF(frameThickness);
         framePen.setCosmetic(true);
         // Qt's dash is in pen widths; the web's is in screen px.
-        const double* dash = partlyHidden ? kModuleFramePartlyHiddenDash : kModuleFrameDash;
-        framePen.setDashPattern({ dash[0] / frameThickness, dash[1] / frameThickness });
+        const auto sharedLink = core::sharedPlaced(mod);
+        if (sharedLink && !partlyHidden) {
+            QList<qreal> pattern;
+            for (const double d : kModuleFrameSharedDash) pattern << d / frameThickness;
+            framePen.setDashPattern(pattern);
+        } else {
+            const double* dash = partlyHidden ? kModuleFramePartlyHiddenDash : kModuleFrameDash;
+            framePen.setDashPattern({ dash[0] / frameThickness, dash[1] / frameThickness });
+        }
         framePen.setCapStyle(Qt::FlatCap);
         frame->setPen(framePen);
         frame->setBrush(Qt::NoBrush);
@@ -411,6 +419,48 @@ void SceneBuilder::addModuleLabels(const core::Map& map, bool posed) {
         frame->setData(kModuleIdRole, mod.id);
         sink.add(frame);
         moduleAnnotationRects_.append({ mod.id, at.bounds });
+        // Shared (read-only): a link badge over the frame, the same size on
+        // screen at every zoom. The badge says it, not a color.
+        if (sharedLink) {
+            const QString text = sharedBadges_.value(
+                mod.id, QStringLiteral("🔗 ") + (sharedLink->by.isEmpty() ? QCoreApplication::translate("SharedModules", "Shared") : sharedLink->by));
+            QFont bf = mapFont(QStringLiteral("Bold"), kModuleSharedBadgePx);
+            // The link is drawn (two chain links): an emoji has no outline to
+            // draw as a path, and the badge must say "linked" in every font.
+            QString words = text;
+            const QString emoji = QStringLiteral("🔗");
+            if (words.startsWith(emoji)) words = words.mid(emoji.size()).trimmed();
+            const double top = -kModuleSharedBadgeAbovePx, size = kModuleSharedBadgePx;
+            QPainterPath links;
+            links.addRoundedRect(QRectF(0, top + size * 0.30, size * 0.62, size * 0.40), size * 0.2, size * 0.2);
+            links.addRoundedRect(QRectF(size * 0.42, top + size * 0.30, size * 0.62, size * 0.40), size * 0.2, size * 0.2);
+            QPainterPathStroker pen;
+            pen.setWidth(size * 0.14);
+            QPainterPath bp = pen.createStroke(links);
+            bp.setFillRule(Qt::WindingFill);
+            bp.addText(size * 1.3, top + size, bf, words);
+            auto* badgeOutline = new QGraphicsPathItem(bp);
+            QPen bpen(kModuleNameStroke);
+            bpen.setWidthF(moduleNameStrokePx(kModuleSharedBadgePx));
+            bpen.setJoinStyle(Qt::MiterJoin);
+            badgeOutline->setPen(bpen);
+            badgeOutline->setBrush(Qt::NoBrush);
+            badgeOutline->setFlag(QGraphicsItem::ItemIgnoresTransformations, true);
+            badgeOutline->setPos(at.frame.topLeft());
+            badgeOutline->setData(kModuleAnnotationRole, QStringLiteral("badge-outline"));
+            badgeOutline->setAcceptedMouseButtons(Qt::NoButton);
+            sink.add(badgeOutline);
+            auto* badge = new QGraphicsPathItem(bp);
+            badge->setPen(Qt::NoPen);
+            badge->setBrush(look.nameFill);
+            badge->setFlag(QGraphicsItem::ItemIgnoresTransformations, true);
+            badge->setPos(at.frame.topLeft());
+            badge->setData(kModuleAnnotationRole, QStringLiteral("badge"));
+            badge->setData(kModuleIdRole, mod.id);
+            badge->setData(kModuleBadgeTextRole, text);
+            badge->setAcceptedMouseButtons(Qt::NoButton);
+            sink.add(badge);
+        }
         if (!at.hasName) continue;
 
         // Each line centred in the name's box, vertically centred on its

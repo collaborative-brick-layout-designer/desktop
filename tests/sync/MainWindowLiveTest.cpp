@@ -28,6 +28,14 @@
 #include "ui/tours/Tours.h"
 #include "ui/MapView.h"
 #include "ui/NoticeArea.h"
+#include "ui/ModulesPanel.h"
+#include "ui/ModuleLibraryMenu.h"
+#include "ui/ConfirmDialog.h"
+#include "ui/ServerLibrary.h"
+#include "ui/SharedModulesBar.h"
+#include "core/SharedModule.h"
+#include "sync/Compat.h"
+#include "sync/ModuleDoc.h"
 #include "ui/PartsBrowser.h"
 #include "LayoutMerge.h"
 #include "ui/UpdateCheck.h"
@@ -2662,4 +2670,299 @@ TEST_F(MainWindowLive, PicturesOfTheSaveToServerWarning) {
         QCoreApplication::installTranslator(&english);
     }
     QCoreApplication::removeTranslator(&english);
+}
+
+
+// ---- Shared (read-only) modules on a live layout (docs/shared-modules.md) ----
+
+namespace {
+
+const QString kSharedLib = QStringLiteral("5f0c1a2b-3c4d-4e5f-8a9b-0c1d2e3f4a5b");
+
+class SharedModulesLive : public MainWindowLive {
+protected:
+    sync::ServerInfo serverInfo() const override {
+        sync::ServerInfo info;
+        info.features = QStringList{ QStringLiteral("liveSync"), QStringLiteral("signIn"), QStringLiteral("moduleMemberKeys"),
+                                     QStringLiteral("sharedModules") };
+        return info;
+    }
+    void beforeOpen() override {
+        rows(8, true, false);
+        // (No kept version to compare with: "no longer available", asked for once.)
+    }
+    // What the server says about the layout's shared modules.
+    void rows(int latest, bool canUpdate, bool canDetach, const QString& state = QStringLiteral("shared")) {
+        http_.clear("/api/layouts/L1/shared-modules");
+        http_.reply("/api/layouts/L1/shared-modules", 200,
+                    { { QStringLiteral("canUpdate"), canUpdate },
+                      { QStringLiteral("canDetach"), canDetach },
+                      { QStringLiteral("modules"),
+                        QJsonArray{ QJsonObject{ { QStringLiteral("placedId"), QStringLiteral("M") }, { QStringLiteral("moduleId"), kSharedLib },
+                                                 { QStringLiteral("state"), state }, { QStringLiteral("version"), 7 },
+                                                 { QStringLiteral("title"), QStringLiteral("Harbor crane") },
+                                                 { QStringLiteral("owner"), QJsonObject{ { QStringLiteral("kind"), QStringLiteral("user") },
+                                                                                         { QStringLiteral("name"), QStringLiteral("Alice") } } },
+                                                 { QStringLiteral("latest"), latest },
+                                                 { QStringLiteral("latestNote"), QStringLiteral("longer pier") } } } } });
+    }
+    // Someone placed Alice's shared module (the layout's first two parts) in the layout.
+    void placeShared() {
+        ws_.remoteEdit([](core::Map& s) {
+            core::Module m;
+            m.id = QStringLiteral("M");
+            m.name = QStringLiteral("Harbor crane");
+            m.memberIds = { brickAt(s, 0).guid, brickAt(s, 1).guid };
+            m.libraryModuleId = kSharedLib;
+            m.libraryVersion = 7;
+            m.shared = QJsonObject{ { QStringLiteral("by"), QStringLiteral("Alice") } };
+            s.sidecar.modules.push_back(m);
+        });
+        ASSERT_TRUE(waitFor([&] { return view_->currentMap() && !view_->currentMap()->sidecar.modules.empty(); }));
+        ASSERT_TRUE(waitFor([&] { return window_->sharedModuleRowsKnown(); }));
+    }
+    // The server's own step, as its room sends it: version `to`, with what to review.
+    void serverPuts(int to, int from) {
+        ws_.remoteEdit([to, from](core::Map& s) {
+            core::Module& m = s.sidecar.modules.front();
+            m.libraryVersion = to;
+            m = core::withReview(m, core::SharedReview{ from, to, 1 });
+        });
+        ASSERT_TRUE(waitFor([&] { return mod().libraryVersion == to; }));
+    }
+    const core::Module& mod() { return view_->currentMap()->sidecar.modules.front(); }
+    ui::SharedModulesBar* bar() { return view_->sharedModulesBar(); }
+    ui::NoticeArea* notices() { return window_->findChild<ui::NoticeArea*>(); }
+    int posts(const QByteArray& path) const {
+        int n = 0;
+        for (const auto& r : http_.requests)
+            if (r.method == "POST" && r.path == path) ++n;
+        return n;
+    }
+    QJsonObject lastBody(const QByteArray& path) const {
+        for (auto it = http_.requests.rbegin(); it != http_.requests.rend(); ++it)
+            if (it->method == "POST" && it->path == path) return QJsonDocument::fromJson(it->body).object();
+        return {};
+    }
+    ui::ModuleLibraryEntry entry(const QString& action) {
+        // (the Modules panel's menu for the module)
+        QMenu menu;
+        window_->findChild<ui::ModulesPanel*>()->fillMenu(menu, QStringLiteral("M"));
+        for (QAction* a : menu.actions())
+            if (a->objectName() == QStringLiteral("moduleLibrary_") + action) return { action, a->text(), a->isEnabled(), a->toolTip() };
+        return {};
+    }
+};
+
+}  // namespace
+
+// A layout with a shared module is doc shape 4, so builds that don't know
+// the lock are told plainly instead of being cut off mid-edit; one without
+// stays in the shape it has.
+TEST_F(SharedModulesLive, ALayoutMovesToShape4WithItsFirstSharedModule) {
+    const auto stamp = [&] { return ws_.doc.toJson().value(QLatin1String("meta")).toObject().value(QLatin1String("schemaVersion")).toInt(); };
+    EXPECT_LT(stamp(), sync::kDocShapeShared);
+    placeShared();
+    EXPECT_EQ(stamp(), sync::kDocShapeShared);
+    // This build reads it; one that writes shape 3 (2.1.4) doesn't, and says so.
+    EXPECT_TRUE(sync::canReadDoc(4));
+    EXPECT_FALSE(sync::canReadDoc(4, 3, 1));
+    EXPECT_TRUE(live_->active());
+}
+
+// Update on a live layout is the server's step: one writer, so two people
+// pressing it get the parts once. The desktop changes nothing itself; the
+// change arrives like any edit, with Go back.
+TEST_F(SharedModulesLive, UpdateAndGoBackAreTheServersSteps) {
+    placeShared();
+    ASSERT_TRUE(waitFor([&] { return bar()->updatesShown(); }));
+    EXPECT_EQ(bar()->updatesText(), QStringLiteral("“Harbor crane” has a new version from Alice (v8): “longer pier”."));
+    const QByteArray apply = "/api/layouts/L1/shared-modules/M/apply";
+    http_.hold.insert(apply);
+    http_.reply(apply, 200, { { QStringLiteral("ok"), true }, { QStringLiteral("placedId"), QStringLiteral("M") },
+                              { QStringLiteral("changed"), true }, { QStringLiteral("version"), 8 }, { QStringLiteral("from"), 7 } });
+    const QSet<QString> members = mod().memberIds;
+    bar()->updateButton()->click();
+    ASSERT_TRUE(waitFor([&] { return posts(apply) == 1; }));
+    EXPECT_EQ(lastBody(apply), (QJsonObject{ { QStringLiteral("version"), 8 } }));
+    // While it's on its way: no second press, and nothing changed here.
+    EXPECT_FALSE(bar()->updateButton()->isEnabled());
+    bar()->updateButton()->click();
+    EXPECT_EQ(mod().memberIds, members);
+    EXPECT_EQ(mod().libraryVersion, 7);
+    rows(8, true, false);
+    http_.release(apply);
+    serverPuts(8, 7);
+    EXPECT_EQ(posts(apply), 1);
+    ASSERT_TRUE(waitFor([&] { return bar()->reviewShown() && !bar()->updatesShown(); }));
+    EXPECT_TRUE(bar()->reviewText().startsWith(QStringLiteral("“Harbor crane” is now version 8.")));
+    EXPECT_FALSE(live_->canUndo()) << "the server's change is in nobody's undo";
+
+    // Go back to version 7: the same step with the older version.
+    ASSERT_TRUE(waitFor([&] { return bar()->goBackButton()->isEnabled(); }));
+    EXPECT_EQ(bar()->goBackButton()->text(), QStringLiteral("Go back to version 7"));
+    bar()->goBackButton()->click();
+    ASSERT_TRUE(waitFor([&] { return posts(apply) == 2; }));
+    EXPECT_EQ(lastBody(apply), (QJsonObject{ { QStringLiteral("version"), 7 } }));
+
+    // OK is an ordinary edit: everyone in the layout stops seeing the notice.
+    ASSERT_TRUE(waitFor([&] { return bar()->okButton()->isEnabled(); }));
+    bar()->okButton()->click();
+    ASSERT_TRUE(waitFor([&] {
+        const auto map = sync::mapFromDocJson(ws_.doc.toJson());
+        return map && !map->sidecar.modules.empty() && !core::sharedPlaced(map->sidecar.modules.front())->review;
+    }));
+    EXPECT_TRUE(live_->active());
+}
+
+// The lock on a live layout: a change to the module's parts never leaves
+// this desktop (the server would end the connection over it).
+TEST_F(SharedModulesLive, AChangeToItsPartsIsRefusedHereAndNeverSent) {
+    placeShared();
+    const QByteArray before = ws_.doc.encodeState();
+    core::Map& m = *view_->currentMap();
+    view_->undoStack()->push(new edit::RenameModuleCommand(m, QStringLiteral("M"), QStringLiteral("My crane")));
+    edit::DeleteBricksCommand::Entry e;
+    e.layerIndex = brickRef(m, 0).layerIndex;
+    e.indexInLayer = 0;
+    e.brick = brickAt(m, 0);
+    view_->undoStack()->push(new edit::DeleteBricksCommand(m, { e }));
+    for (int i = 0; i < 10; ++i) QCoreApplication::processEvents(QEventLoop::AllEvents, 20);
+    EXPECT_EQ(mod().name, QStringLiteral("Harbor crane"));
+    EXPECT_EQ(mod().memberIds.size(), 2);
+    EXPECT_TRUE(notices()->isShown(QStringLiteral("shared-lock")));
+    EXPECT_EQ(ws_.doc.encodeState(), before) << "nothing reached the server";
+    EXPECT_TRUE(live_->active());
+
+    // Moving it whole is an ordinary edit, and its placement goes with it.
+    view_->undoStack()->push(new edit::MoveModuleCommand(m, QStringLiteral("M"), QPointF(16, 0)));
+    ASSERT_TRUE(waitFor([&] { return brickArea(ws_.doc, 0) == original_.translated(16, 0); }));
+    EXPECT_TRUE(live_->active());
+}
+
+// Make it mine is for the layout's owner: greyed with the reason for anyone
+// else; for the owner it asks first, says it can't be undone, and is the
+// server's step.
+TEST_F(SharedModulesLive, MakeItMineIsTheOwnersAndTheServersStep) {
+    placeShared();
+    ui::ModuleLibraryEntry mine = entry(QStringLiteral("shared-detach"));
+    EXPECT_EQ(mine.label, QStringLiteral("Make It Mine…"));
+    EXPECT_FALSE(mine.enabled);
+    EXPECT_TRUE(mine.tip.startsWith(QStringLiteral("Only the layout's owner can do this")));
+    EXPECT_TRUE(entry(QStringLiteral("shared-update")).enabled);
+    EXPECT_EQ(entry(QStringLiteral("shared-update")).label, QStringLiteral("Update to Version 8"));
+
+    rows(8, true, true);
+    window_->onServerHint({ { QStringLiteral("kind"), QStringLiteral("layout") }, { QStringLiteral("id"), QStringLiteral("L1") } });
+    ASSERT_TRUE(waitFor([&] { return entry(QStringLiteral("shared-detach")).enabled; })) << "a change of role shows without reopening";
+    const QByteArray detach = "/api/layouts/L1/shared-modules/M/detach";
+    http_.reply(detach, 200, { { QStringLiteral("ok"), true }, { QStringLiteral("changed"), true } });
+    ui::ConfirmOptions asked;
+    window_->confirmModuleLibrary_ = [&](const ui::ConfirmOptions& o) {
+        asked = o;
+        return false;
+    };
+    emit window_->findChild<ui::ModulesPanel*>()->libraryActionRequested(QStringLiteral("M"), QStringLiteral("shared-detach"));
+    EXPECT_EQ(asked.title, QStringLiteral("Make “Harbor crane” yours?"));
+    EXPECT_EQ(asked.removes, QStringLiteral("It stops following Alice: no more updates, and this can't be undone."));
+    EXPECT_EQ(posts(detach), 0);
+    window_->confirmModuleLibrary_ = [](const ui::ConfirmOptions&) { return true; };
+    emit window_->findChild<ui::ModulesPanel*>()->libraryActionRequested(QStringLiteral("M"), QStringLiteral("shared-detach"));
+    ASSERT_TRUE(waitFor([&] { return posts(detach) == 1; }));
+    EXPECT_TRUE(core::isSharedModule(mod())) << "the desktop leaves the change to the server";
+}
+
+// The owner stopped sharing: the copy stays as it is and says so; the server
+// refusing a step is told in plain words.
+TEST_F(SharedModulesLive, ACopyNoLongerSharedSaysSoAndGetsNoUpdates) {
+    rows(9, true, false, QStringLiteral("unshared"));
+    placeShared();
+    EXPECT_FALSE(bar()->updatesShown());
+    auto* list = window_->findChild<ui::ModulesPanel*>()->findChild<QListWidget*>();
+    ASSERT_TRUE(waitFor([&] { return list->count() > 0 && list->item(0)->text().contains(QStringLiteral("No longer shared · v7: no more updates")); }))
+        << list->item(0)->text().toStdString();
+    EXPECT_TRUE(entry(QStringLiteral("shared-update")).action.isEmpty());
+
+    const QByteArray apply = "/api/layouts/L1/shared-modules/M/apply";
+    http_.reply(apply, 409, { { QStringLiteral("error"), QStringLiteral("no_longer_shared") } });
+    emit window_->findChild<ui::ModulesPanel*>()->libraryActionRequested(QStringLiteral("M"), QStringLiteral("shared-putback"));
+    ASSERT_TRUE(waitFor([&] { return notices()->isShown(QStringLiteral("shared-step")); }));
+    EXPECT_TRUE(live_->active());
+}
+
+namespace {
+
+// A live layout with an ordinary module linked to the Module library (yours: not locked).
+class LinkedModuleLive : public SharedModulesLive {
+protected:
+    void beforeOpen() override {
+        SharedModulesLive::beforeOpen();
+        http_.reply("/api/orgs", 200, { { QStringLiteral("orgs"), QJsonArray{} } });
+        http_.reply("/api/catalog/settings", 200, QJsonObject{});
+        http_.reply("/api/notices", 200, { { QStringLiteral("notices"), QJsonArray{} } });
+        http_.reply("/api/modules", 200,
+                    { { QStringLiteral("modules"),
+                        QJsonArray{ QJsonObject{ { QStringLiteral("id"), kSharedLib }, { QStringLiteral("title"), QStringLiteral("Freight yard") },
+                                                 { QStringLiteral("role"), QStringLiteral("owner") }, { QStringLiteral("docVersion"), 2 },
+                                                 { QStringLiteral("latestVersion"), 2 } } } } });
+        http_.reply("/api/modules?owner=shared", 200, { { QStringLiteral("modules"), QJsonArray{} } });
+        core::Map module;
+        auto sheet = std::make_unique<core::LayerBrick>();
+        sheet->guid = core::newBbmId();
+        sheet->name = QStringLiteral("Track");
+        core::Brick b;
+        b.guid = core::newBbmId();
+        b.partNumber = QStringLiteral("3001.1");
+        b.displayArea = QRectF(0, 0, 4, 2);
+        sheet->bricks.push_back(b);
+        module.layers().push_back(std::move(sheet));
+        http_.replyRaw(("/api/modules/" + kSharedLib + "/snapshot").toUtf8(), 200, sync::moduleSnapshotFor(module, {}),
+                       "application/octet-stream");
+    }
+};
+
+}  // namespace
+
+// "Update from Module library" on a live layout goes through the server:
+// the desktop used to take the old parts out and put the new ones in
+// itself, and two people doing that at the same moment each put a full set
+// in. Now it is the server's one step, for everyone; Go back takes it back.
+TEST_F(LinkedModuleLive, UpdateFromModuleLibraryIsTheServersStepSoTwoPeopleCantDoubleTheParts) {
+    ws_.remoteEdit([](core::Map& s) {
+        core::Module m;
+        m.id = QStringLiteral("M");
+        m.name = QStringLiteral("Freight yard");
+        m.memberIds = { brickAt(s, 0).guid, brickAt(s, 1).guid };
+        m.libraryModuleId = kSharedLib;
+        m.libraryVersion = 1;
+        s.sidecar.modules.push_back(m);
+    });
+    ASSERT_TRUE(waitFor([&] { return view_->currentMap() && !view_->currentMap()->sidecar.modules.empty(); }));
+    auto* library = window_->findChild<ui::ServerLibrary*>();
+    ASSERT_NE(library, nullptr);
+    ASSERT_TRUE(waitFor([&] { return library->state() == ui::ServerLibrary::State::Ready && library->module(kSharedLib); }))
+        << library->stateText().toStdString();
+    EXPECT_EQ(entry(QStringLiteral("pull")).label, QStringLiteral("Update from Module library (v2)"));
+
+    const QByteArray apply = "/api/layouts/L1/shared-modules/M/apply";
+    http_.reply(apply, 200, { { QStringLiteral("ok"), true }, { QStringLiteral("placedId"), QStringLiteral("M") },
+                              { QStringLiteral("changed"), true }, { QStringLiteral("version"), 2 }, { QStringLiteral("from"), 1 } });
+    ui::ConfirmOptions asked;
+    window_->confirmModuleLibrary_ = [&](const ui::ConfirmOptions& o) {
+        asked = o;
+        return true;
+    };
+    const QSet<QString> members = mod().memberIds;
+    const QByteArray before = ws_.doc.encodeState();
+    emit window_->findChild<ui::ModulesPanel*>()->libraryActionRequested(QStringLiteral("M"), QStringLiteral("pull"));
+    ASSERT_TRUE(waitFor([&] { return posts(apply) == 1; }));
+    EXPECT_EQ(lastBody(apply), (QJsonObject{ { QStringLiteral("version"), 2 } }));
+    // (Its version 1 isn't kept to compare with, so it asked first, and says how to take it back.)
+    EXPECT_EQ(asked.keeps, QStringLiteral("Its name, colors and place on the map stay. You can go back to the version it has now."));
+    ASSERT_TRUE(waitFor([&] { return notices()->isShown(QStringLiteral("module-pulled")); }));
+    // The desktop itself changed nothing: the parts come from the server's step.
+    EXPECT_EQ(mod().memberIds, members);
+    EXPECT_EQ(ws_.doc.encodeState(), before);
+    EXPECT_FALSE(live_->canUndo());
+    EXPECT_TRUE(live_->active());
 }
