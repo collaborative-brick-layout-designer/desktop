@@ -2875,6 +2875,14 @@
         <translation>Quando crei o pubblichi un layout, Salva in sceglie se è tuo o del tuo club.</translation>
     </message>
     <message>
+        <source>Modules shared with you</source>
+        <translation>Moduli condivisi con te</translation>
+    </message>
+    <message>
+        <source>Share a module with your club from its ⋯ menu. Ones shared with you are in Shared with me, with their owner&apos;s updates.</source>
+        <translation>Condividi un modulo con il tuo club dal suo menu ⋯. Quelli condivisi con te sono in «Condivisi con me», con gli aggiornamenti del proprietario.</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>La pagina del tuo club</translation>
     </message>

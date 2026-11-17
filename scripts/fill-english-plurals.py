@@ -42,12 +42,14 @@ SPECIAL = {
     "This layout has its own version of %n parts you already have. Choose which to use for each.": (
         "This layout has its own version of %n part you already have. Choose which to use."
     ),
+    "%n track end(s) no longer meet.": "%n track end no longer meets.",
+    "%n shared module(s) have new versions.": "%n shared module has a new version.",
 }
 
 
 def forms(source: str) -> tuple[str, str]:
     if source in SPECIAL:
-        return SPECIAL[source], source
+        return SPECIAL[source], source.replace("(es)", "es").replace("(s)", "s")
     one = source.replace("(es)", "").replace("(s)", "")
     many = source.replace("(es)", "es").replace("(s)", "s")
     return one, many

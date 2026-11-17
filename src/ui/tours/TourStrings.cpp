@@ -59,6 +59,8 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("Tours", "Pick All, Mine or a club to see just those layouts, venues and parts."),
     QT_TRANSLATE_NOOP("Tours", "Save to"),
     QT_TRANSLATE_NOOP("Tours", "When you make or publish a layout, Save to picks whether it is yours or your club's."),
+    QT_TRANSLATE_NOOP("Tours", "Modules shared with you"),
+    QT_TRANSLATE_NOOP("Tours", "Share a module with your club from its ⋯ menu. Ones shared with you are in Shared with me, with their owner's updates."),
     QT_TRANSLATE_NOOP("Tours", "Your club's page"),
     QT_TRANSLATE_NOOP("Tours", "The club page shows who is in the club. Admins invite people from there."),
     QT_TRANSLATE_NOOP("Tours", "Joining a club"),

@@ -2875,6 +2875,14 @@
         <translation>Når du lager eller publiserer en layout, velger Lagre til om den er din eller klubbens.</translation>
     </message>
     <message>
+        <source>Modules shared with you</source>
+        <translation>Moduler delt med deg</translation>
+    </message>
+    <message>
+        <source>Share a module with your club from its ⋯ menu. Ones shared with you are in Shared with me, with their owner&apos;s updates.</source>
+        <translation>Del en modul med klubben din fra ⋯-menyen. De som er delt med deg, ligger under Delt med meg, med eierens oppdateringer.</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>Klubbens side</translation>
     </message>

@@ -2,12 +2,13 @@
   "about": "Which desktop apps and servers work together. Kept identical in the web repo (compat/compat.json) and the desktop repo (compat/compat.json); both test suites check their code against it. Change both copies in the same change.",
   "desktop": {
     "minimum": "1.2.0",
-    "recommended": "2.1.3",
+    "recommended": "2.1.5",
     "why": {
       "1.2.0": "The first version number any desktop that can connect to a server reports: 1.2.0 and earlier releases have no Connect to Server at all, and every live-sync build before 1.3.0 still calls itself 1.2.0.",
       "1.3.0": "The first release with live sync, the token fix that lets it download a server's parts (needs server #140, which every server with the partFilesWithToken feature has), and these version checks.",
       "1.4.0": "The first release that reads doc shape 2: a layout edited on this server moves to shape 2, and older desktops then refuse to open it live.",
-      "2.1.3": "The first release that reads doc shape 3: a layout whose module parts someone changes on this server moves to shape 3, and older desktops then refuse to open it live."
+      "2.1.3": "The first release that reads doc shape 3: a layout whose module parts someone changes on this server moves to shape 3, and older desktops then refuse to open it live.",
+      "2.1.5": "The first release that reads doc shape 4: a layout with a module shared read-only by its owner moves to shape 4, and older desktops then refuse to open it live."
     },
     "downloadUrl": "https://github.com/collaborative-brick-layout-designer/desktop/releases/latest",
     "userAgentPattern": "^(?:Collaborative)?BrickLayoutDesigner/([0-9][0-9A-Za-z.+-]{0,31}) \\(desktop\\)"
@@ -37,7 +38,7 @@
     { "id": "sharedModules", "label": "Modules shared with you and your clubs, with their owner's updates" }
   ],
   "serverFeatures": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "limits", "layoutDownload", "catalogShare", "uploadSets", "deletePartsFromDesktop", "recentlyDeleted", "moduleMemberKeys", "sharedModules"],
-  "desktopUses": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags"],
+  "desktopUses": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "sharedModules"],
   "assumedWhenUnlisted": ["liveSync", "signIn"],
   "cases": {
     "versionCompare": [
@@ -74,9 +75,9 @@
       { "app": "1.0.0", "minimum": "", "recommended": "", "expect": "ok" }
     ],
     "missingFeatures": [
-      { "server": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "limits"], "expect": [] },
-      { "server": ["liveSync", "signIn", "publish", "clubs", "partsManifest", "partFilesWithToken", "uploadParts", "ownerTags", "somethingNew"], "expect": ["venues", "preferences"] },
-      { "server": null, "expect": ["publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags"] }
+      { "server": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "limits", "sharedModules"], "expect": [] },
+      { "server": ["liveSync", "signIn", "publish", "clubs", "partsManifest", "partFilesWithToken", "uploadParts", "ownerTags", "somethingNew"], "expect": ["venues", "preferences", "sharedModules"] },
+      { "server": null, "expect": ["publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "sharedModules"] }
     ],
     "docReadable": [
       { "doc": null, "schemaVersion": 1, "minReadable": 1, "expect": true },

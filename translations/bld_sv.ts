@@ -2875,6 +2875,14 @@
         <translation>När du gör eller publicerar en layout väljer Spara till om den är din eller din klubbs.</translation>
     </message>
     <message>
+        <source>Modules shared with you</source>
+        <translation>Moduler som delats med dig</translation>
+    </message>
+    <message>
+        <source>Share a module with your club from its ⋯ menu. Ones shared with you are in Shared with me, with their owner&apos;s updates.</source>
+        <translation>Dela en modul med din klubb från dess ⋯-meny. De som delats med dig finns under Delade med mig, med ägarens uppdateringar.</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>Din klubbs sida</translation>
     </message>

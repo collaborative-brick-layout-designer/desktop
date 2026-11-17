@@ -27,7 +27,8 @@ QStringList desktopFeatures() {
              QStringLiteral("publish"),       QStringLiteral("clubs"),
              QStringLiteral("venues"),        QStringLiteral("partsManifest"),
              QStringLiteral("partFilesWithToken"), QStringLiteral("uploadParts"),
-             QStringLiteral("preferences"),   QStringLiteral("ownerTags") };
+             QStringLiteral("preferences"),   QStringLiteral("ownerTags"),
+             QStringLiteral("sharedModules") };
 }
 
 QStringList assumedWhenUnlisted() { return { QStringLiteral("liveSync"), QStringLiteral("signIn") }; }
