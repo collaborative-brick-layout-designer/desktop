@@ -567,8 +567,11 @@ void settleSharedModules(QList<ItemChange>& out, const Snapshot& base, const Sna
         // The module itself: the server's, and my offline move of it on top.
         const auto baseAt = placementIn(*bm), serverAt = placementIn(serverMod);
         const auto mineAt = mm != mineMods.constEnd() ? placementIn(*mm) : std::nullopt;
-        std::optional<core::SharedPlacement> to;
+        bool movedByMe = false;
+        core::SharedPlacement from, to;
         if (baseAt && serverAt && mineAt && !(mineAt->degrees == baseAt->degrees && mineAt->x == baseAt->x && mineAt->y == baseAt->y)) {
+            movedByMe = true;
+            from = *serverAt;
             const double turn = mineAt->degrees - baseAt->degrees;
             core::SharedPlacement mineOnly{ turn, mineAt->x, mineAt->y, std::nullopt };
             const QPointF xy = core::placePoint(mineOnly, QPointF(serverAt->x - baseAt->x, serverAt->y - baseAt->y));
@@ -576,7 +579,7 @@ void settleSharedModules(QList<ItemChange>& out, const Snapshot& base, const Sna
         }
         const QString moduleKey = QStringLiteral("module:") + sm.key();
         qsizetype mi = find(moduleKey);
-        if (!to) {
+        if (!movedByMe) {
             if (mi >= 0) {
                 ItemChange& c = out[mi];
                 c.mine = Side::Unchanged;
@@ -588,7 +591,7 @@ void settleSharedModules(QList<ItemChange>& out, const Snapshot& base, const Sna
         }
         QJsonObject moved = serverMod;
         QJsonObject shared = moved.value(QLatin1String("shared")).toObject();
-        shared.insert(QStringLiteral("placement"), core::placementJson(*to));
+        shared.insert(QStringLiteral("placement"), core::placementJson(to));
         moved.insert(QStringLiteral("shared"), shared);
         ItemChange mc;
         mc.key = moduleKey;
@@ -609,7 +612,7 @@ void settleSharedModules(QList<ItemChange>& out, const Snapshot& base, const Sna
                 const QJsonObject brick = b.toObject();
                 const QString id = brick.value(QLatin1String("id")).toString();
                 if (!now.contains(id)) continue;
-                const QJsonObject there = sharedMover() ? sharedMover()(brick, *serverAt, *to) : moveByBox(brick, *serverAt, *to);
+                const QJsonObject there = sharedMover() ? sharedMover()(brick, from, to) : moveByBox(brick, from, to);
                 QJsonObject shown = there, serverShown = brick;
                 shown.remove(QStringLiteral("connexions"));
                 serverShown.remove(QStringLiteral("connexions"));

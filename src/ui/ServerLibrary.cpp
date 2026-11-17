@@ -729,7 +729,10 @@ ModuleShareDialog* ServerModulesTab::shareDialog() const { return qobject_cast<M
 void ServerModulesTab::share(const QString& id) {
     const sync::ServerModule* m = library_.module(id);
     if (!m) return;
-    if (shareDialog_) shareDialog_->close();
+    if (QDialog* old = shareDialog_.data()) {
+        shareDialog_.clear();
+        old->close();
+    }
     shareDialog_ = new ModuleShareDialog(library_, *m, this);
     shareDialog_->setAttribute(Qt::WA_DeleteOnClose);
     shareDialog_->open();

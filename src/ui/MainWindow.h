@@ -600,7 +600,7 @@ private:
     // How to link the library module `m` when it's placed here: `place`
     // false: it can't go in this layout (the person was told whom to ask);
     // `shared` set: placed shared (locked, following its owner).
-    void sharedLinkFor(const sync::ServerModule& m, std::function<void(bool place, std::optional<QJsonObject> shared)> done);
+    void sharedLinkFor(const sync::ServerModule& m, const std::function<void(bool place, std::optional<QJsonObject> shared)>& done);
     void sharedTipOnce();
     // Set while insertServerModule runs again with how the module is linked.
     std::unique_ptr<std::optional<QJsonObject>> insertingSharedLink_;

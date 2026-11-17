@@ -328,9 +328,16 @@ void MainWindow::sharedDriftFound(const QString& placedId) {
     QList<NoticeAction> actions;
     if (canUpdate)
         actions << NoticeAction{ p->by.isEmpty() ? tr("Put Back the Owner's Version") : tr("Put Back %1's Version").arg(p->by),
-                                 [this, placedId] { sharedModuleAction(placedId, QStringLiteral("shared-putback")); }, true };
+                                 [this, placedId] {
+                                     // (after the notice has let go of this button)
+                                     QTimer::singleShot(0, this, [this, placedId] { sharedModuleAction(placedId, QStringLiteral("shared-putback")); });
+                                 },
+                                 true };
     if (sharedRowsKnown_ && sharedRows_.canDetach)
-        actions << NoticeAction{ tr("Make It Mine…"), [this, placedId] { sharedModuleAction(placedId, QStringLiteral("shared-detach")); }, false };
+        actions << NoticeAction{ tr("Make It Mine…"), [this, placedId] {
+                                     QTimer::singleShot(0, this, [this, placedId] { sharedModuleAction(placedId, QStringLiteral("shared-detach")); });
+                                 },
+                                 false };
     actions << NoticeAction{ tr("Not Now"), {}, false };
     notices_->showNotice(id, tr("“%1” was changed outside the app").arg(nameOf(*p)),
                          p->by.isEmpty()
@@ -548,7 +555,10 @@ void MainWindow::showSharedVersions(const QString& placedId) {
     const core::Module* m = placedModule(mapView_->currentMap(), placedId);
     const auto p = m ? core::sharedPlaced(*m) : std::nullopt;
     if (!p || !(live_ && live_->active()) || liveLayoutId_.isEmpty()) return;
-    if (sharedVersions_) sharedVersions_->close();
+    if (QDialog* old = sharedVersions_.data()) {
+        sharedVersions_.clear();
+        old->close();
+    }
     auto* dlg = new QDialog(this);
     sharedVersions_ = dlg;
     dlg->setAttribute(Qt::WA_DeleteOnClose);
@@ -633,7 +643,7 @@ void MainWindow::sharedTipOnce() {
     notices_->addHelp(QStringLiteral("shared-tip"), QStringLiteral("module.shared"));
 }
 
-void MainWindow::sharedLinkFor(const sync::ServerModule& m, std::function<void(bool, std::optional<QJsonObject>)> done) {
+void MainWindow::sharedLinkFor(const sync::ServerModule& m, const std::function<void(bool, std::optional<QJsonObject>)>& done) {
     // "Can change it" (an editor share) stays a linked copy you can change, as do your own and your clubs'.
     if (!m.sharedWithMe || m.role != QLatin1String("viewer")) {
         done(true, std::nullopt);

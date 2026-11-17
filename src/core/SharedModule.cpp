@@ -163,9 +163,10 @@ Module sharedCopyOf(const Module& m, QSet<QString> members, QString newId, QPoin
     c.name = m.name;
     c.libraryModuleId = m.libraryModuleId;
     c.libraryVersion = m.libraryVersion;
-    c.shared = m.shared;
-    c.shared->remove(QStringLiteral("review"));
-    if (s->placement) c.shared->insert(QStringLiteral("placement"), placementJson(movedPlacement(*s->placement, moved)));
+    QJsonObject link = m.shared.value_or(QJsonObject{});
+    link.remove(QStringLiteral("review"));
+    if (s->placement) link.insert(QStringLiteral("placement"), placementJson(movedPlacement(*s->placement, moved)));
+    c.shared = link;
     return c;
 }
 
@@ -228,14 +229,13 @@ std::optional<SharedPlaced> sharedLockOn(const std::vector<Module>& modules, con
     if (ids.isEmpty()) return std::nullopt;
     for (const auto& m : modules) {
         if (!m.shared) continue;
-        auto s = sharedPlaced(m);
-        if (!s) continue;
+        if (!sharedPlaced(m)) continue;
         qsizetype n = 0;
-        for (const auto& id : s->members)
+        for (const auto& id : m.memberIds)
             if (ids.contains(id)) ++n;
         if (n == 0) continue;
-        if (whole && n == s->members.size()) continue;
-        return s;
+        if (whole && n == m.memberIds.size()) continue;
+        return sharedPlaced(m);
     }
     return std::nullopt;
 }
