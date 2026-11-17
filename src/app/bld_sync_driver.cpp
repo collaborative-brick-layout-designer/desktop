@@ -28,10 +28,29 @@
 //                              take a part out of a module, as one edit
 //   module-rename <moduleId> <name>
 //                              rename a module, as one edit
+//   module-move <moduleId> <dx> <dy>
+//                              move a module's parts together (studs), as one edit
+//   brick-delete <brickId>     delete a part, as one edit
+//   shared                     the editor's shared (read-only) modules as JSON: id,
+//                              moduleId, version, by, members, placement, review
+//   shared-rows                what the server says about them (GET
+//                              /api/layouts/:id/shared-modules), as JSON
+//   shared-apply <moduleId> [version] [again]
+//                              the server puts a version in (the newest when
+//                              none is named): Update, Go back, Put back
+//   shared-detach <moduleId>   "Make it mine", the server's step
+//
+// Edits go through the app's lock on shared modules (edit/SharedLock.h), as
+// MapView's do: one that would change a shared module's parts, name or
+// members answers "error locked: <why>" and nothing is sent.
 //   peers                      everyone else's presence as JSON
 //   quit
 
 #include "sync/LayoutMerge.h"
+#include "sync/LibraryApi.h"
+#include "core/SharedModule.h"
+#include "edit/SharedLock.h"
+#include "parts/PartsLibrary.h"
 #include "sync/Presence.h"
 #include "sync/ServerApi.h"
 #include "sync/SidecarItems.h"
@@ -138,13 +157,16 @@ public:
 
     // Whether the server lists the feature for module part keys
     // (GET /api/version). No answer in time: it doesn't.
-    bool serverReadsMemberKeys() {
+    bool serverReadsMemberKeys() { return serverHas(QLatin1String(sync::kMemberKeysFeature)); }
+    // ...and the one for shared, read-only modules (doc shape 4).
+    bool serverKnowsSharedModules() { return serverHas(QLatin1String(sync::kSharedModulesFeature)); }
+    bool serverHas(QLatin1String feature) {
         sync::ServerApi api;
         api.setBase(server_);
         bool answered = false, reads = false;
         QObject::connect(&api, &sync::ServerApi::versionReady, &api, [&](const sync::ServerInfo& info) {
             answered = true;
-            reads = info.features && info.features->contains(QLatin1String(sync::kMemberKeysFeature));
+            reads = info.features && info.features->contains(feature);
         });
         api.fetchVersion();
         waitFor([&] { return answered; }, 10000);
@@ -171,6 +193,7 @@ public:
             // a module's part changes are written one key each only where the
             // server's web app reads them (docs/module-members.md).
             session_.setMemberKeys(serverReadsMemberKeys());
+            session_.setSharedModules(serverKnowsSharedModules());
             session_.open(socket_, token_, false);
             reply(QStringLiteral("ok"));
         } else if (cmd == QLatin1String("wait-synced")) {
@@ -239,11 +262,80 @@ public:
             }
             reply(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(out).toJson(QJsonDocument::Compact)));
         } else if (cmd == QLatin1String("module-add") && a.size() == 3) {
-            editModule(a[1], [&](core::Module& m) { m.memberIds.insert(a[2]); });
+            editModule(a[1], [&](core::Module& m, core::Map&) { m.memberIds.insert(a[2]); });
         } else if (cmd == QLatin1String("module-remove") && a.size() == 3) {
-            editModule(a[1], [&](core::Module& m) { m.memberIds.remove(a[2]); });
+            editModule(a[1], [&](core::Module& m, core::Map&) { m.memberIds.remove(a[2]); });
         } else if (cmd == QLatin1String("module-rename") && a.size() > 2) {
-            editModule(a[1], [&](core::Module& m) { m.name = a.mid(2).join(QLatin1Char(' ')); });
+            editModule(a[1], [&](core::Module& m, core::Map&) { m.name = a.mid(2).join(QLatin1Char(' ')); });
+        } else if (cmd == QLatin1String("module-move") && a.size() == 4) {
+            const QPointF by(a[2].toDouble(), a[3].toDouble());
+            editModule(a[1], [&](core::Module& m, core::Map& map) {
+                for (auto& l : map.layers())
+                    if (l->kind() == core::LayerKind::Brick)
+                        for (auto& b : static_cast<core::LayerBrick&>(*l).bricks)
+                            if (m.memberIds.contains(b.guid)) b.displayArea.translate(by);
+            });
+        } else if (cmd == QLatin1String("brick-delete") && a.size() == 2) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            if (!findBrick(*map, a[1])) return reply(QStringLiteral("error no brick ") + a[1]), true;
+            send(*map, [&] {
+                for (auto& l : map->layers())
+                    if (l->kind() == core::LayerKind::Brick) {
+                        auto& bricks = static_cast<core::LayerBrick&>(*l).bricks;
+                        std::erase_if(bricks, [&](const core::Brick& b) { return b.guid == a[1]; });
+                    }
+                // (as DeleteBricksCommand: a deleted part leaves its module's list)
+                for (auto& m : map->sidecar.modules) m.memberIds.remove(a[1]);
+            });
+        } else if (cmd == QLatin1String("shared")) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            QJsonArray out;
+            for (const auto& s : core::sharedModulesIn(map->sidecar.modules)) {
+                QStringList members(s.members.begin(), s.members.end());
+                members.sort();
+                QJsonObject o{ { QStringLiteral("id"), s.placedId },       { QStringLiteral("moduleId"), s.moduleId },
+                               { QStringLiteral("version"), s.version },   { QStringLiteral("by"), s.by },
+                               { QStringLiteral("name"), s.name },         { QStringLiteral("members"), QJsonArray::fromStringList(members) },
+                               { QStringLiteral("placement"), s.placement ? QJsonValue(core::placementJson(*s.placement)) : QJsonValue() },
+                               { QStringLiteral("review"),
+                                 s.review ? QJsonValue(QJsonObject{ { QStringLiteral("from"), s.review->from }, { QStringLiteral("to"), s.review->to } })
+                                          : QJsonValue() } };
+                out.append(o);
+            }
+            reply(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(out).toJson(QJsonDocument::Compact)));
+        } else if (cmd == QLatin1String("shared-rows")) {
+            api().layoutSharedModules(layoutId_, QString(), [this](const sync::LayoutSharedModules& rows) {
+                QJsonArray list;
+                for (const auto& m : rows.modules)
+                    list.append(QJsonObject{ { QStringLiteral("placedId"), m.placedId }, { QStringLiteral("state"), m.state },
+                                             { QStringLiteral("version"), m.version }, { QStringLiteral("latest"), m.latest },
+                                             { QStringLiteral("latestNote"), m.latestNote }, { QStringLiteral("owner"), m.ownerName } });
+                answer(QStringLiteral("ok ")
+                       + QString::fromUtf8(QJsonDocument(QJsonObject{ { QStringLiteral("canUpdate"), rows.canUpdate },
+                                                                      { QStringLiteral("canDetach"), rows.canDetach },
+                                                                      { QStringLiteral("modules"), list } })
+                                               .toJson(QJsonDocument::Compact)));
+            }, refused());
+            awaitAnswer();
+        } else if (cmd == QLatin1String("shared-apply") && a.size() >= 2) {
+            const bool again = a.size() > 3 && a[3] == QLatin1String("again");
+            api().applySharedModule(layoutId_, a[1], a.size() > 2 ? a[2].toInt() : 0, again, [this](const sync::SharedModuleApplied& r) {
+                answer(QStringLiteral("ok ")
+                       + QString::fromUtf8(QJsonDocument(QJsonObject{ { QStringLiteral("changed"), r.changed },
+                                                                      { QStringLiteral("version"), r.version },
+                                                                      { QStringLiteral("from"), r.from } })
+                                               .toJson(QJsonDocument::Compact)));
+            }, refused());
+            awaitAnswer();
+        } else if (cmd == QLatin1String("shared-detach") && a.size() == 2) {
+            api().detachSharedModule(layoutId_, a[1], [this](bool changed) {
+                answer(changed ? QStringLiteral("ok true") : QStringLiteral("ok false"));
+            }, refused());
+            awaitAnswer();
         } else if (cmd == QLatin1String("peers")) {
             QJsonArray peers;
             for (const auto& state : session_.peers()) peers.append(state);
@@ -265,22 +357,57 @@ private:
         if (!map) return reply(QStringLiteral("error ") + error);
         core::Brick* b = findBrick(*map, id);
         if (!b) return reply(QStringLiteral("error no brick ") + id);
-        change(*b);
-        session_.localEdit(*map);
+        send(*map, [&] { change(*b); });
+    }
+
+    // The edit `change` makes to `map`, handed to the session, unless it
+    // breaks the lock on a shared (read-only) module: then nothing is sent
+    // and the answer says why, as the app does (MapView::onSharedLockStep).
+    // A shared module moved as a whole has its placement kept up.
+    void send(core::Map& map, const std::function<void()>& change) {
+        static parts::PartsLibrary noParts;
+        edit::SharedLockState lock;
+        lock.rebase(map, noParts);
+        change();
+        if (const auto broken = lock.check(map)) return reply(QStringLiteral("error locked: ") + broken->message());
+        lock.keepPlacements(map, noParts);
+        session_.localEdit(map);
         reply(QStringLiteral("ok"));
+    }
+
+    // The server's API, signed in as the driver.
+    sync::LibraryApi& api() {
+        api_.setBase(server_);
+        api_.setToken(token_);
+        return api_;
+    }
+    // A request's answer is the command's one reply line.
+    void answer(const QString& line) {
+        if (answered_) return;  // (it came after the wait gave up)
+        answered_ = true;
+        reply(line);
+    }
+    sync::LibraryApi::Fail refused() {
+        return [this](const sync::ServerRefusal& r) {
+            answer(QStringLiteral("error %1 %2").arg(r.status).arg(r.code.isEmpty() ? r.networkError : r.code));
+        };
+    }
+    void awaitAnswer() {
+        answered_ = false;
+        if (waitFor([&] { return answered_; }, 30000)) return;
+        answered_ = true;
+        reply(QStringLiteral("error no answer from the server"));
     }
 
     // One editor edit to a module of what the editor shows (its parts, its
     // name), handed to the session as the Modules panel's commands do.
-    void editModule(const QString& id, const std::function<void(core::Module&)>& change) {
+    void editModule(const QString& id, const std::function<void(core::Module&, core::Map&)>& change) {
         QString error;
         auto map = session_.editorMap(&error);
         if (!map) return reply(QStringLiteral("error ") + error);
         for (auto& m : map->sidecar.modules) {
             if (m.id != id) continue;
-            change(m);
-            session_.localEdit(*map);
-            return reply(QStringLiteral("ok"));
+            return send(*map, [&] { change(m, *map); });
         }
         reply(QStringLiteral("error no module ") + id);
     }
@@ -318,6 +445,8 @@ private:
     QString layoutId_;
     QString name_ = QStringLiteral("Desktop");
     sync::SyncSession session_;
+    sync::LibraryApi api_;
+    bool answered_ = false;
     // Where the session keeps the layout and its offline edits, as the app
     // does: "reconnect" opens the layout again and finds them there.
     QTemporaryDir cache_;

@@ -187,7 +187,8 @@ QByteArray desktopEdit(Person& me, const QString& what) {
 
 TEST(ModuleMembers, TheShapeIsTheContracts) {
     EXPECT_EQ(sync::kDocShapeMemberKeys, contract().value(QLatin1String("shape")).toInt());
-    EXPECT_EQ(sync::kDocSchemaVersion, sync::kDocShapeMemberKeys);
+    // (This build reads on to shape 4: shared modules, core/SharedModule.h.)
+    EXPECT_GE(sync::kDocSchemaVersion, sync::kDocShapeMemberKeys);
 }
 
 TEST(ModuleMembers, KeysMatchTheWebs) {

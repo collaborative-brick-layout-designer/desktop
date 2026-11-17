@@ -24,6 +24,13 @@
 #include "ui/MapView.h"
 #include "ui/ModuleLibraryDialogs.h"
 #include "ui/ModuleLibraryPanel.h"
+#include "ui/ModuleShareDialog.h"
+#include "ui/SharedModulesBar.h"
+#include "core/SharedModule.h"
+#include "import/LayoutFile.h"
+#include "edit/SharedModulePlacement.h"
+#include "parts/BrickPlacement.h"
+#include <QClipboard>
 #include "ui/ModulesPanel.h"
 #include "ui/NoticeArea.h"
 #include "ui/ReturnWording.h"
@@ -34,6 +41,7 @@
 #include "ui/UpdateCheck.h"
 #include "ui/VenueLibraryPanel.h"
 
+#include "ui/theme/AppPrefs.h"
 #include "ui/theme/ThemeManager.h"
 #include "ui/theme/Tokens.h"
 #include <QMessageBox>
@@ -44,6 +52,7 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDir>
+#include <QDockWidget>
 #include <QElapsedTimer>
 #include <QFile>
 #include <QFrame>
@@ -63,11 +72,13 @@
 #include <QRadioButton>
 #include <QSettings>
 #include <QStandardPaths>
+#include <QTabBar>
 #include <QTabWidget>
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QTemporaryDir>
 #include <QTimer>
+#include <QTranslator>
 #include <QToolButton>
 #include <QUndoStack>
 #include <QUrlQuery>
@@ -1779,4 +1790,636 @@ TEST_F(ServerModulesSlowNotices, AnAnswerAfterTheWindowIsGoneIsDropped) {
     for (const QByteArray& p : { snapshot, venue, notices }) http_.release(p);
     ASSERT_TRUE(waitFor([&] { return library->api().pending() == 0; }));
     QCoreApplication::processEvents();
+}
+
+// ---------- Shared (read-only) modules (docs/shared-modules.md) ----------------
+
+namespace {
+
+const QString kShared = QStringLiteral("11111111-1111-4111-8111-111111111111");
+const QString kClubOnly = QStringLiteral("22222222-2222-4222-8222-222222222222");
+
+// Someone else's module shared with you: in person (`direct`), and/or through Train Club.
+QJsonObject sharedJson(const QString& id, const QString& title, bool direct, bool viaClub, int version = 1) {
+    QJsonObject m = moduleJson(id, title, QStringLiteral("viewer"), {}, 0, version);
+    m.insert(QStringLiteral("owner"), QJsonObject{ { QStringLiteral("kind"), QStringLiteral("user") }, { QStringLiteral("id"), QStringLiteral("u2") },
+                                                   { QStringLiteral("name"), QStringLiteral("Alice") } });
+    QJsonArray clubs;
+    if (viaClub)
+        clubs.append(QJsonObject{ { QStringLiteral("id"), QStringLiteral("o1") }, { QStringLiteral("name"), QStringLiteral("Train Club") },
+                                  { QStringLiteral("slug"), QStringLiteral("train") } });
+    m.insert(QStringLiteral("sharedVia"), QJsonObject{ { QStringLiteral("direct"), direct }, { QStringLiteral("clubs"), clubs } });
+    return m;
+}
+
+void serveShared(FakeHttp& http, int version = 1) {
+    http.clear("/api/modules?owner=shared");
+    http.reply("/api/modules?owner=shared", 200,
+               modules({ sharedJson(kShared, QStringLiteral("Harbor crane"), true, true, version),
+                         sharedJson(kClubOnly, QStringLiteral("Club tunnel"), false, true) }));
+}
+
+// The server list says this server has shared modules (and no parts to download).
+void rememberSharedModules(const QUrl& server) {
+    sync::ServerList list = sync::ServerList::load();
+    sync::ServerInfo info;
+    info.features = QStringList{ QStringLiteral("liveSync"), QStringLiteral("sharedModules") };
+    list.remember(server, info);
+    list.save();
+}
+
+QJsonObject sharesJson(const QJsonArray& clubs, int layouts = 0) {
+    QJsonArray used;
+    if (layouts > 0)
+        used.append(QJsonObject{ { QStringLiteral("orgId"), QStringLiteral("o1") }, { QStringLiteral("name"), QStringLiteral("Train Club") },
+                                 { QStringLiteral("layouts"), layouts } });
+    return { { QStringLiteral("latestVersion"), 7 },
+             { QStringLiteral("canShareWithClubs"), true },
+             { QStringLiteral("people"), QJsonArray{} },
+             { QStringLiteral("invites"), QJsonArray{} },
+             { QStringLiteral("clubs"), clubs },
+             { QStringLiteral("myClubs"), QJsonArray{ QJsonObject{ { QStringLiteral("orgId"), QStringLiteral("o1") },
+                                                                   { QStringLiteral("name"), QStringLiteral("Train Club") },
+                                                                   { QStringLiteral("slug"), QStringLiteral("train") } } } },
+             { QStringLiteral("usedIn"), QJsonObject{ { QStringLiteral("layouts"), layouts }, { QStringLiteral("clubs"), used },
+                                                      { QStringLiteral("people"), QJsonArray{} }, { QStringLiteral("others"), 0 } } } };
+}
+
+}  // namespace
+
+TEST(LibraryApi, ReadsSharedWithMeASharesAnswerAndALayoutsSharedModules) {
+    FakeHttp http;
+    sync::LibraryApi api;
+    api.setBase(http.base());
+    api.setToken(QStringLiteral("bld_pat_t"));
+    serveShared(http, 7);
+    QList<sync::ServerModule> shared;
+    api.sharedWithMe([&](const QList<sync::ServerModule>& l) { shared = l; }, {});
+    ASSERT_TRUE(waitFor([&] { return shared.size() == 2; }));
+    EXPECT_TRUE(shared[0].sharedWithMe);
+    EXPECT_TRUE(shared[0].sharedDirect);
+    EXPECT_EQ(shared[0].latestVersion, 7);
+    EXPECT_EQ(shared[0].sharedViaText(), QStringLiteral("Alice · via Train Club"));
+    EXPECT_FALSE(shared[1].sharedDirect);
+    ASSERT_EQ(shared[1].sharedClubs.size(), 1);
+    EXPECT_EQ(shared[1].sharedClubs[0].slug, QStringLiteral("train"));
+    sync::ServerModule justMe = shared[0];
+    justMe.sharedClubs.clear();
+    EXPECT_EQ(justMe.sharedViaText(), QStringLiteral("Alice · shared with you"));
+
+    const sync::ModuleShares s = sync::LibraryApi::moduleSharesFromJson(
+        sharesJson({ QJsonObject{ { QStringLiteral("orgId"), QStringLiteral("o1") }, { QStringLiteral("name"), QStringLiteral("Train Club") },
+                                  { QStringLiteral("slug"), QStringLiteral("train") } } },
+                   3));
+    EXPECT_EQ(s.latestVersion, 7);
+    ASSERT_EQ(s.clubs.size(), 1);
+    EXPECT_EQ(s.layoutsOf(QStringLiteral("o1")), 3);
+    EXPECT_EQ(s.usedInText(), QStringLiteral("Used in 3 layout(s) (Train Club: 3)"));
+    EXPECT_TRUE(sync::LibraryApi::moduleSharesFromJson(sharesJson({})).usedInText().isEmpty());
+
+    const sync::LayoutSharedModules rows = sync::LibraryApi::layoutSharedModulesFromJson(QJsonDocument::fromJson(R"({
+        "canUpdate": true, "canDetach": false,
+        "modules": [{ "placedId": "p1", "moduleId": "m", "state": "shared", "version": 7, "title": "Harbor crane",
+                      "owner": { "kind": "user", "name": "Alice" }, "latest": 8, "latestNote": "longer pier", "hasPicture": true },
+                    { "placedId": "p2", "moduleId": "n", "state": "gone", "version": 2, "title": null, "owner": null, "latest": null, "latestNote": null }],
+        "check": { "moduleId": "m", "state": "unshared", "title": "Harbor crane",
+                   "moduleOwner": { "kind": "user", "name": "Alice", "mine": false },
+                   "layoutOwner": { "kind": "org", "name": "Train Club", "mine": false } } })").object());
+    EXPECT_TRUE(rows.canUpdate);
+    EXPECT_FALSE(rows.canDetach);
+    ASSERT_EQ(rows.modules.size(), 2);
+    EXPECT_EQ(rows.row(QStringLiteral("p1"))->latest, 8);
+    EXPECT_EQ(rows.row(QStringLiteral("p1"))->latestNote, QStringLiteral("longer pier"));
+    EXPECT_TRUE(rows.row(QStringLiteral("p1"))->following());
+    EXPECT_FALSE(rows.row(QStringLiteral("p2"))->following());
+    ASSERT_TRUE(rows.check);
+    EXPECT_EQ(rows.check->layoutOwner.kind, QStringLiteral("org"));
+
+    // Update: the version named; Put back: the same one, `again`.
+    http.reply("/api/layouts/L1/shared-modules/p1/apply", 200,
+               { { QStringLiteral("ok"), true }, { QStringLiteral("placedId"), QStringLiteral("p1") }, { QStringLiteral("changed"), true },
+                 { QStringLiteral("version"), 8 }, { QStringLiteral("from"), 7 }, { QStringLiteral("parts"), 12 } });
+    sync::SharedModuleApplied applied;
+    api.applySharedModule(QStringLiteral("L1"), QStringLiteral("p1"), 8, false, [&](const sync::SharedModuleApplied& a) { applied = a; }, {});
+    ASSERT_TRUE(waitFor([&] { return applied.version == 8; }));
+    EXPECT_TRUE(applied.changed);
+    EXPECT_EQ(applied.from, 7);
+    EXPECT_EQ(QJsonDocument::fromJson(lastRequest(http, "POST", "/api/layouts/L1/shared-modules/p1/apply")->body).object(),
+              (QJsonObject{ { QStringLiteral("version"), 8 } }));
+    applied = {};
+    api.applySharedModule(QStringLiteral("L1"), QStringLiteral("p1"), 8, true, [&](const sync::SharedModuleApplied& a) { applied = a; }, {});
+    ASSERT_TRUE(waitFor([&] { return applied.version == 8; }));
+    EXPECT_EQ(QJsonDocument::fromJson(lastRequest(http, "POST", "/api/layouts/L1/shared-modules/p1/apply")->body).object(),
+              (QJsonObject{ { QStringLiteral("version"), 8 }, { QStringLiteral("again"), true } }));
+}
+
+// The Module library's tabs on a server with shared modules: Mine, Clubs,
+// Shared with me, each with how many; a shared module names its owner and
+// how it reached you. A server without them keeps the one list.
+TEST_F(LibraryTabs, MineClubsAndSharedWithMe) {
+    serveModules();
+    serveShared(http_);
+    library_.setKnowsSharedModules(true);
+    ui::ServerModulesTab tab(library_);
+    tab.resize(320, 700);
+    tab.show();
+    connectSignedIn();
+    ASSERT_TRUE(tab.tabs()->isVisibleTo(&tab));
+    EXPECT_EQ(tab.tabs()->tabText(ui::ServerModulesTab::Mine), QStringLiteral("Mine (2)"));
+    EXPECT_EQ(tab.tabs()->tabText(ui::ServerModulesTab::Clubs), QStringLiteral("Clubs (1)"));
+    EXPECT_EQ(tab.tabs()->tabText(ui::ServerModulesTab::Shared), QStringLiteral("Shared with me (2)"));
+    EXPECT_EQ(texts(&tab), (QStringList{ QStringLiteral("Yours"), QStringLiteral("Freight yard"), QStringLiteral("Station") }));
+    tab.tabs()->setCurrentIndex(ui::ServerModulesTab::Clubs);
+    EXPECT_EQ(texts(&tab), (QStringList{ QStringLiteral("Train Club"), QStringLiteral("Engine shed") }));
+
+    tab.tabs()->setCurrentIndex(ui::ServerModulesTab::Shared);
+    EXPECT_EQ(texts(&tab), (QStringList{ QStringLiteral("Harbor crane"), QStringLiteral("Club tunnel") }));
+    QWidget* crane = tab.row(kShared);
+    ASSERT_NE(crane, nullptr);
+    EXPECT_EQ(crane->findChild<QLabel*>(QStringLiteral("rowSharedVia"))->text(), QStringLiteral("🔗 Alice · via Train Club"));
+    EXPECT_EQ(crane->findChild<QPushButton*>(QStringLiteral("insertModule"))->text(), QStringLiteral("Add to layout"));
+    EXPECT_EQ(crane->findChild<QToolButton*>(QStringLiteral("moduleMore")), nullptr) << "not yours to change: no menu";
+    EXPECT_EQ(crane->findChild<QPushButton*>(QStringLiteral("removeClubShare")), nullptr) << "a member can't take it off the club";
+    EXPECT_NE(tab.findChild<QLabel*>(QStringLiteral("sharedModulesAbout")), nullptr);
+    QString inserted;
+    QObject::connect(&library_, &ui::ServerLibrary::insertRequested, [&](const QString& id) { inserted = id; });
+    crane->findChild<QPushButton*>(QStringLiteral("insertModule"))->click();
+    EXPECT_EQ(inserted, kShared);
+
+    // Nothing shared: it says what will show here.
+    http_.clear("/api/modules?owner=shared");
+    http_.reply("/api/modules?owner=shared", 200, modules({}));
+    library_.refresh();
+    ASSERT_TRUE(waitFor([&] { return tab.tabs()->tabText(ui::ServerModulesTab::Shared) == QStringLiteral("Shared with me"); }));
+    auto* nothing = tab.findChild<QLabel*>(QStringLiteral("serverModulesEmpty"));
+    ASSERT_NE(nothing, nullptr);
+    EXPECT_TRUE(nothing->text().startsWith(QStringLiteral("Nothing is shared with you yet.")));
+
+    // An older server: no tabs, the one list as before, and it is never asked.
+    const int asked = count(http_, "GET", "/api/modules?owner=shared");
+    library_.setKnowsSharedModules(false);
+    library_.refresh();
+    ASSERT_TRUE(waitFor([&] { return !tab.tabs()->isVisibleTo(&tab); }));
+    QCoreApplication::processEvents();
+    EXPECT_EQ(texts(&tab), (QStringList{ QStringLiteral("Yours"), QStringLiteral("Freight yard"), QStringLiteral("Station"),
+                                         QStringLiteral("Train Club"), QStringLiteral("Engine shed") }));
+    EXPECT_EQ(count(http_, "GET", "/api/modules?owner=shared"), asked);
+}
+
+// A club's admins and managers can take a shared module off their club.
+TEST_F(LibraryTabs, AClubAdminCanRemoveASharedModuleFromTheClub) {
+    serveModules();
+    serveShared(http_);
+    http_.clear("/api/orgs");
+    http_.reply("/api/orgs", 200,
+                { { QStringLiteral("orgs"), QJsonArray{ QJsonObject{ { QStringLiteral("slug"), QStringLiteral("train") },
+                                                                      { QStringLiteral("name"), QStringLiteral("Train Club") },
+                                                                      { QStringLiteral("myRole"), QStringLiteral("admin") } } } } });
+    library_.setKnowsSharedModules(true);
+    ui::ServerModulesTab tab(library_);
+    tab.show();
+    connectSignedIn();
+    tab.tabs()->setCurrentIndex(ui::ServerModulesTab::Shared);
+    auto* remove = tab.row(kClubOnly)->findChild<QPushButton*>(QStringLiteral("removeClubShare"));
+    ASSERT_NE(remove, nullptr);
+    EXPECT_EQ(remove->text(), QStringLiteral("Remove from Train Club…"));
+    // It asks first, saying what stays.
+    ui::ConfirmOptions asked;
+    tab.confirmRemoveFromClub = [&](const sync::ServerModule& m, const sync::ClubRef& club) {
+        asked.title = m.title + QStringLiteral(" / ") + club.name;
+        return false;
+    };
+    remove->click();
+    EXPECT_EQ(asked.title, QStringLiteral("Club tunnel / Train Club"));
+    EXPECT_EQ(count(http_, "DELETE", "/api/modules/"), 0) << "Cancel: nothing is removed";
+
+    tab.confirmRemoveFromClub = [](const sync::ServerModule&, const sync::ClubRef&) { return true; };
+    http_.replyTo("DELETE", ("/api/modules/" + kClubOnly + "/club-shares/o1").toUtf8(), 200, { { QStringLiteral("ok"), true } });
+    http_.clear("/api/modules?owner=shared");
+    http_.reply("/api/modules?owner=shared", 200, modules({ sharedJson(kShared, QStringLiteral("Harbor crane"), true, true) }));
+    QString said;
+    QObject::connect(&library_, &ui::ServerLibrary::message, [&](const QString& t) { said = t; });
+    tab.row(kClubOnly)->findChild<QPushButton*>(QStringLiteral("removeClubShare"))->click();
+    ASSERT_TRUE(waitFor([&] { return tab.row(kClubOnly) == nullptr; })) << "gone from the list without a refresh";
+    EXPECT_EQ(count(http_, "DELETE", ("/api/modules/" + kClubOnly + "/club-shares/o1").toUtf8()), 1);
+    EXPECT_EQ(said, QStringLiteral("“Club tunnel” is off Train Club's list."));
+}
+
+// Sharing your module with a club: the Share dialog lists the clubs, shares
+// with one, says where it's used, and stopping asks first, saying what stays.
+TEST_F(LibraryTabs, ShareWithAClubAndStopWithWhatThatMeansSaidFirst) {
+    serveModules();
+    serveShared(http_);
+    library_.setKnowsSharedModules(true);
+    ui::ServerModulesTab tab(library_);
+    tab.show();
+    connectSignedIn();
+    const QByteArray shares = "/api/modules/m1/shares";
+    http_.reply(shares, 200, sharesJson({}));
+    QAction* share = tab.row(QStringLiteral("m1"))->findChild<QAction*>(QStringLiteral("shareModule"));
+    ASSERT_NE(share, nullptr);
+    EXPECT_EQ(tab.row(QStringLiteral("m2"))->findChild<QAction*>(QStringLiteral("shareModule")), nullptr) << "only its owner shares it";
+    share->trigger();
+    ui::ModuleShareDialog* dlg = tab.shareDialog();
+    ASSERT_NE(dlg, nullptr);
+    ASSERT_TRUE(waitFor([&] { return dlg->loaded(); }));
+    EXPECT_EQ(dlg->windowTitle(), QStringLiteral("Share “Freight yard”"));
+    EXPECT_TRUE(dlg->note()->text().contains(QStringLiteral("can't change its parts")));
+    ASSERT_EQ(dlg->clubPick()->count(), 2);
+    EXPECT_EQ(dlg->clubPick()->itemText(1), QStringLiteral("Train Club"));
+    EXPECT_FALSE(dlg->shareButton()->isEnabled()) << "pick a club first";
+    EXPECT_TRUE(dlg->usedIn()->isHidden());
+
+    // Share with Train Club.
+    const QJsonObject club{ { QStringLiteral("orgId"), QStringLiteral("o1") }, { QStringLiteral("name"), QStringLiteral("Train Club") },
+                            { QStringLiteral("slug"), QStringLiteral("train") } };
+    http_.replyTo("POST", "/api/modules/m1/club-shares", 200, { { QStringLiteral("ok"), true } });
+    http_.clear(shares);
+    http_.reply(shares, 200, sharesJson({ club }, 3));
+    dlg->clubPick()->setCurrentIndex(1);
+    ASSERT_TRUE(dlg->shareButton()->isEnabled());
+    dlg->shareButton()->click();
+    ASSERT_TRUE(waitFor([&] { return dlg->stopButton(QStringLiteral("o1")) != nullptr; }));
+    EXPECT_EQ(QJsonDocument::fromJson(lastRequest(http_, "POST", "/api/modules/m1/club-shares")->body).object(),
+              (QJsonObject{ { QStringLiteral("orgSlug"), QStringLiteral("train") } }));
+    EXPECT_EQ(dlg->usedIn()->text(), QStringLiteral("Used in 3 layout(s) (Train Club: 3)"));
+    EXPECT_FALSE(dlg->clubPick()->isVisibleTo(dlg)) << "shared with every club you're in";
+    EXPECT_TRUE(dlg->note()->text().contains(QStringLiteral("It's shared with every club you're in.")));
+
+    // Stop: what stays is said first; Cancel stops nothing.
+    ui::ConfirmOptions asked;
+    dlg->confirmStop = [&](const ui::ConfirmOptions& o) {
+        asked = o;
+        return false;
+    };
+    dlg->stopButton(QStringLiteral("o1"))->click();
+    EXPECT_EQ(asked.title, QStringLiteral("Stop sharing with Train Club?"));
+    EXPECT_EQ(asked.keeps, QStringLiteral("Its 3 layout(s) keep “Freight yard” as it is now (version 7)."));
+    EXPECT_EQ(asked.removes, QStringLiteral("They won't get your updates anymore, and can't place it again."));
+    EXPECT_EQ(asked.confirmLabel, QStringLiteral("Stop"));
+    EXPECT_EQ(count(http_, "DELETE", "/api/modules/m1/club-shares/o1"), 0);
+
+    dlg->confirmStop = [](const ui::ConfirmOptions&) { return true; };
+    http_.replyTo("DELETE", "/api/modules/m1/club-shares/o1", 200, { { QStringLiteral("ok"), true } });
+    http_.clear(shares);
+    http_.reply(shares, 200, sharesJson({}));
+    dlg->stopButton(QStringLiteral("o1"))->click();
+    ASSERT_TRUE(waitFor([&] { return dlg->stopButton(QStringLiteral("o1")) == nullptr; }));
+    EXPECT_EQ(count(http_, "DELETE", "/api/modules/m1/club-shares/o1"), 1);
+    EXPECT_TRUE(dlg->clubPick()->isVisibleTo(dlg));
+    dlg->close();
+}
+
+// ---- In the window, with a layout from a file -------------------------------
+
+namespace {
+
+class SharedModulesWindow : public ServerModulesWindow {
+protected:
+    void beforeOpen() override {
+        rememberSharedModules(http_.base());
+        QSettings().remove(QStringLiteral("sharedModules/tipShown"));
+        http_.reply("/api/modules", 200, modules({ moduleJson(QStringLiteral("m1"), QStringLiteral("Freight yard"), QStringLiteral("owner")) }));
+        serveShared(http_);
+        serveVersion(1, *sampleModule(2));
+        http_.replyRaw(("/api/modules/" + kShared + "/snapshot").toUtf8(), 200, snapshotOf(*sampleModule(2)), "application/octet-stream");
+    }
+    void serveVersion(int n, const core::Map& contents) {
+        http_.replyRaw(QStringLiteral("/api/modules/%1/versions/%2/snapshot").arg(kShared).arg(n).toUtf8(), 200, snapshotOf(contents),
+                       "application/octet-stream");
+    }
+    // Alice saves version `n`: the library's list says so (a live hint would ask for it).
+    void ownerSaves(int n, const core::Map& contents) {
+        serveVersion(n, contents);
+        serveShared(http_, n);
+        library_->refresh();
+        ASSERT_TRUE(waitFor([&] { return library_->sharedModule(kShared) && library_->sharedModule(kShared)->latestVersion == n; }));
+    }
+    // "Harbor crane" placed from Shared with me.
+    void placeShared() {
+        const auto answers = answerNewSheets();
+        emit library_->insertRequested(kShared);
+        ASSERT_TRUE(waitFor([&] { return view_->currentMap() && !view_->currentMap()->sidecar.modules.empty(); }));
+        ASSERT_TRUE(waitFor([&] { return window_->sharedModuleRowsKnown(); }));
+    }
+    const core::Module& mod() { return view_->currentMap()->sidecar.modules.front(); }
+    ui::SharedModulesBar* bar() { return view_->sharedModulesBar(); }
+    ui::NoticeArea* notices() { return window_->findChild<ui::NoticeArea*>(); }
+    QString panelLine() {
+        auto* list = window_->findChild<ui::ModulesPanel*>()->findChild<QListWidget*>();
+        return list && list->count() > 0 ? list->item(0)->text() : QString();
+    }
+};
+
+}  // namespace
+
+// Placed from Shared with me, a module is shared: locked, with its owner's
+// name, its server and where it sits; a one-time tip says what that means.
+TEST_F(SharedModulesWindow, AModuleFromSharedWithMeIsPlacedLockedAndFollowsItsOwner) {
+    placeShared();
+    const auto shared = core::sharedPlaced(mod());
+    ASSERT_TRUE(shared);
+    EXPECT_EQ(shared->moduleId, kShared);
+    EXPECT_EQ(shared->version, 1);
+    EXPECT_EQ(shared->by, QStringLiteral("Alice"));
+    EXPECT_EQ(shared->server, http_.base().toString(QUrl::StripTrailingSlash));
+    ASSERT_TRUE(shared->placement && shared->placement->sheets);
+    EXPECT_EQ(shared->placement->sheets->size(), 2) << "each of its sheets, with the sheet it went on";
+    EXPECT_EQ(mod().name, QStringLiteral("Harbor crane"));
+    EXPECT_EQ(bricksInMap(), 3);
+    // Where it sits is its version placed by the placement.
+    auto version = sampleModule(2);
+    parts::placement::fixStaleAreas(*version, bundledParts());
+    EXPECT_TRUE(edit::matchesVersion(edit::batchesOfModule(*version), edit::placedParts(*view_->currentMap(), mod().memberIds),
+                                     bundledParts(), shared->placement));
+    EXPECT_EQ(edit::partsInPlace(edit::batchesOfModule(*version), edit::placedParts(*view_->currentMap(), mod().memberIds),
+                                 *shared->placement, bundledParts()),
+              3);
+    EXPECT_TRUE(notices()->isShown(QStringLiteral("shared-tip")));
+    EXPECT_TRUE(panelLine().contains(QStringLiteral("🔗 Shared by Alice · v1"))) << panelLine().toStdString();
+
+    // Its parts are its owner's: Edit module and Rename say why instead.
+    const QString id = mod().id;
+    view_->setEditingModule(id);
+    EXPECT_TRUE(view_->editingModule().isEmpty());
+    EXPECT_TRUE(notices()->isShown(QStringLiteral("shared-lock")));
+    view_->undoStack()->push(new edit::RenameModuleCommand(*view_->currentMap(), id, QStringLiteral("Mine")));
+    EXPECT_EQ(mod().name, QStringLiteral("Harbor crane"));
+
+    // The tip comes once.
+    notices()->hideNotice(QStringLiteral("shared-tip"));
+    placeShared();
+    EXPECT_FALSE(notices()->isShown(QStringLiteral("shared-tip")));
+}
+
+// A module shared with a club only is for the club's layouts: in a file of
+// your own it says whom to ask, with a message to send, and places nothing.
+TEST_F(SharedModulesWindow, AModuleSharedOnlyWithAClubSaysWhomToAskInsteadOfBeingPlaced) {
+    ui::ConfirmOptions asked;
+    window_->confirmModuleLibrary_ = [&](const ui::ConfirmOptions& o) {
+        asked = o;
+        return true;
+    };
+    emit library_->insertRequested(kClubOnly);
+    EXPECT_EQ(asked.title, QStringLiteral("“Club tunnel” can't go in this layout yet"));
+    EXPECT_EQ(asked.keeps, QStringLiteral("Alice shared “Club tunnel” with a club you're in, for the club's layouts, not with you. "
+                                          "Ask Alice to share it with you too."));
+    EXPECT_EQ(asked.confirmLabel, QStringLiteral("Copy a Message to Send"));
+    EXPECT_TRUE(QGuiApplication::clipboard()->text().startsWith(QStringLiteral("Hi Alice, could you share your module “Club tunnel” with me as well?")));
+    QCoreApplication::processEvents();
+    EXPECT_EQ(bricksInMap(), 0);
+    EXPECT_EQ(count(http_, "GET", ("/api/modules/" + kClubOnly + "/snapshot").toUtf8()), 0);
+}
+
+// The owner saves a new version: the layout says so (Show / Update / Not
+// now). Update puts it in where the module sits; then Go back and OK.
+TEST_F(SharedModulesWindow, AnUpdateIsOfferedPutInGoneBackOnAndMarkedSeen) {
+    placeShared();
+    EXPECT_FALSE(bar()->updatesShown());
+    const QString id = mod().id;
+    view_->undoStack()->push(new edit::MoveModuleCommand(*view_->currentMap(), id, QPointF(64, 32)));
+    const QPointF where = edit::placedParts(*view_->currentMap(), mod().memberIds).front().displayArea.topLeft();
+
+    ownerSaves(2, *sampleModule(3));
+    ASSERT_TRUE(waitFor([&] { return bar()->updatesShown(); }));
+    EXPECT_EQ(bar()->updatesText(), QStringLiteral("“Harbor crane” has a new version from Alice (v2)."));
+    EXPECT_TRUE(panelLine().contains(QStringLiteral("v2 is ready"))) << panelLine().toStdString();
+    ASSERT_FALSE(bar()->updateButton()->isHidden());
+
+    bar()->updateButton()->click();
+    ASSERT_TRUE(waitFor([&] { return mod().libraryVersion == 2; }));
+    EXPECT_EQ(bricksInMap(), 4);
+    EXPECT_EQ(mod().id, id);
+    EXPECT_TRUE(core::isSharedModule(mod())) << "still locked";
+    // Where the module sat: its first part hasn't moved.
+    bool there = false;
+    for (const auto& b : edit::placedParts(*view_->currentMap(), mod().memberIds))
+        there = there || (std::abs(b.displayArea.x() - where.x()) < 0.01 && std::abs(b.displayArea.y() - where.y()) < 0.01);
+    EXPECT_TRUE(there);
+    EXPECT_FALSE(bar()->updatesShown());
+    ASSERT_TRUE(bar()->reviewShown());
+    EXPECT_TRUE(bar()->reviewText().startsWith(QStringLiteral("“Harbor crane” is now version 2."))) << bar()->reviewText().toStdString();
+    EXPECT_EQ(bar()->goBackButton()->text(), QStringLiteral("Go back to version 1"));
+
+    // Go back: the earlier version, the same way.
+    bar()->goBackButton()->click();
+    ASSERT_TRUE(waitFor([&] { return mod().libraryVersion == 1; }));
+    EXPECT_EQ(bricksInMap(), 3);
+    EXPECT_TRUE(bar()->reviewText().startsWith(QStringLiteral("“Harbor crane” is now version 1.")));
+    // OK: the notice is read.
+    bar()->okButton()->click();
+    EXPECT_FALSE(bar()->reviewShown());
+    EXPECT_FALSE(core::sharedPlaced(mod())->review);
+    // Version 2 is still there to take: offered again.
+    ASSERT_TRUE(waitFor([&] { return bar()->updatesShown(); }));
+    // Not now: quiet until a newer version.
+    bar()->notNowButton()->click();
+    EXPECT_FALSE(bar()->updatesShown());
+
+    // In a file an update is the person's own step: Undo takes it back.
+    emit window_->findChild<ui::ModulesPanel*>()->libraryActionRequested(id, QStringLiteral("shared-update"));
+    ASSERT_TRUE(waitFor([&] { return mod().libraryVersion == 2; }));
+    view_->undoStack()->undo();
+    EXPECT_EQ(mod().libraryVersion, 1);
+    EXPECT_EQ(bricksInMap(), 3);
+}
+
+// A version the server no longer keeps is "no longer available": said once, never asked for in a loop.
+TEST_F(SharedModulesWindow, AVersionThatIsGoneIsAskedForOnce) {
+    placeShared();
+    const QString id = mod().id;
+    serveShared(http_, 2);  // (version 2 is listed, its contents aren't there: 404)
+    library_->refresh();
+    ASSERT_TRUE(waitFor([&] { return bar()->updatesShown(); }));
+    const QByteArray path = ("/api/modules/" + kShared + "/versions/2/snapshot").toUtf8();
+    bar()->updateButton()->click();
+    ASSERT_TRUE(waitFor([&] { return notices()->isShown(QStringLiteral("shared-step")); }));
+    EXPECT_EQ(count(http_, "GET", path), 1);
+    EXPECT_EQ(mod().libraryVersion, 1);
+    for (int i = 0; i < 20; ++i) QCoreApplication::processEvents(QEventLoop::AllEvents, 20);
+    EXPECT_EQ(count(http_, "GET", path), 1) << "not asked again by itself";
+    EXPECT_FALSE(bar()->updateButton()->isHidden());
+    EXPECT_TRUE(bar()->updateButton()->isEnabled()) << "the person can try again";
+}
+
+// Opened from a file that another app changed: the copy says so, and the
+// owner's version can be put back.
+TEST_F(SharedModulesWindow, ACopyChangedOutsideTheAppOffersToPutTheOwnersVersionBack) {
+    placeShared();
+    const QString id = mod().id;
+    // Saved, changed in another app (a part of the module moved), opened again.
+    QTemporaryDir dir;
+    const QString path = dir.filePath(QStringLiteral("changed-outside.bld-layout"));
+    {
+        core::Map& now = *view_->currentMap();
+        std::vector<QRectF> was;
+        for (auto& L : now.layers())
+            for (auto& b : static_cast<core::LayerBrick&>(*L).bricks) {
+                was.push_back(b.displayArea);
+                if (b.partNumber == QStringLiteral("3811.2")) b.displayArea.translate(48, 0);
+            }
+        QString error;
+        ASSERT_TRUE(import::writeLayoutFile(now, path, &error)) << error.toStdString();
+    }
+    const int asked = count(http_, "GET", ("/api/modules/" + kShared + "/versions/1/snapshot").toUtf8());
+    view_->undoStack()->setClean();
+    ASSERT_TRUE(window_->openFile(path));
+    ASSERT_TRUE(core::isSharedModule(mod())) << "the file keeps the lock";
+    const QString drift = QStringLiteral("shared-drift:") + id;
+    ASSERT_TRUE(waitFor([&] { return notices()->isShown(drift); }));
+    EXPECT_EQ(count(http_, "GET", ("/api/modules/" + kShared + "/versions/1/snapshot").toUtf8()), asked + 1);
+    EXPECT_TRUE(panelLine().contains(QStringLiteral("Changed outside the app"))) << panelLine().toStdString();
+
+    // Put back: the owner's version, where the module sits.
+    emit window_->findChild<ui::ModulesPanel*>()->libraryActionRequested(id, QStringLiteral("shared-putback"));
+    ASSERT_TRUE(waitFor([&] { return !notices()->isShown(drift); }));
+    auto version = sampleModule(2);
+    parts::placement::fixStaleAreas(*version, bundledParts());
+    EXPECT_TRUE(edit::matchesVersion(edit::batchesOfModule(*version), edit::placedParts(*view_->currentMap(), mod().memberIds),
+                                     bundledParts(), core::sharedPlaced(mod())->placement));
+    EXPECT_FALSE(core::sharedPlaced(mod())->review) << "the same version put back isn't news";
+    EXPECT_FALSE(panelLine().contains(QStringLiteral("Changed outside the app")));
+    EXPECT_EQ(mod().libraryVersion, 1);
+    view_->undoStack()->setClean();
+}
+
+// Make it mine: it asks first; the copy becomes an ordinary module of the
+// layout, and (in a file) Undo locks it again.
+TEST_F(SharedModulesWindow, MakeItMineUnlocksTheCopyAfterAsking) {
+    placeShared();
+    const QString id = mod().id;
+    ui::ConfirmOptions asked;
+    window_->confirmModuleLibrary_ = [&](const ui::ConfirmOptions& o) {
+        asked = o;
+        return false;
+    };
+    emit window_->findChild<ui::ModulesPanel*>()->libraryActionRequested(id, QStringLiteral("shared-detach"));
+    EXPECT_EQ(asked.title, QStringLiteral("Make “Harbor crane” yours?"));
+    EXPECT_EQ(asked.removes, QStringLiteral("It stops following Alice: no more updates."));
+    EXPECT_EQ(asked.undo, QStringLiteral("You can undo this."));
+    EXPECT_TRUE(core::isSharedModule(mod())) << "Cancel changes nothing";
+
+    window_->confirmModuleLibrary_ = [](const ui::ConfirmOptions&) { return true; };
+    emit window_->findChild<ui::ModulesPanel*>()->libraryActionRequested(id, QStringLiteral("shared-detach"));
+    EXPECT_FALSE(core::isSharedModule(mod()));
+    EXPECT_TRUE(mod().libraryModuleId.isEmpty());
+    EXPECT_FALSE(panelLine().contains(QStringLiteral("🔗")));
+    // Its parts change like any module's now.
+    view_->undoStack()->push(new edit::RenameModuleCommand(*view_->currentMap(), id, QStringLiteral("My crane")));
+    EXPECT_EQ(mod().name, QStringLiteral("My crane"));
+    view_->undoStack()->undo();
+    view_->undoStack()->undo();
+    EXPECT_TRUE(core::isSharedModule(mod())) << "Undo puts the lock back";
+    EXPECT_TRUE(panelLine().contains(QStringLiteral("🔗 Shared by Alice")));
+}
+
+// BLD_REVIEW_SHOTS=<dir>: pictures of shared modules for a PR, light and
+// dark (skipped otherwise): the Module library's Shared with me tab (and
+// the one list a server without shared modules keeps), the Share dialog,
+// stopping a share, a shared module on the map with its badge and the
+// update notice, the notice after an update, and a refused change.
+TEST_F(SharedModulesWindow, PicturesForReview) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    QDir().mkpath(out);
+    // English's plurals, as the app loads them ("2 parts", not "2 part(s)").
+    QTranslator english;
+    if (english.load(QStringLiteral("bld_en"), QCoreApplication::applicationDirPath() + QStringLiteral("/../..")))
+        QCoreApplication::installTranslator(&english);
+    ui::theme::PrefsStore store(QStringLiteral("review-shared-modules-shots"));
+    ui::theme::ThemeManager themer(store);
+    const auto settle = [] { waitFor([] { return false; }, 400); };
+    const auto shoot = [&](QWidget* w, const QString& name) {
+        for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+            ui::theme::AppPrefs p = store.prefs();
+            p.theme = mode;
+            store.update(p);
+            settle();
+            EXPECT_TRUE(w->grab().save(out + QStringLiteral("/%1-%2.png").arg(name, mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark") : QStringLiteral("light"))));
+        }
+    };
+    window_->resize(1320, 820);
+    window_->show();
+    auto* panel = window_->findChild<ui::ModuleLibraryPanel*>();
+    ASSERT_NE(panel, nullptr);
+    panel->tabs()->setCurrentIndex(1);
+    auto* tab = window_->findChild<ui::ServerModulesTab*>();
+    ASSERT_NE(tab, nullptr);
+
+    // The Module library and Modules panels, in view.
+    const auto dockOf = [](QWidget* inside) -> QWidget* {
+        for (QWidget* w = inside; w; w = w->parentWidget())
+            if (auto* dock = qobject_cast<QDockWidget*>(w)) {
+                dock->setFloating(true);
+                dock->resize(460, 420);
+                dock->show();
+                dock->raise();
+                return dock;
+            }
+        return inside;
+    };
+    QWidget* libraryDock = dockOf(panel);
+    QWidget* modulesDock = dockOf(window_->findChild<ui::ModulesPanel*>());
+    settle();
+
+    // Before: a server without shared modules keeps its one list (as on main).
+    library_->setKnowsSharedModules(false);
+    settle();
+    shoot(libraryDock, QStringLiteral("before-library"));
+    library_->setKnowsSharedModules(std::nullopt);
+    library_->refresh();
+    ASSERT_TRUE(waitFor([&] { return tab->tabs()->isVisibleTo(tab) && library_->sharedModules().size() == 2; }));
+    shoot(libraryDock, QStringLiteral("after-library-mine"));
+    tab->tabs()->setCurrentIndex(ui::ServerModulesTab::Shared);
+    shoot(libraryDock, QStringLiteral("after-library-shared-with-me"));
+
+    // The Share dialog, shared with a club that uses it in three layouts.
+    const QJsonObject club{ { QStringLiteral("orgId"), QStringLiteral("o1") }, { QStringLiteral("name"), QStringLiteral("Train Club") },
+                            { QStringLiteral("slug"), QStringLiteral("train") } };
+    http_.reply("/api/modules/m1/shares", 200, sharesJson({ club }, 3));
+    tab->tabs()->setCurrentIndex(ui::ServerModulesTab::Mine);
+    settle();
+    tab->row(QStringLiteral("m1"))->findChild<QAction*>(QStringLiteral("shareModule"))->trigger();
+    ui::ModuleShareDialog* share = tab->shareDialog();
+    ASSERT_NE(share, nullptr);
+    ASSERT_TRUE(waitFor([&] { return share->loaded(); }));
+    shoot(share, QStringLiteral("after-share-dialog"));
+    {
+        ui::ConfirmDialog stop(ui::stopShareOptions(QStringLiteral("Freight yard"), QStringLiteral("Train Club"), 3, 7));
+        stop.show();
+        shoot(&stop, QStringLiteral("after-stop-sharing"));
+    }
+    share->close();
+
+    // Placed: the badge and the dashed frame on the map, "Shared by" in the Modules panel.
+    tab->tabs()->setCurrentIndex(ui::ServerModulesTab::Shared);
+    placeShared();
+    notices()->hideNotice(QStringLiteral("shared-tip"));
+    view_->scene()->clearSelection();
+    view_->fitInView(view_->scene()->itemsBoundingRect().adjusted(-200, -200, 200, 200), Qt::KeepAspectRatio);
+    shoot(window_.get(), QStringLiteral("after-placed"));
+
+    // Its owner saved version 2: the notice, and "v2 is ready".
+    ownerSaves(2, *sampleModule(3));
+    ASSERT_TRUE(waitFor([&] { return bar()->updatesShown(); }));
+    shoot(window_.get(), QStringLiteral("after-update-notice"));
+    shoot(modulesDock, QStringLiteral("after-modules-panel"));
+    bar()->updateButton()->click();
+    ASSERT_TRUE(waitFor([&] { return mod().libraryVersion == 2 && bar()->reviewShown(); }));
+    view_->scene()->clearSelection();
+    shoot(window_.get(), QStringLiteral("after-updated"));
+    bar()->okButton()->click();
+
+    // A change to its parts is refused, with the reason.
+    view_->undoStack()->push(new edit::RenameModuleCommand(*view_->currentMap(), mod().id, QStringLiteral("My crane")));
+    ASSERT_TRUE(notices()->isShown(QStringLiteral("shared-lock")));
+    shoot(window_.get(), QStringLiteral("after-locked"));
+
+    // No part drew as a placeholder.
+    int missing = 0;
+    for (const auto& L : view_->currentMap()->layers())
+        for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks)
+            if (bundledParts().pixmap(b.partNumber.toLower()).isNull()) ++missing;
+    EXPECT_EQ(missing, 0);
+    view_->undoStack()->setClean();
 }
