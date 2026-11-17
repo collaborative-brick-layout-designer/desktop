@@ -750,7 +750,7 @@ public:
     bool sharedModuleRowsKnown() const { return sharedRowsKnown_; }
     // The dialog "What changed (versions)…" opened, or null.
     QDialog* sharedVersionsDialog() const { return sharedVersions_; }
-    QPointer<QDialog> sharedVersions_;
+    QDialog* sharedVersions_ = nullptr;
 private:
 
     // Auto-save: flushes the current map to a sidecar file every N seconds if

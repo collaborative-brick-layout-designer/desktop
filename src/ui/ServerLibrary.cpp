@@ -724,17 +724,21 @@ QWidget* ServerModulesTab::makeSharedRow(const sync::ServerModule& m) {
     return frame;
 }
 
-ModuleShareDialog* ServerModulesTab::shareDialog() const { return qobject_cast<ModuleShareDialog*>(shareDialog_.data()); }
+ModuleShareDialog* ServerModulesTab::shareDialog() const { return qobject_cast<ModuleShareDialog*>(shareDialog_); }
 
 void ServerModulesTab::share(const QString& id) {
     const sync::ServerModule* m = library_.module(id);
     if (!m) return;
-    if (QDialog* old = shareDialog_.data()) {
-        shareDialog_.clear();
+    if (QDialog* old = shareDialog_) {
+        shareDialog_ = nullptr;
         old->close();
     }
-    shareDialog_ = new ModuleShareDialog(library_, *m, this);
-    shareDialog_->setAttribute(Qt::WA_DeleteOnClose);
+    auto* dialog = new ModuleShareDialog(library_, *m, this);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    connect(dialog, &QObject::destroyed, this, [this, dialog] {
+        if (shareDialog_ == dialog) shareDialog_ = nullptr;
+    });
+    shareDialog_ = dialog;
     shareDialog_->open();
 }
 

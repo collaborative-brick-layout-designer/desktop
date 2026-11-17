@@ -257,7 +257,7 @@ void MainWindow::showSharedModules() {
         if (reviews.empty()) bar->setReview({}, 0);
         else if (reviews.size() == 1)
             bar->setReview(sharedwords::reviewText(*reviews.front(), edit::sharedMarks(*map, reviews.front()->members, parts_)),
-                           reviews.front()->review->from);
+                           reviews.front()->review.value_or(core::SharedReview{}).from);
         else bar->setReview(tr("%n shared module(s) were updated.", nullptr, static_cast<int>(reviews.size())), 0);
         for (const auto& p : placed) badges.insert(p.placedId, sharedwords::badge(p, sharedwords::newerVersion(p, sharedRow(p.placedId))));
     }
@@ -555,11 +555,14 @@ void MainWindow::showSharedVersions(const QString& placedId) {
     const core::Module* m = placedModule(mapView_->currentMap(), placedId);
     const auto p = m ? core::sharedPlaced(*m) : std::nullopt;
     if (!p || !(live_ && live_->active()) || liveLayoutId_.isEmpty()) return;
-    if (QDialog* old = sharedVersions_.data()) {
-        sharedVersions_.clear();
+    if (QDialog* old = sharedVersions_) {
+        sharedVersions_ = nullptr;
         old->close();
     }
     auto* dlg = new QDialog(this);
+    connect(dlg, &QObject::destroyed, this, [this, dlg] {
+        if (sharedVersions_ == dlg) sharedVersions_ = nullptr;
+    });
     sharedVersions_ = dlg;
     dlg->setAttribute(Qt::WA_DeleteOnClose);
     dlg->setObjectName(QStringLiteral("sharedVersionsDialog"));

@@ -221,7 +221,8 @@ private:
     LibraryStatusLine* status_ = nullptr;
     QLineEdit* filter_ = nullptr;
     QTabBar* tabs_ = nullptr;
-    QPointer<QDialog> shareDialog_;
+    // (Set to null when it goes: QObject::destroyed.)
+    QDialog* shareDialog_ = nullptr;
     QWidget* listHost_ = nullptr;
     QVBoxLayout* list_ = nullptr;
     QLabel* empty_ = nullptr;
