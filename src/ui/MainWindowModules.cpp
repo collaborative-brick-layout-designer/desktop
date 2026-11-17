@@ -131,6 +131,7 @@ void MainWindow::setupServerLibrary() {
         });
     });
     connect(serverLibrary_, &ServerLibrary::insertRequested, this, &MainWindow::insertServerModule);
+    setupSharedModules();
     connect(serverLibrary_, &ServerLibrary::openRequested, this, [this](const QString& id) {
         QTimer::singleShot(0, this, [this, id] { openServerModule(id); });
     });
@@ -305,6 +306,9 @@ void MainWindow::onServerHint(const QJsonObject& hint) {
             (kind == QLatin1String("layout") && (id.isEmpty() || id == liveLayoutId_)))
             liveRoleCheck_->start();
     }
+    // A module's new version, a share, or the server's own update of this
+    // layout: what its shared modules are is asked again.
+    if (kind == QLatin1String("module") || kind == QLatin1String("layout") || kind == QLatin1String("club")) refreshSharedModules();
     if (kind == QLatin1String("warning")) {
         refreshNotices();
     } else if (kind == QLatin1String("module") || kind == QLatin1String("catalog") || kind == QLatin1String("club") ||
@@ -472,8 +476,23 @@ void MainWindow::showPartInBrowser(const QString& partNumber) {
 void MainWindow::insertServerModule(const QString& moduleId) {
     if (!serverLibrary_ || !serverLibrary_->inserting().isEmpty()) return;
     const sync::ServerModule* m = serverLibrary_->module(moduleId);
+    // Someone else's, shared with you ("Shared with me"): placed shared when
+    // it may follow its owner in this layout; else it says whom to ask.
+    if (const sync::ServerModule* sharedWithMe = serverLibrary_->sharedModule(moduleId)) m = sharedWithMe;
     const QString title = m ? m->title : tr("Module");
     ensureDocument();
+    if (m && m->sharedWithMe && !insertingSharedLink_) {
+        const sync::ServerModule copy = *m;
+        sharedLinkFor(copy, [this, moduleId](bool place, std::optional<QJsonObject> shared) {
+            if (!place) return;
+            insertingSharedLink_ = std::make_unique<std::optional<QJsonObject>>(std::move(shared));
+            insertServerModule(moduleId);
+            insertingSharedLink_.reset();
+        });
+        return;
+    }
+    const std::optional<QJsonObject> sharedLink = insertingSharedLink_ ? *insertingSharedLink_ : std::nullopt;
+    const int knownVersion = m ? m->latestVersion : 0;
     serverLibrary_->setInserting(moduleId);
     if (LoadingCard* card = mapView_->loadingCard()) {
         card->setPlace(LoadingCard::Place::Centre);
@@ -486,7 +505,7 @@ void MainWindow::insertServerModule(const QString& moduleId) {
         serverLibrary_->setInserting({});
         if (LoadingCard* card = mapView_->loadingCard(); card && !card->failureShown()) card->finish();
     };
-    serverLibrary_->api().moduleSnapshot(moduleId, sync::whileAlive(this, [this, moduleId, title, server, token, source, finish](const QByteArray& bytes) {
+    serverLibrary_->api().moduleSnapshot(moduleId, sync::whileAlive(this, [this, moduleId, title, server, token, source, finish, sharedLink, knownVersion](const QByteArray& bytes) {
         QString error;
         std::shared_ptr<core::Map> module(sync::mapFromModuleSnapshot(bytes, &error).release());
         if (!module || sync::partCount(*module) == 0) {
@@ -498,11 +517,13 @@ void MainWindow::insertServerModule(const QString& moduleId) {
         }
         // Linked to the library module: Update from library follows it.
         const sync::ServerModule* sm = serverLibrary_->module(moduleId);
-        const int version = sm ? sm->latestVersion : 0;
-        auto place = [this, module, title, source, finish, moduleId, version] {
+        if (!sm) sm = serverLibrary_->sharedModule(moduleId);
+        const int version = sm ? sm->latestVersion : knownVersion;
+        auto place = [this, module, title, source, finish, moduleId, version, sharedLink] {
             finish();
             if (!mapView_->currentMap()) return;
-            if (!mapView_->placeModule(*module, title, source.toString(), mapView_->viewCentre(), nullptr, moduleId, version))
+            if (!mapView_->placeModule(*module, title, source.toString(), mapView_->viewCentre(), nullptr, moduleId, version,
+                                       sharedLink))
                 return;
             modulesPanel_->setMap(mapView_->currentMap());
             layerPanel_->setMap(mapView_->currentMap(), mapView_->builder());

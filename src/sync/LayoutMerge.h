@@ -32,9 +32,10 @@
 #include <QList>
 #include <QString>
 
+#include <functional>
 #include <memory>
 
-namespace bld::core { class Map; }
+namespace bld::core { class Map; struct SharedPlacement; }
 
 namespace bld::sync::merge {
 
@@ -69,6 +70,10 @@ struct ItemChange {
     // Undefined where that side has no such item.
     QJsonValue base{ QJsonValue::Undefined }, mineValue{ QJsonValue::Undefined }, serverValue{ QJsonValue::Undefined };
 
+    // Set when the item to take isn't one of mine as it is (a shared
+    // module's part the server put in, moved the way I moved the module
+    // offline): the whole item, taken in its place.
+    QJsonValue mineWhole{ QJsonValue::Undefined };
     // Choices this change allows: Both only where both sides have the item
     // and it can be copied (bricks, text cells, labels, modules, views).
     bool allowsBoth() const;
@@ -86,6 +91,22 @@ QList<ItemChange> compareLayouts(const Snapshot& base, const Snapshot& mine, con
 std::unique_ptr<core::Map> mergeLayouts(const Snapshot& mine, const Snapshot& server,
                                         const QList<ItemChange>& changes, const QHash<QString, Choice>& choices,
                                         QString* error = nullptr);
+
+// Shared (read-only) modules (docs/shared-modules.md, "Updates"): a shared
+// module the server put another version into while I was offline is the
+// server's. Its parts are the server's version, never a clash with what I
+// did to the old ones; and my offline move of it is put back on top through
+// its placement: the new parts move the way I moved the module. compareLayouts
+// does this by itself.
+//
+// Moving a part from one placement to another needs its picture's geometry
+// (a part with a hull turns about its sprite's middle, and its box changes
+// size), which this library doesn't have: the app gives the mover
+// (ui/MainWindow, from the parts library). Without one, a part moves by its
+// box: exact for a move, and for a turn of parts without a hull by a quarter.
+using SharedMover =
+    std::function<QJsonObject(const QJsonObject& brick, const core::SharedPlacement& from, const core::SharedPlacement& to)>;
+void setSharedMover(SharedMover mover);
 
 // One line saying what a change is, for the compare window.
 QString describe(const ItemChange& change);

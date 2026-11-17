@@ -7,6 +7,12 @@ add_library(bld_edit STATIC
     ModuleSheets.h
     ModuleLibraryLink.cpp
     ModuleLibraryLink.h
+    SharedMarks.cpp
+    SharedMarks.h
+    SharedLock.cpp
+    SharedLock.h
+    SharedModulePlacement.cpp
+    SharedModulePlacement.h
     LabelCommands.cpp
     LabelCommands.h
     RotateTurn.cpp

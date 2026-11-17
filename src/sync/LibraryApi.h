@@ -26,6 +26,7 @@
 #include <QUrl>
 
 #include <functional>
+#include <optional>
 
 class QNetworkReply;
 
@@ -40,6 +41,14 @@ struct OwnerTag {
     bool isClub() const { return kind == QLatin1String("org"); }
 };
 
+// A club, as the sharing answers name it.
+struct ClubRef {
+    QString id;
+    QString name;
+    QString slug;
+    int layouts = 0;  // "Used in": how many of its layouts place the module
+};
+
 struct ServerModule {
     QString id;
     QString title;
@@ -51,6 +60,13 @@ struct ServerModule {
     qint64 thumbnailAt = 0;  // when its picture was made (ms); 0: none yet
     QDateTime updatedAt;
     Credit credit; // who made it; Take back / Give back
+    // Someone else's module shared with you (GET /api/modules?owner=shared):
+    // with you in person, or with clubs you're in.
+    bool sharedWithMe = false;
+    bool sharedDirect = false;
+    QList<ClubRef> sharedClubs;
+    // "Alice · via Riverside LUG", "Alice · shared with you" (the web's sharedVia line).
+    QString sharedViaText() const;
 
     bool canEdit() const { return role == QLatin1String("owner") || role == QLatin1String("editor"); }
     bool canDelete() const { return role == QLatin1String("owner"); }
@@ -58,6 +74,75 @@ struct ServerModule {
     int shownVersion() const { return latestVersion > 0 ? latestVersion : docVersion; }
     // Where its picture is (the cache key changes with each new picture).
     QString thumbnailPath() const;
+};
+
+// What a module's owner sees about its sharing (GET /api/modules/:id/shares).
+struct ModuleShares {
+    int latestVersion = 0;
+    bool canShareWithClubs = true;  // false for a club's own module: its members already see it
+    QList<ClubRef> clubs;           // shared with these
+    QList<ClubRef> myClubs;         // the clubs you're in (it can be shared with those)
+    int people = 0;                 // how many people it is shared with
+    // Where it's placed: counts by club and by person, never a layout's name.
+    struct UsedIn {
+        int layouts = 0;
+        QList<ClubRef> clubs;
+        QList<ClubRef> people;  // (name and layouts only)
+        int others = 0;
+    } usedIn;
+    // "Used in 4 layouts (Riverside LUG: 3, Bob: 1)", or empty when it's placed nowhere.
+    QString usedInText() const;
+    int layoutsOf(const QString& orgId) const;
+};
+
+// One shared module a layout places, as the server sees it
+// (GET /api/layouts/:id/shared-modules).
+struct LayoutSharedModule {
+    QString placedId;   // the module's id in the layout
+    QString moduleId;
+    QString state;      // shared / unshared (no longer shared with the layout's owner) / gone (deleted)
+    int version = 0;    // the version placed; 0 when the layout doesn't say
+    QString title;      // its name now; empty once it's no longer shared
+    QString ownerName;
+    int latest = 0;     // the module's newest version; 0: not known
+    QString latestNote; // its "What changed?" note
+    bool following() const { return state == QLatin1String("shared"); }
+};
+
+// Before placing a shared module: is it shared with this layout's owner too?
+struct SharedPlaceCheck {
+    QString moduleId;
+    QString state;
+    QString title;
+    struct Owner {
+        QString kind;  // user / org
+        QString name;
+        bool mine = false;
+    } moduleOwner, layoutOwner;
+};
+
+struct LayoutSharedModules {
+    bool canUpdate = false;  // you may press Update and Go back (you can edit the layout)
+    bool canDetach = false;  // you may "Make it mine" (the layout's owner; a club's admins and managers)
+    QList<LayoutSharedModule> modules;
+    std::optional<SharedPlaceCheck> check;
+    const LayoutSharedModule* row(const QString& placedId) const;
+};
+
+struct SharedModuleApplied {
+    QString placedId;
+    bool changed = false;  // false when it already had that version
+    int version = 0;
+    int from = 0;          // 0: not known
+    int parts = 0;
+};
+
+// One kept version of a module, seen through a layout.
+struct SharedModuleVersion {
+    int version = 0;
+    QString note;
+    QString author;
+    QDateTime createdAt;
 };
 
 // One of your custom parts, or your clubs' (GET /api/custom-parts).
@@ -211,6 +296,35 @@ public:
     QUrl url(const QString& pathAndQuery) const;
 
     void listModules(std::function<void(const QList<ServerModule>&)> done, Fail failed);
+    // Other people's modules shared with you, in person or through a club
+    // ("Shared with me"; servers with the sharedModules feature).
+    void sharedWithMe(std::function<void(const QList<ServerModule>&)> done, Fail failed);
+    // For its owner: the clubs it's shared with, the clubs it could be, and where it's used.
+    void moduleShares(const QString& id, std::function<void(const ModuleShares&)> done, Fail failed);
+    // Share it, read-only, with a club you're in / stop (its owner, or that club's admins and managers).
+    void shareWithClub(const QString& id, const QString& orgSlug, std::function<void()> done, Fail failed);
+    void stopClubShare(const QString& id, const QString& orgId, std::function<void()> done, Fail failed);
+    // A layout's shared modules. `checkModuleId` (optional): also whether that
+    // module would follow its owner if placed in this layout.
+    void layoutSharedModules(const QString& layoutId, const QString& checkModuleId,
+                             std::function<void(const LayoutSharedModules&)> done, Fail failed);
+    // A placed module's kept versions, and one version's contents, seen through
+    // the layout (no share of your own needed).
+    void sharedModuleVersions(const QString& layoutId, const QString& placedId,
+                              std::function<void(const QList<SharedModuleVersion>&)> done, Fail failed);
+    void sharedModuleVersionSnapshot(const QString& layoutId, const QString& placedId, int version,
+                                     std::function<void(const QByteArray&)> done, Fail failed);
+    // The server puts a version in (`version` 0: the newest): Update for a
+    // newer one, Go back for an older one; `again` puts the same version back
+    // over a copy that was changed outside the app. Everyone in the layout
+    // gets the change; pressing it twice changes nothing more.
+    void applySharedModule(const QString& layoutId, const QString& placedId, int version, bool again,
+                           std::function<void(const SharedModuleApplied&)> done, Fail failed);
+    // Update all: how many were updated, and how many couldn't be.
+    void applyAllSharedModules(const QString& layoutId, std::function<void(int updated, int skipped)> done, Fail failed);
+    // "Make it mine": the copy becomes an ordinary module of the layout.
+    void detachSharedModule(const QString& layoutId, const QString& placedId, std::function<void(bool changed)> done,
+                            Fail failed);
     // The module's contents: a shared document (Yjs v1 update).
     void moduleSnapshot(const QString& id, std::function<void(const QByteArray&)> done, Fail failed);
     // The same, with which save it is (its docVersion, X-Doc-Version; -1 from a server that doesn't say):
@@ -297,6 +411,8 @@ public:
     int pending() const { return pending_; }
 
     static ServerModule moduleFromJson(const QJsonObject& o);
+    static ModuleShares moduleSharesFromJson(const QJsonObject& o);
+    static LayoutSharedModules layoutSharedModulesFromJson(const QJsonObject& o);
     static CatalogItem catalogItemFromJson(const QJsonObject& o);
     static Notice noticeFromJson(const QJsonObject& o);
     static ServerPart partFromJson(const QJsonObject& o);

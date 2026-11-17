@@ -125,6 +125,11 @@ public:
     // Draw every module's frame and name again from `map` (a sheet shown or
     // hidden changes which parts frame a module, and how its frame is dashed).
     void refreshModuleLabels(const core::Map& map);
+    // What the badge over each shared (read-only) module says, by module id
+    // ("🔗 Alice ● v8 is ready": the app knows which have a version
+    // waiting). One not named here says "🔗 <its owner>". Takes effect at
+    // the next refreshModuleLabels.
+    void setSharedBadges(const QHash<QString, QString>& badges) { sharedBadges_ = badges; }
 
     // Toggle the visibility of a layer (by index). Returns false if out of range.
     bool setLayerVisible(int layerIndex, bool visible);
@@ -272,6 +277,7 @@ private:
     QList<QGraphicsItem*>             electricItems_;
     QList<QGraphicsItem*>             worldLabelItems_;
     QList<QGraphicsItem*>             moduleLabelItems_;
+    QHash<QString, QString>           sharedBadges_;
     QList<QPair<QString, QRectF>>     moduleAnnotationRects_;
     QList<ShortenedModuleName>        shortenedModuleNames_;
     QHash<QString, QString>           settledNameSlots_;    // module id → slot, from the last settled build

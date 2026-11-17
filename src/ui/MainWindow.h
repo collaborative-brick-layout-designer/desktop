@@ -22,6 +22,11 @@
 #include "ServerApi.h"
 #include "TokenStore.h"
 #include <QSet>
+#include <QDialog>
+#include <QHash>
+#include <QJsonObject>
+#include <QPointer>
+#include "../core/SharedModule.h"
 
 class QAction;
 class QFileSystemWatcher;
@@ -560,7 +565,58 @@ private:
                        const QString& orgSlug, const QString& updateId, const QString& note, int baseDocVersion = -1);
     void linkModule(const QString& moduleId, const QString& libraryId, int version, const QString& sourceFile);
     void replaceWithLibrary(const QString& moduleId, core::Map& library, const QString& libraryId, int version);
+    void pullThroughServer(const QString& moduleId, int version);
     bool confirmModuleLibrary(const ConfirmOptions& o);
+
+    // ---- Shared (read-only) modules (MainWindowSharedModules.cpp; docs/shared-modules.md) ----
+    void setupSharedModules();
+    // Asks again, soon (a burst of reasons asks once).
+    void refreshSharedModules();
+    // What the layout's shared modules are on the server: the live layout's
+    // own list, or (a file) what the Module library says about each.
+    void fetchSharedModules();
+    // The notices, the map's badges and the Modules panel's lines, from what is known now.
+    void showSharedModules();
+    // On opening, once per placed copy: is it still its owner's version?
+    void checkSharedDrift();
+    void sharedDriftFound(const QString& placedId);
+    // Whether the server puts versions in (a live layout, in step with it).
+    bool sharedByServer() const;
+    // The server a file's shared module lives on, when the Module library is signed in there.
+    sync::LibraryApi* sharedFileApi(const core::SharedPlaced& placed) const;
+    sync::LibraryApi& sharedLiveApi();
+    const sync::LayoutSharedModule* sharedRow(const QString& placedId) const;
+    // A module's menu entries: "shared-versions", "shared-update", "shared-putback", "shared-detach".
+    void sharedModuleAction(const QString& placedId, const QString& action);
+    // Puts `version` in (0: the newest): by the server on a live layout, here for a file.
+    // `again`: the same version over a copy changed outside the app.
+    void applySharedVersion(const QString& placedId, int version, bool again = false);
+    void applySharedLocally(const QString& placedId, int version, bool again);
+    void updateSharedModules();
+    void okSharedReviews();
+    void detachSharedModule(const QString& placedId);
+    void showSharedVersions(const QString& placedId);
+    void sharedStepFailed(const sync::ServerRefusal& r);
+    // How to link the library module `m` when it's placed here: `place`
+    // false: it can't go in this layout (the person was told whom to ask);
+    // `shared` set: placed shared (locked, following its owner).
+    void sharedLinkFor(const sync::ServerModule& m, std::function<void(bool place, std::optional<QJsonObject> shared)> done);
+    void sharedTipOnce();
+    // Set while insertServerModule runs again with how the module is linked.
+    std::unique_ptr<std::optional<QJsonObject>> insertingSharedLink_;
+    sync::LibraryApi* sharedApi_ = nullptr;
+    QTimer* sharedRefresh_ = nullptr;
+    sync::LayoutSharedModules sharedRows_;
+    bool sharedRowsKnown_ = false;
+    bool sharedCantCheck_ = false;
+    QString sharedStamp_;
+    QString sharedDoc_;                 // which layout the checks below were made for
+    QSet<QString> sharedDriftChecked_;  // "<placed id>:<version>" looked at already
+    QSet<QString> sharedChangedOutside_;
+    QHash<QString, QString> sharedBadges_;
+    QString sharedPanelSaid_;
+    bool sharedBusy_ = false;
+    int sharedGen_ = 0;
     bool saveEditedModule();
     // Writes `module` to the server: a new module (`title`, `orgSlug`) or
     // a new version of `updateId`, then its picture.
@@ -689,6 +745,12 @@ public:
     const EditingModule& editingModule() const { return editingModule_; }
     // How Update from library and Update library file ask first (tests answer instead).
     std::function<bool(const ConfirmOptions&)> confirmModuleLibrary_;
+    // What the server (or, for a file, the Module library) says about the layout's shared modules.
+    const sync::LayoutSharedModules& sharedModuleRows() const { return sharedRows_; }
+    bool sharedModuleRowsKnown() const { return sharedRowsKnown_; }
+    // The dialog "What changed (versions)…" opened, or null.
+    QDialog* sharedVersionsDialog() const { return sharedVersions_; }
+    QPointer<QDialog> sharedVersions_;
 private:
 
     // Auto-save: flushes the current map to a sidecar file every N seconds if

@@ -70,6 +70,11 @@ public:
     // module's list is then written whole, as before, unless the layout
     // already has part keys.
     void setMemberKeys(bool on);
+    // Whether writeMap stamps the doc shape 4 when the layout holds a
+    // shared, read-only module (core/SharedModule.h). On by default; off for
+    // a server whose web app doesn't know the lock (it lacks the feature
+    // kSharedModulesFeature): builds there would be shut out of the layout.
+    void setSharedModules(bool on);
     // Set one meta field (as another writer would, e.g. a newer app stamping
     // meta.schemaVersion); not an undoable step. Returns the update to send.
     QByteArray setMeta(const QString& key, const QJsonValue& value);

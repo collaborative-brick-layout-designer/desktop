@@ -1,4 +1,6 @@
 #include "ModuleCommands.h"
+
+#include "../core/SharedModule.h"
 #include "EditCommands.h"
 #include "ModuleSheets.h"
 
@@ -376,8 +378,9 @@ void CloneModuleCommand::redo() {
     // Its look comes along; not its library link or pin.
     QSet<QString> members;
     for (const auto& a : appliedBricks_) members.insert(a.guid);
-    core::Module m = core::copyOfModule(srcMod, std::move(members), newModuleId_);
-    if (!newName_.isEmpty()) m.name = newName_;
+    // (A shared module's copy is another shared placement, under its owner's name.)
+    core::Module m = core::copyOfPlaced(srcMod, std::move(members), newModuleId_, offsetStuds_);
+    if (!newName_.isEmpty() && !core::isSharedModule(srcMod)) m.name = newName_;
     map_.sidecar.modules.push_back(std::move(m));
 }
 
@@ -476,6 +479,7 @@ void ReplaceModulePartsCommand::redo() {
     mod.memberIds = newMembers();
     mod.libraryModuleId = libraryId_;
     mod.libraryVersion = libraryVersion_;
+    if (sharedAfter_) mod.shared = *sharedAfter_;
 }
 
 void ReplaceModulePartsCommand::undo() {
@@ -614,6 +618,16 @@ void ImportBbmAsModuleCommand::redo() {
     mod.importedAt = QDateTime::currentDateTimeUtc();
     mod.libraryModuleId = libraryId_;
     mod.libraryVersion = libraryVersion_;
+    if (shared_) {
+        // Shared, read-only: each of the version's sheets with the sheet it went on.
+        mod.shared = *shared_;
+        if (auto p = core::readPlacement(mod.shared->value(QLatin1String("placement")))) {
+            QMap<QString, QString> sheets;
+            for (const auto& a : applied_) sheets.insert(a.layerName, a.layerGuid);
+            p->sheets = sheets;
+            mod.shared->insert(QStringLiteral("placement"), core::placementJson(*p));
+        }
+    }
     for (const auto& a : applied_)
         for (const QString& g : a.addedGuids) mod.memberIds.insert(g);
     map_.sidecar.modules.push_back(std::move(mod));
@@ -649,6 +663,38 @@ void ImportBbmAsModuleCommand::undo() {
     }
     const int i = findModuleIndex(map_, moduleId_);
     if (i >= 0) map_.sidecar.modules.erase(map_.sidecar.modules.begin() + i);
+}
+
+// ----- DetachSharedModuleCommand -----
+
+DetachSharedModuleCommand::DetachSharedModuleCommand(core::Map& map, QString moduleId, QUndoCommand* parent)
+    : QUndoCommand(parent), map_(map), moduleId_(std::move(moduleId)) {
+    setText(QObject::tr("Make shared module mine"));
+}
+
+void DetachSharedModuleCommand::redo() {
+    const int i = findModuleIndex(map_, moduleId_);
+    if (i < 0) return;
+    core::Module& mod = map_.sidecar.modules[i];
+    const auto shared = core::sharedPlaced(mod);
+    if (!shared) return;
+    before_ = mod;
+    QJsonObject basedOn{ { QStringLiteral("moduleId"), shared->moduleId } };
+    if (shared->version > 0) basedOn.insert(QStringLiteral("version"), shared->version);
+    if (!shared->by.isEmpty()) basedOn.insert(QStringLiteral("by"), shared->by);
+    mod = core::detached(mod);
+    mod.extras.insert(QStringLiteral("basedOn"), basedOn);
+}
+
+void DetachSharedModuleCommand::undo() {
+    const int i = findModuleIndex(map_, moduleId_);
+    if (i < 0 || !before_) return;
+    // (Its look or pin may have changed since; the link and the lock come back.)
+    core::Module& mod = map_.sidecar.modules[i];
+    mod.shared = before_->shared;
+    mod.libraryModuleId = before_->libraryModuleId;
+    mod.libraryVersion = before_->libraryVersion;
+    mod.extras.remove(QStringLiteral("basedOn"));
 }
 
 }

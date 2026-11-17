@@ -61,6 +61,8 @@ QString featureLabel(const QString& id) {
         return Text::tr("Recently deleted: a deleted layout, module or venue waits 30 days");
     if (id == QLatin1String("moduleMemberKeys"))
         return Text::tr("Two people changing one module's parts at the same moment");
+    if (id == QLatin1String("sharedModules"))
+        return Text::tr("Modules shared with you and your clubs, with their owner's updates");
     return id;
 }
 

@@ -7,6 +7,7 @@
 #include "../core/Module.h"
 #include "../core/Sidecar.h"
 #include "../edit/SetUpdates.h"
+#include "../edit/SharedLock.h"
 #include "ModuleLibraryMenu.h"
 #include "PlacementRefusal.h"
 #include "SnapFeel.h"
@@ -15,6 +16,7 @@
 #include <QEvent>
 #include <QGraphicsView>
 #include <QHash>
+#include <QJsonObject>
 #include <QPoint>
 #include <QPointF>
 #include <QSet>
@@ -284,7 +286,10 @@ public:
     // placed parts. False when it has no parts.
     // `libraryId` / `libraryVersion`: from the library, the module is linked to it.
     bool placeModule(core::Map& module, const QString& name, const QString& source, QPointF scenePos,
-                     snapfeel::Session* dragSnap = nullptr, const QString& libraryId = {}, int libraryVersion = 0);
+                     snapfeel::Session* dragSnap = nullptr, const QString& libraryId = {}, int libraryVersion = 0,
+                     const std::optional<QJsonObject>& shared = std::nullopt);
+    // (`shared`: someone else's module, shared read-only; its sidecar value {by, server}.
+    // The placed module is locked and follows its owner's updates.)
     // What a module's library entries are, for its right-click menu (MainWindow knows the library).
     void setModuleLibraryInfo(ModuleLibraryInfoFn fn) { moduleLibraryInfo_ = std::move(fn); }
     // The touch bar's Module button: the picked module's menu, or Make a module.
@@ -303,6 +308,19 @@ public:
     // reach meanwhile, and a bar at the top says so (with Done).
     void setEditingModule(const QString& moduleId);
     const QString& editingModule() const { return editingModuleId_; }
+
+    // The lock on shared, read-only modules (edit/SharedLock.h). Every step
+    // of the undo stack is checked against it: one that would change a
+    // shared module's parts, which parts it holds, or its name is taken
+    // back at once, and sharedLockTold says why. A module moved or turned
+    // as a whole has its placement kept up.
+    // True (and the person is told why) when the module is shared, so `what` can't be done to it.
+    bool refusedByLock(const QString& moduleId, core::LockedAction what);
+    // The same for a change to the parts `ids`; with `whole`, a module whose every part is among them is let through.
+    bool refusedByLock(const QSet<QString>& ids, core::LockedAction what, bool whole = false);
+    // After the map was changed past the undo stack by something that may
+    // (the owner's version put in by the server): the lock starts from here.
+    void rebaseSharedLock();
     // Who else is editing which module (from presence): module id -> names.
     void setPeersEditing(const QHash<QString, QStringList>& who);
     class ModuleEditBar* moduleEditBar() const { return editBar_; }
@@ -317,6 +335,12 @@ public:
     void setTrackedSets(edit::TrackedSet tracked);
     const std::vector<edit::SetUpdate>& setUpdates() const { return setUpdates_; }
     class SetUpdatesBar* setUpdatesBar() const { return updatesBar_; }
+    // The notices for shared modules, over the bottom of the map (made on first use).
+    class SharedModulesBar* sharedModulesBar();
+    // What the badge over each shared module says ("🔗 Alice ● v8 is ready"), by module id.
+    void setSharedBadges(const QHash<QString, QString>& badges);
+    // Pick these parts and bring them into view.
+    void showParts(const QSet<QString>& guids);
     // Update these placed copies to their set's current version (one undo step).
     void updatePlacedSets(const std::vector<edit::SetUpdate>& updates);
     // Pick these placed copies and bring them into view.
@@ -350,6 +374,8 @@ public:
 
 signals:
     void selectionChanged();
+    // A change to a shared (read-only) module was refused: why, in plain words.
+    void sharedLockTold(const QString& message);
     // Emitted when the layer set changes shape (a new layer was added as
     // part of a paste across layers, an imported module created layers,
     // etc.) so MainWindow can refresh the LayerPanel.
@@ -744,12 +770,19 @@ private:
 
     // Edit module (MapViewModules.cpp).
     QString editingModuleId_;
+    edit::SharedLockState sharedLock_;
+    int sharedLockIndex_ = 0;   // the undo stack's index when the lock was last checked
+    bool sharedLockBusy_ = false;
+    void onSharedLockStep(int index);
+    void tellSharedLock(const QString& message);
     QHash<QString, QStringList> peersEditing_;
     class ModuleEditBar* editBar_ = nullptr;
     // Placed custom sets and their versions.
     edit::TrackedSet trackedSets_;
     std::vector<edit::SetUpdate> setUpdates_;
     class SetUpdatesBar* updatesBar_ = nullptr;
+    class SharedModulesBar* sharedBar_ = nullptr;
+    void placeBottomBars();
     // Item flags and dimming for Edit module and pinned modules, after a build.
     void applyModuleState(const QList<QGraphicsItem*>* only = nullptr);
     // Modules picked whole (or only the edited one's parts): called from

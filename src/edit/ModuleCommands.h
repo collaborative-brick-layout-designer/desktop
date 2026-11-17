@@ -3,6 +3,7 @@
 #include "../core/Brick.h"
 #include "../core/Group.h"
 #include "../core/Module.h"
+#include "SharedLock.h"
 
 #include <QPointF>
 #include <QSet>
@@ -230,6 +231,11 @@ public:
     const QString& moduleId() const { return moduleId_; }
     // From the library: the new module is linked to it (call before pushing).
     void setLibrary(const QString& id, int version) { libraryId_ = id; libraryVersion_ = version; }
+    // Someone else's module, shared read-only (docs/shared-modules.md): the
+    // new module is locked and follows its owner's updates. `shared` is its
+    // sidecar value ({by, server, placement}); the placement's sheets are
+    // filled in with where each sheet went. Call before pushing, with setLibrary.
+    void setShared(QJsonObject shared) { shared_ = std::move(shared); }
 
     // After redo() runs (the undo stack pushes call redo immediately),
     // returns every (layerIndex, guid) pair the command inserted. Lets
@@ -264,6 +270,7 @@ private:
     std::vector<core::Brick> bricks_;
     QString libraryId_;
     int libraryVersion_ = 0;
+    std::optional<QJsonObject> shared_;
 };
 
 // Update from library: the module's parts are replaced by a library
@@ -271,7 +278,8 @@ private:
 // targetLayerGuid: the sheet its parts go on). The module keeps its id,
 // name, look and pin, and is linked to `libraryId` at `libraryVersion`.
 // One undo step; undo puts the old parts back where they were.
-class ReplaceModulePartsCommand : public QUndoCommand {
+// (For a shared module it is its owner's version going in: the lock lets it through.)
+class ReplaceModulePartsCommand : public QUndoCommand, public SharedLockExempt {
 public:
     ReplaceModulePartsCommand(core::Map& map, QString moduleId,
                               std::vector<ImportBbmAsModuleCommand::LayerBatch> batches,
@@ -280,6 +288,9 @@ public:
     void redo() override;
     // The new parts' guids (after the first redo).
     QSet<QString> newMembers() const;
+    // A shared module: its `shared` value after the step (the placement the
+    // version went in at, what to review). Call before pushing.
+    void setSharedAfter(QJsonObject shared) { sharedAfter_ = std::move(shared); }
 
 private:
     core::Map& map_;
@@ -290,6 +301,23 @@ private:
     // The old parts, where they were (layer guid, index), for undo.
     struct Removed { QString layerGuid; int index = 0; core::Brick brick; };
     std::vector<Removed> removed_;
+    std::optional<core::Module> before_;
+    std::optional<QJsonObject> sharedAfter_;
+};
+
+// "Make it mine" for a layout that isn't live (a file): the shared module
+// becomes an ordinary module of the layout, unlocked and following nothing,
+// remembering what it was made from (`basedOn`, as the server's step
+// leaves it). Undo puts the lock back.
+class DetachSharedModuleCommand : public QUndoCommand, public SharedLockExempt {
+public:
+    DetachSharedModuleCommand(core::Map& map, QString moduleId, QUndoCommand* parent = nullptr);
+    void undo() override;
+    void redo() override;
+
+private:
+    core::Map& map_;
+    QString moduleId_;
     std::optional<core::Module> before_;
 };
 

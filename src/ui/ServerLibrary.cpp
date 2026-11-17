@@ -1,7 +1,10 @@
 #include "ServerLibrary.h"
 #include "ConfirmDialog.h"
+#include "ModuleShareDialog.h"
+#include "help/HelpButton.h"
 #include "ReturnWording.h"
 
+#include "../sync/Compat.h"
 #include "../sync/ServerList.h"
 #include "../sync/ui/ClubLogoViews.h"
 #include "../sync/WhileAlive.h"
@@ -22,6 +25,8 @@
 #include <QPixmap>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QSignalBlocker>
+#include <QTabBar>
 #include <QScrollBar>
 #include <QScroller>
 #include <QStandardPaths>
@@ -190,7 +195,8 @@ void ServerLibrary::refresh() {
     if (!server_.isValid() || api_.token().isEmpty()) return;
     const int gen = ++generation_;
     if (state_ != State::Ready) setState(State::Loading);
-    auto pending = std::make_shared<int>(3);
+    const bool askShared = knowsSharedModules();
+    auto pending = std::make_shared<int>(askShared ? 4 : 3);
     auto failed = std::make_shared<bool>(false);
     auto settle = [this, gen, pending, failed] {
         if (gen != generation_ || --*pending > 0 || *failed) return;
@@ -208,6 +214,18 @@ void ServerLibrary::refresh() {
         modules_ = list;
         settle();
     }, onFail);
+    // Shared with me: its own list. A server that can't say has none (never a reason to fail the rest).
+    if (askShared)
+        api_.sharedWithMe([this, gen, settle](const QList<sync::ServerModule>& list) {
+            if (gen != generation_) return;
+            shared_ = list;
+            settle();
+        }, [this, gen, settle](const sync::ServerRefusal&) {
+            if (gen != generation_) return;
+            shared_.clear();
+            settle();
+        });
+    else shared_.clear();
     api_.orgs([this, gen, settle](const QList<sync::OrgEntry>& list) {
         if (gen != generation_) return;
         orgs_ = list;
@@ -227,6 +245,35 @@ void ServerLibrary::refresh() {
         catalog_ = {};
         settle();
     });
+}
+
+const sync::ServerModule* ServerLibrary::sharedModule(const QString& id) const {
+    for (const auto& m : shared_)
+        if (m.id == id) return &m;
+    return nullptr;
+}
+
+bool ServerLibrary::knowsSharedModules() const {
+    if (knowsShared_) return *knowsShared_;
+    if (!server_.isValid()) return false;
+    const sync::ServerList list = sync::ServerList::load();
+    const sync::ServerEntry* e = list.find(server_);
+    return e && e->features && e->features->contains(QLatin1String(sync::kSharedModulesFeature));
+}
+
+void ServerLibrary::setKnowsSharedModules(std::optional<bool> knows) {
+    if (knows == knowsShared_) return;
+    knowsShared_ = knows;
+    emit changed();
+}
+
+bool ServerLibrary::mayRemoveFromClub(const QString& slug) const {
+    for (const auto& o : orgs_) {
+        if (o.slug != slug) continue;
+        if (o.permissions) return o.permissions->contains(QStringLiteral("delete_items"));
+        return o.role == QLatin1String("admin") || o.role == QLatin1String("manager");
+    }
+    return false;
 }
 
 const sync::ServerModule* ServerLibrary::module(const QString& id) const {
@@ -362,6 +409,31 @@ ServerModulesTab::ServerModulesTab(ServerLibrary& library, QWidget* parent) : QW
     filter_->setPlaceholderText(tr("Filter modules…"));
     filter_->setClearButtonEnabled(true);
     col->addWidget(filter_);
+    // Mine / Clubs / Shared with me (the web's Module library tabs).
+    tabs_ = new QTabBar(this);
+    tabs_->setObjectName(QStringLiteral("serverModulesTabs"));
+    tabs_->setAccessibleName(tr("Whose modules"));
+    tabs_->setDrawBase(false);
+    tabs_->setExpanding(false);
+    tabs_->setUsesScrollButtons(true);
+    tabs_->addTab(tr("Mine"));
+    tabs_->addTab(tr("Clubs"));
+    tabs_->addTab(tr("Shared with me"));
+    tabs_->hide();
+    col->addWidget(tabs_);
+    connect(tabs_, &QTabBar::currentChanged, this, &ServerModulesTab::rebuild);
+    confirmRemoveFromClub = [this](const sync::ServerModule& m, const sync::ClubRef& club) {
+        ConfirmOptions o;
+        o.title = tr("Take “%1” off %2?").arg(m.title, club.name);
+        o.keeps = tr("The club's layouts keep it as it is now.");
+        o.removes = m.owner.name.isEmpty()
+                        ? tr("The club gets no more updates of it, and its members can't place it again. Its owner is told.")
+                        : tr("The club gets no more updates of it, and its members can't place it again. %1 is told.")
+                              .arg(m.owner.name);
+        o.confirmLabel = tr("Remove");
+        o.danger = false;
+        return ConfirmDialog::ask(this, o);
+    };
     auto* scroll = new QScrollArea(this);
     scroll->setWidgetResizable(true);
     scroll->setFrameShape(QFrame::NoFrame);
@@ -414,16 +486,59 @@ void ServerModulesTab::rebuild() {
     if (!ready) return;
 
     const QString f = filter_->text().trimmed();
+    // On a server with shared modules: Mine / Clubs / Shared with me, each
+    // with how many it has. Other people's modules shared with you are on
+    // their own tab, each with its owner.
+    const bool tabbed = library_.knowsSharedModules();
+    QSet<QString> sharedIds;
+    for (const auto& m : library_.sharedModules()) sharedIds.insert(m.id);
+    QList<sync::ServerModule> mine, clubs;
+    for (const auto& m : library_.modules()) {
+        if (sharedIds.contains(m.id)) continue;
+        (m.owner.isClub() ? clubs : mine) << m;
+    }
+    if (tabbed) {
+        const QSignalBlocker quiet(tabs_);
+        const auto label = [](const QString& text, qsizetype n) { return n > 0 ? QStringLiteral("%1 (%2)").arg(text).arg(n) : text; };
+        tabs_->setTabText(Mine, label(tr("Mine"), mine.size()));
+        tabs_->setTabText(Clubs, label(tr("Clubs"), clubs.size()));
+        tabs_->setTabText(Shared, label(tr("Shared with me"), library_.sharedModules().size()));
+    }
+    tabs_->setVisible(tabbed);
+    const int tab = tabbed ? tabs_->currentIndex() : -1;
+    const QList<sync::ServerModule> all = tab == Mine ? mine : tab == Clubs ? clubs : tab == Shared ? library_.sharedModules() : mine + clubs;
     QList<sync::ServerModule> shown;
-    for (const auto& m : library_.modules())
+    for (const auto& m : all)
         if (f.isEmpty() || m.title.contains(f, Qt::CaseInsensitive)) shown << m;
     int at = 0;
+    if (tab == Shared) {
+        auto* about = new QWidget(listHost_);
+        auto* row = new QHBoxLayout(about);
+        row->setContentsMargins(4, 0, 4, 0);
+        auto* words = libraryMutedLabel(tr("Modules other people shared with you or your clubs. Place one, and it follows its owner's updates."), about);
+        words->setObjectName(QStringLiteral("sharedModulesAbout"));
+        row->addWidget(words, 1);
+        row->addWidget(new help::HelpButton(QStringLiteral("module.shared"), about), 0, Qt::AlignTop);
+        list_->insertWidget(at++, about);
+    }
     if (shown.isEmpty()) {
-        auto* empty = libraryMutedLabel(f.isEmpty() ? tr("No saved modules yet. Make a module in a layout, then choose Save to Module library… from its menu.")
-                                             : tr("No modules match."),
-                                 listHost_);
+        auto* empty = libraryMutedLabel(
+            !f.isEmpty()     ? tr("No modules match.")
+            : tab == Shared ? tr("Nothing is shared with you yet. When someone shares a module with you or one of your "
+                                 "clubs, it shows here, ready to place.")
+            : tab == Clubs  ? tr("Your clubs have no modules yet.")
+                            : tr("No saved modules yet. Make a module in a layout, then choose Save to Module library… from its menu."),
+            listHost_);
         empty->setObjectName(QStringLiteral("serverModulesEmpty"));
         list_->insertWidget(at++, empty);
+        return;
+    }
+    if (tab == Shared) {
+        for (const auto& m : std::as_const(shown)) {
+            QWidget* r = makeSharedRow(m);
+            rows_.insert(m.id, r);
+            list_->insertWidget(at++, r);
+        }
         return;
     }
     // Yours first, then each club (in the order the server lists them), then shared with you.
@@ -530,6 +645,13 @@ QWidget* ServerModulesTab::makeRow(const sync::ServerModule& m) {
     QAction* ren = menu->addAction(tr("Rename…"));
     ren->setObjectName(QStringLiteral("renameModule"));
     connect(ren, &QAction::triggered, this, [this, id] { rename(id); });
+    // Share it, read-only, with a club you're in (its owner; a club's own module is its members' already).
+    if (library_.knowsSharedModules() && m.canDelete() && !m.owner.isClub()) {
+        QAction* share = menu->addAction(tr("Share with a Club…"));
+        share->setObjectName(QStringLiteral("shareModule"));
+        share->setToolTip(tr("A club you share with can place it in the club's layouts and gets your updates."));
+        connect(share, &QAction::triggered, this, [this, id] { this->share(id); });
+    }
     if (m.credit.canTakeBack) {
         QAction* take = menu->addAction(tr("Take Back to Mine…"));
         take->setObjectName(QStringLiteral("takeBackModule"));
@@ -549,6 +671,84 @@ QWidget* ServerModulesTab::makeRow(const sync::ServerModule& m) {
     more->setMenu(menu);
     top->addWidget(more, 0, Qt::AlignTop);
     return frame;
+}
+
+// Someone else's module shared with you: its owner, how it reached you
+// ("via Riverside LUG"), and Add to layout. It has no menu: it isn't yours
+// to change. A club's admins and managers can take it off their club.
+QWidget* ServerModulesTab::makeSharedRow(const sync::ServerModule& m) {
+    QFrame* frame = libraryRowFrame(listHost_);
+    frame->setObjectName(QStringLiteral("moduleRow:") + m.id);
+    auto* h = new QHBoxLayout(frame);
+    h->setContentsMargins(6, 6, 6, 6);
+    h->setSpacing(8);
+    QLabel* pic = libraryRowPicture(frame);
+    h->addWidget(pic, 0, Qt::AlignTop);
+    if (const QString path = m.thumbnailPath(); !path.isEmpty())
+        library_.picture(path + QStringLiteral("&size=small"), pic, [pic](const QImage& img) { showLibraryPicture(pic, img); });
+    auto* text = new QVBoxLayout();
+    text->setSpacing(2);
+    auto* title = new QLabel(m.title, frame);
+    title->setTextFormat(Qt::PlainText);
+    title->setObjectName(QStringLiteral("rowTitle"));
+    title->setProperty("rowTitle", true);
+    title->setWordWrap(true);
+    text->addWidget(title);
+    QString sub = tr("v%1").arg(m.shownVersion());
+    if (m.updatedAt.isValid()) sub += QStringLiteral(" · ") + QLocale().toString(m.updatedAt.date(), QLocale::ShortFormat);
+    auto* subtitle = libraryMutedLabel(sub, frame);
+    subtitle->setObjectName(QStringLiteral("rowSubtitle"));
+    text->addWidget(subtitle);
+    auto* via = libraryMutedLabel(QStringLiteral("🔗 ") + m.sharedViaText(), frame);
+    via->setObjectName(QStringLiteral("rowSharedVia"));
+    text->addWidget(via);
+    const bool inModule = !library_.editingModule().isEmpty();
+    auto* add = new QPushButton(library_.inserting() == m.id ? tr("Adding…") : tr("Add to layout"), frame);
+    add->setObjectName(QStringLiteral("insertModule"));
+    add->setEnabled(library_.inserting().isEmpty() && !m.empty && !inModule);
+    if (inModule) add->setToolTip(tr("A shared module goes in a layout, not inside another module."));
+    else if (m.empty) add->setToolTip(tr("No parts yet"));
+    const QString id = m.id;
+    connect(add, &QPushButton::clicked, this, [this, id] { emit library_.insertRequested(id); });
+    text->addWidget(add, 0, Qt::AlignLeft);
+    for (const auto& club : m.sharedClubs) {
+        if (!library_.mayRemoveFromClub(club.slug)) continue;
+        auto* remove = new QPushButton(tr("Remove from %1…").arg(club.name), frame);
+        remove->setObjectName(QStringLiteral("removeClubShare"));
+        remove->setFlat(true);
+        remove->setToolTip(tr("Take this module off the club's list. Copies already placed stay as they are."));
+        connect(remove, &QPushButton::clicked, this, [this, id, club] { removeFromClub(id, club); });
+        text->addWidget(remove, 0, Qt::AlignLeft);
+    }
+    h->addLayout(text, 1);
+    return frame;
+}
+
+ModuleShareDialog* ServerModulesTab::shareDialog() const { return qobject_cast<ModuleShareDialog*>(shareDialog_.data()); }
+
+void ServerModulesTab::share(const QString& id) {
+    const sync::ServerModule* m = library_.module(id);
+    if (!m) return;
+    if (shareDialog_) shareDialog_->close();
+    shareDialog_ = new ModuleShareDialog(library_, *m, this);
+    shareDialog_->setAttribute(Qt::WA_DeleteOnClose);
+    shareDialog_->open();
+}
+
+void ServerModulesTab::removeFromClub(const QString& id, const sync::ClubRef& club) {
+    const sync::ServerModule* m = library_.sharedModule(id);
+    if (!m || !confirmRemoveFromClub(*m, club)) return;
+    const QString title = m->title;
+    library_.api().stopClubShare(id, club.id, sync::whileAlive(this, [this, title, club] {
+        emit library_.message(tr("“%1” is off %2's list.").arg(title, club.name));
+        library_.refresh();
+    }), sync::whileAlive(this, [this, title](const sync::ServerRefusal& r) {
+        // (Someone else took it off meanwhile: the list just catches up.)
+        if (r.code != QLatin1String("not_shared"))
+            QMessageBox::warning(this, tr("Remove from club"),
+                                 tr("Couldn't remove “%1”: %2").arg(title, ServerLibrary::refusalText(r)));
+        library_.refresh();
+    }));
 }
 
 void ServerModulesTab::rename(const QString& id) {

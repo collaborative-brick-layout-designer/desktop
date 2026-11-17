@@ -59,6 +59,10 @@ public:
     // feature sync::kMemberKeysFeature): only then are they written
     // (SyncDoc::setMemberKeys). Call before open.
     void setMemberKeys(bool on) { doc_.setMemberKeys(on); }
+    // Whether the server's web app knows shared, read-only modules (its
+    // feature sync::kSharedModulesFeature): only then is a layout stamped
+    // shape 4 for one (SyncDoc::setSharedModules). Call before open.
+    void setSharedModules(bool on) { doc_.setSharedModules(on); }
     void close();
 
     SyncClient::Status status() const { return client_.status(); }

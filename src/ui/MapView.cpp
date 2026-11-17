@@ -230,6 +230,9 @@ MapView::MapView(parts::PartsLibrary& parts, QWidget* parent)
     // Every undo / redo mutates core::Map; the scene items were built before
     // the mutation, so we need to rebuild the scene afterwards for the UI to
     // reflect the restored state. Without this, Ctrl+Z appears to do nothing.
+    // First of all the stack's listeners: a step that breaks the lock on a
+    // shared module is taken back before anything draws it or sends it on.
+    connect(undoStack_.get(), &QUndoStack::indexChanged, this, &MapView::onSharedLockStep);
     connect(undoStack_.get(), &QUndoStack::indexChanged, this, [this](int){
         if (!map_) return;
         // Recompute every brick's linkedToId against current world
@@ -413,6 +416,7 @@ void MapView::loadMap(std::unique_ptr<core::Map> map) {
     if (map && !preloadPictures(*map)) return;
     if (generation != loadGeneration_) return;
     map_ = std::move(map);
+    rebaseSharedLock();
     if (!map_) {
         builder_->clear();
         finishLoading();
@@ -495,6 +499,7 @@ void MapView::updateMap(std::unique_ptr<core::Map> map) {
     const core::Map* before = map_.get();
     std::unique_ptr<core::Map> old = std::move(map_);
     map_ = std::move(map);
+    rebaseSharedLock();
     scene()->setBackgroundBrush(map_->backgroundColor.color);
     // The pick index carries over (refreshScene() patches it).
     if (pickIndex_.map == before) pickIndex_.map = map_.get();
@@ -2602,6 +2607,8 @@ bool MapView::startFlexMove(QGraphicsItem* under, QPointF scenePos) {
     QSet<QString> chain;
     for (const auto& s : flex->initialState()) chain.insert(s.guid);
     if (core::pinnedAmong(chain, map_->sidecar.modules, editingModuleId_)) return false;
+    // Nor does a shared module's track: it says why.
+    if (refusedByLock(chain, core::LockedAction::Bend)) return false;
 
     flex_ = std::move(flex);
     flexSnap_.reset();
@@ -2723,6 +2730,8 @@ void MapView::refreshBendHandles() {
         const auto ends = edit::flexRunEnds(static_cast<const core::LayerBrick&>(*L), it.value(), parts_, &run);
         // A pinned module (not the one being edited) never bends.
         if (ends.empty() || core::pinnedAmong(run, map_->sidecar.modules, editingModuleId_)) continue;
+        // Nor a shared one: no handles to bend it by.
+        if (core::sharedLockOn(map_->sidecar.modules, run)) continue;
         const auto& layer = static_cast<const core::LayerBrick&>(*L);
         for (const auto& end : ends) {
             QPointF local;
@@ -3307,7 +3316,8 @@ std::optional<MapView::ModuleSnap> MapView::moduleSnapShift(const std::vector<co
 }
 
 bool MapView::placeModule(core::Map& loaded, const QString& name, const QString& source, QPointF scenePos,
-                          snapfeel::Session* dragSnap, const QString& libraryId, int libraryVersion) {
+                          snapfeel::Session* dragSnap, const QString& libraryId, int libraryVersion,
+                          const std::optional<QJsonObject>& shared) {
     if (!map_) return false;
     {
         QStringList keys;
@@ -3360,6 +3370,9 @@ bool MapView::placeModule(core::Map& loaded, const QString& name, const QString&
     const QPointF translation = targetCentre - srcCentre;
     for (auto& batch : batches)
         for (auto& b : batch.bricks) b.displayArea.translate(translation);
+    // How the module's own coordinates land on the map (a shared module keeps it: SharedModule.h).
+    QPointF moved = translation;
+    std::optional<core::DropTurn> dropTurn;
 
     // Connection-snap pass: if a free connection of the placed module
     // lands within reach of a free compatible end on the map, shift the
@@ -3373,6 +3386,8 @@ bool MapView::placeModule(core::Map& loaded, const QString& name, const QString&
         const auto snap =
             moduleSnapShift(placed, QPointF(scenePos.x() / px, scenePos.y() / px), dragSnap, true);
         if (snap) {
+            if (std::abs(snap->turn) > 1e-6) dropTurn = core::DropTurn{ snap->turn, snap->pivot, snap->to };
+            else moved += turnPoint(QPointF(), 0.0, snap->pivot, snap->to) - QPointF();
             for (auto& batch : batches) {
                 for (auto& b : batch.bricks) {
                     const QPointF centre = parts::placement::imageCentre(b, parts_);
@@ -3393,6 +3408,12 @@ bool MapView::placeModule(core::Map& loaded, const QString& name, const QString&
     auto* cmd = new edit::ImportBbmAsModuleCommand(
         *map_, source, name, std::move(batches));
     if (!libraryId.isEmpty()) cmd->setLibrary(libraryId, libraryVersion);
+    // Someone else's, shared read-only: locked, following its owner, with where it sits.
+    if (shared && !libraryId.isEmpty()) {
+        QJsonObject link = *shared;
+        link.insert(QStringLiteral("placement"), core::placementJson(core::droppedPlacement(moved, dropTurn)));
+        cmd->setShared(link);
+    }
     const bool joins = !editingModuleId_.isEmpty();
     if (joins) undoStack_->beginMacro(tr("Insert module"));
     undoStack_->push(cmd);
