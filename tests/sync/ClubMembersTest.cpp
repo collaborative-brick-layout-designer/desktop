@@ -12,7 +12,9 @@
 #include "ui/ClubMembersDialog.h"
 #include "ui/ServerLibrary.h"
 #include "ui/ServerWindow.h"
+#include "ui/help/HelpButton.h"
 #include "ui/theme/AppPrefs.h"
+#include "ui/theme/ThemeManager.h"
 #include "ui/tours/Tours.h"
 
 #include <gtest/gtest.h>
@@ -513,4 +515,98 @@ TEST_F(ClubMembersTest, TheClubsTourShowsEveryStepToSomeoneInAClub) {
     EXPECT_EQ(outlined.at(4), window_->clubMembersButton());
     EXPECT_EQ(outlined.at(5), window_->showFilter());
     tour->finish();
+}
+
+TEST_F(ClubMembersTest, TheClubsTourShowsModulesSharedWithYouOnTheModulesTab) {
+    // A server that shares modules: the web's "Modules shared with you" step is on the desktop too.
+    http_.reply("/api/orgs", 200, orgsJson(Me::Member));
+    library_.setServer(http_.base(), QStringLiteral("Club server"), QStringLiteral("bld_pat_members"));
+    library_.setKnowsSharedModules(true);
+    ASSERT_TRUE(waitFor([&] { return library_.state() == ui::ServerLibrary::State::Ready; }));
+    window_ = std::make_unique<ui::ServerWindow>(library_);
+    window_->showTab(ui::ServerWindow::Tab::Layouts);
+    QCoreApplication::processEvents();
+    // The Modules tab says where they are, with Show Them and the same ⓘ as the web's.
+    QWidget* note = window_->sharedModulesNote();
+    ASSERT_NE(note, nullptr);
+    EXPECT_FALSE(note->isHidden());
+    auto* help = note->findChild<ui::help::HelpButton*>();
+    ASSERT_NE(help, nullptr);
+    EXPECT_EQ(help->key(), QStringLiteral("module.shared"));
+    int showThem = 0;
+    QObject::connect(window_.get(), &ui::ServerWindow::showSharedModulesRequested, [&showThem] { ++showThem; });
+    note->findChild<QPushButton*>(QStringLiteral("showSharedModules"))->click();
+    EXPECT_EQ(showThem, 1);
+
+    auto& store = ui::theme::PrefsStore::instance();
+    ui::tours::TourOverlay* tour = ui::tours::startTour(window_.get(), QStringLiteral("clubs"), store);
+    ASSERT_NE(tour, nullptr);
+    QStringList targets;
+    for (const auto& st : tour->tour().steps) targets << st.target;
+    EXPECT_EQ(targets, (QStringList{ QStringLiteral("servers.status"), QStringLiteral("server.window"),
+                                     QStringLiteral("owners.filter"), QStringLiteral("publish.owner"),
+                                     QStringLiteral("module.shared"), QStringLiteral("clubs.page"),
+                                     QStringLiteral("clubs.join") }));
+    const qsizetype at = targets.indexOf(QStringLiteral("module.shared"));
+    for (qsizetype i = 0; i < at; ++i) tour->next();
+    // Its step brings the Modules tab to the front and outlines the line.
+    EXPECT_EQ(window_->currentTab(), ui::ServerWindow::Tab::Modules);
+    EXPECT_EQ(tour->target(), note);
+    EXPECT_FALSE(tour->hole().isEmpty());
+    // Back: Save to is on Layouts again.
+    tour->back();
+    EXPECT_EQ(window_->currentTab(), ui::ServerWindow::Tab::Layouts);
+    EXPECT_NE(tour->target(), nullptr);
+    tour->finish();
+}
+
+TEST_F(ClubMembersTest, OnAServerThatDoesNotShareModulesTheClubsTourLeavesThatStepOut) {
+    http_.reply("/api/orgs", 200, orgsJson(Me::Member));
+    library_.setServer(http_.base(), QStringLiteral("Club server"), QStringLiteral("bld_pat_members"));
+    library_.setKnowsSharedModules(false);
+    ASSERT_TRUE(waitFor([&] { return library_.state() == ui::ServerLibrary::State::Ready; }));
+    window_ = std::make_unique<ui::ServerWindow>(library_);
+    window_->showTab(ui::ServerWindow::Tab::Layouts);
+    QCoreApplication::processEvents();
+    EXPECT_TRUE(window_->sharedModulesNote()->isHidden());
+    auto& store = ui::theme::PrefsStore::instance();
+    ui::tours::TourOverlay* tour = ui::tours::startTour(window_.get(), QStringLiteral("clubs"), store);
+    ASSERT_NE(tour, nullptr);
+    for (const auto& st : tour->tour().steps) EXPECT_NE(st.target, QStringLiteral("module.shared"));
+    tour->finish();
+}
+
+TEST_F(ClubMembersTest, PicturesOfTheSharedModulesTourStep) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    http_.reply("/api/orgs", 200, orgsJson(Me::Member));
+    library_.setServer(http_.base(), QStringLiteral("Club server"), QStringLiteral("bld_pat_members"));
+    ASSERT_TRUE(waitFor([&] { return library_.state() == ui::ServerLibrary::State::Ready; }));
+    ui::theme::PrefsStore store(QStringLiteral("review-shared-tour-shots"));
+    ui::theme::ThemeManager themer(store);
+    window_ = std::make_unique<ui::ServerWindow>(library_);
+    window_->resize(900, 600);
+    for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+        ui::theme::AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        const QString scheme = mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark") : QStringLiteral("light");
+        // Before: a server without shared modules, as main shows the Modules tab.
+        library_.setKnowsSharedModules(false);
+        window_->showTab(ui::ServerWindow::Tab::Modules);
+        waitFor([] { return false; }, 300);
+        EXPECT_TRUE(window_->grab().save(out + QStringLiteral("/before-modules-tab-%1.png").arg(scheme)));
+        // After: the line and the Clubs tour's new step on it.
+        library_.setKnowsSharedModules(true);
+        waitFor([] { return false; }, 300);
+        EXPECT_TRUE(window_->grab().save(out + QStringLiteral("/after-modules-tab-%1.png").arg(scheme)));
+        window_->showTab(ui::ServerWindow::Tab::Layouts);
+        ui::tours::TourOverlay* tour = ui::tours::startTour(window_.get(), QStringLiteral("clubs"), store);
+        ASSERT_NE(tour, nullptr);
+        while (tour->step() < tour->tour().steps.size() - 1 && tour->tour().steps.at(tour->step()).target != QStringLiteral("module.shared")) tour->next();
+        waitFor([] { return false; }, 400);
+        EXPECT_TRUE(window_->grab().save(out + QStringLiteral("/after-tour-step-%1.png").arg(scheme)));
+        tour->finish();
+        waitFor([] { return false; }, 100);
+    }
 }

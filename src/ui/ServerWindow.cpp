@@ -38,6 +38,7 @@
 #include <QSignalBlocker>
 #include <QStandardPaths>
 #include <QTabWidget>
+#include <optional>
 #include <QTimer>
 #include <QToolButton>
 #include <QVBoxLayout>
@@ -201,6 +202,28 @@ ServerWindow::ServerWindow(ServerLibrary& library, QWidget* parent) : QWidget(pa
     layoutsPage_ = makePage(QStringLiteral("layoutsPage"), { saveFile });
     venuesPage_ = makePage(QStringLiteral("venuesPage"));
     modulesPage_ = makePage(QStringLiteral("modulesPage"));
+    {
+        // Modules other people shared with you are placed from the Module
+        // library panel (Shared with me): this tab says so, and is where
+        // the Clubs tour's "Modules shared with you" step points.
+        sharedNote_ = new QWidget(modulesPage_.host);
+        sharedNote_->setObjectName(QStringLiteral("sharedModulesNote"));
+        auto* row = new QHBoxLayout(sharedNote_);
+        row->setContentsMargins(4, 0, 4, 4);
+        auto* words = libraryMutedLabel(tr("Modules shared with you or your clubs are in the Module library panel, under Shared with me."),
+                                        sharedNote_);
+        words->setWordWrap(true);
+        auto* showThem = new QPushButton(tr("Show Them"), sharedNote_);
+        showThem->setObjectName(QStringLiteral("showSharedModules"));
+        showThem->setToolTip(tr("Open the Module library panel at Shared with me"));
+        connect(showThem, &QPushButton::clicked, this, [this] { emit showSharedModulesRequested(); });
+        row->addWidget(words, 1);
+        row->addWidget(showThem, 0, Qt::AlignTop);
+        row->addWidget(new help::HelpButton(QStringLiteral("module.shared"), sharedNote_, showThem), 0, Qt::AlignTop);
+        tours::tag(sharedNote_, QStringLiteral("module.shared"));
+        sharedNote_->setVisible(false);
+        modulesPage_.list->insertWidget(0, sharedNote_);
+    }
     partsPage_ = makePage(QStringLiteral("partsPage"), { uploadParts });
     tabs_->addTab(layoutsPage_.scroll, tr("Layouts"));
     tabs_->addTab(venuesPage_.scroll, tr("Venues"));
@@ -512,6 +535,27 @@ void ServerWindow::showTab(Tab tab) {
 }
 
 ServerWindow::Tab ServerWindow::currentTab() const { return static_cast<Tab>(tabs_->currentIndex()); }
+
+namespace {
+// The tab a Clubs tour step's control is on (only the ones on a tab).
+std::optional<ServerWindow::Tab> tourTab(const QString& id) {
+    if (id == QLatin1String("publish.owner")) return ServerWindow::Tab::Layouts;
+    if (id == QLatin1String("module.shared")) return ServerWindow::Tab::Modules;
+    return std::nullopt;
+}
+}  // namespace
+
+bool ServerWindow::canRevealTourTarget(const QString& id) const {
+    const auto tab = tourTab(id);
+    if (!tab || !content_->isVisibleTo(this)) return false;
+    // Only while it would show there: shared modules on a server that has them.
+    if (*tab == Tab::Modules) return !sharedNote_->isHidden();
+    return true;
+}
+
+void ServerWindow::revealTourTarget(const QString& id) {
+    if (const auto tab = tourTab(id); tab && canRevealTourTarget(id)) tabs_->setCurrentIndex(static_cast<int>(*tab));
+}
 
 QWidget* ServerWindow::row(Tab tab, const QString& id) const {
     switch (tab) {
@@ -831,6 +875,7 @@ void ServerWindow::rebuildVenues() {
 void ServerWindow::rebuildModules() {
     clearPage(modulesPage_);
     const bool ready = library_.state() == ServerLibrary::State::Ready;
+    sharedNote_->setVisible(ready && library_.knowsSharedModules());
     int n = 0;
     for (const sync::ServerModule& m : library_.modules()) {
         const sync::ItemOwner owner = ownerOf(m.owner);

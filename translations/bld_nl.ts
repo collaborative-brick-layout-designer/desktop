@@ -10892,6 +10892,18 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Je eigen onderdelen die de server nog niet heeft in één keer versturen</translation>
     </message>
     <message>
+        <source>Modules shared with you or your clubs are in the Module library panel, under Shared with me.</source>
+        <translation>Modules die met jou of je clubs gedeeld zijn, staan in het paneel Modulebibliotheek, onder Met mij gedeeld.</translation>
+    </message>
+    <message>
+        <source>Show Them</source>
+        <translation>Toon ze</translation>
+    </message>
+    <message>
+        <source>Open the Module library panel at Shared with me</source>
+        <translation>Opent het paneel Modulebibliotheek bij Met mij gedeeld</translation>
+    </message>
+    <message>
         <source>Layouts</source>
         <translation>Layouts</translation>
     </message>

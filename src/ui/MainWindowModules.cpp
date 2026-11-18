@@ -47,6 +47,7 @@
 #include <QPainter>
 #include <QPushButton>
 #include <QStatusBar>
+#include <QTabBar>
 #include <QTabWidget>
 #include <QTimer>
 #include <QToolButton>
@@ -339,6 +340,17 @@ void MainWindow::showServerWindow(int tab) {
         connect(serverWindow_, &ServerWindow::useVenueRequested, this, [this](const QString& id, const QString&) { useServerVenue(id); });
         connect(serverWindow_, &ServerWindow::addVenueRequested, this, &MainWindow::addServerVenue);
         connect(serverWindow_, &ServerWindow::saveModuleCopyRequested, this, &MainWindow::saveServerModuleCopy);
+        connect(serverWindow_, &ServerWindow::showSharedModulesRequested, this, [this] {
+            // The Module library panel, at its server tab's Shared with me, in front of the Server window.
+            theme::PanelHeader::setShown(moduleLibraryPanel_, true);
+            moduleLibraryPanel_->raise();
+            if (auto* tab = moduleLibraryPanel_->findChild<ServerModulesTab*>()) {
+                moduleLibraryPanel_->tabs()->setCurrentWidget(tab);
+                tab->tabs()->setCurrentIndex(ServerModulesTab::Shared);
+            }
+            activateWindow();
+            raise();
+        });
         connect(serverWindow_, &ServerWindow::addPartRequested, this, &MainWindow::addServerPart);
         connect(serverWindow_, &ServerWindow::showPartRequested, this, &MainWindow::showPartInBrowser);
         connect(serverWindow_, &ServerWindow::message, this, [this](const QString& text) { statusBar()->showMessage(text, 6000); });

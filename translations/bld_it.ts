@@ -10892,6 +10892,18 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>Invia i tuoi pezzi che il server non ha ancora, tutti in una volta</translation>
     </message>
     <message>
+        <source>Modules shared with you or your clubs are in the Module library panel, under Shared with me.</source>
+        <translation>I moduli condivisi con te o con i tuoi club sono nel pannello Libreria dei moduli, in Condivisi con me.</translation>
+    </message>
+    <message>
+        <source>Show Them</source>
+        <translation>Mostrali</translation>
+    </message>
+    <message>
+        <source>Open the Module library panel at Shared with me</source>
+        <translation>Apre il pannello Libreria dei moduli su Condivisi con me</translation>
+    </message>
+    <message>
         <source>Layouts</source>
         <translation>Layout</translation>
     </message>

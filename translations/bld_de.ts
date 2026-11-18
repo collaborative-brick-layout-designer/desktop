@@ -10892,6 +10892,18 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>Deine eigenen Teile, die der Server noch nicht hat, auf einmal senden</translation>
     </message>
     <message>
+        <source>Modules shared with you or your clubs are in the Module library panel, under Shared with me.</source>
+        <translation>Module, die mit dir oder deinen Clubs geteilt wurden, findest du im Bereich Modulbibliothek unter Mit mir geteilt.</translation>
+    </message>
+    <message>
+        <source>Show Them</source>
+        <translation>Anzeigen</translation>
+    </message>
+    <message>
+        <source>Open the Module library panel at Shared with me</source>
+        <translation>Öffnet den Bereich Modulbibliothek bei Mit mir geteilt</translation>
+    </message>
+    <message>
         <source>Layouts</source>
         <translation>Layouts</translation>
     </message>
