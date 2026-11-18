@@ -149,9 +149,9 @@ bool finishShared(const core::Map& before, core::Map& after, parts::PartsLibrary
             if (it != mods.end()) {
                 // (As it was before the step: what is read now lists only the parts still there.)
                 if (removed) {
-                    const auto was = std::find_if(before.sidecar.modules.begin(), before.sidecar.modules.end(),
-                                                  [&](const core::Module& x) { return x.id == m.placedId; });
-                    removed->modules.push_back(was != before.sidecar.modules.end() ? *was : *it);
+                    const auto prior = std::find_if(before.sidecar.modules.begin(), before.sidecar.modules.end(),
+                                                    [&](const core::Module& x) { return x.id == m.placedId; });
+                    removed->modules.push_back(prior != before.sidecar.modules.end() ? *prior : *it);
                 }
                 mods.erase(it);
             }

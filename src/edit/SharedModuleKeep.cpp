@@ -112,6 +112,7 @@ KeepPlan planKeep(const std::vector<KeepSheet>& sheets, const QSet<QString>& mem
             for (const auto& p : pairs)
                 if (p.sheet == s.id) on.push_back(&p);
             std::vector<int> seq;
+            seq.reserve(on.size());
             for (const auto* p : on) seq.push_back(p->there->at);
             const QSet<int> run = longestRun(seq);
             for (int i = 0; i < static_cast<int>(on.size()); ++i)
