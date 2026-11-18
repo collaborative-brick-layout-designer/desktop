@@ -21,8 +21,6 @@
 #include "SelectionStyle.h"
 #include "TouchMode.h"
 
-#include <QGraphicsDropShadowEffect>
-
 #include <QFont>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
@@ -376,20 +374,10 @@ void MapView::refreshSelectionOverlay() {
         }
         polys.append(poly);
     }
-    // Selected text and labels glow gold; the rest lose their glow.
-    for (QGraphicsItem* it : index.glowing) {
-        const bool glow = it->isSelected();
-        if (glow == (it->graphicsEffect() != nullptr)) continue;
-        if (!glow) {
-            it->setGraphicsEffect(nullptr);
-            continue;
-        }
-        auto* effect = new QGraphicsDropShadowEffect();
-        effect->setColor(selection::kTextGlow);
-        effect->setBlurRadius(selection::kTextGlowBlur);
-        effect->setOffset(0, 0);
-        it->setGraphicsEffect(effect);
-    }
+    // Selected text and labels glow gold (on copies, SelectionOverlay::setGlowing).
+    QList<QGraphicsItem*> glowing;
+    for (QGraphicsItem* it : index.glowing)
+        if (it->isSelected()) glowing << it;
     auto* ov = static_cast<SelectionOverlay*>(selectionOverlay_);
     // A selected module whose name was cut short shows its whole name.
     QList<SelectionOverlay::FullName> fullNames;
@@ -415,6 +403,7 @@ void MapView::refreshSelectionOverlay() {
         }
     }
     ov->setFullNames(std::move(fullNames));
+    ov->setGlowing(glowing);
     ov->setSnapState(liveSnapActive_, liveSnapPointScene_, liveSnapMovingScene_,
                      std::hypot(transform().m11(), transform().m12()));
     ov->setOutlines(std::move(polys));

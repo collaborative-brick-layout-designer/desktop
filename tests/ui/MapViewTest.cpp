@@ -42,6 +42,7 @@
 #include <QGraphicsScene>
 #include <QHash>
 #include <QMouseEvent>
+#include <QSet>
 #include <QSettings>
 #include <QTest>
 #include <QUndoStack>
@@ -915,6 +916,102 @@ TEST(MapViewRotate, TextAndRulersTurnWithTheSelection) {
     EXPECT_FLOAT_EQ(T->textCells[0].orientation, 0);
     EXPECT_EQ(T->textCells[0].displayArea, QRectF(10, 10, 8, 2));
     EXPECT_EQ(R->rulers[0].linear.point1, QPointF(0, 20));
+}
+
+// Picked text glows (a drop shadow, wider than the text). Qt sizes a
+// shadow in screen pixels, so text with one took up more or less of the
+// map at each zoom and the scene's index wasn't told: it kept the text
+// under bits of map the text had left, still there once the text was
+// deleted, and painting them read freed memory (the 2026-11-18 crash while
+// panning). The glow is on copies the index doesn't hold now. Here: zoom
+// out and in with text picked, delete it, undo, unpick, redo, and paint.
+TEST(MapViewGlow, UnpickedTextDeletedLaterPaintsSafely) {
+    auto map = std::make_unique<core::Map>();
+    auto text = std::make_unique<core::LayerText>();
+    // The index first cuts the map down the middle of what is drawn (x = 0
+    // here, between the two far ones). A row of text across that line,
+    // a pixel apart: some end just short of it, with their glow over it.
+    const auto add = [&text](const QString& guid, double x) {
+        core::TextCell cell;
+        cell.guid = guid;
+        cell.text = QStringLiteral("MM");
+        cell.displayArea = QRectF(x, 0, 2, 1);
+        text->textCells.push_back(cell);
+    };
+    add(QStringLiteral("left"), -200);
+    add(QStringLiteral("right"), 198);
+    for (int i = 0; i < 48; ++i) add(QStringLiteral("t%1").arg(i), -4.0 + i / 8.0);
+    map->layers().push_back(std::move(text));
+    parts::PartsLibrary lib;
+    ui::MapView view(lib);
+    view.resize(900, 700);
+    view.show();
+    ASSERT_TRUE(QTest::qWaitForWindowExposed(&view));
+    view.loadMap(std::move(map));
+    const auto* T = static_cast<const core::LayerText*>(view.currentMap()->layers()[0].get());
+    // Glowing copies; the text itself never has an effect.
+    const auto glowing = [&view] {
+        int n = 0;
+        for (QGraphicsItem* it : view.scene()->items()) {
+            if (!it->graphicsEffect()) continue;
+            EXPECT_NE(it->data(ui::detail::kBrickDataKind).toString(), QLatin1String("text"));
+            EXPECT_TRUE(it->parentItem() && (it->parentItem()->flags() & QGraphicsItem::ItemContainsChildrenInShape));
+            ++n;
+        }
+        return n;
+    };
+    const auto pickAllText = [&view] {
+        QList<QGraphicsItem*> texts;
+        for (QGraphicsItem* it : view.scene()->items())
+            if (it->data(ui::detail::kBrickDataKind).toString() == QLatin1String("text")) texts << it;
+        view.selectItems(texts);
+    };
+    const auto paintAll = [&view] {
+        view.fitInView(view.scene()->itemsBoundingRect());
+        view.viewport()->repaint();
+        // Small pieces too, so every cell of the index is drawn.
+        view.setTransform(QTransform::fromScale(4, 4));
+        const QRectF all = view.scene()->itemsBoundingRect();
+        for (double y = all.top(); y <= all.bottom() + 100; y += 100)
+            for (double x = all.left(); x <= all.right() + 150; x += 150) {
+                view.centerOn(x, y);
+                view.viewport()->repaint();
+            }
+    };
+    paintAll();
+
+    pickAllText();
+    EXPECT_EQ(glowing(), 50);
+    {  // Each copy sits on its text.
+        QSet<QString> onText;
+        for (QGraphicsItem* it : view.scene()->items())
+            if (it->data(ui::detail::kBrickDataKind).toString() == QLatin1String("text"))
+                onText.insert(QStringLiteral("%1 %2").arg(it->sceneBoundingRect().x()).arg(it->sceneBoundingRect().y()));
+        for (QGraphicsItem* it : view.scene()->items()) {
+            if (!it->graphicsEffect()) continue;
+            EXPECT_TRUE(onText.contains(
+                QStringLiteral("%1 %2").arg(it->sceneBoundingRect().x()).arg(it->sceneBoundingRect().y())));
+        }
+    }
+    paintAll();  // zoomed out and in, picked
+    view.deleteSelected();
+    ASSERT_TRUE(T->textCells.empty());
+    view.undoStack()->undo();
+    ASSERT_EQ(T->textCells.size(), 50u);
+    pickAllText();
+    EXPECT_EQ(glowing(), 50);
+    paintAll();
+    view.deselectAll();
+    EXPECT_EQ(glowing(), 0);
+    paintAll();
+    view.undoStack()->redo();  // deletes them, none picked
+    ASSERT_TRUE(T->textCells.empty());
+    paintAll();
+    // Asked by place (through the index), the map has no text left.
+    int texts = 0;
+    for (QGraphicsItem* it : view.scene()->items(view.scene()->sceneRect().adjusted(-1e4, -1e4, 1e4, 1e4)))
+        if (it->data(ui::detail::kBrickDataKind).toString() == QLatin1String("text")) ++texts;
+    EXPECT_EQ(texts, 0);
 }
 
 // BlueBrick MoveArea: with Paint picked, a Ctrl+drag shifts the whole area
