@@ -10810,6 +10810,18 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>サーバーにまだない自分のパーツを、一度に送ります</translation>
     </message>
     <message>
+        <source>Modules shared with you or your clubs are in the Module library panel, under Shared with me.</source>
+        <translation>あなたやあなたのクラブと共有されたモジュールは、モジュールライブラリパネルの「共有されたもの」にあります。</translation>
+    </message>
+    <message>
+        <source>Show Them</source>
+        <translation>表示</translation>
+    </message>
+    <message>
+        <source>Open the Module library panel at Shared with me</source>
+        <translation>モジュールライブラリパネルの「共有されたもの」を開きます</translation>
+    </message>
+    <message>
         <source>Layouts</source>
         <translation>レイアウト</translation>
     </message>

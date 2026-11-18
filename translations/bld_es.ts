@@ -10892,6 +10892,18 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <translation>Enviar de una vez tus propias piezas que el servidor aún no tiene</translation>
     </message>
     <message>
+        <source>Modules shared with you or your clubs are in the Module library panel, under Shared with me.</source>
+        <translation>Los módulos compartidos contigo o con tus clubes están en el panel Biblioteca de módulos, en Compartidos conmigo.</translation>
+    </message>
+    <message>
+        <source>Show Them</source>
+        <translation>Mostrarlos</translation>
+    </message>
+    <message>
+        <source>Open the Module library panel at Shared with me</source>
+        <translation>Abre el panel Biblioteca de módulos en Compartidos conmigo</translation>
+    </message>
+    <message>
         <source>Layouts</source>
         <translation>Maquetas</translation>
     </message>

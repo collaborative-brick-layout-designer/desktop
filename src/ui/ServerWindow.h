@@ -25,6 +25,7 @@
 // starting a layout in a venue, the parts library).
 
 #include "../sync/LibraryApi.h"
+#include "tours/Tours.h"
 
 #include <QHash>
 #include <QList>
@@ -53,7 +54,7 @@ class ServerLibrary;
 struct ConfirmOptions;
 
 enum class ReturnKind;  // ReturnWording.h
-class ServerWindow : public QWidget {
+class ServerWindow : public QWidget, public tours::TourHost {
     Q_OBJECT
 public:
     enum class Tab { Layouts, Venues, Modules, Parts, Catalog, Collections };
@@ -128,6 +129,13 @@ public:
     void showMembers(const QString& slug);
     // The members window, while it is open (tests).
     ClubMembersDialog* membersDialog() const;
+    // The Modules tab's line about modules shared with you (on a server
+    // that shares them): where they are, and a button that shows them.
+    QWidget* sharedModulesNote() const { return sharedNote_; }
+
+    // The Clubs tour: Save to is on Layouts, Modules shared with you on Modules.
+    bool canRevealTourTarget(const QString& id) const override;
+    void revealTourTarget(const QString& id) override;
 
 signals:
     // Another of your servers was picked.
@@ -138,6 +146,8 @@ signals:
     void useVenueRequested(const QString& venueId, const QString& name);
     void addVenueRequested(const QString& venueId, const QString& name);
     void saveModuleCopyRequested(const QString& moduleId);
+    // "Show them": the Module library's Shared with me.
+    void showSharedModulesRequested();
     void addPartRequested(const QString& partNumber);
     void showPartRequested(const QString& partNumber);
     // Sending: something local to the server, a layout file, all your
@@ -230,6 +240,7 @@ private:
     QComboBox* show_ = nullptr;
     QLabel* logoLink_ = nullptr;
     QPushButton* membersButton_ = nullptr;
+    QWidget* sharedNote_ = nullptr;
     ClubMembersDialog* members_ = nullptr; // while open (it deletes itself when closed)
     QLineEdit* search_ = nullptr;
     QTabWidget* tabs_ = nullptr;

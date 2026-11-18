@@ -10892,6 +10892,18 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Envoyer d’un coup vos propres pièces que le serveur n’a pas encore</translation>
     </message>
     <message>
+        <source>Modules shared with you or your clubs are in the Module library panel, under Shared with me.</source>
+        <translation>Les modules partagés avec vous ou vos clubs sont dans le panneau Bibliothèque de modules, sous Partagés avec moi.</translation>
+    </message>
+    <message>
+        <source>Show Them</source>
+        <translation>Les afficher</translation>
+    </message>
+    <message>
+        <source>Open the Module library panel at Shared with me</source>
+        <translation>Ouvre le panneau Bibliothèque de modules sur Partagés avec moi</translation>
+    </message>
+    <message>
         <source>Layouts</source>
         <translation>Plans</translation>
     </message>

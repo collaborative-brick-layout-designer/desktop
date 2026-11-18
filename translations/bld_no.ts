@@ -10892,6 +10892,18 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Send dine egne deler som serveren ikke har ennå, alle på én gang</translation>
     </message>
     <message>
+        <source>Modules shared with you or your clubs are in the Module library panel, under Shared with me.</source>
+        <translation>Moduler som er delt med deg eller klubbene dine, finner du i panelet Modulbibliotek, under Delt med meg.</translation>
+    </message>
+    <message>
+        <source>Show Them</source>
+        <translation>Vis dem</translation>
+    </message>
+    <message>
+        <source>Open the Module library panel at Shared with me</source>
+        <translation>Åpner panelet Modulbibliotek på Delt med meg</translation>
+    </message>
+    <message>
         <source>Layouts</source>
         <translation>Layouter</translation>
     </message>

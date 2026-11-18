@@ -229,9 +229,10 @@ TourOverlay::TourOverlay(QWidget* host, const Tour& tour, theme::PrefsStore& sto
     // you're in a club) would point at nothing and say "click it": left out,
     // and the count says so. Not before the window shows, nor every step.
     if (host->isVisible()) {
+        auto* tabs = dynamic_cast<TourHost*>(host);
         QList<Step> found;
         for (const Step& st : std::as_const(tour_.steps))
-            if (findTarget(host, st.target)) found.append(st);
+            if (findTarget(host, st.target) || (tabs && tabs->canRevealTourTarget(st.target))) found.append(st);
         if (!found.isEmpty()) tour_.steps = found;
     }
     setAttribute(Qt::WA_NoSystemBackground);
@@ -332,6 +333,9 @@ void TourOverlay::showStep() {
     next_->setText(last ? catalogue().buttons.done : catalogue().buttons.next);
     tries_ = 0;
     target_ = nullptr;
+    // On another tab of the window: that tab comes to the front.
+    if (auto* tabs = dynamic_cast<TourHost*>(host_); tabs && !findTarget(host_, s.target) && tabs->canRevealTourTarget(s.target))
+        tabs->revealTourTarget(s.target);
     follow();
     next_->setFocus(Qt::OtherFocusReason);
 }

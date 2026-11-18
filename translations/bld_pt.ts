@@ -10892,6 +10892,18 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>Envie as suas próprias peças que o servidor ainda não tem, todas de uma vez</translation>
     </message>
     <message>
+        <source>Modules shared with you or your clubs are in the Module library panel, under Shared with me.</source>
+        <translation>Os módulos partilhados contigo ou com os teus clubes estão no painel Biblioteca de módulos, em Partilhados comigo.</translation>
+    </message>
+    <message>
+        <source>Show Them</source>
+        <translation>Mostrá-los</translation>
+    </message>
+    <message>
+        <source>Open the Module library panel at Shared with me</source>
+        <translation>Abre o painel Biblioteca de módulos em Partilhados comigo</translation>
+    </message>
+    <message>
         <source>Layouts</source>
         <translation>Layouts</translation>
     </message>

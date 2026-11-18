@@ -80,6 +80,17 @@ QString stepCount(int n, int total);
 
 // The widget a step points at inside `host`, or null when it isn't showing.
 QWidget* findTarget(QWidget* host, const QString& id);
+// A window whose tour steps point at controls on its other tabs (Open
+// from Server: Save to on Layouts, Modules shared with you on Modules)
+// brings each one into view when its step comes.
+class TourHost {
+public:
+    virtual ~TourHost() = default;
+    // Whether the control for `id` is here, on a tab that isn't showing.
+    virtual bool canRevealTourTarget(const QString& id) const = 0;
+    // Show the tab it is on.
+    virtual void revealTourTarget(const QString& id) = 0;
+};
 // Tag `w` as the control a tour step called `id` points at. A fallback
 // is used only while nothing else for `id` is showing (a narrow window
 // folds toolbar buttons away).

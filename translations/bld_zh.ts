@@ -10810,6 +10810,18 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>一次把服务器上还没有的你自己的零件全部发送过去</translation>
     </message>
     <message>
+        <source>Modules shared with you or your clubs are in the Module library panel, under Shared with me.</source>
+        <translation>与你或你的俱乐部共享的模块在“模块库”面板的“与我共享”中。</translation>
+    </message>
+    <message>
+        <source>Show Them</source>
+        <translation>显示</translation>
+    </message>
+    <message>
+        <source>Open the Module library panel at Shared with me</source>
+        <translation>打开“模块库”面板的“与我共享”</translation>
+    </message>
+    <message>
         <source>Layouts</source>
         <translation>布局</translation>
     </message>
