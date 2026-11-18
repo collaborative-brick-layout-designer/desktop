@@ -610,7 +610,7 @@ private:
     // The live layout's copies the "while you were away" notice is about (they aren't also told as "is now version N").
     QList<sync::SharedAwayUpdate> sharedAway_;
     QString sharedAwayAskedFor_;
-    QPointer<class SharedUpdatesDialog> sharedUpdatesDialog_;
+    class SharedUpdatesDialog* sharedUpdatesDialog_ = nullptr;  // (null again when it closes)
     // Set while insertServerModule runs again with how the module is linked.
     std::unique_ptr<std::optional<QJsonObject>> insertingSharedLink_;
     sync::LibraryApi* sharedApi_ = nullptr;

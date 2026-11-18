@@ -650,9 +650,8 @@ void ServerWindow::hint(const QJsonObject& h) {
     const QString kind = h.value(QLatin1String("kind")).toString();
     // A role given or taken, someone joining or leaving: the members again.
     if (members_ && (kind == QLatin1String("club") || kind == QLatin1String("me"))) members_->reloadSoon();
-    if (kind == QLatin1String("layout")) hintLayouts_ = true;
-    // A module's new version is an update waiting in the layouts that place it (their badge).
-    else if (kind == QLatin1String("module")) hintLayouts_ = true;
+    // (A module's new version is an update waiting in the layouts that place it: their badge.)
+    if (kind == QLatin1String("layout") || kind == QLatin1String("module")) hintLayouts_ = true;
     else if (kind == QLatin1String("venue")) hintVenues_ = true;
     else if (kind == QLatin1String("custom-part")) hintParts_ = true;
     else if (kind == QLatin1String("catalog")) hintCatalog_ = true;

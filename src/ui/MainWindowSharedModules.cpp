@@ -820,6 +820,7 @@ void MainWindow::showSharedUpdatesSetting() {
     auto* dlg = new SharedUpdatesDialog(this);
     dlg->setAttribute(Qt::WA_DeleteOnClose);
     sharedUpdatesDialog_ = dlg;
+    connect(dlg, &QObject::destroyed, this, [this] { sharedUpdatesDialog_ = nullptr; });
     const QString layoutId = liveLayoutId_;
     const auto load = [this, layoutId] {
         sharedLiveApi().layoutSharedModules(layoutId, QString(), sync::whileAlive(this, [this](const sync::LayoutSharedModules& rows) {
@@ -857,4 +858,4 @@ void MainWindow::showSharedUpdatesSetting() {
 
 }  // namespace bld::ui
 
-bld::ui::SharedUpdatesDialog* bld::ui::MainWindow::sharedUpdatesDialog() const { return sharedUpdatesDialog_.data(); }
+bld::ui::SharedUpdatesDialog* bld::ui::MainWindow::sharedUpdatesDialog() const { return sharedUpdatesDialog_; }
