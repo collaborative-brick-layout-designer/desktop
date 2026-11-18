@@ -33,6 +33,7 @@ module.make
 module.library
 module.shared
 module.sharedUpdates
+module.sharedUpdatesSetting
 module.share
 module.sheets
 set.about

@@ -522,6 +522,74 @@ TEST_F(ServerWindowTest, PicturesOfCantReach) {
     }
 }
 
+// Shared modules with newer versions waiting in a layout (an Ask first
+// one): its row says "2 updates", like the web's list; a module's new
+// version (its live hint) refreshes the list without a reload.
+TEST_F(ServerWindowTest, ALayoutWithSharedModuleUpdatesWaitingIsBadged) {
+    QJsonObject lists = layoutsJson();
+    QJsonArray arr = lists.value(QLatin1String("layouts")).toArray();
+    QJsonObject club = arr.at(1).toObject();
+    club.insert(QStringLiteral("sharedUpdates"), 2);
+    arr.replace(1, club);
+    lists.insert(QStringLiteral("layouts"), arr);
+    http_.clear("/api/layouts");
+    http_.reply("/api/layouts", 200, lists);
+    open();
+    QWidget* row = window_->row(Tab::Layouts, QStringLiteral("L2"));
+    ASSERT_NE(row, nullptr);
+    auto* badge = row->findChild<QLabel*>(QStringLiteral("sharedUpdatesBadge"));
+    ASSERT_NE(badge, nullptr);
+    EXPECT_EQ(badge->text(), QStringLiteral("↻ 2 updates"));
+    EXPECT_EQ(badge->toolTip(), QStringLiteral("2 shared modules in this layout have new versions. Open the layout to update them."));
+    EXPECT_EQ(window_->row(Tab::Layouts, QStringLiteral("L1"))->findChild<QLabel*>(QStringLiteral("sharedUpdatesBadge")), nullptr);
+    // Its owner saves another module: the list is asked again, and L1 has one too.
+    QJsonObject mine = arr.at(0).toObject();
+    mine.insert(QStringLiteral("sharedUpdates"), 1);
+    arr.replace(0, mine);
+    lists.insert(QStringLiteral("layouts"), arr);
+    http_.clear("/api/layouts");
+    http_.reply("/api/layouts", 200, lists);
+    window_->hint(QJsonObject{ { QStringLiteral("kind"), QStringLiteral("module") }, { QStringLiteral("id"), QStringLiteral("m9") } });
+    ASSERT_TRUE(waitFor([&] {
+        QWidget* r = window_->row(Tab::Layouts, QStringLiteral("L1"));
+        auto* b = r ? r->findChild<QLabel*>(QStringLiteral("sharedUpdatesBadge")) : nullptr;
+        return b && b->text() == QStringLiteral("↻ 1 update");
+    }));
+}
+
+// BLD_REVIEW_SHOTS=<dir>: Open from Server's layouts, before (no updates
+// waiting, as main shows every layout) and after (the badge), light and dark.
+TEST_F(ServerWindowTest, PicturesOfSharedUpdatesBadges) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    ui::theme::PrefsStore store(QStringLiteral("review-shared-badge-shots"));
+    ui::theme::ThemeManager themer(store);
+    window_->resize(900, 560);
+    open();
+    QJsonObject lists = layoutsJson();
+    QJsonArray arr = lists.value(QLatin1String("layouts")).toArray();
+    QJsonObject club = arr.at(1).toObject();
+    club.insert(QStringLiteral("sharedUpdates"), 2);
+    arr.replace(1, club);
+    lists.insert(QStringLiteral("layouts"), arr);
+    for (const bool after : { false, true }) {
+        if (after) {
+            http_.clear("/api/layouts");
+            http_.reply("/api/layouts", 200, lists);
+            window_->hint(QJsonObject{ { QStringLiteral("kind"), QStringLiteral("module") } });
+            ASSERT_TRUE(waitFor([&] { return window_->row(Tab::Layouts, QStringLiteral("L2"))->findChild<QLabel*>(QStringLiteral("sharedUpdatesBadge")); }));
+        }
+        for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+            ui::theme::AppPrefs p = store.prefs();
+            p.theme = mode;
+            store.update(p);
+            waitFor([] { return false; }, 300);
+            const QString scheme = mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark") : QStringLiteral("light");
+            EXPECT_TRUE(window_->grab().save(out + QStringLiteral("/%1-layouts-%2.png").arg(after ? QStringLiteral("after") : QStringLiteral("before"), scheme)));
+        }
+    }
+}
+
 TEST_F(ServerWindowTest, ALayoutOpensLiveDownloadsAsACopyAndItsOwnerCanDeleteIt) {
     open();
     std::optional<sync::LayoutEntry> opened;

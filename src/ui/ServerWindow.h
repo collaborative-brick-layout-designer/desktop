@@ -189,6 +189,8 @@ private:
         Action primary;
         QList<Action> more;      // the ⋯ menu
         QString pill;            // "Editing now" instead of the buttons
+        QString badge;           // a small tag after the title ("2 updates")
+        QString badgeTip;
     };
 
     Page makePage(const QString& name, const QList<QPushButton*>& tools = {});

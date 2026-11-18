@@ -187,6 +187,7 @@ ModuleShares LibraryApi::moduleSharesFromJson(const QJsonObject& o) {
 
 LayoutSharedModules LibraryApi::layoutSharedModulesFromJson(const QJsonObject& o) {
     LayoutSharedModules out;
+    out.updates = o.value(QLatin1String("updates")).toString() == QLatin1String("auto") ? QStringLiteral("auto") : QStringLiteral("ask");
     out.canUpdate = o.value(QLatin1String("canUpdate")).toBool(false);
     out.canDetach = o.value(QLatin1String("canDetach")).toBool(false);
     for (const auto& v : o.value(QLatin1String("modules")).toArray()) {
@@ -388,6 +389,37 @@ void LibraryApi::applyAllSharedModules(const QString& layoutId, std::function<vo
                  if (done)
                      done(static_cast<int>(o.value(QLatin1String("updated")).toArray().size()),
                           static_cast<int>(o.value(QLatin1String("skipped")).toArray().size()));
+             },
+             std::move(failed));
+}
+
+void LibraryApi::setSharedModuleUpdates(const QString& layoutId, const QString& updates, std::function<void(const QString&)> done,
+                                        Fail failed) {
+    sendJson("PUT", QStringLiteral("/api/layouts/%1/shared-modules/updates").arg(idPath(layoutId)),
+             QJsonObject{ { QStringLiteral("updates"), updates } },
+             [done = std::move(done), updates](const QJsonObject& o) {
+                 if (done) done(o.value(QLatin1String("updates")).toString(updates));
+             },
+             std::move(failed));
+}
+
+void LibraryApi::sharedModulesWhileAway(const QString& layoutId, std::function<void(const QList<SharedAwayUpdate>&)> done,
+                                        Fail failed) {
+    sendJson("POST", QStringLiteral("/api/layouts/%1/shared-modules/away").arg(idPath(layoutId)), QJsonObject{},
+             [done = std::move(done)](const QJsonObject& o) {
+                 QList<SharedAwayUpdate> out;
+                 for (const auto& v : o.value(QLatin1String("updates")).toArray()) {
+                     const QJsonObject u = v.toObject();
+                     SharedAwayUpdate a;
+                     a.placedId = u.value(QLatin1String("placedId")).toString();
+                     a.moduleId = u.value(QLatin1String("moduleId")).toString();
+                     a.from = intOf(u.value(QLatin1String("from")));
+                     a.to = intOf(u.value(QLatin1String("to")));
+                     a.version = intOf(u.value(QLatin1String("version")));
+                     a.title = u.value(QLatin1String("title")).toString();
+                     if (!a.placedId.isEmpty() && a.to > 0) out << a;
+                 }
+                 if (done) done(out);
              },
              std::move(failed));
 }

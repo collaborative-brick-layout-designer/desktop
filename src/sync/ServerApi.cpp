@@ -300,6 +300,7 @@ LayoutEntry ServerApi::layoutEntryFromJson(const QJsonObject& l) {
     e.role = l.value(QLatin1String("role")).toString();
     e.credit = creditFromJson(l);
     e.updatedAt = timeOf(l.value(QLatin1String("updatedAt")));
+    e.sharedUpdates = l.value(QLatin1String("sharedUpdates")).toInt(0);
     return e;
 }
 

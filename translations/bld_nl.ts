@@ -715,6 +715,22 @@
         <translation>Opslaan in modulebibliotheek… zet een kopie bij jouw modules of die van een club; modules die je uit de modulebibliotheek toevoegt zijn ook gekoppeld. Na een wijziging in een layout maakt Versie in modulebibliotheek bijwerken daar de volgende versie van, met een notitie over wat er veranderd is. Heeft de modulebibliotheek een nieuwere versie, dan haalt Bijwerken vanuit modulebibliotheek die binnen waar de module staat, en vraagt eerst als je hem hier hebt gewijzigd.</translation>
     </message>
     <message>
+        <source>When the owner saves a new version, the layout says so; in an Ask first layout nothing changes until someone chooses Update.</source>
+        <translation>Als de eigenaar een nieuwe versie opslaat, meldt de layout dat; in een layout met ‘Eerst vragen’ verandert niets tot iemand Bijwerken kiest.</translation>
+    </message>
+    <message>
+        <source>Ask first or Automatically</source>
+        <translation>Eerst vragen of Automatisch</translation>
+    </message>
+    <message>
+        <source>Choose whether a shared module’s new version waits for someone to choose Update, or goes in as soon as its owner saves it.</source>
+        <translation>Kies of de nieuwe versie van een gedeelde module wacht tot iemand Bijwerken kiest, of meteen meegaat zodra de eigenaar haar opslaat.</translation>
+    </message>
+    <message>
+        <source>Either way you see what changed and anything the new version now overlaps, and Go back puts the earlier version in again. With Automatically, opening the layout later says what was updated while you were away. Anyone who can change this layout can change this setting.</source>
+        <translation>Hoe dan ook zie je wat er veranderd is en wat de nieuwe versie nu overlapt, en Terug zet de vorige versie weer terug. Met Automatisch zegt de layout bij het volgende openen wat er bijgewerkt is terwijl je weg was. Iedereen die deze layout mag wijzigen, kan deze instelling wijzigen.</translation>
+    </message>
+    <message>
         <source>Module sheets</source>
         <translation>Bladen van een module</translation>
     </message>
@@ -885,10 +901,6 @@
     <message>
         <source>Updates from shared modules</source>
         <translation>Updates van gedeelde modules</translation>
-    </message>
-    <message>
-        <source>When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.</source>
-        <translation>Als de eigenaar een nieuwe versie opslaat, laat de layout dat weten; er verandert niets tot iemand “Bijwerken” kiest.</translation>
     </message>
     <message>
         <source>Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back.</source>
@@ -2568,6 +2580,26 @@
     <message>
         <source>%1 was updated.</source>
         <translation>%1 is bijgewerkt.</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 ging van versie %2 naar %3: deze layout neemt de updates van de eigenaar automatisch over.</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes %4&apos;s updates automatically.</source>
+        <translation>%1 ging van versie %2 naar %3: deze layout neemt de updates van %4 automatisch over.</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 is nu versie %2: deze layout neemt de updates van de eigenaar automatisch over.</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes %3&apos;s updates automatically.</source>
+        <translation>%1 is nu versie %2: deze layout neemt de updates van %3 automatisch over.</translation>
+    </message>
+    <message>
+        <source>%1 shared modules were updated: this layout takes their owners&apos; updates automatically.</source>
+        <translation>%1 gedeelde modules zijn bijgewerkt: deze layout neemt de updates van hun eigenaars automatisch over.</translation>
     </message>
     <message>
         <source>its owner</source>
@@ -6433,6 +6465,18 @@ De mijne als nieuwe versie opslaan: jouw versie wordt de module; die van hen bli
         <translation>Deze layout staat op %1, en ‘%2’ is met jou gedeeld op %3. Een gedeelde module volgt zijn eigenaar alleen in layouts op zijn eigen server, of in een bestand op deze computer.</translation>
     </message>
     <message>
+        <source>Updated while you were away</source>
+        <translation>Bijgewerkt terwijl je weg was</translation>
+    </message>
+    <message>
+        <source>New versions of shared modules now go in automatically.</source>
+        <translation>Nieuwe versies van gedeelde modules gaan nu automatisch mee.</translation>
+    </message>
+    <message>
+        <source>Shared modules now ask first before a new version goes in.</source>
+        <translation>Gedeelde modules vragen nu eerst voordat een nieuwe versie meegaat.</translation>
+    </message>
+    <message>
         <source>The pasted part</source>
         <translation>Het geplakte onderdeel</translation>
     </message>
@@ -7248,6 +7292,18 @@ Toch opslaan?</translation>
     <message>
         <source>Save the picked parts as a set in your parts, to place again in one go</source>
         <translation>De gekozen onderdelen als set in je onderdelen opslaan, om in één keer opnieuw te plaatsen</translation>
+    </message>
+    <message>
+        <source>Updates from &amp;Shared Modules…</source>
+        <translation>Updates van &amp;gedeelde modules…</translation>
+    </message>
+    <message>
+        <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
+        <translation>Of deze layout eerst vraagt voordat de nieuwe versie van een gedeelde module meegaat, of die automatisch overneemt</translation>
+    </message>
+    <message>
+        <source>For a layout opened live from a server</source>
+        <translation>Voor een layout die live van een server geopend is</translation>
     </message>
     <message>
         <source>This app&apos;s help: Getting Started, sheets, the room, sharing, files and shortcuts</source>
@@ -11012,6 +11068,22 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>bijgewerkt %1</translation>
     </message>
     <message>
+        <source>1 update</source>
+        <translation>1 update</translation>
+    </message>
+    <message>
+        <source>%1 updates</source>
+        <translation>%1 updates</translation>
+    </message>
+    <message>
+        <source>A shared module in this layout has a new version. Open the layout to update it.</source>
+        <translation>Een gedeelde module in deze layout heeft een nieuwe versie. Open de layout om haar bij te werken.</translation>
+    </message>
+    <message>
+        <source>%1 shared modules in this layout have new versions. Open the layout to update them.</source>
+        <translation>%1 gedeelde modules in deze layout hebben nieuwe versies. Open de layout om ze bij te werken.</translation>
+    </message>
+    <message>
         <source>Open live</source>
         <translation>Live openen</translation>
     </message>
@@ -12117,6 +12189,41 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Go back to version %1</source>
         <translation>Terug naar versie %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::SharedUpdatesDialog</name>
+    <message>
+        <source>Updates from Shared Modules</source>
+        <translation>Updates van gedeelde modules</translation>
+    </message>
+    <message>
+        <source>When someone who shared a module with this layout saves a new version:</source>
+        <translation>Als iemand die een module met deze layout deelde een nieuwe versie opslaat:</translation>
+    </message>
+    <message>
+        <source>Ask first</source>
+        <translation>Eerst vragen</translation>
+    </message>
+    <message>
+        <source>The layout says when a shared module has a new version. Nothing changes until someone chooses Update.</source>
+        <translation>De layout meldt wanneer een gedeelde module een nieuwe versie heeft. Er verandert niets tot iemand Bijwerken kiest.</translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <translation>Automatisch</translation>
+    </message>
+    <message>
+        <source>A new version goes in as soon as its owner saves it. You&apos;ll see what changed and anything it now overlaps.</source>
+        <translation>Een nieuwe versie gaat mee zodra de eigenaar haar opslaat. Je ziet wat er veranderd is en wat ze nu overlapt.</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can change this.</source>
+        <translation>Iemand die deze layout mag wijzigen, kan dit wijzigen.</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Klaar</translation>
     </message>
 </context>
 <context>

@@ -715,6 +715,22 @@
         <translation>Spara till modulbiblioteket… lägger en kopia bland dina moduler eller en klubbs; moduler du lägger till från modulbiblioteket är också länkade. När du ändrat den i en layout gör Uppdatera versionen i modulbiblioteket det till nästa version, med en anteckning om vad som ändrats. När modulbiblioteket har en nyare version tar Uppdatera från modulbiblioteket in den där modulen ligger, och frågar först om du ändrat den här.</translation>
     </message>
     <message>
+        <source>When the owner saves a new version, the layout says so; in an Ask first layout nothing changes until someone chooses Update.</source>
+        <translation>När ägaren sparar en ny version säger layouten till; i en layout med ”Fråga först” ändras inget förrän någon väljer Uppdatera.</translation>
+    </message>
+    <message>
+        <source>Ask first or Automatically</source>
+        <translation>Fråga först eller Automatiskt</translation>
+    </message>
+    <message>
+        <source>Choose whether a shared module’s new version waits for someone to choose Update, or goes in as soon as its owner saves it.</source>
+        <translation>Välj om en delad moduls nya version väntar tills någon väljer Uppdatera, eller kommer in så fort ägaren sparar den.</translation>
+    </message>
+    <message>
+        <source>Either way you see what changed and anything the new version now overlaps, and Go back puts the earlier version in again. With Automatically, opening the layout later says what was updated while you were away. Anyone who can change this layout can change this setting.</source>
+        <translation>Hur som helst ser du vad som ändrats och vad den nya versionen nu överlappar, och Gå tillbaka sätter in den förra versionen igen. Med Automatiskt säger layouten nästa gång du öppnar den vad som uppdaterades medan du var borta. Alla som kan ändra den här layouten kan ändra den här inställningen.</translation>
+    </message>
+    <message>
         <source>Module sheets</source>
         <translation>Modulens blad</translation>
     </message>
@@ -885,10 +901,6 @@
     <message>
         <source>Updates from shared modules</source>
         <translation>Uppdateringar från delade moduler</translation>
-    </message>
-    <message>
-        <source>When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.</source>
-        <translation>När ägaren sparar en ny version säger layouten till; inget ändras förrän någon väljer ”Uppdatera”.</translation>
     </message>
     <message>
         <source>Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back.</source>
@@ -2568,6 +2580,26 @@
     <message>
         <source>%1 was updated.</source>
         <translation>%1 uppdaterades.</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 gick från version %2 till %3: den här layouten tar in ägarens uppdateringar automatiskt.</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes %4&apos;s updates automatically.</source>
+        <translation>%1 gick från version %2 till %3: den här layouten tar in uppdateringarna från %4 automatiskt.</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 har nu version %2: den här layouten tar in ägarens uppdateringar automatiskt.</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes %3&apos;s updates automatically.</source>
+        <translation>%1 har nu version %2: den här layouten tar in uppdateringarna från %3 automatiskt.</translation>
+    </message>
+    <message>
+        <source>%1 shared modules were updated: this layout takes their owners&apos; updates automatically.</source>
+        <translation>%1 delade moduler uppdaterades: den här layouten tar in ägarnas uppdateringar automatiskt.</translation>
     </message>
     <message>
         <source>its owner</source>
@@ -6441,6 +6473,18 @@ Spara min som ny version: din blir modulen; deras finns kvar i versionshistorike
         <translation>Den här layouten finns på %1, och ”%2” är delad med dig på %3. En delad modul följer sin ägare bara i layouter på sin egen server, eller i en fil på den här datorn.</translation>
     </message>
     <message>
+        <source>Updated while you were away</source>
+        <translation>Uppdaterat medan du var borta</translation>
+    </message>
+    <message>
+        <source>New versions of shared modules now go in automatically.</source>
+        <translation>Nya versioner av delade moduler kommer nu in automatiskt.</translation>
+    </message>
+    <message>
+        <source>Shared modules now ask first before a new version goes in.</source>
+        <translation>Delade moduler frågar nu först innan en ny version kommer in.</translation>
+    </message>
+    <message>
         <source>The pasted part</source>
         <translation>Den inklistrade delen</translation>
     </message>
@@ -8412,6 +8456,18 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>Spara markering som &amp;set…</translation>
+    </message>
+    <message>
+        <source>Updates from &amp;Shared Modules…</source>
+        <translation>Uppdateringar från &amp;delade moduler…</translation>
+    </message>
+    <message>
+        <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
+        <translation>Om den här layouten frågar först innan en delad moduls nya version kommer in, eller tar in den automatiskt</translation>
+    </message>
+    <message>
+        <source>For a layout opened live from a server</source>
+        <translation>För en layout som öppnats live från en server</translation>
     </message>
     <message>
         <source>&amp;Help</source>
@@ -11012,6 +11068,22 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>uppdaterad %1</translation>
     </message>
     <message>
+        <source>1 update</source>
+        <translation>1 uppdatering</translation>
+    </message>
+    <message>
+        <source>%1 updates</source>
+        <translation>%1 uppdateringar</translation>
+    </message>
+    <message>
+        <source>A shared module in this layout has a new version. Open the layout to update it.</source>
+        <translation>En delad modul i den här layouten har en ny version. Öppna layouten för att uppdatera den.</translation>
+    </message>
+    <message>
+        <source>%1 shared modules in this layout have new versions. Open the layout to update them.</source>
+        <translation>%1 delade moduler i den här layouten har nya versioner. Öppna layouten för att uppdatera dem.</translation>
+    </message>
+    <message>
         <source>Open live</source>
         <translation>Öppna live</translation>
     </message>
@@ -12117,6 +12189,41 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Go back to version %1</source>
         <translation>Gå tillbaka till version %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::SharedUpdatesDialog</name>
+    <message>
+        <source>Updates from Shared Modules</source>
+        <translation>Uppdateringar från delade moduler</translation>
+    </message>
+    <message>
+        <source>When someone who shared a module with this layout saves a new version:</source>
+        <translation>När någon som delat en modul med den här layouten sparar en ny version:</translation>
+    </message>
+    <message>
+        <source>Ask first</source>
+        <translation>Fråga först</translation>
+    </message>
+    <message>
+        <source>The layout says when a shared module has a new version. Nothing changes until someone chooses Update.</source>
+        <translation>Layouten säger till när en delad modul har en ny version. Inget ändras förrän någon väljer Uppdatera.</translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <translation>Automatiskt</translation>
+    </message>
+    <message>
+        <source>A new version goes in as soon as its owner saves it. You&apos;ll see what changed and anything it now overlaps.</source>
+        <translation>En ny version kommer in så fort ägaren sparar den. Du ser vad som ändrats och vad den nu överlappar.</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can change this.</source>
+        <translation>Den som kan ändra den här layouten kan ändra det här.</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Klar</translation>
     </message>
 </context>
 <context>

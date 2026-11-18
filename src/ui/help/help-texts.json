@@ -168,8 +168,13 @@
     },
     "module.sharedUpdates": {
       "title": "Updates from shared modules",
-      "short": "When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.",
+      "short": "When the owner saves a new version, the layout says so; in an Ask first layout nothing changes until someone chooses Update.",
       "more": "Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back."
+    },
+    "module.sharedUpdatesSetting": {
+      "title": "Ask first or Automatically",
+      "short": "Choose whether a shared module’s new version waits for someone to choose Update, or goes in as soon as its owner saves it.",
+      "more": "Either way you see what changed and anything the new version now overlaps, and Go back puts the earlier version in again. With Automatically, opening the layout later says what was updated while you were away. Anyone who can change this layout can change this setting."
     },
     "module.share": {
       "title": "Sharing a module",

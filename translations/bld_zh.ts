@@ -715,6 +715,22 @@
         <translation>“保存到模块库…”会把副本放进你的或俱乐部的模块中；从模块库添加的模块也会保持关联。在布局中修改后，“更新模块库版本”会把它作为下一个版本，并附上更改说明。当模块库里有更新的版本时，“从模块库更新”会把它放到模块所在的位置，如果你在这里改过它，会先询问。</translation>
     </message>
     <message>
+        <source>When the owner saves a new version, the layout says so; in an Ask first layout nothing changes until someone chooses Update.</source>
+        <translation>所有者保存新版本时，布局会提示；在“先询问”的布局中，在有人选择“更新”之前不会有任何变化。</translation>
+    </message>
+    <message>
+        <source>Ask first or Automatically</source>
+        <translation>先询问或自动</translation>
+    </message>
+    <message>
+        <source>Choose whether a shared module’s new version waits for someone to choose Update, or goes in as soon as its owner saves it.</source>
+        <translation>选择共享模块的新版本是等有人选择“更新”，还是在所有者保存后立即放入。</translation>
+    </message>
+    <message>
+        <source>Either way you see what changed and anything the new version now overlaps, and Go back puts the earlier version in again. With Automatically, opening the layout later says what was updated while you were away. Anyone who can change this layout can change this setting.</source>
+        <translation>无论哪种方式，你都能看到改了什么以及新版本现在与什么重叠，“返回”可以放回之前的版本。选择“自动”时，之后打开布局会告诉你离开期间更新了什么。能修改此布局的人都能修改此设置。</translation>
+    </message>
+    <message>
         <source>Module sheets</source>
         <translation>模块的图纸</translation>
     </message>
@@ -885,10 +901,6 @@
     <message>
         <source>Updates from shared modules</source>
         <translation>共享模块的更新</translation>
-    </message>
-    <message>
-        <source>When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.</source>
-        <translation>所有者保存新版本后，布局会告诉你；在有人选择“更新”之前，什么都不会变。</translation>
     </message>
     <message>
         <source>Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back.</source>
@@ -2551,6 +2563,26 @@
     <message>
         <source>%1 was updated.</source>
         <translation>%1 已更新。</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 从版本 %2 变为 %3：此布局会自动接受其所有者的更新。</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes %4&apos;s updates automatically.</source>
+        <translation>%1 从版本 %2 变为 %3：此布局会自动接受 %4 的更新。</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 现在是版本 %2：此布局会自动接受其所有者的更新。</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes %3&apos;s updates automatically.</source>
+        <translation>%1 现在是版本 %2：此布局会自动接受 %3 的更新。</translation>
+    </message>
+    <message>
+        <source>%1 shared modules were updated: this layout takes their owners&apos; updates automatically.</source>
+        <translation>%1 个共享模块已更新：此布局会自动接受其所有者的更新。</translation>
     </message>
     <message>
         <source>its owner</source>
@@ -6389,6 +6421,18 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>这个布局在 %1 上，而“%2”是在 %3 上共享给你的。共享模块只在它自己服务器上的布局里，或在这台电脑上的文件里，才会跟随所有者。</translation>
     </message>
     <message>
+        <source>Updated while you were away</source>
+        <translation>你离开期间已更新</translation>
+    </message>
+    <message>
+        <source>New versions of shared modules now go in automatically.</source>
+        <translation>共享模块的新版本现在会自动放入。</translation>
+    </message>
+    <message>
+        <source>Shared modules now ask first before a new version goes in.</source>
+        <translation>共享模块现在会在放入新版本前先询问。</translation>
+    </message>
+    <message>
         <source>The pasted part</source>
         <translation>粘贴的零件</translation>
     </message>
@@ -7201,6 +7245,18 @@ Save anyway?</source>
     <message>
         <source>Save the picked parts as a set in your parts, to place again in one go</source>
         <translation>把选中的零件保存为你零件中的一个套件，以便一次性再次放置</translation>
+    </message>
+    <message>
+        <source>Updates from &amp;Shared Modules…</source>
+        <translation>共享模块的更新(&amp;S)…</translation>
+    </message>
+    <message>
+        <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
+        <translation>此布局是在放入共享模块的新版本前先询问，还是自动接受</translation>
+    </message>
+    <message>
+        <source>For a layout opened live from a server</source>
+        <translation>用于从服务器实时打开的布局</translation>
     </message>
     <message>
         <source>This app&apos;s help: Getting Started, sheets, the room, sharing, files and shortcuts</source>
@@ -10930,6 +10986,22 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>更新于 %1</translation>
     </message>
     <message>
+        <source>1 update</source>
+        <translation>1 个更新</translation>
+    </message>
+    <message>
+        <source>%1 updates</source>
+        <translation>%1 个更新</translation>
+    </message>
+    <message>
+        <source>A shared module in this layout has a new version. Open the layout to update it.</source>
+        <translation>此布局中的一个共享模块有新版本。打开布局即可更新。</translation>
+    </message>
+    <message>
+        <source>%1 shared modules in this layout have new versions. Open the layout to update them.</source>
+        <translation>此布局中的 %1 个共享模块有新版本。打开布局即可更新。</translation>
+    </message>
+    <message>
         <source>Open live</source>
         <translation>实时打开</translation>
     </message>
@@ -12034,6 +12106,41 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Go back to version %1</source>
         <translation>回到版本 %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::SharedUpdatesDialog</name>
+    <message>
+        <source>Updates from Shared Modules</source>
+        <translation>共享模块的更新</translation>
+    </message>
+    <message>
+        <source>When someone who shared a module with this layout saves a new version:</source>
+        <translation>当与此布局共享模块的人保存新版本时：</translation>
+    </message>
+    <message>
+        <source>Ask first</source>
+        <translation>先询问</translation>
+    </message>
+    <message>
+        <source>The layout says when a shared module has a new version. Nothing changes until someone chooses Update.</source>
+        <translation>共享模块有新版本时布局会提示。在有人选择“更新”之前不会有任何变化。</translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <translation>自动</translation>
+    </message>
+    <message>
+        <source>A new version goes in as soon as its owner saves it. You&apos;ll see what changed and anything it now overlaps.</source>
+        <translation>所有者一保存，新版本就会放入。你会看到改了什么以及它现在与什么重叠。</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can change this.</source>
+        <translation>能修改此布局的人可以更改此项。</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>完成</translation>
     </message>
 </context>
 <context>

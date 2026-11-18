@@ -715,6 +715,22 @@
         <translation>「モジュールライブラリに保存…」は自分またはクラブのモジュールにコピーを置きます。モジュールライブラリから追加したモジュールもつながっています。レイアウト内で変更したあと、「モジュールライブラリの版を更新」で、変更内容のメモ付きでそれを次の版にできます。モジュールライブラリに新しい版があるときは、「モジュールライブラリから更新」でモジュールのある場所に取り込みます。こちらで変更していれば、先に確認します。</translation>
     </message>
     <message>
+        <source>When the owner saves a new version, the layout says so; in an Ask first layout nothing changes until someone chooses Update.</source>
+        <translation>所有者が新しいバージョンを保存すると、レイアウトがそれを知らせます。「先に確認」のレイアウトでは、誰かが「更新」を選ぶまで何も変わりません。</translation>
+    </message>
+    <message>
+        <source>Ask first or Automatically</source>
+        <translation>先に確認、または自動</translation>
+    </message>
+    <message>
+        <source>Choose whether a shared module’s new version waits for someone to choose Update, or goes in as soon as its owner saves it.</source>
+        <translation>共有モジュールの新しいバージョンを、誰かが「更新」を選ぶまで待つか、所有者が保存したらすぐに取り込むかを選びます。</translation>
+    </message>
+    <message>
+        <source>Either way you see what changed and anything the new version now overlaps, and Go back puts the earlier version in again. With Automatically, opening the layout later says what was updated while you were away. Anyone who can change this layout can change this setting.</source>
+        <translation>どちらの場合も、何が変わったか、新しいバージョンが何と重なるかが表示され、「戻す」で前のバージョンに戻せます。「自動」では、あとでレイアウトを開いたときに、留守の間に更新されたものが表示されます。このレイアウトを変更できる人なら誰でもこの設定を変更できます。</translation>
+    </message>
+    <message>
         <source>Module sheets</source>
         <translation>モジュールのシート</translation>
     </message>
@@ -885,10 +901,6 @@
     <message>
         <source>Updates from shared modules</source>
         <translation>共有モジュールの更新</translation>
-    </message>
-    <message>
-        <source>When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.</source>
-        <translation>持ち主が新しいバージョンを保存すると、レイアウトでお知らせします。だれかが「更新」を選ぶまで、何も変わりません。</translation>
     </message>
     <message>
         <source>Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back.</source>
@@ -2551,6 +2563,26 @@
     <message>
         <source>%1 was updated.</source>
         <translation>%1 を更新しました。</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 がバージョン %2 から %3 になりました：このレイアウトは所有者の更新を自動で取り込みます。</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes %4&apos;s updates automatically.</source>
+        <translation>%1 がバージョン %2 から %3 になりました：このレイアウトは %4 の更新を自動で取り込みます。</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 はバージョン %2 になりました：このレイアウトは所有者の更新を自動で取り込みます。</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes %3&apos;s updates automatically.</source>
+        <translation>%1 はバージョン %2 になりました：このレイアウトは %3 の更新を自動で取り込みます。</translation>
+    </message>
+    <message>
+        <source>%1 shared modules were updated: this layout takes their owners&apos; updates automatically.</source>
+        <translation>%1 個の共有モジュールが更新されました：このレイアウトは所有者たちの更新を自動で取り込みます。</translation>
     </message>
     <message>
         <source>its owner</source>
@@ -6389,6 +6421,18 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>このレイアウトは %1 にあり、「%2」は %3 であなたと共有されています。共有モジュールが持ち主に追従するのは、同じサーバーのレイアウトか、このコンピューター上のファイルの中だけです。</translation>
     </message>
     <message>
+        <source>Updated while you were away</source>
+        <translation>留守の間に更新されました</translation>
+    </message>
+    <message>
+        <source>New versions of shared modules now go in automatically.</source>
+        <translation>共有モジュールの新しいバージョンは自動で取り込まれるようになりました。</translation>
+    </message>
+    <message>
+        <source>Shared modules now ask first before a new version goes in.</source>
+        <translation>共有モジュールは新しいバージョンを取り込む前に確認するようになりました。</translation>
+    </message>
+    <message>
         <source>The pasted part</source>
         <translation>貼り付けたパーツ</translation>
     </message>
@@ -7201,6 +7245,18 @@ Save anyway?</source>
     <message>
         <source>Save the picked parts as a set in your parts, to place again in one go</source>
         <translation>選んだパーツをセットとして自分のパーツに保存し、一度にまた置けるようにします</translation>
+    </message>
+    <message>
+        <source>Updates from &amp;Shared Modules…</source>
+        <translation>共有モジュールの更新(&amp;S)…</translation>
+    </message>
+    <message>
+        <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
+        <translation>共有モジュールの新しいバージョンを取り込む前にこのレイアウトが確認するか、自動で取り込むか</translation>
+    </message>
+    <message>
+        <source>For a layout opened live from a server</source>
+        <translation>サーバーからライブで開いたレイアウト用です</translation>
     </message>
     <message>
         <source>This app&apos;s help: Getting Started, sheets, the room, sharing, files and shortcuts</source>
@@ -10930,6 +10986,22 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>更新 %1</translation>
     </message>
     <message>
+        <source>1 update</source>
+        <translation>更新 1 件</translation>
+    </message>
+    <message>
+        <source>%1 updates</source>
+        <translation>更新 %1 件</translation>
+    </message>
+    <message>
+        <source>A shared module in this layout has a new version. Open the layout to update it.</source>
+        <translation>このレイアウトの共有モジュールに新しいバージョンがあります。レイアウトを開いて更新してください。</translation>
+    </message>
+    <message>
+        <source>%1 shared modules in this layout have new versions. Open the layout to update them.</source>
+        <translation>このレイアウトの共有モジュール %1 個に新しいバージョンがあります。レイアウトを開いて更新してください。</translation>
+    </message>
+    <message>
         <source>Open live</source>
         <translation>ライブで開く</translation>
     </message>
@@ -12034,6 +12106,41 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Go back to version %1</source>
         <translation>バージョン %1 に戻す</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::SharedUpdatesDialog</name>
+    <message>
+        <source>Updates from Shared Modules</source>
+        <translation>共有モジュールの更新</translation>
+    </message>
+    <message>
+        <source>When someone who shared a module with this layout saves a new version:</source>
+        <translation>このレイアウトとモジュールを共有した人が新しいバージョンを保存したとき：</translation>
+    </message>
+    <message>
+        <source>Ask first</source>
+        <translation>先に確認</translation>
+    </message>
+    <message>
+        <source>The layout says when a shared module has a new version. Nothing changes until someone chooses Update.</source>
+        <translation>共有モジュールに新しいバージョンがあるとレイアウトが知らせます。誰かが「更新」を選ぶまで何も変わりません。</translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <translation>自動</translation>
+    </message>
+    <message>
+        <source>A new version goes in as soon as its owner saves it. You&apos;ll see what changed and anything it now overlaps.</source>
+        <translation>所有者が保存するとすぐに新しいバージョンが取り込まれます。何が変わったか、いま何と重なるかが表示されます。</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can change this.</source>
+        <translation>このレイアウトを変更できる人が変更できます。</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>完了</translation>
     </message>
 </context>
 <context>

@@ -22,6 +22,7 @@
 #include "ServerLibrary.h"
 #include "SharedModuleWords.h"
 #include "SharedModulesBar.h"
+#include "SharedUpdatesDialog.h"
 
 #include "../core/LayerBrick.h"
 #include "../core/Map.h"
@@ -161,6 +162,12 @@ void MainWindow::fetchSharedModules() {
     const core::Map* map = mapView_->currentMap();
     const auto placed = map ? core::sharedModulesIn(map->sidecar.modules) : std::vector<core::SharedPlaced>{};
     const int gen = ++sharedGen_;
+    if (placed.empty() && sharedUpdatesDialog_ && live_ && live_->active() && !liveLayoutId_.isEmpty()) {
+        // Nothing placed yet, but the setting is open: it follows the server too.
+        sharedLiveApi().layoutSharedModules(liveLayoutId_, QString(), sync::whileAlive(this, [this](const sync::LayoutSharedModules& rows) {
+            if (sharedUpdatesDialog_) sharedUpdatesDialog_->setCurrent(rows.updates);
+        }), [](const sync::ServerRefusal&) {});
+    }
     if (placed.empty()) {
         sharedRows_ = {};
         sharedRowsKnown_ = false;
@@ -174,8 +181,10 @@ void MainWindow::fetchSharedModules() {
             sharedRows_ = rows;
             sharedRowsKnown_ = true;
             sharedCantCheck_ = false;
+            if (sharedUpdatesDialog_) sharedUpdatesDialog_->setCurrent(rows.updates);
             showSharedModules();
             checkSharedDrift();
+            askSharedWhileAway();
         }), sync::whileAlive(this, [this, gen](const sync::ServerRefusal& r) {
             if (gen != sharedGen_) return;
             // Not reached: what was known stays, and the panel says updates can't be checked.
@@ -231,6 +240,8 @@ void MainWindow::showSharedModules() {
         sharedRows_ = {};
         sharedRowsKnown_ = false;
         sharedStamp_.clear();
+        sharedAway_.clear();
+        notices_->hideNotice(QStringLiteral("shared-away"));
     }
     // The placed copies changed: ask the server again.
     QStringList stamp;
@@ -252,8 +263,12 @@ void MainWindow::showSharedModules() {
         bar->setUpdates(sharedwords::updatesText(updates), updates.size() > 1 ? sharedwords::updatesList(updates) : QString(),
                         static_cast<int>(updates.size()), sharedwords::updatesKey(updates));
         std::vector<const core::SharedPlaced*> reviews;
+        // A module the "while you were away" notice is about isn't also told as "is now version N".
+        const auto away = [this](const QString& id) {
+            return std::any_of(sharedAway_.begin(), sharedAway_.end(), [&id](const sync::SharedAwayUpdate& a) { return a.placedId == id; });
+        };
         for (const auto& p : placed)
-            if (p.review) reviews.push_back(&p);
+            if (p.review && !away(p.placedId)) reviews.push_back(&p);
         if (reviews.empty()) bar->setReview({}, 0);
         else if (reviews.size() == 1)
             bar->setReview(sharedwords::reviewText(*reviews.front(), edit::sharedMarks(*map, reviews.front()->members, parts_)),
@@ -719,3 +734,127 @@ void MainWindow::sharedLinkFor(const sync::ServerModule& m, const std::function<
 }
 
 }  // namespace bld::ui
+
+namespace bld::ui {
+
+// ---- Updated while you were away (an Automatically layout) -----------------
+
+void MainWindow::askSharedWhileAway() {
+    if (!(live_ && live_->active()) || liveLayoutId_.isEmpty() || sharedAwayAskedFor_ == sharedDoc_) return;
+    // Once per layout opened: the server notes the visit when it answers.
+    sharedAwayAskedFor_ = sharedDoc_;
+    const QString doc = sharedDoc_;
+    sharedLiveApi().sharedModulesWhileAway(liveLayoutId_, sync::whileAlive(this, [this, doc](const QList<sync::SharedAwayUpdate>& list) {
+        if (doc != sharedDoc_) return;
+        sharedAway_ = list;
+        showSharedWhileAway();
+        showSharedModules();
+    }), [](const sync::ServerRefusal&) {});  // An older server, or no answer: nothing to say.
+}
+
+void MainWindow::showSharedWhileAway() {
+    const core::Map* map = mapView_->currentMap();
+    // Only while each copy still has the version the update left it at (Go back, or another update, ends it).
+    QList<sync::SharedAwayUpdate> still;
+    std::vector<core::SharedPlaced> placed = map ? core::sharedModulesIn(map->sidecar.modules) : std::vector<core::SharedPlaced>{};
+    const auto find = [&placed](const QString& id) -> const core::SharedPlaced* {
+        for (const auto& p : placed)
+            if (p.placedId == id) return &p;
+        return nullptr;
+    };
+    for (const auto& a : std::as_const(sharedAway_))
+        if (const core::SharedPlaced* p = find(a.placedId); p && p->version == a.to) still << a;
+    sharedAway_ = still;
+    const QString id = QStringLiteral("shared-away");
+    if (still.isEmpty()) {
+        notices_->hideNotice(id);
+        return;
+    }
+    const bool canUpdate = sharedRowsKnown_ && sharedRows_.canUpdate && !(live_ && live_->active() && live_->readOnly());
+    QString text;
+    QList<NoticeAction> actions;
+    QSet<QString> members;
+    for (const auto& a : std::as_const(still)) members.unite(find(a.placedId)->members);
+    actions << NoticeAction{ tr("Show"), [this, members] { mapView_->showParts(members); }, false, false };
+    if (still.size() == 1) {
+        const auto& a = still.front();
+        const core::SharedPlaced* p = find(a.placedId);
+        text = sharedwords::awayText(p->name, p->by, a.from, a.to);
+        if (const QString marks = sharedwords::marksText(edit::sharedMarks(*map, p->members, parts_)); !marks.isEmpty())
+            text += QLatin1Char(' ') + marks;
+        if (canUpdate && a.from > 0 && a.from != a.to) {
+            const QString placedId = a.placedId;
+            const int from = a.from;
+            actions << NoticeAction{ tr("Go Back to Version %1").arg(from), [this, placedId, from] {
+                                        sharedAway_.clear();
+                                        QTimer::singleShot(0, this, [this, placedId, from] { applySharedVersion(placedId, from); });
+                                    },
+                                     false };
+        }
+    } else {
+        QStringList lines;
+        for (const auto& a : std::as_const(still)) lines << sharedwords::awayLine(find(a.placedId)->name, a.from, a.to);
+        text = sharedwords::awayManyText(static_cast<int>(still.size())) + QLatin1Char('\n') + lines.join(QStringLiteral(", "));
+    }
+    actions << NoticeAction{ tr("OK"), [this, canUpdate] {
+                                QList<sync::SharedAwayUpdate> read = sharedAway_;
+                                sharedAway_.clear();
+                                // Read: its "is now version N" goes for everyone, as OK on that notice does.
+                                if (canUpdate) QTimer::singleShot(0, this, [this] { okSharedReviews(); });
+                                showSharedModules();
+                            },
+                             true };
+    notices_->showNotice(id, tr("Updated while you were away"), text, actions);
+    notices_->addHelp(id, QStringLiteral("module.sharedUpdatesSetting"));
+}
+
+// ---- Modules › Updates from Shared Modules… --------------------------------
+
+void MainWindow::showSharedUpdatesSetting() {
+    if (!(live_ && live_->active()) || liveLayoutId_.isEmpty()) return;
+    if (sharedUpdatesDialog_) {
+        sharedUpdatesDialog_->raise();
+        sharedUpdatesDialog_->activateWindow();
+        return;
+    }
+    auto* dlg = new SharedUpdatesDialog(this);
+    dlg->setAttribute(Qt::WA_DeleteOnClose);
+    sharedUpdatesDialog_ = dlg;
+    const QString layoutId = liveLayoutId_;
+    const auto load = [this, layoutId] {
+        sharedLiveApi().layoutSharedModules(layoutId, QString(), sync::whileAlive(this, [this](const sync::LayoutSharedModules& rows) {
+            if (!sharedUpdatesDialog_) return;
+            sharedUpdatesDialog_->setCurrent(rows.updates);
+            sharedUpdatesDialog_->setCanChange(rows.canUpdate && !(live_ && live_->active() && live_->readOnly()));
+        }), [](const sync::ServerRefusal&) {});
+    };
+    connect(dlg, &SharedUpdatesDialog::chosen, this, [this, dlg, layoutId, load](const QString& updates) {
+        const QString was = dlg->current();
+        dlg->setCurrent(updates);  // shown at once; back if the server says no
+        dlg->setBusy(true);
+        sharedLiveApi().setSharedModuleUpdates(layoutId, updates, sync::whileAlive(this, [this](const QString& now) {
+            if (sharedUpdatesDialog_) {
+                sharedUpdatesDialog_->setBusy(false);
+                sharedUpdatesDialog_->setCurrent(now);
+            }
+            statusBar()->showMessage(now == QLatin1String("auto") ? tr("New versions of shared modules now go in automatically.")
+                                                                 : tr("Shared modules now ask first before a new version goes in."),
+                                     6000);
+            refreshSharedModules();
+        }), sync::whileAlive(this, [this, was, load](const sync::ServerRefusal& r) {
+            if (sharedUpdatesDialog_) {
+                sharedUpdatesDialog_->setBusy(false);
+                sharedUpdatesDialog_->setCurrent(was);
+            }
+            notices_->showNotice(QStringLiteral("shared-step"), tr("That didn't work"),
+                                 sharedwords::stepRefusal(r, ServerLibrary::refusalText(r)), { { tr("OK"), {}, true } });
+            load();
+        }));
+    });
+    load();
+    dlg->show();
+}
+
+}  // namespace bld::ui
+
+bld::ui::SharedUpdatesDialog* bld::ui::MainWindow::sharedUpdatesDialog() const { return sharedUpdatesDialog_.data(); }

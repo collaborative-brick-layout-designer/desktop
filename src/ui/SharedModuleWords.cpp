@@ -84,6 +84,24 @@ QString reviewText(const core::SharedPlaced& placed, const edit::SharedMarks& ma
     return more.isEmpty() ? now : now + QLatin1Char(' ') + more;
 }
 
+QString awayText(const QString& name, const QString& by, int from, int to) {
+    const QString n = name.isEmpty() ? W::tr("A shared module") : W::tr("“%1”").arg(name);
+    if (from > 0 && from != to)
+        return by.isEmpty() ? W::tr("%1 went from version %2 to %3: this layout takes its owner's updates automatically.").arg(n).arg(from).arg(to)
+                            : W::tr("%1 went from version %2 to %3: this layout takes %4's updates automatically.").arg(n).arg(from).arg(to).arg(by);
+    return by.isEmpty() ? W::tr("%1 is now version %2: this layout takes its owner's updates automatically.").arg(n).arg(to)
+                        : W::tr("%1 is now version %2: this layout takes %3's updates automatically.").arg(n).arg(to).arg(by);
+}
+
+QString awayManyText(int count) {
+    return W::tr("%1 shared modules were updated: this layout takes their owners' updates automatically.").arg(count);
+}
+
+QString awayLine(const QString& name, int from, int to) {
+    const QString n = W::tr("“%1”").arg(name.isEmpty() ? W::tr("Module") : name);
+    return from > 0 && from != to ? QStringLiteral("%1 v%2 → v%3").arg(n).arg(from).arg(to) : QStringLiteral("%1 v%2").arg(n).arg(to);
+}
+
 Refusal refusalText(const sync::SharedPlaceCheck& c) {
     const QString owner = c.moduleOwner.name.isEmpty() ? W::tr("its owner") : c.moduleOwner.name;
     const bool club = c.layoutOwner.kind == QLatin1String("org");

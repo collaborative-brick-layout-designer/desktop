@@ -33,6 +33,8 @@
 #include "ui/ConfirmDialog.h"
 #include "ui/ServerLibrary.h"
 #include "ui/SharedModulesBar.h"
+#include "ui/SharedUpdatesDialog.h"
+#include <QRadioButton>
 #include "core/SharedModule.h"
 #include "sync/Compat.h"
 #include "sync/ModuleDoc.h"
@@ -2730,6 +2732,64 @@ protected:
         });
         ASSERT_TRUE(waitFor([&] { return mod().libraryVersion == to; }));
     }
+public:
+    void pictures(bool after) {
+        const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+        const QStringList libs = qEnvironmentVariable("BLD_PARTS").split(QLatin1Char(':'), Qt::SkipEmptyParts);
+        if (out.isEmpty() || libs.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS / BLD_PARTS not set";
+        for (const QString& p : libs) parts_.addSearchPath(p);
+        ASSERT_GT(parts_.scan(), 700);
+        ui::theme::PrefsStore store(QStringLiteral("review-shared-p2-shots"));
+        ui::theme::ThemeManager themer(store);
+        window_->resize(1440, 900);
+        window_->show();
+        const QByteArray away = "/api/layouts/L1/shared-modules/away";
+        http_.hold.insert(away);
+        QJsonArray list;
+        if (after)
+            list << QJsonObject{ { QStringLiteral("placedId"), QStringLiteral("M") }, { QStringLiteral("moduleId"), kSharedLib },
+                                 { QStringLiteral("from"), 7 }, { QStringLiteral("to"), 8 }, { QStringLiteral("version"), 8 },
+                                 { QStringLiteral("title"), QStringLiteral("Harbor crane") }, { QStringLiteral("at"), 1 } };
+        http_.reply(away, 200, { { QStringLiteral("updates"), list } });
+        placeShared();
+        ASSERT_TRUE(waitFor([&] { return posts(away) == 1; }));
+        serverPuts(8, 7);
+        rows(8, true, false);
+        http_.release(away);
+        waitFor([] { return false; }, 300);
+        view_->rebuildScene();
+        waitFor([&] { return !view_->loadingCard() || !view_->loadingCard()->isVisible(); }, 30000);
+        int missing = 0;
+        for (const auto& L : view_->currentMap()->layers())
+            if (L->kind() == core::LayerKind::Brick)
+                for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks)
+                    if (!parts_.metadata(b.partNumber) || parts_.pixmap(b.partNumber).isNull()) ++missing;
+        ASSERT_EQ(missing, 0);
+        window_->findChild<ui::NoticeArea*>()->hideNotice(QStringLiteral("server-features"));
+        if (auto* warning = window_->findChild<QWidget*>(QStringLiteral("partsSyncFailed"))) warning->hide();
+        view_->fitAll();
+        ui::SharedUpdatesDialog* dlg = nullptr;
+        if (after) {
+            window_->findChild<QAction*>(QStringLiteral("modules.sharedUpdates"))->trigger();
+            dlg = window_->sharedUpdatesDialog();
+            ASSERT_NE(dlg, nullptr);
+            ASSERT_TRUE(waitFor([&] { return !dlg->current().isEmpty(); }));
+        }
+        for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+            ui::theme::AppPrefs p = store.prefs();
+            p.theme = mode;
+            store.update(p);
+            waitFor([] { return false; }, 600);
+            window_->statusBar()->clearMessage();
+            const QString scheme = mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark") : QStringLiteral("light");
+            EXPECT_TRUE(window_->grab().save(out + QStringLiteral("/%1-opening-%2.png").arg(after ? QStringLiteral("after") : QStringLiteral("before"), scheme)));
+            if (dlg) {
+                EXPECT_TRUE(dlg->grab().save(out + QStringLiteral("/after-setting-%1.png").arg(scheme)));
+            }
+        }
+        if (dlg) dlg->close();
+    }
+protected:
     const core::Module& mod() { return view_->currentMap()->sidecar.modules.front(); }
     ui::SharedModulesBar* bar() { return view_->sharedModulesBar(); }
     ui::NoticeArea* notices() { return window_->findChild<ui::NoticeArea*>(); }
@@ -2814,6 +2874,86 @@ TEST_F(SharedModulesLive, UpdateAndGoBackAreTheServersSteps) {
     }));
     EXPECT_TRUE(live_->active());
 }
+
+// Updated while you were away: an Automatically layout the server updated
+// while you didn't have it open says so on opening (once), instead of "is
+// now version 8", with Go back (the server's step) and OK.
+TEST_F(SharedModulesLive, UpdatedWhileYouWereAwayIsSaidOnOpeningWithGoBack) {
+    const QByteArray away = "/api/layouts/L1/shared-modules/away";
+    http_.hold.insert(away);
+    http_.reply(away, 200,
+                { { QStringLiteral("updates"),
+                    QJsonArray{ QJsonObject{ { QStringLiteral("placedId"), QStringLiteral("M") }, { QStringLiteral("moduleId"), kSharedLib },
+                                             { QStringLiteral("from"), 7 }, { QStringLiteral("to"), 8 }, { QStringLiteral("version"), 8 },
+                                             { QStringLiteral("title"), QStringLiteral("Harbor crane") }, { QStringLiteral("at"), 1 } } } } });
+    placeShared();
+    ASSERT_TRUE(waitFor([&] { return posts(away) == 1; }));
+    serverPuts(8, 7);
+    http_.release(away);
+    const QString id = QStringLiteral("shared-away");
+    ASSERT_TRUE(waitFor([&] { return notices()->isShown(id); }));
+    auto* card = notices()->card(id);
+    EXPECT_EQ(card->findChild<QLabel*>(QStringLiteral("NoticeTitle"))->text(), QStringLiteral("Updated while you were away"));
+    EXPECT_TRUE(card->findChild<QLabel*>(QStringLiteral("NoticeText"))
+                    ->text()
+                    .startsWith(QStringLiteral("“Harbor crane” went from version 7 to 8: this layout takes Alice's updates automatically.")))
+        << card->findChild<QLabel*>(QStringLiteral("NoticeText"))->text().toStdString();
+    // Not also told as "is now version 8".
+    for (int i = 0; i < 5; ++i) QCoreApplication::processEvents(QEventLoop::AllEvents, 20);
+    EXPECT_FALSE(bar()->reviewShown());
+    // Asked once per opening.
+    EXPECT_EQ(posts(away), 1);
+    // Go back: the server's step with version 7.
+    const QByteArray apply = "/api/layouts/L1/shared-modules/M/apply";
+    http_.reply(apply, 200, { { QStringLiteral("ok"), true }, { QStringLiteral("placedId"), QStringLiteral("M") },
+                              { QStringLiteral("changed"), true }, { QStringLiteral("version"), 7 }, { QStringLiteral("from"), 8 } });
+    QPushButton* back = nullptr;
+    for (auto* b : card->findChildren<QPushButton*>())
+        if (b->text() == QStringLiteral("Go Back to Version 7")) back = b;
+    ASSERT_NE(back, nullptr);
+    back->click();
+    ASSERT_TRUE(waitFor([&] { return posts(apply) == 1; }));
+    EXPECT_EQ(lastBody(apply), (QJsonObject{ { QStringLiteral("version"), 7 } }));
+    ASSERT_TRUE(waitFor([&] { return !notices()->isShown(id); }));
+}
+
+// Modules › Updates from Shared Modules…: the server's setting, Ask first
+// to begin with; choosing Automatically asks the server, and a change made
+// elsewhere shows at once.
+TEST_F(SharedModulesLive, TheSettingIsTheServersAndFollowsIt) {
+    placeShared();
+    auto* act = window_->findChild<QAction*>(QStringLiteral("modules.sharedUpdates"));
+    ASSERT_NE(act, nullptr);
+    act->trigger();
+    ui::SharedUpdatesDialog* dlg = window_->sharedUpdatesDialog();
+    ASSERT_NE(dlg, nullptr);
+    ASSERT_TRUE(waitFor([&] { return dlg->current() == QStringLiteral("ask"); }));
+    EXPECT_TRUE(dlg->askButton()->isChecked());
+    ASSERT_TRUE(waitFor([&] { return dlg->autoButton()->isEnabled(); }));
+    const QByteArray put = "/api/layouts/L1/shared-modules/updates";
+    http_.reply(put, 200, { { QStringLiteral("ok"), true }, { QStringLiteral("updates"), QStringLiteral("auto") } });
+    dlg->autoButton()->click();
+    ASSERT_TRUE(waitFor([&] {
+        for (const auto& r : http_.requests)
+            if (r.method == "PUT" && r.path == put) return QJsonDocument::fromJson(r.body).object() == QJsonObject{ { QStringLiteral("updates"), QStringLiteral("auto") } };
+        return false;
+    }));
+    EXPECT_TRUE(dlg->autoButton()->isChecked());
+    // Someone else sets it back (the layout's live hint): the dialog follows.
+    http_.clear("/api/layouts/L1/shared-modules");
+    http_.reply("/api/layouts/L1/shared-modules", 200,
+                { { QStringLiteral("updates"), QStringLiteral("ask") }, { QStringLiteral("canUpdate"), true }, { QStringLiteral("modules"), QJsonArray{} } });
+    window_->onServerHint(QJsonObject{ { QStringLiteral("kind"), QStringLiteral("layout") }, { QStringLiteral("id"), QStringLiteral("L1") } });
+    ASSERT_TRUE(waitFor([&] { return dlg->current() == QStringLiteral("ask"); }));
+    dlg->close();
+}
+
+// BLD_REVIEW_SHOTS=<dir> BLD_PARTS=<library dirs>: phase 2's pictures, light
+// and dark. "Before": opening a layout the server updated meanwhile, as
+// main shows it (the server says nothing about the time away). "After":
+// "Updated while you were away", and the setting.
+TEST_F(SharedModulesLive, PicturesBeforePhase2) { pictures(false); }
+TEST_F(SharedModulesLive, PicturesOfPhase2) { pictures(true); }
 
 // The lock on a live layout: a change to the module's parts never leaves
 // this desktop (the server would end the connection over it).

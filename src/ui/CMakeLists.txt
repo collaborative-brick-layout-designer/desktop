@@ -74,6 +74,7 @@ add_library(bld_ui STATIC
     ModuleShareDialog.cpp
     ModuleShareDialog.h
     SharedModulesBar.cpp
+    SharedUpdatesDialog.cpp
     SharedModulesBar.h
     SharedModuleWords.cpp
     SharedModuleWords.h
