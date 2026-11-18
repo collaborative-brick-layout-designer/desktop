@@ -52,6 +52,7 @@ add_executable(bld_ui_tests
     ModuleLookTest.cpp
     ModuleEditTest.cpp
     SharedModulesTest.cpp
+    SharedKeepTest.cpp
     ModuleSheetsTest.cpp
     ConfirmDialogTest.cpp
     NameMigrationTest.cpp

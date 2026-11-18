@@ -1,4 +1,5 @@
 #include "ModuleCommands.h"
+#include "SharedModuleKeep.h"
 
 #include "../core/SharedModule.h"
 #include "EditCommands.h"
@@ -440,10 +441,30 @@ ReplaceModulePartsCommand::ReplaceModulePartsCommand(core::Map& map, QString mod
 }
 
 QSet<QString> ReplaceModulePartsCommand::newMembers() const {
+    if (keepParts_ && keepAfter_) return keepMembers_;
     QSet<QString> out;
     for (const auto& batch : batches_)
         for (const auto& b : batch.bricks) out.insert(b.guid);
     return out;
+}
+
+QHash<QString, ReplaceModulePartsCommand::SheetState> ReplaceModulePartsCommand::sheetsNow() const {
+    QHash<QString, SheetState> out;
+    for (const auto& L : map_.layers()) {
+        if (!L || L->kind() != core::LayerKind::Brick) continue;
+        const auto& layer = static_cast<const core::LayerBrick&>(*L);
+        out.insert(L->guid, { layer.bricks, layer.groups });
+    }
+    return out;
+}
+
+void ReplaceModulePartsCommand::restoreSheets(const QHash<QString, SheetState>& sheets) {
+    for (const auto& L : map_.layers()) {
+        if (!L || L->kind() != core::LayerKind::Brick || !sheets.contains(L->guid)) continue;
+        auto& layer = static_cast<core::LayerBrick&>(*L);
+        layer.bricks = sheets.value(L->guid).bricks;
+        layer.groups = sheets.value(L->guid).groups;
+    }
 }
 
 void ReplaceModulePartsCommand::redo() {
@@ -451,6 +472,26 @@ void ReplaceModulePartsCommand::redo() {
     if (mi < 0) return;
     core::Module& mod = map_.sidecar.modules[mi];
     before_ = mod;
+    if (keepParts_) {
+        // Only the parts that differ change (SharedModuleKeep.h); the first
+        // redo works it out, later ones put the same result back.
+        if (!keepAfter_) {
+            keepBefore_ = sheetsNow();
+            const KeepPlan plan = planKeep(keepSheets(map_), mod.memberIds, batches_, *keepParts_);
+            kept_ = static_cast<int>(plan.kept.size());
+            const QStringList members = applyKeep(map_, plan, batches_);
+            keepMembers_ = QSet<QString>(members.begin(), members.end());
+            keepAfter_ = sheetsNow();
+        } else {
+            restoreSheets(*keepAfter_);
+        }
+        core::Module& m = map_.sidecar.modules[findModuleIndex(map_, moduleId_)];
+        m.memberIds = keepMembers_;
+        m.libraryModuleId = libraryId_;
+        m.libraryVersion = libraryVersion_;
+        if (sharedAfter_) m.shared = *sharedAfter_;
+        return;
+    }
     removed_.clear();
     for (auto& L : map_.layers()) {
         if (!L || L->kind() != core::LayerKind::Brick) continue;
@@ -483,6 +524,12 @@ void ReplaceModulePartsCommand::redo() {
 }
 
 void ReplaceModulePartsCommand::undo() {
+    if (keepParts_ && keepBefore_) {
+        restoreSheets(*keepBefore_);
+        const int mi = findModuleIndex(map_, moduleId_);
+        if (mi >= 0 && before_) map_.sidecar.modules[mi] = *before_;
+        return;
+    }
     const QSet<QString> fresh = newMembers();
     QSet<QString> groups;
     for (const auto& batch : batches_)

@@ -270,18 +270,40 @@ a silent no:
 - renaming: it is the owner's name. (A layout label can be added on top.)
 
 **Undo** stays each person's own. It can only reverse what they did, which
-was allowed. Undoing "Make it mine" puts the lock back.
+was allowed. Undoing "Make it mine" puts the lock back. Since updates keep
+the unchanged parts (phase 3, doc shape 5), an earlier undo step can point
+at some of a module's parts and not the new ones. So both apps finish
+every undo and redo for the whole module in the same change
+(`packages/modules` settle.ts; shared vectors
+`fixtures/contracts/shared-module-settle.json`):
+- some parts moved back: the rest move the same way;
+- some parts went (undoing placing it): the rest go, with the module;
+- the module's record went: its parts go too.
 
 **2. The server guard** (`ws/sharedGuard.ts`, run with the other checks).
-For parts that belong to a shared module, refuse an update that changes a
+For parts that belong to a shared module, catch an update that changes a
 part's number, color or other fields, deletes one without deleting the
 whole module (a sheet change deletes and re-adds the same id, allowed),
 writes `p:` keys for the module, or rewrites its `members`. Only the
-server's own update step and Make it mine change those. Normal apps never
-send such a change (the tools don't allow it), so the refusal is for an
-outdated or broken app. Later (phase 3), also check that a move is rigid:
-the distances between the parts' centers and the differences of their
-turns stay the same, which the server can tell without part pictures.
+server's own update step and Make it mine change those. It also checks
+that a move is rigid (phase 3): every part turned by the same amount, and
+the distances between the parts' centers kept, within 0.05 studs for float
+rounding. A center is the part's pivot, from the parts' geometry the
+server reads ahead per layout (`ws/sharedGeometry.ts`). Until that has
+been read, or for a part no catalog knows, the box center is used, and a
+turned module lets such a part off by its size. Two people moving the
+module at the same moment are never measured against each other: the
+layout then holds some of each person's move.
+
+Normal apps never send such a change (the tools don't allow it), so this
+is for an outdated or broken app. Such an update is **taken, then put
+back**: the server restores the modules it broke, in its own step that
+everyone gets (the sender too), and the connection stays open. Closing
+the connection, as the other guards do, would leave the change in the
+app's copy. A desktop saves that copy and sends it again each time the
+layout is opened, so it would be refused again every time. Putting the
+module back works the same for every app, old ones included. It is logged
+and audited (`layout_update_refused`, kind `locked`, `putBack`).
 
 **3. Drift check (files and BlueBrick).** A file can be changed anywhere:
 in BlueBrick, by an older desktop, by hand. On opening, both apps compare
@@ -500,6 +522,31 @@ no change there. Privacy export and account erasure gain the new tables
 Live hints: a module save also goes to editors of layouts in
 `layout_shared_modules`; a server-applied update is an ordinary room change
 plus a `layout` hint with action `shared-module-updated`.
+
+### The live doc: shape 5 (phase 3)
+
+An update that keeps the unchanged parts (`packages/modules` keepIds.ts,
+`updateModuleParts`) stamps the layout **shape 5**, in its own step before
+the update, with a mark (`meta.keptIds`) that raises a lower stamp again on
+opening. Builds that read only 4 can't finish an undo across such an update
+(see "Undo" above), so they refuse the layout. The server lists the feature
+`sharedKeepIds`. A desktop keeps the ids in its own update of a live
+layout made offline only on a server that lists it; in a file it always
+does.
+
+The matching rule:
+- each part of the new version, in its order, takes the first of the
+  module's parts not yet taken that is on the same sheet, with the same
+  part number and height, within 0.1 studs and 0.5°;
+- on each sheet the kept parts must already be in the version's order (the
+  longest run in order stays);
+- their sets must match one for one, or nothing is kept;
+- the other parts go, and the new ones go in each next to its neighbor in
+  the version.
+
+Shared vectors: `fixtures/contracts/shared-module-keep.json`. A layout's
+history grows by what changed: for a 200-part module with 3 parts changed,
+about 390 bytes instead of about 20,300.
 
 ### The live doc: shape 4
 

@@ -17,8 +17,10 @@ namespace bld::sync {
 // (the web's DOC_SCHEMA_VERSION / DOC_MIN_READABLE).
 // 2: doc shape 2 (DocShape.h). 3: a module's part changes are keys of
 // their own (ModuleMembers.h). 4: a module may be shared, read-only
-// (core/SharedModule.h). Docs are still made in kDocBaseSchema.
-constexpr int kDocSchemaVersion = 4;
+// (core/SharedModule.h). 5: a shared module's update keeps its unchanged
+// parts, and undo is finished for the whole module (edit/SharedSettle.h).
+// Docs are still made in kDocBaseSchema.
+constexpr int kDocSchemaVersion = 5;
 // The shape that has shared (read-only) modules: a doc moves to it with
 // its first one.
 constexpr int kDocShapeShared = 4;
@@ -26,6 +28,14 @@ constexpr int kDocShapeShared = 4;
 // locked and the server applies its updates (compat/compat.json): only
 // there does the desktop offer "Shared with me" and make a shape 4 layout.
 constexpr char kSharedModulesFeature[] = "sharedModules";
+// The shape whose shared-module updates keep the unchanged parts: a doc
+// moves to it with its first such update, marked in meta (kKeptIdsMark).
+constexpr int kDocShapeKeepIds = 5;
+constexpr char kKeptIdsMark[] = "keptIds";
+// The feature a server lists when its updates keep unchanged parts (and its
+// web app finishes an undo for the whole module): only there does the
+// desktop keep them in its own update of a live layout made offline.
+constexpr char kSharedKeepIdsFeature[] = "sharedKeepIds";
 constexpr int kDocMinReadable = 1;
 
 // SyncSession::ended's code when the shared layout is in a form this

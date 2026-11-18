@@ -1,5 +1,7 @@
 #include "SyncSession.h"
 
+#include "core/SettledBack.h"
+
 #include "Compat.h"
 
 #include <QJsonObject>
@@ -187,7 +189,8 @@ void SyncSession::loadCache() {
         if (o.contains(QLatin1String("mine")))
             offline_ = OfflineEdits{ merge::snapshotFromJson(o.value(QLatin1String("base")).toObject()),
                                      merge::snapshotFromJson(o.value(QLatin1String("mine")).toObject()),
-                                     o.value(QLatin1String("count")).toInt(1) };
+                                     o.value(QLatin1String("count")).toInt(1),
+                                     o.value(QLatin1String("keptIds")).toBool() };
     }
     if (loaded_ || offline_) QTimer::singleShot(0, this, [this] { emit mapChanged(); });
 }
@@ -205,7 +208,8 @@ void SyncSession::saveOffline() {
     }
     writeAll(path, QJsonDocument(QJsonObject{ { QStringLiteral("base"), merge::toJson(offline_->base) },
                                               { QStringLiteral("mine"), merge::toJson(offline_->mine) },
-                                              { QStringLiteral("count"), offline_->count } })
+                                              { QStringLiteral("count"), offline_->count },
+                                              { QStringLiteral("keptIds"), offline_->keptIds } })
                        .toJson(QJsonDocument::Compact));
 }
 
@@ -304,6 +308,8 @@ int SyncSession::reconcileOffline() {
         const auto toSend = serverUnchanged ? merge::mapOf(offline_->mine, &error)
                                             : merge::mergeLayouts(offline_->mine, serverNow, changes, send, &error);
         if (!toSend) return 0;  // (the compare window lets the person choose)
+        // (An update that kept a shared module's parts: the layout is shape 5 before it goes in.)
+        stampOfflineKeep();
         const QByteArray update = doc_.writeMap(*toSend);
         if (!update.isEmpty()) {
             client_.sendLocal(update);
@@ -345,6 +351,7 @@ int SyncSession::reconcileOffline() {
 
 void SyncSession::resolveOffline(const core::Map* result) {
     if (!offline_) return;
+    if (result) stampOfflineKeep();
     offline_.reset();
     saveOffline();
     if (result) localEdit(*result);
@@ -353,20 +360,58 @@ void SyncSession::resolveOffline(const core::Map* result) {
 
 bool SyncSession::undo() {
     if (readOnly_ || offline_) return false;
-    const QByteArray update = doc_.undo();
-    if (update.isEmpty()) return false;
-    client_.sendLocal(update);
+    const QByteArray sv = doc_.stateVector();
+    const auto before = finish_ ? currentMap() : nullptr;
+    if (doc_.undo().isEmpty()) return false;
+    finishStep(before.get(), false, sv);
     emit mapChanged();
     return true;
 }
 
 bool SyncSession::redo() {
     if (readOnly_ || offline_) return false;
-    const QByteArray update = doc_.redo();
-    if (update.isEmpty()) return false;
-    client_.sendLocal(update);
+    const QByteArray sv = doc_.stateVector();
+    const auto before = finish_ ? currentMap() : nullptr;
+    if (doc_.redo().isEmpty()) return false;
+    finishStep(before.get(), true, sv);
     emit mapChanged();
     return true;
+}
+
+void SyncSession::finishStep(const core::Map* before, bool redo, const QByteArray& sv) {
+    // The step and its finish go to the server as one change, so the shared
+    // module is never seen pulled apart (the server would put it back).
+    if (before && finish_) {
+        if (auto after = currentMap()) {
+            bool changed = false;
+            if (redo) {
+                const core::SettledBack back = doc_.takeSettled();
+                if (!back.empty()) {
+                    core::putBack(*after, back);
+                    changed = true;
+                }
+            }
+            core::SettledBack removed;
+            if (finish_(*before, *after, &removed)) changed = true;
+            if (changed) {
+                doc_.writeMap(*after, false);
+                if (!redo && !removed.empty()) doc_.attachSettled(removed);
+            }
+        }
+    }
+    client_.sendLocal(doc_.diffSince(sv));
+}
+
+void SyncSession::noteKeptIds() {
+    if (!offline_) return;
+    offline_->keptIds = true;
+    saveOffline();
+}
+
+void SyncSession::stampOfflineKeep() {
+    if (!offline_ || !offline_->keptIds) return;
+    const QByteArray stamp = doc_.stampKeepIds();
+    if (!stamp.isEmpty()) client_.sendLocal(stamp);
 }
 
 void SyncSession::holdRemoteChanges(bool hold) {

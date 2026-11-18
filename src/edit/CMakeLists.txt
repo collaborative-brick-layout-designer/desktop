@@ -12,6 +12,8 @@ add_library(bld_edit STATIC
     SharedLock.cpp
     SharedLock.h
     SharedModulePlacement.cpp
+    SharedModuleKeep.cpp
+    SharedSettle.cpp
     SharedModulePlacement.h
     LabelCommands.cpp
     LabelCommands.h

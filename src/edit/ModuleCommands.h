@@ -5,6 +5,7 @@
 #include "../core/Module.h"
 #include "SharedLock.h"
 
+#include <QHash>
 #include <QPointF>
 #include <QSet>
 #include <QString>
@@ -291,13 +292,31 @@ public:
     // A shared module: its `shared` value after the step (the placement the
     // version went in at, what to review). Call before pushing.
     void setSharedAfter(QJsonObject shared) { sharedAfter_ = std::move(shared); }
+    // Keep the parts that didn't change (SharedModuleKeep.h): only the parts
+    // that differ go and come in new; the rest keep their ids. `parts` gives
+    // their pivots. Call before pushing.
+    void keepUnchanged(parts::PartsLibrary* parts) { keepParts_ = parts; }
+    // After the first redo with keepUnchanged: how many parts stayed, went, came in.
+    int keptCount() const { return kept_; }
 
 private:
+    // Each parts sheet's parts and sets, by sheet guid (keepUnchanged's undo and redo).
+    struct SheetState {
+        std::vector<core::Brick> bricks;
+        std::vector<core::Group> groups;
+    };
+    QHash<QString, SheetState> sheetsNow() const;
+    void restoreSheets(const QHash<QString, SheetState>& sheets);
+
     core::Map& map_;
     QString moduleId_;
     std::vector<ImportBbmAsModuleCommand::LayerBatch> batches_;
     QString libraryId_;
     int libraryVersion_ = 0;
+    parts::PartsLibrary* keepParts_ = nullptr;
+    int kept_ = 0;
+    std::optional<QHash<QString, SheetState>> keepBefore_, keepAfter_;
+    QSet<QString> keepMembers_;
     // The old parts, where they were (layer guid, index), for undo.
     struct Removed { QString layerGuid; int index = 0; core::Brick brick; };
     std::vector<Removed> removed_;

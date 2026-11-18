@@ -75,6 +75,10 @@
         <source>Modules shared with you and your clubs, with their owner&apos;s updates</source>
         <translation>あなたやクラブと共有されたモジュールです。持ち主の更新も届きます</translation>
     </message>
+    <message>
+        <source>Updates of shared modules that change only what changed</source>
+        <translation>共有モジュールの更新で、変わったところだけを変える</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>

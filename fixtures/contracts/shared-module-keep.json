@@ -1,0 +1,1577 @@
+{
+  "about": "Updates that keep the ids of unchanged parts (docs/shared-modules.md, phase 3; web packages/modules keepIds.ts, desktop src/edit/SharedModuleKeep.cpp). `keep`: a layout's parts sheets (each bottom to top, with its sets), the placed module's parts (`members`), and the new version already placed, each batch with the sheet it goes on; `expect` is the plan: `kept` (version part \"b.i\" -> the id that stays), `removed`, `added` (version parts that come in new), each sheet's final order bottom to top (ids, and \"new:b.i\"), and each new part's sets innermost first (a set on the map, or \"new:b/<version set id>\" for a copy). `parts`: the geometry of each part number (lower case), as in shared-module-placement.json.",
+  "parts": {
+    "straight.1": {
+      "pxPerStud": 8,
+      "spriteSize": {
+        "w": 128,
+        "h": 32
+      }
+    },
+    "tile.1": {
+      "pxPerStud": 32,
+      "spriteSize": {
+        "w": 256,
+        "h": 256
+      }
+    },
+    "switch.1": {
+      "pxPerStud": 8,
+      "spriteSize": {
+        "w": 256,
+        "h": 96
+      },
+      "hullPts": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 255,
+          "y": 0
+        },
+        {
+          "x": 255,
+          "y": 31
+        },
+        {
+          "x": 128,
+          "y": 95
+        },
+        {
+          "x": 0,
+          "y": 31
+        }
+      ]
+    },
+    "ramp.1": {
+      "pxPerStud": 8,
+      "spriteSize": {
+        "w": 64,
+        "h": 48
+      },
+      "hullPts": [
+        {
+          "x": 0,
+          "y": 47
+        },
+        {
+          "x": 63,
+          "y": 0
+        },
+        {
+          "x": 63,
+          "y": 47
+        }
+      ]
+    }
+  },
+  "keep": [
+    {
+      "name": "nothing changed: every part kept",
+      "sheets": [
+        {
+          "id": "S",
+          "parts": [
+            {
+              "id": "a",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "b",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "c",
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "members": [
+        "a",
+        "b",
+        "c"
+      ],
+      "next": [
+        {
+          "sheetId": "S",
+          "bricks": [
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            },
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            },
+            {
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "expect": {
+        "kept": {
+          "0.0": "a",
+          "0.1": "b",
+          "0.2": "c"
+        },
+        "removed": [],
+        "added": [],
+        "sheets": {
+          "S": [
+            "a",
+            "b",
+            "c"
+          ]
+        },
+        "newGroups": {}
+      }
+    },
+    {
+      "name": "the middle part moved: it goes, the new one goes just above the part before it",
+      "sheets": [
+        {
+          "id": "S",
+          "parts": [
+            {
+              "id": "x",
+              "partNumber": "loose.1",
+              "displayArea": {
+                "x": -9,
+                "y": -9,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "a",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "b",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "c",
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "y",
+              "partNumber": "loose.1",
+              "displayArea": {
+                "x": 9,
+                "y": 9,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "members": [
+        "a",
+        "b",
+        "c"
+      ],
+      "next": [
+        {
+          "sheetId": "S",
+          "bricks": [
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            },
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 4,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            },
+            {
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "expect": {
+        "kept": {
+          "0.0": "a",
+          "0.2": "c"
+        },
+        "removed": [
+          "b"
+        ],
+        "added": [
+          "0.1"
+        ],
+        "sheets": {
+          "S": [
+            "x",
+            "a",
+            "new:0.1",
+            "c",
+            "y"
+          ]
+        },
+        "newGroups": {
+          "0.1": []
+        }
+      }
+    },
+    {
+      "name": "the first part recolored: the new one goes just below the next kept part",
+      "sheets": [
+        {
+          "id": "S",
+          "parts": [
+            {
+              "id": "x",
+              "partNumber": "loose.1",
+              "displayArea": {
+                "x": -9,
+                "y": -9,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "a",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "b",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "c",
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "members": [
+        "a",
+        "b",
+        "c"
+      ],
+      "next": [
+        {
+          "sheetId": "S",
+          "bricks": [
+            {
+              "partNumber": "TILE.4",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            },
+            {
+              "partNumber": "Tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            },
+            {
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "expect": {
+        "kept": {
+          "0.1": "b",
+          "0.2": "c"
+        },
+        "removed": [
+          "a"
+        ],
+        "added": [
+          "0.0"
+        ],
+        "sheets": {
+          "S": [
+            "x",
+            "new:0.0",
+            "b",
+            "c"
+          ]
+        },
+        "newGroups": {
+          "0.0": []
+        }
+      }
+    },
+    {
+      "name": "a different height is a different part",
+      "sheets": [
+        {
+          "id": "S",
+          "parts": [
+            {
+              "id": "a",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "b",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "c",
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "members": [
+        "a",
+        "b",
+        "c"
+      ],
+      "next": [
+        {
+          "sheetId": "S",
+          "bricks": [
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 3
+            },
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            },
+            {
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "expect": {
+        "kept": {
+          "0.1": "b",
+          "0.2": "c"
+        },
+        "removed": [
+          "a"
+        ],
+        "added": [
+          "0.0"
+        ],
+        "sheets": {
+          "S": [
+            "new:0.0",
+            "b",
+            "c"
+          ]
+        },
+        "newGroups": {
+          "0.0": []
+        }
+      }
+    },
+    {
+      "name": "within 0.1 studs and 0.5 degrees is the same place",
+      "sheets": [
+        {
+          "id": "S",
+          "parts": [
+            {
+              "id": "a",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "b",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "c",
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "members": [
+        "a",
+        "b",
+        "c"
+      ],
+      "next": [
+        {
+          "sheetId": "S",
+          "bricks": [
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0.05,
+                "y": 0.05,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0.4,
+              "altitude": 0
+            },
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0.2,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            },
+            {
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 359.7,
+              "altitude": 0
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "expect": {
+        "kept": {
+          "0.0": "a",
+          "0.2": "c"
+        },
+        "removed": [
+          "b"
+        ],
+        "added": [
+          "0.1"
+        ],
+        "sheets": {
+          "S": [
+            "a",
+            "new:0.1",
+            "c"
+          ]
+        },
+        "newGroups": {
+          "0.1": []
+        }
+      }
+    },
+    {
+      "name": "the version reorders two parts: the longest run in order stays",
+      "sheets": [
+        {
+          "id": "S",
+          "parts": [
+            {
+              "id": "a",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "b",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "c",
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "members": [
+        "a",
+        "b",
+        "c"
+      ],
+      "next": [
+        {
+          "sheetId": "S",
+          "bricks": [
+            {
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            },
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            },
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "expect": {
+        "kept": {
+          "0.1": "a",
+          "0.2": "b"
+        },
+        "removed": [
+          "c"
+        ],
+        "added": [
+          "0.0"
+        ],
+        "sheets": {
+          "S": [
+            "new:0.0",
+            "a",
+            "b"
+          ]
+        },
+        "newGroups": {
+          "0.0": []
+        }
+      }
+    },
+    {
+      "name": "two alike parts in one place: taken in order",
+      "sheets": [
+        {
+          "id": "S",
+          "parts": [
+            {
+              "id": "a",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "b",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "members": [
+        "a",
+        "b"
+      ],
+      "next": [
+        {
+          "sheetId": "S",
+          "bricks": [
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "expect": {
+        "kept": {
+          "0.0": "a"
+        },
+        "removed": [
+          "b"
+        ],
+        "added": [],
+        "sheets": {
+          "S": [
+            "a"
+          ]
+        },
+        "newGroups": {}
+      }
+    },
+    {
+      "name": "sets agree: kept, and a new part joins the kept parts' set",
+      "sheets": [
+        {
+          "id": "S",
+          "parts": [
+            {
+              "id": "a",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": "G2"
+            },
+            {
+              "id": "b",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": "G1"
+            },
+            {
+              "id": "c",
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": [
+            {
+              "id": "G1",
+              "partNumber": "set.1",
+              "myGroup": "G2"
+            },
+            {
+              "id": "G2",
+              "myGroup": ""
+            }
+          ]
+        }
+      ],
+      "members": [
+        "a",
+        "b",
+        "c"
+      ],
+      "next": [
+        {
+          "sheetId": "S",
+          "bricks": [
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": "v2"
+            },
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": "v1"
+            },
+            {
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            },
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 8,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": "v1"
+            },
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 10,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": "v3"
+            }
+          ],
+          "groups": [
+            {
+              "id": "v1",
+              "partNumber": "set.1",
+              "myGroup": "v2"
+            },
+            {
+              "id": "v2",
+              "myGroup": ""
+            },
+            {
+              "id": "v3",
+              "partNumber": "set.9",
+              "myGroup": "v2"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "kept": {
+          "0.0": "a",
+          "0.1": "b",
+          "0.2": "c"
+        },
+        "removed": [],
+        "added": [
+          "0.3",
+          "0.4"
+        ],
+        "sheets": {
+          "S": [
+            "a",
+            "b",
+            "c",
+            "new:0.3",
+            "new:0.4"
+          ]
+        },
+        "newGroups": {
+          "0.3": [
+            "G1",
+            "G2"
+          ],
+          "0.4": [
+            "new:0/v3",
+            "G2"
+          ]
+        }
+      }
+    },
+    {
+      "name": "sets disagree: nothing is kept",
+      "sheets": [
+        {
+          "id": "S",
+          "parts": [
+            {
+              "id": "a",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": "G1"
+            },
+            {
+              "id": "b",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": "G1"
+            },
+            {
+              "id": "c",
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": [
+            {
+              "id": "G1",
+              "myGroup": ""
+            }
+          ]
+        }
+      ],
+      "members": [
+        "a",
+        "b",
+        "c"
+      ],
+      "next": [
+        {
+          "sheetId": "S",
+          "bricks": [
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": "v1"
+            },
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": "v2"
+            },
+            {
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            }
+          ],
+          "groups": [
+            {
+              "id": "v1",
+              "myGroup": ""
+            },
+            {
+              "id": "v2",
+              "myGroup": ""
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "kept": {},
+        "removed": [
+          "a",
+          "b",
+          "c"
+        ],
+        "added": [
+          "0.0",
+          "0.1",
+          "0.2"
+        ],
+        "sheets": {
+          "S": [
+            "new:0.0",
+            "new:0.1",
+            "new:0.2"
+          ]
+        },
+        "newGroups": {
+          "0.0": [
+            "new:0/v1"
+          ],
+          "0.1": [
+            "new:0/v2"
+          ],
+          "0.2": []
+        }
+      }
+    },
+    {
+      "name": "two sheets; one batch now goes on another sheet",
+      "sheets": [
+        {
+          "id": "S",
+          "parts": [
+            {
+              "id": "a",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "b",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": []
+        },
+        {
+          "id": "T",
+          "parts": [
+            {
+              "id": "q",
+              "partNumber": "loose.1",
+              "displayArea": {
+                "x": 50,
+                "y": 50,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "c",
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": []
+        },
+        {
+          "id": "U",
+          "parts": [
+            {
+              "id": "r",
+              "partNumber": "loose.1",
+              "displayArea": {
+                "x": 60,
+                "y": 60,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "members": [
+        "a",
+        "b",
+        "c"
+      ],
+      "next": [
+        {
+          "sheetId": "S",
+          "bricks": [
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            },
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            }
+          ],
+          "groups": []
+        },
+        {
+          "sheetId": "U",
+          "bricks": [
+            {
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              },
+              "orientation": 0,
+              "altitude": 0
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "expect": {
+        "kept": {
+          "0.0": "a",
+          "0.1": "b"
+        },
+        "removed": [
+          "c"
+        ],
+        "added": [
+          "1.0"
+        ],
+        "sheets": {
+          "S": [
+            "a",
+            "b"
+          ],
+          "T": [
+            "q"
+          ],
+          "U": [
+            "r",
+            "new:1.0"
+          ]
+        },
+        "newGroups": {
+          "1.0": []
+        }
+      }
+    },
+    {
+      "name": "turned parts with a hull, by their pivots (one moved a stud)",
+      "sheets": [
+        {
+          "id": "S",
+          "parts": [
+            {
+              "id": "h0",
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 50.113956,
+                "y": 52.698243,
+                "width": 15.078434,
+                "height": 12.863332
+              },
+              "orientation": 37.5,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "h1",
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 62.80761,
+                "y": 62.438426,
+                "width": 15.078434,
+                "height": 12.863332
+              },
+              "orientation": 37.5,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "h2",
+              "partNumber": "switch.1",
+              "displayArea": {
+                "x": 75.501263,
+                "y": 72.178608,
+                "width": 27.772087,
+                "height": 22.603516
+              },
+              "orientation": 37.5,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "h3",
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 49.875164,
+                "y": 69.504771,
+                "width": 11.204351,
+                "height": 11.204351
+              },
+              "orientation": 37.5,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "h4",
+              "partNumber": "ramp.1",
+              "displayArea": {
+                "x": 40.852928,
+                "y": 61.270975,
+                "width": 9.949131,
+                "height": 4.918996
+              },
+              "orientation": 37.5,
+              "altitude": 0,
+              "myGroup": ""
+            },
+            {
+              "id": "h5",
+              "partNumber": "mystery.1",
+              "displayArea": {
+                "x": 74.09229,
+                "y": 99.646224,
+                "width": 6,
+                "height": 3
+              },
+              "orientation": 37.5,
+              "altitude": 0,
+              "myGroup": ""
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "members": [
+        "h0",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5"
+      ],
+      "next": [
+        {
+          "sheetId": "S",
+          "bricks": [
+            {
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 51.113956,
+                "y": 52.698243,
+                "width": 15.078434,
+                "height": 12.863332
+              },
+              "orientation": 37.5,
+              "altitude": 0
+            },
+            {
+              "partNumber": "straight.1",
+              "displayArea": {
+                "x": 62.80761,
+                "y": 62.438426,
+                "width": 15.078434,
+                "height": 12.863332
+              },
+              "orientation": 37.5,
+              "altitude": 0
+            },
+            {
+              "partNumber": "switch.1",
+              "displayArea": {
+                "x": 75.501263,
+                "y": 72.178608,
+                "width": 27.772087,
+                "height": 22.603516
+              },
+              "orientation": 37.5,
+              "altitude": 0
+            },
+            {
+              "partNumber": "tile.1",
+              "displayArea": {
+                "x": 49.875164,
+                "y": 69.504771,
+                "width": 11.204351,
+                "height": 11.204351
+              },
+              "orientation": 37.5,
+              "altitude": 0
+            },
+            {
+              "partNumber": "ramp.1",
+              "displayArea": {
+                "x": 40.852928,
+                "y": 61.270975,
+                "width": 9.949131,
+                "height": 4.918996
+              },
+              "orientation": 37.5,
+              "altitude": 0
+            },
+            {
+              "partNumber": "mystery.1",
+              "displayArea": {
+                "x": 74.09229,
+                "y": 99.646224,
+                "width": 6,
+                "height": 3
+              },
+              "orientation": 37.5,
+              "altitude": 0
+            }
+          ],
+          "groups": []
+        }
+      ],
+      "expect": {
+        "kept": {
+          "0.1": "h1",
+          "0.2": "h2",
+          "0.3": "h3",
+          "0.4": "h4",
+          "0.5": "h5"
+        },
+        "removed": [
+          "h0"
+        ],
+        "added": [
+          "0.0"
+        ],
+        "sheets": {
+          "S": [
+            "new:0.0",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5"
+          ]
+        },
+        "newGroups": {
+          "0.0": []
+        }
+      }
+    }
+  ]
+}

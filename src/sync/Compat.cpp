@@ -28,7 +28,7 @@ QStringList desktopFeatures() {
              QStringLiteral("venues"),        QStringLiteral("partsManifest"),
              QStringLiteral("partFilesWithToken"), QStringLiteral("uploadParts"),
              QStringLiteral("preferences"),   QStringLiteral("ownerTags"),
-             QStringLiteral("sharedModules") };
+             QStringLiteral("sharedModules"), QStringLiteral("sharedKeepIds") };
 }
 
 QStringList assumedWhenUnlisted() { return { QStringLiteral("liveSync"), QStringLiteral("signIn") }; }
@@ -64,6 +64,7 @@ QString featureLabel(const QString& id) {
         return Text::tr("Two people changing one module's parts at the same moment");
     if (id == QLatin1String("sharedModules"))
         return Text::tr("Modules shared with you and your clubs, with their owner's updates");
+    if (id == QLatin1String("sharedKeepIds")) return Text::tr("Updates of shared modules that change only what changed");
     return id;
 }
 

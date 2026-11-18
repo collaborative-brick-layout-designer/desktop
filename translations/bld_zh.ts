@@ -75,6 +75,10 @@
         <source>Modules shared with you and your clubs, with their owner&apos;s updates</source>
         <translation>与你和你的俱乐部共享的模块，附带所有者的更新</translation>
     </message>
+    <message>
+        <source>Updates of shared modules that change only what changed</source>
+        <translation>共享模块的更新只改动有变化的部分</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>
