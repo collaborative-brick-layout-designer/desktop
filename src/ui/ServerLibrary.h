@@ -217,6 +217,11 @@ public:
     std::function<bool(const sync::ServerModule&, const sync::ClubRef& club)> confirmRemoveFromClub;
     // The Share dialog a row's "Share with a club…" opened (tests).
     class ModuleShareDialog* shareDialog() const;
+    // "Train Club: 2 partner requests or module offers wait for an answer. Answer them on the
+    // website.", with Open on the Website and the ⓘ club.moduleOffers: what waits in a club you
+    // look after (the Clubs tab, and the Server window's Modules tab). Named
+    // "clubRequestsWaiting:<slug>".
+    static QWidget* clubWaitingLine(ServerLibrary& library, const sync::ClubRequestCount& waiting, QWidget* parent);
 
 private:
     QWidget* makeRow(const sync::ServerModule& m);

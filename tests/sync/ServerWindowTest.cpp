@@ -67,6 +67,7 @@
 #include <QTimer>
 #include <QVariantMap>
 #include <QToolButton>
+#include <QTranslator>
 #include <QUndoStack>
 #include <algorithm>
 #include <optional>
@@ -555,6 +556,109 @@ TEST_F(ServerWindowTest, ALayoutWithSharedModuleUpdatesWaitingIsBadged) {
         auto* b = r ? r->findChild<QLabel*>(QStringLiteral("sharedUpdatesBadge")) : nullptr;
         return b && b->text() == QStringLiteral("↻ 1 update");
     }));
+}
+
+// A server with shared modules and partner clubs: what waits for a club's answer is on the
+// Modules tab, with Open on the Website, and the Clubs tour's "Partner clubs" stop points at it.
+class PartnerServerWindow : public ServerWindowTest {
+protected:
+    QStringList features() override {
+        return { QStringLiteral("venues"), QStringLiteral("layoutDownload"), QStringLiteral("sharedModules") };
+    }
+    void serve(int waiting) {
+        http_.reply("/api/modules?owner=shared", 200, { { QStringLiteral("modules"), QJsonArray() } });
+        http_.clear("/api/club-requests/count");
+        http_.reply("/api/club-requests/count", 200,
+                    waiting ? QJsonObject{ { QStringLiteral("count"), waiting },
+                                           { QStringLiteral("clubs"), QJsonArray{ QJsonObject{ { QStringLiteral("slug"), QStringLiteral("train") },
+                                                                                               { QStringLiteral("name"), QStringLiteral("Train Club") },
+                                                                                               { QStringLiteral("count"), waiting } } } } }
+                            : QJsonObject{ { QStringLiteral("count"), 0 }, { QStringLiteral("clubs"), QJsonArray() } });
+    }
+};
+
+TEST_F(PartnerServerWindow, WhatWaitsForAClubsAnswerIsOnTheModulesTabAndTheClubsTourStopsAtIt) {
+    serve(2);
+    open();
+    // Not showing yet: the Layouts tab is current. The Modules tab has the line with its button.
+    QWidget* note = window_->clubWaitingNote();
+    ASSERT_NE(note, nullptr);
+    EXPECT_FALSE(note->isHidden());
+    QWidget* line = note->findChild<QWidget*>(QStringLiteral("clubRequestsWaiting:train"));
+    ASSERT_NE(line, nullptr);
+    auto* open = line->findChild<QPushButton*>(QStringLiteral("openClubPartners"));
+    ASSERT_NE(open, nullptr);
+    EXPECT_EQ(open->text(), QStringLiteral("Open on the Website"));
+    ASSERT_NE(line->findChild<QLabel*>(), nullptr);
+    EXPECT_TRUE(line->findChild<QLabel*>()->text().startsWith(QStringLiteral("Train Club: 2 partner request")));
+
+    // The Clubs tour has the stop, and it brings the Modules tab into view and outlines the line.
+    ui::theme::PrefsStore store(QStringLiteral("server-window-partner-tour"));
+    window_->show();
+    waitFor([] { return false; }, 100);
+    auto* o = ui::tours::startTour(window_.get(), QStringLiteral("clubs"), store);
+    ASSERT_NE(o, nullptr);
+    int at = -1;
+    for (int i = 0; i < o->tour().steps.size(); ++i)
+        if (o->tour().steps[i].target == QLatin1String("club.moduleOffers")) at = i;
+    ASSERT_GE(at, 0) << "the Partner clubs stop is in the tour while something waits";
+    EXPECT_EQ(o->tour().steps[at].title, QStringLiteral("Partner clubs"));
+    EXPECT_TRUE(o->tour().steps[at].text.contains(QStringLiteral("Open on the Website")));
+    while (o->step() < at) o->next();
+    EXPECT_EQ(window_->currentTab(), Tab::Modules);
+    EXPECT_EQ(o->target(), line);
+    o->finish();
+}
+
+TEST_F(PartnerServerWindow, WithNothingWaitingTheLineAndTheTourStopAreLeftOut) {
+    serve(0);
+    open();
+    EXPECT_TRUE(window_->clubWaitingNote()->isHidden());
+    ui::theme::PrefsStore store(QStringLiteral("server-window-partner-tour-none"));
+    window_->show();
+    waitFor([] { return false; }, 100);
+    auto* o = ui::tours::startTour(window_.get(), QStringLiteral("clubs"), store);
+    ASSERT_NE(o, nullptr);
+    for (const auto& st : o->tour().steps) EXPECT_NE(st.target, QStringLiteral("club.moduleOffers"));
+    o->finish();
+}
+
+// BLD_REVIEW_SHOTS=<dir>: Open from Server's Modules tab with a club waiting for an answer,
+// and the Clubs tour's Partner clubs stop, light and dark.
+TEST_F(PartnerServerWindow, PicturesOfThePartnerClubsStop) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    QDir().mkpath(out);
+    QTranslator english;
+    if (english.load(QStringLiteral("bld_en"), QCoreApplication::applicationDirPath() + QStringLiteral("/../..")))
+        QCoreApplication::installTranslator(&english);
+    ui::theme::PrefsStore store(QStringLiteral("review-partner-tour-shots"));
+    ui::theme::ThemeManager themer(store);
+    serve(2);
+    open(Tab::Modules);
+    window_->resize(760, 520);
+    window_->show();
+    const auto shoot = [&](const QString& name) {
+        for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+            ui::theme::AppPrefs p = store.prefs();
+            p.theme = mode;
+            store.update(p);
+            waitFor([] { return false; }, 400);
+            EXPECT_TRUE(window_->grab().save(out + QStringLiteral("/%1-%2.png").arg(name, mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark") : QStringLiteral("light"))));
+        }
+    };
+    auto* o = ui::tours::startTour(window_.get(), QStringLiteral("clubs"), store);
+    ASSERT_NE(o, nullptr);
+    int at = -1;
+    for (int i = 0; i < o->tour().steps.size(); ++i)
+        if (o->tour().steps[i].target == QLatin1String("club.moduleOffers")) at = i;
+    ASSERT_GE(at, 0);
+    // Before: the stop that comes in its place on main (the club's page).
+    while (o->step() < at + 1) o->next();
+    shoot(QStringLiteral("before-tour-stop"));
+    o->back();
+    shoot(QStringLiteral("after-tour-stop"));
+    o->finish();
 }
 
 // BLD_REVIEW_SHOTS=<dir>: Open from Server's layouts, before (no updates

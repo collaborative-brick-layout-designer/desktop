@@ -447,6 +447,34 @@ TEST_F(LibraryTabs, ACopyMadeBeforeItHadAFirstVersionShowsVersion1) {
     EXPECT_EQ(none.shownVersion(), 1);
 }
 
+// BLD_REVIEW_SHOTS=<dir> (BLD_SHOT_NAME=before|after): the Clubs tab with a copy made before it had
+// a first version, light and dark.
+TEST_F(LibraryTabs, PicturesOfACopyWithoutAFirstVersionForReview) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    QDir().mkpath(out);
+    const QString name = qEnvironmentVariable("BLD_SHOT_NAME", QStringLiteral("after"));
+    QTranslator english;
+    if (english.load(QStringLiteral("bld_en"), QCoreApplication::applicationDirPath() + QStringLiteral("/../..")))
+        QCoreApplication::installTranslator(&english);
+    ui::theme::PrefsStore store(QStringLiteral("review-copy-version-shots"));
+    ui::theme::ThemeManager themer(store);
+    http_.reply("/api/modules", 200,
+                modules({ moduleJson(QStringLiteral("c0"), QStringLiteral("Harbor crane"), QStringLiteral("owner"), QStringLiteral("o1"), 0, 0),
+                          moduleJson(QStringLiteral("c3"), QStringLiteral("Engine shed"), QStringLiteral("owner"), QStringLiteral("o1"), 0, 2) }));
+    ui::ServerModulesTab tab(library_);
+    tab.resize(380, 360);
+    tab.show();
+    connectSignedIn();
+    for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+        ui::theme::AppPrefs p = store.prefs();
+        p.theme = mode;
+        store.update(p);
+        waitFor([] { return false; }, 400);
+        EXPECT_TRUE(tab.grab().save(out + QStringLiteral("/%1-library-copy-version-%2.png").arg(name, mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark") : QStringLiteral("light"))));
+    }
+}
+
 TEST_F(LibraryTabs, YoursFirstThenEachClubWithVersionsAndPictures) {
     serveModules();
     QByteArray png;

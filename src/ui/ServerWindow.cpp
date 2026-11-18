@@ -223,6 +223,15 @@ ServerWindow::ServerWindow(ServerLibrary& library, QWidget* parent) : QWidget(pa
         tours::tag(sharedNote_, QStringLiteral("module.shared"));
         sharedNote_->setVisible(false);
         modulesPage_.list->insertWidget(0, sharedNote_);
+        // What waits for an answer in the clubs you look after: the same line as the Module
+        // library's Clubs tab, here so the Clubs tour's "Partner clubs" step has it to point at.
+        clubWaiting_ = new QWidget(modulesPage_.host);
+        clubWaiting_->setObjectName(QStringLiteral("clubWaitingNote"));
+        auto* waiting = new QVBoxLayout(clubWaiting_);
+        waiting->setContentsMargins(0, 0, 0, 0);
+        waiting->setSpacing(4);
+        clubWaiting_->setVisible(false);
+        modulesPage_.list->insertWidget(1, clubWaiting_);
     }
     partsPage_ = makePage(QStringLiteral("partsPage"), { uploadParts });
     tabs_->addTab(layoutsPage_.scroll, tr("Layouts"));
@@ -554,7 +563,7 @@ namespace {
 // The tab a Clubs tour step's control is on (only the ones on a tab).
 std::optional<ServerWindow::Tab> tourTab(const QString& id) {
     if (id == QLatin1String("publish.owner")) return ServerWindow::Tab::Layouts;
-    if (id == QLatin1String("module.shared")) return ServerWindow::Tab::Modules;
+    if (id == QLatin1String("module.shared") || id == QLatin1String("club.moduleOffers")) return ServerWindow::Tab::Modules;
     return std::nullopt;
 }
 }  // namespace
@@ -562,8 +571,8 @@ std::optional<ServerWindow::Tab> tourTab(const QString& id) {
 bool ServerWindow::canRevealTourTarget(const QString& id) const {
     const auto tab = tourTab(id);
     if (!tab || !content_->isVisibleTo(this)) return false;
-    // Only while it would show there: shared modules on a server that has them.
-    if (*tab == Tab::Modules) return !sharedNote_->isHidden();
+    // Only while it would show there: shared modules on a server that has them; what waits for a club's answer.
+    if (*tab == Tab::Modules) return id == QLatin1String("club.moduleOffers") ? !clubWaiting_->isHidden() : !sharedNote_->isHidden();
     return true;
 }
 
@@ -897,6 +906,17 @@ void ServerWindow::rebuildModules() {
     clearPage(modulesPage_);
     const bool ready = library_.state() == ServerLibrary::State::Ready;
     sharedNote_->setVisible(ready && library_.knowsSharedModules());
+    // What waits for an answer, per club (answered on the website).
+    while (QLayoutItem* item = clubWaiting_->layout()->takeAt(0)) {
+        if (QWidget* w = item->widget()) {
+            w->hide();
+            w->deleteLater();
+        }
+        delete item;
+    }
+    if (ready)
+        for (const auto& w : library_.clubRequests()) clubWaiting_->layout()->addWidget(ServerModulesTab::clubWaitingLine(library_, w, clubWaiting_));
+    clubWaiting_->setVisible(ready && clubWaiting_->layout()->count() > 0);
     int n = 0;
     for (const sync::ServerModule& m : library_.modules()) {
         const sync::ItemOwner owner = ownerOf(m.owner);

@@ -132,8 +132,11 @@ public:
     // The Modules tab's line about modules shared with you (on a server
     // that shares them): where they are, and a button that shows them.
     QWidget* sharedModulesNote() const { return sharedNote_; }
+    // Under it: what waits for an answer in the clubs you look after (partner
+    // requests and module offers), with Open on the Website. Empty and hidden when nothing waits.
+    QWidget* clubWaitingNote() const { return clubWaiting_; }
 
-    // The Clubs tour: Save to is on Layouts, Modules shared with you on Modules.
+    // The Clubs tour: Save to is on Layouts, Modules shared with you and what waits for a club's answer on Modules.
     bool canRevealTourTarget(const QString& id) const override;
     void revealTourTarget(const QString& id) override;
 
@@ -243,6 +246,7 @@ private:
     QLabel* logoLink_ = nullptr;
     QPushButton* membersButton_ = nullptr;
     QWidget* sharedNote_ = nullptr;
+    QWidget* clubWaiting_ = nullptr;
     ClubMembersDialog* members_ = nullptr; // while open (it deletes itself when closed)
     QLineEdit* search_ = nullptr;
     QTabWidget* tabs_ = nullptr;
