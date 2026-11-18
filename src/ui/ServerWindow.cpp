@@ -470,7 +470,21 @@ QWidget* ServerWindow::makeRow(Page& pg, const RowSpec& spec) {
     title->setObjectName(QStringLiteral("rowTitle"));
     title->setProperty("rowTitle", true);
     title->setWordWrap(true);
-    text->addWidget(title);
+    if (spec.badge.isEmpty()) {
+        text->addWidget(title);
+    } else {
+        // "2 updates": shared modules in the layout have new versions (the web's list badge).
+        auto* head = new QHBoxLayout();
+        head->setSpacing(6);
+        head->addWidget(title, 1);
+        auto* badge = new QLabel(QStringLiteral("↻ ") + spec.badge, frame);
+        badge->setObjectName(QStringLiteral("sharedUpdatesBadge"));
+        badge->setProperty("pill", true);
+        badge->setToolTip(spec.badgeTip);
+        badge->setAccessibleName(spec.badgeTip);
+        head->addWidget(badge, 0, Qt::AlignVCenter);
+        text->addLayout(head);
+    }
     for (const QString& line : spec.lines) {
         if (line.isEmpty()) continue;
         auto* l = libraryMutedLabel(line, frame);
@@ -636,7 +650,8 @@ void ServerWindow::hint(const QJsonObject& h) {
     const QString kind = h.value(QLatin1String("kind")).toString();
     // A role given or taken, someone joining or leaving: the members again.
     if (members_ && (kind == QLatin1String("club") || kind == QLatin1String("me"))) members_->reloadSoon();
-    if (kind == QLatin1String("layout")) hintLayouts_ = true;
+    // (A module's new version is an update waiting in the layouts that place it: their badge.)
+    if (kind == QLatin1String("layout") || kind == QLatin1String("module")) hintLayouts_ = true;
     else if (kind == QLatin1String("venue")) hintVenues_ = true;
     else if (kind == QLatin1String("custom-part")) hintParts_ = true;
     else if (kind == QLatin1String("catalog")) hintCatalog_ = true;
@@ -797,6 +812,12 @@ void ServerWindow::rebuildLayouts() {
                 << QStringList{ viewer ? tr("View only") : QString(), whenText(tr("updated %1"), l.updatedAt) }
                        .filter(QRegularExpression(QStringLiteral(".+")))
                        .join(QStringLiteral(" · "));
+        if (l.sharedUpdates > 0) {
+            r.badge = l.sharedUpdates == 1 ? tr("1 update") : tr("%1 updates").arg(l.sharedUpdates);
+            r.badgeTip = l.sharedUpdates == 1
+                             ? tr("A shared module in this layout has a new version. Open the layout to update it.")
+                             : tr("%1 shared modules in this layout have new versions. Open the layout to update them.").arg(l.sharedUpdates);
+        }
         r.primary = { tr("Open live"), QStringLiteral("openLayout"), [this, l] { emit openLayoutRequested(l); }, true,
                       viewer ? tr("Opens it to look at: you can't change this one.")
                              : tr("Opens it here, kept in step with everyone working on it.") };

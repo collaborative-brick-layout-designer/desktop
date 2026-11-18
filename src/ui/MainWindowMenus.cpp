@@ -3,6 +3,7 @@
 // multiple translation units — MOC only needs the header.
 
 #include "MainWindow.h"
+#include "LiveLayout.h"
 #include "StatusMessages.h"
 #include "UpdateCheck.h"
 
@@ -659,6 +660,18 @@ void MainWindow::setupMenus() {
     saveSetAct->setObjectName(QStringLiteral("modules.saveSet"));
     saveSetAct->setToolTip(tr("Save the picked parts as a set in your parts, to place again in one go"));
     connect(saveSetAct, &QAction::triggered, this, &MainWindow::onSaveSelectionAsSet);
+    modules->addSeparator();
+    auto* sharedUpdatesAct = modules->addAction(tr("&Updates from Shared Modules…"));
+    sharedUpdatesAct->setObjectName(QStringLiteral("modules.sharedUpdates"));
+    sharedUpdatesAct->setToolTip(tr("Whether this layout asks first before a shared module's new version goes in, or takes it automatically"));
+    connect(sharedUpdatesAct, &QAction::triggered, this, &MainWindow::showSharedUpdatesSetting);
+    // A layout on a server's setting: offered while one is open live, and says why not otherwise.
+    connect(modules, &QMenu::aboutToShow, this, [this, sharedUpdatesAct] {
+        const bool live = live_ && live_->active() && !liveLayoutId_.isEmpty();
+        sharedUpdatesAct->setEnabled(live);
+        sharedUpdatesAct->setToolTip(live ? tr("Whether this layout asks first before a shared module's new version goes in, or takes it automatically")
+                                          : tr("For a layout opened live from a server"));
+    });
 
     auto* help = menuBar()->addMenu(tr("&Help"));
     helpMenu_ = help;

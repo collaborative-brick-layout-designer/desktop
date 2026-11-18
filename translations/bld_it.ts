@@ -715,6 +715,22 @@
         <translation>Salva nella libreria dei moduli… mette una copia tra i tuoi moduli o quelli di un club; anche i moduli che aggiungi dalla libreria dei moduli sono collegati. Dopo averlo modificato in un layout, Aggiorna la versione nella libreria dei moduli lo rende la versione successiva, con una nota su cosa è cambiato. Quando la libreria dei moduli ha una versione più recente, Aggiorna dalla libreria dei moduli la porta dove si trova il modulo, e chiede prima se l&apos;hai modificato qui.</translation>
     </message>
     <message>
+        <source>When the owner saves a new version, the layout says so; in an Ask first layout nothing changes until someone chooses Update.</source>
+        <translation>Quando il proprietario salva una nuova versione, il layout lo segnala; in un layout con «Chiedi prima» non cambia nulla finché qualcuno sceglie Aggiorna.</translation>
+    </message>
+    <message>
+        <source>Ask first or Automatically</source>
+        <translation>Chiedi prima o Automaticamente</translation>
+    </message>
+    <message>
+        <source>Choose whether a shared module’s new version waits for someone to choose Update, or goes in as soon as its owner saves it.</source>
+        <translation>Scegli se la nuova versione di un modulo condiviso aspetta che qualcuno scelga Aggiorna, o entra appena il proprietario la salva.</translation>
+    </message>
+    <message>
+        <source>Either way you see what changed and anything the new version now overlaps, and Go back puts the earlier version in again. With Automatically, opening the layout later says what was updated while you were away. Anyone who can change this layout can change this setting.</source>
+        <translation>In entrambi i casi vedi cosa è cambiato e cosa si sovrappone ora alla nuova versione, e Torna indietro rimette la versione precedente. Con Automaticamente, riaprendo il layout vedi cosa è stato aggiornato mentre eri via. Chi può modificare questo layout può modificare questa impostazione.</translation>
+    </message>
+    <message>
         <source>Module sheets</source>
         <translation>Fogli del modulo</translation>
     </message>
@@ -885,10 +901,6 @@
     <message>
         <source>Updates from shared modules</source>
         <translation>Aggiornamenti dei moduli condivisi</translation>
-    </message>
-    <message>
-        <source>When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.</source>
-        <translation>Quando il proprietario salva una nuova versione, il layout te lo dice; non cambia nulla finché qualcuno non sceglie “Aggiorna”.</translation>
     </message>
     <message>
         <source>Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back.</source>
@@ -2568,6 +2580,26 @@
     <message>
         <source>%1 was updated.</source>
         <translation>%1 è stato aggiornato.</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 è passato dalla versione %2 alla %3: questo layout riceve automaticamente gli aggiornamenti del suo proprietario.</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes %4&apos;s updates automatically.</source>
+        <translation>%1 è passato dalla versione %2 alla %3: questo layout riceve automaticamente gli aggiornamenti di %4.</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 è ora alla versione %2: questo layout riceve automaticamente gli aggiornamenti del suo proprietario.</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes %3&apos;s updates automatically.</source>
+        <translation>%1 è ora alla versione %2: questo layout riceve automaticamente gli aggiornamenti di %3.</translation>
+    </message>
+    <message>
+        <source>%1 shared modules were updated: this layout takes their owners&apos; updates automatically.</source>
+        <translation>%1 moduli condivisi sono stati aggiornati: questo layout riceve automaticamente gli aggiornamenti dei loro proprietari.</translation>
     </message>
     <message>
         <source>its owner</source>
@@ -6433,6 +6465,18 @@ Salva la mia come nuova versione: la tua diventa il modulo; la loro resta nella 
         <translation>Questo layout è su %1, e “%2” è condiviso con te su %3. Un modulo condiviso segue il suo proprietario solo nei layout sul suo stesso server, o in un file su questo computer.</translation>
     </message>
     <message>
+        <source>Updated while you were away</source>
+        <translation>Aggiornato mentre eri via</translation>
+    </message>
+    <message>
+        <source>New versions of shared modules now go in automatically.</source>
+        <translation>Le nuove versioni dei moduli condivisi ora entrano automaticamente.</translation>
+    </message>
+    <message>
+        <source>Shared modules now ask first before a new version goes in.</source>
+        <translation>I moduli condivisi ora chiedono prima che entri una nuova versione.</translation>
+    </message>
+    <message>
         <source>The pasted part</source>
         <translation>Il pezzo incollato</translation>
     </message>
@@ -7248,6 +7292,14 @@ Salvare comunque?</translation>
     <message>
         <source>Save the picked parts as a set in your parts, to place again in one go</source>
         <translation>Salva i pezzi selezionati come set tra i tuoi pezzi, da posizionare di nuovo in un colpo solo</translation>
+    </message>
+    <message>
+        <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
+        <translation>Se questo layout chiede prima che entri la nuova versione di un modulo condiviso, o la riceve automaticamente</translation>
+    </message>
+    <message>
+        <source>For a layout opened live from a server</source>
+        <translation>Per un layout aperto in diretta da un server</translation>
     </message>
     <message>
         <source>This app&apos;s help: Getting Started, sheets, the room, sharing, files and shortcuts</source>
@@ -8180,6 +8232,10 @@ Non ti verrà chiesto di nuovo. Per portarlo più tardi in questo o in un altro 
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>Salva selezione come &amp;set…</translation>
+    </message>
+    <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>Aggiornamenti dei moduli cond&amp;ivisi…</translation>
     </message>
     <message>
         <source>&amp;Help</source>
@@ -11012,6 +11068,22 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>aggiornato %1</translation>
     </message>
     <message>
+        <source>1 update</source>
+        <translation>1 aggiornamento</translation>
+    </message>
+    <message>
+        <source>%1 updates</source>
+        <translation>%1 aggiornamenti</translation>
+    </message>
+    <message>
+        <source>A shared module in this layout has a new version. Open the layout to update it.</source>
+        <translation>Un modulo condiviso in questo layout ha una nuova versione. Apri il layout per aggiornarlo.</translation>
+    </message>
+    <message>
+        <source>%1 shared modules in this layout have new versions. Open the layout to update them.</source>
+        <translation>%1 moduli condivisi in questo layout hanno nuove versioni. Apri il layout per aggiornarli.</translation>
+    </message>
+    <message>
         <source>Open live</source>
         <translation>Apri in diretta</translation>
     </message>
@@ -12117,6 +12189,41 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>Go back to version %1</source>
         <translation>Torna alla versione %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::SharedUpdatesDialog</name>
+    <message>
+        <source>Updates from Shared Modules</source>
+        <translation>Aggiornamenti dei moduli condivisi</translation>
+    </message>
+    <message>
+        <source>When someone who shared a module with this layout saves a new version:</source>
+        <translation>Quando qualcuno che ha condiviso un modulo con questo layout salva una nuova versione:</translation>
+    </message>
+    <message>
+        <source>Ask first</source>
+        <translation>Chiedi prima</translation>
+    </message>
+    <message>
+        <source>The layout says when a shared module has a new version. Nothing changes until someone chooses Update.</source>
+        <translation>Il layout segnala quando un modulo condiviso ha una nuova versione. Non cambia nulla finché qualcuno sceglie Aggiorna.</translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <translation>Automaticamente</translation>
+    </message>
+    <message>
+        <source>A new version goes in as soon as its owner saves it. You&apos;ll see what changed and anything it now overlaps.</source>
+        <translation>Una nuova versione entra appena il proprietario la salva. Vedrai cosa è cambiato e cosa si sovrappone ora.</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can change this.</source>
+        <translation>Chi può modificare questo layout può modificare questa impostazione.</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Fatto</translation>
     </message>
 </context>
 <context>

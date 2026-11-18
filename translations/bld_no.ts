@@ -715,6 +715,22 @@
         <translation>Lagre til Modulbiblioteket… legger en kopi i modulene dine eller en klubbs; moduler du legger til fra Modulbiblioteket er også koblet. Etter at du har endret den i en layout, gjør Oppdater versjonen i Modulbiblioteket det til neste versjon, med et notat om hva som ble endret. Når Modulbiblioteket har en nyere versjon, henter Oppdater fra Modulbiblioteket den inn der modulen står, og spør først hvis du har endret den her.</translation>
     </message>
     <message>
+        <source>When the owner saves a new version, the layout says so; in an Ask first layout nothing changes until someone chooses Update.</source>
+        <translation>Når eieren lagrer en ny versjon, sier layouten fra; i en layout med «Spør først» endres ingenting før noen velger Oppdater.</translation>
+    </message>
+    <message>
+        <source>Ask first or Automatically</source>
+        <translation>Spør først eller Automatisk</translation>
+    </message>
+    <message>
+        <source>Choose whether a shared module’s new version waits for someone to choose Update, or goes in as soon as its owner saves it.</source>
+        <translation>Velg om en delt moduls nye versjon venter til noen velger Oppdater, eller kommer inn så snart eieren lagrer den.</translation>
+    </message>
+    <message>
+        <source>Either way you see what changed and anything the new version now overlaps, and Go back puts the earlier version in again. With Automatically, opening the layout later says what was updated while you were away. Anyone who can change this layout can change this setting.</source>
+        <translation>Uansett ser du hva som er endret og hva den nye versjonen nå overlapper, og Gå tilbake setter inn den forrige versjonen igjen. Med Automatisk sier layouten neste gang du åpner den hva som ble oppdatert mens du var borte. Alle som kan endre denne layouten, kan endre denne innstillingen.</translation>
+    </message>
+    <message>
         <source>Module sheets</source>
         <translation>Modulark</translation>
     </message>
@@ -885,10 +901,6 @@
     <message>
         <source>Updates from shared modules</source>
         <translation>Oppdateringer fra delte moduler</translation>
-    </message>
-    <message>
-        <source>When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.</source>
-        <translation>Når eieren lagrer en ny versjon, sier layouten fra; ingenting endres før noen velger «Oppdater».</translation>
     </message>
     <message>
         <source>Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back.</source>
@@ -2568,6 +2580,26 @@
     <message>
         <source>%1 was updated.</source>
         <translation>%1 ble oppdatert.</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 gikk fra versjon %2 til %3: denne layouten tar inn eierens oppdateringer automatisk.</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes %4&apos;s updates automatically.</source>
+        <translation>%1 gikk fra versjon %2 til %3: denne layouten tar inn oppdateringene til %4 automatisk.</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 har nå versjon %2: denne layouten tar inn eierens oppdateringer automatisk.</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes %3&apos;s updates automatically.</source>
+        <translation>%1 har nå versjon %2: denne layouten tar inn oppdateringene til %3 automatisk.</translation>
+    </message>
+    <message>
+        <source>%1 shared modules were updated: this layout takes their owners&apos; updates automatically.</source>
+        <translation>%1 delte moduler ble oppdatert: denne layouten tar inn eiernes oppdateringer automatisk.</translation>
     </message>
     <message>
         <source>its owner</source>
@@ -6441,6 +6473,18 @@ Lagre min som ny versjon: din blir modulen; deres blir liggende i versjonshistor
         <translation>Denne layouten ligger på %1, og «%2» er delt med deg på %3. En delt modul følger eieren bare i layouter på sin egen server, eller i en fil på denne datamaskinen.</translation>
     </message>
     <message>
+        <source>Updated while you were away</source>
+        <translation>Oppdatert mens du var borte</translation>
+    </message>
+    <message>
+        <source>New versions of shared modules now go in automatically.</source>
+        <translation>Nye versjoner av delte moduler kommer nå inn automatisk.</translation>
+    </message>
+    <message>
+        <source>Shared modules now ask first before a new version goes in.</source>
+        <translation>Delte moduler spør nå først før en ny versjon kommer inn.</translation>
+    </message>
+    <message>
         <source>The pasted part</source>
         <translation>Den innlimte delen</translation>
     </message>
@@ -7637,6 +7681,10 @@ Lagre likevel?</translation>
         <translation>Lagre de valgte delene som et sett i delene dine, for å plassere igjen i én operasjon</translation>
     </message>
     <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>Opp&amp;dateringer fra delte moduler…</translation>
+    </message>
+    <message>
         <source>The Qt toolkit this app is built with</source>
         <translation>Qt-verktøysettet denne appen er bygget med</translation>
     </message>
@@ -8412,6 +8460,14 @@ De frakoblede endringene dine er tatt vare på; Fil › Gå gjennom frakoblede e
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>Lagre utvalget som &amp;sett…</translation>
+    </message>
+    <message>
+        <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
+        <translation>Om denne layouten spør først før en delt moduls nye versjon kommer inn, eller tar den inn automatisk</translation>
+    </message>
+    <message>
+        <source>For a layout opened live from a server</source>
+        <translation>For en layout som er åpnet live fra en server</translation>
     </message>
     <message>
         <source>&amp;Help</source>
@@ -11012,6 +11068,22 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>oppdatert %1</translation>
     </message>
     <message>
+        <source>1 update</source>
+        <translation>1 oppdatering</translation>
+    </message>
+    <message>
+        <source>%1 updates</source>
+        <translation>%1 oppdateringer</translation>
+    </message>
+    <message>
+        <source>A shared module in this layout has a new version. Open the layout to update it.</source>
+        <translation>En delt modul i denne layouten har en ny versjon. Åpne layouten for å oppdatere den.</translation>
+    </message>
+    <message>
+        <source>%1 shared modules in this layout have new versions. Open the layout to update them.</source>
+        <translation>%1 delte moduler i denne layouten har nye versjoner. Åpne layouten for å oppdatere dem.</translation>
+    </message>
+    <message>
         <source>Open live</source>
         <translation>Åpne direkte</translation>
     </message>
@@ -12117,6 +12189,41 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Go back to version %1</source>
         <translation>Gå tilbake til versjon %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::SharedUpdatesDialog</name>
+    <message>
+        <source>Updates from Shared Modules</source>
+        <translation>Oppdateringer fra delte moduler</translation>
+    </message>
+    <message>
+        <source>When someone who shared a module with this layout saves a new version:</source>
+        <translation>Når noen som delte en modul med denne layouten, lagrer en ny versjon:</translation>
+    </message>
+    <message>
+        <source>Ask first</source>
+        <translation>Spør først</translation>
+    </message>
+    <message>
+        <source>The layout says when a shared module has a new version. Nothing changes until someone chooses Update.</source>
+        <translation>Layouten sier fra når en delt modul har en ny versjon. Ingenting endres før noen velger Oppdater.</translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <translation>Automatisk</translation>
+    </message>
+    <message>
+        <source>A new version goes in as soon as its owner saves it. You&apos;ll see what changed and anything it now overlaps.</source>
+        <translation>En ny versjon kommer inn så snart eieren lagrer den. Du ser hva som er endret og hva den nå overlapper.</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can change this.</source>
+        <translation>Den som kan endre denne layouten, kan endre dette.</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Ferdig</translation>
     </message>
 </context>
 <context>

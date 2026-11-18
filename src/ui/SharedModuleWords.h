@@ -52,6 +52,14 @@ QString reviewText(const core::SharedPlaced& placed, const edit::SharedMarks& ma
 // "It overlaps 2 parts. 1 track end no longer meets."; empty when nothing does.
 QString marksText(const edit::SharedMarks& marks);
 
+// "Updated while you were away" (the web's awayText): one module went
+// from version `from` to `to` (`from` 0: not known), its owner `by`
+// (empty: "its owner"); or `count` modules (more than one).
+QString awayText(const QString& name, const QString& by, int from, int to);
+QString awayManyText(int count);
+// "“Harbor crane” v7 → v9", for the list under several.
+QString awayLine(const QString& name, int from, int to);
+
 // Why a shared module can't go into this layout, and what to do about it.
 struct Refusal {
     QString title;

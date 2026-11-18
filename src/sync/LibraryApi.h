@@ -122,6 +122,9 @@ struct SharedPlaceCheck {
 };
 
 struct LayoutSharedModules {
+    // Updates from shared modules: "ask" (the notice; someone presses Update)
+    // or "auto" (the server puts each new version in). Older servers: "ask".
+    QString updates = QStringLiteral("ask");
     bool canUpdate = false;  // you may press Update and Go back (you can edit the layout)
     bool canDetach = false;  // you may "Make it mine" (the layout's owner; a club's admins and managers)
     QList<LayoutSharedModule> modules;
@@ -135,6 +138,17 @@ struct SharedModuleApplied {
     int version = 0;
     int from = 0;          // 0: not known
     int parts = 0;
+};
+
+// A shared module the server updated automatically since you last had the
+// layout open ("Updated while you were away").
+struct SharedAwayUpdate {
+    QString placedId;
+    QString moduleId;
+    int from = 0;     // the version it had before (0: not known)
+    int to = 0;       // the version the last automatic update put in
+    int version = 0;  // the version it has now
+    QString title;    // while it is still shared with the layout
 };
 
 // One kept version of a module, seen through a layout.
@@ -322,6 +336,13 @@ public:
                            std::function<void(const SharedModuleApplied&)> done, Fail failed);
     // Update all: how many were updated, and how many couldn't be.
     void applyAllSharedModules(const QString& layoutId, std::function<void(int updated, int skipped)> done, Fail failed);
+    // The layout setting "Updates from shared modules": "ask" or "auto" (layout editors).
+    void setSharedModuleUpdates(const QString& layoutId, const QString& updates, std::function<void(const QString& now)> done,
+                                Fail failed);
+    // What the server updated automatically since you last had the layout
+    // open. Asked once on opening: the server then notes that you have it
+    // open, so the same updates aren't listed again.
+    void sharedModulesWhileAway(const QString& layoutId, std::function<void(const QList<SharedAwayUpdate>&)> done, Fail failed);
     // "Make it mine": the copy becomes an ordinary module of the layout.
     void detachSharedModule(const QString& layoutId, const QString& placedId, std::function<void(bool changed)> done,
                             Fail failed);

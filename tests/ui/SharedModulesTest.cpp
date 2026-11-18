@@ -31,6 +31,9 @@
 #include "ui/SharedModuleWords.h"
 #include "ui/SharedModulesBar.h"
 
+#include "ui/SharedUpdatesDialog.h"
+#include "ui/help/HelpButton.h"
+#include <QRadioButton>
 #include <gtest/gtest.h>
 
 #include <QApplication>
@@ -610,4 +613,48 @@ TEST_F(SharedLockView, ABbmAndALayoutFileKeepTheLockAndBlueBrickSeesOrdinaryPart
     lock.rebase(*back.map, parts_);
     back.map->sidecar.modules.front().name = QStringLiteral("Mine");
     EXPECT_TRUE(lock.check(*back.map));
+}
+
+// Modules › Updates from Shared Modules…: the two choices, shown as the
+// server has them; picking the other asks; someone who can't change the
+// layout sees the choice, not the buttons.
+TEST(SharedUpdatesDialog, ShowsTheServersChoiceAndAsksForTheOther) {
+    ui::SharedUpdatesDialog dlg;
+    EXPECT_FALSE(dlg.askButton()->isEnabled()) << "nothing to pick before the server has said";
+    dlg.setCanChange(true);
+    dlg.setCurrent(QStringLiteral("ask"));
+    EXPECT_TRUE(dlg.askButton()->isChecked());
+    EXPECT_FALSE(dlg.autoButton()->isChecked());
+    EXPECT_TRUE(dlg.readOnlyNote()->isHidden());
+    QStringList chosen;
+    QObject::connect(&dlg, &ui::SharedUpdatesDialog::chosen, [&](const QString& v) { chosen << v; });
+    dlg.autoButton()->click();
+    EXPECT_EQ(chosen, QStringList{ QStringLiteral("auto") });
+    // The server's answer shows; showing it isn't another choice.
+    dlg.setCurrent(QStringLiteral("auto"));
+    EXPECT_TRUE(dlg.autoButton()->isChecked());
+    EXPECT_EQ(chosen.size(), 1);
+    // Busy: no second ask.
+    dlg.setBusy(true);
+    dlg.askButton()->click();
+    EXPECT_EQ(chosen.size(), 1);
+    dlg.setBusy(false);
+    // Read only.
+    dlg.setCanChange(false);
+    EXPECT_FALSE(dlg.askButton()->isEnabled());
+    EXPECT_FALSE(dlg.readOnlyNote()->isHidden());
+    EXPECT_EQ(dlg.readOnlyNote()->text(), QStringLiteral("Someone who can change this layout can change this."));
+    auto* help = dlg.findChild<ui::help::HelpButton*>();
+    ASSERT_NE(help, nullptr);
+    EXPECT_EQ(help->key(), QStringLiteral("module.sharedUpdatesSetting"));
+}
+
+TEST(SharedModuleWords, UpdatedWhileYouWereAway) {
+    EXPECT_EQ(ui::sharedwords::awayText(QStringLiteral("Harbor crane"), QStringLiteral("Alice"), 7, 9),
+              QStringLiteral("“Harbor crane” went from version 7 to 9: this layout takes Alice's updates automatically."));
+    EXPECT_EQ(ui::sharedwords::awayText(QStringLiteral("Harbor crane"), {}, 0, 9),
+              QStringLiteral("“Harbor crane” is now version 9: this layout takes its owner's updates automatically."));
+    EXPECT_EQ(ui::sharedwords::awayManyText(2),
+              QStringLiteral("2 shared modules were updated: this layout takes their owners' updates automatically."));
+    EXPECT_EQ(ui::sharedwords::awayLine(QStringLiteral("Tunnel"), 2, 3), QStringLiteral("“Tunnel” v2 → v3"));
 }

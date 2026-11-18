@@ -602,6 +602,15 @@ private:
     // `shared` set: placed shared (locked, following its owner).
     void sharedLinkFor(const sync::ServerModule& m, const std::function<void(bool place, std::optional<QJsonObject> shared)>& done);
     void sharedTipOnce();
+    // Modules › Updates from Shared Modules…: the live layout's setting (Ask first / Automatically).
+    void showSharedUpdatesSetting();
+    // "Updated while you were away": asked once per live layout opened; the notice with Show, Go back and OK.
+    void askSharedWhileAway();
+    void showSharedWhileAway();
+    // The live layout's copies the "while you were away" notice is about (they aren't also told as "is now version N").
+    QList<sync::SharedAwayUpdate> sharedAway_;
+    QString sharedAwayAskedFor_;
+    class SharedUpdatesDialog* sharedUpdatesDialog_ = nullptr;  // (null again when it closes)
     // Set while insertServerModule runs again with how the module is linked.
     std::unique_ptr<std::optional<QJsonObject>> insertingSharedLink_;
     sync::LibraryApi* sharedApi_ = nullptr;
@@ -748,6 +757,8 @@ public:
     // What the server (or, for a file, the Module library) says about the layout's shared modules.
     const sync::LayoutSharedModules& sharedModuleRows() const { return sharedRows_; }
     bool sharedModuleRowsKnown() const { return sharedRowsKnown_; }
+    // Modules › Updates from Shared Modules…, while it is open (or null).
+    class SharedUpdatesDialog* sharedUpdatesDialog() const;
     // The dialog "What changed (versions)…" opened, or null.
     QDialog* sharedVersionsDialog() const { return sharedVersions_; }
     QDialog* sharedVersions_ = nullptr;

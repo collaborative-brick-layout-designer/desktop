@@ -550,6 +550,29 @@ Layout setting, server applying on save for `auto` layouts (rooms and
 closed docs), badges in layout lists, "Updated while you were away",
 owner's "Used in" view, drift check with Put back. **M–L.**
 
+As built (2026-11-17):
+
+- The setting is the `layouts.shared_module_updates` column from 0050,
+  set with `PUT /api/layouts/:id/shared-modules/updates` `{updates: 'ask'
+  | 'auto'}` (layout editors; the desktop with a `layouts:write` token),
+  and read from `GET /api/layouts/:id` (`sharedModuleUpdates`) and
+  `GET /api/layouts/:id/shared-modules` (`updates`). Nothing new goes in
+  the doc, so no new doc shape. Switching to Automatically puts in what
+  the layout was waiting on.
+- A save (or a restored version) of a module puts the new version in
+  every `auto` layout that places it and still follows it
+  (`sharedModules/auto.ts`), with the same `apply` step as Update, in
+  open rooms and stored docs. Each one leaves an audit event
+  `shared_module_auto_update` and a `shared-module-updated` layout hint.
+- `GET /api/layouts` gives each layout `sharedUpdates`: how many of its
+  shared modules have a newer version waiting. The lists show it as a
+  badge.
+- "Updated while you were away": `layout_visits` (0051) keeps when each
+  person last had a layout open (stamped when they leave its room, and
+  by `POST /api/layouts/:id/shared-modules/away`, which the editor calls
+  once on opening and which lists the automatic updates since).
+- "Used in" was already in phase 1's Share dialog (both apps).
+
 **Phase 3: hardening and polish.** Rigid-move check in the guard (S–M).
 Updates that keep the ids of unchanged parts, so an update only touches
 what changed and the doc's history grows less (M). Make it mine as a

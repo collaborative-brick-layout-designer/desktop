@@ -102,6 +102,9 @@ struct LayoutEntry {
     QString   role;          // owner / editor / viewer
     QDateTime updatedAt;
     Credit credit; // who made it; Take back / Give back
+    // How many of its shared modules have a newer version waiting (Ask
+    // first layouts; servers before shared modules phase 2: 0).
+    int sharedUpdates = 0;
 };
 
 struct VenueEntry {

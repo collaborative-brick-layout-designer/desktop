@@ -715,6 +715,22 @@
         <translation>« Enregistrer dans la bibliothèque de modules… » en met une copie dans vos modules ou ceux d’un club ; les modules ajoutés depuis la bibliothèque sont liés aussi. Après l’avoir changé dans un plan, « Mettre à jour la version de la bibliothèque » en fait la version suivante, avec une note sur ce qui a changé. Quand la bibliothèque a une version plus récente, « Mettre à jour depuis la bibliothèque » l’apporte à la place du module, et demande d’abord si vous l’avez changé ici.</translation>
     </message>
     <message>
+        <source>When the owner saves a new version, the layout says so; in an Ask first layout nothing changes until someone chooses Update.</source>
+        <translation>Quand le propriétaire enregistre une nouvelle version, le plan le signale ; dans un plan « Demander d’abord », rien ne change avant que quelqu’un choisisse Mettre à jour.</translation>
+    </message>
+    <message>
+        <source>Ask first or Automatically</source>
+        <translation>Demander d’abord ou Automatiquement</translation>
+    </message>
+    <message>
+        <source>Choose whether a shared module’s new version waits for someone to choose Update, or goes in as soon as its owner saves it.</source>
+        <translation>Choisissez si la nouvelle version d’un module partagé attend que quelqu’un choisisse Mettre à jour, ou entre dès que son propriétaire l’enregistre.</translation>
+    </message>
+    <message>
+        <source>Either way you see what changed and anything the new version now overlaps, and Go back puts the earlier version in again. With Automatically, opening the layout later says what was updated while you were away. Anyone who can change this layout can change this setting.</source>
+        <translation>Dans les deux cas, vous voyez ce qui a changé et ce que la nouvelle version chevauche maintenant, et Revenir remet la version précédente. Avec Automatiquement, en rouvrant le plan, vous voyez ce qui a été mis à jour pendant votre absence. Toute personne qui peut modifier ce plan peut modifier ce réglage.</translation>
+    </message>
+    <message>
         <source>Module sheets</source>
         <translation>Feuilles du module</translation>
     </message>
@@ -885,10 +901,6 @@
     <message>
         <source>Updates from shared modules</source>
         <translation>Mises à jour des modules partagés</translation>
-    </message>
-    <message>
-        <source>When the owner saves a new version, the layout says so; nothing changes until someone chooses Update.</source>
-        <translation>Quand le propriétaire enregistre une nouvelle version, le plan vous le dit ; rien ne change tant que personne ne choisit « Mettre à jour ».</translation>
     </message>
     <message>
         <source>Update puts the new version where the module sits now, for everyone in the layout at once. Undo doesn’t take it back: choose Go back to put the earlier version in again. An update never waits for room, so if the new version overlaps other parts, move it or its neighbors, or go back.</source>
@@ -2568,6 +2580,26 @@
     <message>
         <source>%1 was updated.</source>
         <translation>%1 a été mis à jour.</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 est passé de la version %2 à la %3 : ce plan reçoit automatiquement les mises à jour de son propriétaire.</translation>
+    </message>
+    <message>
+        <source>%1 went from version %2 to %3: this layout takes %4&apos;s updates automatically.</source>
+        <translation>%1 est passé de la version %2 à la %3 : ce plan reçoit automatiquement les mises à jour de %4.</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes its owner&apos;s updates automatically.</source>
+        <translation>%1 est maintenant en version %2 : ce plan reçoit automatiquement les mises à jour de son propriétaire.</translation>
+    </message>
+    <message>
+        <source>%1 is now version %2: this layout takes %3&apos;s updates automatically.</source>
+        <translation>%1 est maintenant en version %2 : ce plan reçoit automatiquement les mises à jour de %3.</translation>
+    </message>
+    <message>
+        <source>%1 shared modules were updated: this layout takes their owners&apos; updates automatically.</source>
+        <translation>%1 modules partagés ont été mis à jour : ce plan reçoit automatiquement les mises à jour de leurs propriétaires.</translation>
     </message>
     <message>
         <source>its owner</source>
@@ -6433,6 +6465,18 @@ Enregistrer la mienne comme nouvelle version : la vôtre devient le module ; la 
         <translation>Ce plan est sur %1, et « %2 » est partagé avec vous sur %3. Un module partagé ne suit son propriétaire que dans les plans de son propre serveur, ou dans un fichier sur cet ordinateur.</translation>
     </message>
     <message>
+        <source>Updated while you were away</source>
+        <translation>Mis à jour pendant votre absence</translation>
+    </message>
+    <message>
+        <source>New versions of shared modules now go in automatically.</source>
+        <translation>Les nouvelles versions des modules partagés entrent maintenant automatiquement.</translation>
+    </message>
+    <message>
+        <source>Shared modules now ask first before a new version goes in.</source>
+        <translation>Les modules partagés demandent maintenant avant qu’une nouvelle version entre.</translation>
+    </message>
+    <message>
         <source>The pasted part</source>
         <translation>La pièce collée</translation>
     </message>
@@ -7248,6 +7292,14 @@ Enregistrer quand même ?</translation>
     <message>
         <source>Save the picked parts as a set in your parts, to place again in one go</source>
         <translation>Enregistrer les pièces choisies comme set dans vos pièces, pour les reposer d’un coup</translation>
+    </message>
+    <message>
+        <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
+        <translation>Si ce plan demande avant que la nouvelle version d’un module partagé entre, ou la reçoit automatiquement</translation>
+    </message>
+    <message>
+        <source>For a layout opened live from a server</source>
+        <translation>Pour un plan ouvert en direct depuis un serveur</translation>
     </message>
     <message>
         <source>This app&apos;s help: Getting Started, sheets, the room, sharing, files and shortcuts</source>
@@ -8180,6 +8232,10 @@ La question ne vous sera plus posée. Pour le reprendre plus tard dans ce plan o
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>Enregistrer la sélection comme &amp;set…</translation>
+    </message>
+    <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>Mises à jo&amp;ur des modules partagés…</translation>
     </message>
     <message>
         <source>&amp;Help</source>
@@ -11012,6 +11068,22 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>modifié %1</translation>
     </message>
     <message>
+        <source>1 update</source>
+        <translation>1 mise à jour</translation>
+    </message>
+    <message>
+        <source>%1 updates</source>
+        <translation>%1 mises à jour</translation>
+    </message>
+    <message>
+        <source>A shared module in this layout has a new version. Open the layout to update it.</source>
+        <translation>Un module partagé de ce plan a une nouvelle version. Ouvrez le plan pour le mettre à jour.</translation>
+    </message>
+    <message>
+        <source>%1 shared modules in this layout have new versions. Open the layout to update them.</source>
+        <translation>%1 modules partagés de ce plan ont de nouvelles versions. Ouvrez le plan pour les mettre à jour.</translation>
+    </message>
+    <message>
         <source>Open live</source>
         <translation>Ouvrir en direct</translation>
     </message>
@@ -12117,6 +12189,41 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Go back to version %1</source>
         <translation>Revenir à la version %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::SharedUpdatesDialog</name>
+    <message>
+        <source>Updates from Shared Modules</source>
+        <translation>Mises à jour des modules partagés</translation>
+    </message>
+    <message>
+        <source>When someone who shared a module with this layout saves a new version:</source>
+        <translation>Quand quelqu’un qui a partagé un module avec ce plan enregistre une nouvelle version :</translation>
+    </message>
+    <message>
+        <source>Ask first</source>
+        <translation>Demander d’abord</translation>
+    </message>
+    <message>
+        <source>The layout says when a shared module has a new version. Nothing changes until someone chooses Update.</source>
+        <translation>Le plan signale quand un module partagé a une nouvelle version. Rien ne change avant que quelqu’un choisisse Mettre à jour.</translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <translation>Automatiquement</translation>
+    </message>
+    <message>
+        <source>A new version goes in as soon as its owner saves it. You&apos;ll see what changed and anything it now overlaps.</source>
+        <translation>Une nouvelle version entre dès que son propriétaire l’enregistre. Vous verrez ce qui a changé et ce qu’elle chevauche maintenant.</translation>
+    </message>
+    <message>
+        <source>Someone who can change this layout can change this.</source>
+        <translation>Quelqu’un qui peut modifier ce plan peut modifier ceci.</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Terminé</translation>
     </message>
 </context>
 <context>
