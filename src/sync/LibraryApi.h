@@ -25,6 +25,7 @@
 #include <QString>
 #include <QUrl>
 
+#include <algorithm>
 #include <functional>
 #include <optional>
 
@@ -108,8 +109,9 @@ struct ServerModule {
 
     bool canEdit() const { return role == QLatin1String("owner") || role == QLatin1String("editor"); }
     bool canDelete() const { return role == QLatin1String("owner"); }
-    // "v3": the saved version, else the document's.
-    int shownVersion() const { return latestVersion > 0 ? latestVersion : docVersion; }
+    // "v3": the saved version, else the document's, and never below 1 (a copy made before
+    // it had a first version, or one never saved, is version 1).
+    int shownVersion() const { return std::max(1, latestVersion > 0 ? latestVersion : docVersion); }
     // Where its picture is (the cache key changes with each new picture).
     QString thumbnailPath() const;
 };

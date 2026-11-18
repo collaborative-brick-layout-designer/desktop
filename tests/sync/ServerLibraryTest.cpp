@@ -432,6 +432,21 @@ protected:
     QString cache_;
 };
 
+// A module copied before copies had a first version has version 0 on the server: the row says v1.
+TEST_F(LibraryTabs, ACopyMadeBeforeItHadAFirstVersionShowsVersion1) {
+    http_.reply("/api/modules", 200,
+                modules({ moduleJson(QStringLiteral("c0"), QStringLiteral("Old copy"), QStringLiteral("owner"), QStringLiteral("o1"), 0, 0),
+                          moduleJson(QStringLiteral("c3"), QStringLiteral("Saved twice"), QStringLiteral("owner"), QStringLiteral("o1"), 0, 2) }));
+    ui::ServerModulesTab tab(library_);
+    tab.resize(320, 700);
+    tab.show();
+    connectSignedIn();
+    EXPECT_EQ(tab.row(QStringLiteral("c0"))->findChild<QLabel*>(QStringLiteral("rowSubtitle"))->text().left(5), QStringLiteral("v1 · "));
+    EXPECT_EQ(tab.row(QStringLiteral("c3"))->findChild<QLabel*>(QStringLiteral("rowSubtitle"))->text().left(5), QStringLiteral("v2 · "));
+    sync::ServerModule none;
+    EXPECT_EQ(none.shownVersion(), 1);
+}
+
 TEST_F(LibraryTabs, YoursFirstThenEachClubWithVersionsAndPictures) {
     serveModules();
     QByteArray png;

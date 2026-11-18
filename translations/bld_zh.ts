@@ -2938,6 +2938,18 @@
         <translation>在模块的 ⋯ 菜单中可以与你的俱乐部共享它。与你共享的模块在“与我共享”中，并会收到所有者的更新。</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>合作俱乐部</translation>
+    </message>
+    <message>
+        <source>Partner clubs share modules both ways, with no accept each time. Admins and Managers ask and answer on the club&apos;s page.</source>
+        <translation>合作俱乐部可以双向共享模块，无需每次都接受。管理员和经理在俱乐部页面上发出请求并答复。</translation>
+    </message>
+    <message>
+        <source>Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website.</source>
+        <translation>合作请求和模块提议要在网站上答复。“俱乐部”标签页会显示等待中的内容，并带有“在网站上打开”。</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>你俱乐部的页面</translation>
     </message>

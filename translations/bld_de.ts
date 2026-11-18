@@ -2955,6 +2955,18 @@
         <translation>Teile ein Modul über sein ⋯-Menü mit deinem Club. Module, die mit dir geteilt sind, findest du unter „Mit mir geteilt“, mit den Updates ihrer Besitzer.</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>Partnerclubs</translation>
+    </message>
+    <message>
+        <source>Partner clubs share modules both ways, with no accept each time. Admins and Managers ask and answer on the club&apos;s page.</source>
+        <translation>Partnerclubs teilen Module in beide Richtungen, ohne dass jedes Mal angenommen werden muss. Admins und Manager fragen an und antworten auf der Seite des Clubs.</translation>
+    </message>
+    <message>
+        <source>Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website.</source>
+        <translation>Partneranfragen und Angebote beantwortest du auf der Website. Der Tab „Clubs“ zeigt, was wartet, mit „Auf der Website öffnen“.</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>Die Seite deines Clubs</translation>
     </message>

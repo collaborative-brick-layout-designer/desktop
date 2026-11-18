@@ -2955,6 +2955,18 @@
         <translation>Deel een module met je club via het ⋯-menu. Modules die met jou gedeeld zijn staan bij Met mij gedeeld, met de updates van hun eigenaar.</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>Partnerclubs</translation>
+    </message>
+    <message>
+        <source>Partner clubs share modules both ways, with no accept each time. Admins and Managers ask and answer on the club&apos;s page.</source>
+        <translation>Partnerclubs delen modules in beide richtingen, zonder elke keer te accepteren. Beheerders en managers vragen en antwoorden op de pagina van de club.</translation>
+    </message>
+    <message>
+        <source>Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website.</source>
+        <translation>Partneraanvragen en aanbiedingen beantwoord je op de website. Het tabblad Clubs toont wat wacht, met „Openen op de website”.</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>De pagina van je club</translation>
     </message>
