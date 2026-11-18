@@ -32,7 +32,9 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-  QT_VERSION: '6.12.*'
+  # Pinned to 6.12.0: Qt's mirror has no checksums for the 6.12.1 packages it
+  # published on 2026-11-18, so aqtinstall stops. Go back to '6.12.*' once it does.
+  QT_VERSION: '6.12.0'
   # Headless test runs; never pop a message box from QCommandLineParser.
   QT_QPA_PLATFORM: offscreen
   QT_COMMAND_LINE_PARSER_NO_GUI_MESSAGE_BOXES: '1'
