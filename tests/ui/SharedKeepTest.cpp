@@ -190,6 +190,25 @@ TEST(SharedKeepVectors, TheSettleRuleAgreesWithTheWeb) {
     }
 }
 
+TEST(SharedKeepVectors, TheRetiredRuleAgreesWithTheWeb) {
+    const QJsonObject f = fileOf("shared-module-settle.json");
+    const QJsonArray cases = f.value("retired").toArray();
+    ASSERT_FALSE(cases.isEmpty());
+    const auto list = [](const QJsonValue& v) {
+        QStringList out;
+        for (const auto& x : v.toArray()) out << x.toString();
+        return out;
+    };
+    for (const auto& v : cases) {
+        const QJsonObject c = v.toObject();
+        const QStringList retired = list(c.value("retired")), before = list(c.value("before"));
+        EXPECT_EQ(edit::settleRetired(QSet<QString>(retired.begin(), retired.end()), QSet<QString>(before.begin(), before.end()),
+                                      list(c.value("after"))),
+                  list(c.value("expect")))
+            << c.value("name").toString().toStdString();
+    }
+}
+
 namespace {
 
 // A layout with a loose part under and over a shared module of `n` parts in a row.
@@ -294,6 +313,21 @@ TEST(SharedKeepFile, AnUpdateTouchesOnlyWhatChangedAndUndoRedoAreExact) {
     EXPECT_EQ(y.map.sidecar.modules.front().libraryVersion, 1);
     stack.redo();
     EXPECT_EQ(orderOf(y.map), afterRedo) << "redo puts the same parts back, ids and all";
+}
+
+TEST(SharedKeepFile, AnUpdateRemembersThePartsItTookOut) {
+    Yard y = yard(4);
+    parts::PartsLibrary none;
+    QUndoStack stack;
+    auto* cmd = new edit::ReplaceModulePartsCommand(y.map, QStringLiteral("crane"),
+                                                    versionOf(4, y.sheet, [](std::vector<core::Brick>& b) { b[1].displayArea.translate(3, 0); }),
+                                                    y.map.sidecar.modules.front().libraryModuleId, 2);
+    cmd->setSharedAfter(*y.map.sidecar.modules.front().shared);
+    cmd->keepUnchanged(&none);
+    stack.push(cmd);
+    EXPECT_EQ(core::sharedPlaced(y.map.sidecar.modules.front())->retired, QStringList{ y.members[1] });
+    EXPECT_EQ(core::moreRetired({ QStringLiteral("x"), QStringLiteral("y") }, { QStringLiteral("x"), QStringLiteral("z") }),
+              (QStringList{ QStringLiteral("y"), QStringLiteral("x"), QStringLiteral("z") }));
 }
 
 TEST(SharedKeepFile, ABbmAndALayoutFileKeepTheKeptIdsAndTheLock) {

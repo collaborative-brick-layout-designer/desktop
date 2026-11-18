@@ -1,5 +1,7 @@
 #include "SharedModule.h"
 
+#include <QJsonArray>
+
 #include <QCoreApplication>
 #include <QRegularExpression>
 #include <QtMath>
@@ -115,7 +117,19 @@ std::optional<SharedPlaced> sharedPlaced(const Module& m) {
     s.placement = readPlacement(m.shared->value(QLatin1String("placement")));
     s.review = readReview(m.shared->value(QLatin1String("review")));
     s.members = m.memberIds;
+    for (const auto& v : m.shared->value(QLatin1String("retired")).toArray())
+        if (v.isString()) s.retired << v.toString();
     return s;
+}
+
+QStringList moreRetired(QStringList retired, const QStringList& ids) {
+    QStringList fresh;
+    for (const QString& id : ids)
+        if (!fresh.contains(id)) fresh << id;
+    retired.removeIf([&](const QString& id) { return fresh.contains(id); });
+    retired += fresh;
+    if (retired.size() > kRetiredMax) retired = retired.mid(retired.size() - kRetiredMax);
+    return retired;
 }
 
 std::vector<SharedPlaced> sharedModulesIn(const std::vector<Module>& modules) {

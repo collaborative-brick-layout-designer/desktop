@@ -50,7 +50,8 @@ change in one repo fails until the other has the same copy.
   `expect` values.
 - `shared-module-settle.json`: finishing an undo or redo for a shared module
   after such an update (doc shape 5; web packages/modules settle.ts,
-  desktop src/edit/SharedSettle.cpp): what goes, and what moves where. The
+  desktop src/edit/SharedSettle.cpp): what goes, and what moves where; and
+  `retired`, the parts an update took out that a step brought back. The
   same command writes its `expect` values.
 - `part-naming.json`: a server custom part, placed on the website as
   `custom:<id>`, which every export names by its part number and the

@@ -91,12 +91,49 @@ Settled settleShared(const SettleSide& before, const SettleSide& after, parts::P
     return out;
 }
 
+QStringList settleRetired(const QSet<QString>& retired, const QSet<QString>& before, const QStringList& after) {
+    QStringList out;
+    for (const QString& id : after)
+        if (retired.contains(id) && !before.contains(id) && !out.contains(id)) out << id;
+    return out;
+}
+
+namespace {
+
+// Every part on the map, sheets in layer order, each bottom to top.
+QStringList allParts(const core::Map& map) {
+    QStringList out;
+    for (const auto& L : map.layers()) {
+        if (!L || L->kind() != core::LayerKind::Brick) continue;
+        for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks) out << b.guid;
+    }
+    return out;
+}
+
+}  // namespace
+
 bool finishShared(const core::Map& before, core::Map& after, parts::PartsLibrary& parts, core::SettledBack* removed) {
     const auto placed = core::sharedModulesIn(before.sidecar.modules);
     if (placed.empty()) return false;
     SharedLockState lock;
     lock.rebase(before, parts);
     bool changed = false;
+    // 0. Parts an update took out that the step brought back go again (not
+    // kept for a redo: it never brings them back).
+    {
+        QSet<QString> retired;
+        for (const auto& m : placed)
+            for (const QString& id : m.retired) retired.insert(id);
+        const QStringList was = allParts(before);
+        const QStringList back = settleRetired(retired, QSet<QString>(was.begin(), was.end()), allParts(after));
+        if (!back.isEmpty()) {
+            const QSet<QString> drop(back.begin(), back.end());
+            for (const auto& L : after.layers())
+                if (L && L->kind() == core::LayerKind::Brick)
+                    std::erase_if(static_cast<core::LayerBrick&>(*L).bricks, [&](const core::Brick& b) { return drop.contains(b.guid); });
+            changed = true;
+        }
+    }
     for (const auto& m : placed) {
         SettleSide was{ true, partsOn(before, m.members) };
         const bool record = std::any_of(after.sidecar.modules.begin(), after.sidecar.modules.end(),

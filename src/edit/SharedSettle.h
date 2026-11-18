@@ -6,6 +6,9 @@
 // step can point at some of its parts and not the new ones. Right after an
 // undo or redo, in the same change, the module is finished whole:
 //
+//   0. a part one of its updates took out (`shared.retired`) that the step
+//      brought back goes again (undoing a change of sheet made before the
+//      update brings back what it took off the old sheet: settleRetired);
 //   1. its record went: every part of it still on the map goes too;
 //   2. some of its parts went, its record didn't: the rest go, and the
 //      record (the module removed whole, as the undo meant);
@@ -20,6 +23,7 @@
 #include "../core/SettledBack.h"
 
 #include <QRectF>
+#include <QSet>
 #include <QString>
 #include <QStringList>
 
@@ -51,6 +55,10 @@ struct Settled {
 };
 
 Settled settleShared(const SettleSide& before, const SettleSide& after, parts::PartsLibrary& parts);
+
+// Rule 0: the parts the step brought back (in `after`, in its order, not in
+// `before`) that are in `retired` (every shared module's together).
+QStringList settleRetired(const QSet<QString>& retired, const QSet<QString>& before, const QStringList& after);
 
 // Finish the step that took the layout from `before` to `after`, for every
 // shared module `before` had: changes `after`, and keeps the placement of
