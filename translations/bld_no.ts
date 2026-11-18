@@ -1367,6 +1367,42 @@
         <translation>Medlemmer med tillatelsen Send til katalogen går gjennom det: det de deler under klubbens navn blir offentlig med en gang, og det andre medlemmer deler venter i klubbens egen gjennomgang. Nettstedets moderatorer kan fortsatt se og fjerne hva som helst, og kan slutte å stole på en klubb.</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>Partnerklubber</translation>
+    </message>
+    <message>
+        <source>Clubs that share their modules with each other, read-only, with no need to accept each one.</source>
+        <translation>Klubber som deler modulene sine med hverandre, skrivebeskyttet, uten å måtte godta hver enkelt.</translation>
+    </message>
+    <message>
+        <source>A club’s Admins or Managers ask another club, found under Find a club or by pasting its link, and that club’s Admins or Managers accept or decline. Partners still pick each module they share, and can place each other’s only in their club’s layouts. Ending a partnership stops those modules both ways; copies already placed stay as they are, marked “No longer shared”.</source>
+        <translation>En klubbs administratorer eller ledere spør en annen klubb, funnet under Finn en klubb eller ved å lime inn lenken, og den klubbens administratorer eller ledere godtar eller avslår. Partnere velger fortsatt hver modul de deler, og kan bare plassere hverandres i klubbens layouter. Å avslutte et partnerskap stopper de modulene begge veier; kopier som allerede er plassert, blir som de er, merket «Deles ikke lenger».</translation>
+    </message>
+    <message>
+        <source>Modules offered to your club</source>
+        <translation>Moduler tilbudt klubben din</translation>
+    </message>
+    <message>
+        <source>Another club wants to share one of its modules with yours; your Admins or Managers accept or decline.</source>
+        <translation>En annen klubb vil dele en av modulene sine med din; administratorene eller lederne dine godtar eller avslår.</translation>
+    </message>
+    <message>
+        <source>Accepted, its members who may edit the club’s layouts can place it, and get its updates; they can’t change its parts. Declined, the other club sees that and can offer it again later. Your club can take an accepted module off its list at any time.</source>
+        <translation>Godtatt: medlemmer som kan redigere klubbens layouter, kan plassere den og får oppdateringene; de kan ikke endre delene. Avslått: den andre klubben ser det og kan tilby den igjen senere. Klubben din kan ta en godtatt modul av listen når som helst.</translation>
+    </message>
+    <message>
+        <source>Sharing a club’s module with other clubs</source>
+        <translation>Dele en klubbs modul med andre klubber</translation>
+    </message>
+    <message>
+        <source>Partner clubs get it straight away; any other club must accept it first.</source>
+        <translation>Partnerklubber får den med en gang; andre klubber må godta den først.</translation>
+    </message>
+    <message>
+        <source>Pick a partner club, or find another club in the club list or by pasting its link. Offers wait until that club’s Admins or Managers accept; you can take one back. Either way you see how many layouts use it and in which clubs, and stopping leaves placed copies as they are.</source>
+        <translation>Velg en partnerklubb, eller finn en annen klubb i klubblisten eller ved å lime inn lenken. Tilbud venter til den klubbens administratorer eller ledere godtar; du kan ta tilbake et. Uansett ser du hvor mange layouter som bruker den og i hvilke klubber, og å stoppe lar plasserte kopier være som de er.</translation>
+    </message>
+    <message>
         <source>Who can see this</source>
         <translation>Hvem som kan se dette</translation>
     </message>
@@ -9715,6 +9751,50 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
         <translation>Den er ikke delt med den klubben lenger.</translation>
     </message>
     <message>
+        <source>No club has that address. Check the link and try again.</source>
+        <translation>Ingen klubb har den adressen. Sjekk lenken og prøv igjen.</translation>
+    </message>
+    <message>
+        <source>That&apos;s this module&apos;s own club.</source>
+        <translation>Det er denne modulens egen klubb.</translation>
+    </message>
+    <message>
+        <source>That club declined this module. You can offer it again a day after it declined.</source>
+        <translation>Den klubben avslo modulen. Du kan tilby den igjen en dag etter at den ble avslått.</translation>
+    </message>
+    <message>
+        <source>Your club has many module offers waiting for an answer already. Take some back, or wait for an answer.</source>
+        <translation>Klubben din har allerede mange modultilbud som venter på svar. Ta tilbake noen, eller vent på svar.</translation>
+    </message>
+    <message>
+        <source>(partner club)</source>
+        <translation>(partnerklubb)</translation>
+    </message>
+    <message>
+        <source>(club, accepted)</source>
+        <translation>(klubb, godtatt)</translation>
+    </message>
+    <message>
+        <source>(club)</source>
+        <translation>(klubb)</translation>
+    </message>
+    <message>
+        <source>the club at %1</source>
+        <translation>klubben på %1</translation>
+    </message>
+    <message>
+        <source>%1 · waiting for them to accept</source>
+        <translation>%1 · venter på at de godtar</translation>
+    </message>
+    <message>
+        <source>%1 · declined (you can offer it again in a day)</source>
+        <translation>%1 · avslått (du kan tilby den igjen om en dag)</translation>
+    </message>
+    <message>
+        <source>%1 · declined</source>
+        <translation>%1 · avslått</translation>
+    </message>
+    <message>
         <source> (version %1)</source>
         <translation> (versjon %1)</translation>
     </message>
@@ -9758,12 +9838,100 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
         <translation>Del</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>Partnerklubber</translation>
+    </message>
+    <message>
+        <source>Share with a partner club</source>
+        <translation>Del med en partnerklubb</translation>
+    </message>
+    <message>
+        <source>Another club…</source>
+        <translation>En annen klubb…</translation>
+    </message>
+    <message>
+        <source>Search clubs, or paste a club&apos;s link</source>
+        <translation>Søk etter klubber, eller lim inn lenken til en klubb</translation>
+    </message>
+    <message>
+        <source>Another club: search clubs, or paste a club&apos;s link</source>
+        <translation>En annen klubb: søk etter klubber, eller lim inn lenken til en klubb</translation>
+    </message>
+    <message>
+        <source>Offer It to This Club</source>
+        <translation>Tilby den til denne klubben</translation>
+    </message>
+    <message>
         <source>To share with one person by email, open this module on the website.</source>
         <translation>For å dele med én person på e-post, åpne denne modulen på nettstedet.</translation>
     </message>
     <message>
         <source>Open on the Website</source>
         <translation>Åpne på nettstedet</translation>
+    </message>
+    <message>
+        <source>No listed club matches “%1”. A club that isn&apos;t listed is found by pasting its link.</source>
+        <translation>Ingen oppført klubb passer til «%1». En klubb som ikke er oppført, finner du ved å lime inn lenken.</translation>
+    </message>
+    <message>
+        <source>%1 (partner club)</source>
+        <translation>%1 (partnerklubb)</translation>
+    </message>
+    <message>
+        <source>Shared</source>
+        <translation>Delt</translation>
+    </message>
+    <message>
+        <source>Waiting for them</source>
+        <translation>Venter på dem</translation>
+    </message>
+    <message>
+        <source>Offer</source>
+        <translation>Tilby</translation>
+    </message>
+    <message>
+        <source>Share with %1</source>
+        <translation>Del med %1</translation>
+    </message>
+    <message>
+        <source>Offer it to %1</source>
+        <translation>Tilby den til %1</translation>
+    </message>
+    <message>
+        <source>%1 has no partner clubs yet. &lt;a href=&quot;%2&quot;&gt;Ask a club to be partners&lt;/a&gt; on the website.</source>
+        <translation>%1 har ingen partnerklubber ennå. &lt;a href=&quot;%2&quot;&gt;Spør en klubb om å bli partner&lt;/a&gt; på nettstedet.</translation>
+    </message>
+    <message>
+        <source>It&apos;s shared with every partner club.</source>
+        <translation>Den er delt med alle partnerklubber.</translation>
+    </message>
+    <message>
+        <source>Pick a partner club…</source>
+        <translation>Velg en partnerklubb…</translation>
+    </message>
+    <message>
+        <source>Offer Again</source>
+        <translation>Tilby igjen</translation>
+    </message>
+    <message>
+        <source>Take Back</source>
+        <translation>Ta tilbake</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Fjern</translation>
+    </message>
+    <message>
+        <source>Offered “%1” to %2. It&apos;s shared once their Admins or Managers accept it.</source>
+        <translation>«%1» ble tilbudt til %2. Den deles når administratorene eller lederne deres godtar den.</translation>
+    </message>
+    <message>
+        <source>“%1” is shared with %2.</source>
+        <translation>«%1» er delt med %2.</translation>
+    </message>
+    <message>
+        <source>This is %1&apos;s module. Partner clubs get it straight away. Any other club must accept it first. Clubs you share with can place it in their layouts and get its updates; they can&apos;t change its parts.</source>
+        <translation>Dette er en modul fra %1. Partnerklubber får den med en gang. Andre klubber må godta den først. Klubber du deler med, kan plassere den i layoutene sine og får oppdateringene; de kan ikke endre delene.</translation>
     </message>
     <message>
         <source>This is a club&apos;s module: its members already have it.</source>
@@ -9782,8 +9950,8 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
         <translation>Velg en klubb…</translation>
     </message>
     <message>
-        <source>%1 (club) · can place it</source>
-        <translation>%1 (klubb) · kan plassere den</translation>
+        <source>%1 %2 · can place it</source>
+        <translation>%1 %2 · kan plassere den</translation>
     </message>
     <message>
         <source>Stop sharing with %1</source>
@@ -10728,6 +10896,17 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <source>Remove</source>
         <translation>Fjern</translation>
     </message>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for an answer. Answer them on the website.</source>
+        <translation>
+            <numerusform>%1: %n partnerforespørsel eller modultilbud venter på svar. Svar på nettstedet.</numerusform>
+            <numerusform>%1: %n partnerforespørsler eller modultilbud venter på svar. Svar på nettstedet.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open on the Website</source>
+        <translation>Åpne på nettstedet</translation>
+    </message>
     <message>
         <source>Modules other people shared with you or your clubs. Place one, and it follows its owner&apos;s updates.</source>
         <translation>Moduler andre har delt med deg eller klubbene dine. Plasser en, så følger den oppdateringene fra eieren.</translation>
@@ -10747,6 +10926,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Yours</source>
         <translation>Dine</translation>
+    </message>
+    <message>
+        <source>From %1</source>
+        <translation>Fra %1</translation>
     </message>
     <message>
         <source>v%1</source>
@@ -10805,6 +10988,14 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>En klubb du deler med kan plassere den i klubbens layouter og får oppdateringene dine.</translation>
     </message>
     <message>
+        <source>Share with Other Clubs…</source>
+        <translation>Del med andre klubber…</translation>
+    </message>
+    <message>
+        <source>Partner clubs get it straight away; any other club must accept it first.</source>
+        <translation>Partnerklubber får den med en gang; andre klubber må godta den først.</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Ta tilbake til mine…</translation>
     </message>
@@ -10823,6 +11014,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Delete…</source>
         <translation>Slett…</translation>
+    </message>
+    <message>
+        <source>shared with %1</source>
+        <translation>delt med %1</translation>
     </message>
     <message>
         <source>A shared module goes in a layout, not inside another module.</source>

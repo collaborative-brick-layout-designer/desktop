@@ -25,6 +25,7 @@ Contents:
 8. [Data: migrations, routes, the doc, compat.json](#8-data)
 9. [Phases](#9-phases)
 10. [Decisions for Aaron](#10-decisions-for-aaron)
+11. [Club to club: partner clubs and one-off shares](#11-club-to-club-partner-clubs-and-one-off-shares)
 
 ---
 
@@ -670,3 +671,66 @@ Each with the recommended answer.
   follow the owner and can't be changed by accident", not "can't be
   copied", since the parts are in every file anyway. The other choice is a
   per-share "Allow copies" switch, off by default.
+
+## 11. Club to club: partner clubs and one-off shares
+
+Aaron, 2026-11-17 (design pass "club-to-club module sharing"). As built:
+
+- **Who.** A club's Admins or Managers: its Admins, and the roles that may
+  delete the club's items (the starting Manager role does). That is the rule
+  that already owns a club's modules and takes a shared module off a club's
+  list, so there is no new permission. Only Admins end a partnership.
+- **Partner clubs.** One club asks another, found in the Clubs directory or
+  by pasting its link. The other club's Admins or Managers accept or decline.
+  Partners share any of their club's modules with each other, both ways,
+  each module picked, with no accept per module (`module_club_shares.via =
+  'partner'`). Asking a club that already asked you makes you partners.
+- **One-off shares.** A club's module offered to any other club waits as an
+  offer (`module_club_offers`) until that club's Admins or Managers accept it
+  (`via = 'offer'`) or decline it.
+- **Taking back, declines, limits.** The sender takes back a request or an
+  offer. A declined one can be sent again a day after the decline. A club
+  has at most 20 partner requests and 50 offers waiting (20 with one club);
+  each person may send 10 requests a minute (the join-request pattern).
+- **Notices.** The other club's Admins and Managers get an email (unless they
+  turned off "Email me about requests to join" in Settings › Email), a count on the
+  Clubs badge, and the request on the club's Partners tab, live. Accepting,
+  and ending a partnership, leave a note for the other club.
+- **Ending a partnership** stops every module shared through it, both ways,
+  as Stop sharing does: placed copies stay at their version, marked "No
+  longer shared", and can be removed or made theirs (D8). One-off shares
+  that were accepted stay. A module that left the club (handed to someone)
+  keeps its shares.
+- **A club deleted** (when it is erased, after its wait): its partnerships
+  end, its offers go, copies of its modules are marked "Deleted by its
+  owner", and its partners get a note.
+- **Unchanged:** the lock, Ask first or Automatically, no re-sharing (only the
+  module's own club shares it), the sender sees only "Used in N layouts" and
+  club names (D7), Stop and the receiving club's Remove, custom parts come
+  along. It is placed only in the receiving club's layouts, by members who
+  may edit them (D3/D4).
+- **Privacy.** Requests and offers show the clubs' public names and logos. A
+  club that isn't listed shows nothing more than its link does: a request or
+  offer to it is sent, but its name and logo are shown to the sender only
+  once it accepts. The privacy downloads (a person's and a club's) hold
+  partnerships, requests and offers.
+- **Nothing is stamped in the live doc** (no new doc shape): a placed copy
+  of a club's module is an ordinary shared module.
+
+Migration `0052_club_partners.sql` (additive): tables `club_partner_requests`,
+`club_partners`, `module_club_offers`; columns `module_club_shares.via` and
+`module_club_shares.from_org_id`.
+
+| Route | What |
+|---|---|
+| `GET /api/orgs/:slug/partners` | Partners (members); requests in and out, and module offers in (Admins and Managers). |
+| `POST /api/orgs/:slug/partners` `{slug}` | Ask a club (a slug or a pasted link). |
+| `DELETE /api/orgs/:slug/partners/:orgId` | End a partnership (Admins). |
+| `DELETE /api/orgs/:slug/partner-requests/:id` | Take back a request. |
+| `POST /api/orgs/:slug/partner-requests/:id/accept` / `decline` | Answer a request. |
+| `POST /api/orgs/:slug/module-offers/:id/accept` / `decline` | Answer a module offer. |
+| `GET /api/club-requests/count` | What waits in the clubs you look after (badge; desktop token `layouts:read`). |
+| `POST /api/modules/:id/club-shares` `{orgSlug}` | A club's module: shared at once with a partner (201), else offered (202). |
+| `DELETE /api/modules/:id/club-offers/:offerId` | Take back an offer, or forget a declined one. |
+| `GET /api/modules/:id/club-targets?q=` | A club's module: listed clubs to share it with or offer it to. |
+

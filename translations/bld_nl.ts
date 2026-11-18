@@ -1367,6 +1367,42 @@
         <translation>Leden met de rechten Naar de catalogus sturen beoordelen het: wat zij onder de naam van de club delen wordt meteen openbaar, en wat andere leden delen wacht op de eigen beoordeling van de club. De moderators van de site kunnen nog steeds alles zien en weghalen, en kunnen het vertrouwen in een club intrekken.</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>Partnerclubs</translation>
+    </message>
+    <message>
+        <source>Clubs that share their modules with each other, read-only, with no need to accept each one.</source>
+        <translation>Clubs die hun modules met elkaar delen, alleen-lezen, zonder elke module te hoeven accepteren.</translation>
+    </message>
+    <message>
+        <source>A club’s Admins or Managers ask another club, found under Find a club or by pasting its link, and that club’s Admins or Managers accept or decline. Partners still pick each module they share, and can place each other’s only in their club’s layouts. Ending a partnership stops those modules both ways; copies already placed stay as they are, marked “No longer shared”.</source>
+        <translation>De beheerders of managers van een club vragen een andere club, gevonden onder Een club zoeken of door de link te plakken, en de beheerders of managers van die club accepteren of weigeren. Partners kiezen nog steeds elke module die ze delen en kunnen die van de ander alleen in de layouts van hun club plaatsen. Een partnerschap beëindigen stopt die modules in beide richtingen; al geplaatste kopieën blijven zoals ze zijn, gemarkeerd als ‘Niet meer gedeeld’.</translation>
+    </message>
+    <message>
+        <source>Modules offered to your club</source>
+        <translation>Modules aangeboden aan je club</translation>
+    </message>
+    <message>
+        <source>Another club wants to share one of its modules with yours; your Admins or Managers accept or decline.</source>
+        <translation>Een andere club wil een van zijn modules met de jouwe delen; je beheerders of managers accepteren of weigeren.</translation>
+    </message>
+    <message>
+        <source>Accepted, its members who may edit the club’s layouts can place it, and get its updates; they can’t change its parts. Declined, the other club sees that and can offer it again later. Your club can take an accepted module off its list at any time.</source>
+        <translation>Geaccepteerd: leden die de layouts van de club mogen bewerken kunnen hem plaatsen en krijgen zijn updates; ze kunnen de onderdelen niet veranderen. Geweigerd: de andere club ziet dat en kan hem later opnieuw aanbieden. Je club kan een geaccepteerde module op elk moment van zijn lijst halen.</translation>
+    </message>
+    <message>
+        <source>Sharing a club’s module with other clubs</source>
+        <translation>De module van een club met andere clubs delen</translation>
+    </message>
+    <message>
+        <source>Partner clubs get it straight away; any other club must accept it first.</source>
+        <translation>Partnerclubs krijgen hem meteen; elke andere club moet hem eerst accepteren.</translation>
+    </message>
+    <message>
+        <source>Pick a partner club, or find another club in the club list or by pasting its link. Offers wait until that club’s Admins or Managers accept; you can take one back. Either way you see how many layouts use it and in which clubs, and stopping leaves placed copies as they are.</source>
+        <translation>Kies een partnerclub, of zoek een andere club in de clublijst of door de link te plakken. Aanbiedingen wachten tot de beheerders of managers van die club accepteren; je kunt er een terugnemen. Hoe dan ook zie je hoeveel layouts hem gebruiken en in welke clubs, en stoppen laat geplaatste kopieën zoals ze zijn.</translation>
+    </message>
+    <message>
         <source>Who can see this</source>
         <translation>Wie dit mag zien</translation>
     </message>
@@ -9715,6 +9751,50 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <translation>Hij wordt niet meer met die club gedeeld.</translation>
     </message>
     <message>
+        <source>No club has that address. Check the link and try again.</source>
+        <translation>Geen club heeft dat adres. Controleer de link en probeer het opnieuw.</translation>
+    </message>
+    <message>
+        <source>That&apos;s this module&apos;s own club.</source>
+        <translation>Dat is de eigen club van deze module.</translation>
+    </message>
+    <message>
+        <source>That club declined this module. You can offer it again a day after it declined.</source>
+        <translation>Die club heeft deze module geweigerd. Je kunt hem een dag na de weigering opnieuw aanbieden.</translation>
+    </message>
+    <message>
+        <source>Your club has many module offers waiting for an answer already. Take some back, or wait for an answer.</source>
+        <translation>Je club heeft al veel moduleaanbiedingen die op antwoord wachten. Neem er een paar terug, of wacht op antwoord.</translation>
+    </message>
+    <message>
+        <source>(partner club)</source>
+        <translation>(partnerclub)</translation>
+    </message>
+    <message>
+        <source>(club, accepted)</source>
+        <translation>(club, geaccepteerd)</translation>
+    </message>
+    <message>
+        <source>(club)</source>
+        <translation>(club)</translation>
+    </message>
+    <message>
+        <source>the club at %1</source>
+        <translation>de club op %1</translation>
+    </message>
+    <message>
+        <source>%1 · waiting for them to accept</source>
+        <translation>%1 · wacht tot zij accepteren</translation>
+    </message>
+    <message>
+        <source>%1 · declined (you can offer it again in a day)</source>
+        <translation>%1 · geweigerd (je kunt hem over een dag opnieuw aanbieden)</translation>
+    </message>
+    <message>
+        <source>%1 · declined</source>
+        <translation>%1 · geweigerd</translation>
+    </message>
+    <message>
         <source> (version %1)</source>
         <translation> (versie %1)</translation>
     </message>
@@ -9758,12 +9838,100 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <translation>Delen</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>Partnerclubs</translation>
+    </message>
+    <message>
+        <source>Share with a partner club</source>
+        <translation>Delen met een partnerclub</translation>
+    </message>
+    <message>
+        <source>Another club…</source>
+        <translation>Een andere club…</translation>
+    </message>
+    <message>
+        <source>Search clubs, or paste a club&apos;s link</source>
+        <translation>Zoek clubs, of plak de link van een club</translation>
+    </message>
+    <message>
+        <source>Another club: search clubs, or paste a club&apos;s link</source>
+        <translation>Een andere club: zoek clubs, of plak de link van een club</translation>
+    </message>
+    <message>
+        <source>Offer It to This Club</source>
+        <translation>Aan deze club aanbieden</translation>
+    </message>
+    <message>
         <source>To share with one person by email, open this module on the website.</source>
         <translation>Om met één persoon via e-mail te delen, open je deze module op de website.</translation>
     </message>
     <message>
         <source>Open on the Website</source>
         <translation>Openen op de website</translation>
+    </message>
+    <message>
+        <source>No listed club matches “%1”. A club that isn&apos;t listed is found by pasting its link.</source>
+        <translation>Geen vermelde club past bij ‘%1’. Een club die niet vermeld is, vind je door de link te plakken.</translation>
+    </message>
+    <message>
+        <source>%1 (partner club)</source>
+        <translation>%1 (partnerclub)</translation>
+    </message>
+    <message>
+        <source>Shared</source>
+        <translation>Gedeeld</translation>
+    </message>
+    <message>
+        <source>Waiting for them</source>
+        <translation>Wacht op hen</translation>
+    </message>
+    <message>
+        <source>Offer</source>
+        <translation>Aanbieden</translation>
+    </message>
+    <message>
+        <source>Share with %1</source>
+        <translation>Delen met %1</translation>
+    </message>
+    <message>
+        <source>Offer it to %1</source>
+        <translation>Aan %1 aanbieden</translation>
+    </message>
+    <message>
+        <source>%1 has no partner clubs yet. &lt;a href=&quot;%2&quot;&gt;Ask a club to be partners&lt;/a&gt; on the website.</source>
+        <translation>%1 heeft nog geen partnerclubs. &lt;a href=&quot;%2&quot;&gt;Vraag een club om partner te worden&lt;/a&gt; op de website.</translation>
+    </message>
+    <message>
+        <source>It&apos;s shared with every partner club.</source>
+        <translation>Hij is met elke partnerclub gedeeld.</translation>
+    </message>
+    <message>
+        <source>Pick a partner club…</source>
+        <translation>Kies een partnerclub…</translation>
+    </message>
+    <message>
+        <source>Offer Again</source>
+        <translation>Opnieuw aanbieden</translation>
+    </message>
+    <message>
+        <source>Take Back</source>
+        <translation>Terugnemen</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>Offered “%1” to %2. It&apos;s shared once their Admins or Managers accept it.</source>
+        <translation>‘%1’ aangeboden aan %2. Hij is gedeeld zodra hun beheerders of managers hem accepteren.</translation>
+    </message>
+    <message>
+        <source>“%1” is shared with %2.</source>
+        <translation>‘%1’ is gedeeld met %2.</translation>
+    </message>
+    <message>
+        <source>This is %1&apos;s module. Partner clubs get it straight away. Any other club must accept it first. Clubs you share with can place it in their layouts and get its updates; they can&apos;t change its parts.</source>
+        <translation>Dit is een module van %1. Partnerclubs krijgen hem meteen. Elke andere club moet hem eerst accepteren. Clubs met wie je deelt kunnen hem in hun layouts plaatsen en krijgen zijn updates; ze kunnen de onderdelen niet veranderen.</translation>
     </message>
     <message>
         <source>This is a club&apos;s module: its members already have it.</source>
@@ -9782,8 +9950,8 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <translation>Kies een club…</translation>
     </message>
     <message>
-        <source>%1 (club) · can place it</source>
-        <translation>%1 (club) · kan hem plaatsen</translation>
+        <source>%1 %2 · can place it</source>
+        <translation>%1 %2 · mag hem plaatsen</translation>
     </message>
     <message>
         <source>Stop sharing with %1</source>
@@ -10728,6 +10896,17 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <source>Remove</source>
         <translation>Verwijderen</translation>
     </message>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for an answer. Answer them on the website.</source>
+        <translation>
+            <numerusform>%1: %n partnerverzoek of moduleaanbieding wacht op antwoord. Beantwoord ze op de website.</numerusform>
+            <numerusform>%1: %n partnerverzoeken of moduleaanbiedingen wachten op antwoord. Beantwoord ze op de website.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open on the Website</source>
+        <translation>Openen op de website</translation>
+    </message>
     <message>
         <source>Modules other people shared with you or your clubs. Place one, and it follows its owner&apos;s updates.</source>
         <translation>Modules die andere mensen met jou of je clubs hebben gedeeld. Plaats er een, en hij volgt de updates van zijn eigenaar.</translation>
@@ -10747,6 +10926,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Yours</source>
         <translation>Van jou</translation>
+    </message>
+    <message>
+        <source>From %1</source>
+        <translation>Van %1</translation>
     </message>
     <message>
         <source>v%1</source>
@@ -10805,6 +10988,14 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Een club met wie je deelt kan hem in de layouts van de club plaatsen en krijgt je updates.</translation>
     </message>
     <message>
+        <source>Share with Other Clubs…</source>
+        <translation>Met andere clubs delen…</translation>
+    </message>
+    <message>
+        <source>Partner clubs get it straight away; any other club must accept it first.</source>
+        <translation>Partnerclubs krijgen hem meteen; elke andere club moet hem eerst accepteren.</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Terugnemen naar mij…</translation>
     </message>
@@ -10823,6 +11014,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Delete…</source>
         <translation>Verwijderen…</translation>
+    </message>
+    <message>
+        <source>shared with %1</source>
+        <translation>gedeeld met %1</translation>
     </message>
     <message>
         <source>A shared module goes in a layout, not inside another module.</source>

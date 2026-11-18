@@ -38,6 +38,15 @@
 //   shared-apply <moduleId> [version] [again]
 //                              the server puts a version in (the newest when
 //                              none is named): Update, Go back, Put back
+//   library-shared             Shared with me (GET /api/modules?owner=shared) as the
+//                              library reads it: id, title, owner, fromAnotherClub, clubs
+//   club-shares <moduleId>     a module's Share dialog: canShareWithOtherClubs, club,
+//                              partners, offers, clubs (with via)
+//   club-share <moduleId> <club slug or link>
+//                              a club's module to another club: shared at once with a
+//                              partner, else offered; ok {status, name, slug}
+//   club-offer-withdraw <moduleId> <offerId>
+//   club-requests              what waits in the clubs we look after
 //   shared-detach <moduleId>   "Make it mine", the server's step
 //
 // Edits go through the app's lock on shared modules (edit/SharedLock.h), as
@@ -344,6 +353,57 @@ public:
         } else if (cmd == QLatin1String("shared-detach") && a.size() == 2) {
             api().detachSharedModule(layoutId_, a[1], [this](bool changed) {
                 answer(changed ? QStringLiteral("ok true") : QStringLiteral("ok false"));
+            }, refused());
+            awaitAnswer();
+        } else if (cmd == QLatin1String("library-shared")) {
+            api().sharedWithMe([this](const QList<sync::ServerModule>& list) {
+                QJsonArray out;
+                for (const auto& m : list) {
+                    QJsonArray clubs;
+                    for (const auto& c : m.sharedClubs) clubs.append(c.name);
+                    const bool fromClub = m.owner.isClub() && !m.sharedDirect && !m.sharedClubs.isEmpty();
+                    out.append(QJsonObject{ { QStringLiteral("id"), m.id }, { QStringLiteral("title"), m.title },
+                                            { QStringLiteral("owner"), QJsonObject{ { QStringLiteral("kind"), m.owner.kind }, { QStringLiteral("name"), m.owner.name } } },
+                                            { QStringLiteral("fromAnotherClub"), fromClub }, { QStringLiteral("clubs"), clubs } });
+                }
+                answer(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(out).toJson(QJsonDocument::Compact)));
+            }, refused());
+            awaitAnswer();
+        } else if (cmd == QLatin1String("club-shares") && a.size() == 2) {
+            api().moduleShares(a[1], [this](const sync::ModuleShares& s) {
+                QJsonArray partners, offers, clubs;
+                for (const auto& p : s.partners) partners.append(p.name);
+                for (const auto& f : s.offers)
+                    offers.append(QJsonObject{ { QStringLiteral("id"), f.id }, { QStringLiteral("club"), f.club.name.isEmpty() ? f.club.slug : f.club.name },
+                                               { QStringLiteral("state"), f.state } });
+                for (const auto& c : s.clubs)
+                    clubs.append(QJsonObject{ { QStringLiteral("name"), c.name }, { QStringLiteral("via"), c.via } });
+                answer(QStringLiteral("ok ")
+                       + QString::fromUtf8(QJsonDocument(QJsonObject{ { QStringLiteral("canShareWithOtherClubs"), s.canShareWithOtherClubs },
+                                                                      { QStringLiteral("club"), s.club.name },
+                                                                      { QStringLiteral("partners"), partners },
+                                                                      { QStringLiteral("offers"), offers },
+                                                                      { QStringLiteral("clubs"), clubs } })
+                                               .toJson(QJsonDocument::Compact)));
+            }, refused());
+            awaitAnswer();
+        } else if (cmd == QLatin1String("club-share") && a.size() == 3) {
+            api().shareClubModule(a[1], a[2], [this](const sync::ClubShareResult& r) {
+                answer(QStringLiteral("ok ")
+                       + QString::fromUtf8(QJsonDocument(QJsonObject{ { QStringLiteral("status"), r.status }, { QStringLiteral("name"), r.name },
+                                                                      { QStringLiteral("slug"), r.slug } })
+                                               .toJson(QJsonDocument::Compact)));
+            }, refused());
+            awaitAnswer();
+        } else if (cmd == QLatin1String("club-offer-withdraw") && a.size() == 3) {
+            api().withdrawClubOffer(a[1], a[2], [this] { answer(QStringLiteral("ok")); }, refused());
+            awaitAnswer();
+        } else if (cmd == QLatin1String("club-requests")) {
+            api().clubRequestCount([this](const QList<sync::ClubRequestCount>& list) {
+                QJsonArray out;
+                for (const auto& c : list)
+                    out.append(QJsonObject{ { QStringLiteral("slug"), c.slug }, { QStringLiteral("name"), c.name }, { QStringLiteral("count"), c.count } });
+                answer(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(out).toJson(QJsonDocument::Compact)));
             }, refused());
             awaitAnswer();
         } else if (cmd == QLatin1String("peers")) {

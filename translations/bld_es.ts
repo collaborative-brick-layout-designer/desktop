@@ -1367,6 +1367,42 @@
         <translation>Los miembros con el permiso «Enviar al catálogo» lo revisan: lo que comparten con el nombre del club se hace público al instante, y lo que comparten otros miembros espera en la revisión propia del club. Los moderadores del sitio pueden seguir viendo y retirando cualquier cosa, y dejar de confiar en un club.</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>Clubes asociados</translation>
+    </message>
+    <message>
+        <source>Clubs that share their modules with each other, read-only, with no need to accept each one.</source>
+        <translation>Clubes que comparten sus módulos entre sí, de solo lectura, sin tener que aceptar cada uno.</translation>
+    </message>
+    <message>
+        <source>A club’s Admins or Managers ask another club, found under Find a club or by pasting its link, and that club’s Admins or Managers accept or decline. Partners still pick each module they share, and can place each other’s only in their club’s layouts. Ending a partnership stops those modules both ways; copies already placed stay as they are, marked “No longer shared”.</source>
+        <translation>Los administradores o gestores de un club invitan a otro club, encontrado en Buscar un club o pegando su enlace, y los administradores o gestores de ese club aceptan o rechazan. Los socios siguen eligiendo cada módulo que comparten y solo pueden colocar los del otro en las maquetas de su club. Terminar una asociación detiene esos módulos en ambos sentidos; las copias ya colocadas se quedan como están, marcadas «Ya no se comparte».</translation>
+    </message>
+    <message>
+        <source>Modules offered to your club</source>
+        <translation>Módulos ofrecidos a tu club</translation>
+    </message>
+    <message>
+        <source>Another club wants to share one of its modules with yours; your Admins or Managers accept or decline.</source>
+        <translation>Otro club quiere compartir uno de sus módulos con el tuyo; tus administradores o gestores aceptan o rechazan.</translation>
+    </message>
+    <message>
+        <source>Accepted, its members who may edit the club’s layouts can place it, and get its updates; they can’t change its parts. Declined, the other club sees that and can offer it again later. Your club can take an accepted module off its list at any time.</source>
+        <translation>Si se acepta, los miembros que pueden editar las maquetas del club pueden colocarlo y reciben sus actualizaciones; no pueden cambiar sus piezas. Si se rechaza, el otro club lo ve y puede ofrecerlo de nuevo más tarde. Tu club puede quitar un módulo aceptado de su lista en cualquier momento.</translation>
+    </message>
+    <message>
+        <source>Sharing a club’s module with other clubs</source>
+        <translation>Compartir el módulo de un club con otros clubes</translation>
+    </message>
+    <message>
+        <source>Partner clubs get it straight away; any other club must accept it first.</source>
+        <translation>Los clubes asociados lo reciben al momento; cualquier otro club debe aceptarlo primero.</translation>
+    </message>
+    <message>
+        <source>Pick a partner club, or find another club in the club list or by pasting its link. Offers wait until that club’s Admins or Managers accept; you can take one back. Either way you see how many layouts use it and in which clubs, and stopping leaves placed copies as they are.</source>
+        <translation>Elige un club asociado, o busca otro club en la lista de clubes o pegando su enlace. Las ofertas esperan hasta que los administradores o gestores de ese club acepten; puedes retirar una. En cualquier caso ves cuántas maquetas lo usan y en qué clubes, y dejar de compartir deja las copias colocadas como están.</translation>
+    </message>
+    <message>
         <source>Who can see this</source>
         <translation>Quién puede ver esto</translation>
     </message>
@@ -9715,6 +9751,50 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
         <translation>Ya no se comparte con ese club.</translation>
     </message>
     <message>
+        <source>No club has that address. Check the link and try again.</source>
+        <translation>Ningún club tiene esa dirección. Revisa el enlace e inténtalo de nuevo.</translation>
+    </message>
+    <message>
+        <source>That&apos;s this module&apos;s own club.</source>
+        <translation>Ese es el club de este módulo.</translation>
+    </message>
+    <message>
+        <source>That club declined this module. You can offer it again a day after it declined.</source>
+        <translation>Ese club rechazó este módulo. Puedes ofrecerlo de nuevo un día después del rechazo.</translation>
+    </message>
+    <message>
+        <source>Your club has many module offers waiting for an answer already. Take some back, or wait for an answer.</source>
+        <translation>Tu club ya tiene muchas ofertas de módulos esperando respuesta. Retira algunas, o espera una respuesta.</translation>
+    </message>
+    <message>
+        <source>(partner club)</source>
+        <translation>(club asociado)</translation>
+    </message>
+    <message>
+        <source>(club, accepted)</source>
+        <translation>(club, aceptado)</translation>
+    </message>
+    <message>
+        <source>(club)</source>
+        <translation>(club)</translation>
+    </message>
+    <message>
+        <source>the club at %1</source>
+        <translation>el club en %1</translation>
+    </message>
+    <message>
+        <source>%1 · waiting for them to accept</source>
+        <translation>%1 · esperando a que acepten</translation>
+    </message>
+    <message>
+        <source>%1 · declined (you can offer it again in a day)</source>
+        <translation>%1 · rechazado (puedes ofrecerlo de nuevo en un día)</translation>
+    </message>
+    <message>
+        <source>%1 · declined</source>
+        <translation>%1 · rechazado</translation>
+    </message>
+    <message>
         <source> (version %1)</source>
         <translation> (versión %1)</translation>
     </message>
@@ -9758,12 +9838,100 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
         <translation>Compartir</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>Clubes asociados</translation>
+    </message>
+    <message>
+        <source>Share with a partner club</source>
+        <translation>Compartir con un club asociado</translation>
+    </message>
+    <message>
+        <source>Another club…</source>
+        <translation>Otro club…</translation>
+    </message>
+    <message>
+        <source>Search clubs, or paste a club&apos;s link</source>
+        <translation>Buscar clubes, o pegar el enlace de un club</translation>
+    </message>
+    <message>
+        <source>Another club: search clubs, or paste a club&apos;s link</source>
+        <translation>Otro club: buscar clubes, o pegar el enlace de un club</translation>
+    </message>
+    <message>
+        <source>Offer It to This Club</source>
+        <translation>Ofrecerlo a este club</translation>
+    </message>
+    <message>
         <source>To share with one person by email, open this module on the website.</source>
         <translation>Para compartir con una persona por correo, abre este módulo en la web.</translation>
     </message>
     <message>
         <source>Open on the Website</source>
         <translation>Abrir en la web</translation>
+    </message>
+    <message>
+        <source>No listed club matches “%1”. A club that isn&apos;t listed is found by pasting its link.</source>
+        <translation>Ningún club de la lista coincide con «%1». Un club que no está en la lista se encuentra pegando su enlace.</translation>
+    </message>
+    <message>
+        <source>%1 (partner club)</source>
+        <translation>%1 (club asociado)</translation>
+    </message>
+    <message>
+        <source>Shared</source>
+        <translation>Compartido</translation>
+    </message>
+    <message>
+        <source>Waiting for them</source>
+        <translation>Esperando su respuesta</translation>
+    </message>
+    <message>
+        <source>Offer</source>
+        <translation>Ofrecer</translation>
+    </message>
+    <message>
+        <source>Share with %1</source>
+        <translation>Compartir con %1</translation>
+    </message>
+    <message>
+        <source>Offer it to %1</source>
+        <translation>Ofrecerlo a %1</translation>
+    </message>
+    <message>
+        <source>%1 has no partner clubs yet. &lt;a href=&quot;%2&quot;&gt;Ask a club to be partners&lt;/a&gt; on the website.</source>
+        <translation>%1 aún no tiene clubes asociados. &lt;a href=&quot;%2&quot;&gt;Invita a un club a asociarse&lt;/a&gt; en la web.</translation>
+    </message>
+    <message>
+        <source>It&apos;s shared with every partner club.</source>
+        <translation>Está compartido con todos los clubes asociados.</translation>
+    </message>
+    <message>
+        <source>Pick a partner club…</source>
+        <translation>Elige un club asociado…</translation>
+    </message>
+    <message>
+        <source>Offer Again</source>
+        <translation>Ofrecer de nuevo</translation>
+    </message>
+    <message>
+        <source>Take Back</source>
+        <translation>Retirar</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Quitar</translation>
+    </message>
+    <message>
+        <source>Offered “%1” to %2. It&apos;s shared once their Admins or Managers accept it.</source>
+        <translation>Se ofreció «%1» a %2. Se compartirá cuando sus administradores o gestores lo acepten.</translation>
+    </message>
+    <message>
+        <source>“%1” is shared with %2.</source>
+        <translation>«%1» está compartido con %2.</translation>
+    </message>
+    <message>
+        <source>This is %1&apos;s module. Partner clubs get it straight away. Any other club must accept it first. Clubs you share with can place it in their layouts and get its updates; they can&apos;t change its parts.</source>
+        <translation>Este es un módulo de %1. Los clubes asociados lo reciben al momento. Cualquier otro club debe aceptarlo primero. Los clubes con los que compartes pueden colocarlo en sus maquetas y reciben sus actualizaciones; no pueden cambiar sus piezas.</translation>
     </message>
     <message>
         <source>This is a club&apos;s module: its members already have it.</source>
@@ -9782,8 +9950,8 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
         <translation>Elige un club…</translation>
     </message>
     <message>
-        <source>%1 (club) · can place it</source>
-        <translation>%1 (club) · puede colocarlo</translation>
+        <source>%1 %2 · can place it</source>
+        <translation>%1 %2 · puede colocarlo</translation>
     </message>
     <message>
         <source>Stop sharing with %1</source>
@@ -10728,6 +10896,17 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <source>Remove</source>
         <translation>Quitar</translation>
     </message>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for an answer. Answer them on the website.</source>
+        <translation>
+            <numerusform>%1: %n solicitud de asociación u oferta de módulo espera respuesta. Respóndelas en la web.</numerusform>
+            <numerusform>%1: %n solicitudes de asociación u ofertas de módulos esperan respuesta. Respóndelas en la web.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open on the Website</source>
+        <translation>Abrir en la web</translation>
+    </message>
     <message>
         <source>Modules other people shared with you or your clubs. Place one, and it follows its owner&apos;s updates.</source>
         <translation>Módulos que otras personas compartieron contigo o con tus clubes. Coloca uno y seguirá las actualizaciones de su propietario.</translation>
@@ -10747,6 +10926,10 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>Yours</source>
         <translation>Tuyos</translation>
+    </message>
+    <message>
+        <source>From %1</source>
+        <translation>De %1</translation>
     </message>
     <message>
         <source>v%1</source>
@@ -10805,6 +10988,14 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <translation>Un club con el que compartes puede colocarlo en las maquetas del club y recibe tus actualizaciones.</translation>
     </message>
     <message>
+        <source>Share with Other Clubs…</source>
+        <translation>Compartir con otros clubes…</translation>
+    </message>
+    <message>
+        <source>Partner clubs get it straight away; any other club must accept it first.</source>
+        <translation>Los clubes asociados lo reciben al momento; cualquier otro club debe aceptarlo primero.</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>Recuperar para mí…</translation>
     </message>
@@ -10823,6 +11014,10 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>Delete…</source>
         <translation>Borrar…</translation>
+    </message>
+    <message>
+        <source>shared with %1</source>
+        <translation>compartido con %1</translation>
     </message>
     <message>
         <source>A shared module goes in a layout, not inside another module.</source>
