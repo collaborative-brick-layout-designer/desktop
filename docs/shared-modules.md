@@ -281,7 +281,9 @@ every undo and redo for the whole module in the same change
 - the module's record went: its parts go too;
 - a part an update took out came back (undoing a change of sheet made
   before the update brings back what it took off the old sheet): it goes
-  again. Updates keep these ids in `shared.retired`, the newest 1,000.
+  again. Updates keep these ids in `shared.retired`, the newest 1,000. The
+  server's guard does the same for an app that doesn't (desktop 2.1.7):
+  such a part, brought back, is taken away again in the server's step.
 
 **2. The server guard** (`ws/sharedGuard.ts`, run with the other checks).
 For parts that belong to a shared module, catch an update that changes a
