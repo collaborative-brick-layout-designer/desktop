@@ -75,6 +75,10 @@
         <source>Modules shared with you and your clubs, with their owner&apos;s updates</source>
         <translation>Módulos compartidos contigo y con tus clubes, con las actualizaciones de su propietario</translation>
     </message>
+    <message>
+        <source>Updates of shared modules that change only what changed</source>
+        <translation>Actualizaciones de módulos compartidos que cambian solo lo que cambió</translation>
+    </message>
 </context>
 <context>
     <name>HelpTexts</name>

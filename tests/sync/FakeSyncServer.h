@@ -143,6 +143,8 @@ public:
     // The connection is held to viewer (a role lowered while open): the
     // server keeps it open but drops what it sends (its step 2, its updates).
     bool dropEdits = false;
+    // Updates (and steps 2) clients sent.
+    int updatesReceived = 0;
 
 private:
     void onMessage(QWebSocket* from, const QByteArray& message) {
@@ -173,6 +175,7 @@ private:
                 if (p != from) p->sendBinaryMessage(out);
         } else {
             if (dropEdits) return;
+            ++updatesReceived;
             doc.applyUpdate(m->payload);
             for (QWebSocket* p : peers)
                 if (p != from) p->sendBinaryMessage(protocol::encode(Kind::Update, m->payload));

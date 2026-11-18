@@ -455,7 +455,13 @@ void MainWindow::applySharedLocally(const QString& placedId, int version, bool a
         auto* cmd = new edit::ReplaceModulePartsCommand(*map, placedId, plan->batches, moduleId, version);
         cmd->setSharedAfter(*after.shared);
         cmd->setText(again ? tr("Put back the owner's version") : tr("Update shared module"));
+        // Only the parts that differ change, as the server does it (doc shape 5): always in a file, and in
+        // a live layout made offline where the server does it too (else every part goes in again, as before).
+        const bool liveNow = live_ && live_->active() && !liveLayoutId_.isEmpty();
+        const bool keep = !liveNow || live_->session().keepIds();
+        if (keep) cmd->keepUnchanged(&parts_);
         mapView_->undoStack()->push(cmd);
+        if (keep && liveNow) live_->session().noteKeptIds();
         mapView_->refreshScene();
         if (again || sharedChangedOutside_.remove(placedId)) {
             sharedChangedOutside_.remove(placedId);

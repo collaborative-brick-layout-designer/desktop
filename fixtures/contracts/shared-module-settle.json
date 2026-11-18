@@ -1,0 +1,1135 @@
+{
+  "about": "Finishing an undo or redo for a shared module (docs/shared-modules.md, phase 3, doc shape 5; web packages/modules settle.ts, desktop src/edit/SharedSettle.cpp). `before`/`after`: whether the module's record is there, and its parts on the map (each with its sheet; in the module's order, as before). `expect`: parts to remove, whether the record goes too, and the parts to move (each where it goes: sheet, box and turn). Rule: its record went: every part left goes; some parts went: the rest go, and the record; some parts moved (place, turn or sheet), the rest didn't: the rest move the same way, taken from the first part that moved, turned about their pivots, onto the sheet the moved ones went to from theirs. Numbers rounded to 1e-6. `parts`: the geometry of each part number (lower case), as in shared-module-placement.json.",
+  "parts": {
+    "straight.1": {
+      "pxPerStud": 8,
+      "spriteSize": {
+        "w": 128,
+        "h": 32
+      }
+    },
+    "tile.1": {
+      "pxPerStud": 32,
+      "spriteSize": {
+        "w": 256,
+        "h": 256
+      }
+    },
+    "switch.1": {
+      "pxPerStud": 8,
+      "spriteSize": {
+        "w": 256,
+        "h": 96
+      },
+      "hullPts": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 255,
+          "y": 0
+        },
+        {
+          "x": 255,
+          "y": 31
+        },
+        {
+          "x": 128,
+          "y": 95
+        },
+        {
+          "x": 0,
+          "y": 31
+        }
+      ]
+    },
+    "ramp.1": {
+      "pxPerStud": 8,
+      "spriteSize": {
+        "w": 64,
+        "h": 48
+      },
+      "hullPts": [
+        {
+          "x": 0,
+          "y": 47
+        },
+        {
+          "x": 63,
+          "y": 0
+        },
+        {
+          "x": 63,
+          "y": 47
+        }
+      ]
+    }
+  },
+  "settle": [
+    {
+      "name": "nothing changed",
+      "before": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "after": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "expect": {
+        "remove": [],
+        "removeModule": false,
+        "move": []
+      }
+    },
+    {
+      "name": "all moved together (an ordinary undo): nothing to finish",
+      "before": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "after": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 10,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 18,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 26,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 10,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "expect": {
+        "remove": [],
+        "removeModule": false,
+        "move": []
+      }
+    },
+    {
+      "name": "its record went, some parts are left: they go",
+      "before": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "after": {
+        "record": false,
+        "parts": [
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "expect": {
+        "remove": [
+          "c",
+          "d"
+        ],
+        "removeModule": false,
+        "move": []
+      }
+    },
+    {
+      "name": "its record and all its parts went: nothing to finish",
+      "before": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "after": {
+        "record": false,
+        "parts": []
+      },
+      "expect": {
+        "remove": [],
+        "removeModule": false,
+        "move": []
+      }
+    },
+    {
+      "name": "some parts went (undoing placing it): the rest go, and the record",
+      "before": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "after": {
+        "record": true,
+        "parts": [
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "expect": {
+        "remove": [
+          "b",
+          "d"
+        ],
+        "removeModule": true,
+        "move": []
+      }
+    },
+    {
+      "name": "two parts moved back: the rest move the same way",
+      "before": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "after": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": -16,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": -8,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "expect": {
+        "remove": [],
+        "removeModule": false,
+        "move": [
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "orientation": 0,
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 16,
+              "height": 4
+            }
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "orientation": 0,
+            "displayArea": {
+              "x": -16,
+              "y": 16,
+              "width": 8,
+              "height": 8
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "two parts turned back a quarter about a point: the rest turn with them",
+      "before": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "after": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 12,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 270
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 0,
+              "y": -12,
+              "width": 4,
+              "height": 16
+            },
+            "orientation": 270
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "expect": {
+        "remove": [],
+        "removeModule": false,
+        "move": [
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "orientation": 270,
+            "displayArea": {
+              "x": 0,
+              "y": 4,
+              "width": 8,
+              "height": 8
+            }
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "orientation": 270,
+            "displayArea": {
+              "x": 8,
+              "y": 12,
+              "width": 8,
+              "height": 8
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "turned by an odd angle, with a part with a hull left to turn",
+      "before": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "s",
+            "sheet": "S",
+            "partNumber": "switch.1",
+            "displayArea": {
+              "x": 14,
+              "y": 4,
+              "width": 32,
+              "height": 12
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "after": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0.12779534702043982,
+              "y": 1.543291229516905,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 33.5
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 6.798881923557786,
+              "y": 5.95878711201337,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 33.5
+          },
+          {
+            "id": "s",
+            "sheet": "S",
+            "partNumber": "switch.1",
+            "displayArea": {
+              "x": 14,
+              "y": 4,
+              "width": 32,
+              "height": 12
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "expect": {
+        "remove": [],
+        "removeModule": false,
+        "move": [
+          {
+            "id": "s",
+            "sheet": "S",
+            "partNumber": "switch.1",
+            "orientation": 33.5,
+            "displayArea": {
+              "x": 10.28302,
+              "y": 11.086775,
+              "width": 28.843866,
+              "height": 20.949299
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "some parts went back to another sheet: the rest go there too, moved the same way",
+      "before": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "after": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "T",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": -4,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "T",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": -4,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "expect": {
+        "remove": [],
+        "removeModule": false,
+        "move": [
+          {
+            "id": "b",
+            "sheet": "T",
+            "partNumber": "tile.1",
+            "orientation": 0,
+            "displayArea": {
+              "x": 8,
+              "y": -4,
+              "width": 8,
+              "height": 8
+            }
+          },
+          {
+            "id": "d",
+            "sheet": "T",
+            "partNumber": "tile.1",
+            "orientation": 0,
+            "displayArea": {
+              "x": 0,
+              "y": 4,
+              "width": 8,
+              "height": 8
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "a module that was not there before: nothing to finish",
+      "before": {
+        "record": false,
+        "parts": []
+      },
+      "after": {
+        "record": true,
+        "parts": [
+          {
+            "id": "a",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "b",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 8,
+              "y": 0,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          },
+          {
+            "id": "c",
+            "sheet": "S",
+            "partNumber": "straight.1",
+            "displayArea": {
+              "x": 16,
+              "y": 0,
+              "width": 16,
+              "height": 4
+            },
+            "orientation": 0
+          },
+          {
+            "id": "d",
+            "sheet": "S",
+            "partNumber": "tile.1",
+            "displayArea": {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 8
+            },
+            "orientation": 0
+          }
+        ]
+      },
+      "expect": {
+        "remove": [],
+        "removeModule": false,
+        "move": []
+      }
+    }
+  ]
+}

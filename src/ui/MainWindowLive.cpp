@@ -3,6 +3,7 @@
 // server's parts.
 
 #include "MainWindow.h"
+#include "../edit/SharedSettle.h"
 
 #include "ActiveSheet.h"
 #include "LayerPanel.h"
@@ -569,6 +570,12 @@ void MainWindow::openLive(const sync::ConnectResult& r) {
     // server's web app reads them (docs/module-members.md).
     live_->session().setMemberKeys(r.info.features && r.info.features->contains(QLatin1String(sync::kMemberKeysFeature)));
     live_->session().setSharedModules(r.info.features && r.info.features->contains(QLatin1String(sync::kSharedModulesFeature)));
+    // Updates that keep a shared module's unchanged parts (doc shape 5): kept in our own offline ones only where the server keeps them too.
+    live_->session().setKeepIds(r.info.features && r.info.features->contains(QLatin1String(sync::kSharedKeepIdsFeature)));
+    // An undo or redo that would pull a shared module apart (after such an update) is finished for the whole module.
+    live_->session().setStepFinisher([this](const core::Map& before, core::Map& after, core::SettledBack* removed) {
+        return edit::finishShared(before, after, parts_, removed);
+    });
     live_->open(api.layoutSocketUrl(r.layoutId), r.token, r.readOnly, r.title, cacheDir);
     // Name and color our cursor as the web does, once we know who we are.
     auto* who = new sync::ServerApi(this);

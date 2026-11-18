@@ -41,13 +41,24 @@ change in one repo fails until the other has the same copy.
   version's. The web's
   `BLD_WRITE_CONTRACTS=1 pnpm --filter @cld/modules test` writes the
   `expect` values.
+- `shared-module-keep.json`: updates that keep the ids of a shared module's
+  unchanged parts (docs/shared-modules.md, phase 3; web packages/modules
+  keepIds.ts, desktop src/edit/SharedModuleKeep.cpp): which parts are
+  matched, which go, which come in new, each sheet's drawing order after,
+  and the new parts' sets. The web's
+  `BLD_WRITE_CONTRACTS=1 pnpm --filter @cld/modules test` writes the
+  `expect` values.
+- `shared-module-settle.json`: finishing an undo or redo for a shared module
+  after such an update (doc shape 5; web packages/modules settle.ts,
+  desktop src/edit/SharedSettle.cpp): what goes, and what moves where. The
+  same command writes its `expect` values.
 - `part-naming.json`: a server custom part, placed on the website as
   `custom:<id>`, which every export names by its part number and the
   desktop's parts cache finds by either.
 
 To change them: edit (or, for the imported part, run the desktop's
 `bld_sync_tests --gtest_filter='Contracts.*'` with `BLD_WRITE_CONTRACTS=1`),
-then `sha256sum doc-shape.json imported-part.json imported-part.xml module-members.json part-naming.json presence-colors.json shared-module-placement.json sidecar-hash.json update-guard.json > MANIFEST.sha256`
+then `sha256sum doc-shape.json imported-part.json imported-part.xml module-members.json part-naming.json presence-colors.json shared-module-keep.json shared-module-placement.json shared-module-settle.json sidecar-hash.json update-guard.json > MANIFEST.sha256`
 and copy the folder to the other repo.
 - `presence-colors.json`: each person's first-choice presence color on a
   layout, and the colors a group of people here get (web

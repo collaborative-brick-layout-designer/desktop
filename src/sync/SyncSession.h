@@ -37,12 +37,13 @@
 #include <QString>
 #include <QUrl>
 
+#include <functional>
 #include <memory>
 #include <optional>
 
 class QTimer;
 
-namespace bld::core { class Map; }
+namespace bld::core { class Map; struct SettledBack; }
 
 namespace bld::sync {
 
@@ -63,6 +64,21 @@ public:
     // feature sync::kSharedModulesFeature): only then is a layout stamped
     // shape 4 for one (SyncDoc::setSharedModules). Call before open.
     void setSharedModules(bool on) { doc_.setSharedModules(on); }
+    // Whether the server keeps a shared module's unchanged parts in its
+    // updates (its feature sync::kSharedKeepIdsFeature): only then does the
+    // desktop keep them in its own update made offline (noteKeptIds).
+    void setKeepIds(bool on) { keepIds_ = on; }
+    bool keepIds() const { return keepIds_; }
+    // The editor put a shared module's new version in while offline,
+    // keeping its unchanged parts: when the offline edits go to the server,
+    // the layout is stamped shape 5 first (SyncDoc::stampKeepIds).
+    void noteKeptIds();
+    // Finishing an undo or redo for shared modules (edit/SharedSettle.h
+    // finishShared, which needs the parts library the app has): given the
+    // layout before the step, it changes the layout after it, and says what
+    // it took away. Sent with the step, as one change.
+    using StepFinisher = std::function<bool(const core::Map& before, core::Map& after, core::SettledBack* removed)>;
+    void setStepFinisher(StepFinisher finish) { finish_ = std::move(finish); }
     void close();
 
     SyncClient::Status status() const { return client_.status(); }
@@ -83,6 +99,7 @@ public:
         merge::Snapshot base;  // the shared layout when the first offline edit was made
         merge::Snapshot mine;  // the editor's layout after the last one
         int count = 0;         // edits made offline; once back in step, the ones that clash
+        bool keptIds = false;  // a shared module's update among them kept its unchanged parts
     };
     const std::optional<OfflineEdits>& offlineEdits() const { return offline_; }
     // Ends the offline edits: `result` (a merge, or mine to replace the
@@ -142,6 +159,11 @@ signals:
 
 private:
     void remoteArrived();
+    // After an undo or redo: finish it for shared modules (finish_), and put
+    // back what finishing its undo took (redo). `sv`: the state before it.
+    void finishStep(const core::Map* before, bool redo, const QByteArray& sv);
+    // The update that stamps shape 5 when offline edits kept parts (noteKeptIds).
+    void stampOfflineKeep();
     void saveDoc();
     void saveOffline();
     void loadCache();
@@ -151,6 +173,8 @@ private:
     // Back in step after starting again read only: whether the server kept everything of ours.
     void checkNothingDropped();
 
+    bool keepIds_ = false;
+    StepFinisher finish_;
     quint32 clientId_;
     quint32 presenceClock_ = 0;
     std::optional<QJsonObject> presence_;

@@ -8,12 +8,14 @@
       "1.3.0": "The first release with live sync, the token fix that lets it download a server's parts (needs server #140, which every server with the partFilesWithToken feature has), and these version checks.",
       "1.4.0": "The first release that reads doc shape 2: a layout edited on this server moves to shape 2, and older desktops then refuse to open it live.",
       "2.1.3": "The first release that reads doc shape 3: a layout whose module parts someone changes on this server moves to shape 3, and older desktops then refuse to open it live.",
-      "2.1.5": "The first release that reads doc shape 4: a layout with a module shared read-only by its owner moves to shape 4, and older desktops then refuse to open it live."
+      "2.1.5": "The first release that reads doc shape 4: a layout with a module shared read-only by its owner moves to shape 4, and older desktops then refuse to open it live.",
+      "2.1.7": "The first release that reads doc shape 5: a layout whose shared module gets an update that keeps its unchanged parts moves to shape 5, and older desktops then refuse to open it live."
     },
     "downloadUrl": "https://github.com/collaborative-brick-layout-designer/desktop/releases/latest",
     "userAgentPattern": "^(?:Collaborative)?BrickLayoutDesigner/([0-9][0-9A-Za-z.+-]{0,31}) \\(desktop\\)"
   },
-  "doc": { "schemaVersion": 4, "createdAs": 1, "minReadable": 1, "why": { "2": "Ruler items are Y.Maps, area sheets have a cellOffset, parts and rulers are ordered by z, so concurrent edits merge. A layout is made in shape createdAs and moves to 2 when an edit needs it; builds that read only 1 then refuse it.", "3": "A part added to a module or taken out of it is a key of its own (sidecarItems p:<n>:<moduleId>:<partId>) on top of the list the module was made with, so two people changing one module's parts at once both keep their change (docs/module-members.md). A layout moves to 3 with its first such key; builds that read only 2 would miss the keys, and refuse it.", "4": "A module shared read-only by its owner (sidecarItems m:<id> `shared`) is locked (docs/shared-modules.md). A layout moves to 4 with its first shared module; builds that read only 3 would let its parts be changed, and refuse it." } },
+  "doc": { "schemaVersion": 5, "createdAs": 1, "minReadable": 1, "why": { "2": "Ruler items are Y.Maps, area sheets have a cellOffset, parts and rulers are ordered by z, so concurrent edits merge. A layout is made in shape createdAs and moves to 2 when an edit needs it; builds that read only 1 then refuse it.", "3": "A part added to a module or taken out of it is a key of its own (sidecarItems p:<n>:<moduleId>:<partId>) on top of the list the module was made with, so two people changing one module's parts at once both keep their change (docs/module-members.md). A layout moves to 3 with its first such key; builds that read only 2 would miss the keys, and refuse it.", "4": "A module shared read-only by its owner (sidecarItems m:<id> `shared`) is locked (docs/shared-modules.md). A layout moves to 4 with its first shared module; builds that read only 3 would let its parts be changed, and refuse it.",
+      "5": "An update of a shared module keeps its unchanged parts (docs/shared-modules.md, phase 3), so an earlier undo step can point at some of its parts and not the others; builds that read 5 finish such an undo for the whole module. A layout moves to 5 with its first such update (meta.keptIds); builds that read only 4 would pull the module apart, and refuse it." } },
   "sidecar": { "schemaVersion": 1 },
   "layoutFile": { "version": 1 },
   "protocols": ["y-websocket/1"],
@@ -35,10 +37,11 @@
     { "id": "deletePartsFromDesktop", "label": "Deleting your own parts and sets from the desktop app" },
     { "id": "recentlyDeleted", "label": "Recently deleted: a deleted layout, module or venue waits 30 days" },
     { "id": "moduleMemberKeys", "label": "Two people changing one module's parts at the same moment" },
-    { "id": "sharedModules", "label": "Modules shared with you and your clubs, with their owner's updates" }
+    { "id": "sharedModules", "label": "Modules shared with you and your clubs, with their owner's updates" },
+    { "id": "sharedKeepIds", "label": "Updates of shared modules that change only what changed" }
   ],
-  "serverFeatures": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "limits", "layoutDownload", "catalogShare", "uploadSets", "deletePartsFromDesktop", "recentlyDeleted", "moduleMemberKeys", "sharedModules"],
-  "desktopUses": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "sharedModules"],
+  "serverFeatures": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "limits", "layoutDownload", "catalogShare", "uploadSets", "deletePartsFromDesktop", "recentlyDeleted", "moduleMemberKeys", "sharedModules", "sharedKeepIds"],
+  "desktopUses": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "sharedModules", "sharedKeepIds"],
   "assumedWhenUnlisted": ["liveSync", "signIn"],
   "cases": {
     "versionCompare": [
@@ -75,9 +78,9 @@
       { "app": "1.0.0", "minimum": "", "recommended": "", "expect": "ok" }
     ],
     "missingFeatures": [
-      { "server": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "limits", "sharedModules"], "expect": [] },
-      { "server": ["liveSync", "signIn", "publish", "clubs", "partsManifest", "partFilesWithToken", "uploadParts", "ownerTags", "somethingNew"], "expect": ["venues", "preferences", "sharedModules"] },
-      { "server": null, "expect": ["publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "sharedModules"] }
+      { "server": ["liveSync", "signIn", "publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "limits", "sharedModules", "sharedKeepIds"], "expect": [] },
+      { "server": ["liveSync", "signIn", "publish", "clubs", "partsManifest", "partFilesWithToken", "uploadParts", "ownerTags", "somethingNew"], "expect": ["venues", "preferences", "sharedModules", "sharedKeepIds"] },
+      { "server": null, "expect": ["publish", "clubs", "venues", "partsManifest", "partFilesWithToken", "uploadParts", "preferences", "ownerTags", "sharedModules", "sharedKeepIds"] }
     ],
     "docReadable": [
       { "doc": null, "schemaVersion": 1, "minReadable": 1, "expect": true },
@@ -90,6 +93,8 @@
       { "doc": 1, "schemaVersion": 3, "minReadable": 1, "expect": true },
       { "doc": 4, "schemaVersion": 3, "minReadable": 1, "expect": false },
       { "doc": 4, "schemaVersion": 4, "minReadable": 1, "expect": true },
+      { "doc": 5, "schemaVersion": 4, "minReadable": 1, "expect": false },
+      { "doc": 5, "schemaVersion": 5, "minReadable": 1, "expect": true },
       { "doc": 3, "schemaVersion": 4, "minReadable": 1, "expect": true }
     ]
   }

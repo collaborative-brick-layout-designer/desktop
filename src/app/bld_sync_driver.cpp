@@ -51,6 +51,7 @@
 #include "core/SharedModule.h"
 #include "edit/SharedLock.h"
 #include "parts/PartsLibrary.h"
+#include "edit/SharedSettle.h"
 #include "sync/Presence.h"
 #include "sync/ServerApi.h"
 #include "sync/SidecarItems.h"
@@ -194,6 +195,12 @@ public:
             // server's web app reads them (docs/module-members.md).
             session_.setMemberKeys(serverReadsMemberKeys());
             session_.setSharedModules(serverKnowsSharedModules());
+            session_.setKeepIds(serverHas(QLatin1String(sync::kSharedKeepIdsFeature)));
+            // An undo that would pull a shared module apart is finished for the whole module (no parts library here: by boxes).
+            session_.setStepFinisher([](const core::Map& before, core::Map& after, core::SettledBack* removed) {
+                static parts::PartsLibrary none;
+                return edit::finishShared(before, after, none, removed);
+            });
             session_.open(socket_, token_, false);
             reply(QStringLiteral("ok"));
         } else if (cmd == QLatin1String("wait-synced")) {
@@ -201,6 +208,9 @@ public:
             reply(waitFor([&] { return session_.status() == Status::Synced && session_.loaded(); }, ms)
                       ? QStringLiteral("ok")
                       : QStringLiteral("error not synced (%1)").arg(QLatin1String(statusName(session_.status()))));
+        } else if (cmd == QLatin1String("features")) {
+            // What this build does that older ones don't (the web's journeys ask, to know what to expect of it).
+            reply(QStringLiteral("ok keepIds"));
         } else if (cmd == QLatin1String("status")) {
             reply(QStringLiteral("ok %1 %2").arg(QLatin1String(statusName(session_.status()))).arg(session_.unsyncedEdits()));
         } else if (cmd == QLatin1String("move") && a.size() == 4) {

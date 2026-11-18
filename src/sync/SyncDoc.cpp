@@ -1,5 +1,7 @@
 #include "SyncDoc.h"
 
+#include "core/SettledBack.h"
+
 #include "SidecarItems.h"
 #include "ModuleMembers.h"
 
@@ -365,6 +367,7 @@ struct SyncDoc::Impl {
         bool madeCache = false;      // the step wrote the layout's first meta.cache
         QSet<QString> made;          // sidecarItems keys it added
         QSet<QString> removed;       // sidecarItems keys it deleted
+        core::SettledBack settled;   // what finishing its undo took away (redo puts it back)
     };
     std::vector<SidecarStep> undoSteps, redoSteps;
     // writeMap may write module part keys (setMemberKeys).
@@ -834,7 +837,9 @@ struct SyncDoc::Impl {
             }
         }
         const int stamped = schema.isDouble() ? schema.toInt() : 0;
-        const int stamp = sharedModule ? kDocShapeShared : partKeys ? kDocShapeMemberKeys : mark ? kDocShapeInPlace : 0;
+        // Marked as having had an update that kept parts (a lower stamp written at the same moment): shape 5 again.
+        const bool kept = cur.value(QLatin1String("meta")).toObject().value(QLatin1String(kKeptIdsMark)).toBool();
+        const int stamp = kept ? kDocShapeKeepIds : sharedModule ? kDocShapeShared : partKeys ? kDocShapeMemberKeys : mark ? kDocShapeInPlace : 0;
         if (stamp > stamped) {
             const YInput sv = yinput_float(stamp);
             ymap_insert(meta, txn, "schemaVersion", &sv);
@@ -1329,7 +1334,7 @@ void SyncDoc::setKeepJson(bool keep) {
 void SyncDoc::setMemberKeys(bool on) { d_->memberKeys = on; }
 void SyncDoc::setSharedModules(bool on) { d_->sharedModules = on; }
 
-QByteArray SyncDoc::writeMap(const core::Map& map) {
+QByteArray SyncDoc::writeMap(const core::Map& map, bool undoStep) {
     Impl& d = *d_;
     const QJsonObject want = docJsonFromMap(map, d.keepJson ? &d.parts : nullptr);
     const QByteArray before = stateVector();
@@ -1362,7 +1367,7 @@ QByteArray SyncDoc::writeMap(const core::Map& map) {
     d.absorb();
     const QJsonObject cur = d.currentJson();
     d.ops = 0;
-    d.txn = ydoc_write_transaction(d.doc, sizeof(kLocalOrigin) - 1, kLocalOrigin);
+    d.txn = undoStep ? ydoc_write_transaction(d.doc, sizeof(kLocalOrigin) - 1, kLocalOrigin) : ydoc_write_transaction(d.doc, 0, nullptr);
     const QJsonObject curMeta = cur.value(QLatin1String("meta")).toObject();
     QJsonObject wantMeta = want.value(QLatin1String("meta")).toObject();
     if (writesSidecar) wantMeta.insert(QStringLiteral("cache"), sidecarWrite.blob);
@@ -1418,9 +1423,11 @@ QByteArray SyncDoc::writeMap(const core::Map& map) {
     d.touchedArrays.clear();
     d.brickIds.clear();
     d.baseline = d.jsonValid && d.keepJson;
-    yundo_manager_stop(d.undo);  // seal this write as one step
+    if (undoStep) yundo_manager_stop(d.undo);  // seal this write as one step
     // What this step did to the sidecar's keys (restoreSidecar).
-    if (yundo_manager_undo_stack_len(d.undo) == d.undoSteps.size() + 1) {
+    if (!undoStep) {
+        // (not a step: yrs's stack is as it was)
+    } else if (yundo_manager_undo_stack_len(d.undo) == d.undoSteps.size() + 1) {
         Impl::SidecarStep step;
         step.madeCache = writesSidecar && !curMeta.contains(QLatin1String("cache"));
         if (!sidecarWrite.items.isEmpty()) {
@@ -1500,6 +1507,37 @@ QByteArray SyncDoc::redo() {
     }
     // Redo deletes again the keys the step deleted, and never meta.cache.
     d.restoreSidecar(was, step.removed, false);
+    return diffSince(before);
+}
+
+void SyncDoc::attachSettled(const core::SettledBack& back) {
+    Impl& d = *d_;
+    if (!d.redoSteps.empty() && yundo_manager_redo_stack_len(d.undo) == d.redoSteps.size()) d.redoSteps.back().settled = back;
+}
+
+core::SettledBack SyncDoc::takeSettled() {
+    Impl& d = *d_;
+    if (d.undoSteps.empty() || yundo_manager_undo_stack_len(d.undo) != d.undoSteps.size()) return {};
+    return std::exchange(d.undoSteps.back().settled, core::SettledBack{});
+}
+
+QByteArray SyncDoc::stampKeepIds() {
+    const QJsonObject meta = d_->currentJson().value(QLatin1String("meta")).toObject();
+    const QJsonValue v = meta.value(QLatin1String("schemaVersion"));
+    const bool stamped = v.isDouble() && v.toInt() >= kDocShapeKeepIds;
+    if (stamped && meta.value(QLatin1String(kKeptIdsMark)).toBool()) return {};
+    const QByteArray before = stateVector();
+    Impl& d = *d_;
+    d.txn = ydoc_write_transaction(d.doc, 0, nullptr);
+    const YInput mark = yinput_bool(Y_TRUE);
+    ymap_insert(d.meta, d.txn, kKeptIdsMark, &mark);
+    if (!stamped) {
+        const YInput sv = yinput_float(kDocShapeKeepIds);
+        ymap_insert(d.meta, d.txn, "schemaVersion", &sv);
+    }
+    ytransaction_commit(d.txn);
+    d.txn = nullptr;
+    d.absorb();
     return diffSince(before);
 }
 

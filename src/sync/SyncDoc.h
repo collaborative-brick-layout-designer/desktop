@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace bld::core { class Map; }
+namespace bld::core { class Map; struct SettledBack; }
 
 namespace bld::sync {
 
@@ -63,7 +63,9 @@ public:
     // lists, are replaced when they differ. Keys the desktop doesn't know
     // are left alone. Returns the change as a v1 update, empty when the
     // document already matched.
-    QByteArray writeMap(const core::Map& map);
+    // `step` false: not an undo step of its own (finishing an undo for a
+    // shared module, a merge's stamp): undo never takes it back by itself.
+    QByteArray writeMap(const core::Map& map, bool step = true);
     // Whether writeMap may write a module's part changes one key each
     // (ModuleMembers.h, doc shape 3). On by default; off for a server whose
     // web app doesn't read the keys (SidecarItems.h kMemberKeysFeature): a
@@ -87,6 +89,15 @@ public:
     QByteArray redo();
     bool canUndo() const;
     bool canRedo() const;
+    // What finishing the undo just made took away (edit/SharedSettle.h),
+    // kept with its step so that redoing it puts them back: attachSettled
+    // right after undo(), takeSettled right after redo().
+    void attachSettled(const core::SettledBack& back);
+    core::SettledBack takeSettled();
+    // Mark the doc as having had a shared-module update that kept parts,
+    // and stamp it shape 5 (the web's stampKeepIds); not an undo step.
+    // Returns the update to send, empty when it was so already.
+    QByteArray stampKeepIds();
 
     // How much array work writeMap has done so far (the perf tests count
     // it): entries read by index, each of which walks the array from its
