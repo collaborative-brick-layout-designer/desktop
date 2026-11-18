@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "SharedUpdatesDialog.h"
 #include "SheetNames.h"
 #include "ConfirmDialog.h"
 #include "LoadingCard.h"
@@ -798,6 +799,9 @@ MainWindow::~MainWindow() {
     }
     // A child of the map view, deleted after this destructor.
     if (partsDownloadCard_) partsDownloadCard_->disconnect(this);
+    // Modules › Updates from Shared Modules…, if open: gone while this window
+    // still is (it tells this window when it goes).
+    delete sharedUpdatesDialog_;
 }
 
 
