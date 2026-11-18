@@ -7294,10 +7294,6 @@ Save anyway?</source>
         <translation>Guardar las piezas elegidas como set en tus piezas, para colocarlas de nuevo de una vez</translation>
     </message>
     <message>
-        <source>Updates from &amp;Shared Modules…</source>
-        <translation>Actualizaciones de módulos &amp;compartidos…</translation>
-    </message>
-    <message>
         <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
         <translation>Si este diseño pregunta antes de que entre la versión nueva de un módulo compartido, o la recibe automáticamente</translation>
     </message>
@@ -8236,6 +8232,10 @@ No se te volverá a preguntar. Para traerlo más tarde a esta o a cualquier otra
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>Guardar selección como &amp;set…</translation>
+    </message>
+    <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>Act&amp;ualizaciones de módulos compartidos…</translation>
     </message>
     <message>
         <source>&amp;Help</source>

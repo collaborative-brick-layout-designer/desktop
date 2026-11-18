@@ -7294,10 +7294,6 @@ Trotzdem speichern?</translation>
         <translation>Die gewählten Teile als Set in deinen Teilen speichern, um sie in einem Rutsch wieder zu platzieren</translation>
     </message>
     <message>
-        <source>Updates from &amp;Shared Modules…</source>
-        <translation>Updates von &amp;geteilten Modulen…</translation>
-    </message>
-    <message>
         <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
         <translation>Ob dieses Layout erst fragt, bevor die neue Version eines geteilten Moduls übernommen wird, oder sie automatisch übernimmt</translation>
     </message>
@@ -8236,6 +8232,10 @@ Du wirst nicht noch einmal gefragt. Um es später in dieses oder ein anderes Lay
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>Auswahl als &amp;Set speichern…</translation>
+    </message>
+    <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>&amp;Updates von geteilten Modulen…</translation>
     </message>
     <message>
         <source>&amp;Help</source>

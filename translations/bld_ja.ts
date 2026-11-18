@@ -7247,10 +7247,6 @@ Save anyway?</source>
         <translation>選んだパーツをセットとして自分のパーツに保存し、一度にまた置けるようにします</translation>
     </message>
     <message>
-        <source>Updates from &amp;Shared Modules…</source>
-        <translation>共有モジュールの更新(&amp;S)…</translation>
-    </message>
-    <message>
         <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
         <translation>共有モジュールの新しいバージョンを取り込む前にこのレイアウトが確認するか、自動で取り込むか</translation>
     </message>
@@ -8179,6 +8175,10 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>選択範囲をセットとして保存(&amp;S)…</translation>
+    </message>
+    <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>共有モジュールの更新(&amp;U)…</translation>
     </message>
     <message>
         <source>&amp;Help</source>

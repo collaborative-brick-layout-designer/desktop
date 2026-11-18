@@ -7294,10 +7294,6 @@ Toch opslaan?</translation>
         <translation>De gekozen onderdelen als set in je onderdelen opslaan, om in één keer opnieuw te plaatsen</translation>
     </message>
     <message>
-        <source>Updates from &amp;Shared Modules…</source>
-        <translation>Updates van &amp;gedeelde modules…</translation>
-    </message>
-    <message>
         <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
         <translation>Of deze layout eerst vraagt voordat de nieuwe versie van een gedeelde module meegaat, of die automatisch overneemt</translation>
     </message>
@@ -8236,6 +8232,10 @@ Dit wordt niet opnieuw gevraagd. Om het later in deze of een andere layout over 
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>Selectie opslaan als &amp;set…</translation>
+    </message>
+    <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>&amp;Updates van gedeelde modules…</translation>
     </message>
     <message>
         <source>&amp;Help</source>

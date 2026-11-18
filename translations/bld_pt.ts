@@ -7294,10 +7294,6 @@ Guardar mesmo assim?</translation>
         <translation>Guarde as peças selecionadas como um conjunto nas suas peças, para colocar de novo de uma só vez</translation>
     </message>
     <message>
-        <source>Updates from &amp;Shared Modules…</source>
-        <translation>Atualizações de módulos &amp;partilhados…</translation>
-    </message>
-    <message>
         <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
         <translation>Se este layout pergunta antes de entrar a versão nova de um módulo partilhado, ou a recebe automaticamente</translation>
     </message>
@@ -8236,6 +8232,10 @@ Não voltaremos a perguntar. Para o trazer mais tarde para este ou outro layout,
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>Guardar seleção como &amp;conjunto…</translation>
+    </message>
+    <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>At&amp;ualizações de módulos partilhados…</translation>
     </message>
     <message>
         <source>&amp;Help</source>

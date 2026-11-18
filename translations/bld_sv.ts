@@ -7681,6 +7681,10 @@ Spara ändå?</translation>
         <translation>Spara de markerade delarna som ett set bland dina delar, för att placera igen i ett svep</translation>
     </message>
     <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>&amp;Uppdateringar från delade moduler…</translation>
+    </message>
+    <message>
         <source>The Qt toolkit this app is built with</source>
         <translation>Verktygslådan Qt som appen är byggd med</translation>
     </message>
@@ -8456,10 +8460,6 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>Spara markering som &amp;set…</translation>
-    </message>
-    <message>
-        <source>Updates from &amp;Shared Modules…</source>
-        <translation>Uppdateringar från &amp;delade moduler…</translation>
     </message>
     <message>
         <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>

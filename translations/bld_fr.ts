@@ -7294,10 +7294,6 @@ Enregistrer quand même ?</translation>
         <translation>Enregistrer les pièces choisies comme set dans vos pièces, pour les reposer d’un coup</translation>
     </message>
     <message>
-        <source>Updates from &amp;Shared Modules…</source>
-        <translation>Mises à jour des modules &amp;partagés…</translation>
-    </message>
-    <message>
         <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
         <translation>Si ce plan demande avant que la nouvelle version d’un module partagé entre, ou la reçoit automatiquement</translation>
     </message>
@@ -8236,6 +8232,10 @@ La question ne vous sera plus posée. Pour le reprendre plus tard dans ce plan o
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>Enregistrer la sélection comme &amp;set…</translation>
+    </message>
+    <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>Mises à jo&amp;ur des modules partagés…</translation>
     </message>
     <message>
         <source>&amp;Help</source>

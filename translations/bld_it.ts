@@ -7294,10 +7294,6 @@ Salvare comunque?</translation>
         <translation>Salva i pezzi selezionati come set tra i tuoi pezzi, da posizionare di nuovo in un colpo solo</translation>
     </message>
     <message>
-        <source>Updates from &amp;Shared Modules…</source>
-        <translation>Aggiornamenti dei moduli &amp;condivisi…</translation>
-    </message>
-    <message>
         <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
         <translation>Se questo layout chiede prima che entri la nuova versione di un modulo condiviso, o la riceve automaticamente</translation>
     </message>
@@ -8236,6 +8232,10 @@ Non ti verrà chiesto di nuovo. Per portarlo più tardi in questo o in un altro 
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>Salva selezione come &amp;set…</translation>
+    </message>
+    <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>Aggiornamenti dei moduli cond&amp;ivisi…</translation>
     </message>
     <message>
         <source>&amp;Help</source>

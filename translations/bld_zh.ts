@@ -7247,10 +7247,6 @@ Save anyway?</source>
         <translation>把选中的零件保存为你零件中的一个套件，以便一次性再次放置</translation>
     </message>
     <message>
-        <source>Updates from &amp;Shared Modules…</source>
-        <translation>共享模块的更新(&amp;S)…</translation>
-    </message>
-    <message>
         <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
         <translation>此布局是在放入共享模块的新版本前先询问，还是自动接受</translation>
     </message>
@@ -8179,6 +8175,10 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>将选区保存为套件(&amp;S)…</translation>
+    </message>
+    <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>共享模块的更新(&amp;U)…</translation>
     </message>
     <message>
         <source>&amp;Help</source>

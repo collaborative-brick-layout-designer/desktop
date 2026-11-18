@@ -7681,6 +7681,10 @@ Lagre likevel?</translation>
         <translation>Lagre de valgte delene som et sett i delene dine, for å plassere igjen i én operasjon</translation>
     </message>
     <message>
+        <source>&amp;Updates from Shared Modules…</source>
+        <translation>Opp&amp;dateringer fra delte moduler…</translation>
+    </message>
+    <message>
         <source>The Qt toolkit this app is built with</source>
         <translation>Qt-verktøysettet denne appen er bygget med</translation>
     </message>
@@ -8456,10 +8460,6 @@ De frakoblede endringene dine er tatt vare på; Fil › Gå gjennom frakoblede e
     <message>
         <source>Save Selection as &amp;Set…</source>
         <translation>Lagre utvalget som &amp;sett…</translation>
-    </message>
-    <message>
-        <source>Updates from &amp;Shared Modules…</source>
-        <translation>Oppdateringer fra &amp;delte moduler…</translation>
     </message>
     <message>
         <source>Whether this layout asks first before a shared module&apos;s new version goes in, or takes it automatically</source>
