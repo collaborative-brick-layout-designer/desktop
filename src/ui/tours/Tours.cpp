@@ -354,6 +354,8 @@ void TourOverlay::follow() {
 }
 
 void TourOverlay::place() {
+    // (The window it covers is its parent, for as long as the tour lasts.)
+    if (!host_) return;
     setGeometry(host_->rect());
     QRect hole;
     if (target_) {
