@@ -633,6 +633,16 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::ServerModulesTab</name>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for an answer. Answer them on the website.</source>
+        <translation>
+            <numerusform>%1: %n partner request or module offer wait for an answer. Answer them on the website.</numerusform>
+            <numerusform>%1: %n partner requests or module offers wait for an answer. Answer them on the website.</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::SettingsDialog</name>
     <message numerus="yes">
         <source>and %n more</source>

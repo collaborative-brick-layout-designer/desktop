@@ -130,6 +130,7 @@ ClubRef clubRefOf(const QJsonObject& o) {
     c.name = o.value(QLatin1String("name")).toString();
     c.slug = o.value(QLatin1String("slug")).toString();
     c.layouts = intOf(o.value(QLatin1String("layouts")));
+    c.via = o.value(QLatin1String("via")).toString();
     return c;
 }
 SharedPlaceCheck::Owner checkOwnerOf(const QJsonObject& o) {
@@ -173,6 +174,19 @@ ModuleShares LibraryApi::moduleSharesFromJson(const QJsonObject& o) {
     ModuleShares out;
     out.latestVersion = intOf(o.value(QLatin1String("latestVersion")));
     out.canShareWithClubs = o.value(QLatin1String("canShareWithClubs")).toBool(true);
+    out.canShareWithOtherClubs = o.value(QLatin1String("canShareWithOtherClubs")).toBool(false);
+    if (const QJsonValue c = o.value(QLatin1String("club")); c.isObject()) out.club = clubRefOf(c.toObject());
+    for (const auto& v : o.value(QLatin1String("partners")).toArray()) out.partners << clubRefOf(v.toObject());
+    for (const auto& v : o.value(QLatin1String("offers")).toArray()) {
+        const QJsonObject fo = v.toObject();
+        ClubOffer f;
+        f.id = fo.value(QLatin1String("id")).toString();
+        f.club = clubRefOf(fo.value(QLatin1String("club")).toObject());
+        f.state = fo.value(QLatin1String("state")).toString();
+        const QJsonValue at = fo.value(QLatin1String("askAgainAt"));
+        f.askAgainAt = at.isDouble() ? static_cast<qint64>(at.toDouble()) : 0;
+        out.offers << f;
+    }
     for (const auto& v : o.value(QLatin1String("clubs")).toArray()) out.clubs << clubRefOf(v.toObject());
     for (const auto& v : o.value(QLatin1String("myClubs")).toArray()) out.myClubs << clubRefOf(v.toObject());
     for (const auto& v : o.value(QLatin1String("people")).toArray())
@@ -317,6 +331,71 @@ void LibraryApi::stopClubShare(const QString& id, const QString& orgId, std::fun
              if (done) done();
          },
          std::move(failed));
+}
+
+void LibraryApi::shareClubModule(const QString& id, const QString& clubSlugOrLink,
+                                 std::function<void(const ClubShareResult&)> done, Fail failed) {
+    sendJson("POST", QStringLiteral("/api/modules/%1/club-shares").arg(idPath(id)),
+             QJsonObject{ { QStringLiteral("orgSlug"), clubSlugOrLink.trimmed() } },
+             [done = std::move(done)](const QJsonObject& o) {
+                 ClubShareResult r;
+                 r.status = o.value(QLatin1String("status")).toString(QStringLiteral("shared"));
+                 r.name = o.value(QLatin1String("name")).toString();
+                 r.slug = o.value(QLatin1String("slug")).toString();
+                 if (done) done(r);
+             },
+             std::move(failed));
+}
+
+void LibraryApi::withdrawClubOffer(const QString& id, const QString& offerId, std::function<void()> done, Fail failed) {
+    send("DELETE", QStringLiteral("/api/modules/%1/club-offers/%2").arg(idPath(id), idPath(offerId)), {}, {},
+         [done = std::move(done)](QNetworkReply*) {
+             if (done) done();
+         },
+         std::move(failed));
+}
+
+void LibraryApi::clubTargets(const QString& id, const QString& q, std::function<void(const QList<ClubTarget>&)> done,
+                             Fail failed) {
+    sendJson("GET",
+             QStringLiteral("/api/modules/%1/club-targets?q=").arg(idPath(id)) +
+                 QString::fromLatin1(QUrl::toPercentEncoding(q.trimmed())),
+             {},
+             [done = std::move(done)](const QJsonObject& o) {
+                 QList<ClubTarget> out;
+                 for (const auto& v : o.value(QLatin1String("clubs")).toArray()) {
+                     const QJsonObject co = v.toObject();
+                     ClubTarget t;
+                     t.club = clubRefOf(co);
+                     t.partner = co.value(QLatin1String("partner")).toBool(false);
+                     t.shared = co.value(QLatin1String("shared")).toBool(false);
+                     t.offer = co.value(QLatin1String("offer")).toString();
+                     out << t;
+                 }
+                 if (done) done(out);
+             },
+             std::move(failed));
+}
+
+void LibraryApi::clubRequestCount(std::function<void(const QList<ClubRequestCount>&)> done, Fail failed) {
+    sendJson("GET", QStringLiteral("/api/club-requests/count"), {},
+             [done = std::move(done)](const QJsonObject& o) {
+                 QList<ClubRequestCount> out;
+                 for (const auto& v : o.value(QLatin1String("clubs")).toArray()) {
+                     const QJsonObject co = v.toObject();
+                     ClubRequestCount c;
+                     c.slug = co.value(QLatin1String("slug")).toString();
+                     c.name = co.value(QLatin1String("name")).toString();
+                     c.count = intOf(co.value(QLatin1String("count")));
+                     if (c.count > 0) out << c;
+                 }
+                 if (done) done(out);
+             },
+             std::move(failed));
+}
+
+QUrl LibraryApi::clubPartnersWebUrl(const QString& slug) const {
+    return url(QStringLiteral("/orgs/%1?tab=partners").arg(idPath(slug)));
 }
 
 void LibraryApi::layoutSharedModules(const QString& layoutId, const QString& checkModuleId,

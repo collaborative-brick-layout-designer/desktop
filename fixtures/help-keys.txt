@@ -84,5 +84,8 @@ catalog.collections
 catalog.yourCollections
 catalog.clubCollections
 club.trusted
+club.partners
+club.moduleOffers
+module.shareOtherClubs
 collection.audience
 account.publicName

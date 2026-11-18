@@ -2070,6 +2070,288 @@ TEST_F(LibraryTabs, ShareWithAClubAndStopWithWhatThatMeansSaidFirst) {
     dlg->close();
 }
 
+namespace {
+// A club's module's Share dialog answer (docs/shared-modules.md, section 11).
+QJsonObject clubSharesJson(const QJsonArray& clubs, const QJsonArray& offers, const QJsonArray& partners) {
+    return { { QStringLiteral("latestVersion"), 2 },
+             { QStringLiteral("canShareWithClubs"), false },
+             { QStringLiteral("canShareWithOtherClubs"), true },
+             { QStringLiteral("club"), QJsonObject{ { QStringLiteral("id"), QStringLiteral("o1") }, { QStringLiteral("name"), QStringLiteral("Train Club") },
+                                                    { QStringLiteral("slug"), QStringLiteral("train") } } },
+             { QStringLiteral("partners"), partners },
+             { QStringLiteral("offers"), offers },
+             { QStringLiteral("people"), QJsonArray{} },
+             { QStringLiteral("invites"), QJsonArray{} },
+             { QStringLiteral("clubs"), clubs },
+             { QStringLiteral("myClubs"), QJsonArray{} },
+             { QStringLiteral("usedIn"), QJsonObject{ { QStringLiteral("layouts"), 0 }, { QStringLiteral("clubs"), QJsonArray{} },
+                                                      { QStringLiteral("people"), QJsonArray{} }, { QStringLiteral("others"), 0 } } } };
+}
+QJsonObject clubJson(const QString& id, const QString& name, const QString& slug) {
+    return { { QStringLiteral("orgId"), id }, { QStringLiteral("name"), name }, { QStringLiteral("slug"), slug } };
+}
+}  // namespace
+
+// A club's module: Share with Other Clubs… shares with a partner club at
+// once, offers it to another club (found by search, or by a pasted link),
+// and the offer can be taken back, or offered again once declined.
+TEST_F(LibraryTabs, AClubsModuleGoesToAPartnerAtOnceOrIsOfferedToAnotherClub) {
+    http_.reply("/api/modules", 200,
+                modules({ moduleJson(QStringLiteral("c1"), QStringLiteral("Engine shed"), QStringLiteral("editor"), QStringLiteral("o1")),
+                          moduleJson(QStringLiteral("c2"), QStringLiteral("Harbor crane"), QStringLiteral("owner"), QStringLiteral("o1")) }));
+    serveShared(http_);
+    library_.setKnowsSharedModules(true);
+    ui::ServerModulesTab tab(library_);
+    tab.show();
+    connectSignedIn();
+    tab.tabs()->setCurrentIndex(ui::ServerModulesTab::Clubs);
+    QAction* share = tab.row(QStringLiteral("c2"))->findChild<QAction*>(QStringLiteral("shareModule"));
+    ASSERT_NE(share, nullptr);
+    EXPECT_EQ(share->text(), QStringLiteral("Share with Other Clubs…"));
+    EXPECT_EQ(tab.row(QStringLiteral("c1"))->findChild<QAction*>(QStringLiteral("shareModule")), nullptr) << "only the club's Admins and Managers";
+    const QByteArray shares = "/api/modules/c2/shares";
+    const QJsonArray lug{ clubJson(QStringLiteral("o2"), QStringLiteral("Riverside LUG"), QStringLiteral("lug")) };
+    http_.reply(shares, 200, clubSharesJson({}, {}, lug));
+    share->trigger();
+    ui::ModuleShareDialog* dlg = tab.shareDialog();
+    ASSERT_NE(dlg, nullptr);
+    ASSERT_TRUE(waitFor([&] { return dlg->loaded(); }));
+    EXPECT_TRUE(dlg->note()->text().contains(QStringLiteral("This is Train Club's module. Partner clubs get it straight away. Any other club must accept it first.")));
+    EXPECT_FALSE(dlg->clubPick()->isVisibleTo(dlg)) << "not the person's clubs";
+    ASSERT_EQ(dlg->partnerPick()->count(), 2);
+    EXPECT_EQ(dlg->partnerPick()->itemText(1), QStringLiteral("Riverside LUG"));
+    EXPECT_FALSE(dlg->partnerShareButton()->isEnabled());
+
+    // A partner club: shared at once.
+    http_.replyTo("POST", "/api/modules/c2/club-shares", 201,
+                  { { QStringLiteral("ok"), true }, { QStringLiteral("status"), QStringLiteral("shared") },
+                    { QStringLiteral("name"), QStringLiteral("Riverside LUG") }, { QStringLiteral("slug"), QStringLiteral("lug") } });
+    QJsonObject lugShared = clubJson(QStringLiteral("o2"), QStringLiteral("Riverside LUG"), QStringLiteral("lug"));
+    lugShared.insert(QStringLiteral("via"), QStringLiteral("partner"));
+    http_.clear(shares);
+    http_.reply(shares, 200, clubSharesJson({ lugShared }, {}, lug));
+    dlg->partnerPick()->setCurrentIndex(1);
+    dlg->partnerShareButton()->click();
+    ASSERT_TRUE(waitFor([&] { return dlg->stopButton(QStringLiteral("o2")) != nullptr; }));
+    EXPECT_EQ(QJsonDocument::fromJson(lastRequest(http_, "POST", "/api/modules/c2/club-shares")->body).object(),
+              (QJsonObject{ { QStringLiteral("orgSlug"), QStringLiteral("lug") } }));
+    EXPECT_EQ(dlg->said()->text(), QStringLiteral("“Harbor crane” is shared with Riverside LUG."));
+    QStringList rows;
+    for (QLabel* l : dlg->findChildren<QLabel*>()) rows << l->text();
+    EXPECT_TRUE(rows.contains(QStringLiteral("Riverside LUG (partner club) · can place it")));
+    EXPECT_FALSE(dlg->partnerPick()->isVisibleTo(dlg));
+    EXPECT_EQ(dlg->findChild<QLabel*>(QStringLiteral("partnersNote"))->text(), QStringLiteral("It's shared with every partner club."));
+
+    // Another club, found by search: offered, waiting, taken back.
+    http_.reply("/api/modules/c2/club-targets?q=hill", 200,
+                { { QStringLiteral("clubs"), QJsonArray{ QJsonObject{ { QStringLiteral("orgId"), QStringLiteral("o3") }, { QStringLiteral("name"), QStringLiteral("Hill Club") },
+                                                                      { QStringLiteral("slug"), QStringLiteral("hill") }, { QStringLiteral("partner"), false },
+                                                                      { QStringLiteral("shared"), false }, { QStringLiteral("offer"), QJsonValue() } } } } });
+    dlg->otherClub()->setText(QStringLiteral("hill"));
+    dlg->searchNow();
+    ASSERT_TRUE(waitFor([&] { return dlg->targetButton(QStringLiteral("hill")) != nullptr; }));
+    EXPECT_EQ(dlg->targetButton(QStringLiteral("hill"))->text(), QStringLiteral("Offer"));
+    http_.clear("POST /api/modules/c2/club-shares");
+    http_.replyTo("POST", "/api/modules/c2/club-shares", 202,
+                  { { QStringLiteral("ok"), true }, { QStringLiteral("status"), QStringLiteral("offered") }, { QStringLiteral("offerId"), QStringLiteral("f1") },
+                    { QStringLiteral("name"), QStringLiteral("Hill Club") }, { QStringLiteral("slug"), QStringLiteral("hill") } });
+    const QJsonObject hill{ { QStringLiteral("orgId"), QStringLiteral("o3") }, { QStringLiteral("name"), QStringLiteral("Hill Club") }, { QStringLiteral("slug"), QStringLiteral("hill") } };
+    http_.clear(shares);
+    http_.reply(shares, 200,
+                clubSharesJson({ lugShared }, { QJsonObject{ { QStringLiteral("id"), QStringLiteral("f1") }, { QStringLiteral("club"), hill },
+                                                             { QStringLiteral("state"), QStringLiteral("pending") }, { QStringLiteral("askAgainAt"), QJsonValue() } } },
+                               lug));
+    dlg->targetButton(QStringLiteral("hill"))->click();
+    ASSERT_TRUE(waitFor([&] { return dlg->said()->text().startsWith(QStringLiteral("Offered")) && dlg->withdrawButton(QStringLiteral("f1")) != nullptr; }));
+    EXPECT_EQ(dlg->said()->text().toStdString(), "Offered “Harbor crane” to Hill Club. It's shared once their Admins or Managers accept it.");
+    EXPECT_EQ(dlg->findChild<QLabel*>(QStringLiteral("offer:f1"))->text(), QStringLiteral("Hill Club · waiting for them to accept"));
+    EXPECT_EQ(dlg->withdrawButton(QStringLiteral("f1"))->text(), QStringLiteral("Take Back"));
+    EXPECT_EQ(dlg->offerAgainButton(QStringLiteral("f1")), nullptr);
+
+    // Declined (their answer): Offer Again once the day is over, or Remove.
+    http_.replyTo("DELETE", "/api/modules/c2/club-offers/f1", 200, { { QStringLiteral("ok"), true } });
+    http_.clear(shares);
+    http_.reply(shares, 200,
+                clubSharesJson({ lugShared }, { QJsonObject{ { QStringLiteral("id"), QStringLiteral("f1") }, { QStringLiteral("club"), hill },
+                                                             { QStringLiteral("state"), QStringLiteral("declined") }, { QStringLiteral("askAgainAt"), 1000.0 } } },
+                               lug));
+    dlg->reload();
+    ASSERT_TRUE(waitFor([&] { return dlg->offerAgainButton(QStringLiteral("f1")) != nullptr; }));
+    EXPECT_EQ(dlg->findChild<QLabel*>(QStringLiteral("offer:f1"))->text(), QStringLiteral("Hill Club · declined"));
+    EXPECT_EQ(dlg->withdrawButton(QStringLiteral("f1"))->text(), QStringLiteral("Remove"));
+    dlg->withdrawButton(QStringLiteral("f1"))->click();
+    ASSERT_TRUE(waitFor([&] { return count(http_, "DELETE", "/api/modules/c2/club-offers/f1") == 1; }));
+
+    // A pasted link to a club that isn't listed: offered, named by its address.
+    http_.clear("POST /api/modules/c2/club-shares");
+    http_.replyTo("POST", "/api/modules/c2/club-shares", 202,
+                  { { QStringLiteral("ok"), true }, { QStringLiteral("status"), QStringLiteral("offered") }, { QStringLiteral("offerId"), QStringLiteral("f2") },
+                    { QStringLiteral("name"), QJsonValue() }, { QStringLiteral("slug"), QStringLiteral("secret") } });
+    dlg->otherClub()->setText(QStringLiteral("https://example.org/orgs/secret"));
+    ASSERT_TRUE(dlg->offerLinkButton()->isVisibleTo(dlg));
+    dlg->offerLinkButton()->click();
+    ASSERT_TRUE(waitFor([&] { return dlg->said()->text().contains(QStringLiteral("secret")); }));
+    EXPECT_EQ(dlg->said()->text(), QStringLiteral("Offered “Harbor crane” to the club at %1/orgs/secret. It's shared once their Admins or Managers accept it.").arg(http_.base().toString()));
+    EXPECT_EQ(QJsonDocument::fromJson(lastRequest(http_, "POST", "/api/modules/c2/club-shares")->body).object(),
+              (QJsonObject{ { QStringLiteral("orgSlug"), QStringLiteral("https://example.org/orgs/secret") } }));
+    dlg->close();
+}
+
+// With no partner clubs, the dialog says so and points to asking one on the website.
+TEST_F(LibraryTabs, AClubsModuleWithNoPartnersSaysHowToGetOne) {
+    http_.reply("/api/modules", 200, modules({ moduleJson(QStringLiteral("c2"), QStringLiteral("Harbor crane"), QStringLiteral("owner"), QStringLiteral("o1")) }));
+    serveShared(http_);
+    library_.setKnowsSharedModules(true);
+    ui::ServerModulesTab tab(library_);
+    tab.show();
+    connectSignedIn();
+    http_.reply("/api/modules/c2/shares", 200, clubSharesJson({}, {}, {}));
+    tab.tabs()->setCurrentIndex(ui::ServerModulesTab::Clubs);
+    tab.row(QStringLiteral("c2"))->findChild<QAction*>(QStringLiteral("shareModule"))->trigger();
+    ui::ModuleShareDialog* dlg = tab.shareDialog();
+    ASSERT_TRUE(waitFor([&] { return dlg->loaded(); }));
+    auto* note = dlg->findChild<QLabel*>(QStringLiteral("partnersNote"));
+    EXPECT_TRUE(note->text().contains(QStringLiteral("Train Club has no partner clubs yet.")));
+    EXPECT_TRUE(note->text().contains(QStringLiteral("/orgs/train?tab=partners")));
+    EXPECT_FALSE(dlg->partnerPick()->isVisibleTo(dlg));
+    dlg->close();
+}
+
+// Another club's module shared with a club of yours is on the Clubs tab,
+// under "From ‹that club›", not under Shared with me; what waits for an
+// answer in a club you look after points to the website.
+TEST_F(LibraryTabs, AnotherClubsModuleIsOnTheClubsTabAndWhatWaitsPointsToTheWebsite) {
+    serveModules();
+    QJsonObject tower = sharedJson(QStringLiteral("33333333-3333-4333-8333-333333333333"), QStringLiteral("Signal tower"), false, true);
+    tower.insert(QStringLiteral("owner"), QJsonObject{ { QStringLiteral("kind"), QStringLiteral("org") }, { QStringLiteral("id"), QStringLiteral("o9") },
+                                                       { QStringLiteral("name"), QStringLiteral("Hill Club") }, { QStringLiteral("slug"), QStringLiteral("hill") } });
+    http_.reply("/api/modules?owner=shared", 200,
+                modules({ sharedJson(kShared, QStringLiteral("Harbor crane"), true, true), sharedJson(kClubOnly, QStringLiteral("Club tunnel"), false, true), tower }));
+    http_.reply("/api/club-requests/count", 200,
+                { { QStringLiteral("count"), 2 },
+                  { QStringLiteral("clubs"), QJsonArray{ QJsonObject{ { QStringLiteral("slug"), QStringLiteral("train") }, { QStringLiteral("name"), QStringLiteral("Train Club") },
+                                                                      { QStringLiteral("count"), 2 } } } } });
+    library_.setKnowsSharedModules(true);
+    ui::ServerModulesTab tab(library_);
+    tab.resize(360, 900);
+    tab.show();
+    connectSignedIn();
+    EXPECT_EQ(tab.tabs()->tabText(ui::ServerModulesTab::Clubs), QStringLiteral("Clubs (2)"));
+    EXPECT_EQ(tab.tabs()->tabText(ui::ServerModulesTab::Shared), QStringLiteral("Shared with me (2)"));
+    tab.tabs()->setCurrentIndex(ui::ServerModulesTab::Clubs);
+    EXPECT_EQ(texts(&tab), (QStringList{ QStringLiteral("Train Club"), QStringLiteral("Engine shed"), QStringLiteral("From Hill Club"), QStringLiteral("Signal tower") }));
+    QWidget* row = tab.row(QStringLiteral("33333333-3333-4333-8333-333333333333"));
+    ASSERT_NE(row, nullptr);
+    EXPECT_EQ(row->findChild<QLabel*>(QStringLiteral("rowSharedVia"))->text(), QStringLiteral("🔗 shared with Train Club"));
+    EXPECT_NE(row->findChild<QPushButton*>(QStringLiteral("insertModule")), nullptr);
+    QWidget* waiting = tab.findChild<QWidget*>(QStringLiteral("clubRequestsWaiting:train"));
+    ASSERT_NE(waiting, nullptr);
+    QStringList words;
+    for (QLabel* l : waiting->findChildren<QLabel*>()) words << l->text();
+    EXPECT_TRUE(words.contains(QStringLiteral("Train Club: 2 partner request(s) or module offer(s) wait for an answer. Answer them on the website.")));
+    EXPECT_NE(waiting->findChild<QPushButton*>(QStringLiteral("openClubPartners")), nullptr);
+    tab.tabs()->setCurrentIndex(ui::ServerModulesTab::Shared);
+    EXPECT_EQ(texts(&tab), (QStringList{ QStringLiteral("Harbor crane"), QStringLiteral("Club tunnel") }));
+    QCoreApplication::sendPostedEvents(nullptr, QEvent::DeferredDelete);
+    EXPECT_EQ(tab.findChild<QWidget*>(QStringLiteral("clubRequestsWaiting:train")), nullptr);
+
+    // Answered on the website: the next refresh (a club hint) drops the line.
+    http_.clear("/api/club-requests/count");
+    http_.reply("/api/club-requests/count", 200, { { QStringLiteral("count"), 0 }, { QStringLiteral("clubs"), QJsonArray{} } });
+    tab.tabs()->setCurrentIndex(ui::ServerModulesTab::Clubs);
+    library_.refresh();
+    ASSERT_TRUE(waitFor([&] {
+        QCoreApplication::sendPostedEvents(nullptr, QEvent::DeferredDelete);
+        return tab.findChild<QWidget*>(QStringLiteral("clubRequestsWaiting:train")) == nullptr;
+    }));
+}
+
+// BLD_REVIEW_SHOTS=<dir>: pictures of club-to-club sharing for a PR, light
+// and dark (skipped otherwise). "Before": a server without partner clubs (a
+// club's module can't be shared). "After": the Clubs tab with "From ‹club›" and what waits, and the
+// Share dialog of a club's module with a partner club and an offer.
+TEST_F(LibraryTabs, PicturesOfClubToClubForReview) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    QDir().mkpath(out);
+    QTranslator english;
+    if (english.load(QStringLiteral("bld_en"), QCoreApplication::applicationDirPath() + QStringLiteral("/../..")))
+        QCoreApplication::installTranslator(&english);
+    ui::theme::PrefsStore store(QStringLiteral("review-club-partners-shots"));
+    ui::theme::ThemeManager themer(store);
+    const auto shoot = [&](QWidget* w, const QString& name) {
+        for (const auto mode : { ui::theme::ThemeChoice::Light, ui::theme::ThemeChoice::Dark }) {
+            ui::theme::AppPrefs p = store.prefs();
+            p.theme = mode;
+            store.update(p);
+            waitFor([] { return false; }, 400);
+            EXPECT_TRUE(w->grab().save(out + QStringLiteral("/%1-%2.png").arg(name, mode == ui::theme::ThemeChoice::Dark ? QStringLiteral("dark") : QStringLiteral("light"))));
+        }
+    };
+    const QString towerId = QStringLiteral("33333333-3333-4333-8333-333333333333");
+    QJsonObject tower = sharedJson(towerId, QStringLiteral("Signal tower"), false, true);
+    tower.insert(QStringLiteral("owner"), QJsonObject{ { QStringLiteral("kind"), QStringLiteral("org") }, { QStringLiteral("id"), QStringLiteral("o9") },
+                                                       { QStringLiteral("name"), QStringLiteral("Riverside LUG") }, { QStringLiteral("slug"), QStringLiteral("lug") } });
+    http_.reply("/api/modules", 200,
+                modules({ moduleJson(QStringLiteral("c2"), QStringLiteral("Harbor crane"), QStringLiteral("owner"), QStringLiteral("o1")),
+                          moduleJson(QStringLiteral("c1"), QStringLiteral("Engine shed"), QStringLiteral("owner"), QStringLiteral("o1")),
+                          moduleJson(QStringLiteral("m1"), QStringLiteral("Freight yard"), QStringLiteral("owner")) }));
+    http_.reply("/api/modules?owner=shared", 200, modules({ sharedJson(kShared, QStringLiteral("Water mill"), true, false), tower }));
+    library_.setKnowsSharedModules(true);
+    ui::ServerModulesTab tab(library_);
+    tab.resize(380, 620);
+    tab.show();
+
+    // Before: a server without partner clubs (a club's module can't be shared).
+    connectSignedIn();
+    QJsonObject oldShares = clubSharesJson({}, {}, {});
+    oldShares.insert(QStringLiteral("canShareWithOtherClubs"), QJsonValue());
+    http_.reply("/api/modules/c2/shares", 200, oldShares);
+    tab.tabs()->setCurrentIndex(ui::ServerModulesTab::Clubs);
+    QCoreApplication::processEvents();
+    tab.row(QStringLiteral("c2"))->findChild<QAction*>(QStringLiteral("shareModule"))->trigger();
+    ui::ModuleShareDialog* dlg = tab.shareDialog();
+    ASSERT_TRUE(waitFor([&] { return dlg->loaded(); }));
+    shoot(dlg, QStringLiteral("before-share-dialog"));
+    dlg->close();
+
+    // After: the Clubs tab.
+    http_.reply("/api/club-requests/count", 200,
+                { { QStringLiteral("count"), 2 },
+                  { QStringLiteral("clubs"), QJsonArray{ QJsonObject{ { QStringLiteral("slug"), QStringLiteral("train") }, { QStringLiteral("name"), QStringLiteral("Train Club") },
+                                                                      { QStringLiteral("count"), 2 } } } } });
+    library_.refresh();
+    ASSERT_TRUE(waitFor([&] { return tab.findChild<QWidget*>(QStringLiteral("clubRequestsWaiting:train")) != nullptr; }));
+    tab.resize(380, 720);
+    QCoreApplication::processEvents();
+    shoot(&tab, QStringLiteral("after-library-clubs"));
+
+    // After: a club's module's Share dialog, with a partner club and an offer waiting.
+    QJsonObject lugShared = clubJson(QStringLiteral("o9"), QStringLiteral("Riverside LUG"), QStringLiteral("lug"));
+    lugShared.insert(QStringLiteral("via"), QStringLiteral("partner"));
+    const QJsonObject hill{ { QStringLiteral("orgId"), QStringLiteral("o3") }, { QStringLiteral("name"), QStringLiteral("Hill Club") }, { QStringLiteral("slug"), QStringLiteral("hill") } };
+    http_.clear("/api/modules/c2/shares");
+    http_.reply("/api/modules/c2/shares", 200,
+                clubSharesJson({ lugShared },
+                               { QJsonObject{ { QStringLiteral("id"), QStringLiteral("f1") }, { QStringLiteral("club"), hill }, { QStringLiteral("state"), QStringLiteral("pending") } } },
+                               { clubJson(QStringLiteral("o9"), QStringLiteral("Riverside LUG"), QStringLiteral("lug")),
+                                 clubJson(QStringLiteral("o4"), QStringLiteral("Bay Bricks"), QStringLiteral("bay")) }));
+    http_.reply("/api/modules/c2/club-targets?q=hill", 200,
+                { { QStringLiteral("clubs"), QJsonArray{ QJsonObject{ { QStringLiteral("orgId"), QStringLiteral("o3") }, { QStringLiteral("name"), QStringLiteral("Hill Club") },
+                                                                      { QStringLiteral("slug"), QStringLiteral("hill") }, { QStringLiteral("offer"), QStringLiteral("pending") } },
+                                                         QJsonObject{ { QStringLiteral("orgId"), QStringLiteral("o5") }, { QStringLiteral("name"), QStringLiteral("Hillside Trains") },
+                                                                      { QStringLiteral("slug"), QStringLiteral("hillside") } } } } });
+    tab.row(QStringLiteral("c2"))->findChild<QAction*>(QStringLiteral("shareModule"))->trigger();
+    dlg = tab.shareDialog();
+    ASSERT_TRUE(waitFor([&] { return dlg->loaded() && dlg->withdrawButton(QStringLiteral("f1")) != nullptr; }));
+    dlg->otherClub()->setText(QStringLiteral("hill"));
+    dlg->searchNow();
+    ASSERT_TRUE(waitFor([&] { return dlg->targetButton(QStringLiteral("hillside")) != nullptr; }));
+    dlg->adjustSize();
+    shoot(dlg, QStringLiteral("after-share-dialog"));
+    dlg->close();
+}
+
 // ---- In the window, with a layout from a file -------------------------------
 
 namespace {

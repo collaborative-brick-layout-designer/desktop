@@ -441,6 +441,21 @@
       "more": "Members with the Send to the catalog permission review it: what they share under the club’s name goes public at once, and what other members share waits in the club’s own review. The site’s moderators can still see and take down anything, and can stop trusting a club.",
       "learnMoreUrl": "/help#collections"
     },
+    "club.partners": {
+      "title": "Partner clubs",
+      "short": "Clubs that share their modules with each other, read-only, with no need to accept each one.",
+      "more": "A club’s Admins or Managers ask another club, found under Find a club or by pasting its link, and that club’s Admins or Managers accept or decline. Partners still pick each module they share, and can place each other’s only in their club’s layouts. Ending a partnership stops those modules both ways; copies already placed stay as they are, marked “No longer shared”."
+    },
+    "club.moduleOffers": {
+      "title": "Modules offered to your club",
+      "short": "Another club wants to share one of its modules with yours; your Admins or Managers accept or decline.",
+      "more": "Accepted, its members who may edit the club’s layouts can place it, and get its updates; they can’t change its parts. Declined, the other club sees that and can offer it again later. Your club can take an accepted module off its list at any time."
+    },
+    "module.shareOtherClubs": {
+      "title": "Sharing a club’s module with other clubs",
+      "short": "Partner clubs get it straight away; any other club must accept it first.",
+      "more": "Pick a partner club, or find another club in the club list or by pasting its link. Offers wait until that club’s Admins or Managers accept; you can take one back. Either way you see how many layouts use it and in which clubs, and stopping leaves placed copies as they are."
+    },
     "collection.audience": {
       "title": "Who can see this",
       "short": "Private is only you or your club’s members; Everyone puts it in the public catalog after a check.",

@@ -1367,6 +1367,42 @@
         <translation>「カタログに送る」権限を持つメンバーが確認します。そのメンバーがクラブの名前で共有したものはすぐに公開され、ほかのメンバーが共有したものはクラブ内の確認を待ちます。サイトのモデレーターは引き続きすべてを見て取り下げることができ、クラブの信頼を取り消すこともできます。</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>パートナークラブ</translation>
+    </message>
+    <message>
+        <source>Clubs that share their modules with each other, read-only, with no need to accept each one.</source>
+        <translation>モジュールを読み取り専用で互いに共有するクラブです。1つずつ承認する必要はありません。</translation>
+    </message>
+    <message>
+        <source>A club’s Admins or Managers ask another club, found under Find a club or by pasting its link, and that club’s Admins or Managers accept or decline. Partners still pick each module they share, and can place each other’s only in their club’s layouts. Ending a partnership stops those modules both ways; copies already placed stay as they are, marked “No longer shared”.</source>
+        <translation>クラブの管理者またはマネージャーは、「クラブを探す」で見つけたクラブやリンクを貼り付けたクラブに依頼し、相手クラブの管理者またはマネージャーが承認または辞退します。パートナーでも共有するモジュールは1つずつ選び、相手のモジュールは自分のクラブのレイアウトにだけ置けます。パートナーを解消すると、そのモジュールは双方向で共有が止まります。すでに置いたコピーはそのまま残り、「共有されていません」と表示されます。</translation>
+    </message>
+    <message>
+        <source>Modules offered to your club</source>
+        <translation>あなたのクラブに提案されたモジュール</translation>
+    </message>
+    <message>
+        <source>Another club wants to share one of its modules with yours; your Admins or Managers accept or decline.</source>
+        <translation>別のクラブがモジュールをあなたのクラブと共有したいと言っています。管理者またはマネージャーが承認または辞退します。</translation>
+    </message>
+    <message>
+        <source>Accepted, its members who may edit the club’s layouts can place it, and get its updates; they can’t change its parts. Declined, the other club sees that and can offer it again later. Your club can take an accepted module off its list at any time.</source>
+        <translation>承認すると、クラブのレイアウトを編集できるメンバーがそれを置けるようになり、更新も届きます。パーツは変更できません。辞退すると相手クラブにそれが伝わり、後でもう一度提案できます。承認したモジュールはいつでもクラブのリストから外せます。</translation>
+    </message>
+    <message>
+        <source>Sharing a club’s module with other clubs</source>
+        <translation>クラブのモジュールを他のクラブと共有する</translation>
+    </message>
+    <message>
+        <source>Partner clubs get it straight away; any other club must accept it first.</source>
+        <translation>パートナークラブにはすぐに届きます。それ以外のクラブは先に承認が必要です。</translation>
+    </message>
+    <message>
+        <source>Pick a partner club, or find another club in the club list or by pasting its link. Offers wait until that club’s Admins or Managers accept; you can take one back. Either way you see how many layouts use it and in which clubs, and stopping leaves placed copies as they are.</source>
+        <translation>パートナークラブを選ぶか、クラブ一覧やリンクの貼り付けで別のクラブを探します。提案は相手クラブの管理者またはマネージャーが承認するまで待機し、取り消すこともできます。どちらの場合も、使っているレイアウトの数とクラブ名が表示され、共有をやめても置いたコピーはそのまま残ります。</translation>
+    </message>
+    <message>
         <source>Who can see this</source>
         <translation>誰が見られるか</translation>
     </message>
@@ -9639,6 +9675,50 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <translation>そのクラブとはもう共有されていません。</translation>
     </message>
     <message>
+        <source>No club has that address. Check the link and try again.</source>
+        <translation>そのアドレスのクラブはありません。リンクを確認してもう一度試してください。</translation>
+    </message>
+    <message>
+        <source>That&apos;s this module&apos;s own club.</source>
+        <translation>それはこのモジュール自身のクラブです。</translation>
+    </message>
+    <message>
+        <source>That club declined this module. You can offer it again a day after it declined.</source>
+        <translation>そのクラブはこのモジュールを辞退しました。辞退から1日後にもう一度提案できます。</translation>
+    </message>
+    <message>
+        <source>Your club has many module offers waiting for an answer already. Take some back, or wait for an answer.</source>
+        <translation>あなたのクラブにはすでに返事待ちのモジュール提案がたくさんあります。いくつか取り消すか、返事を待ってください。</translation>
+    </message>
+    <message>
+        <source>(partner club)</source>
+        <translation>（パートナークラブ）</translation>
+    </message>
+    <message>
+        <source>(club, accepted)</source>
+        <translation>（クラブ、承認済み）</translation>
+    </message>
+    <message>
+        <source>(club)</source>
+        <translation>（クラブ）</translation>
+    </message>
+    <message>
+        <source>the club at %1</source>
+        <translation>%1 のクラブ</translation>
+    </message>
+    <message>
+        <source>%1 · waiting for them to accept</source>
+        <translation>%1 · 承認待ち</translation>
+    </message>
+    <message>
+        <source>%1 · declined (you can offer it again in a day)</source>
+        <translation>%1 · 辞退されました（1日後にもう一度提案できます）</translation>
+    </message>
+    <message>
+        <source>%1 · declined</source>
+        <translation>%1 · 辞退されました</translation>
+    </message>
+    <message>
         <source> (version %1)</source>
         <translation>（バージョン %1）</translation>
     </message>
@@ -9681,12 +9761,100 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <translation>共有</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>パートナークラブ</translation>
+    </message>
+    <message>
+        <source>Share with a partner club</source>
+        <translation>パートナークラブと共有</translation>
+    </message>
+    <message>
+        <source>Another club…</source>
+        <translation>別のクラブ…</translation>
+    </message>
+    <message>
+        <source>Search clubs, or paste a club&apos;s link</source>
+        <translation>クラブを検索、またはクラブのリンクを貼り付け</translation>
+    </message>
+    <message>
+        <source>Another club: search clubs, or paste a club&apos;s link</source>
+        <translation>別のクラブ：クラブを検索、またはクラブのリンクを貼り付け</translation>
+    </message>
+    <message>
+        <source>Offer It to This Club</source>
+        <translation>このクラブに提案</translation>
+    </message>
+    <message>
         <source>To share with one person by email, open this module on the website.</source>
         <translation>メールで個人と共有するには、ウェブサイトでこのモジュールを開いてください。</translation>
     </message>
     <message>
         <source>Open on the Website</source>
         <translation>ウェブサイトで開く</translation>
+    </message>
+    <message>
+        <source>No listed club matches “%1”. A club that isn&apos;t listed is found by pasting its link.</source>
+        <translation>「%1」に一致する公開クラブはありません。公開されていないクラブはリンクを貼り付けると見つかります。</translation>
+    </message>
+    <message>
+        <source>%1 (partner club)</source>
+        <translation>%1（パートナークラブ）</translation>
+    </message>
+    <message>
+        <source>Shared</source>
+        <translation>共有済み</translation>
+    </message>
+    <message>
+        <source>Waiting for them</source>
+        <translation>相手の返事待ち</translation>
+    </message>
+    <message>
+        <source>Offer</source>
+        <translation>提案</translation>
+    </message>
+    <message>
+        <source>Share with %1</source>
+        <translation>%1 と共有</translation>
+    </message>
+    <message>
+        <source>Offer it to %1</source>
+        <translation>%1 に提案</translation>
+    </message>
+    <message>
+        <source>%1 has no partner clubs yet. &lt;a href=&quot;%2&quot;&gt;Ask a club to be partners&lt;/a&gt; on the website.</source>
+        <translation>%1 にはまだパートナークラブがありません。ウェブサイトで&lt;a href=&quot;%2&quot;&gt;クラブにパートナーを依頼&lt;/a&gt;してください。</translation>
+    </message>
+    <message>
+        <source>It&apos;s shared with every partner club.</source>
+        <translation>すべてのパートナークラブと共有しています。</translation>
+    </message>
+    <message>
+        <source>Pick a partner club…</source>
+        <translation>パートナークラブを選ぶ…</translation>
+    </message>
+    <message>
+        <source>Offer Again</source>
+        <translation>もう一度提案</translation>
+    </message>
+    <message>
+        <source>Take Back</source>
+        <translation>取り消す</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>削除</translation>
+    </message>
+    <message>
+        <source>Offered “%1” to %2. It&apos;s shared once their Admins or Managers accept it.</source>
+        <translation>「%1」を %2 に提案しました。相手の管理者またはマネージャーが承認すると共有されます。</translation>
+    </message>
+    <message>
+        <source>“%1” is shared with %2.</source>
+        <translation>「%1」を %2 と共有しました。</translation>
+    </message>
+    <message>
+        <source>This is %1&apos;s module. Partner clubs get it straight away. Any other club must accept it first. Clubs you share with can place it in their layouts and get its updates; they can&apos;t change its parts.</source>
+        <translation>これは %1 のモジュールです。パートナークラブにはすぐに届きます。それ以外のクラブは先に承認が必要です。共有したクラブはレイアウトに置けて更新を受け取りますが、パーツは変更できません。</translation>
     </message>
     <message>
         <source>This is a club&apos;s module: its members already have it.</source>
@@ -9705,8 +9873,8 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <translation>クラブを選ぶ…</translation>
     </message>
     <message>
-        <source>%1 (club) · can place it</source>
-        <translation>%1（クラブ）· 置くことができます</translation>
+        <source>%1 %2 · can place it</source>
+        <translation>%1 %2 · 配置できます</translation>
     </message>
     <message>
         <source>Stop sharing with %1</source>
@@ -10646,6 +10814,16 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <source>Remove</source>
         <translation>削除</translation>
     </message>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for an answer. Answer them on the website.</source>
+        <translation>
+            <numerusform>%1：%n 件のパートナー依頼またはモジュール提案が返事を待っています。ウェブサイトで返事をしてください。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open on the Website</source>
+        <translation>ウェブサイトで開く</translation>
+    </message>
     <message>
         <source>Modules other people shared with you or your clubs. Place one, and it follows its owner&apos;s updates.</source>
         <translation>ほかの人があなたやクラブと共有したモジュールです。置くと、持ち主の更新に追従します。</translation>
@@ -10665,6 +10843,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Yours</source>
         <translation>自分のもの</translation>
+    </message>
+    <message>
+        <source>From %1</source>
+        <translation>%1 から</translation>
     </message>
     <message>
         <source>v%1</source>
@@ -10723,6 +10905,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>共有したクラブは、クラブのレイアウトに置けて、あなたの更新を受け取ります。</translation>
     </message>
     <message>
+        <source>Share with Other Clubs…</source>
+        <translation>他のクラブと共有…</translation>
+    </message>
+    <message>
+        <source>Partner clubs get it straight away; any other club must accept it first.</source>
+        <translation>パートナークラブにはすぐに届きます。それ以外のクラブは先に承認が必要です。</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>自分のものに戻す…</translation>
     </message>
@@ -10741,6 +10931,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Delete…</source>
         <translation>削除…</translation>
+    </message>
+    <message>
+        <source>shared with %1</source>
+        <translation>%1 と共有</translation>
     </message>
     <message>
         <source>A shared module goes in a layout, not inside another module.</source>

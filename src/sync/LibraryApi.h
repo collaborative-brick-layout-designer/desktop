@@ -47,6 +47,44 @@ struct ClubRef {
     QString name;
     QString slug;
     int layouts = 0;  // "Used in": how many of its layouts place the module
+    // How another club came to have a club's module (docs/shared-modules.md,
+    // section 11): "partner" (a partner club), "offer" (accepted one off), or
+    // empty (shared with a club its owner is in).
+    QString via;
+};
+
+// A club's module offered one off to another club, waiting for that club's
+// Admins or Managers, or declined. A club that isn't listed has no name
+// (only its address) until it accepts.
+struct ClubOffer {
+    QString id;
+    ClubRef club;
+    QString state;          // "pending" / "declined"
+    qint64 askAgainAt = 0;  // a declined one: when it can be offered again (ms); 0: now
+    bool pending() const { return state == QLatin1String("pending"); }
+};
+
+// A club found to share a club's module with (GET /api/modules/:id/club-targets).
+struct ClubTarget {
+    ClubRef club;
+    bool partner = false;  // a partner club: shared at once
+    bool shared = false;   // already shared with it
+    QString offer;         // "pending" / "declined" / empty
+};
+
+// What sharing a club's module answered: shared at once (a partner), or offered.
+struct ClubShareResult {
+    QString status;  // "shared" / "offered"
+    QString name;    // empty: a club that isn't listed
+    QString slug;
+    bool offered() const { return status == QLatin1String("offered"); }
+};
+
+// Partner requests and module offers waiting in one club you look after.
+struct ClubRequestCount {
+    QString slug;
+    QString name;
+    int count = 0;
 };
 
 struct ServerModule {
@@ -80,6 +118,12 @@ struct ServerModule {
 struct ModuleShares {
     int latestVersion = 0;
     bool canShareWithClubs = true;  // false for a club's own module: its members already see it
+    // A club's module: it goes to the club's partner clubs at once, or is
+    // offered to any other club (servers with partner clubs).
+    bool canShareWithOtherClubs = false;
+    ClubRef club;               // a club's module: its club
+    QList<ClubRef> partners;    // a club's module: the club's partner clubs
+    QList<ClubOffer> offers;    // a club's module: offers waiting or declined
     QList<ClubRef> clubs;           // shared with these
     QList<ClubRef> myClubs;         // the clubs you're in (it can be shared with those)
     int people = 0;                 // how many people it is shared with
@@ -318,6 +362,19 @@ public:
     // Share it, read-only, with a club you're in / stop (its owner, or that club's admins and managers).
     void shareWithClub(const QString& id, const QString& orgSlug, std::function<void()> done, Fail failed);
     void stopClubShare(const QString& id, const QString& orgId, std::function<void()> done, Fail failed);
+    // A club's module to another club, by its address or a pasted link:
+    // shared at once with a partner club, otherwise offered.
+    void shareClubModule(const QString& id, const QString& clubSlugOrLink, std::function<void(const ClubShareResult&)> done,
+                         Fail failed);
+    // Take back an offer of a club's module (or forget a declined one).
+    void withdrawClubOffer(const QString& id, const QString& offerId, std::function<void()> done, Fail failed);
+    // A club's module: listed clubs matching `q`, to share it with or offer it to.
+    void clubTargets(const QString& id, const QString& q, std::function<void(const QList<ClubTarget>&)> done, Fail failed);
+    // Partner requests and module offers waiting in the clubs you look after
+    // (their Admins and Managers answer them on the website).
+    void clubRequestCount(std::function<void(const QList<ClubRequestCount>&)> done, Fail failed);
+    // A club's Partner clubs section on the website, where requests and offers are answered.
+    QUrl clubPartnersWebUrl(const QString& slug) const;
     // A layout's shared modules. `checkModuleId` (optional): also whether that
     // module would follow its owner if placed in this layout.
     void layoutSharedModules(const QString& layoutId, const QString& checkModuleId,

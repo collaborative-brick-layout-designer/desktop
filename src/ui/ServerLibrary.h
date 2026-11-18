@@ -80,6 +80,14 @@ public:
     // the sharedModules feature.
     const QList<sync::ServerModule>& sharedModules() const { return shared_; }
     const sync::ServerModule* sharedModule(const QString& id) const;
+    // Partner requests and module offers waiting in the clubs you look after
+    // (answered on the website; docs/shared-modules.md, section 11). Empty on
+    // a server without shared modules or partner clubs.
+    const QList<sync::ClubRequestCount>& clubRequests() const { return clubAsks_; }
+    // Another club's module shared with a club of yours (a partner club's,
+    // or one accepted one off): on the Clubs tab under that club's name,
+    // not under Shared with me.
+    static bool fromAnotherClub(const sync::ServerModule& m);
     // Whether the server has shared modules (its features list
     // sync::kSharedModulesFeature, as the server list last heard). Tests
     // and a live layout's server may say so outright.
@@ -142,6 +150,7 @@ private:
     QString why_;
     QList<sync::ServerModule> modules_;
     QList<sync::ServerModule> shared_;
+    QList<sync::ClubRequestCount> clubAsks_;
     std::optional<bool> knowsShared_;
     QList<sync::OrgEntry> orgs_;
     sync::CatalogSettings catalog_;

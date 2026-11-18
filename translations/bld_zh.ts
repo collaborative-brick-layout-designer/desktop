@@ -1367,6 +1367,42 @@
         <translation>拥有“发送到目录”权限的成员负责审核：他们以俱乐部名义分享的内容会立即公开，其他成员分享的内容则等待俱乐部自己审核。站点审核员仍然可以查看和下架任何内容，也可以取消对俱乐部的信任。</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>合作俱乐部</translation>
+    </message>
+    <message>
+        <source>Clubs that share their modules with each other, read-only, with no need to accept each one.</source>
+        <translation>相互以只读方式共享模块的俱乐部，无需逐个接受。</translation>
+    </message>
+    <message>
+        <source>A club’s Admins or Managers ask another club, found under Find a club or by pasting its link, and that club’s Admins or Managers accept or decline. Partners still pick each module they share, and can place each other’s only in their club’s layouts. Ending a partnership stops those modules both ways; copies already placed stay as they are, marked “No longer shared”.</source>
+        <translation>俱乐部的管理员或经理向另一个俱乐部发出请求（在“查找俱乐部”中找到，或粘贴它的链接），对方俱乐部的管理员或经理接受或拒绝。合作伙伴仍需逐个选择要共享的模块，并且只能把对方的模块放进自己俱乐部的布局。结束合作会双向停止这些模块；已放置的副本保持原样，并标为“不再共享”。</translation>
+    </message>
+    <message>
+        <source>Modules offered to your club</source>
+        <translation>提供给你俱乐部的模块</translation>
+    </message>
+    <message>
+        <source>Another club wants to share one of its modules with yours; your Admins or Managers accept or decline.</source>
+        <translation>另一个俱乐部想与你的俱乐部共享它的一个模块；由你的管理员或经理接受或拒绝。</translation>
+    </message>
+    <message>
+        <source>Accepted, its members who may edit the club’s layouts can place it, and get its updates; they can’t change its parts. Declined, the other club sees that and can offer it again later. Your club can take an accepted module off its list at any time.</source>
+        <translation>接受后，可以编辑俱乐部布局的成员可以放置它并收到它的更新；他们不能更改它的零件。拒绝后，对方俱乐部会看到，之后可以再次提供。你的俱乐部可以随时把已接受的模块从列表中移除。</translation>
+    </message>
+    <message>
+        <source>Sharing a club’s module with other clubs</source>
+        <translation>与其他俱乐部共享俱乐部的模块</translation>
+    </message>
+    <message>
+        <source>Partner clubs get it straight away; any other club must accept it first.</source>
+        <translation>合作俱乐部会立即收到；其他俱乐部需要先接受。</translation>
+    </message>
+    <message>
+        <source>Pick a partner club, or find another club in the club list or by pasting its link. Offers wait until that club’s Admins or Managers accept; you can take one back. Either way you see how many layouts use it and in which clubs, and stopping leaves placed copies as they are.</source>
+        <translation>选择一个合作俱乐部，或在俱乐部列表中、通过粘贴链接找到另一个俱乐部。提供会等待对方俱乐部的管理员或经理接受；你可以撤回。无论哪种方式，你都能看到有多少布局在用它、在哪些俱乐部，停止共享会让已放置的副本保持原样。</translation>
+    </message>
+    <message>
         <source>Who can see this</source>
         <translation>谁可以看到</translation>
     </message>
@@ -9639,6 +9675,50 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>它已不再与那个俱乐部共享。</translation>
     </message>
     <message>
+        <source>No club has that address. Check the link and try again.</source>
+        <translation>没有俱乐部使用这个地址。请检查链接后重试。</translation>
+    </message>
+    <message>
+        <source>That&apos;s this module&apos;s own club.</source>
+        <translation>这是该模块所属的俱乐部。</translation>
+    </message>
+    <message>
+        <source>That club declined this module. You can offer it again a day after it declined.</source>
+        <translation>该俱乐部拒绝了这个模块。拒绝一天后可以再次提供。</translation>
+    </message>
+    <message>
+        <source>Your club has many module offers waiting for an answer already. Take some back, or wait for an answer.</source>
+        <translation>你的俱乐部已有很多等待答复的模块提供。请撤回一些，或等待答复。</translation>
+    </message>
+    <message>
+        <source>(partner club)</source>
+        <translation>（合作俱乐部）</translation>
+    </message>
+    <message>
+        <source>(club, accepted)</source>
+        <translation>（俱乐部，已接受）</translation>
+    </message>
+    <message>
+        <source>(club)</source>
+        <translation>（俱乐部）</translation>
+    </message>
+    <message>
+        <source>the club at %1</source>
+        <translation>位于 %1 的俱乐部</translation>
+    </message>
+    <message>
+        <source>%1 · waiting for them to accept</source>
+        <translation>%1 · 等待对方接受</translation>
+    </message>
+    <message>
+        <source>%1 · declined (you can offer it again in a day)</source>
+        <translation>%1 · 已拒绝（一天后可以再次提供）</translation>
+    </message>
+    <message>
+        <source>%1 · declined</source>
+        <translation>%1 · 已拒绝</translation>
+    </message>
+    <message>
         <source> (version %1)</source>
         <translation>（版本 %1）</translation>
     </message>
@@ -9681,12 +9761,100 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>共享</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>合作俱乐部</translation>
+    </message>
+    <message>
+        <source>Share with a partner club</source>
+        <translation>与合作俱乐部共享</translation>
+    </message>
+    <message>
+        <source>Another club…</source>
+        <translation>其他俱乐部…</translation>
+    </message>
+    <message>
+        <source>Search clubs, or paste a club&apos;s link</source>
+        <translation>搜索俱乐部，或粘贴俱乐部链接</translation>
+    </message>
+    <message>
+        <source>Another club: search clubs, or paste a club&apos;s link</source>
+        <translation>其他俱乐部：搜索俱乐部，或粘贴俱乐部链接</translation>
+    </message>
+    <message>
+        <source>Offer It to This Club</source>
+        <translation>提供给这个俱乐部</translation>
+    </message>
+    <message>
         <source>To share with one person by email, open this module on the website.</source>
         <translation>要通过电子邮件共享给个人，请在网站上打开这个模块。</translation>
     </message>
     <message>
         <source>Open on the Website</source>
         <translation>在网站上打开</translation>
+    </message>
+    <message>
+        <source>No listed club matches “%1”. A club that isn&apos;t listed is found by pasting its link.</source>
+        <translation>没有公开的俱乐部匹配“%1”。未公开的俱乐部可以通过粘贴链接找到。</translation>
+    </message>
+    <message>
+        <source>%1 (partner club)</source>
+        <translation>%1（合作俱乐部）</translation>
+    </message>
+    <message>
+        <source>Shared</source>
+        <translation>已共享</translation>
+    </message>
+    <message>
+        <source>Waiting for them</source>
+        <translation>等待对方</translation>
+    </message>
+    <message>
+        <source>Offer</source>
+        <translation>提供</translation>
+    </message>
+    <message>
+        <source>Share with %1</source>
+        <translation>与 %1 共享</translation>
+    </message>
+    <message>
+        <source>Offer it to %1</source>
+        <translation>提供给 %1</translation>
+    </message>
+    <message>
+        <source>%1 has no partner clubs yet. &lt;a href=&quot;%2&quot;&gt;Ask a club to be partners&lt;/a&gt; on the website.</source>
+        <translation>%1 还没有合作俱乐部。请在网站上&lt;a href=&quot;%2&quot;&gt;邀请俱乐部成为合作伙伴&lt;/a&gt;。</translation>
+    </message>
+    <message>
+        <source>It&apos;s shared with every partner club.</source>
+        <translation>已与所有合作俱乐部共享。</translation>
+    </message>
+    <message>
+        <source>Pick a partner club…</source>
+        <translation>选择一个合作俱乐部…</translation>
+    </message>
+    <message>
+        <source>Offer Again</source>
+        <translation>再次提供</translation>
+    </message>
+    <message>
+        <source>Take Back</source>
+        <translation>撤回</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>移除</translation>
+    </message>
+    <message>
+        <source>Offered “%1” to %2. It&apos;s shared once their Admins or Managers accept it.</source>
+        <translation>已将“%1”提供给 %2。对方的管理员或经理接受后即会共享。</translation>
+    </message>
+    <message>
+        <source>“%1” is shared with %2.</source>
+        <translation>“%1”已与 %2 共享。</translation>
+    </message>
+    <message>
+        <source>This is %1&apos;s module. Partner clubs get it straight away. Any other club must accept it first. Clubs you share with can place it in their layouts and get its updates; they can&apos;t change its parts.</source>
+        <translation>这是 %1 的模块。合作俱乐部会立即收到。其他俱乐部需要先接受。与你共享的俱乐部可以把它放进自己的布局并收到更新；他们不能更改它的零件。</translation>
     </message>
     <message>
         <source>This is a club&apos;s module: its members already have it.</source>
@@ -9705,8 +9873,8 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>选择一个俱乐部…</translation>
     </message>
     <message>
-        <source>%1 (club) · can place it</source>
-        <translation>%1（俱乐部）· 可以放置</translation>
+        <source>%1 %2 · can place it</source>
+        <translation>%1 %2 · 可以放置</translation>
     </message>
     <message>
         <source>Stop sharing with %1</source>
@@ -10646,6 +10814,16 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <source>Remove</source>
         <translation>移除</translation>
     </message>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for an answer. Answer them on the website.</source>
+        <translation>
+            <numerusform>%1：有 %n 个合作请求或模块提供等待答复。请在网站上答复。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open on the Website</source>
+        <translation>在网站上打开</translation>
+    </message>
     <message>
         <source>Modules other people shared with you or your clubs. Place one, and it follows its owner&apos;s updates.</source>
         <translation>其他人与你或你的俱乐部共享的模块。放进布局后，它会跟随所有者的更新。</translation>
@@ -10665,6 +10843,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Yours</source>
         <translation>你的</translation>
+    </message>
+    <message>
+        <source>From %1</source>
+        <translation>来自 %1</translation>
     </message>
     <message>
         <source>v%1</source>
@@ -10723,6 +10905,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>你共享的俱乐部可以把它放进俱乐部的布局，并收到你的更新。</translation>
     </message>
     <message>
+        <source>Share with Other Clubs…</source>
+        <translation>与其他俱乐部共享…</translation>
+    </message>
+    <message>
+        <source>Partner clubs get it straight away; any other club must accept it first.</source>
+        <translation>合作俱乐部会立即收到；其他俱乐部需要先接受。</translation>
+    </message>
+    <message>
         <source>Take Back to Mine…</source>
         <translation>收回为我的…</translation>
     </message>
@@ -10741,6 +10931,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Delete…</source>
         <translation>删除…</translation>
+    </message>
+    <message>
+        <source>shared with %1</source>
+        <translation>已与 %1 共享</translation>
     </message>
     <message>
         <source>A shared module goes in a layout, not inside another module.</source>
