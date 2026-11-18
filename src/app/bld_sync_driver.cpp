@@ -208,6 +208,9 @@ public:
             reply(waitFor([&] { return session_.status() == Status::Synced && session_.loaded(); }, ms)
                       ? QStringLiteral("ok")
                       : QStringLiteral("error not synced (%1)").arg(QLatin1String(statusName(session_.status()))));
+        } else if (cmd == QLatin1String("features")) {
+            // What this build does that older ones don't (the web's journeys ask, to know what to expect of it).
+            reply(QStringLiteral("ok keepIds"));
         } else if (cmd == QLatin1String("status")) {
             reply(QStringLiteral("ok %1 %2").arg(QLatin1String(statusName(session_.status()))).arg(session_.unsyncedEdits()));
         } else if (cmd == QLatin1String("move") && a.size() == 4) {

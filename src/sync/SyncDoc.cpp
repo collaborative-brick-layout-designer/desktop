@@ -1334,7 +1334,7 @@ void SyncDoc::setKeepJson(bool keep) {
 void SyncDoc::setMemberKeys(bool on) { d_->memberKeys = on; }
 void SyncDoc::setSharedModules(bool on) { d_->sharedModules = on; }
 
-QByteArray SyncDoc::writeMap(const core::Map& map, bool step) {
+QByteArray SyncDoc::writeMap(const core::Map& map, bool undoStep) {
     Impl& d = *d_;
     const QJsonObject want = docJsonFromMap(map, d.keepJson ? &d.parts : nullptr);
     const QByteArray before = stateVector();
@@ -1367,7 +1367,7 @@ QByteArray SyncDoc::writeMap(const core::Map& map, bool step) {
     d.absorb();
     const QJsonObject cur = d.currentJson();
     d.ops = 0;
-    d.txn = step ? ydoc_write_transaction(d.doc, sizeof(kLocalOrigin) - 1, kLocalOrigin) : ydoc_write_transaction(d.doc, 0, nullptr);
+    d.txn = undoStep ? ydoc_write_transaction(d.doc, sizeof(kLocalOrigin) - 1, kLocalOrigin) : ydoc_write_transaction(d.doc, 0, nullptr);
     const QJsonObject curMeta = cur.value(QLatin1String("meta")).toObject();
     QJsonObject wantMeta = want.value(QLatin1String("meta")).toObject();
     if (writesSidecar) wantMeta.insert(QStringLiteral("cache"), sidecarWrite.blob);
@@ -1423,9 +1423,9 @@ QByteArray SyncDoc::writeMap(const core::Map& map, bool step) {
     d.touchedArrays.clear();
     d.brickIds.clear();
     d.baseline = d.jsonValid && d.keepJson;
-    if (step) yundo_manager_stop(d.undo);  // seal this write as one step
+    if (undoStep) yundo_manager_stop(d.undo);  // seal this write as one step
     // What this step did to the sidecar's keys (restoreSidecar).
-    if (!step) {
+    if (!undoStep) {
         // (not a step: yrs's stack is as it was)
     } else if (yundo_manager_undo_stack_len(d.undo) == d.undoSteps.size() + 1) {
         Impl::SidecarStep step;
