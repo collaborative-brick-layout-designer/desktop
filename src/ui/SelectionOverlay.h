@@ -3,6 +3,7 @@
 #include <QColor>
 #include <QFont>
 #include <QGraphicsItem>
+#include <QHash>
 #include <QLineF>
 #include <QList>
 #include <QPainterPath>
@@ -67,6 +68,19 @@ public:
         bool operator==(const FullName&) const = default;
     };
     void setFullNames(QList<FullName> names);
+    // Picked text and labels glow gold. The glow (a Qt drop shadow) is
+    // drawn on a copy of each, a child of this overlay, never on the
+    // item itself: Qt sizes a shadow in screen pixels, so an item with
+    // one would take up more or less of the map at each zoom without
+    // the scene's index being told. The index then kept an item under
+    // bits of map it had left, still there once the item was deleted,
+    // and the next paint over them read freed memory and crashed. This
+    // overlay keeps its children out of the index (it contains them).
+    // `items`: the picked ones, alive now; the overlay never reads them
+    // after this returns.
+    void setGlowing(const QList<QGraphicsItem*>& items);
+    // The copies drawn now, glow and all (tests).
+    QList<QGraphicsItem*> glowCopies() const { return glows_.values(); }
     // The outlines drawn now (tests).
     const QList<QPolygonF>& outlines() const { return polys_; }
 
@@ -74,6 +88,8 @@ private:
     QList<QPolygonF> polys_;
     QList<RulerBand> bands_;
     QList<FullName> names_;
+    // Picked item (only a key: it may be gone) -> its glowing copy.
+    QHash<const QGraphicsItem*, QGraphicsItem*> glows_;
     QRectF  bounds_;
     bool    snapActive_ = false;
     QPointF snapPoint_;
