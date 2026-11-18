@@ -2938,6 +2938,18 @@
         <translation>モジュールは ⋯ メニューからクラブと共有できます。共有されたモジュールは「共有されたもの」にあり、持ち主の更新が届きます。</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>パートナークラブ</translation>
+    </message>
+    <message>
+        <source>Partner clubs share modules both ways, with no accept each time. Admins and Managers ask and answer on the club&apos;s page.</source>
+        <translation>パートナークラブは、そのつど承認しなくても、モジュールを互いに共有できます。管理者とマネージャーが、クラブのページで依頼し、返事をします。</translation>
+    </message>
+    <message>
+        <source>Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website.</source>
+        <translation>パートナーの依頼とモジュールの提案には、ウェブサイトで返事をします。クラブのタブに待っているものが出て、「ウェブサイトで開く」から開けます。</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>クラブのページ</translation>
     </message>

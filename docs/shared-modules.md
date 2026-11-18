@@ -688,6 +688,11 @@ Aaron, 2026-11-17 (design pass "club-to-club module sharing"). As built:
 - **One-off shares.** A club's module offered to any other club waits as an
   offer (`module_club_offers`) until that club's Admins or Managers accept it
   (`via = 'offer'`) or decline it.
+- **Offers that wait when the clubs become partners.** Partners get modules
+  without accepting, so a module offer still waiting between two clubs (either
+  way) turns into a partner share at once when they become partners, and the
+  receiving club's Admins and Managers get a note. Declined offers stay as
+  they are.
 - **Taking back, declines, limits.** The sender takes back a request or an
   offer. A declined one can be sent again a day after the decline. A club
   has at most 20 partner requests and 50 offers waiting (20 with one club);
@@ -714,6 +719,7 @@ Aaron, 2026-11-17 (design pass "club-to-club module sharing"). As built:
   offer to it is sent, but its name and logo are shown to the sender only
   once it accepts. The privacy downloads (a person's and a club's) hold
   partnerships, requests and offers.
+- **A copy starts at version 1.** A module copied into a club (or to a person) is recorded as its version 1 with the contents it was copied with, so no list shows "v0". Copies made before that show version 1 too (a list never shows 0); no stored row was changed.
 - **Nothing is stamped in the live doc** (no new doc shape): a placed copy
   of a club's module is an ordinary shared module.
 

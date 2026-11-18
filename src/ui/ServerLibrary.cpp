@@ -541,24 +541,7 @@ void ServerModulesTab::rebuild() {
     // The Clubs tab: what waits for an answer in the clubs you look after.
     // Partner requests and module offers are answered on the website.
     if (tab == Clubs) {
-        for (const auto& w : library_.clubRequests()) {
-            auto* box = new QWidget(listHost_);
-            box->setObjectName(QStringLiteral("clubRequestsWaiting:") + w.slug);
-            auto* row = new QHBoxLayout(box);
-            row->setContentsMargins(4, 0, 4, 0);
-            auto* words = libraryMutedLabel(
-                tr("%1: %n partner request(s) or module offer(s) wait for an answer. Answer them on the website.", nullptr, w.count)
-                    .arg(w.name),
-                box);
-            row->addWidget(words, 1);
-            auto* open = new QPushButton(tr("Open on the Website"), box);
-            open->setObjectName(QStringLiteral("openClubPartners"));
-            const QUrl url = library_.api().clubPartnersWebUrl(w.slug);
-            connect(open, &QPushButton::clicked, this, [url] { QDesktopServices::openUrl(url); });
-            row->addWidget(open, 0, Qt::AlignTop);
-            row->addWidget(new help::HelpButton(QStringLiteral("club.moduleOffers"), box), 0, Qt::AlignTop);
-            list_->insertWidget(at++, box);
-        }
+        for (const auto& w : library_.clubRequests()) list_->insertWidget(at++, clubWaitingLine(library_, w, listHost_));
     }
     if (tab == Shared) {
         auto* about = new QWidget(listHost_);
@@ -628,6 +611,25 @@ void ServerModulesTab::rebuild() {
         rows_.insert(m.id, r);
         list_->insertWidget(at++, r);
     }
+}
+
+QWidget* ServerModulesTab::clubWaitingLine(ServerLibrary& library, const sync::ClubRequestCount& w, QWidget* parent) {
+    auto* box = new QWidget(parent);
+    box->setObjectName(QStringLiteral("clubRequestsWaiting:") + w.slug);
+    auto* row = new QHBoxLayout(box);
+    row->setContentsMargins(4, 0, 4, 0);
+    auto* words = libraryMutedLabel(
+        tr("%1: %n partner request(s) or module offer(s) wait for an answer. Answer them on the website.", nullptr, w.count)
+            .arg(w.name),
+        box);
+    row->addWidget(words, 1);
+    auto* open = new QPushButton(tr("Open on the Website"), box);
+    open->setObjectName(QStringLiteral("openClubPartners"));
+    const QUrl url = library.api().clubPartnersWebUrl(w.slug);
+    connect(open, &QPushButton::clicked, box, [url] { QDesktopServices::openUrl(url); });
+    row->addWidget(open, 0, Qt::AlignTop);
+    row->addWidget(new help::HelpButton(QStringLiteral("club.moduleOffers"), box), 0, Qt::AlignTop);
+    return box;
 }
 
 QWidget* ServerModulesTab::makeRow(const sync::ServerModule& m) {

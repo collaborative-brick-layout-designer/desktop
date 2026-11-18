@@ -2955,6 +2955,18 @@
         <translation>Dela en modul med din klubb från dess ⋯-meny. De som delats med dig finns under Delade med mig, med ägarens uppdateringar.</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>Partnerklubbar</translation>
+    </message>
+    <message>
+        <source>Partner clubs share modules both ways, with no accept each time. Admins and Managers ask and answer on the club&apos;s page.</source>
+        <translation>Partnerklubbar delar moduler åt båda hållen, utan att godkänna varje gång. Administratörer och ansvariga frågar och svarar på klubbens sida.</translation>
+    </message>
+    <message>
+        <source>Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website.</source>
+        <translation>Partnerförfrågningar och erbjudanden besvaras på webbplatsen. Fliken Klubbar visar vad som väntar, med ”Öppna på webbplatsen”.</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>Din klubbs sida</translation>
     </message>

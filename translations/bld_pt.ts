@@ -2955,6 +2955,18 @@
         <translation>Partilhe um módulo com o seu clube no menu ⋯. Os partilhados com você estão em «Partilhados comigo», com as atualizações do dono.</translation>
     </message>
     <message>
+        <source>Partner clubs</source>
+        <translation>Clubes parceiros</translation>
+    </message>
+    <message>
+        <source>Partner clubs share modules both ways, with no accept each time. Admins and Managers ask and answer on the club&apos;s page.</source>
+        <translation>Os clubes parceiros partilham módulos nos dois sentidos, sem aceitar de cada vez. Os administradores e gestores pedem e respondem na página do clube.</translation>
+    </message>
+    <message>
+        <source>Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website.</source>
+        <translation>Os pedidos de parceria e as ofertas respondem-se no site. O separador Clubes mostra o que espera, com «Abrir no site».</translation>
+    </message>
+    <message>
         <source>Your club&apos;s page</source>
         <translation>A página do seu clube</translation>
     </message>
