@@ -1,4 +1,6 @@
 #include "ModuleCommands.h"
+
+#include <QJsonArray>
 #include "SharedModuleKeep.h"
 
 #include "../core/SharedModule.h"
@@ -479,6 +481,13 @@ void ReplaceModulePartsCommand::redo() {
             keepBefore_ = sheetsNow();
             const KeepPlan plan = planKeep(keepSheets(map_), mod.memberIds, batches_, *keepParts_);
             kept_ = static_cast<int>(plan.kept.size());
+            // A shared module remembers the parts its updates took out (SharedSettle.h, rule 0).
+            if (sharedAfter_ && !plan.removed.isEmpty()) {
+                QStringList had;
+                for (const auto& v : sharedAfter_->value(QLatin1String("retired")).toArray())
+                    if (v.isString()) had << v.toString();
+                sharedAfter_->insert(QStringLiteral("retired"), QJsonArray::fromStringList(core::moreRetired(had, plan.removed)));
+            }
             const QStringList members = applyKeep(map_, plan, batches_);
             keepMembers_ = QSet<QString>(members.begin(), members.end());
             keepAfter_ = sheetsNow();

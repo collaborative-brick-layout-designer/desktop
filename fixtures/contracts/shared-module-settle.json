@@ -1,5 +1,5 @@
 {
-  "about": "Finishing an undo or redo for a shared module (docs/shared-modules.md, phase 3, doc shape 5; web packages/modules settle.ts, desktop src/edit/SharedSettle.cpp). `before`/`after`: whether the module's record is there, and its parts on the map (each with its sheet; in the module's order, as before). `expect`: parts to remove, whether the record goes too, and the parts to move (each where it goes: sheet, box and turn). Rule: its record went: every part left goes; some parts went: the rest go, and the record; some parts moved (place, turn or sheet), the rest didn't: the rest move the same way, taken from the first part that moved, turned about their pivots, onto the sheet the moved ones went to from theirs. Numbers rounded to 1e-6. `parts`: the geometry of each part number (lower case), as in shared-module-placement.json.",
+  "about": "Finishing an undo or redo for a shared module (docs/shared-modules.md, phase 3, doc shape 5; web packages/modules settle.ts, desktop src/edit/SharedSettle.cpp). `before`/`after`: whether the module's record is there, and its parts on the map (each with its sheet; in the module's order, as before). `expect`: parts to remove, whether the record goes too, and the parts to move (each where it goes: sheet, box and turn). Rule 0 (`retired`): a part a shared module's update took out (`shared.retired`, every shared module's together) that the step brought back (on the map after it, not before) goes again; `expect` lists them in the order of `after`. Rule: its record went: every part left goes; some parts went: the rest go, and the record; some parts moved (place, turn or sheet), the rest didn't: the rest move the same way, taken from the first part that moved, turned about their pivots, onto the sheet the moved ones went to from theirs. Numbers rounded to 1e-6. `parts`: the geometry of each part number (lower case), as in shared-module-placement.json.",
   "parts": {
     "straight.1": {
       "pxPerStud": 8,
@@ -1130,6 +1130,77 @@
         "removeModule": false,
         "move": []
       }
+    }
+  ],
+  "retired": [
+    {
+      "name": "undoing a change of sheet brought back a part the update took out",
+      "retired": [
+        "c",
+        "x"
+      ],
+      "before": [
+        "a",
+        "b",
+        "d"
+      ],
+      "after": [
+        "a",
+        "b",
+        "d",
+        "c"
+      ],
+      "expect": [
+        "c"
+      ]
+    },
+    {
+      "name": "a retired part that was there already is left alone",
+      "retired": [
+        "c"
+      ],
+      "before": [
+        "a",
+        "c"
+      ],
+      "after": [
+        "a",
+        "c"
+      ],
+      "expect": []
+    },
+    {
+      "name": "parts brought back that no update took out stay",
+      "retired": [
+        "c"
+      ],
+      "before": [
+        "a"
+      ],
+      "after": [
+        "a",
+        "e",
+        "f"
+      ],
+      "expect": []
+    },
+    {
+      "name": "several, from two modules' updates",
+      "retired": [
+        "c",
+        "g",
+        "h"
+      ],
+      "before": [],
+      "after": [
+        "h",
+        "a",
+        "c"
+      ],
+      "expect": [
+        "h",
+        "c"
+      ]
     }
   ]
 }

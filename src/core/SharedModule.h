@@ -27,6 +27,7 @@
 #include <QPointF>
 #include <QSet>
 #include <QString>
+#include <QStringList>
 
 #include <optional>
 #include <vector>
@@ -83,7 +84,16 @@ struct SharedPlaced {
     std::optional<SharedPlacement> placement;
     std::optional<SharedReview> review;
     QSet<QString> members;
+    // The ids of parts its updates took out (`shared.retired`, the newest
+    // kRetiredMax): an undo that brings one back takes it away again
+    // (edit/SharedSettle.h settleRetired).
+    QStringList retired;
 };
+
+constexpr int kRetiredMax = 1000;
+
+// `retired` with `ids` added (each once), the newest kRetiredMax kept (the web's moreRetired).
+QStringList moreRetired(QStringList retired, const QStringList& ids);
 
 // Whether the module's value marks it shared (the doc is then shape 4):
 // `shared` is there, and it follows a library module.
