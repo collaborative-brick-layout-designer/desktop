@@ -129,7 +129,8 @@ Catalogue parseCatalogue(const QByteArray& json) {
             tour.steps.append({ s.value(QLatin1String("target")).toString(), s.value(QLatin1String("title")).toString(),
                                 s.value(QLatin1String("text")).toString() });
         }
-        c.tours.append(tour);
+        // A tour whose steps are all for the web alone (the import dialog's) isn't the desktop's.
+        if (!tour.steps.isEmpty()) c.tours.append(tour);
     }
     return c;
 }

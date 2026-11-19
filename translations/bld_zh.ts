@@ -815,20 +815,8 @@
         <translation>打开来自本应用、BlueBrick、TrackDesigner 或 4DBrix 的布局文件。</translation>
     </message>
     <message>
-        <source>A layout file (.bld-layout) or a BlueBrick map (.bbm) opens with everything in it. TrackDesigner (.tdl) and 4DBrix (.ncp) parts are matched to parts in the library, and any that have no match are listed after opening. LDraw, BrickLink Studio and LDD models are imported in the desktop app.</source>
-        <translation>布局文件（.bld-layout）或 BlueBrick 地图（.bbm）打开时包含其中的所有内容。TrackDesigner（.tdl）和 4DBrix（.ncp）的零件会与零件库中的零件匹配，没有匹配的会在打开后列出。LDraw、BrickLink Studio 和 LDD 模型在桌面应用中导入。</translation>
-    </message>
-    <message>
         <source>Models from other programs</source>
         <translation>来自其他程序的模型</translation>
-    </message>
-    <message>
-        <source>LDraw, BrickLink Studio and LDD files are imported in the desktop app, then saved here.</source>
-        <translation>LDraw、BrickLink Studio 和 LDD 文件在桌面应用中导入，然后保存到这里。</translation>
-    </message>
-    <message>
-        <source>The desktop app reads them, matches their parts to the library and lists the ones it can’t match. It can also turn a model into a custom part. Then choose File › Save to Server… and it shows up here.</source>
-        <translation>桌面应用会读取它们，把其中的零件与零件库匹配，并列出无法匹配的零件。它还可以把模型变成自定义零件。然后选择 文件 › 保存到服务器…，它就会出现在这里。</translation>
     </message>
     <message>
         <source>Download as</source>
@@ -921,6 +909,86 @@
     <message>
         <source>Share with a person by email, or with a club you’re in so its members can place it in the club’s layouts; your own parts that it uses come along, to look at only. You see how many layouts use it and in which clubs, never the names of other people’s layouts. Stopping a share, or a club’s admins taking the module off their club, leaves the copies already placed as they are, with no more updates.</source>
         <translation>可以通过电子邮件共享给个人，也可以共享给你所在的俱乐部，让成员把它放进俱乐部的布局；它用到的你自己的零件会一起带上，只供查看。你能看到有多少个布局用了它、在哪些俱乐部里，但看不到别人布局的名称。停止共享，或俱乐部管理员把模块从他们的俱乐部移除后，已经放好的副本保持原样，不再收到更新。</translation>
+    </message>
+    <message>
+        <source>A layout file (.bld-layout) or a BlueBrick map (.bbm) opens with everything in it. TrackDesigner (.tdl) and 4DBrix (.ncp) parts are matched to parts in the library, and any that have no match are listed after opening. LDraw, BrickLink Studio and LDD models are imported, as the desktop app imports them.</source>
+        <translation>布局文件（.bld-layout）或 BlueBrick 地图（.bbm）打开时包含其中的所有内容。TrackDesigner（.tdl）和 4DBrix（.ncp）的零件会与零件库中的零件匹配，没有匹配的会在打开后列出。LDraw、BrickLink Studio 和 LDD 模型会按桌面应用的方式导入。</translation>
+    </message>
+    <message>
+        <source>When this site can’t import a model, the desktop app can, and then saves it here.</source>
+        <translation>本网站无法导入模型时，可以用桌面应用导入，然后保存到这里。</translation>
+    </message>
+    <message>
+        <source>The desktop app reads LDraw, BrickLink Studio and LDD files with your own libraries, matches their parts and lists the ones it can’t match. It can also turn a model into a custom part. Then choose File › Save to Server… and it shows up here.</source>
+        <translation>桌面应用用你自己的零件库读取 LDraw、BrickLink Studio 和 LDD 文件，匹配其中的零件，并列出无法匹配的零件。它还可以把模型变成自定义零件。然后选择 文件 › 保存到服务器…，它就会出现在这里。</translation>
+    </message>
+    <message>
+        <source>Importing a model</source>
+        <translation>导入模型</translation>
+    </message>
+    <message>
+        <source>Bring in an LDraw, BrickLink Studio or LDD model, read by the desktop app’s own importer.</source>
+        <translation>导入 LDraw、BrickLink Studio 或 LDD 模型，由桌面应用自己的导入器读取。</translation>
+    </message>
+    <message>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>模型会变成一个可以放在任何地方的自定义零件；对于 LDraw 布局，也可以逐个放置其中的零件。文件读取完毕后会立即从服务器删除。零件库中没有的零件不会出现在图中，预览会显示数量。</translation>
+    </message>
+    <message>
+        <source>One part or its parts</source>
+        <translation>一个零件还是其中的零件</translation>
+    </message>
+    <message>
+        <source>Make the whole model one custom part, or place each of its parts as File › Open does.</source>
+        <translation>把整个模型做成一个自定义零件，或像 文件 › 打开 那样逐个放置其中的零件。</translation>
+    </message>
+    <message>
+        <source>One custom part keeps a building or a set together, drawn from above, with snap points where its track ends. Placing its parts one by one is for an LDraw layout: each piece becomes a part you can move, if the parts library has it.</source>
+        <translation>一个自定义零件会把建筑或套件保持在一起，从上方绘制，并在轨道末端带有吸附点。逐个放置零件适用于 LDraw 布局：只要零件库中有，每一块都会成为可以移动的零件。</translation>
+    </message>
+    <message>
+        <source>Lining it up with the studs</source>
+        <translation>对齐颗粒</translation>
+    </message>
+    <message>
+        <source>Which studs go on the grid: Automatic puts the flat bottom plates on it, else centers the model.</source>
+        <translation>哪些颗粒落在网格上：自动 会把平的底部板件放在网格上，否则让模型居中。</translation>
+    </message>
+    <message>
+        <source>Bottom plates puts the model’s lowest layer on whole studs; Bounding box centers the whole model in whole studs. Move it by half a stud down to a sixteenth with the arrow buttons until the studs line up. Reset goes back to Automatic.</source>
+        <translation>底部板件 把模型最底层放在整颗粒上；外框 把整个模型居中放在整颗粒上。用箭头按钮以半颗粒到十六分之一颗粒移动它，直到颗粒对齐。重置 回到 自动。</translation>
+    </message>
+    <message>
+        <source>Where track, road or monorail snap on to the part; uncheck any you don’t want.</source>
+        <translation>轨道、道路或单轨吸附到零件的位置；取消勾选你不需要的。</translation>
+    </message>
+    <message>
+        <source>They are found from the track pieces in the model that nothing else is joined to. A point you uncheck is left out of the part, so nothing snaps there.</source>
+        <translation>它们来自模型中没有连接其他东西的轨道。取消勾选的点不会包含在零件中，所以那里不会吸附任何东西。</translation>
+    </message>
+    <message>
+        <source>Where it goes</source>
+        <translation>放到哪里</translation>
+    </message>
+    <message>
+        <source>Put what you import in the layout you have open, or start a new layout with it.</source>
+        <translation>把导入的内容放进当前打开的布局，或用它新建一个布局。</translation>
+    </message>
+    <message>
+        <source>In this layout it goes in the middle of your view, on the sheet you pick, and everyone editing sees it at once. A new layout is yours, named as you type it here.</source>
+        <translation>在这个布局中，它会放在视图中央、你选择的图纸上，所有正在编辑的人都会立即看到。新布局归你所有，名称就是你在这里输入的。</translation>
+    </message>
+    <message>
+        <source>Missing parts</source>
+        <translation>缺少的零件</translation>
+    </message>
+    <message>
+        <source>Parts the site’s libraries don’t have are left out of the picture.</source>
+        <translation>网站零件库中没有的零件不会出现在图中。</translation>
+    </message>
+    <message>
+        <source>A newer LDraw library, LDD’s brick database or Studio’s own library may have them; a site admin sets these up in Admin › Model import. The desktop app can also import the model with the libraries on your computer.</source>
+        <translation>较新的 LDraw 零件库、LDD 的积木数据库或 Studio 自己的零件库可能有它们；网站管理员在 Admin › Model import 中设置。桌面应用也可以用你电脑上的零件库导入该模型。</translation>
     </message>
     <message>
         <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
@@ -3161,6 +3229,42 @@
     <message>
         <source>Tap ? for tips, and to take the other tours.</source>
         <translation>点 ? 查看提示，或开始其他导览。</translation>
+    </message>
+    <message>
+        <source>Importing a model</source>
+        <translation>导入模型</translation>
+    </message>
+    <message>
+        <source>The desktop app’s importer</source>
+        <translation>桌面应用的导入器</translation>
+    </message>
+    <message>
+        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
+        <translation>网站按桌面应用的方式读取你的模型。文件读取完毕后会立即删除。</translation>
+    </message>
+    <message>
+        <source>Line it up</source>
+        <translation>对齐</translation>
+    </message>
+    <message>
+        <source>Turn the model and move it until its studs sit on the grid.</source>
+        <translation>旋转并移动模型，直到它的颗粒落在网格上。</translation>
+    </message>
+    <message>
+        <source>Snap points</source>
+        <translation>吸附点</translation>
+    </message>
+    <message>
+        <source>Uncheck any connection point you don’t want on the part.</source>
+        <translation>取消勾选零件上不需要的连接点。</translation>
+    </message>
+    <message>
+        <source>Where it goes</source>
+        <translation>放到哪里</translation>
+    </message>
+    <message>
+        <source>Put it in the layout you have open, or start a new layout with it.</source>
+        <translation>把它放进当前打开的布局，或用它新建一个布局。</translation>
     </message>
 </context>
 <context>

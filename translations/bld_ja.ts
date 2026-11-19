@@ -815,20 +815,8 @@
         <translation>このアプリ、BlueBrick、TrackDesigner、4DBrix のレイアウトファイルを開きます。</translation>
     </message>
     <message>
-        <source>A layout file (.bld-layout) or a BlueBrick map (.bbm) opens with everything in it. TrackDesigner (.tdl) and 4DBrix (.ncp) parts are matched to parts in the library, and any that have no match are listed after opening. LDraw, BrickLink Studio and LDD models are imported in the desktop app.</source>
-        <translation>レイアウトファイル（.bld-layout）や BlueBrick マップ（.bbm）は、中身すべてごと開きます。TrackDesigner（.tdl）と 4DBrix（.ncp）のパーツはライブラリのパーツに対応付けられ、対応のないものは開いたあとに一覧表示されます。LDraw、BrickLink Studio、LDD のモデルはデスクトップアプリでインポートします。</translation>
-    </message>
-    <message>
         <source>Models from other programs</source>
         <translation>ほかのプログラムのモデル</translation>
-    </message>
-    <message>
-        <source>LDraw, BrickLink Studio and LDD files are imported in the desktop app, then saved here.</source>
-        <translation>LDraw、BrickLink Studio、LDD のファイルはデスクトップアプリでインポートしてから、ここに保存します。</translation>
-    </message>
-    <message>
-        <source>The desktop app reads them, matches their parts to the library and lists the ones it can’t match. It can also turn a model into a custom part. Then choose File › Save to Server… and it shows up here.</source>
-        <translation>デスクトップアプリがファイルを読み込み、パーツをライブラリに対応付け、対応できないものを一覧にします。モデルをカスタムパーツにすることもできます。その後、ファイル › サーバーに保存… を選ぶと、ここに表示されます。</translation>
     </message>
     <message>
         <source>Download as</source>
@@ -921,6 +909,86 @@
     <message>
         <source>Share with a person by email, or with a club you’re in so its members can place it in the club’s layouts; your own parts that it uses come along, to look at only. You see how many layouts use it and in which clubs, never the names of other people’s layouts. Stopping a share, or a club’s admins taking the module off their club, leaves the copies already placed as they are, with no more updates.</source>
         <translation>メールで個人と共有するか、自分が入っているクラブと共有すると、そのメンバーがクラブのレイアウトにモジュールを置けます。使われているあなたのパーツもいっしょに渡りますが、見るだけです。いくつのレイアウトで、どのクラブで使われているかは分かりますが、ほかの人のレイアウト名は表示されません。共有をやめたり、クラブの管理者がクラブからモジュールを外したりしても、すでに置いたコピーはそのまま残り、更新だけが届かなくなります。</translation>
+    </message>
+    <message>
+        <source>A layout file (.bld-layout) or a BlueBrick map (.bbm) opens with everything in it. TrackDesigner (.tdl) and 4DBrix (.ncp) parts are matched to parts in the library, and any that have no match are listed after opening. LDraw, BrickLink Studio and LDD models are imported, as the desktop app imports them.</source>
+        <translation>レイアウトファイル（.bld-layout）や BlueBrick マップ（.bbm）は、中身すべてごと開きます。TrackDesigner（.tdl）と 4DBrix（.ncp）のパーツはライブラリのパーツに対応付けられ、対応のないものは開いたあとに一覧表示されます。LDraw、BrickLink Studio、LDD のモデルは、デスクトップアプリと同じようにインポートされます。</translation>
+    </message>
+    <message>
+        <source>When this site can’t import a model, the desktop app can, and then saves it here.</source>
+        <translation>このサイトでモデルをインポートできないときは、デスクトップアプリでインポートしてから、ここに保存できます。</translation>
+    </message>
+    <message>
+        <source>The desktop app reads LDraw, BrickLink Studio and LDD files with your own libraries, matches their parts and lists the ones it can’t match. It can also turn a model into a custom part. Then choose File › Save to Server… and it shows up here.</source>
+        <translation>デスクトップアプリは LDraw、BrickLink Studio、LDD のファイルを自分のライブラリで読み込み、パーツを対応付け、対応できないものを一覧にします。モデルをカスタムパーツにすることもできます。その後、ファイル › サーバーに保存… を選ぶと、ここに表示されます。</translation>
+    </message>
+    <message>
+        <source>Importing a model</source>
+        <translation>モデルのインポート</translation>
+    </message>
+    <message>
+        <source>Bring in an LDraw, BrickLink Studio or LDD model, read by the desktop app’s own importer.</source>
+        <translation>LDraw、BrickLink Studio、LDD のモデルを、デスクトップアプリ自身のインポーターで読み込みます。</translation>
+    </message>
+    <message>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>モデルはどこにでも置ける 1 つのカスタムパーツになります。LDraw のレイアウトなら、パーツを 1 つずつ配置することもできます。ファイルは読み込みが終わるとすぐサーバーから削除されます。ライブラリにないパーツは絵から抜け、その数はプレビューに表示されます。</translation>
+    </message>
+    <message>
+        <source>One part or its parts</source>
+        <translation>1 つのパーツか、そのパーツか</translation>
+    </message>
+    <message>
+        <source>Make the whole model one custom part, or place each of its parts as File › Open does.</source>
+        <translation>モデル全体を 1 つのカスタムパーツにするか、ファイル › 開く と同じように各パーツを配置します。</translation>
+    </message>
+    <message>
+        <source>One custom part keeps a building or a set together, drawn from above, with snap points where its track ends. Placing its parts one by one is for an LDraw layout: each piece becomes a part you can move, if the parts library has it.</source>
+        <translation>1 つのカスタムパーツにすると、建物やセットがまとまったまま上から描かれ、線路の端にスナップポイントが付きます。パーツを 1 つずつ配置するのは LDraw のレイアウト向けです。パーツライブラリにあれば、各パーツを個別に動かせます。</translation>
+    </message>
+    <message>
+        <source>Lining it up with the studs</source>
+        <translation>スタッドに合わせる</translation>
+    </message>
+    <message>
+        <source>Which studs go on the grid: Automatic puts the flat bottom plates on it, else centers the model.</source>
+        <translation>グリッドに乗せるスタッド: 自動 は平らな底のプレートを乗せ、そうでなければモデルを中央に置きます。</translation>
+    </message>
+    <message>
+        <source>Bottom plates puts the model’s lowest layer on whole studs; Bounding box centers the whole model in whole studs. Move it by half a stud down to a sixteenth with the arrow buttons until the studs line up. Reset goes back to Automatic.</source>
+        <translation>底のプレート はモデルのいちばん下の層を整数スタッドに合わせ、外接枠 はモデル全体を整数スタッドの中央に置きます。矢印ボタンで半スタッドから 16 分の 1 スタッドまで動かして、スタッドをそろえます。リセット で 自動 に戻ります。</translation>
+    </message>
+    <message>
+        <source>Where track, road or monorail snap on to the part; uncheck any you don’t want.</source>
+        <translation>線路、道路、モノレールがパーツにスナップする場所です。不要なものはチェックを外します。</translation>
+    </message>
+    <message>
+        <source>They are found from the track pieces in the model that nothing else is joined to. A point you uncheck is left out of the part, so nothing snaps there.</source>
+        <translation>モデルの中で、ほかに何もつながっていない線路から見つけます。チェックを外したポイントはパーツに含まれないので、そこには何もスナップしません。</translation>
+    </message>
+    <message>
+        <source>Where it goes</source>
+        <translation>置き場所</translation>
+    </message>
+    <message>
+        <source>Put what you import in the layout you have open, or start a new layout with it.</source>
+        <translation>インポートしたものを開いているレイアウトに置くか、それで新しいレイアウトを始めます。</translation>
+    </message>
+    <message>
+        <source>In this layout it goes in the middle of your view, on the sheet you pick, and everyone editing sees it at once. A new layout is yours, named as you type it here.</source>
+        <translation>このレイアウトでは、表示の中央、選んだシートに置かれ、編集中の全員にすぐ見えます。新しいレイアウトはあなたのもので、ここに入力した名前になります。</translation>
+    </message>
+    <message>
+        <source>Missing parts</source>
+        <translation>足りないパーツ</translation>
+    </message>
+    <message>
+        <source>Parts the site’s libraries don’t have are left out of the picture.</source>
+        <translation>サイトのライブラリにないパーツは絵から抜けます。</translation>
+    </message>
+    <message>
+        <source>A newer LDraw library, LDD’s brick database or Studio’s own library may have them; a site admin sets these up in Admin › Model import. The desktop app can also import the model with the libraries on your computer.</source>
+        <translation>新しい LDraw ライブラリ、LDD のブリックデータベース、Studio 自身のライブラリにあるかもしれません。サイト管理者が Admin › Model import で設定します。デスクトップアプリなら、パソコンのライブラリでモデルをインポートすることもできます。</translation>
     </message>
     <message>
         <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
@@ -3161,6 +3229,42 @@
     <message>
         <source>Tap ? for tips, and to take the other tours.</source>
         <translation>? をタップするとヒントが見られ、ほかのツアーも始められます。</translation>
+    </message>
+    <message>
+        <source>Importing a model</source>
+        <translation>モデルのインポート</translation>
+    </message>
+    <message>
+        <source>The desktop app’s importer</source>
+        <translation>デスクトップアプリのインポーター</translation>
+    </message>
+    <message>
+        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
+        <translation>サイトはデスクトップアプリと同じようにモデルを読み込みます。ファイルは読み込み後すぐ削除されます。</translation>
+    </message>
+    <message>
+        <source>Line it up</source>
+        <translation>そろえる</translation>
+    </message>
+    <message>
+        <source>Turn the model and move it until its studs sit on the grid.</source>
+        <translation>モデルを回して動かし、スタッドをグリッドに合わせます。</translation>
+    </message>
+    <message>
+        <source>Snap points</source>
+        <translation>スナップポイント</translation>
+    </message>
+    <message>
+        <source>Uncheck any connection point you don’t want on the part.</source>
+        <translation>パーツに不要な接続ポイントのチェックを外します。</translation>
+    </message>
+    <message>
+        <source>Where it goes</source>
+        <translation>置き場所</translation>
+    </message>
+    <message>
+        <source>Put it in the layout you have open, or start a new layout with it.</source>
+        <translation>開いているレイアウトに置くか、それで新しいレイアウトを始めます。</translation>
     </message>
 </context>
 <context>

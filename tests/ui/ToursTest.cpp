@@ -79,7 +79,9 @@ TEST_F(Tours, TheCatalogueIsTheWebAppsFile) {
     EXPECT_EQ(c.welcome.id, QStringLiteral("welcome"));
     QStringList ids;
     for (const auto& t : c.tours) ids << t.id;
+    // The web's "import" tour (its import dialog) has web steps only: not here.
     EXPECT_EQ(ids, (QStringList{ "editor", "rooms", "clubs", "view" }));
+    EXPECT_EQ(tours::findTour(QStringLiteral("import")), nullptr);
     // The venue tour keeps its id; people see "Venues".
     EXPECT_EQ(tours::findTour(QStringLiteral("rooms"))->title, QStringLiteral("Venues"));
     for (const auto& t : c.tours) {
