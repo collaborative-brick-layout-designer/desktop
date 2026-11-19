@@ -24,7 +24,6 @@
 #include <QDateTime>
 #include <QList>
 #include <QObject>
-#include <QPointer>
 #include <QTimer>
 #include <QUrl>
 
@@ -87,7 +86,7 @@ private:
     void bringToFront();
 
     sync::NotificationCenter& center_;
-    QPointer<QWidget> window_;
+    QWidget* window_;  // our parent
     QSystemTrayIcon* tray_ = nullptr;
     QTimer burst_;
     QTimer quiet_;

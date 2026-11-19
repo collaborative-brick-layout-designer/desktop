@@ -4,6 +4,8 @@
 #include "NotificationViews.h"
 #include "help/HelpButton.h"
 
+#include "../sync/WhileAlive.h"
+
 #include <QCheckBox>
 #include <QComboBox>
 #include <QFrame>
@@ -11,7 +13,6 @@
 #include <QHBoxLayout>
 #include <QJsonObject>
 #include <QLabel>
-#include <QPointer>
 #include <QPushButton>
 #include <QSettings>
 #include <QTimeEdit>
@@ -153,14 +154,11 @@ void NotificationSettingsPanel::save(const QJsonObject& change) {
     if (!center_) return;
     saving_ = true;
     status_->setText(tr("Saving…"));
-    center_->saveSettings(
-        current(), change, [panel = QPointer<NotificationSettingsPanel>(this)](const sync::ServerRefusal* r) {
-            if (!panel) return;
-            panel->saving_ = false;
-            panel->status_->setText(r ? (r->message.isEmpty() ? sync::describe(*r) : r->message)
-                                      : tr("Saved."));
-            panel->rebuild();
-        });
+    center_->saveSettings(current(), change, sync::whileAlive(this, [this](const sync::ServerRefusal* r) {
+        saving_ = false;
+        status_->setText(r ? (r->message.isEmpty() ? sync::describe(*r) : r->message) : tr("Saved."));
+        rebuild();
+    }));
 }
 
 QWidget* NotificationSettingsPanel::typeRow(const sync::NotificationTypeSetting& t, QWidget* parent) {
