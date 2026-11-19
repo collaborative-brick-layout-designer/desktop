@@ -825,7 +825,8 @@ QIcon bellIcon(const QColor& ink) {
 }  // namespace
 
 NotificationBell::NotificationBell(sync::NotificationCenter& center, QWidget* parent) : QToolButton(parent), center_(center) {
-    setObjectName(QStringLiteral("notificationBell"));
+    // "tool.": the toolbar shows it as an icon only when the window is narrow.
+    setObjectName(QStringLiteral("tool.notifications"));
     setText(tr("Notifications"));
     setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     setIcon(bellIcon(palette().color(QPalette::ButtonText)));

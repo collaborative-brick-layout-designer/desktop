@@ -747,8 +747,6 @@ private:
     void openLayoutOn(const QUrl& server, const QString& token, const QString& layoutId, const QString& fallbackTitle);
     bld::sync::NotificationCenter* notifications_ = nullptr;
     class NotificationBell* notificationBell_ = nullptr;
-    QWidget* notificationPanel_ = nullptr;    // (made the first time; this window's child)
-    QWidget* notificationsWindow_ = nullptr;  // (while it is open)
     // Keychain answers may come after the window is gone: they check this first.
     std::shared_ptr<int> alive_ = std::make_shared<int>(0);
 public:

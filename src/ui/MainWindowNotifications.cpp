@@ -54,9 +54,12 @@ void MainWindow::setupNotifications() {
     notifications_->setTokenStore(tokens_);
 }
 
-NotificationPanel* MainWindow::notificationPanel() const { return qobject_cast<NotificationPanel*>(notificationPanel_); }
+// Found among this window's children each time: a window that closed itself is simply gone.
+NotificationPanel* MainWindow::notificationPanel() const { return findChild<NotificationPanel*>(Qt::FindDirectChildrenOnly); }
 
-NotificationsWindow* MainWindow::notificationsWindow() const { return qobject_cast<NotificationsWindow*>(notificationsWindow_); }
+NotificationsWindow* MainWindow::notificationsWindow() const {
+    return findChild<NotificationsWindow*>(Qt::FindDirectChildrenOnly);
+}
 
 void MainWindow::toggleNotificationPanel() {
     NotificationPanel* panel = notificationPanel();
@@ -66,7 +69,6 @@ void MainWindow::toggleNotificationPanel() {
     }
     if (!panel) {
         panel = new NotificationPanel(*notifications_, this);
-        notificationPanel_ = panel;
         connect(panel->list(), &NotificationList::openRequested, this, &MainWindow::openNotification);
         connect(panel, &NotificationPanel::seeAllRequested, this,
                 [this] { QTimer::singleShot(0, this, &MainWindow::showNotificationsWindow); });
@@ -80,9 +82,7 @@ void MainWindow::showNotificationsWindow() {
     NotificationsWindow* w = notificationsWindow();
     if (!w) {
         w = new NotificationsWindow(*notifications_, this);
-        notificationsWindow_ = w;
         w->setAttribute(Qt::WA_DeleteOnClose);
-        connect(w, &QObject::destroyed, this, [this] { notificationsWindow_ = nullptr; });
         connect(w->list(), &NotificationList::openRequested, this, &MainWindow::openNotification);
     }
     w->list()->reload();
