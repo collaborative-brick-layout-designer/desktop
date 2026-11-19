@@ -115,6 +115,23 @@ target_link_libraries(bld_sprite_gen
     PRIVATE bld_import bld_rendering bld_edit bld_parts bld_core
             Qt6::Core Qt6::Gui Qt6::Widgets)
 
+# The website's LDraw / Studio / LDD import, headless (docs/import-server.md):
+# exactly the app's Tools › Import and File › Open, in a locked-down process.
+add_library(bld_import_server_lib STATIC
+    importserver/ImportServer.cpp
+    importserver/ImportServer.h
+    importserver/Sandbox.cpp
+    importserver/Sandbox.h)
+target_include_directories(bld_import_server_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
+target_link_libraries(bld_import_server_lib
+    PUBLIC bld_import_pipeline bld_import bld_rendering bld_edit bld_saveload bld_parts bld_core
+           Qt6::Core Qt6::Gui Qt6::Widgets)
+add_executable(bld_import_server bld_import_server.cpp)
+target_link_libraries(bld_import_server PRIVATE bld_import_server_lib)
+target_compile_definitions(bld_import_server PRIVATE BLD_VERSION="${PROJECT_VERSION}")
+set_target_properties(bld_import_server PROPERTIES OUTPUT_NAME "bld-import-server")
+# Installed only into the server bundle (packaging/import-server), not with the app.
+
 # Headless live-sync client, driven by a script on stdin, for the
 # end-to-end test with the web editor (web repo e2e/test/desktopLiveSync.spec.ts).
 add_executable(bld_sync_driver bld_sync_driver.cpp)

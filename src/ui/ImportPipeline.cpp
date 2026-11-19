@@ -478,6 +478,33 @@ void applyImportEdits(PreparedPart& part, int quarterTurns, const QVector<QPoint
     }
 }
 
+QString suggestedImportName(const PreparedPart& part) {
+    QString suggested = part.title;
+    if (suggested.isEmpty() || suggested.compare(QStringLiteral("Untitled Model"), Qt::CaseInsensitive) == 0
+        || suggested.size() > 80)
+        suggested = QFileInfo(part.source).completeBaseName();
+    return suggested;
+}
+
+PreparedPart finishPreview(const PreparedPart& shown, const QVector<bool>& keep,
+                           const QString& designer, const QString& designerUrl) {
+    PreparedPart out = shown;
+    out.designer = designer.trimmed();
+    QString url = designerUrl.trimmed();
+    // Only web links: anything else isn't something to click.
+    if (!url.isEmpty() && !url.startsWith(QLatin1String("http://"), Qt::CaseInsensitive)
+        && !url.startsWith(QLatin1String("https://"), Qt::CaseInsensitive))
+        url = QStringLiteral("https://") + url;
+    out.designerUrl = out.designer.isEmpty() ? QString() : url;
+    out.connections.clear();
+    for (int i = 0; i < shown.connections.size(); ++i) {
+        const auto& c = shown.connections[i];
+        if (i >= keep.size() || keep[i]) out.connections.append(c);
+        else out.droppedConnections.append(QPointF(c.xStuds, c.yStuds));
+    }
+    return out;
+}
+
 QString writeImportedPart(const PreparedPart& part, const QString& name,
                           const QString& destDir, const QString& author,
                           bool replaceExisting, QString* error, const QString& keyName) {

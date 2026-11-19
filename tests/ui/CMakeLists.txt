@@ -7,6 +7,7 @@ add_executable(bld_ui_tests
     RotateOracleTest.cpp
     ImportPipelineTest.cpp
     ImportReplaceTest.cpp
+    ImportServerTest.cpp
     AddPartsFromZipTest.cpp
     LDrawMapTest.cpp
     BrickPlacementTest.cpp
@@ -93,6 +94,11 @@ target_link_libraries(bld_ui_tests
         Qt6::Network
         Qt6::Test
 )
+
+# The website's converter: its library, and the program itself (ImportServerTest).
+target_link_libraries(bld_ui_tests PRIVATE bld_import_server_lib)
+target_compile_definitions(bld_ui_tests PRIVATE BLD_IMPORT_SERVER_EXE="$<TARGET_FILE:bld_import_server>")
+add_dependencies(bld_ui_tests bld_import_server)
 
 gtest_discover_tests(bld_ui_tests
     PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen"

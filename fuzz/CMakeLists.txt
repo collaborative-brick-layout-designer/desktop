@@ -24,3 +24,12 @@ target_link_options(fuzz_ydoc PRIVATE -fsanitize=fuzzer)
 add_executable(fuzz_sync_message SyncMessageFuzz.cpp)
 target_link_libraries(fuzz_sync_message PRIVATE bld_sync)
 target_link_options(fuzz_sync_message PRIVATE -fsanitize=fuzzer)
+
+# The website's import (bld-import-server): every path the server runs, per
+# format (ImportServerFuzz.cpp).
+foreach(f IN ITEMS ldraw studio ldd)
+    add_executable(fuzz_import_server_${f} ImportServerFuzz.cpp)
+    target_compile_definitions(fuzz_import_server_${f} PRIVATE BLD_FUZZ_FORMAT="${f}")
+    target_link_libraries(fuzz_import_server_${f} PRIVATE bld_import_server_lib)
+    target_link_options(fuzz_import_server_${f} PRIVATE -fsanitize=fuzzer)
+endforeach()

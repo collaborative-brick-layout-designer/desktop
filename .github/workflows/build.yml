@@ -310,6 +310,19 @@ jobs:
           WAYLAND_DISPLAY=bld-test QT_QPA_PLATFORM=wayland "./$ARTIFACT.AppImage" --version | grep -F "$BLD_VERSION"
           kill "$WESTON"
 
+      # The website's import converter (docs/import-server.md): its own small
+      # bundle for the web's Docker image, proven on that image's base.
+      - name: Package the website's converter (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install -y patchelf
+          packaging/import-server/bundle.sh build/src/app/bld-import-server "$QT_ROOT_DIR" \
+            "bld-import-server${{ inputs.artifact-suffix }}-linux-x86_64.tar.gz"
+
+      - name: Smoke test the converter on the web image's base (Linux)
+        if: runner.os == 'Linux'
+        run: scripts/ci/import-server-smoke.sh "bld-import-server${{ inputs.artifact-suffix }}-linux-x86_64.tar.gz"
+
       # ---------------------------------------------------------------- macOS
       - name: Install (macOS)
         if: runner.os == 'macOS'
@@ -516,4 +529,5 @@ jobs:
           path: |
             ${{ env.ARTIFACT }}.*
             !${{ env.ARTIFACT }}.wixpdb
+            bld-import-server${{ inputs.artifact-suffix }}-linux-x86_64.tar.gz*
           if-no-files-found: error

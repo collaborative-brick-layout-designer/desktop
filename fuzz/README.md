@@ -20,6 +20,9 @@ AddressSanitizer and UndefinedBehaviorSanitizer:
 | `lif` | LDD `.lif` asset archives (every file read back) |
 | `layout_file` | native `.bld-layout` files (the zip, its layout, sidecar, background and parts) |
 | `studio` | Studio `.io` archives |
+| `import_server_ldraw` | the website's import (`bld-import-server`) of `.ldr` / `.mpd` / `.dat`: analyse, convert to a part (with and without an LDraw library, every preview choice), place as parts |
+| `import_server_studio` | the same for Studio `.io` files (decrypted inside the converter) |
+| `import_server_ldd` | the same for LDD `.lxf` / `.lxfml` |
 | `ydoc` | live-sync documents (Yjs updates through `sync::UpdateGuard` into yrs: `summarizeDoc`, `SyncDoc::applyUpdate`, whole and cut in two as a document and an update to it), seeds `fixtures/sync/*.ydoc` and `fixtures/fuzz-regressions/ydoc-*` |
 | `sync_message` | y-websocket messages from the server (`sync::protocol::decode`) |
 

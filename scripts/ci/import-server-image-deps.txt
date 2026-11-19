@@ -1,0 +1,11 @@
+# Debian (bookworm) packages bld-import-server needs beside its bundle: the
+# system libraries Qt links that the bundle leaves to the system. The web
+# image installs exactly these (its Dockerfile); scripts/ci/import-server-smoke.sh
+# proves the bundle runs with them on the web image's base.
+libgl1
+libegl1
+libfontconfig1
+libfreetype6
+libglib2.0-0
+libdbus-1-3
+libxkbcommon0
