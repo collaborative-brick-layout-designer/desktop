@@ -4,6 +4,7 @@
 // live hints (GET /api/events) and when you come back to the window.
 
 #include "MainWindow.h"
+#include "../sync/NotificationCenter.h"
 
 #include "LayerPanel.h"
 #include "LoadingCard.h"
@@ -161,12 +162,15 @@ void MainWindow::setupServerLibrary() {
         if (serverLibrary_->state() == ServerLibrary::State::Ready) refreshNotices();
     });
 
+    setupNotifications();
+
     // Live: a hint from the server asks again (a burst of them, once).
     serverEvents_ = new sync::EventStream(this);
     connect(serverEvents_, &sync::EventStream::hint, this, &MainWindow::onServerHint);
     connect(serverEvents_, &sync::EventStream::reconnected, this, [this] {
         serverLibrary_->refresh();
         refreshNotices();
+        notifications_->refresh(serverLibrary_->server());
         // Hints may have been missed: one may have changed your access to the live layout.
         if (live_ && live_->active() && liveRoleCheck_) liveRoleCheck_->start();
     });
@@ -180,6 +184,7 @@ void MainWindow::setupServerLibrary() {
         if (serverLibrary_->state() == ServerLibrary::State::Ready || serverLibrary_->state() == ServerLibrary::State::Offline) {
             serverLibrary_->refresh();
             refreshNotices();
+            notifications_->refresh();
         } else {
             // Signed in elsewhere (Servers…) meanwhile.
             updateLibraryServer();
@@ -257,6 +262,10 @@ void MainWindow::updateLibraryServer() {
     const sync::ServerEntry* e = browseServer_.isValid() ? servers.find(browseServer_) : nullptr;
     if (!e && live_ && live_->active()) e = servers.find(liveServer_);
     if (!e) e = servers.lastUsed();
+    // Signed in or out somewhere: the bell follows every server (and hears
+    // the library's own server through the library's stream).
+    notifications_->setOuterStream(e ? e->url : QUrl());
+    notifications_->reload();
     if (!e) {
         serverLibrary_->setServer({}, {}, {});
         serverEvents_->stop();
@@ -293,11 +302,14 @@ void MainWindow::signInToLibraryServer() {
         const QString token = dialog.result()->token;
         serverLibrary_->setServer(url, serverLibrary_->label(), token);
         serverEvents_->start(url, token);
+        notifications_->setSignedIn(url, token);
+        notifications_->setOuterStream(url);
     });
 }
 
 void MainWindow::onServerHint(const QJsonObject& hint) {
     if (serverWindow_) serverWindow_->hint(hint);
+    notifications_->hint(serverLibrary_->server(), hint);
     const QString kind = hint.value(QLatin1String("kind")).toString();
     // A club role, a share or your account changed: your access to the live
     // layout may have too (the web refetches the open layout the same way).
@@ -375,9 +387,11 @@ void MainWindow::showServerWindow(int tab) {
 }
 
 void MainWindow::openServerLayout(const sync::LayoutEntry& layout) {
+    openServerLayoutOn(serverLibrary_->server(), serverLibrary_->token(), layout);
+}
+
+void MainWindow::openServerLayoutOn(const QUrl& server, const QString& token, const sync::LayoutEntry& layout) {
     if (!maybeSave()) return;
-    const QUrl server = serverLibrary_->server();
-    const QString token = serverLibrary_->token();
     if (!server.isValid() || token.isEmpty()) return;
     // Only a server this app can work with (as Connect does): too old, or a
     // newer document than this build reads, says so and stops.
@@ -829,8 +843,14 @@ void MainWindow::refreshNotices() {
         return;
     }
     const QUrl server = serverLibrary_->server();
+    // A server with notifications shows its warnings through them (showNextWarning);
+    // the older notices are only for a server before them, once that is known.
+    if (!notifications_ || notifications_->support(server) != sync::NotificationCenter::Support::No) {
+        notices_->hideNotice(QStringLiteral("server-warning"));
+        return;
+    }
     serverLibrary_->api().notices(sync::whileAlive(this, [this, server](const QList<sync::Notice>& list) {
-        if (server != serverLibrary_->server()) return;
+        if (server != serverLibrary_->server() || notifications_->support(server) != sync::NotificationCenter::Support::No) return;
         showNextNotice(list);
     }), [](const sync::ServerRefusal&) {
         // A server before warnings, or offline: nothing to show.
@@ -875,7 +895,7 @@ void MainWindow::showNextNotice(const QList<sync::Notice>& list) {
     }
     QUrl all = base;
     all.setPath(QStringLiteral("/notices"));
-    actions << NoticeAction{ tr("All notices"), [all] { QDesktopServices::openUrl(all); }, false, false };
+    actions << NoticeAction{ tr("All notifications on the website"), [all] { QDesktopServices::openUrl(all); }, false, false };
     notices_->showNotice(QStringLiteral("server-warning"), title, text, actions, {}, w.severity != QLatin1String("note"));
 }
 

@@ -272,6 +272,12 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("HelpTexts", "Your name"),
     QT_TRANSLATE_NOOP("HelpTexts", "Other people see this name, so pick one you are happy to share; your email stays private."),
     QT_TRANSLATE_NOOP("HelpTexts", "It shows in club member lists, next to your cursor when you edit with others, and on things you share in the public catalog. You can change it any time on your Profile page."),
+    QT_TRANSLATE_NOOP("HelpTexts", "Notifications"),
+    QT_TRANSLATE_NOOP("HelpTexts", "Requests, invites and news for you, newest first; the number is how many you haven’t read."),
+    QT_TRANSLATE_NOOP("HelpTexts", "Answer requests and invites right here with Accept or Decline, and if someone in your club answered first, it says who. Open one, or use its tick, to mark it read or unread. Warnings stay at the top of the page until you choose “I understand”."),
+    QT_TRANSLATE_NOOP("HelpTexts", "Notification settings"),
+    QT_TRANSLATE_NOOP("HelpTexts", "Choose, for each kind of notification, whether it shows in the app, how it’s emailed, and when it’s quiet."),
+    QT_TRANSLATE_NOOP("HelpTexts", "Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email."),
 };
 
 }  // namespace

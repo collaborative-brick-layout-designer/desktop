@@ -50,7 +50,8 @@
         { "target": "publish.owner", "title": "Save to", "text": "When you make or publish a layout, Save to picks whether it is yours or your club's." },
         { "target": "module.shared", "title": "Modules shared with you", "text": "Share a module with your club from its ⋯ menu. Ones shared with you are in Shared with me, with their owner's updates." },
         { "target": "club.partners", "apps": ["web"], "needsClub": true, "title": "Partner clubs", "text": "Partner clubs share modules both ways, with no accept each time. Admins and Managers ask and answer on the club's page." },
-        { "target": "club.moduleOffers", "apps": ["desktop"], "title": "Partner clubs", "text": "Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website." },
+        { "target": "club.moduleOffers", "apps": ["desktop"], "title": "Partner clubs", "text": "Partner requests and offers wait on the Modules tab and in your notifications. Answer them there with Accept or Decline." },
+        { "target": "notifications.bell", "title": "Your notifications", "text": "Requests to join, invites and news from your clubs land here. Answer them with Accept or Decline, right from the list." },
         { "target": "clubs.page", "title": "Your club's page", "text": "The club page shows who is in the club. Admins invite people from there." },
         { "target": "clubs.join", "title": "Joining a club", "text": "A club admin sends you an invite link. Open it to join, and the club's things show up here." }
       ]

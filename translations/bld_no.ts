@@ -1426,6 +1426,30 @@
         <source>It shows in club member lists, next to your cursor when you edit with others, and on things you share in the public catalog. You can change it any time on your Profile page.</source>
         <translation>Det vises i klubbenes medlemslister, ved siden av markøren din når du redigerer med andre, og på ting du deler i den offentlige katalogen. Du kan endre det når som helst på Profil-siden din.</translation>
     </message>
+    <message>
+        <source>Notifications</source>
+        <translation>Varsler</translation>
+    </message>
+    <message>
+        <source>Requests, invites and news for you, newest first; the number is how many you haven’t read.</source>
+        <translation>Forespørsler, invitasjoner og nyheter til deg, nyeste først; tallet viser hvor mange du ikke har lest.</translation>
+    </message>
+    <message>
+        <source>Answer requests and invites right here with Accept or Decline, and if someone in your club answered first, it says who. Open one, or use its tick, to mark it read or unread. Warnings stay at the top of the page until you choose “I understand”.</source>
+        <translation>Svar på forespørsler og invitasjoner rett her med Godta eller Avslå; har noen i klubben din svart først, står det hvem. Åpne en, eller bruk haken, for å merke den som lest eller ulest. Advarsler blir værende øverst på siden til du velger «Jeg forstår».</translation>
+    </message>
+    <message>
+        <source>Notification settings</source>
+        <translation>Varselinnstillinger</translation>
+    </message>
+    <message>
+        <source>Choose, for each kind of notification, whether it shows in the app, how it’s emailed, and when it’s quiet.</source>
+        <translation>Velg for hver type varsel om det vises i appen, hvordan det sendes på e-post og når det er stille.</translation>
+    </message>
+    <message>
+        <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
+        <translation>Åpne en gruppe for å se hver type. E-post kan komme med en gang, i et daglig eller ukentlig sammendrag, eller ikke i det hele tatt. Stilletimer holder e-post tilbake til de er over, og du kan dempe en travel klubb eller sette all e-post på pause.</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -1466,6 +1490,136 @@
     <message>
         <source>%1, %2 and %3 others are here too</source>
         <translation>%1, %2 og %3 andre er her også</translation>
+    </message>
+</context>
+<context>
+    <name>NotificationWords</name>
+    <message>
+        <source>You</source>
+        <translation>Du</translation>
+    </message>
+    <message>
+        <source>Someone</source>
+        <translation>Noen</translation>
+    </message>
+    <message>
+        <source>You let them in</source>
+        <translation>Du slapp dem inn</translation>
+    </message>
+    <message>
+        <source>%1 let them in</source>
+        <translation>%1 slapp dem inn</translation>
+    </message>
+    <message>
+        <source>You accepted</source>
+        <translation>Du godtok</translation>
+    </message>
+    <message>
+        <source>%1 accepted</source>
+        <translation>%1 godtok</translation>
+    </message>
+    <message>
+        <source>You declined</source>
+        <translation>Du avslo</translation>
+    </message>
+    <message>
+        <source>%1 declined</source>
+        <translation>%1 avslo</translation>
+    </message>
+    <message>
+        <source>Taken back, so nothing to answer</source>
+        <translation>Trukket tilbake, så ingenting å svare på</translation>
+    </message>
+    <message>
+        <source>No longer waiting</source>
+        <translation>Venter ikke lenger</translation>
+    </message>
+    <message>
+        <source>You understood</source>
+        <translation>Du har forstått</translation>
+    </message>
+    <message>
+        <source>just now</source>
+        <translation>nå nettopp</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>for %1 min siden</translation>
+    </message>
+    <message>
+        <source>%1 h ago</source>
+        <translation>for %1 t siden</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n day(s) ago</source>
+        <translation>
+            <numerusform>for %n dag siden</numerusform>
+            <numerusform>for %n dager siden</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Warnings and notes</source>
+        <translation>Advarsler og merknader</translation>
+    </message>
+    <message>
+        <source>Clubs</source>
+        <translation>Klubber</translation>
+    </message>
+    <message>
+        <source>Sharing</source>
+        <translation>Deling</translation>
+    </message>
+    <message>
+        <source>Shared modules</source>
+        <translation>Delte moduler</translation>
+    </message>
+    <message>
+        <source>Your account</source>
+        <translation>Kontoen din</translation>
+    </message>
+    <message>
+        <source>Let them in</source>
+        <translation>Slipp inn</translation>
+    </message>
+    <message>
+        <source>Accept</source>
+        <translation>Godta</translation>
+    </message>
+    <message>
+        <source>Decline this request?</source>
+        <translation>Avslå denne forespørselen?</translation>
+    </message>
+    <message>
+        <source>The request to join is turned down.</source>
+        <translation>Forespørselen om å bli med avslås.</translation>
+    </message>
+    <message>
+        <source>They can ask again later.</source>
+        <translation>De kan spørre igjen senere.</translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <translation>Avslå</translation>
+    </message>
+    <message>
+        <source>Open the layout</source>
+        <translation>Åpne layouten</translation>
+    </message>
+    <message>
+        <source>Show the module</source>
+        <translation>Vis modulen</translation>
+    </message>
+    <message>
+        <source>Show the club</source>
+        <translation>Vis klubben</translation>
+    </message>
+    <message>
+        <source>Show your clubs</source>
+        <translation>Vis klubbene dine</translation>
+    </message>
+    <message>
+        <source>Open on the website</source>
+        <translation>Åpne på nettstedet</translation>
     </message>
 </context>
 <context>
@@ -2963,8 +3117,16 @@
         <translation>Partnerklubber deler moduler begge veier, uten å godta hver gang. Administratorer og ledere spør og svarer på klubbens side.</translation>
     </message>
     <message>
-        <source>Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website.</source>
-        <translation>Partnerforespørsler og tilbud besvares på nettstedet. Fanen Klubber viser hva som venter, med «Åpne på nettstedet».</translation>
+        <source>Partner requests and offers wait on the Modules tab and in your notifications. Answer them there with Accept or Decline.</source>
+        <translation>Partnerforespørsler og tilbud venter på fanen Moduler og i varslene dine. Svar der.</translation>
+    </message>
+    <message>
+        <source>Your notifications</source>
+        <translation>Varslene dine</translation>
+    </message>
+    <message>
+        <source>Requests to join, invites and news from your clubs land here. Answer them with Accept or Decline, right from the list.</source>
+        <translation>Forespørsler om å bli med, invitasjoner og klubbnyheter havner her. Svar rett fra listen.</translation>
     </message>
     <message>
         <source>Your club&apos;s page</source>
@@ -3647,6 +3809,13 @@
     <message>
         <source>You stay credited as the author, and you can take it back while you’re a member.</source>
         <translation>Du står fortsatt som opphavsperson, og du kan ta det tilbake så lenge du er medlem.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::sync::NotificationCenter</name>
+    <message>
+        <source>You&apos;re not signed in to this server.</source>
+        <translation>Du er ikke logget inn på denne serveren.</translation>
     </message>
 </context>
 <context>
@@ -5944,6 +6113,10 @@ Lagre min som ny versjon: denne layoutens kopi blir modulen; deres blir liggende
         <translation>Lagrer «%1»…</translation>
     </message>
     <message>
+        <source>All notifications on the website</source>
+        <translation>Alle varsler på nettstedet</translation>
+    </message>
+    <message>
         <source>Someone saved this module</source>
         <translation>Noen lagret denne modulen</translation>
     </message>
@@ -6012,10 +6185,6 @@ Lagre min som ny versjon: din blir modulen; deres blir liggende i versjonshistor
     <message>
         <source>See what it&apos;s about</source>
         <translation>Se hva det gjelder</translation>
-    </message>
-    <message>
-        <source>All notices</source>
-        <translation>Alle meldinger</translation>
     </message>
     <message>
         <source>Could not read %1: %2</source>
@@ -9018,6 +9187,14 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
         <source>Layout</source>
         <translation>Layout</translation>
     </message>
+    <message>
+        <source>See what it&apos;s about on the website</source>
+        <translation>Se hva det gjelder på nettstedet</translation>
+    </message>
+    <message>
+        <source>All notifications</source>
+        <translation>Alle varsler</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -10113,6 +10290,204 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationBell</name>
+    <message>
+        <source>Notifications</source>
+        <translation>Varsler</translation>
+    </message>
+    <message numerus="yes">
+        <source>Notifications, %n unread</source>
+        <translation>
+            <numerusform>Varsler, %n ulest</numerusform>
+            <numerusform>Varsler, %n uleste</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n notification(s) you haven&apos;t read</source>
+        <translation>
+            <numerusform>%n varsel du ikke har lest</numerusform>
+            <numerusform>%n varsler du ikke har lest</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Your notifications: requests, invites and news</source>
+        <translation>Varslene dine: forespørsler, invitasjoner og nyheter</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n wait(s) for your answer</source>
+        <translation>
+            <numerusform>%n venter på svaret ditt</numerusform>
+            <numerusform>%n venter på svaret ditt</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationList</name>
+    <message>
+        <source>All</source>
+        <translation>Alle</translation>
+    </message>
+    <message>
+        <source>Unread</source>
+        <translation>Uleste</translation>
+    </message>
+    <message>
+        <source>Type of notification</source>
+        <translation>Type varsel</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <source>Mark all as read</source>
+        <translation>Merk alle som lest</translation>
+    </message>
+    <message>
+        <source>Search notifications</source>
+        <translation>Søk i varsler</translation>
+    </message>
+    <message>
+        <source>Show more</source>
+        <translation>Vis flere</translation>
+    </message>
+    <message>
+        <source>Every server</source>
+        <translation>Alle servere</translation>
+    </message>
+    <message>
+        <source>Every type</source>
+        <translation>Alle typer</translation>
+    </message>
+    <message>
+        <source>All: %1</source>
+        <translation>Alle: %1</translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation>%1: %2</translation>
+    </message>
+    <message>
+        <source>Show fewer</source>
+        <translation>Vis færre</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this (new)</source>
+        <translation>
+            <numerusform>%n til som denne (ny)</numerusform>
+            <numerusform>%n til som denne (nye)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this</source>
+        <translation>
+            <numerusform>%n til som denne</numerusform>
+            <numerusform>%n til som denne</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Unread (%1)</source>
+        <translation>Uleste (%1)</translation>
+    </message>
+    <message>
+        <source>Sign in to a server to see your notifications: requests, invites and news from your clubs.</source>
+        <translation>Logg inn på en server for å se varslene dine: forespørsler, invitasjoner og nyheter fra klubbene dine.</translation>
+    </message>
+    <message>
+        <source>Your server doesn&apos;t have notifications yet. Its warnings and notes still show over the map.</source>
+        <translation>Serveren din har ikke varsler ennå. Advarsler og merknader derfra vises fortsatt over kartet.</translation>
+    </message>
+    <message>
+        <source>You&apos;re all caught up.</source>
+        <translation>Du er à jour.</translation>
+    </message>
+    <message>
+        <source>No notifications match.</source>
+        <translation>Ingen varsler passer.</translation>
+    </message>
+    <message>
+        <source>Nothing yet. Requests, invites and news from your clubs show up here.</source>
+        <translation>Ingenting ennå. Forespørsler, invitasjoner og nyheter fra klubbene dine vises her.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationPanel</name>
+    <message>
+        <source>Notifications</source>
+        <translation>Varsler</translation>
+    </message>
+    <message>
+        <source>Close notifications</source>
+        <translation>Lukk varsler</translation>
+    </message>
+    <message>
+        <source>See all notifications</source>
+        <translation>Se alle varsler</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationRow</name>
+    <message>
+        <source>%1 (new)</source>
+        <translation>%1 (ny)</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Ny</translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation>%1: %2</translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <translation>Avslå</translation>
+    </message>
+    <message>
+        <source>Decline: %1</source>
+        <translation>Avslå: %1</translation>
+    </message>
+    <message>
+        <source>I understand</source>
+        <translation>Jeg forstår</translation>
+    </message>
+    <message>
+        <source>This one has no place in the app: it opens on the website.</source>
+        <translation>Denne har ingen plass i appen: den åpnes på nettstedet.</translation>
+    </message>
+    <message>
+        <source>%1 (someone else answered first)</source>
+        <translation>%1 (noen andre svarte først)</translation>
+    </message>
+    <message>
+        <source>What happened</source>
+        <translation>Hva som skjedde</translation>
+    </message>
+    <message>
+        <source>Mark as unread</source>
+        <translation>Merk som ulest</translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <translation>Merk som lest</translation>
+    </message>
+    <message>
+        <source>Mark “%1” as unread</source>
+        <translation>Merk «%1» som ulest</translation>
+    </message>
+    <message>
+        <source>Mark “%1” as read</source>
+        <translation>Merk «%1» som lest</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationsWindow</name>
+    <message>
+        <source>Notifications</source>
+        <translation>Varsler</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::PartDifferencesDialog</name>
     <message>
         <source>Parts That Differ</source>
@@ -10942,6 +11317,13 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>From %1</source>
         <translation>Fra %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for your answer.</source>
+        <translation>
+            <numerusform>%1: %n partnerforespørsel eller modultilbud venter på svaret ditt.</numerusform>
+            <numerusform>%1: %n partnerforespørsler eller modultilbud venter på svaret ditt.</numerusform>
+        </translation>
     </message>
     <message>
         <source>v%1</source>

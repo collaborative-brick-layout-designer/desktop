@@ -31,6 +31,7 @@ add_executable(bld_sync_tests
     LayoutSourceTest.cpp
     PrefsSyncTest.cpp
     ServerLibraryTest.cpp
+    NotificationsTest.cpp
     ServerWindowTest.cpp
     ClubLogosTest.cpp
     ClubMembersTest.cpp

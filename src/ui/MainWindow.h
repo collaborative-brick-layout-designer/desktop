@@ -40,6 +40,8 @@ namespace bld::core { struct Venue; class Map; struct SavedView; struct Module; 
 namespace bld::sync {
 struct ConnectResult;
 class EventStream;
+class NotificationCenter;
+struct NotificationItem;
 class UploadPartsDialog;
 namespace merge { struct Snapshot; }
 }
@@ -52,6 +54,7 @@ struct ConfirmOptions;
 struct PreparedPart;
 
 class MapView;
+struct NotificationPlace;
 class LayerPanel;
 class PartsBrowser;
 struct ServerSetCopy;
@@ -418,10 +421,7 @@ protected:
     // (kept on disk) come back for review once it's in step.
     void resumeLive(const QString& token);
     // Where sign-in tokens are kept (the OS keychain; tests use memory).
-    void setTokenStore(std::shared_ptr<bld::sync::TokenStore> store) {
-        tokens_ = std::move(store);
-        watchTokenSaves();
-    }
+    void setTokenStore(std::shared_ptr<bld::sync::TokenStore> store);
     bld::sync::TokenStore& tokenStore() { return *tokens_; }
 private:
     std::shared_ptr<bld::sync::TokenStore> tokens_ = bld::sync::MigratingTokenStore::keychain();
@@ -657,6 +657,7 @@ private:
     // library too), keep a venue or a module on this computer, and bring a
     // custom part into the parts library.
     void openServerLayout(const bld::sync::LayoutEntry& layout);
+    void openServerLayoutOn(const QUrl& server, const QString& token, const bld::sync::LayoutEntry& layout);
     void useServerVenue(const QString& venueId);
     void addServerVenue(const QString& venueId, const QString& name);
     void saveServerModuleCopy(const QString& moduleId);
@@ -736,11 +737,34 @@ private:
         int docVersion = -1;
     } editingModule_;
     QString shownNotice_;  // the notice card's warning id
+    // Your notifications on every server you're signed in to
+    // (MainWindowNotifications.cpp): the bell, its panel, the window, the
+    // warning card, and Open's places in the app.
+    void setupNotifications();
+    void showNextWarning();
+    // Does `run` once the library shows `server` and is ready (switching to it first).
+    void whenLibraryOn(const QUrl& server, std::function<void()> run);
+    void openLayoutOn(const QUrl& server, const QString& token, const QString& layoutId, const QString& fallbackTitle);
+    bld::sync::NotificationCenter* notifications_ = nullptr;
+    class NotificationBell* notificationBell_ = nullptr;
+    QPointer<QWidget> notificationPanel_;
+    QPointer<QWidget> notificationsWindow_;
     // Keychain answers may come after the window is gone: they check this first.
     std::shared_ptr<int> alive_ = std::make_shared<int>(0);
 public:
     // File › Open from Server…: the Server window on that tab (ServerWindow::Tab), in front.
     void showServerWindow(int tab = 0);
+    // The bell's panel (shown or hidden), and the whole Notifications window.
+    void toggleNotificationPanel();
+    void showNotificationsWindow();
+    // Open on a notification: its place in the app, else its page on the website.
+    void openNotification(const QUrl& server, const bld::sync::NotificationItem& n, const NotificationPlace& place);
+    bld::sync::NotificationCenter* notifications() const { return notifications_; }
+    class NotificationBell* notificationBell() const { return notificationBell_; }
+    class NotificationPanel* notificationPanel() const;
+    class NotificationsWindow* notificationsWindow() const;
+    // Opens a page of the website (QDesktopServices; tests replace it).
+    std::function<void(const QUrl&)> openWebLink;
     // How Send… asks where things go and which file (tests answer instead):
     // the dialog's name and owner (nullopt: cancelled), and the layout file to send.
     std::function<std::optional<std::pair<QString, QString>>(const QString& what, const QString& name)> askSaveToServer;

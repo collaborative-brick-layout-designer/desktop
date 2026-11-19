@@ -1426,6 +1426,30 @@
         <source>It shows in club member lists, next to your cursor when you edit with others, and on things you share in the public catalog. You can change it any time on your Profile page.</source>
         <translation>它会显示在俱乐部成员列表中、与他人一起编辑时的光标旁边，以及你在公开目录中分享的内容上。你随时可以在个人资料页更改它。</translation>
     </message>
+    <message>
+        <source>Notifications</source>
+        <translation>通知</translation>
+    </message>
+    <message>
+        <source>Requests, invites and news for you, newest first; the number is how many you haven’t read.</source>
+        <translation>给你的请求、邀请和消息，最新的在前；数字是你还没读的条数。</translation>
+    </message>
+    <message>
+        <source>Answer requests and invites right here with Accept or Decline, and if someone in your club answered first, it says who. Open one, or use its tick, to mark it read or unread. Warnings stay at the top of the page until you choose “I understand”.</source>
+        <translation>在这里直接用“接受”或“拒绝”回答请求和邀请；如果俱乐部里有人先回答了，会显示是谁。打开一条或点它的勾，可标为已读或未读。警告会一直留在页面顶部，直到你选择“我知道了”。</translation>
+    </message>
+    <message>
+        <source>Notification settings</source>
+        <translation>通知设置</translation>
+    </message>
+    <message>
+        <source>Choose, for each kind of notification, whether it shows in the app, how it’s emailed, and when it’s quiet.</source>
+        <translation>为每种通知选择：是否在应用中显示、如何发邮件，以及何时保持安静。</translation>
+    </message>
+    <message>
+        <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
+        <translation>打开一个分组即可看到每一种。邮件可以立即发送、按每日或每周汇总发送，或者不发。安静时段内的邮件会等到时段结束；你还可以把热闹的俱乐部设为静音，或暂停所有邮件。</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -1465,6 +1489,135 @@
     <message>
         <source>%1, %2 and %3 others are here too</source>
         <translation>%1、%2 和另外 %3 人也在这里</translation>
+    </message>
+</context>
+<context>
+    <name>NotificationWords</name>
+    <message>
+        <source>You</source>
+        <translation>你</translation>
+    </message>
+    <message>
+        <source>Someone</source>
+        <translation>有人</translation>
+    </message>
+    <message>
+        <source>You let them in</source>
+        <translation>你已同意其加入</translation>
+    </message>
+    <message>
+        <source>%1 let them in</source>
+        <translation>%1 已同意其加入</translation>
+    </message>
+    <message>
+        <source>You accepted</source>
+        <translation>你已接受</translation>
+    </message>
+    <message>
+        <source>%1 accepted</source>
+        <translation>%1 已接受</translation>
+    </message>
+    <message>
+        <source>You declined</source>
+        <translation>你已拒绝</translation>
+    </message>
+    <message>
+        <source>%1 declined</source>
+        <translation>%1 已拒绝</translation>
+    </message>
+    <message>
+        <source>Taken back, so nothing to answer</source>
+        <translation>已撤回，无需回答</translation>
+    </message>
+    <message>
+        <source>No longer waiting</source>
+        <translation>已不再等待</translation>
+    </message>
+    <message>
+        <source>You understood</source>
+        <translation>你已知悉</translation>
+    </message>
+    <message>
+        <source>just now</source>
+        <translation>刚刚</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>%1 分钟前</translation>
+    </message>
+    <message>
+        <source>%1 h ago</source>
+        <translation>%1 小时前</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n day(s) ago</source>
+        <translation>
+            <numerusform>%n 天前</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Warnings and notes</source>
+        <translation>警告和提示</translation>
+    </message>
+    <message>
+        <source>Clubs</source>
+        <translation>俱乐部</translation>
+    </message>
+    <message>
+        <source>Sharing</source>
+        <translation>共享</translation>
+    </message>
+    <message>
+        <source>Shared modules</source>
+        <translation>共享模块</translation>
+    </message>
+    <message>
+        <source>Your account</source>
+        <translation>你的账户</translation>
+    </message>
+    <message>
+        <source>Let them in</source>
+        <translation>同意加入</translation>
+    </message>
+    <message>
+        <source>Accept</source>
+        <translation>接受</translation>
+    </message>
+    <message>
+        <source>Decline this request?</source>
+        <translation>拒绝这个请求吗？</translation>
+    </message>
+    <message>
+        <source>The request to join is turned down.</source>
+        <translation>加入请求将被拒绝。</translation>
+    </message>
+    <message>
+        <source>They can ask again later.</source>
+        <translation>对方以后可以再次申请。</translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <translation>拒绝</translation>
+    </message>
+    <message>
+        <source>Open the layout</source>
+        <translation>打开布局</translation>
+    </message>
+    <message>
+        <source>Show the module</source>
+        <translation>显示模块</translation>
+    </message>
+    <message>
+        <source>Show the club</source>
+        <translation>显示俱乐部</translation>
+    </message>
+    <message>
+        <source>Show your clubs</source>
+        <translation>显示你的俱乐部</translation>
+    </message>
+    <message>
+        <source>Open on the website</source>
+        <translation>在网站上打开</translation>
     </message>
 </context>
 <context>
@@ -2946,8 +3099,16 @@
         <translation>合作俱乐部可以双向共享模块，无需每次都接受。管理员和经理在俱乐部页面上发出请求并答复。</translation>
     </message>
     <message>
-        <source>Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website.</source>
-        <translation>合作请求和模块提议要在网站上答复。“俱乐部”标签页会显示等待中的内容，并带有“在网站上打开”。</translation>
+        <source>Partner requests and offers wait on the Modules tab and in your notifications. Answer them there with Accept or Decline.</source>
+        <translation>伙伴请求和提供会在“模块”标签和你的通知里等你。在那里接受或拒绝。</translation>
+    </message>
+    <message>
+        <source>Your notifications</source>
+        <translation>你的通知</translation>
+    </message>
+    <message>
+        <source>Requests to join, invites and news from your clubs land here. Answer them with Accept or Decline, right from the list.</source>
+        <translation>加入请求、邀请和俱乐部消息都会出现在这里。直接在列表里接受或拒绝。</translation>
     </message>
     <message>
         <source>Your club&apos;s page</source>
@@ -3626,6 +3787,13 @@
     <message>
         <source>You stay credited as the author, and you can take it back while you’re a member.</source>
         <translation>作者仍署你的名，只要你还是成员，就可以把它收回。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::sync::NotificationCenter</name>
+    <message>
+        <source>You&apos;re not signed in to this server.</source>
+        <translation>你没有登录这个服务器。</translation>
     </message>
 </context>
 <context>
@@ -5893,6 +6061,10 @@ Save mine as a new version: this layout&apos;s copy becomes the module; theirs s
         <translation>正在保存“%1”…</translation>
     </message>
     <message>
+        <source>All notifications on the website</source>
+        <translation>网站上的所有通知</translation>
+    </message>
+    <message>
         <source>Someone saved this module</source>
         <translation>有人保存了此模块</translation>
     </message>
@@ -5961,10 +6133,6 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
     <message>
         <source>See what it&apos;s about</source>
         <translation>查看详情</translation>
-    </message>
-    <message>
-        <source>All notices</source>
-        <translation>所有通知</translation>
     </message>
     <message>
         <source>Could not read %1: %2</source>
@@ -8946,6 +9114,14 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <source>Layout</source>
         <translation>布局</translation>
     </message>
+    <message>
+        <source>See what it&apos;s about on the website</source>
+        <translation>在网站上查看详情</translation>
+    </message>
+    <message>
+        <source>All notifications</source>
+        <translation>所有通知</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -10036,6 +10212,199 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationBell</name>
+    <message>
+        <source>Notifications</source>
+        <translation>通知</translation>
+    </message>
+    <message numerus="yes">
+        <source>Notifications, %n unread</source>
+        <translation>
+            <numerusform>通知，%n 条未读</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n notification(s) you haven&apos;t read</source>
+        <translation>
+            <numerusform>%n 条你还没读的通知</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Your notifications: requests, invites and news</source>
+        <translation>你的通知：请求、邀请和消息</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n wait(s) for your answer</source>
+        <translation>
+            <numerusform>%n 条在等你回答</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationList</name>
+    <message>
+        <source>All</source>
+        <translation>全部</translation>
+    </message>
+    <message>
+        <source>Unread</source>
+        <translation>未读</translation>
+    </message>
+    <message>
+        <source>Type of notification</source>
+        <translation>通知类型</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>服务器</translation>
+    </message>
+    <message>
+        <source>Mark all as read</source>
+        <translation>全部标为已读</translation>
+    </message>
+    <message>
+        <source>Search notifications</source>
+        <translation>搜索通知</translation>
+    </message>
+    <message>
+        <source>Show more</source>
+        <translation>显示更多</translation>
+    </message>
+    <message>
+        <source>Every server</source>
+        <translation>所有服务器</translation>
+    </message>
+    <message>
+        <source>Every type</source>
+        <translation>所有类型</translation>
+    </message>
+    <message>
+        <source>All: %1</source>
+        <translation>全部：%1</translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation>%1：%2</translation>
+    </message>
+    <message>
+        <source>Show fewer</source>
+        <translation>收起</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this (new)</source>
+        <translation>
+            <numerusform>另有 %n 条类似（新）</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this</source>
+        <translation>
+            <numerusform>另有 %n 条类似</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Unread (%1)</source>
+        <translation>未读（%1）</translation>
+    </message>
+    <message>
+        <source>Sign in to a server to see your notifications: requests, invites and news from your clubs.</source>
+        <translation>登录服务器即可看到你的通知：请求、邀请和俱乐部消息。</translation>
+    </message>
+    <message>
+        <source>Your server doesn&apos;t have notifications yet. Its warnings and notes still show over the map.</source>
+        <translation>你的服务器还没有通知功能。它的警告和提示仍会显示在地图上方。</translation>
+    </message>
+    <message>
+        <source>You&apos;re all caught up.</source>
+        <translation>你已经全部看完了。</translation>
+    </message>
+    <message>
+        <source>No notifications match.</source>
+        <translation>没有匹配的通知。</translation>
+    </message>
+    <message>
+        <source>Nothing yet. Requests, invites and news from your clubs show up here.</source>
+        <translation>还没有。请求、邀请和俱乐部消息会显示在这里。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationPanel</name>
+    <message>
+        <source>Notifications</source>
+        <translation>通知</translation>
+    </message>
+    <message>
+        <source>Close notifications</source>
+        <translation>关闭通知</translation>
+    </message>
+    <message>
+        <source>See all notifications</source>
+        <translation>查看所有通知</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationRow</name>
+    <message>
+        <source>%1 (new)</source>
+        <translation>%1（新）</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>新</translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation>%1：%2</translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <translation>拒绝</translation>
+    </message>
+    <message>
+        <source>Decline: %1</source>
+        <translation>拒绝：%1</translation>
+    </message>
+    <message>
+        <source>I understand</source>
+        <translation>我知道了</translation>
+    </message>
+    <message>
+        <source>This one has no place in the app: it opens on the website.</source>
+        <translation>这条在应用里没有对应的位置：会在网站上打开。</translation>
+    </message>
+    <message>
+        <source>%1 (someone else answered first)</source>
+        <translation>%1（其他人先回答了）</translation>
+    </message>
+    <message>
+        <source>What happened</source>
+        <translation>处理结果</translation>
+    </message>
+    <message>
+        <source>Mark as unread</source>
+        <translation>标为未读</translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <translation>标为已读</translation>
+    </message>
+    <message>
+        <source>Mark “%1” as unread</source>
+        <translation>将“%1”标为未读</translation>
+    </message>
+    <message>
+        <source>Mark “%1” as read</source>
+        <translation>将“%1”标为已读</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationsWindow</name>
+    <message>
+        <source>Notifications</source>
+        <translation>通知</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::PartDifferencesDialog</name>
     <message>
         <source>Parts That Differ</source>
@@ -10859,6 +11228,12 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>From %1</source>
         <translation>来自 %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for your answer.</source>
+        <translation>
+            <numerusform>%1：%n 个伙伴请求或模块提供在等你回答。</numerusform>
+        </translation>
     </message>
     <message>
         <source>v%1</source>

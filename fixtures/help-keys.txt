@@ -89,3 +89,5 @@ club.moduleOffers
 module.shareOtherClubs
 collection.audience
 account.publicName
+notifications.bell
+notifications.settings
