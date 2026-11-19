@@ -15,6 +15,10 @@ struct NotificationCenter::Live {
     QTimer* soon = nullptr;
     QSet<QString> seen;
     bool baselined = false;
+    // The first look is on its way: answers to later looks that come back first wait in
+    // `early` until it does, so only what it didn't have counts as new.
+    bool firstAsked = false;
+    QList<NotificationItem> early;
     int generation = 0;
     bool settingsAsked = false;
 };
@@ -194,8 +198,16 @@ void NotificationCenter::ask(const QString& key) {
         Live* now = live_.value(key);
         return now && now->generation == gen ? now : nullptr;
     };
+    // The first look and what's new: any answer for this same sign-in counts, even one asked
+    // again meanwhile. Dropping it would let the next look become the first, and whatever
+    // arrived in between would never pop up.
+    const QString token = self->token;
+    const auto sameSignIn = [this, key, self, token]() -> Live* {
+        Live* now = live_.value(key);
+        return now == self && now->token == token ? now : nullptr;
+    };
     self->api->count(
-        [this, current, key, url](const NotificationCounts& counts) {
+        [this, current, sameSignIn, key, url](const NotificationCounts& counts) {
             Live* l = current();
             if (!l) return;
             const bool wasKnown = l->src.support == Support::Yes;
@@ -213,18 +225,43 @@ void NotificationCenter::ask(const QString& key) {
                 NotificationQuery q;
                 q.unreadOnly = true;
                 q.limit = 30;
-                l->api->list(q, [this, current, url](const NotificationPage& page) {
-                    Live* here = current();
+                const bool isFirst = !l->baselined && !l->firstAsked;
+                if (isFirst) l->firstAsked = true;
+                l->api->list(q, [this, sameSignIn, url, isFirst](const NotificationPage& page) {
+                    Live* here = sameSignIn();
                     if (!here) return;
-                    QList<NotificationItem> fresh;
-                    for (const NotificationItem& n : page.items) {
-                        if (here->seen.contains(n.id)) continue;
-                        here->seen.insert(n.id);
-                        if (here->baselined && !n.read()) fresh << n;
+                    if (!isFirst && !here->baselined) {
+                        // Back before the first look: wait for it.
+                        here->early << page.items;
+                        return;
                     }
-                    here->baselined = true;
+                    QList<NotificationItem> fresh;
+                    if (isFirst) {
+                        // The first look: what is there now is not new. Answers that came
+                        // back before it are new where it didn't have them.
+                        for (const NotificationItem& n : page.items) here->seen.insert(n.id);
+                        here->baselined = true;
+                        for (const NotificationItem& n : std::exchange(here->early, {})) {
+                            if (here->seen.contains(n.id)) continue;
+                            here->seen.insert(n.id);
+                            if (!n.read()) fresh << n;
+                        }
+                    } else {
+                        for (const NotificationItem& n : page.items) {
+                            if (here->seen.contains(n.id)) continue;
+                            here->seen.insert(n.id);
+                            if (!n.read()) fresh << n;
+                        }
+                    }
                     if (!fresh.isEmpty()) emit arrived(url, fresh);
-                }, {});
+                }, [sameSignIn, isFirst](const ServerRefusal&) {
+                    // The first look failed: the next one is the first, and what came back
+                    // meanwhile was there already as far as anyone can tell.
+                    Live* here = sameSignIn();
+                    if (!here || !isFirst || here->baselined) return;
+                    here->firstAsked = false;
+                    for (const NotificationItem& n : std::exchange(here->early, {})) here->seen.insert(n.id);
+                });
             }
             if (counts.warnings > 0) {
                 NotificationQuery q;

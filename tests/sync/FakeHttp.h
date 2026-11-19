@@ -4,7 +4,9 @@
 // answers each request from a per-path queue of (status, JSON) replies and
 // records what it was sent.
 
+#include <QCoreApplication>
 #include <QElapsedTimer>
+#include <QEventLoop>
 #include <QHash>
 #include <QHostAddress>
 #include <QJsonDocument>
@@ -15,6 +17,7 @@
 #include <QTcpSocket>
 #include <QUrl>
 
+#include <algorithm>
 #include <deque>
 #include <functional>
 #include <utility>
@@ -60,14 +63,25 @@ public:
 
     // Requests for these paths wait unanswered until release(path) (a slow server).
     QSet<QByteArray> hold;
-    void release(const QByteArray& path) {
+    // `newestFirst`: answer the held requests in the opposite order to how they came.
+    void release(const QByteArray& path, bool newestFirst = false) {
         hold.remove(path);
-        std::vector<std::pair<QPointer<QTcpSocket>, QByteArray>> still;
+        std::vector<std::pair<QPointer<QTcpSocket>, QByteArray>> still, mine;
         for (auto& [s, p] : std::exchange(held_, {})) {
             if (p != path) still.emplace_back(s, p);
-            else if (s) answer(s, p);
+            else mine.emplace_back(s, p);
         }
         held_ = std::move(still);
+        if (newestFirst) std::reverse(mine.begin(), mine.end());
+        // Each answer waits for the one before to be read, so they arrive in this order.
+        for (auto& [s, p] : mine) {
+            if (!s) continue;
+            answer(s, p);
+            s->waitForBytesWritten(1000);
+            QElapsedTimer t;
+            t.start();
+            while (t.elapsed() < 150) QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
+        }
     }
 
     std::vector<Request> requests;
