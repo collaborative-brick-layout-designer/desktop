@@ -376,8 +376,12 @@ TEST(ImportServer, ZipBombsAndPathsOutOfTheFolderAreRefused) {
 namespace {
 QJsonObject runExe(const QStringList& args, int* exitCode = nullptr) {
     QProcess p;
-    // As the server runs it: nothing in the environment.
-    p.setProcessEnvironment(QProcessEnvironment());
+    // As the server runs it: nothing in the environment. Under
+    // AddressSanitizer, no leak check at exit: LeakSanitizer stops the world
+    // with ptrace and a new process, which the converter's seccomp refuses.
+    QProcessEnvironment env;
+    if (importserver::builtWithAsan()) env.insert(QStringLiteral("ASAN_OPTIONS"), QStringLiteral("detect_leaks=0"));
+    p.setProcessEnvironment(env);
     p.start(QStringLiteral(BLD_IMPORT_SERVER_EXE), args);
     EXPECT_TRUE(p.waitForFinished(120000));
     if (exitCode) *exitCode = p.exitStatus() == QProcess::CrashExit ? -1 : p.exitCode();
