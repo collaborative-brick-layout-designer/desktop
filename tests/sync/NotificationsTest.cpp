@@ -14,20 +14,24 @@
 #include "TokenStore.h"
 #include "parts/PartsLibrary.h"
 #include "ui/ConfirmDialog.h"
+#include "ui/DesktopNotifier.h"
 #include "ui/MainWindow.h"
 #include "ui/MapView.h"
 #include "ui/NoticeArea.h"
+#include "ui/NotificationSettingsPanel.h"
 #include "ui/NotificationViews.h"
 #include "ui/ServerLibrary.h"
 #include "ui/ServerWindow.h"
+#include "ui/SettingsDialog.h"
 #include "ui/UpdateCheck.h"
-#include "ui/tours/Tours.h"
 #include "ui/theme/AppPrefs.h"
 #include "ui/theme/ThemeManager.h"
+#include "ui/tours/Tours.h"
 
 #include <gtest/gtest.h>
 
 #include <QApplication>
+#include <QCheckBox>
 #include <QComboBox>
 #include <QElapsedTimer>
 #include <QJsonArray>
@@ -420,6 +424,13 @@ protected:
         window_->setTokenStore(tokens_);
         window_->ensureDocument();
         window_->openWebLink = [this](const QUrl& u) { opened_ << u; };
+        if (auto* n = window_->desktopNotifier()) {
+            n->show = [this](const QString& title, const QString& body) {
+                popups_ << title + QLatin1Char('|') + body;
+            };
+            n->appInFront = [] { return false; };
+            n->setBurstWindow(50);
+        }
         library_ = window_->serverLibrary();
         ASSERT_TRUE(waitFor([&] { return library_->state() == ui::ServerLibrary::State::Ready; }));
     }
@@ -448,6 +459,7 @@ protected:
     std::unique_ptr<Win> window_;
     ui::ServerLibrary* library_ = nullptr;
     QList<QUrl> opened_;
+    QStringList popups_;
     QStringList asked_;
     bool answer_ = true;
 };
@@ -876,5 +888,385 @@ TEST_F(NotificationsClubRequests, PicturesOfAnsweringOnTheModulesTab) {
     inBothThemes("notification-club-shots", [&](const QString& scheme) {
         waitFor([] { return false; }, 300);
         EXPECT_TRUE(sw->grab().save(out + QStringLiteral("/notifications-club-requests-%1.png").arg(scheme)));
+    });
+}
+
+// ---------- System notifications -----------------------------------------------
+
+namespace {
+
+QJsonObject settingsView(bool quietOn = false, bool pausePush = false) {
+    const auto t = [](const char* type, const char* category, const char* label, bool waits, bool push,
+                      const char* emailApart = nullptr, bool locked = false) {
+        return QJsonObject{ { QStringLiteral("type"), QLatin1String(type) },
+                            { QStringLiteral("category"), QLatin1String(category) },
+                            { QStringLiteral("label"), QLatin1String(label) },
+                            { QStringLiteral("waits"), waits },
+                            { QStringLiteral("appLocked"), locked },
+                            { QStringLiteral("emailApart"),
+                              emailApart ? QJsonValue(QLatin1String(emailApart)) : QJsonValue() },
+                            { QStringLiteral("app"), true },
+                            { QStringLiteral("email"),
+                              waits ? QStringLiteral("now") : QStringLiteral("off") },
+                            { QStringLiteral("push"), push } };
+    };
+    return {
+        { QStringLiteral("categories"),
+          QJsonArray{ QStringLiteral("moderation"), QStringLiteral("clubs"), QStringLiteral("sharing") } },
+        { QStringLiteral("types"),
+          QJsonArray{ t("moderation.warning", "moderation", "Warnings", true, true, nullptr, true),
+                      t("club.invite", "clubs", "Invites to a club", true, true),
+                      t("club.role_changed", "clubs", "Your roles in a club changed", false, false),
+                      t("sharing.layout_invite", "sharing", "Invites to a layout", true, true, "invite") } },
+        { QStringLiteral("quiet"), QJsonObject{ { QStringLiteral("on"), quietOn },
+                                                { QStringLiteral("start"), QStringLiteral("00:00") },
+                                                { QStringLiteral("end"), QStringLiteral("23:59") } } },
+        { QStringLiteral("timeZone"), QStringLiteral("UTC") },
+        { QStringLiteral("dailyAt"), QStringLiteral("08:00") },
+        { QStringLiteral("weeklyDay"), 1 },
+        { QStringLiteral("pauseEmail"), false },
+        { QStringLiteral("pausePush"), pausePush },
+        { QStringLiteral("clubs"),
+          QJsonArray{ QJsonObject{ { QStringLiteral("id"), QStringLiteral("org-rail") },
+                                   { QStringLiteral("name"), QStringLiteral("Rail Club") },
+                                   { QStringLiteral("slug"), QStringLiteral("rail") },
+                                   { QStringLiteral("mute"), false },
+                                   { QStringLiteral("email"), true },
+                                   { QStringLiteral("push"), true } } } },
+        { QStringLiteral("emailAvailable"), true },
+        { QStringLiteral("pushAvailable"), true }
+    };
+}
+
+} // namespace
+
+class NotificationPopups : public NotificationCenterTest {
+protected:
+    void SetUp() override {
+        NotificationCenterTest::SetUp();
+        QSettings().remove(QStringLiteral("notifications"));
+        serveNotifications(b_, 0, {});
+        a_.reply("/api/notifications/count", 200, counts(0));
+        a_.reply(kUnreadPath, 200, page({}, 0));
+        a_.reply("/api/notifications/types", 200, types());
+        center_.setLive(false);
+        center_.setTokenStore(tokens_);
+        center_.reload();
+        notifier_.show = [this](const QString& title, const QString& body) {
+            shown_ << title + QLatin1Char('|') + body;
+        };
+        notifier_.appInFront = [this] { return inFront_; };
+        notifier_.setBurstWindow(50);
+    }
+    void TearDown() override {
+        QSettings().remove(QStringLiteral("notifications"));
+        NotificationCenterTest::TearDown();
+    }
+    // The server says these are new (a hint, then the list).
+    void arrive(const QJsonArray& items) {
+        ASSERT_TRUE(
+            waitFor([&] { return center_.support(a_.base()) == sync::NotificationCenter::Support::Yes; }));
+        ASSERT_TRUE(waitFor([&] { return count(a_, "GET", kUnreadPath) >= 1; }));
+        // (Its answer noted what was there at the start.)
+        waitFor([] { return false; }, 200);
+        a_.clear("/api/notifications/count");
+        a_.clear(kUnreadPath);
+        a_.reply("/api/notifications/count", 200, counts(static_cast<int>(items.size())));
+        a_.reply(kUnreadPath, 200, page(items, static_cast<int>(items.size())));
+        const int before = count(a_, "GET", kUnreadPath);
+        center_.refresh(a_.base());
+        ASSERT_TRUE(waitFor([&] { return count(a_, "GET", kUnreadPath) > before; }));
+        waitFor([] { return false; }, 150);
+    }
+    sync::NotificationCenter center_;
+    QWidget window_;
+    ui::DesktopNotifier notifier_{ center_, &window_ };
+    QStringList shown_;
+    bool inFront_ = false;
+};
+
+TEST_F(NotificationPopups, ABurstIsOnePopUpAndOnlyTheTypesWithPopUpsOn) {
+    a_.reply("/api/me/notification-settings", 200, settingsView());
+    ASSERT_TRUE(waitFor([&] { return center_.source(a_.base()) && center_.source(a_.base())->settings; }));
+    arrive({ item(QStringLiteral("1"), QStringLiteral("club.invite"), QStringLiteral("Rail Club invited you"),
+                  kNow + 3),
+             item(QStringLiteral("2"), QStringLiteral("club.role_changed"),
+                  QStringLiteral("You're a Manager now"), kNow + 2),
+             item(QStringLiteral("3"), QStringLiteral("sharing.layout_invite"),
+                  QStringLiteral("Sam invited you to “Yard”"), kNow + 1),
+             item(QStringLiteral("4"), QStringLiteral("moderation.warning"),
+                  QStringLiteral("Warning from the site team"), kNow) });
+    ASSERT_TRUE(waitFor([&] { return !shown_.isEmpty(); }));
+    waitFor([] { return false; }, 200);
+    ASSERT_EQ(shown_.size(), 1); // never one per item
+    EXPECT_TRUE(shown_[0].startsWith(QStringLiteral("3 new notification"))) << shown_[0].toStdString();
+    EXPECT_TRUE(shown_[0].contains(QStringLiteral("Rail Club invited you")));
+    EXPECT_FALSE(shown_[0].contains(QStringLiteral("Manager"))); // its pop-up is off
+    // Clicking it opens the whole list.
+    bool all = false;
+    QObject::connect(&notifier_, &ui::DesktopNotifier::showAllRequested, [&] { all = true; });
+    notifier_.click();
+    EXPECT_TRUE(all);
+}
+
+TEST_F(NotificationPopups, OneIsShownByItselfAndClickingOpensIt) {
+    a_.reply("/api/me/notification-settings", 200, settingsView());
+    ASSERT_TRUE(waitFor([&] { return center_.source(a_.base()) && center_.source(a_.base())->settings; }));
+    arrive(
+        { item(QStringLiteral("1"), QStringLiteral("club.invite"), QStringLiteral("Rail Club invited you"),
+               kNow, false, {}, { { QStringLiteral("body"), QStringLiteral("Join us on Thursdays.") } }) });
+    ASSERT_TRUE(waitFor([&] { return shown_.size() == 1; }));
+    EXPECT_EQ(shown_[0], QStringLiteral("Rail Club invited you|Join us on Thursdays."));
+    QString opened;
+    QObject::connect(&notifier_, &ui::DesktopNotifier::openRequested,
+                     [&](const QUrl& server, const sync::NotificationItem& n) {
+                         opened = server.toString() + QLatin1Char(' ') + n.id;
+                     });
+    notifier_.click();
+    EXPECT_EQ(opened, a_.base().toString() + QStringLiteral(" 1"));
+}
+
+TEST_F(NotificationPopups, PausedPopUpsQuietHoursAndTheSwitchesHoldThemBack) {
+    a_.reply("/api/me/notification-settings", 200, settingsView(false, true));
+    ASSERT_TRUE(waitFor([&] { return center_.source(a_.base()) && center_.source(a_.base())->settings; }));
+    arrive({ item(QStringLiteral("1"), QStringLiteral("club.invite"), QStringLiteral("Rail Club invited you"),
+                  kNow) });
+    waitFor([] { return false; }, 200);
+    EXPECT_TRUE(shown_.isEmpty()); // Pause all pop-ups
+
+    // Quiet hours (all day here): they wait, and come once the quiet hours end.
+    sync::NotificationSettings quiet = sync::NotificationApi::settingsFromJson(settingsView(true));
+    a_.clear("/api/me/notification-settings");
+    a_.reply("/api/me/notification-settings", 200, settingsView(true));
+    center_.saveSettings(a_.base(), {});
+    ASSERT_TRUE(waitFor([&] { return center_.source(a_.base())->settings->quietOn; }));
+    QDateTime at(QDate(2027, 1, 10), QTime(12, 0), QTimeZone::UTC);
+    notifier_.now = [&] { return at; };
+    arrive({ item(QStringLiteral("2"), QStringLiteral("club.invite"),
+                  QStringLiteral("Train Club invited you"), kNow + 5) });
+    waitFor([] { return false; }, 200);
+    EXPECT_TRUE(shown_.isEmpty());
+    at = QDateTime(QDate(2027, 1, 10), QTime(23, 59, 30), QTimeZone::UTC); // the quiet hours end at 23:59
+    notifier_.checkQuiet();
+    ASSERT_TRUE(waitFor([&] { return shown_.size() == 1; }));
+    EXPECT_TRUE(shown_[0].startsWith(QStringLiteral("Train Club invited you|")));
+
+    // "Only when the app is in the background", with the app in front: none.
+    QSettings().setValue(QLatin1String(ui::DesktopNotifier::kBackgroundOnlyKey), true);
+    inFront_ = true;
+    arrive({ item(QStringLiteral("3"), QStringLiteral("club.invite"), QStringLiteral("Bus Club invited you"),
+                  kNow + 9) });
+    waitFor([] { return false; }, 200);
+    EXPECT_EQ(shown_.size(), 1);
+    // "Show system notifications" off: none at all.
+    inFront_ = false;
+    QSettings().setValue(QLatin1String(ui::DesktopNotifier::kShowKey), false);
+    arrive({ item(QStringLiteral("4"), QStringLiteral("club.invite"), QStringLiteral("Tram Club invited you"),
+                  kNow + 12) });
+    waitFor([] { return false; }, 200);
+    EXPECT_EQ(shown_.size(), 1);
+}
+
+class NotificationsPopUpOpens : public NotificationsWindow {
+protected:
+    void beforeOpen() override {
+        serveNotifications(http_, 0, {});
+        http_.clear("/api/me/notification-settings");
+        http_.reply("/api/me/notification-settings", 200, settingsView());
+    }
+};
+
+TEST_F(NotificationsPopUpOpens, ClickingAPopUpOpensItInTheAppAndMarksItRead) {
+    ASSERT_TRUE(waitFor([&] {
+        const auto* s = window_->notifications()->source(http_.base());
+        return s && s->settings && count(http_, "GET", kUnreadPath) >= 1;
+    }));
+    http_.clear("/api/notifications/count");
+    http_.clear(kUnreadPath);
+    http_.reply("/api/notifications/count", 200, counts(1));
+    http_.reply(kUnreadPath, 200,
+                page({ item(QStringLiteral("x1"), QStringLiteral("club.invite"),
+                            QStringLiteral("Your data download is ready"), kNow, false, {},
+                            { { QStringLiteral("link"), QStringLiteral("/profile#download") } }) },
+                     1));
+    http_.reply("/api/notifications/x1/read", 200, { { QStringLiteral("ok"), true } });
+    window_->notifications()->refresh();
+    ASSERT_TRUE(waitFor([&] { return popups_.size() == 1; }));
+    window_->desktopNotifier()->click();
+    ASSERT_TRUE(waitFor([&] { return !opened_.isEmpty(); }));
+    EXPECT_EQ(opened_[0].path(), QStringLiteral("/profile"));
+    EXPECT_TRUE(waitFor([&] { return lastRequest(http_, "POST", "/api/notifications/x1/read"); }));
+}
+
+// ---------- Settings › Notifications --------------------------------------------
+
+class NotificationSettingsTest : public NotificationCenterTest {
+protected:
+    void SetUp() override {
+        NotificationCenterTest::SetUp();
+        QSettings().remove(QStringLiteral("notifications"));
+        serveNotifications(a_, 0, {});
+        a_.clear("/api/me/notification-settings");
+        a_.reply("/api/me/notification-settings", 200, settingsView());
+        b_.reply("/api/notifications/count", 404,
+                 { { QStringLiteral("error"), QStringLiteral("not_found") } });
+        center_.setLive(false);
+        center_.setTokenStore(tokens_);
+        center_.reload();
+        ASSERT_TRUE(
+            waitFor([&] { return center_.source(a_.base()) && center_.source(a_.base())->settings; }));
+    }
+    void TearDown() override {
+        ui::DesktopNotifier::setAvailableForTests(std::nullopt);
+        QSettings().remove(QStringLiteral("notifications"));
+        NotificationCenterTest::TearDown();
+    }
+    QJsonObject lastPut() {
+        const auto* r = lastRequest(a_, "PUT", "/api/me/notification-settings");
+        return r ? QJsonDocument::fromJson(r->body).object().value(QStringLiteral("settings")).toObject()
+                 : QJsonObject();
+    }
+    sync::NotificationCenter center_;
+};
+
+TEST_F(NotificationSettingsTest, EveryChoiceIsSavedOnTheServerAtOnceAsTheWebHasThem) {
+    ui::NotificationSettingsPanel panel(&center_, {});
+    // One server with notifications: no picker.
+    EXPECT_TRUE(panel.serverPicker()->isHidden());
+    auto* clubs = panel.findChild<QWidget*>(QStringLiteral("notificationCategory:clubs"));
+    ASSERT_NE(clubs, nullptr);
+    auto* toggle = clubs->findChild<QToolButton*>(QStringLiteral("categoryToggle"));
+    EXPECT_TRUE(toggle->text().contains(QStringLiteral("2 kind"))) << toggle->text().toStdString();
+    toggle->click();
+    QWidget* role = clubs->findChild<QWidget*>(QStringLiteral("notificationType:club.role_changed"));
+    ASSERT_NE(role, nullptr);
+    EXPECT_TRUE(role->isVisibleTo(&panel));
+    // A pop-up on for a type: only that change goes (PUT merges it).
+    a_.reply("/api/me/notification-settings", 200, settingsView());
+    role->findChild<QCheckBox*>(QStringLiteral("push"))->click();
+    ASSERT_TRUE(waitFor([&] { return lastRequest(a_, "PUT", "/api/me/notification-settings"); }));
+    EXPECT_EQ(lastPut(),
+              (QJsonObject{ { QStringLiteral("types"),
+                              QJsonObject{ { QStringLiteral("club.role_changed"),
+                                             QJsonObject{ { QStringLiteral("push"), true } } } } } }));
+    EXPECT_EQ(lastRequest(a_, "PUT", "/api/me/notification-settings")->authorization,
+              QByteArray("Bearer bld_pat_a"));
+    ASSERT_TRUE(waitFor([&] { return panel.status()->text() == QStringLiteral("Saved."); }));
+    // The category stays open after the save.
+    clubs = panel.findChild<QWidget*>(QStringLiteral("notificationCategory:clubs"));
+    ASSERT_TRUE(waitFor([&] {
+        auto* r = panel.findChild<QWidget*>(QStringLiteral("notificationType:club.role_changed"));
+        return r && r->isVisibleTo(&panel);
+    }));
+    // Email: a summary.
+    auto* email = panel.findChild<QWidget*>(QStringLiteral("notificationType:club.role_changed"))
+                      ->findChild<QComboBox*>(QStringLiteral("email"));
+    email->setCurrentIndex(email->findData(QStringLiteral("daily")));
+    emit email->activated(email->currentIndex());
+    ASSERT_TRUE(waitFor([&] {
+        return lastPut().value("types").toObject().value("club.role_changed").toObject().value("email")
+               == QStringLiteral("daily");
+    }));
+}
+
+TEST_F(NotificationSettingsTest, WarningsInvitesQuietHoursClubsAndPauses) {
+    ui::NotificationSettingsPanel panel(&center_, {});
+    // Warnings can't be turned off in the app, and say why.
+    auto* warning = panel.findChild<QWidget*>(QStringLiteral("notificationType:moderation.warning"));
+    ASSERT_NE(warning, nullptr);
+    EXPECT_FALSE(warning->findChild<QCheckBox*>(QStringLiteral("app"))->isEnabled());
+    EXPECT_NE(panel.findChild<QLabel*>(QStringLiteral("appLockedNote")), nullptr);
+    // An invite's email goes with the invite: no email choice.
+    auto* invite = panel.findChild<QWidget*>(QStringLiteral("notificationType:sharing.layout_invite"));
+    EXPECT_EQ(invite->findChild<QComboBox*>(QStringLiteral("email")), nullptr);
+    EXPECT_EQ(invite->findChild<QLabel*>(QStringLiteral("emailApart"))->text(),
+              QStringLiteral("Emailed with the invite’s link, always."));
+    // Pause all email.
+    panel.findChild<QCheckBox*>(QStringLiteral("pauseEmail"))->click();
+    ASSERT_TRUE(waitFor([&] { return lastPut() == QJsonObject{ { QStringLiteral("pauseEmail"), true } }; }));
+    // Quiet hours on.
+    panel.findChild<QCheckBox*>(QStringLiteral("quietOn"))->click();
+    ASSERT_TRUE(waitFor([&] {
+        return lastPut().value("quiet").toObject() == QJsonObject{ { QStringLiteral("on"), true } };
+    }));
+    // A club muted.
+    QWidget* rail = panel.findChild<QWidget*>(QStringLiteral("clubNotifications:org-rail"));
+    ASSERT_NE(rail, nullptr);
+    rail->findChild<QCheckBox*>(QStringLiteral("mute"))->click();
+    ASSERT_TRUE(waitFor([&] {
+        return lastPut().value("clubs").toObject().value("org-rail").toObject()
+               == QJsonObject{ { QStringLiteral("mute"), true } };
+    }));
+    // The weekly summary's day.
+    auto* day = panel.findChild<QComboBox*>(QStringLiteral("weeklyDay"));
+    day->setCurrentIndex(5);
+    emit day->activated(5);
+    ASSERT_TRUE(waitFor([&] { return lastPut() == QJsonObject{ { QStringLiteral("weeklyDay"), 5 } }; }));
+}
+
+TEST_F(NotificationSettingsTest, AChangeInAnotherAppShowsHereLive) {
+    ui::NotificationSettingsPanel panel(&center_, {});
+    EXPECT_FALSE(panel.findChild<QCheckBox*>(QStringLiteral("pausePush"))->isChecked());
+    a_.clear("/api/me/notification-settings");
+    a_.reply("/api/me/notification-settings", 200, settingsView(false, true));
+    // The web changed them: its hint asks again.
+    center_.hint(a_.base(), { { QStringLiteral("kind"), QStringLiteral("notification") },
+                              { QStringLiteral("action"), QStringLiteral("update:settings") } });
+    ASSERT_TRUE(waitFor([&] {
+        auto* c = panel.findChild<QCheckBox*>(QStringLiteral("pausePush"));
+        return c && c->isChecked();
+    }));
+}
+
+TEST_F(NotificationSettingsTest, TheSystemNotificationSwitchesAreThisComputers) {
+    ui::DesktopNotifier::setAvailableForTests(true);
+    int changed = 0;
+    ui::NotificationSettingsPanel panel(&center_, [&] { ++changed; });
+    EXPECT_TRUE(panel.systemSwitch()->isEnabled());
+    EXPECT_TRUE(panel.systemSwitch()->isChecked());
+    EXPECT_FALSE(panel.backgroundSwitch()->isChecked());
+    panel.backgroundSwitch()->click();
+    EXPECT_TRUE(ui::DesktopNotifier::backgroundOnlySetting());
+    panel.systemSwitch()->click();
+    EXPECT_FALSE(ui::DesktopNotifier::showSetting());
+    EXPECT_FALSE(panel.backgroundSwitch()->isEnabled());
+    EXPECT_EQ(changed, 2);
+    // A computer without a notification area: off, and it says so.
+    ui::DesktopNotifier::setAvailableForTests(false);
+    ui::NotificationSettingsPanel none(&center_, {});
+    EXPECT_FALSE(none.systemSwitch()->isEnabled());
+    EXPECT_TRUE(
+        none.systemNote()->text().startsWith(QStringLiteral("This computer has no notification area")));
+}
+
+TEST_F(NotificationSettingsTest, SettingsHasANotificationsSection) {
+    ui::theme::PrefsStore store(QStringLiteral("notification-settings-dialog"));
+    ui::SettingsDialog dialog(store, QString());
+    dialog.setNotifications(&center_);
+    ASSERT_NE(dialog.notificationSettings(), nullptr);
+    ASSERT_TRUE(waitFor([&] {
+        return dialog.notificationSettings()->findChild<QWidget*>(
+            QStringLiteral("notificationCategory:clubs"));
+    }));
+    bool listed = false;
+    for (auto* l : dialog.findChildren<QLabel*>(QStringLiteral("CardHeading")))
+        listed |= l->text() == QStringLiteral("Notifications");
+    EXPECT_TRUE(listed);
+}
+
+TEST_F(NotificationSettingsTest, PicturesOfSettingsNotifications) {
+    const QString out = qEnvironmentVariable("BLD_REVIEW_SHOTS");
+    if (out.isEmpty()) GTEST_SKIP() << "BLD_REVIEW_SHOTS not set";
+    ui::DesktopNotifier::setAvailableForTests(true);
+    inBothThemes("notification-settings-shots", [&](const QString& scheme) {
+        ui::NotificationSettingsPanel panel(&center_, {});
+        panel.resize(760, 10);
+        auto* clubs = panel.findChild<QWidget*>(QStringLiteral("notificationCategory:clubs"));
+        ASSERT_NE(clubs, nullptr);
+        clubs->findChild<QToolButton*>(QStringLiteral("categoryToggle"))->click();
+        panel.resize(760, panel.sizeHint().height());
+        panel.show();
+        waitFor([] { return false; }, 300);
+        EXPECT_TRUE(panel.grab().save(out + QStringLiteral("/notification-settings-%1.png").arg(scheme)));
     });
 }

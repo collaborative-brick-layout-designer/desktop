@@ -20,6 +20,11 @@ class QLabel;
 class QLineEdit;
 class QListWidget;
 class QFrame;
+class QVBoxLayout;
+
+namespace bld::sync {
+class NotificationCenter;
+}
 
 namespace bld::ui {
 
@@ -46,6 +51,11 @@ public:
     // Servers dialog); the section then says what changed. Without it the
     // section only lists them.
     void setManageServers(const std::function<void()>& manage);
+    // The Notifications section's delivery settings come from these servers
+    // (MainWindow's notifications). Without it the section has this
+    // computer's system notifications only.
+    void setNotifications(bld::sync::NotificationCenter* center);
+    class NotificationSettingsPanel* notificationSettings() const { return notificationPanel_; }
 
 private:
     void load();
@@ -64,6 +74,9 @@ private:
     QLineEdit* legoSearch_ = nullptr;
     QListWidget* legoList_ = nullptr;
     QLabel* legoNone_ = nullptr;
+    QVBoxLayout* notificationCard_ = nullptr;
+    class NotificationSettingsPanel* notificationPanel_ = nullptr;
+    settings::Changed changed_;
     class QPushButton* legoShowAll_ = nullptr;
 };
 

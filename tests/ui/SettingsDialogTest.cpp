@@ -185,7 +185,7 @@ TEST_F(SettingsDialogTest, OneWindowWithSectionsForEverySetting) {
     EXPECT_EQ(names, (QStringList{ QStringLiteral("Light or dark"), QStringLiteral("Color"), QStringLiteral("Editing"),
                                    QStringLiteral("Map labels"), QStringLiteral("Language"), QStringLiteral("Starting up"),
                                    QStringLiteral("Parts and folders"), QStringLiteral("Bringing in models"),
-                                   QStringLiteral("Help"), QStringLiteral("Servers") }));
+                                   QStringLiteral("Help"), QStringLiteral("Notifications"), QStringLiteral("Servers") }));
     dialog.findChild<QPushButton*>(QStringLiteral("partsFolders"))->click();
     EXPECT_EQ(folders, 1);
     // The settings that did nothing are gone (Bug 3): undo depth, splash

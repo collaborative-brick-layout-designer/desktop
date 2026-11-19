@@ -10,6 +10,7 @@
 
 #include "MainWindow.h"
 
+#include "DesktopNotifier.h"
 #include "NoticeArea.h"
 #include "NotificationViews.h"
 #include "ServerLibrary.h"
@@ -50,6 +51,20 @@ void MainWindow::setupNotifications() {
     });
     serverLibrary_->setNotifications(notifications_, [this](const QUrl& server, const sync::NotificationItem& n,
                                                             const NotificationPlace& place) { openNotification(server, n, place); });
+    // New ones pop up on this computer too (as each server's pop-up choices say).
+    desktopNotifier_ = new DesktopNotifier(*notifications_, this);
+    connect(desktopNotifier_, &DesktopNotifier::showAllRequested, this, &MainWindow::showNotificationsWindow);
+    connect(desktopNotifier_, &DesktopNotifier::openRequested, this,
+            [this](const QUrl& server, const sync::NotificationItem& n) {
+                // Clicking it opens it, and so marks it read.
+                if (sync::NotificationApi* api = notifications_->api(server))
+                    api->setRead(
+                        n.id, true,
+                        sync::whileAlive(this, [this, server] { notifications_->changedHere(server); }), {});
+                const NotificationPlace place = placeFor(n);
+                if (place.kind == NotificationPlace::None) showNotificationsWindow();
+                else openNotification(server, n, place);
+            });
     // (updateLibraryServer, right after the window is made, asks every server.)
     notifications_->setTokenStore(tokens_);
 }

@@ -4703,6 +4703,27 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::DesktopNotifier</name>
+    <message>
+        <source>Click to open it.</source>
+        <translation>Klicka för att öppna den.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n new notification(s)</source>
+        <translation>
+            <numerusform>%n ny avisering</numerusform>
+            <numerusform>%n nya aviseringar</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>and %n more</source>
+        <translation>
+            <numerusform>och %n till</numerusform>
+            <numerusform>och %n till</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::DownloadCenterDialog</name>
     <message>
         <source>Download Center</source>
@@ -10481,6 +10502,268 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationSettingsPanel</name>
+    <message>
+        <source>Show system notifications</source>
+        <translation>Visa systemaviseringar</translation>
+    </message>
+    <message>
+        <source>Only when the app is in the background</source>
+        <translation>Bara när appen är i bakgrunden</translation>
+    </message>
+    <message>
+        <source>New notifications pop up on this computer while the app runs, as each server&apos;s Pop-up choices below say, and wait for its quiet hours. Several at once come as one.</source>
+        <translation>Nya aviseringar dyker upp på den här datorn medan appen körs, som varje servers popup-val nedan säger, och väntar ut dess tysta timmar. Flera på en gång kommer som en.</translation>
+    </message>
+    <message>
+        <source>This computer has no notification area, so the app can&apos;t show system notifications here. The bell still counts them.</source>
+        <translation>Den här datorn har inget meddelandefält, så appen kan inte visa systemaviseringar här. Klockan räknar dem ändå.</translation>
+    </message>
+    <message>
+        <source>How notifications reach you</source>
+        <translation>Hur aviseringar når dig</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <source>Saved or not</source>
+        <translation>Sparat eller inte</translation>
+    </message>
+    <message>
+        <source>Saving…</source>
+        <translation>Sparar…</translation>
+    </message>
+    <message>
+        <source>Saved.</source>
+        <translation>Sparat.</translation>
+    </message>
+    <message>
+        <source>In the app</source>
+        <translation>I appen</translation>
+    </message>
+    <message>
+        <source>%1: in the app</source>
+        <translation>%1: i appen</translation>
+    </message>
+    <message>
+        <source>Warnings always show, so you never miss one.</source>
+        <translation>Varningar visas alltid, så att du aldrig missar någon.</translation>
+    </message>
+    <message>
+        <source>Emailed with the invite’s link, always.</source>
+        <translation>Mejlas alltid, med inbjudans länk.</translation>
+    </message>
+    <message>
+        <source>Always emailed, for your account’s safety.</source>
+        <translation>Mejlas alltid, för ditt kontos säkerhet.</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>E-post</translation>
+    </message>
+    <message>
+        <source>%1: email</source>
+        <translation>%1: e-post</translation>
+    </message>
+    <message>
+        <source>Right away</source>
+        <translation>Direkt</translation>
+    </message>
+    <message>
+        <source>Daily summary</source>
+        <translation>Daglig sammanfattning</translation>
+    </message>
+    <message>
+        <source>Weekly summary</source>
+        <translation>Veckosammanfattning</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Av</translation>
+    </message>
+    <message>
+        <source>Pop-up</source>
+        <translation>Popup</translation>
+    </message>
+    <message>
+        <source>%1: pop-up</source>
+        <translation>%1: popup</translation>
+    </message>
+    <message>
+        <source>Your server doesn&apos;t have notification settings yet. Choose them on its website.</source>
+        <translation>Din server har inga aviseringsinställningar än. Välj dem på dess webbplats.</translation>
+    </message>
+    <message>
+        <source>Sign in to a server to choose how its notifications reach you.</source>
+        <translation>Logga in på en server för att välja hur dess aviseringar når dig.</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Läser in…</translation>
+    </message>
+    <message>
+        <source>These are your settings on %1.</source>
+        <translation>Det här är dina inställningar på %1.</translation>
+    </message>
+    <message>
+        <source>This site can’t send email right now. Your email choices are kept, and work once a site admin sets up email.</source>
+        <translation>Webbplatsen kan inte skicka mejl just nu. Dina val sparas och fungerar när en administratör har ställt in e-post.</translation>
+    </message>
+    <message>
+        <source>Pause all email</source>
+        <translation>Pausa all e-post</translation>
+    </message>
+    <message>
+        <source>No notification emails at all, summaries included, until you turn this off. Invites and account emails still come.</source>
+        <translation>Inga aviseringsmejl alls, inte heller sammanfattningar, tills du stänger av det här. Inbjudningar och kontomejl kommer ändå.</translation>
+    </message>
+    <message>
+        <source>Pause all pop-ups</source>
+        <translation>Pausa alla popup</translation>
+    </message>
+    <message>
+        <source>No pop-up notifications on any of your devices until you turn this off.</source>
+        <translation>Inga popup-aviseringar på någon av dina enheter tills du stänger av det här.</translation>
+    </message>
+    <message>
+        <source>What you hear about</source>
+        <translation>Vad du får höra om</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n kind(s)</source>
+        <translation>
+            <numerusform>%n sort</numerusform>
+            <numerusform>%n sorter</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 by email</source>
+        <translation>%1 via e-post</translation>
+    </message>
+    <message>
+        <source>no email</source>
+        <translation>ingen e-post</translation>
+    </message>
+    <message>
+        <source>%1 off in the app</source>
+        <translation>%1 av i appen</translation>
+    </message>
+    <message>
+        <source>Quiet hours</source>
+        <translation>Tysta timmar</translation>
+    </message>
+    <message>
+        <source>Emails and pop-ups that come in quiet hours wait until they end. Summaries aren’t held.</source>
+        <translation>Mejl och popup som kommer under tysta timmar väntar tills de är slut. Sammanfattningar hålls inte kvar.</translation>
+    </message>
+    <message>
+        <source>Quiet hours start</source>
+        <translation>Tysta timmar börjar</translation>
+    </message>
+    <message>
+        <source>Quiet hours end</source>
+        <translation>Tysta timmar slutar</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>Från</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>till</translation>
+    </message>
+    <message>
+        <source>Summaries and time zone</source>
+        <translation>Sammanfattningar och tidszon</translation>
+    </message>
+    <message>
+        <source>Daily summary at</source>
+        <translation>Daglig sammanfattning kl.</translation>
+    </message>
+    <message>
+        <source>Daily summary time</source>
+        <translation>Tid för daglig sammanfattning</translation>
+    </message>
+    <message>
+        <source>Weekly summary on</source>
+        <translation>Veckosammanfattning på</translation>
+    </message>
+    <message>
+        <source>Weekly summary day</source>
+        <translation>Dag för veckosammanfattning</translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation>söndag</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation>måndag</translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation>tisdag</translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation>onsdag</translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation>torsdag</translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation>fredag</translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation>lördag</translation>
+    </message>
+    <message>
+        <source>The weekly summary goes at the daily summary’s time. Each lists what you haven’t read since the last one.</source>
+        <translation>Veckosammanfattningen kommer på den dagliga sammanfattningens tid. Varje listar det du inte läst sedan förra.</translation>
+    </message>
+    <message>
+        <source>Time zone</source>
+        <translation>Tidszon</translation>
+    </message>
+    <message>
+        <source>Use this computer’s (%1)</source>
+        <translation>Använd den här datorns (%1)</translation>
+    </message>
+    <message>
+        <source>Your clubs</source>
+        <translation>Dina klubbar</translation>
+    </message>
+    <message>
+        <source>Mute a busy club, or keep it in the app but out of your email or pop-ups. Warnings always reach you.</source>
+        <translation>Tysta en livlig klubb, eller behåll den i appen men utanför e-post och popup. Varningar når dig alltid.</translation>
+    </message>
+    <message>
+        <source>Mute</source>
+        <translation>Tysta</translation>
+    </message>
+    <message>
+        <source>Mute %1</source>
+        <translation>Tysta %1</translation>
+    </message>
+    <message>
+        <source>Email from %1</source>
+        <translation>E-post från %1</translation>
+    </message>
+    <message>
+        <source>Pop-ups</source>
+        <translation>Popup</translation>
+    </message>
+    <message>
+        <source>Pop-ups from %1</source>
+        <translation>Popup från %1</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::NotificationsWindow</name>
     <message>
         <source>Notifications</source>
@@ -12180,6 +12463,10 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Take a tour:</source>
         <translation>Ta en rundtur:</translation>
+    </message>
+    <message>
+        <source>Notifications</source>
+        <translation>Aviseringar</translation>
     </message>
     <message>
         <source>Servers</source>

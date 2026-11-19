@@ -221,6 +221,23 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::DesktopNotifier</name>
+    <message numerus="yes">
+        <source>%n new notification(s)</source>
+        <translation>
+            <numerusform>%n new notification</numerusform>
+            <numerusform>%n new notifications</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>and %n more</source>
+        <translation>
+            <numerusform>and %n more</numerusform>
+            <numerusform>and %n more</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::DownloadCenterDialog</name>
     <message numerus="yes">
         <source>You already have all %n part pack(s).</source>
@@ -636,6 +653,16 @@
         <translation>
             <numerusform>%n more like this</numerusform>
             <numerusform>%n more like this</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationSettingsPanel</name>
+    <message numerus="yes">
+        <source>%n kind(s)</source>
+        <translation>
+            <numerusform>%n kind</numerusform>
+            <numerusform>%n kinds</numerusform>
         </translation>
     </message>
 </context>

@@ -4703,6 +4703,27 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::DesktopNotifier</name>
+    <message>
+        <source>Click to open it.</source>
+        <translation>Klicke, um sie zu öffnen.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n new notification(s)</source>
+        <translation>
+            <numerusform>%n neue Benachrichtigung</numerusform>
+            <numerusform>%n neue Benachrichtigungen</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>and %n more</source>
+        <translation>
+            <numerusform>und %n weitere</numerusform>
+            <numerusform>und %n weitere</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::DownloadCenterDialog</name>
     <message>
         <source>Download Center</source>
@@ -10481,6 +10502,268 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationSettingsPanel</name>
+    <message>
+        <source>Show system notifications</source>
+        <translation>Systembenachrichtigungen zeigen</translation>
+    </message>
+    <message>
+        <source>Only when the app is in the background</source>
+        <translation>Nur wenn die App im Hintergrund ist</translation>
+    </message>
+    <message>
+        <source>New notifications pop up on this computer while the app runs, as each server&apos;s Pop-up choices below say, and wait for its quiet hours. Several at once come as one.</source>
+        <translation>Neue Benachrichtigungen erscheinen auf diesem Computer, solange die App läuft, so wie es die Pop-up-Auswahl jedes Servers unten sagt, und warten seine Ruhezeiten ab. Mehrere auf einmal kommen als eine.</translation>
+    </message>
+    <message>
+        <source>This computer has no notification area, so the app can&apos;t show system notifications here. The bell still counts them.</source>
+        <translation>Dieser Computer hat keinen Benachrichtigungsbereich, daher kann die App hier keine Systembenachrichtigungen zeigen. Die Glocke zählt sie trotzdem.</translation>
+    </message>
+    <message>
+        <source>How notifications reach you</source>
+        <translation>Wie Benachrichtigungen dich erreichen</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <source>Saved or not</source>
+        <translation>Gespeichert oder nicht</translation>
+    </message>
+    <message>
+        <source>Saving…</source>
+        <translation>Wird gespeichert…</translation>
+    </message>
+    <message>
+        <source>Saved.</source>
+        <translation>Gespeichert.</translation>
+    </message>
+    <message>
+        <source>In the app</source>
+        <translation>In der App</translation>
+    </message>
+    <message>
+        <source>%1: in the app</source>
+        <translation>%1: in der App</translation>
+    </message>
+    <message>
+        <source>Warnings always show, so you never miss one.</source>
+        <translation>Warnungen erscheinen immer, damit du keine verpasst.</translation>
+    </message>
+    <message>
+        <source>Emailed with the invite’s link, always.</source>
+        <translation>Immer per E-Mail, mit dem Link der Einladung.</translation>
+    </message>
+    <message>
+        <source>Always emailed, for your account’s safety.</source>
+        <translation>Immer per E-Mail, zur Sicherheit deines Kontos.</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>E-Mail</translation>
+    </message>
+    <message>
+        <source>%1: email</source>
+        <translation>%1: E-Mail</translation>
+    </message>
+    <message>
+        <source>Right away</source>
+        <translation>Sofort</translation>
+    </message>
+    <message>
+        <source>Daily summary</source>
+        <translation>Tägliche Zusammenfassung</translation>
+    </message>
+    <message>
+        <source>Weekly summary</source>
+        <translation>Wöchentliche Zusammenfassung</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Aus</translation>
+    </message>
+    <message>
+        <source>Pop-up</source>
+        <translation>Pop-up</translation>
+    </message>
+    <message>
+        <source>%1: pop-up</source>
+        <translation>%1: Pop-up</translation>
+    </message>
+    <message>
+        <source>Your server doesn&apos;t have notification settings yet. Choose them on its website.</source>
+        <translation>Dein Server hat noch keine Benachrichtigungseinstellungen. Wähle sie auf seiner Website.</translation>
+    </message>
+    <message>
+        <source>Sign in to a server to choose how its notifications reach you.</source>
+        <translation>Melde dich bei einem Server an, um zu wählen, wie seine Benachrichtigungen dich erreichen.</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Wird geladen…</translation>
+    </message>
+    <message>
+        <source>These are your settings on %1.</source>
+        <translation>Das sind deine Einstellungen auf %1.</translation>
+    </message>
+    <message>
+        <source>This site can’t send email right now. Your email choices are kept, and work once a site admin sets up email.</source>
+        <translation>Diese Seite kann gerade keine E-Mails senden. Deine E-Mail-Auswahl bleibt erhalten und gilt, sobald ein Seiten-Admin E-Mail einrichtet.</translation>
+    </message>
+    <message>
+        <source>Pause all email</source>
+        <translation>Alle E-Mails pausieren</translation>
+    </message>
+    <message>
+        <source>No notification emails at all, summaries included, until you turn this off. Invites and account emails still come.</source>
+        <translation>Gar keine Benachrichtigungs-E-Mails, auch keine Zusammenfassungen, bis du das ausschaltest. Einladungen und Konto-E-Mails kommen weiter.</translation>
+    </message>
+    <message>
+        <source>Pause all pop-ups</source>
+        <translation>Alle Pop-ups pausieren</translation>
+    </message>
+    <message>
+        <source>No pop-up notifications on any of your devices until you turn this off.</source>
+        <translation>Keine Pop-up-Benachrichtigungen auf deinen Geräten, bis du das ausschaltest.</translation>
+    </message>
+    <message>
+        <source>What you hear about</source>
+        <translation>Worüber du erfährst</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n kind(s)</source>
+        <translation>
+            <numerusform>%n Art</numerusform>
+            <numerusform>%n Arten</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 by email</source>
+        <translation>%1 per E-Mail</translation>
+    </message>
+    <message>
+        <source>no email</source>
+        <translation>keine E-Mail</translation>
+    </message>
+    <message>
+        <source>%1 off in the app</source>
+        <translation>%1 in der App aus</translation>
+    </message>
+    <message>
+        <source>Quiet hours</source>
+        <translation>Ruhezeiten</translation>
+    </message>
+    <message>
+        <source>Emails and pop-ups that come in quiet hours wait until they end. Summaries aren’t held.</source>
+        <translation>E-Mails und Pop-ups, die in Ruhezeiten kommen, warten, bis sie enden. Zusammenfassungen werden nicht zurückgehalten.</translation>
+    </message>
+    <message>
+        <source>Quiet hours start</source>
+        <translation>Beginn der Ruhezeiten</translation>
+    </message>
+    <message>
+        <source>Quiet hours end</source>
+        <translation>Ende der Ruhezeiten</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>Von</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>bis</translation>
+    </message>
+    <message>
+        <source>Summaries and time zone</source>
+        <translation>Zusammenfassungen und Zeitzone</translation>
+    </message>
+    <message>
+        <source>Daily summary at</source>
+        <translation>Tägliche Zusammenfassung um</translation>
+    </message>
+    <message>
+        <source>Daily summary time</source>
+        <translation>Zeit der täglichen Zusammenfassung</translation>
+    </message>
+    <message>
+        <source>Weekly summary on</source>
+        <translation>Wöchentliche Zusammenfassung am</translation>
+    </message>
+    <message>
+        <source>Weekly summary day</source>
+        <translation>Tag der wöchentlichen Zusammenfassung</translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation>Sonntag</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation>Montag</translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation>Dienstag</translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation>Mittwoch</translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation>Donnerstag</translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation>Freitag</translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation>Samstag</translation>
+    </message>
+    <message>
+        <source>The weekly summary goes at the daily summary’s time. Each lists what you haven’t read since the last one.</source>
+        <translation>Die wöchentliche Zusammenfassung kommt zur Zeit der täglichen. Jede listet, was du seit der letzten nicht gelesen hast.</translation>
+    </message>
+    <message>
+        <source>Time zone</source>
+        <translation>Zeitzone</translation>
+    </message>
+    <message>
+        <source>Use this computer’s (%1)</source>
+        <translation>Die dieses Computers nehmen (%1)</translation>
+    </message>
+    <message>
+        <source>Your clubs</source>
+        <translation>Deine Clubs</translation>
+    </message>
+    <message>
+        <source>Mute a busy club, or keep it in the app but out of your email or pop-ups. Warnings always reach you.</source>
+        <translation>Schalte einen lebhaften Club stumm oder lass ihn in der App, aber nicht in E-Mail oder Pop-ups. Warnungen erreichen dich immer.</translation>
+    </message>
+    <message>
+        <source>Mute</source>
+        <translation>Stumm</translation>
+    </message>
+    <message>
+        <source>Mute %1</source>
+        <translation>%1 stummschalten</translation>
+    </message>
+    <message>
+        <source>Email from %1</source>
+        <translation>E-Mail von %1</translation>
+    </message>
+    <message>
+        <source>Pop-ups</source>
+        <translation>Pop-ups</translation>
+    </message>
+    <message>
+        <source>Pop-ups from %1</source>
+        <translation>Pop-ups von %1</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::NotificationsWindow</name>
     <message>
         <source>Notifications</source>
@@ -12180,6 +12463,10 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>Take a tour:</source>
         <translation>Eine Tour machen:</translation>
+    </message>
+    <message>
+        <source>Notifications</source>
+        <translation>Benachrichtigungen</translation>
     </message>
     <message>
         <source>Servers</source>

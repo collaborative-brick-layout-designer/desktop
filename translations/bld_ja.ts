@@ -4676,6 +4676,25 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::DesktopNotifier</name>
+    <message>
+        <source>Click to open it.</source>
+        <translation>クリックして開きます。</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n new notification(s)</source>
+        <translation>
+            <numerusform>新しい通知 %n 件</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>and %n more</source>
+        <translation>
+            <numerusform>ほか %n 件</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::DownloadCenterDialog</name>
     <message>
         <source>Download Center</source>
@@ -10398,6 +10417,267 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationSettingsPanel</name>
+    <message>
+        <source>Show system notifications</source>
+        <translation>システム通知を表示する</translation>
+    </message>
+    <message>
+        <source>Only when the app is in the background</source>
+        <translation>アプリがバックグラウンドのときだけ</translation>
+    </message>
+    <message>
+        <source>New notifications pop up on this computer while the app runs, as each server&apos;s Pop-up choices below say, and wait for its quiet hours. Several at once come as one.</source>
+        <translation>アプリの実行中、新しい通知はこのコンピューターにポップアップします。下の各サーバーの「ポップアップ」の設定に従い、おやすみ時間の間は待ちます。一度に複数届いたときはひとつにまとめます。</translation>
+    </message>
+    <message>
+        <source>This computer has no notification area, so the app can&apos;t show system notifications here. The bell still counts them.</source>
+        <translation>このコンピューターには通知領域がないため、ここではシステム通知を表示できません。ベルは引き続き件数を数えます。</translation>
+    </message>
+    <message>
+        <source>How notifications reach you</source>
+        <translation>通知の届き方</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>サーバー</translation>
+    </message>
+    <message>
+        <source>Saved or not</source>
+        <translation>保存の状態</translation>
+    </message>
+    <message>
+        <source>Saving…</source>
+        <translation>保存中…</translation>
+    </message>
+    <message>
+        <source>Saved.</source>
+        <translation>保存しました。</translation>
+    </message>
+    <message>
+        <source>In the app</source>
+        <translation>アプリ内</translation>
+    </message>
+    <message>
+        <source>%1: in the app</source>
+        <translation>%1：アプリ内</translation>
+    </message>
+    <message>
+        <source>Warnings always show, so you never miss one.</source>
+        <translation>警告は見逃さないよう常に表示されます。</translation>
+    </message>
+    <message>
+        <source>Emailed with the invite’s link, always.</source>
+        <translation>招待のリンクと一緒に必ずメールで届きます。</translation>
+    </message>
+    <message>
+        <source>Always emailed, for your account’s safety.</source>
+        <translation>アカウントの安全のため、必ずメールで届きます。</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>メール</translation>
+    </message>
+    <message>
+        <source>%1: email</source>
+        <translation>%1：メール</translation>
+    </message>
+    <message>
+        <source>Right away</source>
+        <translation>すぐに</translation>
+    </message>
+    <message>
+        <source>Daily summary</source>
+        <translation>毎日のまとめ</translation>
+    </message>
+    <message>
+        <source>Weekly summary</source>
+        <translation>毎週のまとめ</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>オフ</translation>
+    </message>
+    <message>
+        <source>Pop-up</source>
+        <translation>ポップアップ</translation>
+    </message>
+    <message>
+        <source>%1: pop-up</source>
+        <translation>%1：ポップアップ</translation>
+    </message>
+    <message>
+        <source>Your server doesn&apos;t have notification settings yet. Choose them on its website.</source>
+        <translation>このサーバーにはまだ通知の設定がありません。サーバーのウェブサイトで選んでください。</translation>
+    </message>
+    <message>
+        <source>Sign in to a server to choose how its notifications reach you.</source>
+        <translation>サーバーにサインインすると、その通知の届き方を選べます。</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>読み込み中…</translation>
+    </message>
+    <message>
+        <source>These are your settings on %1.</source>
+        <translation>%1 での設定です。</translation>
+    </message>
+    <message>
+        <source>This site can’t send email right now. Your email choices are kept, and work once a site admin sets up email.</source>
+        <translation>このサイトは今メールを送れません。メールの設定は保存され、サイト管理者がメールを設定すると使えるようになります。</translation>
+    </message>
+    <message>
+        <source>Pause all email</source>
+        <translation>すべてのメールを一時停止</translation>
+    </message>
+    <message>
+        <source>No notification emails at all, summaries included, until you turn this off. Invites and account emails still come.</source>
+        <translation>オフにするまで、まとめを含む通知メールは一切届きません。招待とアカウントのメールは引き続き届きます。</translation>
+    </message>
+    <message>
+        <source>Pause all pop-ups</source>
+        <translation>すべてのポップアップを一時停止</translation>
+    </message>
+    <message>
+        <source>No pop-up notifications on any of your devices until you turn this off.</source>
+        <translation>オフにするまで、どの端末にもポップアップ通知は出ません。</translation>
+    </message>
+    <message>
+        <source>What you hear about</source>
+        <translation>知らせる内容</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n kind(s)</source>
+        <translation>
+            <numerusform>%n 種類</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 by email</source>
+        <translation>%1 件をメールで</translation>
+    </message>
+    <message>
+        <source>no email</source>
+        <translation>メールなし</translation>
+    </message>
+    <message>
+        <source>%1 off in the app</source>
+        <translation>%1 件はアプリでオフ</translation>
+    </message>
+    <message>
+        <source>Quiet hours</source>
+        <translation>おやすみ時間</translation>
+    </message>
+    <message>
+        <source>Emails and pop-ups that come in quiet hours wait until they end. Summaries aren’t held.</source>
+        <translation>おやすみ時間に届くメールやポップアップは、終わるまで待ちます。まとめは止まりません。</translation>
+    </message>
+    <message>
+        <source>Quiet hours start</source>
+        <translation>おやすみ時間の開始</translation>
+    </message>
+    <message>
+        <source>Quiet hours end</source>
+        <translation>おやすみ時間の終了</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>開始</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>終了</translation>
+    </message>
+    <message>
+        <source>Summaries and time zone</source>
+        <translation>まとめとタイムゾーン</translation>
+    </message>
+    <message>
+        <source>Daily summary at</source>
+        <translation>毎日のまとめの時刻</translation>
+    </message>
+    <message>
+        <source>Daily summary time</source>
+        <translation>毎日のまとめの時刻</translation>
+    </message>
+    <message>
+        <source>Weekly summary on</source>
+        <translation>毎週のまとめの曜日</translation>
+    </message>
+    <message>
+        <source>Weekly summary day</source>
+        <translation>毎週のまとめの曜日</translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation>日曜日</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation>月曜日</translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation>火曜日</translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation>水曜日</translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation>木曜日</translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation>金曜日</translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation>土曜日</translation>
+    </message>
+    <message>
+        <source>The weekly summary goes at the daily summary’s time. Each lists what you haven’t read since the last one.</source>
+        <translation>毎週のまとめは毎日のまとめと同じ時刻に届きます。どちらも前回から読んでいないものを並べます。</translation>
+    </message>
+    <message>
+        <source>Time zone</source>
+        <translation>タイムゾーン</translation>
+    </message>
+    <message>
+        <source>Use this computer’s (%1)</source>
+        <translation>このコンピューターのものを使う（%1）</translation>
+    </message>
+    <message>
+        <source>Your clubs</source>
+        <translation>あなたのクラブ</translation>
+    </message>
+    <message>
+        <source>Mute a busy club, or keep it in the app but out of your email or pop-ups. Warnings always reach you.</source>
+        <translation>にぎやかなクラブはミュートするか、アプリには残してメールやポップアップからは外せます。警告は必ず届きます。</translation>
+    </message>
+    <message>
+        <source>Mute</source>
+        <translation>ミュート</translation>
+    </message>
+    <message>
+        <source>Mute %1</source>
+        <translation>%1 をミュート</translation>
+    </message>
+    <message>
+        <source>Email from %1</source>
+        <translation>%1 からのメール</translation>
+    </message>
+    <message>
+        <source>Pop-ups</source>
+        <translation>ポップアップ</translation>
+    </message>
+    <message>
+        <source>Pop-ups from %1</source>
+        <translation>%1 からのポップアップ</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::NotificationsWindow</name>
     <message>
         <source>Notifications</source>
@@ -12090,6 +12370,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Take a tour:</source>
         <translation>ツアーを見る:</translation>
+    </message>
+    <message>
+        <source>Notifications</source>
+        <translation>通知</translation>
     </message>
     <message>
         <source>Servers</source>

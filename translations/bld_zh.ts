@@ -4676,6 +4676,25 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::DesktopNotifier</name>
+    <message>
+        <source>Click to open it.</source>
+        <translation>点击打开。</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n new notification(s)</source>
+        <translation>
+            <numerusform>%n 条新通知</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>and %n more</source>
+        <translation>
+            <numerusform>还有 %n 条</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::DownloadCenterDialog</name>
     <message>
         <source>Download Center</source>
@@ -10398,6 +10417,267 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationSettingsPanel</name>
+    <message>
+        <source>Show system notifications</source>
+        <translation>显示系统通知</translation>
+    </message>
+    <message>
+        <source>Only when the app is in the background</source>
+        <translation>仅在应用处于后台时</translation>
+    </message>
+    <message>
+        <source>New notifications pop up on this computer while the app runs, as each server&apos;s Pop-up choices below say, and wait for its quiet hours. Several at once come as one.</source>
+        <translation>应用运行时，新通知会在这台电脑上弹出：按下面每个服务器的“弹出”选择，并等到它的安静时段结束。同时到达的多条会合并成一条。</translation>
+    </message>
+    <message>
+        <source>This computer has no notification area, so the app can&apos;t show system notifications here. The bell still counts them.</source>
+        <translation>这台电脑没有通知区域，所以应用无法在这里显示系统通知。铃铛仍会计数。</translation>
+    </message>
+    <message>
+        <source>How notifications reach you</source>
+        <translation>通知如何送达</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>服务器</translation>
+    </message>
+    <message>
+        <source>Saved or not</source>
+        <translation>是否已保存</translation>
+    </message>
+    <message>
+        <source>Saving…</source>
+        <translation>正在保存…</translation>
+    </message>
+    <message>
+        <source>Saved.</source>
+        <translation>已保存。</translation>
+    </message>
+    <message>
+        <source>In the app</source>
+        <translation>在应用中</translation>
+    </message>
+    <message>
+        <source>%1: in the app</source>
+        <translation>%1：在应用中</translation>
+    </message>
+    <message>
+        <source>Warnings always show, so you never miss one.</source>
+        <translation>警告总会显示，确保你不会错过。</translation>
+    </message>
+    <message>
+        <source>Emailed with the invite’s link, always.</source>
+        <translation>总是通过邮件发送，附带邀请链接。</translation>
+    </message>
+    <message>
+        <source>Always emailed, for your account’s safety.</source>
+        <translation>为了账户安全，总是通过邮件发送。</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>邮件</translation>
+    </message>
+    <message>
+        <source>%1: email</source>
+        <translation>%1：邮件</translation>
+    </message>
+    <message>
+        <source>Right away</source>
+        <translation>立即</translation>
+    </message>
+    <message>
+        <source>Daily summary</source>
+        <translation>每日汇总</translation>
+    </message>
+    <message>
+        <source>Weekly summary</source>
+        <translation>每周汇总</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <source>Pop-up</source>
+        <translation>弹出</translation>
+    </message>
+    <message>
+        <source>%1: pop-up</source>
+        <translation>%1：弹出</translation>
+    </message>
+    <message>
+        <source>Your server doesn&apos;t have notification settings yet. Choose them on its website.</source>
+        <translation>你的服务器还没有通知设置。请在它的网站上选择。</translation>
+    </message>
+    <message>
+        <source>Sign in to a server to choose how its notifications reach you.</source>
+        <translation>登录服务器，选择它的通知如何送达。</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>正在加载…</translation>
+    </message>
+    <message>
+        <source>These are your settings on %1.</source>
+        <translation>这是你在 %1 上的设置。</translation>
+    </message>
+    <message>
+        <source>This site can’t send email right now. Your email choices are kept, and work once a site admin sets up email.</source>
+        <translation>本站目前无法发送邮件。你的邮件选择会保留，等站点管理员设置好邮件后生效。</translation>
+    </message>
+    <message>
+        <source>Pause all email</source>
+        <translation>暂停所有邮件</translation>
+    </message>
+    <message>
+        <source>No notification emails at all, summaries included, until you turn this off. Invites and account emails still come.</source>
+        <translation>在你关闭此项之前，不发送任何通知邮件，汇总也不发。邀请和账户邮件仍会发送。</translation>
+    </message>
+    <message>
+        <source>Pause all pop-ups</source>
+        <translation>暂停所有弹出通知</translation>
+    </message>
+    <message>
+        <source>No pop-up notifications on any of your devices until you turn this off.</source>
+        <translation>在你关闭此项之前，任何设备上都不弹出通知。</translation>
+    </message>
+    <message>
+        <source>What you hear about</source>
+        <translation>你会收到哪些通知</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n kind(s)</source>
+        <translation>
+            <numerusform>%n 种</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 by email</source>
+        <translation>%1 种发邮件</translation>
+    </message>
+    <message>
+        <source>no email</source>
+        <translation>不发邮件</translation>
+    </message>
+    <message>
+        <source>%1 off in the app</source>
+        <translation>%1 种在应用中关闭</translation>
+    </message>
+    <message>
+        <source>Quiet hours</source>
+        <translation>安静时段</translation>
+    </message>
+    <message>
+        <source>Emails and pop-ups that come in quiet hours wait until they end. Summaries aren’t held.</source>
+        <translation>安静时段内的邮件和弹出通知会等到时段结束。汇总不受影响。</translation>
+    </message>
+    <message>
+        <source>Quiet hours start</source>
+        <translation>安静时段开始</translation>
+    </message>
+    <message>
+        <source>Quiet hours end</source>
+        <translation>安静时段结束</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>从</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>到</translation>
+    </message>
+    <message>
+        <source>Summaries and time zone</source>
+        <translation>汇总和时区</translation>
+    </message>
+    <message>
+        <source>Daily summary at</source>
+        <translation>每日汇总时间</translation>
+    </message>
+    <message>
+        <source>Daily summary time</source>
+        <translation>每日汇总时间</translation>
+    </message>
+    <message>
+        <source>Weekly summary on</source>
+        <translation>每周汇总在</translation>
+    </message>
+    <message>
+        <source>Weekly summary day</source>
+        <translation>每周汇总日</translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation>星期日</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation>星期一</translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation>星期二</translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation>星期三</translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation>星期四</translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation>星期五</translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation>星期六</translation>
+    </message>
+    <message>
+        <source>The weekly summary goes at the daily summary’s time. Each lists what you haven’t read since the last one.</source>
+        <translation>每周汇总在每日汇总的时间发送。每份都列出自上次以来你没读的内容。</translation>
+    </message>
+    <message>
+        <source>Time zone</source>
+        <translation>时区</translation>
+    </message>
+    <message>
+        <source>Use this computer’s (%1)</source>
+        <translation>使用这台电脑的（%1）</translation>
+    </message>
+    <message>
+        <source>Your clubs</source>
+        <translation>你的俱乐部</translation>
+    </message>
+    <message>
+        <source>Mute a busy club, or keep it in the app but out of your email or pop-ups. Warnings always reach you.</source>
+        <translation>把热闹的俱乐部设为静音，或者只在应用中显示、不发邮件和弹出通知。警告总会送达。</translation>
+    </message>
+    <message>
+        <source>Mute</source>
+        <translation>静音</translation>
+    </message>
+    <message>
+        <source>Mute %1</source>
+        <translation>将 %1 设为静音</translation>
+    </message>
+    <message>
+        <source>Email from %1</source>
+        <translation>来自 %1 的邮件</translation>
+    </message>
+    <message>
+        <source>Pop-ups</source>
+        <translation>弹出</translation>
+    </message>
+    <message>
+        <source>Pop-ups from %1</source>
+        <translation>来自 %1 的弹出通知</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::NotificationsWindow</name>
     <message>
         <source>Notifications</source>
@@ -12090,6 +12370,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Take a tour:</source>
         <translation>开始导览:</translation>
+    </message>
+    <message>
+        <source>Notifications</source>
+        <translation>通知</translation>
     </message>
     <message>
         <source>Servers</source>

@@ -5,10 +5,11 @@
 // toolbar only gathers the everyday ones. UI text says "Sheets" for layers;
 // code and files keep their names.
 
-#include "StatusMessages.h"
+#include "DesktopNotifier.h"
 #include "MainWindow.h"
 #include "NotificationViews.h"
 #include "SheetNames.h"
+#include "StatusMessages.h"
 
 #include "ActiveSheet.h"
 #include "ActiveSheetButton.h"
@@ -566,6 +567,7 @@ void MainWindow::openSettings() {
                           },
                           [this] { onManageLibraries(); });
     dialog.setManageServers([this] { onManageServers(); });
+    dialog.setNotifications(notifications_);
     dialog.exec();
 }
 
@@ -621,6 +623,9 @@ void MainWindow::applySetting(settings::Change c) {
     }
     case settings::Change::PartsList:
         partsBrowser_->rebuild();
+        break;
+    case settings::Change::Notifications:
+        if (desktopNotifier_) desktopNotifier_->settingsChanged();
         break;
     }
 }
