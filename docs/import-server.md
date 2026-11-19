@@ -14,7 +14,7 @@ Source: `src/app/bld_import_server.cpp`, `src/app/importserver/`.
 ```
 bld-import-server [limits] <request.json>    # one step; the result JSON goes to stdout
 bld-import-server [limits] --sandbox-check   # what the lock-down blocks
-bld-import-server --version                  # "bld-import-server 2.1.10"
+bld-import-server --version                  # "bld-import-server 2.1.11"
 ```
 
 `limits`: `--cpu <seconds>` (default 120), `--memory-mb <MB>` (address
