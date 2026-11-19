@@ -254,7 +254,7 @@ void NotificationCenter::ask(const QString& key) {
                         }
                     }
                     if (!fresh.isEmpty()) emit arrived(url, fresh);
-                }, [this, sameSignIn, isFirst](const ServerRefusal&) {
+                }, [sameSignIn, isFirst](const ServerRefusal&) {
                     // The first look failed: the next one is the first, and what came back
                     // meanwhile was there already as far as anyone can tell.
                     Live* here = sameSignIn();
