@@ -37,7 +37,7 @@ corpus ldd_geom "$seeds"/ldd_geom/*
 corpus lif "$seeds"/lif/*
 corpus layout_file "$src"/fixtures/layouts/*.bld-layout
 corpus studio "$seeds"/studio/* "$src"/fixtures/studio/*.io
-corpus import_server_ldraw "$oracle"/*.ldr "$oracle"/*.mpd
+corpus import_server_ldraw "$src"/fixtures/import-samples/*.ldr "$src"/fixtures/import-samples/*.mpd
 corpus import_server_studio "$seeds"/studio/* "$src"/fixtures/studio/*.io
 corpus import_server_ldd "$seeds"/lxfml/* "$seeds"/lxf/*
 corpus ydoc "$src"/fixtures/sync/*.ydoc "$src"/fixtures/fuzz-regressions/ydoc-*

@@ -73,6 +73,11 @@ extern "C" int LLVMFuzzerInitialize(int* argc, char*** argv) {
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
     if (size > 1 << 20) return 0;  // the readers take whole files; keep runs quick
+    // LDraw is drawn part by part at 32 px a stud: a 300-part layout as a
+    // seed made each run take a third of a second, so the short CI run
+    // barely moved. Small models find the same parser and pipeline paths
+    // (the readers have their own targets for big files: ldraw_import, ldraw_map).
+    if (is("ldraw") && size > 4096) return 0;
     const QByteArray bytes(reinterpret_cast<const char*>(data), static_cast<qsizetype>(size));
     const QString input = scratch + QStringLiteral("/in/model.") + extensionFor(bytes);
     QDir(scratch + QStringLiteral("/in")).removeRecursively();

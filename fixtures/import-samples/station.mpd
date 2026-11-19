@@ -1,0 +1,11 @@
+0 FILE station.ldr
+0 Station
+0 Author: Collaborative Brick Layout Designer tests
+1 7 0 0 0 1 0 0 0 1 0 0 0 1 platform.ldr
+1 7 0 0 80 0 0 1 0 1 0 -1 0 0 platform.ldr
+0 STEP
+1 4 0 -24 40 1 0 0 0 1 0 0 0 1 3023.dat
+0 FILE platform.ldr
+0 Platform
+1 15 0 0 0 1 0 0 0 1 0 0 0 1 3001.dat
+1 15 40 0 0 1 0 0 0 1 0 0 0 1 3001.dat
