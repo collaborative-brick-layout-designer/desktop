@@ -43,6 +43,12 @@ set.updates
 part.hidden
 open.formats
 open.desktop
+import.model
+import.mode
+import.align
+import.connections
+import.where
+import.missing
 download.formats
 download.layout
 download.bbm

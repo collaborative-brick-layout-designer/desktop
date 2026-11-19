@@ -214,14 +214,50 @@
     "open.formats": {
       "title": "Opening a file",
       "short": "Open a layout file from this app, BlueBrick, TrackDesigner or 4DBrix.",
-      "more": "A layout file (.bld-layout) or a BlueBrick map (.bbm) opens with everything in it. TrackDesigner (.tdl) and 4DBrix (.ncp) parts are matched to parts in the library, and any that have no match are listed after opening. LDraw, BrickLink Studio and LDD models are imported in the desktop app.",
+      "more": "A layout file (.bld-layout) or a BlueBrick map (.bbm) opens with everything in it. TrackDesigner (.tdl) and 4DBrix (.ncp) parts are matched to parts in the library, and any that have no match are listed after opening. LDraw, BrickLink Studio and LDD models are imported, as the desktop app imports them.",
       "learnMoreUrl": "/help#opening"
     },
     "open.desktop": {
       "title": "Models from other programs",
-      "short": "LDraw, BrickLink Studio and LDD files are imported in the desktop app, then saved here.",
-      "more": "The desktop app reads them, matches their parts to the library and lists the ones it can’t match. It can also turn a model into a custom part. Then choose File › Save to Server… and it shows up here.",
+      "short": "When this site can’t import a model, the desktop app can, and then saves it here.",
+      "more": "The desktop app reads LDraw, BrickLink Studio and LDD files with your own libraries, matches their parts and lists the ones it can’t match. It can also turn a model into a custom part. Then choose File › Save to Server… and it shows up here.",
       "learnMoreUrl": "/help#opening"
+    },
+    "import.model": {
+      "title": "Importing a model",
+      "short": "Bring in an LDraw, BrickLink Studio or LDD model, read by the desktop app’s own importer.",
+      "more": "The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.",
+      "learnMoreUrl": "/help#importing"
+    },
+    "import.mode": {
+      "title": "One part or its parts",
+      "short": "Make the whole model one custom part, or place each of its parts as File › Open does.",
+      "more": "One custom part keeps a building or a set together, drawn from above, with snap points where its track ends. Placing its parts one by one is for an LDraw layout: each piece becomes a part you can move, if the parts library has it.",
+      "learnMoreUrl": "/help#importing"
+    },
+    "import.align": {
+      "title": "Lining it up with the studs",
+      "short": "Which studs go on the grid: Automatic puts the flat bottom plates on it, else centers the model.",
+      "more": "Bottom plates puts the model’s lowest layer on whole studs; Bounding box centers the whole model in whole studs. Move it by half a stud down to a sixteenth with the arrow buttons until the studs line up. Reset goes back to Automatic.",
+      "learnMoreUrl": "/help#importing"
+    },
+    "import.connections": {
+      "title": "Connection points",
+      "short": "Where track, road or monorail snap on to the part; uncheck any you don’t want.",
+      "more": "They are found from the track pieces in the model that nothing else is joined to. A point you uncheck is left out of the part, so nothing snaps there.",
+      "learnMoreUrl": "/help#importing"
+    },
+    "import.where": {
+      "title": "Where it goes",
+      "short": "Put what you import in the layout you have open, or start a new layout with it.",
+      "more": "In this layout it goes in the middle of your view, on the sheet you pick, and everyone editing sees it at once. A new layout is yours, named as you type it here.",
+      "learnMoreUrl": "/help#importing"
+    },
+    "import.missing": {
+      "title": "Missing parts",
+      "short": "Parts the site’s libraries don’t have are left out of the picture.",
+      "more": "A newer LDraw library, LDD’s brick database or Studio’s own library may have them; a site admin sets these up in Admin › Model import. The desktop app can also import the model with the libraries on your computer.",
+      "learnMoreUrl": "/help#importing"
     },
     "download.formats": {
       "title": "Download as",

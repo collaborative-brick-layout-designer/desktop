@@ -815,20 +815,8 @@
         <translation>Åpne en layoutfil fra denne appen, BlueBrick, TrackDesigner eller 4DBrix.</translation>
     </message>
     <message>
-        <source>A layout file (.bld-layout) or a BlueBrick map (.bbm) opens with everything in it. TrackDesigner (.tdl) and 4DBrix (.ncp) parts are matched to parts in the library, and any that have no match are listed after opening. LDraw, BrickLink Studio and LDD models are imported in the desktop app.</source>
-        <translation>En layoutfil (.bld-layout) eller et BlueBrick-kart (.bbm) åpnes med alt i. TrackDesigner- (.tdl) og 4DBrix-deler (.ncp) kobles til deler i biblioteket, og de uten treff listes etter åpning. LDraw-, BrickLink Studio- og LDD-modeller importeres i skrivebordsappen.</translation>
-    </message>
-    <message>
         <source>Models from other programs</source>
         <translation>Modeller fra andre programmer</translation>
-    </message>
-    <message>
-        <source>LDraw, BrickLink Studio and LDD files are imported in the desktop app, then saved here.</source>
-        <translation>LDraw-, BrickLink Studio- og LDD-filer importeres i skrivebordsappen og lagres så her.</translation>
-    </message>
-    <message>
-        <source>The desktop app reads them, matches their parts to the library and lists the ones it can’t match. It can also turn a model into a custom part. Then choose File › Save to Server… and it shows up here.</source>
-        <translation>Skrivebordsappen leser dem, kobler delene til biblioteket og lister dem den ikke finner. Den kan også gjøre en modell om til en egendefinert del. Velg så Fil › Lagre til server…, så dukker den opp her.</translation>
     </message>
     <message>
         <source>Download as</source>
@@ -921,6 +909,86 @@
     <message>
         <source>Share with a person by email, or with a club you’re in so its members can place it in the club’s layouts; your own parts that it uses come along, to look at only. You see how many layouts use it and in which clubs, never the names of other people’s layouts. Stopping a share, or a club’s admins taking the module off their club, leaves the copies already placed as they are, with no more updates.</source>
         <translation>Del med en person på e-post, eller med en klubb du er med i, så medlemmene kan plassere den i klubbens layouter; dine egne deler som den bruker følger med, bare for å se på. Du ser hvor mange layouter som bruker den og i hvilke klubber, aldri navnene på andres layouter. Hvis du slutter å dele, eller en klubbs administratorer tar modulen bort fra klubben, blir kopiene som allerede er plassert som de er, uten flere oppdateringer.</translation>
+    </message>
+    <message>
+        <source>A layout file (.bld-layout) or a BlueBrick map (.bbm) opens with everything in it. TrackDesigner (.tdl) and 4DBrix (.ncp) parts are matched to parts in the library, and any that have no match are listed after opening. LDraw, BrickLink Studio and LDD models are imported, as the desktop app imports them.</source>
+        <translation>En layoutfil (.bld-layout) eller et BlueBrick-kart (.bbm) åpnes med alt i. TrackDesigner- (.tdl) og 4DBrix-deler (.ncp) kobles til deler i biblioteket, og de uten treff listes etter åpning. LDraw-, BrickLink Studio- og LDD-modeller importeres slik skrivebordsappen importerer dem.</translation>
+    </message>
+    <message>
+        <source>When this site can’t import a model, the desktop app can, and then saves it here.</source>
+        <translation>Når dette nettstedet ikke kan importere en modell, kan skrivebordsappen det, og så lagrer den den her.</translation>
+    </message>
+    <message>
+        <source>The desktop app reads LDraw, BrickLink Studio and LDD files with your own libraries, matches their parts and lists the ones it can’t match. It can also turn a model into a custom part. Then choose File › Save to Server… and it shows up here.</source>
+        <translation>Skrivebordsappen leser LDraw-, BrickLink Studio- og LDD-filer med dine egne biblioteker, kobler delene og lister dem den ikke finner. Den kan også gjøre en modell om til en egendefinert del. Velg så Fil › Lagre til server…, så dukker den opp her.</translation>
+    </message>
+    <message>
+        <source>Importing a model</source>
+        <translation>Importere en modell</translation>
+    </message>
+    <message>
+        <source>Bring in an LDraw, BrickLink Studio or LDD model, read by the desktop app’s own importer.</source>
+        <translation>Hent inn en LDraw-, BrickLink Studio- eller LDD-modell, lest av skrivebordsappens egen importør.</translation>
+    </message>
+    <message>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>Modellen blir én egendefinert del du kan plassere hvor som helst, eller for et LDraw-layout blir delene plassert én etter én. Filen slettes fra serveren så snart den er lest. Deler bibliotekene ikke har, mangler i bildet, og forhåndsvisningen sier hvor mange.</translation>
+    </message>
+    <message>
+        <source>One part or its parts</source>
+        <translation>Én del eller delene</translation>
+    </message>
+    <message>
+        <source>Make the whole model one custom part, or place each of its parts as File › Open does.</source>
+        <translation>Gjør hele modellen til én egendefinert del, eller plasser hver av delene slik Fil › Åpne gjør.</translation>
+    </message>
+    <message>
+        <source>One custom part keeps a building or a set together, drawn from above, with snap points where its track ends. Placing its parts one by one is for an LDraw layout: each piece becomes a part you can move, if the parts library has it.</source>
+        <translation>Én egendefinert del holder en bygning eller et sett samlet, tegnet ovenfra, med festepunkter der skinnene slutter. Å plassere delene én etter én er for et LDraw-layout: hver bit blir en del du kan flytte, hvis delbiblioteket har den.</translation>
+    </message>
+    <message>
+        <source>Lining it up with the studs</source>
+        <translation>Rette den inn etter knottene</translation>
+    </message>
+    <message>
+        <source>Which studs go on the grid: Automatic puts the flat bottom plates on it, else centers the model.</source>
+        <translation>Hvilke knotter havner på rutenettet: Automatisk legger de flate bunnplatene der, ellers sentreres modellen.</translation>
+    </message>
+    <message>
+        <source>Bottom plates puts the model’s lowest layer on whole studs; Bounding box centers the whole model in whole studs. Move it by half a stud down to a sixteenth with the arrow buttons until the studs line up. Reset goes back to Automatic.</source>
+        <translation>Bunnplater legger modellens nederste lag på hele knotter; Omsluttende boks sentrerer hele modellen i hele knotter. Flytt den fra en halv til en sekstendels knott med pilknappene til knottene passer. Tilbakestill går tilbake til Automatisk.</translation>
+    </message>
+    <message>
+        <source>Where track, road or monorail snap on to the part; uncheck any you don’t want.</source>
+        <translation>Der skinner, veier eller monorail fester seg til delen; fjern haken på dem du ikke vil ha.</translation>
+    </message>
+    <message>
+        <source>They are found from the track pieces in the model that nothing else is joined to. A point you uncheck is left out of the part, so nothing snaps there.</source>
+        <translation>De finnes fra skinnebitene i modellen som ingenting annet er koblet til. Et punkt uten hake utelates fra delen, så ingenting fester seg der.</translation>
+    </message>
+    <message>
+        <source>Where it goes</source>
+        <translation>Hvor den havner</translation>
+    </message>
+    <message>
+        <source>Put what you import in the layout you have open, or start a new layout with it.</source>
+        <translation>Legg det du importerer i layoutet du har åpent, eller start et nytt layout med det.</translation>
+    </message>
+    <message>
+        <source>In this layout it goes in the middle of your view, on the sheet you pick, and everyone editing sees it at once. A new layout is yours, named as you type it here.</source>
+        <translation>I dette layoutet havner det midt i visningen din, på arket du velger, og alle som redigerer ser det med en gang. Et nytt layout er ditt, med navnet du skriver her.</translation>
+    </message>
+    <message>
+        <source>Missing parts</source>
+        <translation>Manglende deler</translation>
+    </message>
+    <message>
+        <source>Parts the site’s libraries don’t have are left out of the picture.</source>
+        <translation>Deler nettstedets biblioteker ikke har, mangler i bildet.</translation>
+    </message>
+    <message>
+        <source>A newer LDraw library, LDD’s brick database or Studio’s own library may have them; a site admin sets these up in Admin › Model import. The desktop app can also import the model with the libraries on your computer.</source>
+        <translation>Et nyere LDraw-bibliotek, LDDs klossdatabase eller Studios eget bibliotek kan ha dem; en administrator for nettstedet setter dem opp i Admin › Model import. Skrivebordsappen kan også importere modellen med bibliotekene på datamaskinen din.</translation>
     </message>
     <message>
         <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
@@ -3179,6 +3247,42 @@
     <message>
         <source>Tap ? for tips, and to take the other tours.</source>
         <translation>Trykk ? for tips, og for å ta de andre omvisningene.</translation>
+    </message>
+    <message>
+        <source>Importing a model</source>
+        <translation>Importere en modell</translation>
+    </message>
+    <message>
+        <source>The desktop app’s importer</source>
+        <translation>Skrivebordsappens importør</translation>
+    </message>
+    <message>
+        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
+        <translation>Nettstedet leser modellen din slik skrivebordsappen gjør. Filen slettes så snart den er lest.</translation>
+    </message>
+    <message>
+        <source>Line it up</source>
+        <translation>Rett den inn</translation>
+    </message>
+    <message>
+        <source>Turn the model and move it until its studs sit on the grid.</source>
+        <translation>Drei modellen og flytt den til knottene havner på rutenettet.</translation>
+    </message>
+    <message>
+        <source>Snap points</source>
+        <translation>Festepunkter</translation>
+    </message>
+    <message>
+        <source>Uncheck any connection point you don’t want on the part.</source>
+        <translation>Fjern haken på hvert koblingspunkt du ikke vil ha på delen.</translation>
+    </message>
+    <message>
+        <source>Where it goes</source>
+        <translation>Hvor den havner</translation>
+    </message>
+    <message>
+        <source>Put it in the layout you have open, or start a new layout with it.</source>
+        <translation>Legg den i layoutet du har åpent, eller start et nytt layout med den.</translation>
     </message>
 </context>
 <context>

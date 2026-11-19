@@ -815,20 +815,8 @@
         <translation>Eine Layout-Datei aus dieser App, BlueBrick, TrackDesigner oder 4DBrix öffnen.</translation>
     </message>
     <message>
-        <source>A layout file (.bld-layout) or a BlueBrick map (.bbm) opens with everything in it. TrackDesigner (.tdl) and 4DBrix (.ncp) parts are matched to parts in the library, and any that have no match are listed after opening. LDraw, BrickLink Studio and LDD models are imported in the desktop app.</source>
-        <translation>Eine Layout-Datei (.bld-layout) oder eine BlueBrick-Karte (.bbm) öffnet sich mit allem darin. Teile aus TrackDesigner (.tdl) und 4DBrix (.ncp) werden Teilen der Bibliothek zugeordnet, und solche ohne Treffer werden nach dem Öffnen aufgelistet. LDraw-, BrickLink-Studio- und LDD-Modelle werden in der Desktop-App importiert.</translation>
-    </message>
-    <message>
         <source>Models from other programs</source>
         <translation>Modelle aus anderen Programmen</translation>
-    </message>
-    <message>
-        <source>LDraw, BrickLink Studio and LDD files are imported in the desktop app, then saved here.</source>
-        <translation>LDraw-, BrickLink-Studio- und LDD-Dateien werden in der Desktop-App importiert und dann hier gespeichert.</translation>
-    </message>
-    <message>
-        <source>The desktop app reads them, matches their parts to the library and lists the ones it can’t match. It can also turn a model into a custom part. Then choose File › Save to Server… and it shows up here.</source>
-        <translation>Die Desktop-App liest sie, ordnet ihre Teile der Bibliothek zu und listet die auf, die sie nicht zuordnen kann. Sie kann auch ein Modell in ein eigenes Teil verwandeln. Wähle dann Datei › Auf dem Server speichern…, und es erscheint hier.</translation>
     </message>
     <message>
         <source>Download as</source>
@@ -921,6 +909,86 @@
     <message>
         <source>Share with a person by email, or with a club you’re in so its members can place it in the club’s layouts; your own parts that it uses come along, to look at only. You see how many layouts use it and in which clubs, never the names of other people’s layouts. Stopping a share, or a club’s admins taking the module off their club, leaves the copies already placed as they are, with no more updates.</source>
         <translation>Teile mit einer Person per E-Mail oder mit einem Club, in dem du bist, damit seine Mitglieder es in den Layouts des Clubs platzieren können; deine eigenen Teile, die es verwendet, kommen mit, nur zum Ansehen. Du siehst, wie viele Layouts es verwenden und in welchen Clubs, aber nie die Namen der Layouts anderer Leute. Wenn du das Teilen beendest oder die Admins eines Clubs das Modul aus ihrem Club nehmen, bleiben die schon platzierten Kopien, wie sie sind, ohne weitere Updates.</translation>
+    </message>
+    <message>
+        <source>A layout file (.bld-layout) or a BlueBrick map (.bbm) opens with everything in it. TrackDesigner (.tdl) and 4DBrix (.ncp) parts are matched to parts in the library, and any that have no match are listed after opening. LDraw, BrickLink Studio and LDD models are imported, as the desktop app imports them.</source>
+        <translation>Eine Layout-Datei (.bld-layout) oder eine BlueBrick-Karte (.bbm) öffnet sich mit allem darin. Teile aus TrackDesigner (.tdl) und 4DBrix (.ncp) werden Teilen der Bibliothek zugeordnet, und solche ohne Treffer werden nach dem Öffnen aufgelistet. LDraw-, BrickLink-Studio- und LDD-Modelle werden importiert, so wie die Desktop-App sie importiert.</translation>
+    </message>
+    <message>
+        <source>When this site can’t import a model, the desktop app can, and then saves it here.</source>
+        <translation>Wenn diese Website ein Modell nicht importieren kann, kann es die Desktop-App, und sie speichert es dann hier.</translation>
+    </message>
+    <message>
+        <source>The desktop app reads LDraw, BrickLink Studio and LDD files with your own libraries, matches their parts and lists the ones it can’t match. It can also turn a model into a custom part. Then choose File › Save to Server… and it shows up here.</source>
+        <translation>Die Desktop-App liest LDraw-, BrickLink-Studio- und LDD-Dateien mit deinen eigenen Bibliotheken, ordnet ihre Teile zu und listet die auf, die sie nicht zuordnen kann. Sie kann auch ein Modell in ein eigenes Teil verwandeln. Wähle dann Datei › Auf dem Server speichern…, und es erscheint hier.</translation>
+    </message>
+    <message>
+        <source>Importing a model</source>
+        <translation>Ein Modell importieren</translation>
+    </message>
+    <message>
+        <source>Bring in an LDraw, BrickLink Studio or LDD model, read by the desktop app’s own importer.</source>
+        <translation>Hol dir ein LDraw-, BrickLink-Studio- oder LDD-Modell, gelesen vom eigenen Importer der Desktop-App.</translation>
+    </message>
+    <message>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>Das Modell wird ein eigenes Teil, das du überall platzieren kannst, oder bei einem LDraw-Layout werden seine Teile einzeln platziert. Die Datei wird vom Server gelöscht, sobald sie gelesen ist. Teile, die die Bibliotheken nicht haben, fehlen im Bild, und die Vorschau sagt, wie viele.</translation>
+    </message>
+    <message>
+        <source>One part or its parts</source>
+        <translation>Ein Teil oder seine Teile</translation>
+    </message>
+    <message>
+        <source>Make the whole model one custom part, or place each of its parts as File › Open does.</source>
+        <translation>Mach das ganze Modell zu einem eigenen Teil, oder platziere jedes seiner Teile so, wie Datei › Öffnen es tut.</translation>
+    </message>
+    <message>
+        <source>One custom part keeps a building or a set together, drawn from above, with snap points where its track ends. Placing its parts one by one is for an LDraw layout: each piece becomes a part you can move, if the parts library has it.</source>
+        <translation>Ein eigenes Teil hält ein Gebäude oder ein Set zusammen, von oben gezeichnet, mit Andockpunkten dort, wo seine Gleise enden. Die Teile einzeln zu platzieren ist für ein LDraw-Layout gedacht: Jedes Stück wird ein Teil, das du bewegen kannst, wenn die Teilebibliothek es hat.</translation>
+    </message>
+    <message>
+        <source>Lining it up with the studs</source>
+        <translation>An den Noppen ausrichten</translation>
+    </message>
+    <message>
+        <source>Which studs go on the grid: Automatic puts the flat bottom plates on it, else centers the model.</source>
+        <translation>Welche Noppen auf dem Raster liegen: Automatisch legt die flachen Bodenplatten darauf, sonst wird das Modell zentriert.</translation>
+    </message>
+    <message>
+        <source>Bottom plates puts the model’s lowest layer on whole studs; Bounding box centers the whole model in whole studs. Move it by half a stud down to a sixteenth with the arrow buttons until the studs line up. Reset goes back to Automatic.</source>
+        <translation>Bodenplatten legt die unterste Lage des Modells auf ganze Noppen; Umgebender Rahmen zentriert das ganze Modell in ganzen Noppen. Verschiebe es mit den Pfeiltasten um eine halbe bis eine sechzehntel Noppe, bis die Noppen passen. Zurücksetzen kehrt zu Automatisch zurück.</translation>
+    </message>
+    <message>
+        <source>Where track, road or monorail snap on to the part; uncheck any you don’t want.</source>
+        <translation>Wo Gleise, Straßen oder Einschienenbahnen am Teil andocken; entferne das Häkchen bei denen, die du nicht willst.</translation>
+    </message>
+    <message>
+        <source>They are found from the track pieces in the model that nothing else is joined to. A point you uncheck is left out of the part, so nothing snaps there.</source>
+        <translation>Sie kommen von den Gleisstücken im Modell, an die nichts anderes anschließt. Ein Punkt ohne Häkchen fehlt im Teil, also dockt dort nichts an.</translation>
+    </message>
+    <message>
+        <source>Where it goes</source>
+        <translation>Wohin es kommt</translation>
+    </message>
+    <message>
+        <source>Put what you import in the layout you have open, or start a new layout with it.</source>
+        <translation>Leg das Importierte in das geöffnete Layout, oder beginne damit ein neues Layout.</translation>
+    </message>
+    <message>
+        <source>In this layout it goes in the middle of your view, on the sheet you pick, and everyone editing sees it at once. A new layout is yours, named as you type it here.</source>
+        <translation>In diesem Layout landet es in der Mitte deiner Ansicht, auf dem Blatt, das du wählst, und alle, die es bearbeiten, sehen es sofort. Ein neues Layout gehört dir und heißt so, wie du es hier eingibst.</translation>
+    </message>
+    <message>
+        <source>Missing parts</source>
+        <translation>Fehlende Teile</translation>
+    </message>
+    <message>
+        <source>Parts the site’s libraries don’t have are left out of the picture.</source>
+        <translation>Teile, die die Bibliotheken der Website nicht haben, fehlen im Bild.</translation>
+    </message>
+    <message>
+        <source>A newer LDraw library, LDD’s brick database or Studio’s own library may have them; a site admin sets these up in Admin › Model import. The desktop app can also import the model with the libraries on your computer.</source>
+        <translation>Eine neuere LDraw-Bibliothek, die Steindatenbank von LDD oder die eigene Bibliothek von Studio haben sie vielleicht; ein Website-Admin richtet sie unter Admin › Model import ein. Die Desktop-App kann das Modell auch mit den Bibliotheken auf deinem Computer importieren.</translation>
     </message>
     <message>
         <source>Everything in one file: parts, sheets, venue, labels, modules and the budget.</source>
@@ -3179,6 +3247,42 @@
     <message>
         <source>Tap ? for tips, and to take the other tours.</source>
         <translation>Tippe auf ? für Tipps und für die anderen Touren.</translation>
+    </message>
+    <message>
+        <source>Importing a model</source>
+        <translation>Ein Modell importieren</translation>
+    </message>
+    <message>
+        <source>The desktop app’s importer</source>
+        <translation>Der Importer der Desktop-App</translation>
+    </message>
+    <message>
+        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
+        <translation>Die Website liest dein Modell so wie die Desktop-App. Die Datei wird gelöscht, sobald sie gelesen ist.</translation>
+    </message>
+    <message>
+        <source>Line it up</source>
+        <translation>Ausrichten</translation>
+    </message>
+    <message>
+        <source>Turn the model and move it until its studs sit on the grid.</source>
+        <translation>Dreh das Modell und verschiebe es, bis seine Noppen auf dem Raster liegen.</translation>
+    </message>
+    <message>
+        <source>Snap points</source>
+        <translation>Andockpunkte</translation>
+    </message>
+    <message>
+        <source>Uncheck any connection point you don’t want on the part.</source>
+        <translation>Entferne das Häkchen bei jedem Verbindungspunkt, den du am Teil nicht willst.</translation>
+    </message>
+    <message>
+        <source>Where it goes</source>
+        <translation>Wohin es kommt</translation>
+    </message>
+    <message>
+        <source>Put it in the layout you have open, or start a new layout with it.</source>
+        <translation>Leg es in das geöffnete Layout, oder beginne damit ein neues Layout.</translation>
     </message>
 </context>
 <context>

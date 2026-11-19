@@ -79,6 +79,15 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("Tours", "Tap the layout's name to jump to a saved view, or to see the whole layout."),
     QT_TRANSLATE_NOOP("Tours", "Make a picture of the layout to send to friends."),
     QT_TRANSLATE_NOOP("Tours", "Tap ? for tips, and to take the other tours."),
+    QT_TRANSLATE_NOOP("Tours", "Importing a model"),
+    QT_TRANSLATE_NOOP("Tours", "The desktop app’s importer"),
+    QT_TRANSLATE_NOOP("Tours", "The site reads your model as the desktop app does. The file is deleted once it’s read."),
+    QT_TRANSLATE_NOOP("Tours", "Line it up"),
+    QT_TRANSLATE_NOOP("Tours", "Turn the model and move it until its studs sit on the grid."),
+    QT_TRANSLATE_NOOP("Tours", "Snap points"),
+    QT_TRANSLATE_NOOP("Tours", "Uncheck any connection point you don’t want on the part."),
+    QT_TRANSLATE_NOOP("Tours", "Where it goes"),
+    QT_TRANSLATE_NOOP("Tours", "Put it in the layout you have open, or start a new layout with it."),
 };
 
 }  // namespace
