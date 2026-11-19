@@ -825,10 +825,12 @@ QIcon bellIcon(const QColor& ink) {
 }  // namespace
 
 NotificationBell::NotificationBell(sync::NotificationCenter& center, QWidget* parent) : QToolButton(parent), center_(center) {
-    // "tool.": the toolbar shows it as an icon only when the window is narrow.
-    setObjectName(QStringLiteral("tool.notifications"));
+    setObjectName(QStringLiteral("notificationBell"));
     setText(tr("Notifications"));
-    setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    // The bell alone, as on the web (its name is its tooltip and what a
+    // screen reader says), so the toolbar keeps its room.
+    setToolButtonStyle(Qt::ToolButtonIconOnly);
+    setIconSize(QSize(24, 24));
     setIcon(bellIcon(palette().color(QPalette::ButtonText)));
     tours::tag(this, QStringLiteral("notifications.bell"));
     connect(&center_, &sync::NotificationCenter::countsChanged, this, &NotificationBell::updateCount);
