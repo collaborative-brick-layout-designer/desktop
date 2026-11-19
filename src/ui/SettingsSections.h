@@ -17,13 +17,14 @@ class QVBoxLayout;
 namespace bld::ui::settings {
 
 enum class Change {
-    SnapStep,       // editing/snapStepStuds
-    TurnStep,       // editing/rotationStepDegrees
-    PaintColor,     // editing/paintColor
-    ZoomSpeed,      // general/wheelZoomFactor
-    MapLook,        // connection points, module frames and names, venue labels: redraw
-    ModuleFolder,   // modules/libraryPath
-    PartsList,      // what the Parts panel lists
+    SnapStep,      // editing/snapStepStuds
+    TurnStep,      // editing/rotationStepDegrees
+    PaintColor,    // editing/paintColor
+    ZoomSpeed,     // general/wheelZoomFactor
+    MapLook,       // connection points, module frames and names, venue labels: redraw
+    ModuleFolder,  // modules/libraryPath
+    PartsList,     // what the Parts panel lists
+    Notifications, // notifications/systemShow and systemBackgroundOnly
 };
 using Changed = std::function<void(Change)>;
 

@@ -4703,6 +4703,27 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::DesktopNotifier</name>
+    <message>
+        <source>Click to open it.</source>
+        <translation>Klik om hem te openen.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n new notification(s)</source>
+        <translation>
+            <numerusform>%n nieuwe melding</numerusform>
+            <numerusform>%n nieuwe meldingen</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>and %n more</source>
+        <translation>
+            <numerusform>en nog %n</numerusform>
+            <numerusform>en nog %n</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::DownloadCenterDialog</name>
     <message>
         <source>Download Center</source>
@@ -10481,6 +10502,268 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationSettingsPanel</name>
+    <message>
+        <source>Show system notifications</source>
+        <translation>Systeemmeldingen tonen</translation>
+    </message>
+    <message>
+        <source>Only when the app is in the background</source>
+        <translation>Alleen als de app op de achtergrond staat</translation>
+    </message>
+    <message>
+        <source>New notifications pop up on this computer while the app runs, as each server&apos;s Pop-up choices below say, and wait for its quiet hours. Several at once come as one.</source>
+        <translation>Nieuwe meldingen verschijnen op deze computer zolang de app draait, zoals de pop-upkeuzes van elke server hieronder zeggen, en wachten op zijn stille uren. Meerdere tegelijk komen als één.</translation>
+    </message>
+    <message>
+        <source>This computer has no notification area, so the app can&apos;t show system notifications here. The bell still counts them.</source>
+        <translation>Deze computer heeft geen meldingengebied, dus de app kan hier geen systeemmeldingen tonen. De bel telt ze nog steeds.</translation>
+    </message>
+    <message>
+        <source>How notifications reach you</source>
+        <translation>Hoe meldingen je bereiken</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <source>Saved or not</source>
+        <translation>Opgeslagen of niet</translation>
+    </message>
+    <message>
+        <source>Saving…</source>
+        <translation>Opslaan…</translation>
+    </message>
+    <message>
+        <source>Saved.</source>
+        <translation>Opgeslagen.</translation>
+    </message>
+    <message>
+        <source>In the app</source>
+        <translation>In de app</translation>
+    </message>
+    <message>
+        <source>%1: in the app</source>
+        <translation>%1: in de app</translation>
+    </message>
+    <message>
+        <source>Warnings always show, so you never miss one.</source>
+        <translation>Waarschuwingen verschijnen altijd, zodat je er geen mist.</translation>
+    </message>
+    <message>
+        <source>Emailed with the invite’s link, always.</source>
+        <translation>Altijd gemaild, met de link van de uitnodiging.</translation>
+    </message>
+    <message>
+        <source>Always emailed, for your account’s safety.</source>
+        <translation>Altijd gemaild, voor de veiligheid van je account.</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>E-mail</translation>
+    </message>
+    <message>
+        <source>%1: email</source>
+        <translation>%1: e-mail</translation>
+    </message>
+    <message>
+        <source>Right away</source>
+        <translation>Meteen</translation>
+    </message>
+    <message>
+        <source>Daily summary</source>
+        <translation>Dagelijkse samenvatting</translation>
+    </message>
+    <message>
+        <source>Weekly summary</source>
+        <translation>Wekelijkse samenvatting</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Uit</translation>
+    </message>
+    <message>
+        <source>Pop-up</source>
+        <translation>Pop-up</translation>
+    </message>
+    <message>
+        <source>%1: pop-up</source>
+        <translation>%1: pop-up</translation>
+    </message>
+    <message>
+        <source>Your server doesn&apos;t have notification settings yet. Choose them on its website.</source>
+        <translation>Je server heeft nog geen meldingsinstellingen. Kies ze op zijn website.</translation>
+    </message>
+    <message>
+        <source>Sign in to a server to choose how its notifications reach you.</source>
+        <translation>Meld je aan bij een server om te kiezen hoe zijn meldingen je bereiken.</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Laden…</translation>
+    </message>
+    <message>
+        <source>These are your settings on %1.</source>
+        <translation>Dit zijn je instellingen op %1.</translation>
+    </message>
+    <message>
+        <source>This site can’t send email right now. Your email choices are kept, and work once a site admin sets up email.</source>
+        <translation>Deze site kan nu geen e-mail versturen. Je keuzes blijven bewaard en werken zodra een sitebeheerder e-mail instelt.</translation>
+    </message>
+    <message>
+        <source>Pause all email</source>
+        <translation>Alle e-mail pauzeren</translation>
+    </message>
+    <message>
+        <source>No notification emails at all, summaries included, until you turn this off. Invites and account emails still come.</source>
+        <translation>Helemaal geen meldingsmails, ook geen samenvattingen, tot je dit uitzet. Uitnodigingen en accountmails komen nog wel.</translation>
+    </message>
+    <message>
+        <source>Pause all pop-ups</source>
+        <translation>Alle pop-ups pauzeren</translation>
+    </message>
+    <message>
+        <source>No pop-up notifications on any of your devices until you turn this off.</source>
+        <translation>Geen pop-upmeldingen op je apparaten tot je dit uitzet.</translation>
+    </message>
+    <message>
+        <source>What you hear about</source>
+        <translation>Waarover je hoort</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n kind(s)</source>
+        <translation>
+            <numerusform>%n soort</numerusform>
+            <numerusform>%n soorten</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 by email</source>
+        <translation>%1 per e-mail</translation>
+    </message>
+    <message>
+        <source>no email</source>
+        <translation>geen e-mail</translation>
+    </message>
+    <message>
+        <source>%1 off in the app</source>
+        <translation>%1 uit in de app</translation>
+    </message>
+    <message>
+        <source>Quiet hours</source>
+        <translation>Stille uren</translation>
+    </message>
+    <message>
+        <source>Emails and pop-ups that come in quiet hours wait until they end. Summaries aren’t held.</source>
+        <translation>E-mails en pop-ups die in stille uren komen, wachten tot die voorbij zijn. Samenvattingen worden niet vastgehouden.</translation>
+    </message>
+    <message>
+        <source>Quiet hours start</source>
+        <translation>Begin van de stille uren</translation>
+    </message>
+    <message>
+        <source>Quiet hours end</source>
+        <translation>Einde van de stille uren</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>Van</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>tot</translation>
+    </message>
+    <message>
+        <source>Summaries and time zone</source>
+        <translation>Samenvattingen en tijdzone</translation>
+    </message>
+    <message>
+        <source>Daily summary at</source>
+        <translation>Dagelijkse samenvatting om</translation>
+    </message>
+    <message>
+        <source>Daily summary time</source>
+        <translation>Tijd van de dagelijkse samenvatting</translation>
+    </message>
+    <message>
+        <source>Weekly summary on</source>
+        <translation>Wekelijkse samenvatting op</translation>
+    </message>
+    <message>
+        <source>Weekly summary day</source>
+        <translation>Dag van de wekelijkse samenvatting</translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation>zondag</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation>maandag</translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation>dinsdag</translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation>woensdag</translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation>donderdag</translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation>vrijdag</translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation>zaterdag</translation>
+    </message>
+    <message>
+        <source>The weekly summary goes at the daily summary’s time. Each lists what you haven’t read since the last one.</source>
+        <translation>De wekelijkse samenvatting komt op de tijd van de dagelijkse. Elke somt op wat je sinds de vorige niet hebt gelezen.</translation>
+    </message>
+    <message>
+        <source>Time zone</source>
+        <translation>Tijdzone</translation>
+    </message>
+    <message>
+        <source>Use this computer’s (%1)</source>
+        <translation>Die van deze computer gebruiken (%1)</translation>
+    </message>
+    <message>
+        <source>Your clubs</source>
+        <translation>Je clubs</translation>
+    </message>
+    <message>
+        <source>Mute a busy club, or keep it in the app but out of your email or pop-ups. Warnings always reach you.</source>
+        <translation>Demp een drukke club, of houd hem in de app maar uit je e-mail of pop-ups. Waarschuwingen bereiken je altijd.</translation>
+    </message>
+    <message>
+        <source>Mute</source>
+        <translation>Dempen</translation>
+    </message>
+    <message>
+        <source>Mute %1</source>
+        <translation>%1 dempen</translation>
+    </message>
+    <message>
+        <source>Email from %1</source>
+        <translation>E-mail van %1</translation>
+    </message>
+    <message>
+        <source>Pop-ups</source>
+        <translation>Pop-ups</translation>
+    </message>
+    <message>
+        <source>Pop-ups from %1</source>
+        <translation>Pop-ups van %1</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::NotificationsWindow</name>
     <message>
         <source>Notifications</source>
@@ -12180,6 +12463,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Take a tour:</source>
         <translation>Volg een rondleiding:</translation>
+    </message>
+    <message>
+        <source>Notifications</source>
+        <translation>Meldingen</translation>
     </message>
     <message>
         <source>Servers</source>

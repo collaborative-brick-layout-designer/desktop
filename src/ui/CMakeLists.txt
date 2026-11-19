@@ -103,6 +103,10 @@ add_library(bld_ui STATIC
     LoadingCard.cpp
     NoticeArea.cpp
     NotificationViews.cpp
+    NotificationSettingsPanel.cpp
+    NotificationSettingsPanel.h
+    DesktopNotifier.cpp
+    DesktopNotifier.h
     NotificationViews.h
     Autosave.cpp
     Autosave.h

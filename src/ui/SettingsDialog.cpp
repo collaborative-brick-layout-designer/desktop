@@ -1,4 +1,5 @@
 #include "SettingsDialog.h"
+#include "NotificationSettingsPanel.h"
 #include "SettingsSections.h"
 
 #include "help/HelpButton.h"
@@ -488,6 +489,19 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
         }
     }
 
+    // Notifications: this computer's pop-ups, and how each server's reach you.
+    {
+        notificationCard_ = card(tr("Notifications"));
+        changed_ = changed;
+        notificationPanel_ = new NotificationSettingsPanel(
+            nullptr,
+            [this] {
+                if (changed_) changed_(settings::Change::Notifications);
+            },
+            this);
+        notificationCard_->addWidget(notificationPanel_);
+    }
+
     // Servers: where your club's layouts, modules and these settings live.
     {
         auto* v = card(tr("Servers"), QStringLiteral("servers.pick"));
@@ -565,6 +579,18 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
 
     connect(&store_, &PrefsStore::changed, this, [this] { load(); });
     load();
+}
+
+void SettingsDialog::setNotifications(sync::NotificationCenter* center) {
+    auto* fresh = new NotificationSettingsPanel(
+        center,
+        [this] {
+            if (changed_) changed_(settings::Change::Notifications);
+        },
+        this);
+    notificationCard_->replaceWidget(notificationPanel_, fresh);
+    notificationPanel_->deleteLater();
+    notificationPanel_ = fresh;
 }
 
 void SettingsDialog::setManageServers(const std::function<void()>& manage) {

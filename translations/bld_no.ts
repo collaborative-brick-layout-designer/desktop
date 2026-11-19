@@ -4703,6 +4703,27 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::DesktopNotifier</name>
+    <message>
+        <source>Click to open it.</source>
+        <translation>Klikk for å åpne det.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n new notification(s)</source>
+        <translation>
+            <numerusform>%n nytt varsel</numerusform>
+            <numerusform>%n nye varsler</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>and %n more</source>
+        <translation>
+            <numerusform>og %n til</numerusform>
+            <numerusform>og %n til</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::DownloadCenterDialog</name>
     <message>
         <source>Download Center</source>
@@ -10481,6 +10502,268 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationSettingsPanel</name>
+    <message>
+        <source>Show system notifications</source>
+        <translation>Vis systemvarsler</translation>
+    </message>
+    <message>
+        <source>Only when the app is in the background</source>
+        <translation>Bare når appen er i bakgrunnen</translation>
+    </message>
+    <message>
+        <source>New notifications pop up on this computer while the app runs, as each server&apos;s Pop-up choices below say, and wait for its quiet hours. Several at once come as one.</source>
+        <translation>Nye varsler dukker opp på denne datamaskinen mens appen kjører, slik hver servers popup-valg nedenfor sier, og venter til stilletimene er over. Flere samtidig kommer som ett.</translation>
+    </message>
+    <message>
+        <source>This computer has no notification area, so the app can&apos;t show system notifications here. The bell still counts them.</source>
+        <translation>Denne datamaskinen har ikke noe varslingsområde, så appen kan ikke vise systemvarsler her. Bjella teller dem likevel.</translation>
+    </message>
+    <message>
+        <source>How notifications reach you</source>
+        <translation>Hvordan varsler når deg</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <source>Saved or not</source>
+        <translation>Lagret eller ikke</translation>
+    </message>
+    <message>
+        <source>Saving…</source>
+        <translation>Lagrer…</translation>
+    </message>
+    <message>
+        <source>Saved.</source>
+        <translation>Lagret.</translation>
+    </message>
+    <message>
+        <source>In the app</source>
+        <translation>I appen</translation>
+    </message>
+    <message>
+        <source>%1: in the app</source>
+        <translation>%1: i appen</translation>
+    </message>
+    <message>
+        <source>Warnings always show, so you never miss one.</source>
+        <translation>Advarsler vises alltid, så du aldri går glipp av en.</translation>
+    </message>
+    <message>
+        <source>Emailed with the invite’s link, always.</source>
+        <translation>Sendes alltid på e-post, med lenken i invitasjonen.</translation>
+    </message>
+    <message>
+        <source>Always emailed, for your account’s safety.</source>
+        <translation>Sendes alltid på e-post, for kontoens sikkerhet.</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>E-post</translation>
+    </message>
+    <message>
+        <source>%1: email</source>
+        <translation>%1: e-post</translation>
+    </message>
+    <message>
+        <source>Right away</source>
+        <translation>Med en gang</translation>
+    </message>
+    <message>
+        <source>Daily summary</source>
+        <translation>Daglig sammendrag</translation>
+    </message>
+    <message>
+        <source>Weekly summary</source>
+        <translation>Ukentlig sammendrag</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Av</translation>
+    </message>
+    <message>
+        <source>Pop-up</source>
+        <translation>Popup</translation>
+    </message>
+    <message>
+        <source>%1: pop-up</source>
+        <translation>%1: popup</translation>
+    </message>
+    <message>
+        <source>Your server doesn&apos;t have notification settings yet. Choose them on its website.</source>
+        <translation>Serveren din har ikke varselinnstillinger ennå. Velg dem på nettstedet.</translation>
+    </message>
+    <message>
+        <source>Sign in to a server to choose how its notifications reach you.</source>
+        <translation>Logg inn på en server for å velge hvordan varslene derfra når deg.</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Laster inn…</translation>
+    </message>
+    <message>
+        <source>These are your settings on %1.</source>
+        <translation>Dette er innstillingene dine på %1.</translation>
+    </message>
+    <message>
+        <source>This site can’t send email right now. Your email choices are kept, and work once a site admin sets up email.</source>
+        <translation>Nettstedet kan ikke sende e-post akkurat nå. Valgene dine lagres og virker når en administrator har satt opp e-post.</translation>
+    </message>
+    <message>
+        <source>Pause all email</source>
+        <translation>Sett all e-post på pause</translation>
+    </message>
+    <message>
+        <source>No notification emails at all, summaries included, until you turn this off. Invites and account emails still come.</source>
+        <translation>Ingen varsel-e-post i det hele tatt, heller ikke sammendrag, til du slår av dette. Invitasjoner og konto-e-post kommer fortsatt.</translation>
+    </message>
+    <message>
+        <source>Pause all pop-ups</source>
+        <translation>Sett alle popuper på pause</translation>
+    </message>
+    <message>
+        <source>No pop-up notifications on any of your devices until you turn this off.</source>
+        <translation>Ingen popup-varsler på noen av enhetene dine til du slår av dette.</translation>
+    </message>
+    <message>
+        <source>What you hear about</source>
+        <translation>Hva du får høre om</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n kind(s)</source>
+        <translation>
+            <numerusform>%n type</numerusform>
+            <numerusform>%n typer</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 by email</source>
+        <translation>%1 på e-post</translation>
+    </message>
+    <message>
+        <source>no email</source>
+        <translation>ingen e-post</translation>
+    </message>
+    <message>
+        <source>%1 off in the app</source>
+        <translation>%1 av i appen</translation>
+    </message>
+    <message>
+        <source>Quiet hours</source>
+        <translation>Stilletimer</translation>
+    </message>
+    <message>
+        <source>Emails and pop-ups that come in quiet hours wait until they end. Summaries aren’t held.</source>
+        <translation>E-post og popuper som kommer i stilletimene venter til de er over. Sammendrag holdes ikke tilbake.</translation>
+    </message>
+    <message>
+        <source>Quiet hours start</source>
+        <translation>Stilletimer starter</translation>
+    </message>
+    <message>
+        <source>Quiet hours end</source>
+        <translation>Stilletimer slutter</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>Fra</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>til</translation>
+    </message>
+    <message>
+        <source>Summaries and time zone</source>
+        <translation>Sammendrag og tidssone</translation>
+    </message>
+    <message>
+        <source>Daily summary at</source>
+        <translation>Daglig sammendrag kl.</translation>
+    </message>
+    <message>
+        <source>Daily summary time</source>
+        <translation>Tid for daglig sammendrag</translation>
+    </message>
+    <message>
+        <source>Weekly summary on</source>
+        <translation>Ukentlig sammendrag på</translation>
+    </message>
+    <message>
+        <source>Weekly summary day</source>
+        <translation>Dag for ukentlig sammendrag</translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation>søndag</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation>mandag</translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation>tirsdag</translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation>onsdag</translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation>torsdag</translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation>fredag</translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation>lørdag</translation>
+    </message>
+    <message>
+        <source>The weekly summary goes at the daily summary’s time. Each lists what you haven’t read since the last one.</source>
+        <translation>Det ukentlige sammendraget kommer på tidspunktet for det daglige. Hvert lister det du ikke har lest siden forrige.</translation>
+    </message>
+    <message>
+        <source>Time zone</source>
+        <translation>Tidssone</translation>
+    </message>
+    <message>
+        <source>Use this computer’s (%1)</source>
+        <translation>Bruk denne datamaskinens (%1)</translation>
+    </message>
+    <message>
+        <source>Your clubs</source>
+        <translation>Klubbene dine</translation>
+    </message>
+    <message>
+        <source>Mute a busy club, or keep it in the app but out of your email or pop-ups. Warnings always reach you.</source>
+        <translation>Demp en travel klubb, eller behold den i appen men utenfor e-post og popuper. Advarsler når deg alltid.</translation>
+    </message>
+    <message>
+        <source>Mute</source>
+        <translation>Demp</translation>
+    </message>
+    <message>
+        <source>Mute %1</source>
+        <translation>Demp %1</translation>
+    </message>
+    <message>
+        <source>Email from %1</source>
+        <translation>E-post fra %1</translation>
+    </message>
+    <message>
+        <source>Pop-ups</source>
+        <translation>Popuper</translation>
+    </message>
+    <message>
+        <source>Pop-ups from %1</source>
+        <translation>Popuper fra %1</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::NotificationsWindow</name>
     <message>
         <source>Notifications</source>
@@ -12180,6 +12463,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Take a tour:</source>
         <translation>Ta en omvisning:</translation>
+    </message>
+    <message>
+        <source>Notifications</source>
+        <translation>Varsler</translation>
     </message>
     <message>
         <source>Servers</source>

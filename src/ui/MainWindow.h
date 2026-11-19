@@ -747,6 +747,7 @@ private:
     void openLayoutOn(const QUrl& server, const QString& token, const QString& layoutId, const QString& fallbackTitle);
     bld::sync::NotificationCenter* notifications_ = nullptr;
     class NotificationBell* notificationBell_ = nullptr;
+    class DesktopNotifier* desktopNotifier_ = nullptr;
     // Keychain answers may come after the window is gone: they check this first.
     std::shared_ptr<int> alive_ = std::make_shared<int>(0);
 public:
@@ -759,6 +760,7 @@ public:
     void openNotification(const QUrl& server, const bld::sync::NotificationItem& n, const NotificationPlace& place);
     bld::sync::NotificationCenter* notifications() const { return notifications_; }
     class NotificationBell* notificationBell() const { return notificationBell_; }
+    class DesktopNotifier* desktopNotifier() const { return desktopNotifier_; }
     class NotificationPanel* notificationPanel() const;
     class NotificationsWindow* notificationsWindow() const;
     // Opens a page of the website (QDesktopServices; tests replace it).
