@@ -15,7 +15,23 @@
 #include <unistd.h>
 #endif
 
+#if defined(__SANITIZE_ADDRESS__)
+#define BLD_ASAN 1
+#elif defined(__has_feature)
+#if __has_feature(address_sanitizer)
+#define BLD_ASAN 1
+#endif
+#endif
+
 namespace bld::importserver {
+
+bool builtWithAsan() {
+#if defined(BLD_ASAN)
+    return true;
+#else
+    return false;
+#endif
+}
 
 #if defined(__linux__)
 namespace {
@@ -124,7 +140,7 @@ QJsonObject enterSandbox(const SandboxLimits& limits) {
 #if defined(__linux__)
     const rlim_t mb = rlim_t(1) << 20;
     const bool limited = setLimit(RLIMIT_CPU, static_cast<rlim_t>(limits.cpuSeconds))
-                      && setLimit(RLIMIT_AS, static_cast<rlim_t>(limits.memoryMb) * mb)
+                      && (builtWithAsan() || setLimit(RLIMIT_AS, static_cast<rlim_t>(limits.memoryMb) * mb))
                       && setLimit(RLIMIT_FSIZE, static_cast<rlim_t>(limits.fileSizeMb) * mb)
                       && setLimit(RLIMIT_NOFILE, static_cast<rlim_t>(limits.openFiles))
                       && setLimit(RLIMIT_CORE, 0);

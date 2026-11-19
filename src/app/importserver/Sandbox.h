@@ -31,6 +31,10 @@ struct SandboxLimits {
 // Must run while the process has one thread.
 QJsonObject enterSandbox(const SandboxLimits& limits);
 
+// Built with AddressSanitizer (tests only): its shadow memory needs far more
+// address space than any limit, so RLIMIT_AS is left alone there.
+bool builtWithAsan();
+
 // After enterSandbox: whether a TCP socket can still be made (tests).
 bool canOpenSocket();
 

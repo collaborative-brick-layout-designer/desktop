@@ -1,9 +1,8 @@
 # Debian (bookworm) packages bld-import-server needs beside its bundle: the
-# system libraries Qt links that the bundle leaves to the system. The web
+# system libraries Qt links that the bundle leaves to the system (it brings
+# libglvnd's GL dispatch libraries itself, so no Mesa). The web
 # image installs exactly these (its Dockerfile); scripts/ci/import-server-smoke.sh
 # proves the bundle runs with them on the web image's base.
-libgl1
-libegl1
 libfontconfig1
 libfreetype6
 libglib2.0-0

@@ -68,7 +68,11 @@ int main(int argc, char** argv) {
     bool sandboxCheck = false;
     for (int i = 1; i < argc; ++i) {
         const std::string a = argv[i];
-        const auto value = [&](int* out) { return i + 1 < argc && positiveInt(argv[++i], out); };
+        const auto value = [&](int* out) {
+            if (i + 1 >= argc) return false;
+            ++i;
+            return positiveInt(argv[i], out);
+        };
         if (a == "--version") {
             std::printf("bld-import-server %s\n", BLD_VERSION);
             return 0;

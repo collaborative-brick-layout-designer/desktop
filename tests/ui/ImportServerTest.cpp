@@ -8,6 +8,7 @@
 // BLD_LDD_IMPORT (+ BLD_LDD_ROOT, BLD_LDD_LDRAW_XML, BLD_LDRAW, BLD_PARTS).
 
 #include "app/importserver/ImportServer.h"
+#include "app/importserver/Sandbox.h"
 #include "core/Map.h"
 #include "import/mapformats/LDrawMap.h"
 #include "parts/PartsLibrary.h"
@@ -370,7 +371,8 @@ TEST(ImportServer, ZipBombsAndPathsOutOfTheFolderAreRefused) {
     EXPECT_NE(importserver::checkArchive(zip(QStringLiteral("liar.io"), { liar }), limits), QString());
 }
 
-#if defined(BLD_IMPORT_SERVER_EXE)
+// The program runs on the server only (Linux): its lock-down and limits are Linux's.
+#if defined(BLD_IMPORT_SERVER_EXE) && defined(__linux__)
 namespace {
 QJsonObject runExe(const QStringList& args, int* exitCode = nullptr) {
     QProcess p;
@@ -415,7 +417,7 @@ TEST(ImportServer, TheProgramGivesTheSameResult) {
     EXPECT_TRUE(exe.value(QStringLiteral("sandbox")).toObject().value(QStringLiteral("rlimits")).toBool());
 }
 
-#if defined(__linux__) && (defined(__x86_64__) || defined(__aarch64__))
+#if defined(__x86_64__) || defined(__aarch64__)
 TEST(ImportServer, TheSandboxBlocksNetworkProgramsAndProcesses) {
     const QJsonObject out = runExe({ QStringLiteral("--sandbox-check") });
     const QJsonObject s = out.value(QStringLiteral("sandbox")).toObject();
@@ -428,6 +430,7 @@ TEST(ImportServer, TheSandboxBlocksNetworkProgramsAndProcesses) {
 #endif
 
 TEST(ImportServer, TooLittleMemoryEndsTheRunInsteadOfHanging) {
+    if (importserver::builtWithAsan()) GTEST_SKIP() << "AddressSanitizer needs more address space than any limit";
     QTemporaryDir models, out;
     const QString req = models.filePath(QStringLiteral("request.json"));
     writeFile(req, QJsonDocument(QJsonObject{ { QStringLiteral("command"), QStringLiteral("analyse") },
