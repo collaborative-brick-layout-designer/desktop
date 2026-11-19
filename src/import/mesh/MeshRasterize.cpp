@@ -160,6 +160,16 @@ RasterizeResult rasterizeMeshTopDown(const geom::Mesh& mesh,
         const QPointF centre = out.meshBoundsXZ.center();
         out.spriteStuds = QRectF(centre.x() - w / 2.0, centre.y() - h / 2.0, w, h);
     }
+    // A model bigger than any layout (a stray part far away, or a damaged
+    // file): no picture, rather than gigabytes of buffer or an int that
+    // overflows. 128 megapixels is about 350 x 350 studs at 32 px a stud.
+    constexpr double kMaxPixels = 128'000'000;
+    const double wPx = out.spriteStuds.width() * opt.pxPerStud + 2.0 * opt.marginPx;
+    const double hPx = out.spriteStuds.height() * opt.pxPerStud + 2.0 * opt.marginPx;
+    if (!(wPx > 0 && hPx > 0) || wPx * hPx > kMaxPixels) {
+        out.image = QImage();
+        return out;
+    }
     const int wStud = qRound(out.spriteStuds.width());
     const int hStud = qRound(out.spriteStuds.height());
     const double canvasX0 = out.spriteStuds.left();

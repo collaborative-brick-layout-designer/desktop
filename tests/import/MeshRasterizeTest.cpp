@@ -305,3 +305,26 @@ TEST(MeshRasterizeOutlines, ABricksOwnTopEdgesStillDraw) {
     // Inside the brick top, away from its edges, nothing is drawn.
     EXPECT_EQ(img.pixelColor(4 * 32, 4 * 32), plain.pixelColor(4 * 32, 4 * 32));
 }
+
+TEST(MeshRasterize, AModelBiggerThanAnyLayoutGivesNoPicture) {
+    // Two specks 2 million studs apart (a damaged or hostile file): no
+    // picture, not terabytes of buffer.
+    geom::Mesh m;
+    geom::Triangle a, b;
+    a.v[0] = { 0, 0, 0 };
+    a.v[1] = { 20, 0, 0 };
+    a.v[2] = { 0, 0, 20 };
+    b = a;
+    for (auto& v : b.v) v.x += 40'000'000;
+    a.color = b.color = QColor(255, 0, 0);
+    m.tris = { a, b };
+    EXPECT_TRUE(import::rasterizeMeshTopDown(m).image.isNull());
+    // A big real layout (300 x 300 studs at 32 px) still draws.
+    import::RasterizeOptions opt;
+    opt.pxPerStud = 32;
+    opt.ssaa = 1;
+    b = a;
+    for (auto& v : b.v) { v.x += 6000; v.z += 6000; }
+    m.tris = { a, b };
+    EXPECT_FALSE(import::rasterizeMeshTopDown(m, opt).image.isNull());
+}

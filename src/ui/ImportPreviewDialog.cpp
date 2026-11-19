@@ -283,11 +283,7 @@ ImportPreviewDialog::ImportPreviewDialog(PreparedPart part, const QStringList& c
     // Where it goes.
     auto* form = new QFormLayout();
     // The model's own name, else its file's: what the part will be called.
-    QString suggested = part_.title;
-    if (suggested.isEmpty() || suggested.compare(QStringLiteral("Untitled Model"), Qt::CaseInsensitive) == 0
-        || suggested.size() > 80)
-        suggested = QFileInfo(part_.source).completeBaseName();
-    nameEdit_ = new QLineEdit(suggested, this);
+    nameEdit_ = new QLineEdit(suggestedImportName(part_), this);
     nameEdit_->setObjectName(QStringLiteral("partName"));
     form->addRow(tr("Save as:"), nameEdit_);
     categoryBox_ = new QComboBox(this);
@@ -410,21 +406,10 @@ void ImportPreviewDialog::refreshSprite() {
 }
 
 PreparedPart ImportPreviewDialog::result() const {
-    PreparedPart out = part_;
-    out.designer = designerEdit_->text().trimmed();
-    QString url = designerUrlEdit_->text().trimmed();
-    // Only web links: anything else isn't something to click.
-    if (!url.isEmpty() && !url.startsWith(QLatin1String("http://"), Qt::CaseInsensitive)
-        && !url.startsWith(QLatin1String("https://"), Qt::CaseInsensitive))
-        url = QStringLiteral("https://") + url;
-    out.designerUrl = out.designer.isEmpty() ? QString() : url;
-    out.connections.clear();
-    for (int i = 0; i < part_.connections.size(); ++i) {
-        const auto& c = part_.connections[i];
-        if (connList_->item(i)->checkState() == Qt::Checked) out.connections.append(c);
-        else out.droppedConnections.append(QPointF(c.xStuds, c.yStuds));
-    }
-    return out;
+    QVector<bool> keep;
+    for (int i = 0; i < part_.connections.size(); ++i)
+        keep << (connList_->item(i)->checkState() == Qt::Checked);
+    return finishPreview(part_, keep, designerEdit_->text(), designerUrlEdit_->text());
 }
 
 void ImportPreviewDialog::presetAlignment(ImportAlign align, QPointF nudgeStuds) {

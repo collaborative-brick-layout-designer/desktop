@@ -30,6 +30,17 @@ target_link_libraries(bld_ui_common PUBLIC Qt6::Core Qt6::Gui Qt6::Widgets)
 # Help pages fall back to the source tree's help/ in development builds.
 target_compile_definitions(bld_ui_common PRIVATE BLD_HELP_SOURCE_DIR="${CMAKE_SOURCE_DIR}/help")
 
+# Model import (LDraw / Studio / LDD -> a custom part): the app's Tools ›
+# Import and the server's headless converter (src/app/bld_import_server.cpp)
+# both run exactly this.
+add_library(bld_import_pipeline STATIC
+    ImportPipeline.cpp
+    ImportPipeline.h
+)
+target_include_directories(bld_import_pipeline PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
+target_link_libraries(bld_import_pipeline
+    PUBLIC bld_import bld_rendering bld_parts bld_core Qt6::Core Qt6::Gui Qt6::Widgets)
+
 add_library(bld_ui STATIC
     MainWindow.cpp
     MainWindow.h
@@ -121,8 +132,6 @@ add_library(bld_ui STATIC
     DownloadCenterDialog.h
     EditDialogs.cpp
     EditDialogs.h
-    ImportPipeline.cpp
-    ImportPipeline.h
     ImportPreviewDialog.cpp
     ImportPreviewDialog.h
     FindDialog.cpp
@@ -176,6 +185,7 @@ target_link_libraries(bld_ui
         bld_rendering
         bld_edit
         bld_import
+        bld_import_pipeline
         Qt6::Core
         Qt6::Gui
         Qt6::Network

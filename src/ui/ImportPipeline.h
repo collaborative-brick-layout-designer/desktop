@@ -120,6 +120,18 @@ void rotatePart(PreparedPart& part, int quarterTurns);
 // of the ones removed then.
 void applyImportEdits(PreparedPart& part, int quarterTurns, const QVector<QPointF>& dropped);
 
+// The name the preview suggests for the part: the model's own title, else
+// its file's name without the extension.
+QString suggestedImportName(const PreparedPart& part);
+
+// What the preview hands back when it's accepted: `shown` (rotated and
+// aligned as the preview showed it) with the connection points whose `keep`
+// entry is false dropped (a missing entry keeps it), and the designer and
+// link as typed. A link without http(s):// gets https://, and there is no
+// link without a designer.
+PreparedPart finishPreview(const PreparedPart& shown, const QVector<bool>& keep,
+                           const QString& designer, const QString& designerUrl);
+
 // Write `part` as <destDir>/<name>.{xml,png,gif}. With replaceExisting an
 // existing part of that name is overwritten; otherwise a -2, -3 ... suffix
 // keeps both. The source and preview edits are recorded for Re-import from

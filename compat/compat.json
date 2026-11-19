@@ -17,6 +17,13 @@
   },
   "doc": { "schemaVersion": 5, "createdAs": 1, "minReadable": 1, "why": { "2": "Ruler items are Y.Maps, area sheets have a cellOffset, parts and rulers are ordered by z, so concurrent edits merge. A layout is made in shape createdAs and moves to 2 when an edit needs it; builds that read only 1 then refuse it.", "3": "A part added to a module or taken out of it is a key of its own (sidecarItems p:<n>:<moduleId>:<partId>) on top of the list the module was made with, so two people changing one module's parts at once both keep their change (docs/module-members.md). A layout moves to 3 with its first such key; builds that read only 2 would miss the keys, and refuse it.", "4": "A module shared read-only by its owner (sidecarItems m:<id> `shared`) is locked (docs/shared-modules.md). A layout moves to 4 with its first shared module; builds that read only 3 would let its parts be changed, and refuse it.",
       "5": "An update of a shared module keeps its unchanged parts (docs/shared-modules.md, phase 3), so an earlier undo step can point at some of its parts and not the others; builds that read 5 finish such an undo for the whole module. A layout moves to 5 with its first such update (meta.keptIds); builds that read only 4 would pull the module apart, and refuse it." } },
+  "importServer": {
+    "about": "The website's LDraw, Studio and LDD import runs the desktop's own importer, bld-import-server (desktop docs/import-server.md), built by the desktop's CI as the release asset `asset`. A server needs at least `minimum`, or its import is off and Admin says why. The web image installs `pinned`, checked by its SHA-256; an empty pinned version builds the image without it.",
+    "minimum": "2.1.10",
+    "asset": "bld-import-server-linux-x86_64.tar.gz",
+    "releaseUrl": "https://github.com/collaborative-brick-layout-designer/desktop/releases/download/v{version}/bld-import-server-linux-x86_64.tar.gz",
+    "pinned": { "version": "", "sha256": "" }
+  },
   "sidecar": { "schemaVersion": 1 },
   "layoutFile": { "version": 1 },
   "protocols": ["y-websocket/1"],
