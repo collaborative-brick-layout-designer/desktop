@@ -8,3 +8,4 @@ libfreetype6
 libglib2.0-0
 libdbus-1-3
 libxkbcommon0
+libx11-6
