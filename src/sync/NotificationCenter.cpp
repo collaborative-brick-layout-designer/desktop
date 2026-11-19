@@ -185,16 +185,16 @@ void NotificationCenter::onHint(const QString& key, const QJsonObject& hint) {
 }
 
 void NotificationCenter::ask(const QString& key) {
-    Live* l = live_.value(key);
-    if (!l) return;
-    const int gen = ++l->generation;
-    const QUrl url = l->src.url;
+    Live* self = live_.value(key);
+    if (!self) return;
+    const int gen = ++self->generation;
+    const QUrl url = self->src.url;
     // The answers find their source by key; one dropped (or asked again) meanwhile is left alone.
     const auto current = [this, key, gen]() -> Live* {
         Live* now = live_.value(key);
         return now && now->generation == gen ? now : nullptr;
     };
-    l->api->count(
+    self->api->count(
         [this, current, key, url](const NotificationCounts& counts) {
             Live* l = current();
             if (!l) return;
@@ -214,15 +214,15 @@ void NotificationCenter::ask(const QString& key) {
                 q.unreadOnly = true;
                 q.limit = 30;
                 l->api->list(q, [this, current, url](const NotificationPage& page) {
-                    Live* l = current();
-                    if (!l) return;
+                    Live* here = current();
+                    if (!here) return;
                     QList<NotificationItem> fresh;
                     for (const NotificationItem& n : page.items) {
-                        if (l->seen.contains(n.id)) continue;
-                        l->seen.insert(n.id);
-                        if (l->baselined && !n.read()) fresh << n;
+                        if (here->seen.contains(n.id)) continue;
+                        here->seen.insert(n.id);
+                        if (here->baselined && !n.read()) fresh << n;
                     }
-                    l->baselined = true;
+                    here->baselined = true;
                     if (!fresh.isEmpty()) emit arrived(url, fresh);
                 }, {});
             }
@@ -231,17 +231,17 @@ void NotificationCenter::ask(const QString& key) {
                 q.types = { QStringLiteral("moderation.warning"), QStringLiteral("moderation.final_warning") };
                 q.limit = 50;
                 l->api->list(q, [this, current](const NotificationPage& page) {
-                    Live* l = current();
-                    if (!l) return;
+                    Live* here = current();
+                    if (!here) return;
                     QList<NotificationItem> open;
                     for (const NotificationItem& n : page.items)
                         if (n.needsAcknowledge()) open << n;
-                    if (open.size() == l->src.warnings.size()) {
+                    if (open.size() == here->src.warnings.size()) {
                         bool same = true;
-                        for (qsizetype i = 0; i < open.size(); ++i) same = same && open[i].id == l->src.warnings[i].id;
+                        for (qsizetype i = 0; i < open.size(); ++i) same = same && open[i].id == here->src.warnings[i].id;
                         if (same) return;
                     }
-                    l->src.warnings = std::move(open);
+                    here->src.warnings = std::move(open);
                     emit warningsChanged();
                 }, {});
             } else if (!l->src.warnings.isEmpty()) {
@@ -266,10 +266,10 @@ void NotificationCenter::ask(const QString& key) {
 }
 
 void NotificationCenter::askSettings(const QString& key) {
-    Live* l = live_.value(key);
-    if (!l) return;
-    const QUrl url = l->src.url;
-    l->api->settings(
+    Live* self = live_.value(key);
+    if (!self) return;
+    const QUrl url = self->src.url;
+    self->api->settings(
         [this, key, url](const NotificationSettings& s) {
             Live* l = live_.value(key);
             if (!l) return;
@@ -279,8 +279,8 @@ void NotificationCenter::askSettings(const QString& key) {
         [](const ServerRefusal&) {
             // A server before delivery settings: pop-ups follow the app's own switch only.
         });
-    if (l->src.types.isEmpty())
-        l->api->types(
+    if (self->src.types.isEmpty())
+        self->api->types(
             [this, key, url](const NotificationTypes& t) {
                 Live* l = live_.value(key);
                 if (!l) return;
@@ -291,8 +291,8 @@ void NotificationCenter::askSettings(const QString& key) {
 }
 
 void NotificationCenter::saveSettings(const QUrl& server, const QJsonObject& change, const std::function<void(const ServerRefusal*)>& done) {
-    Live* l = liveOf(server);
-    if (!l) {
+    Live* self = liveOf(server);
+    if (!self) {
         if (done) {
             ServerRefusal r;
             r.message = tr("You're not signed in to this server.");
@@ -301,7 +301,7 @@ void NotificationCenter::saveSettings(const QUrl& server, const QJsonObject& cha
         return;
     }
     const QString key = keyOf(server);
-    l->api->saveSettings(
+    self->api->saveSettings(
         change,
         [this, key, server, done](const NotificationSettings& s) {
             if (Live* l = live_.value(key)) l->src.settings = s;

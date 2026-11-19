@@ -107,15 +107,18 @@ NotificationPlace placeFor(const sync::NotificationItem& n) {
     static const QRegularExpression editor(QStringLiteral("^/editor/([^/]+)$"));
     static const QRegularExpression module(QStringLiteral("^/modules/([^/]+)$"));
     static const QRegularExpression club(QStringLiteral("^/orgs/([^/]+)(/admin)?$"));
-    if (const auto m = editor.match(path); m.hasMatch()) {
+    const auto inEditor = editor.match(path);
+    const auto inModule = module.match(path);
+    const auto inClub = club.match(path);
+    if (inEditor.hasMatch()) {
         p.kind = NotificationPlace::Layout;
-        p.id = m.captured(1);
-    } else if (const auto m = module.match(path); m.hasMatch()) {
+        p.id = inEditor.captured(1);
+    } else if (inModule.hasMatch()) {
         p.kind = NotificationPlace::Module;
-        p.id = m.captured(1);
-    } else if (const auto m = club.match(path); m.hasMatch()) {
+        p.id = inModule.captured(1);
+    } else if (inClub.hasMatch()) {
         p.kind = NotificationPlace::Club;
-        p.id = m.captured(1);
+        p.id = inClub.captured(1);
     } else if (path == QLatin1String("/orgs")) {
         p.kind = NotificationPlace::Clubs;
     } else if (path == QLatin1String("/notifications")) {
@@ -166,7 +169,7 @@ void NotificationRow::build() {
             if (QWidget* w = it->widget()) w->deleteLater();
             else if (QLayout* l = it->layout()) {
                 while (QLayoutItem* inner = l->takeAt(0)) {
-                    if (QWidget* w = inner->widget()) w->deleteLater();
+                    if (QWidget* child = inner->widget()) child->deleteLater();
                     delete inner;
                 }
             }
@@ -424,8 +427,8 @@ NotificationList::NotificationList(sync::NotificationCenter& center, bool compac
         for (const QUrl& u : picked()) {
             sync::NotificationApi* api = center_.api(u);
             if (!api) continue;
-            sync::NotificationCenter* center = &center_;
-            api->readAll({}, sync::whileAlive(this, [center, u](int) { center->changedHere(u); }),
+            sync::NotificationCenter* bell = &center_;
+            api->readAll({}, sync::whileAlive(this, [bell, u](int) { bell->changedHere(u); }),
                          sync::whileAlive(this, [this](const sync::ServerRefusal& r) {
                              status_->setText(sync::describe(r));
                              status_->show();

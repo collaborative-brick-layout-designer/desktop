@@ -54,11 +54,9 @@ void MainWindow::setupNotifications() {
     notifications_->setTokenStore(tokens_);
 }
 
-NotificationPanel* MainWindow::notificationPanel() const { return qobject_cast<NotificationPanel*>(notificationPanel_.data()); }
+NotificationPanel* MainWindow::notificationPanel() const { return qobject_cast<NotificationPanel*>(notificationPanel_); }
 
-NotificationsWindow* MainWindow::notificationsWindow() const {
-    return qobject_cast<NotificationsWindow*>(notificationsWindow_.data());
-}
+NotificationsWindow* MainWindow::notificationsWindow() const { return qobject_cast<NotificationsWindow*>(notificationsWindow_); }
 
 void MainWindow::toggleNotificationPanel() {
     NotificationPanel* panel = notificationPanel();
@@ -84,6 +82,7 @@ void MainWindow::showNotificationsWindow() {
         w = new NotificationsWindow(*notifications_, this);
         notificationsWindow_ = w;
         w->setAttribute(Qt::WA_DeleteOnClose);
+        connect(w, &QObject::destroyed, this, [this] { notificationsWindow_ = nullptr; });
         connect(w->list(), &NotificationList::openRequested, this, &MainWindow::openNotification);
     }
     w->list()->reload();
