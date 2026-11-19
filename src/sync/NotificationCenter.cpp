@@ -194,8 +194,16 @@ void NotificationCenter::ask(const QString& key) {
         Live* now = live_.value(key);
         return now && now->generation == gen ? now : nullptr;
     };
+    // The first look and what's new: any answer for this same sign-in counts, even one asked
+    // again meanwhile. Dropping it would let the next look become the first, and whatever
+    // arrived in between would never pop up.
+    const QString token = self->token;
+    const auto sameSignIn = [this, key, self, token]() -> Live* {
+        Live* now = live_.value(key);
+        return now == self && now->token == token ? now : nullptr;
+    };
     self->api->count(
-        [this, current, key, url](const NotificationCounts& counts) {
+        [this, current, sameSignIn, key, url](const NotificationCounts& counts) {
             Live* l = current();
             if (!l) return;
             const bool wasKnown = l->src.support == Support::Yes;
@@ -213,8 +221,8 @@ void NotificationCenter::ask(const QString& key) {
                 NotificationQuery q;
                 q.unreadOnly = true;
                 q.limit = 30;
-                l->api->list(q, [this, current, url](const NotificationPage& page) {
-                    Live* here = current();
+                l->api->list(q, [this, sameSignIn, url](const NotificationPage& page) {
+                    Live* here = sameSignIn();
                     if (!here) return;
                     QList<NotificationItem> fresh;
                     for (const NotificationItem& n : page.items) {
