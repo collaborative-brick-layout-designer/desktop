@@ -102,6 +102,8 @@ add_library(bld_ui STATIC
     ViewsPanel.h
     LoadingCard.cpp
     NoticeArea.cpp
+    NotificationViews.cpp
+    NotificationViews.h
     Autosave.cpp
     Autosave.h
     RecoverDialog.cpp
@@ -179,7 +181,7 @@ target_link_libraries(bld_ui
 
 # Live layouts on a collaborative server, and File › Open from Server….
 target_sources(bld_ui PRIVATE LiveLayout.cpp LiveLayout.h MainWindowLive.cpp PrefsSync.cpp PrefsSync.h
-    MainWindowModules.cpp ServerLibrary.cpp ServerLibrary.h SaveModuleDialog.cpp SaveModuleDialog.h
+    MainWindowModules.cpp MainWindowNotifications.cpp ServerLibrary.cpp ServerLibrary.h SaveModuleDialog.cpp SaveModuleDialog.h
     ModuleLibraryDialogs.cpp ModuleLibraryDialogs.h ModuleLibraryMenu.h MainWindowModuleLibrary.cpp
     ServerWindow.cpp ServerWindow.h ClubMembersDialog.cpp ClubMembersDialog.h SendToServerDialogs.cpp SendToServerDialogs.h MainWindowSend.cpp
     SaveSetDialog.cpp SaveSetDialog.h)

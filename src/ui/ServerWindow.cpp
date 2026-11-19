@@ -748,6 +748,15 @@ ClubMembersDialog* ServerWindow::membersDialog() const {
     return members_;
 }
 
+void ServerWindow::showClub(const QString& slug) {
+    if (library_.server().isValid()) QSettings().setValue(showSettingsKey(library_.server()), slug);
+    if (const int at = show_->findData(slug); at >= 0) {
+        show_->setCurrentIndex(at);
+        rebuild();
+    }
+    showTab(Tab::Layouts);
+}
+
 void ServerWindow::showMembers(const QString& slug) {
     if (members_ && members_->slug() != slug) {
         // Another club: this one's window goes (it deletes itself once closed).

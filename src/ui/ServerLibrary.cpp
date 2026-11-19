@@ -1,6 +1,7 @@
 #include "ServerLibrary.h"
 #include "ConfirmDialog.h"
 #include "ModuleShareDialog.h"
+#include "NotificationViews.h"
 #include "help/HelpButton.h"
 #include "ReturnWording.h"
 
@@ -616,6 +617,26 @@ void ServerModulesTab::rebuild() {
 QWidget* ServerModulesTab::clubWaitingLine(ServerLibrary& library, const sync::ClubRequestCount& w, QWidget* parent) {
     auto* box = new QWidget(parent);
     box->setObjectName(QStringLiteral("clubRequestsWaiting:") + w.slug);
+    sync::NotificationCenter* center = library.notifications();
+    // A server with notifications: answered right here.
+    if (center && center->support(library.server()) == sync::NotificationCenter::Support::Yes) {
+        auto* col = new QVBoxLayout(box);
+        col->setContentsMargins(4, 0, 4, 0);
+        auto* top = new QHBoxLayout();
+        auto* words = libraryMutedLabel(
+            tr("%1: %n partner request(s) or module offer(s) wait for your answer.", nullptr, w.count).arg(w.name), box);
+        top->addWidget(words, 1);
+        top->addWidget(new help::HelpButton(QStringLiteral("club.moduleOffers"), box), 0, Qt::AlignTop);
+        col->addLayout(top);
+        auto* answers = new NotificationRequests(
+            *center, library.server(), { QStringLiteral("club.partner_request"), QStringLiteral("club.offer_received") }, w.slug, box);
+        QObject::connect(answers, &NotificationRequests::openRequested, box,
+                         [&library](const QUrl& server, const sync::NotificationItem& n, const NotificationPlace& place) {
+                             library.openNotification(server, n, place);
+                         });
+        col->addWidget(answers);
+        return box;
+    }
     auto* row = new QHBoxLayout(box);
     row->setContentsMargins(4, 0, 4, 0);
     auto* words = libraryMutedLabel(

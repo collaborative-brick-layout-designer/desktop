@@ -48,6 +48,14 @@
 //   club-offer-withdraw <moduleId> <offerId>
 //   club-requests              what waits in the clubs we look after
 //   shared-detach <moduleId>   "Make it mine", the server's step
+//   notif-watch                the bell for this server, live (NotificationCenter):
+//                              ok {unread, waiting, warnings, supported}
+//   notif-count                the bell's counts now, as notif-watch says them
+//   notif-wait-unread <n> [ms] until the bell reaches n, from live hints alone
+//   notif-list                 the newest notifications: id, type, title, read,
+//                              outcome, actions
+//   notif-act <id> accept|decline
+//                              answer it in the app: ok {outcome, already, layoutId}
 //
 // Edits go through the app's lock on shared modules (edit/SharedLock.h), as
 // MapView's do: one that would change a shared module's parts, name or
@@ -57,6 +65,7 @@
 
 #include "sync/LayoutMerge.h"
 #include "sync/LibraryApi.h"
+#include "sync/NotificationCenter.h"
 #include "core/SharedModule.h"
 #include "edit/SharedLock.h"
 #include "parts/PartsLibrary.h"
@@ -84,6 +93,7 @@
 #include <deque>
 #include <functional>
 #include <iostream>
+#include <memory>
 #include <string>
 
 using namespace bld;
@@ -406,6 +416,56 @@ public:
                 answer(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(out).toJson(QJsonDocument::Compact)));
             }, refused());
             awaitAnswer();
+        } else if (cmd == QLatin1String("notif-watch")) {
+            // The bell's center for this server, live (its event stream).
+            if (!notifications_) {
+                notifications_ = std::make_unique<sync::NotificationCenter>();
+                notifications_->setReconnectDelay(500, 2000);
+            }
+            notifications_->setSignedIn(server_, token_);
+            const bool known = waitFor([&] { return notifications_->support(server_) != sync::NotificationCenter::Support::Unknown; }, 15000);
+            if (!known) reply(QStringLiteral("error no answer from the server"));
+            else reply(QStringLiteral("ok ") + notificationCounts());
+        } else if (cmd == QLatin1String("notif-count")) {
+            if (!notifications_) reply(QStringLiteral("error notif-watch first"));
+            else reply(QStringLiteral("ok ") + notificationCounts());
+        } else if (cmd == QLatin1String("notif-wait-unread") && a.size() >= 2) {
+            // Waits for the bell's number to reach N, from the live hints alone (nothing asks meanwhile).
+            const int n = a[1].toInt();
+            const int ms = a.size() > 2 ? a[2].toInt() : 20000;
+            if (!notifications_) reply(QStringLiteral("error notif-watch first"));
+            else if (waitFor([&] { return notifications_->totalUnread() >= n; }, ms)) reply(QStringLiteral("ok ") + notificationCounts());
+            else reply(QStringLiteral("error unread is ") + QString::number(notifications_->totalUnread()));
+        } else if (cmd == QLatin1String("notif-list")) {
+            sync::NotificationApi* api = notifications_ ? notifications_->api(server_) : nullptr;
+            if (!api) {
+                reply(QStringLiteral("error notif-watch first"));
+                return true;
+            }
+            sync::NotificationQuery q;
+            q.limit = 50;
+            api->list(q, [this](const sync::NotificationPage& page) {
+                QJsonArray out;
+                for (const auto& n : page.items)
+                    out.append(QJsonObject{ { QStringLiteral("id"), n.id }, { QStringLiteral("type"), n.type },
+                                            { QStringLiteral("title"), n.title }, { QStringLiteral("read"), n.read() },
+                                            { QStringLiteral("outcome"), n.outcome },
+                                            { QStringLiteral("actions"), QJsonArray::fromStringList(n.actions) } });
+                answer(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(out).toJson(QJsonDocument::Compact)));
+            }, refused());
+            awaitAnswer();
+        } else if (cmd == QLatin1String("notif-act") && a.size() == 3) {
+            sync::NotificationApi* api = notifications_ ? notifications_->api(server_) : nullptr;
+            if (!api) {
+                reply(QStringLiteral("error notif-watch first"));
+                return true;
+            }
+            api->act(a[1], a[2], [this](const sync::NotificationActResult& r) {
+                answer(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(QJsonObject{
+                    { QStringLiteral("outcome"), r.outcome }, { QStringLiteral("already"), r.already },
+                    { QStringLiteral("layoutId"), r.result.value(QLatin1String("layoutId")) } }).toJson(QJsonDocument::Compact)));
+            }, refused());
+            awaitAnswer();
         } else if (cmd == QLatin1String("peers")) {
             QJsonArray peers;
             for (const auto& state : session_.peers()) peers.append(state);
@@ -446,6 +506,15 @@ private:
     }
 
     // The server's API, signed in as the driver.
+    QString notificationCounts() const {
+        const auto* src = notifications_->source(server_);
+        const sync::NotificationCounts c = src ? src->counts : sync::NotificationCounts{};
+        return QString::fromUtf8(QJsonDocument(QJsonObject{
+            { QStringLiteral("unread"), c.unread }, { QStringLiteral("waiting"), c.waiting }, { QStringLiteral("warnings"), c.warnings },
+            { QStringLiteral("supported"), notifications_->support(server_) == sync::NotificationCenter::Support::Yes } })
+                                     .toJson(QJsonDocument::Compact));
+    }
+    std::unique_ptr<sync::NotificationCenter> notifications_;
     sync::LibraryApi& api() {
         api_.setBase(server_);
         api_.setToken(token_);

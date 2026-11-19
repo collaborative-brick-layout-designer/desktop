@@ -125,6 +125,8 @@ public:
     QUrl clubLogoPage() const;
     // "Members…" (shown for a club of yours picked in Show): its members, read only.
     QPushButton* clubMembersButton() const { return membersButton_; }
+    // Shows the club `slug`'s things (Show set to it, remembered), on the Layouts tab.
+    void showClub(const QString& slug);
     // Opens the members of the club `slug` (one at a time), in front.
     void showMembers(const QString& slug);
     // The members window, while it is open (tests).

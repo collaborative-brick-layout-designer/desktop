@@ -603,7 +603,7 @@ TEST_F(PartnerServerWindow, WhatWaitsForAClubsAnswerIsOnTheModulesTabAndTheClubs
         if (o->tour().steps[i].target == QLatin1String("club.moduleOffers")) at = i;
     ASSERT_GE(at, 0) << "the Partner clubs stop is in the tour while something waits";
     EXPECT_EQ(o->tour().steps[at].title, QStringLiteral("Partner clubs"));
-    EXPECT_TRUE(o->tour().steps[at].text.contains(QStringLiteral("Open on the Website")));
+    EXPECT_TRUE(o->tour().steps[at].text.contains(QStringLiteral("Accept or Decline")));
     while (o->step() < at) o->next();
     EXPECT_EQ(window_->currentTab(), Tab::Modules);
     EXPECT_EQ(o->target(), line);

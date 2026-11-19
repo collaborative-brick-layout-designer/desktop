@@ -1426,6 +1426,30 @@
         <source>It shows in club member lists, next to your cursor when you edit with others, and on things you share in the public catalog. You can change it any time on your Profile page.</source>
         <translation>クラブのメンバー一覧、みんなと編集するときのカーソルの横、公開カタログで共有したものに表示されます。プロフィールページでいつでも変更できます。</translation>
     </message>
+    <message>
+        <source>Notifications</source>
+        <translation>通知</translation>
+    </message>
+    <message>
+        <source>Requests, invites and news for you, newest first; the number is how many you haven’t read.</source>
+        <translation>あなたへのリクエスト、招待、お知らせを新しい順に表示します。数字はまだ読んでいない件数です。</translation>
+    </message>
+    <message>
+        <source>Answer requests and invites right here with Accept or Decline, and if someone in your club answered first, it says who. Open one, or use its tick, to mark it read or unread. Warnings stay at the top of the page until you choose “I understand”.</source>
+        <translation>リクエストや招待には、ここで「承諾」か「辞退」で答えられます。クラブの誰かが先に答えていれば、誰が答えたかが表示されます。開くかチェックを使うと、既読・未読を切り替えられます。警告は「わかりました」を選ぶまでページの上に残ります。</translation>
+    </message>
+    <message>
+        <source>Notification settings</source>
+        <translation>通知の設定</translation>
+    </message>
+    <message>
+        <source>Choose, for each kind of notification, whether it shows in the app, how it’s emailed, and when it’s quiet.</source>
+        <translation>通知の種類ごとに、アプリに表示するか、メールでどう届くか、いつ静かにするかを選びます。</translation>
+    </message>
+    <message>
+        <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
+        <translation>グループを開くと種類ごとに見られます。メールはすぐ、毎日か毎週のまとめ、または送らないを選べます。おやすみ時間中のメールは終わるまで待ちます。にぎやかなクラブをミュートしたり、すべてのメールを一時停止したりもできます。</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -1465,6 +1489,135 @@
     <message>
         <source>%1, %2 and %3 others are here too</source>
         <translation>%1、%2 とほか %3 人がここにいます</translation>
+    </message>
+</context>
+<context>
+    <name>NotificationWords</name>
+    <message>
+        <source>You</source>
+        <translation>あなた</translation>
+    </message>
+    <message>
+        <source>Someone</source>
+        <translation>誰か</translation>
+    </message>
+    <message>
+        <source>You let them in</source>
+        <translation>あなたが参加を認めました</translation>
+    </message>
+    <message>
+        <source>%1 let them in</source>
+        <translation>%1 が参加を認めました</translation>
+    </message>
+    <message>
+        <source>You accepted</source>
+        <translation>あなたが承諾しました</translation>
+    </message>
+    <message>
+        <source>%1 accepted</source>
+        <translation>%1 が承諾しました</translation>
+    </message>
+    <message>
+        <source>You declined</source>
+        <translation>あなたが辞退しました</translation>
+    </message>
+    <message>
+        <source>%1 declined</source>
+        <translation>%1 が辞退しました</translation>
+    </message>
+    <message>
+        <source>Taken back, so nothing to answer</source>
+        <translation>取り消されたので、答える必要はありません</translation>
+    </message>
+    <message>
+        <source>No longer waiting</source>
+        <translation>もう待っていません</translation>
+    </message>
+    <message>
+        <source>You understood</source>
+        <translation>確認済み</translation>
+    </message>
+    <message>
+        <source>just now</source>
+        <translation>たった今</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>%1 分前</translation>
+    </message>
+    <message>
+        <source>%1 h ago</source>
+        <translation>%1 時間前</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n day(s) ago</source>
+        <translation>
+            <numerusform>%n 日前</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Warnings and notes</source>
+        <translation>警告とお知らせ</translation>
+    </message>
+    <message>
+        <source>Clubs</source>
+        <translation>クラブ</translation>
+    </message>
+    <message>
+        <source>Sharing</source>
+        <translation>共有</translation>
+    </message>
+    <message>
+        <source>Shared modules</source>
+        <translation>共有モジュール</translation>
+    </message>
+    <message>
+        <source>Your account</source>
+        <translation>あなたのアカウント</translation>
+    </message>
+    <message>
+        <source>Let them in</source>
+        <translation>参加を認める</translation>
+    </message>
+    <message>
+        <source>Accept</source>
+        <translation>承諾</translation>
+    </message>
+    <message>
+        <source>Decline this request?</source>
+        <translation>このリクエストを辞退しますか？</translation>
+    </message>
+    <message>
+        <source>The request to join is turned down.</source>
+        <translation>参加リクエストは断られます。</translation>
+    </message>
+    <message>
+        <source>They can ask again later.</source>
+        <translation>あとでもう一度リクエストできます。</translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <translation>辞退</translation>
+    </message>
+    <message>
+        <source>Open the layout</source>
+        <translation>レイアウトを開く</translation>
+    </message>
+    <message>
+        <source>Show the module</source>
+        <translation>モジュールを表示</translation>
+    </message>
+    <message>
+        <source>Show the club</source>
+        <translation>クラブを表示</translation>
+    </message>
+    <message>
+        <source>Show your clubs</source>
+        <translation>あなたのクラブを表示</translation>
+    </message>
+    <message>
+        <source>Open on the website</source>
+        <translation>ウェブサイトで開く</translation>
     </message>
 </context>
 <context>
@@ -2946,8 +3099,16 @@
         <translation>パートナークラブは、そのつど承認しなくても、モジュールを互いに共有できます。管理者とマネージャーが、クラブのページで依頼し、返事をします。</translation>
     </message>
     <message>
-        <source>Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website.</source>
-        <translation>パートナーの依頼とモジュールの提案には、ウェブサイトで返事をします。クラブのタブに待っているものが出て、「ウェブサイトで開く」から開けます。</translation>
+        <source>Partner requests and offers wait on the Modules tab and in your notifications. Answer them there with Accept or Decline.</source>
+        <translation>パートナーのリクエストや提供は、モジュールタブと通知で待っています。そこで承諾か辞退で答えましょう。</translation>
+    </message>
+    <message>
+        <source>Your notifications</source>
+        <translation>あなたの通知</translation>
+    </message>
+    <message>
+        <source>Requests to join, invites and news from your clubs land here. Answer them with Accept or Decline, right from the list.</source>
+        <translation>参加リクエスト、招待、クラブのお知らせはここに届きます。一覧から承諾か辞退で答えましょう。</translation>
     </message>
     <message>
         <source>Your club&apos;s page</source>
@@ -3626,6 +3787,13 @@
     <message>
         <source>You stay credited as the author, and you can take it back while you’re a member.</source>
         <translation>作成者はあなたのままで、メンバーでいる間は取り戻せます。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::sync::NotificationCenter</name>
+    <message>
+        <source>You&apos;re not signed in to this server.</source>
+        <translation>このサーバーにサインインしていません。</translation>
     </message>
 </context>
 <context>
@@ -5893,6 +6061,10 @@ Save mine as a new version: this layout&apos;s copy becomes the module; theirs s
         <translation>「%1」を保存中…</translation>
     </message>
     <message>
+        <source>All notifications on the website</source>
+        <translation>ウェブサイトのすべての通知</translation>
+    </message>
+    <message>
         <source>Someone saved this module</source>
         <translation>誰かがこのモジュールを保存しました</translation>
     </message>
@@ -5961,10 +6133,6 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
     <message>
         <source>See what it&apos;s about</source>
         <translation>詳しく見る</translation>
-    </message>
-    <message>
-        <source>All notices</source>
-        <translation>すべてのお知らせ</translation>
     </message>
     <message>
         <source>Could not read %1: %2</source>
@@ -8946,6 +9114,14 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <source>Layout</source>
         <translation>レイアウト</translation>
     </message>
+    <message>
+        <source>See what it&apos;s about on the website</source>
+        <translation>ウェブサイトで内容を見る</translation>
+    </message>
+    <message>
+        <source>All notifications</source>
+        <translation>すべての通知</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -10036,6 +10212,199 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationBell</name>
+    <message>
+        <source>Notifications</source>
+        <translation>通知</translation>
+    </message>
+    <message numerus="yes">
+        <source>Notifications, %n unread</source>
+        <translation>
+            <numerusform>通知、未読 %n 件</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n notification(s) you haven&apos;t read</source>
+        <translation>
+            <numerusform>まだ読んでいない通知 %n 件</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Your notifications: requests, invites and news</source>
+        <translation>あなたの通知：リクエスト、招待、お知らせ</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n wait(s) for your answer</source>
+        <translation>
+            <numerusform>%n 件があなたの返事を待っています</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationList</name>
+    <message>
+        <source>All</source>
+        <translation>すべて</translation>
+    </message>
+    <message>
+        <source>Unread</source>
+        <translation>未読</translation>
+    </message>
+    <message>
+        <source>Type of notification</source>
+        <translation>通知の種類</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>サーバー</translation>
+    </message>
+    <message>
+        <source>Mark all as read</source>
+        <translation>すべて既読にする</translation>
+    </message>
+    <message>
+        <source>Search notifications</source>
+        <translation>通知を検索</translation>
+    </message>
+    <message>
+        <source>Show more</source>
+        <translation>もっと見る</translation>
+    </message>
+    <message>
+        <source>Every server</source>
+        <translation>すべてのサーバー</translation>
+    </message>
+    <message>
+        <source>Every type</source>
+        <translation>すべての種類</translation>
+    </message>
+    <message>
+        <source>All: %1</source>
+        <translation>すべて：%1</translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation>%1：%2</translation>
+    </message>
+    <message>
+        <source>Show fewer</source>
+        <translation>少なく表示</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this (new)</source>
+        <translation>
+            <numerusform>同様のものがあと %n 件（新着）</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this</source>
+        <translation>
+            <numerusform>同様のものがあと %n 件</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Unread (%1)</source>
+        <translation>未読（%1）</translation>
+    </message>
+    <message>
+        <source>Sign in to a server to see your notifications: requests, invites and news from your clubs.</source>
+        <translation>サーバーにサインインすると通知が見られます：リクエスト、招待、クラブのお知らせ。</translation>
+    </message>
+    <message>
+        <source>Your server doesn&apos;t have notifications yet. Its warnings and notes still show over the map.</source>
+        <translation>このサーバーにはまだ通知機能がありません。警告やお知らせは引き続きマップの上に表示されます。</translation>
+    </message>
+    <message>
+        <source>You&apos;re all caught up.</source>
+        <translation>すべて確認済みです。</translation>
+    </message>
+    <message>
+        <source>No notifications match.</source>
+        <translation>一致する通知はありません。</translation>
+    </message>
+    <message>
+        <source>Nothing yet. Requests, invites and news from your clubs show up here.</source>
+        <translation>まだありません。リクエスト、招待、クラブのお知らせがここに表示されます。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationPanel</name>
+    <message>
+        <source>Notifications</source>
+        <translation>通知</translation>
+    </message>
+    <message>
+        <source>Close notifications</source>
+        <translation>通知を閉じる</translation>
+    </message>
+    <message>
+        <source>See all notifications</source>
+        <translation>すべての通知を見る</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationRow</name>
+    <message>
+        <source>%1 (new)</source>
+        <translation>%1（新着）</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>新着</translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation>%1：%2</translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <translation>辞退</translation>
+    </message>
+    <message>
+        <source>Decline: %1</source>
+        <translation>辞退：%1</translation>
+    </message>
+    <message>
+        <source>I understand</source>
+        <translation>わかりました</translation>
+    </message>
+    <message>
+        <source>This one has no place in the app: it opens on the website.</source>
+        <translation>これはアプリ内に表示する場所がないため、ウェブサイトで開きます。</translation>
+    </message>
+    <message>
+        <source>%1 (someone else answered first)</source>
+        <translation>%1（ほかの人が先に答えました）</translation>
+    </message>
+    <message>
+        <source>What happened</source>
+        <translation>結果</translation>
+    </message>
+    <message>
+        <source>Mark as unread</source>
+        <translation>未読にする</translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <translation>既読にする</translation>
+    </message>
+    <message>
+        <source>Mark “%1” as unread</source>
+        <translation>「%1」を未読にする</translation>
+    </message>
+    <message>
+        <source>Mark “%1” as read</source>
+        <translation>「%1」を既読にする</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationsWindow</name>
+    <message>
+        <source>Notifications</source>
+        <translation>通知</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::PartDifferencesDialog</name>
     <message>
         <source>Parts That Differ</source>
@@ -10859,6 +11228,12 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>From %1</source>
         <translation>%1 から</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for your answer.</source>
+        <translation>
+            <numerusform>%1：パートナーのリクエストまたはモジュールの提供 %n 件があなたの返事を待っています。</numerusform>
+        </translation>
     </message>
     <message>
         <source>v%1</source>

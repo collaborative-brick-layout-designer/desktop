@@ -1426,6 +1426,30 @@
         <source>It shows in club member lists, next to your cursor when you edit with others, and on things you share in the public catalog. You can change it any time on your Profile page.</source>
         <translation>Det visas i klubbarnas medlemslistor, bredvid din markör när du redigerar med andra, och på saker du delar i den offentliga katalogen. Du kan ändra det när som helst på din profilsida.</translation>
     </message>
+    <message>
+        <source>Notifications</source>
+        <translation>Aviseringar</translation>
+    </message>
+    <message>
+        <source>Requests, invites and news for you, newest first; the number is how many you haven’t read.</source>
+        <translation>Förfrågningar, inbjudningar och nyheter till dig, nyaste först; siffran visar hur många du inte har läst.</translation>
+    </message>
+    <message>
+        <source>Answer requests and invites right here with Accept or Decline, and if someone in your club answered first, it says who. Open one, or use its tick, to mark it read or unread. Warnings stay at the top of the page until you choose “I understand”.</source>
+        <translation>Svara på förfrågningar och inbjudningar direkt här med Acceptera eller Avböj; om någon i din klubb redan svarat står det vem. Öppna en, eller använd dess bock, för att markera den som läst eller oläst. Varningar ligger kvar överst på sidan tills du väljer ”Jag förstår”.</translation>
+    </message>
+    <message>
+        <source>Notification settings</source>
+        <translation>Aviseringsinställningar</translation>
+    </message>
+    <message>
+        <source>Choose, for each kind of notification, whether it shows in the app, how it’s emailed, and when it’s quiet.</source>
+        <translation>Välj för varje sorts avisering om den visas i appen, hur den mejlas och när det är tyst.</translation>
+    </message>
+    <message>
+        <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
+        <translation>Öppna en grupp för att se varje sort. Mejl kan komma direkt, i en daglig eller veckovis sammanfattning, eller inte alls. Tysta timmar håller kvar mejl tills de är slut, och du kan tysta en livlig klubb eller pausa all e-post.</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -1466,6 +1490,136 @@
     <message>
         <source>%1, %2 and %3 others are here too</source>
         <translation>%1, %2 och %3 till är också här</translation>
+    </message>
+</context>
+<context>
+    <name>NotificationWords</name>
+    <message>
+        <source>You</source>
+        <translation>Du</translation>
+    </message>
+    <message>
+        <source>Someone</source>
+        <translation>Någon</translation>
+    </message>
+    <message>
+        <source>You let them in</source>
+        <translation>Du släppte in dem</translation>
+    </message>
+    <message>
+        <source>%1 let them in</source>
+        <translation>%1 släppte in dem</translation>
+    </message>
+    <message>
+        <source>You accepted</source>
+        <translation>Du accepterade</translation>
+    </message>
+    <message>
+        <source>%1 accepted</source>
+        <translation>%1 accepterade</translation>
+    </message>
+    <message>
+        <source>You declined</source>
+        <translation>Du avböjde</translation>
+    </message>
+    <message>
+        <source>%1 declined</source>
+        <translation>%1 avböjde</translation>
+    </message>
+    <message>
+        <source>Taken back, so nothing to answer</source>
+        <translation>Återtagen, så inget att svara på</translation>
+    </message>
+    <message>
+        <source>No longer waiting</source>
+        <translation>Väntar inte längre</translation>
+    </message>
+    <message>
+        <source>You understood</source>
+        <translation>Du har förstått</translation>
+    </message>
+    <message>
+        <source>just now</source>
+        <translation>nyss</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>för %1 min sedan</translation>
+    </message>
+    <message>
+        <source>%1 h ago</source>
+        <translation>för %1 h sedan</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n day(s) ago</source>
+        <translation>
+            <numerusform>för %n dag sedan</numerusform>
+            <numerusform>för %n dagar sedan</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Warnings and notes</source>
+        <translation>Varningar och anteckningar</translation>
+    </message>
+    <message>
+        <source>Clubs</source>
+        <translation>Klubbar</translation>
+    </message>
+    <message>
+        <source>Sharing</source>
+        <translation>Delning</translation>
+    </message>
+    <message>
+        <source>Shared modules</source>
+        <translation>Delade moduler</translation>
+    </message>
+    <message>
+        <source>Your account</source>
+        <translation>Ditt konto</translation>
+    </message>
+    <message>
+        <source>Let them in</source>
+        <translation>Släpp in</translation>
+    </message>
+    <message>
+        <source>Accept</source>
+        <translation>Acceptera</translation>
+    </message>
+    <message>
+        <source>Decline this request?</source>
+        <translation>Avböja den här förfrågan?</translation>
+    </message>
+    <message>
+        <source>The request to join is turned down.</source>
+        <translation>Förfrågan om att gå med avböjs.</translation>
+    </message>
+    <message>
+        <source>They can ask again later.</source>
+        <translation>De kan fråga igen senare.</translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <translation>Avböj</translation>
+    </message>
+    <message>
+        <source>Open the layout</source>
+        <translation>Öppna layouten</translation>
+    </message>
+    <message>
+        <source>Show the module</source>
+        <translation>Visa modulen</translation>
+    </message>
+    <message>
+        <source>Show the club</source>
+        <translation>Visa klubben</translation>
+    </message>
+    <message>
+        <source>Show your clubs</source>
+        <translation>Visa dina klubbar</translation>
+    </message>
+    <message>
+        <source>Open on the website</source>
+        <translation>Öppna på webbplatsen</translation>
     </message>
 </context>
 <context>
@@ -2963,8 +3117,16 @@
         <translation>Partnerklubbar delar moduler åt båda hållen, utan att godkänna varje gång. Administratörer och ansvariga frågar och svarar på klubbens sida.</translation>
     </message>
     <message>
-        <source>Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website.</source>
-        <translation>Partnerförfrågningar och erbjudanden besvaras på webbplatsen. Fliken Klubbar visar vad som väntar, med ”Öppna på webbplatsen”.</translation>
+        <source>Partner requests and offers wait on the Modules tab and in your notifications. Answer them there with Accept or Decline.</source>
+        <translation>Partnerförfrågningar och erbjudanden väntar på fliken Moduler och i dina aviseringar. Svara där.</translation>
+    </message>
+    <message>
+        <source>Your notifications</source>
+        <translation>Dina aviseringar</translation>
+    </message>
+    <message>
+        <source>Requests to join, invites and news from your clubs land here. Answer them with Accept or Decline, right from the list.</source>
+        <translation>Förfrågningar om att gå med, inbjudningar och klubbnyheter hamnar här. Svara direkt i listan.</translation>
     </message>
     <message>
         <source>Your club&apos;s page</source>
@@ -3647,6 +3809,13 @@
     <message>
         <source>You stay credited as the author, and you can take it back while you’re a member.</source>
         <translation>Du står kvar som upphovsperson, och du kan ta tillbaka det så länge du är medlem.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::sync::NotificationCenter</name>
+    <message>
+        <source>You&apos;re not signed in to this server.</source>
+        <translation>Du är inte inloggad på den här servern.</translation>
     </message>
 </context>
 <context>
@@ -5944,6 +6113,10 @@ Spara min som ny version: layoutens kopia blir modulen; deras finns kvar i versi
         <translation>Sparar ”%1”…</translation>
     </message>
     <message>
+        <source>All notifications on the website</source>
+        <translation>Alla aviseringar på webbplatsen</translation>
+    </message>
+    <message>
         <source>Someone saved this module</source>
         <translation>Någon sparade den här modulen</translation>
     </message>
@@ -6012,10 +6185,6 @@ Spara min som ny version: din blir modulen; deras finns kvar i versionshistorike
     <message>
         <source>See what it&apos;s about</source>
         <translation>Se vad det handlar om</translation>
-    </message>
-    <message>
-        <source>All notices</source>
-        <translation>Alla meddelanden</translation>
     </message>
     <message>
         <source>Could not read %1: %2</source>
@@ -9018,6 +9187,14 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <source>Layout</source>
         <translation>Layout</translation>
     </message>
+    <message>
+        <source>See what it&apos;s about on the website</source>
+        <translation>Se vad det gäller på webbplatsen</translation>
+    </message>
+    <message>
+        <source>All notifications</source>
+        <translation>Alla aviseringar</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -10113,6 +10290,204 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationBell</name>
+    <message>
+        <source>Notifications</source>
+        <translation>Aviseringar</translation>
+    </message>
+    <message numerus="yes">
+        <source>Notifications, %n unread</source>
+        <translation>
+            <numerusform>Aviseringar, %n oläst</numerusform>
+            <numerusform>Aviseringar, %n olästa</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n notification(s) you haven&apos;t read</source>
+        <translation>
+            <numerusform>%n avisering som du inte har läst</numerusform>
+            <numerusform>%n aviseringar som du inte har läst</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Your notifications: requests, invites and news</source>
+        <translation>Dina aviseringar: förfrågningar, inbjudningar och nyheter</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n wait(s) for your answer</source>
+        <translation>
+            <numerusform>%n väntar på ditt svar</numerusform>
+            <numerusform>%n väntar på ditt svar</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationList</name>
+    <message>
+        <source>All</source>
+        <translation>Alla</translation>
+    </message>
+    <message>
+        <source>Unread</source>
+        <translation>Olästa</translation>
+    </message>
+    <message>
+        <source>Type of notification</source>
+        <translation>Typ av avisering</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <source>Mark all as read</source>
+        <translation>Markera alla som lästa</translation>
+    </message>
+    <message>
+        <source>Search notifications</source>
+        <translation>Sök bland aviseringar</translation>
+    </message>
+    <message>
+        <source>Show more</source>
+        <translation>Visa fler</translation>
+    </message>
+    <message>
+        <source>Every server</source>
+        <translation>Alla servrar</translation>
+    </message>
+    <message>
+        <source>Every type</source>
+        <translation>Alla typer</translation>
+    </message>
+    <message>
+        <source>All: %1</source>
+        <translation>Alla: %1</translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation>%1: %2</translation>
+    </message>
+    <message>
+        <source>Show fewer</source>
+        <translation>Visa färre</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this (new)</source>
+        <translation>
+            <numerusform>%n till som den här (ny)</numerusform>
+            <numerusform>%n till som den här (nya)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this</source>
+        <translation>
+            <numerusform>%n till som den här</numerusform>
+            <numerusform>%n till som den här</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Unread (%1)</source>
+        <translation>Olästa (%1)</translation>
+    </message>
+    <message>
+        <source>Sign in to a server to see your notifications: requests, invites and news from your clubs.</source>
+        <translation>Logga in på en server för att se dina aviseringar: förfrågningar, inbjudningar och nyheter från dina klubbar.</translation>
+    </message>
+    <message>
+        <source>Your server doesn&apos;t have notifications yet. Its warnings and notes still show over the map.</source>
+        <translation>Din server har inga aviseringar än. Dess varningar och anteckningar visas fortfarande över kartan.</translation>
+    </message>
+    <message>
+        <source>You&apos;re all caught up.</source>
+        <translation>Du är ikapp.</translation>
+    </message>
+    <message>
+        <source>No notifications match.</source>
+        <translation>Inga aviseringar matchar.</translation>
+    </message>
+    <message>
+        <source>Nothing yet. Requests, invites and news from your clubs show up here.</source>
+        <translation>Inget än. Förfrågningar, inbjudningar och nyheter från dina klubbar visas här.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationPanel</name>
+    <message>
+        <source>Notifications</source>
+        <translation>Aviseringar</translation>
+    </message>
+    <message>
+        <source>Close notifications</source>
+        <translation>Stäng aviseringar</translation>
+    </message>
+    <message>
+        <source>See all notifications</source>
+        <translation>Se alla aviseringar</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationRow</name>
+    <message>
+        <source>%1 (new)</source>
+        <translation>%1 (ny)</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Ny</translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation>%1: %2</translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <translation>Avböj</translation>
+    </message>
+    <message>
+        <source>Decline: %1</source>
+        <translation>Avböj: %1</translation>
+    </message>
+    <message>
+        <source>I understand</source>
+        <translation>Jag förstår</translation>
+    </message>
+    <message>
+        <source>This one has no place in the app: it opens on the website.</source>
+        <translation>Den här har ingen plats i appen: den öppnas på webbplatsen.</translation>
+    </message>
+    <message>
+        <source>%1 (someone else answered first)</source>
+        <translation>%1 (någon annan svarade först)</translation>
+    </message>
+    <message>
+        <source>What happened</source>
+        <translation>Vad som hände</translation>
+    </message>
+    <message>
+        <source>Mark as unread</source>
+        <translation>Markera som oläst</translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <translation>Markera som läst</translation>
+    </message>
+    <message>
+        <source>Mark “%1” as unread</source>
+        <translation>Markera ”%1” som oläst</translation>
+    </message>
+    <message>
+        <source>Mark “%1” as read</source>
+        <translation>Markera ”%1” som läst</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationsWindow</name>
+    <message>
+        <source>Notifications</source>
+        <translation>Aviseringar</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::PartDifferencesDialog</name>
     <message>
         <source>Parts That Differ</source>
@@ -10942,6 +11317,13 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>From %1</source>
         <translation>Från %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for your answer.</source>
+        <translation>
+            <numerusform>%1: %n partnerförfrågan eller modulerbjudande väntar på ditt svar.</numerusform>
+            <numerusform>%1: %n partnerförfrågningar eller modulerbjudanden väntar på ditt svar.</numerusform>
+        </translation>
     </message>
     <message>
         <source>v%1</source>

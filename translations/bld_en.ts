@@ -12,6 +12,16 @@
     </message>
 </context>
 <context>
+    <name>NotificationWords</name>
+    <message numerus="yes">
+        <source>%n day(s) ago</source>
+        <translation>
+            <numerusform>%n day ago</numerusform>
+            <numerusform>%n days ago</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message numerus="yes">
         <source>Paint %n area cell(s)</source>
@@ -589,6 +599,47 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationBell</name>
+    <message numerus="yes">
+        <source>Notifications, %n unread</source>
+        <translation>
+            <numerusform>Notifications, %n unread</numerusform>
+            <numerusform>Notifications, %n unread</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n notification(s) you haven&apos;t read</source>
+        <translation>
+            <numerusform>%n notification you haven't read</numerusform>
+            <numerusform>%n notifications you haven't read</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n wait(s) for your answer</source>
+        <translation>
+            <numerusform>%n wait for your answer</numerusform>
+            <numerusform>%n waits for your answer</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationList</name>
+    <message numerus="yes">
+        <source>%n more like this (new)</source>
+        <translation>
+            <numerusform>%n more like this (new)</numerusform>
+            <numerusform>%n more like this (new)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this</source>
+        <translation>
+            <numerusform>%n more like this</numerusform>
+            <numerusform>%n more like this</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::PartDifferencesDialog</name>
     <message numerus="yes">
         <source>This layout has its own version of %n parts you already have. Choose which to use for each.</source>
@@ -634,6 +685,13 @@
 </context>
 <context>
     <name>bld::ui::ServerModulesTab</name>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for your answer.</source>
+        <translation>
+            <numerusform>%1: %n partner request or module offer wait for your answer.</numerusform>
+            <numerusform>%1: %n partner requests or module offers wait for your answer.</numerusform>
+        </translation>
+    </message>
     <message numerus="yes">
         <source>%1: %n partner request(s) or module offer(s) wait for an answer. Answer them on the website.</source>
         <translation>

@@ -1426,6 +1426,30 @@
         <source>It shows in club member lists, next to your cursor when you edit with others, and on things you share in the public catalog. You can change it any time on your Profile page.</source>
         <translation>Hij staat in ledenlijsten van clubs, naast je cursor als je samen met anderen bewerkt, en bij dingen die je in de openbare catalogus deelt. Je kunt hem altijd veranderen op je profielpagina.</translation>
     </message>
+    <message>
+        <source>Notifications</source>
+        <translation>Meldingen</translation>
+    </message>
+    <message>
+        <source>Requests, invites and news for you, newest first; the number is how many you haven’t read.</source>
+        <translation>Verzoeken, uitnodigingen en nieuws voor jou, nieuwste eerst; het getal zegt hoeveel je nog niet hebt gelezen.</translation>
+    </message>
+    <message>
+        <source>Answer requests and invites right here with Accept or Decline, and if someone in your club answered first, it says who. Open one, or use its tick, to mark it read or unread. Warnings stay at the top of the page until you choose “I understand”.</source>
+        <translation>Beantwoord verzoeken en uitnodigingen meteen hier met Accepteren of Weigeren; heeft iemand van je club al geantwoord, dan staat er wie. Open er een, of gebruik het vinkje, om hem als gelezen of ongelezen te markeren. Waarschuwingen blijven boven aan de pagina tot je ‘Begrepen’ kiest.</translation>
+    </message>
+    <message>
+        <source>Notification settings</source>
+        <translation>Meldingsinstellingen</translation>
+    </message>
+    <message>
+        <source>Choose, for each kind of notification, whether it shows in the app, how it’s emailed, and when it’s quiet.</source>
+        <translation>Kies per soort melding of die in de app verschijnt, hoe die gemaild wordt en wanneer het stil is.</translation>
+    </message>
+    <message>
+        <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
+        <translation>Open een groep om elke soort te zien. E-mail kan meteen komen, in een dagelijkse of wekelijkse samenvatting, of helemaal niet. Stille uren houden e-mails vast tot ze voorbij zijn, en je kunt een drukke club dempen of alle e-mail pauzeren.</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -1466,6 +1490,136 @@
     <message>
         <source>%1, %2 and %3 others are here too</source>
         <translation>%1, %2 en %3 anderen zijn hier ook</translation>
+    </message>
+</context>
+<context>
+    <name>NotificationWords</name>
+    <message>
+        <source>You</source>
+        <translation>Jij</translation>
+    </message>
+    <message>
+        <source>Someone</source>
+        <translation>Iemand</translation>
+    </message>
+    <message>
+        <source>You let them in</source>
+        <translation>Je hebt ze toegelaten</translation>
+    </message>
+    <message>
+        <source>%1 let them in</source>
+        <translation>%1 heeft ze toegelaten</translation>
+    </message>
+    <message>
+        <source>You accepted</source>
+        <translation>Je hebt geaccepteerd</translation>
+    </message>
+    <message>
+        <source>%1 accepted</source>
+        <translation>%1 heeft geaccepteerd</translation>
+    </message>
+    <message>
+        <source>You declined</source>
+        <translation>Je hebt geweigerd</translation>
+    </message>
+    <message>
+        <source>%1 declined</source>
+        <translation>%1 heeft geweigerd</translation>
+    </message>
+    <message>
+        <source>Taken back, so nothing to answer</source>
+        <translation>Ingetrokken, dus niets te beantwoorden</translation>
+    </message>
+    <message>
+        <source>No longer waiting</source>
+        <translation>Wacht niet meer</translation>
+    </message>
+    <message>
+        <source>You understood</source>
+        <translation>Je hebt het begrepen</translation>
+    </message>
+    <message>
+        <source>just now</source>
+        <translation>zojuist</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>%1 min geleden</translation>
+    </message>
+    <message>
+        <source>%1 h ago</source>
+        <translation>%1 u geleden</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n day(s) ago</source>
+        <translation>
+            <numerusform>%n dag geleden</numerusform>
+            <numerusform>%n dagen geleden</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Warnings and notes</source>
+        <translation>Waarschuwingen en notities</translation>
+    </message>
+    <message>
+        <source>Clubs</source>
+        <translation>Clubs</translation>
+    </message>
+    <message>
+        <source>Sharing</source>
+        <translation>Delen</translation>
+    </message>
+    <message>
+        <source>Shared modules</source>
+        <translation>Gedeelde modules</translation>
+    </message>
+    <message>
+        <source>Your account</source>
+        <translation>Je account</translation>
+    </message>
+    <message>
+        <source>Let them in</source>
+        <translation>Toelaten</translation>
+    </message>
+    <message>
+        <source>Accept</source>
+        <translation>Accepteren</translation>
+    </message>
+    <message>
+        <source>Decline this request?</source>
+        <translation>Dit verzoek weigeren?</translation>
+    </message>
+    <message>
+        <source>The request to join is turned down.</source>
+        <translation>Het verzoek om lid te worden wordt geweigerd.</translation>
+    </message>
+    <message>
+        <source>They can ask again later.</source>
+        <translation>Ze kunnen later opnieuw vragen.</translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <translation>Weigeren</translation>
+    </message>
+    <message>
+        <source>Open the layout</source>
+        <translation>Layout openen</translation>
+    </message>
+    <message>
+        <source>Show the module</source>
+        <translation>Module tonen</translation>
+    </message>
+    <message>
+        <source>Show the club</source>
+        <translation>Club tonen</translation>
+    </message>
+    <message>
+        <source>Show your clubs</source>
+        <translation>Je clubs tonen</translation>
+    </message>
+    <message>
+        <source>Open on the website</source>
+        <translation>Openen op de website</translation>
     </message>
 </context>
 <context>
@@ -2963,8 +3117,16 @@
         <translation>Partnerclubs delen modules in beide richtingen, zonder elke keer te accepteren. Beheerders en managers vragen en antwoorden op de pagina van de club.</translation>
     </message>
     <message>
-        <source>Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website.</source>
-        <translation>Partneraanvragen en aanbiedingen beantwoord je op de website. Het tabblad Clubs toont wat wacht, met „Openen op de website”.</translation>
+        <source>Partner requests and offers wait on the Modules tab and in your notifications. Answer them there with Accept or Decline.</source>
+        <translation>Partnerverzoeken en aanbiedingen wachten op het tabblad Modules en in je meldingen. Beantwoord ze daar.</translation>
+    </message>
+    <message>
+        <source>Your notifications</source>
+        <translation>Je meldingen</translation>
+    </message>
+    <message>
+        <source>Requests to join, invites and news from your clubs land here. Answer them with Accept or Decline, right from the list.</source>
+        <translation>Verzoeken om lid te worden, uitnodigingen en clubnieuws komen hier. Antwoord meteen vanuit de lijst.</translation>
     </message>
     <message>
         <source>Your club&apos;s page</source>
@@ -3647,6 +3809,13 @@
     <message>
         <source>You stay credited as the author, and you can take it back while you’re a member.</source>
         <translation>Jij blijft als auteur vermeld, en je kunt het terugnemen zolang je lid bent.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::sync::NotificationCenter</name>
+    <message>
+        <source>You&apos;re not signed in to this server.</source>
+        <translation>Je bent niet aangemeld bij deze server.</translation>
     </message>
 </context>
 <context>
@@ -5936,6 +6105,10 @@ De mijne als nieuwe versie opslaan: de kopie van deze layout wordt de module; di
         <translation>‘%1’ opslaan…</translation>
     </message>
     <message>
+        <source>All notifications on the website</source>
+        <translation>Alle meldingen op de website</translation>
+    </message>
+    <message>
         <source>Someone saved this module</source>
         <translation>Iemand heeft deze module opgeslagen</translation>
     </message>
@@ -6004,10 +6177,6 @@ De mijne als nieuwe versie opslaan: jouw versie wordt de module; die van hen bli
     <message>
         <source>See what it&apos;s about</source>
         <translation>Bekijk waar het over gaat</translation>
-    </message>
-    <message>
-        <source>All notices</source>
-        <translation>Alle berichten</translation>
     </message>
     <message>
         <source>Could not read %1: %2</source>
@@ -9018,6 +9187,14 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <source>Layout</source>
         <translation>Layout</translation>
     </message>
+    <message>
+        <source>See what it&apos;s about on the website</source>
+        <translation>Op de website zien waar het over gaat</translation>
+    </message>
+    <message>
+        <source>All notifications</source>
+        <translation>Alle meldingen</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -10113,6 +10290,204 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationBell</name>
+    <message>
+        <source>Notifications</source>
+        <translation>Meldingen</translation>
+    </message>
+    <message numerus="yes">
+        <source>Notifications, %n unread</source>
+        <translation>
+            <numerusform>Meldingen, %n ongelezen</numerusform>
+            <numerusform>Meldingen, %n ongelezen</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n notification(s) you haven&apos;t read</source>
+        <translation>
+            <numerusform>%n melding die je nog niet hebt gelezen</numerusform>
+            <numerusform>%n meldingen die je nog niet hebt gelezen</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Your notifications: requests, invites and news</source>
+        <translation>Je meldingen: verzoeken, uitnodigingen en nieuws</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n wait(s) for your answer</source>
+        <translation>
+            <numerusform>%n wacht op je antwoord</numerusform>
+            <numerusform>%n wachten op je antwoord</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationList</name>
+    <message>
+        <source>All</source>
+        <translation>Alle</translation>
+    </message>
+    <message>
+        <source>Unread</source>
+        <translation>Ongelezen</translation>
+    </message>
+    <message>
+        <source>Type of notification</source>
+        <translation>Soort melding</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <source>Mark all as read</source>
+        <translation>Alles als gelezen markeren</translation>
+    </message>
+    <message>
+        <source>Search notifications</source>
+        <translation>Meldingen doorzoeken</translation>
+    </message>
+    <message>
+        <source>Show more</source>
+        <translation>Meer tonen</translation>
+    </message>
+    <message>
+        <source>Every server</source>
+        <translation>Alle servers</translation>
+    </message>
+    <message>
+        <source>Every type</source>
+        <translation>Alle soorten</translation>
+    </message>
+    <message>
+        <source>All: %1</source>
+        <translation>Alles: %1</translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation>%1: %2</translation>
+    </message>
+    <message>
+        <source>Show fewer</source>
+        <translation>Minder tonen</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this (new)</source>
+        <translation>
+            <numerusform>Nog %n zoals deze (nieuw)</numerusform>
+            <numerusform>Nog %n zoals deze (nieuw)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this</source>
+        <translation>
+            <numerusform>Nog %n zoals deze</numerusform>
+            <numerusform>Nog %n zoals deze</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Unread (%1)</source>
+        <translation>Ongelezen (%1)</translation>
+    </message>
+    <message>
+        <source>Sign in to a server to see your notifications: requests, invites and news from your clubs.</source>
+        <translation>Meld je aan bij een server om je meldingen te zien: verzoeken, uitnodigingen en nieuws van je clubs.</translation>
+    </message>
+    <message>
+        <source>Your server doesn&apos;t have notifications yet. Its warnings and notes still show over the map.</source>
+        <translation>Je server heeft nog geen meldingen. Zijn waarschuwingen en notities verschijnen nog steeds boven de kaart.</translation>
+    </message>
+    <message>
+        <source>You&apos;re all caught up.</source>
+        <translation>Je bent helemaal bij.</translation>
+    </message>
+    <message>
+        <source>No notifications match.</source>
+        <translation>Geen meldingen gevonden.</translation>
+    </message>
+    <message>
+        <source>Nothing yet. Requests, invites and news from your clubs show up here.</source>
+        <translation>Nog niets. Verzoeken, uitnodigingen en nieuws van je clubs verschijnen hier.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationPanel</name>
+    <message>
+        <source>Notifications</source>
+        <translation>Meldingen</translation>
+    </message>
+    <message>
+        <source>Close notifications</source>
+        <translation>Meldingen sluiten</translation>
+    </message>
+    <message>
+        <source>See all notifications</source>
+        <translation>Alle meldingen bekijken</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationRow</name>
+    <message>
+        <source>%1 (new)</source>
+        <translation>%1 (nieuw)</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Nieuw</translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation>%1: %2</translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <translation>Weigeren</translation>
+    </message>
+    <message>
+        <source>Decline: %1</source>
+        <translation>Weigeren: %1</translation>
+    </message>
+    <message>
+        <source>I understand</source>
+        <translation>Begrepen</translation>
+    </message>
+    <message>
+        <source>This one has no place in the app: it opens on the website.</source>
+        <translation>Deze heeft geen plek in de app: hij opent op de website.</translation>
+    </message>
+    <message>
+        <source>%1 (someone else answered first)</source>
+        <translation>%1 (iemand anders antwoordde eerst)</translation>
+    </message>
+    <message>
+        <source>What happened</source>
+        <translation>Wat er gebeurd is</translation>
+    </message>
+    <message>
+        <source>Mark as unread</source>
+        <translation>Markeren als ongelezen</translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <translation>Markeren als gelezen</translation>
+    </message>
+    <message>
+        <source>Mark “%1” as unread</source>
+        <translation>‘%1’ markeren als ongelezen</translation>
+    </message>
+    <message>
+        <source>Mark “%1” as read</source>
+        <translation>‘%1’ markeren als gelezen</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationsWindow</name>
+    <message>
+        <source>Notifications</source>
+        <translation>Meldingen</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::PartDifferencesDialog</name>
     <message>
         <source>Parts That Differ</source>
@@ -10942,6 +11317,13 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>From %1</source>
         <translation>Van %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for your answer.</source>
+        <translation>
+            <numerusform>%1: %n partnerverzoek of moduleaanbod wacht op je antwoord.</numerusform>
+            <numerusform>%1: %n partnerverzoeken of moduleaanbiedingen wachten op je antwoord.</numerusform>
+        </translation>
     </message>
     <message>
         <source>v%1</source>

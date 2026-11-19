@@ -84,8 +84,8 @@ TEST_F(Tours, TheCatalogueIsTheWebAppsFile) {
     EXPECT_EQ(tours::findTour(QStringLiteral("rooms"))->title, QStringLiteral("Venues"));
     for (const auto& t : c.tours) {
         EXPECT_GE(t.steps.size(), 4) << t.id.toStdString();
-        // Seven, but the Clubs tour has the desktop's two server steps and a Partner clubs stop: eight.
-        EXPECT_LE(t.steps.size(), t.id == QLatin1String("clubs") ? 8 : 7) << t.id.toStdString();
+        // Seven, but the Clubs tour has the desktop's two server steps, a Partner clubs stop and the bell: nine.
+        EXPECT_LE(t.steps.size(), t.id == QLatin1String("clubs") ? 9 : 7) << t.id.toStdString();
         for (const auto& s : t.steps) {
             EXPECT_FALSE(s.title.isEmpty());
             EXPECT_LE(s.text.size(), 120) << s.text.toStdString();

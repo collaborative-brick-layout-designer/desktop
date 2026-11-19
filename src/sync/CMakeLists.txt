@@ -180,6 +180,10 @@ add_library(bld_sync STATIC
     ModuleDoc.cpp
     EventStream.h
     EventStream.cpp
+    Notifications.h
+    Notifications.cpp
+    NotificationCenter.h
+    NotificationCenter.cpp
 )
 target_include_directories(bld_sync
     PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR})

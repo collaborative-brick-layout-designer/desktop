@@ -7,6 +7,7 @@
 
 #include "StatusMessages.h"
 #include "MainWindow.h"
+#include "NotificationViews.h"
 #include "SheetNames.h"
 
 #include "ActiveSheet.h"
@@ -431,6 +432,14 @@ void MainWindow::setupShell() {
     toolbar->addWidget(tabs);
     help::HelpButton::addTo(toolbar, QStringLiteral("topbar.tasks"), tabs);
     spacer();
+
+    // The bell: your notifications on every server you're signed in to.
+    notificationBell_ = new NotificationBell(*notifications_, toolbar);
+    connect(notificationBell_, &QToolButton::clicked, this, [this] {
+        QTimer::singleShot(0, this, &MainWindow::toggleNotificationPanel);
+    });
+    toolbar->addWidget(notificationBell_);
+    help::HelpButton::addTo(toolbar, QStringLiteral("notifications.bell"), notificationBell_);
 
     auto* help = new QToolButton(toolbar);
     help->setObjectName(QStringLiteral("HelpButton"));

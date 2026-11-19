@@ -466,6 +466,16 @@
       "title": "Your name",
       "short": "Other people see this name, so pick one you are happy to share; your email stays private.",
       "more": "It shows in club member lists, next to your cursor when you edit with others, and on things you share in the public catalog. You can change it any time on your Profile page."
+    },
+    "notifications.bell": {
+      "title": "Notifications",
+      "short": "Requests, invites and news for you, newest first; the number is how many you haven’t read.",
+      "more": "Answer requests and invites right here with Accept or Decline, and if someone in your club answered first, it says who. Open one, or use its tick, to mark it read or unread. Warnings stay at the top of the page until you choose “I understand”."
+    },
+    "notifications.settings": {
+      "title": "Notification settings",
+      "short": "Choose, for each kind of notification, whether it shows in the app, how it’s emailed, and when it’s quiet.",
+      "more": "Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email."
     }
   }
 }

@@ -1426,6 +1426,30 @@
         <source>It shows in club member lists, next to your cursor when you edit with others, and on things you share in the public catalog. You can change it any time on your Profile page.</source>
         <translation>Compare negli elenchi dei membri dei club, accanto al tuo cursore quando modifichi con altri, e sulle cose che condividi nel catalogo pubblico. Puoi cambiarlo quando vuoi nella pagina Profilo.</translation>
     </message>
+    <message>
+        <source>Notifications</source>
+        <translation>Notifiche</translation>
+    </message>
+    <message>
+        <source>Requests, invites and news for you, newest first; the number is how many you haven’t read.</source>
+        <translation>Richieste, inviti e novità per te, prima i più recenti; il numero indica quanti non hai ancora letto.</translation>
+    </message>
+    <message>
+        <source>Answer requests and invites right here with Accept or Decline, and if someone in your club answered first, it says who. Open one, or use its tick, to mark it read or unread. Warnings stay at the top of the page until you choose “I understand”.</source>
+        <translation>Rispondi a richieste e inviti proprio qui con Accetta o Rifiuta; se qualcuno del tuo club ha già risposto, è indicato chi. Aprine una, o usa la sua spunta, per segnarla come letta o non letta. Gli avvisi restano in cima alla pagina finché non scegli «Ho capito».</translation>
+    </message>
+    <message>
+        <source>Notification settings</source>
+        <translation>Impostazioni delle notifiche</translation>
+    </message>
+    <message>
+        <source>Choose, for each kind of notification, whether it shows in the app, how it’s emailed, and when it’s quiet.</source>
+        <translation>Scegli, per ogni tipo di notifica, se compare nell’app, come arriva per email e quando c’è silenzio.</translation>
+    </message>
+    <message>
+        <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
+        <translation>Apri un gruppo per vedere ogni tipo. L’email può arrivare subito, in un riepilogo giornaliero o settimanale, o mai. Le ore di silenzio trattengono le email finché non finiscono, e puoi silenziare un club molto attivo o mettere in pausa tutte le email.</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -1466,6 +1490,136 @@
     <message>
         <source>%1, %2 and %3 others are here too</source>
         <translation>Ci sono anche %1, %2 e altre %3 persone</translation>
+    </message>
+</context>
+<context>
+    <name>NotificationWords</name>
+    <message>
+        <source>You</source>
+        <translation>Tu</translation>
+    </message>
+    <message>
+        <source>Someone</source>
+        <translation>Qualcuno</translation>
+    </message>
+    <message>
+        <source>You let them in</source>
+        <translation>L’hai fatto entrare</translation>
+    </message>
+    <message>
+        <source>%1 let them in</source>
+        <translation>%1 l’ha fatto entrare</translation>
+    </message>
+    <message>
+        <source>You accepted</source>
+        <translation>Hai accettato</translation>
+    </message>
+    <message>
+        <source>%1 accepted</source>
+        <translation>%1 ha accettato</translation>
+    </message>
+    <message>
+        <source>You declined</source>
+        <translation>Hai rifiutato</translation>
+    </message>
+    <message>
+        <source>%1 declined</source>
+        <translation>%1 ha rifiutato</translation>
+    </message>
+    <message>
+        <source>Taken back, so nothing to answer</source>
+        <translation>Ritirato, quindi niente a cui rispondere</translation>
+    </message>
+    <message>
+        <source>No longer waiting</source>
+        <translation>Non è più in attesa</translation>
+    </message>
+    <message>
+        <source>You understood</source>
+        <translation>Hai capito</translation>
+    </message>
+    <message>
+        <source>just now</source>
+        <translation>proprio ora</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>%1 min fa</translation>
+    </message>
+    <message>
+        <source>%1 h ago</source>
+        <translation>%1 h fa</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n day(s) ago</source>
+        <translation>
+            <numerusform>%n giorno fa</numerusform>
+            <numerusform>%n giorni fa</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Warnings and notes</source>
+        <translation>Avvisi e note</translation>
+    </message>
+    <message>
+        <source>Clubs</source>
+        <translation>Club</translation>
+    </message>
+    <message>
+        <source>Sharing</source>
+        <translation>Condivisione</translation>
+    </message>
+    <message>
+        <source>Shared modules</source>
+        <translation>Moduli condivisi</translation>
+    </message>
+    <message>
+        <source>Your account</source>
+        <translation>Il tuo account</translation>
+    </message>
+    <message>
+        <source>Let them in</source>
+        <translation>Fai entrare</translation>
+    </message>
+    <message>
+        <source>Accept</source>
+        <translation>Accetta</translation>
+    </message>
+    <message>
+        <source>Decline this request?</source>
+        <translation>Rifiutare questa richiesta?</translation>
+    </message>
+    <message>
+        <source>The request to join is turned down.</source>
+        <translation>La richiesta di adesione viene rifiutata.</translation>
+    </message>
+    <message>
+        <source>They can ask again later.</source>
+        <translation>Potrà chiederlo di nuovo più tardi.</translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <translation>Rifiuta</translation>
+    </message>
+    <message>
+        <source>Open the layout</source>
+        <translation>Apri il layout</translation>
+    </message>
+    <message>
+        <source>Show the module</source>
+        <translation>Mostra il modulo</translation>
+    </message>
+    <message>
+        <source>Show the club</source>
+        <translation>Mostra il club</translation>
+    </message>
+    <message>
+        <source>Show your clubs</source>
+        <translation>Mostra i tuoi club</translation>
+    </message>
+    <message>
+        <source>Open on the website</source>
+        <translation>Apri sul sito web</translation>
     </message>
 </context>
 <context>
@@ -2963,8 +3117,16 @@
         <translation>I club partner si scambiano i moduli in entrambe le direzioni, senza accettare ogni volta. Amministratori e gestori chiedono e rispondono dalla pagina del club.</translation>
     </message>
     <message>
-        <source>Partner requests and offers are answered on the website. The Clubs tab shows what waits, with Open on the Website.</source>
-        <translation>Le richieste di partnership e le offerte si gestiscono sul sito web. La scheda Club mostra cosa è in attesa, con «Apri sul sito web».</translation>
+        <source>Partner requests and offers wait on the Modules tab and in your notifications. Answer them there with Accept or Decline.</source>
+        <translation>Richieste di partner e offerte ti aspettano nella scheda Moduli e nelle notifiche. Rispondi lì.</translation>
+    </message>
+    <message>
+        <source>Your notifications</source>
+        <translation>Le tue notifiche</translation>
+    </message>
+    <message>
+        <source>Requests to join, invites and news from your clubs land here. Answer them with Accept or Decline, right from the list.</source>
+        <translation>Richieste di adesione, inviti e novità dei tuoi club arrivano qui. Rispondi direttamente dall’elenco.</translation>
     </message>
     <message>
         <source>Your club&apos;s page</source>
@@ -3647,6 +3809,13 @@
     <message>
         <source>You stay credited as the author, and you can take it back while you’re a member.</source>
         <translation>Resti indicato come autore, e puoi riprenderlo finché sei membro.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::sync::NotificationCenter</name>
+    <message>
+        <source>You&apos;re not signed in to this server.</source>
+        <translation>Non hai effettuato l’accesso a questo server.</translation>
     </message>
 </context>
 <context>
@@ -5936,6 +6105,10 @@ Salva la mia come nuova versione: la copia di questo layout diventa il modulo; l
         <translation>Salvataggio di “%1”…</translation>
     </message>
     <message>
+        <source>All notifications on the website</source>
+        <translation>Tutte le notifiche sul sito web</translation>
+    </message>
+    <message>
         <source>Someone saved this module</source>
         <translation>Qualcuno ha salvato questo modulo</translation>
     </message>
@@ -6004,10 +6177,6 @@ Salva la mia come nuova versione: la tua diventa il modulo; la loro resta nella 
     <message>
         <source>See what it&apos;s about</source>
         <translation>Vedi di cosa si tratta</translation>
-    </message>
-    <message>
-        <source>All notices</source>
-        <translation>Tutti gli avvisi</translation>
     </message>
     <message>
         <source>Could not read %1: %2</source>
@@ -9018,6 +9187,14 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
         <source>Layout</source>
         <translation>Layout</translation>
     </message>
+    <message>
+        <source>See what it&apos;s about on the website</source>
+        <translation>Vedi di cosa si tratta sul sito web</translation>
+    </message>
+    <message>
+        <source>All notifications</source>
+        <translation>Tutte le notifiche</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -10113,6 +10290,204 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
     </message>
 </context>
 <context>
+    <name>bld::ui::NotificationBell</name>
+    <message>
+        <source>Notifications</source>
+        <translation>Notifiche</translation>
+    </message>
+    <message numerus="yes">
+        <source>Notifications, %n unread</source>
+        <translation>
+            <numerusform>Notifiche, %n non letta</numerusform>
+            <numerusform>Notifiche, %n non lette</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n notification(s) you haven&apos;t read</source>
+        <translation>
+            <numerusform>%n notifica che non hai letto</numerusform>
+            <numerusform>%n notifiche che non hai letto</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Your notifications: requests, invites and news</source>
+        <translation>Le tue notifiche: richieste, inviti e novità</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n wait(s) for your answer</source>
+        <translation>
+            <numerusform>%n attende la tua risposta</numerusform>
+            <numerusform>%n attendono la tua risposta</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationList</name>
+    <message>
+        <source>All</source>
+        <translation>Tutte</translation>
+    </message>
+    <message>
+        <source>Unread</source>
+        <translation>Non lette</translation>
+    </message>
+    <message>
+        <source>Type of notification</source>
+        <translation>Tipo di notifica</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <source>Mark all as read</source>
+        <translation>Segna tutto come letto</translation>
+    </message>
+    <message>
+        <source>Search notifications</source>
+        <translation>Cerca nelle notifiche</translation>
+    </message>
+    <message>
+        <source>Show more</source>
+        <translation>Mostra altro</translation>
+    </message>
+    <message>
+        <source>Every server</source>
+        <translation>Tutti i server</translation>
+    </message>
+    <message>
+        <source>Every type</source>
+        <translation>Tutti i tipi</translation>
+    </message>
+    <message>
+        <source>All: %1</source>
+        <translation>Tutto: %1</translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation>%1: %2</translation>
+    </message>
+    <message>
+        <source>Show fewer</source>
+        <translation>Mostra meno</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this (new)</source>
+        <translation>
+            <numerusform>Altra %n come questa (nuovo)</numerusform>
+            <numerusform>Altre %n come questa (nuovo)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n more like this</source>
+        <translation>
+            <numerusform>Altra %n come questa</numerusform>
+            <numerusform>Altre %n come questa</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Unread (%1)</source>
+        <translation>Non lette (%1)</translation>
+    </message>
+    <message>
+        <source>Sign in to a server to see your notifications: requests, invites and news from your clubs.</source>
+        <translation>Accedi a un server per vedere le tue notifiche: richieste, inviti e novità dei tuoi club.</translation>
+    </message>
+    <message>
+        <source>Your server doesn&apos;t have notifications yet. Its warnings and notes still show over the map.</source>
+        <translation>Il tuo server non ha ancora le notifiche. I suoi avvisi e note compaiono ancora sopra la mappa.</translation>
+    </message>
+    <message>
+        <source>You&apos;re all caught up.</source>
+        <translation>Sei in pari.</translation>
+    </message>
+    <message>
+        <source>No notifications match.</source>
+        <translation>Nessuna notifica corrisponde.</translation>
+    </message>
+    <message>
+        <source>Nothing yet. Requests, invites and news from your clubs show up here.</source>
+        <translation>Ancora niente. Qui compaiono richieste, inviti e novità dei tuoi club.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationPanel</name>
+    <message>
+        <source>Notifications</source>
+        <translation>Notifiche</translation>
+    </message>
+    <message>
+        <source>Close notifications</source>
+        <translation>Chiudi le notifiche</translation>
+    </message>
+    <message>
+        <source>See all notifications</source>
+        <translation>Vedi tutte le notifiche</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationRow</name>
+    <message>
+        <source>%1 (new)</source>
+        <translation>%1 (nuovo)</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Nuovo</translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation>%1: %2</translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <translation>Rifiuta</translation>
+    </message>
+    <message>
+        <source>Decline: %1</source>
+        <translation>Rifiuta: %1</translation>
+    </message>
+    <message>
+        <source>I understand</source>
+        <translation>Ho capito</translation>
+    </message>
+    <message>
+        <source>This one has no place in the app: it opens on the website.</source>
+        <translation>Questa non ha un posto nell’app: si apre sul sito web.</translation>
+    </message>
+    <message>
+        <source>%1 (someone else answered first)</source>
+        <translation>%1 (qualcun altro ha risposto prima)</translation>
+    </message>
+    <message>
+        <source>What happened</source>
+        <translation>Cosa è successo</translation>
+    </message>
+    <message>
+        <source>Mark as unread</source>
+        <translation>Segna come non letta</translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <translation>Segna come letta</translation>
+    </message>
+    <message>
+        <source>Mark “%1” as unread</source>
+        <translation>Segna «%1» come non letta</translation>
+    </message>
+    <message>
+        <source>Mark “%1” as read</source>
+        <translation>Segna «%1» come letta</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::NotificationsWindow</name>
+    <message>
+        <source>Notifications</source>
+        <translation>Notifiche</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::PartDifferencesDialog</name>
     <message>
         <source>Parts That Differ</source>
@@ -10942,6 +11317,13 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>From %1</source>
         <translation>Da %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1: %n partner request(s) or module offer(s) wait for your answer.</source>
+        <translation>
+            <numerusform>%1: %n richiesta di partner o offerta di modulo attende la tua risposta.</numerusform>
+            <numerusform>%1: %n richieste di partner o offerte di moduli attendono la tua risposta.</numerusform>
+        </translation>
     </message>
     <message>
         <source>v%1</source>

@@ -15,6 +15,7 @@
 // says so in a friendly line with a button (Sign in, Try again).
 
 #include "../sync/LibraryApi.h"
+#include "../sync/Notifications.h"
 
 #include <QHash>
 #include <QImage>
@@ -41,7 +42,11 @@ class QStackedWidget;
 class QTabBar;
 class QVBoxLayout;
 
+namespace bld::sync { class NotificationCenter; }
+
 namespace bld::ui {
+
+struct NotificationPlace;
 
 class ServerLibrary : public QObject {
     Q_OBJECT
@@ -84,6 +89,17 @@ public:
     // (answered on the website; docs/shared-modules.md, section 11). Empty on
     // a server without shared modules or partner clubs.
     const QList<sync::ClubRequestCount>& clubRequests() const { return clubAsks_; }
+    // Your notifications (MainWindow's): where the server has them, what waits
+    // in a club is answered right in its line, and Open goes where the app says.
+    void setNotifications(sync::NotificationCenter* center,
+                          std::function<void(const QUrl&, const sync::NotificationItem&, const NotificationPlace&)> open) {
+        notifications_ = center;
+        openNotification_ = std::move(open);
+    }
+    sync::NotificationCenter* notifications() const { return notifications_; }
+    void openNotification(const QUrl& server, const sync::NotificationItem& n, const NotificationPlace& place) const {
+        if (openNotification_) openNotification_(server, n, place);
+    }
     // Another club's module shared with a club of yours (a partner club's,
     // or one accepted one off): on the Clubs tab under that club's name,
     // not under Shared with me.
@@ -151,6 +167,8 @@ private:
     QList<sync::ServerModule> modules_;
     QList<sync::ServerModule> shared_;
     QList<sync::ClubRequestCount> clubAsks_;
+    sync::NotificationCenter* notifications_ = nullptr;
+    std::function<void(const QUrl&, const sync::NotificationItem&, const NotificationPlace&)> openNotification_;
     std::optional<bool> knowsShared_;
     QList<sync::OrgEntry> orgs_;
     sync::CatalogSettings catalog_;
@@ -217,16 +235,18 @@ public:
     std::function<bool(const sync::ServerModule&, const sync::ClubRef& club)> confirmRemoveFromClub;
     // The Share dialog a row's "Share with a club…" opened (tests).
     class ModuleShareDialog* shareDialog() const;
-    // "Train Club: 2 partner requests or module offers wait for an answer. Answer them on the
-    // website.", with Open on the Website and the ⓘ club.moduleOffers: what waits in a club you
-    // look after (the Clubs tab, and the Server window's Modules tab). Named
+    // Opens a module's Share dialog (a notification's Open for one of yours).
+    void share(const QString& id);
+    // "Train Club: 2 partner requests or module offers wait for your answer.", each with
+    // Accept and Decline right there, and the ⓘ club.moduleOffers: what waits in a club you
+    // look after (the Clubs tab, and the Server window's Modules tab). A server before
+    // notifications says to answer them on the website, with Open on the Website. Named
     // "clubRequestsWaiting:<slug>".
     static QWidget* clubWaitingLine(ServerLibrary& library, const sync::ClubRequestCount& waiting, QWidget* parent);
 
 private:
     QWidget* makeRow(const sync::ServerModule& m);
     QWidget* makeSharedRow(const sync::ServerModule& m);
-    void share(const QString& id);
     void removeFromClub(const QString& id, const sync::ClubRef& club);
     void rename(const QString& id);
     void remove(const QString& id);
