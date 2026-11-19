@@ -332,27 +332,44 @@ TEST_F(NotificationCenterTest, TheBellAddsUpEveryServerAndAnOlderOneIsLeftAlone)
     EXPECT_EQ(bell.badgeText(), QStringLiteral("3"));
 }
 
-TEST_F(NotificationCenterTest, OneArrivingWhileTheFirstLookIsStillOnItsWayStillPopsUp) {
-    // The first look is slow; meanwhile the app asks again (a live hint, a refresh) and a new
-    // one arrives. The first look still counts as the first, so the new one is new.
-    a_.reply("/api/notifications/count", 200, counts(0));
-    a_.reply("/api/notifications/count", 200, counts(1));
-    a_.reply(kUnreadPath, 200, page({}, 0));
-    a_.reply(kUnreadPath, 200, page({ item(QStringLiteral("x1"), QStringLiteral("club.invite"), QStringLiteral("Tram Club invited you"), kNow) }, 1));
-    a_.reply("/api/notifications/types", 200, types());
-    a_.reply("/api/me/notification-settings", 404, { { QStringLiteral("error"), QStringLiteral("not_found") } });
-    a_.hold.insert(kUnreadPath);
+// The first look is slow; meanwhile the app asks again (a live hint, a refresh) and a new
+// one arrives. Whichever answer comes back first, the first look is the first, so the new
+// one pops up, once.
+static void firstLookStillOnItsWay(FakeHttp& a, const std::shared_ptr<sync::MemoryTokenStore>& tokens, bool newestFirst) {
+    a.reply("/api/notifications/count", 200, counts(0));
+    a.reply("/api/notifications/count", 200, counts(1));
+    a.reply(kUnreadPath, 200, page({}, 0));
+    a.reply(kUnreadPath, 200, page({ item(QStringLiteral("x1"), QStringLiteral("club.invite"), QStringLiteral("Tram Club invited you"), kNow) }, 1));
+    a.reply("/api/notifications/types", 200, types());
+    a.reply("/api/me/notification-settings", 404, { { QStringLiteral("error"), QStringLiteral("not_found") } });
+    a.hold.insert(kUnreadPath);
     sync::NotificationCenter center;
     QList<sync::NotificationItem> arrived;
     QObject::connect(&center, &sync::NotificationCenter::arrived, [&](const QUrl&, const QList<sync::NotificationItem>& l) { arrived << l; });
-    center.setTokenStore(tokens_);
+    center.setTokenStore(tokens);
     center.reload();
-    ASSERT_TRUE(waitFor([&] { return count(a_, "GET", kUnreadPath) >= 1; }));
-    center.refresh(a_.base());
-    ASSERT_TRUE(waitFor([&] { return count(a_, "GET", kUnreadPath) >= 2; }));
-    a_.release(kUnreadPath);
+    ASSERT_TRUE(waitFor([&] { return count(a, "GET", kUnreadPath) >= 1; }));
+    center.refresh(a.base());
+    ASSERT_TRUE(waitFor([&] { return count(a, "GET", kUnreadPath) >= 2; }));
+    if (newestFirst) {
+        // Answers are handed out in the order they're sent: the second look's (sent first) has x1.
+        a.clear(kUnreadPath);
+        a.reply(kUnreadPath, 200, page({ item(QStringLiteral("x1"), QStringLiteral("club.invite"), QStringLiteral("Tram Club invited you"), kNow) }, 1));
+        a.reply(kUnreadPath, 200, page({}, 0));
+    }
+    a.release(kUnreadPath, newestFirst);
     ASSERT_TRUE(waitFor([&] { return arrived.size() == 1; })) << arrived.size();
     EXPECT_EQ(arrived[0].id, QStringLiteral("x1"));
+    waitFor([] { return false; }, 200);
+    EXPECT_EQ(arrived.size(), 1);
+}
+
+TEST_F(NotificationCenterTest, OneArrivingWhileTheFirstLookIsStillOnItsWayStillPopsUp) {
+    firstLookStillOnItsWay(a_, tokens_, false);
+}
+
+TEST_F(NotificationCenterTest, OneArrivingWhileTheFirstLookIsStillOnItsWayPopsUpWhenItsAnswerComesBackFirst) {
+    firstLookStillOnItsWay(a_, tokens_, true);
 }
 
 TEST_F(NotificationCenterTest, ANewOneArrivesOnceAndTheOnesThereAtStartAreNotNew) {
