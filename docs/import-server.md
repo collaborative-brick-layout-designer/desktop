@@ -143,7 +143,8 @@ CI builds `bld-import-server-linux-x86_64.tar.gz` (nightly:
 `bld-import-server-nightly-linux-x86_64.tar.gz`) with its SHA-256 beside it
 (`packaging/import-server/bundle.sh`, reproducible) and attaches it to the
 release. It holds the program, the Qt libraries it loads (Core, Gui,
-Widgets, DBus and ICU) and only the `offscreen` platform plugin. The system
+Widgets and what they need, such as ICU) and only the `offscreen`
+platform plugin. The system
 packages it needs on Debian are in `scripts/ci/import-server-image-deps.txt`;
 `scripts/ci/import-server-smoke.sh` runs it on the web image's base with
 only those, as the server does.
@@ -157,3 +158,8 @@ only those, as the server does.
 runs (analyse, convert to a part with every preview choice, with and
 without an LDraw library, and placing as parts for LDraw) on fuzzed files
 (fuzz/README.md).
+
+## Samples
+
+Open files to try it with, or to replay uploads through a firewall:
+`fixtures/import-samples/` (README there).
