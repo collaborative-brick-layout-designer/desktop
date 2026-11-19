@@ -72,7 +72,7 @@ jobs:
           tip=$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq .commit.sha)
           if [ "$tip" = "$GITHUB_SHA" ]; then echo "latest=true" >> "$GITHUB_OUTPUT"; else
             echo "latest=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::main has moved on to $tip; leaving Latest Build to its run."
+            echo "::notice::main has moved on to $tip; leaving Canary to its run."
           fi
 
       # The release only replaces its files; the tag stayed on an April
@@ -95,7 +95,7 @@ jobs:
         with:
           tag_name: latest
           target_commitish: ${{ github.sha }}
-          name: Latest Build
+          name: Canary
           body: |
             **Nightly pre-release** built automatically from the latest commit on `main`
             (`${{ github.sha }}`), version ${{ needs.version.outputs.version }}.
