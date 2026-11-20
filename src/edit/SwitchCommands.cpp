@@ -28,7 +28,8 @@ SetSwitchStatesCommand::SetSwitchStatesCommand(core::Map& map, const QMap<QStrin
         if (at > 0 && present.contains(it.key().left(at))) after_.insert(it.key(), it.value());
     }
     for (auto it = changes.constBegin(); it != changes.constEnd(); ++it) {
-        if (it.value()) after_.insert(it.key(), *it.value());
+        const std::optional<int>& exit = it.value();
+        if (exit.has_value()) after_.insert(it.key(), exit.value());
         else after_.remove(it.key());
     }
     if (after_ == before_) setObsolete(true);

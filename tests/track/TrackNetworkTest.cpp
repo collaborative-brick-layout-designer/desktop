@@ -55,7 +55,8 @@ TEST(TrackTables, AreTheSharedContractsWordForWord) {
         ASSERT_TRUE(built.open(QIODevice::ReadOnly)) << name;
         QFile shared(QStringLiteral(BLD_SOURCE_DIR "/fixtures/contracts/") + QLatin1String(name));
         ASSERT_TRUE(shared.open(QIODevice::ReadOnly)) << name;
-        EXPECT_EQ(built.readAll(), shared.readAll()) << name;
+        // (As JSON: a Windows checkout may give the fixture CRLF line ends.)
+        EXPECT_EQ(QJsonDocument::fromJson(built.readAll()), QJsonDocument::fromJson(shared.readAll())) << name;
     }
 }
 

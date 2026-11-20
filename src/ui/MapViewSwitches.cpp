@@ -11,7 +11,6 @@
 #include "../track/TrackNetwork.h"
 
 #include <QAction>
-#include <QActionGroup>
 #include <QGraphicsScene>
 #include <QFrame>
 #include <QHBoxLayout>
@@ -173,7 +172,6 @@ void MapView::addSwitchMenu(QMenu& menu, QPointF studs) {
     for (const auto& sw : net.switches())
         if (sw.brick == near->brick) here << sw;
     menu.addSection(tr("Set the switch"));
-    auto* group = new QActionGroup(&menu);
     for (qsizetype n = 0; n < here.size(); ++n) {
         const track::SwitchPoint& sw = here[n];
         QVector<int> exits = sw.exits;
@@ -185,7 +183,6 @@ void MapView::addSwitchMenu(QMenu& menu, QPointF studs) {
             a->setObjectName(QStringLiteral("switch_%1_%2").arg(sw.heel).arg(exit));
             a->setCheckable(true);
             a->setChecked(exit == set);
-            group->addAction(a);
             connect(a, &QAction::triggered, this, [this, key = sw.key, exit] { setSwitch(key, exit); });
         }
     }
