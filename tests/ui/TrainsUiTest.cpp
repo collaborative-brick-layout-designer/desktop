@@ -242,7 +242,7 @@ TEST(TrainsUi, ATrainTooLongForItsSidingIsFlaggedAndShorteningClearsIt) {
     EXPECT_TRUE(view->builder()->spotlightShown());
 
     // Shorter again: cleared, nothing to refresh.
-    panel->setEditTrain([&ids](const core::Train& t) -> std::optional<core::Train> {
+    panel->setEditTrain([](const core::Train& t) -> std::optional<core::Train> {
         core::Train out = t;
         out.units.pop_back();
         return out;
