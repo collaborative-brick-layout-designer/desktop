@@ -44,6 +44,11 @@
       "propertyNames": { "pattern": "^.+/[0-9]+$" },
       "additionalProperties": { "type": "integer", "minimum": 0 },
       "description": "How the layout's switches are set: \"<brick id>/<heel connection>\" -> the connection a train leaves by. A switch without a key is set to its default (the way that turns least); absent when none is set. Shared with everyone who edits the layout (the live document keeps it at meta.switchStates). Never in a .bbm. Added 2026-11, optional."
+    },
+    "routes": {
+      "type": "array",
+      "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "name": { "type": "string" } } },
+      "description": "Named routes: { id, name, train, from, to, via, steps, color }; places on the track are { brick, from, to, s }, steps { brick, from, to }. Unknown fields are kept. Live at meta.routes (a Y.Map of id -> a Y.Map of fields). Never in a .bbm. Added 2026-11, optional."
     }
   },
 

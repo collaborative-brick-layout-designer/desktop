@@ -113,6 +113,10 @@ Items itemsOf(const Snapshot& s) {
     const QJsonObject limits = s.sidecar.value(QLatin1String("budgetLimits")).toObject();
     for (auto it = limits.begin(); it != limits.end(); ++it)
         out.insert(QStringLiteral("budget:") + it.key(), { QStringLiteral("budget"), {}, it.value(), {} });
+    // Named routes, one row a route (a route is taken whole).
+    for (const auto& r : s.sidecar.value(QLatin1String("routes")).toArray())
+        out.insert(QStringLiteral("route:") + r.toObject().value(QLatin1String("id")).toString(),
+                   { QStringLiteral("route"), {}, r, {} });
     // Switch settings, one row a switch: flips of different switches merge.
     const QJsonObject switches = s.sidecar.value(QLatin1String("switchStates")).toObject();
     for (auto it = switches.begin(); it != switches.end(); ++it)
@@ -246,6 +250,7 @@ public:
         // A view is replaced whole: the last edit of a view wins.
         if (c.kind == QLatin1String("view")) return takeSidecarItem(c, QStringLiteral("views"), copy);
         if (c.kind == QLatin1String("set")) return takeSidecarItem(c, QStringLiteral("sets"), false);
+        if (c.kind == QLatin1String("route")) return takeSidecarItem(c, QStringLiteral("routes"), false);
         if (c.kind == QLatin1String("budget")) return takeBudgetRow(c);
         if (c.kind == QLatin1String("switch")) return takeSwitchRow(c);
         if (c.kind == QLatin1String("venue") || c.kind == QLatin1String("background")) {
@@ -755,6 +760,7 @@ QString describe(const ItemChange& c) {
                        .arg(part, limit(c.mineValue), limit(c.serverValue));
         else what = Text::tr("Budget limit for %1").arg(part);
     } else if (c.kind == QLatin1String("switch")) what = Text::tr("A switch's setting");
+    else if (c.kind == QLatin1String("route")) what = Text::tr("Route \"%1\"").arg(v.value(QLatin1String("name")).toString());
     else if (c.kind == QLatin1String("venue")) what = Text::tr("Venue");
     else what = Text::tr("Background image");
     if (c.status == Status::Same) return bothDid(c.mine).arg(what);

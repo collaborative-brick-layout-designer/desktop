@@ -1,0 +1,781 @@
+{
+ "_about": "Route search vectors (trains design 4): a small network of made-up track parts (`parts`, connections as in track-network.json; bricks give where each connection is, `points`, all at orientation 0) — a passing loop between two points, a reversing loop, a separate piece and a stub line — and searches with what both apps must find: the steps (brick, from, to), the length (studs), the switch settings the route needs and the bricks it runs both ways (turnsAround), or the problem (noTrack, turnAround). `status` is the saved route checked again on the network with brick M taken out (broken at a step, or still ok). Web packages/parts-catalog/src/track/routes.test.ts (BLD_WRITE_CONTRACTS=1 writes `expect` and `status`), desktop tests/track/RoutesTest.cpp.",
+ "parts": {
+  "S16": [
+   {
+    "type": "1",
+    "x": -8,
+    "y": 0,
+    "angle": 180,
+    "plug": 1
+   },
+   {
+    "type": "1",
+    "x": 8,
+    "y": 0,
+    "angle": 0,
+    "plug": -1
+   }
+  ],
+  "S32": [
+   {
+    "type": "1",
+    "x": -16,
+    "y": 0,
+    "angle": 180,
+    "plug": 1
+   },
+   {
+    "type": "1",
+    "x": 16,
+    "y": 0,
+    "angle": 0,
+    "plug": -1
+   }
+  ],
+  "YL": [
+   {
+    "type": "1",
+    "x": -8,
+    "y": 0,
+    "angle": 180,
+    "plug": 1
+   },
+   {
+    "type": "1",
+    "x": 8,
+    "y": 0,
+    "angle": 0,
+    "plug": -1
+   },
+   {
+    "type": "1",
+    "x": 8,
+    "y": 8,
+    "angle": 0,
+    "plug": -1
+   }
+  ],
+  "YR": [
+   {
+    "type": "1",
+    "x": 8,
+    "y": 0,
+    "angle": 0,
+    "plug": 1
+   },
+   {
+    "type": "1",
+    "x": -8,
+    "y": 0,
+    "angle": 180,
+    "plug": -1
+   },
+   {
+    "type": "1",
+    "x": -8,
+    "y": 8,
+    "angle": 180,
+    "plug": -1
+   }
+  ],
+  "U": [
+   {
+    "type": "1",
+    "x": -4,
+    "y": -4,
+    "angle": 180,
+    "plug": 1
+   },
+   {
+    "type": "1",
+    "x": -4,
+    "y": 4,
+    "angle": 180,
+    "plug": -1
+   }
+  ]
+ },
+ "bricks": [
+  {
+   "id": "A",
+   "part": "S16",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     16,
+     0
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "A0",
+     "linkedTo": ""
+    },
+    {
+     "id": "A1",
+     "linkedTo": "P0"
+    }
+   ]
+  },
+  {
+   "id": "P",
+   "part": "YL",
+   "points": [
+    [
+     16,
+     0
+    ],
+    [
+     32,
+     0
+    ],
+    [
+     32,
+     8
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "P0",
+     "linkedTo": "A1"
+    },
+    {
+     "id": "P1",
+     "linkedTo": "M0"
+    },
+    {
+     "id": "P2",
+     "linkedTo": "B0"
+    }
+   ]
+  },
+  {
+   "id": "M",
+   "part": "S32",
+   "points": [
+    [
+     32,
+     0
+    ],
+    [
+     64,
+     0
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "M0",
+     "linkedTo": "P1"
+    },
+    {
+     "id": "M1",
+     "linkedTo": "Q1"
+    }
+   ]
+  },
+  {
+   "id": "B",
+   "part": "S32",
+   "points": [
+    [
+     32,
+     8
+    ],
+    [
+     64,
+     8
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "B0",
+     "linkedTo": "P2"
+    },
+    {
+     "id": "B1",
+     "linkedTo": "Q2"
+    }
+   ]
+  },
+  {
+   "id": "Q",
+   "part": "YR",
+   "points": [
+    [
+     80,
+     0
+    ],
+    [
+     64,
+     0
+    ],
+    [
+     64,
+     8
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "Q0",
+     "linkedTo": "E0"
+    },
+    {
+     "id": "Q1",
+     "linkedTo": "M1"
+    },
+    {
+     "id": "Q2",
+     "linkedTo": "B1"
+    }
+   ]
+  },
+  {
+   "id": "E",
+   "part": "S16",
+   "points": [
+    [
+     80,
+     0
+    ],
+    [
+     96,
+     0
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "E0",
+     "linkedTo": "Q0"
+    },
+    {
+     "id": "E1",
+     "linkedTo": "R0"
+    }
+   ]
+  },
+  {
+   "id": "R",
+   "part": "YL",
+   "points": [
+    [
+     96,
+     0
+    ],
+    [
+     112,
+     0
+    ],
+    [
+     112,
+     8
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "R0",
+     "linkedTo": "E1"
+    },
+    {
+     "id": "R1",
+     "linkedTo": "T0"
+    },
+    {
+     "id": "R2",
+     "linkedTo": "V0"
+    }
+   ]
+  },
+  {
+   "id": "T",
+   "part": "S16",
+   "points": [
+    [
+     112,
+     0
+    ],
+    [
+     128,
+     0
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "T0",
+     "linkedTo": "R1"
+    },
+    {
+     "id": "T1",
+     "linkedTo": "U0"
+    }
+   ]
+  },
+  {
+   "id": "V",
+   "part": "S16",
+   "points": [
+    [
+     112,
+     8
+    ],
+    [
+     128,
+     8
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "V0",
+     "linkedTo": "R2"
+    },
+    {
+     "id": "V1",
+     "linkedTo": "U1"
+    }
+   ]
+  },
+  {
+   "id": "U",
+   "part": "U",
+   "points": [
+    [
+     128,
+     0
+    ],
+    [
+     128,
+     8
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "U0",
+     "linkedTo": "T1"
+    },
+    {
+     "id": "U1",
+     "linkedTo": "V1"
+    }
+   ]
+  },
+  {
+   "id": "Z",
+   "part": "S16",
+   "points": [
+    [
+     0,
+     50
+    ],
+    [
+     16,
+     50
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "Z0",
+     "linkedTo": ""
+    },
+    {
+     "id": "Z1",
+     "linkedTo": ""
+    }
+   ]
+  },
+  {
+   "id": "X",
+   "part": "S16",
+   "points": [
+    [
+     0,
+     100
+    ],
+    [
+     16,
+     100
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "X0",
+     "linkedTo": ""
+    },
+    {
+     "id": "X1",
+     "linkedTo": "Y0"
+    }
+   ]
+  },
+  {
+   "id": "Y",
+   "part": "S16",
+   "points": [
+    [
+     16,
+     100
+    ],
+    [
+     32,
+     100
+    ]
+   ],
+   "connexions": [
+    {
+     "id": "Y0",
+     "linkedTo": "X1"
+    },
+    {
+     "id": "Y1",
+     "linkedTo": ""
+    }
+   ]
+  }
+ ],
+ "cases": [
+  {
+   "name": "the shortest way: straight through both points",
+   "from": {
+    "brick": "A",
+    "from": 0,
+    "to": 1,
+    "s": 4
+   },
+   "to": {
+    "brick": "E",
+    "from": 0,
+    "to": 1,
+    "s": 8
+   },
+   "expect": {
+    "steps": [
+     {
+      "brick": "A",
+      "from": 0,
+      "to": 1
+     },
+     {
+      "brick": "P",
+      "from": 0,
+      "to": 1
+     },
+     {
+      "brick": "M",
+      "from": 0,
+      "to": 1
+     },
+     {
+      "brick": "Q",
+      "from": 1,
+      "to": 0
+     },
+     {
+      "brick": "E",
+      "from": 0,
+      "to": 1
+     }
+    ],
+    "length": 84,
+    "switches": {
+     "P/0": 1
+    },
+    "turnsAround": []
+   },
+   "status": {
+    "status": "broken",
+    "at": 2,
+    "brick": "M"
+   }
+  },
+  {
+   "name": "following the switches as they are set: the diverging way",
+   "from": {
+    "brick": "A",
+    "from": 0,
+    "to": 1,
+    "s": 4
+   },
+   "to": {
+    "brick": "E",
+    "from": 0,
+    "to": 1,
+    "s": 8
+   },
+   "followSwitches": true,
+   "states": {
+    "P/0": 2,
+    "Q/0": 2
+   },
+   "expect": {
+    "steps": [
+     {
+      "brick": "A",
+      "from": 0,
+      "to": 1
+     },
+     {
+      "brick": "P",
+      "from": 0,
+      "to": 2
+     },
+     {
+      "brick": "B",
+      "from": 0,
+      "to": 1
+     },
+     {
+      "brick": "Q",
+      "from": 2,
+      "to": 0
+     },
+     {
+      "brick": "E",
+      "from": 0,
+      "to": 1
+     }
+    ],
+    "length": 89.089986,
+    "switches": {
+     "P/0": 2
+    },
+    "turnsAround": []
+   },
+   "status": {
+    "status": "ok",
+    "length": 89.089986
+   }
+  },
+  {
+   "name": "through a stop on the other line",
+   "from": {
+    "brick": "A",
+    "from": 0,
+    "to": 1,
+    "s": 4
+   },
+   "to": {
+    "brick": "E",
+    "from": 0,
+    "to": 1,
+    "s": 8
+   },
+   "via": [
+    {
+     "brick": "B",
+     "from": 0,
+     "to": 1,
+     "s": 16
+    }
+   ],
+   "expect": {
+    "steps": [
+     {
+      "brick": "A",
+      "from": 0,
+      "to": 1
+     },
+     {
+      "brick": "P",
+      "from": 0,
+      "to": 2
+     },
+     {
+      "brick": "B",
+      "from": 0,
+      "to": 1
+     },
+     {
+      "brick": "Q",
+      "from": 2,
+      "to": 0
+     },
+     {
+      "brick": "E",
+      "from": 0,
+      "to": 1
+     }
+    ],
+    "length": 89.089986,
+    "switches": {
+     "P/0": 2
+    },
+    "turnsAround": []
+   },
+   "status": {
+    "status": "ok",
+    "length": 89.089986
+   }
+  },
+  {
+   "name": "backwards along the same track",
+   "from": {
+    "brick": "E",
+    "from": 0,
+    "to": 1,
+    "s": 8
+   },
+   "to": {
+    "brick": "A",
+    "from": 0,
+    "to": 1,
+    "s": 4
+   },
+   "expect": {
+    "steps": [
+     {
+      "brick": "E",
+      "from": 1,
+      "to": 0
+     },
+     {
+      "brick": "Q",
+      "from": 0,
+      "to": 1
+     },
+     {
+      "brick": "M",
+      "from": 1,
+      "to": 0
+     },
+     {
+      "brick": "P",
+      "from": 1,
+      "to": 0
+     },
+     {
+      "brick": "A",
+      "from": 1,
+      "to": 0
+     }
+    ],
+    "length": 84,
+    "switches": {
+     "Q/0": 1
+    },
+    "turnsAround": []
+   },
+   "status": {
+    "status": "broken",
+    "at": 2,
+    "brick": "M"
+   }
+  },
+  {
+   "name": "round the reversing loop: the train comes back turned round",
+   "from": {
+    "brick": "E",
+    "from": 0,
+    "to": 1,
+    "s": 8
+   },
+   "to": {
+    "brick": "E",
+    "from": 0,
+    "to": 1,
+    "s": 4
+   },
+   "via": [
+    {
+     "brick": "V",
+     "from": 0,
+     "to": 1,
+     "s": 8
+    }
+   ],
+   "expect": {
+    "steps": [
+     {
+      "brick": "E",
+      "from": 0,
+      "to": 1
+     },
+     {
+      "brick": "R",
+      "from": 0,
+      "to": 2
+     },
+     {
+      "brick": "V",
+      "from": 0,
+      "to": 1
+     },
+     {
+      "brick": "U",
+      "from": 1,
+      "to": 0
+     },
+     {
+      "brick": "T",
+      "from": 1,
+      "to": 0
+     },
+     {
+      "brick": "R",
+      "from": 1,
+      "to": 0
+     },
+     {
+      "brick": "E",
+      "from": 1,
+      "to": 0
+     }
+    ],
+    "length": 99.110726,
+    "switches": {
+     "R/0": 2
+    },
+    "turnsAround": [
+     "E"
+    ]
+   },
+   "status": {
+    "status": "ok",
+    "length": 99.110726
+   }
+  },
+  {
+   "name": "no track joins them",
+   "from": {
+    "brick": "A",
+    "from": 0,
+    "to": 1,
+    "s": 4
+   },
+   "to": {
+    "brick": "Z",
+    "from": 0,
+    "to": 1,
+    "s": 8
+   },
+   "expect": "noTrack",
+   "status": null
+  },
+  {
+   "name": "only by turning round on the spot",
+   "from": {
+    "brick": "Y",
+    "from": 0,
+    "to": 1,
+    "s": 8
+   },
+   "to": {
+    "brick": "Y",
+    "from": 0,
+    "to": 1,
+    "s": 4
+   },
+   "via": [
+    {
+     "brick": "X",
+     "from": 0,
+     "to": 1,
+     "s": 8
+    }
+   ],
+   "expect": "turnAround",
+   "status": null
+  }
+ ]
+}

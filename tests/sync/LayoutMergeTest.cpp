@@ -602,3 +602,27 @@ TEST(LayoutMerge, SwitchSettingsAreComparedAndMergedOneSwitchAtATime) {
               (States{ { QStringLiteral("A/0"), 2 }, { QStringLiteral("B/0"), 2 }, { QStringLiteral("C/0"), 1 } }));
 }
 
+
+TEST(LayoutMerge, RoutesAreComparedAndMergedOneRouteAtATime) {
+    Case c;
+    core::Route a, b;
+    a.id = QStringLiteral("ra");
+    a.name = QStringLiteral("A");
+    b.id = QStringLiteral("rb");
+    b.name = QStringLiteral("B");
+    c.base->sidecar.routes = { a };
+    core::Route a2 = a;
+    a2.name = QStringLiteral("A renamed");
+    c.mine->sidecar.routes = { a2 };
+    c.server->sidecar.routes = { a, b };
+    const Snapshot bs = snapshotOf(*c.base), m = snapshotOf(*c.mine), s = snapshotOf(*c.server);
+    const auto changes = compareLayouts(bs, m, s);
+    QStringList lines;
+    for (const auto& ch : changes)
+        if (ch.kind == QLatin1String("route")) lines << describe(ch);
+    EXPECT_EQ(lines.join(QLatin1Char('\n')).toStdString(),
+              "Route \"A renamed\": you changed it\nRoute \"B\": the server added it");
+    auto merged = mergeLayouts(m, s, changes, {});
+    ASSERT_TRUE(merged);
+    ASSERT_EQ(merged->sidecar.routes.size(), 2u);
+}

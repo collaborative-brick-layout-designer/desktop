@@ -8,9 +8,11 @@
 #include <QJsonValue>
 #include <QString>
 
+#include "../core/Route.h"
+
 #include <optional>
 
-namespace bld::core { struct Sidecar; struct SavedView; }
+namespace bld::core { struct Sidecar; struct SavedView; struct Route; }
 
 namespace bld::saveload {
 
@@ -51,6 +53,10 @@ std::optional<QMap<QString, int>> budgetLimitsFromJson(const QJsonValue& v);
 // more); anything else in the object is left out.
 QJsonObject switchStatesToJson(const QMap<QString, int>& states);
 QMap<QString, int> switchStatesFromJson(const QJsonValue& v);
+// A named route as the sidecar (and the web's meta.routes) keeps it; an
+// entry without an id reads as nullopt. Unknown fields are kept.
+QJsonObject routeToJson(const core::Route& r);
+std::optional<core::Route> routeFromJson(const QJsonValue& v);
 void sidecarFromJson(const QJsonObject& root, core::Sidecar& out);
 
 // One saved view as JSON and back (references/LAYOUT-FILE.md "Saved

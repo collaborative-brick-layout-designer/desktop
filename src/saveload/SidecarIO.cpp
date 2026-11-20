@@ -81,7 +81,8 @@ const QStringList& knownRootKeys() {
                                    QStringLiteral("anchoredLabels"), QStringLiteral("modules"),
                                    QStringLiteral("venue"),          QStringLiteral("backgroundImage"),
                                    QStringLiteral("views"),          QStringLiteral("sets"),
-                                   QStringLiteral("budgetLimits"),   QStringLiteral("switchStates") };
+                                   QStringLiteral("budgetLimits"),   QStringLiteral("switchStates"),
+                                   QStringLiteral("routes") };
     return keys;
 }
 
@@ -387,7 +388,68 @@ QJsonObject sidecarToJson(const core::Sidecar& sidecar) {
     }
     if (sidecar.budgetLimits) root[QStringLiteral("budgetLimits")] = budgetLimitsToJson(*sidecar.budgetLimits);
     if (!sidecar.switchStates.isEmpty()) root[QStringLiteral("switchStates")] = switchStatesToJson(sidecar.switchStates);
+    if (!sidecar.routes.empty()) {
+        QJsonArray routes;
+        for (const auto& r : sidecar.routes) routes.append(routeToJson(r));
+        root[QStringLiteral("routes")] = routes;
+    }
     return root;
+}
+
+namespace {
+
+QJsonObject positionToJson(const core::TrackPosition& p) {
+    return { { QStringLiteral("brick"), p.brick }, { QStringLiteral("from"), p.from },
+             { QStringLiteral("to"), p.to }, { QStringLiteral("s"), p.s } };
+}
+
+core::TrackPosition positionFromJson(const QJsonValue& v) {
+    const QJsonObject o = v.toObject();
+    return { o.value(QLatin1String("brick")).toString(), o.value(QLatin1String("from")).toInt(0),
+             o.value(QLatin1String("to")).toInt(1), o.value(QLatin1String("s")).toDouble(0) };
+}
+
+}  // namespace
+
+QJsonObject routeToJson(const core::Route& r) {
+    QJsonObject o = r.extras;
+    o[QStringLiteral("id")] = r.id;
+    o[QStringLiteral("name")] = r.name;
+    o[QStringLiteral("train")] = r.train.isEmpty() ? QJsonValue(QJsonValue::Null) : QJsonValue(r.train);
+    o[QStringLiteral("from")] = positionToJson(r.from);
+    o[QStringLiteral("to")] = positionToJson(r.to);
+    QJsonArray via;
+    for (const auto& v : r.via)
+        via.append(QJsonObject{ { QStringLiteral("at"), positionToJson(v.at) }, { QStringLiteral("reverse"), v.reverse } });
+    o[QStringLiteral("via")] = via;
+    QJsonArray steps;
+    for (const auto& s : r.steps)
+        steps.append(QJsonObject{ { QStringLiteral("brick"), s.brick }, { QStringLiteral("from"), s.from }, { QStringLiteral("to"), s.to } });
+    o[QStringLiteral("steps")] = steps;
+    o[QStringLiteral("color")] = r.color;
+    return o;
+}
+
+std::optional<core::Route> routeFromJson(const QJsonValue& v) {
+    const QJsonObject o = v.toObject();
+    const QString id = o.value(QLatin1String("id")).toString();
+    if (id.isEmpty()) return std::nullopt;
+    core::Route r;
+    r.id = id;
+    r.name = o.value(QLatin1String("name")).toString();
+    r.train = o.value(QLatin1String("train")).toString();
+    r.from = positionFromJson(o.value(QLatin1String("from")));
+    r.to = positionFromJson(o.value(QLatin1String("to")));
+    for (const auto& x : o.value(QLatin1String("via")).toArray())
+        r.via.push_back({ positionFromJson(x.toObject().value(QLatin1String("at"))), x.toObject().value(QLatin1String("reverse")).toBool() });
+    for (const auto& x : o.value(QLatin1String("steps")).toArray()) {
+        const QJsonObject s = x.toObject();
+        r.steps.push_back({ s.value(QLatin1String("brick")).toString(), s.value(QLatin1String("from")).toInt(0), s.value(QLatin1String("to")).toInt(1) });
+    }
+    if (o.value(QLatin1String("color")).isString()) r.color = o.value(QLatin1String("color")).toString();
+    r.extras = o;
+    for (const char* k : { "id", "name", "train", "from", "to", "via", "steps", "color" }) r.extras.remove(QLatin1String(k));
+    return r;
 }
 
 QJsonObject switchStatesToJson(const QMap<QString, int>& states) {
@@ -433,6 +495,9 @@ std::optional<QMap<QString, int>> budgetLimitsFromJson(const QJsonValue& v) {
 void sidecarFromJson(const QJsonObject& root, core::Sidecar& out) {
     out.budgetLimits = budgetLimitsFromJson(root.value(QStringLiteral("budgetLimits")));
     out.switchStates = switchStatesFromJson(root.value(QStringLiteral("switchStates")));
+    out.routes.clear();
+    for (const auto& v : root.value(QStringLiteral("routes")).toArray())
+        if (auto r = routeFromJson(v)) out.routes.push_back(std::move(*r));
     out.sets.clear();
     for (const auto& v : root.value(QStringLiteral("sets")).toArray())
         if (auto s = decodePlacedSet(v)) out.sets.push_back(std::move(*s));
@@ -493,6 +558,13 @@ void renameSidecarIds(core::Sidecar& sidecar, const QHash<QString, QString>& ren
             members.insert(id);
         }
         m.memberIds = members;
+    }
+    // Routes name the bricks they run over.
+    for (auto& r : sidecar.routes) {
+        rename(r.from.brick);
+        rename(r.to.brick);
+        for (auto& v : r.via) rename(v.at.brick);
+        for (auto& s : r.steps) rename(s.brick);
     }
     // Switch settings name their brick: "<brick>/<heel>".
     if (!sidecar.switchStates.isEmpty()) {

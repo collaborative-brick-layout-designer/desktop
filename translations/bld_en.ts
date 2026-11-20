@@ -701,6 +701,16 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::RoutesPanel</name>
+    <message numerus="yes">
+        <source>%n switch(es) set the other way</source>
+        <translation>
+            <numerusform>%n switch set the other way</numerusform>
+            <numerusform>%n switches set the other way</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::SaveSetDialog</name>
     <message numerus="yes">
         <source>%n part(s) picked.</source>

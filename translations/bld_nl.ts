@@ -603,6 +603,54 @@
         <translation>Klik met rechts op een wissel om hem te zetten, of zet de rijmodus aan en klik erop. Een groene pijl is de gewone kant; een oranje betekent dat hij naar de andere kant staat. Zet Beeld › Wissels aan om ze tijdens het bouwen te zien.</translation>
     </message>
     <message>
+        <source>Routes</source>
+        <translation>Routes</translation>
+    </message>
+    <message>
+        <source>Named ways along the track, from one place to another.</source>
+        <translation>Benoemde wegen langs het spoor, van de ene plek naar de andere.</translation>
+    </message>
+    <message>
+        <source>Each route shows its length and whether the track still fits it. The eye shows or hides a route on your map only; everyone else keeps their own view. Routes are saved with the layout and shared with everyone editing it.</source>
+        <translation>Elke route toont zijn lengte en of het spoor er nog bij past. Het oog toont of verbergt een route alleen op jouw kaart; ieder ander houdt zijn eigen weergave. Routes worden met de baan opgeslagen en gedeeld met iedereen die hem bewerkt.</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nieuwe route</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track, then where it ends.</source>
+        <translation>Klik op het spoor waar de route begint, en dan waar hij eindigt.</translation>
+    </message>
+    <message>
+        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
+        <translation>De kortste weg langs het spoor wordt voor je gezocht, door wissels in beide richtingen. Shift-klik voegt een stop onderweg toe, om een ander spoor te kiezen. Geef hem een naam en druk op Route opslaan; Esc of Annuleren stopt.</translation>
+    </message>
+    <message>
+        <source>Broken route</source>
+        <translation>Onderbroken route</translation>
+    </message>
+    <message>
+        <source>A part this route runs over was moved or removed.</source>
+        <translation>Een onderdeel waar deze route over loopt is verplaatst of weggehaald.</translation>
+    </message>
+    <message>
+        <source>The route keeps its name, color, start and end, and is drawn dashed red as far as it still goes. Find a new way searches again from its start through its stops to its end.</source>
+        <translation>De route houdt zijn naam, kleur, begin en eind, en wordt rood gestreept getekend zover hij nog gaat. Nieuwe weg zoeken zoekt opnieuw vanaf zijn begin, via zijn stops, naar zijn eind.</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Wissels zetten</translation>
+    </message>
+    <message>
+        <source>Sets every switch on the route so a train follows it.</source>
+        <translation>Zet elke wissel op de route zo dat een trein hem volgt.</translation>
+    </message>
+    <message>
+        <source>Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once.</source>
+        <translation>Wissels die de andere kant op staan tonen een oranje ring op de kaart, en de route zegt hoeveel het er zijn. Ze zetten is één wijziging die je ongedaan kunt maken, en iedereen ziet die meteen.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Huidig blad</translation>
     </message>
@@ -705,6 +753,30 @@
     <message>
         <source>With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits.</source>
         <translation>Met Zelfde kleur aan veranderen de omtrek en de naam samen. Standaard herstellen brengt het lichtblauw terug. Lange namen lopen door op een nieuwe regel, worden kleiner en worden pas afgekapt als niets anders meer past.</translation>
+    </message>
+    <message>
+        <source>Table and power</source>
+        <translation>Tafel en stroom</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>Waar deze module op staat, hoe hoog hij is en welke stroom hij nodig heeft, voor wie de tafels plant.</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>Kies MILS, Gewone grondplaat (losse grondplaten op een gewone tafel) of Eigen, en typ de gemeten hoogte, tot het tafelblad of tot de bovenkant van de rails. Voor stroom: hoeveel stopcontacten hij gebruikt, ongeveer hoeveel watt en aan welke kant de stekker eruit komt. Bij het opslaan van de module in de modulebibliotheek gaat dit mee.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Tafels en stroom</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>Wat alle modules van deze baan samen nodig hebben: stopcontacten en watt, en de tafelhoogtes per soort.</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>Stel tafel en stroom van elke module in via zijn ⋯-menu › Tafel en stroom…. Modules zonder gegevens tellen als niet ingesteld, zodat je ziet wie het je nog moet vertellen.</translation>
     </message>
     <message>
         <source>Edit module</source>
@@ -2461,6 +2533,21 @@
     </message>
 </context>
 <context>
+    <name>Routes</name>
+    <message>
+        <source>There’s no track joining these two places.</source>
+        <translation>Geen spoor verbindt deze twee plekken.</translation>
+    </message>
+    <message>
+        <source>The only way needs the train to turn around.</source>
+        <translation>De enige weg vraagt dat de trein keert.</translation>
+    </message>
+    <message>
+        <source>Pick an end somewhere else along the track.</source>
+        <translation>Kies een eind ergens anders langs het spoor.</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3243,6 +3330,74 @@
     <message>
         <source>A club admin sends you an invite link. Open it to join, and the club&apos;s things show up here.</source>
         <translation>Een clubbeheerder stuurt je een uitnodigingslink. Open hem om mee te doen, en de dingen van de club verschijnen hier.</translation>
+    </message>
+    <message>
+        <source>Modules</source>
+        <translation>Modules</translation>
+    </message>
+    <message>
+        <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
+        <translation>Een module is een stel onderdelen dat als één stuk beweegt, zoals een tafel die een clublid meebrengt. De modules van deze baan staan hier.</translation>
+    </message>
+    <message>
+        <source>Make a module</source>
+        <translation>Module maken</translation>
+    </message>
+    <message>
+        <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
+        <translation>Kies wat onderdelen en dan Module maken. Sla hem op in je modulebibliotheek om hem in andere banen te gebruiken.</translation>
+    </message>
+    <message>
+        <source>Each module&apos;s menu</source>
+        <translation>Het menu van elke module</translation>
+    </message>
+    <message>
+        <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
+        <translation>Het ⋯-menu bewerkt, kleurt en bewaart een module. Tafel en stroom zegt waar hij op staat en welke stroom hij nodig heeft.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Tafels en stroom</translation>
+    </message>
+    <message>
+        <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
+        <translation>De baan telt hier de stopcontacten, watt en tafelhoogtes van zijn modules op, voor wie de tentoonstelling plant.</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>Routes</translation>
+    </message>
+    <message>
+        <source>Your routes</source>
+        <translation>Je routes</translation>
+    </message>
+    <message>
+        <source>Routes are named ways along the track. Open this list from Panels; the eye hides one on your map only.</source>
+        <translation>Routes zijn benoemde wegen langs het spoor. Open deze lijst via Panelen; het oog verbergt er een alleen op jouw kaart.</translation>
+    </message>
+    <message>
+        <source>Draw a route</source>
+        <translation>Een route tekenen</translation>
+    </message>
+    <message>
+        <source>Press New route, then click on the track where it starts and where it ends. The shortest way is found for you.</source>
+        <translation>Druk op Nieuwe route en klik op het spoor waar hij begint en waar hij eindigt. De kortste weg wordt voor je gezocht.</translation>
+    </message>
+    <message>
+        <source>Stops on the way</source>
+        <translation>Stops onderweg</translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop, to send the route along another line. Name it and press Save route.</source>
+        <translation>Shift-klik voegt een stop toe, om de route over een ander spoor te sturen. Geef hem een naam en druk op Route opslaan.</translation>
+    </message>
+    <message>
+        <source>Switches follow the route</source>
+        <translation>Wissels volgen de route</translation>
+    </message>
+    <message>
+        <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
+        <translation>Wissels zetten zet elke wissel op de route zijn kant op. In rijmodus zet je ze met de hand om.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4396,6 +4551,10 @@
     <message>
         <source>A switch&apos;s setting</source>
         <translation>De stand van een wissel</translation>
+    </message>
+    <message>
+        <source>Route &quot;%1&quot;</source>
+        <translation>Route ‘%1’</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -9238,6 +9397,10 @@ Dit wordt niet opnieuw gevraagd. Om het later in deze of een andere layout over 
         <translation>wisselstanden</translation>
     </message>
     <message>
+        <source>routes</source>
+        <translation>routes</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9977,6 +10140,50 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     <message>
         <source>From end %1: %2</source>
         <translation>Vanaf uiteinde %1: %2</translation>
+    </message>
+    <message>
+        <source>Route name</source>
+        <translation>Naam van de route</translation>
+    </message>
+    <message>
+        <source>Save route</source>
+        <translation>Route opslaan</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>Route %1</source>
+        <translation>Route %1</translation>
+    </message>
+    <message>
+        <source>Click on the track.</source>
+        <translation>Klik op het spoor.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
+        <translation>&lt;b&gt;Nieuwe route:&lt;/b&gt; klik op het spoor waar hij begint.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Nieuwe route:&lt;/b&gt; klik waar hij eindigt (Shift-klik voegt een stop toe).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
+        <translation>&lt;b&gt;Nieuwe route:&lt;/b&gt; %1 langs het spoor%2. Shift-klik voegt een stop toe.</translation>
+    </message>
+    <message>
+        <source>, and it turns the train around</source>
+        <translation>, en de trein keert onderweg</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nieuwe route</translation>
+    </message>
+    <message>
+        <source>Route “%1” saved.</source>
+        <translation>Route ‘%1’ opgeslagen.</translation>
     </message>
 </context>
 <context>
@@ -11495,6 +11702,120 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Save</source>
         <translation>Opslaan</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RoutesPanel</name>
+    <message>
+        <source>Routes</source>
+        <translation>Routes</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nieuwe route</translation>
+    </message>
+    <message>
+        <source>Delete route</source>
+        <translation>Route verwijderen</translation>
+    </message>
+    <message>
+        <source>Delete the route “%1”?</source>
+        <translation>De route ‘%1’ verwijderen?</translation>
+    </message>
+    <message>
+        <source>Rename route</source>
+        <translation>Route hernoemen</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Naam:</translation>
+    </message>
+    <message>
+        <source>Switches set for “%1”.</source>
+        <translation>Wissels gezet voor ‘%1’.</translation>
+    </message>
+    <message>
+        <source>Set switches for a route</source>
+        <translation>Wissels zetten voor een route</translation>
+    </message>
+    <message>
+        <source>Draw the route again from its new start or end.</source>
+        <translation>Teken de route opnieuw vanaf zijn nieuwe begin of eind.</translation>
+    </message>
+    <message>
+        <source>Found a new way for “%1”.</source>
+        <translation>Nieuwe weg gevonden voor ‘%1’.</translation>
+    </message>
+    <message>
+        <source>Find a new way</source>
+        <translation>Nieuwe weg zoeken</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then draw a route along it.</source>
+        <translation>Er ligt nog geen spoor op deze baan. Voeg wat toe uit de groep Spoor in het paneel Onderdelen en teken er dan een route langs.</translation>
+    </message>
+    <message>
+        <source>No routes yet. Press New route, then click two places on the track: where it starts and where it ends.</source>
+        <translation>Nog geen routes. Druk op Nieuwe route en klik dan op twee plekken op het spoor: waar hij begint en waar hij eindigt.</translation>
+    </message>
+    <message>
+        <source>Untitled route</source>
+        <translation>Route zonder naam</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation>Zichtbaar</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation>Verborgen</translation>
+    </message>
+    <message>
+        <source>Shown on your map (only yours)</source>
+        <translation>Zichtbaar op jouw kaart (alleen de jouwe)</translation>
+    </message>
+    <message>
+        <source>Hidden on your map (only yours)</source>
+        <translation>Verborgen op jouw kaart (alleen de jouwe)</translation>
+    </message>
+    <message>
+        <source>Hide %1 on your map</source>
+        <translation>%1 verbergen op jouw kaart</translation>
+    </message>
+    <message>
+        <source>Show %1 on your map</source>
+        <translation>%1 tonen op jouw kaart</translation>
+    </message>
+    <message>
+        <source>Broken: the track under it changed.</source>
+        <translation>Onderbroken: het spoor eronder is veranderd.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) set the other way</source>
+        <translation>
+            <numerusform>%n wissel staat de andere kant op</numerusform>
+            <numerusform>%n wissels staan de andere kant op</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Turns the train around</source>
+        <translation>De trein keert</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Wissels zetten</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Hernoemen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Verwijderen</translation>
     </message>
 </context>
 <context>

@@ -603,6 +603,54 @@
         <translation>Fai clic destro su uno scambio per impostarlo, oppure attiva la modalità circolazione e fai clic su di esso. Una freccia verde è il percorso abituale; una arancione significa che è impostato sull&apos;altro ramo. Attiva Visualizza › Scambi per vederli mentre costruisci.</translation>
     </message>
     <message>
+        <source>Routes</source>
+        <translation>Percorsi</translation>
+    </message>
+    <message>
+        <source>Named ways along the track, from one place to another.</source>
+        <translation>Strade con un nome lungo il binario, da un posto a un altro.</translation>
+    </message>
+    <message>
+        <source>Each route shows its length and whether the track still fits it. The eye shows or hides a route on your map only; everyone else keeps their own view. Routes are saved with the layout and shared with everyone editing it.</source>
+        <translation>Ogni percorso mostra la sua lunghezza e se il binario gli corrisponde ancora. L&apos;occhio mostra o nasconde un percorso solo sulla tua mappa; gli altri mantengono la propria vista. I percorsi si salvano con il plastico e si condividono con chi lo modifica.</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nuovo percorso</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track, then where it ends.</source>
+        <translation>Fai clic sul binario dove inizia il percorso, poi dove finisce.</translation>
+    </message>
+    <message>
+        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
+        <translation>Il percorso più breve lungo il binario viene trovato per te, attraverso gli scambi in entrambe le direzioni. Maiusc-clic aggiunge una sosta lungo la strada, per scegliere un&apos;altra linea. Dagli un nome e premi Salva percorso; Esc o Annulla smette.</translation>
+    </message>
+    <message>
+        <source>Broken route</source>
+        <translation>Percorso interrotto</translation>
+    </message>
+    <message>
+        <source>A part this route runs over was moved or removed.</source>
+        <translation>Un pezzo su cui passa questo percorso è stato spostato o tolto.</translation>
+    </message>
+    <message>
+        <source>The route keeps its name, color, start and end, and is drawn dashed red as far as it still goes. Find a new way searches again from its start through its stops to its end.</source>
+        <translation>Il percorso mantiene nome, colore, inizio e fine, ed è disegnato tratteggiato in rosso fin dove arriva ancora. Trova un&apos;altra strada cerca di nuovo dal suo inizio, attraverso le soste, fino alla fine.</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Imposta scambi</translation>
+    </message>
+    <message>
+        <source>Sets every switch on the route so a train follows it.</source>
+        <translation>Imposta ogni scambio del percorso perché un treno lo segua.</translation>
+    </message>
+    <message>
+        <source>Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once.</source>
+        <translation>Gli scambi impostati sull&apos;altro ramo mostrano un anello arancione sulla mappa, e il percorso dice quanti sono. Impostarli è una modifica che puoi annullare, e tutti la vedono subito.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Foglio corrente</translation>
     </message>
@@ -705,6 +753,30 @@
     <message>
         <source>With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits.</source>
         <translation>Con Stesso colore attivo, contorno e nome cambiano insieme. Ripristina predefinito riporta l&apos;azzurro. I nomi lunghi vanno a capo, si rimpiccioliscono e vengono tagliati solo quando non ci sta più nulla.</translation>
+    </message>
+    <message>
+        <source>Table and power</source>
+        <translation>Tavolo e corrente</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>Su cosa poggia questo modulo, quanto è alto e la corrente che gli serve, per chi organizza i tavoli.</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>Scegli MILS, Base semplice (basi sciolte su un tavolo normale) o Personalizzato, e scrivi l&apos;altezza misurata, fino al piano del tavolo o alla sommità dei binari. Per la corrente, indica quante prese usa, circa quanti watt e da che lato esce la spina. Salvare il modulo nella libreria dei moduli porta con sé questi dati.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Tavoli e corrente</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>Ciò che servono insieme tutti i moduli di questo plastico: prese e watt, e le altezze dei tavoli per tipo.</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>Imposta tavolo e corrente di ogni modulo dal suo menu ⋯ › Tavolo e corrente…. I moduli senza dati contano come non impostati, così vedi chi deve ancora dirtelo.</translation>
     </message>
     <message>
         <source>Edit module</source>
@@ -2461,6 +2533,21 @@
     </message>
 </context>
 <context>
+    <name>Routes</name>
+    <message>
+        <source>There’s no track joining these two places.</source>
+        <translation>Nessun binario unisce questi due posti.</translation>
+    </message>
+    <message>
+        <source>The only way needs the train to turn around.</source>
+        <translation>L&apos;unica strada richiede che il treno si giri.</translation>
+    </message>
+    <message>
+        <source>Pick an end somewhere else along the track.</source>
+        <translation>Scegli un&apos;estremità in un altro punto del binario.</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3243,6 +3330,74 @@
     <message>
         <source>A club admin sends you an invite link. Open it to join, and the club&apos;s things show up here.</source>
         <translation>Un amministratore del club ti manda un link di invito. Aprilo per unirti, e le cose del club compaiono qui.</translation>
+    </message>
+    <message>
+        <source>Modules</source>
+        <translation>Moduli</translation>
+    </message>
+    <message>
+        <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
+        <translation>Un modulo sono pezzi che si muovono come un solo pezzo, come un tavolo portato da un socio del club. Qui sono elencati i moduli di questo plastico.</translation>
+    </message>
+    <message>
+        <source>Make a module</source>
+        <translation>Crea un modulo</translation>
+    </message>
+    <message>
+        <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
+        <translation>Scegli alcuni pezzi, poi Crea un modulo. Salvalo nella tua libreria dei moduli per riusarlo in altri plastici.</translation>
+    </message>
+    <message>
+        <source>Each module&apos;s menu</source>
+        <translation>Il menu di ogni modulo</translation>
+    </message>
+    <message>
+        <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
+        <translation>Il menu ⋯ modifica, colora e salva un modulo. Tavolo e corrente dice su cosa poggia e la corrente che gli serve.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Tavoli e corrente</translation>
+    </message>
+    <message>
+        <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
+        <translation>Il plastico somma qui prese, watt e altezze dei tavoli dei suoi moduli, per chi organizza la mostra.</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>Percorsi</translation>
+    </message>
+    <message>
+        <source>Your routes</source>
+        <translation>I tuoi percorsi</translation>
+    </message>
+    <message>
+        <source>Routes are named ways along the track. Open this list from Panels; the eye hides one on your map only.</source>
+        <translation>I percorsi sono strade con un nome lungo il binario. Apri questo elenco da Pannelli; l&apos;occhio ne nasconde uno solo sulla tua mappa.</translation>
+    </message>
+    <message>
+        <source>Draw a route</source>
+        <translation>Disegna un percorso</translation>
+    </message>
+    <message>
+        <source>Press New route, then click on the track where it starts and where it ends. The shortest way is found for you.</source>
+        <translation>Premi Nuovo percorso, poi fai clic sul binario dove inizia e dove finisce. La strada più breve viene trovata per te.</translation>
+    </message>
+    <message>
+        <source>Stops on the way</source>
+        <translation>Soste lungo la strada</translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop, to send the route along another line. Name it and press Save route.</source>
+        <translation>Maiusc-clic aggiunge una sosta, per mandare il percorso su un&apos;altra linea. Dagli un nome e premi Salva percorso.</translation>
+    </message>
+    <message>
+        <source>Switches follow the route</source>
+        <translation>Gli scambi seguono il percorso</translation>
+    </message>
+    <message>
+        <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
+        <translation>Imposta scambi mette ogni scambio del percorso nella sua direzione. La modalità circolazione li fa cambiare a mano.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4396,6 +4551,10 @@
     <message>
         <source>A switch&apos;s setting</source>
         <translation>L&apos;impostazione di uno scambio</translation>
+    </message>
+    <message>
+        <source>Route &quot;%1&quot;</source>
+        <translation>Percorso «%1»</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -9238,6 +9397,10 @@ Non ti verrà chiesto di nuovo. Per portarlo più tardi in questo o in un altro 
         <translation>le impostazioni degli scambi</translation>
     </message>
     <message>
+        <source>routes</source>
+        <translation>percorsi</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9978,6 +10141,50 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
         <source>From end %1: %2</source>
         <translation>Dall&apos;estremità %1: %2</translation>
     </message>
+    <message>
+        <source>Route name</source>
+        <translation>Nome del percorso</translation>
+    </message>
+    <message>
+        <source>Save route</source>
+        <translation>Salva percorso</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annulla</translation>
+    </message>
+    <message>
+        <source>Route %1</source>
+        <translation>Percorso %1</translation>
+    </message>
+    <message>
+        <source>Click on the track.</source>
+        <translation>Fai clic sul binario.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
+        <translation>&lt;b&gt;Nuovo percorso:&lt;/b&gt; fai clic sul binario dove inizia.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Nuovo percorso:&lt;/b&gt; fai clic dove finisce (Maiusc-clic aggiunge una sosta).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
+        <translation>&lt;b&gt;Nuovo percorso:&lt;/b&gt; %1 lungo il binario%2. Maiusc-clic aggiunge una sosta.</translation>
+    </message>
+    <message>
+        <source>, and it turns the train around</source>
+        <translation>, e il treno si gira</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nuovo percorso</translation>
+    </message>
+    <message>
+        <source>Route “%1” saved.</source>
+        <translation>Percorso «%1» salvato.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleEditBar</name>
@@ -10233,7 +10440,7 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
     </message>
     <message>
         <source>Stop</source>
-        <translation>Ferma</translation>
+        <translation>Smetti</translation>
     </message>
     <message>
         <source>Share “%1”</source>
@@ -11495,6 +11702,120 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>Save</source>
         <translation>Salva</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RoutesPanel</name>
+    <message>
+        <source>Routes</source>
+        <translation>Percorsi</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nuovo percorso</translation>
+    </message>
+    <message>
+        <source>Delete route</source>
+        <translation>Elimina percorso</translation>
+    </message>
+    <message>
+        <source>Delete the route “%1”?</source>
+        <translation>Eliminare il percorso «%1»?</translation>
+    </message>
+    <message>
+        <source>Rename route</source>
+        <translation>Rinomina percorso</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nome:</translation>
+    </message>
+    <message>
+        <source>Switches set for “%1”.</source>
+        <translation>Scambi impostati per «%1».</translation>
+    </message>
+    <message>
+        <source>Set switches for a route</source>
+        <translation>Imposta gli scambi di un percorso</translation>
+    </message>
+    <message>
+        <source>Draw the route again from its new start or end.</source>
+        <translation>Disegna di nuovo il percorso dal suo nuovo inizio o fine.</translation>
+    </message>
+    <message>
+        <source>Found a new way for “%1”.</source>
+        <translation>Trovata un&apos;altra strada per «%1».</translation>
+    </message>
+    <message>
+        <source>Find a new way</source>
+        <translation>Trova un&apos;altra strada</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then draw a route along it.</source>
+        <translation>Su questo plastico non c&apos;è ancora binario. Aggiungine dal gruppo Binari del pannello Pezzi, poi disegna un percorso lungo di esso.</translation>
+    </message>
+    <message>
+        <source>No routes yet. Press New route, then click two places on the track: where it starts and where it ends.</source>
+        <translation>Ancora nessun percorso. Premi Nuovo percorso, poi fai clic su due punti del binario: dove inizia e dove finisce.</translation>
+    </message>
+    <message>
+        <source>Untitled route</source>
+        <translation>Percorso senza nome</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation>Visibile</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation>Nascosto</translation>
+    </message>
+    <message>
+        <source>Shown on your map (only yours)</source>
+        <translation>Visibile sulla tua mappa (solo sulla tua)</translation>
+    </message>
+    <message>
+        <source>Hidden on your map (only yours)</source>
+        <translation>Nascosto sulla tua mappa (solo sulla tua)</translation>
+    </message>
+    <message>
+        <source>Hide %1 on your map</source>
+        <translation>Nascondi %1 sulla tua mappa</translation>
+    </message>
+    <message>
+        <source>Show %1 on your map</source>
+        <translation>Mostra %1 sulla tua mappa</translation>
+    </message>
+    <message>
+        <source>Broken: the track under it changed.</source>
+        <translation>Interrotto: il binario sotto è cambiato.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) set the other way</source>
+        <translation>
+            <numerusform>%n scambio impostato sull&apos;altro ramo</numerusform>
+            <numerusform>%n scambi impostati sull&apos;altro ramo</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Turns the train around</source>
+        <translation>Il treno si gira</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Imposta scambi</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Rinomina</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Elimina</translation>
     </message>
 </context>
 <context>

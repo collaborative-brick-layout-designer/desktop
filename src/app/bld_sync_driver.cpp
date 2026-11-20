@@ -32,6 +32,9 @@
 //                              move a module's parts together (studs), as one edit
 //   brick-delete <brickId>     delete a part, as one edit
 //   switches                   the editor's switch settings as JSON ("<brick>/<heel>": exit)
+//   routes                     the editor's named routes as JSON: id, name, steps, and
+//                              broken (true when its steps no longer join up, worked out
+//                              from links alone: no parts library here)
 //   switch-set <brick>/<heel> <exit|default>
 //                              set a switch (default: back to its usual way), as one edit
 //   shared                     the editor's shared (read-only) modules as JSON: id,
@@ -313,6 +316,40 @@ public:
             auto map = session_.editorMap(&error);
             if (!map) return reply(QStringLiteral("error ") + error), true;
             reply(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(saveload::switchStatesToJson(map->sidecar.switchStates)).toJson(QJsonDocument::Compact)));
+        } else if (cmd == QLatin1String("routes")) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            // Which connection id is where, to see whether the steps still join.
+            QHash<QString, QPair<QString, int>> owner;
+            QHash<QString, QStringList> linkOf;  // brick -> each connection's partner id
+            for (const auto& l : map->layers())
+                if (l->kind() == core::LayerKind::Brick)
+                    for (const auto& b : static_cast<const core::LayerBrick&>(*l).bricks) {
+                        QStringList links;
+                        for (int i = 0; i < static_cast<int>(b.connections.size()); ++i) {
+                            owner.insert(b.connections[i].guid, { b.guid, i });
+                            links << b.connections[i].linkedToId;
+                        }
+                        linkOf.insert(b.guid, links);
+                    }
+            QJsonArray out;
+            for (const auto& r : map->sidecar.routes) {
+                bool broken = r.steps.empty();
+                for (size_t i = 0; i < r.steps.size() && !broken; ++i) {
+                    const auto& st = r.steps[i];
+                    if (!linkOf.contains(st.brick)) broken = true;
+                    else if (i + 1 < r.steps.size()) {
+                        const QStringList& links = linkOf.value(st.brick);
+                        const auto p = st.to < links.size() ? owner.value(links[st.to]) : QPair<QString, int>();
+                        broken = p.first != r.steps[i + 1].brick || p.second != r.steps[i + 1].from;
+                    }
+                }
+                QJsonObject o = saveload::routeToJson(r);
+                o.insert(QStringLiteral("broken"), broken);
+                out.append(o);
+            }
+            reply(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(out).toJson(QJsonDocument::Compact)));
         } else if (cmd == QLatin1String("switch-set") && a.size() == 3) {
             QString error;
             auto map = session_.editorMap(&error);

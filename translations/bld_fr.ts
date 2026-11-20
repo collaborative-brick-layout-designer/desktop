@@ -603,6 +603,54 @@
         <translation>Cliquez droit sur un aiguillage pour le régler, ou activez le mode circulation et cliquez dessus. Une flèche verte est la voie habituelle ; une orange signifie qu’il est réglé sur l’autre voie. Activez Affichage › Aiguillages pour les voir pendant que vous construisez.</translation>
     </message>
     <message>
+        <source>Routes</source>
+        <translation>Itinéraires</translation>
+    </message>
+    <message>
+        <source>Named ways along the track, from one place to another.</source>
+        <translation>Des chemins nommés le long de la voie, d’un endroit à un autre.</translation>
+    </message>
+    <message>
+        <source>Each route shows its length and whether the track still fits it. The eye shows or hides a route on your map only; everyone else keeps their own view. Routes are saved with the layout and shared with everyone editing it.</source>
+        <translation>Chaque itinéraire indique sa longueur et si la voie lui correspond encore. L’œil affiche ou masque un itinéraire sur votre carte seulement ; les autres gardent leur propre vue. Les itinéraires sont enregistrés avec le réseau et partagés avec tous ceux qui le modifient.</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nouvel itinéraire</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track, then where it ends.</source>
+        <translation>Cliquez sur la voie là où l’itinéraire commence, puis là où il finit.</translation>
+    </message>
+    <message>
+        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
+        <translation>Le chemin le plus court le long de la voie est trouvé pour vous, à travers les aiguillages dans les deux sens. Maj-clic ajoute un arrêt en route, pour choisir une autre voie. Nommez-le et appuyez sur Enregistrer l’itinéraire ; Échap ou Annuler arrête.</translation>
+    </message>
+    <message>
+        <source>Broken route</source>
+        <translation>Itinéraire rompu</translation>
+    </message>
+    <message>
+        <source>A part this route runs over was moved or removed.</source>
+        <translation>Une pièce sur laquelle passe cet itinéraire a été déplacée ou retirée.</translation>
+    </message>
+    <message>
+        <source>The route keeps its name, color, start and end, and is drawn dashed red as far as it still goes. Find a new way searches again from its start through its stops to its end.</source>
+        <translation>L’itinéraire garde son nom, sa couleur, son début et sa fin, et est dessiné en pointillés rouges aussi loin qu’il va encore. Trouver un autre chemin cherche à nouveau depuis son début, par ses arrêts, jusqu’à sa fin.</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Régler les aiguillages</translation>
+    </message>
+    <message>
+        <source>Sets every switch on the route so a train follows it.</source>
+        <translation>Règle chaque aiguillage de l’itinéraire pour qu’un train le suive.</translation>
+    </message>
+    <message>
+        <source>Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once.</source>
+        <translation>Les aiguillages réglés dans l’autre sens montrent un anneau orange sur la carte, et l’itinéraire indique combien il y en a. Les régler est une modification que vous pouvez annuler, et tout le monde la voit aussitôt.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Feuille actuelle</translation>
     </message>
@@ -705,6 +753,30 @@
     <message>
         <source>With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits.</source>
         <translation>Avec « Même couleur », le contour et le nom changent ensemble. « Valeur par défaut » remet le bleu clair. Les noms longs passent à la ligne, rapetissent et ne sont coupés que si rien d’autre ne tient.</translation>
+    </message>
+    <message>
+        <source>Table and power</source>
+        <translation>Table et alimentation</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>Sur quoi repose ce module, sa hauteur et l’alimentation dont il a besoin, pour qui prévoit les tables.</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>Choisissez MILS, Plaque de base simple (des plaques posées sur une table ordinaire) ou Personnalisée, et saisissez la hauteur mesurée, jusqu’au plateau ou jusqu’au haut des rails. Pour l’alimentation, indiquez combien de prises il utilise, combien de watts environ et de quel côté sort la prise. Enregistrer le module dans la bibliothèque de modules les emporte.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Tables et alimentation</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>Ce dont tous les modules de ce réseau ont besoin ensemble : prises et watts, et les hauteurs de table par type.</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>Réglez la table et l’alimentation de chaque module depuis son menu ⋯ › Table et alimentation…. Les modules sans réglage comptent comme non réglés, pour voir qui doit encore vous le dire.</translation>
     </message>
     <message>
         <source>Edit module</source>
@@ -2461,6 +2533,21 @@
     </message>
 </context>
 <context>
+    <name>Routes</name>
+    <message>
+        <source>There’s no track joining these two places.</source>
+        <translation>Aucune voie ne relie ces deux endroits.</translation>
+    </message>
+    <message>
+        <source>The only way needs the train to turn around.</source>
+        <translation>Le seul chemin oblige le train à faire demi-tour.</translation>
+    </message>
+    <message>
+        <source>Pick an end somewhere else along the track.</source>
+        <translation>Choisissez une extrémité ailleurs le long de la voie.</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3243,6 +3330,74 @@
     <message>
         <source>A club admin sends you an invite link. Open it to join, and the club&apos;s things show up here.</source>
         <translation>Un admin du club vous envoie un lien d’invitation. Ouvrez-le pour rejoindre, et les affaires du club apparaissent ici.</translation>
+    </message>
+    <message>
+        <source>Modules</source>
+        <translation>Modules</translation>
+    </message>
+    <message>
+        <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
+        <translation>Un module, ce sont des pièces qui bougent d’un seul bloc, comme une table qu’apporte un membre du club. Les modules de ce réseau sont listés ici.</translation>
+    </message>
+    <message>
+        <source>Make a module</source>
+        <translation>Créer un module</translation>
+    </message>
+    <message>
+        <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
+        <translation>Sélectionnez des pièces, puis Créer un module. Enregistrez-le dans votre bibliothèque de modules pour le réutiliser dans d’autres réseaux.</translation>
+    </message>
+    <message>
+        <source>Each module&apos;s menu</source>
+        <translation>Le menu de chaque module</translation>
+    </message>
+    <message>
+        <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
+        <translation>Le menu ⋯ modifie, colore et enregistre un module. Table et alimentation indique sur quoi il repose et l’alimentation dont il a besoin.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Tables et alimentation</translation>
+    </message>
+    <message>
+        <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
+        <translation>Le réseau additionne ici les prises, watts et hauteurs de table de ses modules, pour qui prévoit l’exposition.</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>Itinéraires</translation>
+    </message>
+    <message>
+        <source>Your routes</source>
+        <translation>Vos itinéraires</translation>
+    </message>
+    <message>
+        <source>Routes are named ways along the track. Open this list from Panels; the eye hides one on your map only.</source>
+        <translation>Les itinéraires sont des chemins nommés le long de la voie. Ouvrez cette liste depuis Panneaux ; l’œil en masque un sur votre carte seulement.</translation>
+    </message>
+    <message>
+        <source>Draw a route</source>
+        <translation>Dessiner un itinéraire</translation>
+    </message>
+    <message>
+        <source>Press New route, then click on the track where it starts and where it ends. The shortest way is found for you.</source>
+        <translation>Appuyez sur Nouvel itinéraire, puis cliquez sur la voie là où il commence et là où il finit. Le plus court chemin est trouvé pour vous.</translation>
+    </message>
+    <message>
+        <source>Stops on the way</source>
+        <translation>Arrêts en route</translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop, to send the route along another line. Name it and press Save route.</source>
+        <translation>Maj-clic ajoute un arrêt, pour faire passer l’itinéraire par une autre voie. Nommez-le et appuyez sur Enregistrer l’itinéraire.</translation>
+    </message>
+    <message>
+        <source>Switches follow the route</source>
+        <translation>Les aiguillages suivent l’itinéraire</translation>
+    </message>
+    <message>
+        <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
+        <translation>Régler les aiguillages règle chaque aiguillage de l’itinéraire dans son sens. Le mode circulation permet de les changer à la main.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4396,6 +4551,10 @@
     <message>
         <source>A switch&apos;s setting</source>
         <translation>Le réglage d’un aiguillage</translation>
+    </message>
+    <message>
+        <source>Route &quot;%1&quot;</source>
+        <translation>Itinéraire « %1 »</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -9238,6 +9397,10 @@ La question ne vous sera plus posée. Pour le reprendre plus tard dans ce plan o
         <translation>les réglages des aiguillages</translation>
     </message>
     <message>
+        <source>routes</source>
+        <translation>itinéraires</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9977,6 +10140,50 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     <message>
         <source>From end %1: %2</source>
         <translation>Depuis l’extrémité %1 : %2</translation>
+    </message>
+    <message>
+        <source>Route name</source>
+        <translation>Nom de l’itinéraire</translation>
+    </message>
+    <message>
+        <source>Save route</source>
+        <translation>Enregistrer l’itinéraire</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuler</translation>
+    </message>
+    <message>
+        <source>Route %1</source>
+        <translation>Itinéraire %1</translation>
+    </message>
+    <message>
+        <source>Click on the track.</source>
+        <translation>Cliquez sur la voie.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
+        <translation>&lt;b&gt;Nouvel itinéraire :&lt;/b&gt; cliquez sur la voie là où il commence.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Nouvel itinéraire :&lt;/b&gt; cliquez là où il finit (Maj-clic ajoute un arrêt).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
+        <translation>&lt;b&gt;Nouvel itinéraire :&lt;/b&gt; %1 le long de la voie%2. Maj-clic ajoute un arrêt.</translation>
+    </message>
+    <message>
+        <source>, and it turns the train around</source>
+        <translation>, et le train y fait demi-tour</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nouvel itinéraire</translation>
+    </message>
+    <message>
+        <source>Route “%1” saved.</source>
+        <translation>Itinéraire « %1 » enregistré.</translation>
     </message>
 </context>
 <context>
@@ -11495,6 +11702,120 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Save</source>
         <translation>Enregistrer</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RoutesPanel</name>
+    <message>
+        <source>Routes</source>
+        <translation>Itinéraires</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nouvel itinéraire</translation>
+    </message>
+    <message>
+        <source>Delete route</source>
+        <translation>Supprimer l’itinéraire</translation>
+    </message>
+    <message>
+        <source>Delete the route “%1”?</source>
+        <translation>Supprimer l’itinéraire « %1 » ?</translation>
+    </message>
+    <message>
+        <source>Rename route</source>
+        <translation>Renommer l’itinéraire</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nom :</translation>
+    </message>
+    <message>
+        <source>Switches set for “%1”.</source>
+        <translation>Aiguillages réglés pour « %1 ».</translation>
+    </message>
+    <message>
+        <source>Set switches for a route</source>
+        <translation>Régler les aiguillages d’un itinéraire</translation>
+    </message>
+    <message>
+        <source>Draw the route again from its new start or end.</source>
+        <translation>Redessinez l’itinéraire depuis son nouveau début ou sa nouvelle fin.</translation>
+    </message>
+    <message>
+        <source>Found a new way for “%1”.</source>
+        <translation>Un autre chemin a été trouvé pour « %1 ».</translation>
+    </message>
+    <message>
+        <source>Find a new way</source>
+        <translation>Trouver un autre chemin</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then draw a route along it.</source>
+        <translation>Il n’y a pas encore de voie sur ce réseau. Ajoutez-en depuis le groupe Voie du panneau Pièces, puis dessinez un itinéraire le long.</translation>
+    </message>
+    <message>
+        <source>No routes yet. Press New route, then click two places on the track: where it starts and where it ends.</source>
+        <translation>Pas encore d’itinéraire. Appuyez sur Nouvel itinéraire, puis cliquez à deux endroits de la voie : là où il commence et là où il finit.</translation>
+    </message>
+    <message>
+        <source>Untitled route</source>
+        <translation>Itinéraire sans nom</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation>Affiché</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation>Masqué</translation>
+    </message>
+    <message>
+        <source>Shown on your map (only yours)</source>
+        <translation>Affiché sur votre carte (la vôtre seulement)</translation>
+    </message>
+    <message>
+        <source>Hidden on your map (only yours)</source>
+        <translation>Masqué sur votre carte (la vôtre seulement)</translation>
+    </message>
+    <message>
+        <source>Hide %1 on your map</source>
+        <translation>Masquer %1 sur votre carte</translation>
+    </message>
+    <message>
+        <source>Show %1 on your map</source>
+        <translation>Afficher %1 sur votre carte</translation>
+    </message>
+    <message>
+        <source>Broken: the track under it changed.</source>
+        <translation>Rompu : la voie en dessous a changé.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) set the other way</source>
+        <translation>
+            <numerusform>%n aiguillage réglé dans l’autre sens</numerusform>
+            <numerusform>%n aiguillages réglés dans l’autre sens</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Turns the train around</source>
+        <translation>Le train fait demi-tour</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Régler les aiguillages</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Renommer</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Supprimer</translation>
     </message>
 </context>
 <context>

@@ -967,6 +967,55 @@ struct SyncDoc::Impl {
         setFields(states, cur, wantObj, false);
     }
 
+    // Named routes (trains design 2.5): a Y.Map at meta.routes, id -> a
+    // Y.Map of the route's fields, as the web keeps them: only the fields
+    // that changed are written, so two people's edits to different routes,
+    // or different fields of one, merge. A route deleted here goes.
+    void writeRoutes(const QJsonObject& curMeta, const std::vector<core::Route>& want) {
+        static const char* const kKey = "routes";
+        QJsonObject wantObj;
+        for (const auto& r : want) {
+            QJsonObject o = saveload::routeToJson(r);
+            o.remove(QStringLiteral("id"));
+            wantObj.insert(r.id, o);
+        }
+        Output existing(ymap_get(meta, txn, kKey));
+        if (!existing || existing->tag != Y_MAP) {
+            if (wantObj.isEmpty()) return;
+            // A Y.Map of Y.Maps (each route its own map).
+            QJsonObject inner;
+            const YInput v = arena.itemMap(inner);
+            ymap_insert(meta, txn, kKey, &v);
+            ++ops;
+            existing = Output(ymap_get(meta, txn, kKey));
+        }
+        const Branch* all = youtput_read_ymap(existing.get());
+        const QJsonObject cur = curMeta.value(QLatin1String(kKey)).toObject();
+        for (auto it = cur.begin(); it != cur.end(); ++it)
+            if (!wantObj.contains(it.key())) {
+                ymap_remove(all, txn, arena.str(it.key()));
+                ++ops;
+            }
+        for (auto it = wantObj.begin(); it != wantObj.end(); ++it) {
+            const QJsonObject w = it.value().toObject();
+            Output route(ymap_get(all, txn, arena.str(it.key())));
+            if (!route || route->tag != Y_MAP) {
+                const YInput v = arena.itemMap(w);
+                ymap_insert(all, txn, arena.str(it.key()), &v);
+                ++ops;
+                continue;
+            }
+            const Branch* fields = youtput_read_ymap(route.get());
+            const QJsonObject curFields = cur.value(it.key()).toObject();
+            for (auto f = curFields.begin(); f != curFields.end(); ++f)
+                if (!w.contains(f.key())) {
+                    ymap_remove(fields, txn, arena.str(f.key()));
+                    ++ops;
+                }
+            setFields(fields, curFields, w, false);
+        }
+    }
+
     // Set changed fields of an item or layer map in place.
     void setFields(const Branch* map, const QJsonObject& cur, const QJsonObject& want, bool skipArrays) {
         for (auto it = want.begin(); it != want.end(); ++it) {
@@ -1398,6 +1447,7 @@ QByteArray SyncDoc::writeMap(const core::Map& map, bool undoStep) {
     d.setFields(d.meta, curMeta, wantMeta, false);
     d.writeBudget(curMeta, map.sidecar.budgetLimits);
     d.writeSwitchStates(curMeta, map.sidecar.switchStates);
+    d.writeRoutes(curMeta, map.sidecar.routes);
     if (!sidecarWrite.items.isEmpty()) {
         const QJsonObject curItems = cur.value(QLatin1String("sidecarItems")).toObject();
         const QJsonObject& wantItems = sidecarWrite.items;

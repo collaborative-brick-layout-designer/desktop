@@ -603,6 +603,54 @@
         <translation>ポイントを右クリックして切り替えるか、運転モードにしてクリックします。緑の矢印はふだんの向き、オレンジの矢印はもう一方に切り替わっていることを示します。組み立て中に見るには 表示 › ポイント をオンにします。</translation>
     </message>
     <message>
+        <source>Routes</source>
+        <translation>ルート</translation>
+    </message>
+    <message>
+        <source>Named ways along the track, from one place to another.</source>
+        <translation>線路に沿った、場所から場所への名前付きの道筋です。</translation>
+    </message>
+    <message>
+        <source>Each route shows its length and whether the track still fits it. The eye shows or hides a route on your map only; everyone else keeps their own view. Routes are saved with the layout and shared with everyone editing it.</source>
+        <translation>各ルートは長さと、線路がまだ合っているかを表示します。目のボタンはあなたの地図でだけルートを表示・非表示にし、ほかの人は自分の表示のままです。ルートはレイアウトと一緒に保存され、編集しているみんなと共有されます。</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>新しいルート</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track, then where it ends.</source>
+        <translation>線路上のルートの始まりをクリックし、次に終わりをクリックします。</translation>
+    </message>
+    <message>
+        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
+        <translation>線路に沿った最短の道筋を、どちら向きのポイントも通って見つけます。Shift キーを押しながらクリックすると途中の停車点が加わり、別の線を選べます。名前を付けて「ルートを保存」を押します。Esc か「キャンセル」でやめます。</translation>
+    </message>
+    <message>
+        <source>Broken route</source>
+        <translation>切れたルート</translation>
+    </message>
+    <message>
+        <source>A part this route runs over was moved or removed.</source>
+        <translation>このルートが通るパーツが動かされたか、取り除かれました。</translation>
+    </message>
+    <message>
+        <source>The route keeps its name, color, start and end, and is drawn dashed red as far as it still goes. Find a new way searches again from its start through its stops to its end.</source>
+        <translation>ルートは名前、色、始まりと終わりを保ち、まだ届くところまで赤い破線で描かれます。「新しい道筋を探す」で始まりから停車点を通って終わりまでもう一度探します。</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>ポイントを切り替える</translation>
+    </message>
+    <message>
+        <source>Sets every switch on the route so a train follows it.</source>
+        <translation>列車がルートをたどるよう、ルート上のポイントをすべて切り替えます。</translation>
+    </message>
+    <message>
+        <source>Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once.</source>
+        <translation>逆向きのポイントは地図にオレンジの輪で表示され、ルートにその数が出ます。切り替えは元に戻せる 1 つの変更で、みんなにすぐ反映されます。</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>現在のシート</translation>
     </message>
@@ -705,6 +753,30 @@
     <message>
         <source>With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits.</source>
         <translation>「同じ色」をオンにすると、枠線と名前がいっしょに変わります。「既定に戻す」で水色に戻ります。長い名前は折り返され、小さくなり、それでも収まらないときだけ切り詰められます。</translation>
+    </message>
+    <message>
+        <source>Table and power</source>
+        <translation>テーブルと電源</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>このモジュールが何の上に置かれ、高さはいくつで、どれだけ電源が要るかです。テーブルを計画する人のための情報です。</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>MILS、ふつうの基礎板（ふつうのテーブルに置いた基礎板）、カスタムから選び、測った高さ（天板まで、またはレールの上面まで）を入力します。電源は使うコンセントの数、おおよそのワット数、プラグが出る側を入れます。モジュールをモジュールライブラリに保存すると、これも一緒に保存されます。</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>テーブルと電源</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>このレイアウトのモジュール全体で必要なもの：コンセントとワット数、種類ごとのテーブルの高さです。</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>各モジュールの ⋯ メニュー › テーブルと電源… から設定します。何も設定していないモジュールは未設定として数えるので、まだ知らせてくれていない人がわかります。</translation>
     </message>
     <message>
         <source>Edit module</source>
@@ -2447,6 +2519,21 @@
     </message>
 </context>
 <context>
+    <name>Routes</name>
+    <message>
+        <source>There’s no track joining these two places.</source>
+        <translation>この 2 か所をつなぐ線路がありません。</translation>
+    </message>
+    <message>
+        <source>The only way needs the train to turn around.</source>
+        <translation>方向転換しないと行けない道筋しかありません。</translation>
+    </message>
+    <message>
+        <source>Pick an end somewhere else along the track.</source>
+        <translation>線路上の別の場所を端に選んでください。</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3225,6 +3312,74 @@
     <message>
         <source>A club admin sends you an invite link. Open it to join, and the club&apos;s things show up here.</source>
         <translation>クラブの管理者から招待リンクが届きます。開いて参加すると、クラブのものがここに表示されます。</translation>
+    </message>
+    <message>
+        <source>Modules</source>
+        <translation>モジュール</translation>
+    </message>
+    <message>
+        <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
+        <translation>モジュールは、クラブのメンバーが持ってくるテーブルのように、ひとまとまりで動くパーツです。このレイアウトのモジュールがここに並びます。</translation>
+    </message>
+    <message>
+        <source>Make a module</source>
+        <translation>モジュールを作る</translation>
+    </message>
+    <message>
+        <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
+        <translation>パーツを選んでから「モジュールを作る」を押します。モジュールライブラリに保存すると、ほかのレイアウトでも使えます。</translation>
+    </message>
+    <message>
+        <source>Each module&apos;s menu</source>
+        <translation>各モジュールのメニュー</translation>
+    </message>
+    <message>
+        <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
+        <translation>⋯ メニューでモジュールの編集、色付け、保存ができます。「テーブルと電源」で置き場所と必要な電源を記録します。</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>テーブルと電源</translation>
+    </message>
+    <message>
+        <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
+        <translation>レイアウトがモジュールのコンセント、ワット数、テーブルの高さをここで合計します。展示を計画する人のための情報です。</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>ルート</translation>
+    </message>
+    <message>
+        <source>Your routes</source>
+        <translation>あなたのルート</translation>
+    </message>
+    <message>
+        <source>Routes are named ways along the track. Open this list from Panels; the eye hides one on your map only.</source>
+        <translation>ルートは線路に沿った名前付きの道筋です。「パネル」からこの一覧を開きます。目のボタンはあなたの地図でだけ隠します。</translation>
+    </message>
+    <message>
+        <source>Draw a route</source>
+        <translation>ルートを描く</translation>
+    </message>
+    <message>
+        <source>Press New route, then click on the track where it starts and where it ends. The shortest way is found for you.</source>
+        <translation>「新しいルート」を押し、線路上の始まりと終わりをクリックします。最短の道筋が見つかります。</translation>
+    </message>
+    <message>
+        <source>Stops on the way</source>
+        <translation>途中の停車点</translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop, to send the route along another line. Name it and press Save route.</source>
+        <translation>Shift キーを押しながらクリックすると停車点が加わり、別の線を通せます。名前を付けて「ルートを保存」を押します。</translation>
+    </message>
+    <message>
+        <source>Switches follow the route</source>
+        <translation>ポイントはルートに従う</translation>
+    </message>
+    <message>
+        <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
+        <translation>「ポイントを切り替える」でルート上のポイントをすべてその向きにします。運転モードでは手で切り替えられます。</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4370,6 +4525,10 @@
     <message>
         <source>A switch&apos;s setting</source>
         <translation>ポイントの開通方向</translation>
+    </message>
+    <message>
+        <source>Route &quot;%1&quot;</source>
+        <translation>ルート「%1」</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -9164,6 +9323,10 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>ポイントの開通方向</translation>
     </message>
     <message>
+        <source>routes</source>
+        <translation>ルート</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9899,6 +10062,50 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <source>From end %1: %2</source>
         <translation>端 %1 から：%2</translation>
     </message>
+    <message>
+        <source>Route name</source>
+        <translation>ルート名</translation>
+    </message>
+    <message>
+        <source>Save route</source>
+        <translation>ルートを保存</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>キャンセル</translation>
+    </message>
+    <message>
+        <source>Route %1</source>
+        <translation>ルート %1</translation>
+    </message>
+    <message>
+        <source>Click on the track.</source>
+        <translation>線路の上をクリックしてください。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
+        <translation>&lt;b&gt;新しいルート：&lt;/b&gt;線路上の始まりをクリックします。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;新しいルート：&lt;/b&gt;終わりをクリックします（Shift キーを押しながらクリックすると停車点が加わります）。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
+        <translation>&lt;b&gt;新しいルート：&lt;/b&gt;線路に沿って %1%2。Shift キーを押しながらクリックすると停車点が加わります。</translation>
+    </message>
+    <message>
+        <source>, and it turns the train around</source>
+        <translation>、列車は途中で向きを変えます</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>新しいルート</translation>
+    </message>
+    <message>
+        <source>Route “%1” saved.</source>
+        <translation>ルート「%1」を保存しました。</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleEditBar</name>
@@ -10153,7 +10360,7 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     </message>
     <message>
         <source>Stop</source>
-        <translation>停止</translation>
+        <translation>やめる</translation>
     </message>
     <message>
         <source>Share “%1”</source>
@@ -11405,6 +11612,119 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Save</source>
         <translation>保存</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RoutesPanel</name>
+    <message>
+        <source>Routes</source>
+        <translation>ルート</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>新しいルート</translation>
+    </message>
+    <message>
+        <source>Delete route</source>
+        <translation>ルートを削除</translation>
+    </message>
+    <message>
+        <source>Delete the route “%1”?</source>
+        <translation>ルート「%1」を削除しますか？</translation>
+    </message>
+    <message>
+        <source>Rename route</source>
+        <translation>ルートの名前を変更</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>名前：</translation>
+    </message>
+    <message>
+        <source>Switches set for “%1”.</source>
+        <translation>「%1」のポイントを切り替えました。</translation>
+    </message>
+    <message>
+        <source>Set switches for a route</source>
+        <translation>ルートのポイントを切り替え</translation>
+    </message>
+    <message>
+        <source>Draw the route again from its new start or end.</source>
+        <translation>新しい始まりか終わりから、ルートを描き直してください。</translation>
+    </message>
+    <message>
+        <source>Found a new way for “%1”.</source>
+        <translation>「%1」の新しい道筋が見つかりました。</translation>
+    </message>
+    <message>
+        <source>Find a new way</source>
+        <translation>新しい道筋を探す</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then draw a route along it.</source>
+        <translation>このレイアウトにはまだ線路がありません。パーツパネルの線路グループから追加し、それに沿ってルートを描いてください。</translation>
+    </message>
+    <message>
+        <source>No routes yet. Press New route, then click two places on the track: where it starts and where it ends.</source>
+        <translation>まだルートがありません。「新しいルート」を押し、線路上の 2 か所（始まりと終わり）をクリックしてください。</translation>
+    </message>
+    <message>
+        <source>Untitled route</source>
+        <translation>名前のないルート</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation>表示中</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation>非表示</translation>
+    </message>
+    <message>
+        <source>Shown on your map (only yours)</source>
+        <translation>あなたの地図に表示中（あなたの地図だけ）</translation>
+    </message>
+    <message>
+        <source>Hidden on your map (only yours)</source>
+        <translation>あなたの地図で非表示（あなたの地図だけ）</translation>
+    </message>
+    <message>
+        <source>Hide %1 on your map</source>
+        <translation>%1 をあなたの地図で隠す</translation>
+    </message>
+    <message>
+        <source>Show %1 on your map</source>
+        <translation>%1 をあなたの地図に表示</translation>
+    </message>
+    <message>
+        <source>Broken: the track under it changed.</source>
+        <translation>切れています：下の線路が変わりました。</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) set the other way</source>
+        <translation>
+            <numerusform>逆向きのポイント %n 個</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Turns the train around</source>
+        <translation>列車が向きを変えます</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>ポイントを切り替える</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>名前を変更</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>削除</translation>
     </message>
 </context>
 <context>

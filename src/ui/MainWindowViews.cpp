@@ -9,15 +9,18 @@
 #include "SavedViews.h"
 #include "SharePictureDialog.h"
 #include "ViewsPanel.h"
+#include "RoutesPanel.h"
 #include "LiveLayout.h"
 
 #include "../core/Layer.h"
 #include "../core/LayerGrid.h"
 #include "../core/Map.h"
 #include "../edit/ViewCommands.h"
+#include "../edit/SwitchCommands.h"
 
 #include <QAction>
 #include <QFileInfo>
+#include <QSettings>
 #include <QStatusBar>
 #include <QTimer>
 #include <QUndoStack>
@@ -158,4 +161,46 @@ void MainWindow::exportAllViews(bool chooseFolder) {
     if (!msg.isEmpty()) statusBar()->showMessage(msg, 8000);
 }
 
-}  // namespace bld::ui
+// ----- Routes -----
+
+QString MainWindow::routesKey() const {
+    if (live_ && live_->active() && !live_->layoutId().isEmpty()) return QStringLiteral("live-") + live_->layoutId();
+    if (!currentFilePath_.isEmpty()) return QString::fromLatin1(currentFilePath_.toUtf8().toBase64(QByteArray::Base64UrlEncoding));
+    return QStringLiteral("untitled");
+}
+
+void MainWindow::setupRoutes() {
+    routesPanel_ = new RoutesPanel(parts_, this);
+    addDockWidget(Qt::RightDockWidgetArea, routesPanel_);
+    routesPanel_->hide();  // Panels > Routes, or the routes tour, shows it
+    connect(routesPanel_, &RoutesPanel::newRouteRequested, mapView_, &MapView::startRouteDraft);
+    connect(mapView_, &MapView::routeDraftChanged, routesPanel_, &RoutesPanel::setDrawing);
+    connect(routesPanel_, &RoutesPanel::routeEdited, this,
+            [this](const QString& id, const std::optional<core::Route>& after, const QString& what) {
+                if (core::Map* map = mapView_->currentMap()) mapView_->undoStack()->push(new edit::SetRouteCommand(*map, id, after, what));
+            });
+    connect(routesPanel_, &RoutesPanel::switchesRequested, this,
+            [this](const QMap<QString, std::optional<int>>& changes, const QString& what) {
+                if (core::Map* map = mapView_->currentMap()) mapView_->undoStack()->push(new edit::SetSwitchStatesCommand(*map, changes, what));
+            });
+    // Shown or hidden on this person's map only: kept here, per layout.
+    connect(routesPanel_, &RoutesPanel::hiddenChanged, this, [this](const QSet<QString>& ids) {
+        QSettings().setValue(QStringLiteral("routes/hidden/") + routesKey(), QStringList(ids.begin(), ids.end()));
+        mapView_->setHiddenRoutes(ids);
+    });
+    connect(mapView_, &MapView::mapLoaded, this, [this] {
+        const QStringList ids = QSettings().value(QStringLiteral("routes/hidden/") + routesKey()).toStringList();
+        const QSet<QString> hidden(ids.begin(), ids.end());
+        refreshRoutes();  // first: the panel's old map is gone
+        routesPanel_->setHidden(hidden);
+        mapView_->setHiddenRoutes(hidden);
+    });
+    connect(mapView_->undoStack(), &QUndoStack::indexChanged, this, [this](int) { refreshRoutes(); });
+    refreshRoutes();
+}
+
+void MainWindow::refreshRoutes() {
+    if (routesPanel_) routesPanel_->setMap(mapView_->currentMap());
+}
+
+}

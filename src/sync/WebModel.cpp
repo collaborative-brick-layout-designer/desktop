@@ -328,6 +328,26 @@ void readBudget(const QJsonObject& meta, core::Sidecar& out) {
     const QJsonValue states = meta.value(QLatin1String("switchStates"));
     out.switchStates = saveload::switchStatesFromJson(
         states.isObject() ? states : meta.value(QLatin1String("cache")).toObject().value(QLatin1String("switchStates")));
+    // Named routes: a Y.Map at meta.routes (id -> the route's fields), or,
+    // from an older web build, the cache's list. Listed by name, then id,
+    // as the web lists them.
+    out.routes.clear();
+    const QJsonValue routes = meta.value(QLatin1String("routes"));
+    if (routes.isObject()) {
+        const QJsonObject all = routes.toObject();
+        for (auto it = all.begin(); it != all.end(); ++it) {
+            QJsonObject r = it.value().toObject();
+            r.insert(QStringLiteral("id"), it.key());
+            if (auto route = saveload::routeFromJson(r)) out.routes.push_back(std::move(*route));
+        }
+    } else {
+        for (const auto& v : meta.value(QLatin1String("cache")).toObject().value(QLatin1String("routes")).toArray())
+            if (auto route = saveload::routeFromJson(v)) out.routes.push_back(std::move(*route));
+    }
+    std::sort(out.routes.begin(), out.routes.end(), [](const core::Route& a, const core::Route& b) {
+        const int c = QString::localeAwareCompare(a.name, b.name);
+        return c != 0 ? c < 0 : a.id < b.id;
+    });
 }
 
 } // namespace

@@ -9,6 +9,7 @@
 #include "../core/Group.h"
 #include "../core/LayerRuler.h"
 #include "../core/Module.h"
+#include "../core/Route.h"
 #include "../core/TextCell.h"
 #include "../core/Venue.h"
 #include "../edit/venue/VenueUnits.h"
@@ -136,6 +137,21 @@ public:
     // The arrow's color: the usual way, and set the other way.
     static QColor switchSetColor();
     static QColor switchTurnedColor();
+
+    // Named routes (trains design 6.2): each route not hidden on this
+    // person's map, as a wide line in its color along the track; a broken
+    // one dashed red as far as it goes; a ring on each switch it needs that
+    // is set the other way. The route being drawn: dashed, ends marked.
+    void setHiddenRoutes(const QSet<QString>& ids) { hiddenRoutes_ = ids; }
+    struct RouteDraftLook {
+        std::vector<std::vector<QPointF>> lines;  // studs
+        std::vector<QPointF> ends;                // studs
+    };
+    void setRouteDraft(std::optional<RouteDraftLook> d) { routeDraft_ = std::move(d); }
+    void refreshRoutes(const core::Map& map);
+    // The routes drawn, by id: their line items (tests).
+    const QHash<QString, QList<QGraphicsItem*>>& routeItems() const { return routeItemsById_; }
+    static QColor routeBrokenColor();
 
     // Draw every module's frame and name again from `map` (a sheet shown or
     // hidden changes which parts frame a module, and how its frame is dashed).
@@ -265,6 +281,13 @@ private:
     void clearModuleLabels();
     void clearElectric();
     void clearSwitches();
+    void clearRoutes();
+    void addRoutes(const core::Map& map);
+    QSet<QString> hiddenRoutes_;
+    std::optional<RouteDraftLook> routeDraft_;
+    QList<QGraphicsItem*> routeItems_;
+    QHash<QString, QList<QGraphicsItem*>> routeItemsById_;
+    std::vector<core::Route> drawnRoutes_;
     void addSwitches(const core::Map& map);
     bool switchesShown_ = false;
     QList<QGraphicsItem*> switchItems_;

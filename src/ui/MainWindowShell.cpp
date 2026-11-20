@@ -7,6 +7,7 @@
 
 #include "DesktopNotifier.h"
 #include "MainWindow.h"
+#include "RoutesPanel.h"
 #include "NotificationViews.h"
 #include "SheetNames.h"
 #include "StatusMessages.h"
@@ -158,6 +159,7 @@ void MainWindow::setupShell() {
     theme::PanelHeader::install(partsBrowser_, QStringLiteral("panel.parts"), prefs);
     theme::PanelHeader::install(layerPanel_, QStringLiteral("panel.sheets"), prefs);
     theme::PanelHeader::install(viewsPanel_, QStringLiteral("panel.views"), prefs);
+    theme::PanelHeader::install(routesPanel_, QStringLiteral("panel.routes"), prefs);
     theme::PanelHeader::install(partUsagePanel_, QStringLiteral("panel.partsList"), prefs);
     theme::PanelHeader::install(modulesPanel_, QStringLiteral("panel.modules"), prefs);
     theme::PanelHeader::install(moduleLibraryPanel_, QStringLiteral("panel.moduleLibrary"), prefs);
@@ -555,7 +557,7 @@ void MainWindow::showTask(const QString& task) {
 
 QList<QDockWidget*> MainWindow::panelDocks() const {
     return { partsBrowser_, layerPanel_, viewsPanel_, partUsagePanel_,
-             modulesPanel_, moduleLibraryPanel_, venueLibraryPanel_ };
+             modulesPanel_, moduleLibraryPanel_, venueLibraryPanel_, routesPanel_ };
 }
 
 void MainWindow::openSettings() {
