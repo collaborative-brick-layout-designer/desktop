@@ -60,6 +60,8 @@ struct DesignerState {
     std::optional<QPointF> pointer;
     SnapKind snapKind = SnapKind::None;
     LengthUnit unit = LengthUnit::FeetInches;
+    // The account's unit: what a venue without a unit of its own shows in.
+    LengthUnit accountUnit = LengthUnit::FeetInches;
     bool snap = true;
     std::array<bool, 6> show{ true, true, true, true, true, true };
     struct Drag {
@@ -76,7 +78,7 @@ struct DesignerState {
     const core::Venue& venue() const { return history.present; }
 };
 
-DesignerState initialState(core::Venue v);
+DesignerState initialState(core::Venue v, LengthUnit accountUnit = LengthUnit::FeetInches);
 
 namespace act {
 struct SetTool {
@@ -111,6 +113,10 @@ struct Edit {
 struct Unit {
     LengthUnit unit;
 };
+// The account's length unit changed (Settings, here or on another device).
+struct AccountUnit {
+    LengthUnit unit;
+};
 struct Snap {
     bool on;
 };
@@ -121,7 +127,7 @@ struct Show {
 } // namespace act
 using Action = std::variant<act::SetTool, act::Move, act::Down, act::Up, act::Type, act::Enter, act::Escape,
                             act::Delete, act::Duplicate, act::Undo, act::Redo, act::Select, act::Edit,
-                            act::Unit, act::Snap, act::Show>;
+                            act::Unit, act::AccountUnit, act::Snap, act::Show>;
 
 DesignerState reduce(DesignerState s, const Action& a);
 

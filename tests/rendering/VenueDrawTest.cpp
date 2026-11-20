@@ -8,6 +8,7 @@
 
 #include "core/Map.h"
 #include "parts/PartsLibrary.h"
+#include "../ProcessStores.h"
 #include "saveload/VenueIO.h"
 
 #include <gtest/gtest.h>
@@ -16,6 +17,7 @@
 #include <QGraphicsPathItem>
 #include <QGraphicsPolygonItem>
 #include <QGraphicsScene>
+#include <QSettings>
 #include <QGraphicsSimpleTextItem>
 
 #include <cmath>
@@ -125,4 +127,15 @@ TEST(VenueDraw, WallLabelsUseTheVenuesOwnUnit) {
     map.sidecar.venue->lengthUnit = core::VenueLengthUnit::Studs;
     builder.build(map);
     EXPECT_EQ(labels(), QStringList{ QStringLiteral("North — 400 studs") });
+
+    // Without a unit of its own: the account's (Settings › Units), kept in
+    // a settings store of this test's own.
+    const ProcessStores stores(QStringLiteral("bld_rendering_tests"));
+    map.sidecar.venue->lengthUnit.reset();
+    QSettings().setValue(QStringLiteral("appearance/lengthUnit"), QStringLiteral("m"));
+    builder.build(map);
+    EXPECT_EQ(labels(), QStringList{ QStringLiteral("North — 3.20 m") });
+    QSettings().remove(QStringLiteral("appearance/lengthUnit"));
+    builder.build(map);
+    EXPECT_EQ(labels(), QStringList{ QStringLiteral("North — 10.50 ft") });
 }

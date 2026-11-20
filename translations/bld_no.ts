@@ -1175,6 +1175,10 @@
         <translation>Forsiktig trekker bare når endene er nær hverandre og slipper når du flytter deg bort; Sterk rekker lenger; Av trekker aldri, og rutenettet retter fortsatt inn delene. Hold Alt (Option på Mac) mens du drar for å plassere én del uten festing.</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>Slik viser appen lengder, som veggene i et lokale og, med tog, spor- og toglengder. Et lokale som er tegnet i en egen enhet, beholder den; et uten følger denne innstillingen. Én knott er 8 mm.</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>Tegneverktøy</translation>
     </message>
@@ -1189,6 +1193,10 @@
     <message>
         <source>Units</source>
         <translation>Enheter</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>Vis lengder i fot og tommer, metrisk eller i knotter.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -12499,6 +12507,26 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Bigger text and buttons</source>
         <translation>Større tekst og knapper</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation>Enheter</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>Hvordan lengder vises, som veggene i et lokale.</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>Fot og tommer, som 12′ 6½″</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>Metrisk, som 3,81 m</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>Knotter: LEGO-knotter, 8 mm hver</translation>
     </message>
     <message>
         <source>Editing</source>

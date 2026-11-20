@@ -1175,6 +1175,10 @@
         <translation>Zacht trekt alleen als de uiteinden dichtbij zijn en laat los zodra je wegbeweegt; Sterk reikt verder; Uit trekt nooit, en het raster lijnt onderdelen nog steeds uit. Houd Alt (Option op een Mac) ingedrukt tijdens het slepen om één onderdeel neer te zetten zonder vastklikken.</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>Zo toont de app lengtes, zoals de muren van een zaal en, met treinen, spoor- en treinlengtes. Een zaal die in een eigen eenheid is getekend, houdt die; een zonder volgt deze instelling. Eén nop is 8 mm.</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>Tekengereedschap</translation>
     </message>
@@ -1189,6 +1193,10 @@
     <message>
         <source>Units</source>
         <translation>Eenheden</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>Toon lengtes in voet en inch, metrisch of in noppen.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -12499,6 +12507,26 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Bigger text and buttons</source>
         <translation>Grotere tekst en knoppen</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation>Eenheden</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>Hoe lengtes worden getoond, zoals de muren van een zaal.</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>Voet en inch, zoals 12′ 6½″</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>Metrisch, zoals 3,81 m</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>Noppen: LEGO-noppen, elk 8 mm</translation>
     </message>
     <message>
         <source>Editing</source>

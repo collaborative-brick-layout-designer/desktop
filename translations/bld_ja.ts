@@ -1175,6 +1175,10 @@
         <translation>「弱い」は端が近いときだけ引き寄せ、離れると放します。「強い」はより遠くから届きます。「オフ」は引き寄せませんが、グリッドにはそろいます。Alt（Mac では Option）を押しながらドラッグすると、1 個だけスナップせずに置けます。</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>会場の壁の長さや、列車機能での線路と列車の長さなど、アプリが長さを表示する単位です。独自の単位で描いた会場はその単位のままで、単位のない会場はこの設定に従います。1スタッドは8 mmです。</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>作図ツール</translation>
     </message>
@@ -1189,6 +1193,10 @@
     <message>
         <source>Units</source>
         <translation>単位</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>長さをフィートとインチ、メートル法、スタッドのどれで表示するかを選びます。</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -12406,6 +12414,26 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Bigger text and buttons</source>
         <translation>文字とボタンを大きく</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation>単位</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>会場の壁など、長さの表示方法です。</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>フィートとインチ（例：12′ 6½″）</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>メートル法（例：3.81 m）</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>スタッド：LEGOのスタッド、1つ8 mm</translation>
     </message>
     <message>
         <source>Editing</source>

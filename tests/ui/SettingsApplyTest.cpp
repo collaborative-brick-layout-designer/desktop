@@ -9,6 +9,13 @@
 #include "ui/UpdateCheck.h"
 #include "ui/theme/AppPrefs.h"
 #include "parts/PartsLibrary.h"
+#include "core/Map.h"
+#include "core/Venue.h"
+#include "rendering/VenueLabels.h"
+
+#include <QGraphicsItem>
+#include <QGraphicsScene>
+#include <QRadioButton>
 
 #include <gtest/gtest.h>
 
@@ -137,4 +144,56 @@ TEST_F(SettingsApply, TheLastLayoutReopensOnlyWhileSettingsSaysSo) {
     QSettings().setValue(QStringLiteral("general/reopenLastFile"), true);
     QFile::remove(last);
     EXPECT_TRUE(ui::MainWindow::fileToReopen().isEmpty());  // gone since
+}
+
+// Settings › Units (the account's length unit): a venue without a unit of
+// its own shows its wall lengths in it, and they change the moment the
+// setting does (picked in Settings, or taken from the server). A venue
+// with a unit of its own keeps it.
+TEST_F(SettingsApply, TheLengthUnitRedrawsTheVenueAtOnce) {
+    auto& store = ui::theme::PrefsStore::instance();
+    const ui::theme::AppPrefs before = store.prefs();
+    ui::MainWindow w(library());
+    w.resize(1000, 700);
+    w.show();
+    auto* view = w.findChild<ui::MapView*>();
+    ASSERT_TRUE(view);
+    auto map = std::make_unique<core::Map>();
+    core::Venue venue;
+    venue.name = QStringLiteral("Hall");
+    venue.edges.push_back({ { QPointF(0, 0), QPointF(400, 0) }, core::EdgeKind::Wall, 0.0, QStringLiteral("North") });
+    map->sidecar.venue = venue;
+    view->loadMap(std::move(map));
+    const auto labels = [view] {
+        QStringList out;
+        for (QGraphicsItem* it : view->scene()->items())
+            if (it->data(rendering::kVenueLabelTextRole).isValid()) out << it->data(rendering::kVenueLabelTextRole).toString();
+        return out;
+    };
+    ui::theme::AppPrefs p = store.prefs();
+    p.lengthUnit = QStringLiteral("ftin");
+    store.update(p);
+    EXPECT_EQ(labels(), QStringList{ QStringLiteral("North — 10.50 ft") });
+
+    inSettings(w, [](ui::SettingsDialog& d) { d.findChild<QRadioButton*>(QStringLiteral("unit_m"))->click(); });
+    EXPECT_EQ(store.prefs().lengthUnit, QStringLiteral("m"));
+    EXPECT_EQ(labels(), QStringList{ QStringLiteral("North — 3.20 m") });
+
+    // From the server (another device): the same, with no reopen.
+    p = store.prefs();
+    p.lengthUnit = QStringLiteral("studs");
+    store.adopt(p);
+    EXPECT_EQ(labels(), QStringList{ QStringLiteral("North — 400 studs") });
+
+    // A venue with a unit of its own keeps it.
+    auto own = std::make_unique<core::Map>();
+    venue.lengthUnit = core::VenueLengthUnit::FeetInches;
+    own->sidecar.venue = venue;
+    view->loadMap(std::move(own));
+    EXPECT_EQ(labels(), QStringList{ QStringLiteral("North — 10.50 ft") });
+    p.lengthUnit = QStringLiteral("m");
+    store.adopt(p);
+    EXPECT_EQ(labels(), QStringList{ QStringLiteral("North — 10.50 ft") });
+
+    store.adopt(before);
 }

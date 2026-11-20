@@ -1175,6 +1175,10 @@
         <translation>Suave solo atrae cuando los extremos están cerca y suelta en cuanto te alejas; Fuerte llega más lejos; Desactivado nunca atrae, y la cuadrícula sigue alineando las piezas. Mantén Alt (Opción en Mac) al arrastrar para colocar una pieza sin ajuste.</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>Así muestra la aplicación las longitudes, como las paredes de una sala y, con trenes, las longitudes de vías y trenes. Una sala dibujada en una unidad propia la conserva; una sin ella sigue este ajuste. Un stud mide 8 mm.</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>Herramientas de dibujo</translation>
     </message>
@@ -1189,6 +1193,10 @@
     <message>
         <source>Units</source>
         <translation>Unidades</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>Muestra las longitudes en pies y pulgadas, en sistema métrico o en studs.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -12499,6 +12507,26 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>Bigger text and buttons</source>
         <translation>Texto y botones más grandes</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation>Unidades</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>Cómo se muestran las longitudes, como las paredes de una sala.</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>Pies y pulgadas, como 12′ 6½″</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>Métrico, como 3,81 m</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>Studs: studs de LEGO, de 8 mm cada uno</translation>
     </message>
     <message>
         <source>Editing</source>

@@ -160,6 +160,27 @@ TEST_F(SettingsDialogTest, SnapStrengthIsGentleUntilChanged) {
     EXPECT_TRUE(gentle->isChecked());
 }
 
+TEST_F(SettingsDialogTest, LengthUnitIsFeetAndInchesUntilChanged) {
+    PrefsStore store(QString::fromLatin1(kGroup));
+    SettingsDialog dialog(store, QString());
+    auto* ftin = dialog.findChild<QRadioButton*>(QStringLiteral("unit_ftin"));
+    auto* m = dialog.findChild<QRadioButton*>(QStringLiteral("unit_m"));
+    auto* studs = dialog.findChild<QRadioButton*>(QStringLiteral("unit_studs"));
+    ASSERT_TRUE(ftin && m && studs);
+    EXPECT_TRUE(ftin->isChecked());
+    m->click();
+    EXPECT_EQ(store.prefs().lengthUnit, QStringLiteral("m"));
+    studs->click();
+    EXPECT_EQ(store.prefs().lengthUnit, QStringLiteral("studs"));
+    EXPECT_EQ(PrefsStore(QString::fromLatin1(kGroup)).prefs().lengthUnit, QStringLiteral("studs"));  // kept
+
+    // Changed on another device: the dialog follows.
+    AppPrefs theirs = store.prefs();
+    theirs.lengthUnit = QStringLiteral("m");
+    store.adopt(theirs);
+    EXPECT_TRUE(m->isChecked());
+}
+
 TEST_F(SettingsDialogTest, TheNoteNamesTheConnectedServer) {
     PrefsStore store(QString::fromLatin1(kGroup));
     SettingsDialog connected(store, QStringLiteral("layouts.club.example:8443"));
@@ -182,7 +203,7 @@ TEST_F(SettingsDialogTest, OneWindowWithSectionsForEverySetting) {
     ASSERT_TRUE(nav);
     QStringList names;
     for (int i = 0; i < nav->count(); ++i) names << nav->item(i)->text();
-    EXPECT_EQ(names, (QStringList{ QStringLiteral("Light or dark"), QStringLiteral("Color"), QStringLiteral("Editing"),
+    EXPECT_EQ(names, (QStringList{ QStringLiteral("Light or dark"), QStringLiteral("Color"), QStringLiteral("Units"), QStringLiteral("Editing"),
                                    QStringLiteral("Map labels"), QStringLiteral("Language"), QStringLiteral("Starting up"),
                                    QStringLiteral("Parts and folders"), QStringLiteral("Bringing in models"),
                                    QStringLiteral("Help"), QStringLiteral("Notifications"), QStringLiteral("Servers") }));

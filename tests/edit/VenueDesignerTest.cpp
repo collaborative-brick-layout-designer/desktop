@@ -191,6 +191,28 @@ TEST(VenueDesignerTools, DragsInWholeInchesAsOneUndoStepAndEscPutsItBack) {
     EXPECT_FALSE(parseSize(QStringLiteral("1' x 2' x 3'"), LengthUnit::FeetInches));
 }
 
+// A venue without a unit of its own starts in the account's unit and follows
+// it when it changes (Settings, here or on another device); once a unit is
+// picked, the venue keeps its own.
+TEST(VenueDesignerTools, AVenueWithoutAUnitFollowsTheAccount) {
+    auto s = initialState(emptyVenue(), LengthUnit::Metres);
+    EXPECT_EQ(s.unit, LengthUnit::Metres);
+    EXPECT_FALSE(s.venue().lengthUnit.has_value());
+    s = run(std::move(s), { act::AccountUnit{ LengthUnit::Studs } });
+    EXPECT_EQ(s.unit, LengthUnit::Studs);
+    EXPECT_FALSE(s.venue().lengthUnit.has_value());  // not an edit
+    EXPECT_TRUE(s.history.past.empty());
+
+    s = run(std::move(s), { act::Unit{ LengthUnit::FeetInches } });
+    EXPECT_EQ(s.venue().lengthUnit, LengthUnit::FeetInches);
+    s = run(std::move(s), { act::AccountUnit{ LengthUnit::Metres } });
+    EXPECT_EQ(s.unit, LengthUnit::FeetInches);
+    EXPECT_EQ(initialState(s.venue(), LengthUnit::Metres).unit, LengthUnit::FeetInches);
+    // Undone back to no unit of its own: the account's again.
+    s = run(std::move(s), { act::Undo{} });
+    EXPECT_EQ(s.unit, LengthUnit::Metres);
+}
+
 // The Units pick is kept with the venue: an edit (so it is saved, and Undo
 // takes it back), and the designer opens in the venue's unit.
 TEST(VenueDesignerTools, TheUnitsPickIsKeptWithTheVenue) {

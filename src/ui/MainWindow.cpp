@@ -55,6 +55,7 @@
 #include "../saveload/SidecarIO.h"
 #include "TouchMode.h"
 #include "theme/AppIcon.h"
+#include "theme/AppPrefs.h"
 #include "theme/PanelHeader.h"
 
 #include <QAction>
@@ -292,6 +293,16 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
         mapView_->rebuildScene();
         layerPanel_->setMap(map, mapView_->builder());
     });
+
+    // Settings › Units: lengths drawn on the map (a venue without a unit of
+    // its own) follow it the moment it changes, here or on another device.
+    connect(&theme::PrefsStore::instance(), &theme::PrefsStore::changed, this,
+            [this, unit = theme::PrefsStore::instance().prefs().lengthUnit]() mutable {
+                const QString now = theme::PrefsStore::instance().prefs().lengthUnit;
+                if (now == unit) return;
+                unit = now;
+                mapView_->rebuildScene();
+            });
 
     partsBrowser_ = new PartsBrowser(parts_, this);
     addDockWidget(Qt::LeftDockWidgetArea, partsBrowser_);
