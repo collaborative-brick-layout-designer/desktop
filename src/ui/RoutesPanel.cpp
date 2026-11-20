@@ -85,8 +85,11 @@ const core::Route* RoutesPanel::find(const QString& id) const {
 }
 
 void RoutesPanel::setShown(const QString& id, bool shown) {
-    if (shown) hidden_.remove(id);
-    else hidden_.insert(id);
+    if (shown) {
+        hidden_.remove(id);
+    } else {
+        hidden_.insert(id);
+    }
     emit hiddenChanged(hidden_);
     rebuild();
 }

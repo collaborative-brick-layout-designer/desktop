@@ -71,7 +71,7 @@ void SceneBuilder::addRoutes(const core::Map& map) {
         const track::RouteStatus st = track::routeStatus(net, r, map.sidecar.switchStates);
         QColor color = st.broken ? routeBrokenColor() : QColor(r.color);
         if (!color.isValid()) color = QColor(0x3B, 0x82, 0xF6);
-        color.setAlphaF(0.55);
+        color.setAlphaF(0.55f);
         QPen pen(color, w, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
         if (st.broken) pen.setDashPattern({ 1.2, 0.8 });
         QList<QGraphicsItem*>& mine = routeItemsById_[r.id];
