@@ -1622,6 +1622,90 @@
         <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
         <translation>Öppna en grupp för att se varje sort. Mejl kan komma direkt, i en daglig eller veckovis sammanfattning, eller inte alls. Tysta timmar håller kvar mejl tills de är slut, och du kan tysta en livlig klubb eller pausa all e-post.</translation>
     </message>
+    <message>
+        <source>Trains</source>
+        <translation>Tåg</translation>
+    </message>
+    <message>
+        <source>The layout&apos;s engines and cars, and the trains made of them.</source>
+        <translation>Layoutens lok och vagnar, och tågen du gör av dem.</translation>
+    </message>
+    <message>
+        <source>Make a car in a few seconds, put cars together into a train, and put the train on the track to see how it sits on curves. Trains and cars are saved with the layout and shared with everyone editing it.</source>
+        <translation>Gör en vagn på några sekunder, sätt ihop vagnar till ett tåg och ställ tåget på spåret för att se hur det står i kurvorna. Tåg och vagnar sparas med layouten och delas med alla som redigerar den.</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Ny vagn</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a length; everything else can wait.</source>
+        <translation>En snabb vagn behöver bara en längd; resten kan vänta.</translation>
+    </message>
+    <message>
+        <source>Give it a number or name so you can find it. More shows the width, where the trucks sit, the couplers, and whether it uses a part&apos;s picture. Lengths are in studs, as you count them on the model.</source>
+        <translation>Ge den ett nummer eller namn så att du hittar den. Mer visar bredden, var boggierna sitter, kopplen och om den använder en dels bild. Längder anges i knoppar, som du räknar dem på modellen.</translation>
+    </message>
+    <message>
+        <source>Trucks</source>
+        <translation>Boggier</translation>
+    </message>
+    <message>
+        <source>The wheel sets a car rides on, measured in studs from the middle of the car.</source>
+        <translation>Hjulparen en vagn går på, mätta i knoppar från vagnens mitt.</translation>
+    </message>
+    <message>
+        <source>The front truck follows the track and the rear one follows it a fixed distance behind, so on a curve the car&apos;s middle swings in and its ends swing out, as a real one does. A quick car puts them a quarter of the way in from each end.</source>
+        <translation>Den främre boggin följer spåret och den bakre följer efter på fast avstånd, så i en kurva svänger vagnens mitt inåt och ändarna utåt, som på en riktig. En snabb vagn sätter dem en fjärdedel in från varje ände.</translation>
+    </message>
+    <message>
+        <source>Roster</source>
+        <translation>Vagnpark</translation>
+    </message>
+    <message>
+        <source>Your own engines and cars, or a club&apos;s, ready to bring into any layout.</source>
+        <translation>Dina egna lok och vagnar, eller en klubbs, redo att tas in i vilken layout som helst.</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s, then add it to other layouts from there. A layout keeps its own copy, so it still opens anywhere; when the roster&apos;s car changes, Update brings the layout&apos;s copy up to date. Club rosters are changed by members who may edit the club&apos;s modules.</source>
+        <translation>Spara en vagn i din vagnpark eller en klubbs och lägg till den i andra layouter därifrån. En layout har en egen kopia, så den öppnas var som helst; när vagnen i vagnparken ändras uppdaterar Uppdatera layoutens kopia. Klubbens vagnpark ändras av medlemmar som får redigera klubbens moduler.</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>Nytt tåg</translation>
+    </message>
+    <message>
+        <source>Cars in order, front to back, that move as one.</source>
+        <translation>Vagnar i ordning, framifrån och bakåt, som rör sig tillsammans.</translation>
+    </message>
+    <message>
+        <source>Add cars from this layout&apos;s rolling stock, put them in order, and turn any of them around. A train&apos;s length is from its front coupler to its rear one.</source>
+        <translation>Lägg till vagnar från layoutens rullande materiel, ställ dem i ordning och vänd vilka du vill. Ett tågs längd är från det främre kopplet till det bakre.</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>Ställ på spåret</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of the train should be.</source>
+        <translation>Klicka på spåret där tågets front ska stå.</translation>
+    </message>
+    <message>
+        <source>The train runs back from there, following the switches as they are set. Click again elsewhere to move it. A train that runs off the end of the track is outlined in red.</source>
+        <translation>Tåget sträcker sig bakåt därifrån och följer växlarna som de är lagda. Klicka någon annanstans för att flytta det. Ett tåg som går utanför spårets slut får röd kant.</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>Vänd</translation>
+    </message>
+    <message>
+        <source>The train&apos;s last car becomes its front, and it faces the other way.</source>
+        <translation>Den sista vagnen blir fronten och tåget pekar åt andra hållet.</translation>
+    </message>
+    <message>
+        <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
+        <translation>Vagnarna står kvar där de är på spåret; bara ordningen och tågets riktning ändras. Varje vändning är en ändring du kan ångra.</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -3471,6 +3555,50 @@
         <source>Put it in the layout you have open, or start a new layout with it.</source>
         <translation>Lägg den i layouten du har öppen, eller börja en ny layout med den.</translation>
     </message>
+    <message>
+        <source>Trains</source>
+        <translation>Tåg</translation>
+    </message>
+    <message>
+        <source>Trains and cars</source>
+        <translation>Tåg och vagnar</translation>
+    </message>
+    <message>
+        <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
+        <translation>Öppna Tåg från Paneler. Rullande materiel har layoutens lok och vagnar; Tåg har tågen gjorda av dem.</translation>
+    </message>
+    <message>
+        <source>A quick car</source>
+        <translation>En snabb vagn</translation>
+    </message>
+    <message>
+        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
+        <translation>Ny vagn behöver bara ett nummer och en längd i knoppar. Fler detaljer ställer in boggier, koppel och en dels bild.</translation>
+    </message>
+    <message>
+        <source>Make a train</source>
+        <translation>Gör ett tåg</translation>
+    </message>
+    <message>
+        <source>Tick a few cars and press Make a train, or press New train and add them in order, front first.</source>
+        <translation>Kryssa för några vagnar och tryck Gör ett tåg, eller tryck Nytt tåg och lägg till dem i ordning, främst först.</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>På spåret</translation>
+    </message>
+    <message>
+        <source>Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track.</source>
+        <translation>Tryck Ställ på spåret och klicka där fronten ska vara. Varje vagn står mellan sina boggier, som på riktigt spår.</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>Din vagnpark</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
+        <translation>Spara en vagn i din vagnpark eller en klubbs för att använda den i andra layouter. Uppdatera gör en layouts kopia aktuell.</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::ModuleLibraryLink</name>
@@ -4563,6 +4691,14 @@
     <message>
         <source>Background image</source>
         <translation>Bakgrundsbild</translation>
+    </message>
+    <message>
+        <source>Car &quot;%1&quot;</source>
+        <translation>Vagn ”%1”</translation>
+    </message>
+    <message>
+        <source>Train &quot;%1&quot;</source>
+        <translation>Tåg ”%1”</translation>
     </message>
 </context>
 <context>
@@ -9535,6 +9671,14 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <source>All notifications</source>
         <translation>Alla aviseringar</translation>
     </message>
+    <message>
+        <source>trains</source>
+        <translation>tåg</translation>
+    </message>
+    <message>
+        <source>rolling stock</source>
+        <translation>rullande materiel</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -10184,6 +10328,30 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     <message>
         <source>Route “%1” saved.</source>
         <translation>Rutten ”%1” sparad.</translation>
+    </message>
+    <message>
+        <source>the train</source>
+        <translation>tåget</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
+        <translation>Klicka på spåret där fronten av &lt;b&gt;%1&lt;/b&gt; ska stå.</translation>
+    </message>
+    <message>
+        <source>The train</source>
+        <translation>Tåget</translation>
+    </message>
+    <message>
+        <source>Put %1 on the track</source>
+        <translation>Ställ %1 på spåret</translation>
+    </message>
+    <message>
+        <source>%1 is on the track.</source>
+        <translation>%1 står på spåret.</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track here.</source>
+        <translation>%1 går här utanför spårets slut.</translation>
     </message>
 </context>
 <context>
@@ -11702,6 +11870,45 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Save</source>
         <translation>Spara</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RosterDialog</name>
+    <message>
+        <source>From a roster</source>
+        <translation>Från en vagnpark</translation>
+    </message>
+    <message>
+        <source>Your engines and cars, and your clubs’. Add one to this layout; it keeps its own copy.</source>
+        <translation>Dina lok och vagnar, och dina klubbars. Lägg till en i den här layouten; den behåller en egen kopia.</translation>
+    </message>
+    <message>
+        <source>Your roster is empty. Save a car from a layout to your roster, or a club’s, to use it in other layouts.</source>
+        <translation>Din vagnpark är tom. Spara en vagn från en layout i din vagnpark, eller en klubbs, för att använda den i andra layouter.</translation>
+    </message>
+    <message>
+        <source>Unnamed</source>
+        <translation>Namnlös</translation>
+    </message>
+    <message>
+        <source>Yours</source>
+        <translation>Dina</translation>
+    </message>
+    <message>
+        <source>In this layout</source>
+        <translation>I den här layouten</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation>Uppdatera</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Lägg till</translation>
+    </message>
+    <message>
+        <source>Take off the roster</source>
+        <translation>Ta bort från vagnparken</translation>
     </message>
 </context>
 <context>
@@ -13727,6 +13934,181 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     </message>
 </context>
 <context>
+    <name>bld::ui::StockDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> knoppar</translation>
+    </message>
+    <message>
+        <source>Engine</source>
+        <translation>Lok</translation>
+    </message>
+    <message>
+        <source>Cab car</source>
+        <translation>Manövervagn</translation>
+    </message>
+    <message>
+        <source>Powered car (multiple unit)</source>
+        <translation>Motorvagn (motorvagnståg)</translation>
+    </message>
+    <message>
+        <source>Monorail car</source>
+        <translation>Monorälsvagn</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>Vagn</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Ny vagn</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>Ändra vagn</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a number and a length. More details can wait.</source>
+        <translation>En snabb vagn behöver bara ett nummer och en längd. Detaljer kan vänta.</translation>
+    </message>
+    <message>
+        <source>Number:</source>
+        <translation>Nummer:</translation>
+    </message>
+    <message>
+        <source>Boxcar</source>
+        <translation>Täckt godsvagn</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Namn:</translation>
+    </message>
+    <message>
+        <source>Kind:</source>
+        <translation>Typ:</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Färg</translation>
+    </message>
+    <message>
+        <source>Car color</source>
+        <translation>Vagnens färg</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>Färg:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler</source>
+        <translation>Koppel till koppel</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>Längd:</translation>
+    </message>
+    <message>
+        <source>More details</source>
+        <translation>Fler detaljer</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Bredd:</translation>
+    </message>
+    <message>
+        <source>Body length:</source>
+        <translation>Korglängd:</translation>
+    </message>
+    <message>
+        <source>Front truck, ahead of the middle:</source>
+        <translation>Främre boggi, framför mitten:</translation>
+    </message>
+    <message>
+        <source>Rear truck, behind the middle:</source>
+        <translation>Bakre boggi, bakom mitten:</translation>
+    </message>
+    <message>
+        <source>Magnet</source>
+        <translation>Magnet</translation>
+    </message>
+    <message>
+        <source>Fixed bar</source>
+        <translation>Fast stång</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ingen</translation>
+    </message>
+    <message>
+        <source>Front coupler:</source>
+        <translation>Främre koppel:</translation>
+    </message>
+    <message>
+        <source>Rear coupler:</source>
+        <translation>Bakre koppel:</translation>
+    </message>
+    <message>
+        <source>Has a motor</source>
+        <translation>Har en motor</translation>
+    </message>
+    <message>
+        <source>Train track</source>
+        <translation>Tågspår</translation>
+    </message>
+    <message>
+        <source>Monorail</source>
+        <translation>Monorail</translation>
+    </message>
+    <message>
+        <source>Runs on:</source>
+        <translation>Går på:</translation>
+    </message>
+    <message>
+        <source>A box in its color</source>
+        <translation>En låda i sin färg</translation>
+    </message>
+    <message>
+        <source>A part’s picture</source>
+        <translation>En dels bild</translation>
+    </message>
+    <message>
+        <source>Seen from above as:</source>
+        <translation>Sedd ovanifrån som:</translation>
+    </message>
+    <message>
+        <source>Search train parts</source>
+        <translation>Sök tågdelar</translation>
+    </message>
+    <message>
+        <source>Picking a part sets the length from its couplers.</source>
+        <translation>Att välja en del sätter längden utifrån dess koppel.</translation>
+    </message>
+    <message>
+        <source>Notes:</source>
+        <translation>Anteckningar:</translation>
+    </message>
+    <message>
+        <source>The front truck must be ahead of the rear one, and both within the car’s length.</source>
+        <translation>Den främre boggin måste sitta framför den bakre, och båda inom vagnens längd.</translation>
+    </message>
+    <message>
+        <source>Add car</source>
+        <translation>Lägg till vagn</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Spara</translation>
+    </message>
+    <message>
+        <source>Fewer details</source>
+        <translation>Färre detaljer</translation>
+    </message>
+    <message>
+        <source>No train parts match. Parts with a coupler at each end show here.</source>
+        <translation>Inga tågdelar matchar. Delar med koppel i varje ände visas här.</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::TouchActionBar</name>
     <message>
         <source>Turn left</source>
@@ -13771,6 +14153,330 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Tap the map to place %1</source>
         <translation>Tryck på kartan för att placera %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainDialog</name>
+    <message>
+        <source>New train</source>
+        <translation>Nytt tåg</translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>Ändra tåg</translation>
+    </message>
+    <message>
+        <source>Cars in order, front first. A train moves as one.</source>
+        <translation>Vagnar i ordning, främst först. Ett tåg rör sig tillsammans.</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Namn:</translation>
+    </message>
+    <message>
+        <source>Cars in the train, front first</source>
+        <translation>Vagnar i tåget, främst först</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation>Framåt</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Tillbaka</translation>
+    </message>
+    <message>
+        <source>Turn car around</source>
+        <translation>Vänd vagnen</translation>
+    </message>
+    <message>
+        <source>Take out</source>
+        <translation>Ta ut</translation>
+    </message>
+    <message>
+        <source>Car to add</source>
+        <translation>Vagn att lägga till</translation>
+    </message>
+    <message>
+        <source>Add to the end</source>
+        <translation>Lägg till sist</translation>
+    </message>
+    <message>
+        <source>This layout has no cars yet. Make one in Rolling stock first.</source>
+        <translation>Den här layouten har inga vagnar än. Gör en först under Rullande materiel.</translation>
+    </message>
+    <message>
+        <source>Save train</source>
+        <translation>Spara tåg</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>En borttagen vagn</translation>
+    </message>
+    <message>
+        <source>turned around</source>
+        <translation>vänd</translation>
+    </message>
+    <message>
+        <source>Length %1</source>
+        <translation>Längd %1</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>Tåg</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainsPanel</name>
+    <message>
+        <source>Trains</source>
+        <translation>Tåg</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>Nytt tåg</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Ny vagn</translation>
+    </message>
+    <message>
+        <source>From a roster…</source>
+        <translation>Från en vagnpark…</translation>
+    </message>
+    <message>
+        <source>Rolling stock</source>
+        <translation>Rullande materiel</translation>
+    </message>
+    <message>
+        <source>Added %1.</source>
+        <translation>%1 tillagd.</translation>
+    </message>
+    <message>
+        <source>Saved %1.</source>
+        <translation>%1 sparad.</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>Ändra vagn</translation>
+    </message>
+    <message>
+        <source>Delete %1?</source>
+        <translation>Ta bort %1?</translation>
+    </message>
+    <message>
+        <source>Delete %1 and take it out of %2?</source>
+        <translation>Ta bort %1 och ta ut den ur %2?</translation>
+    </message>
+    <message>
+        <source>Delete car</source>
+        <translation>Ta bort vagn</translation>
+    </message>
+    <message>
+        <source>Train %1</source>
+        <translation>Tåg %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Made %1 from %n car(s). Put it on the track to see it.</source>
+        <translation>
+            <numerusform>%1 gjort av %n vagn. Ställ det på spåret för att se det.</numerusform>
+            <numerusform>%1 gjort av %n vagnar. Ställ det på spåret för att se det.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>Ändra tåg</translation>
+    </message>
+    <message>
+        <source>%1 turned around.</source>
+        <translation>%1 vänt.</translation>
+    </message>
+    <message>
+        <source>Turn train around</source>
+        <translation>Vänd tåget</translation>
+    </message>
+    <message>
+        <source>Take train off the track</source>
+        <translation>Ta tåget från spåret</translation>
+    </message>
+    <message>
+        <source>Delete %1? Its cars stay.</source>
+        <translation>Ta bort %1? Vagnarna finns kvar.</translation>
+    </message>
+    <message>
+        <source>Delete train</source>
+        <translation>Ta bort tåg</translation>
+    </message>
+    <message>
+        <source>Updated %1 from the roster.</source>
+        <translation>%1 uppdaterad från vagnparken.</translation>
+    </message>
+    <message>
+        <source>Update car from roster</source>
+        <translation>Uppdatera vagn från vagnpark</translation>
+    </message>
+    <message>
+        <source>Added %1 to this layout.</source>
+        <translation>%1 tillagd i den här layouten.</translation>
+    </message>
+    <message>
+        <source>Add car from roster</source>
+        <translation>Lägg till vagn från vagnpark</translation>
+    </message>
+    <message>
+        <source>Your rosters couldn’t be loaded: %1</source>
+        <translation>Dina vagnparker kunde inte läsas in: %1</translation>
+    </message>
+    <message>
+        <source>Saved %1 to the roster.</source>
+        <translation>%1 sparad i vagnparken.</translation>
+    </message>
+    <message>
+        <source>Save car to roster</source>
+        <translation>Spara vagn i vagnpark</translation>
+    </message>
+    <message>
+        <source>It couldn’t be saved to the roster: %1</source>
+        <translation>Den kunde inte sparas i vagnparken: %1</translation>
+    </message>
+    <message>
+        <source>Trains (%1)</source>
+        <translation>Tåg (%1)</translation>
+    </message>
+    <message>
+        <source>Rolling stock (%1)</source>
+        <translation>Rullande materiel (%1)</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
+        <translation>Inget rullande materiel än. Tryck Ny vagn: ett nummer och en längd är allt en snabb vagn behöver.</translation>
+    </message>
+    <message>
+        <source>Pick %1 for a new train</source>
+        <translation>Välj %1 till ett nytt tåg</translation>
+    </message>
+    <message>
+        <source>In %1</source>
+        <translation>I %1</translation>
+    </message>
+    <message>
+        <source>The roster has a newer version</source>
+        <translation>Vagnparken har en nyare version</translation>
+    </message>
+    <message>
+        <source>From a roster</source>
+        <translation>Från en vagnpark</translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation>Ändring</translation>
+    </message>
+    <message>
+        <source>Update from roster</source>
+        <translation>Uppdatera från vagnpark</translation>
+    </message>
+    <message>
+        <source>Save to roster</source>
+        <translation>Spara i vagnpark</translation>
+    </message>
+    <message>
+        <source>Save changes to %1’s roster</source>
+        <translation>Spara ändringarna i %1s vagnpark</translation>
+    </message>
+    <message>
+        <source>Save changes to your roster</source>
+        <translation>Spara ändringarna i din vagnpark</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>Din vagnpark</translation>
+    </message>
+    <message>
+        <source>%1’s roster</source>
+        <translation>%1s vagnpark</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Ta bort</translation>
+    </message>
+    <message>
+        <source>Make a train of this car</source>
+        <translation>Gör ett tåg av den här vagnen</translation>
+    </message>
+    <message>
+        <source>Make a train of these %1 cars</source>
+        <translation>Gör ett tåg av de här %1 vagnarna</translation>
+    </message>
+    <message>
+        <source>No trains yet. Make a car or two in Rolling stock first, then put them together here.</source>
+        <translation>Inga tåg än. Gör först en vagn eller två under Rullande materiel och sätt ihop dem här.</translation>
+    </message>
+    <message>
+        <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
+        <translation>Inga tåg än. Tryck Nytt tåg, eller kryssa för vagnar under Rullande materiel och gör ett tåg av dem.</translation>
+    </message>
+    <message>
+        <source>Untitled train</source>
+        <translation>Namnlöst tåg</translation>
+    </message>
+    <message>
+        <source>Not on the map</source>
+        <translation>Inte på kartan</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed</source>
+        <translation>Spåret har flyttats eller tagits bort</translation>
+    </message>
+    <message>
+        <source>Runs off the end of the track</source>
+        <translation>Går utanför spårets slut</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>På spåret</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n car(s)</source>
+        <translation>
+            <numerusform>%n vagn</numerusform>
+            <numerusform>%n vagnar</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Click the track…</source>
+        <translation>Klicka på spåret…</translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation>Flytta</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>Ställ på spåret</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet.</source>
+        <translation>Den här layouten har inget spår än.</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>Vänd</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>Ta bort från spåret</translation>
+    </message>
+    <message>
+        <source>Sign in to a server first (File › Servers…) to use your roster and your clubs’.</source>
+        <translation>Logga först in på en server (Arkiv › Servrar…) för att använda din vagnpark och dina klubbars.</translation>
+    </message>
+    <message>
+        <source>Take %1 off the roster? Layouts keep their copies.</source>
+        <translation>Ta bort %1 från vagnparken? Layouterna behåller sina kopior.</translation>
+    </message>
+    <message>
+        <source>It couldn’t be taken off the roster: %1</source>
+        <translation>Den kunde inte tas bort från vagnparken: %1</translation>
     </message>
 </context>
 <context>

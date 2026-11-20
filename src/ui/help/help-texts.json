@@ -123,6 +123,41 @@
       "short": "Sets every switch on the route so a train follows it.",
       "more": "Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once."
     },
+    "panel.trains": {
+      "title": "Trains",
+      "short": "The layout's engines and cars, and the trains made of them.",
+      "more": "Make a car in a few seconds, put cars together into a train, and put the train on the track to see how it sits on curves. Trains and cars are saved with the layout and shared with everyone editing it."
+    },
+    "trains.newStock": {
+      "title": "New car",
+      "short": "A quick car needs only a length; everything else can wait.",
+      "more": "Give it a number or name so you can find it. More shows the width, where the trucks sit, the couplers, and whether it uses a part's picture. Lengths are in studs, as you count them on the model."
+    },
+    "trains.trucks": {
+      "title": "Trucks",
+      "short": "The wheel sets a car rides on, measured in studs from the middle of the car.",
+      "more": "The front truck follows the track and the rear one follows it a fixed distance behind, so on a curve the car's middle swings in and its ends swing out, as a real one does. A quick car puts them a quarter of the way in from each end."
+    },
+    "trains.roster": {
+      "title": "Roster",
+      "short": "Your own engines and cars, or a club's, ready to bring into any layout.",
+      "more": "Save a car to your roster or a club's, then add it to other layouts from there. A layout keeps its own copy, so it still opens anywhere; when the roster's car changes, Update brings the layout's copy up to date. Club rosters are changed by members who may edit the club's modules."
+    },
+    "trains.newTrain": {
+      "title": "New train",
+      "short": "Cars in order, front to back, that move as one.",
+      "more": "Add cars from this layout's rolling stock, put them in order, and turn any of them around. A train's length is from its front coupler to its rear one."
+    },
+    "trains.putOnTrack": {
+      "title": "Put on the track",
+      "short": "Click the track where the front of the train should be.",
+      "more": "The train runs back from there, following the switches as they are set. Click again elsewhere to move it. A train that runs off the end of the track is outlined in red."
+    },
+    "trains.turnAround": {
+      "title": "Turn around",
+      "short": "The train's last car becomes its front, and it faces the other way.",
+      "more": "The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo."
+    },
     "status.sheet": {
       "title": "Current sheet",
       "short": "New parts go on this sheet.",

@@ -387,6 +387,7 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     partUsagePanel_->setBudget(budget_);
     setupViews();
     setupRoutes();
+    setupTrains();
     // Stable object names so saveState() / restoreState() know each dock.
     layerPanel_->setObjectName(QStringLiteral("dock.layers"));
     partsBrowser_->setObjectName(QStringLiteral("dock.parts"));

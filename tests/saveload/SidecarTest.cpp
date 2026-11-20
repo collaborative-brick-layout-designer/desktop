@@ -560,3 +560,51 @@ TEST(Sidecar, RoundTripRoutes) {
     EXPECT_EQ(back.routes[0].via[0].at.brick, QStringLiteral("190"));
     EXPECT_EQ(back.routes[0].to.brick, QStringLiteral("23"));
 }
+
+// Rolling stock and trains (trains design 2.3, 2.4): kept through a save
+// with fields this build doesn't know, entries without an id left out, a
+// train's head renamed with its brick; none in an empty sidecar.
+TEST(Sidecar, RoundTripRollingStockAndTrains) {
+    core::Sidecar sc;
+    EXPECT_FALSE(saveload::sidecarToJson(sc).contains(QLatin1String("rollingStock")));
+    EXPECT_FALSE(saveload::sidecarToJson(sc).contains(QLatin1String("trains")));
+    core::RollingStock s = core::simpleStock(QStringLiteral("s1"), 28);
+    s.number = QStringLiteral("4021");
+    s.libraryId = QStringLiteral("L1");
+    s.libraryVersion = 2;
+    s.extras = QJsonObject{ { QStringLiteral("tags"), QJsonArray{ QStringLiteral("freight") } } };
+    core::Train t;
+    t.id = QStringLiteral("t1");
+    t.name = QStringLiteral("Freight");
+    t.units = { { QStringLiteral("s1"), false }, { QStringLiteral("s1"), true } };
+    core::TrainPosition p;
+    p.brick = QStringLiteral("17");
+    p.from = 0;
+    p.to = 1;
+    p.s = 3.5;
+    p.facingTo = false;
+    t.position = p;
+    t.extras = QJsonObject{ { QStringLiteral("later"), 1 } };
+    sc.rollingStock = { s };
+    sc.trains = { t };
+    EXPECT_FALSE(sc.isEmpty());
+    QJsonObject json = saveload::sidecarToJson(sc);
+    EXPECT_EQ(json.value(QLatin1String("trains")).toArray()[0].toObject().value(QLatin1String("position")).toObject().value(QLatin1String("facing")).toString(),
+              QStringLiteral("from"));
+    QJsonArray list = json.value(QLatin1String("rollingStock")).toArray();
+    list.append(QJsonObject{ { QStringLiteral("number"), QStringLiteral("no id") } });
+    json.insert(QStringLiteral("rollingStock"), list);
+    core::Sidecar back;
+    saveload::sidecarFromJson(json, back);
+    ASSERT_EQ(back.rollingStock.size(), 1u);
+    EXPECT_EQ(back.rollingStock[0], s);
+    ASSERT_EQ(back.trains.size(), 1u);
+    EXPECT_EQ(back.trains[0], t);
+    EXPECT_TRUE(back.extras.isEmpty());
+    saveload::renameSidecarIds(back, { { QStringLiteral("17"), QStringLiteral("170") } });
+    EXPECT_EQ(back.trains[0].position->brick, QStringLiteral("170"));
+    // A car without a roster link has neither field (as a web car).
+    const QJsonObject plain = saveload::rollingStockToJson(core::simpleStock(QStringLiteral("s2")));
+    EXPECT_FALSE(plain.contains(QLatin1String("libraryId")));
+    EXPECT_FALSE(plain.contains(QLatin1String("libraryVersion")));
+}

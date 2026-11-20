@@ -8,6 +8,7 @@
 #include "DesktopNotifier.h"
 #include "MainWindow.h"
 #include "RoutesPanel.h"
+#include "TrainsPanel.h"
 #include "NotificationViews.h"
 #include "SheetNames.h"
 #include "StatusMessages.h"
@@ -160,6 +161,7 @@ void MainWindow::setupShell() {
     theme::PanelHeader::install(layerPanel_, QStringLiteral("panel.sheets"), prefs);
     theme::PanelHeader::install(viewsPanel_, QStringLiteral("panel.views"), prefs);
     theme::PanelHeader::install(routesPanel_, QStringLiteral("panel.routes"), prefs);
+    theme::PanelHeader::install(trainsPanel_, QStringLiteral("panel.trains"), prefs);
     theme::PanelHeader::install(partUsagePanel_, QStringLiteral("panel.partsList"), prefs);
     theme::PanelHeader::install(modulesPanel_, QStringLiteral("panel.modules"), prefs);
     theme::PanelHeader::install(moduleLibraryPanel_, QStringLiteral("panel.moduleLibrary"), prefs);
@@ -557,7 +559,7 @@ void MainWindow::showTask(const QString& task) {
 
 QList<QDockWidget*> MainWindow::panelDocks() const {
     return { partsBrowser_, layerPanel_, viewsPanel_, partUsagePanel_,
-             modulesPanel_, moduleLibraryPanel_, venueLibraryPanel_, routesPanel_ };
+             modulesPanel_, moduleLibraryPanel_, venueLibraryPanel_, routesPanel_, trainsPanel_ };
 }
 
 void MainWindow::openSettings() {
@@ -654,6 +656,16 @@ void MainWindow::startTourNamed(const QString& id) {
         tours::startTourOnNext("bld::ui::ServerWindow", id, store, ready);
         QTimer::singleShot(0, this, [this] { showServerWindow(); });
         return;
+    }
+    // The routes and trains tours are about their panels: shown first, so their steps have something to point at.
+    if (id == QLatin1String("routes") || id == QLatin1String("trains")) {
+        QDockWidget* dock = id == QLatin1String("routes") ? static_cast<QDockWidget*>(routesPanel_) : static_cast<QDockWidget*>(trainsPanel_);
+        if (dock && !dock->isVisible()) {
+            dock->show();
+            dock->raise();
+            QTimer::singleShot(0, this, [this, id] { tours::startTour(this, id, theme::PrefsStore::instance()); });
+            return;
+        }
     }
     tours::startTour(this, id, store);
 }

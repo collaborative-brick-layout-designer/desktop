@@ -307,6 +307,15 @@ public:
     QWidget* routeDraftBanner() const { return routeBar_; }
     // The routes this person hid on their map (not the layout's business).
     void setHiddenRoutes(const QSet<QString>& ids);
+    // Putting a train on the track (trains design 6.4): the next click on the
+    // track puts its head there, the rest of it the way more track lies, as
+    // one undo step. Nothing is picked or moved meanwhile; Esc stops.
+    void startTrainPlacing(const QString& trainId);
+    void cancelTrainPlacing();
+    const QString& placingTrain() const { return placingTrain_; }
+    // A click while placing (tests call it with a place in studs); false when it isn't on the track.
+    bool trainPlaceClick(QPointF studs);
+    QWidget* trainPlaceBanner() const { return trainBar_; }
     void armPartPlacement(const QString& partKey);
     void cancelPartPlacement();
     const QString& armedPart() const { return armedPart_; }
@@ -451,6 +460,8 @@ signals:
     void runModeChanged(bool on);
     // Drawing a route started or stopped (the Routes panel's New route follows).
     void routeDraftChanged(bool drawing);
+    // Putting a train on the track started (its id) or stopped (empty).
+    void trainPlacingChanged(const QString& trainId);
 
 protected:
     // Touch (pinch, two-finger pan, tap, drag, long press) and trackpad
@@ -488,8 +499,11 @@ private:
     QPushButton* routeSave_ = nullptr;
     // The banner says what to click next, or the way found; the map shows it.
     void refreshRouteDraft();
-    // Run mode or drawing a route: clicks belong to them, not the parts.
-    bool clicksTaken() const { return runMode_ || routeDraft_.has_value(); }
+    QString placingTrain_;
+    QWidget* trainBar_ = nullptr;
+    QLabel* trainBarText_ = nullptr;
+    // Run mode, drawing a route or putting a train on the track: clicks belong to them, not the parts.
+    bool clicksTaken() const { return runMode_ || routeDraft_.has_value() || !placingTrain_.isEmpty(); }
     // Run mode's banner over the top of the map: what a click does, and Stop.
     QWidget* runBar_ = nullptr;
     // "Run trains", in the map's top right corner while building.

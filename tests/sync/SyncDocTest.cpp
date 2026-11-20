@@ -609,3 +609,58 @@ TEST(SyncDocSidecar, RoutesTravelAsTheWebsMaps) {
     ASSERT_FALSE(doc.writeMap(*mine).isEmpty());
     EXPECT_TRUE(mapOf(doc)->sidecar.routes.empty());
 }
+
+// Rolling stock and trains travel as the web keeps them: Y.Maps at
+// meta.rollingStock and meta.trains, one Y.Map a record; a car changed here
+// and a train moved there both stay; a delete goes.
+TEST(SyncDocSidecar, RollingStockAndTrainsTravelAsTheWebsMaps) {
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(serverDoc()));
+    auto map = mapOf(doc);
+    core::RollingStock s = core::simpleStock(QStringLiteral("s1"), 32);
+    s.number = QStringLiteral("101");
+    core::Train t;
+    t.id = QStringLiteral("t1");
+    t.name = QStringLiteral("Local");
+    t.units = { { QStringLiteral("s1"), false } };
+    map->sidecar.rollingStock = { s };
+    map->sidecar.trains = { t };
+    const QByteArray update = doc.writeMap(*map);
+    ASSERT_FALSE(update.isEmpty());
+    const QJsonObject meta = doc.toJson().value(QLatin1String("meta")).toObject();
+    EXPECT_EQ(meta.value(QLatin1String("rollingStock")).toObject().value(QLatin1String("s1")).toObject().value(QLatin1String("number")).toString(),
+              QStringLiteral("101"));
+    EXPECT_TRUE(meta.value(QLatin1String("trains")).toObject().value(QLatin1String("t1")).toObject().value(QLatin1String("position")).isNull());
+    EXPECT_FALSE(meta.value(QLatin1String("cache")).toObject().contains(QLatin1String("trains")));
+    EXPECT_TRUE(doc.writeMap(*mapOf(doc)).isEmpty());
+
+    sync::SyncDoc other;
+    ASSERT_TRUE(other.applyUpdate(serverDoc()));
+    ASSERT_TRUE(other.applyUpdate(update));
+    auto theirs = mapOf(other);
+    ASSERT_EQ(theirs->sidecar.rollingStock.size(), 1u);
+    EXPECT_EQ(theirs->sidecar.rollingStock[0], s);
+    ASSERT_EQ(theirs->sidecar.trains.size(), 1u);
+    EXPECT_EQ(theirs->sidecar.trains[0], t);
+    core::TrainPosition p;
+    p.brick = QStringLiteral("A");
+    p.s = 4;
+    theirs->sidecar.trains[0].position = p;
+    const QByteArray fromThem = other.writeMap(*theirs);
+    map->sidecar.rollingStock[0].number = QStringLiteral("102");
+    const QByteArray fromMe = doc.writeMap(*map);
+    ASSERT_TRUE(doc.applyUpdate(fromThem));
+    ASSERT_TRUE(other.applyUpdate(fromMe));
+    for (sync::SyncDoc* d : { &doc, &other }) {
+        const auto m = mapOf(*d);
+        ASSERT_EQ(m->sidecar.rollingStock.size(), 1u);
+        EXPECT_EQ(m->sidecar.rollingStock[0].number, QStringLiteral("102"));
+        ASSERT_TRUE(m->sidecar.trains[0].position.has_value());
+        EXPECT_EQ(m->sidecar.trains[0].position->brick, QStringLiteral("A"));
+    }
+    auto mine = mapOf(doc);
+    mine->sidecar.trains.clear();
+    ASSERT_FALSE(doc.writeMap(*mine).isEmpty());
+    EXPECT_TRUE(mapOf(doc)->sidecar.trains.empty());
+    EXPECT_EQ(mapOf(doc)->sidecar.rollingStock.size(), 1u);
+}

@@ -49,6 +49,16 @@
       "type": "array",
       "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "name": { "type": "string" } } },
       "description": "Named routes: { id, name, train, from, to, via, steps, color }; places on the track are { brick, from, to, s }, steps { brick, from, to }. Unknown fields are kept. Live at meta.routes (a Y.Map of id -> a Y.Map of fields). Never in a .bbm. Added 2026-11, optional."
+    },
+    "rollingStock": {
+      "type": "array",
+      "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "number": { "type": "string" }, "length": { "type": "number" } } },
+      "description": "Engines and cars: { id, number, name, kind, type, trackKind, length, width, bodyLength, trucks: [{ at, swivelMax }], couplers: { front, rear }, powered, look: { mode, color, partKey }, libraryId?, libraryVersion?, notes } in studs; a truck's at is studs from the car's middle, + towards its front. Unknown fields are kept. Live at meta.rollingStock (a Y.Map of id -> a Y.Map of fields). Never in a .bbm. Added 2026-11, optional."
+    },
+    "trains": {
+      "type": "array",
+      "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "name": { "type": "string" } } },
+      "description": "Trains: { id, name, trackKind, units: [{ stock, reversed }], position, color, speed }; position is the head car's front truck as a place on the track plus facing (to or from), or null when not on the map. Unknown fields are kept. Live at meta.trains. Never in a .bbm. Added 2026-11, optional."
     }
   },
 

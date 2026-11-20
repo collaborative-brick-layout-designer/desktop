@@ -24,6 +24,13 @@ panel.routes
 routes.new
 routes.broken
 routes.setSwitches
+panel.trains
+trains.newStock
+trains.trucks
+trains.roster
+trains.newTrain
+trains.putOnTrack
+trains.turnAround
 status.sheet
 status.room
 status.budget

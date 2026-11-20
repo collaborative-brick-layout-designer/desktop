@@ -10,6 +10,7 @@
 #include "../core/LayerRuler.h"
 #include "../core/Module.h"
 #include "../core/Route.h"
+#include "../core/Train.h"
 #include "../core/TextCell.h"
 #include "../core/Venue.h"
 #include "../edit/venue/VenueUnits.h"
@@ -153,6 +154,16 @@ public:
     const QHash<QString, QList<QGraphicsItem*>>& routeItems() const { return routeItemsById_; }
     static QColor routeBrokenColor();
 
+    // Trains on the track (trains design 3.3, 6.4): each car's body on the
+    // chord between its trucks, a box in its color with a tick at each
+    // truck (or its part's picture), the head car's front pointed, numbers
+    // on. The train being put on the track (or picked) is outlined.
+    void setPickedTrain(const QString& id) { pickedTrain_ = id; }
+    void refreshTrains(const core::Map& map);
+    // Each train drawn, by id: its cars' body items, front first (tests).
+    const QHash<QString, QList<QGraphicsItem*>>& trainItems() const { return trainCarsById_; }
+    static QColor trainProblemColor();
+
     // Draw every module's frame and name again from `map` (a sheet shown or
     // hidden changes which parts frame a module, and how its frame is dashed).
     void refreshModuleLabels(const core::Map& map);
@@ -288,6 +299,15 @@ private:
     QList<QGraphicsItem*> routeItems_;
     QHash<QString, QList<QGraphicsItem*>> routeItemsById_;
     std::vector<core::Route> drawnRoutes_;
+    QMap<QString, int> drawnRouteSwitchStates_;
+    QMap<QString, int> drawnTrainSwitchStates_;
+    void clearTrains();
+    void addTrains(const core::Map& map);
+    QString pickedTrain_;
+    QList<QGraphicsItem*> trainItems_;
+    QHash<QString, QList<QGraphicsItem*>> trainCarsById_;
+    std::vector<core::RollingStock> drawnStock_;
+    std::vector<core::Train> drawnTrains_;
     void addSwitches(const core::Map& map);
     bool switchesShown_ = false;
     QList<QGraphicsItem*> switchItems_;

@@ -60,6 +60,12 @@ add_library(bld_ui STATIC
     MapViewContextMenu.cpp
     MapViewSwitches.cpp
     MapViewRoutes.cpp
+    MapViewTrains.cpp
+    MainWindowTrains.cpp
+    TrainDialogs.cpp
+    TrainDialogs.h
+    TrainsPanel.cpp
+    TrainsPanel.h
     MapViewPaint.cpp
     MapViewTouch.cpp
     TouchActionBar.cpp

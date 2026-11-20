@@ -748,6 +748,23 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::TrainsPanel</name>
+    <message numerus="yes">
+        <source>Made %1 from %n car(s). Put it on the track to see it.</source>
+        <translation>
+            <numerusform>Made %1 from %n car. Put it on the track to see it.</numerusform>
+            <numerusform>Made %1 from %n cars. Put it on the track to see it.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n car(s)</source>
+        <translation>
+            <numerusform>%n car</numerusform>
+            <numerusform>%n cars</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::VenueDesignerDialog</name>
     <message numerus="yes">
         <source>%n estimate(s) left to measure</source>

@@ -1622,6 +1622,90 @@
         <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
         <translation>グループを開くと種類ごとに見られます。メールはすぐ、毎日か毎週のまとめ、または送らないを選べます。おやすみ時間中のメールは終わるまで待ちます。にぎやかなクラブをミュートしたり、すべてのメールを一時停止したりもできます。</translation>
     </message>
+    <message>
+        <source>Trains</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>The layout&apos;s engines and cars, and the trains made of them.</source>
+        <translation>レイアウトの機関車と車両、それで組んだ列車。</translation>
+    </message>
+    <message>
+        <source>Make a car in a few seconds, put cars together into a train, and put the train on the track to see how it sits on curves. Trains and cars are saved with the layout and shared with everyone editing it.</source>
+        <translation>数秒で車両を作り、車両をつないで列車にし、線路に置いてカーブでの収まり方を確かめましょう。列車と車両はレイアウトと一緒に保存され、編集している全員と共有されます。</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>新しい車両</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a length; everything else can wait.</source>
+        <translation>簡単な車両に必要なのは長さだけ。ほかは後でかまいません。</translation>
+    </message>
+    <message>
+        <source>Give it a number or name so you can find it. More shows the width, where the trucks sit, the couplers, and whether it uses a part&apos;s picture. Lengths are in studs, as you count them on the model.</source>
+        <translation>見つけやすいように番号か名前を付けましょう。「詳細」では幅、台車の位置、連結器、部品の画像を使うかどうかを設定できます。長さはモデルで数えるのと同じスタッド単位です。</translation>
+    </message>
+    <message>
+        <source>Trucks</source>
+        <translation>台車</translation>
+    </message>
+    <message>
+        <source>The wheel sets a car rides on, measured in studs from the middle of the car.</source>
+        <translation>車両が乗っている車輪のセット。車両の中心からのスタッド数で測ります。</translation>
+    </message>
+    <message>
+        <source>The front truck follows the track and the rear one follows it a fixed distance behind, so on a curve the car&apos;s middle swings in and its ends swing out, as a real one does. A quick car puts them a quarter of the way in from each end.</source>
+        <translation>前の台車が線路に沿い、後ろの台車は一定の距離で続きます。そのためカーブでは実物と同じく車両の中央が内側に、両端が外側に振れます。簡単な車両では、両端から4分の1の位置に置かれます。</translation>
+    </message>
+    <message>
+        <source>Roster</source>
+        <translation>車両リスト</translation>
+    </message>
+    <message>
+        <source>Your own engines and cars, or a club&apos;s, ready to bring into any layout.</source>
+        <translation>自分の、またはクラブの機関車と車両。どのレイアウトにも持ち込めます。</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s, then add it to other layouts from there. A layout keeps its own copy, so it still opens anywhere; when the roster&apos;s car changes, Update brings the layout&apos;s copy up to date. Club rosters are changed by members who may edit the club&apos;s modules.</source>
+        <translation>車両を自分またはクラブの車両リストに保存し、そこからほかのレイアウトに追加します。レイアウトは自分のコピーを持つので、どこでも開けます。リストの車両が変わったら「更新」でレイアウトのコピーを最新にします。クラブの車両リストは、クラブのモジュールを編集できるメンバーが変更します。</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>新しい列車</translation>
+    </message>
+    <message>
+        <source>Cars in order, front to back, that move as one.</source>
+        <translation>前から後ろへ順に並んだ車両。まとめて動きます。</translation>
+    </message>
+    <message>
+        <source>Add cars from this layout&apos;s rolling stock, put them in order, and turn any of them around. A train&apos;s length is from its front coupler to its rear one.</source>
+        <translation>このレイアウトの車両から車両を追加し、順番に並べ、好きな車両を向き変えできます。列車の長さは先頭の連結器から最後の連結器までです。</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>線路に置く</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of the train should be.</source>
+        <translation>列車の先頭を置きたい線路の位置をクリックします。</translation>
+    </message>
+    <message>
+        <source>The train runs back from there, following the switches as they are set. Click again elsewhere to move it. A train that runs off the end of the track is outlined in red.</source>
+        <translation>列車はそこから後ろへ、ポイントの向きに従って並びます。別の場所をクリックすると移動します。線路の端からはみ出す列車は赤枠で示されます。</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>向きを変える</translation>
+    </message>
+    <message>
+        <source>The train&apos;s last car becomes its front, and it faces the other way.</source>
+        <translation>最後の車両が先頭になり、列車は反対を向きます。</translation>
+    </message>
+    <message>
+        <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
+        <translation>車両は線路上の位置のままで、順番と列車の向きだけが変わります。向きを変えるたびに、元に戻せる変更が1つ記録されます。</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -3453,6 +3537,50 @@
         <source>Put it in the layout you have open, or start a new layout with it.</source>
         <translation>開いているレイアウトに置くか、それで新しいレイアウトを始めます。</translation>
     </message>
+    <message>
+        <source>Trains</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>Trains and cars</source>
+        <translation>列車と車両</translation>
+    </message>
+    <message>
+        <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
+        <translation>「パネル」から「列車」を開きます。「車両」にはこのレイアウトの機関車と車両、「列車」にはそれで組んだ列車があります。</translation>
+    </message>
+    <message>
+        <source>A quick car</source>
+        <translation>簡単な車両</translation>
+    </message>
+    <message>
+        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
+        <translation>「新しい車両」に必要なのは番号とスタッド単位の長さだけ。「詳細」で台車、連結器、部品の画像を設定します。</translation>
+    </message>
+    <message>
+        <source>Make a train</source>
+        <translation>列車を組む</translation>
+    </message>
+    <message>
+        <source>Tick a few cars and press Make a train, or press New train and add them in order, front first.</source>
+        <translation>車両にいくつかチェックを入れて「列車を組む」を押すか、「新しい列車」を押して先頭から順に追加します。</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>線路上</translation>
+    </message>
+    <message>
+        <source>Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track.</source>
+        <translation>「線路に置く」を押してから、先頭を置く場所をクリックします。各車両は実物の線路と同じく台車の間に収まります。</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>自分の車両リスト</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
+        <translation>車両を自分またはクラブの車両リストに保存すると、ほかのレイアウトで使えます。「更新」でレイアウトのコピーを最新にします。</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::ModuleLibraryLink</name>
@@ -4537,6 +4665,14 @@
     <message>
         <source>Background image</source>
         <translation>背景画像</translation>
+    </message>
+    <message>
+        <source>Car &quot;%1&quot;</source>
+        <translation>車両「%1」</translation>
+    </message>
+    <message>
+        <source>Train &quot;%1&quot;</source>
+        <translation>列車「%1」</translation>
     </message>
 </context>
 <context>
@@ -9460,6 +9596,14 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <source>All notifications</source>
         <translation>すべての通知</translation>
     </message>
+    <message>
+        <source>trains</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>rolling stock</source>
+        <translation>車両</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -10105,6 +10249,30 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     <message>
         <source>Route “%1” saved.</source>
         <translation>ルート「%1」を保存しました。</translation>
+    </message>
+    <message>
+        <source>the train</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
+        <translation>&lt;b&gt;%1&lt;/b&gt;の先頭を置く線路の位置をクリックします。</translation>
+    </message>
+    <message>
+        <source>The train</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>Put %1 on the track</source>
+        <translation>%1を線路に置く</translation>
+    </message>
+    <message>
+        <source>%1 is on the track.</source>
+        <translation>%1を線路に置きました。</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track here.</source>
+        <translation>ここでは%1が線路の端からはみ出します。</translation>
     </message>
 </context>
 <context>
@@ -11612,6 +11780,45 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Save</source>
         <translation>保存</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RosterDialog</name>
+    <message>
+        <source>From a roster</source>
+        <translation>車両リストから</translation>
+    </message>
+    <message>
+        <source>Your engines and cars, and your clubs’. Add one to this layout; it keeps its own copy.</source>
+        <translation>自分とクラブの機関車と車両。このレイアウトに追加すると、レイアウトは自分のコピーを持ちます。</translation>
+    </message>
+    <message>
+        <source>Your roster is empty. Save a car from a layout to your roster, or a club’s, to use it in other layouts.</source>
+        <translation>車両リストは空です。レイアウトの車両を自分またはクラブの車両リストに保存すると、ほかのレイアウトで使えます。</translation>
+    </message>
+    <message>
+        <source>Unnamed</source>
+        <translation>名前なし</translation>
+    </message>
+    <message>
+        <source>Yours</source>
+        <translation>自分のもの</translation>
+    </message>
+    <message>
+        <source>In this layout</source>
+        <translation>このレイアウト内</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation>更新</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>追加</translation>
+    </message>
+    <message>
+        <source>Take off the roster</source>
+        <translation>車両リストから外す</translation>
     </message>
 </context>
 <context>
@@ -13632,6 +13839,181 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
 </context>
 <context>
+    <name>bld::ui::StockDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> スタッド</translation>
+    </message>
+    <message>
+        <source>Engine</source>
+        <translation>機関車</translation>
+    </message>
+    <message>
+        <source>Cab car</source>
+        <translation>制御車</translation>
+    </message>
+    <message>
+        <source>Powered car (multiple unit)</source>
+        <translation>電動車（編成）</translation>
+    </message>
+    <message>
+        <source>Monorail car</source>
+        <translation>モノレール車両</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>車両</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>新しい車両</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>車両を変更</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a number and a length. More details can wait.</source>
+        <translation>簡単な車両に必要なのは番号と長さだけ。詳細は後でかまいません。</translation>
+    </message>
+    <message>
+        <source>Number:</source>
+        <translation>番号:</translation>
+    </message>
+    <message>
+        <source>Boxcar</source>
+        <translation>有蓋車</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>名前:</translation>
+    </message>
+    <message>
+        <source>Kind:</source>
+        <translation>種類:</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>色</translation>
+    </message>
+    <message>
+        <source>Car color</source>
+        <translation>車両の色</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>色:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler</source>
+        <translation>連結器から連結器まで</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>長さ:</translation>
+    </message>
+    <message>
+        <source>More details</source>
+        <translation>詳細</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>幅:</translation>
+    </message>
+    <message>
+        <source>Body length:</source>
+        <translation>車体の長さ:</translation>
+    </message>
+    <message>
+        <source>Front truck, ahead of the middle:</source>
+        <translation>前の台車（中心より前）:</translation>
+    </message>
+    <message>
+        <source>Rear truck, behind the middle:</source>
+        <translation>後ろの台車（中心より後ろ）:</translation>
+    </message>
+    <message>
+        <source>Magnet</source>
+        <translation>マグネット</translation>
+    </message>
+    <message>
+        <source>Fixed bar</source>
+        <translation>固定バー</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>なし</translation>
+    </message>
+    <message>
+        <source>Front coupler:</source>
+        <translation>前の連結器:</translation>
+    </message>
+    <message>
+        <source>Rear coupler:</source>
+        <translation>後ろの連結器:</translation>
+    </message>
+    <message>
+        <source>Has a motor</source>
+        <translation>モーター付き</translation>
+    </message>
+    <message>
+        <source>Train track</source>
+        <translation>鉄道線路</translation>
+    </message>
+    <message>
+        <source>Monorail</source>
+        <translation>モノレール</translation>
+    </message>
+    <message>
+        <source>Runs on:</source>
+        <translation>走る線路:</translation>
+    </message>
+    <message>
+        <source>A box in its color</source>
+        <translation>その色の箱</translation>
+    </message>
+    <message>
+        <source>A part’s picture</source>
+        <translation>部品の画像</translation>
+    </message>
+    <message>
+        <source>Seen from above as:</source>
+        <translation>上から見た姿:</translation>
+    </message>
+    <message>
+        <source>Search train parts</source>
+        <translation>列車の部品を検索</translation>
+    </message>
+    <message>
+        <source>Picking a part sets the length from its couplers.</source>
+        <translation>部品を選ぶと、その連結器から長さが決まります。</translation>
+    </message>
+    <message>
+        <source>Notes:</source>
+        <translation>メモ:</translation>
+    </message>
+    <message>
+        <source>The front truck must be ahead of the rear one, and both within the car’s length.</source>
+        <translation>前の台車は後ろの台車より前にあり、どちらも車両の長さの内側に収まる必要があります。</translation>
+    </message>
+    <message>
+        <source>Add car</source>
+        <translation>車両を追加</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>保存</translation>
+    </message>
+    <message>
+        <source>Fewer details</source>
+        <translation>詳細を閉じる</translation>
+    </message>
+    <message>
+        <source>No train parts match. Parts with a coupler at each end show here.</source>
+        <translation>一致する列車の部品はありません。両端に連結器がある部品がここに表示されます。</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::TouchActionBar</name>
     <message>
         <source>Turn left</source>
@@ -13676,6 +14058,328 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Tap the map to place %1</source>
         <translation>マップをタップして %1 を置きます</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainDialog</name>
+    <message>
+        <source>New train</source>
+        <translation>新しい列車</translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>列車を変更</translation>
+    </message>
+    <message>
+        <source>Cars in order, front first. A train moves as one.</source>
+        <translation>先頭から順に並んだ車両。列車はまとめて動きます。</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>名前:</translation>
+    </message>
+    <message>
+        <source>Cars in the train, front first</source>
+        <translation>列車の車両（先頭から）</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation>前へ</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>戻る</translation>
+    </message>
+    <message>
+        <source>Turn car around</source>
+        <translation>車両の向きを変える</translation>
+    </message>
+    <message>
+        <source>Take out</source>
+        <translation>外す</translation>
+    </message>
+    <message>
+        <source>Car to add</source>
+        <translation>追加する車両</translation>
+    </message>
+    <message>
+        <source>Add to the end</source>
+        <translation>最後に追加</translation>
+    </message>
+    <message>
+        <source>This layout has no cars yet. Make one in Rolling stock first.</source>
+        <translation>このレイアウトにはまだ車両がありません。先に「車両」で作りましょう。</translation>
+    </message>
+    <message>
+        <source>Save train</source>
+        <translation>列車を保存</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>削除された車両</translation>
+    </message>
+    <message>
+        <source>turned around</source>
+        <translation>向き反転</translation>
+    </message>
+    <message>
+        <source>Length %1</source>
+        <translation>長さ %1</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>列車</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainsPanel</name>
+    <message>
+        <source>Trains</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>新しい列車</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>新しい車両</translation>
+    </message>
+    <message>
+        <source>From a roster…</source>
+        <translation>車両リストから…</translation>
+    </message>
+    <message>
+        <source>Rolling stock</source>
+        <translation>車両</translation>
+    </message>
+    <message>
+        <source>Added %1.</source>
+        <translation>%1を追加しました。</translation>
+    </message>
+    <message>
+        <source>Saved %1.</source>
+        <translation>%1を保存しました。</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>車両を変更</translation>
+    </message>
+    <message>
+        <source>Delete %1?</source>
+        <translation>%1を削除しますか?</translation>
+    </message>
+    <message>
+        <source>Delete %1 and take it out of %2?</source>
+        <translation>%1を削除して%2から外しますか?</translation>
+    </message>
+    <message>
+        <source>Delete car</source>
+        <translation>車両を削除</translation>
+    </message>
+    <message>
+        <source>Train %1</source>
+        <translation>列車 %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Made %1 from %n car(s). Put it on the track to see it.</source>
+        <translation>
+            <numerusform>%n両で%1を組みました。線路に置くと表示されます。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>列車を変更</translation>
+    </message>
+    <message>
+        <source>%1 turned around.</source>
+        <translation>%1の向きを変えました。</translation>
+    </message>
+    <message>
+        <source>Turn train around</source>
+        <translation>列車の向きを変える</translation>
+    </message>
+    <message>
+        <source>Take train off the track</source>
+        <translation>列車を線路から外す</translation>
+    </message>
+    <message>
+        <source>Delete %1? Its cars stay.</source>
+        <translation>%1を削除しますか? 車両は残ります。</translation>
+    </message>
+    <message>
+        <source>Delete train</source>
+        <translation>列車を削除</translation>
+    </message>
+    <message>
+        <source>Updated %1 from the roster.</source>
+        <translation>車両リストから%1を更新しました。</translation>
+    </message>
+    <message>
+        <source>Update car from roster</source>
+        <translation>車両リストから車両を更新</translation>
+    </message>
+    <message>
+        <source>Added %1 to this layout.</source>
+        <translation>%1をこのレイアウトに追加しました。</translation>
+    </message>
+    <message>
+        <source>Add car from roster</source>
+        <translation>車両リストから車両を追加</translation>
+    </message>
+    <message>
+        <source>Your rosters couldn’t be loaded: %1</source>
+        <translation>車両リストを読み込めませんでした: %1</translation>
+    </message>
+    <message>
+        <source>Saved %1 to the roster.</source>
+        <translation>%1を車両リストに保存しました。</translation>
+    </message>
+    <message>
+        <source>Save car to roster</source>
+        <translation>車両を車両リストに保存</translation>
+    </message>
+    <message>
+        <source>It couldn’t be saved to the roster: %1</source>
+        <translation>車両リストに保存できませんでした: %1</translation>
+    </message>
+    <message>
+        <source>Trains (%1)</source>
+        <translation>列車 (%1)</translation>
+    </message>
+    <message>
+        <source>Rolling stock (%1)</source>
+        <translation>車両 (%1)</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
+        <translation>まだ車両がありません。「新しい車両」を押しましょう。簡単な車両には番号と長さだけで十分です。</translation>
+    </message>
+    <message>
+        <source>Pick %1 for a new train</source>
+        <translation>%1を新しい列車に選ぶ</translation>
+    </message>
+    <message>
+        <source>In %1</source>
+        <translation>%1に所属</translation>
+    </message>
+    <message>
+        <source>The roster has a newer version</source>
+        <translation>車両リストに新しい版があります</translation>
+    </message>
+    <message>
+        <source>From a roster</source>
+        <translation>車両リストから</translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation>変更</translation>
+    </message>
+    <message>
+        <source>Update from roster</source>
+        <translation>車両リストから更新</translation>
+    </message>
+    <message>
+        <source>Save to roster</source>
+        <translation>車両リストに保存</translation>
+    </message>
+    <message>
+        <source>Save changes to %1’s roster</source>
+        <translation>%1の車両リストに変更を保存</translation>
+    </message>
+    <message>
+        <source>Save changes to your roster</source>
+        <translation>自分の車両リストに変更を保存</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>自分の車両リスト</translation>
+    </message>
+    <message>
+        <source>%1’s roster</source>
+        <translation>%1の車両リスト</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>削除</translation>
+    </message>
+    <message>
+        <source>Make a train of this car</source>
+        <translation>この車両で列車を組む</translation>
+    </message>
+    <message>
+        <source>Make a train of these %1 cars</source>
+        <translation>この%1両で列車を組む</translation>
+    </message>
+    <message>
+        <source>No trains yet. Make a car or two in Rolling stock first, then put them together here.</source>
+        <translation>まだ列車がありません。先に「車両」で車両を1、2両作り、ここでつなげましょう。</translation>
+    </message>
+    <message>
+        <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
+        <translation>まだ列車がありません。「新しい列車」を押すか、「車両」で車両にチェックを入れて列車を組みましょう。</translation>
+    </message>
+    <message>
+        <source>Untitled train</source>
+        <translation>名前のない列車</translation>
+    </message>
+    <message>
+        <source>Not on the map</source>
+        <translation>地図上にありません</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed</source>
+        <translation>線路が移動または削除されました</translation>
+    </message>
+    <message>
+        <source>Runs off the end of the track</source>
+        <translation>線路の端からはみ出しています</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>線路上</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n car(s)</source>
+        <translation>
+            <numerusform>%n両</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Click the track…</source>
+        <translation>線路をクリック…</translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation>移動</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>線路に置く</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet.</source>
+        <translation>このレイアウトにはまだ線路がありません。</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>向きを変える</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>線路から外す</translation>
+    </message>
+    <message>
+        <source>Sign in to a server first (File › Servers…) to use your roster and your clubs’.</source>
+        <translation>自分とクラブの車両リストを使うには、先にサーバーにサインインしてください（ファイル › サーバー…）。</translation>
+    </message>
+    <message>
+        <source>Take %1 off the roster? Layouts keep their copies.</source>
+        <translation>%1を車両リストから外しますか? レイアウトのコピーは残ります。</translation>
+    </message>
+    <message>
+        <source>It couldn’t be taken off the roster: %1</source>
+        <translation>車両リストから外せませんでした: %1</translation>
     </message>
 </context>
 <context>

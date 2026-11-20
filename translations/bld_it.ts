@@ -1622,6 +1622,90 @@
         <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
         <translation>Apri un gruppo per vedere ogni tipo. L’email può arrivare subito, in un riepilogo giornaliero o settimanale, o mai. Le ore di silenzio trattengono le email finché non finiscono, e puoi silenziare un club molto attivo o mettere in pausa tutte le email.</translation>
     </message>
+    <message>
+        <source>Trains</source>
+        <translation>Treni</translation>
+    </message>
+    <message>
+        <source>The layout&apos;s engines and cars, and the trains made of them.</source>
+        <translation>Le locomotive e i vagoni del layout, e i treni che ne fai.</translation>
+    </message>
+    <message>
+        <source>Make a car in a few seconds, put cars together into a train, and put the train on the track to see how it sits on curves. Trains and cars are saved with the layout and shared with everyone editing it.</source>
+        <translation>Crea un vagone in pochi secondi, unisci i vagoni in un treno e mettilo sul binario per vedere come sta in curva. Treni e vagoni sono salvati con il layout e condivisi con chi lo modifica.</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Nuovo vagone</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a length; everything else can wait.</source>
+        <translation>Un vagone veloce richiede solo una lunghezza; il resto può aspettare.</translation>
+    </message>
+    <message>
+        <source>Give it a number or name so you can find it. More shows the width, where the trucks sit, the couplers, and whether it uses a part&apos;s picture. Lengths are in studs, as you count them on the model.</source>
+        <translation>Dagli un numero o un nome per ritrovarlo. Altro mostra la larghezza, dove stanno i carrelli, gli agganci e se usa l’immagine di un pezzo. Le lunghezze sono in bottoncini, come li conti sul modello.</translation>
+    </message>
+    <message>
+        <source>Trucks</source>
+        <translation>Carrelli</translation>
+    </message>
+    <message>
+        <source>The wheel sets a car rides on, measured in studs from the middle of the car.</source>
+        <translation>Le sale su cui corre un vagone, misurate in bottoncini dal centro del vagone.</translation>
+    </message>
+    <message>
+        <source>The front truck follows the track and the rear one follows it a fixed distance behind, so on a curve the car&apos;s middle swings in and its ends swing out, as a real one does. A quick car puts them a quarter of the way in from each end.</source>
+        <translation>Il carrello anteriore segue il binario e quello posteriore lo segue a distanza fissa, così in curva il centro del vagone rientra e le estremità sporgono, come in uno vero. Un vagone veloce li mette a un quarto da ogni estremità.</translation>
+    </message>
+    <message>
+        <source>Roster</source>
+        <translation>Parco</translation>
+    </message>
+    <message>
+        <source>Your own engines and cars, or a club&apos;s, ready to bring into any layout.</source>
+        <translation>Le tue locomotive e i tuoi vagoni, o quelli di un club, pronti per qualsiasi layout.</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s, then add it to other layouts from there. A layout keeps its own copy, so it still opens anywhere; when the roster&apos;s car changes, Update brings the layout&apos;s copy up to date. Club rosters are changed by members who may edit the club&apos;s modules.</source>
+        <translation>Salva un vagone nel tuo parco o in quello di un club, poi aggiungilo da lì ad altri layout. Un layout tiene la propria copia, quindi si apre ovunque; quando il vagone del parco cambia, Aggiorna allinea la copia del layout. I parchi di club li modificano i membri che possono modificare i moduli del club.</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>Nuovo treno</translation>
+    </message>
+    <message>
+        <source>Cars in order, front to back, that move as one.</source>
+        <translation>Vagoni in ordine, dal primo all’ultimo, che si muovono insieme.</translation>
+    </message>
+    <message>
+        <source>Add cars from this layout&apos;s rolling stock, put them in order, and turn any of them around. A train&apos;s length is from its front coupler to its rear one.</source>
+        <translation>Aggiungi vagoni dal materiale rotabile di questo layout, mettili in ordine e girane quanti vuoi. La lunghezza di un treno va dall’aggancio anteriore a quello posteriore.</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>Metti sul binario</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of the train should be.</source>
+        <translation>Fai clic sul binario dove deve stare la testa del treno.</translation>
+    </message>
+    <message>
+        <source>The train runs back from there, following the switches as they are set. Click again elsewhere to move it. A train that runs off the end of the track is outlined in red.</source>
+        <translation>Il treno si estende all’indietro da lì, seguendo gli scambi come sono impostati. Fai clic altrove per spostarlo. Un treno che esce dalla fine del binario è bordato di rosso.</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>Inverti</translation>
+    </message>
+    <message>
+        <source>The train&apos;s last car becomes its front, and it faces the other way.</source>
+        <translation>L’ultimo vagone diventa la testa e il treno guarda dall’altra parte.</translation>
+    </message>
+    <message>
+        <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
+        <translation>I vagoni restano dove sono sul binario; cambiano solo il loro ordine e la direzione del treno. Ogni inversione è una modifica che puoi annullare.</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -3471,6 +3555,50 @@
         <source>Put it in the layout you have open, or start a new layout with it.</source>
         <translation>Mettilo nel layout che hai aperto, o inizia con esso un nuovo layout.</translation>
     </message>
+    <message>
+        <source>Trains</source>
+        <translation>Treni</translation>
+    </message>
+    <message>
+        <source>Trains and cars</source>
+        <translation>Treni e vagoni</translation>
+    </message>
+    <message>
+        <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
+        <translation>Apri Treni da Pannelli. Materiale rotabile contiene locomotive e vagoni di questo layout; Treni contiene i treni fatti con essi.</translation>
+    </message>
+    <message>
+        <source>A quick car</source>
+        <translation>Un vagone veloce</translation>
+    </message>
+    <message>
+        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
+        <translation>Nuovo vagone richiede solo un numero e una lunghezza in bottoncini. Altri dettagli imposta carrelli, agganci e l’immagine di un pezzo.</translation>
+    </message>
+    <message>
+        <source>Make a train</source>
+        <translation>Forma un treno</translation>
+    </message>
+    <message>
+        <source>Tick a few cars and press Make a train, or press New train and add them in order, front first.</source>
+        <translation>Spunta alcuni vagoni e premi Forma un treno, oppure premi Nuovo treno e aggiungili in ordine, dal primo.</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>Sul binario</translation>
+    </message>
+    <message>
+        <source>Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track.</source>
+        <translation>Premi Metti sul binario, poi fai clic dove va la testa. Ogni vagone sta tra i suoi carrelli, come su un binario vero.</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>Il tuo parco</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
+        <translation>Salva un vagone nel tuo parco o in quello di un club per usarlo in altri layout. Aggiorna allinea la copia di un layout.</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::ModuleLibraryLink</name>
@@ -4563,6 +4691,14 @@
     <message>
         <source>Background image</source>
         <translation>Immagine di sfondo</translation>
+    </message>
+    <message>
+        <source>Car &quot;%1&quot;</source>
+        <translation>Vagone «%1»</translation>
+    </message>
+    <message>
+        <source>Train &quot;%1&quot;</source>
+        <translation>Treno «%1»</translation>
     </message>
 </context>
 <context>
@@ -9535,6 +9671,14 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
         <source>All notifications</source>
         <translation>Tutte le notifiche</translation>
     </message>
+    <message>
+        <source>trains</source>
+        <translation>i treni</translation>
+    </message>
+    <message>
+        <source>rolling stock</source>
+        <translation>il materiale rotabile</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -10184,6 +10328,30 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
     <message>
         <source>Route “%1” saved.</source>
         <translation>Percorso «%1» salvato.</translation>
+    </message>
+    <message>
+        <source>the train</source>
+        <translation>il treno</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
+        <translation>Fai clic sul binario dove va la testa di &lt;b&gt;%1&lt;/b&gt;.</translation>
+    </message>
+    <message>
+        <source>The train</source>
+        <translation>Il treno</translation>
+    </message>
+    <message>
+        <source>Put %1 on the track</source>
+        <translation>Metti %1 sul binario</translation>
+    </message>
+    <message>
+        <source>%1 is on the track.</source>
+        <translation>%1 è sul binario.</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track here.</source>
+        <translation>%1 qui esce dalla fine del binario.</translation>
     </message>
 </context>
 <context>
@@ -11702,6 +11870,45 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>Save</source>
         <translation>Salva</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RosterDialog</name>
+    <message>
+        <source>From a roster</source>
+        <translation>Da un parco</translation>
+    </message>
+    <message>
+        <source>Your engines and cars, and your clubs’. Add one to this layout; it keeps its own copy.</source>
+        <translation>Le tue locomotive e i tuoi vagoni, e quelli dei tuoi club. Aggiungine uno a questo layout; ne tiene una copia propria.</translation>
+    </message>
+    <message>
+        <source>Your roster is empty. Save a car from a layout to your roster, or a club’s, to use it in other layouts.</source>
+        <translation>Il tuo parco è vuoto. Salva un vagone da un layout nel tuo parco, o in quello di un club, per usarlo in altri layout.</translation>
+    </message>
+    <message>
+        <source>Unnamed</source>
+        <translation>Senza nome</translation>
+    </message>
+    <message>
+        <source>Yours</source>
+        <translation>Tuoi</translation>
+    </message>
+    <message>
+        <source>In this layout</source>
+        <translation>In questo layout</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation>Aggiorna</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Aggiungi</translation>
+    </message>
+    <message>
+        <source>Take off the roster</source>
+        <translation>Togli dal parco</translation>
     </message>
 </context>
 <context>
@@ -13727,6 +13934,181 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     </message>
 </context>
 <context>
+    <name>bld::ui::StockDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> stud</translation>
+    </message>
+    <message>
+        <source>Engine</source>
+        <translation>Locomotiva</translation>
+    </message>
+    <message>
+        <source>Cab car</source>
+        <translation>Carrozza pilota</translation>
+    </message>
+    <message>
+        <source>Powered car (multiple unit)</source>
+        <translation>Motrice (elettrotreno)</translation>
+    </message>
+    <message>
+        <source>Monorail car</source>
+        <translation>Vagone monorotaia</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>Vagone</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Nuovo vagone</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>Modifica vagone</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a number and a length. More details can wait.</source>
+        <translation>Un vagone veloce richiede solo un numero e una lunghezza. I dettagli possono aspettare.</translation>
+    </message>
+    <message>
+        <source>Number:</source>
+        <translation>Numero:</translation>
+    </message>
+    <message>
+        <source>Boxcar</source>
+        <translation>Carro merci chiuso</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nome:</translation>
+    </message>
+    <message>
+        <source>Kind:</source>
+        <translation>Tipo:</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Colore</translation>
+    </message>
+    <message>
+        <source>Car color</source>
+        <translation>Colore del vagone</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>Colore:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler</source>
+        <translation>Da aggancio ad aggancio</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>Lunghezza:</translation>
+    </message>
+    <message>
+        <source>More details</source>
+        <translation>Altri dettagli</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Larghezza:</translation>
+    </message>
+    <message>
+        <source>Body length:</source>
+        <translation>Lunghezza della cassa:</translation>
+    </message>
+    <message>
+        <source>Front truck, ahead of the middle:</source>
+        <translation>Carrello anteriore, davanti al centro:</translation>
+    </message>
+    <message>
+        <source>Rear truck, behind the middle:</source>
+        <translation>Carrello posteriore, dietro il centro:</translation>
+    </message>
+    <message>
+        <source>Magnet</source>
+        <translation>Magnete</translation>
+    </message>
+    <message>
+        <source>Fixed bar</source>
+        <translation>Barra fissa</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Nessuno</translation>
+    </message>
+    <message>
+        <source>Front coupler:</source>
+        <translation>Aggancio anteriore:</translation>
+    </message>
+    <message>
+        <source>Rear coupler:</source>
+        <translation>Aggancio posteriore:</translation>
+    </message>
+    <message>
+        <source>Has a motor</source>
+        <translation>Ha un motore</translation>
+    </message>
+    <message>
+        <source>Train track</source>
+        <translation>Binario ferroviario</translation>
+    </message>
+    <message>
+        <source>Monorail</source>
+        <translation>Monorotaia</translation>
+    </message>
+    <message>
+        <source>Runs on:</source>
+        <translation>Corre su:</translation>
+    </message>
+    <message>
+        <source>A box in its color</source>
+        <translation>Un riquadro del suo colore</translation>
+    </message>
+    <message>
+        <source>A part’s picture</source>
+        <translation>L’immagine di un pezzo</translation>
+    </message>
+    <message>
+        <source>Seen from above as:</source>
+        <translation>Visto dall’alto come:</translation>
+    </message>
+    <message>
+        <source>Search train parts</source>
+        <translation>Cerca pezzi di treni</translation>
+    </message>
+    <message>
+        <source>Picking a part sets the length from its couplers.</source>
+        <translation>Scegliere un pezzo imposta la lunghezza dai suoi agganci.</translation>
+    </message>
+    <message>
+        <source>Notes:</source>
+        <translation>Note:</translation>
+    </message>
+    <message>
+        <source>The front truck must be ahead of the rear one, and both within the car’s length.</source>
+        <translation>Il carrello anteriore deve stare davanti a quello posteriore, ed entrambi entro la lunghezza del vagone.</translation>
+    </message>
+    <message>
+        <source>Add car</source>
+        <translation>Aggiungi vagone</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Salva</translation>
+    </message>
+    <message>
+        <source>Fewer details</source>
+        <translation>Meno dettagli</translation>
+    </message>
+    <message>
+        <source>No train parts match. Parts with a coupler at each end show here.</source>
+        <translation>Nessun pezzo di treno corrisponde. Qui compaiono i pezzi con un aggancio a ogni estremità.</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::TouchActionBar</name>
     <message>
         <source>Turn left</source>
@@ -13771,6 +14153,330 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>Tap the map to place %1</source>
         <translation>Tocca la mappa per posizionare %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainDialog</name>
+    <message>
+        <source>New train</source>
+        <translation>Nuovo treno</translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>Modifica treno</translation>
+    </message>
+    <message>
+        <source>Cars in order, front first. A train moves as one.</source>
+        <translation>Vagoni in ordine, prima quello di testa. Un treno si muove insieme.</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nome:</translation>
+    </message>
+    <message>
+        <source>Cars in the train, front first</source>
+        <translation>Vagoni del treno, prima quello di testa</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation>Avanti</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Indietro</translation>
+    </message>
+    <message>
+        <source>Turn car around</source>
+        <translation>Gira vagone</translation>
+    </message>
+    <message>
+        <source>Take out</source>
+        <translation>Togli</translation>
+    </message>
+    <message>
+        <source>Car to add</source>
+        <translation>Vagone da aggiungere</translation>
+    </message>
+    <message>
+        <source>Add to the end</source>
+        <translation>Aggiungi in coda</translation>
+    </message>
+    <message>
+        <source>This layout has no cars yet. Make one in Rolling stock first.</source>
+        <translation>Questo layout non ha ancora vagoni. Creane uno prima in Materiale rotabile.</translation>
+    </message>
+    <message>
+        <source>Save train</source>
+        <translation>Salva treno</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>Un vagone eliminato</translation>
+    </message>
+    <message>
+        <source>turned around</source>
+        <translation>girato</translation>
+    </message>
+    <message>
+        <source>Length %1</source>
+        <translation>Lunghezza %1</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>Treno</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainsPanel</name>
+    <message>
+        <source>Trains</source>
+        <translation>Treni</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>Nuovo treno</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Nuovo vagone</translation>
+    </message>
+    <message>
+        <source>From a roster…</source>
+        <translation>Da un parco…</translation>
+    </message>
+    <message>
+        <source>Rolling stock</source>
+        <translation>Materiale rotabile</translation>
+    </message>
+    <message>
+        <source>Added %1.</source>
+        <translation>%1 aggiunto.</translation>
+    </message>
+    <message>
+        <source>Saved %1.</source>
+        <translation>%1 salvato.</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>Modifica vagone</translation>
+    </message>
+    <message>
+        <source>Delete %1?</source>
+        <translation>Eliminare %1?</translation>
+    </message>
+    <message>
+        <source>Delete %1 and take it out of %2?</source>
+        <translation>Eliminare %1 e toglierlo da %2?</translation>
+    </message>
+    <message>
+        <source>Delete car</source>
+        <translation>Elimina vagone</translation>
+    </message>
+    <message>
+        <source>Train %1</source>
+        <translation>Treno %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Made %1 from %n car(s). Put it on the track to see it.</source>
+        <translation>
+            <numerusform>%1 formato da %n vagone. Mettilo sul binario per vederlo.</numerusform>
+            <numerusform>%1 formato da %n vagoni. Mettilo sul binario per vederlo.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>Modifica treno</translation>
+    </message>
+    <message>
+        <source>%1 turned around.</source>
+        <translation>%1 invertito.</translation>
+    </message>
+    <message>
+        <source>Turn train around</source>
+        <translation>Inverti il treno</translation>
+    </message>
+    <message>
+        <source>Take train off the track</source>
+        <translation>Togli il treno dal binario</translation>
+    </message>
+    <message>
+        <source>Delete %1? Its cars stay.</source>
+        <translation>Eliminare %1? I vagoni restano.</translation>
+    </message>
+    <message>
+        <source>Delete train</source>
+        <translation>Elimina treno</translation>
+    </message>
+    <message>
+        <source>Updated %1 from the roster.</source>
+        <translation>%1 aggiornato dal parco.</translation>
+    </message>
+    <message>
+        <source>Update car from roster</source>
+        <translation>Aggiorna vagone dal parco</translation>
+    </message>
+    <message>
+        <source>Added %1 to this layout.</source>
+        <translation>%1 aggiunto a questo layout.</translation>
+    </message>
+    <message>
+        <source>Add car from roster</source>
+        <translation>Aggiungi vagone dal parco</translation>
+    </message>
+    <message>
+        <source>Your rosters couldn’t be loaded: %1</source>
+        <translation>Non è stato possibile caricare i tuoi parchi: %1</translation>
+    </message>
+    <message>
+        <source>Saved %1 to the roster.</source>
+        <translation>%1 salvato nel parco.</translation>
+    </message>
+    <message>
+        <source>Save car to roster</source>
+        <translation>Salva vagone nel parco</translation>
+    </message>
+    <message>
+        <source>It couldn’t be saved to the roster: %1</source>
+        <translation>Non è stato possibile salvarlo nel parco: %1</translation>
+    </message>
+    <message>
+        <source>Trains (%1)</source>
+        <translation>Treni (%1)</translation>
+    </message>
+    <message>
+        <source>Rolling stock (%1)</source>
+        <translation>Materiale rotabile (%1)</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
+        <translation>Ancora nessun materiale rotabile. Premi Nuovo vagone: un numero e una lunghezza bastano per un vagone veloce.</translation>
+    </message>
+    <message>
+        <source>Pick %1 for a new train</source>
+        <translation>Scegli %1 per un nuovo treno</translation>
+    </message>
+    <message>
+        <source>In %1</source>
+        <translation>In %1</translation>
+    </message>
+    <message>
+        <source>The roster has a newer version</source>
+        <translation>Il parco ne ha una versione più recente</translation>
+    </message>
+    <message>
+        <source>From a roster</source>
+        <translation>Da un parco</translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation>Modifica</translation>
+    </message>
+    <message>
+        <source>Update from roster</source>
+        <translation>Aggiorna dal parco</translation>
+    </message>
+    <message>
+        <source>Save to roster</source>
+        <translation>Salva nel parco</translation>
+    </message>
+    <message>
+        <source>Save changes to %1’s roster</source>
+        <translation>Salva le modifiche nel parco di %1</translation>
+    </message>
+    <message>
+        <source>Save changes to your roster</source>
+        <translation>Salva le modifiche nel tuo parco</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>Il tuo parco</translation>
+    </message>
+    <message>
+        <source>%1’s roster</source>
+        <translation>Parco di %1</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Elimina</translation>
+    </message>
+    <message>
+        <source>Make a train of this car</source>
+        <translation>Forma un treno con questo vagone</translation>
+    </message>
+    <message>
+        <source>Make a train of these %1 cars</source>
+        <translation>Forma un treno con questi %1 vagoni</translation>
+    </message>
+    <message>
+        <source>No trains yet. Make a car or two in Rolling stock first, then put them together here.</source>
+        <translation>Ancora nessun treno. Crea prima un vagone o due in Materiale rotabile, poi uniscili qui.</translation>
+    </message>
+    <message>
+        <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
+        <translation>Ancora nessun treno. Premi Nuovo treno, oppure spunta vagoni in Materiale rotabile e formane un treno.</translation>
+    </message>
+    <message>
+        <source>Untitled train</source>
+        <translation>Treno senza nome</translation>
+    </message>
+    <message>
+        <source>Not on the map</source>
+        <translation>Non sulla mappa</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed</source>
+        <translation>Il suo binario è stato spostato o rimosso</translation>
+    </message>
+    <message>
+        <source>Runs off the end of the track</source>
+        <translation>Esce dalla fine del binario</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>Sul binario</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n car(s)</source>
+        <translation>
+            <numerusform>%n vagone</numerusform>
+            <numerusform>%n vagoni</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Click the track…</source>
+        <translation>Fai clic sul binario…</translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation>Sposta</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>Metti sul binario</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet.</source>
+        <translation>Questo layout non ha ancora binari.</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>Inverti</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>Togli dal binario</translation>
+    </message>
+    <message>
+        <source>Sign in to a server first (File › Servers…) to use your roster and your clubs’.</source>
+        <translation>Accedi prima a un server (File › Server…) per usare il tuo parco e quello dei tuoi club.</translation>
+    </message>
+    <message>
+        <source>Take %1 off the roster? Layouts keep their copies.</source>
+        <translation>Togliere %1 dal parco? I layout tengono le loro copie.</translation>
+    </message>
+    <message>
+        <source>It couldn’t be taken off the roster: %1</source>
+        <translation>Non è stato possibile toglierlo dal parco: %1</translation>
     </message>
 </context>
 <context>
