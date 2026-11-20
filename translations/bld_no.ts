@@ -579,6 +579,30 @@
         <translation>Velg flytter brikker, Snu snur den du klikker, og Slett fjerner den. Mal farger bakken og Visk ut fjerner fargen. Mål og Sirkel legger til en linjal du kan beholde på kartet, og Lokale og Hindring tegner lokalets vegger og ting man må holde seg unna.</translation>
     </message>
     <message>
+        <source>Run trains</source>
+        <translation>Kjør tog</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>Lek med anlegget: klikk på en sporveksel for å legge den om, uten å flytte noen deler.</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>I kjøremodus viser hver sporveksel en pil langs den veien den er lagt; klikk nær den for å legge den om. Deler kan ikke velges eller flyttes, så ingenting endres ved et uhell. Omleggingene deles med alle og kan angres; trykk Stopp for å bygge videre.</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>Sporveksler</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>En sporveksel sender et tog den ene eller den andre veien; pilen viser hvilken.</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>Høyreklikk på en sporveksel for å legge den, eller slå på kjøremodus og klikk på den. En grønn pil er den vanlige veien; en oransje betyr at den er lagt den andre veien. Slå på Vis › Sporveksler for å se dem mens du bygger.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Gjeldende ark</translation>
     </message>
@@ -4368,6 +4392,10 @@
     <message>
         <source>Budget limit for %1</source>
         <translation>Budsjettgrense for %1</translation>
+    </message>
+    <message>
+        <source>A switch&apos;s setting</source>
+        <translation>Stillingen til en sporveksel</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -8808,6 +8836,18 @@ De frakoblede endringene dine er tatt vare på; Fil › Gå gjennom frakoblede e
         <translation>Mo&amp;dulnavn</translation>
     </message>
     <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>&amp;Kjør tog</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Kjør tog: klikk på en sporveksel for å legge den om. Deler kan ikke flyttes.</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>Sporve&amp;ksler</translation>
+    </message>
+    <message>
         <source>&amp;Import .bbm as Module…</source>
         <translation>&amp;Importer .bbm som modul…</translation>
     </message>
@@ -9194,6 +9234,10 @@ De frakoblede endringene dine er tatt vare på; Fil › Gå gjennom frakoblede e
         <translation>hvilken versjon hvert sett kom fra</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>sporvekselstillinger</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9521,6 +9565,10 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>Slutt å kjøre tog for å legge til deler.</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -9885,6 +9933,50 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
             <numerusform>Lim inn (%1 deler på %n ark)</numerusform>
             <numerusform>Lim inn (%1 deler på %n ark)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Straight</source>
+        <translation>Rett frem</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Kjøremodus:&lt;/b&gt; klikk på en sporveksel for å legge den om. Deler kan ikke flyttes.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stopp</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ Kjør tog</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Kjør tog: klikk på en sporveksel for å legge den om. Deler kan ikke flyttes.</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>Legg om en sporveksel</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>Klikk på en sporveksel for å legge den om.</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>Sporveksel lagt: %1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>Legg sporvekselen</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>Fra ende %1: %2</translation>
     </message>
 </context>
 <context>

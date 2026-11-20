@@ -579,6 +579,30 @@
         <translation>Seleziona sposta i pezzi, Gira gira quello su cui fai clic e Elimina lo rimuove. Pittura colora il terreno e Gomma lo cancella. Misura e Cerchio aggiungono un righello che puoi tenere sulla mappa, e Sede e Ostacolo disegnano i muri della sede e le cose da evitare.</translation>
     </message>
     <message>
+        <source>Run trains</source>
+        <translation>Far circolare i treni</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>Gioca con il plastico: fai clic su uno scambio per cambiarlo, senza spostare alcun pezzo.</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>In modalità circolazione ogni scambio mostra una freccia verso il ramo su cui è impostato; fai clic vicino per cambiarlo. I pezzi non si possono selezionare né spostare, così niente cambia per sbaglio. I cambi sono condivisi con tutti e si possono annullare; premi Ferma per tornare a costruire.</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>Scambi</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>Uno scambio manda un treno da una parte o dall&apos;altra; la freccia mostra quale.</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>Fai clic destro su uno scambio per impostarlo, oppure attiva la modalità circolazione e fai clic su di esso. Una freccia verde è il percorso abituale; una arancione significa che è impostato sull&apos;altro ramo. Attiva Visualizza › Scambi per vederli mentre costruisci.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Foglio corrente</translation>
     </message>
@@ -4370,6 +4394,10 @@
         <translation>Limite del budget per %1</translation>
     </message>
     <message>
+        <source>A switch&apos;s setting</source>
+        <translation>L&apos;impostazione di uno scambio</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Sede</translation>
     </message>
@@ -7628,6 +7656,18 @@ Salvare comunque?</translation>
         <translation>Punti di a&amp;ggancio dei righelli</translation>
     </message>
     <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>Far circolare i t&amp;reni</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Far circolare i treni: fai clic su uno scambio per cambiarlo. I pezzi non si possono spostare.</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>Sc&amp;ambi</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>M&amp;oduli</translation>
     </message>
@@ -9194,6 +9234,10 @@ Non ti verrà chiesto di nuovo. Per portarlo più tardi in questo o in un altro 
         <translation>da quale versione viene ogni set</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>le impostazioni degli scambi</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9521,6 +9565,10 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>Smetti di far circolare i treni per aggiungere pezzi.</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -9886,6 +9934,50 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
             <numerusform>Incolla (%1 pezzi su %n fogli)</numerusform>
         </translation>
     </message>
+    <message>
+        <source>Straight</source>
+        <translation>Dritto</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Modalità circolazione:&lt;/b&gt; fai clic su uno scambio per cambiarlo. I pezzi non si possono spostare.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Ferma</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ Far circolare i treni</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Far circolare i treni: fai clic su uno scambio per cambiarlo. I pezzi non si possono spostare.</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>Imposta uno scambio</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>Fai clic su uno scambio per cambiarlo.</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>Scambio impostato: %1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>Imposta lo scambio</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>Dall&apos;estremità %1: %2</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleEditBar</name>
@@ -10141,7 +10233,7 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
     </message>
     <message>
         <source>Stop</source>
-        <translation>Smetti</translation>
+        <translation>Ferma</translation>
     </message>
     <message>
         <source>Share “%1”</source>

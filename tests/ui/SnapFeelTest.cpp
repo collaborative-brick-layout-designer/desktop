@@ -232,7 +232,7 @@ struct TrackLibrary {
     }
 };
 
-core::Brick track(const QString& guid, double x) {
+core::Brick trackPiece(const QString& guid, double x) {
     core::Brick b;
     b.guid = guid;
     b.partNumber = QStringLiteral("TT.7");
@@ -252,8 +252,8 @@ protected:
         auto layer = std::make_unique<core::LayerBrick>();
         layer->name = QStringLiteral("Track");  // a module\'s sheet goes on the sheet named the same
         layer->guid = QStringLiteral("L");
-        layer->bricks.push_back(track(QStringLiteral("A"), 0));
-        layer->bricks.push_back(track(QStringLiteral("B"), 10));
+        layer->bricks.push_back(trackPiece(QStringLiteral("A"), 0));
+        layer->bricks.push_back(trackPiece(QStringLiteral("B"), 10));
         map->layers().push_back(std::move(layer));
         view_ = std::make_unique<MapView>(lib_.lib);
         view_->resize(900, 400);
@@ -423,7 +423,7 @@ TEST_F(SnapDragTest, AModuleSnapsWithinTheReach) {
     core::Map module;
     auto layer = std::make_unique<core::LayerBrick>();
     layer->name = QStringLiteral("Track");  // a module\'s sheet goes on the sheet named the same
-    layer->bricks.push_back(track(QString(), 0));
+    layer->bricks.push_back(trackPiece(QString(), 0));
     module.layers().push_back(std::move(layer));
     // Centre at x 6.7: its left end is 0.7 studs from A's right end.
     ASSERT_TRUE(view_->placeModule(module, QStringLiteral("M"), QString(), QPointF(6.7, 1) * kPx));
@@ -438,7 +438,7 @@ TEST_F(SnapDragTest, ALinkedPartSnapsElsewhereWithoutLettingGo) {
     // A (0..4) and B (4..8) are joined; C (14..18) has a free right end at
     // (18, 1). Grabbing B by its joined left end and pulling that end to
     // C's right end snaps it there in one drag.
-    reload({ track(QStringLiteral("A"), 0), track(QStringLiteral("B"), 4), track(QStringLiteral("C"), 14) }, { 12, 1 });
+    reload({ trackPiece(QStringLiteral("A"), 0), trackPiece(QStringLiteral("B"), 4), trackPiece(QStringLiteral("C"), 14) }, { 12, 1 });
     // Links name the partner connection.
     const auto joined = [this](const QString& a, int i, const QString& b, int j) {
         return brick(a)->connections.at(i).linkedToId == brick(b)->connections.at(j).guid;
@@ -456,7 +456,7 @@ TEST_F(SnapDragTest, ALinkedPartSnapsElsewhereWithoutLettingGo) {
 
 TEST_F(SnapDragTest, ALinkedPartFlungElsewhereSnapsOnTheDrop) {
     // Too fast to snap on the way; the drop's snap still takes the joined end.
-    reload({ track(QStringLiteral("A"), 0), track(QStringLiteral("B"), 4), track(QStringLiteral("C"), 14) }, { 12, 1 });
+    reload({ trackPiece(QStringLiteral("A"), 0), trackPiece(QStringLiteral("B"), 4), trackPiece(QStringLiteral("C"), 14) }, { 12, 1 });
     slowDrag({ 4.5, 1 }, { 18.9, 1 }, /*release=*/true, /*fast=*/true);
     EXPECT_NEAR(brick(QStringLiteral("B"))->displayArea.x(), 18.0, 1e-6);
 }
@@ -464,7 +464,7 @@ TEST_F(SnapDragTest, ALinkedPartFlungElsewhereSnapsOnTheDrop) {
 TEST_F(SnapDragTest, AnEndLeftBehindIsFreeForThePartThatLeft) {
     // B is joined to A. Pulled away and brought back in the same drag, it
     // snaps onto the end of A it just left.
-    reload({ track(QStringLiteral("A"), 0), track(QStringLiteral("B"), 4) }, { 4, 1 });
+    reload({ trackPiece(QStringLiteral("A"), 0), trackPiece(QStringLiteral("B"), 4) }, { 4, 1 });
     slowDrag({ 6, 1 }, { 6, 8 }, /*release=*/false);
     slowDrag({ 6, 8 }, { 6, 1.3 });  // B's left end 0.3 studs off A's right end
     EXPECT_NEAR(brick(QStringLiteral("B"))->displayArea.y(), 0.0, 1e-6);
@@ -476,8 +476,8 @@ TEST(ConnectionSnap, LinksToTheMovingSetDontHoldWhileDragging) {
     core::Map map;
     auto layer = std::make_unique<core::LayerBrick>();
     layer->name = QStringLiteral("Track");  // a module\'s sheet goes on the sheet named the same
-    core::Brick a = track(QStringLiteral("A"), 0);
-    core::Brick b = track(QStringLiteral("B"), 4);
+    core::Brick a = trackPiece(QStringLiteral("A"), 0);
+    core::Brick b = trackPiece(QStringLiteral("B"), 4);
     a.connections.resize(2);
     b.connections.resize(2);
     a.connections[0].guid = QStringLiteral("a0");
@@ -633,8 +633,8 @@ TEST_F(SnapDragTest, OnlyTheGrabbedEndSnaps) {
 // and rails all taken): the run's free end nearest the grab leads, so the
 // run still snaps. It used to lead with a joined end and never snap.
 TEST_F(SnapDragTest, ARunGrabbedInTheMiddleSnapsByItsFreeEnd) {
-    reload({ track(QStringLiteral("A"), 0), track(QStringLiteral("B"), 4), track(QStringLiteral("C"), 8),
-             track(QStringLiteral("D"), 20) },
+    reload({ trackPiece(QStringLiteral("A"), 0), trackPiece(QStringLiteral("B"), 4), trackPiece(QStringLiteral("C"), 8),
+             trackPiece(QStringLiteral("D"), 20) },
            QPointF(12, 1));
     ASSERT_EQ(brick(QStringLiteral("B"))->connections.size(), 2u);
     ASSERT_FALSE(brick(QStringLiteral("B"))->connections[0].linkedToId.isEmpty());

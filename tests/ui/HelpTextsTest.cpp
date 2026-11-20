@@ -112,7 +112,7 @@ QList<WebEntry> tsEntries(const QString& ts) {
 
 TEST(HelpTexts, HasTheWebsKeysInTheSameOrder) {
     const QStringList fixture = fixtureKeys();
-    ASSERT_EQ(fixture.size(), 97);
+    ASSERT_EQ(fixture.size(), 99);
     EXPECT_EQ(sharedHelpKeys(), fixture);
 }
 

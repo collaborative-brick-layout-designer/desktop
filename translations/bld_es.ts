@@ -579,6 +579,30 @@
         <translation>Seleccionar mueve piezas, Girar gira la que pulsas y Borrar la quita. Pintar colorea el suelo y Goma lo limpia. Medir y Círculo añaden una regla que puede quedarse en el mapa, y Sala y Obstáculo dibujan las paredes de la sala y lo que hay que dejar libre.</translation>
     </message>
     <message>
+        <source>Run trains</source>
+        <translation>Poner trenes en marcha</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>Juega con el trazado: haz clic en un desvío para cambiarlo, sin mover ninguna pieza.</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>En el modo de marcha, cada desvío muestra una flecha hacia el lado al que está puesto; haz clic cerca para cambiarlo. Las piezas no se pueden seleccionar ni mover, así que nada cambia por accidente. Los cambios se comparten con todos y se pueden deshacer; pulsa Detener para volver a construir.</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>Desvíos</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>Un desvío manda un tren por un lado o por el otro; la flecha muestra por cuál.</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>Haz clic derecho en un desvío para ponerlo, o activa el modo de marcha y haz clic en él. Una flecha verde es el camino habitual; una naranja significa que está puesto hacia el otro lado. Activa Ver › Desvíos para verlos mientras construyes.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Hoja actual</translation>
     </message>
@@ -4370,6 +4394,10 @@
         <translation>Límite del presupuesto para %1</translation>
     </message>
     <message>
+        <source>A switch&apos;s setting</source>
+        <translation>La posición de un desvío</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Sala</translation>
     </message>
@@ -7628,6 +7656,18 @@ Save anyway?</source>
         <translation>Puntos de sujeción de &amp;reglas</translation>
     </message>
     <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>&amp;Poner trenes en marcha</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Poner trenes en marcha: haz clic en un desvío para cambiarlo. Las piezas no se pueden mover.</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>&amp;Desvíos</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>M&amp;ódulos</translation>
     </message>
@@ -9194,6 +9234,10 @@ No se te volverá a preguntar. Para traerlo más tarde a esta o a cualquier otra
         <translation>de qué versión viene cada set</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>las posiciones de los desvíos</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9521,6 +9565,10 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>Deja de poner trenes en marcha para añadir piezas.</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -9886,6 +9934,50 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
             <numerusform>Pegar (%1 piezas en %n hojas)</numerusform>
         </translation>
     </message>
+    <message>
+        <source>Straight</source>
+        <translation>Recto</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Modo de marcha:&lt;/b&gt; haz clic en un desvío para cambiarlo. Las piezas no se pueden mover.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Detener</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ Poner trenes en marcha</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Poner trenes en marcha: haz clic en un desvío para cambiarlo. Las piezas no se pueden mover.</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>Poner un desvío</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>Haz clic en un desvío para cambiarlo.</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>Desvío puesto: %1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>Poner el desvío</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>Desde el extremo %1: %2</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleEditBar</name>
@@ -10141,7 +10233,7 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>Stop</source>
-        <translation>Dejar de compartir</translation>
+        <translation>Detener</translation>
     </message>
     <message>
         <source>Share “%1”</source>

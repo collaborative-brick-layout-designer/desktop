@@ -79,6 +79,7 @@
 #include <QPushButton>
 #include <QRegularExpression>
 #include <QSettings>
+#include <QSignalBlocker>
 #include <QSpinBox>
 #include <QStandardPaths>
 #include <QStatusBar>
@@ -636,6 +637,31 @@ void MainWindow::setupMenus() {
     addRenderToggle(tr("Brick &Hulls"),             QStringLiteral("view/brickHulls"),          false);
     addRenderToggle(tr("Brick E&levation Labels"),  QStringLiteral("view/brickElevation"),      false);
     addRenderToggle(tr("&Module Names"),             QStringLiteral("view/moduleNames"),         true);
+    // Run trains (trains design 6.3): Run mode, where a click on a switch
+    // flips it and parts can't be moved. Also the button in the map's corner.
+    {
+        auto* run = view->addAction(tr("Run Tr&ains"));
+        run->setObjectName(QStringLiteral("action.runTrains"));
+        run->setCheckable(true);
+        run->setToolTip(tr("Run trains: click a switch to flip it. Parts can't be moved."));
+        connect(run, &QAction::toggled, mapView_, &MapView::setRunMode);
+        connect(mapView_, &MapView::runModeChanged, run, [run](bool on) {
+            const QSignalBlocker quiet(run);
+            run->setChecked(on);
+        });
+    }
+    // The switches' arrows while building (Run mode always shows them).
+    {
+        auto* act = view->addAction(tr("Swi&tches"));
+        act->setObjectName(QStringLiteral("view.switches"));
+        act->setCheckable(true);
+        act->setChecked(QSettings().value(QStringLiteral("view/switches"), false).toBool());
+        mapView_->setShowSwitches(act->isChecked());
+        connect(act, &QAction::toggled, this, [this](bool on) {
+            QSettings().setValue(QStringLiteral("view/switches"), on);
+            mapView_->setShowSwitches(on);
+        });
+    }
 
     // Tools menu (libraries + Import submenu + preferences) lives in
     // MainWindowToolsMenu.cpp — it's ~180 lines on its own.

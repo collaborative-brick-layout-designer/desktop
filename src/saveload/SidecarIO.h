@@ -47,6 +47,10 @@ QJsonObject sidecarToJson(const core::Sidecar& sidecar);
 // more), and back; nullopt when the value isn't an object (no budget).
 QJsonObject budgetLimitsToJson(const QMap<QString, int>& limits);
 std::optional<QMap<QString, int>> budgetLimitsFromJson(const QJsonValue& v);
+// switchStates: "<brick>/<heel>" to a connection index (a whole number, 0 or
+// more); anything else in the object is left out.
+QJsonObject switchStatesToJson(const QMap<QString, int>& states);
+QMap<QString, int> switchStatesFromJson(const QJsonValue& v);
 void sidecarFromJson(const QJsonObject& root, core::Sidecar& out);
 
 // One saved view as JSON and back (references/LAYOUT-FILE.md "Saved

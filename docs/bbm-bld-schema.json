@@ -38,6 +38,12 @@
       "type": "object",
       "additionalProperties": { "type": "integer", "minimum": 0 },
       "description": "The layout's budget: part number -> how many of that part the layout may use (0 = none; a part without an entry is unlimited or forbidden by the reader's preference, as in BlueBrick). Present, even empty, when the layout has a budget; absent when it has none. Shared with everyone who edits the layout (the live document keeps it at meta.budgetLimits). A BlueBrick .bbb file is the same list in XML. Added 2026-11, optional."
+    },
+    "switchStates": {
+      "type": "object",
+      "propertyNames": { "pattern": "^.+/[0-9]+$" },
+      "additionalProperties": { "type": "integer", "minimum": 0 },
+      "description": "How the layout's switches are set: \"<brick id>/<heel connection>\" -> the connection a train leaves by. A switch without a key is set to its default (the way that turns least); absent when none is set. Shared with everyone who edits the layout (the live document keeps it at meta.switchStates). Never in a .bbm. Added 2026-11, optional."
     }
   },
 

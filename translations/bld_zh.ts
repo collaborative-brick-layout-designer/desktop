@@ -579,6 +579,30 @@
         <translation>“选择”用来移动零件，“转向”转动你点击的零件，“删除”把它删掉。“涂色”给地面上色，“擦除”把它清掉。“测量”和“圆形”添加可以留在地图上的标尺，“场地”和“障碍物”绘制场地的墙壁和需要避开的东西。</translation>
     </message>
     <message>
+        <source>Run trains</source>
+        <translation>运行列车</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>玩转布局：点击道岔即可切换，不会移动任何零件。</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>在运行模式下，每个道岔都会显示一个箭头，指向它当前开通的方向；点击道岔附近即可切换。零件无法选中或移动，因此不会被误改。切换会与所有人共享，并且可以撤销；按“停止”回到搭建。</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>道岔</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>道岔让列车驶向一边或另一边；箭头显示驶向哪边。</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>右键点击道岔即可设置，或开启运行模式后点击它。绿色箭头表示通常的方向；橙色表示已切换到另一边。开启 视图 › 道岔 可在搭建时看到它们。</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>当前图纸</translation>
     </message>
@@ -4344,6 +4368,10 @@
         <translation>%1 的预算上限</translation>
     </message>
     <message>
+        <source>A switch&apos;s setting</source>
+        <translation>道岔的开通方向</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>场地</translation>
     </message>
@@ -7578,6 +7606,18 @@ Save anyway?</source>
         <translation>标尺附着点(&amp;R)</translation>
     </message>
     <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>运行列车(&amp;A)</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>运行列车：点击道岔即可切换。零件无法移动。</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>道岔(&amp;T)</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>模块(&amp;O)</translation>
     </message>
@@ -9120,6 +9160,10 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>每个套件来自哪个版本</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>道岔开通方向</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9446,6 +9490,10 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>停止运行列车后才能添加零件。</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -9806,6 +9854,50 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>
             <numerusform>粘贴（%n 张图纸上的 %1 个零件）</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Straight</source>
+        <translation>直行</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;运行模式：&lt;/b&gt;点击道岔即可切换。零件无法移动。</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ 运行列车</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>运行列车：点击道岔即可切换。零件无法移动。</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>设置道岔</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>点击道岔即可切换。</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>道岔已设置：%1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>设置道岔</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>从第 %1 端：%2</translation>
     </message>
 </context>
 <context>

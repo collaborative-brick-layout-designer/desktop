@@ -93,6 +93,16 @@
       "more": "Select moves pieces, Turn turns the one you click, and Delete removes it. Paint colors the ground and Erase clears it. Measure and Circle add a ruler you can keep on the map, and Venue and Obstacle draw the venue’s walls and things to keep clear of.",
       "learnMoreUrl": "/help#shortcuts"
     },
+    "run.mode": {
+      "title": "Run trains",
+      "short": "Play with the layout: click a switch to flip it, without moving any parts.",
+      "more": "In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can't be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building."
+    },
+    "switch.flip": {
+      "title": "Switches",
+      "short": "A switch sends a train one way or the other; the arrow shows which.",
+      "more": "Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build."
+    },
     "status.sheet": {
       "title": "Current sheet",
       "short": "New parts go on this sheet.",

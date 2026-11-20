@@ -322,6 +322,12 @@ void readSidecar(const QJsonObject& meta, const QJsonObject& items, core::Sideca
 // rows merge. Absent: no budget.
 void readBudget(const QJsonObject& meta, core::Sidecar& out) {
     out.budgetLimits = saveload::budgetLimitsFromJson(meta.value(QLatin1String("budgetLimits")));
+    // Switch settings (trains design 2.2) are kept the same way, at
+    // meta.switchStates. An older web build that imported a file left them
+    // in meta.cache: read from there until the first write moves them over.
+    const QJsonValue states = meta.value(QLatin1String("switchStates"));
+    out.switchStates = saveload::switchStatesFromJson(
+        states.isObject() ? states : meta.value(QLatin1String("cache")).toObject().value(QLatin1String("switchStates")));
 }
 
 } // namespace

@@ -495,3 +495,35 @@ TEST(Sidecar, RoundTripBudgetLimits) {
     saveload::sidecarFromJson(QJsonObject{ { QStringLiteral("budgetLimits"), QJsonArray{ 1, 2 } } }, notObj);
     EXPECT_FALSE(notObj.budgetLimits);
 }
+
+// Switch settings (trains design 2.2): "<brick>/<heel>" to an exit, written
+// only when one is set, kept through a save, and their bricks follow ids
+// renumbered on reading.
+TEST(Sidecar, RoundTripSwitchStates) {
+    core::Sidecar sc;
+    EXPECT_FALSE(saveload::sidecarToJson(sc).contains(QLatin1String("switchStates")));
+    sc.switchStates = { { QStringLiteral("17/0"), 2 }, { QStringLiteral("a/b/1"), 0 } };
+    EXPECT_FALSE(sc.isEmpty());
+    QTemporaryDir dir;
+    const QString path = dir.filePath("s.bbm.bld");
+    const QByteArray bbm = "<dummy bbm>";
+    QString err;
+    ASSERT_TRUE(saveload::writeSidecar(path, bbm, sc, &err)) << err.toStdString();
+    core::Sidecar back;
+    ASSERT_TRUE(saveload::readSidecar(path, bbm, back).ok);
+    EXPECT_EQ(back.switchStates, sc.switchStates);
+    EXPECT_TRUE(back.extras.isEmpty());
+
+    // Only whole exits of 0 or more on "<brick>/<heel>" keys.
+    core::Sidecar odd;
+    saveload::sidecarFromJson(QJsonObject{ { QStringLiteral("switchStates"),
+                                            QJsonObject{ { QStringLiteral("P/0"), 2 }, { QStringLiteral("bad"), 1 },
+                                                         { QStringLiteral("Q/0"), -1 }, { QStringLiteral("R/0"), 1.5 },
+                                                         { QStringLiteral("S/0"), QStringLiteral("1") } } } },
+                              odd);
+    EXPECT_EQ(odd.switchStates, (QMap<QString, int>{ { QStringLiteral("P/0"), 2 } }));
+
+    // Bricks renumbered on reading take their settings along.
+    saveload::renameSidecarIds(sc, { { QStringLiteral("17"), QStringLiteral("170") } });
+    EXPECT_EQ(sc.switchStates, (QMap<QString, int>{ { QStringLiteral("170/0"), 2 }, { QStringLiteral("a/b/1"), 0 } }));
+}

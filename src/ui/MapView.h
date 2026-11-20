@@ -45,6 +45,9 @@ namespace bld::core    { class Map; class LayerGrid; }
 namespace bld::edit    { class FlexMove; }
 namespace bld::parts   { class PartsLibrary; }
 #include "../rendering/SceneBuilder.h"
+#include "../track/TrackNetwork.h"
+
+class QToolButton;
 
 namespace bld::ui {
 
@@ -263,6 +266,24 @@ public:
 
     // Touch: a part picked by a tap in the parts panel waits for a tap on
     // the map (the action bar says so, with Cancel).
+    // Switches (trains design 6.3). Run mode: a click on a switch flips it
+    // (one undo step), parts can't be picked, moved or dropped, and there is
+    // no right-click menu; each switch shows its arrow. View > Switches
+    // shows the arrows while building.
+    void setRunMode(bool on);
+    bool runMode() const { return runMode_; }
+    // Run mode's banner (tests).
+    QWidget* runModeBanner() const { return runBar_; }
+    QWidget* runTrainsButton() const;
+    void setShowSwitches(bool on);
+    bool showSwitches() const { return showSwitches_; }
+    // The switch a click at `studs` means: the one whose heel or set way is
+    // nearest, within `reach` studs.
+    std::optional<track::SwitchPoint> switchNear(QPointF studs, double reach) const;
+    // Set a switch (back to its default drops its key), as one undo step.
+    void setSwitch(const QString& key, int exit);
+    // Run mode's click: flip the switch nearest `studs`; false when none is near.
+    bool flipSwitchNear(QPointF studs);
     void armPartPlacement(const QString& partKey);
     void cancelPartPlacement();
     const QString& armedPart() const { return armedPart_; }
@@ -403,6 +424,8 @@ signals:
     // where they went when that could surprise (a hidden sheet, not the
     // picked one).
     void partsPlaced(const QList<int>& layers, int pickedLayer, int count, bool pasted);
+    // Run mode went on or off (the toolbar button and the banner follow).
+    void runModeChanged(bool on);
 
 protected:
     // Touch (pinch, two-finger pan, tap, drag, long press) and trackpad
@@ -432,6 +455,19 @@ protected:
     void dropEvent(QDropEvent* e) override;
 
 private:
+    bool runMode_ = false;
+    // Run mode's banner over the top of the map: what a click does, and Stop.
+    QWidget* runBar_ = nullptr;
+    // "Run trains", in the map's top right corner while building.
+    QToolButton* runButton_ = nullptr;
+    void placeRunBar();
+    bool showSwitches_ = false;
+    void applySwitchesShown();
+    // Run mode keeps nothing picked (Select All included), so no edit acts on parts.
+    void dropRunModePick();
+    // The right-click menu's "Set the switch" choices for the switch near `studs`.
+    void addSwitchMenu(class QMenu& menu, QPointF studs);
+
     struct BrickOriginSnapshot {
         QGraphicsItem* item = nullptr;
         int    layerIndex   = -1;

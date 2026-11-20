@@ -579,6 +579,30 @@
         <translation>Auswählen bewegt Teile, Drehen dreht das angeklickte, und Löschen entfernt es. Malen färbt den Boden und Radieren entfernt die Farbe. Messen und Kreis fügen ein Lineal hinzu, das auf der Karte bleiben kann, und Veranstaltungsort und Hindernis zeichnen die Wände des Veranstaltungsorts und Dinge, die frei bleiben müssen.</translation>
     </message>
     <message>
+        <source>Run trains</source>
+        <translation>Züge fahren lassen</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>Spiel mit der Anlage: Klick auf eine Weiche, um sie umzustellen, ohne Teile zu bewegen.</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>Im Fahrmodus zeigt jede Weiche einen Pfeil in die Richtung, in die sie gestellt ist; klick in ihre Nähe, um sie umzustellen. Teile lassen sich nicht auswählen oder verschieben, damit sich nichts aus Versehen ändert. Umstellungen sehen alle, und du kannst sie rückgängig machen; mit Stopp geht es zurück zum Bauen.</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>Weichen</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>Eine Weiche schickt einen Zug in die eine oder die andere Richtung; der Pfeil zeigt, wohin.</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>Klick mit der rechten Maustaste auf eine Weiche, um sie zu stellen, oder schalte den Fahrmodus ein und klick sie an. Ein grüner Pfeil ist der übliche Weg; ein oranger heißt, dass sie auf den anderen Weg gestellt ist. Schalte Ansicht › Weichen ein, um sie beim Bauen zu sehen.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Aktuelles Blatt</translation>
     </message>
@@ -4370,6 +4394,10 @@
         <translation>Budgetgrenze für %1</translation>
     </message>
     <message>
+        <source>A switch&apos;s setting</source>
+        <translation>Stellung einer Weiche</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Veranstaltungsort</translation>
     </message>
@@ -7628,6 +7656,18 @@ Trotzdem speichern?</translation>
         <translation>&amp;Lineal-Ankerpunkte</translation>
     </message>
     <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>Züge &amp;fahren lassen</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Züge fahren lassen: Klick auf eine Weiche, um sie umzustellen. Teile lassen sich nicht bewegen.</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>Wei&amp;chen</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>M&amp;odule</translation>
     </message>
@@ -9194,6 +9234,10 @@ Du wirst nicht noch einmal gefragt. Um es später in dieses oder ein anderes Lay
         <translation>aus welcher Version jedes Set stammt</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>Weichenstellungen</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9521,6 +9565,10 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>Beende den Fahrbetrieb, um Teile hinzuzufügen.</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -9886,6 +9934,50 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
             <numerusform>Einfügen (%1 Teile auf %n Blättern)</numerusform>
         </translation>
     </message>
+    <message>
+        <source>Straight</source>
+        <translation>Geradeaus</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Fahrmodus:&lt;/b&gt; Klick auf eine Weiche, um sie umzustellen. Teile lassen sich nicht bewegen.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stopp</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ Züge fahren lassen</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Züge fahren lassen: Klick auf eine Weiche, um sie umzustellen. Teile lassen sich nicht bewegen.</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>Weiche stellen</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>Klick auf eine Weiche, um sie umzustellen.</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>Weiche gestellt: %1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>Weiche stellen</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>Von Ende %1: %2</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleEditBar</name>
@@ -10141,7 +10233,7 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     </message>
     <message>
         <source>Stop</source>
-        <translation>Beenden</translation>
+        <translation>Stopp</translation>
     </message>
     <message>
         <source>Share “%1”</source>

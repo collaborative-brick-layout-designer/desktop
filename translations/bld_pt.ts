@@ -579,6 +579,30 @@
         <translation>Selecionar move peças, Rodar roda a peça em que você clica, e Eliminar remove-a. Pintar colore o chão e Apagar limpa-o. Medir e Círculo adicionam uma régua que você pode manter no mapa, e Local e Obstáculo desenham as paredes do local e as coisas a evitar.</translation>
     </message>
     <message>
+        <source>Run trains</source>
+        <translation>Pôr os comboios a andar</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>Brinque com o traçado: clique numa agulha para a mudar, sem mover nenhuma peça.</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>No modo de circulação, cada agulha mostra uma seta para o lado para onde está posta; clique perto dela para a mudar. As peças não podem ser escolhidas nem movidas, por isso nada muda por engano. As mudanças são partilhadas com todos e podem ser anuladas; prima Parar para voltar a construir.</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>Agulhas</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>Uma agulha manda um comboio por um lado ou pelo outro; a seta mostra por qual.</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>Clique com o botão direito numa agulha para a pôr, ou ligue o modo de circulação e clique nela. Uma seta verde é o caminho habitual; uma laranja significa que está posta para o outro lado. Ligue Ver › Agulhas para as ver enquanto constrói.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Folha atual</translation>
     </message>
@@ -4370,6 +4394,10 @@
         <translation>Limite do orçamento para %1</translation>
     </message>
     <message>
+        <source>A switch&apos;s setting</source>
+        <translation>A posição de uma agulha</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Local</translation>
     </message>
@@ -7628,6 +7656,18 @@ Guardar mesmo assim?</translation>
         <translation>Pontos de fixação das régua&amp;s</translation>
     </message>
     <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>Pôr os comboios a &amp;andar</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Pôr os comboios a andar: clique numa agulha para a mudar. As peças não podem ser movidas.</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>A&amp;gulhas</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>Mó&amp;dulos</translation>
     </message>
@@ -9194,6 +9234,10 @@ Não voltaremos a perguntar. Para o trazer mais tarde para este ou outro layout,
         <translation>a versão de que veio cada conjunto</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>as posições das agulhas</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9521,6 +9565,10 @@ Mantenha-o como %2 se ainda o abre noutro programa; Ficheiro › Exportar como m
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>Pare os comboios para adicionar peças.</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -9885,6 +9933,50 @@ Mantenha-o como %2 se ainda o abre noutro programa; Ficheiro › Exportar como m
             <numerusform>Colar (%1 peças em %n folha)</numerusform>
             <numerusform>Colar (%1 peças em %n folhas)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Straight</source>
+        <translation>Em frente</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Modo de circulação:&lt;/b&gt; clique numa agulha para a mudar. As peças não podem ser movidas.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Parar</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ Pôr os comboios a andar</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Pôr os comboios a andar: clique numa agulha para a mudar. As peças não podem ser movidas.</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>Pôr uma agulha</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>Clique numa agulha para a mudar.</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>Agulha posta: %1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>Pôr a agulha</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>Da ponta %1: %2</translation>
     </message>
 </context>
 <context>

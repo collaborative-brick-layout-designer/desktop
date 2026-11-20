@@ -70,6 +70,11 @@ struct Sidecar {
     // (the web keeps it at meta.budgetLimits); .bbb files import and
     // export it.
     std::optional<QMap<QString, int>> budgetLimits;
+    // How the layout's switches are set (trains design 2.2): "<brick id>/<heel
+    // connection>" to the connection a train leaves by. A switch with no key
+    // is set to its default, the way that turns least. The web keeps it at
+    // meta.switchStates. Never in a .bbm.
+    QMap<QString, int> switchStates;
     // Top-level fields this build doesn't know (a newer build's, the web's),
     // written back as they were.
     QJsonObject extras;
@@ -79,7 +84,7 @@ struct Sidecar {
     bool isEmpty() const {
         return anchoredLabels.empty() && modules.empty() && !venue.has_value()
                && backgroundImagePath.isEmpty() && views.empty() && sets.empty() && !budgetLimits.has_value()
-               && extras.isEmpty();
+               && switchStates.isEmpty() && extras.isEmpty();
     }
 };
 

@@ -819,3 +819,20 @@ TEST(LayoutFile, ModuleMembersAreWrittenInOrder) {
     EXPECT_EQ(members, (QStringList{ QStringLiteral("4"), QStringLiteral("7"), QStringLiteral("12"),
                                      QStringLiteral("30"), QStringLiteral("100") }));
 }
+
+// Switch settings (trains design Phase 1) travel in the file's sidecar.json
+// and come back when it opens; the .bbm inside is untouched by them.
+TEST(LayoutFile, KeepsTheSwitchSettings) {
+    QTemporaryDir dir;
+    auto map = fixtureMap();
+    ASSERT_TRUE(map);
+    const QByteArray bbmBefore = bbmOf(*map);
+    map->sidecar.switchStates = { { QStringLiteral("17/0"), 2 }, { QStringLiteral("23/1"), 0 } };
+    const QString path = dir.filePath(QStringLiteral("switches.bld-layout"));
+    QString error;
+    ASSERT_TRUE(writeLayoutFile(*map, path, &error)) << error.toStdString();
+    const auto read = readLayoutFile(path, dir.filePath(QStringLiteral("assets")));
+    ASSERT_TRUE(read.ok()) << read.error.toStdString();
+    EXPECT_EQ(read.map->sidecar.switchStates, map->sidecar.switchStates);
+    EXPECT_EQ(bbmOf(*read.map), bbmBefore);
+}
