@@ -931,8 +931,8 @@
         <translation>Hol dir ein LDraw-, BrickLink-Studio- oder LDD-Modell, gelesen vom eigenen Importer der Desktop-App.</translation>
     </message>
     <message>
-        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
-        <translation>Das Modell wird ein eigenes Teil, das du überall platzieren kannst, oder bei einem LDraw-Layout werden seine Teile einzeln platziert. Die Datei wird vom Server gelöscht, sobald sie gelesen ist. Teile, die die Bibliotheken nicht haben, fehlen im Bild, und die Vorschau sagt, wie viele.</translation>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. On the website, your browser reads the file; if it can’t, the server reads it and deletes it straight after. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>Das Modell wird ein eigenes Teil, das du überall platzieren kannst, oder bei einem LDraw-Layout werden seine Teile einzeln platziert. Auf der Website liest dein Browser die Datei; wenn er das nicht kann, liest der Server sie und löscht sie gleich danach. Teile, die die Bibliotheken nicht haben, fehlen im Bild, und die Vorschau sagt, wie viele.</translation>
     </message>
     <message>
         <source>One part or its parts</source>
@@ -3257,8 +3257,8 @@
         <translation>Der Importer der Desktop-App</translation>
     </message>
     <message>
-        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
-        <translation>Die Website liest dein Modell so wie die Desktop-App. Die Datei wird gelöscht, sobald sie gelesen ist.</translation>
+        <source>Your browser reads your model as the desktop app does; if it can’t, the server reads it and deletes it straight after.</source>
+        <translation>Dein Browser liest dein Modell so wie die Desktop-App; wenn er das nicht kann, liest der Server es und löscht es gleich danach.</translation>
     </message>
     <message>
         <source>Line it up</source>

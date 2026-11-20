@@ -226,7 +226,7 @@
     "import.model": {
       "title": "Importing a model",
       "short": "Bring in an LDraw, BrickLink Studio or LDD model, read by the desktop app’s own importer.",
-      "more": "The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.",
+      "more": "The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. On the website, your browser reads the file; if it can’t, the server reads it and deletes it straight after. Parts the libraries don’t have are left out of the picture, and the preview says how many.",
       "learnMoreUrl": "/help#importing"
     },
     "import.mode": {

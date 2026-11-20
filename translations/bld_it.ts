@@ -931,8 +931,8 @@
         <translation>Porta un modello LDraw, BrickLink Studio o LDD, letto dall&apos;importatore dell&apos;app desktop stessa.</translation>
     </message>
     <message>
-        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
-        <translation>Il modello diventa un pezzo personalizzato da mettere dove vuoi oppure, per un layout LDraw, i suoi pezzi vengono messi uno per uno. Il file viene cancellato dal server appena letto. I pezzi che le librerie non hanno mancano nell&apos;immagine, e l&apos;anteprima dice quanti.</translation>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. On the website, your browser reads the file; if it can’t, the server reads it and deletes it straight after. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>Il modello diventa un pezzo personalizzato da mettere dove vuoi oppure, per un layout LDraw, i suoi pezzi vengono messi uno per uno. Sul sito, il tuo browser legge il file; se non ci riesce, lo legge il server e lo cancella subito dopo. I pezzi che le librerie non hanno mancano nell&apos;immagine, e l&apos;anteprima dice quanti.</translation>
     </message>
     <message>
         <source>One part or its parts</source>
@@ -3257,8 +3257,8 @@
         <translation>L&apos;importatore dell&apos;app desktop</translation>
     </message>
     <message>
-        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
-        <translation>Il sito legge il tuo modello come l&apos;app desktop. Il file viene cancellato appena letto.</translation>
+        <source>Your browser reads your model as the desktop app does; if it can’t, the server reads it and deletes it straight after.</source>
+        <translation>Il tuo browser legge il tuo modello come l&apos;app desktop; se non ci riesce, lo legge il server e lo cancella subito dopo.</translation>
     </message>
     <message>
         <source>Line it up</source>

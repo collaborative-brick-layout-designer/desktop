@@ -81,7 +81,7 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("Tours", "Tap ? for tips, and to take the other tours."),
     QT_TRANSLATE_NOOP("Tours", "Importing a model"),
     QT_TRANSLATE_NOOP("Tours", "The desktop app’s importer"),
-    QT_TRANSLATE_NOOP("Tours", "The site reads your model as the desktop app does. The file is deleted once it’s read."),
+    QT_TRANSLATE_NOOP("Tours", "Your browser reads your model as the desktop app does; if it can’t, the server reads it and deletes it straight after."),
     QT_TRANSLATE_NOOP("Tours", "Line it up"),
     QT_TRANSLATE_NOOP("Tours", "Turn the model and move it until its studs sit on the grid."),
     QT_TRANSLATE_NOOP("Tours", "Snap points"),
