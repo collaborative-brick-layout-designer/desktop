@@ -347,14 +347,16 @@ void TrainsPanel::openRoster() {
     }
     fetchRoster([this] {
         if (!map_) return;
-        RosterDialog d(roster_.values(), map_->sidecar.rollingStock, this);
-        connect(&d, &RosterDialog::addRequested, this, [this, &d](const sync::RosterStock& e) {
+        // Window-modal, and gone once closed; a reply after that finds no dialog.
+        auto* d = new RosterDialog(roster_.values(), map_->sidecar.rollingStock, this);
+        d->setAttribute(Qt::WA_DeleteOnClose);
+        connect(d, &RosterDialog::addRequested, this, [this](const sync::RosterStock& e) {
             addFromRoster(e);
-            if (map_) d.setEntries(roster_.values(), map_->sidecar.rollingStock);
+            if (rosterDialog_ && map_) rosterDialog_->setEntries(roster_.values(), map_->sidecar.rollingStock);
         });
-        connect(&d, &RosterDialog::removeRequested, this, &TrainsPanel::removeFromRoster);
-        rosterDialog_ = &d;
-        d.exec();
+        connect(d, &RosterDialog::removeRequested, this, &TrainsPanel::removeFromRoster);
+        rosterDialog_ = d;
+        d->open();
     });
 }
 
