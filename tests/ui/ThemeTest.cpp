@@ -208,10 +208,11 @@ TEST_F(Theme, SettingsKeepTheirValuesAndTheServersJson) {
     const QJsonObject json = again.prefs().toJson();
     EXPECT_EQ(json.value(QStringLiteral("theme")).toString(), QStringLiteral("dark"));
     EXPECT_EQ(json.value(QStringLiteral("toursSeen")).toArray().size(), 1);
-    EXPECT_EQ(json.keys().size(), 11);  // with legoColor, colorStyle and colorStyleChosen
+    EXPECT_EQ(json.keys().size(), 12);  // with legoColor, colorStyle, colorStyleChosen and lengthUnit
     EXPECT_FALSE(json.value(QStringLiteral("colorStyleChosen")).toBool());
     EXPECT_EQ(json.value(QStringLiteral("partsIconSize")).toInt(), 96);
     EXPECT_EQ(json.value(QStringLiteral("connectionSnap")).toString(), QStringLiteral("gentle"));
+    EXPECT_EQ(json.value(QStringLiteral("lengthUnit")).toString(), QStringLiteral("ftin"));
 
     // The server's keys laid over; bad values are skipped, as the server refuses them.
     const AppPrefs merged = AppPrefs::fromJson(

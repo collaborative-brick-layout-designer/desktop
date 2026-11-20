@@ -1175,6 +1175,10 @@
         <translation>“轻柔”只在端点靠近时吸附，移开就松开；“强”的吸附范围更远；“关”从不吸附，但网格仍会对齐零件。拖动时按住 Alt（Mac 上为 Option）可以不吸附地放置单个零件。</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>这是应用显示长度的方式，例如场地的墙，以及使用火车时轨道和列车的长度。用自己单位绘制的场地会保留该单位；没有单位的场地跟随此设置。一个颗粒为 8 毫米。</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>绘图工具</translation>
     </message>
@@ -1189,6 +1193,10 @@
     <message>
         <source>Units</source>
         <translation>单位</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>以英尺和英寸、公制或颗粒显示长度。</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -12406,6 +12414,26 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Bigger text and buttons</source>
         <translation>更大的文字和按钮</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation>单位</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>长度的显示方式，例如场地的墙。</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>英尺和英寸，例如 12′ 6½″</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>公制，例如 3.81 米</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>颗粒：LEGO 颗粒，每个 8 毫米</translation>
     </message>
     <message>
         <source>Editing</source>

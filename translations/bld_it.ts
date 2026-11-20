@@ -1175,6 +1175,10 @@
         <translation>Delicato attrae solo quando le estremità sono vicine e lascia andare quando ti allontani; Forte arriva più lontano; Off non attrae mai, e la griglia allinea comunque i pezzi. Tieni premuto Alt (Option su Mac) mentre trascini per posizionare un pezzo senza aggancio.</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>È così che l&apos;app mostra le lunghezze, come le pareti di una sede e, con i treni, le lunghezze di binari e treni. Una sede disegnata in un&apos;unità propria la mantiene; una senza segue questa impostazione. Uno stud misura 8 mm.</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>Strumenti di disegno</translation>
     </message>
@@ -1189,6 +1193,10 @@
     <message>
         <source>Units</source>
         <translation>Unità</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>Mostra le lunghezze in piedi e pollici, nel sistema metrico o in stud.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -12499,6 +12507,26 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>Bigger text and buttons</source>
         <translation>Testo e pulsanti più grandi</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation>Unità</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>Come vengono mostrate le lunghezze, come le pareti di una sede.</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>Piedi e pollici, come 12′ 6½″</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>Metrico, come 3,81 m</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>Stud: stud LEGO, da 8 mm ciascuno</translation>
     </message>
     <message>
         <source>Editing</source>

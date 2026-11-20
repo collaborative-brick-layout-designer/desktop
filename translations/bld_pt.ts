@@ -1175,6 +1175,10 @@
         <translation>Suave só puxa quando as pontas estão perto e larga assim que você se afasta; Forte alcança mais longe; Desligado nunca puxa, e a grelha continua a alinhar as peças. Mantenha Alt (Option num Mac) premido enquanto arrasta para colocar uma peça sem ajuste.</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>É assim que a aplicação mostra os comprimentos, como as paredes de um local e, com comboios, os comprimentos de carris e comboios. Um local desenhado numa unidade própria mantém-na; um sem unidade segue esta definição. Um stud mede 8 mm.</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>Ferramentas de desenho</translation>
     </message>
@@ -1189,6 +1193,10 @@
     <message>
         <source>Units</source>
         <translation>Unidades</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>Mostra os comprimentos em pés e polegadas, no sistema métrico ou em studs.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -12499,6 +12507,26 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>Bigger text and buttons</source>
         <translation>Texto e botões maiores</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation>Unidades</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>Como os comprimentos são mostrados, como as paredes de um local.</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>Pés e polegadas, como 12′ 6½″</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>Métrico, como 3,81 m</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>Studs: studs LEGO, de 8 mm cada</translation>
     </message>
     <message>
         <source>Editing</source>

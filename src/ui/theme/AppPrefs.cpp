@@ -48,6 +48,10 @@ QStringList cleanTours(const QStringList& in) {
 
 bool knownSnap(const QString& id) { return snapfeel::strengthFromId(id).has_value(); }
 
+bool knownLengthUnit(const QString& id) {
+    return id == QLatin1String("ftin") || id == QLatin1String("m") || id == QLatin1String("studs");
+}
+
 bool knownColorStyle(const QString& id) { return id == QLatin1String("original") || id == QLatin1String("full"); }
 
 // "Just the highlights" only when chosen in Settings; otherwise the default.
@@ -72,6 +76,7 @@ QJsonObject AppPrefs::toJson() const {
         { QStringLiteral("toursSeen"), QJsonArray::fromStringList(toursSeen) },
         { QStringLiteral("partsIconSize"), partsIconSize },
         { QStringLiteral("connectionSnap"), connectionSnap },
+        { QStringLiteral("lengthUnit"), lengthUnit },
     };
 }
 
@@ -105,6 +110,8 @@ AppPrefs AppPrefs::fromJson(const QJsonObject& json, const AppPrefs& base) {
     if (icons.isDouble()) p.partsIconSize = clampPartsIconSize(static_cast<int>(std::lround(icons.toDouble())));
     const QJsonValue snap = json.value(QLatin1String("connectionSnap"));
     if (snap.isString() && knownSnap(snap.toString())) p.connectionSnap = snap.toString();
+    const QJsonValue unit = json.value(QLatin1String("lengthUnit"));
+    if (unit.isString() && knownLengthUnit(unit.toString())) p.lengthUnit = unit.toString();
     withChosenStyle(p);
     return p;
 }
@@ -114,7 +121,7 @@ bool AppPrefs::sameSettings(const AppPrefs& o) const {
            && colorStyleChosen == o.colorStyleChosen
            && largeText == o.largeText && expertMode == o.expertMode
            && helpIcons == o.helpIcons && toursSeen == o.toursSeen && partsIconSize == o.partsIconSize
-           && connectionSnap == o.connectionSnap;
+           && connectionSnap == o.connectionSnap && lengthUnit == o.lengthUnit;
 }
 
 PrefsStore::PrefsStore(const QString& group, QObject* parent) : QObject(parent), group_(group) {
@@ -136,6 +143,8 @@ PrefsStore::PrefsStore(const QString& group, QObject* parent) : QObject(parent),
     prefs_.partsIconSize = clampPartsIconSize(s.value(QStringLiteral("partsIconSize"), kPartsIconDefault).toInt());
     const QString snap = s.value(QStringLiteral("connectionSnap")).toString();
     if (knownSnap(snap)) prefs_.connectionSnap = snap;
+    const QString unit = s.value(QStringLiteral("lengthUnit")).toString();
+    if (knownLengthUnit(unit)) prefs_.lengthUnit = unit;
     prefs_.updatedAt = QDateTime::fromString(s.value(QStringLiteral("updatedAt")).toString(), Qt::ISODateWithMs);
 }
 
@@ -178,6 +187,7 @@ void PrefsStore::save() {
     s.setValue(QStringLiteral("toursSeen"), prefs_.toursSeen);
     s.setValue(QStringLiteral("partsIconSize"), prefs_.partsIconSize);
     s.setValue(QStringLiteral("connectionSnap"), prefs_.connectionSnap);
+    s.setValue(QStringLiteral("lengthUnit"), prefs_.lengthUnit);
     s.setValue(QStringLiteral("updatedAt"), prefs_.updatedAt.toUTC().toString(Qt::ISODateWithMs));
 }
 

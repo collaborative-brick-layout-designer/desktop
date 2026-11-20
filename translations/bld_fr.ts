@@ -1175,6 +1175,10 @@
         <translation>Douce n’attire que quand les bouts sont proches et lâche dès que vous vous éloignez ; Forte va plus loin ; Désactivée n’attire jamais, et la grille aligne toujours les pièces. Maintenez Alt (Option sur Mac) en déplaçant pour poser une pièce sans aimantation.</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>C’est ainsi que l’application affiche les longueurs, comme les murs d’une salle et, avec les trains, les longueurs de voie et de train. Une salle dessinée dans une unité qui lui est propre la garde ; une salle sans unité suit ce réglage. Un tenon mesure 8 mm.</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>Outils de dessin</translation>
     </message>
@@ -1189,6 +1193,10 @@
     <message>
         <source>Units</source>
         <translation>Unités</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>Affiche les longueurs en pieds et pouces, en métrique ou en tenons.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -12499,6 +12507,26 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Bigger text and buttons</source>
         <translation>Texte et boutons plus grands</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation>Unités</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>Comment les longueurs sont affichées, comme les murs d’une salle.</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>Pieds et pouces, comme 12′ 6½″</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>Métrique, comme 3,81 m</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>Tenons : tenons LEGO, de 8 mm chacun</translation>
     </message>
     <message>
         <source>Editing</source>

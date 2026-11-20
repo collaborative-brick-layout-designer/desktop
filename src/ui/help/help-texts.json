@@ -360,6 +360,11 @@
       "short": "How strongly a part you drag pulls onto a matching connection nearby.",
       "more": "Gentle pulls only when the ends are close and lets go once you move away; Strong reaches further; Off never pulls, and the grid still lines parts up. Hold Alt (Option on a Mac) while dragging to place one part without snapping."
     },
+    "settings.lengthUnit": {
+      "title": "Units",
+      "short": "Show lengths in feet and inches, metric or studs.",
+      "more": "This is how the app shows lengths, such as a venue's walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm."
+    },
     "room.tools": {
       "title": "Drawing tools",
       "short": "Pick what to draw: walls, doors, columns, power points and more.",

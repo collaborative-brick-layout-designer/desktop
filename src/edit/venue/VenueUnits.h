@@ -27,6 +27,18 @@ std::optional<double> parseLength(const QString& text, LengthUnit unit = LengthU
 // 12′ 6½″ (to the quarter inch), 3.81 m, or 145.3 studs.
 QString formatLength(double studs, LengthUnit unit = LengthUnit::FeetInches);
 
+// "ftin", "m" or "studs" (the account preference and the venue's `lengthUnit`).
+QString lengthUnitId(LengthUnit unit);
+std::optional<LengthUnit> lengthUnitFromId(const QString& id);
+
+// The account's length unit (Settings › Units, ui/theme/AppPrefs.h
+// lengthUnit, kept in QSettings appearance/lengthUnit): feet and inches
+// until set.
+LengthUnit accountLengthUnit();
+
+// The unit `v`'s lengths show in: its own, or the account's when it has none.
+LengthUnit shownUnit(const core::Venue& v);
+
 // Degrees clockwise from east, 0–359.
 QString formatAngle(double deg);
 

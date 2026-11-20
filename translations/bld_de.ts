@@ -1175,6 +1175,10 @@
         <translation>Sanft zieht nur, wenn die Enden nah sind, und lässt los, sobald du dich entfernst; Stark reicht weiter; Aus zieht nie, und das Raster richtet Teile trotzdem aus. Halte Alt (Wahltaste auf dem Mac) beim Ziehen, um ein Teil ohne Einrasten zu platzieren.</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>So zeigt die App Längen an, etwa die Wände eines Veranstaltungsorts und, mit Zügen, Gleis- und Zuglängen. Ein Veranstaltungsort, der in einer eigenen Einheit gezeichnet ist, behält sie; einer ohne folgt dieser Einstellung. Eine Noppe ist 8 mm.</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>Zeichenwerkzeuge</translation>
     </message>
@@ -1189,6 +1193,10 @@
     <message>
         <source>Units</source>
         <translation>Einheiten</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>Zeig Längen in Fuß und Zoll, metrisch oder in Noppen.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -12499,6 +12507,26 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>Bigger text and buttons</source>
         <translation>Größere Schrift und Knöpfe</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation>Einheiten</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>Wie Längen angezeigt werden, etwa die Wände eines Veranstaltungsorts.</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>Fuß und Zoll, z. B. 12′ 6½″</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>Metrisch, z. B. 3,81 m</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>Noppen: LEGO-Noppen, je 8 mm</translation>
     </message>
     <message>
         <source>Editing</source>

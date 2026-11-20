@@ -52,6 +52,7 @@ void PrefsSync::start(const QUrl& server, const QString& token) {
     connect(api_, &sync::ServerApi::preferencesSaved, this, [this](const QJsonObject& prefs, const QDateTime& at) {
         knowsIconSize_ = knowsIconSize_ || prefs.contains(QLatin1String("partsIconSize"));
         knowsSnap_ = knowsSnap_ || prefs.contains(QLatin1String("connectionSnap"));
+        knowsUnit_ = knowsUnit_ || prefs.contains(QLatin1String("lengthUnit"));
         knowsColor_ = knowsColor_ || prefs.contains(QLatin1String("legoColor"));
         knowsChosen_ = knowsChosen_ || prefs.contains(QLatin1String("colorStyleChosen"));
         remember(prefs, at);
@@ -74,6 +75,7 @@ void PrefsSync::stop() {
     pulling_ = false;
     knowsIconSize_ = false;
     knowsSnap_ = false;
+    knowsUnit_ = false;
     knowsColor_ = false;
     knowsChosen_ = false;
     server_ = QUrl();
@@ -88,6 +90,7 @@ void PrefsSync::onPulled(const QJsonObject& prefs, const QDateTime& updatedAt) {
     pulling_ = false;
     knowsIconSize_ = prefs.contains(QLatin1String("partsIconSize"));
     knowsSnap_ = prefs.contains(QLatin1String("connectionSnap"));
+    knowsUnit_ = prefs.contains(QLatin1String("lengthUnit"));
     knowsColor_ = prefs.contains(QLatin1String("legoColor"));
     knowsChosen_ = prefs.contains(QLatin1String("colorStyleChosen"));
     remember(prefs, updatedAt);
@@ -126,6 +129,7 @@ QJsonObject PrefsSync::outgoing() const {
     QJsonObject json = store_.prefs().toJson();
     if (!knowsIconSize_) json.remove(QLatin1String("partsIconSize"));
     if (!knowsSnap_) json.remove(QLatin1String("connectionSnap"));
+    if (!knowsUnit_) json.remove(QLatin1String("lengthUnit"));
     // A server from before LEGO colors refuses both keys.
     if (!knowsColor_) {
         json.remove(QLatin1String("legoColor"));

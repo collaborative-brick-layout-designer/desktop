@@ -68,6 +68,7 @@ settings.largeText
 settings.helpIcons
 settings.tours
 settings.connectionSnap
+settings.lengthUnit
 room.tools
 room.units
 room.snap

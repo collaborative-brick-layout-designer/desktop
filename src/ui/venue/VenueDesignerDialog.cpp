@@ -2,6 +2,7 @@
 
 #include "VenueDesignerView.h"
 #include "ui/help/HelpButton.h"
+#include "ui/theme/AppPrefs.h"
 #include "ui/tours/Tours.h"
 
 #include "saveload/VenueJson.h"
@@ -111,7 +112,13 @@ FloorPlan calibratePlan(FloorPlan plan, QPointF a, QPointF b, double realStuds) 
 VenueDesignerDialog::VenueDesignerDialog(core::Venue initial, const QString& subtitle,
                                          const QString& saveLabel,
                                          std::function<QString(const core::Venue&)> save, QWidget* parent)
-    : QDialog(parent), state_(ev::initialState(initial)), saved_(std::move(initial)), save_(std::move(save)) {
+    : QDialog(parent), state_(ev::initialState(initial, ev::accountLengthUnit())), saved_(std::move(initial)),
+      save_(std::move(save)) {
+    // A venue without a unit of its own follows the account's, live.
+    connect(&theme::PrefsStore::instance(), &theme::PrefsStore::changed, this, [this] {
+        if (const auto unit = ev::lengthUnitFromId(theme::PrefsStore::instance().prefs().lengthUnit))
+            dispatch(ev::act::AccountUnit{ *unit });
+    });
     setWindowTitle(tr("Venue Designer"));
     setWindowFlag(Qt::WindowMaximizeButtonHint);
     resize(1400, 880);
