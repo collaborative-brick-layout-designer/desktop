@@ -20,6 +20,10 @@ sheets.fadeOthers
 tools.rail
 run.mode
 switch.flip
+panel.routes
+routes.new
+routes.broken
+routes.setSwitches
 status.sheet
 status.room
 status.budget
@@ -30,6 +34,8 @@ dialog.measure
 dialog.exportImage
 dialog.exportPartList
 dialog.moduleLook
+dialog.moduleSetup
+module.setupSummary
 module.edit
 module.make
 module.library

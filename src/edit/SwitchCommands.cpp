@@ -3,6 +3,8 @@
 #include "../core/LayerBrick.h"
 
 #include <QHash>
+
+#include <algorithm>
 #include <QSet>
 
 namespace bld::edit {
@@ -38,6 +40,34 @@ SetSwitchStatesCommand::SetSwitchStatesCommand(core::Map& map, const QMap<QStrin
 void SetSwitchStatesCommand::redo() { map_.sidecar.switchStates = after_; }
 
 void SetSwitchStatesCommand::undo() { map_.sidecar.switchStates = before_; }
+
+SetRouteCommand::SetRouteCommand(core::Map& map, const QString& id, std::optional<core::Route> after, const QString& text,
+                                 QUndoCommand* parent)
+    : QUndoCommand(text, parent), map_(map), id_(id), after_(std::move(after)) {
+    auto& routes = map_.sidecar.routes;
+    for (size_t i = 0; i < routes.size(); ++i)
+        if (routes[i].id == id_) {
+            before_ = routes[i];
+            index_ = static_cast<int>(i);
+        }
+    if (before_ == after_) setObsolete(true);
+}
+
+void SetRouteCommand::put(const std::optional<core::Route>& r) {
+    auto& routes = map_.sidecar.routes;
+    const auto it = std::find_if(routes.begin(), routes.end(), [&](const core::Route& x) { return x.id == id_; });
+    if (!r) {
+        if (it != routes.end()) routes.erase(it);
+        return;
+    }
+    if (it != routes.end()) *it = *r;
+    else if (index_ >= 0 && index_ <= static_cast<int>(routes.size())) routes.insert(routes.begin() + index_, *r);
+    else routes.push_back(*r);
+}
+
+void SetRouteCommand::redo() { put(after_); }
+
+void SetRouteCommand::undo() { put(before_); }
 
 QMap<QString, int> withCopiedSwitchStates(const QMap<QString, int>& states, const QStringList& from, const QStringList& to) {
     if (states.isEmpty()) return states;

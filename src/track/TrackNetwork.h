@@ -15,6 +15,7 @@
 
 #include "CircuitPath.h"
 #include "PartTrack.h"
+#include "../core/Route.h"
 
 #include <QHash>
 #include <QMap>
@@ -58,15 +59,9 @@ struct SwitchPoint : PartSwitch {
     QString key;  // "<brick>/<heel>": its key in switchStates
 };
 
-// A place on the track: on the path of `brick` from connection `from` to
-// `to`, `s` studs from `from`. Train heads, route ends and (later) cars
-// placed by Live Ops are all positions; one moves with its brick.
-struct TrackPosition {
-    QString brick;
-    int from = 0;
-    int to = 0;
-    double s = 0.0;
-};
+// A place on the track (core/Route.h): train heads, route ends and (later)
+// cars placed by Live Ops are all positions; one moves with its brick.
+using core::TrackPosition;
 
 // A switch's key in switchStates: "<brick id>/<heel connection>".
 QString switchKey(const QString& brick, int heel);

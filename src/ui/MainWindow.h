@@ -279,6 +279,10 @@ private:
 
     // Saved views and pictures (MainWindowViews.cpp).
     void setupViews();
+    // The Routes panel (trains design 6.2) and the routes this person hid.
+    void setupRoutes();
+    void refreshRoutes();
+    QString routesKey() const;
     // Shows a saved view on this screen only: its sheets, grid and labels,
     // fitted to its area.
     void goToView(const core::SavedView& view);
@@ -296,6 +300,7 @@ private:
     // The layout's name for picture files: the live layout's title, else the file's name.
     QString layoutTitle() const;
     class ViewsPanel* viewsPanel_ = nullptr;
+    class RoutesPanel* routesPanel_ = nullptr;
     class ViewIndicator* viewIndicator_ = nullptr;
     QString activeViewId_;
     QAction* exportImageAct_ = nullptr;  // File > Export as Image ("More options…")

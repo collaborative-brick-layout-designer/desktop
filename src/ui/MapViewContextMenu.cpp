@@ -46,7 +46,7 @@ using detail::isTextItem;
 using detail::isRulerItem;
 
 void MapView::contextMenuEvent(QContextMenuEvent* e) {
-    if (runMode_) {  // Run mode: no menu (a click flips a switch)
+    if (clicksTaken()) {  // Run mode, or drawing a route: no menu
         e->accept();
         return;
     }

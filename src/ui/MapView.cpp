@@ -990,9 +990,12 @@ void MapView::mousePressEvent(QMouseEvent* e) {
     lastMouseScenePos_ = mapToScene(e->pos());
 
     // Run mode (trains design 6.3): a click flips the switch near it, and
-    // nothing is picked or moved; the middle button still pans.
-    if (runMode_ && e->button() != Qt::MiddleButton) {
-        if (e->button() == Qt::LeftButton) flipSwitchNear(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud);
+    // nothing is picked or moved; the middle button still pans. Drawing a
+    // route: a click picks a place on the track.
+    if (clicksTaken() && e->button() != Qt::MiddleButton) {
+        if (e->button() == Qt::LeftButton && routeDraft_)
+            routeDraftClick(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud, e->modifiers() & Qt::ShiftModifier);
+        else if (e->button() == Qt::LeftButton) flipSwitchNear(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud);
         e->accept();
         return;
     }
@@ -1185,7 +1188,7 @@ void MapView::mousePressEvent(QMouseEvent* e) {
 }
 
 void MapView::mouseMoveEvent(QMouseEvent* e) {
-    if (runMode_ && !panning_) {
+    if (clicksTaken() && !panning_) {
         e->accept();
         return;
     }
@@ -1382,7 +1385,7 @@ void MapView::mouseMoveEvent(QMouseEvent* e) {
 }
 
 void MapView::mouseReleaseEvent(QMouseEvent* e) {
-    if (runMode_ && e->button() != Qt::MiddleButton) {
+    if (clicksTaken() && e->button() != Qt::MiddleButton) {
         e->accept();
         return;
     }
@@ -1694,6 +1697,11 @@ void MapView::finishVenueDraw() {
 
 void MapView::keyPressEvent(QKeyEvent* e) {
     // Run mode: no key moves, turns or deletes parts; Escape goes back to building.
+    if (routeDraft_) {
+        if (e->key() == Qt::Key_Escape) cancelRouteDraft();
+        e->accept();
+        return;
+    }
     if (runMode_) {
         if (e->key() == Qt::Key_Escape) setRunMode(false);
         e->accept();
@@ -2470,7 +2478,7 @@ void MapView::editSelectedTextContent() {
 }
 
 void MapView::mouseDoubleClickEvent(QMouseEvent* e) {
-    if (runMode_) {
+    if (clicksTaken()) {
         e->accept();
         return;
     }
@@ -3010,7 +3018,7 @@ void MapView::showDropTag(QPoint viewportPos) {
 }
 
 void MapView::dragEnterEvent(QDragEnterEvent* e) {
-    if (runMode_) {  // no parts are added in Run mode
+    if (clicksTaken()) {  // no parts are added in Run mode or while drawing a route
         e->ignore();
         showStatus(tr("Stop running trains to add parts."), 4000);
         return;

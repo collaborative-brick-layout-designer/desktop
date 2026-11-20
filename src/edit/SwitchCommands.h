@@ -30,6 +30,24 @@ private:
     QMap<QString, int> after_;
 };
 
+// Add, change (`after` set, the route with that id replaced or added) or
+// delete (`after` unset) a named route: one undo step.
+class SetRouteCommand : public QUndoCommand {
+public:
+    SetRouteCommand(core::Map& map, const QString& id, std::optional<core::Route> after, const QString& text,
+                    QUndoCommand* parent = nullptr);
+    void undo() override;
+    void redo() override;
+
+private:
+    void put(const std::optional<core::Route>& r);
+    core::Map& map_;
+    QString id_;
+    std::optional<core::Route> before_;
+    std::optional<core::Route> after_;
+    int index_ = -1;  // where it was in the list, so Undo puts it back there
+};
+
 // Copies of parts keep their originals' switch settings: `from[i]` was
 // copied as `to[i]`. Returns the settings with the copies' keys added.
 QMap<QString, int> withCopiedSwitchStates(const QMap<QString, int>& states, const QStringList& from, const QStringList& to);

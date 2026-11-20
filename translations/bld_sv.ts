@@ -603,6 +603,54 @@
         <translation>Högerklicka på en växel för att lägga den, eller slå på körläget och klicka på den. En grön pil är den vanliga vägen; en orange betyder att den är lagd åt andra hållet. Slå på Visa › Växlar för att se dem medan du bygger.</translation>
     </message>
     <message>
+        <source>Routes</source>
+        <translation>Rutter</translation>
+    </message>
+    <message>
+        <source>Named ways along the track, from one place to another.</source>
+        <translation>Namngivna vägar längs spåret, från ett ställe till ett annat.</translation>
+    </message>
+    <message>
+        <source>Each route shows its length and whether the track still fits it. The eye shows or hides a route on your map only; everyone else keeps their own view. Routes are saved with the layout and shared with everyone editing it.</source>
+        <translation>Varje rutt visar sin längd och om spåret fortfarande passar. Ögat visar eller döljer en rutt bara på din karta; alla andra behåller sin egen vy. Rutter sparas med anläggningen och delas med alla som redigerar den.</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Ny rutt</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track, then where it ends.</source>
+        <translation>Klicka på spåret där rutten börjar, och sedan där den slutar.</translation>
+    </message>
+    <message>
+        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
+        <translation>Den kortaste vägen längs spåret hittas åt dig, genom växlar åt båda håll. Skift-klick lägger till ett stopp på vägen, för att välja ett annat spår. Ge den ett namn och tryck på Spara rutt; Esc eller Avbryt slutar.</translation>
+    </message>
+    <message>
+        <source>Broken route</source>
+        <translation>Bruten rutt</translation>
+    </message>
+    <message>
+        <source>A part this route runs over was moved or removed.</source>
+        <translation>En del som den här rutten går över har flyttats eller tagits bort.</translation>
+    </message>
+    <message>
+        <source>The route keeps its name, color, start and end, and is drawn dashed red as far as it still goes. Find a new way searches again from its start through its stops to its end.</source>
+        <translation>Rutten behåller namn, färg, början och slut, och ritas rött streckad så långt den fortfarande går. Hitta en ny väg söker igen från början, via stoppen, till slutet.</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Lägg växlar</translation>
+    </message>
+    <message>
+        <source>Sets every switch on the route so a train follows it.</source>
+        <translation>Lägger varje växel på rutten så att ett tåg följer den.</translation>
+    </message>
+    <message>
+        <source>Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once.</source>
+        <translation>Växlar som ligger åt andra hållet visar en orange ring på kartan, och rutten säger hur många det är. Att lägga dem är en ändring du kan ångra, och alla ser den direkt.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Aktuellt blad</translation>
     </message>
@@ -705,6 +753,30 @@
     <message>
         <source>With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits.</source>
         <translation>Med Samma färg på ändras konturen och namnet tillsammans. Återställ till standard tar tillbaka det ljusblå. Långa namn radbryts, blir mindre och kortas bara av när inget annat får plats.</translation>
+    </message>
+    <message>
+        <source>Table and power</source>
+        <translation>Bord och ström</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>Vad modulen står på, hur hög den är och vilken ström den behöver, för den som planerar borden.</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>Välj MILS, Vanlig basplatta (lösa basplattor på ett vanligt bord) eller Egen, och skriv höjden du mätte, till bordsskivan eller till rälsens överkant. För ström: hur många uttag den använder, ungefär hur många watt och vilken sida kontakten kommer ut. När modulen sparas i modulbiblioteket följer det med.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Bord och ström</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>Vad alla moduler i anläggningen behöver tillsammans: uttag och watt, och bordshöjder efter typ.</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>Ställ in bord och ström för varje modul från dess ⋯-meny › Bord och ström…. Moduler utan inställning räknas som ej inställda, så du ser vem som fortfarande måste berätta.</translation>
     </message>
     <message>
         <source>Edit module</source>
@@ -2461,6 +2533,21 @@
     </message>
 </context>
 <context>
+    <name>Routes</name>
+    <message>
+        <source>There’s no track joining these two places.</source>
+        <translation>Inget spår förbinder de här två ställena.</translation>
+    </message>
+    <message>
+        <source>The only way needs the train to turn around.</source>
+        <translation>Den enda vägen kräver att tåget vänder.</translation>
+    </message>
+    <message>
+        <source>Pick an end somewhere else along the track.</source>
+        <translation>Välj en ände någon annanstans längs spåret.</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3243,6 +3330,74 @@
     <message>
         <source>A club admin sends you an invite link. Open it to join, and the club&apos;s things show up here.</source>
         <translation>En klubbadministratör skickar dig en inbjudningslänk. Öppna den för att gå med, så dyker klubbens saker upp här.</translation>
+    </message>
+    <message>
+        <source>Modules</source>
+        <translation>Moduler</translation>
+    </message>
+    <message>
+        <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
+        <translation>En modul är delar som flyttas som en enda bit, som ett bord en klubbmedlem tar med. Anläggningens moduler listas här.</translation>
+    </message>
+    <message>
+        <source>Make a module</source>
+        <translation>Skapa en modul</translation>
+    </message>
+    <message>
+        <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
+        <translation>Välj några delar och sedan Skapa en modul. Spara den i ditt modulbibliotek för att använda den i andra anläggningar.</translation>
+    </message>
+    <message>
+        <source>Each module&apos;s menu</source>
+        <translation>Varje moduls meny</translation>
+    </message>
+    <message>
+        <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
+        <translation>⋯-menyn redigerar, färgar och sparar en modul. Bord och ström säger vad den står på och vilken ström den behöver.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Bord och ström</translation>
+    </message>
+    <message>
+        <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
+        <translation>Anläggningen räknar här ihop modulernas uttag, watt och bordshöjder, för den som planerar utställningen.</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>Rutter</translation>
+    </message>
+    <message>
+        <source>Your routes</source>
+        <translation>Dina rutter</translation>
+    </message>
+    <message>
+        <source>Routes are named ways along the track. Open this list from Panels; the eye hides one on your map only.</source>
+        <translation>Rutter är namngivna vägar längs spåret. Öppna listan från Paneler; ögat döljer en bara på din karta.</translation>
+    </message>
+    <message>
+        <source>Draw a route</source>
+        <translation>Rita en rutt</translation>
+    </message>
+    <message>
+        <source>Press New route, then click on the track where it starts and where it ends. The shortest way is found for you.</source>
+        <translation>Tryck på Ny rutt och klicka sedan på spåret där den börjar och där den slutar. Den kortaste vägen hittas åt dig.</translation>
+    </message>
+    <message>
+        <source>Stops on the way</source>
+        <translation>Stopp på vägen</translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop, to send the route along another line. Name it and press Save route.</source>
+        <translation>Skift-klick lägger till ett stopp, för att skicka rutten över ett annat spår. Ge den ett namn och tryck på Spara rutt.</translation>
+    </message>
+    <message>
+        <source>Switches follow the route</source>
+        <translation>Växlarna följer rutten</translation>
+    </message>
+    <message>
+        <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
+        <translation>Lägg växlar lägger varje växel på rutten åt dess håll. I körläget lägger du om dem för hand.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4396,6 +4551,10 @@
     <message>
         <source>A switch&apos;s setting</source>
         <translation>En växels läge</translation>
+    </message>
+    <message>
+        <source>Route &quot;%1&quot;</source>
+        <translation>Rutt ”%1”</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -9238,6 +9397,10 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
         <translation>växellägen</translation>
     </message>
     <message>
+        <source>routes</source>
+        <translation>rutter</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9978,6 +10141,50 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <source>From end %1: %2</source>
         <translation>Från ände %1: %2</translation>
     </message>
+    <message>
+        <source>Route name</source>
+        <translation>Ruttens namn</translation>
+    </message>
+    <message>
+        <source>Save route</source>
+        <translation>Spara rutt</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Avbryt</translation>
+    </message>
+    <message>
+        <source>Route %1</source>
+        <translation>Rutt %1</translation>
+    </message>
+    <message>
+        <source>Click on the track.</source>
+        <translation>Klicka på spåret.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
+        <translation>&lt;b&gt;Ny rutt:&lt;/b&gt; klicka på spåret där den börjar.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Ny rutt:&lt;/b&gt; klicka där den slutar (Skift-klick lägger till ett stopp).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
+        <translation>&lt;b&gt;Ny rutt:&lt;/b&gt; %1 längs spåret%2. Skift-klick lägger till ett stopp.</translation>
+    </message>
+    <message>
+        <source>, and it turns the train around</source>
+        <translation>, och tåget vänder på vägen</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Ny rutt</translation>
+    </message>
+    <message>
+        <source>Route “%1” saved.</source>
+        <translation>Rutten ”%1” sparad.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleEditBar</name>
@@ -10233,7 +10440,7 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     </message>
     <message>
         <source>Stop</source>
-        <translation>Stoppa</translation>
+        <translation>Sluta</translation>
     </message>
     <message>
         <source>Share “%1”</source>
@@ -11495,6 +11702,120 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Save</source>
         <translation>Spara</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RoutesPanel</name>
+    <message>
+        <source>Routes</source>
+        <translation>Rutter</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Ny rutt</translation>
+    </message>
+    <message>
+        <source>Delete route</source>
+        <translation>Ta bort rutt</translation>
+    </message>
+    <message>
+        <source>Delete the route “%1”?</source>
+        <translation>Ta bort rutten ”%1”?</translation>
+    </message>
+    <message>
+        <source>Rename route</source>
+        <translation>Byt namn på rutt</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Namn:</translation>
+    </message>
+    <message>
+        <source>Switches set for “%1”.</source>
+        <translation>Växlar lagda för ”%1”.</translation>
+    </message>
+    <message>
+        <source>Set switches for a route</source>
+        <translation>Lägg växlar för en rutt</translation>
+    </message>
+    <message>
+        <source>Draw the route again from its new start or end.</source>
+        <translation>Rita rutten igen från dess nya början eller slut.</translation>
+    </message>
+    <message>
+        <source>Found a new way for “%1”.</source>
+        <translation>Hittade en ny väg för ”%1”.</translation>
+    </message>
+    <message>
+        <source>Find a new way</source>
+        <translation>Hitta en ny väg</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then draw a route along it.</source>
+        <translation>Det finns inget spår i anläggningen ännu. Lägg till från gruppen Spår i panelen Delar och rita sedan en rutt längs det.</translation>
+    </message>
+    <message>
+        <source>No routes yet. Press New route, then click two places on the track: where it starts and where it ends.</source>
+        <translation>Inga rutter ännu. Tryck på Ny rutt och klicka sedan på två ställen på spåret: där den börjar och där den slutar.</translation>
+    </message>
+    <message>
+        <source>Untitled route</source>
+        <translation>Rutt utan namn</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation>Visas</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation>Dold</translation>
+    </message>
+    <message>
+        <source>Shown on your map (only yours)</source>
+        <translation>Visas på din karta (bara din)</translation>
+    </message>
+    <message>
+        <source>Hidden on your map (only yours)</source>
+        <translation>Dold på din karta (bara din)</translation>
+    </message>
+    <message>
+        <source>Hide %1 on your map</source>
+        <translation>Dölj %1 på din karta</translation>
+    </message>
+    <message>
+        <source>Show %1 on your map</source>
+        <translation>Visa %1 på din karta</translation>
+    </message>
+    <message>
+        <source>Broken: the track under it changed.</source>
+        <translation>Bruten: spåret under har ändrats.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) set the other way</source>
+        <translation>
+            <numerusform>%n växel ligger åt andra hållet</numerusform>
+            <numerusform>%n växlar ligger åt andra hållet</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Turns the train around</source>
+        <translation>Tåget vänder</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Lägg växlar</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Byt namn</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Ta bort</translation>
     </message>
 </context>
 <context>

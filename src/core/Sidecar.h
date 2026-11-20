@@ -2,6 +2,7 @@
 
 #include "AnchoredLabel.h"
 #include "Module.h"
+#include "Route.h"
 #include "SavedView.h"
 #include "Venue.h"
 
@@ -75,6 +76,9 @@ struct Sidecar {
     // is set to its default, the way that turns least. The web keeps it at
     // meta.switchStates. Never in a .bbm.
     QMap<QString, int> switchStates;
+    // Named routes (trains design 2.5), in the order the layout lists them.
+    // The web keeps them at meta.routes. Never in a .bbm.
+    std::vector<Route> routes;
     // Top-level fields this build doesn't know (a newer build's, the web's),
     // written back as they were.
     QJsonObject extras;
@@ -84,7 +88,7 @@ struct Sidecar {
     bool isEmpty() const {
         return anchoredLabels.empty() && modules.empty() && !venue.has_value()
                && backgroundImagePath.isEmpty() && views.empty() && sets.empty() && !budgetLimits.has_value()
-               && switchStates.isEmpty() && extras.isEmpty();
+               && switchStates.isEmpty() && routes.empty() && extras.isEmpty();
     }
 };
 

@@ -307,6 +307,29 @@ merge and the last flip of one switch wins; the desktop writes it there one
 key at a time. Never written to a `.bbm`: exporting one says it is left out.
 Added 2026-11 without a version bump (optional, additive).
 
+## Routes
+
+```json
+"routes": [ { "id": "r1", "name": "Yard to platform 2", "train": null,
+              "from": { "brick": "17", "from": 0, "to": 1, "s": 4 },
+              "to": { "brick": "42", "from": 1, "to": 0, "s": 8 },
+              "via": [ { "at": { "brick": "30", "from": 0, "to": 2, "s": 6 }, "reverse": false } ],
+              "steps": [ { "brick": "17", "from": 0, "to": 1 }, { "brick": "18", "from": 0, "to": 1 } ],
+              "color": "#3B82F6" } ]
+```
+
+Named routes (trains design 2.5). A place on the track is a brick, the way
+through it (connection `from` to `to`) and `s` studs from `from`. `steps` is
+the exact way chosen, so routes of equal length never swap; `from`, `to`
+and `via` are what was clicked, used to find a new way when the track
+under it changes. Whether a route is broken, its length and the switch
+settings it needs are worked out, never stored. `train` is for a later
+phase. Fields a build doesn't know are kept; an entry without `id` is
+dropped. Live, the web keeps them at `meta.routes`, a Y.Map of id -> a
+Y.Map of fields, so different routes and different fields of one merge.
+Whether a route shows on the map is each person's own, never in the file.
+Never written to a `.bbm`. Added 2026-11 without a version bump.
+
 ## Background image
 
 ```json

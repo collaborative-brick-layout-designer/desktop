@@ -603,6 +603,54 @@
         <translation>右键点击道岔即可设置，或开启运行模式后点击它。绿色箭头表示通常的方向；橙色表示已切换到另一边。开启 视图 › 道岔 可在搭建时看到它们。</translation>
     </message>
     <message>
+        <source>Routes</source>
+        <translation>路线</translation>
+    </message>
+    <message>
+        <source>Named ways along the track, from one place to another.</source>
+        <translation>沿轨道从一处到另一处的命名路线。</translation>
+    </message>
+    <message>
+        <source>Each route shows its length and whether the track still fits it. The eye shows or hides a route on your map only; everyone else keeps their own view. Routes are saved with the layout and shared with everyone editing it.</source>
+        <translation>每条路线都会显示其长度，以及轨道是否仍然符合。眼睛按钮只在你的地图上显示或隐藏路线；其他人保持各自的视图。路线随布局保存，并与所有编辑它的人共享。</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>新建路线</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track, then where it ends.</source>
+        <translation>在轨道上点击路线的起点，然后点击终点。</translation>
+    </message>
+    <message>
+        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
+        <translation>会为你找到沿轨道的最短路线，可双向经过道岔。按住 Shift 点击可在途中添加停靠点，以选择另一条线路。命名后按“保存路线”；按 Esc 或“取消”停止。</translation>
+    </message>
+    <message>
+        <source>Broken route</source>
+        <translation>中断的路线</translation>
+    </message>
+    <message>
+        <source>A part this route runs over was moved or removed.</source>
+        <translation>这条路线经过的零件被移动或移除了。</translation>
+    </message>
+    <message>
+        <source>The route keeps its name, color, start and end, and is drawn dashed red as far as it still goes. Find a new way searches again from its start through its stops to its end.</source>
+        <translation>路线保留名称、颜色、起点和终点，并以红色虚线画到仍能到达的位置。“寻找新路线”会从起点经停靠点到终点重新查找。</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>设置道岔</translation>
+    </message>
+    <message>
+        <source>Sets every switch on the route so a train follows it.</source>
+        <translation>设置路线上的每个道岔，让列车沿路线行驶。</translation>
+    </message>
+    <message>
+        <source>Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once.</source>
+        <translation>方向不对的道岔在地图上显示橙色圆环，路线会显示数量。设置它们是一次可撤销的更改，所有人都会立即看到。</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>当前图纸</translation>
     </message>
@@ -705,6 +753,30 @@
     <message>
         <source>With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits.</source>
         <translation>开启“同一颜色”后，轮廓和名称一起变色。“恢复默认”会变回浅蓝色。长名称会换行、缩小，只有实在放不下时才会截断。</translation>
+    </message>
+    <message>
+        <source>Table and power</source>
+        <translation>桌子和电源</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>此模块放在什么上面、有多高、需要多少电源，供规划桌子的人参考。</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>选择 MILS、普通底板（放在普通桌子上的散底板）或自定义，并输入测得的高度（到桌面或到轨面）。电源方面，填写使用几个插座、大约多少瓦，以及插头从哪一侧引出。将模块保存到模块库时，这些信息会一起保存。</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>桌子和电源</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>此布局所有模块合计所需：插座和瓦数，以及按类型分的桌子高度。</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>在每个模块的 ⋯ 菜单 › 桌子和电源… 中设置。未设置的模块计为未设置，方便你看到谁还需要告诉你。</translation>
     </message>
     <message>
         <source>Edit module</source>
@@ -2447,6 +2519,21 @@
     </message>
 </context>
 <context>
+    <name>Routes</name>
+    <message>
+        <source>There’s no track joining these two places.</source>
+        <translation>没有轨道连接这两个地方。</translation>
+    </message>
+    <message>
+        <source>The only way needs the train to turn around.</source>
+        <translation>唯一的路线需要列车掉头。</translation>
+    </message>
+    <message>
+        <source>Pick an end somewhere else along the track.</source>
+        <translation>请在轨道的其他位置选择端点。</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3225,6 +3312,74 @@
     <message>
         <source>A club admin sends you an invite link. Open it to join, and the club&apos;s things show up here.</source>
         <translation>俱乐部管理员会发给你邀请链接。打开它即可加入，俱乐部的内容就会显示在这里。</translation>
+    </message>
+    <message>
+        <source>Modules</source>
+        <translation>模块</translation>
+    </message>
+    <message>
+        <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
+        <translation>模块是作为一个整体移动的零件，比如俱乐部成员带来的一张桌子。此布局的模块列在这里。</translation>
+    </message>
+    <message>
+        <source>Make a module</source>
+        <translation>创建模块</translation>
+    </message>
+    <message>
+        <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
+        <translation>选择一些零件，然后点“创建模块”。将其保存到模块库，以便在其他布局中再次使用。</translation>
+    </message>
+    <message>
+        <source>Each module&apos;s menu</source>
+        <translation>每个模块的菜单</translation>
+    </message>
+    <message>
+        <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
+        <translation>⋯ 菜单可编辑、着色和保存模块。“桌子和电源”说明它放在什么上面以及所需电源。</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>桌子和电源</translation>
+    </message>
+    <message>
+        <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
+        <translation>布局在这里汇总其模块的插座、瓦数和桌子高度，供规划展览的人参考。</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>路线</translation>
+    </message>
+    <message>
+        <source>Your routes</source>
+        <translation>你的路线</translation>
+    </message>
+    <message>
+        <source>Routes are named ways along the track. Open this list from Panels; the eye hides one on your map only.</source>
+        <translation>路线是沿轨道的命名路线。从“面板”打开此列表；眼睛按钮只在你的地图上隐藏。</translation>
+    </message>
+    <message>
+        <source>Draw a route</source>
+        <translation>绘制路线</translation>
+    </message>
+    <message>
+        <source>Press New route, then click on the track where it starts and where it ends. The shortest way is found for you.</source>
+        <translation>按“新建路线”，然后在轨道上点击起点和终点。会为你找到最短路线。</translation>
+    </message>
+    <message>
+        <source>Stops on the way</source>
+        <translation>途中的停靠点</translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop, to send the route along another line. Name it and press Save route.</source>
+        <translation>按住 Shift 点击添加停靠点，让路线走另一条线路。命名后按“保存路线”。</translation>
+    </message>
+    <message>
+        <source>Switches follow the route</source>
+        <translation>道岔跟随路线</translation>
+    </message>
+    <message>
+        <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
+        <translation>“设置道岔”会把路线上的每个道岔设为其方向。运行模式下可以手动切换。</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4370,6 +4525,10 @@
     <message>
         <source>A switch&apos;s setting</source>
         <translation>道岔的开通方向</translation>
+    </message>
+    <message>
+        <source>Route &quot;%1&quot;</source>
+        <translation>路线“%1”</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -9164,6 +9323,10 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>道岔开通方向</translation>
     </message>
     <message>
+        <source>routes</source>
+        <translation>路线</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9898,6 +10061,50 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     <message>
         <source>From end %1: %2</source>
         <translation>从第 %1 端：%2</translation>
+    </message>
+    <message>
+        <source>Route name</source>
+        <translation>路线名称</translation>
+    </message>
+    <message>
+        <source>Save route</source>
+        <translation>保存路线</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <source>Route %1</source>
+        <translation>路线 %1</translation>
+    </message>
+    <message>
+        <source>Click on the track.</source>
+        <translation>请点击轨道。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
+        <translation>&lt;b&gt;新建路线：&lt;/b&gt;在轨道上点击起点。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;新建路线：&lt;/b&gt;点击终点（按住 Shift 点击添加停靠点）。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
+        <translation>&lt;b&gt;新建路线：&lt;/b&gt;沿轨道 %1%2。按住 Shift 点击添加停靠点。</translation>
+    </message>
+    <message>
+        <source>, and it turns the train around</source>
+        <translation>，列车途中会掉头</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>新建路线</translation>
+    </message>
+    <message>
+        <source>Route “%1” saved.</source>
+        <translation>路线“%1”已保存。</translation>
     </message>
 </context>
 <context>
@@ -11405,6 +11612,119 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Save</source>
         <translation>保存</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RoutesPanel</name>
+    <message>
+        <source>Routes</source>
+        <translation>路线</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>新建路线</translation>
+    </message>
+    <message>
+        <source>Delete route</source>
+        <translation>删除路线</translation>
+    </message>
+    <message>
+        <source>Delete the route “%1”?</source>
+        <translation>删除路线“%1”？</translation>
+    </message>
+    <message>
+        <source>Rename route</source>
+        <translation>重命名路线</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>名称：</translation>
+    </message>
+    <message>
+        <source>Switches set for “%1”.</source>
+        <translation>已为“%1”设置道岔。</translation>
+    </message>
+    <message>
+        <source>Set switches for a route</source>
+        <translation>设置路线的道岔</translation>
+    </message>
+    <message>
+        <source>Draw the route again from its new start or end.</source>
+        <translation>请从新的起点或终点重新绘制路线。</translation>
+    </message>
+    <message>
+        <source>Found a new way for “%1”.</source>
+        <translation>已为“%1”找到新路线。</translation>
+    </message>
+    <message>
+        <source>Find a new way</source>
+        <translation>寻找新路线</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then draw a route along it.</source>
+        <translation>此布局还没有轨道。请从零件面板的轨道组添加，然后沿轨道绘制路线。</translation>
+    </message>
+    <message>
+        <source>No routes yet. Press New route, then click two places on the track: where it starts and where it ends.</source>
+        <translation>还没有路线。按“新建路线”，然后在轨道上点击两处：起点和终点。</translation>
+    </message>
+    <message>
+        <source>Untitled route</source>
+        <translation>未命名路线</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation>显示</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation>隐藏</translation>
+    </message>
+    <message>
+        <source>Shown on your map (only yours)</source>
+        <translation>在你的地图上显示（仅你的）</translation>
+    </message>
+    <message>
+        <source>Hidden on your map (only yours)</source>
+        <translation>在你的地图上隐藏（仅你的）</translation>
+    </message>
+    <message>
+        <source>Hide %1 on your map</source>
+        <translation>在你的地图上隐藏 %1</translation>
+    </message>
+    <message>
+        <source>Show %1 on your map</source>
+        <translation>在你的地图上显示 %1</translation>
+    </message>
+    <message>
+        <source>Broken: the track under it changed.</source>
+        <translation>中断：下面的轨道已改变。</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>正常</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) set the other way</source>
+        <translation>
+            <numerusform>%n 个道岔方向相反</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Turns the train around</source>
+        <translation>列车会掉头</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>设置道岔</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>重命名</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>删除</translation>
     </message>
 </context>
 <context>

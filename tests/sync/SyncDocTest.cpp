@@ -564,3 +564,48 @@ TEST(SyncDocSidecar, SwitchStatesAnOlderWebBuildLeftInTheCacheAreRead) {
     json.insert(QStringLiteral("meta"), meta);
     EXPECT_EQ(sync::mapFromDocJson(json, nullptr)->sidecar.switchStates, (QMap<QString, int>{ { QStringLiteral("P/0"), 1 } }));
 }
+
+// Named routes travel as the web keeps them: a Y.Map at meta.routes, one
+// Y.Map a route; a rename here and a new way there both stay; a delete goes.
+TEST(SyncDocSidecar, RoutesTravelAsTheWebsMaps) {
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(serverDoc()));
+    auto map = mapOf(doc);
+    core::Route r;
+    r.id = QStringLiteral("r1");
+    r.name = QStringLiteral("Main");
+    r.from = { QStringLiteral("A"), 0, 1, 2 };
+    r.to = { QStringLiteral("E"), 0, 1, 8 };
+    r.steps = { { QStringLiteral("A"), 0, 1 } };
+    map->sidecar.routes = { r };
+    const QByteArray update = doc.writeMap(*map);
+    ASSERT_FALSE(update.isEmpty());
+    const QJsonObject meta = doc.toJson().value(QLatin1String("meta")).toObject();
+    EXPECT_EQ(meta.value(QLatin1String("routes")).toObject().value(QLatin1String("r1")).toObject().value(QLatin1String("name")).toString(),
+              QStringLiteral("Main"));
+    EXPECT_FALSE(meta.value(QLatin1String("cache")).toObject().contains(QLatin1String("routes")));
+    EXPECT_TRUE(doc.writeMap(*mapOf(doc)).isEmpty());
+
+    sync::SyncDoc other;
+    ASSERT_TRUE(other.applyUpdate(serverDoc()));
+    ASSERT_TRUE(other.applyUpdate(update));
+    auto theirs = mapOf(other);
+    ASSERT_EQ(theirs->sidecar.routes.size(), 1u);
+    EXPECT_EQ(theirs->sidecar.routes[0], r);
+    theirs->sidecar.routes[0].steps = { { QStringLiteral("B"), 0, 1 } };
+    const QByteArray fromThem = other.writeMap(*theirs);
+    map->sidecar.routes[0].name = QStringLiteral("Main line");
+    const QByteArray fromMe = doc.writeMap(*map);
+    ASSERT_TRUE(doc.applyUpdate(fromThem));
+    ASSERT_TRUE(other.applyUpdate(fromMe));
+    for (sync::SyncDoc* d : { &doc, &other }) {
+        const auto m = mapOf(*d);
+        ASSERT_EQ(m->sidecar.routes.size(), 1u);
+        EXPECT_EQ(m->sidecar.routes[0].name, QStringLiteral("Main line"));
+        EXPECT_EQ(m->sidecar.routes[0].steps.front().brick, QStringLiteral("B"));
+    }
+    auto mine = mapOf(doc);
+    mine->sidecar.routes.clear();
+    ASSERT_FALSE(doc.writeMap(*mine).isEmpty());
+    EXPECT_TRUE(mapOf(doc)->sidecar.routes.empty());
+}

@@ -527,3 +527,36 @@ TEST(Sidecar, RoundTripSwitchStates) {
     saveload::renameSidecarIds(sc, { { QStringLiteral("17"), QStringLiteral("170") } });
     EXPECT_EQ(sc.switchStates, (QMap<QString, int>{ { QStringLiteral("170/0"), 2 }, { QStringLiteral("a/b/1"), 0 } }));
 }
+
+// Named routes (trains design 2.5): kept through a save with fields this
+// build doesn't know, entries without an id left out, bricks renamed.
+TEST(Sidecar, RoundTripRoutes) {
+    core::Sidecar sc;
+    EXPECT_FALSE(saveload::sidecarToJson(sc).contains(QLatin1String("routes")));
+    core::Route r;
+    r.id = QStringLiteral("r1");
+    r.name = QStringLiteral("Main");
+    r.from = { QStringLiteral("17"), 0, 1, 2.5 };
+    r.to = { QStringLiteral("23"), 1, 0, 4 };
+    r.via = { { { QStringLiteral("19"), 0, 2, 1 }, false } };
+    r.steps = { { QStringLiteral("17"), 0, 1 }, { QStringLiteral("23"), 1, 0 } };
+    r.color = QStringLiteral("#A855F7");
+    r.extras = QJsonObject{ { QStringLiteral("future"), 3 } };
+    sc.routes = { r };
+    EXPECT_FALSE(sc.isEmpty());
+    QJsonObject json = saveload::sidecarToJson(sc);
+    QJsonArray list = json.value(QLatin1String("routes")).toArray();
+    list.append(QJsonObject{ { QStringLiteral("name"), QStringLiteral("no id") } });
+    json.insert(QStringLiteral("routes"), list);
+    core::Sidecar back;
+    saveload::sidecarFromJson(json, back);
+    ASSERT_EQ(back.routes.size(), 1u);
+    EXPECT_EQ(back.routes[0], r);
+    EXPECT_TRUE(back.extras.isEmpty());
+    EXPECT_TRUE(saveload::routeToJson(r).value(QLatin1String("train")).isNull());
+    saveload::renameSidecarIds(back, { { QStringLiteral("17"), QStringLiteral("170") }, { QStringLiteral("19"), QStringLiteral("190") } });
+    EXPECT_EQ(back.routes[0].from.brick, QStringLiteral("170"));
+    EXPECT_EQ(back.routes[0].steps[0].brick, QStringLiteral("170"));
+    EXPECT_EQ(back.routes[0].via[0].at.brick, QStringLiteral("190"));
+    EXPECT_EQ(back.routes[0].to.brick, QStringLiteral("23"));
+}

@@ -1,0 +1,405 @@
+{
+  "read": [
+    {
+      "module": {},
+      "setup": null
+    },
+    {
+      "module": {
+        "table": {
+          "type": "mils",
+          "heightMm": 781.05
+        }
+      },
+      "setup": {
+        "table": {
+          "type": "mils",
+          "heightMm": 781.1
+        }
+      }
+    },
+    {
+      "module": {
+        "table": {
+          "type": "baseplate"
+        }
+      },
+      "setup": {
+        "table": {
+          "type": "baseplate"
+        }
+      }
+    },
+    {
+      "module": {
+        "table": {
+          "type": "custom",
+          "heightMm": 812.8,
+          "measuredTo": "rail",
+          "legs": 4
+        }
+      },
+      "setup": {
+        "table": {
+          "type": "custom",
+          "heightMm": 812.8,
+          "measuredTo": "rail"
+        }
+      }
+    },
+    {
+      "module": {
+        "table": {
+          "type": "tall",
+          "heightMm": 800
+        }
+      },
+      "setup": null
+    },
+    {
+      "module": {
+        "table": {
+          "type": "mils",
+          "heightMm": 0
+        }
+      },
+      "setup": {
+        "table": {
+          "type": "mils"
+        }
+      }
+    },
+    {
+      "module": {
+        "table": {
+          "type": "mils",
+          "heightMm": 6000,
+          "measuredTo": "floor"
+        }
+      },
+      "setup": {
+        "table": {
+          "type": "mils"
+        }
+      }
+    },
+    {
+      "module": {
+        "power": {
+          "needed": false,
+          "outlets": 3
+        }
+      },
+      "setup": {
+        "power": {
+          "needed": false
+        }
+      }
+    },
+    {
+      "module": {
+        "power": {
+          "needed": true
+        }
+      },
+      "setup": {
+        "power": {
+          "needed": true
+        }
+      }
+    },
+    {
+      "module": {
+        "power": {
+          "needed": true,
+          "outlets": 2,
+          "watts": 59.6,
+          "plugSide": "back"
+        }
+      },
+      "setup": {
+        "power": {
+          "needed": true,
+          "outlets": 2,
+          "watts": 60,
+          "plugSide": "back"
+        }
+      }
+    },
+    {
+      "module": {
+        "power": {
+          "needed": true,
+          "outlets": 2.5,
+          "watts": -1,
+          "plugSide": "top"
+        }
+      },
+      "setup": {
+        "power": {
+          "needed": true
+        }
+      }
+    },
+    {
+      "module": {
+        "power": {
+          "needed": "yes"
+        }
+      },
+      "setup": null
+    },
+    {
+      "module": {
+        "table": {
+          "type": "mils",
+          "heightMm": 781
+        },
+        "power": {
+          "needed": true,
+          "outlets": 1
+        }
+      },
+      "setup": {
+        "table": {
+          "type": "mils",
+          "heightMm": 781
+        },
+        "power": {
+          "needed": true,
+          "outlets": 1
+        }
+      }
+    }
+  ],
+  "valid": [
+    {
+      "setup": null,
+      "valid": true
+    },
+    {
+      "setup": {},
+      "valid": true
+    },
+    {
+      "setup": {
+        "table": null,
+        "power": null
+      },
+      "valid": true
+    },
+    {
+      "setup": {
+        "table": {
+          "type": "mils",
+          "heightMm": 781.1,
+          "measuredTo": "rail"
+        }
+      },
+      "valid": true
+    },
+    {
+      "setup": {
+        "table": {
+          "type": "mils",
+          "heightMm": 5001
+        }
+      },
+      "valid": false
+    },
+    {
+      "setup": {
+        "table": {
+          "type": "mils",
+          "color": "red"
+        }
+      },
+      "valid": false
+    },
+    {
+      "setup": {
+        "power": {
+          "needed": true,
+          "outlets": 50,
+          "watts": 100000,
+          "plugSide": "left"
+        }
+      },
+      "valid": true
+    },
+    {
+      "setup": {
+        "power": {
+          "needed": true,
+          "outlets": 51
+        }
+      },
+      "valid": false
+    },
+    {
+      "setup": {
+        "power": {
+          "outlets": 1
+        }
+      },
+      "valid": false
+    },
+    {
+      "setup": {
+        "venue": {}
+      },
+      "valid": false
+    },
+    {
+      "setup": "mils",
+      "valid": false
+    }
+  ],
+  "summary": [
+    {
+      "modules": [],
+      "expect": {
+        "modules": 0,
+        "power": {
+          "modules": 0,
+          "outlets": 0,
+          "watts": 0,
+          "noPower": 0,
+          "notSet": 0
+        },
+        "tables": [],
+        "tablesNotSet": 0
+      }
+    },
+    {
+      "modules": [
+        {
+          "table": {
+            "type": "mils",
+            "heightMm": 781.05
+          },
+          "power": {
+            "needed": true,
+            "outlets": 2,
+            "watts": 60
+          }
+        },
+        {
+          "table": {
+            "type": "mils",
+            "heightMm": 781.05
+          },
+          "power": {
+            "needed": true
+          }
+        },
+        {
+          "table": {
+            "type": "mils",
+            "heightMm": 812.8,
+            "measuredTo": "rail"
+          },
+          "power": {
+            "needed": true,
+            "outlets": 3,
+            "watts": 250
+          }
+        },
+        {
+          "table": {
+            "type": "mils"
+          },
+          "power": {
+            "needed": false
+          }
+        },
+        {
+          "table": {
+            "type": "custom",
+            "heightMm": 900
+          },
+          "power": {
+            "needed": true,
+            "outlets": 5,
+            "watts": 140
+          }
+        },
+        {
+          "table": {
+            "type": "custom",
+            "heightMm": 812.8
+          }
+        },
+        {
+          "table": {
+            "type": "baseplate",
+            "heightMm": 736.6
+          }
+        },
+        {
+          "power": {
+            "needed": true,
+            "watts": 0
+          }
+        },
+        {}
+      ],
+      "expect": {
+        "modules": 9,
+        "power": {
+          "modules": 5,
+          "outlets": 12,
+          "watts": 450,
+          "noPower": 1,
+          "notSet": 3
+        },
+        "tables": [
+          {
+            "type": "mils",
+            "count": 4,
+            "heights": [
+              {
+                "heightMm": 781.1,
+                "measuredTo": "table",
+                "count": 2
+              },
+              {
+                "heightMm": 812.8,
+                "measuredTo": "rail",
+                "count": 1
+              }
+            ]
+          },
+          {
+            "type": "baseplate",
+            "count": 1,
+            "heights": [
+              {
+                "heightMm": 736.6,
+                "measuredTo": "table",
+                "count": 1
+              }
+            ]
+          },
+          {
+            "type": "custom",
+            "count": 2,
+            "heights": [
+              {
+                "heightMm": 812.8,
+                "measuredTo": "table",
+                "count": 1
+              },
+              {
+                "heightMm": 900,
+                "measuredTo": "table",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "tablesNotSet": 2
+      }
+    }
+  ]
+}

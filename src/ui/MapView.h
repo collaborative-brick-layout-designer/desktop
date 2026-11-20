@@ -34,6 +34,8 @@ class QDragLeaveEvent;
 class QNativeGestureEvent;
 class QPointingDevice;
 class QLabel;
+class QLineEdit;
+class QPushButton;
 class QTimer;
 class QTouchEvent;
 class QVariantAnimation;
@@ -284,6 +286,27 @@ public:
     void setSwitch(const QString& key, int exit);
     // Run mode's click: flip the switch nearest `studs`; false when none is near.
     bool flipSwitchNear(QPointF studs);
+    // Drawing a named route (trains design 6.2): a click picks the place on
+    // the track nearest it, its start then its end (Shift-click adds a stop
+    // on the way); the banner says how long the way found is, takes a name
+    // and saves it as one undo step. Nothing is picked or moved meanwhile.
+    void startRouteDraft();
+    void cancelRouteDraft();
+    bool drawingRoute() const { return routeDraft_.has_value(); }
+    // A click while drawing (tests call it with a place in studs).
+    void routeDraftClick(QPointF studs, bool shift);
+    // Save the route drawn, under `name`; false when there is no way to save.
+    bool saveRouteDraft(const QString& name);
+    // The route drawn so far and the way found (tests).
+    struct RouteDraft {
+        std::optional<core::TrackPosition> from;
+        std::vector<core::TrackPosition> via;
+        std::optional<core::TrackPosition> to;
+    };
+    const std::optional<RouteDraft>& routeDraft() const { return routeDraft_; }
+    QWidget* routeDraftBanner() const { return routeBar_; }
+    // The routes this person hid on their map (not the layout's business).
+    void setHiddenRoutes(const QSet<QString>& ids);
     void armPartPlacement(const QString& partKey);
     void cancelPartPlacement();
     const QString& armedPart() const { return armedPart_; }
@@ -426,6 +449,8 @@ signals:
     void partsPlaced(const QList<int>& layers, int pickedLayer, int count, bool pasted);
     // Run mode went on or off (the toolbar button and the banner follow).
     void runModeChanged(bool on);
+    // Drawing a route started or stopped (the Routes panel's New route follows).
+    void routeDraftChanged(bool drawing);
 
 protected:
     // Touch (pinch, two-finger pan, tap, drag, long press) and trackpad
@@ -456,6 +481,15 @@ protected:
 
 private:
     bool runMode_ = false;
+    std::optional<RouteDraft> routeDraft_;
+    QWidget* routeBar_ = nullptr;
+    QLabel* routeBarText_ = nullptr;
+    QLineEdit* routeName_ = nullptr;
+    QPushButton* routeSave_ = nullptr;
+    // The banner says what to click next, or the way found; the map shows it.
+    void refreshRouteDraft();
+    // Run mode or drawing a route: clicks belong to them, not the parts.
+    bool clicksTaken() const { return runMode_ || routeDraft_.has_value(); }
     // Run mode's banner over the top of the map: what a click does, and Stop.
     QWidget* runBar_ = nullptr;
     // "Run trains", in the map's top right corner while building.

@@ -603,6 +603,54 @@
         <translation>Klick mit der rechten Maustaste auf eine Weiche, um sie zu stellen, oder schalte den Fahrmodus ein und klick sie an. Ein grüner Pfeil ist der übliche Weg; ein oranger heißt, dass sie auf den anderen Weg gestellt ist. Schalte Ansicht › Weichen ein, um sie beim Bauen zu sehen.</translation>
     </message>
     <message>
+        <source>Routes</source>
+        <translation>Routen</translation>
+    </message>
+    <message>
+        <source>Named ways along the track, from one place to another.</source>
+        <translation>Benannte Wege entlang des Gleises, von einem Ort zum anderen.</translation>
+    </message>
+    <message>
+        <source>Each route shows its length and whether the track still fits it. The eye shows or hides a route on your map only; everyone else keeps their own view. Routes are saved with the layout and shared with everyone editing it.</source>
+        <translation>Jede Route zeigt ihre Länge und ob das Gleis noch zu ihr passt. Das Auge zeigt oder verbirgt eine Route nur auf deiner Karte; alle anderen behalten ihre eigene Ansicht. Routen werden mit der Anlage gespeichert und mit allen geteilt, die sie bearbeiten.</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Neue Route</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track, then where it ends.</source>
+        <translation>Klick auf das Gleis, wo die Route beginnt, dann dort, wo sie endet.</translation>
+    </message>
+    <message>
+        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
+        <translation>Der kürzeste Weg entlang des Gleises wird für dich gefunden, durch Weichen in beide Richtungen. Umschalt-Klick fügt einen Halt unterwegs hinzu, um ein anderes Gleis zu wählen. Gib ihr einen Namen und drück Route speichern; Esc oder Abbrechen hört auf.</translation>
+    </message>
+    <message>
+        <source>Broken route</source>
+        <translation>Unterbrochene Route</translation>
+    </message>
+    <message>
+        <source>A part this route runs over was moved or removed.</source>
+        <translation>Ein Teil, über das diese Route führt, wurde verschoben oder entfernt.</translation>
+    </message>
+    <message>
+        <source>The route keeps its name, color, start and end, and is drawn dashed red as far as it still goes. Find a new way searches again from its start through its stops to its end.</source>
+        <translation>Die Route behält Namen, Farbe, Anfang und Ende und wird rot gestrichelt gezeichnet, so weit sie noch reicht. Neuen Weg finden sucht erneut von ihrem Anfang über ihre Halte bis zu ihrem Ende.</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Weichen stellen</translation>
+    </message>
+    <message>
+        <source>Sets every switch on the route so a train follows it.</source>
+        <translation>Stellt jede Weiche auf der Route so, dass ein Zug ihr folgt.</translation>
+    </message>
+    <message>
+        <source>Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once.</source>
+        <translation>Weichen, die anders gestellt sind, zeigen auf der Karte einen orangen Ring, und die Route sagt, wie viele es sind. Das Stellen ist eine Änderung, die du rückgängig machen kannst, und alle sehen sie sofort.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Aktuelles Blatt</translation>
     </message>
@@ -705,6 +753,30 @@
     <message>
         <source>With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits.</source>
         <translation>Mit „Gleiche Farbe“ ändern sich Umriss und Name zusammen. „Auf Standard zurücksetzen“ bringt das Hellblau zurück. Lange Namen werden umgebrochen, kleiner und nur gekürzt, wenn nichts anderes passt.</translation>
+    </message>
+    <message>
+        <source>Table and power</source>
+        <translation>Tisch und Strom</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>Worauf dieses Modul steht, wie hoch es ist und welchen Strom es braucht, für alle, die die Tische planen.</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>Wähl MILS, Einfache Grundplatte (lose Grundplatten auf einem normalen Tisch) oder Eigene und gib die gemessene Höhe ein, bis zur Tischplatte oder bis zur Schienenoberkante. Für den Strom gib an, wie viele Steckdosen es braucht, wie viele Watt ungefähr und auf welcher Seite der Stecker herauskommt. Beim Speichern des Moduls in der Modulbibliothek wird das mitgenommen.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Tische und Strom</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>Was alle Module dieser Anlage zusammen brauchen: Steckdosen und Watt sowie die Tischhöhen nach Art.</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>Stell Tisch und Strom jedes Moduls über sein ⋯-Menü › Tisch und Strom… ein. Module ohne Angaben zählen als nicht eingestellt, damit du siehst, wer dir noch Bescheid geben muss.</translation>
     </message>
     <message>
         <source>Edit module</source>
@@ -2461,6 +2533,21 @@
     </message>
 </context>
 <context>
+    <name>Routes</name>
+    <message>
+        <source>There’s no track joining these two places.</source>
+        <translation>Kein Gleis verbindet diese beiden Orte.</translation>
+    </message>
+    <message>
+        <source>The only way needs the train to turn around.</source>
+        <translation>Der einzige Weg verlangt, dass der Zug wendet.</translation>
+    </message>
+    <message>
+        <source>Pick an end somewhere else along the track.</source>
+        <translation>Wähl ein Ende an einer anderen Stelle entlang des Gleises.</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3243,6 +3330,74 @@
     <message>
         <source>A club admin sends you an invite link. Open it to join, and the club&apos;s things show up here.</source>
         <translation>Ein Club-Admin schickt dir einen Einladungslink. Öffne ihn, um beizutreten, und die Sachen des Clubs erscheinen hier.</translation>
+    </message>
+    <message>
+        <source>Modules</source>
+        <translation>Module</translation>
+    </message>
+    <message>
+        <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
+        <translation>Ein Modul sind Teile, die sich als ein Stück bewegen, wie ein Tisch, den ein Clubmitglied mitbringt. Die Module dieser Anlage stehen hier.</translation>
+    </message>
+    <message>
+        <source>Make a module</source>
+        <translation>Modul erstellen</translation>
+    </message>
+    <message>
+        <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
+        <translation>Wähl einige Teile aus, dann Modul erstellen. Speicher es in deiner Modulbibliothek, um es in anderen Anlagen wieder zu verwenden.</translation>
+    </message>
+    <message>
+        <source>Each module&apos;s menu</source>
+        <translation>Das Menü jedes Moduls</translation>
+    </message>
+    <message>
+        <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
+        <translation>Das ⋯-Menü bearbeitet, färbt und speichert ein Modul. Tisch und Strom sagt, worauf es steht und welchen Strom es braucht.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Tische und Strom</translation>
+    </message>
+    <message>
+        <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
+        <translation>Die Anlage zählt hier Steckdosen, Watt und Tischhöhen ihrer Module zusammen, für alle, die die Ausstellung planen.</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>Routen</translation>
+    </message>
+    <message>
+        <source>Your routes</source>
+        <translation>Deine Routen</translation>
+    </message>
+    <message>
+        <source>Routes are named ways along the track. Open this list from Panels; the eye hides one on your map only.</source>
+        <translation>Routen sind benannte Wege entlang des Gleises. Öffne die Liste über Bereiche; das Auge verbirgt eine nur auf deiner Karte.</translation>
+    </message>
+    <message>
+        <source>Draw a route</source>
+        <translation>Eine Route zeichnen</translation>
+    </message>
+    <message>
+        <source>Press New route, then click on the track where it starts and where it ends. The shortest way is found for you.</source>
+        <translation>Drück Neue Route, dann klick auf das Gleis, wo sie beginnt und wo sie endet. Der kürzeste Weg wird für dich gefunden.</translation>
+    </message>
+    <message>
+        <source>Stops on the way</source>
+        <translation>Halte unterwegs</translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop, to send the route along another line. Name it and press Save route.</source>
+        <translation>Umschalt-Klick fügt einen Halt hinzu, um die Route über ein anderes Gleis zu führen. Gib ihr einen Namen und drück Route speichern.</translation>
+    </message>
+    <message>
+        <source>Switches follow the route</source>
+        <translation>Weichen folgen der Route</translation>
+    </message>
+    <message>
+        <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
+        <translation>Weichen stellen stellt jede Weiche auf der Route in ihre Richtung. Im Fahrmodus stellst du sie von Hand um.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4396,6 +4551,10 @@
     <message>
         <source>A switch&apos;s setting</source>
         <translation>Stellung einer Weiche</translation>
+    </message>
+    <message>
+        <source>Route &quot;%1&quot;</source>
+        <translation>Route „%1“</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -9238,6 +9397,10 @@ Du wirst nicht noch einmal gefragt. Um es später in dieses oder ein anderes Lay
         <translation>Weichenstellungen</translation>
     </message>
     <message>
+        <source>routes</source>
+        <translation>Routen</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9978,6 +10141,50 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
         <source>From end %1: %2</source>
         <translation>Von Ende %1: %2</translation>
     </message>
+    <message>
+        <source>Route name</source>
+        <translation>Name der Route</translation>
+    </message>
+    <message>
+        <source>Save route</source>
+        <translation>Route speichern</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Route %1</source>
+        <translation>Route %1</translation>
+    </message>
+    <message>
+        <source>Click on the track.</source>
+        <translation>Klick auf das Gleis.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
+        <translation>&lt;b&gt;Neue Route:&lt;/b&gt; Klick auf das Gleis, wo sie beginnt.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Neue Route:&lt;/b&gt; Klick dort, wo sie endet (Umschalt-Klick fügt einen Halt hinzu).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
+        <translation>&lt;b&gt;Neue Route:&lt;/b&gt; %1 entlang des Gleises%2. Umschalt-Klick fügt einen Halt hinzu.</translation>
+    </message>
+    <message>
+        <source>, and it turns the train around</source>
+        <translation>, und der Zug wendet dabei</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Neue Route</translation>
+    </message>
+    <message>
+        <source>Route “%1” saved.</source>
+        <translation>Route „%1“ gespeichert.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleEditBar</name>
@@ -10233,7 +10440,7 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     </message>
     <message>
         <source>Stop</source>
-        <translation>Stopp</translation>
+        <translation>Beenden</translation>
     </message>
     <message>
         <source>Share “%1”</source>
@@ -11495,6 +11702,120 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>Save</source>
         <translation>Speichern</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RoutesPanel</name>
+    <message>
+        <source>Routes</source>
+        <translation>Routen</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Neue Route</translation>
+    </message>
+    <message>
+        <source>Delete route</source>
+        <translation>Route löschen</translation>
+    </message>
+    <message>
+        <source>Delete the route “%1”?</source>
+        <translation>Die Route „%1“ löschen?</translation>
+    </message>
+    <message>
+        <source>Rename route</source>
+        <translation>Route umbenennen</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <source>Switches set for “%1”.</source>
+        <translation>Weichen für „%1“ gestellt.</translation>
+    </message>
+    <message>
+        <source>Set switches for a route</source>
+        <translation>Weichen für eine Route stellen</translation>
+    </message>
+    <message>
+        <source>Draw the route again from its new start or end.</source>
+        <translation>Zeichne die Route neu, von ihrem neuen Anfang oder Ende.</translation>
+    </message>
+    <message>
+        <source>Found a new way for “%1”.</source>
+        <translation>Neuen Weg für „%1“ gefunden.</translation>
+    </message>
+    <message>
+        <source>Find a new way</source>
+        <translation>Neuen Weg finden</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then draw a route along it.</source>
+        <translation>Auf dieser Anlage gibt es noch kein Gleis. Füg welches aus der Gleis-Gruppe im Teile-Bereich hinzu und zeichne dann eine Route daran entlang.</translation>
+    </message>
+    <message>
+        <source>No routes yet. Press New route, then click two places on the track: where it starts and where it ends.</source>
+        <translation>Noch keine Routen. Drück Neue Route und klick dann auf zwei Stellen des Gleises: wo sie beginnt und wo sie endet.</translation>
+    </message>
+    <message>
+        <source>Untitled route</source>
+        <translation>Unbenannte Route</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation>Sichtbar</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation>Verborgen</translation>
+    </message>
+    <message>
+        <source>Shown on your map (only yours)</source>
+        <translation>Auf deiner Karte sichtbar (nur auf deiner)</translation>
+    </message>
+    <message>
+        <source>Hidden on your map (only yours)</source>
+        <translation>Auf deiner Karte verborgen (nur auf deiner)</translation>
+    </message>
+    <message>
+        <source>Hide %1 on your map</source>
+        <translation>%1 auf deiner Karte verbergen</translation>
+    </message>
+    <message>
+        <source>Show %1 on your map</source>
+        <translation>%1 auf deiner Karte zeigen</translation>
+    </message>
+    <message>
+        <source>Broken: the track under it changed.</source>
+        <translation>Unterbrochen: Das Gleis darunter hat sich geändert.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) set the other way</source>
+        <translation>
+            <numerusform>%n Weiche anders gestellt</numerusform>
+            <numerusform>%n Weichen anders gestellt</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Turns the train around</source>
+        <translation>Der Zug wendet</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Weichen stellen</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Umbenennen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
     </message>
 </context>
 <context>
