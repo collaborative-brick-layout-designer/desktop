@@ -256,7 +256,7 @@ private:
     void editSetup(const QString& id);
     // The module whose table and power are open (editSetup), and its window.
     core::ModuleSetup editingSetup_;
-    QPointer<ModuleSetupDialog> setupDialog_;
+    ModuleSetupDialog* setupDialog_ = nullptr;  // set only while its window is open
     void remove(const QString& id);
 
     ServerLibrary& library_;
