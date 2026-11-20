@@ -879,6 +879,30 @@
         <translation>在零件旁边输入一个数字来设置它的上限。预算随布局一起保存，并与所有编辑它的人共享。也可以导入或导出 BlueBrick 预算文件 (.bbb)。</translation>
     </message>
     <message>
+        <source>Table and power</source>
+        <translation>桌台和电源</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>这个模块放在什么上、有多高、需要多少电，供规划桌台的人参考。</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>选择 MILS、普通底板（放在普通桌子上的散底板）或自定义，然后输入量得的高度，量到桌面或量到轨道顶面。电源方面，说明它用几个插座、大约多少瓦，以及插头从哪一边出来。把模块保存到模块库时，这些信息会一起保存。</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>桌台和电源</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>这个布局的所有模块合起来需要什么：插座和瓦数，以及按类型分的桌台高度。</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>在每个模块的 ⋯ 菜单 › 桌台和电源… 中设置。没有设置的模块会算作未设置，这样你能看出还有谁需要告诉你。</translation>
+    </message>
+    <message>
         <source>Shared modules</source>
         <translation>共享模块</translation>
     </message>
@@ -1557,6 +1581,137 @@
     <message>
         <source>%1, %2 and %3 others are here too</source>
         <translation>%1、%2 和另外 %3 人也在这里</translation>
+    </message>
+</context>
+<context>
+    <name>ModuleSetupText</name>
+    <message>
+        <source>%1 cm</source>
+        <translation>%1 厘米</translation>
+    </message>
+    <message>
+        <source>%1 studs</source>
+        <translation>%1 颗粒</translation>
+    </message>
+    <message>
+        <source>In centimeters, like 78 or 78.1 cm</source>
+        <translation>以厘米为单位，例如 78 或 78.1 cm</translation>
+    </message>
+    <message>
+        <source>In studs, like 98</source>
+        <translation>以颗粒为单位，例如 98</translation>
+    </message>
+    <message>
+        <source>In inches, like 30 3/4 or 32&quot;</source>
+        <translation>以英寸为单位，例如 30 3/4 或 32&quot;</translation>
+    </message>
+    <message>
+        <source>MILS</source>
+        <translation>MILS</translation>
+    </message>
+    <message>
+        <source>Plain baseplate</source>
+        <translation>普通底板</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>自定义</translation>
+    </message>
+    <message>
+        <source>A MILS module: its own legs or table, to the MILS height.</source>
+        <translation>MILS 模块：自带支脚或桌台，达到 MILS 高度。</translation>
+    </message>
+    <message>
+        <source>Loose baseplates laid on an ordinary table.</source>
+        <translation>放在普通桌子上的散底板。</translation>
+    </message>
+    <message>
+        <source>Any other table or stand.</source>
+        <translation>其他任何桌台或支架。</translation>
+    </message>
+    <message>
+        <source>At the front</source>
+        <translation>前面</translation>
+    </message>
+    <message>
+        <source>At the back</source>
+        <translation>后面</translation>
+    </message>
+    <message>
+        <source>On the left</source>
+        <translation>左边</translation>
+    </message>
+    <message>
+        <source>On the right</source>
+        <translation>右边</translation>
+    </message>
+    <message>
+        <source>%1 · %2 to the rails</source>
+        <translation>%1 · 到轨道 %2</translation>
+    </message>
+    <message>
+        <source>No power</source>
+        <translation>不需要电</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n outlet(s)</source>
+        <translation>
+            <numerusform>%n 个插座</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>~%1 W</source>
+        <translation>约 %1 W</translation>
+    </message>
+    <message>
+        <source>plug at the front</source>
+        <translation>插头在前面</translation>
+    </message>
+    <message>
+        <source>plug at the back</source>
+        <translation>插头在后面</translation>
+    </message>
+    <message>
+        <source>plug at the left</source>
+        <translation>插头在左边</translation>
+    </message>
+    <message>
+        <source>plug at the right</source>
+        <translation>插头在右边</translation>
+    </message>
+    <message>
+        <source>Power: %1</source>
+        <translation>电源：%1</translation>
+    </message>
+    <message>
+        <source>(not set for %1)</source>
+        <translation>（%1 个未设置）</translation>
+    </message>
+    <message>
+        <source>Power: none needed</source>
+        <translation>电源：不需要</translation>
+    </message>
+    <message>
+        <source>Power: not set for any module</source>
+        <translation>电源：所有模块都未设置</translation>
+    </message>
+    <message>
+        <source>, ~%1 W</source>
+        <translation>，约 %1 W</translation>
+    </message>
+    <message numerus="yes">
+        <source>Power: %n module(s) need %1</source>
+        <translation>
+            <numerusform>电源：%n 个模块需要 %1</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 to the rails</source>
+        <translation>到轨道 %1</translation>
+    </message>
+    <message>
+        <source>Table not set: %1</source>
+        <translation>桌台未设置：%1</translation>
     </message>
 </context>
 <context>
@@ -3193,6 +3348,38 @@
     <message>
         <source>A club admin sends you an invite link. Open it to join, and the club&apos;s things show up here.</source>
         <translation>俱乐部管理员会发给你邀请链接。打开它即可加入，俱乐部的内容就会显示在这里。</translation>
+    </message>
+    <message>
+        <source>Modules</source>
+        <translation>模块</translation>
+    </message>
+    <message>
+        <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
+        <translation>模块是一起移动的一组零件，就像俱乐部成员带来的一张桌台。这个布局的模块都列在这里。</translation>
+    </message>
+    <message>
+        <source>Make a module</source>
+        <translation>创建模块</translation>
+    </message>
+    <message>
+        <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
+        <translation>选择一些零件，然后点创建模块。把它保存到你的模块库，就能在其他布局中再次使用。</translation>
+    </message>
+    <message>
+        <source>Each module&apos;s menu</source>
+        <translation>每个模块的菜单</translation>
+    </message>
+    <message>
+        <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
+        <translation>⋯ 菜单可以编辑、上色和保存模块。桌台和电源说明它放在什么上以及需要多少电。</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>桌台和电源</translation>
+    </message>
+    <message>
+        <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
+        <translation>布局在这里汇总模块的插座、瓦数和桌台高度，供规划展览的人参考。</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -6010,6 +6197,10 @@ Save mine as a new version: this layout&apos;s copy becomes the module; theirs s
     <message>
         <source>The Module library&apos;s version has no parts.</source>
         <translation>模块库中的版本没有零件。</translation>
+    </message>
+    <message>
+        <source>Module table and power</source>
+        <translation>模块的桌台和电源</translation>
     </message>
     <message>
         <source>Updated “%1” from the Module library</source>
@@ -9616,6 +9807,10 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>颜色…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>桌台和电源…</translation>
+    </message>
+    <message>
         <source>Attach Ruler Endpoint &amp;1 to This Brick</source>
         <translation>把标尺端点 1 附着到这块积木(&amp;1)</translation>
     </message>
@@ -9972,6 +10167,113 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     </message>
 </context>
 <context>
+    <name>bld::ui::ModuleSetupDialog</name>
+    <message>
+        <source>Table and power</source>
+        <translation>桌台和电源</translation>
+    </message>
+    <message>
+        <source>Table and power · %1</source>
+        <translation>桌台和电源 · %1</translation>
+    </message>
+    <message>
+        <source>(module)</source>
+        <translation>（模块）</translation>
+    </message>
+    <message>
+        <source>Table</source>
+        <translation>桌台</translation>
+    </message>
+    <message>
+        <source>Not set</source>
+        <translation>未设置</translation>
+    </message>
+    <message>
+        <source>Table type</source>
+        <translation>桌台类型</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>类型</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>高度</translation>
+    </message>
+    <message>
+        <source>To the table top</source>
+        <translation>量到桌面</translation>
+    </message>
+    <message>
+        <source>To the top of the rails</source>
+        <translation>量到轨道顶面</translation>
+    </message>
+    <message>
+        <source>Measured</source>
+        <translation>测量位置</translation>
+    </message>
+    <message>
+        <source>Power</source>
+        <translation>电源</translation>
+    </message>
+    <message>
+        <source>Doesn’t need power</source>
+        <translation>不需要电</translation>
+    </message>
+    <message>
+        <source>Needs power</source>
+        <translation>需要电</translation>
+    </message>
+    <message>
+        <source>Outlets</source>
+        <translation>插座</translation>
+    </message>
+    <message>
+        <source>Not known</source>
+        <translation>未知</translation>
+    </message>
+    <message>
+        <source>About how many watts</source>
+        <translation>大约多少瓦</translation>
+    </message>
+    <message>
+        <source>Plug side</source>
+        <translation>插头位置</translation>
+    </message>
+    <message>
+        <source>Front is the side people watch from.</source>
+        <translation>前面是观众观看的一侧。</translation>
+    </message>
+    <message>
+        <source>Clear all</source>
+        <translation>全部清除</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>完成</translation>
+    </message>
+    <message>
+        <source>Module table</source>
+        <translation>模块桌台</translation>
+    </message>
+    <message>
+        <source>Module power</source>
+        <translation>模块电源</translation>
+    </message>
+    <message>
+        <source>Clear module table and power</source>
+        <translation>清除模块的桌台和电源</translation>
+    </message>
+    <message>
+        <source>That isn’t a height we can read. %1.</source>
+        <translation>无法识别这个高度。%1。</translation>
+    </message>
+    <message>
+        <source>Pick a table type first</source>
+        <translation>请先选择桌台类型</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::ModuleShareDialog</name>
     <message>
         <source>This module belongs to a club, so its members already have it. A club&apos;s module can&apos;t be shared with another club.</source>
@@ -10239,6 +10541,10 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>更多</translation>
     </message>
     <message>
+        <source>Tables and power</source>
+        <translation>桌台和电源</translation>
+    </message>
+    <message>
         <source>Select Its Parts</source>
         <translation>选中它的零件</translation>
     </message>
@@ -10299,6 +10605,10 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>颜色…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>桌台和电源…</translation>
+    </message>
+    <message>
         <source>Duplicate</source>
         <translation>复制一份</translation>
     </message>
@@ -10309,6 +10619,10 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     <message>
         <source>Delete module</source>
         <translation>删除模块</translation>
+    </message>
+    <message>
+        <source>Tables: not set for any module</source>
+        <translation>桌台：所有模块都未设置</translation>
     </message>
     <message>
         <source>[unnamed]</source>
@@ -11668,6 +11982,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>重命名…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>桌台和电源…</translation>
+    </message>
+    <message>
         <source>Share with a Club…</source>
         <translation>共享给俱乐部…</translation>
     </message>
@@ -11734,6 +12052,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Renamed to &quot;%1&quot;</source>
         <translation>已重命名为“%1”</translation>
+    </message>
+    <message>
+        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
+        <translation>已保存到模块库。布局在添加这个模块或从模块库更新时会得到它。</translation>
+    </message>
+    <message>
+        <source>Not saved: %1</source>
+        <translation>未保存：%1</translation>
     </message>
     <message>
         <source>Gave &quot;%1&quot; back to %2</source>

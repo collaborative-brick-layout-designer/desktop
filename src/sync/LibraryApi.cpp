@@ -114,6 +114,7 @@ ServerModule LibraryApi::moduleFromJson(const QJsonObject& o) {
     m.docVersion = intOf(o.value(QLatin1String("docVersion")));
     m.latestVersion = intOf(o.value(QLatin1String("latestVersion")));
     m.empty = o.value(QLatin1String("empty")).toBool(false);
+    m.setup = o.value(QLatin1String("setup")).toObject();
     const QJsonValue at = o.value(QLatin1String("thumbnailAt"));
     m.thumbnailAt = at.isDouble() ? static_cast<qint64>(at.toDouble()) : 0;
     m.updatedAt = timeOf(o.value(QLatin1String("updatedAt")));
@@ -586,6 +587,15 @@ void LibraryApi::setModuleThumbnail(const QString& id, const QByteArray& png, st
 
 void LibraryApi::renameModule(const QString& id, const QString& title, std::function<void()> done, Fail failed) {
     sendJson("PATCH", QStringLiteral("/api/modules/%1").arg(idPath(id)), QJsonObject{ { QStringLiteral("title"), title } },
+             [done = std::move(done)](const QJsonObject&) {
+                 if (done) done();
+             },
+             std::move(failed));
+}
+
+void LibraryApi::setModuleSetup(const QString& id, const QJsonObject& setup, std::function<void()> done, Fail failed) {
+    sendJson("PATCH", QStringLiteral("/api/modules/%1").arg(idPath(id)),
+             QJsonObject{ { QStringLiteral("setup"), setup.isEmpty() ? QJsonValue(QJsonValue::Null) : QJsonValue(setup) } },
              [done = std::move(done)](const QJsonObject&) {
                  if (done) done();
              },

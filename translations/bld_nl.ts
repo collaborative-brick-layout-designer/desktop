@@ -879,6 +879,30 @@
         <translation>Typ een getal naast een onderdeel om de limiet in te stellen. Het budget wordt met de layout opgeslagen en gedeeld met iedereen die hem bewerkt. Een BlueBrick-budgetbestand (.bbb) kan ook worden geïmporteerd of geëxporteerd.</translation>
     </message>
     <message>
+        <source>Table and power</source>
+        <translation>Tafel en stroom</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>Waar deze module op staat, hoe hoog hij is en hoeveel stroom hij nodig heeft, voor wie de tafels plant.</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>Kies MILS, Gewone grondplaat (losse grondplaten op een gewone tafel) of Eigen, en typ de gemeten hoogte, tot het tafelblad of tot de bovenkant van de rails. Geef bij stroom aan hoeveel stopcontacten hij gebruikt, ongeveer hoeveel watt en aan welke kant de stekker eruit komt. Als je de module in de modulebibliotheek bewaart, gaat dit mee.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Tafels en stroom</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>Wat alle modules van deze layout samen nodig hebben: stopcontacten en watt, en de tafelhoogtes per soort.</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>Stel tafel en stroom van elke module in via het ⋯-menu › Tafel en stroom…. Modules zonder gegevens tellen als niet ingesteld, zo zie je wie het je nog moet laten weten.</translation>
+    </message>
+    <message>
         <source>Shared modules</source>
         <translation>Gedeelde modules</translation>
     </message>
@@ -1558,6 +1582,139 @@
     <message>
         <source>%1, %2 and %3 others are here too</source>
         <translation>%1, %2 en %3 anderen zijn hier ook</translation>
+    </message>
+</context>
+<context>
+    <name>ModuleSetupText</name>
+    <message>
+        <source>%1 cm</source>
+        <translation>%1 cm</translation>
+    </message>
+    <message>
+        <source>%1 studs</source>
+        <translation>%1 noppen</translation>
+    </message>
+    <message>
+        <source>In centimeters, like 78 or 78.1 cm</source>
+        <translation>In centimeters, bijvoorbeeld 78 of 78,1 cm</translation>
+    </message>
+    <message>
+        <source>In studs, like 98</source>
+        <translation>In noppen, bijvoorbeeld 98</translation>
+    </message>
+    <message>
+        <source>In inches, like 30 3/4 or 32&quot;</source>
+        <translation>In inches, bijvoorbeeld 30 3/4 of 32&quot;</translation>
+    </message>
+    <message>
+        <source>MILS</source>
+        <translation>MILS</translation>
+    </message>
+    <message>
+        <source>Plain baseplate</source>
+        <translation>Gewone grondplaat</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Eigen</translation>
+    </message>
+    <message>
+        <source>A MILS module: its own legs or table, to the MILS height.</source>
+        <translation>Een MILS-module: eigen poten of tafel, op MILS-hoogte.</translation>
+    </message>
+    <message>
+        <source>Loose baseplates laid on an ordinary table.</source>
+        <translation>Losse grondplaten op een gewone tafel.</translation>
+    </message>
+    <message>
+        <source>Any other table or stand.</source>
+        <translation>Elke andere tafel of standaard.</translation>
+    </message>
+    <message>
+        <source>At the front</source>
+        <translation>Aan de voorkant</translation>
+    </message>
+    <message>
+        <source>At the back</source>
+        <translation>Aan de achterkant</translation>
+    </message>
+    <message>
+        <source>On the left</source>
+        <translation>Links</translation>
+    </message>
+    <message>
+        <source>On the right</source>
+        <translation>Rechts</translation>
+    </message>
+    <message>
+        <source>%1 · %2 to the rails</source>
+        <translation>%1 · %2 tot de rails</translation>
+    </message>
+    <message>
+        <source>No power</source>
+        <translation>Geen stroom</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n outlet(s)</source>
+        <translation>
+            <numerusform>%n stopcontact</numerusform>
+            <numerusform>%n stopcontacten</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>~%1 W</source>
+        <translation>~%1 W</translation>
+    </message>
+    <message>
+        <source>plug at the front</source>
+        <translation>stekker voor</translation>
+    </message>
+    <message>
+        <source>plug at the back</source>
+        <translation>stekker achter</translation>
+    </message>
+    <message>
+        <source>plug at the left</source>
+        <translation>stekker links</translation>
+    </message>
+    <message>
+        <source>plug at the right</source>
+        <translation>stekker rechts</translation>
+    </message>
+    <message>
+        <source>Power: %1</source>
+        <translation>Stroom: %1</translation>
+    </message>
+    <message>
+        <source>(not set for %1)</source>
+        <translation>(niet ingesteld bij %1)</translation>
+    </message>
+    <message>
+        <source>Power: none needed</source>
+        <translation>Stroom: niet nodig</translation>
+    </message>
+    <message>
+        <source>Power: not set for any module</source>
+        <translation>Stroom: bij geen enkele module ingesteld</translation>
+    </message>
+    <message>
+        <source>, ~%1 W</source>
+        <translation>, ~%1 W</translation>
+    </message>
+    <message numerus="yes">
+        <source>Power: %n module(s) need %1</source>
+        <translation>
+            <numerusform>Stroom: %n module heeft %1 nodig</numerusform>
+            <numerusform>Stroom: %n modules hebben %1 nodig</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 to the rails</source>
+        <translation>%1 tot de rails</translation>
+    </message>
+    <message>
+        <source>Table not set: %1</source>
+        <translation>Tafel niet ingesteld: %1</translation>
     </message>
 </context>
 <context>
@@ -3211,6 +3368,38 @@
     <message>
         <source>A club admin sends you an invite link. Open it to join, and the club&apos;s things show up here.</source>
         <translation>Een clubbeheerder stuurt je een uitnodigingslink. Open hem om mee te doen, en de dingen van de club verschijnen hier.</translation>
+    </message>
+    <message>
+        <source>Modules</source>
+        <translation>Modules</translation>
+    </message>
+    <message>
+        <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
+        <translation>Een module is een groep onderdelen die als één stuk beweegt, zoals een tafel die een clublid meebrengt. Hier staan de modules van deze layout.</translation>
+    </message>
+    <message>
+        <source>Make a module</source>
+        <translation>Een module maken</translation>
+    </message>
+    <message>
+        <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
+        <translation>Kies een paar onderdelen en daarna Een module maken. Bewaar hem in je modulebibliotheek om hem in andere layouts opnieuw te gebruiken.</translation>
+    </message>
+    <message>
+        <source>Each module&apos;s menu</source>
+        <translation>Het menu van elke module</translation>
+    </message>
+    <message>
+        <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
+        <translation>Met het ⋯-menu bewerk, kleur en bewaar je een module. Tafel en stroom zegt waar hij op staat en hoeveel stroom hij nodig heeft.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Tafels en stroom</translation>
+    </message>
+    <message>
+        <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
+        <translation>Hier telt de layout de stopcontacten, watts en tafelhoogtes van zijn modules op, voor wie de tentoonstelling plant.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -6056,6 +6245,10 @@ De mijne als nieuwe versie opslaan: de kopie van deze layout wordt de module; di
     <message>
         <source>The Module library&apos;s version has no parts.</source>
         <translation>De versie in de modulebibliotheek heeft geen onderdelen.</translation>
+    </message>
+    <message>
+        <source>Module table and power</source>
+        <translation>Tafel en stroom van de module</translation>
     </message>
     <message>
         <source>Updated “%1” from the Module library</source>
@@ -9691,6 +9884,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <translation>Kleuren…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>Tafel en stroom…</translation>
+    </message>
+    <message>
         <source>Attach Ruler Endpoint &amp;1 to This Brick</source>
         <translation>Uiteinde &amp;1 van liniaal aan deze steen vastmaken</translation>
     </message>
@@ -10051,6 +10248,113 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     </message>
 </context>
 <context>
+    <name>bld::ui::ModuleSetupDialog</name>
+    <message>
+        <source>Table and power</source>
+        <translation>Tafel en stroom</translation>
+    </message>
+    <message>
+        <source>Table and power · %1</source>
+        <translation>Tafel en stroom · %1</translation>
+    </message>
+    <message>
+        <source>(module)</source>
+        <translation>(module)</translation>
+    </message>
+    <message>
+        <source>Table</source>
+        <translation>Tafel</translation>
+    </message>
+    <message>
+        <source>Not set</source>
+        <translation>Niet ingesteld</translation>
+    </message>
+    <message>
+        <source>Table type</source>
+        <translation>Soort tafel</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Soort</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>Hoogte</translation>
+    </message>
+    <message>
+        <source>To the table top</source>
+        <translation>Tot het tafelblad</translation>
+    </message>
+    <message>
+        <source>To the top of the rails</source>
+        <translation>Tot de bovenkant van de rails</translation>
+    </message>
+    <message>
+        <source>Measured</source>
+        <translation>Gemeten</translation>
+    </message>
+    <message>
+        <source>Power</source>
+        <translation>Stroom</translation>
+    </message>
+    <message>
+        <source>Doesn’t need power</source>
+        <translation>Heeft geen stroom nodig</translation>
+    </message>
+    <message>
+        <source>Needs power</source>
+        <translation>Heeft stroom nodig</translation>
+    </message>
+    <message>
+        <source>Outlets</source>
+        <translation>Stopcontacten</translation>
+    </message>
+    <message>
+        <source>Not known</source>
+        <translation>Onbekend</translation>
+    </message>
+    <message>
+        <source>About how many watts</source>
+        <translation>Ongeveer hoeveel watt</translation>
+    </message>
+    <message>
+        <source>Plug side</source>
+        <translation>Stekkerkant</translation>
+    </message>
+    <message>
+        <source>Front is the side people watch from.</source>
+        <translation>Voor is de kant waar het publiek vanaf kijkt.</translation>
+    </message>
+    <message>
+        <source>Clear all</source>
+        <translation>Alles wissen</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Klaar</translation>
+    </message>
+    <message>
+        <source>Module table</source>
+        <translation>Tafel van de module</translation>
+    </message>
+    <message>
+        <source>Module power</source>
+        <translation>Stroom van de module</translation>
+    </message>
+    <message>
+        <source>Clear module table and power</source>
+        <translation>Tafel en stroom van de module wissen</translation>
+    </message>
+    <message>
+        <source>That isn’t a height we can read. %1.</source>
+        <translation>Die hoogte kunnen we niet lezen. %1.</translation>
+    </message>
+    <message>
+        <source>Pick a table type first</source>
+        <translation>Kies eerst een soort tafel</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::ModuleShareDialog</name>
     <message>
         <source>This module belongs to a club, so its members already have it. A club&apos;s module can&apos;t be shared with another club.</source>
@@ -10319,6 +10623,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <translation>Meer</translation>
     </message>
     <message>
+        <source>Tables and power</source>
+        <translation>Tafels en stroom</translation>
+    </message>
+    <message>
         <source>Select Its Parts</source>
         <translation>Zijn onderdelen selecteren</translation>
     </message>
@@ -10379,6 +10687,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <translation>Kleuren…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>Tafel en stroom…</translation>
+    </message>
+    <message>
         <source>Duplicate</source>
         <translation>Dupliceren</translation>
     </message>
@@ -10389,6 +10701,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     <message>
         <source>Delete module</source>
         <translation>Module verwijderen</translation>
+    </message>
+    <message>
+        <source>Tables: not set for any module</source>
+        <translation>Tafels: bij geen enkele module ingesteld</translation>
     </message>
     <message>
         <source>[unnamed]</source>
@@ -11761,6 +12077,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Hernoemen…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>Tafel en stroom…</translation>
+    </message>
+    <message>
         <source>Share with a Club…</source>
         <translation>Met een club delen…</translation>
     </message>
@@ -11827,6 +12147,14 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Renamed to &quot;%1&quot;</source>
         <translation>Hernoemd naar &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
+        <translation>Bewaard in de modulebibliotheek. Layouts krijgen het als ze deze module toevoegen of bijwerken vanuit de bibliotheek.</translation>
+    </message>
+    <message>
+        <source>Not saved: %1</source>
+        <translation>Niet bewaard: %1</translation>
     </message>
     <message>
         <source>Gave &quot;%1&quot; back to %2</source>

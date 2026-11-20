@@ -28,6 +28,8 @@ dialog.measure
 dialog.exportImage
 dialog.exportPartList
 dialog.moduleLook
+dialog.moduleSetup
+module.setupSummary
 module.edit
 module.make
 module.library

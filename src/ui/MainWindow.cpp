@@ -520,6 +520,8 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     });
     connect(modulesPanel_, &ModulesPanel::lookRequested, this, &MainWindow::editModuleLook);
     connect(mapView_, &MapView::moduleLookRequested, this, &MainWindow::editModuleLook);
+    connect(modulesPanel_, &ModulesPanel::setupRequested, this, &MainWindow::editModuleSetup);
+    connect(mapView_, &MapView::moduleSetupRequested, this, &MainWindow::editModuleSetup);
     // Edit module and Pin in place.
     connect(modulesPanel_, &ModulesPanel::editRequested, mapView_, &MapView::setEditingModule);
     connect(mapView_, &MapView::editingModuleChanged, this, [this](const QString& id) {

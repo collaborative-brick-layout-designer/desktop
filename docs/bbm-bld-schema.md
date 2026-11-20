@@ -148,6 +148,16 @@ anchor moves.
   - `sameColor` (bool, default `true`): the two colors change together.
   - `pinned` (bool, default `false`): the module can't be moved or turned
     as a whole; Edit module still changes its parts.
+- Its table and power, for whoever plans the show (optional, store and
+  show only; `core/ModuleSetup.h`, the web's `packages/modules`
+  `setup.ts`):
+  - `table`: `{ type: "mils" | "baseplate" | "custom", heightMm?, measuredTo?: "rail" }`.
+    `heightMm` is what was entered, in mm; without `measuredTo` it is to
+    the table top.
+  - `power`: `{ needed, outlets?, watts?, plugSide?: "front" | "back" | "left" | "right" }`.
+    `outlets` absent counts as one; front is the side people watch from.
+  - A Module library module keeps the same two on the server; adding it
+    to a layout, or updating a placed copy from the library, copies them.
 - Fields a reader doesn't know are kept when it writes the module again.
 
 ### Forward-compat projection

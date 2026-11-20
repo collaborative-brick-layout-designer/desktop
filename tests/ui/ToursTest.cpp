@@ -4,7 +4,11 @@
 // and the tour card itself: Back / Next / Skip, Esc, Tab staying in the
 // card, the outline round the control, and toursSeen remembering it.
 
+#include "core/Map.h"
+#include "core/Module.h"
 #include "ui/MainWindow.h"
+#include "ui/MapView.h"
+#include "ui/ModulesPanel.h"
 #include "ui/SettingsDialog.h"
 #include "ui/UpdateCheck.h"
 #include "ui/theme/AppPrefs.h"
@@ -80,7 +84,7 @@ TEST_F(Tours, TheCatalogueIsTheWebAppsFile) {
     QStringList ids;
     for (const auto& t : c.tours) ids << t.id;
     // The web's "import" tour (its import dialog) has web steps only: not here.
-    EXPECT_EQ(ids, (QStringList{ "editor", "rooms", "clubs", "view" }));
+    EXPECT_EQ(ids, (QStringList{ "editor", "rooms", "clubs", "modules", "view" }));
     EXPECT_EQ(tours::findTour(QStringLiteral("import")), nullptr);
     // The venue tour keeps its id; people see "Venues".
     EXPECT_EQ(tours::findTour(QStringLiteral("rooms"))->title, QStringLiteral("Venues"));
@@ -96,7 +100,7 @@ TEST_F(Tours, TheCatalogueIsTheWebAppsFile) {
     // The phone tour is the web's; the desktop offers the others.
     QStringList here;
     for (const auto* t : tours::desktopTours()) here << t->id;
-    EXPECT_EQ(here, (QStringList{ "editor", "rooms", "clubs" }));
+    EXPECT_EQ(here, (QStringList{ "editor", "rooms", "clubs", "modules" }));
     EXPECT_EQ(tours::stepCount(2, 5), QStringLiteral("2 of 5"));
 
     // The embedded copy is the file in the tree, and it says where its twin lives.
@@ -222,6 +226,35 @@ TEST_F(Tours, EveryEditorStepFindsItsControl) {
         // Help › Tour: … for each desktop tour.
         for (const auto* t : tours::desktopTours())
             EXPECT_NE(w.findChild<QAction*>(QStringLiteral("help.tour.") + t->id), nullptr) << t->id.toStdString();
+    }
+    QStandardPaths::setTestModeEnabled(false);
+}
+
+// The Modules tour: the panel, Make a module, a module's ⋯ and the
+// layout's Tables and power, with a module in the layout.
+TEST_F(Tours, EveryModulesStepFindsItsControl) {
+    QStandardPaths::setTestModeEnabled(true);
+    UpdateCheck::setCheckAtStartupEnabled(false);
+    parts::PartsLibrary lib;
+    {
+        MainWindow w(lib);
+        w.resize(1280, 800);
+        w.ensureDocument();
+        w.show();
+        auto* view = w.findChild<MapView*>();
+        auto* panel = w.findChild<ModulesPanel*>();
+        ASSERT_TRUE(view && panel);
+        core::Module m;
+        m.id = QStringLiteral("m1");
+        m.name = QStringLiteral("Depot");
+        view->currentMap()->sidecar.modules.push_back(m);
+        panel->setMap(view->currentMap());
+        panel->show();
+        panel->raise();
+        QApplication::processEvents();
+        for (const auto& s : tours::findTour(QStringLiteral("modules"))->steps)
+            EXPECT_NE(tours::findTarget(&w, s.target), nullptr) << s.target.toStdString();
+        view->currentMap()->sidecar.modules.clear();
     }
     QStandardPaths::setTestModeEnabled(false);
 }

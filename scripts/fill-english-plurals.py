@@ -44,6 +44,7 @@ SPECIAL = {
     ),
     "%n track end(s) no longer meet.": "%n track end no longer meets.",
     "%n shared module(s) have new versions.": "%n shared module has a new version.",
+    "Power: %n module(s) need %1": "Power: %n module needs %1",
 }
 
 

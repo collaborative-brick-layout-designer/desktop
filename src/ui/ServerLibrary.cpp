@@ -1,6 +1,7 @@
 #include "ServerLibrary.h"
 #include "ConfirmDialog.h"
 #include "ModuleShareDialog.h"
+#include "ModuleSetupDialog.h"
 #include "NotificationViews.h"
 #include "help/HelpButton.h"
 #include "ReturnWording.h"
@@ -24,6 +25,7 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <QPixmap>
+#include <QPointer>
 #include <QPushButton>
 #include <QScrollArea>
 #include <QSignalBlocker>
@@ -681,6 +683,12 @@ QWidget* ServerModulesTab::makeRow(const sync::ServerModule& m) {
     auto* subtitle = libraryMutedLabel(sub, frame);
     subtitle->setObjectName(QStringLiteral("rowSubtitle"));
     text->addWidget(subtitle);
+    // Its table and power ("MILS · 30¾″ · Power: 2 outlets").
+    if (const QString line = ModuleSetupText::setupLine(core::setupFromJson(m.setup), ModuleSetupText::Unit::FeetInches); !line.isEmpty()) {
+        auto* setup = libraryMutedLabel(line, frame);
+        setup->setObjectName(QStringLiteral("rowSetup"));
+        text->addWidget(setup);
+    }
     if (m.empty) {
         auto* none = libraryMutedLabel(tr("No parts yet"), frame);
         none->setObjectName(QStringLiteral("rowEmpty"));
@@ -730,6 +738,11 @@ QWidget* ServerModulesTab::makeRow(const sync::ServerModule& m) {
     QAction* ren = menu->addAction(tr("Rename…"));
     ren->setObjectName(QStringLiteral("renameModule"));
     connect(ren, &QAction::triggered, this, [this, id] { rename(id); });
+    QAction* setup = menu->addAction(tr("Table and power…"));
+    setup->setObjectName(QStringLiteral("moduleSetup"));
+    setup->setEnabled(m.canEdit());
+    if (!m.canEdit()) setup->setToolTip(tr("You can look at this module, not change it."));
+    connect(setup, &QAction::triggered, this, [this, id] { editSetup(id); });
     // Share it, read-only, with a club you're in (its owner; a club's own module is its members' already).
     if (library_.knowsSharedModules() && m.canDelete() && !m.owner.isClub()) {
         QAction* share = menu->addAction(tr("Share with a Club…"));
@@ -791,6 +804,12 @@ QWidget* ServerModulesTab::makeSharedRow(const sync::ServerModule& m) {
     auto* subtitle = libraryMutedLabel(sub, frame);
     subtitle->setObjectName(QStringLiteral("rowSubtitle"));
     text->addWidget(subtitle);
+    // Its table and power ("MILS · 30¾″ · Power: 2 outlets").
+    if (const QString line = ModuleSetupText::setupLine(core::setupFromJson(m.setup), ModuleSetupText::Unit::FeetInches); !line.isEmpty()) {
+        auto* setup = libraryMutedLabel(line, frame);
+        setup->setObjectName(QStringLiteral("rowSetup"));
+        text->addWidget(setup);
+    }
     QStringList toClubs;
     for (const auto& c : m.sharedClubs) toClubs << c.name;
     // Another club's: the header names that club; the line says which of yours has it.
@@ -870,6 +889,29 @@ void ServerModulesTab::rename(const QString& id) {
     }), sync::whileAlive(this, [this](const sync::ServerRefusal& r) {
         QMessageBox::warning(this, tr("Rename module"), ServerLibrary::refusalText(r));
     }));
+}
+
+void ServerModulesTab::editSetup(const QString& id) {
+    const sync::ServerModule* m = library_.module(id);
+    if (!m) return;
+    // What the dialog shows: the server's, then each change as it is sent.
+    auto setup = std::make_shared<core::ModuleSetup>(core::setupFromJson(m->setup));
+    ModuleSetupDialog dlg(
+        m->title, ModuleSetupText::Unit::FeetInches, [setup]() -> std::optional<core::ModuleSetup> { return *setup; },
+        nullptr, this);
+    dlg.setNote(tr("Saved in the Module library. Layouts get it when they add this module or update it from the Module library."));
+    QPointer<ModuleSetupDialog> shown(&dlg);
+    // (set after the dialog exists, so a refusal can say so in it)
+    dlg.setApply([this, id, setup, shown](const core::ModuleSetup& changed, const QString&) {
+        *setup = changed;
+        if (shown) shown->setError({});
+        library_.api().setModuleSetup(id, core::setupJson(changed), sync::whileAlive(this, [this] { library_.refresh(); }),
+                                      sync::whileAlive(this, [shown](const sync::ServerRefusal& r) {
+                                          if (shown)
+                                              shown->setError(tr("Not saved: %1").arg(ServerLibrary::refusalText(r)));
+                                      }));
+    });
+    dlg.exec();
 }
 
 void ServerModulesTab::giveOrTakeBack(const QString& id, bool give) {

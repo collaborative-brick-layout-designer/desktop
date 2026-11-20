@@ -57,6 +57,17 @@
       ]
     },
     {
+      "id": "modules",
+      "title": "Modules",
+      "devices": "large",
+      "steps": [
+        { "target": "panel.modules", "title": "Modules", "text": "A module is parts that move as one piece, like a table a club member brings. This layout's modules are listed here." },
+        { "target": "module.make", "title": "Make a module", "text": "Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts." },
+        { "target": "modules.more", "title": "Each module's menu", "text": "The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs." },
+        { "target": "module.setupSummary", "title": "Tables and power", "text": "The layout adds up its modules' outlets, watts and table heights here, for whoever plans the show." }
+      ]
+    },
+    {
       "id": "view",
       "title": "Looking at a layout",
       "devices": "phone",

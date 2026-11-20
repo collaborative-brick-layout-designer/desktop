@@ -51,6 +51,7 @@ add_executable(bld_ui_tests
     SetDragTest.cpp
     SetUpdatesTest.cpp
     ModuleLookTest.cpp
+    ModuleSetupTest.cpp
     ModuleEditTest.cpp
     SharedModulesTest.cpp
     SharedKeepTest.cpp

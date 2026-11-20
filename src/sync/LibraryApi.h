@@ -95,6 +95,9 @@ struct ServerModule {
     OwnerTag owner;
     int docVersion = 0;
     int latestVersion = 0;  // the newest saved version; 0: no history yet
+    // Its table and power (core/ModuleSetup.h), as the server sends them:
+    // {table?, power?}; empty when not set (or an older server).
+    QJsonObject setup;
     bool empty = false;     // no parts yet: adding it would place nothing (older servers leave it out)
     qint64 thumbnailAt = 0;  // when its picture was made (ms); 0: none yet
     QDateTime updatedAt;
@@ -424,6 +427,8 @@ public:
                             std::function<void(int docVersion)> savedAs = {});
     void setModuleThumbnail(const QString& id, const QByteArray& png, std::function<void()> done, Fail failed);
     void renameModule(const QString& id, const QString& title, std::function<void()> done, Fail failed);
+    // Its table and power ({table?, power?}); an empty object clears them (PATCH /api/modules/:id {setup}).
+    void setModuleSetup(const QString& id, const QJsonObject& setup, std::function<void()> done, Fail failed);
     void deleteModule(const QString& id, std::function<void()> done, Fail failed);
     // A club's module (`kindPath` "modules", or "layouts", "venues", "custom-parts")
     // back to its author: taken back by them (`give` false) or given back by

@@ -4,6 +4,7 @@
 
 #include <QDockWidget>
 
+class QLabel;
 class QListWidget;
 class QToolButton;
 
@@ -34,6 +35,8 @@ signals:
     void renameRequested(const QString& moduleId);
     // The module's look: its colors (the Module look dialog), and its name on or off.
     void lookRequested(const QString& moduleId);
+    // Its table and power (the Table and power dialog).
+    void setupRequested(const QString& moduleId);
     void showNameRequested(const QString& moduleId, bool show);
     // Edit module (or Done editing: an empty id), and Pin in place / Unpin.
     void editRequested(const QString& moduleId);
@@ -48,10 +51,14 @@ public:
     void setLibraryInfo(ModuleLibraryInfoFn fn) { libraryInfo_ = std::move(fn); }
     // The module's menu, for tests.
     void fillMenu(class QMenu& menu, const QString& id);
+    // The layout's Tables and power summary, for tests: the power line and the table lines.
+    QString summaryText() const;
 
 private:
     void showMenu(const QString& id, const QPoint& globalPos);
     QListWidget* list_ = nullptr;
+    QLabel* summaryPower_ = nullptr;
+    QLabel* summaryTables_ = nullptr;
     QToolButton* more_ = nullptr;
     const core::Map* map_ = nullptr;
     QString editingId_;

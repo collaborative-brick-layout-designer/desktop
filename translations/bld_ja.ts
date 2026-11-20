@@ -879,6 +879,30 @@
         <translation>パーツの横に数を入力すると上限になります。予算はレイアウトと一緒に保存され、編集する全員と共有されます。BlueBrick の予算ファイル (.bbb) の読み込みと書き出しもできます。</translation>
     </message>
     <message>
+        <source>Table and power</source>
+        <translation>台と電源</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>このモジュールが何の上に載るか、高さ、必要な電源。台を計画する人のための情報です。</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>MILS、ふつうの基礎板（ふつうのテーブルに置いた基礎板）、カスタムから選び、測った高さを入力します。台の天板まで、またはレールの上面までの高さです。電源は、使うコンセントの数、おおよそのワット数、プラグが出る側を入力します。モジュールをモジュールライブラリに保存すると、これも一緒に保存されます。</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>台と電源</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>このレイアウトのモジュール全体で必要なもの：コンセントとワット数、種類ごとの台の高さ。</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>各モジュールの台と電源は、その ⋯ メニュー › 台と電源… で設定します。何も設定していないモジュールは「未設定」として数えるので、まだ返事が必要な人がわかります。</translation>
+    </message>
+    <message>
         <source>Shared modules</source>
         <translation>共有モジュール</translation>
     </message>
@@ -1557,6 +1581,137 @@
     <message>
         <source>%1, %2 and %3 others are here too</source>
         <translation>%1、%2 とほか %3 人がここにいます</translation>
+    </message>
+</context>
+<context>
+    <name>ModuleSetupText</name>
+    <message>
+        <source>%1 cm</source>
+        <translation>%1 cm</translation>
+    </message>
+    <message>
+        <source>%1 studs</source>
+        <translation>%1 スタッド</translation>
+    </message>
+    <message>
+        <source>In centimeters, like 78 or 78.1 cm</source>
+        <translation>センチメートルで。例：78 または 78.1 cm</translation>
+    </message>
+    <message>
+        <source>In studs, like 98</source>
+        <translation>スタッドで。例：98</translation>
+    </message>
+    <message>
+        <source>In inches, like 30 3/4 or 32&quot;</source>
+        <translation>インチで。例：30 3/4 または 32&quot;</translation>
+    </message>
+    <message>
+        <source>MILS</source>
+        <translation>MILS</translation>
+    </message>
+    <message>
+        <source>Plain baseplate</source>
+        <translation>ふつうの基礎板</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>カスタム</translation>
+    </message>
+    <message>
+        <source>A MILS module: its own legs or table, to the MILS height.</source>
+        <translation>MILS モジュール：専用の脚または台で、MILS の高さに合わせます。</translation>
+    </message>
+    <message>
+        <source>Loose baseplates laid on an ordinary table.</source>
+        <translation>ふつうのテーブルに置いた基礎板。</translation>
+    </message>
+    <message>
+        <source>Any other table or stand.</source>
+        <translation>その他の台やスタンド。</translation>
+    </message>
+    <message>
+        <source>At the front</source>
+        <translation>前</translation>
+    </message>
+    <message>
+        <source>At the back</source>
+        <translation>後ろ</translation>
+    </message>
+    <message>
+        <source>On the left</source>
+        <translation>左</translation>
+    </message>
+    <message>
+        <source>On the right</source>
+        <translation>右</translation>
+    </message>
+    <message>
+        <source>%1 · %2 to the rails</source>
+        <translation>%1 · レールまで %2</translation>
+    </message>
+    <message>
+        <source>No power</source>
+        <translation>電源なし</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n outlet(s)</source>
+        <translation>
+            <numerusform>コンセント %n 口</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>~%1 W</source>
+        <translation>約 %1 W</translation>
+    </message>
+    <message>
+        <source>plug at the front</source>
+        <translation>プラグは前</translation>
+    </message>
+    <message>
+        <source>plug at the back</source>
+        <translation>プラグは後ろ</translation>
+    </message>
+    <message>
+        <source>plug at the left</source>
+        <translation>プラグは左</translation>
+    </message>
+    <message>
+        <source>plug at the right</source>
+        <translation>プラグは右</translation>
+    </message>
+    <message>
+        <source>Power: %1</source>
+        <translation>電源：%1</translation>
+    </message>
+    <message>
+        <source>(not set for %1)</source>
+        <translation>（%1 件は未設定）</translation>
+    </message>
+    <message>
+        <source>Power: none needed</source>
+        <translation>電源：不要</translation>
+    </message>
+    <message>
+        <source>Power: not set for any module</source>
+        <translation>電源：どのモジュールも未設定</translation>
+    </message>
+    <message>
+        <source>, ~%1 W</source>
+        <translation>、約 %1 W</translation>
+    </message>
+    <message numerus="yes">
+        <source>Power: %n module(s) need %1</source>
+        <translation>
+            <numerusform>電源：%n 個のモジュールに %1 が必要</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 to the rails</source>
+        <translation>レールまで %1</translation>
+    </message>
+    <message>
+        <source>Table not set: %1</source>
+        <translation>台が未設定：%1</translation>
     </message>
 </context>
 <context>
@@ -3193,6 +3348,38 @@
     <message>
         <source>A club admin sends you an invite link. Open it to join, and the club&apos;s things show up here.</source>
         <translation>クラブの管理者から招待リンクが届きます。開いて参加すると、クラブのものがここに表示されます。</translation>
+    </message>
+    <message>
+        <source>Modules</source>
+        <translation>モジュール</translation>
+    </message>
+    <message>
+        <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
+        <translation>モジュールは、ひとかたまりで動くパーツの集まりです。クラブのメンバーが持ってくる台のようなものです。このレイアウトのモジュールはここに表示されます。</translation>
+    </message>
+    <message>
+        <source>Make a module</source>
+        <translation>モジュールを作る</translation>
+    </message>
+    <message>
+        <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
+        <translation>パーツをいくつか選んで、モジュールを作るを選びます。モジュールライブラリに保存すると、ほかのレイアウトでも使えます。</translation>
+    </message>
+    <message>
+        <source>Each module&apos;s menu</source>
+        <translation>各モジュールのメニュー</translation>
+    </message>
+    <message>
+        <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
+        <translation>⋯ メニューでモジュールを編集し、色を付け、保存します。台と電源では、何の上に載るかと必要な電源を設定します。</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>台と電源</translation>
+    </message>
+    <message>
+        <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
+        <translation>ここでレイアウトのモジュールのコンセント、ワット数、台の高さを合計します。展示を計画する人のための情報です。</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -6010,6 +6197,10 @@ Save mine as a new version: this layout&apos;s copy becomes the module; theirs s
     <message>
         <source>The Module library&apos;s version has no parts.</source>
         <translation>モジュールライブラリの版にはパーツがありません。</translation>
+    </message>
+    <message>
+        <source>Module table and power</source>
+        <translation>モジュールの台と電源</translation>
     </message>
     <message>
         <source>Updated “%1” from the Module library</source>
@@ -9616,6 +9807,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <translation>色…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>台と電源…</translation>
+    </message>
+    <message>
         <source>Attach Ruler Endpoint &amp;1 to This Brick</source>
         <translation>定規の端点 1 をこのパーツに取り付ける(&amp;1)</translation>
     </message>
@@ -9972,6 +10167,113 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     </message>
 </context>
 <context>
+    <name>bld::ui::ModuleSetupDialog</name>
+    <message>
+        <source>Table and power</source>
+        <translation>台と電源</translation>
+    </message>
+    <message>
+        <source>Table and power · %1</source>
+        <translation>台と電源 · %1</translation>
+    </message>
+    <message>
+        <source>(module)</source>
+        <translation>（モジュール）</translation>
+    </message>
+    <message>
+        <source>Table</source>
+        <translation>台</translation>
+    </message>
+    <message>
+        <source>Not set</source>
+        <translation>未設定</translation>
+    </message>
+    <message>
+        <source>Table type</source>
+        <translation>台の種類</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>種類</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>高さ</translation>
+    </message>
+    <message>
+        <source>To the table top</source>
+        <translation>台の天板まで</translation>
+    </message>
+    <message>
+        <source>To the top of the rails</source>
+        <translation>レールの上面まで</translation>
+    </message>
+    <message>
+        <source>Measured</source>
+        <translation>測定位置</translation>
+    </message>
+    <message>
+        <source>Power</source>
+        <translation>電源</translation>
+    </message>
+    <message>
+        <source>Doesn’t need power</source>
+        <translation>電源は不要</translation>
+    </message>
+    <message>
+        <source>Needs power</source>
+        <translation>電源が必要</translation>
+    </message>
+    <message>
+        <source>Outlets</source>
+        <translation>コンセント</translation>
+    </message>
+    <message>
+        <source>Not known</source>
+        <translation>不明</translation>
+    </message>
+    <message>
+        <source>About how many watts</source>
+        <translation>おおよそのワット数</translation>
+    </message>
+    <message>
+        <source>Plug side</source>
+        <translation>プラグの位置</translation>
+    </message>
+    <message>
+        <source>Front is the side people watch from.</source>
+        <translation>前は、見る人がいる側です。</translation>
+    </message>
+    <message>
+        <source>Clear all</source>
+        <translation>すべて消去</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>完了</translation>
+    </message>
+    <message>
+        <source>Module table</source>
+        <translation>モジュールの台</translation>
+    </message>
+    <message>
+        <source>Module power</source>
+        <translation>モジュールの電源</translation>
+    </message>
+    <message>
+        <source>Clear module table and power</source>
+        <translation>モジュールの台と電源を消去</translation>
+    </message>
+    <message>
+        <source>That isn’t a height we can read. %1.</source>
+        <translation>その高さは読み取れません。%1。</translation>
+    </message>
+    <message>
+        <source>Pick a table type first</source>
+        <translation>先に台の種類を選んでください</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::ModuleShareDialog</name>
     <message>
         <source>This module belongs to a club, so its members already have it. A club&apos;s module can&apos;t be shared with another club.</source>
@@ -10239,6 +10541,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <translation>その他</translation>
     </message>
     <message>
+        <source>Tables and power</source>
+        <translation>台と電源</translation>
+    </message>
+    <message>
         <source>Select Its Parts</source>
         <translation>そのパーツを選択</translation>
     </message>
@@ -10299,6 +10605,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <translation>色…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>台と電源…</translation>
+    </message>
+    <message>
         <source>Duplicate</source>
         <translation>複製</translation>
     </message>
@@ -10309,6 +10619,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     <message>
         <source>Delete module</source>
         <translation>モジュールを削除</translation>
+    </message>
+    <message>
+        <source>Tables: not set for any module</source>
+        <translation>台：どのモジュールも未設定</translation>
     </message>
     <message>
         <source>[unnamed]</source>
@@ -11668,6 +11982,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>名前を変更…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>台と電源…</translation>
+    </message>
+    <message>
         <source>Share with a Club…</source>
         <translation>クラブと共有…</translation>
     </message>
@@ -11734,6 +12052,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Renamed to &quot;%1&quot;</source>
         <translation>「%1」に名前を変更しました</translation>
+    </message>
+    <message>
+        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
+        <translation>モジュールライブラリに保存しました。レイアウトにこのモジュールを追加するとき、またはライブラリから更新するときに反映されます。</translation>
+    </message>
+    <message>
+        <source>Not saved: %1</source>
+        <translation>保存されていません：%1</translation>
     </message>
     <message>
         <source>Gave &quot;%1&quot; back to %2</source>

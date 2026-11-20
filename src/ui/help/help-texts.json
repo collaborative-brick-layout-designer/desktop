@@ -146,6 +146,16 @@
       "short": "This module’s own outline and name colors, and whether its name shows.",
       "more": "With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits."
     },
+    "dialog.moduleSetup": {
+      "title": "Table and power",
+      "short": "What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.",
+      "more": "Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along."
+    },
+    "module.setupSummary": {
+      "title": "Tables and power",
+      "short": "What all of this layout’s modules need together: outlets and watts, and the table heights by type.",
+      "more": "Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you."
+    },
     "module.edit": {
       "title": "Edit module",
       "short": "Change this module part by part; the rest of the layout waits, dimmed.",

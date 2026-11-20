@@ -879,6 +879,30 @@
         <translation>Escribe un número junto a una pieza para fijar su límite. El presupuesto se guarda con la maqueta y se comparte con todos los que la editan. También se puede importar o exportar un archivo de presupuesto de BlueBrick (.bbb).</translation>
     </message>
     <message>
+        <source>Table and power</source>
+        <translation>Mesa y electricidad</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>Sobre qué se apoya este módulo, qué altura tiene y qué electricidad necesita, para quien planifica las mesas.</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>Elige MILS, Placa base simple (placas base sueltas sobre una mesa normal) o Personalizada, y escribe la altura medida, hasta el tablero de la mesa o hasta la parte superior de los rieles. Para la electricidad, indica cuántos enchufes usa, cuántos vatios más o menos y por qué lado sale el enchufe. Al guardar el módulo en la biblioteca de módulos, esto va con él.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Mesas y electricidad</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>Lo que necesitan juntos todos los módulos de este diseño: enchufes y vatios, y las alturas de mesa por tipo.</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>Indica la mesa y la electricidad de cada módulo en su menú ⋯ › Mesa y electricidad…. Los módulos sin datos cuentan como sin indicar, así ves quién todavía tiene que decírtelo.</translation>
+    </message>
+    <message>
         <source>Shared modules</source>
         <translation>Módulos compartidos</translation>
     </message>
@@ -1558,6 +1582,139 @@
     <message>
         <source>%1, %2 and %3 others are here too</source>
         <translation>%1, %2 y %3 más también están aquí</translation>
+    </message>
+</context>
+<context>
+    <name>ModuleSetupText</name>
+    <message>
+        <source>%1 cm</source>
+        <translation>%1 cm</translation>
+    </message>
+    <message>
+        <source>%1 studs</source>
+        <translation>%1 studs</translation>
+    </message>
+    <message>
+        <source>In centimeters, like 78 or 78.1 cm</source>
+        <translation>En centímetros, por ejemplo 78 o 78,1 cm</translation>
+    </message>
+    <message>
+        <source>In studs, like 98</source>
+        <translation>En studs, por ejemplo 98</translation>
+    </message>
+    <message>
+        <source>In inches, like 30 3/4 or 32&quot;</source>
+        <translation>En pulgadas, por ejemplo 30 3/4 o 32&quot;</translation>
+    </message>
+    <message>
+        <source>MILS</source>
+        <translation>MILS</translation>
+    </message>
+    <message>
+        <source>Plain baseplate</source>
+        <translation>Placa base simple</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Personalizada</translation>
+    </message>
+    <message>
+        <source>A MILS module: its own legs or table, to the MILS height.</source>
+        <translation>Un módulo MILS: sus propias patas o mesa, a la altura MILS.</translation>
+    </message>
+    <message>
+        <source>Loose baseplates laid on an ordinary table.</source>
+        <translation>Placas base sueltas sobre una mesa normal.</translation>
+    </message>
+    <message>
+        <source>Any other table or stand.</source>
+        <translation>Cualquier otra mesa o soporte.</translation>
+    </message>
+    <message>
+        <source>At the front</source>
+        <translation>Delante</translation>
+    </message>
+    <message>
+        <source>At the back</source>
+        <translation>Detrás</translation>
+    </message>
+    <message>
+        <source>On the left</source>
+        <translation>A la izquierda</translation>
+    </message>
+    <message>
+        <source>On the right</source>
+        <translation>A la derecha</translation>
+    </message>
+    <message>
+        <source>%1 · %2 to the rails</source>
+        <translation>%1 · %2 hasta los rieles</translation>
+    </message>
+    <message>
+        <source>No power</source>
+        <translation>Sin electricidad</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n outlet(s)</source>
+        <translation>
+            <numerusform>%n enchufe</numerusform>
+            <numerusform>%n enchufes</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>~%1 W</source>
+        <translation>~%1 W</translation>
+    </message>
+    <message>
+        <source>plug at the front</source>
+        <translation>enchufe delante</translation>
+    </message>
+    <message>
+        <source>plug at the back</source>
+        <translation>enchufe detrás</translation>
+    </message>
+    <message>
+        <source>plug at the left</source>
+        <translation>enchufe a la izquierda</translation>
+    </message>
+    <message>
+        <source>plug at the right</source>
+        <translation>enchufe a la derecha</translation>
+    </message>
+    <message>
+        <source>Power: %1</source>
+        <translation>Electricidad: %1</translation>
+    </message>
+    <message>
+        <source>(not set for %1)</source>
+        <translation>(sin indicar en %1)</translation>
+    </message>
+    <message>
+        <source>Power: none needed</source>
+        <translation>Electricidad: no hace falta</translation>
+    </message>
+    <message>
+        <source>Power: not set for any module</source>
+        <translation>Electricidad: sin indicar en ningún módulo</translation>
+    </message>
+    <message>
+        <source>, ~%1 W</source>
+        <translation>, ~%1 W</translation>
+    </message>
+    <message numerus="yes">
+        <source>Power: %n module(s) need %1</source>
+        <translation>
+            <numerusform>Electricidad: %n módulo necesita %1</numerusform>
+            <numerusform>Electricidad: %n módulos necesitan %1</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 to the rails</source>
+        <translation>%1 hasta los rieles</translation>
+    </message>
+    <message>
+        <source>Table not set: %1</source>
+        <translation>Mesa sin indicar: %1</translation>
     </message>
 </context>
 <context>
@@ -3211,6 +3368,38 @@
     <message>
         <source>A club admin sends you an invite link. Open it to join, and the club&apos;s things show up here.</source>
         <translation>Un admin del club te envía un enlace de invitación. Ábrelo para unirte, y las cosas del club aparecen aquí.</translation>
+    </message>
+    <message>
+        <source>Modules</source>
+        <translation>Módulos</translation>
+    </message>
+    <message>
+        <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
+        <translation>Un módulo son piezas que se mueven como una sola, como una mesa que trae un miembro del club. Aquí están los módulos de este diseño.</translation>
+    </message>
+    <message>
+        <source>Make a module</source>
+        <translation>Hacer un módulo</translation>
+    </message>
+    <message>
+        <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
+        <translation>Elige algunas piezas y luego Hacer un módulo. Guárdalo en tu biblioteca de módulos para usarlo de nuevo en otros diseños.</translation>
+    </message>
+    <message>
+        <source>Each module&apos;s menu</source>
+        <translation>El menú de cada módulo</translation>
+    </message>
+    <message>
+        <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
+        <translation>El menú ⋯ edita, colorea y guarda un módulo. Mesa y electricidad dice sobre qué se apoya y qué electricidad necesita.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Mesas y electricidad</translation>
+    </message>
+    <message>
+        <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
+        <translation>Aquí el diseño suma los enchufes, los vatios y las alturas de mesa de sus módulos, para quien planifica la exposición.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -6056,6 +6245,10 @@ Guardar la mía como versión nueva: la copia de esta maqueta pasa a ser el mód
     <message>
         <source>The Module library&apos;s version has no parts.</source>
         <translation>La versión de la biblioteca de módulos no tiene piezas.</translation>
+    </message>
+    <message>
+        <source>Module table and power</source>
+        <translation>Mesa y electricidad del módulo</translation>
     </message>
     <message>
         <source>Updated “%1” from the Module library</source>
@@ -9691,6 +9884,10 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
         <translation>Colores…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>Mesa y electricidad…</translation>
+    </message>
+    <message>
         <source>Attach Ruler Endpoint &amp;1 to This Brick</source>
         <translation>Sujetar el extremo &amp;1 de la regla a esta pieza</translation>
     </message>
@@ -10051,6 +10248,113 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
 </context>
 <context>
+    <name>bld::ui::ModuleSetupDialog</name>
+    <message>
+        <source>Table and power</source>
+        <translation>Mesa y electricidad</translation>
+    </message>
+    <message>
+        <source>Table and power · %1</source>
+        <translation>Mesa y electricidad · %1</translation>
+    </message>
+    <message>
+        <source>(module)</source>
+        <translation>(módulo)</translation>
+    </message>
+    <message>
+        <source>Table</source>
+        <translation>Mesa</translation>
+    </message>
+    <message>
+        <source>Not set</source>
+        <translation>Sin indicar</translation>
+    </message>
+    <message>
+        <source>Table type</source>
+        <translation>Tipo de mesa</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Tipo</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>Altura</translation>
+    </message>
+    <message>
+        <source>To the table top</source>
+        <translation>Hasta el tablero de la mesa</translation>
+    </message>
+    <message>
+        <source>To the top of the rails</source>
+        <translation>Hasta la parte superior de los rieles</translation>
+    </message>
+    <message>
+        <source>Measured</source>
+        <translation>Medida</translation>
+    </message>
+    <message>
+        <source>Power</source>
+        <translation>Electricidad</translation>
+    </message>
+    <message>
+        <source>Doesn’t need power</source>
+        <translation>No necesita electricidad</translation>
+    </message>
+    <message>
+        <source>Needs power</source>
+        <translation>Necesita electricidad</translation>
+    </message>
+    <message>
+        <source>Outlets</source>
+        <translation>Enchufes</translation>
+    </message>
+    <message>
+        <source>Not known</source>
+        <translation>Desconocido</translation>
+    </message>
+    <message>
+        <source>About how many watts</source>
+        <translation>Cuántos vatios, más o menos</translation>
+    </message>
+    <message>
+        <source>Plug side</source>
+        <translation>Lado del enchufe</translation>
+    </message>
+    <message>
+        <source>Front is the side people watch from.</source>
+        <translation>Delante es el lado desde el que mira el público.</translation>
+    </message>
+    <message>
+        <source>Clear all</source>
+        <translation>Borrar todo</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Listo</translation>
+    </message>
+    <message>
+        <source>Module table</source>
+        <translation>Mesa del módulo</translation>
+    </message>
+    <message>
+        <source>Module power</source>
+        <translation>Electricidad del módulo</translation>
+    </message>
+    <message>
+        <source>Clear module table and power</source>
+        <translation>Borrar la mesa y la electricidad del módulo</translation>
+    </message>
+    <message>
+        <source>That isn’t a height we can read. %1.</source>
+        <translation>No podemos leer esa altura. %1.</translation>
+    </message>
+    <message>
+        <source>Pick a table type first</source>
+        <translation>Elige primero un tipo de mesa</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::ModuleShareDialog</name>
     <message>
         <source>This module belongs to a club, so its members already have it. A club&apos;s module can&apos;t be shared with another club.</source>
@@ -10319,6 +10623,10 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
         <translation>Más</translation>
     </message>
     <message>
+        <source>Tables and power</source>
+        <translation>Mesas y electricidad</translation>
+    </message>
+    <message>
         <source>Select Its Parts</source>
         <translation>Seleccionar sus piezas</translation>
     </message>
@@ -10379,6 +10687,10 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
         <translation>Colores…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>Mesa y electricidad…</translation>
+    </message>
+    <message>
         <source>Duplicate</source>
         <translation>Duplicar</translation>
     </message>
@@ -10389,6 +10701,10 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     <message>
         <source>Delete module</source>
         <translation>Borrar módulo</translation>
+    </message>
+    <message>
+        <source>Tables: not set for any module</source>
+        <translation>Mesas: sin indicar en ningún módulo</translation>
     </message>
     <message>
         <source>[unnamed]</source>
@@ -11761,6 +12077,10 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <translation>Renombrar…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>Mesa y electricidad…</translation>
+    </message>
+    <message>
         <source>Share with a Club…</source>
         <translation>Compartir con un club…</translation>
     </message>
@@ -11827,6 +12147,14 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>Renamed to &quot;%1&quot;</source>
         <translation>Renombrado a «%1»</translation>
+    </message>
+    <message>
+        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
+        <translation>Guardado en la biblioteca de módulos. Los diseños lo reciben al añadir este módulo o al actualizarlo desde la biblioteca.</translation>
+    </message>
+    <message>
+        <source>Not saved: %1</source>
+        <translation>No guardado: %1</translation>
     </message>
     <message>
         <source>Gave &quot;%1&quot; back to %2</source>

@@ -249,6 +249,8 @@ private:
     QWidget* makeSharedRow(const sync::ServerModule& m);
     void removeFromClub(const QString& id, const sync::ClubRef& club);
     void rename(const QString& id);
+    // Table and power…: the module's table and power, saved on the server.
+    void editSetup(const QString& id);
     void remove(const QString& id);
 
     ServerLibrary& library_;

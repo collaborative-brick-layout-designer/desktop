@@ -193,6 +193,8 @@ private slots:
     void onMakeModule();
     // The Module look window for one placed module (its name, colors).
     void editModuleLook(const QString& moduleId);
+    // A placed module's table and power (the Table and power dialog).
+    void editModuleSetup(const QString& moduleId);
     void onImportBbmAsModule();
     // Writes `module` into the Module library folder: as `name`.bbm when
     // given (asking before replacing one), else asking for a name and file.
