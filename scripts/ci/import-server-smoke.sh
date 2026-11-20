@@ -15,7 +15,9 @@ docker run --rm -v "$bundle:/bundle.tar.gz:ro" -v "$src:/src:ro" "$image" bash -
   after=$(du -sx --block-size=1K /usr | cut -f1)
   mkdir -p /opt && tar -xzf /bundle.tar.gz -C /opt
   echo "bundle: $(du -sh /opt/bld-import-server | cut -f1); system packages: $(( (after - before) / 1024 )) MB"
-  if ldd /opt/bld-import-server/bin/bld-import-server /opt/bld-import-server/plugins/platforms/libqoffscreen.so | grep "not found"; then exit 1; fi
+  if ldd /opt/bld-import-server/bin/bld-import-server /opt/bld-import-server/plugins/*/*.so | grep "not found"; then exit 1; fi
+  # BlueBrick'"'"'s sprites are GIFs: without the plugin every part read as 2 x 2 studs.
+  test -f /opt/bld-import-server/plugins/imageformats/libqgif.so
   useradd -m app
   exe=/opt/bld-import-server/bin/bld-import-server
   su app -c "env -i $exe --version"
@@ -32,4 +34,13 @@ docker run --rm -v "$bundle:/bundle.tar.gz:ro" -v "$src:/src:ro" "$image" bash -
     grep -q "\"ok\":true" /tmp/out.json
   done
   ls -la $job/out $job/out/part
+  # A 32 x 32 baseplate placed one by one keeps its GIF sprite'"'"'s size (a
+  # converter that can'"'"'t read GIFs places it as a 2 x 2 stud placeholder).
+  rm -rf $job/out && su app -c "mkdir -p $job/out && cp /src/fixtures/import-samples/baseplate.ldr $job/in/"
+  printf "{\"command\":\"convert\",\"input\":\"%s/in/baseplate.ldr\",\"outDir\":\"%s/out\",\"libraries\":{\"parts\":[\"/src/parts/BlueBrickParts/parts\"]},\"options\":{\"mode\":\"parts\"}}" \
+    "$job" "$job" > /tmp/req.json
+  su app -c "env -i $exe /tmp/req.json" | tee /tmp/out.json | head -c 400; echo
+  grep -q "\"ok\":true" /tmp/out.json
+  tr -d "\n\r\t " < $job/out/layout.bbm | grep -o "<DisplayArea>[^/]*</X><Y>[^<]*</Y><Width>32</Width><Height>32</Height>" \
+    || { echo "the 32 x 32 baseplate wasn'"'"'t placed at its own size: is Qt'"'"'s GIF plugin in the bundle?"; exit 1; }
 '
