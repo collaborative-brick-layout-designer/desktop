@@ -352,10 +352,10 @@ void TrainsPanel::openRoster() {
         d->setAttribute(Qt::WA_DeleteOnClose);
         connect(d, &RosterDialog::addRequested, this, [this](const sync::RosterStock& e) {
             addFromRoster(e);
-            if (rosterDialog_ && map_) rosterDialog_->setEntries(roster_.values(), map_->sidecar.rollingStock);
+            if (auto* open = findChild<RosterDialog*>(QString(), Qt::FindDirectChildrenOnly); open && map_)
+                open->setEntries(roster_.values(), map_->sidecar.rollingStock);
         });
         connect(d, &RosterDialog::removeRequested, this, &TrainsPanel::removeFromRoster);
-        rosterDialog_ = d;
         d->open();
     });
 }
@@ -368,7 +368,8 @@ void TrainsPanel::removeFromRoster(const sync::RosterStock& e) {
     library_->api().deleteStock(e.id, [self, id = e.id] {
         if (!self) return;
         self->roster_.remove(id);
-        if (self->rosterDialog_ && self->map_) self->rosterDialog_->setEntries(self->roster_.values(), self->map_->sidecar.rollingStock);
+        auto* open = self->findChild<RosterDialog*>(QString(), Qt::FindDirectChildrenOnly);
+        if (open && self->map_) open->setEntries(self->roster_.values(), self->map_->sidecar.rollingStock);
     }, [self](const sync::ServerRefusal& r) {
         if (self) self->say(tr("It couldn’t be taken off the roster: %1").arg(sync::describe(r)));
     });
