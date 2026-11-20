@@ -133,7 +133,11 @@ void MapView::refreshRouteDraft() {
         text = tr("<b>New route:</b> %1 along the track%2. Shift-click adds a stop.")
                    .arg(edit::venue::formatLength(ok->length, edit::venue::accountLengthUnit()),
                         ok->turnsAround.isEmpty() ? QString() : tr(", and it turns the train around"));
-    else text = track::problemText(std::get<track::RouteProblem>(*found));
+    else {
+        const auto res = found.value_or(std::variant<track::RouteFound, track::RouteProblem>(track::RouteProblem::NoTrack));
+        const auto* problem = std::get_if<track::RouteProblem>(&res);
+        text = track::problemText(problem ? *problem : track::RouteProblem::NoTrack);
+    }
     routeBarText_->setText(text);
     routeName_->setVisible(ok != nullptr);
     routeSave_->setVisible(ok != nullptr);

@@ -57,13 +57,14 @@ std::optional<Leg> searchLeg(const TrackNetwork& net, const RouteStep& start, do
         if (done.contains(key)) continue;
         done.insert(key);
         if (found && cur.d >= found->second) break;
-        const auto next = net.partner({ cur.step.brick, cur.step.to });
-        if (!next) continue;
-        QVector<int> exits = net.exits(next->brick, next->conn);
+        const auto linked = net.partner({ cur.step.brick, cur.step.to });
+        if (!linked) continue;
+        const PortRef next = linked.value_or(PortRef{});
+        QVector<int> exits = net.exits(next.brick, next.conn);
         if (opts.followSwitches)
-            if (const SwitchPoint* sw = net.switchAt(switchKey(next->brick, next->conn))) exits = { net.settingOf(*sw, opts.states) };
+            if (const SwitchPoint* sw = net.switchAt(switchKey(next.brick, next.conn))) exits = { net.settingOf(*sw, opts.states) };
         for (int x : exits) {
-            const RouteStep ns{ next->brick, next->conn, x };
+            const RouteStep ns{ next.brick, next.conn, x };
             const QString nk = keyOf(ns);
             if (onStep(target, ns)) {
                 const double cost = cur.d + offsetOnStep(net, target, ns);
@@ -86,9 +87,10 @@ std::optional<Leg> searchLeg(const TrackNetwork& net, const RouteStep& start, do
     leg.cost = found->second;
     std::deque<RouteStep> steps{ found->first };
     std::optional<RouteStep> p = prev.value(keyOf(found->first));
-    while (p) {
-        steps.push_front(*p);
-        p = prev.value(keyOf(*p));
+    while (p.has_value()) {
+        const RouteStep step = p.value_or(RouteStep{});
+        steps.push_front(step);
+        p = prev.value(keyOf(step));
     }
     leg.steps.assign(steps.begin(), steps.end());
     return leg;
