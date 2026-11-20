@@ -77,6 +77,7 @@ void MapView::drawBackground(QPainter* painter, const QRectF& rect) {
     }
 
     gridLinesDrawn_ = 0;
+    studGridDrawn_ = false;
     // A saved view being looked at may turn the grid off.
     const bool gridAllowed = !viewFilter_ || viewFilter_->grid;
     for (const auto& layer : map_->layers()) {
@@ -114,6 +115,25 @@ void MapView::drawBackground(QPainter* painter, const QRectF& rect) {
             painter->drawLines(lines.data(), static_cast<int>(lines.size()));
             gridLinesDrawn_ += static_cast<int>(lines.size());
         };
+        // The stud grid everything snaps to: faint lines a stud apart in
+        // the sub-grid's color, fading in as the studs grow apart on screen
+        // (none below kMinStudGridSpacingPx, full at kFullStudGridSpacingPx).
+        const double studPx = rendering::SceneBuilder::kPixelsPerStud;
+        if (studGridShown_ && (g.displayGrid || g.displaySubGrid) && !tooFine(studPx, kMinStudGridSpacingPx)) {
+            const double fade = std::clamp((studPx * pxPerScene - kMinStudGridSpacingPx)
+                                               / (kFullStudGridSpacingPx - kMinStudGridSpacingPx),
+                                           0.0, 1.0);
+            QColor c = g.subGridColor.color;
+            c.setAlphaF(c.alphaF() * 0.5 * fade);
+            if (c.alpha() > 0) {
+                QPen studPen(c);
+                studPen.setCosmetic(true);
+                studPen.setWidthF(1.0);
+                painter->setPen(studPen);
+                addLines(std::floor(rect.left() / studPx) * studPx, std::floor(rect.top() / studPx) * studPx, studPx);
+                studGridDrawn_ = true;
+            }
+        }
         if (g.displaySubGrid && !tooFine(subPx, kMinSubGridSpacingPx)) {
             QPen subPen(g.subGridColor.color);
             subPen.setCosmetic(true);

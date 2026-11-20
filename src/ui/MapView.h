@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../core/GridSnap.h"
 #include "../core/Brick.h"
 #include "../core/Group.h"
 #include "../core/LayerArea.h"
@@ -139,9 +140,14 @@ public:
     rendering::SceneBuilder* builder() { return builder_.get(); }
     QUndoStack* undoStack() { return undoStack_.get(); }
 
-    // Snap step applied to brick drag-drop, in studs. 0 disables snapping.
+    // The stud grid's step, in whole studs (1 by default): what parts,
+    // modules, pastes, rulers, labels and text land on. 0 turns it off.
     void  setSnapStepStuds(double studs);
     double snapStepStuds() const { return snapStepStuds_; }
+    // How moves snap: onto the stud grid, or whole steps from where things
+    // started (new things, with no start, still land on the grid).
+    void setSnapMode(gridsnap::SnapMode m) { snapMode_ = m; }
+    gridsnap::SnapMode snapMode() const { return snapMode_; }
     // `studs` on the nearest grid point, unless the grid is off or Alt is
     // held: where a ruler end, label, text or venue corner goes.
     QPointF gridPoint(QPointF studs) const;
@@ -155,6 +161,14 @@ public:
     // Edit operations (invoked by menu/shortcut actions):
     void rotateSelected(float degrees);
     void nudgeSelected(double dxStuds, double dyStuds);
+    // An arrow key or Edit > Transform > Move Step: (dx, dy) is the way,
+    // each -1, 0 or +1. With the grid on, the selection's lead (its first
+    // part's snap corner, else its first ruler end, label or text corner)
+    // goes to the next grid line that way, the other axis onto its nearest
+    // line; with it off, one stud.
+    void nudgeSelectionStep(int dx, int dy);
+    // Where the selection's lead sits for the grid (studs), if anything is picked.
+    std::optional<QPointF> selectionSnapRef() const;
     void deleteSelected();
     void addPartAtViewCenter(const QString& partKey);
     // `dragSnap`: the snap session of the drag that drops it (its final
@@ -216,6 +230,18 @@ public:
     // than these are left out: the sub-grid's, then the grid's.
     int gridLinesDrawn() const { return gridLinesDrawn_; }
     static constexpr double kMinSubGridSpacingPx = 8.0;
+    // The stud grid (one stud apart, what everything snaps to): shown with
+    // the grid sheet's lines, fading in from this many screen pixels a stud.
+    static constexpr double kMinStudGridSpacingPx = 6.0;
+    static constexpr double kFullStudGridSpacingPx = 16.0;
+    void setStudGridShown(bool on) {
+        studGridShown_ = on;
+        if (viewport()) viewport()->update();
+        resetCachedContent();
+    }
+    bool studGridShown() const { return studGridShown_; }
+    // Whether the last paint drew the stud grid (for tests).
+    bool studGridDrawn() const { return studGridDrawn_; }
     static constexpr double kMinGridSpacingPx = 4.0;
     bool clipboardEmpty() const { return clipboard_.empty(); }
 
@@ -736,7 +762,8 @@ private:
     std::optional<core::Module> clipboardModule_;
 
     // Snap + rotation step config, updated by MainWindow from toolbar + QSettings.
-    double snapStepStuds_       = 0.0;     // 0 disables snap
+    double snapStepStuds_       = 1.0;     // 0 disables snap
+    gridsnap::SnapMode snapMode_ = gridsnap::kDefaultSnapMode;
     double rotationStepDegrees_ = 90.0;
 
     Tool   tool_ = Tool::Select;
@@ -937,6 +964,8 @@ private:
     // The guids of the parts picked now.
     QSet<QString> pickedParts();
     int gridLinesDrawn_ = 0;
+    bool studGridShown_ = true;
+    bool studGridDrawn_ = false;
     void refreshSelectionOverlay();
 
     // Set by the live connection-snap hook when the dragged brick is

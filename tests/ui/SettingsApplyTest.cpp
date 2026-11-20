@@ -19,9 +19,13 @@
 
 #include <gtest/gtest.h>
 
+#include "core/GridSnap.h"
+
 #include <QAction>
 #include <QApplication>
+#include <QCheckBox>
 #include <QComboBox>
+#include <QMenu>
 #include <QDialog>
 #include <QSettings>
 #include <QStandardPaths>
@@ -65,7 +69,7 @@ protected:
     }
     static constexpr const char* kKeys[] = { "general/wheelZoomFactor", "editing/snapStepStuds",
                                              "editing/rotationStepDegrees", "general/reopenLastFile",
-                                             "recent/lastFile" };
+                                             "recent/lastFile", "view/studGrid", "editing/snapMode" };
 };
 
 // Opens Settings from the window, runs `change` in it, and closes it.
@@ -129,6 +133,98 @@ TEST_F(SettingsApply, SnapAndTurnStepsShowOnTheToolbarAtOnce) {
     });
     EXPECT_FALSE(snapBtn->isChecked());
     EXPECT_EQ(snapBtn->text(), QStringLiteral("Snap off"));
+}
+
+// Never set: snap is on, a stud at a time, and the stud grid shows.
+TEST_F(SettingsApply, SnapStartsOnAtOneStud) {
+    ui::MainWindow w(library());
+    w.show();
+    auto* view = w.findChild<ui::MapView*>();
+    EXPECT_EQ(view->snapStepStuds(), 1.0);
+    EXPECT_TRUE(view->studGridShown());
+    auto* snapBtn = w.findChild<QToolButton*>(QStringLiteral("tool.snap"));
+    ASSERT_TRUE(snapBtn && snapBtn->menu());
+    EXPECT_TRUE(snapBtn->isChecked());
+    EXPECT_EQ(snapBtn->text(), QStringLiteral("Snap 1"));
+    // Whole studs only, smallest first.
+    QList<double> steps;
+    for (QAction* a : snapBtn->menu()->actions())
+        if (a->data().toDouble() > 0.0) steps << a->data().toDouble();
+    EXPECT_EQ(steps, (QList<double>{ 1, 2, 4, 8, 16, 32 }));
+    // Off, then on again: back to the step picked.
+    snapBtn->click();
+    EXPECT_EQ(view->snapStepStuds(), 0.0);
+    snapBtn->click();
+    EXPECT_EQ(view->snapStepStuds(), 1.0);
+}
+
+// How things snap, from Settings or the Snap button's menu: the map, the
+// button's words and the other place all follow.
+TEST_F(SettingsApply, SnapModeFromSettingsOrTheSnapMenu) {
+    ui::MainWindow w(library());
+    w.show();
+    auto* view = w.findChild<ui::MapView*>();
+    auto* snapBtn = w.findChild<QToolButton*>(QStringLiteral("tool.snap"));
+    auto* grid = w.findChild<QAction*>(QStringLiteral("tool.snap.mode.grid"));
+    auto* steps = w.findChild<QAction*>(QStringLiteral("tool.snap.mode.steps"));
+    ASSERT_TRUE(snapBtn && grid && steps);
+    EXPECT_EQ(view->snapMode(), gridsnap::SnapMode::Grid);
+    EXPECT_TRUE(grid->isChecked());
+    inSettings(w, [](ui::SettingsDialog& d) {
+        auto* mode = d.findChild<QComboBox*>(QStringLiteral("editing/snapMode"));
+        ASSERT_TRUE(mode);
+        EXPECT_EQ(mode->currentData().toString(), QStringLiteral("grid"));
+        mode->setCurrentIndex(mode->findData(QStringLiteral("steps")));
+    });
+    EXPECT_EQ(view->snapMode(), gridsnap::SnapMode::Steps);
+    EXPECT_TRUE(steps->isChecked());
+    EXPECT_EQ(snapBtn->text(), QStringLiteral("Steps 1"));
+    grid->trigger();
+    EXPECT_EQ(view->snapMode(), gridsnap::SnapMode::Grid);
+    EXPECT_EQ(snapBtn->text(), QStringLiteral("Snap 1"));
+    EXPECT_EQ(QSettings().value(QStringLiteral("editing/snapMode")).toString(), QStringLiteral("grid"));
+    // The next window starts with it.
+    steps->trigger();
+    ui::MainWindow next(library());
+    EXPECT_EQ(next.findChild<ui::MapView*>()->snapMode(), gridsnap::SnapMode::Steps);
+}
+
+// Half a stud (vanilla's smallest step, gone now) comes back as one stud.
+TEST_F(SettingsApply, AHalfStudStepBecomesOneStud) {
+    QSettings().setValue(QStringLiteral("editing/snapStepStuds"), 0.5);
+    ui::MainWindow w(library());
+    EXPECT_EQ(w.findChild<ui::MapView*>()->snapStepStuds(), 1.0);
+    inSettings(w, [](ui::SettingsDialog& d) {
+        auto* snap = d.findChild<QComboBox*>(QStringLiteral("editing/snapStepStuds"));
+        ASSERT_TRUE(snap);
+        EXPECT_EQ(snap->findData(0.5), -1);
+        EXPECT_EQ(snap->currentData().toDouble(), 1.0);
+    });
+}
+
+// The stud grid from Settings and from the Snap button's menu, each
+// showing the other's choice.
+TEST_F(SettingsApply, TheStudGridTurnsOffFromSettingsOrTheSnapMenu) {
+    ui::MainWindow w(library());
+    w.show();
+    auto* view = w.findChild<ui::MapView*>();
+    auto* act = w.findChild<QAction*>(QStringLiteral("tool.snap.studGrid"));
+    ASSERT_TRUE(act);
+    EXPECT_TRUE(act->isChecked());
+    inSettings(w, [](ui::SettingsDialog& d) {
+        auto* box = d.findChild<QCheckBox*>(QStringLiteral("view/studGrid"));
+        ASSERT_TRUE(box);
+        EXPECT_TRUE(box->isChecked());
+        box->setChecked(false);
+    });
+    EXPECT_FALSE(view->studGridShown());
+    EXPECT_FALSE(act->isChecked());
+    act->trigger();
+    EXPECT_TRUE(view->studGridShown());
+    EXPECT_TRUE(QSettings().value(QStringLiteral("view/studGrid")).toBool());
+    inSettings(w, [](ui::SettingsDialog& d) {
+        EXPECT_TRUE(d.findChild<QCheckBox*>(QStringLiteral("view/studGrid"))->isChecked());
+    });
 }
 
 TEST_F(SettingsApply, TheLastLayoutReopensOnlyWhileSettingsSaysSo) {

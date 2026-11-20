@@ -499,14 +499,6 @@
         <translation>Fäst</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>Delar hoppar till närmaste rutnätslinje, så att rader hålls raka.</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>Siffran är avståndet mellan rutnätslinjerna, i knoppar; linjaler, etiketter, text och lokalens hörn hamnar också på det. Håll Alt (⌥ på en Mac) för att lägga dem exakt där du släpper, eller välj ”av” för att placera allt där du släpper det. Rälsändar klickar fortfarande ihop.</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>Vridsteg</translation>
     </message>
@@ -1289,6 +1281,38 @@
     <message>
         <source>Units</source>
         <translation>Enheter</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>Allt du placerar eller flyttar hamnar på närmaste knopp, så att delarna ligger i linje.</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>Välj hur långt det är mellan fästpunkterna, från varje knopp till var 32:a knopp, och hur saker fäster: mot rutnätet, eller i hela steg från där de var. Delar, moduler, inklistrade delar, linjaler, etiketter och text följer det, piltangenterna flyttar ett steg, och rälsändar klickar fortfarande ihop när de möts. Stäng av fästning för att lägga saker precis där du släpper, eller håll Alt (⌥ på Mac) för att placera en linjal, etikett eller text fritt.</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>Hur saker fäster</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>Hamna på närmaste knopp, eller flytta i hela steg från där delen var.</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>Fäst mot rutnätet lägger allt på samma knoppar, vilket passar de flesta banor. Flytta i steg håller en del som ligger mellan knoppar lika långt vid sidan när du flyttar den, ett steg i taget. Båda använder steget du väljer bredvid Fäst.</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>Knopprutnät</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>Svaga linjer en knopp ifrån varandra, så att du ser var saker hamnar.</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>De visas med rutnätet när du zoomar in tillräckligt för att se knopparna, och bleknar när du zoomar ut. Stäng av dem här, eller via Fäst-knappen i verktygsfältet, om de stör.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, metric or studs.</source>
@@ -6998,20 +7022,52 @@ Spara min som ny version: din blir modulen; deras finns kvar i versionshistorike
         <translation>Öppna från servern: dina layouter, lokaler, moduler och delar, och dina klubbars</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>Rada upp delar på ett rutnät (klicka för att slå på eller av, pilen väljer steget)</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 knoppar</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>Fäst %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>Fäst av</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>Steg %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>Lägg allt på knopprutnätet (klicka för att slå på eller av, pilen väljer hur många knoppar emellan)</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>Varje knopp</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>Var %1:e knopp</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Fäst mot rutnätet</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Flytta i steg</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>Saker hamnar på närmaste knopp (eller med några knoppars mellanrum), så att allt ligger i linje</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>Saker flyttas ett helt antal steg från där de var och behåller sin förskjutning</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>Visa knopprutnätet</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>Svaga linjer en knopp ifrån varandra, synliga när du zoomar in tillräckligt</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -13425,6 +13481,22 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Grid snap:</source>
         <translation>Fäst mot rutnät:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Fäst mot rutnätet</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Flytta i steg</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>Hur saker fäster:</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>Visa knopprutnätet vid inzoomning</translation>
     </message>
     <message>
         <source>Turn step:</source>

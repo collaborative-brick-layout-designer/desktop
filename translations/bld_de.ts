@@ -499,14 +499,6 @@
         <translation>Einrasten</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>Teile springen zur nächsten Rasterlinie, damit Reihen gerade bleiben.</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>Die Zahl ist der Abstand der Rasterlinien in Noppen; Lineale, Beschriftungen, Text und die Ecken des Veranstaltungsorts landen ebenfalls darauf. Halte Alt (⌥ auf dem Mac), um diese genau dort abzulegen, wo du loslässt, oder wähle „aus“, um alles dort abzulegen, wo du es fallen lässt. Gleisenden rasten trotzdem ineinander.</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>Drehschritt</translation>
     </message>
@@ -1289,6 +1281,38 @@
     <message>
         <source>Units</source>
         <translation>Einheiten</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>Alles, was du platzierst oder bewegst, landet auf der nächsten Noppe, damit die Teile in einer Linie liegen.</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>Wähle, wie weit die Rasterpunkte auseinanderliegen, von jeder Noppe bis zu jeder 32. Noppe, und wie gerastet wird: aufs Raster oder in ganzen Schritten ab dort, wo etwas war. Teile, Module, eingefügte Teile, Lineale, Beschriftungen und Text folgen dem, die Pfeiltasten bewegen um einen Schritt, und Gleisenden rasten weiterhin ein, wenn sie sich treffen. Schalte das Raster aus, um Dinge genau dort abzulegen, wo du loslässt, oder halte Alt (⌥ auf dem Mac), um ein Lineal, eine Beschriftung oder Text frei zu platzieren.</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>Wie gerastet wird</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>Auf der nächsten Noppe landen oder in ganzen Schritten ab der bisherigen Stelle bewegen.</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>Am Raster ausrichten legt alles auf dieselben Noppen, was für die meisten Anlagen passt. In Schritten bewegen lässt ein Teil, das zwischen Noppen liegt, beim Verschieben genauso weit daneben, Schritt für Schritt. Beide nutzen den Schritt, den du neben Raster wählst.</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>Noppenraster</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>Feine Linien im Abstand einer Noppe, damit du siehst, wo etwas landet.</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>Sie erscheinen mit dem Raster, wenn du nah genug heranzoomst, um die Noppen zu sehen, und verblassen beim Herauszoomen. Schalte sie hier oder über die Raster-Schaltfläche in der Werkzeugleiste aus, wenn sie dich stören.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, metric or studs.</source>
@@ -6990,20 +7014,52 @@ Meine als neue Version speichern: deine wird das Modul; ihre bleibt in seinem Ve
         <translation>Vom Server öffnen: deine Layouts, Veranstaltungsorte, Module und Teile und die deiner Clubs</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>Teile an einem Raster ausrichten (Klick schaltet ein oder aus, der Pfeil wählt den Schritt)</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 Noppen</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>Einrasten %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>Einrasten aus</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>Schritte %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>Alles am Noppenraster ausrichten (Klick schaltet ein oder aus, der Pfeil wählt den Abstand in Noppen)</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>Jede Noppe</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>Alle %1 Noppen</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Am Raster ausrichten</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>In Schritten bewegen</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>Dinge landen auf der nächsten Noppe (oder alle paar Noppen), damit alles in einer Linie liegt</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>Dinge bewegen sich um ganze Schritte ab ihrer bisherigen Stelle und behalten ihren Versatz</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>Noppenraster zeigen</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>Feine Linien im Abstand einer Noppe, sichtbar, wenn du nah genug heranzoomst</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -13425,6 +13481,22 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>Grid snap:</source>
         <translation>Raster-Einrasten:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Am Raster ausrichten</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>In Schritten bewegen</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>Wie gerastet wird:</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>Noppenraster beim Heranzoomen zeigen</translation>
     </message>
     <message>
         <source>Turn step:</source>

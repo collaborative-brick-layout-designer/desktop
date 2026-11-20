@@ -235,6 +235,12 @@ void MapView::applyAnnoGridSnap() {
     if (!annoSnapRef_) return;
     const double px = studToPx();
     const QPointF raw = lastMouseScenePos_ - dragPressScene_;
+    if (snapMode_ == gridsnap::SnapMode::Steps) {
+        // Whole steps from where it started (Alt: free).
+        const double step = snapBypassed() ? 0.0 : snapStepStuds_;
+        shiftAnnoItems(raw + gridsnap::stepShift(raw / px, step) * px);
+        return;
+    }
     const QPointF at = *annoSnapRef_ + raw / px;
     shiftAnnoItems(raw + (gridPoint(at) - at) * px);
 }
@@ -247,8 +253,8 @@ QPointF MapView::brickGridShift(QPointF rawDeltaStuds) const {
     const core::Brick* b = findBrick(*map_, lead->layerIndex, lead->guid);
     if (!b) return {};
     const auto& layer = static_cast<const core::LayerBrick&>(*map_->layers()[lead->layerIndex]);
-    const QPointF rawCorner = parts::placement::grabSnapCorner(layer, *b, parts_) + rawDeltaStuds;
-    return gridsnap::dragShift(lastMouseScenePos_ / studToPx(), rawCorner, snapStepStuds_);
+    const QPointF start = parts::placement::grabSnapCorner(layer, *b, parts_);
+    return gridsnap::moveShift(snapMode_, start, start + rawDeltaStuds, snapStepStuds_);
 }
 
 void MapView::captureGrabAnchor(QPointF clickScenePos) {

@@ -57,8 +57,8 @@
     },
     "toolbar.snap": {
       "title": "Snap",
-      "short": "Pieces jump to the nearest grid line, so rows stay straight.",
-      "more": "The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together."
+      "short": "Everything you place or move lands on the nearest stud, so pieces line up.",
+      "more": "Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely."
     },
     "toolbar.rotateStep": {
       "title": "Turn step",
@@ -439,6 +439,16 @@
       "title": "Snap strength",
       "short": "How strongly a part you drag pulls onto a matching connection nearby.",
       "more": "Gentle pulls only when the ends are close and lets go once you move away; Strong reaches further; Off never pulls, and the grid still lines parts up. Hold Alt (Option on a Mac) while dragging to place one part without snapping."
+    },
+    "settings.snapMode": {
+      "title": "How things snap",
+      "short": "Land on the nearest stud, or move in whole steps from where a piece was.",
+      "more": "Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap."
+    },
+    "settings.studGrid": {
+      "title": "Stud grid",
+      "short": "Faint lines one stud apart, so you can see where things will land.",
+      "more": "They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy."
     },
     "settings.lengthUnit": {
       "title": "Units",

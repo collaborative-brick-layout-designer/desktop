@@ -10,11 +10,13 @@
 #include "BudgetSession.h"
 
 #include "../core/Brick.h"
+#include "../core/GridSnap.h"
 #include "../core/Ids.h"
 #include "../core/LayerBrick.h"
 #include "../core/Map.h"
 #include "../edit/EditCommands.h"
 #include "../edit/ModuleCommands.h"
+#include "../parts/BrickPlacement.h"
 #include "../rendering/SceneBuilder.h"
 #include "MapViewInternal.h"
 
@@ -99,7 +101,19 @@ void MapView::pasteClipboard() {
     QPointF srcCentre;
     for (const auto& src : clipboard_) srcCentre += src.brick.displayArea.center();
     srcCentre /= clipboard_.size();
-    const QPointF translation = targetCentreStuds - srcCentre;
+    QPointF translation = targetCentreStuds - srcCentre;
+    // On the grid, the lead part's snap corner lands on the nearest grid
+    // point, as a module put down does.
+    if (snapStepStuds_ > 0.0 && snapMode_ == gridsnap::SnapMode::Steps) {
+        // Moving in steps: whole steps from the copied parts.
+        translation += gridsnap::stepShift(translation, snapStepStuds_);
+    } else if (snapStepStuds_ > 0.0) {
+        std::vector<core::Brick> all;
+        all.reserve(clipboard_.size());
+        for (const auto& src : clipboard_) all.push_back(src.brick);
+        if (const core::Brick* lead = parts::placement::snapLead(all, parts_))
+            translation += gridsnap::gridShift(parts::placement::snapCorner(*lead, parts_) + translation, snapStepStuds_);
+    }
 
     // Group clipboard entries by source layer name so each group lands on
     // a matching layer in the current map (creating one if none exists).

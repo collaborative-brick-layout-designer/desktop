@@ -499,14 +499,6 @@
         <translation>スナップ</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>パーツが近くのグリッド線に吸い付くので、列がまっすぐ並びます。</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>数字はグリッド線の間隔（スタッド単位）です。定規、ラベル、テキスト、会場の角もここに合います。Alt（Mac では ⌥）を押したままにすると、離した場所にそのまま置けます。「オフ」を選ぶとすべてを落とした場所に置きます。線路の端は変わらずつながります。</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>回転ステップ</translation>
     </message>
@@ -1289,6 +1281,38 @@
     <message>
         <source>Units</source>
         <translation>単位</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>置いたり動かしたりしたものは一番近いポッチに乗るので、パーツがきれいに並びます。</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>スナップ点の間隔を、1ポッチごとから32ポッチごとまで選び、スナップの仕方も選べます：グリッドに合わせるか、元の位置から決まった歩幅で動かすかです。パーツ、モジュール、貼り付けたもの、定規、ラベル、テキストはすべてこれに従い、矢印キーは1歩ずつ動かし、線路の端は出会うと今までどおりつながります。離した場所にそのまま置きたいときはスナップをオフにするか、Alt（Macでは⌥）を押しながら定規、ラベル、テキストを自由に置いてください。</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>スナップの仕方</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>一番近いポッチに乗せるか、元の位置から決まった歩幅で動かします。</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>グリッドに合わせると、すべてが同じポッチの上にそろい、ほとんどのレイアウトに向いています。歩幅で動かすと、ポッチの間にあるパーツは動かしてもずれたまま、1歩ずつ動きます。どちらもスナップの横で選んだ歩幅を使います。</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>ポッチのグリッド</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>1ポッチ間隔の薄い線で、どこに置かれるかが分かります。</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>ポッチが見えるくらい拡大するとグリッドと一緒に表示され、縮小すると薄れて消えます。気になるときは、ここかツールバーのスナップボタンからオフにできます。</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, metric or studs.</source>
@@ -6944,20 +6968,52 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>サーバーから開く: 自分とクラブのレイアウト、会場、モジュール、パーツ</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>パーツをグリッドにそろえます（クリックでオン・オフ、矢印で間隔を選択）</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 スタッド</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>スナップ %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>スナップ オフ</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>歩幅 %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>すべてをポッチのグリッドにそろえます（クリックでオン・オフ、矢印で間隔のポッチ数を選びます）</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>1ポッチごと</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>%1ポッチごと</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>グリッドに合わせる</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>歩幅で動かす</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>一番近いポッチ（または数ポッチごと）に乗るので、すべてがそろいます</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>元の位置から歩幅の整数倍だけ動き、ずれはそのまま保たれます</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>ポッチのグリッドを表示</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>1ポッチ間隔の薄い線。十分に拡大すると表示されます</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -13330,6 +13386,22 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Grid snap:</source>
         <translation>グリッドスナップ:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>グリッドに合わせる</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>歩幅で動かす</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>スナップの仕方:</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>拡大したときにポッチのグリッドを表示</translation>
     </message>
     <message>
         <source>Turn step:</source>

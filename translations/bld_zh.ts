@@ -499,14 +499,6 @@
         <translation>吸附</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>零件会跳到最近的网格线上，这样每排都能保持整齐。</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>这个数字是网格线的间距，以颗粒为单位；标尺、标签、文字和场地的角也会吸附到网格上。按住 Alt（Mac 上为 ⌥）可以把它们精确放在松手的位置，或选择“关”让所有东西都放在你放下的位置。轨道的端点仍会相互卡合。</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>转向步长</translation>
     </message>
@@ -1289,6 +1281,38 @@
     <message>
         <source>Units</source>
         <translation>单位</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>你放置或移动的所有东西都会落在最近的凸点上，让零件排得整整齐齐。</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>选择吸附点之间的距离，从每个凸点到每 32 个凸点，并选择吸附方式：吸附到网格，或从原来的位置按整步移动。零件、模块、粘贴的内容、标尺、标签和文字都会遵循它，方向键每次移动一步，轨道末端相遇时仍会连接在一起。关闭吸附可以把东西准确放在松手的位置，或按住 Alt（Mac 上为 ⌥）自由放置标尺、标签或文字。</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>吸附方式</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>落在最近的凸点上，或从零件原来的位置按整步移动。</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>吸附到网格会让所有东西对齐到同样的凸点上，适合大多数布局。按步移动会让位于凸点之间的零件在移动时保持同样的偏移，一次移动一步。两者都使用你在“吸附”旁边选择的步长。</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>凸点网格</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>间隔一个凸点的淡色线条，让你看到东西会落在哪里。</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>放大到能看清凸点时，它们会随网格显示，缩小时会逐渐消失。如果觉得太杂乱，可以在这里或工具栏上的“吸附”按钮中关闭。</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, metric or studs.</source>
@@ -6944,20 +6968,52 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>从服务器打开：你和你俱乐部的布局、场地、模块和零件</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>让零件对齐网格（点击开关，箭头选择步长）</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 颗粒</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>吸附 %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>吸附关</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>步长 %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>把所有东西对齐到凸点网格（点击开关，箭头选择间隔多少个凸点）</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>每个凸点</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>每 %1 个凸点</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>吸附到网格</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>按步移动</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>东西会落在最近的凸点上（或每隔几个凸点），让一切对齐</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>东西从原来的位置按整数步移动，并保留原有的偏移</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>显示凸点网格</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>间隔一个凸点的淡色线条，放大到足够时显示</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -13330,6 +13386,22 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Grid snap:</source>
         <translation>网格吸附:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>吸附到网格</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>按步移动</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>吸附方式：</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>放大时显示凸点网格</translation>
     </message>
     <message>
         <source>Turn step:</source>

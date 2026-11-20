@@ -5,6 +5,7 @@
 #include "TranslationCoverage.h"
 #include "help/HelpButton.h"
 
+#include "../core/GridSnap.h"
 #include "../import/ArchivePath.h"
 #include "../import/zip/SafeZip.h"
 
@@ -133,14 +134,34 @@ void addEditing(QVBoxLayout* into, QWidget* parent, const Changed& changed) {
     auto* snap = new QComboBox(parent);
     snap->setObjectName(QStringLiteral("editing/snapStepStuds"));
     snap->addItem(Text::tr("Off"), 0.0);
-    for (double d : { 32.0, 16.0, 8.0, 4.0, 2.0, 1.0, 0.5 })
+    for (double d : gridsnap::kSnapSteps)
         snap->addItem(d == 1.0 ? Text::tr("1 stud") : Text::tr("%1 studs").arg(d), d);
-    selectData(snap, QSettings().value(QStringLiteral("editing/snapStepStuds"), 0.0).toDouble());
+    selectData(snap, gridsnap::validSnapStep(QSettings()
+                                                 .value(QStringLiteral("editing/snapStepStuds"), gridsnap::kDefaultSnapStep)
+                                                 .toDouble()));
     QObject::connect(snap, &QComboBox::currentIndexChanged, snap, [snap, changed] {
         QSettings().setValue(QStringLiteral("editing/snapStepStuds"), snap->currentData().toDouble());
         if (changed) changed(Change::SnapStep);
     });
     f->addRow(Text::tr("Grid snap:"), help::withHelp(snap, QStringLiteral("toolbar.snap"), parent));
+
+    auto* mode = new QComboBox(parent);
+    mode->setObjectName(QStringLiteral("editing/snapMode"));
+    mode->addItem(Text::tr("Snap to the grid"), gridsnap::snapModeId(gridsnap::SnapMode::Grid));
+    mode->addItem(Text::tr("Move in steps"), gridsnap::snapModeId(gridsnap::SnapMode::Steps));
+    mode->setCurrentIndex(gridsnap::snapModeFromId(QSettings().value(QStringLiteral("editing/snapMode")).toString())
+                                  == gridsnap::SnapMode::Steps
+                              ? 1
+                              : 0);
+    QObject::connect(mode, &QComboBox::currentIndexChanged, mode, [mode, changed] {
+        QSettings().setValue(QStringLiteral("editing/snapMode"), mode->currentData().toString());
+        if (changed) changed(Change::SnapMode);
+    });
+    f->addRow(Text::tr("How things snap:"), help::withHelp(mode, QStringLiteral("settings.snapMode"), parent));
+
+    auto* studGrid = checkbox(parent, Text::tr("Show the stud grid when zoomed in"), QStringLiteral("view/studGrid"), true,
+                              [changed] { if (changed) changed(Change::StudGrid); });
+    f->addRow(QString(), help::withHelp(studGrid, QStringLiteral("settings.studGrid"), parent));
 
     auto* turn = new QComboBox(parent);
     turn->setObjectName(QStringLiteral("editing/rotationStepDegrees"));

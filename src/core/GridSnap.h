@@ -11,9 +11,11 @@
 // rails sit on the grid, not its box.
 //
 // Points (ruler ends, label corners, text and venue points) snap to the
-// nearest grid point.
+// nearest grid point. One grid for everything: a whole number of studs a
+// step, anchored at the layout's origin (0, 0).
 
 #include <QPointF>
+#include <QString>
 #include <QtMath>
 
 #include <cmath>
@@ -78,21 +80,79 @@ inline QPointF snapPoint(QPointF p, double step) {
     return { roundToStep(p.x(), step), roundToStep(p.y(), step) };
 }
 
-// Where a dragged part's snap corner lands: the pointer is at `mouse`,
-// and would have the corner at `rawCorner` (both studs). The corner keeps
-// the grid steps it had from the pointer when grabbed, so it lands on the
-// grid and moves a whole step as the pointer crosses a grid line
-// (BlueBrick's getMovedSnapPoint with no connection in reach).
-inline QPointF dragCorner(QPointF mouse, QPointF rawCorner, double step) {
-    if (step <= 0.0) return rawCorner;
-    return { floorToStep(mouse.x(), step) - floorToStep(mouse.x() - rawCorner.x(), step),
-             floorToStep(mouse.y(), step) - floorToStep(mouse.y() - rawCorner.y(), step) };
+// Where a moved part's snap corner lands: the nearest grid point, wherever
+// the part was grabbed. Dragged, dropped from the list, pasted or put
+// down as a module, it goes on the one stud grid anchored at the layout's
+// origin (vanilla BlueBrick floors relative to the grab instead).
+inline QPointF cornerOnGrid(QPointF rawCorner, double step) {
+    return snapPoint(rawCorner, step);
 }
 
-// The shift that takes a dragged part from where the pointer has it onto
-// the grid.
-inline QPointF dragShift(QPointF mouse, QPointF rawCorner, double step) {
-    return dragCorner(mouse, rawCorner, step) - rawCorner;
+// The shift that takes a part whose snap corner the move has at
+// `rawCorner` onto the grid.
+inline QPointF gridShift(QPointF rawCorner, double step) {
+    return cornerOnGrid(rawCorner, step) - rawCorner;
+}
+
+// How a move snaps (a per-person choice, editing/snapMode): Grid puts the
+// thing on the nearest point of the one stud grid; Steps moves it a whole
+// number of steps from where it started, so a piece off the grid stays off
+// it by the same amount.
+enum class SnapMode { Grid, Steps };
+inline constexpr SnapMode kDefaultSnapMode = SnapMode::Grid;
+
+// As saved: "grid" or "steps"; anything else is the default.
+inline SnapMode snapModeFromId(const QString& id) {
+    return id == QLatin1String("steps") ? SnapMode::Steps : SnapMode::Grid;
+}
+inline QString snapModeId(SnapMode m) {
+    return m == SnapMode::Steps ? QStringLiteral("steps") : QStringLiteral("grid");
+}
+
+// In Steps mode, the shift that rounds a move of `delta` to a whole number
+// of steps.
+inline QPointF stepShift(QPointF delta, double step) {
+    if (step <= 0.0) return {};
+    return { roundToStep(delta.x(), step) - delta.x(), roundToStep(delta.y(), step) - delta.y() };
+}
+
+// The shift for something whose snap corner started at `start` and that the
+// move has at `rawCorner`: onto the nearest grid point (Grid), or to a whole
+// number of steps from `start` (Steps).
+inline QPointF moveShift(SnapMode mode, QPointF start, QPointF rawCorner, double step) {
+    if (mode == SnapMode::Steps) return stepShift(rawCorner - start, step);
+    return gridShift(rawCorner, step);
+}
+
+// The next grid line from `v` in direction `dir` (+1 or -1); the nearest
+// when `dir` is 0.
+inline double nudgeToStep(double v, int dir, double step) {
+    if (dir > 0) return std::floor(v / step + kEpsilon) * step + step;
+    if (dir < 0) return std::ceil(v / step - kEpsilon) * step - step;
+    return roundToStep(v, step);
+}
+
+// Where an arrow key takes a snap corner at `corner`: to the next grid
+// line in direction (dx, dy) (each -1, 0 or +1), the other axis on its
+// nearest grid line. In Steps mode, one step that way; with snap off, one
+// stud.
+inline QPointF nudgeCorner(QPointF corner, int dx, int dy, double step, SnapMode mode = SnapMode::Grid) {
+    if (step <= 0.0) return corner + QPointF(dx, dy);
+    if (mode == SnapMode::Steps) return corner + QPointF(dx * step, dy * step);
+    return { nudgeToStep(corner.x(), dx, step), nudgeToStep(corner.y(), dy, step) };
+}
+
+// The steps the snap can take, in studs: whole studs only. A saved step
+// that is not one of them (vanilla's 0.5) is taken as the nearest one.
+inline constexpr double kSnapSteps[] = { 1.0, 2.0, 4.0, 8.0, 16.0, 32.0 };
+inline constexpr double kDefaultSnapStep = 1.0;
+
+inline double validSnapStep(double step) {
+    if (!(step > 0.0)) return 0.0;
+    double best = kSnapSteps[0];
+    for (double s : kSnapSteps)
+        if (std::abs(s - step) < std::abs(best - step)) best = s;
+    return best;
 }
 
 }  // namespace bld::gridsnap
