@@ -499,14 +499,6 @@
         <translation>Ajuste</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>As peças saltam para a linha de grelha mais próxima, para as filas ficarem direitas.</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>O número é a distância entre as linhas da grelha, em studs; réguas, etiquetas, texto e cantos do local também caem nela. Mantenha Alt (⌥ num Mac) premido para os colocar exatamente onde você larga, ou escolha “desligado” para colocar tudo onde o largar. As pontas dos carris continuam a encaixar.</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>Passo de rotação</translation>
     </message>
@@ -1289,6 +1281,38 @@
     <message>
         <source>Units</source>
         <translation>Unidades</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>Tudo o que você coloca ou move cai no pino mais próximo, para que as peças fiquem alinhadas.</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>Escolha a distância entre os pontos de encaixe, de cada pino a cada 32 pinos, e como as coisas encaixam: na grade, ou em passos inteiros a partir de onde estavam. Peças, módulos, itens colados, réguas, rótulos e textos seguem isso, as setas movem um passo, e as pontas dos trilhos continuam se encaixando quando se encontram. Desligue o encaixe para deixar as coisas exatamente onde você soltar, ou segure Alt (⌥ no Mac) para colocar livremente uma régua, um rótulo ou um texto.</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>Como as coisas encaixam</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>Cair no pino mais próximo, ou mover em passos inteiros a partir de onde a peça estava.</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>Encaixar na grade alinha tudo sobre os mesmos pinos, o que serve para a maioria dos layouts. Mover em passos mantém uma peça que está entre pinos deslocada na mesma medida ao movê-la, um passo de cada vez. Os dois usam o passo escolhido ao lado de Encaixe.</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>Grade de pinos</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>Linhas suaves a um pino de distância, para você ver onde as coisas vão cair.</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>Elas aparecem com a grade quando você aproxima o bastante para ver os pinos e somem ao afastar. Desligue-as aqui, ou pelo botão Encaixe da barra de ferramentas, se atrapalharem.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, metric or studs.</source>
@@ -6990,20 +7014,52 @@ Guardar a minha como nova versão: a sua passa a ser o módulo; a deles fica no 
         <translation>Abrir do servidor: os seus layouts, locais, módulos e peças, e os dos seus clubes</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>Alinhe as peças numa grelha (clique para ligar ou desligar, a seta escolhe o passo)</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 studs</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>Ajuste %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>Ajuste desligado</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>Passos %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>Alinha tudo na grade de pinos (clique para ligar ou desligar, a seta escolhe quantos pinos de distância)</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>Cada pino</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>A cada %1 pinos</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Encaixar na grade</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Mover em passos</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>As coisas caem no pino mais próximo (ou a cada poucos pinos), para que tudo fique alinhado</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>As coisas se movem um número inteiro de passos a partir de onde estavam, mantendo o deslocamento</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>Mostrar a grade de pinos</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>Linhas suaves a um pino de distância, visíveis ao aproximar o bastante</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -13425,6 +13481,22 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>Grid snap:</source>
         <translation>Ajuste à grelha:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Encaixar na grade</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Mover em passos</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>Como as coisas encaixam:</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>Mostrar a grade de pinos ao aproximar</translation>
     </message>
     <message>
         <source>Turn step:</source>

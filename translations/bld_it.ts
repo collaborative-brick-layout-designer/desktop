@@ -499,14 +499,6 @@
         <translation>Aggancio</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>I pezzi saltano alla linea della griglia più vicina, così le file restano dritte.</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>Il numero è la distanza tra le linee della griglia, in stud; anche righelli, etichette, testi e angoli della sede ci si allineano. Tieni premuto Alt (⌥ su Mac) per metterli esattamente dove li lasci, oppure scegli “off” per posizionare tutto dove lo rilasci. Le estremità dei binari si agganciano comunque tra loro.</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>Passo di rotazione</translation>
     </message>
@@ -1289,6 +1281,38 @@
     <message>
         <source>Units</source>
         <translation>Unità</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>Tutto ciò che posizioni o sposti finisce sul bottoncino più vicino, così i pezzi restano allineati.</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>Scegli la distanza tra i punti di aggancio, da ogni bottoncino a ogni 32 bottoncini, e come agganciare: alla griglia oppure a passi interi da dove si trovava. Pezzi, moduli, elementi incollati, righelli, etichette e testo lo seguono, le frecce spostano di un passo e le estremità dei binari continuano a unirsi quando si incontrano. Disattiva l’aggancio per lasciare le cose esattamente dove le rilasci, oppure tieni premuto Alt (⌥ su Mac) per posizionare liberamente un righello, un’etichetta o un testo.</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>Come agganciare</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>Finire sul bottoncino più vicino o spostarsi a passi interi da dove era il pezzo.</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>Aggancia alla griglia allinea tutto sugli stessi bottoncini, adatto alla maggior parte dei plastici. Sposta a passi mantiene un pezzo che sta tra due bottoncini spostato della stessa misura quando lo muovi, un passo alla volta. Entrambi usano il passo scelto accanto ad Aggancio.</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>Griglia dei bottoncini</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>Linee leggere a un bottoncino di distanza, per vedere dove finiranno le cose.</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>Compaiono con la griglia quando ingrandisci abbastanza da vedere i bottoncini e svaniscono rimpicciolendo. Disattivale qui, o dal pulsante Aggancio della barra degli strumenti, se ti disturbano.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, metric or studs.</source>
@@ -6990,20 +7014,52 @@ Salva la mia come nuova versione: la tua diventa il modulo; la loro resta nella 
         <translation>Apri dal server: i tuoi layout, sedi, moduli e pezzi, e quelli dei tuoi club</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>Allinea i pezzi a una griglia (clic per attivare o disattivare, la freccia sceglie il passo)</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 stud</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>Aggancio %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>Aggancio off</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>Passi %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>Allinea tutto sulla griglia dei bottoncini (clic per attivare o disattivare, la freccia sceglie la distanza in bottoncini)</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>Ogni bottoncino</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>Ogni %1 bottoncini</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Aggancia alla griglia</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Sposta a passi</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>Le cose finiscono sul bottoncino più vicino (o ogni pochi bottoncini), così tutto è allineato</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>Le cose si spostano di un numero intero di passi da dove erano, mantenendo il loro scostamento</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>Mostra la griglia dei bottoncini</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>Linee leggere a un bottoncino di distanza, visibili quando ingrandisci abbastanza</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -13425,6 +13481,22 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>Grid snap:</source>
         <translation>Aggancio alla griglia:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Aggancia alla griglia</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Sposta a passi</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>Come agganciare:</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>Mostra la griglia dei bottoncini ingrandendo</translation>
     </message>
     <message>
         <source>Turn step:</source>

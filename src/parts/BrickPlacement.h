@@ -138,4 +138,17 @@ inline QPointF grabSnapCorner(const core::LayerBrick& layer, const core::Brick& 
     return box.topLeft() + (meta ? gridsnap::snapOffset(meta->snapMargin, turn) : QPointF());
 }
 
+// The part a group of parts (a module put down, a paste) snaps to the
+// grid by, as BlueBrick drops a group: the first that has a connection,
+// else the first.
+inline const core::Brick* snapLead(const std::vector<core::Brick>& bricks, parts::PartsLibrary& lib) {
+    for (const auto& b : bricks) {
+        const auto meta = lib.metadata(b.partNumber);
+        if (!meta) continue;
+        for (const auto& c : meta->connections)
+            if (!c.type.isEmpty()) return &b;
+    }
+    return bricks.empty() ? nullptr : &bricks.front();
+}
+
 }  // namespace bld::parts::placement

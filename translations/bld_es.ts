@@ -499,14 +499,6 @@
         <translation>Ajuste</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>Las piezas saltan a la línea de cuadrícula más cercana, para que las filas queden rectas.</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>El número es la distancia entre líneas de la cuadrícula, en studs; las reglas, etiquetas, textos y esquinas de la sala también se ajustan a ella. Mantén Alt (⌥ en Mac) para dejarlos justo donde sueltes, o elige «no» para dejarlo todo donde lo sueltes. Los extremos de las vías siguen encajando.</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>Paso de giro</translation>
     </message>
@@ -1289,6 +1281,38 @@
     <message>
         <source>Units</source>
         <translation>Unidades</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>Todo lo que colocas o mueves cae en el tetón más cercano, para que las piezas queden alineadas.</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>Elige a qué distancia están los puntos de ajuste, desde cada tetón hasta cada 32 tetones, y cómo se ajustan las cosas: a la cuadrícula o en pasos enteros desde donde estaban. Las piezas, los módulos, lo pegado, las reglas, las etiquetas y el texto lo siguen, las flechas mueven un paso y los extremos de las vías siguen encajando al encontrarse. Desactiva el ajuste para dejar las cosas justo donde las sueltas, o mantén Alt (⌥ en un Mac) para colocar libremente una regla, una etiqueta o un texto.</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>Cómo se ajustan las cosas</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>Caer en el tetón más cercano o moverse en pasos enteros desde donde estaba la pieza.</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>Ajustar a la cuadrícula alinea todo sobre los mismos tetones, lo que va bien para la mayoría de los diseños. Mover en pasos mantiene una pieza que está entre tetones igual de desplazada al moverla, paso a paso. Ambos usan el paso que eliges junto a Ajuste.</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>Cuadrícula de tetones</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>Líneas suaves a un tetón de distancia, para que veas dónde caerán las cosas.</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>Aparecen con la cuadrícula cuando acercas lo suficiente para ver los tetones y se desvanecen al alejar. Desactívalas aquí, o desde el botón Ajuste de la barra de herramientas, si te molestan.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, metric or studs.</source>
@@ -6990,20 +7014,52 @@ Guardar la mía como versión nueva: la tuya pasa a ser el módulo; la suya qued
         <translation>Abrir desde el servidor: tus maquetas, salas, módulos y piezas, y los de tus clubes</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>Alinear las piezas en una cuadrícula (clic para activar o desactivar, la flecha elige el paso)</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 studs</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>Ajuste %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>Ajuste desactivado</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>Pasos %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>Alinea todo en la cuadrícula de tetones (clic para activar o desactivar, la flecha elige cuántos tetones de separación)</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>Cada tetón</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>Cada %1 tetones</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Ajustar a la cuadrícula</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Mover en pasos</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>Las cosas caen en el tetón más cercano (o cada pocos tetones), para que todo quede alineado</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>Las cosas se mueven un número entero de pasos desde donde estaban, conservando su desplazamiento</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>Mostrar la cuadrícula de tetones</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>Líneas suaves a un tetón de distancia, visibles al acercar lo suficiente</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -13425,6 +13481,22 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>Grid snap:</source>
         <translation>Ajuste a la cuadrícula:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Ajustar a la cuadrícula</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Mover en pasos</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>Cómo se ajustan las cosas:</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>Mostrar la cuadrícula de tetones al acercar</translation>
     </message>
     <message>
         <source>Turn step:</source>

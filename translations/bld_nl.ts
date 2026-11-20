@@ -499,14 +499,6 @@
         <translation>Vastklikken</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>Stukken springen naar de dichtstbijzijnde rasterlijn, zodat rijen recht blijven.</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>Het getal is de afstand tussen de rasterlijnen, in noppen; linialen, labels, tekst en zaalhoeken komen er ook op terecht. Houd Alt (⌥ op een Mac) ingedrukt om die precies neer te zetten waar je loslaat, of kies ‘uit’ om alles neer te zetten waar je het laat vallen. Railseinden klikken nog steeds aan elkaar.</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>Draaistap</translation>
     </message>
@@ -1289,6 +1281,38 @@
     <message>
         <source>Units</source>
         <translation>Eenheden</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>Alles wat je plaatst of verplaatst, komt op de dichtstbijzijnde nop terecht, zodat onderdelen netjes op een lijn liggen.</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>Kies hoe ver de snappunten uit elkaar liggen, van elke nop tot elke 32 noppen, en hoe er gesnapt wordt: op het raster, of in hele stappen vanaf waar iets was. Onderdelen, modules, geplakte stukken, linialen, labels en tekst volgen het, de pijltjestoetsen verplaatsen een stap, en spooreinden klikken nog steeds vast als ze elkaar raken. Zet snappen uit om dingen precies neer te zetten waar je loslaat, of houd Alt (⌥ op een Mac) ingedrukt om een liniaal, label of tekst vrij te plaatsen.</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>Hoe er gesnapt wordt</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>Op de dichtstbijzijnde nop landen, of in hele stappen bewegen vanaf waar een stuk was.</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>Op het raster snappen zet alles op dezelfde noppen, wat bij de meeste banen past. In stappen bewegen houdt een stuk dat tussen noppen ligt bij het verplaatsen even ver ernaast, stap voor stap. Beide gebruiken de stap die je naast Snappen kiest.</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>Noppenraster</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>Vage lijnen op één nop afstand, zodat je ziet waar dingen terechtkomen.</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>Ze verschijnen met het raster als je ver genoeg inzoomt om de noppen te zien, en vervagen als je uitzoomt. Zet ze hier uit, of via de knop Snappen in de werkbalk, als ze storen.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, metric or studs.</source>
@@ -6990,20 +7014,52 @@ De mijne als nieuwe versie opslaan: jouw versie wordt de module; die van hen bli
         <translation>Openen van server: je layouts, zalen, modules en onderdelen, en die van je clubs</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>Stukken op een raster uitlijnen (klik om aan of uit te zetten, de pijl kiest de stap)</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 noppen</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>Vastklikken %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>Vastklikken uit</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>Stappen %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>Alles op het noppenraster uitlijnen (klik om aan of uit te zetten, de pijl kiest hoeveel noppen ertussen)</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>Elke nop</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>Elke %1 noppen</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Op het raster snappen</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>In stappen bewegen</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>Dingen landen op de dichtstbijzijnde nop (of om de paar noppen), zodat alles op een lijn ligt</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>Dingen bewegen een heel aantal stappen vanaf waar ze waren en houden hun verschuiving</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>Noppenraster tonen</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>Vage lijnen op één nop afstand, zichtbaar als je ver genoeg inzoomt</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -13425,6 +13481,22 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Grid snap:</source>
         <translation>Vastklikken op raster:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Op het raster snappen</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>In stappen bewegen</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>Hoe er gesnapt wordt:</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>Noppenraster tonen bij inzoomen</translation>
     </message>
     <message>
         <source>Turn step:</source>

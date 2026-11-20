@@ -84,6 +84,8 @@ settings.largeText
 settings.helpIcons
 settings.tours
 settings.connectionSnap
+settings.snapMode
+settings.studGrid
 settings.lengthUnit
 room.tools
 room.units

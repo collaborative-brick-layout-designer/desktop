@@ -499,14 +499,6 @@
         <translation>Fest</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>Brikker hopper til nærmeste rutenettlinje, så radene holder seg rette.</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>Tallet er avstanden mellom rutenettlinjene, i knotter; linjaler, etiketter, tekst og lokalehjørner lander på det også. Hold Alt (⌥ på Mac) for å legge dem nøyaktig der du slipper, eller velg «av» for å plassere alt der du slipper det. Skinneender klikker fortsatt sammen.</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>Snusteg</translation>
     </message>
@@ -1289,6 +1281,38 @@
     <message>
         <source>Units</source>
         <translation>Enheter</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>Alt du plasserer eller flytter, havner på nærmeste knott, så delene ligger på linje.</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>Velg hvor langt det er mellom festepunktene, fra hver knott til hver 32. knott, og hvordan ting festes: til rutenettet, eller i hele steg fra der de var. Deler, moduler, innlimte deler, linjaler, etiketter og tekst følger dette, piltastene flytter ett steg, og skinneender klikker fortsatt sammen når de møtes. Slå av festing for å legge ting akkurat der du slipper, eller hold Alt (⌥ på Mac) for å plassere en linjal, etikett eller tekst fritt.</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>Hvordan ting festes</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>Havne på nærmeste knott, eller flytte i hele steg fra der delen var.</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>Fest til rutenettet legger alt på de samme knottene, som passer de fleste baner. Flytt i steg holder en del som ligger mellom knotter like langt utenfor når du flytter den, ett steg om gangen. Begge bruker steget du velger ved siden av Fest.</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>Knotterutenett</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>Svake linjer én knott fra hverandre, så du ser hvor ting havner.</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>De vises med rutenettet når du zoomer inn nok til å se knottene, og blekner når du zoomer ut. Slå dem av her, eller fra Fest-knappen i verktøylinjen, hvis de forstyrrer.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, metric or studs.</source>
@@ -6998,20 +7022,52 @@ Lagre min som ny versjon: din blir modulen; deres blir liggende i versjonshistor
         <translation>Åpne fra server: layoutene, lokalene, modulene og delene dine, og klubbenes</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>Rett inn brikker etter et rutenett (klikk for å slå på eller av, pilen velger steget)</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 knotter</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>Fest %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>Fest av</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>Steg %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>Legg alt på knotterutenettet (klikk for å slå av eller på, pilen velger hvor mange knotter mellom)</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>Hver knott</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>Hver %1. knott</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Fest til rutenettet</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Flytt i steg</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>Ting havner på nærmeste knott (eller hvert par knotter), så alt ligger på linje</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>Ting flyttes et helt antall steg fra der de var, og beholder forskyvningen sin</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>Vis knotterutenettet</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>Svake linjer én knott fra hverandre, synlige når du zoomer inn nok</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -13425,6 +13481,22 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Grid snap:</source>
         <translation>Fest til rutenett:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Fest til rutenettet</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Flytt i steg</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>Hvordan ting festes:</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>Vis knotterutenettet når du zoomer inn</translation>
     </message>
     <message>
         <source>Turn step:</source>

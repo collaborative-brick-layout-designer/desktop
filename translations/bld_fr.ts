@@ -499,14 +499,6 @@
         <translation>Aimanter</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>Les pièces sautent à la ligne de grille la plus proche, pour garder les rangées droites.</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>Le nombre est l’écart entre les lignes de grille, en tenons ; les règles, étiquettes, textes et coins de salle s’y calent aussi. Maintenez Alt (⌥ sur Mac) pour les poser exactement où vous lâchez, ou choisissez « non » pour tout poser où vous le déposez. Les bouts de rails s’emboîtent toujours.</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>Pas de rotation</translation>
     </message>
@@ -1289,6 +1281,38 @@
     <message>
         <source>Units</source>
         <translation>Unités</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>Tout ce que vous placez ou déplacez se pose sur le tenon le plus proche, pour que les pièces restent alignées.</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>Choisissez l’écart entre les points d’accroche, de chaque tenon à tous les 32 tenons, et la façon d’accrocher : sur la grille, ou par pas entiers depuis l’endroit d’origine. Les pièces, modules, collages, règles, étiquettes et textes le suivent, les flèches déplacent d’un pas, et les bouts de voie s’emboîtent toujours quand ils se rencontrent. Désactivez l’accroche pour poser les choses exactement là où vous les lâchez, ou maintenez Alt (⌥ sur Mac) pour placer librement une règle, une étiquette ou un texte.</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>Façon d’accrocher</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>Se poser sur le tenon le plus proche, ou avancer par pas entiers depuis l’endroit d’origine.</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>Accrocher à la grille aligne tout sur les mêmes tenons, ce qui convient à la plupart des plans. Déplacer par pas garde une pièce posée entre deux tenons décalée d’autant quand vous la déplacez, un pas à la fois. Les deux utilisent le pas choisi à côté d’Accroche.</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>Grille des tenons</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>Des lignes légères tous les tenons, pour voir où les choses vont se poser.</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>Elles s’affichent avec la grille quand vous zoomez assez pour voir les tenons, et s’effacent en dézoomant. Désactivez-les ici, ou depuis le bouton Accroche de la barre d’outils, si elles vous gênent.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, metric or studs.</source>
@@ -6990,20 +7014,52 @@ Enregistrer la mienne comme nouvelle version : la vôtre devient le module ; la 
         <translation>Ouvrir depuis le serveur : vos plans, salles, modules et pièces, et ceux de vos clubs</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>Aligner les pièces sur une grille (cliquez pour activer ou désactiver, la flèche choisit le pas)</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 tenons</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>Aimanter %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>Aimantation désactivée</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>Pas %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>Tout aligner sur la grille des tenons (cliquez pour activer ou désactiver, la flèche choisit l’écart en tenons)</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>Chaque tenon</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>Tous les %1 tenons</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Accrocher à la grille</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Déplacer par pas</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>Les choses se posent sur le tenon le plus proche (ou tous les quelques tenons), pour que tout soit aligné</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>Les choses avancent d’un nombre entier de pas depuis leur place, en gardant leur décalage</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>Afficher la grille des tenons</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>Des lignes légères tous les tenons, visibles quand vous zoomez assez</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -13425,6 +13481,22 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Grid snap:</source>
         <translation>Aimantation à la grille :</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Accrocher à la grille</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Déplacer par pas</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>Façon d’accrocher :</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>Afficher la grille des tenons en zoomant</translation>
     </message>
     <message>
         <source>Turn step:</source>

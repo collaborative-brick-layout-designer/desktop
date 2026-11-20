@@ -18,6 +18,8 @@ namespace bld::ui::settings {
 
 enum class Change {
     SnapStep,      // editing/snapStepStuds
+    SnapMode,      // editing/snapMode
+    StudGrid,      // view/studGrid
     TurnStep,      // editing/rotationStepDegrees
     PaintColor,    // editing/paintColor
     ZoomSpeed,     // general/wheelZoomFactor

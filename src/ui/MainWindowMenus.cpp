@@ -452,16 +452,17 @@ void MainWindow::setupMenus() {
     // Transform submenu (BlueBrick parity).
     auto* transformMenu = edit->addMenu(tr("Transfor&m"));
     auto* moveStepMenu = transformMenu->addMenu(tr("&Move Step"));
-    auto addNudge = [this, moveStepMenu](const QString& label, double dx, double dy){
+    // As the arrow keys: to the next grid line that way.
+    auto addNudge = [this, moveStepMenu](const QString& label, int dx, int dy){
         auto* a = moveStepMenu->addAction(label);
         connect(a, &QAction::triggered, this, [this, dx, dy]{
-            mapView_->nudgeSelected(dx, dy);
+            mapView_->nudgeSelectionStep(dx, dy);
         });
     };
-    addNudge(tr("&Up"),    0.0, -1.0);
-    addNudge(tr("&Down"),  0.0,  1.0);
-    addNudge(tr("&Left"), -1.0,  0.0);
-    addNudge(tr("&Right"), 1.0,  0.0);
+    addNudge(tr("&Up"),    0, -1);
+    addNudge(tr("&Down"),  0,  1);
+    addNudge(tr("&Left"), -1,  0);
+    addNudge(tr("&Right"), 1,  0);
     auto* toBackAct = transformMenu->addAction(tr("Send to &Back"));
     toBackAct->setShortcut(QKeySequence(tr("Ctrl+Shift+[")));
     connect(toBackAct, &QAction::triggered, [this]{ mapView_->sendSelectionToBack(); });
