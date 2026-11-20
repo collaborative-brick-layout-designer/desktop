@@ -56,6 +56,10 @@ inline quint32 over(quint32 below, quint32 top, quint32 keep) {
     return out;
 }
 
+// How far from the origin a model may reach, in studs (about 800 m): far
+// bigger than any layout, small enough for every size to stay a whole number.
+constexpr double kMaxModelStuds = 100000.0;
+
 }  // namespace
 
 std::optional<QRectF> baseLattice(const geom::Mesh& mesh, double studsPerLdu) {
@@ -124,15 +128,26 @@ RasterizeResult rasterizeMeshTopDown(const geom::Mesh& mesh,
     double xmax = -std::numeric_limits<double>::infinity();
     double zmin =  std::numeric_limits<double>::infinity();
     double zmax = -std::numeric_limits<double>::infinity();
+    double ymax = 0;  // the farthest any vertex is from y = 0, in studs
+    bool finite = true;
     for (const auto& t : mesh.tris) {
         for (const auto& v : t.v) {
             const double xs = v.x * opt.studsPerLdu;
             const double zs = v.z * opt.studsPerLdu;
+            finite = finite && std::isfinite(xs) && std::isfinite(zs) && std::isfinite(v.y);
             xmin = std::min(xmin, xs); xmax = std::max(xmax, xs);
             zmin = std::min(zmin, zs); zmax = std::max(zmax, zs);
+            ymax = std::max(ymax, std::abs(v.y * opt.studsPerLdu));
         }
     }
     out.meshBoundsXZ = QRectF(QPointF(xmin, zmin), QPointF(xmax, zmax));
+    // A model far beyond any layout (a part scaled or moved by a damaged
+    // file, NaN or infinite numbers): no picture. Checked before anything is
+    // made a whole number or a float, which such sizes overflow.
+    if (!finite || !(std::max({ std::abs(xmin), std::abs(xmax), std::abs(zmin), std::abs(zmax), ymax }) <= kMaxModelStuds)) {
+        out.meshBoundsXZ = QRectF();
+        return out;
+    }
 
     // Canvas = the mesh bounds padded out to whole studs, centred on the
     // mesh. Placement derives the part's footprint as pixels / pxPerStud,
@@ -319,6 +334,11 @@ RasterizeResult rasterizeMeshTopDown(const geom::Mesh& mesh,
                            (v.z * opt.studsPerLdu - canvasZ0) * superPxPerStud + superMarginPx);
         };
         for (const auto& e : mesh.edges) {
+            // An outline far beyond the model (a damaged file) isn't drawn.
+            bool sane = true;
+            for (const auto& v : e.v)
+                if (!(std::max({ std::abs(v.x), std::abs(v.y), std::abs(v.z) }) * opt.studsPerLdu <= kMaxModelStuds)) sane = false;
+            if (!sane) continue;
             QColor c = e.color;
             if (!c.isValid()) c = QColor(40, 40, 40);
             else c.setAlpha(160);
