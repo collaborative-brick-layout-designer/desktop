@@ -13,6 +13,7 @@
 #include <QDockWidget>
 #include <QHash>
 #include <QList>
+#include <QPointer>
 #include <QSet>
 #include <QString>
 
@@ -30,6 +31,7 @@ namespace bld::parts { class PartsLibrary; }
 namespace bld::ui {
 
 class ServerLibrary;
+class RosterDialog;
 
 class TrainsPanel : public QDockWidget {
     Q_OBJECT
@@ -85,7 +87,9 @@ private:
     void say(const QString& text);
     const core::RollingStock* stockById(const QString& id) const;
     const core::Train* trainById(const QString& id) const;
-    void fetchRoster(std::function<void()> then = {});
+    void fetchRoster(const std::function<void()>& then = {});
+    void removeFromRoster(const sync::RosterStock& entry);
+    QPointer<RosterDialog> rosterDialog_;
     parts::PartsLibrary& parts_;
     const core::Map* map_ = nullptr;
     ServerLibrary* library_ = nullptr;

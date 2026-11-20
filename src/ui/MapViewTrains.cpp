@@ -107,7 +107,7 @@ bool MapView::trainPlaceClick(QPointF studs) {
         if (where && !fallback) fallback = t;
         if (!fallback && facingTo) fallback = t;
     }
-    if (!fits && fallback) placed = *fallback;
+    if (!fits) placed = fallback.value_or(placed);
     const QString name = placed.name.isEmpty() ? tr("The train") : placed.name;
     const QString id = placed.id;
     cancelTrainPlacing();

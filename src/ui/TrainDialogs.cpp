@@ -133,6 +133,7 @@ StockDialog::StockDialog(const core::RollingStock& initial, bool isNew, parts::P
     body_ = studs(1, 400, initial.bodyLength, moreBox_);
     mf->addRow(tr("Body length:"), body_);
     std::vector<double> ats;
+    ats.reserve(initial.trucks.size());
     for (const auto& t : initial.trucks) ats.push_back(t.at);
     std::sort(ats.begin(), ats.end(), std::greater<>());
     frontTruck_ = studs(0, 200, ats.empty() ? 8 : ats.front(), moreBox_);
@@ -236,11 +237,13 @@ void StockDialog::fillParts(const QString& query) {
     int n = 0;
     for (const QString& key : parts_.keys()) {
         const auto meta = parts_.metadata(key);
-        if (!meta) continue;
+        if (!meta.has_value()) continue;
+        const parts::PartMetadata& m = meta.value();
         std::vector<std::pair<QString, QPointF>> conns;
-        for (const auto& c : meta->connections) conns.push_back({ c.type, c.position });
+        conns.reserve(static_cast<size_t>(m.connections.size()));
+        for (const auto& c : m.connections) conns.push_back({ c.type, c.position });
         if (!track::partStockLength(conns)) continue;
-        const QString text = partText(*meta);
+        const QString text = partText(m);
         if (!q.isEmpty() && !text.toLower().contains(q)) continue;
         auto* it = new QListWidgetItem(text, partList_);
         it->setData(Qt::UserRole, key);

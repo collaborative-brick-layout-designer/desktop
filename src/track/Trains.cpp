@@ -62,6 +62,7 @@ struct Running {
 // A unit's trucks and couplers in the order it runs (turned round: mirrored).
 Running runningGeometry(const core::RollingStock& s, bool reversed) {
     std::vector<double> sorted;
+    sorted.reserve(s.trucks.size());
     for (const auto& t : s.trucks) sorted.push_back(t.at);
     std::sort(sorted.begin(), sorted.end(), std::greater<>());
     const double front = reversed ? -sorted.back() : sorted.front();
@@ -169,7 +170,10 @@ std::optional<PlacedTrain> placeTrain(const TrackNetwork& net, const core::Train
             const double first = std::max(0.0, along);
             double bestD = first;
             double best = gap(first);
-            for (double d = first; d <= first + (g.half - g.front) + 8.0; d += 0.25) {
+            // (counted in quarter studs: the web adds 0.25 each step, the same places to 1e-12)
+            const int steps = static_cast<int>(std::floor(((g.half - g.front) + 8.0) / 0.25 + 1e-9));
+            for (int k = 0; k <= steps; ++k) {
+                const double d = first + k * 0.25;
                 const double v = gap(d);
                 if (v < best) {
                     best = v;

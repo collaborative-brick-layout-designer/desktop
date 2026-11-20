@@ -326,7 +326,7 @@ void TrainsPanel::addFromRoster(const sync::RosterStock& entry) {
     }
 }
 
-void TrainsPanel::fetchRoster(std::function<void()> then) {
+void TrainsPanel::fetchRoster(const std::function<void()>& then) {
     if (!library_ || library_->token().isEmpty()) return;
     QPointer<TrainsPanel> self(this);
     library_->api().rollingStock(
@@ -352,20 +352,23 @@ void TrainsPanel::openRoster() {
             addFromRoster(e);
             if (map_) d.setEntries(roster_.values(), map_->sidecar.rollingStock);
         });
-        connect(&d, &RosterDialog::removeRequested, this, [this, &d](const sync::RosterStock& e) {
-            const QString shown = QStringList{ e.number, e.name }.join(QLatin1Char(' ')).trimmed();
-            if (!confirm_(tr("Take %1 off the roster? Layouts keep their copies.").arg(shown))) return;
-            QPointer<TrainsPanel> self(this);
-            QPointer<RosterDialog> dialog(&d);
-            library_->api().deleteStock(e.id, [self, dialog, id = e.id] {
-                if (!self) return;
-                self->roster_.remove(id);
-                if (dialog && self->map_) dialog->setEntries(self->roster_.values(), self->map_->sidecar.rollingStock);
-            }, [self](const sync::ServerRefusal& r) {
-                if (self) self->say(tr("It couldn’t be taken off the roster: %1").arg(sync::describe(r)));
-            });
-        });
+        connect(&d, &RosterDialog::removeRequested, this, &TrainsPanel::removeFromRoster);
+        rosterDialog_ = &d;
         d.exec();
+    });
+}
+
+void TrainsPanel::removeFromRoster(const sync::RosterStock& e) {
+    if (!library_) return;
+    const QString shown = QStringList{ e.number, e.name }.join(QLatin1Char(' ')).trimmed();
+    if (!confirm_(tr("Take %1 off the roster? Layouts keep their copies.").arg(shown))) return;
+    QPointer<TrainsPanel> self(this);
+    library_->api().deleteStock(e.id, [self, id = e.id] {
+        if (!self) return;
+        self->roster_.remove(id);
+        if (self->rosterDialog_ && self->map_) self->rosterDialog_->setEntries(self->roster_.values(), self->map_->sidecar.rollingStock);
+    }, [self](const sync::ServerRefusal& r) {
+        if (self) self->say(tr("It couldn’t be taken off the roster: %1").arg(sync::describe(r)));
     });
 }
 
@@ -375,7 +378,7 @@ void TrainsPanel::saveToRoster(const QString& stockId, const QString& orgSlug) {
     QJsonObject record = saveload::rollingStockToJson(*s);
     for (const char* k : { "id", "libraryId", "libraryVersion" }) record.remove(QLatin1String(k));
     QPointer<TrainsPanel> self(this);
-    const QString id = stockId;
+    const QString& id = stockId;
     const auto done = [self, id](const sync::RosterStock& e) {
         if (!self) return;
         const core::RollingStock* now = self->stockById(id);
@@ -407,6 +410,8 @@ void TrainsPanel::rebuild() {
     const std::vector<core::Train> noTrains;
     const auto& stock = map_ ? map_->sidecar.rollingStock : noStock;
     const auto& trains = map_ ? map_->sidecar.trains : noTrains;
+    const QMap<QString, int> noStates;
+    const auto& switchStates = map_ ? map_->sidecar.switchStates : noStates;
     track::StockById byId;
     for (const auto& s : stock) byId.insert(s.id, s);
     const track::TrackNetwork net = map_ && !trains.empty() ? track::trackNetworkOf(*map_, parts_) : track::TrackNetwork();
@@ -495,7 +500,7 @@ void TrainsPanel::rebuild() {
                                         : tr("No trains yet. Press New train, or tick cars in Rolling stock and make a train of them."));
     at = 0;
     for (const auto& t : trains) {
-        const auto placed = t.position ? track::placeTrain(net, t, byId, map_->sidecar.switchStates) : std::nullopt;
+        const auto placed = t.position ? track::placeTrain(net, t, byId, switchStates) : std::nullopt;
         auto* row = new QFrame;
         row->setObjectName(QStringLiteral("train_") + t.id);
         row->setFrameShape(QFrame::StyledPanel);
