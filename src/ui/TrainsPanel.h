@@ -13,7 +13,6 @@
 #include <QDockWidget>
 #include <QHash>
 #include <QList>
-#include <QPointer>
 #include <QSet>
 #include <QString>
 
@@ -89,6 +88,8 @@ private:
     const core::Train* trainById(const QString& id) const;
     void fetchRoster(const std::function<void()>& then = {});
     void removeFromRoster(const sync::RosterStock& entry);
+    sync::LibraryApi& api();
+    sync::LibraryApi api_;
     parts::PartsLibrary& parts_;
     const core::Map* map_ = nullptr;
     ServerLibrary* library_ = nullptr;

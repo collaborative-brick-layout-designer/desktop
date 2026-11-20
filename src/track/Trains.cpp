@@ -5,6 +5,7 @@
 #include <QtMath>
 
 #include <algorithm>
+#include <utility>
 #include <cmath>
 #include <limits>
 
@@ -247,7 +248,7 @@ core::Train turnedAround(const TrackNetwork& net, const core::Train& train, cons
             }
         }
     }
-    if (best) out.position = best;
+    if (best) out.position = std::move(best);
     return out;
 }
 

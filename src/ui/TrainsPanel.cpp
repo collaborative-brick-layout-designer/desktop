@@ -17,7 +17,6 @@
 #include <QLabel>
 #include <QMenu>
 #include <QMessageBox>
-#include <QPointer>
 #include <QPushButton>
 #include <QScrollArea>
 #include <QTabBar>
@@ -326,18 +325,21 @@ void TrainsPanel::addFromRoster(const sync::RosterStock& entry) {
     }
 }
 
+sync::LibraryApi& TrainsPanel::api() {
+    // The panel's own client (the signed-in server and token): it never calls back once the panel is gone.
+    api_.setBase(library_->server());
+    api_.setToken(library_->token());
+    return api_;
+}
+
 void TrainsPanel::fetchRoster(const std::function<void()>& then) {
     if (!library_ || library_->token().isEmpty()) return;
-    QPointer<TrainsPanel> self(this);
-    library_->api().rollingStock(
-        [self, then](const QList<sync::RosterStock>& entries) {
-            if (!self) return;
-            self->setRoster(entries);
+    api().rollingStock(
+        [this, then](const QList<sync::RosterStock>& entries) {
+            setRoster(entries);
             if (then) then();
         },
-        [self](const sync::ServerRefusal& r) {
-            if (self) self->say(tr("Your rosters couldn’t be loaded: %1").arg(sync::describe(r)));
-        });
+        [this](const sync::ServerRefusal& r) { say(tr("Your rosters couldn’t be loaded: %1").arg(sync::describe(r))); });
 }
 
 void TrainsPanel::openRoster() {
@@ -364,15 +366,11 @@ void TrainsPanel::removeFromRoster(const sync::RosterStock& e) {
     if (!library_) return;
     const QString shown = QStringList{ e.number, e.name }.join(QLatin1Char(' ')).trimmed();
     if (!confirm_(tr("Take %1 off the roster? Layouts keep their copies.").arg(shown))) return;
-    QPointer<TrainsPanel> self(this);
-    library_->api().deleteStock(e.id, [self, id = e.id] {
-        if (!self) return;
-        self->roster_.remove(id);
-        auto* open = self->findChild<RosterDialog*>(QString(), Qt::FindDirectChildrenOnly);
-        if (open && self->map_) open->setEntries(self->roster_.values(), self->map_->sidecar.rollingStock);
-    }, [self](const sync::ServerRefusal& r) {
-        if (self) self->say(tr("It couldn’t be taken off the roster: %1").arg(sync::describe(r)));
-    });
+    api().deleteStock(e.id, [this, id = e.id] {
+        roster_.remove(id);
+        auto* open = findChild<RosterDialog*>(QString(), Qt::FindDirectChildrenOnly);
+        if (open && map_) open->setEntries(roster_.values(), map_->sidecar.rollingStock);
+    }, [this](const sync::ServerRefusal& r) { say(tr("It couldn’t be taken off the roster: %1").arg(sync::describe(r))); });
 }
 
 void TrainsPanel::saveToRoster(const QString& stockId, const QString& orgSlug) {
@@ -380,25 +378,21 @@ void TrainsPanel::saveToRoster(const QString& stockId, const QString& orgSlug) {
     if (!s || !library_ || library_->token().isEmpty()) return;
     QJsonObject record = saveload::rollingStockToJson(*s);
     for (const char* k : { "id", "libraryId", "libraryVersion" }) record.remove(QLatin1String(k));
-    QPointer<TrainsPanel> self(this);
     const QString& id = stockId;
-    const auto done = [self, id](const sync::RosterStock& e) {
-        if (!self) return;
-        const core::RollingStock* now = self->stockById(id);
+    const auto done = [this, id](const sync::RosterStock& e) {
+        const core::RollingStock* now = stockById(id);
         if (!now) return;
         core::RollingStock linked = *now;
         linked.libraryId = e.id;
         linked.libraryVersion = e.version;
-        self->roster_.insert(e.id, e);
-        self->say(tr("Saved %1 to the roster.").arg(stockLabel(linked)));
-        emit self->stockEdited(id, linked, tr("Save car to roster"));
+        roster_.insert(e.id, e);
+        say(tr("Saved %1 to the roster.").arg(stockLabel(linked)));
+        emit stockEdited(id, linked, tr("Save car to roster"));
     };
-    const auto failed = [self](const sync::ServerRefusal& r) {
-        if (self) self->say(tr("It couldn’t be saved to the roster: %1").arg(sync::describe(r)));
-    };
+    const auto failed = [this](const sync::ServerRefusal& r) { say(tr("It couldn’t be saved to the roster: %1").arg(sync::describe(r))); };
     // "Save changes" goes back to the entry it came from; anything else is a new entry.
-    if (orgSlug == QLatin1String("@linked") && !s->libraryId.isEmpty()) library_->api().updateStock(s->libraryId, record, done, failed);
-    else library_->api().createStock(record, orgSlug, done, failed);
+    if (orgSlug == QLatin1String("@linked") && !s->libraryId.isEmpty()) api().updateStock(s->libraryId, record, done, failed);
+    else api().createStock(record, orgSlug, done, failed);
 }
 
 void TrainsPanel::rebuild() {

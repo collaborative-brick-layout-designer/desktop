@@ -18,6 +18,7 @@
 #include <QUndoStack>
 
 #include <algorithm>
+#include <utility>
 
 namespace bld::ui {
 
@@ -100,7 +101,7 @@ bool MapView::trainPlaceClick(QPointF studs) {
         t.position = p;
         const auto where = track::placeTrain(net, t, stock, map_->sidecar.switchStates);
         if (where && !where->offTrack) {
-            placed = t;
+            placed = std::move(t);
             fits = true;
             break;
         }
