@@ -44,6 +44,19 @@ struct TrackKindsTable {
     QString fallback = QStringLiteral("rail");
     double maxTurnDegrees = 60.0;
     QStringList kinds;                      // every kind the table names
+    // Each kind's defaults: car width and clearance between tracks (studs), scale, truck swivel (degrees).
+    struct Defaults {
+        double carWidth = 6.0;
+        double clearance = 8.0;
+        double scale = 38.0;
+        double swivelMax = 30.0;
+    };
+    QHash<QString, Defaults> defaults;
+    // A kind's defaults (rail's when it has none).
+    Defaults defaultsOf(const QString& kind) const {
+        if (const auto it = defaults.constFind(kind); it != defaults.constEnd()) return *it;
+        return defaults.value(QStringLiteral("rail"));
+    }
 };
 
 // track-paths.json: the parts whose ways through are given outright

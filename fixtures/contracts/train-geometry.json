@@ -27,6 +27,43 @@
      "swivelMax": 30
     }
    ]
+  },
+  "mono": {
+   "length": 20,
+   "trackKind": "monorail",
+   "trucks": [
+    {
+     "at": 5,
+     "swivelMax": 45
+    },
+    {
+     "at": -5,
+     "swivelMax": 45
+    }
+   ]
+  },
+  "stiff": {
+   "length": 32,
+   "trucks": [
+    {
+     "at": 12,
+     "swivelMax": 5
+    },
+    {
+     "at": -12,
+     "swivelMax": 5
+    }
+   ],
+   "couplers": {
+    "front": {
+     "type": "none",
+     "swivelMax": 37
+    },
+    "rear": {
+     "type": "magnet",
+     "swivelMax": 2
+    }
+   }
   }
  },
  "cases": [
@@ -251,6 +288,551 @@
      "facing": "to"
     }
    }
+  }
+ ],
+ "overhang": [
+  {
+   "name": "6-wide car, 28-stud body, trucks 20 apart, on 9V R40 (the design's example)",
+   "radius": 40,
+   "spacing": 20,
+   "body": 28,
+   "width": 6,
+   "expect": {
+    "middle": 1.2702,
+    "end": 1.1825,
+    "corner": 1.0157,
+    "swivel": 14.4775
+   }
+  },
+  {
+   "name": "monorail car on a tight curve",
+   "radius": 15,
+   "spacing": 8,
+   "body": 14,
+   "width": 4,
+   "expect": {
+    "middle": 0.5432,
+    "end": 1.0624,
+    "corner": 0.8837,
+    "swivel": 15.466
+   }
+  },
+  {
+   "name": "straight track",
+   "radius": 1000000000,
+   "spacing": 16,
+   "body": 30,
+   "width": 6,
+   "expect": {
+    "middle": 0,
+    "end": 0,
+    "corner": 0,
+    "swivel": 0
+   }
+  }
+ ],
+ "checks": [
+  {
+   "name": "two boxcars in a 32-stud track between switches",
+   "trains": [
+    {
+     "id": "t1",
+     "units": [
+      {
+       "stock": "boxcar",
+       "reversed": false
+      },
+      {
+       "stock": "boxcar",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     }
+    }
+   ],
+   "expect": [
+    {
+     "key": "siding:t1",
+     "kind": "siding",
+     "severity": "warning",
+     "at": [
+      48,
+      0
+     ],
+     "values": {
+      "length": 64,
+      "usable": 32
+     }
+    }
+   ]
+  },
+  {
+   "name": "back through both points' diverging legs",
+   "states": {
+    "Q/0": 2
+   },
+   "trains": [
+    {
+     "id": "t1",
+     "units": [
+      {
+       "stock": "boxcar",
+       "reversed": false
+      },
+      {
+       "stock": "short",
+       "reversed": true
+      },
+      {
+       "stock": "boxcar",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 12,
+      "facing": "to"
+     }
+    }
+   ],
+   "expect": [
+    {
+     "key": "siding:t1",
+     "kind": "siding",
+     "severity": "warning",
+     "at": [
+      88,
+      0
+     ],
+     "values": {
+      "length": 88,
+      "usable": 16
+     }
+    },
+    {
+     "key": "coupler:t1:1",
+     "kind": "coupler",
+     "severity": "warning",
+     "at": [
+      68.032,
+      4.6195
+     ],
+     "values": {
+      "angle": 1.4797,
+      "max": 37,
+      "gap": 6.7609
+     }
+    },
+    {
+     "key": "coupler:t1:2",
+     "kind": "coupler",
+     "severity": "warning",
+     "at": [
+      44.4383,
+      9.4193
+     ],
+     "values": {
+      "angle": 10.3914,
+      "max": 37,
+      "gap": 2.9526
+     }
+    },
+    {
+     "key": "clearance:t1:2:M",
+     "kind": "clearance",
+     "severity": "warning",
+     "at": [
+      32,
+      0
+     ],
+     "values": {}
+    }
+   ]
+  },
+  {
+   "name": "stiff trucks and a car with no front coupler round the loop",
+   "trains": [
+    {
+     "id": "t1",
+     "units": [
+      {
+       "stock": "stiff",
+       "reversed": false
+      },
+      {
+       "stock": "stiff",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "U",
+      "from": 0,
+      "to": 1,
+      "s": 20,
+      "facing": "to"
+     }
+    }
+   ],
+   "expect": [
+    {
+     "key": "siding:t1",
+     "kind": "siding",
+     "severity": "warning",
+     "at": [
+      132,
+      4
+     ],
+     "values": {
+      "length": 64,
+      "usable": 44.5657
+     }
+    },
+    {
+     "key": "truck:t1:0",
+     "kind": "truck",
+     "severity": "warning",
+     "at": [
+      128,
+      8
+     ],
+     "values": {
+      "angle": 23.1203,
+      "max": 5
+     }
+    },
+    {
+     "key": "uncoupled:t1:1",
+     "kind": "uncoupled",
+     "severity": "warning",
+     "at": [
+      101.6013,
+      -0.6667
+     ],
+     "values": {}
+    }
+   ]
+  },
+  {
+   "name": "a monorail car on rail, off the end",
+   "trains": [
+    {
+     "id": "t1",
+     "units": [
+      {
+       "stock": "mono",
+       "reversed": false
+      },
+      {
+       "stock": "boxcar",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "A",
+      "from": 0,
+      "to": 1,
+      "s": 14,
+      "facing": "to"
+     }
+    }
+   ],
+   "expect": [
+    {
+     "key": "offEnd:t1",
+     "kind": "offEnd",
+     "severity": "warning",
+     "at": [
+      -1,
+      0
+     ],
+     "values": {}
+    },
+    {
+     "key": "siding:t1",
+     "kind": "siding",
+     "severity": "warning",
+     "at": [
+      8,
+      0
+     ],
+     "values": {
+      "length": 52,
+      "usable": 16
+     }
+    },
+    {
+     "key": "trackKind:t1:0",
+     "kind": "trackKind",
+     "severity": "error",
+     "at": [
+      9,
+      0
+     ],
+     "values": {}
+    }
+   ]
+  },
+  {
+   "name": "two trains on top of each other, and one beside the other track",
+   "trains": [
+    {
+     "id": "t1",
+     "units": [
+      {
+       "stock": "boxcar",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 20,
+      "facing": "to"
+     }
+    },
+    {
+     "id": "t2",
+     "units": [
+      {
+       "stock": "short",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 24,
+      "facing": "to"
+     }
+    },
+    {
+     "id": "t3",
+     "units": [
+      {
+       "stock": "boxcar",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "B",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     }
+    }
+   ],
+   "expect": [
+    {
+     "key": "overlap:t1:t2",
+     "kind": "overlap",
+     "severity": "error",
+     "at": [
+      44,
+      0
+     ],
+     "values": {}
+    }
+   ]
+  },
+  {
+   "name": "a route round the reversing loop",
+   "trains": [],
+   "routes": [
+    {
+     "id": "r1",
+     "from": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 4
+     },
+     "via": [
+      {
+       "brick": "U",
+       "from": 0,
+       "to": 1,
+       "s": 10
+      }
+     ],
+     "to": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 12
+     }
+    }
+   ],
+   "expect": [
+    {
+     "key": "reverse:r1:E",
+     "kind": "reverse",
+     "severity": "warning",
+     "at": [
+      88,
+      0
+     ],
+     "values": {}
+    },
+    {
+     "key": "power:r1:E",
+     "kind": "power",
+     "severity": "warning",
+     "at": [
+      88,
+      0
+     ],
+     "values": {}
+    }
+   ]
+  }
+ ],
+ "runs": [
+  {
+   "steps": [
+    "A/1/0"
+   ],
+   "length": 16,
+   "usable": 16,
+   "ends": [
+    {
+     "kind": "heel",
+     "switch": "P/0",
+     "foul": 0
+    },
+    {
+     "kind": "end",
+     "switch": null,
+     "foul": 0
+    }
+   ]
+  },
+  {
+   "steps": [
+    "M/0/1"
+   ],
+   "length": 32,
+   "usable": 32,
+   "ends": [
+    {
+     "kind": "leg",
+     "switch": "P/0",
+     "foul": 0
+    },
+    {
+     "kind": "leg",
+     "switch": "Q/0",
+     "foul": 0
+    }
+   ]
+  },
+  {
+   "steps": [
+    "B/0/1"
+   ],
+   "length": 32,
+   "usable": 32,
+   "ends": [
+    {
+     "kind": "leg",
+     "switch": "P/0",
+     "foul": 0
+    },
+    {
+     "kind": "leg",
+     "switch": "Q/0",
+     "foul": 0
+    }
+   ]
+  },
+  {
+   "steps": [
+    "E/0/1"
+   ],
+   "length": 16,
+   "usable": 16,
+   "ends": [
+    {
+     "kind": "heel",
+     "switch": "Q/0",
+     "foul": 0
+    },
+    {
+     "kind": "heel",
+     "switch": "R/0",
+     "foul": 0
+    }
+   ]
+  },
+  {
+   "steps": [
+    "T/0/1",
+    "U/0/1",
+    "V/1/0"
+   ],
+   "length": 44.5657,
+   "usable": 44.5657,
+   "ends": [
+    {
+     "kind": "leg",
+     "switch": "R/0",
+     "foul": 0
+    },
+    {
+     "kind": "leg",
+     "switch": "R/0",
+     "foul": 0
+    }
+   ]
+  },
+  {
+   "steps": [
+    "Z/0/1"
+   ],
+   "length": 16,
+   "usable": 16,
+   "ends": [
+    {
+     "kind": "end",
+     "switch": null,
+     "foul": 0
+    },
+    {
+     "kind": "end",
+     "switch": null,
+     "foul": 0
+    }
+   ]
+  },
+  {
+   "steps": [
+    "X/0/1",
+    "Y/0/1"
+   ],
+   "length": 32,
+   "usable": 32,
+   "ends": [
+    {
+     "kind": "end",
+     "switch": null,
+     "foul": 0
+    },
+    {
+     "kind": "end",
+     "switch": null,
+     "foul": 0
+    }
+   ]
   }
  ]
 }

@@ -53,6 +53,16 @@ TrackKindsTable trackKindsFromJson(const QJsonObject& o) {
     t.fallback = o.value(QLatin1String("fallback")).toString(QStringLiteral("rail"));
     t.maxTurnDegrees = o.value(QLatin1String("maxTurnDegrees")).toDouble(60.0);
     t.kinds = o.value(QLatin1String("kinds")).toObject().keys();
+    const QJsonObject kinds = o.value(QLatin1String("kinds")).toObject();
+    for (auto it = kinds.begin(); it != kinds.end(); ++it) {
+        const QJsonObject k = it.value().toObject();
+        TrackKindsTable::Defaults d;
+        d.carWidth = k.value(QLatin1String("carWidth")).toDouble(d.carWidth);
+        d.clearance = k.value(QLatin1String("clearance")).toDouble(d.clearance);
+        d.scale = k.value(QLatin1String("scale")).toDouble(d.scale);
+        d.swivelMax = k.value(QLatin1String("swivelMax")).toDouble(d.swivelMax);
+        t.defaults.insert(it.key(), d);
+    }
     return t;
 }
 

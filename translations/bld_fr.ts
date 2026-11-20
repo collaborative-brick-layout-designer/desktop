@@ -1706,6 +1706,18 @@
         <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
         <translation>Les wagons restent où ils sont sur la voie ; seuls leur ordre et le sens du train changent. Chaque demi-tour est une modification que vous pouvez annuler.</translation>
     </message>
+    <message>
+        <source>Checks</source>
+        <translation>Vérifications</translation>
+    </message>
+    <message>
+        <source>What doesn&apos;t fit: a train too long for its track, a curve too tight, cars too close to another track.</source>
+        <translation>Ce qui ne passe pas : un train trop long pour sa voie, une courbe trop serrée, des wagons trop près d’une autre voie.</translation>
+    </message>
+    <message>
+        <source>The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends.</source>
+        <translation>Les vérifications sont refaites à chaque changement de voie, de train ou d’aiguillage ; rien n’est bloqué. Montrez-moi amène l’endroit à l’écran. Affichage › Longueurs des voies indique sur chaque tronçon la longueur où un train peut tenir, entre ses aiguillages et ses bouts.</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -3599,6 +3611,14 @@
         <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
         <translation>Enregistrez un wagon dans votre parc ou celui d’un club pour l’utiliser dans d’autres plans. Mettre à jour actualise la copie d’un plan.</translation>
     </message>
+    <message>
+        <source>Checks</source>
+        <translation>Vérifications</translation>
+    </message>
+    <message>
+        <source>Checks lists what doesn&apos;t fit: a train too long for its track, a curve too tight. Show me finds the spot.</source>
+        <translation>Vérifications liste ce qui ne passe pas : un train trop long, une courbe trop serrée. Montrez-moi trouve l’endroit.</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::ModuleLibraryLink</name>
@@ -5412,6 +5432,93 @@
     <message>
         <source>Close</source>
         <translation>Fermer</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FitChecksList</name>
+    <message>
+        <source>A train</source>
+        <translation>Un train</translation>
+    </message>
+    <message>
+        <source>A car</source>
+        <translation>Un wagon</translation>
+    </message>
+    <message>
+        <source>A route</source>
+        <translation>Un itinéraire</translation>
+    </message>
+    <message>
+        <source>%1 (%2) is longer than the track it stands in (%3 between its switches and ends).</source>
+        <translation>%1 (%2) est plus long que la voie où il se trouve (%3 entre ses aiguillages et ses bouts).</translation>
+    </message>
+    <message>
+        <source>%1 in %2: the curve is too tight for its trucks (they turn %3; at most %4).</source>
+        <translation>%1 dans %2 : la courbe est trop serrée pour ses bogies (ils tournent de %3 ; au plus %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 can&apos;t reach the car ahead: its couplers are %3 apart on this curve.</source>
+        <translation>%1 dans %2 n’atteint pas le wagon de devant : ses attelages sont à %3 l’un de l’autre dans cette courbe.</translation>
+    </message>
+    <message>
+        <source>%1 in %2: its coupler turns %3 on this curve (at most %4).</source>
+        <translation>%1 dans %2 : son attelage tourne de %3 dans cette courbe (au plus %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 has no coupler to the car ahead.</source>
+        <translation>%1 dans %2 n’a pas d’attelage vers le wagon de devant.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 is too close to the other track here.</source>
+        <translation>%1 dans %2 est trop près de l’autre voie ici.</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>un autre train</translation>
+    </message>
+    <message>
+        <source>%1 and %2 are on top of each other.</source>
+        <translation>%1 et %2 sont l’un sur l’autre.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 doesn&apos;t run on this kind of track (it runs on %3).</source>
+        <translation>%1 dans %2 ne roule pas sur ce type de voie (il roule sur %3).</translation>
+    </message>
+    <message>
+        <source>monorail</source>
+        <translation>monorail</translation>
+    </message>
+    <message>
+        <source>train track</source>
+        <translation>voie de train</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track.</source>
+        <translation>%1 dépasse la fin de la voie.</translation>
+    </message>
+    <message>
+        <source>%1&apos;s track was moved or removed: put it on the track again.</source>
+        <translation>La voie de %1 a été déplacée ou retirée : posez-le de nouveau sur la voie.</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around (a reversing loop or wye).</source>
+        <translation>%1 fait faire demi-tour au train (une boucle de retournement ou un triangle).</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
+        <translation>%1 fait faire demi-tour au train sur une voie alimentée : il y faut un inverseur de polarité.</translation>
+    </message>
+    <message>
+        <source>Problem</source>
+        <translation>Problème</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Avertissement</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Montrez-moi</translation>
     </message>
 </context>
 <context>
@@ -9679,6 +9786,10 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
         <source>rolling stock</source>
         <translation>le matériel roulant</translation>
     </message>
+    <message>
+        <source>Sidin&amp;g Lengths</source>
+        <translation>Lon&amp;gueurs des voies</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -12023,6 +12134,10 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Delete</source>
         <translation>Supprimer</translation>
+    </message>
+    <message>
+        <source>Route checks</source>
+        <translation>Vérifications des itinéraires</translation>
     </message>
 </context>
 <context>
@@ -14477,6 +14592,14 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>It couldn’t be taken off the roster: %1</source>
         <translation>Il n’a pas pu être retiré du parc : %1</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Vérifications</translation>
+    </message>
+    <message>
+        <source>Every train on the track fits: nothing too long, too tight or too close.</source>
+        <translation>Tous les trains sur la voie passent : rien de trop long, de trop serré ni de trop près.</translation>
     </message>
 </context>
 <context>

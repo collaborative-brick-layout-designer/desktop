@@ -13,6 +13,7 @@
 #include <QDockWidget>
 #include <QHash>
 #include <QList>
+#include <QPointF>
 #include <QSet>
 #include <QString>
 
@@ -30,6 +31,7 @@ namespace bld::parts { class PartsLibrary; }
 namespace bld::ui {
 
 class ServerLibrary;
+class FitChecksList;
 class RosterDialog;
 
 class TrainsPanel : public QDockWidget {
@@ -71,6 +73,7 @@ public:
     void setRoster(const QList<sync::RosterStock>& entries);
 
     QTabWidget* tabs() const { return tabs_; }
+    FitChecksList* checksList() const { return checks_; }
     QString message() const;
 
 signals:
@@ -80,6 +83,8 @@ signals:
     void trainEdited(const QString& id, const std::optional<core::Train>& after, const QString& what);
     void placeRequested(const QString& trainId);
     void placeCancelled();
+    // A fit check's Show me: the spot on the map (studs).
+    void showSpotRequested(QPointF studs);
 
 private:
     void rebuild();
@@ -107,6 +112,7 @@ private:
     QPushButton* fromRoster_ = nullptr;
     QPushButton* makeTrain_ = nullptr;
     QLabel* message_ = nullptr;
+    FitChecksList* checks_ = nullptr;
     std::function<std::optional<core::RollingStock>(const core::RollingStock&, bool)> editStock_;
     std::function<std::optional<core::Train>(const core::Train&)> editTrain_;
     std::function<bool(const QString&)> confirm_;

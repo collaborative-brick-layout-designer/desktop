@@ -66,6 +66,8 @@ add_library(bld_ui STATIC
     TrainDialogs.h
     TrainsPanel.cpp
     TrainsPanel.h
+    FitChecksList.cpp
+    FitChecksList.h
     MapViewPaint.cpp
     MapViewTouch.cpp
     TouchActionBar.cpp

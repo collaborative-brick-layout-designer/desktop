@@ -164,6 +164,18 @@ public:
     const QHash<QString, QList<QGraphicsItem*>>& trainItems() const { return trainCarsById_; }
     static QColor trainProblemColor();
 
+    // Fit checks on the map (trains design 3.5, 6.2): with View > Siding
+    // Lengths, each run of track labeled with the length a train can stand
+    // in; a ring at each spot a check is about (red: a problem, amber: a
+    // warning); and "Show me"'s spot, ringed.
+    void setShowSidingLengths(bool on) { showSidingLengths_ = on; }
+    void setSpotlight(std::optional<QPointF> studs) { spotlight_ = studs; }
+    void refreshFit(const core::Map& map);
+    // What is drawn (tests): the siding labels, the check rings, the spotlight.
+    int sidingLabelCount() const { return sidingLabels_; }
+    int checkRingCount() const { return checkRings_; }
+    bool spotlightShown() const { return spotlightShown_; }
+
     // Draw every module's frame and name again from `map` (a sheet shown or
     // hidden changes which parts frame a module, and how its frame is dashed).
     void refreshModuleLabels(const core::Map& map);
@@ -308,6 +320,15 @@ private:
     QHash<QString, QList<QGraphicsItem*>> trainCarsById_;
     std::vector<core::RollingStock> drawnStock_;
     std::vector<core::Train> drawnTrains_;
+    void clearFit();
+    void addFit(const core::Map& map);
+    bool showSidingLengths_ = false;
+    std::optional<QPointF> spotlight_;
+    QList<QGraphicsItem*> fitItems_;
+    int sidingLabels_ = 0;
+    int checkRings_ = 0;
+    bool spotlightShown_ = false;
+    std::vector<core::Route> drawnFitRoutes_;
     void addSwitches(const core::Map& map);
     bool switchesShown_ = false;
     QList<QGraphicsItem*> switchItems_;

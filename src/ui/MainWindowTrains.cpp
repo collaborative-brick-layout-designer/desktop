@@ -32,6 +32,7 @@ void MainWindow::setupTrains() {
             });
     connect(trainsPanel_, &TrainsPanel::placeRequested, mapView_, &MapView::startTrainPlacing);
     connect(trainsPanel_, &TrainsPanel::placeCancelled, mapView_, &MapView::cancelTrainPlacing);
+    connect(trainsPanel_, &TrainsPanel::showSpotRequested, mapView_, &MapView::showSpot);
     connect(mapView_, &MapView::trainPlacingChanged, trainsPanel_, &TrainsPanel::setPlacing);
     connect(mapView_, &MapView::mapLoaded, this, [this] {
         mapView_->cancelTrainPlacing();

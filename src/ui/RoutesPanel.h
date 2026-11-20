@@ -12,6 +12,7 @@
 
 #include <QDockWidget>
 #include <QMap>
+#include <QPointF>
 #include <QSet>
 #include <QString>
 
@@ -58,6 +59,8 @@ signals:
     void routeEdited(const QString& id, const std::optional<core::Route>& after, const QString& what);
     void switchesRequested(const QMap<QString, std::optional<int>>& changes, const QString& what);
     void hiddenChanged(const QSet<QString>& ids);
+    // A route check's Show me: the spot on the map (studs).
+    void showSpotRequested(QPointF studs);
 
 private:
     void rebuild();
@@ -69,6 +72,7 @@ private:
     QPushButton* newButton_ = nullptr;
     QLabel* empty_ = nullptr;
     QLabel* message_ = nullptr;
+    class FitChecksList* checks_ = nullptr;
     bool drawing_ = false;
     std::function<bool(const QString&)> confirm_;
     std::function<std::optional<QString>(const QString&)> askName_;

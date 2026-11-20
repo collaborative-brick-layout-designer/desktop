@@ -1706,6 +1706,18 @@
         <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
         <translation>车厢留在轨道上的原位，只是顺序和列车朝向改变。每次掉头都是一次可以撤销的修改。</translation>
     </message>
+    <message>
+        <source>Checks</source>
+        <translation>检查</translation>
+    </message>
+    <message>
+        <source>What doesn&apos;t fit: a train too long for its track, a curve too tight, cars too close to another track.</source>
+        <translation>不合适的地方：列车比它所在的轨道长、弯道太急、车厢离另一条轨道太近。</translation>
+    </message>
+    <message>
+        <source>The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends.</source>
+        <translation>每当轨道、列车或道岔改变，检查都会重新计算，不会阻止任何操作。“显示位置”会把那个地方移到视图中。“视图 › 线路长度”会在每段轨道上标出列车能停放的长度（道岔和端点之间）。</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -3581,6 +3593,14 @@
         <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
         <translation>把车厢保存到你或俱乐部的名册，就能在其他布局中使用。“更新”会让布局里的副本保持最新。</translation>
     </message>
+    <message>
+        <source>Checks</source>
+        <translation>检查</translation>
+    </message>
+    <message>
+        <source>Checks lists what doesn&apos;t fit: a train too long for its track, a curve too tight. Show me finds the spot.</source>
+        <translation>“检查”列出不合适的地方：列车太长、弯道太急。“显示位置”帮你找到它。</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::ModuleLibraryLink</name>
@@ -5379,6 +5399,93 @@
     <message>
         <source>Close</source>
         <translation>关闭</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FitChecksList</name>
+    <message>
+        <source>A train</source>
+        <translation>一列列车</translation>
+    </message>
+    <message>
+        <source>A car</source>
+        <translation>一节车厢</translation>
+    </message>
+    <message>
+        <source>A route</source>
+        <translation>一条路线</translation>
+    </message>
+    <message>
+        <source>%1 (%2) is longer than the track it stands in (%3 between its switches and ends).</source>
+        <translation>%1（%2）比它所在的轨道长（道岔和端点之间为%3）。</translation>
+    </message>
+    <message>
+        <source>%1 in %2: the curve is too tight for its trucks (they turn %3; at most %4).</source>
+        <translation>%2中的%1：弯道对它的转向架来说太急（转动%3，最多%4）。</translation>
+    </message>
+    <message>
+        <source>%1 in %2 can&apos;t reach the car ahead: its couplers are %3 apart on this curve.</source>
+        <translation>%2中的%1够不到前一节车厢：在这个弯道上车钩相距%3。</translation>
+    </message>
+    <message>
+        <source>%1 in %2: its coupler turns %3 on this curve (at most %4).</source>
+        <translation>%2中的%1：在这个弯道上车钩转动%3（最多%4）。</translation>
+    </message>
+    <message>
+        <source>%1 in %2 has no coupler to the car ahead.</source>
+        <translation>%2中的%1没有连到前一节车厢的车钩。</translation>
+    </message>
+    <message>
+        <source>%1 in %2 is too close to the other track here.</source>
+        <translation>%2中的%1在这里离另一条轨道太近。</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>另一列列车</translation>
+    </message>
+    <message>
+        <source>%1 and %2 are on top of each other.</source>
+        <translation>%1和%2重叠在一起。</translation>
+    </message>
+    <message>
+        <source>%1 in %2 doesn&apos;t run on this kind of track (it runs on %3).</source>
+        <translation>%2中的%1不能在这种轨道上运行（它用于%3）。</translation>
+    </message>
+    <message>
+        <source>monorail</source>
+        <translation>单轨</translation>
+    </message>
+    <message>
+        <source>train track</source>
+        <translation>火车轨道</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track.</source>
+        <translation>%1超出了轨道尽头。</translation>
+    </message>
+    <message>
+        <source>%1&apos;s track was moved or removed: put it on the track again.</source>
+        <translation>%1的轨道被移动或移除了：请重新把它放到轨道上。</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around (a reversing loop or wye).</source>
+        <translation>%1会让列车掉头（折返环线或三角线）。</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
+        <translation>%1会在通电轨道上让列车掉头：那里需要一个极性开关。</translation>
+    </message>
+    <message>
+        <source>Problem</source>
+        <translation>问题</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>显示位置</translation>
     </message>
 </context>
 <context>
@@ -9604,6 +9711,10 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <source>rolling stock</source>
         <translation>车辆</translation>
     </message>
+    <message>
+        <source>Sidin&amp;g Lengths</source>
+        <translation>线路长度(&amp;G)</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -11932,6 +12043,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Delete</source>
         <translation>删除</translation>
+    </message>
+    <message>
+        <source>Route checks</source>
+        <translation>路线检查</translation>
     </message>
 </context>
 <context>
@@ -14380,6 +14495,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>It couldn’t be taken off the roster: %1</source>
         <translation>无法从名册移除：%1</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>检查</translation>
+    </message>
+    <message>
+        <source>Every train on the track fits: nothing too long, too tight or too close.</source>
+        <translation>轨道上的每列列车都合适：没有太长、太急或太近的。</translation>
     </message>
 </context>
 <context>

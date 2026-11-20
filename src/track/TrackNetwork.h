@@ -95,6 +95,10 @@ public:
     double pathLength(const QString& brick, int from, int to) const;
     // The point at a track position, or nullopt when its brick or path is gone.
     std::optional<CircuitPathPoint> pointAtPosition(const TrackPosition& pos) const;
+    // The kind of track a brick is (its first track connection's), empty when none.
+    QString kindOf(const QString& brick) const;
+    // Whether the brick's track carries power: it has an electric circuit (9V).
+    bool isPowered(const QString& brick) const;
 
 private:
     struct BrickTrack {
