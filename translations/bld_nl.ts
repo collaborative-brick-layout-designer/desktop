@@ -1706,6 +1706,18 @@
         <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
         <translation>De wagons blijven waar ze op het spoor staan; alleen hun volgorde en de richting van de trein veranderen. Elke keer omdraaien is één wijziging die je ongedaan kunt maken.</translation>
     </message>
+    <message>
+        <source>Checks</source>
+        <translation>Controles</translation>
+    </message>
+    <message>
+        <source>What doesn&apos;t fit: a train too long for its track, a curve too tight, cars too close to another track.</source>
+        <translation>Wat niet past: een trein te lang voor zijn spoor, een te krappe bocht, wagons te dicht bij ander spoor.</translation>
+    </message>
+    <message>
+        <source>The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends.</source>
+        <translation>De controles worden opnieuw berekend zodra het spoor, een trein of een wissel verandert; niets wordt tegengehouden. Laat zien brengt de plek in beeld. Beeld › Spoorlengtes zet bij elk stuk spoor de lengte waarin een trein past, tussen zijn wissels en uiteinden.</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -3599,6 +3611,14 @@
         <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
         <translation>Bewaar een wagon in je wagenpark of dat van een club om hem in andere layouts te gebruiken. Bijwerken brengt de kopie van een layout bij.</translation>
     </message>
+    <message>
+        <source>Checks</source>
+        <translation>Controles</translation>
+    </message>
+    <message>
+        <source>Checks lists what doesn&apos;t fit: a train too long for its track, a curve too tight. Show me finds the spot.</source>
+        <translation>Controles toont wat niet past: een te lange trein, een te krappe bocht. Laat zien vindt de plek.</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::ModuleLibraryLink</name>
@@ -5412,6 +5432,93 @@
     <message>
         <source>Close</source>
         <translation>Sluiten</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FitChecksList</name>
+    <message>
+        <source>A train</source>
+        <translation>Een trein</translation>
+    </message>
+    <message>
+        <source>A car</source>
+        <translation>Een wagon</translation>
+    </message>
+    <message>
+        <source>A route</source>
+        <translation>Een route</translation>
+    </message>
+    <message>
+        <source>%1 (%2) is longer than the track it stands in (%3 between its switches and ends).</source>
+        <translation>%1 (%2) is langer dan het spoor waarop hij staat (%3 tussen zijn wissels en uiteinden).</translation>
+    </message>
+    <message>
+        <source>%1 in %2: the curve is too tight for its trucks (they turn %3; at most %4).</source>
+        <translation>%1 in %2: de bocht is te krap voor de draaistellen (ze draaien %3; hoogstens %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 can&apos;t reach the car ahead: its couplers are %3 apart on this curve.</source>
+        <translation>%1 in %2 haalt de wagon ervoor niet: de koppelingen zitten in deze bocht %3 uit elkaar.</translation>
+    </message>
+    <message>
+        <source>%1 in %2: its coupler turns %3 on this curve (at most %4).</source>
+        <translation>%1 in %2: de koppeling draait %3 in deze bocht (hoogstens %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 has no coupler to the car ahead.</source>
+        <translation>%1 in %2 heeft geen koppeling naar de wagon ervoor.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 is too close to the other track here.</source>
+        <translation>%1 in %2 staat hier te dicht bij het andere spoor.</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>een andere trein</translation>
+    </message>
+    <message>
+        <source>%1 and %2 are on top of each other.</source>
+        <translation>%1 en %2 staan op elkaar.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 doesn&apos;t run on this kind of track (it runs on %3).</source>
+        <translation>%1 in %2 rijdt niet op dit soort spoor (hij rijdt op %3).</translation>
+    </message>
+    <message>
+        <source>monorail</source>
+        <translation>monorail</translation>
+    </message>
+    <message>
+        <source>train track</source>
+        <translation>treinspoor</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track.</source>
+        <translation>%1 steekt voorbij het einde van het spoor.</translation>
+    </message>
+    <message>
+        <source>%1&apos;s track was moved or removed: put it on the track again.</source>
+        <translation>Het spoor van %1 is verplaatst of verwijderd: zet hem opnieuw op het spoor.</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around (a reversing loop or wye).</source>
+        <translation>%1 draait de trein om (een keerlus of driehoek).</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
+        <translation>%1 draait de trein om op spoor met stroom: daar is een ompoolschakelaar nodig.</translation>
+    </message>
+    <message>
+        <source>Problem</source>
+        <translation>Probleem</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Waarschuwing</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Laat zien</translation>
     </message>
 </context>
 <context>
@@ -9679,6 +9786,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <source>rolling stock</source>
         <translation>rollend materieel</translation>
     </message>
+    <message>
+        <source>Sidin&amp;g Lengths</source>
+        <translation>Spoorlen&amp;gtes</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -12023,6 +12134,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Delete</source>
         <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>Route checks</source>
+        <translation>Routecontroles</translation>
     </message>
 </context>
 <context>
@@ -14477,6 +14592,14 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>It couldn’t be taken off the roster: %1</source>
         <translation>Hij kon niet uit het wagenpark worden gehaald: %1</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Controles</translation>
+    </message>
+    <message>
+        <source>Every train on the track fits: nothing too long, too tight or too close.</source>
+        <translation>Elke trein op het spoor past: niets te lang, te krap of te dichtbij.</translation>
     </message>
 </context>
 <context>

@@ -10,6 +10,7 @@
 #include "ui/MapView.h"
 #include "ui/TrainDialogs.h"
 #include "ui/TrainsPanel.h"
+#include "ui/FitChecksList.h"
 #include "ui/tours/Tours.h"
 #include "core/Map.h"
 #include "parts/PartsLibrary.h"
@@ -18,6 +19,7 @@
 
 #include <gtest/gtest.h>
 
+#include <QAction>
 #include <QApplication>
 #include <QCheckBox>
 #include <QDoubleSpinBox>
@@ -188,4 +190,72 @@ TEST(TrainsUi, TheTrainsTourPointsAtThePanel) {
     // An empty layout opens on Rolling stock: the panel, its tabs, New car and the roster are there.
     for (const char* target : { "panel.trains", "trainsPanel.tabs", "trains.newStock", "trains.roster" })
         EXPECT_TRUE(ui::tours::findTarget(&w, QString::fromLatin1(target))) << target;
+}
+
+// Fit checks (trains design Phase 4): a two-car train at the top of a 96-stud
+// stub of 9V track fits; a third car makes it longer than the stub, and the
+// Checks list says so at once, with a ring on the map; Show me rings the
+// spot; taking the car out clears it. View > Siding Lengths labels the runs.
+TEST(TrainsUi, ATrainTooLongForItsSidingIsFlaggedAndShorteningClearsIt) {
+    ui::MainWindow w(library());
+    w.resize(1400, 900);
+    w.show();
+    auto* view = w.findChild<ui::MapView*>();
+    auto* panel = w.findChild<ui::TrainsPanel*>();
+    auto res = saveload::readBbm(QStringLiteral(BLD_SOURCE_DIR "/fixtures/bbm-corpus/tight-corner.bbm"));
+    ASSERT_TRUE(res.map);
+    view->loadMap(std::move(res.map));
+    int n = 0;
+    panel->setEditStock([&n](const core::RollingStock& s, bool) -> std::optional<core::RollingStock> {
+        core::RollingStock c = ui::withLength(s, 40);
+        c.number = QString::number(501 + n++);
+        return c;
+    });
+    for (int i = 0; i < 3; ++i) panel->newStock();
+    const auto stock = view->currentMap()->sidecar.rollingStock;
+    QStringList ids;
+    for (const char* number : { "501", "502", "503" })
+        for (const auto& s : stock)
+            if (s.number == QLatin1String(number)) ids << s.id;
+    panel->setTicked(ids[0], true);
+    panel->setTicked(ids[1], true);
+    const QString trainId = panel->makeTrainOfTicked();
+    view->startTrainPlacing(trainId);
+    ASSERT_TRUE(view->trainPlaceClick(QPointF(456, 148)));
+    auto* checks = panel->checksList();
+    ASSERT_TRUE(checks);
+    EXPECT_EQ(checks->count(), 0);
+    EXPECT_TRUE(checks->findChild<QLabel*>(QStringLiteral("fitChecksClear"))->text().startsWith(QStringLiteral("Every train on the track fits")));
+    EXPECT_EQ(view->builder()->checkRingCount(), 0);
+
+    // A third car: longer than the stub.
+    panel->setEditTrain([&ids](const core::Train& t) -> std::optional<core::Train> {
+        core::Train out = t;
+        out.units.push_back({ ids[2], false });
+        return out;
+    });
+    panel->changeTrain(trainId);
+    ASSERT_GE(checks->count(), 1);  // (and it runs off the end)
+    EXPECT_TRUE(checks->lines().join(QString()).contains(QStringLiteral("is longer than the track it stands in"))) << checks->lines().join(QString()).toStdString();
+    EXPECT_GT(view->builder()->checkRingCount(), 0);
+    checks->findChild<QPushButton*>(QStringLiteral("fitCheckShow"))->click();
+    EXPECT_TRUE(view->builder()->spotlightShown());
+
+    // Shorter again: cleared, nothing to refresh.
+    panel->setEditTrain([&ids](const core::Train& t) -> std::optional<core::Train> {
+        core::Train out = t;
+        out.units.pop_back();
+        return out;
+    });
+    panel->changeTrain(trainId);
+    EXPECT_EQ(checks->count(), 0);
+    EXPECT_EQ(view->builder()->checkRingCount(), 0);
+
+    // View > Siding Lengths.
+    auto* act = w.findChild<QAction*>(QStringLiteral("view.sidingLengths"));
+    ASSERT_TRUE(act);
+    act->setChecked(true);
+    EXPECT_GT(view->builder()->sidingLabelCount(), 5);
+    act->setChecked(false);
+    EXPECT_EQ(view->builder()->sidingLabelCount(), 0);
 }

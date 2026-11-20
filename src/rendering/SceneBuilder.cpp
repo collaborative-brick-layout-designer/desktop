@@ -838,6 +838,7 @@ void SceneBuilder::clear() {
     clearSwitches();
     clearRoutes();
     clearTrains();
+    clearFit();
     drawnVenue_.reset();
     drawnLabels_.clear();
     drawnModules_.clear();
@@ -869,6 +870,7 @@ void SceneBuilder::build(const core::Map& map) {
     addSwitches(map);
     addRoutes(map);
     addTrains(map);
+    addFit(map);
     built_ = true;
 }
 
@@ -1513,6 +1515,11 @@ std::optional<SceneBuilder::Change> SceneBuilder::update(const core::Map& map) {
         && (partsChanged || map.sidecar.trains != drawnTrains_ || map.sidecar.rollingStock != drawnStock_
             || map.sidecar.switchStates != drawnTrainSwitchStates_)) {
         refreshTrains(map);
+        refreshFit(map);
+        change.overlays = true;
+    } else if ((!map.sidecar.routes.empty() || !fitItems_.isEmpty() || showSidingLengths_)
+               && (partsChanged || map.sidecar.routes != drawnFitRoutes_)) {
+        refreshFit(map);
         change.overlays = true;
     }
     return change;

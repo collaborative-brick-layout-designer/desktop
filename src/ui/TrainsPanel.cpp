@@ -1,5 +1,6 @@
 #include "TrainsPanel.h"
 
+#include "FitChecksList.h"
 #include "ServerLibrary.h"
 #include "TrainDialogs.h"
 
@@ -7,6 +8,7 @@
 #include "../core/Map.h"
 #include "../edit/venue/VenueUnits.h"
 #include "../saveload/SidecarIO.h"
+#include "../track/FitChecks.h"
 #include "../track/Trains.h"
 #include "help/HelpButton.h"
 #include "tours/Tours.h"
@@ -102,6 +104,10 @@ TrainsPanel::TrainsPanel(parts::PartsLibrary& parts, QWidget* parent) : QDockWid
     trainsEmpty_->setObjectName(QStringLiteral("trainsEmpty"));
     trainsEmpty_->setWordWrap(true);
     tv->addWidget(trainsEmpty_);
+    checks_ = new FitChecksList(tr("Checks"), trainsPage);
+    connect(checks_, &FitChecksList::showRequested, this, &TrainsPanel::showSpotRequested);
+    checks_->hide();
+    tv->addWidget(checks_);
     trainList_ = scrolled(trainsPage, tv);
     tabs_->addTab(trainsPage, tr("Trains"));
 
@@ -490,6 +496,18 @@ void TrainsPanel::rebuild() {
     }
     makeTrain_->setVisible(editable && !ticked_.isEmpty());
     makeTrain_->setText(ticked_.size() == 1 ? tr("Make a train of this car") : tr("Make a train of these %1 cars").arg(ticked_.size()));
+
+    // The fit checks for the trains on the track.
+    const bool anyOnTrack = std::any_of(trains.begin(), trains.end(), [](const core::Train& t) { return t.position.has_value(); });
+    if (anyOnTrack && map_) {
+        track::FitInput in;
+        in.trains = trains;
+        in.stock = byId;
+        in.states = switchStates;
+        checks_->setChecks(track::fitChecks(net, in), *map_, tr("Every train on the track fits: nothing too long, too tight or too close."));
+    } else {
+        checks_->hide();
+    }
 
     // Trains.
     trainsEmpty_->setVisible(trains.empty());

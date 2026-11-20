@@ -1706,6 +1706,18 @@
         <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
         <translation>Vagnarna står kvar där de är på spåret; bara ordningen och tågets riktning ändras. Varje vändning är en ändring du kan ångra.</translation>
     </message>
+    <message>
+        <source>Checks</source>
+        <translation>Kontroller</translation>
+    </message>
+    <message>
+        <source>What doesn&apos;t fit: a train too long for its track, a curve too tight, cars too close to another track.</source>
+        <translation>Det som inte passar: ett tåg för långt för sitt spår, en för snäv kurva, vagnar för nära ett annat spår.</translation>
+    </message>
+    <message>
+        <source>The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends.</source>
+        <translation>Kontrollerna räknas om när spåret, ett tåg eller en växel ändras; inget stoppas. Visa mig tar fram platsen. Visa › Spårlängder märker varje spårsträcka med längden ett tåg kan stå på, mellan växlar och ändar.</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -3599,6 +3611,14 @@
         <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
         <translation>Spara en vagn i din vagnpark eller en klubbs för att använda den i andra layouter. Uppdatera gör en layouts kopia aktuell.</translation>
     </message>
+    <message>
+        <source>Checks</source>
+        <translation>Kontroller</translation>
+    </message>
+    <message>
+        <source>Checks lists what doesn&apos;t fit: a train too long for its track, a curve too tight. Show me finds the spot.</source>
+        <translation>Kontroller visar det som inte passar: ett för långt tåg, en för snäv kurva. Visa mig hittar platsen.</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::ModuleLibraryLink</name>
@@ -5412,6 +5432,93 @@
     <message>
         <source>Close</source>
         <translation>Stäng</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FitChecksList</name>
+    <message>
+        <source>A train</source>
+        <translation>Ett tåg</translation>
+    </message>
+    <message>
+        <source>A car</source>
+        <translation>En vagn</translation>
+    </message>
+    <message>
+        <source>A route</source>
+        <translation>En rutt</translation>
+    </message>
+    <message>
+        <source>%1 (%2) is longer than the track it stands in (%3 between its switches and ends).</source>
+        <translation>%1 (%2) är längre än spåret det står på (%3 mellan växlar och ändar).</translation>
+    </message>
+    <message>
+        <source>%1 in %2: the curve is too tight for its trucks (they turn %3; at most %4).</source>
+        <translation>%1 i %2: kurvan är för snäv för boggierna (de vrider sig %3; högst %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 can&apos;t reach the car ahead: its couplers are %3 apart on this curve.</source>
+        <translation>%1 i %2 når inte vagnen framför: kopplen är %3 isär i den här kurvan.</translation>
+    </message>
+    <message>
+        <source>%1 in %2: its coupler turns %3 on this curve (at most %4).</source>
+        <translation>%1 i %2: kopplet vrider sig %3 i den här kurvan (högst %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 has no coupler to the car ahead.</source>
+        <translation>%1 i %2 har inget koppel till vagnen framför.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 is too close to the other track here.</source>
+        <translation>%1 i %2 är för nära det andra spåret här.</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>ett annat tåg</translation>
+    </message>
+    <message>
+        <source>%1 and %2 are on top of each other.</source>
+        <translation>%1 och %2 står ovanpå varandra.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 doesn&apos;t run on this kind of track (it runs on %3).</source>
+        <translation>%1 i %2 går inte på den här sortens spår (den går på %3).</translation>
+    </message>
+    <message>
+        <source>monorail</source>
+        <translation>monorälsbana</translation>
+    </message>
+    <message>
+        <source>train track</source>
+        <translation>tågspår</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track.</source>
+        <translation>%1 går utanför spårets slut.</translation>
+    </message>
+    <message>
+        <source>%1&apos;s track was moved or removed: put it on the track again.</source>
+        <translation>Spåret för %1 har flyttats eller tagits bort: ställ det på spåret igen.</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around (a reversing loop or wye).</source>
+        <translation>%1 vänder tåget (en vändslinga eller ett triangelspår).</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
+        <translation>%1 vänder tåget på strömförande spår: där behövs en polvändare.</translation>
+    </message>
+    <message>
+        <source>Problem</source>
+        <translation>Problem</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Varning</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Visa mig</translation>
     </message>
 </context>
 <context>
@@ -9679,6 +9786,10 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <source>rolling stock</source>
         <translation>rullande materiel</translation>
     </message>
+    <message>
+        <source>Sidin&amp;g Lengths</source>
+        <translation>Spårlän&amp;gder</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -12023,6 +12134,10 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Delete</source>
         <translation>Ta bort</translation>
+    </message>
+    <message>
+        <source>Route checks</source>
+        <translation>Ruttkontroller</translation>
     </message>
 </context>
 <context>
@@ -14477,6 +14592,14 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>It couldn’t be taken off the roster: %1</source>
         <translation>Den kunde inte tas bort från vagnparken: %1</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Kontroller</translation>
+    </message>
+    <message>
+        <source>Every train on the track fits: nothing too long, too tight or too close.</source>
+        <translation>Alla tåg på spåret passar: inget för långt, för snävt eller för nära.</translation>
     </message>
 </context>
 <context>

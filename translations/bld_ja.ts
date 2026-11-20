@@ -1706,6 +1706,18 @@
         <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
         <translation>車両は線路上の位置のままで、順番と列車の向きだけが変わります。向きを変えるたびに、元に戻せる変更が1つ記録されます。</translation>
     </message>
+    <message>
+        <source>Checks</source>
+        <translation>チェック</translation>
+    </message>
+    <message>
+        <source>What doesn&apos;t fit: a train too long for its track, a curve too tight, cars too close to another track.</source>
+        <translation>合わないもの: 線路に対して長すぎる列車、きつすぎるカーブ、ほかの線路に近すぎる車両。</translation>
+    </message>
+    <message>
+        <source>The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends.</source>
+        <translation>チェックは線路、列車、ポイントが変わるたびに計算し直され、何も止められません。「表示する」でその場所を画面に出します。「表示 › 線路の長さ」は、ポイントと端の間で列車が止まれる長さを各区間に表示します。</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -3581,6 +3593,14 @@
         <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
         <translation>車両を自分またはクラブの車両リストに保存すると、ほかのレイアウトで使えます。「更新」でレイアウトのコピーを最新にします。</translation>
     </message>
+    <message>
+        <source>Checks</source>
+        <translation>チェック</translation>
+    </message>
+    <message>
+        <source>Checks lists what doesn&apos;t fit: a train too long for its track, a curve too tight. Show me finds the spot.</source>
+        <translation>チェックは合わないものを示します。長すぎる列車やきつすぎるカーブ。「表示する」で場所が分かります。</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::ModuleLibraryLink</name>
@@ -5379,6 +5399,93 @@
     <message>
         <source>Close</source>
         <translation>閉じる</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FitChecksList</name>
+    <message>
+        <source>A train</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>A car</source>
+        <translation>車両</translation>
+    </message>
+    <message>
+        <source>A route</source>
+        <translation>ルート</translation>
+    </message>
+    <message>
+        <source>%1 (%2) is longer than the track it stands in (%3 between its switches and ends).</source>
+        <translation>%1（%2）は止まっている線路より長いです（ポイントと端の間は%3）。</translation>
+    </message>
+    <message>
+        <source>%1 in %2: the curve is too tight for its trucks (they turn %3; at most %4).</source>
+        <translation>%2の%1: カーブが台車にはきつすぎます（%3回転、最大%4）。</translation>
+    </message>
+    <message>
+        <source>%1 in %2 can&apos;t reach the car ahead: its couplers are %3 apart on this curve.</source>
+        <translation>%2の%1は前の車両に届きません。このカーブでは連結器が%3離れています。</translation>
+    </message>
+    <message>
+        <source>%1 in %2: its coupler turns %3 on this curve (at most %4).</source>
+        <translation>%2の%1: このカーブで連結器が%3回転します（最大%4）。</translation>
+    </message>
+    <message>
+        <source>%1 in %2 has no coupler to the car ahead.</source>
+        <translation>%2の%1には前の車両への連結器がありません。</translation>
+    </message>
+    <message>
+        <source>%1 in %2 is too close to the other track here.</source>
+        <translation>%2の%1はここでほかの線路に近すぎます。</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>別の列車</translation>
+    </message>
+    <message>
+        <source>%1 and %2 are on top of each other.</source>
+        <translation>%1と%2が重なっています。</translation>
+    </message>
+    <message>
+        <source>%1 in %2 doesn&apos;t run on this kind of track (it runs on %3).</source>
+        <translation>%2の%1はこの種類の線路を走れません（%3用です）。</translation>
+    </message>
+    <message>
+        <source>monorail</source>
+        <translation>モノレール</translation>
+    </message>
+    <message>
+        <source>train track</source>
+        <translation>鉄道線路</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track.</source>
+        <translation>%1が線路の端からはみ出しています。</translation>
+    </message>
+    <message>
+        <source>%1&apos;s track was moved or removed: put it on the track again.</source>
+        <translation>%1の線路が移動または削除されました。もう一度線路に置いてください。</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around (a reversing loop or wye).</source>
+        <translation>%1は列車の向きを変えます（リバースループかデルタ線）。</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
+        <translation>%1は給電された線路で列車の向きを変えます。そこに極性切替スイッチが必要です。</translation>
+    </message>
+    <message>
+        <source>Problem</source>
+        <translation>問題</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>表示する</translation>
     </message>
 </context>
 <context>
@@ -9604,6 +9711,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <source>rolling stock</source>
         <translation>車両</translation>
     </message>
+    <message>
+        <source>Sidin&amp;g Lengths</source>
+        <translation>線路の長さ(&amp;G)</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -11932,6 +12043,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Delete</source>
         <translation>削除</translation>
+    </message>
+    <message>
+        <source>Route checks</source>
+        <translation>ルートのチェック</translation>
     </message>
 </context>
 <context>
@@ -14380,6 +14495,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>It couldn’t be taken off the roster: %1</source>
         <translation>車両リストから外せませんでした: %1</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>チェック</translation>
+    </message>
+    <message>
+        <source>Every train on the track fits: nothing too long, too tight or too close.</source>
+        <translation>線路上の列車はすべて収まっています。長すぎ、きつすぎ、近すぎるものはありません。</translation>
     </message>
 </context>
 <context>

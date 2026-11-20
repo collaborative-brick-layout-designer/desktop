@@ -662,6 +662,18 @@ void MainWindow::setupMenus() {
             mapView_->setShowSwitches(on);
         });
     }
+    // Each run of track labeled with the length a train can stand in (trains design 6.2).
+    {
+        auto* act = view->addAction(tr("Sidin&g Lengths"));
+        act->setObjectName(QStringLiteral("view.sidingLengths"));
+        act->setCheckable(true);
+        act->setChecked(QSettings().value(QStringLiteral("view/sidingLengths"), false).toBool());
+        mapView_->setShowSidingLengths(act->isChecked());
+        connect(act, &QAction::toggled, this, [this](bool on) {
+            QSettings().setValue(QStringLiteral("view/sidingLengths"), on);
+            mapView_->setShowSidingLengths(on);
+        });
+    }
 
     // Tools menu (libraries + Import submenu + preferences) lives in
     // MainWindowToolsMenu.cpp — it's ~180 lines on its own.

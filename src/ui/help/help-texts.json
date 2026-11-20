@@ -158,6 +158,11 @@
       "short": "The train's last car becomes its front, and it faces the other way.",
       "more": "The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo."
     },
+    "trains.checks": {
+      "title": "Checks",
+      "short": "What doesn't fit: a train too long for its track, a curve too tight, cars too close to another track.",
+      "more": "The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends."
+    },
     "status.sheet": {
       "title": "Current sheet",
       "short": "New parts go on this sheet.",

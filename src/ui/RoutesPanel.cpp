@@ -1,7 +1,9 @@
 #include "RoutesPanel.h"
+#include "FitChecksList.h"
 
 #include "../core/Map.h"
 #include "../edit/venue/VenueUnits.h"
+#include "../track/FitChecks.h"
 #include "../track/Routes.h"
 #include "help/HelpButton.h"
 
@@ -47,6 +49,10 @@ RoutesPanel::RoutesPanel(parts::PartsLibrary& parts, QWidget* parent) : QDockWid
     list_->addStretch(1);
     scroll->setWidget(inner);
     v->addWidget(scroll, 1);
+    checks_ = new FitChecksList(tr("Route checks"), body);
+    connect(checks_, &FitChecksList::showRequested, this, &RoutesPanel::showSpotRequested);
+    checks_->hide();
+    v->addWidget(checks_);
     setWidget(body);
     confirm_ = [this](const QString& name) {
         return QMessageBox::question(this, tr("Delete route"), tr("Delete the route “%1”?").arg(name)) == QMessageBox::Yes;
@@ -164,7 +170,19 @@ void RoutesPanel::rebuild() {
     empty_->setVisible(!hasTrack || none);
     empty_->setText(!hasTrack ? tr("There’s no track on this layout yet. Add some from the Parts panel’s Track group, then draw a route along it.")
                               : tr("No routes yet. Press New route, then click two places on the track: where it starts and where it ends."));
-    if (!map_) return;
+    if (!map_) {
+        checks_->hide();
+        return;
+    }
+    // The routes' checks: turning a train around, and polarity on powered track.
+    if (map_->sidecar.routes.empty()) {
+        checks_->hide();
+    } else {
+        track::FitInput in;
+        in.routes = map_->sidecar.routes;
+        in.states = map_->sidecar.switchStates;
+        checks_->setChecks(track::fitChecks(net, in), *map_, QString());
+    }
     const auto unit = edit::venue::accountLengthUnit();
     int at = 0;
     for (const auto& r : map_->sidecar.routes) {

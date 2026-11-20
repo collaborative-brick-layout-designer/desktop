@@ -1706,6 +1706,18 @@
         <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
         <translation>I vagoni restano dove sono sul binario; cambiano solo il loro ordine e la direzione del treno. Ogni inversione è una modifica che puoi annullare.</translation>
     </message>
+    <message>
+        <source>Checks</source>
+        <translation>Controlli</translation>
+    </message>
+    <message>
+        <source>What doesn&apos;t fit: a train too long for its track, a curve too tight, cars too close to another track.</source>
+        <translation>Cosa non va: un treno troppo lungo per il suo binario, una curva troppo stretta, vagoni troppo vicini a un altro binario.</translation>
+    </message>
+    <message>
+        <source>The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends.</source>
+        <translation>I controlli si rifanno a ogni modifica di binario, treno o scambio; nulla viene bloccato. Mostrami porta il punto in vista. Visualizza › Lunghezze dei binari etichetta ogni tratto con la lunghezza in cui può stare un treno, tra scambi ed estremità.</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -3599,6 +3611,14 @@
         <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
         <translation>Salva un vagone nel tuo parco o in quello di un club per usarlo in altri layout. Aggiorna allinea la copia di un layout.</translation>
     </message>
+    <message>
+        <source>Checks</source>
+        <translation>Controlli</translation>
+    </message>
+    <message>
+        <source>Checks lists what doesn&apos;t fit: a train too long for its track, a curve too tight. Show me finds the spot.</source>
+        <translation>Controlli elenca cosa non va: un treno troppo lungo, una curva stretta. Mostrami trova il punto.</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::ModuleLibraryLink</name>
@@ -5412,6 +5432,93 @@
     <message>
         <source>Close</source>
         <translation>Chiudi</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FitChecksList</name>
+    <message>
+        <source>A train</source>
+        <translation>Un treno</translation>
+    </message>
+    <message>
+        <source>A car</source>
+        <translation>Un vagone</translation>
+    </message>
+    <message>
+        <source>A route</source>
+        <translation>Un percorso</translation>
+    </message>
+    <message>
+        <source>%1 (%2) is longer than the track it stands in (%3 between its switches and ends).</source>
+        <translation>%1 (%2) è più lungo del binario su cui sta (%3 tra scambi ed estremità).</translation>
+    </message>
+    <message>
+        <source>%1 in %2: the curve is too tight for its trucks (they turn %3; at most %4).</source>
+        <translation>%1 in %2: la curva è troppo stretta per i carrelli (ruotano di %3; al massimo %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 can&apos;t reach the car ahead: its couplers are %3 apart on this curve.</source>
+        <translation>%1 in %2 non raggiunge il vagone davanti: gli agganci sono a %3 di distanza in questa curva.</translation>
+    </message>
+    <message>
+        <source>%1 in %2: its coupler turns %3 on this curve (at most %4).</source>
+        <translation>%1 in %2: l’aggancio ruota di %3 in questa curva (al massimo %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 has no coupler to the car ahead.</source>
+        <translation>%1 in %2 non ha un aggancio verso il vagone davanti.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 is too close to the other track here.</source>
+        <translation>%1 in %2 è troppo vicino all’altro binario qui.</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>un altro treno</translation>
+    </message>
+    <message>
+        <source>%1 and %2 are on top of each other.</source>
+        <translation>%1 e %2 sono uno sopra l’altro.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 doesn&apos;t run on this kind of track (it runs on %3).</source>
+        <translation>%1 in %2 non corre su questo tipo di binario (corre su %3).</translation>
+    </message>
+    <message>
+        <source>monorail</source>
+        <translation>monorotaia</translation>
+    </message>
+    <message>
+        <source>train track</source>
+        <translation>binario ferroviario</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track.</source>
+        <translation>%1 esce dalla fine del binario.</translation>
+    </message>
+    <message>
+        <source>%1&apos;s track was moved or removed: put it on the track again.</source>
+        <translation>Il binario di %1 è stato spostato o rimosso: rimettilo sul binario.</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around (a reversing loop or wye).</source>
+        <translation>%1 inverte il treno (un anello di ritorno o un triangolo).</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
+        <translation>%1 inverte il treno su binario alimentato: lì serve un invertitore di polarità.</translation>
+    </message>
+    <message>
+        <source>Problem</source>
+        <translation>Problema</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Avviso</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Mostrami</translation>
     </message>
 </context>
 <context>
@@ -9679,6 +9786,10 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
         <source>rolling stock</source>
         <translation>il materiale rotabile</translation>
     </message>
+    <message>
+        <source>Sidin&amp;g Lengths</source>
+        <translation>Lun&amp;ghezze dei binari</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -12023,6 +12134,10 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>Delete</source>
         <translation>Elimina</translation>
+    </message>
+    <message>
+        <source>Route checks</source>
+        <translation>Controlli dei percorsi</translation>
     </message>
 </context>
 <context>
@@ -14477,6 +14592,14 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>It couldn’t be taken off the roster: %1</source>
         <translation>Non è stato possibile toglierlo dal parco: %1</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Controlli</translation>
+    </message>
+    <message>
+        <source>Every train on the track fits: nothing too long, too tight or too close.</source>
+        <translation>Ogni treno sul binario ci sta: niente troppo lungo, stretto o vicino.</translation>
     </message>
 </context>
 <context>

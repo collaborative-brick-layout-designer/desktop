@@ -87,6 +87,7 @@
         { "target": "trains.newStock", "title": "A quick car", "text": "New car needs only a number and a length in studs. More details sets the trucks, couplers and a part's picture." },
         { "target": "trainsPanel.tabs", "title": "Make a train", "text": "Tick a few cars and press Make a train, or press New train and add them in order, front first." },
         { "target": "trains.putOnTrack", "title": "On the track", "text": "Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track." },
+        { "target": "trains.checks", "title": "Checks", "text": "Checks lists what doesn't fit: a train too long for its track, a curve too tight. Show me finds the spot." },
         { "target": "trains.roster", "title": "Your roster", "text": "Save a car to your roster or a club's to use it in other layouts. Update brings a layout's copy up to date." }
       ]
     },

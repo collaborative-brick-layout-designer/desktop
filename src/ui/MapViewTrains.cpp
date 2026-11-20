@@ -15,6 +15,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QTimer>
 #include <QUndoStack>
 
 #include <algorithm>
@@ -115,6 +116,32 @@ bool MapView::trainPlaceClick(QPointF studs) {
     undoStack_->push(new edit::SetTrainCommand(*map_, id, placed, tr("Put %1 on the track").arg(name)));
     showStatus(fits ? tr("%1 is on the track.").arg(name) : tr("%1 runs off the end of the track here.").arg(name), 3000);
     return true;
+}
+
+void MapView::setShowSidingLengths(bool on) {
+    showSidingLengths_ = on;
+    if (!builder_) return;
+    builder_->setShowSidingLengths(on);
+    if (map_) builder_->refreshFit(*map_);
+}
+
+void MapView::showSpot(QPointF studs) {
+    const double px = rendering::SceneBuilder::kPixelsPerStud;
+    const QRectF area((studs - QPointF(24, 24)) * px, QSizeF(48 * px, 48 * px));
+    fitInView(area, Qt::KeepAspectRatio);
+    // Not closer than 2:1 (a small spot isn't blown up to fill the screen).
+    if (transform().m11() > 2.0) {
+        setTransform(QTransform::fromScale(2.0, 2.0));
+        centerOn(studs * px);
+    }
+    if (!builder_ || !map_) return;
+    builder_->setSpotlight(studs);
+    builder_->refreshFit(*map_);
+    QTimer::singleShot(2500, this, [this] {
+        if (!builder_) return;
+        builder_->setSpotlight(std::nullopt);
+        if (map_) builder_->refreshFit(*map_);
+    });
 }
 
 }  // namespace bld::ui

@@ -316,6 +316,11 @@ public:
     // A click while placing (tests call it with a place in studs); false when it isn't on the track.
     bool trainPlaceClick(QPointF studs);
     QWidget* trainPlaceBanner() const { return trainBar_; }
+    // View > Siding Lengths (trains design 6.2): each run of track labeled with the length a train can stand in.
+    void setShowSidingLengths(bool on);
+    bool showSidingLengths() const { return showSidingLengths_; }
+    // A fit check's Show me: bring the spot (studs) into view, not closer than 2:1, and ring it for a moment.
+    void showSpot(QPointF studs);
     void armPartPlacement(const QString& partKey);
     void cancelPartPlacement();
     const QString& armedPart() const { return armedPart_; }
@@ -500,6 +505,7 @@ private:
     // The banner says what to click next, or the way found; the map shows it.
     void refreshRouteDraft();
     QString placingTrain_;
+    bool showSidingLengths_ = false;
     QWidget* trainBar_ = nullptr;
     QLabel* trainBarText_ = nullptr;
     // Run mode, drawing a route or putting a train on the track: clicks belong to them, not the parts.

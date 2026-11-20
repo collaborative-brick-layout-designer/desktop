@@ -174,6 +174,7 @@ void MainWindow::setupRoutes() {
     addDockWidget(Qt::RightDockWidgetArea, routesPanel_);
     routesPanel_->hide();  // Panels > Routes, or the routes tour, shows it
     connect(routesPanel_, &RoutesPanel::newRouteRequested, mapView_, &MapView::startRouteDraft);
+    connect(routesPanel_, &RoutesPanel::showSpotRequested, mapView_, &MapView::showSpot);
     connect(mapView_, &MapView::routeDraftChanged, routesPanel_, &RoutesPanel::setDrawing);
     connect(routesPanel_, &RoutesPanel::routeEdited, this,
             [this](const QString& id, const std::optional<core::Route>& after, const QString& what) {

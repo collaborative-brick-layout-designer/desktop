@@ -6,6 +6,7 @@ add_library(bld_rendering STATIC
     SceneBuilderSwitches.cpp
     SceneBuilderRoutes.cpp
     SceneBuilderTrains.cpp
+    SceneBuilderFit.cpp
     CircuitPath.h
     SceneBuilderSidecar.cpp
     ModuleLabels.cpp

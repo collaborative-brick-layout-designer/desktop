@@ -332,6 +332,7 @@ std::vector<FitCheck> fitChecks(const TrackNetwork& net, const FitInput& input, 
         QString train;
         int unit;
         Rect rect;
+        QString kind;
     };
     std::vector<Placed> rects;
     const auto add = [&out](const QString& key, const QString& kind, bool error, const QString& train, QPointF at) -> FitCheck& {
@@ -421,7 +422,7 @@ std::vector<FitCheck> fitChecks(const TrackNetwork& net, const FitInput& input, 
                     }
                 }
             }
-            rects.push_back({ t.id, n, rectOf(u, s) });
+            rects.push_back({ t.id, n, rectOf(u, s), kind });
         }
         // Clearance: its cars against the other tracks (not the ones it stands on).
         const double lastBack = placed->units.empty() ? 0.0 : placed->units.back().back;
@@ -447,7 +448,8 @@ std::vector<FitCheck> fitChecks(const TrackNetwork& net, const FitInput& input, 
             const Rect r = rectOf(u, s);
             const double reach = std::hypot(r.half, r.halfW) + band;
             for (const QString& brick : net.brickIds()) {
-                if (occupied.contains(brick)) continue;
+                // (Another kind of track is no matter: a monorail runs above the rails.)
+                if (occupied.contains(brick) || net.kindOf(brick) != kind) continue;
                 std::optional<QPointF> hit;
                 for (const auto& [a, b] : net.trackOf(brick)->paths) {
                     const auto& path = net.path(brick, a, b);
@@ -475,7 +477,7 @@ std::vector<FitCheck> fitChecks(const TrackNetwork& net, const FitInput& input, 
         for (size_t j = i + 1; j < rects.size(); ++j) {
             const Placed& a = rects[i];
             const Placed& b = rects[j];
-            if (a.train == b.train || !rectsOverlap(a.rect, b.rect)) continue;
+            if (a.train == b.train || a.kind != b.kind || !rectsOverlap(a.rect, b.rect)) continue;
             if (std::any_of(out.begin(), out.end(), [&](const FitCheck& c) { return c.kind == QLatin1String("overlap") && c.train == a.train && c.other == b.train; }))
                 continue;
             FitCheck& c = add(QStringLiteral("overlap:") + a.train + QLatin1Char(':') + b.train, QStringLiteral("overlap"), true, a.train, a.rect.c);
