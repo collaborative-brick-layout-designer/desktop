@@ -20,8 +20,13 @@
 namespace bld::track {
 
 // The track behind a train's head: points with their distance back from the head.
+struct LinePoint {
+    QPointF p;
+    double d = 0.0;  // distance back from the head
+    QString brick;   // the brick it's on
+};
 struct TrackLine {
-    std::vector<std::pair<QPointF, double>> pts;
+    std::vector<LinePoint> pts;
     bool ended = false;  // the track ran out before the length asked for
 };
 
@@ -38,12 +43,18 @@ struct PlacedUnit {
     QPointF frontCoupler;
     QPointF rearCoupler;
     double back = 0.0;  // the rear coupler's distance back from the head along the track
+    double frontD = 0.0;  // the trucks' distances back from the head (the fit checks read the track there)
+    double rearD = 0.0;
 };
 
 struct PlacedTrain {
     std::vector<PlacedUnit> units;
     bool offTrack = false;  // some cars didn't fit on the track behind the head
+    TrackLine line;         // the track behind the head the cars were placed on
 };
+
+// The point on the line at distance `d` from its start (none past its end).
+std::optional<QPointF> lineAt(const TrackLine& line, double d);
 
 using StockById = QHash<QString, core::RollingStock>;
 

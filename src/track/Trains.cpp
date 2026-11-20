@@ -15,26 +15,13 @@ namespace {
 
 double dist(QPointF a, QPointF b) { return std::hypot(a.x() - b.x(), a.y() - b.y()); }
 
-// The point on the line at distance `d` from the head.
-std::optional<QPointF> at(const TrackLine& line, double d) {
-    const auto& pts = line.pts;
-    if (pts.empty() || d > pts.back().second + 1e-9) return std::nullopt;
-    for (size_t i = 1; i < pts.size(); ++i) {
-        const auto& a = pts[i - 1];
-        const auto& b = pts[i];
-        if (d <= b.second) {
-            const double f = b.second > a.second ? (d - a.second) / (b.second - a.second) : 0.0;
-            return QPointF(a.first.x() + (b.first.x() - a.first.x()) * f, a.first.y() + (b.first.y() - a.first.y()) * f);
-        }
-    }
-    return pts.front().first;
-}
+std::optional<QPointF> at(const TrackLine& line, double d) { return lineAt(line, d); }
 
 // The first distance past `from` where the line is `chord` studs (straight
 // line) from `q`, by stepping along the line then halving; none when the
 // line ends first.
 std::optional<double> chordBehind(const TrackLine& line, QPointF q, double from, double chord) {
-    const double end = line.pts.empty() ? 0.0 : line.pts.back().second;
+    const double end = line.pts.empty() ? 0.0 : line.pts.back().d;
     const auto distAt = [&](double d) { return dist(*at(line, d), q); };
     double lo = from;
     for (double d = from + 0.5;; d += 0.5) {
@@ -73,6 +60,20 @@ Running runningGeometry(const core::RollingStock& s, bool reversed) {
 
 }  // namespace
 
+std::optional<QPointF> lineAt(const TrackLine& line, double d) {
+    const auto& pts = line.pts;
+    if (pts.empty() || d > pts.back().d + 1e-9) return std::nullopt;
+    for (size_t i = 1; i < pts.size(); ++i) {
+        const auto& a = pts[i - 1];
+        const auto& b = pts[i];
+        if (d <= b.d) {
+            const double f = b.d > a.d ? (d - a.d) / (b.d - a.d) : 0.0;
+            return QPointF(a.p.x() + (b.p.x() - a.p.x()) * f, a.p.y() + (b.p.y() - a.p.y()) * f);
+        }
+    }
+    return pts.front().p;
+}
+
 TrackLine trackBehind(const TrackNetwork& net, const core::TrainPosition& head, double length, const QMap<QString, int>& states) {
     TrackLine out;
     double d = 0.0;
@@ -88,12 +89,12 @@ TrackLine trackBehind(const TrackNetwork& net, const core::TrainPosition& head, 
     const double len0 = pts->back().s;
     double start = head.facingTo ? len0 - std::max(0.0, std::min(head.s, len0)) : std::max(0.0, std::min(head.s, len0));
     for (int guard = 0; guard < 100000; ++guard) {
-        if (out.pts.empty()) out.pts.push_back({ pointAt(*pts, start).p, 0.0 });
+        if (out.pts.empty()) out.pts.push_back({ pointAt(*pts, start).p, 0.0, brick });
         for (const auto& q : *pts) {
             if (q.s <= start) continue;
-            const QPointF prev = out.pts.back().first;
+            const QPointF prev = out.pts.back().p;
             d += dist(q.p, prev);
-            out.pts.push_back({ q.p, d });
+            out.pts.push_back({ q.p, d, brick });
             if (d >= length) return out;
         }
         const auto next = net.partner({ brick, leave });
@@ -131,6 +132,7 @@ std::optional<PlacedTrain> placeTrain(const TrackNetwork& net, const core::Train
     const TrackLine line = trackBehind(net, *train.position, total + 64.0, states);
     if (line.pts.size() < 2) return std::nullopt;
     PlacedTrain out;
+    out.line = line;
     std::optional<QPointF> couplerAt;
     double along = 0.0;
     // A unit placed with its front truck `frontD` along the line: none when its rear truck runs off the end.
@@ -153,6 +155,8 @@ std::optional<PlacedTrain> placeTrain(const TrackNetwork& net, const core::Train
         p.frontCoupler = QPointF(centre.x() + ux * g.half, centre.y() + uy * g.half);
         p.rearCoupler = QPointF(centre.x() - ux * g.half, centre.y() - uy * g.half);
         p.back = *rearD + (g.half + g.rear);
+        p.frontD = frontD;
+        p.rearD = *rearD;
         return p;
     };
     for (const auto& [u, s] : units) {

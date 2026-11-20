@@ -10,6 +10,8 @@ add_library(bld_track STATIC
     Routes.h
     Trains.cpp
     Trains.h
+    FitChecks.cpp
+    FitChecks.h
     TrackNetwork.cpp
     TrackNetwork.h
 )

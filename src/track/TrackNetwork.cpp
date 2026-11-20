@@ -181,4 +181,17 @@ QSet<QString> brickIdsOf(const core::Map& map) {
     return out;
 }
 
+QString TrackNetwork::kindOf(const QString& brick) const {
+    const auto it = bricks_.constFind(brick);
+    if (it == bricks_.constEnd()) return {};
+    for (const auto& k : it->track.kinds)
+        if (k) return *k;
+    return {};
+}
+
+bool TrackNetwork::isPowered(const QString& brick) const {
+    const auto it = bricks_.constFind(brick);
+    return it != bricks_.constEnd() && !electricCircuits(it->input.conns).isEmpty();
+}
+
 }  // namespace bld::track
