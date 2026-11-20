@@ -23,7 +23,7 @@
     "minimum": "2.1.11",
     "asset": "bld-import-server-linux-x86_64.tar.gz",
     "releaseUrl": "https://github.com/collaborative-brick-layout-designer/desktop/releases/download/v{version}/bld-import-server-linux-x86_64.tar.gz",
-    "pinned": { "version": "2.1.11", "sha256": "1e141ccb530f9faa1f4f942836900ab60856a4d49ead6cc39228b100b365578d" }
+    "pinned": { "version": "2.1.12", "sha256": "df93ed53f7617d5ee3bdb06d5bb87d854d8d0350465be568715d0c8af05a5b64" }
   },
   "sidecar": { "schemaVersion": 1 },
   "layoutFile": { "version": 1 },
