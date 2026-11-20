@@ -7,12 +7,48 @@
 #include <QImage>
 #include <QMargins>
 
+#include <limits>
+
 using namespace bld;
 
 TEST(MeshRasterize, EmptyMeshReturnsNullImage) {
     geom::Mesh m;
     const auto r = import::rasterizeMeshTopDown(m);
     EXPECT_TRUE(r.image.isNull());
+}
+
+// A model far beyond any layout, or with numbers that aren't numbers, has
+// no picture (and nothing overflows on the way: the sanitizer job runs this).
+TEST(MeshRasterize, AModelFarBeyondAnyLayoutHasNoPicture) {
+    const double nan = std::numeric_limits<double>::quiet_NaN();
+    for (const geom::Vec3 far : { geom::Vec3{ 1e70, 0, 0 }, geom::Vec3{ 0, 0, -3e7 }, geom::Vec3{ 0, 1e40, 0 }, geom::Vec3{ nan, 0, 0 },
+                                  geom::Vec3{ std::numeric_limits<double>::infinity(), 0, 0 } }) {
+        geom::Mesh m;
+        geom::Triangle t;
+        t.v[0] = { 0, 0, 0 };
+        t.v[1] = { 20, 0, 0 };
+        t.v[2] = far;
+        t.color = QColor::fromRgb(255, 0, 0);
+        m.tris.push_back(t);
+        const auto r = import::rasterizeMeshTopDown(m);
+        EXPECT_TRUE(r.image.isNull());
+    }
+    // An outline far away is left out; the model still draws.
+    geom::Mesh m;
+    geom::Triangle t;
+    t.v[0] = { 0, 0, 0 };
+    t.v[1] = { 20, 0, 0 };
+    t.v[2] = { 0, 0, 20 };
+    t.color = QColor::fromRgb(255, 0, 0);
+    m.tris.push_back(t);
+    geom::Edge e;
+    e.v[0] = { 0, 0, 0 };
+    e.v[1] = { 1e70, 0, 0 };
+    e.color = QColor::fromRgb(0, 0, 0);
+    m.edges.push_back(e);
+    import::RasterizeOptions opt;
+    opt.wireframe = true;
+    EXPECT_FALSE(import::rasterizeMeshTopDown(m, opt).image.isNull());
 }
 
 TEST(MeshRasterize, SingleTriangleProducesColoredPixels) {
