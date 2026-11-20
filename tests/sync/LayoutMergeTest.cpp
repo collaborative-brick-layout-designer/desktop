@@ -626,3 +626,29 @@ TEST(LayoutMerge, RoutesAreComparedAndMergedOneRouteAtATime) {
     ASSERT_TRUE(merged);
     ASSERT_EQ(merged->sidecar.routes.size(), 2u);
 }
+
+TEST(LayoutMerge, CarsAndTrainsAreComparedAndMergedOneAtATime) {
+    Case c;
+    core::RollingStock a = core::simpleStock(QStringLiteral("sa"));
+    a.number = QStringLiteral("101");
+    core::Train t;
+    t.id = QStringLiteral("t1");
+    t.name = QStringLiteral("Local");
+    c.base->sidecar.rollingStock = { a };
+    core::RollingStock a2 = a;
+    a2.number = QStringLiteral("102");
+    c.mine->sidecar.rollingStock = { a2 };
+    c.server->sidecar.rollingStock = { a };
+    c.server->sidecar.trains = { t };
+    const Snapshot bs = snapshotOf(*c.base), m = snapshotOf(*c.mine), s = snapshotOf(*c.server);
+    const auto changes = compareLayouts(bs, m, s);
+    QStringList lines;
+    for (const auto& ch : changes)
+        if (ch.kind == QLatin1String("stock") || ch.kind == QLatin1String("train")) lines << describe(ch);
+    EXPECT_EQ(lines.join(QLatin1Char('\n')).toStdString(), "Car \"102\": you changed it\nTrain \"Local\": the server added it");
+    auto merged = mergeLayouts(m, s, changes, {});
+    ASSERT_TRUE(merged);
+    ASSERT_EQ(merged->sidecar.rollingStock.size(), 1u);
+    EXPECT_EQ(merged->sidecar.rollingStock[0].number, QStringLiteral("102"));
+    EXPECT_EQ(merged->sidecar.trains.size(), 1u);
+}

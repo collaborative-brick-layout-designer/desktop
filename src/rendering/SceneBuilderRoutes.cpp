@@ -54,6 +54,7 @@ void SceneBuilder::refreshRoutes(const core::Map& map) {
 
 void SceneBuilder::addRoutes(const core::Map& map) {
     drawnRoutes_ = map.sidecar.routes;
+    drawnRouteSwitchStates_ = map.sidecar.switchStates;
     bool any = routeDraft_.has_value();
     for (const auto& r : map.sidecar.routes) any = any || !hiddenRoutes_.contains(r.id);
     if (!any) return;

@@ -837,6 +837,7 @@ void SceneBuilder::clear() {
     clearElectric();
     clearSwitches();
     clearRoutes();
+    clearTrains();
     drawnVenue_.reset();
     drawnLabels_.clear();
     drawnModules_.clear();
@@ -867,6 +868,7 @@ void SceneBuilder::build(const core::Map& map) {
     addElectricCircuits(map);
     addSwitches(map);
     addRoutes(map);
+    addTrains(map);
     built_ = true;
 }
 
@@ -1500,10 +1502,17 @@ std::optional<SceneBuilder::Change> SceneBuilder::update(const core::Map& map) {
         refreshSwitches(map);
         change.overlays = true;
     }
+    // (The switch arrows above note the settings they drew; routes and trains keep their own.)
     if ((!map.sidecar.routes.empty() || !routeItems_.isEmpty())
         && (partsChanged || visibilityChanged || map.sidecar.routes != drawnRoutes_
-            || map.sidecar.switchStates != drawnSwitchStates_)) {
+            || map.sidecar.switchStates != drawnRouteSwitchStates_)) {
         refreshRoutes(map);
+        change.overlays = true;
+    }
+    if ((!map.sidecar.trains.empty() || !trainItems_.isEmpty())
+        && (partsChanged || map.sidecar.trains != drawnTrains_ || map.sidecar.rollingStock != drawnStock_
+            || map.sidecar.switchStates != drawnTrainSwitchStates_)) {
+        refreshTrains(map);
         change.overlays = true;
     }
     return change;

@@ -28,6 +28,7 @@ add_library(bld_core STATIC
     AnchoredLabel.h
     Module.h
     Route.h
+    Train.h
     ModuleLook.h
     ModuleEdit.h
     SharedModule.h

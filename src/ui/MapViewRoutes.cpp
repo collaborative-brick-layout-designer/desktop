@@ -32,6 +32,7 @@ const char* const kColors[] = { "#3B82F6", "#A855F7", "#14B8A6", "#F59E0B", "#EC
 void MapView::startRouteDraft() {
     if (routeDraft_) return;
     if (runMode_) setRunMode(false);
+    cancelTrainPlacing();
     if (scene()) scene()->clearSelection();
     routeDraft_ = RouteDraft{};
     setInteractive(false);

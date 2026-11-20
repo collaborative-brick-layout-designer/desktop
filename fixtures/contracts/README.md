@@ -76,6 +76,11 @@ change in one repo fails until the other has the same copy.
   desktop src/track/Routes.cpp). The web's
   `BLD_WRITE_CONTRACTS=1 pnpm --filter @cld/parts-catalog test` writes the
   `expect` and `status` values.
+- `train-geometry.json`: trains on the route-search network (trains design
+  3.3): rolling stock records, and where each car's trucks, middle and
+  couplers sit for a train's head on the track, through switches as set,
+  and when it runs off the end (web packages/parts-catalog/src/track/trains.ts,
+  desktop src/track/Trains.cpp). The same command writes the `expect` values.
 
 To change them: edit (or, for the imported part, run the desktop's
 `bld_sync_tests --gtest_filter='Contracts.*'` with `BLD_WRITE_CONTRACTS=1`),

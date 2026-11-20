@@ -88,6 +88,19 @@ struct ClubRequestCount {
     int count = 0;
 };
 
+// An engine or car on your roster or a club's (GET /api/rolling-stock;
+// trains design 2.6): `record` is what a layout keeps, linked back by its
+// libraryId (this id) and libraryVersion (this version).
+struct RosterStock {
+    QString id;
+    QString number;
+    QString name;
+    int version = 1;
+    bool canManage = false;  // may change or delete it (yours, or a club where you may edit modules)
+    OwnerTag owner;
+    QJsonObject record;
+};
+
 struct ServerModule {
     QString id;
     QString title;
@@ -453,6 +466,14 @@ public:
     // Home page lists them (the desktop's Server window).
     void layouts(std::function<void(const QList<LayoutEntry>&)> done, Fail failed);
     void venues(std::function<void(const QList<VenueEntry>&)> done, Fail failed);
+    // Rolling stock rosters: yours and your clubs' (token scope layouts:read),
+    // and saving a car to one (`orgSlug` empty: yours) or changing one
+    // (layouts:write). The record goes without the layout's own id.
+    void rollingStock(std::function<void(const QList<RosterStock>&)> done, Fail failed);
+    void createStock(const QJsonObject& record, const QString& orgSlug, std::function<void(const RosterStock&)> done, Fail failed);
+    void updateStock(const QString& id, const QJsonObject& record, std::function<void(const RosterStock&)> done, Fail failed);
+    void deleteStock(const QString& id, std::function<void()> done, Fail failed);
+    static RosterStock rosterStockFromJson(const QJsonObject& o);
     void customParts(std::function<void(const QList<ServerPart>&)> done, Fail failed);
     // Only your own custom parts (?owner=me): not your clubs', nor ones shared with you.
     void myCustomParts(std::function<void(const QList<ServerPart>&)> done, Fail failed);

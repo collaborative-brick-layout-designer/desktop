@@ -330,6 +330,34 @@ Y.Map of fields, so different routes and different fields of one merge.
 Whether a route shows on the map is each person's own, never in the file.
 Never written to a `.bbm`. Added 2026-11 without a version bump.
 
+## Rolling stock and trains
+
+```json
+"rollingStock": [ { "id": "s1", "number": "4021", "name": "Boxcar", "kind": "car", "type": "boxcar",
+                    "trackKind": "rail", "length": 32, "width": 6, "bodyLength": 30,
+                    "trucks": [ { "at": 8, "swivelMax": 30 }, { "at": -8, "swivelMax": 30 } ],
+                    "couplers": { "front": { "type": "magnet", "swivelMax": 37 }, "rear": { "type": "magnet", "swivelMax": 37 } },
+                    "powered": false, "look": { "mode": "simple", "color": "#B40000" },
+                    "libraryId": "…", "libraryVersion": 2, "notes": "" } ],
+"trains": [ { "id": "t1", "name": "Freight", "trackKind": "rail",
+              "units": [ { "stock": "s1", "reversed": false } ],
+              "position": { "brick": "17", "from": 0, "to": 1, "s": 4, "facing": "to" },
+              "color": "#B40000", "speed": 40 } ]
+```
+
+Rolling stock and trains (trains design 2.3, 2.4). Lengths are studs; a
+truck's `at` is studs from the car's middle, + towards its front. A car
+missing fields reads with a quick car's defaults (trucks a quarter of the
+way in from each end). A train's `position` is its head car's front truck
+on the track, `facing` `to` (the rest of the train lies back towards
+`from`) or `from`; null when it isn't on the map. Where each car sits is
+worked out (the body on the chord between its trucks), never stored. A car
+copied from a roster keeps `libraryId` and `libraryVersion`, so the layout
+opens anywhere and can be brought up to date. Fields a build doesn't know
+are kept; an entry without `id` is dropped. Live, the web keeps them at
+`meta.rollingStock` and `meta.trains`, Y.Maps of id -> a Y.Map of fields.
+Never written to a `.bbm`. Added 2026-11 without a version bump.
+
 ## Background image
 
 ```json

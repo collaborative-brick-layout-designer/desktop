@@ -993,7 +993,9 @@ void MapView::mousePressEvent(QMouseEvent* e) {
     // nothing is picked or moved; the middle button still pans. Drawing a
     // route: a click picks a place on the track.
     if (clicksTaken() && e->button() != Qt::MiddleButton) {
-        if (e->button() == Qt::LeftButton && routeDraft_)
+        if (e->button() == Qt::LeftButton && !placingTrain_.isEmpty())
+            trainPlaceClick(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud);
+        else if (e->button() == Qt::LeftButton && routeDraft_)
             routeDraftClick(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud, e->modifiers() & Qt::ShiftModifier);
         else if (e->button() == Qt::LeftButton) flipSwitchNear(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud);
         e->accept();
@@ -1699,6 +1701,11 @@ void MapView::keyPressEvent(QKeyEvent* e) {
     // Run mode: no key moves, turns or deletes parts; Escape goes back to building.
     if (routeDraft_) {
         if (e->key() == Qt::Key_Escape) cancelRouteDraft();
+        e->accept();
+        return;
+    }
+    if (!placingTrain_.isEmpty()) {
+        if (e->key() == Qt::Key_Escape) cancelTrainPlacing();
         e->accept();
         return;
     }

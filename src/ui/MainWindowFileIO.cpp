@@ -661,6 +661,8 @@ void MainWindow::onExportBbm() {
     if (!map->sidecar.sets.empty()) lost << tr("which version each set came from");
     if (!map->sidecar.switchStates.isEmpty()) lost << tr("switch settings");
     if (!map->sidecar.routes.empty()) lost << tr("routes");
+    if (!map->sidecar.trains.empty()) lost << tr("trains");
+    if (!map->sidecar.rollingStock.empty()) lost << tr("rolling stock");
     if (!lost.isEmpty()) {
         QMessageBox box(QMessageBox::Question, tr("Export BlueBrick map"),
                         tr("BlueBrick can't hold %1, so the .bbm leaves them out. "

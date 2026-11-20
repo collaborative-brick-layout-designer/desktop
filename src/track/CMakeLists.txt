@@ -8,6 +8,8 @@ add_library(bld_track STATIC
     PartTrack.h
     Routes.cpp
     Routes.h
+    Trains.cpp
+    Trains.h
     TrackNetwork.cpp
     TrackNetwork.h
 )

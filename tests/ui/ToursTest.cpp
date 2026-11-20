@@ -80,7 +80,7 @@ TEST_F(Tours, TheCatalogueIsTheWebAppsFile) {
     QStringList ids;
     for (const auto& t : c.tours) ids << t.id;
     // The web's "import" tour (its import dialog) has web steps only: not here.
-    EXPECT_EQ(ids, (QStringList{ "editor", "rooms", "clubs", "modules", "routes", "view" }));
+    EXPECT_EQ(ids, (QStringList{ "editor", "rooms", "clubs", "modules", "routes", "trains", "view" }));
     EXPECT_EQ(tours::findTour(QStringLiteral("import")), nullptr);
     // The venue tour keeps its id; people see "Venues".
     EXPECT_EQ(tours::findTour(QStringLiteral("rooms"))->title, QStringLiteral("Venues"));
@@ -96,7 +96,7 @@ TEST_F(Tours, TheCatalogueIsTheWebAppsFile) {
     // The phone tour is the web's; the desktop offers the others.
     QStringList here;
     for (const auto* t : tours::desktopTours()) here << t->id;
-    EXPECT_EQ(here, (QStringList{ "editor", "rooms", "clubs", "modules", "routes" }));
+    EXPECT_EQ(here, (QStringList{ "editor", "rooms", "clubs", "modules", "routes", "trains" }));
     EXPECT_EQ(tours::stepCount(2, 5), QStringLiteral("2 of 5"));
 
     // The embedded copy is the file in the tree, and it says where its twin lives.

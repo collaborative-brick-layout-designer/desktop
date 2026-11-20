@@ -1622,6 +1622,90 @@
         <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
         <translation>打开一个分组即可看到每一种。邮件可以立即发送、按每日或每周汇总发送，或者不发。安静时段内的邮件会等到时段结束；你还可以把热闹的俱乐部设为静音，或暂停所有邮件。</translation>
     </message>
+    <message>
+        <source>Trains</source>
+        <translation>列车</translation>
+    </message>
+    <message>
+        <source>The layout&apos;s engines and cars, and the trains made of them.</source>
+        <translation>布局中的机车和车厢，以及由它们组成的列车。</translation>
+    </message>
+    <message>
+        <source>Make a car in a few seconds, put cars together into a train, and put the train on the track to see how it sits on curves. Trains and cars are saved with the layout and shared with everyone editing it.</source>
+        <translation>几秒钟就能做出一节车厢，把车厢编成列车，再放到轨道上，看看它在弯道上的位置。列车和车厢随布局保存，并与所有编辑者共享。</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>新车厢</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a length; everything else can wait.</source>
+        <translation>快速车厢只需要长度，其他的可以以后再说。</translation>
+    </message>
+    <message>
+        <source>Give it a number or name so you can find it. More shows the width, where the trucks sit, the couplers, and whether it uses a part&apos;s picture. Lengths are in studs, as you count them on the model.</source>
+        <translation>给它一个编号或名称，方便查找。“更多”显示宽度、转向架的位置、车钩，以及是否使用零件的图片。长度以颗粒为单位，就像在模型上数的那样。</translation>
+    </message>
+    <message>
+        <source>Trucks</source>
+        <translation>转向架</translation>
+    </message>
+    <message>
+        <source>The wheel sets a car rides on, measured in studs from the middle of the car.</source>
+        <translation>车厢下面的轮组，从车厢中心算起，以颗粒计。</translation>
+    </message>
+    <message>
+        <source>The front truck follows the track and the rear one follows it a fixed distance behind, so on a curve the car&apos;s middle swings in and its ends swing out, as a real one does. A quick car puts them a quarter of the way in from each end.</source>
+        <translation>前转向架沿着轨道走，后转向架在固定距离后跟随，所以在弯道上车厢中部向内、两端向外，和真车一样。快速车厢把它们放在离两端各四分之一处。</translation>
+    </message>
+    <message>
+        <source>Roster</source>
+        <translation>车辆名册</translation>
+    </message>
+    <message>
+        <source>Your own engines and cars, or a club&apos;s, ready to bring into any layout.</source>
+        <translation>你自己或俱乐部的机车和车厢，随时可以放进任何布局。</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s, then add it to other layouts from there. A layout keeps its own copy, so it still opens anywhere; when the roster&apos;s car changes, Update brings the layout&apos;s copy up to date. Club rosters are changed by members who may edit the club&apos;s modules.</source>
+        <translation>把车厢保存到你或俱乐部的车辆名册，再从那里加到其他布局。每个布局保留自己的副本，所以在哪里都能打开；名册里的车厢改了，“更新”会把布局里的副本同步过来。俱乐部名册由可以编辑俱乐部模块的成员修改。</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>新列车</translation>
+    </message>
+    <message>
+        <source>Cars in order, front to back, that move as one.</source>
+        <translation>按从前到后的顺序排列、一起移动的车厢。</translation>
+    </message>
+    <message>
+        <source>Add cars from this layout&apos;s rolling stock, put them in order, and turn any of them around. A train&apos;s length is from its front coupler to its rear one.</source>
+        <translation>从这个布局的车辆中添加车厢，排好顺序，任意车厢都可以掉头。列车长度从前车钩算到后车钩。</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>放到轨道上</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of the train should be.</source>
+        <translation>点击轨道上列车车头要停的位置。</translation>
+    </message>
+    <message>
+        <source>The train runs back from there, following the switches as they are set. Click again elsewhere to move it. A train that runs off the end of the track is outlined in red.</source>
+        <translation>列车从那里向后延伸，按道岔当前的方向走。点击别处可以移动它。超出轨道尽头的列车会以红色描边。</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>掉头</translation>
+    </message>
+    <message>
+        <source>The train&apos;s last car becomes its front, and it faces the other way.</source>
+        <translation>最后一节车厢变成车头，列车朝向另一边。</translation>
+    </message>
+    <message>
+        <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
+        <translation>车厢留在轨道上的原位，只是顺序和列车朝向改变。每次掉头都是一次可以撤销的修改。</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -3453,6 +3537,50 @@
         <source>Put it in the layout you have open, or start a new layout with it.</source>
         <translation>把它放进当前打开的布局，或用它新建一个布局。</translation>
     </message>
+    <message>
+        <source>Trains</source>
+        <translation>列车</translation>
+    </message>
+    <message>
+        <source>Trains and cars</source>
+        <translation>列车和车厢</translation>
+    </message>
+    <message>
+        <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
+        <translation>从“面板”打开“列车”。“车辆”里是这个布局的机车和车厢，“列车”里是用它们编成的列车。</translation>
+    </message>
+    <message>
+        <source>A quick car</source>
+        <translation>快速车厢</translation>
+    </message>
+    <message>
+        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
+        <translation>“新车厢”只需要编号和以颗粒计的长度。“更多细节”可以设置转向架、车钩和零件图片。</translation>
+    </message>
+    <message>
+        <source>Make a train</source>
+        <translation>编组列车</translation>
+    </message>
+    <message>
+        <source>Tick a few cars and press Make a train, or press New train and add them in order, front first.</source>
+        <translation>勾选几节车厢后按“编组列车”，或按“新列车”从车头开始依次添加。</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>在轨道上</translation>
+    </message>
+    <message>
+        <source>Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track.</source>
+        <translation>按“放到轨道上”，再点击车头要放的位置。每节车厢都架在它的转向架之间，和真轨道上一样。</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>你的名册</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
+        <translation>把车厢保存到你或俱乐部的名册，就能在其他布局中使用。“更新”会让布局里的副本保持最新。</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::ModuleLibraryLink</name>
@@ -4537,6 +4665,14 @@
     <message>
         <source>Background image</source>
         <translation>背景图片</translation>
+    </message>
+    <message>
+        <source>Car &quot;%1&quot;</source>
+        <translation>车厢“%1”</translation>
+    </message>
+    <message>
+        <source>Train &quot;%1&quot;</source>
+        <translation>列车“%1”</translation>
     </message>
 </context>
 <context>
@@ -9460,6 +9596,14 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <source>All notifications</source>
         <translation>所有通知</translation>
     </message>
+    <message>
+        <source>trains</source>
+        <translation>列车</translation>
+    </message>
+    <message>
+        <source>rolling stock</source>
+        <translation>车辆</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -10105,6 +10249,30 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     <message>
         <source>Route “%1” saved.</source>
         <translation>路线“%1”已保存。</translation>
+    </message>
+    <message>
+        <source>the train</source>
+        <translation>列车</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
+        <translation>点击轨道上&lt;b&gt;%1&lt;/b&gt;车头要放的位置。</translation>
+    </message>
+    <message>
+        <source>The train</source>
+        <translation>列车</translation>
+    </message>
+    <message>
+        <source>Put %1 on the track</source>
+        <translation>把%1放到轨道上</translation>
+    </message>
+    <message>
+        <source>%1 is on the track.</source>
+        <translation>%1已在轨道上。</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track here.</source>
+        <translation>%1在这里超出了轨道尽头。</translation>
     </message>
 </context>
 <context>
@@ -11612,6 +11780,45 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Save</source>
         <translation>保存</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RosterDialog</name>
+    <message>
+        <source>From a roster</source>
+        <translation>从名册添加</translation>
+    </message>
+    <message>
+        <source>Your engines and cars, and your clubs’. Add one to this layout; it keeps its own copy.</source>
+        <translation>你和你所在俱乐部的机车和车厢。添加到这个布局后，布局会保留自己的副本。</translation>
+    </message>
+    <message>
+        <source>Your roster is empty. Save a car from a layout to your roster, or a club’s, to use it in other layouts.</source>
+        <translation>你的名册是空的。把布局里的车厢保存到你或俱乐部的名册，就能在其他布局中使用。</translation>
+    </message>
+    <message>
+        <source>Unnamed</source>
+        <translation>未命名</translation>
+    </message>
+    <message>
+        <source>Yours</source>
+        <translation>你的</translation>
+    </message>
+    <message>
+        <source>In this layout</source>
+        <translation>在这个布局中</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation>更新</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>添加</translation>
+    </message>
+    <message>
+        <source>Take off the roster</source>
+        <translation>从名册移除</translation>
     </message>
 </context>
 <context>
@@ -13632,6 +13839,181 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
 </context>
 <context>
+    <name>bld::ui::StockDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> 颗粒</translation>
+    </message>
+    <message>
+        <source>Engine</source>
+        <translation>机车</translation>
+    </message>
+    <message>
+        <source>Cab car</source>
+        <translation>控制车</translation>
+    </message>
+    <message>
+        <source>Powered car (multiple unit)</source>
+        <translation>动车（动车组）</translation>
+    </message>
+    <message>
+        <source>Monorail car</source>
+        <translation>单轨车厢</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>车厢</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>新车厢</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>修改车厢</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a number and a length. More details can wait.</source>
+        <translation>快速车厢只需要编号和长度，细节可以以后再说。</translation>
+    </message>
+    <message>
+        <source>Number:</source>
+        <translation>编号：</translation>
+    </message>
+    <message>
+        <source>Boxcar</source>
+        <translation>棚车</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>名称:</translation>
+    </message>
+    <message>
+        <source>Kind:</source>
+        <translation>类型：</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>颜色</translation>
+    </message>
+    <message>
+        <source>Car color</source>
+        <translation>车厢颜色</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>颜色:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler</source>
+        <translation>车钩到车钩</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>长度：</translation>
+    </message>
+    <message>
+        <source>More details</source>
+        <translation>更多细节</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>宽度：</translation>
+    </message>
+    <message>
+        <source>Body length:</source>
+        <translation>车体长度：</translation>
+    </message>
+    <message>
+        <source>Front truck, ahead of the middle:</source>
+        <translation>前转向架（中心前方）：</translation>
+    </message>
+    <message>
+        <source>Rear truck, behind the middle:</source>
+        <translation>后转向架（中心后方）：</translation>
+    </message>
+    <message>
+        <source>Magnet</source>
+        <translation>磁铁</translation>
+    </message>
+    <message>
+        <source>Fixed bar</source>
+        <translation>固定杆</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>无</translation>
+    </message>
+    <message>
+        <source>Front coupler:</source>
+        <translation>前车钩：</translation>
+    </message>
+    <message>
+        <source>Rear coupler:</source>
+        <translation>后车钩：</translation>
+    </message>
+    <message>
+        <source>Has a motor</source>
+        <translation>带电机</translation>
+    </message>
+    <message>
+        <source>Train track</source>
+        <translation>火车轨道</translation>
+    </message>
+    <message>
+        <source>Monorail</source>
+        <translation>单轨</translation>
+    </message>
+    <message>
+        <source>Runs on:</source>
+        <translation>运行在：</translation>
+    </message>
+    <message>
+        <source>A box in its color</source>
+        <translation>它颜色的方块</translation>
+    </message>
+    <message>
+        <source>A part’s picture</source>
+        <translation>零件图片</translation>
+    </message>
+    <message>
+        <source>Seen from above as:</source>
+        <translation>俯视显示为：</translation>
+    </message>
+    <message>
+        <source>Search train parts</source>
+        <translation>搜索火车零件</translation>
+    </message>
+    <message>
+        <source>Picking a part sets the length from its couplers.</source>
+        <translation>选择零件会按它的车钩设定长度。</translation>
+    </message>
+    <message>
+        <source>Notes:</source>
+        <translation>备注：</translation>
+    </message>
+    <message>
+        <source>The front truck must be ahead of the rear one, and both within the car’s length.</source>
+        <translation>前转向架必须在后转向架前面，而且都在车厢长度之内。</translation>
+    </message>
+    <message>
+        <source>Add car</source>
+        <translation>添加车厢</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>保存</translation>
+    </message>
+    <message>
+        <source>Fewer details</source>
+        <translation>收起细节</translation>
+    </message>
+    <message>
+        <source>No train parts match. Parts with a coupler at each end show here.</source>
+        <translation>没有匹配的火车零件。两端都有车钩的零件会显示在这里。</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::TouchActionBar</name>
     <message>
         <source>Turn left</source>
@@ -13676,6 +14058,328 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Tap the map to place %1</source>
         <translation>点一下地图来放置 %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainDialog</name>
+    <message>
+        <source>New train</source>
+        <translation>新列车</translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>修改列车</translation>
+    </message>
+    <message>
+        <source>Cars in order, front first. A train moves as one.</source>
+        <translation>车厢按顺序排列，车头在前。列车一起移动。</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>名称:</translation>
+    </message>
+    <message>
+        <source>Cars in the train, front first</source>
+        <translation>列车中的车厢（车头在前）</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation>向前</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>上一步</translation>
+    </message>
+    <message>
+        <source>Turn car around</source>
+        <translation>车厢掉头</translation>
+    </message>
+    <message>
+        <source>Take out</source>
+        <translation>取出</translation>
+    </message>
+    <message>
+        <source>Car to add</source>
+        <translation>要添加的车厢</translation>
+    </message>
+    <message>
+        <source>Add to the end</source>
+        <translation>加到末尾</translation>
+    </message>
+    <message>
+        <source>This layout has no cars yet. Make one in Rolling stock first.</source>
+        <translation>这个布局还没有车厢。先在“车辆”里做一节。</translation>
+    </message>
+    <message>
+        <source>Save train</source>
+        <translation>保存列车</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>已删除的车厢</translation>
+    </message>
+    <message>
+        <source>turned around</source>
+        <translation>已掉头</translation>
+    </message>
+    <message>
+        <source>Length %1</source>
+        <translation>长度 %1</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>列车</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainsPanel</name>
+    <message>
+        <source>Trains</source>
+        <translation>列车</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>新列车</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>新车厢</translation>
+    </message>
+    <message>
+        <source>From a roster…</source>
+        <translation>从名册添加…</translation>
+    </message>
+    <message>
+        <source>Rolling stock</source>
+        <translation>车辆</translation>
+    </message>
+    <message>
+        <source>Added %1.</source>
+        <translation>已添加%1。</translation>
+    </message>
+    <message>
+        <source>Saved %1.</source>
+        <translation>已保存%1。</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>修改车厢</translation>
+    </message>
+    <message>
+        <source>Delete %1?</source>
+        <translation>删除%1？</translation>
+    </message>
+    <message>
+        <source>Delete %1 and take it out of %2?</source>
+        <translation>删除%1并把它从%2中移出？</translation>
+    </message>
+    <message>
+        <source>Delete car</source>
+        <translation>删除车厢</translation>
+    </message>
+    <message>
+        <source>Train %1</source>
+        <translation>列车 %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Made %1 from %n car(s). Put it on the track to see it.</source>
+        <translation>
+            <numerusform>用%n节车厢编成了%1。把它放到轨道上就能看到。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>修改列车</translation>
+    </message>
+    <message>
+        <source>%1 turned around.</source>
+        <translation>%1已掉头。</translation>
+    </message>
+    <message>
+        <source>Turn train around</source>
+        <translation>列车掉头</translation>
+    </message>
+    <message>
+        <source>Take train off the track</source>
+        <translation>把列车移出轨道</translation>
+    </message>
+    <message>
+        <source>Delete %1? Its cars stay.</source>
+        <translation>删除%1？车厢会保留。</translation>
+    </message>
+    <message>
+        <source>Delete train</source>
+        <translation>删除列车</translation>
+    </message>
+    <message>
+        <source>Updated %1 from the roster.</source>
+        <translation>已从名册更新%1。</translation>
+    </message>
+    <message>
+        <source>Update car from roster</source>
+        <translation>从名册更新车厢</translation>
+    </message>
+    <message>
+        <source>Added %1 to this layout.</source>
+        <translation>已把%1添加到这个布局。</translation>
+    </message>
+    <message>
+        <source>Add car from roster</source>
+        <translation>从名册添加车厢</translation>
+    </message>
+    <message>
+        <source>Your rosters couldn’t be loaded: %1</source>
+        <translation>无法载入你的名册：%1</translation>
+    </message>
+    <message>
+        <source>Saved %1 to the roster.</source>
+        <translation>已把%1保存到名册。</translation>
+    </message>
+    <message>
+        <source>Save car to roster</source>
+        <translation>把车厢保存到名册</translation>
+    </message>
+    <message>
+        <source>It couldn’t be saved to the roster: %1</source>
+        <translation>无法保存到名册：%1</translation>
+    </message>
+    <message>
+        <source>Trains (%1)</source>
+        <translation>列车 (%1)</translation>
+    </message>
+    <message>
+        <source>Rolling stock (%1)</source>
+        <translation>车辆 (%1)</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
+        <translation>还没有车辆。按“新车厢”：快速车厢只需要编号和长度。</translation>
+    </message>
+    <message>
+        <source>Pick %1 for a new train</source>
+        <translation>为新列车选择%1</translation>
+    </message>
+    <message>
+        <source>In %1</source>
+        <translation>在%1中</translation>
+    </message>
+    <message>
+        <source>The roster has a newer version</source>
+        <translation>名册里有更新的版本</translation>
+    </message>
+    <message>
+        <source>From a roster</source>
+        <translation>从名册添加</translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation>更改</translation>
+    </message>
+    <message>
+        <source>Update from roster</source>
+        <translation>从名册更新</translation>
+    </message>
+    <message>
+        <source>Save to roster</source>
+        <translation>保存到名册</translation>
+    </message>
+    <message>
+        <source>Save changes to %1’s roster</source>
+        <translation>把修改保存到%1的名册</translation>
+    </message>
+    <message>
+        <source>Save changes to your roster</source>
+        <translation>把修改保存到你的名册</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>你的名册</translation>
+    </message>
+    <message>
+        <source>%1’s roster</source>
+        <translation>%1的名册</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>删除</translation>
+    </message>
+    <message>
+        <source>Make a train of this car</source>
+        <translation>用这节车厢编组列车</translation>
+    </message>
+    <message>
+        <source>Make a train of these %1 cars</source>
+        <translation>用这%1节车厢编组列车</translation>
+    </message>
+    <message>
+        <source>No trains yet. Make a car or two in Rolling stock first, then put them together here.</source>
+        <translation>还没有列车。先在“车辆”里做一两节车厢，再在这里编组。</translation>
+    </message>
+    <message>
+        <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
+        <translation>还没有列车。按“新列车”，或在“车辆”里勾选车厢编组列车。</translation>
+    </message>
+    <message>
+        <source>Untitled train</source>
+        <translation>未命名列车</translation>
+    </message>
+    <message>
+        <source>Not on the map</source>
+        <translation>不在地图上</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed</source>
+        <translation>它的轨道被移动或移除了</translation>
+    </message>
+    <message>
+        <source>Runs off the end of the track</source>
+        <translation>超出轨道尽头</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>在轨道上</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n car(s)</source>
+        <translation>
+            <numerusform>%n节车厢</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Click the track…</source>
+        <translation>点击轨道…</translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation>移动</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>放到轨道上</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet.</source>
+        <translation>这个布局还没有轨道。</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>掉头</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>移出轨道</translation>
+    </message>
+    <message>
+        <source>Sign in to a server first (File › Servers…) to use your roster and your clubs’.</source>
+        <translation>请先登录服务器（文件 › 服务器…），才能使用你和俱乐部的名册。</translation>
+    </message>
+    <message>
+        <source>Take %1 off the roster? Layouts keep their copies.</source>
+        <translation>把%1从名册移除？布局会保留各自的副本。</translation>
+    </message>
+    <message>
+        <source>It couldn’t be taken off the roster: %1</source>
+        <translation>无法从名册移除：%1</translation>
     </message>
 </context>
 <context>

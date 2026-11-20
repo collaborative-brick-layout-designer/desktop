@@ -1622,6 +1622,90 @@
         <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
         <translation>Open een groep om elke soort te zien. E-mail kan meteen komen, in een dagelijkse of wekelijkse samenvatting, of helemaal niet. Stille uren houden e-mails vast tot ze voorbij zijn, en je kunt een drukke club dempen of alle e-mail pauzeren.</translation>
     </message>
+    <message>
+        <source>Trains</source>
+        <translation>Treinen</translation>
+    </message>
+    <message>
+        <source>The layout&apos;s engines and cars, and the trains made of them.</source>
+        <translation>De locomotieven en wagons van de layout, en de treinen die je ervan maakt.</translation>
+    </message>
+    <message>
+        <source>Make a car in a few seconds, put cars together into a train, and put the train on the track to see how it sits on curves. Trains and cars are saved with the layout and shared with everyone editing it.</source>
+        <translation>Maak in een paar seconden een wagon, zet wagons samen tot een trein en zet de trein op het spoor om te zien hoe hij in bochten staat. Treinen en wagons worden met de layout bewaard en gedeeld met iedereen die hem bewerkt.</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Nieuwe wagon</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a length; everything else can wait.</source>
+        <translation>Een snelle wagon heeft alleen een lengte nodig; de rest kan wachten.</translation>
+    </message>
+    <message>
+        <source>Give it a number or name so you can find it. More shows the width, where the trucks sit, the couplers, and whether it uses a part&apos;s picture. Lengths are in studs, as you count them on the model.</source>
+        <translation>Geef hem een nummer of naam zodat je hem terugvindt. Meer toont de breedte, waar de draaistellen zitten, de koppelingen en of hij de afbeelding van een onderdeel gebruikt. Lengtes zijn in noppen, zoals je ze op het model telt.</translation>
+    </message>
+    <message>
+        <source>Trucks</source>
+        <translation>Draaistellen</translation>
+    </message>
+    <message>
+        <source>The wheel sets a car rides on, measured in studs from the middle of the car.</source>
+        <translation>De wielstellen waarop een wagon rijdt, gemeten in noppen vanaf het midden van de wagon.</translation>
+    </message>
+    <message>
+        <source>The front truck follows the track and the rear one follows it a fixed distance behind, so on a curve the car&apos;s middle swings in and its ends swing out, as a real one does. A quick car puts them a quarter of the way in from each end.</source>
+        <translation>Het voorste draaistel volgt het spoor en het achterste volgt op een vaste afstand, dus in een bocht zwaait het midden van de wagon naar binnen en de uiteinden naar buiten, net als bij een echte. Een snelle wagon zet ze op een kwart van elk uiteinde.</translation>
+    </message>
+    <message>
+        <source>Roster</source>
+        <translation>Wagenpark</translation>
+    </message>
+    <message>
+        <source>Your own engines and cars, or a club&apos;s, ready to bring into any layout.</source>
+        <translation>Je eigen locomotieven en wagons, of die van een club, klaar voor elke layout.</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s, then add it to other layouts from there. A layout keeps its own copy, so it still opens anywhere; when the roster&apos;s car changes, Update brings the layout&apos;s copy up to date. Club rosters are changed by members who may edit the club&apos;s modules.</source>
+        <translation>Bewaar een wagon in je wagenpark of dat van een club en voeg hem van daaruit toe aan andere layouts. Een layout houdt een eigen kopie, dus hij opent overal; als de wagon in het wagenpark verandert, brengt Bijwerken de kopie van de layout bij. Clubwagenparken worden gewijzigd door leden die de modules van de club mogen bewerken.</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>Nieuwe trein</translation>
+    </message>
+    <message>
+        <source>Cars in order, front to back, that move as one.</source>
+        <translation>Wagons op volgorde, van voor naar achter, die samen bewegen.</translation>
+    </message>
+    <message>
+        <source>Add cars from this layout&apos;s rolling stock, put them in order, and turn any of them around. A train&apos;s length is from its front coupler to its rear one.</source>
+        <translation>Voeg wagons uit het rollend materieel van deze layout toe, zet ze op volgorde en draai er zoveel om als je wilt. De lengte van een trein loopt van de voorste tot de achterste koppeling.</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>Op het spoor zetten</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of the train should be.</source>
+        <translation>Klik op het spoor waar de voorkant van de trein moet staan.</translation>
+    </message>
+    <message>
+        <source>The train runs back from there, following the switches as they are set. Click again elsewhere to move it. A train that runs off the end of the track is outlined in red.</source>
+        <translation>De trein loopt van daar naar achteren en volgt de wissels zoals ze staan. Klik ergens anders om hem te verplaatsen. Een trein die voorbij het einde van het spoor steekt, krijgt een rode rand.</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>Omdraaien</translation>
+    </message>
+    <message>
+        <source>The train&apos;s last car becomes its front, and it faces the other way.</source>
+        <translation>De laatste wagon wordt de voorkant en de trein wijst de andere kant op.</translation>
+    </message>
+    <message>
+        <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
+        <translation>De wagons blijven waar ze op het spoor staan; alleen hun volgorde en de richting van de trein veranderen. Elke keer omdraaien is één wijziging die je ongedaan kunt maken.</translation>
+    </message>
 </context>
 <context>
     <name>LibraryApi</name>
@@ -3471,6 +3555,50 @@
         <source>Put it in the layout you have open, or start a new layout with it.</source>
         <translation>Zet het in de geopende layout, of begin er een nieuwe layout mee.</translation>
     </message>
+    <message>
+        <source>Trains</source>
+        <translation>Treinen</translation>
+    </message>
+    <message>
+        <source>Trains and cars</source>
+        <translation>Treinen en wagons</translation>
+    </message>
+    <message>
+        <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
+        <translation>Open Treinen via Panelen. Rollend materieel bevat de locomotieven en wagons van deze layout; Treinen de treinen die ervan gemaakt zijn.</translation>
+    </message>
+    <message>
+        <source>A quick car</source>
+        <translation>Een snelle wagon</translation>
+    </message>
+    <message>
+        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
+        <translation>Nieuwe wagon heeft alleen een nummer en een lengte in noppen nodig. Meer details stelt draaistellen, koppelingen en de afbeelding van een onderdeel in.</translation>
+    </message>
+    <message>
+        <source>Make a train</source>
+        <translation>Een trein maken</translation>
+    </message>
+    <message>
+        <source>Tick a few cars and press Make a train, or press New train and add them in order, front first.</source>
+        <translation>Vink een paar wagons aan en druk op Een trein maken, of druk op Nieuwe trein en voeg ze op volgorde toe, voorkant eerst.</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>Op het spoor</translation>
+    </message>
+    <message>
+        <source>Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track.</source>
+        <translation>Druk op Op het spoor zetten en klik waar de voorkant moet komen. Elke wagon zit tussen zijn draaistellen, zoals op echt spoor.</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>Je wagenpark</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
+        <translation>Bewaar een wagon in je wagenpark of dat van een club om hem in andere layouts te gebruiken. Bijwerken brengt de kopie van een layout bij.</translation>
+    </message>
 </context>
 <context>
     <name>bld::edit::ModuleLibraryLink</name>
@@ -4563,6 +4691,14 @@
     <message>
         <source>Background image</source>
         <translation>Achtergrondafbeelding</translation>
+    </message>
+    <message>
+        <source>Car &quot;%1&quot;</source>
+        <translation>Wagon &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Train &quot;%1&quot;</source>
+        <translation>Trein &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -9535,6 +9671,14 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <source>All notifications</source>
         <translation>Alle meldingen</translation>
     </message>
+    <message>
+        <source>trains</source>
+        <translation>treinen</translation>
+    </message>
+    <message>
+        <source>rolling stock</source>
+        <translation>rollend materieel</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::MakeModuleDialog</name>
@@ -10184,6 +10328,30 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     <message>
         <source>Route “%1” saved.</source>
         <translation>Route ‘%1’ opgeslagen.</translation>
+    </message>
+    <message>
+        <source>the train</source>
+        <translation>de trein</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
+        <translation>Klik op het spoor waar de voorkant van &lt;b&gt;%1&lt;/b&gt; komt.</translation>
+    </message>
+    <message>
+        <source>The train</source>
+        <translation>De trein</translation>
+    </message>
+    <message>
+        <source>Put %1 on the track</source>
+        <translation>%1 op het spoor zetten</translation>
+    </message>
+    <message>
+        <source>%1 is on the track.</source>
+        <translation>%1 staat op het spoor.</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track here.</source>
+        <translation>%1 steekt hier voorbij het einde van het spoor.</translation>
     </message>
 </context>
 <context>
@@ -11702,6 +11870,45 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Save</source>
         <translation>Opslaan</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RosterDialog</name>
+    <message>
+        <source>From a roster</source>
+        <translation>Uit een wagenpark</translation>
+    </message>
+    <message>
+        <source>Your engines and cars, and your clubs’. Add one to this layout; it keeps its own copy.</source>
+        <translation>Je locomotieven en wagons, en die van je clubs. Voeg er een toe aan deze layout; hij houdt een eigen kopie.</translation>
+    </message>
+    <message>
+        <source>Your roster is empty. Save a car from a layout to your roster, or a club’s, to use it in other layouts.</source>
+        <translation>Je wagenpark is leeg. Bewaar een wagon uit een layout in je wagenpark, of dat van een club, om hem in andere layouts te gebruiken.</translation>
+    </message>
+    <message>
+        <source>Unnamed</source>
+        <translation>Naamloos</translation>
+    </message>
+    <message>
+        <source>Yours</source>
+        <translation>Van jou</translation>
+    </message>
+    <message>
+        <source>In this layout</source>
+        <translation>In deze layout</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation>Bijwerken</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Toevoegen</translation>
+    </message>
+    <message>
+        <source>Take off the roster</source>
+        <translation>Uit het wagenpark halen</translation>
     </message>
 </context>
 <context>
@@ -13727,6 +13934,181 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     </message>
 </context>
 <context>
+    <name>bld::ui::StockDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> noppen</translation>
+    </message>
+    <message>
+        <source>Engine</source>
+        <translation>Locomotief</translation>
+    </message>
+    <message>
+        <source>Cab car</source>
+        <translation>Stuurstandrijtuig</translation>
+    </message>
+    <message>
+        <source>Powered car (multiple unit)</source>
+        <translation>Motorrijtuig (treinstel)</translation>
+    </message>
+    <message>
+        <source>Monorail car</source>
+        <translation>Monorailwagon</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>Wagon</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Nieuwe wagon</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>Wagon wijzigen</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a number and a length. More details can wait.</source>
+        <translation>Een snelle wagon heeft alleen een nummer en een lengte nodig. Details kunnen wachten.</translation>
+    </message>
+    <message>
+        <source>Number:</source>
+        <translation>Nummer:</translation>
+    </message>
+    <message>
+        <source>Boxcar</source>
+        <translation>Gesloten wagon</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Naam:</translation>
+    </message>
+    <message>
+        <source>Kind:</source>
+        <translation>Soort:</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Kleur</translation>
+    </message>
+    <message>
+        <source>Car color</source>
+        <translation>Kleur van de wagon</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>Kleur:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler</source>
+        <translation>Koppeling tot koppeling</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>Lengte:</translation>
+    </message>
+    <message>
+        <source>More details</source>
+        <translation>Meer details</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Breedte:</translation>
+    </message>
+    <message>
+        <source>Body length:</source>
+        <translation>Lengte van de bak:</translation>
+    </message>
+    <message>
+        <source>Front truck, ahead of the middle:</source>
+        <translation>Voorste draaistel, voor het midden:</translation>
+    </message>
+    <message>
+        <source>Rear truck, behind the middle:</source>
+        <translation>Achterste draaistel, achter het midden:</translation>
+    </message>
+    <message>
+        <source>Magnet</source>
+        <translation>Magneet</translation>
+    </message>
+    <message>
+        <source>Fixed bar</source>
+        <translation>Vaste stang</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Front coupler:</source>
+        <translation>Voorste koppeling:</translation>
+    </message>
+    <message>
+        <source>Rear coupler:</source>
+        <translation>Achterste koppeling:</translation>
+    </message>
+    <message>
+        <source>Has a motor</source>
+        <translation>Heeft een motor</translation>
+    </message>
+    <message>
+        <source>Train track</source>
+        <translation>Treinspoor</translation>
+    </message>
+    <message>
+        <source>Monorail</source>
+        <translation>Monorail</translation>
+    </message>
+    <message>
+        <source>Runs on:</source>
+        <translation>Rijdt op:</translation>
+    </message>
+    <message>
+        <source>A box in its color</source>
+        <translation>Een blok in zijn kleur</translation>
+    </message>
+    <message>
+        <source>A part’s picture</source>
+        <translation>De afbeelding van een onderdeel</translation>
+    </message>
+    <message>
+        <source>Seen from above as:</source>
+        <translation>Van boven gezien als:</translation>
+    </message>
+    <message>
+        <source>Search train parts</source>
+        <translation>Treinonderdelen zoeken</translation>
+    </message>
+    <message>
+        <source>Picking a part sets the length from its couplers.</source>
+        <translation>Een onderdeel kiezen stelt de lengte in vanaf de koppelingen.</translation>
+    </message>
+    <message>
+        <source>Notes:</source>
+        <translation>Notities:</translation>
+    </message>
+    <message>
+        <source>The front truck must be ahead of the rear one, and both within the car’s length.</source>
+        <translation>Het voorste draaistel moet voor het achterste zitten, en beide binnen de lengte van de wagon.</translation>
+    </message>
+    <message>
+        <source>Add car</source>
+        <translation>Wagon toevoegen</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Opslaan</translation>
+    </message>
+    <message>
+        <source>Fewer details</source>
+        <translation>Minder details</translation>
+    </message>
+    <message>
+        <source>No train parts match. Parts with a coupler at each end show here.</source>
+        <translation>Geen treinonderdelen gevonden. Onderdelen met een koppeling aan elk uiteinde staan hier.</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::TouchActionBar</name>
     <message>
         <source>Turn left</source>
@@ -13771,6 +14153,330 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Tap the map to place %1</source>
         <translation>Tik op de kaart om %1 te plaatsen</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainDialog</name>
+    <message>
+        <source>New train</source>
+        <translation>Nieuwe trein</translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>Trein wijzigen</translation>
+    </message>
+    <message>
+        <source>Cars in order, front first. A train moves as one.</source>
+        <translation>Wagons op volgorde, voorkant eerst. Een trein beweegt als geheel.</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Naam:</translation>
+    </message>
+    <message>
+        <source>Cars in the train, front first</source>
+        <translation>Wagons in de trein, voorkant eerst</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation>Naar voren</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Vorige</translation>
+    </message>
+    <message>
+        <source>Turn car around</source>
+        <translation>Wagon omdraaien</translation>
+    </message>
+    <message>
+        <source>Take out</source>
+        <translation>Eruit halen</translation>
+    </message>
+    <message>
+        <source>Car to add</source>
+        <translation>Wagon om toe te voegen</translation>
+    </message>
+    <message>
+        <source>Add to the end</source>
+        <translation>Achteraan toevoegen</translation>
+    </message>
+    <message>
+        <source>This layout has no cars yet. Make one in Rolling stock first.</source>
+        <translation>Deze layout heeft nog geen wagons. Maak er eerst een in Rollend materieel.</translation>
+    </message>
+    <message>
+        <source>Save train</source>
+        <translation>Trein bewaren</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>Een verwijderde wagon</translation>
+    </message>
+    <message>
+        <source>turned around</source>
+        <translation>omgedraaid</translation>
+    </message>
+    <message>
+        <source>Length %1</source>
+        <translation>Lengte %1</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>Trein</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainsPanel</name>
+    <message>
+        <source>Trains</source>
+        <translation>Treinen</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>Nieuwe trein</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Nieuwe wagon</translation>
+    </message>
+    <message>
+        <source>From a roster…</source>
+        <translation>Uit een wagenpark…</translation>
+    </message>
+    <message>
+        <source>Rolling stock</source>
+        <translation>Rollend materieel</translation>
+    </message>
+    <message>
+        <source>Added %1.</source>
+        <translation>%1 toegevoegd.</translation>
+    </message>
+    <message>
+        <source>Saved %1.</source>
+        <translation>%1 bewaard.</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>Wagon wijzigen</translation>
+    </message>
+    <message>
+        <source>Delete %1?</source>
+        <translation>%1 verwijderen?</translation>
+    </message>
+    <message>
+        <source>Delete %1 and take it out of %2?</source>
+        <translation>%1 verwijderen en uit %2 halen?</translation>
+    </message>
+    <message>
+        <source>Delete car</source>
+        <translation>Wagon verwijderen</translation>
+    </message>
+    <message>
+        <source>Train %1</source>
+        <translation>Trein %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Made %1 from %n car(s). Put it on the track to see it.</source>
+        <translation>
+            <numerusform>%1 gemaakt van %n wagon. Zet hem op het spoor om hem te zien.</numerusform>
+            <numerusform>%1 gemaakt van %n wagons. Zet hem op het spoor om hem te zien.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>Trein wijzigen</translation>
+    </message>
+    <message>
+        <source>%1 turned around.</source>
+        <translation>%1 omgedraaid.</translation>
+    </message>
+    <message>
+        <source>Turn train around</source>
+        <translation>Trein omdraaien</translation>
+    </message>
+    <message>
+        <source>Take train off the track</source>
+        <translation>Trein van het spoor halen</translation>
+    </message>
+    <message>
+        <source>Delete %1? Its cars stay.</source>
+        <translation>%1 verwijderen? De wagons blijven.</translation>
+    </message>
+    <message>
+        <source>Delete train</source>
+        <translation>Trein verwijderen</translation>
+    </message>
+    <message>
+        <source>Updated %1 from the roster.</source>
+        <translation>%1 bijgewerkt uit het wagenpark.</translation>
+    </message>
+    <message>
+        <source>Update car from roster</source>
+        <translation>Wagon bijwerken uit wagenpark</translation>
+    </message>
+    <message>
+        <source>Added %1 to this layout.</source>
+        <translation>%1 aan deze layout toegevoegd.</translation>
+    </message>
+    <message>
+        <source>Add car from roster</source>
+        <translation>Wagon toevoegen uit wagenpark</translation>
+    </message>
+    <message>
+        <source>Your rosters couldn’t be loaded: %1</source>
+        <translation>Je wagenparken konden niet worden geladen: %1</translation>
+    </message>
+    <message>
+        <source>Saved %1 to the roster.</source>
+        <translation>%1 in het wagenpark bewaard.</translation>
+    </message>
+    <message>
+        <source>Save car to roster</source>
+        <translation>Wagon in wagenpark bewaren</translation>
+    </message>
+    <message>
+        <source>It couldn’t be saved to the roster: %1</source>
+        <translation>Hij kon niet in het wagenpark worden bewaard: %1</translation>
+    </message>
+    <message>
+        <source>Trains (%1)</source>
+        <translation>Treinen (%1)</translation>
+    </message>
+    <message>
+        <source>Rolling stock (%1)</source>
+        <translation>Rollend materieel (%1)</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
+        <translation>Nog geen rollend materieel. Druk op Nieuwe wagon: een nummer en een lengte is alles wat een snelle wagon nodig heeft.</translation>
+    </message>
+    <message>
+        <source>Pick %1 for a new train</source>
+        <translation>%1 kiezen voor een nieuwe trein</translation>
+    </message>
+    <message>
+        <source>In %1</source>
+        <translation>In %1</translation>
+    </message>
+    <message>
+        <source>The roster has a newer version</source>
+        <translation>Het wagenpark heeft een nieuwere versie</translation>
+    </message>
+    <message>
+        <source>From a roster</source>
+        <translation>Uit een wagenpark</translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation>Wijziging</translation>
+    </message>
+    <message>
+        <source>Update from roster</source>
+        <translation>Bijwerken uit wagenpark</translation>
+    </message>
+    <message>
+        <source>Save to roster</source>
+        <translation>In wagenpark bewaren</translation>
+    </message>
+    <message>
+        <source>Save changes to %1’s roster</source>
+        <translation>Wijzigingen bewaren in het wagenpark van %1</translation>
+    </message>
+    <message>
+        <source>Save changes to your roster</source>
+        <translation>Wijzigingen bewaren in je wagenpark</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>Je wagenpark</translation>
+    </message>
+    <message>
+        <source>%1’s roster</source>
+        <translation>Wagenpark van %1</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>Make a train of this car</source>
+        <translation>Een trein maken van deze wagon</translation>
+    </message>
+    <message>
+        <source>Make a train of these %1 cars</source>
+        <translation>Een trein maken van deze %1 wagons</translation>
+    </message>
+    <message>
+        <source>No trains yet. Make a car or two in Rolling stock first, then put them together here.</source>
+        <translation>Nog geen treinen. Maak eerst een of twee wagons in Rollend materieel en zet ze hier samen.</translation>
+    </message>
+    <message>
+        <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
+        <translation>Nog geen treinen. Druk op Nieuwe trein, of vink wagons aan in Rollend materieel en maak er een trein van.</translation>
+    </message>
+    <message>
+        <source>Untitled train</source>
+        <translation>Naamloze trein</translation>
+    </message>
+    <message>
+        <source>Not on the map</source>
+        <translation>Niet op de kaart</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed</source>
+        <translation>Het spoor is verplaatst of verwijderd</translation>
+    </message>
+    <message>
+        <source>Runs off the end of the track</source>
+        <translation>Steekt voorbij het einde van het spoor</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>Op het spoor</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n car(s)</source>
+        <translation>
+            <numerusform>%n wagon</numerusform>
+            <numerusform>%n wagons</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Click the track…</source>
+        <translation>Klik op het spoor…</translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation>Verplaatsen</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>Op het spoor zetten</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet.</source>
+        <translation>Deze layout heeft nog geen spoor.</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>Omdraaien</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>Van het spoor halen</translation>
+    </message>
+    <message>
+        <source>Sign in to a server first (File › Servers…) to use your roster and your clubs’.</source>
+        <translation>Meld je eerst aan bij een server (Bestand › Servers…) om je wagenpark en dat van je clubs te gebruiken.</translation>
+    </message>
+    <message>
+        <source>Take %1 off the roster? Layouts keep their copies.</source>
+        <translation>%1 uit het wagenpark halen? Layouts houden hun kopieën.</translation>
+    </message>
+    <message>
+        <source>It couldn’t be taken off the roster: %1</source>
+        <translation>Hij kon niet uit het wagenpark worden gehaald: %1</translation>
     </message>
 </context>
 <context>
