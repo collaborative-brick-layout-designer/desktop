@@ -14,6 +14,7 @@
 // cache folder per server. Not signed in, offline, or refused: each tab
 // says so in a friendly line with a button (Sign in, Try again).
 
+#include "../core/ModuleSetup.h"
 #include "../sync/LibraryApi.h"
 #include "../sync/Notifications.h"
 
@@ -45,6 +46,8 @@ class QVBoxLayout;
 namespace bld::sync { class NotificationCenter; }
 
 namespace bld::ui {
+
+class ModuleSetupDialog;
 
 struct NotificationPlace;
 
@@ -251,6 +254,9 @@ private:
     void rename(const QString& id);
     // Table and power…: the module's table and power, saved on the server.
     void editSetup(const QString& id);
+    // The module whose table and power are open (editSetup), and its window.
+    core::ModuleSetup editingSetup_;
+    QPointer<ModuleSetupDialog> setupDialog_;
     void remove(const QString& id);
 
     ServerLibrary& library_;

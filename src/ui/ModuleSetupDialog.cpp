@@ -196,7 +196,7 @@ void ModuleSetupDialog::commitHeight() {
         return;
     }
     heightProblem_->hide();
-    s.table->heightMm = *mm;
+    s.table->heightMm = mm;
     write(s, tr("Module table"));
     // The same height typed another way: show it the usual way.
     refresh();

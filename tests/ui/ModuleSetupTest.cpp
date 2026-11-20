@@ -59,7 +59,7 @@ struct Harness {
 struct English {
     QTranslator t;
     English() {
-        EXPECT_TRUE(t.load(QStringLiteral("bld_en"), QCoreApplication::applicationDirPath() + QStringLiteral("/../..")));
+        EXPECT_TRUE(t.load(QStringLiteral("bld_en"), QStringLiteral(BLD_BINARY_DIR)));
         QCoreApplication::installTranslator(&t);
     }
     ~English() { QCoreApplication::removeTranslator(&t); }

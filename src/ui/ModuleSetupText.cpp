@@ -66,7 +66,7 @@ QString ModuleSetupText::sideLabel(const QString& side) {
 }
 
 QString ModuleSetupText::tableText(const core::ModuleTable& t, Unit unit) {
-    const QString label = typeLabel(t.type);
+    QString label = typeLabel(t.type);
     if (!t.heightMm) return label;
     const QString h = formatHeight(*t.heightMm, unit);
     return t.toRail ? tr("%1 · %2 to the rails").arg(label, h) : QStringLiteral("%1 · %2").arg(label, h);

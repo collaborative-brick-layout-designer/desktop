@@ -894,24 +894,24 @@ void ServerModulesTab::rename(const QString& id) {
 void ServerModulesTab::editSetup(const QString& id) {
     const sync::ServerModule* m = library_.module(id);
     if (!m) return;
-    // What the dialog shows: the server's, then each change as it is sent.
-    auto setup = std::make_shared<core::ModuleSetup>(core::setupFromJson(m->setup));
+    // What the window shows: the server's, then each change as it is sent.
+    editingSetup_ = core::setupFromJson(m->setup);
     ModuleSetupDialog dlg(
-        m->title, ModuleSetupText::Unit::FeetInches, [setup]() -> std::optional<core::ModuleSetup> { return *setup; },
-        nullptr, this);
+        m->title, ModuleSetupText::Unit::FeetInches, [this]() -> std::optional<core::ModuleSetup> { return editingSetup_; },
+        [this, id](const core::ModuleSetup& changed, const QString&) {
+            editingSetup_ = changed;
+            if (setupDialog_) setupDialog_->setError({});
+            library_.api().setModuleSetup(id, core::setupJson(changed), sync::whileAlive(this, [this] { library_.refresh(); }),
+                                          sync::whileAlive(this, [this](const sync::ServerRefusal& r) {
+                                              if (setupDialog_)
+                                                  setupDialog_->setError(tr("Not saved: %1").arg(ServerLibrary::refusalText(r)));
+                                          }));
+        },
+        this);
     dlg.setNote(tr("Saved in the Module library. Layouts get it when they add this module or update it from the Module library."));
-    QPointer<ModuleSetupDialog> shown(&dlg);
-    // (set after the dialog exists, so a refusal can say so in it)
-    dlg.setApply([this, id, setup, shown](const core::ModuleSetup& changed, const QString&) {
-        *setup = changed;
-        if (shown) shown->setError({});
-        library_.api().setModuleSetup(id, core::setupJson(changed), sync::whileAlive(this, [this] { library_.refresh(); }),
-                                      sync::whileAlive(this, [shown](const sync::ServerRefusal& r) {
-                                          if (shown)
-                                              shown->setError(tr("Not saved: %1").arg(ServerLibrary::refusalText(r)));
-                                      }));
-    });
+    setupDialog_ = &dlg;
     dlg.exec();
+    setupDialog_ = nullptr;
 }
 
 void ServerModulesTab::giveOrTakeBack(const QString& id, bool give) {
