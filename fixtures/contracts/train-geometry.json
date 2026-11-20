@@ -1,0 +1,256 @@
+{
+ "_about": "Train placement vectors (trains design 3.3): on the network of route-search.json (its parts and bricks), simple cars (length, trucks) put together into trains with a head position, and where each unit sits: front and rear truck, body centre and heading (degrees), coupler pivots, and whether the train ran off the end of the track. `turned` is the head position after Turn around. Web packages/parts-catalog/src/track/trains.test.ts (BLD_WRITE_CONTRACTS=1 writes `expect`), desktop tests/track/TrainsTest.cpp.",
+ "network": "route-search.json",
+ "stock": {
+  "boxcar": {
+   "length": 32,
+   "trucks": [
+    {
+     "at": 8,
+     "swivelMax": 30
+    },
+    {
+     "at": -8,
+     "swivelMax": 30
+    }
+   ]
+  },
+  "short": {
+   "length": 24,
+   "trucks": [
+    {
+     "at": 7,
+     "swivelMax": 30
+    },
+    {
+     "at": -5,
+     "swivelMax": 30
+    }
+   ]
+  }
+ },
+ "cases": [
+  {
+   "name": "two cars on the straight",
+   "units": [
+    {
+     "stock": "boxcar",
+     "reversed": false
+    },
+    {
+     "stock": "short",
+     "reversed": false
+    }
+   ],
+   "position": {
+    "brick": "M",
+    "from": 0,
+    "to": 1,
+    "s": 30,
+    "facing": "to"
+   },
+   "expect": {
+    "offTrack": false,
+    "units": [
+     {
+      "stock": "boxcar",
+      "frontTruck": [
+       62,
+       0
+      ],
+      "rearTruck": [
+       46,
+       0
+      ],
+      "centre": [
+       54,
+       0
+      ],
+      "angle": 0,
+      "frontCoupler": [
+       70,
+       0
+      ],
+      "rearCoupler": [
+       38,
+       0
+      ]
+     },
+     {
+      "stock": "short",
+      "frontTruck": [
+       33,
+       0
+      ],
+      "rearTruck": [
+       21,
+       0
+      ],
+      "centre": [
+       26,
+       0
+      ],
+      "angle": 0,
+      "frontCoupler": [
+       38,
+       0
+      ],
+      "rearCoupler": [
+       14,
+       0
+      ]
+     }
+    ],
+    "turned": {
+     "brick": "P",
+     "from": 0,
+     "to": 1,
+     "s": 5,
+     "facing": "from"
+    }
+   }
+  },
+  {
+   "name": "back through both points' diverging legs",
+   "units": [
+    {
+     "stock": "boxcar",
+     "reversed": false
+    },
+    {
+     "stock": "short",
+     "reversed": true
+    },
+    {
+     "stock": "boxcar",
+     "reversed": false
+    }
+   ],
+   "position": {
+    "brick": "E",
+    "from": 0,
+    "to": 1,
+    "s": 12,
+    "facing": "to"
+   },
+   "states": {
+    "Q/0": 2
+   },
+   "expect": {
+    "offTrack": false,
+    "units": [
+     {
+      "stock": "boxcar",
+      "frontTruck": [
+       92,
+       0
+      ],
+      "rearTruck": [
+       76.021339,
+       0.826066
+      ],
+      "centre": [
+       84.010669,
+       0.413033
+      ],
+      "angle": -2.959445,
+      "frontCoupler": [
+       99.989331,
+       -0.413033
+      ],
+      "rearCoupler": [
+       68.032008,
+       1.239098
+      ]
+     },
+     {
+      "stock": "short",
+      "frontTruck": [
+       61.032008,
+       8
+      ],
+      "rearTruck": [
+       49.032008,
+       8
+      ],
+      "centre": [
+       56.032008,
+       8
+      ],
+      "angle": 0,
+      "frontCoupler": [
+       68.032008,
+       8
+      ],
+      "rearCoupler": [
+       44.032008,
+       8
+      ]
+     },
+     {
+      "stock": "boxcar",
+      "frontTruck": [
+       37.365065,
+       8
+      ],
+      "rearTruck": [
+       22.406141,
+       2.322801
+      ],
+      "centre": [
+       29.885603,
+       5.1614
+      ],
+      "angle": 20.782717,
+      "frontCoupler": [
+       44.844527,
+       10.8386
+      ],
+      "rearCoupler": [
+       14.926679,
+       -0.515799
+      ]
+     }
+    ],
+    "turned": {
+     "brick": "P",
+     "from": 0,
+     "to": 2,
+     "s": 6.953558,
+     "facing": "from"
+    }
+   }
+  },
+  {
+   "name": "off the end of the track",
+   "units": [
+    {
+     "stock": "boxcar",
+     "reversed": false
+    },
+    {
+     "stock": "boxcar",
+     "reversed": false
+    }
+   ],
+   "position": {
+    "brick": "A",
+    "from": 0,
+    "to": 1,
+    "s": 14,
+    "facing": "to"
+   },
+   "expect": {
+    "offTrack": true,
+    "units": [],
+    "turned": {
+     "brick": "A",
+     "from": 0,
+     "to": 1,
+     "s": 14,
+     "facing": "to"
+    }
+   }
+  }
+ ]
+}

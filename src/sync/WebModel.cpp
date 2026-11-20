@@ -348,6 +348,31 @@ void readBudget(const QJsonObject& meta, core::Sidecar& out) {
         const int c = QString::localeAwareCompare(a.name, b.name);
         return c != 0 ? c < 0 : a.id < b.id;
     });
+    // Rolling stock and trains: Y.Maps at meta.rollingStock and meta.trains
+    // (or an older build's cache lists), in id order as the web reads them.
+    const auto records = [&meta](const char* key) {
+        QJsonArray list;
+        const QJsonValue y = meta.value(QLatin1String(key));
+        if (y.isObject()) {
+            const QJsonObject all = y.toObject();
+            for (auto it = all.begin(); it != all.end(); ++it) {  // QJsonObject keys are sorted
+                QJsonObject r = it.value().toObject();
+                r.insert(QStringLiteral("id"), it.key());
+                list.append(r);
+            }
+        } else {
+            list = meta.value(QLatin1String("cache")).toObject().value(QLatin1String(key)).toArray();
+        }
+        return list;
+    };
+    out.rollingStock.clear();
+    for (const auto& v : records("rollingStock"))
+        if (auto r = saveload::rollingStockFromJson(v)) out.rollingStock.push_back(std::move(*r));
+    out.trains.clear();
+    for (const auto& v : records("trains"))
+        if (auto t = saveload::trainFromJson(v)) out.trains.push_back(std::move(*t));
+    std::sort(out.rollingStock.begin(), out.rollingStock.end(), [](const auto& a, const auto& b) { return a.id < b.id; });
+    std::sort(out.trains.begin(), out.trains.end(), [](const auto& a, const auto& b) { return a.id < b.id; });
 }
 
 } // namespace

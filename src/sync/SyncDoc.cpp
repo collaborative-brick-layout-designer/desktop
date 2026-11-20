@@ -972,13 +972,39 @@ struct SyncDoc::Impl {
     // that changed are written, so two people's edits to different routes,
     // or different fields of one, merge. A route deleted here goes.
     void writeRoutes(const QJsonObject& curMeta, const std::vector<core::Route>& want) {
-        static const char* const kKey = "routes";
         QJsonObject wantObj;
         for (const auto& r : want) {
             QJsonObject o = saveload::routeToJson(r);
             o.remove(QStringLiteral("id"));
             wantObj.insert(r.id, o);
         }
+        writeRecordMap(curMeta, "routes", wantObj);
+    }
+
+    // Rolling stock and trains (trains design 2.3, 2.4): Y.Maps at
+    // meta.rollingStock and meta.trains, kept the same way as routes.
+    void writeRollingStock(const QJsonObject& curMeta, const std::vector<core::RollingStock>& want) {
+        QJsonObject wantObj;
+        for (const auto& r : want) {
+            QJsonObject o = saveload::rollingStockToJson(r);
+            o.remove(QStringLiteral("id"));
+            wantObj.insert(r.id, o);
+        }
+        writeRecordMap(curMeta, "rollingStock", wantObj);
+    }
+
+    void writeTrains(const QJsonObject& curMeta, const std::vector<core::Train>& want) {
+        QJsonObject wantObj;
+        for (const auto& t : want) {
+            QJsonObject o = saveload::trainToJson(t);
+            o.remove(QStringLiteral("id"));
+            wantObj.insert(t.id, o);
+        }
+        writeRecordMap(curMeta, "trains", wantObj);
+    }
+
+    // A Y.Map at meta.<kKey>, id -> a Y.Map of the record's fields.
+    void writeRecordMap(const QJsonObject& curMeta, const char* kKey, const QJsonObject& wantObj) {
         Output existing(ymap_get(meta, txn, kKey));
         if (!existing || existing->tag != Y_MAP) {
             if (wantObj.isEmpty()) return;
@@ -1448,6 +1474,8 @@ QByteArray SyncDoc::writeMap(const core::Map& map, bool undoStep) {
     d.writeBudget(curMeta, map.sidecar.budgetLimits);
     d.writeSwitchStates(curMeta, map.sidecar.switchStates);
     d.writeRoutes(curMeta, map.sidecar.routes);
+    d.writeRollingStock(curMeta, map.sidecar.rollingStock);
+    d.writeTrains(curMeta, map.sidecar.trains);
     if (!sidecarWrite.items.isEmpty()) {
         const QJsonObject curItems = cur.value(QLatin1String("sidecarItems")).toObject();
         const QJsonObject& wantItems = sidecarWrite.items;

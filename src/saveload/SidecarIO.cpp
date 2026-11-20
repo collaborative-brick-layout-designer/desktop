@@ -82,7 +82,8 @@ const QStringList& knownRootKeys() {
                                    QStringLiteral("venue"),          QStringLiteral("backgroundImage"),
                                    QStringLiteral("views"),          QStringLiteral("sets"),
                                    QStringLiteral("budgetLimits"),   QStringLiteral("switchStates"),
-                                   QStringLiteral("routes") };
+                                   QStringLiteral("routes"),         QStringLiteral("rollingStock"),
+                                   QStringLiteral("trains") };
     return keys;
 }
 
@@ -393,6 +394,16 @@ QJsonObject sidecarToJson(const core::Sidecar& sidecar) {
         for (const auto& r : sidecar.routes) routes.append(routeToJson(r));
         root[QStringLiteral("routes")] = routes;
     }
+    if (!sidecar.rollingStock.empty()) {
+        QJsonArray stock;
+        for (const auto& r : sidecar.rollingStock) stock.append(rollingStockToJson(r));
+        root[QStringLiteral("rollingStock")] = stock;
+    }
+    if (!sidecar.trains.empty()) {
+        QJsonArray trains;
+        for (const auto& t : sidecar.trains) trains.append(trainToJson(t));
+        root[QStringLiteral("trains")] = trains;
+    }
     return root;
 }
 
@@ -452,6 +463,133 @@ std::optional<core::Route> routeFromJson(const QJsonValue& v) {
     return r;
 }
 
+QJsonObject rollingStockToJson(const core::RollingStock& r) {
+    QJsonObject o = r.extras;
+    o[QStringLiteral("id")] = r.id;
+    o[QStringLiteral("number")] = r.number;
+    o[QStringLiteral("name")] = r.name;
+    o[QStringLiteral("kind")] = r.kind;
+    o[QStringLiteral("type")] = r.type;
+    o[QStringLiteral("trackKind")] = r.trackKind;
+    o[QStringLiteral("length")] = r.length;
+    o[QStringLiteral("width")] = r.width;
+    o[QStringLiteral("bodyLength")] = r.bodyLength;
+    QJsonArray trucks;
+    for (const auto& t : r.trucks) trucks.append(QJsonObject{ { QStringLiteral("at"), t.at }, { QStringLiteral("swivelMax"), t.swivelMax } });
+    o[QStringLiteral("trucks")] = trucks;
+    const auto coupler = [](const core::Coupler& c) {
+        return QJsonObject{ { QStringLiteral("type"), c.type }, { QStringLiteral("swivelMax"), c.swivelMax } };
+    };
+    o[QStringLiteral("couplers")] = QJsonObject{ { QStringLiteral("front"), coupler(r.front) }, { QStringLiteral("rear"), coupler(r.rear) } };
+    o[QStringLiteral("powered")] = r.powered;
+    QJsonObject look = r.lookExtras;
+    look[QStringLiteral("mode")] = r.lookMode;
+    look[QStringLiteral("color")] = r.color;
+    if (!r.partKey.isEmpty()) look[QStringLiteral("partKey")] = r.partKey;
+    o[QStringLiteral("look")] = look;
+    // A roster link only when it has one (a web car without one has neither field).
+    if (!r.libraryId.isEmpty()) o[QStringLiteral("libraryId")] = r.libraryId;
+    if (r.libraryVersion > 0) o[QStringLiteral("libraryVersion")] = r.libraryVersion;
+    o[QStringLiteral("notes")] = r.notes;
+    return o;
+}
+
+std::optional<core::RollingStock> rollingStockFromJson(const QJsonValue& v) {
+    const QJsonObject o = v.toObject();
+    const QString id = o.value(QLatin1String("id")).toString();
+    if (id.isEmpty()) return std::nullopt;
+    const auto num = [&o](const char* k, double d) {
+        const QJsonValue x = o.value(QLatin1String(k));
+        return x.isDouble() && std::isfinite(x.toDouble()) ? x.toDouble() : d;
+    };
+    core::RollingStock r = core::simpleStock(id, num("length", 32.0));
+    r.number = o.value(QLatin1String("number")).toString();
+    r.name = o.value(QLatin1String("name")).toString();
+    static const QStringList kinds = { QStringLiteral("engine"), QStringLiteral("car"), QStringLiteral("cab"), QStringLiteral("unit"), QStringLiteral("monorail") };
+    const QString kind = o.value(QLatin1String("kind")).toString();
+    if (kinds.contains(kind)) r.kind = kind;
+    r.type = o.value(QLatin1String("type")).toString();
+    if (o.value(QLatin1String("trackKind")).isString()) r.trackKind = o.value(QLatin1String("trackKind")).toString();
+    r.width = num("width", r.width);
+    r.bodyLength = num("bodyLength", r.length - 2.0);
+    std::vector<core::Truck> trucks;
+    for (const auto& t : o.value(QLatin1String("trucks")).toArray()) {
+        const QJsonObject to = t.toObject();
+        trucks.push_back({ to.value(QLatin1String("at")).toDouble(0.0), to.value(QLatin1String("swivelMax")).toDouble(30.0) });
+    }
+    if (trucks.size() >= 2) r.trucks = trucks;
+    const QJsonObject couplers = o.value(QLatin1String("couplers")).toObject();
+    const auto coupler = [&couplers](const char* end, core::Coupler& c) {
+        const QJsonObject x = couplers.value(QLatin1String(end)).toObject();
+        if (x.value(QLatin1String("type")).isString()) c.type = x.value(QLatin1String("type")).toString();
+        c.swivelMax = x.value(QLatin1String("swivelMax")).toDouble(c.swivelMax);
+    };
+    coupler("front", r.front);
+    coupler("rear", r.rear);
+    r.powered = o.value(QLatin1String("powered")).toBool();
+    QJsonObject look = o.value(QLatin1String("look")).toObject();
+    if (look.value(QLatin1String("mode")).isString()) r.lookMode = look.value(QLatin1String("mode")).toString();
+    if (look.value(QLatin1String("color")).isString()) r.color = look.value(QLatin1String("color")).toString();
+    r.partKey = look.value(QLatin1String("partKey")).toString();
+    for (const char* k : { "mode", "color", "partKey" }) look.remove(QLatin1String(k));
+    r.lookExtras = look;
+    r.libraryId = o.value(QLatin1String("libraryId")).toString();
+    r.libraryVersion = o.value(QLatin1String("libraryVersion")).toInt(0);
+    r.notes = o.value(QLatin1String("notes")).toString();
+    r.extras = o;
+    for (const char* k : { "id", "number", "name", "kind", "type", "trackKind", "length", "width", "bodyLength", "trucks", "couplers",
+                           "powered", "look", "libraryId", "libraryVersion", "notes" })
+        r.extras.remove(QLatin1String(k));
+    return r;
+}
+
+QJsonObject trainToJson(const core::Train& t) {
+    QJsonObject o = t.extras;
+    o[QStringLiteral("id")] = t.id;
+    o[QStringLiteral("name")] = t.name;
+    o[QStringLiteral("trackKind")] = t.trackKind;
+    QJsonArray units;
+    for (const auto& u : t.units) units.append(QJsonObject{ { QStringLiteral("stock"), u.stock }, { QStringLiteral("reversed"), u.reversed } });
+    o[QStringLiteral("units")] = units;
+    if (t.position) {
+        QJsonObject p = positionToJson(*t.position);
+        p[QStringLiteral("facing")] = t.position->facingTo ? QStringLiteral("to") : QStringLiteral("from");
+        o[QStringLiteral("position")] = p;
+    } else {
+        o[QStringLiteral("position")] = QJsonValue(QJsonValue::Null);
+    }
+    o[QStringLiteral("color")] = t.color;
+    o[QStringLiteral("speed")] = t.speed;
+    return o;
+}
+
+std::optional<core::Train> trainFromJson(const QJsonValue& v) {
+    const QJsonObject o = v.toObject();
+    const QString id = o.value(QLatin1String("id")).toString();
+    if (id.isEmpty()) return std::nullopt;
+    core::Train t;
+    t.id = id;
+    t.name = o.value(QLatin1String("name")).toString();
+    if (o.value(QLatin1String("trackKind")).isString()) t.trackKind = o.value(QLatin1String("trackKind")).toString();
+    for (const auto& u : o.value(QLatin1String("units")).toArray()) {
+        const QJsonObject uo = u.toObject();
+        if (!uo.value(QLatin1String("stock")).isString()) continue;
+        t.units.push_back({ uo.value(QLatin1String("stock")).toString(), uo.value(QLatin1String("reversed")).toBool() });
+    }
+    const QJsonValue pv = o.value(QLatin1String("position"));
+    if (pv.isObject() && pv.toObject().value(QLatin1String("brick")).isString()) {
+        core::TrainPosition p;
+        static_cast<core::TrackPosition&>(p) = positionFromJson(pv);
+        p.facingTo = pv.toObject().value(QLatin1String("facing")).toString() != QLatin1String("from");
+        t.position = p;
+    }
+    if (o.value(QLatin1String("color")).isString()) t.color = o.value(QLatin1String("color")).toString();
+    t.speed = o.value(QLatin1String("speed")).toDouble(40.0);
+    t.extras = o;
+    for (const char* k : { "id", "name", "trackKind", "units", "position", "color", "speed" }) t.extras.remove(QLatin1String(k));
+    return t;
+}
+
 QJsonObject switchStatesToJson(const QMap<QString, int>& states) {
     QJsonObject out;
     for (auto it = states.constBegin(); it != states.constEnd(); ++it)
@@ -498,6 +636,12 @@ void sidecarFromJson(const QJsonObject& root, core::Sidecar& out) {
     out.routes.clear();
     for (const auto& v : root.value(QStringLiteral("routes")).toArray())
         if (auto r = routeFromJson(v)) out.routes.push_back(std::move(*r));
+    out.rollingStock.clear();
+    for (const auto& v : root.value(QStringLiteral("rollingStock")).toArray())
+        if (auto r = rollingStockFromJson(v)) out.rollingStock.push_back(std::move(*r));
+    out.trains.clear();
+    for (const auto& v : root.value(QStringLiteral("trains")).toArray())
+        if (auto t = trainFromJson(v)) out.trains.push_back(std::move(*t));
     out.sets.clear();
     for (const auto& v : root.value(QStringLiteral("sets")).toArray())
         if (auto s = decodePlacedSet(v)) out.sets.push_back(std::move(*s));
@@ -566,6 +710,9 @@ void renameSidecarIds(core::Sidecar& sidecar, const QHash<QString, QString>& ren
         for (auto& v : r.via) rename(v.at.brick);
         for (auto& s : r.steps) rename(s.brick);
     }
+    // A train on the track names the brick its head is on.
+    for (auto& t : sidecar.trains)
+        if (t.position) rename(t.position->brick);
     // Switch settings name their brick: "<brick>/<heel>".
     if (!sidecar.switchStates.isEmpty()) {
         QMap<QString, int> states;

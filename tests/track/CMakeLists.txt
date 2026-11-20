@@ -1,6 +1,7 @@
 add_executable(bld_track_tests
     TrackNetworkTest.cpp
     RoutesTest.cpp
+    TrainsTest.cpp
 )
 
 target_compile_definitions(bld_track_tests PRIVATE

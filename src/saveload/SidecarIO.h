@@ -9,6 +9,7 @@
 #include <QString>
 
 #include "../core/Route.h"
+#include "../core/Train.h"
 
 #include <optional>
 
@@ -57,6 +58,13 @@ QMap<QString, int> switchStatesFromJson(const QJsonValue& v);
 // entry without an id reads as nullopt. Unknown fields are kept.
 QJsonObject routeToJson(const core::Route& r);
 std::optional<core::Route> routeFromJson(const QJsonValue& v);
+// A car or a train as the sidecar (and the web's meta.rollingStock and
+// meta.trains) keeps it; one without an id reads as nullopt. A car's missing
+// fields take a quick car's defaults. Unknown fields are kept.
+QJsonObject rollingStockToJson(const core::RollingStock& r);
+std::optional<core::RollingStock> rollingStockFromJson(const QJsonValue& v);
+QJsonObject trainToJson(const core::Train& t);
+std::optional<core::Train> trainFromJson(const QJsonValue& v);
 void sidecarFromJson(const QJsonObject& root, core::Sidecar& out);
 
 // One saved view as JSON and back (references/LAYOUT-FILE.md "Saved
