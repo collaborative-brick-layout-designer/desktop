@@ -46,6 +46,10 @@ using detail::isTextItem;
 using detail::isRulerItem;
 
 void MapView::contextMenuEvent(QContextMenuEvent* e) {
+    if (runMode_) {  // Run mode: no menu (a click flips a switch)
+        e->accept();
+        return;
+    }
     // Snapshot the pre-selection state so the "attach ruler to brick" flow
     // can detect a selected-ruler + clicked-brick combination BEFORE the
     // auto-reselect below overwrites things.
@@ -112,6 +116,8 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
     }
 
     QMenu menu(this);
+    // A switch near the click: set it (whatever is drawn over it).
+    addSwitchMenu(menu, mapToScene(e->pos()) / rendering::SceneBuilder::kPixelsPerStud);
     const bool wholeModule = addModuleMenu(menu, clickedBrickGuid);
     const auto sel = scene()->selectedItems();
     const bool hasSel = !sel.isEmpty();

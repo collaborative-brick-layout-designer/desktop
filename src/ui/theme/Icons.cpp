@@ -49,6 +49,8 @@ QPainterPath shape(const QString& name) {
         p.moveTo(4, 4); p.lineTo(17, 4); p.lineTo(20, 7); p.lineTo(20, 20); p.lineTo(4, 20); p.closeSubpath();
         p.addRect(QRectF(8, 4, 7, 5));
         p.addRect(QRectF(7, 13, 10, 7));
+    } else if (name == QLatin1String("run")) {  // Run trains: a play triangle
+        p.moveTo(7, 4); p.lineTo(19, 12); p.lineTo(7, 20); p.closeSubpath();
     } else if (name == QLatin1String("delete")) {
         p.moveTo(4, 7); p.lineTo(20, 7);
         p.moveTo(9, 7); p.lineTo(9, 4); p.lineTo(15, 4); p.lineTo(15, 7);

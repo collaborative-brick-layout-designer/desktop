@@ -9,6 +9,7 @@
 #include <QDateTime>
 #include <QFile>
 #include <QJsonArray>
+#include <QRegularExpression>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
@@ -80,7 +81,7 @@ const QStringList& knownRootKeys() {
                                    QStringLiteral("anchoredLabels"), QStringLiteral("modules"),
                                    QStringLiteral("venue"),          QStringLiteral("backgroundImage"),
                                    QStringLiteral("views"),          QStringLiteral("sets"),
-                                   QStringLiteral("budgetLimits") };
+                                   QStringLiteral("budgetLimits"),   QStringLiteral("switchStates") };
     return keys;
 }
 
@@ -385,7 +386,28 @@ QJsonObject sidecarToJson(const core::Sidecar& sidecar) {
         root[QStringLiteral("sets")] = sets;
     }
     if (sidecar.budgetLimits) root[QStringLiteral("budgetLimits")] = budgetLimitsToJson(*sidecar.budgetLimits);
+    if (!sidecar.switchStates.isEmpty()) root[QStringLiteral("switchStates")] = switchStatesToJson(sidecar.switchStates);
     return root;
+}
+
+QJsonObject switchStatesToJson(const QMap<QString, int>& states) {
+    QJsonObject out;
+    for (auto it = states.constBegin(); it != states.constEnd(); ++it)
+        if (it.value() >= 0) out.insert(it.key(), it.value());
+    return out;
+}
+
+QMap<QString, int> switchStatesFromJson(const QJsonValue& v) {
+    QMap<QString, int> out;
+    static const QRegularExpression keyRe(QStringLiteral("^.+/\\d+$"));
+    const QJsonObject o = v.toObject();
+    for (auto it = o.constBegin(); it != o.constEnd(); ++it) {
+        if (!it.value().isDouble() || !keyRe.match(it.key()).hasMatch()) continue;
+        const double d = it.value().toDouble();
+        if (d < 0 || d != std::floor(d) || d > 1e6) continue;
+        out.insert(it.key(), static_cast<int>(d));
+    }
+    return out;
 }
 
 QJsonObject budgetLimitsToJson(const QMap<QString, int>& limits) {
@@ -410,6 +432,7 @@ std::optional<QMap<QString, int>> budgetLimitsFromJson(const QJsonValue& v) {
 
 void sidecarFromJson(const QJsonObject& root, core::Sidecar& out) {
     out.budgetLimits = budgetLimitsFromJson(root.value(QStringLiteral("budgetLimits")));
+    out.switchStates = switchStatesFromJson(root.value(QStringLiteral("switchStates")));
     out.sets.clear();
     for (const auto& v : root.value(QStringLiteral("sets")).toArray())
         if (auto s = decodePlacedSet(v)) out.sets.push_back(std::move(*s));
@@ -470,6 +493,17 @@ void renameSidecarIds(core::Sidecar& sidecar, const QHash<QString, QString>& ren
             members.insert(id);
         }
         m.memberIds = members;
+    }
+    // Switch settings name their brick: "<brick>/<heel>".
+    if (!sidecar.switchStates.isEmpty()) {
+        QMap<QString, int> states;
+        for (auto it = sidecar.switchStates.constBegin(); it != sidecar.switchStates.constEnd(); ++it) {
+            const qsizetype at = it.key().lastIndexOf(QLatin1Char('/'));
+            QString brick = it.key().left(at);
+            rename(brick);
+            states.insert(brick + it.key().mid(at), it.value());
+        }
+        sidecar.switchStates = states;
     }
 }
 

@@ -286,6 +286,27 @@ for the whole app; the first time a layout without a budget is open after
 updating, the app offers once to bring that file in (Budget › Import Budget
 from File does the same at any time).
 
+## Switch settings
+
+```json
+"switchStates": { "17/0": 2, "23/1": 0 }
+```
+
+How the layout's switches are set (trains design 2.2): `"<brick id>/<heel
+connection>"` → the connection a train coming in at the heel leaves by. A
+switch is any part a train can leave by more than one way from one
+connection (points, wyes, crossovers, monorail points); which those are is
+worked out from the parts library, never stored. A switch without a key is
+set to its default, the way that turns least, so a layout with none set has
+no field. A key whose part is gone is ignored when read and dropped by the
+next write.
+
+Shared like the budget: the web keeps it at `meta.switchStates` (a Y.Map,
+one key a switch, not in `meta.cache`), so flips of different switches
+merge and the last flip of one switch wins; the desktop writes it there one
+key at a time. Never written to a `.bbm`: exporting one says it is left out.
+Added 2026-11 without a version bump (optional, additive).
+
 ## Background image
 
 ```json

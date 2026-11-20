@@ -579,6 +579,30 @@
         <translation>Sélectionner déplace les pièces, Tourner fait tourner celle cliquée, et Supprimer l’enlève. Peindre colore le sol et Gommer l’efface. Mesurer et Cercle ajoutent une règle qui peut rester sur la carte, et Salle et Obstacle dessinent les murs de la salle et ce qu’il faut laisser libre.</translation>
     </message>
     <message>
+        <source>Run trains</source>
+        <translation>Faire rouler les trains</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>Jouez avec le réseau : cliquez sur un aiguillage pour le changer, sans déplacer aucune pièce.</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>En mode circulation, chaque aiguillage montre une flèche vers la voie sur laquelle il est réglé ; cliquez près de lui pour le changer. Les pièces ne peuvent être ni sélectionnées ni déplacées, rien ne change donc par accident. Les changements sont partagés avec tout le monde et peuvent être annulés ; appuyez sur Arrêter pour revenir à la construction.</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>Aiguillages</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>Un aiguillage envoie un train d’un côté ou de l’autre ; la flèche montre lequel.</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>Cliquez droit sur un aiguillage pour le régler, ou activez le mode circulation et cliquez dessus. Une flèche verte est la voie habituelle ; une orange signifie qu’il est réglé sur l’autre voie. Activez Affichage › Aiguillages pour les voir pendant que vous construisez.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Feuille actuelle</translation>
     </message>
@@ -4370,6 +4394,10 @@
         <translation>Limite du budget pour %1</translation>
     </message>
     <message>
+        <source>A switch&apos;s setting</source>
+        <translation>Le réglage d’un aiguillage</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Salle</translation>
     </message>
@@ -7628,6 +7656,18 @@ Enregistrer quand même ?</translation>
         <translation>Points d’attache des &amp;règles</translation>
     </message>
     <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>Faire rouler les &amp;trains</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Faire rouler les trains : cliquez sur un aiguillage pour le changer. Les pièces ne peuvent pas être déplacées.</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>Ai&amp;guillages</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>M&amp;odules</translation>
     </message>
@@ -9194,6 +9234,10 @@ La question ne vous sera plus posée. Pour le reprendre plus tard dans ce plan o
         <translation>la version d’où vient chaque set</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>les réglages des aiguillages</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9521,6 +9565,10 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>Arrêtez de faire rouler les trains pour ajouter des pièces.</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -9885,6 +9933,50 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
             <numerusform>Coller (%1 pièces sur %n feuille)</numerusform>
             <numerusform>Coller (%1 pièces sur %n feuilles)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Straight</source>
+        <translation>Tout droit</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Mode circulation :&lt;/b&gt; cliquez sur un aiguillage pour le changer. Les pièces ne peuvent pas être déplacées.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Arrêter</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ Faire rouler les trains</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Faire rouler les trains : cliquez sur un aiguillage pour le changer. Les pièces ne peuvent pas être déplacées.</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>Régler un aiguillage</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>Cliquez sur un aiguillage pour le changer.</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>Aiguillage réglé : %1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>Régler l’aiguillage</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>Depuis l’extrémité %1 : %2</translation>
     </message>
 </context>
 <context>

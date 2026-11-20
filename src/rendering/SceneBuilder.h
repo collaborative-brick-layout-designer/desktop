@@ -15,6 +15,7 @@
 #include "ModuleLabels.h"
 
 #include <QColor>
+#include <QMap>
 #include <QHash>
 #include <QList>
 #include <QPair>
@@ -121,6 +122,20 @@ public:
     // Ruler layers in `keepRulerLayers` (being dragged themselves) stay.
     void rebuildFollowers(const core::Map& posed, const QSet<QString>& moving,
                           const QSet<int>& keepRulerLayers);
+
+    // Switches (trains design 6.3): an arrow on each switch along the way
+    // it is set (the sidecar's switchStates), the other ways faint. Shown in
+    // Run mode, and while building with View > Switches. Drawn again by
+    // update() when parts or settings change; refreshSwitches() after a
+    // change of setShowSwitches.
+    void setShowSwitches(bool on) { switchesShown_ = on; }
+    bool showSwitches() const { return switchesShown_; }
+    void refreshSwitches(const core::Map& map);
+    // The switch arrows drawn, by switch key (tests): the arrow item.
+    const QHash<QString, QGraphicsItem*>& switchArrows() const { return switchArrowByKey_; }
+    // The arrow's color: the usual way, and set the other way.
+    static QColor switchSetColor();
+    static QColor switchTurnedColor();
 
     // Draw every module's frame and name again from `map` (a sheet shown or
     // hidden changes which parts frame a module, and how its frame is dashed).
@@ -249,6 +264,12 @@ private:
     void clearVenue();
     void clearModuleLabels();
     void clearElectric();
+    void clearSwitches();
+    void addSwitches(const core::Map& map);
+    bool switchesShown_ = false;
+    QList<QGraphicsItem*> switchItems_;
+    QHash<QString, QGraphicsItem*> switchArrowByKey_;
+    QMap<QString, int> drawnSwitchStates_;
     QPointF brickCentre(const core::Brick& b) const;
     std::optional<core::Venue> drawnVenue_;
     std::vector<core::AnchoredLabel> drawnLabels_;

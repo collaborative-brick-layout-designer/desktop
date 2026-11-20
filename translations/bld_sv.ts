@@ -579,6 +579,30 @@
         <translation>Markera flyttar delar, Vrid vrider den du klickar på, och Ta bort tar bort den. Måla färgar marken och Sudda rensar den. Mät och Cirkel lägger till en linjal du kan ha kvar på kartan, och Lokal och Hinder ritar lokalens väggar och sådant man ska hålla sig undan från.</translation>
     </message>
     <message>
+        <source>Run trains</source>
+        <translation>Kör tåg</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>Lek med anläggningen: klicka på en växel för att lägga om den, utan att flytta några delar.</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>I körläget visar varje växel en pil längs den väg den är lagd; klicka nära den för att lägga om den. Delar kan inte väljas eller flyttas, så inget ändras av misstag. Omläggningar delas med alla och kan ångras; tryck på Stoppa för att bygga vidare.</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>Växlar</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>En växel skickar ett tåg åt det ena eller andra hållet; pilen visar vilket.</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>Högerklicka på en växel för att lägga den, eller slå på körläget och klicka på den. En grön pil är den vanliga vägen; en orange betyder att den är lagd åt andra hållet. Slå på Visa › Växlar för att se dem medan du bygger.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Aktuellt blad</translation>
     </message>
@@ -4368,6 +4392,10 @@
     <message>
         <source>Budget limit for %1</source>
         <translation>Budgetgräns för %1</translation>
+    </message>
+    <message>
+        <source>A switch&apos;s setting</source>
+        <translation>En växels läge</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -8808,6 +8836,18 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
         <translation>&amp;Modulnamn</translation>
     </message>
     <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>Kör &amp;tåg</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Kör tåg: klicka på en växel för att lägga om den. Delar kan inte flyttas.</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>Vä&amp;xlar</translation>
+    </message>
+    <message>
         <source>&amp;Import .bbm as Module…</source>
         <translation>&amp;Importera .bbm som modul…</translation>
     </message>
@@ -9194,6 +9234,10 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
         <translation>vilken version varje set kom från</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>växellägen</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9521,6 +9565,10 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>Sluta köra tåg för att lägga till delar.</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -9886,6 +9934,50 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
             <numerusform>Klistra in (%1 delar på %n blad)</numerusform>
         </translation>
     </message>
+    <message>
+        <source>Straight</source>
+        <translation>Rakt fram</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Körläge:&lt;/b&gt; klicka på en växel för att lägga om den. Delar kan inte flyttas.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stoppa</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ Kör tåg</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Kör tåg: klicka på en växel för att lägga om den. Delar kan inte flyttas.</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>Lägg en växel</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>Klicka på en växel för att lägga om den.</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>Växel lagd: %1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>Lägg växeln</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>Från ände %1: %2</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleEditBar</name>
@@ -10141,7 +10233,7 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     </message>
     <message>
         <source>Stop</source>
-        <translation>Sluta</translation>
+        <translation>Stoppa</translation>
     </message>
     <message>
         <source>Share “%1”</source>

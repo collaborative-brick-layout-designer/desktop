@@ -221,6 +221,8 @@ MapView::MapView(parts::PartsLibrary& parts, QWidget* parent)
     });
 
     builder_ = std::make_unique<rendering::SceneBuilder>(*scene, parts_);
+    // "Run trains" sits in the map's corner once there is a map.
+    connect(this, &MapView::mapLoaded, this, &MapView::placeRunBar);
 
     // No per-item live snap hook: connection snap runs as a single rigid
     // group shift in MapView::mouseMoveEvent after Qt has moved each item
@@ -987,6 +989,14 @@ void MapView::mousePressEvent(QMouseEvent* e) {
     }
     lastMouseScenePos_ = mapToScene(e->pos());
 
+    // Run mode (trains design 6.3): a click flips the switch near it, and
+    // nothing is picked or moved; the middle button still pans.
+    if (runMode_ && e->button() != Qt::MiddleButton) {
+        if (e->button() == Qt::LeftButton) flipSwitchNear(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud);
+        e->accept();
+        return;
+    }
+
     // A bend handle: the flexible run bends as its end is dragged.
     if (e->button() == Qt::LeftButton && tool_ == Tool::Select && !flex_) {
         const int h = bendHandleAt(e->pos());
@@ -1175,6 +1185,10 @@ void MapView::mousePressEvent(QMouseEvent* e) {
 }
 
 void MapView::mouseMoveEvent(QMouseEvent* e) {
+    if (runMode_ && !panning_) {
+        e->accept();
+        return;
+    }
     snapMods_ = e->modifiers();
     lastMouseScenePos_ = mapToScene(e->pos());
 
@@ -1368,6 +1382,10 @@ void MapView::mouseMoveEvent(QMouseEvent* e) {
 }
 
 void MapView::mouseReleaseEvent(QMouseEvent* e) {
+    if (runMode_ && e->button() != Qt::MiddleButton) {
+        e->accept();
+        return;
+    }
     snapMods_ = e->modifiers();
     if (areaMoveLayer_ >= 0 && e->button() == Qt::LeftButton) {
         const int li = areaMoveLayer_;
@@ -1675,6 +1693,12 @@ void MapView::finishVenueDraw() {
 }
 
 void MapView::keyPressEvent(QKeyEvent* e) {
+    // Run mode: no key moves, turns or deletes parts; Escape goes back to building.
+    if (runMode_) {
+        if (e->key() == Qt::Key_Escape) setRunMode(false);
+        e->accept();
+        return;
+    }
     if (!map_) { QGraphicsView::keyPressEvent(e); return; }
     // Venue-draw commit/cancel keys.
     if (tool_ == Tool::DrawVenueOutline || tool_ == Tool::DrawVenueObstacle) {
@@ -2446,6 +2470,10 @@ void MapView::editSelectedTextContent() {
 }
 
 void MapView::mouseDoubleClickEvent(QMouseEvent* e) {
+    if (runMode_) {
+        e->accept();
+        return;
+    }
     QGraphicsItem* under = itemUnder(e->pos());
     // Connection dots and hull outlines are children of their brick.
     while (under && under->parentItem() && !isBrickItem(under)) under = under->parentItem();
@@ -2982,6 +3010,11 @@ void MapView::showDropTag(QPoint viewportPos) {
 }
 
 void MapView::dragEnterEvent(QDragEnterEvent* e) {
+    if (runMode_) {  // no parts are added in Run mode
+        e->ignore();
+        showStatus(tr("Stop running trains to add parts."), 4000);
+        return;
+    }
     coarsePointer_ = false;
     snapMods_ = e->modifiers();
     // A new drag: its own snap state.

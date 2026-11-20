@@ -1,0 +1,1377 @@
+{
+ "_about": "Track network vectors (trains design 2.1, 3.2, 3.4): for each part, its connections (as in the bundled library, or TrixBrix 1.8.6 for the tb parts) and the kinds, ways through and switches both apps must work out; and a small layout (bricks by pivot and orientation, connections placed as world = pivot + rotate(local, orientation), angle = orientation + local angle) with the network they must build: bricks with track, switches, partners across links, exits, where each connection is (`ports`: x, y, angle) and the length of ways through (`lengths`, studs, along the circuit path). Web packages/parts-catalog/src/track/track.test.ts (BLD_WRITE_CONTRACTS=1 writes `ports` and `lengths`), desktop tests/track/TrackNetworkTest.cpp.",
+ "parts": {
+  "2865.8": {
+   "connections": [
+    {
+     "type": "1",
+     "x": -8,
+     "y": 0,
+     "angle": 180,
+     "plug": 1
+    },
+    {
+     "type": "1",
+     "x": 8,
+     "y": 0,
+     "angle": 0,
+     "plug": -1
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ]
+    ],
+    "switches": []
+   }
+  },
+  "2867.8": {
+   "connections": [
+    {
+     "type": "1",
+     "x": -8.1875,
+     "y": -1.375,
+     "angle": 180,
+     "plug": 1
+    },
+    {
+     "type": "1",
+     "x": 7.1198,
+     "y": 1.6698,
+     "angle": 22.5,
+     "plug": -1
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ]
+    ],
+    "switches": []
+   }
+  },
+  "2861.8": {
+   "connections": [
+    {
+     "type": "1",
+     "x": -16.9375,
+     "y": 6.375,
+     "angle": 180,
+     "plug": 1
+    },
+    {
+     "type": "1",
+     "x": 15.0625,
+     "y": 6.375,
+     "angle": 0,
+     "plug": -1
+    },
+    {
+     "type": "1",
+     "x": 15.7552,
+     "y": -6.58018,
+     "angle": -22.5,
+     "plug": -1
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "switches": [
+     {
+      "heel": 0,
+      "exits": [
+       1,
+       2
+      ],
+      "default": 1,
+      "legs": {
+       "1": "straight",
+       "2": "left"
+      }
+     }
+    ]
+   }
+  },
+  "2859.8": {
+   "connections": [
+    {
+     "type": "1",
+     "x": -16.9375,
+     "y": -6.375,
+     "angle": 180,
+     "plug": 1
+    },
+    {
+     "type": "1",
+     "x": 15.7552,
+     "y": 6.58018,
+     "angle": 22.5,
+     "plug": -1
+    },
+    {
+     "type": "1",
+     "x": 15.0625,
+     "y": -6.375,
+     "angle": 0,
+     "plug": -1
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "switches": [
+     {
+      "heel": 0,
+      "exits": [
+       1,
+       2
+      ],
+      "default": 2,
+      "legs": {
+       "1": "right",
+       "2": "straight"
+      }
+     }
+    ]
+   }
+  },
+  "32087.8": {
+   "connections": [
+    {
+     "type": "1",
+     "x": -8,
+     "y": 0,
+     "angle": 180,
+     "plug": 1
+    },
+    {
+     "type": "1",
+     "x": 8,
+     "y": 0,
+     "angle": 0,
+     "plug": -1
+    },
+    {
+     "type": "1",
+     "x": 0,
+     "y": -8,
+     "angle": 270,
+     "plug": 2
+    },
+    {
+     "type": "1",
+     "x": 0,
+     "y": 8,
+     "angle": 90,
+     "plug": -2
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail",
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "switches": []
+   }
+  },
+  "7996.8": {
+   "connections": [
+    {
+     "type": "1",
+     "x": -24,
+     "y": -8,
+     "angle": 180,
+     "plug": 1
+    },
+    {
+     "type": "1",
+     "x": -24,
+     "y": 8,
+     "angle": 180,
+     "plug": 1
+    },
+    {
+     "type": "1",
+     "x": 24,
+     "y": -8,
+     "angle": 0,
+     "plug": -1
+    },
+    {
+     "type": "1",
+     "x": 24,
+     "y": 8,
+     "angle": 0,
+     "plug": -1
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail",
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "switches": [
+     {
+      "heel": 0,
+      "exits": [
+       2,
+       3
+      ],
+      "default": 2,
+      "legs": {
+       "2": "straight",
+       "3": "right"
+      }
+     },
+     {
+      "heel": 1,
+      "exits": [
+       2,
+       3
+      ],
+      "default": 3,
+      "legs": {
+       "2": "left",
+       "3": "straight"
+      }
+     },
+     {
+      "heel": 2,
+      "exits": [
+       0,
+       1
+      ],
+      "default": 0,
+      "legs": {
+       "0": "straight",
+       "1": "left"
+      }
+     },
+     {
+      "heel": 3,
+      "exits": [
+       0,
+       1
+      ],
+      "default": 1,
+      "legs": {
+       "0": "right",
+       "1": "straight"
+      }
+     }
+    ]
+   }
+  },
+  "948AC01.1": {
+   "connections": [
+    {
+     "type": "1",
+     "x": -16,
+     "y": 4,
+     "angle": 180,
+     "plug": 0
+    },
+    {
+     "type": "1",
+     "x": 16,
+     "y": 4,
+     "angle": 0,
+     "plug": 0
+    },
+    {
+     "type": "1",
+     "x": 16,
+     "y": -4,
+     "angle": 0,
+     "plug": 0
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "switches": [
+     {
+      "heel": 0,
+      "exits": [
+       1,
+       2
+      ],
+      "default": 1,
+      "legs": {
+       "1": "straight",
+       "2": "left"
+      }
+     }
+    ]
+   }
+  },
+  "3231A.1": {
+   "connections": [
+    {
+     "type": "1",
+     "x": -8,
+     "y": 0,
+     "angle": 180,
+     "plug": 0
+    },
+    {
+     "type": "1",
+     "x": 8,
+     "y": 0,
+     "angle": 0,
+     "plug": 0
+    },
+    {
+     "type": "1",
+     "x": 0,
+     "y": -8,
+     "angle": 270,
+     "plug": 0
+    },
+    {
+     "type": "1",
+     "x": 0,
+     "y": 8,
+     "angle": 90,
+     "plug": 0
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail",
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "switches": []
+   }
+  },
+  "2889.7": {
+   "connections": [
+    {
+     "type": "mono",
+     "x": -16,
+     "y": -2.5625,
+     "angle": 180,
+     "plug": 0
+    },
+    {
+     "type": "mono",
+     "x": 16,
+     "y": -2.5625,
+     "angle": 0,
+     "plug": 0
+    },
+    {
+     "type": "mono45",
+     "x": 3.799,
+     "y": 5.6385,
+     "angle": 45,
+     "plug": 0
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "monorail",
+     "monorail",
+     "monorail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "switches": [
+     {
+      "heel": 0,
+      "exits": [
+       1,
+       2
+      ],
+      "default": 1,
+      "legs": {
+       "1": "straight",
+       "2": "right"
+      }
+     }
+    ]
+   }
+  },
+  "2890.7": {
+   "connections": [
+    {
+     "type": "mono",
+     "x": -16,
+     "y": 2.5625,
+     "angle": 180,
+     "plug": 0
+    },
+    {
+     "type": "mono",
+     "x": 16,
+     "y": 2.5625,
+     "angle": 0,
+     "plug": 0
+    },
+    {
+     "type": "mono45",
+     "x": 3.799,
+     "y": -5.6385,
+     "angle": -45,
+     "plug": 0
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "monorail",
+     "monorail",
+     "monorail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "switches": [
+     {
+      "heel": 0,
+      "exits": [
+       1,
+       2
+      ],
+      "default": 1,
+      "legs": {
+       "1": "straight",
+       "2": "left"
+      }
+     }
+    ]
+   }
+  },
+  "2672.7": {
+   "connections": [
+    {
+     "type": "mono",
+     "x": -15,
+     "y": -13,
+     "angle": 180,
+     "plug": 0
+    },
+    {
+     "type": "mono",
+     "x": 13,
+     "y": 15,
+     "angle": 90,
+     "plug": 0
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "monorail",
+     "monorail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ]
+    ],
+    "switches": []
+   }
+  },
+  "2677.7": {
+   "connections": [
+    {
+     "type": "mono",
+     "x": -16,
+     "y": 0,
+     "angle": 180,
+     "plug": 0
+    },
+    {
+     "type": "monoramp",
+     "x": 16,
+     "y": 0,
+     "angle": 0,
+     "plug": 0
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "monorail",
+     "monorail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ]
+    ],
+    "switches": []
+   }
+  },
+  "TS_MONORAILCROSS.7": {
+   "connections": [
+    {
+     "type": "mono",
+     "x": -12,
+     "y": 0,
+     "angle": 180,
+     "plug": 0
+    },
+    {
+     "type": "mono",
+     "x": 12,
+     "y": 0,
+     "angle": 0,
+     "plug": 0
+    },
+    {
+     "type": "mono",
+     "x": 0,
+     "y": -12,
+     "angle": 270,
+     "plug": 0
+    },
+    {
+     "type": "mono",
+     "x": 0,
+     "y": 12,
+     "angle": 90,
+     "plug": 0
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "monorail",
+     "monorail",
+     "monorail",
+     "monorail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "switches": []
+   }
+  },
+  "TS_DIVERGERLEFT.8": {
+   "connections": [
+    {
+     "type": "NT_SPLITLEFT",
+     "x": -6.9375,
+     "y": 2.1888125,
+     "angle": 180,
+     "plug": 1
+    },
+    {
+     "type": "1",
+     "x": 9.0625,
+     "y": 3.5625,
+     "angle": 0,
+     "plug": -1
+    },
+    {
+     "type": "1",
+     "x": 1.062325,
+     "y": -4.4377375,
+     "angle": -36.9,
+     "plug": -1
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "switches": [
+     {
+      "heel": 0,
+      "exits": [
+       1,
+       2
+      ],
+      "default": 1,
+      "legs": {
+       "1": "straight",
+       "2": "left"
+      }
+     }
+    ]
+   }
+  },
+  "TS_WYEDIVERGER.8": {
+   "connections": [
+    {
+     "type": "NT_SPLITWYE",
+     "x": -4,
+     "y": 0,
+     "angle": 180,
+     "plug": 1
+    },
+    {
+     "type": "1",
+     "x": 3.999825,
+     "y": 8.0003,
+     "angle": 36.9,
+     "plug": -1
+    },
+    {
+     "type": "1",
+     "x": 3.999825,
+     "y": -8.0003,
+     "angle": -36.9,
+     "plug": -1
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "switches": [
+     {
+      "heel": 0,
+      "exits": [
+       1,
+       2
+      ],
+      "default": 1,
+      "legs": {
+       "1": "right",
+       "2": "left"
+      }
+     }
+    ]
+   }
+  },
+  "TS_THREEWAYDIVERGER.8": {
+   "connections": [
+    {
+     "type": "NT_SPLITTHREEWAY",
+     "x": -6.9375,
+     "y": 0,
+     "angle": 180,
+     "plug": 1
+    },
+    {
+     "type": "1",
+     "x": 9.0625,
+     "y": 0,
+     "angle": 0,
+     "plug": -1
+    },
+    {
+     "type": "1",
+     "x": 1.062325,
+     "y": 8.0003,
+     "angle": 36.9,
+     "plug": -1
+    },
+    {
+     "type": "1",
+     "x": 1.062325,
+     "y": -8.0003,
+     "angle": -36.9,
+     "plug": -1
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail",
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "switches": [
+     {
+      "heel": 0,
+      "exits": [
+       1,
+       2,
+       3
+      ],
+      "default": 1,
+      "legs": {
+       "1": "straight",
+       "2": "right",
+       "3": "left"
+      }
+     }
+    ]
+   }
+  },
+  "TS_SPLITINTERSECTION.8": {
+   "connections": [
+    {
+     "type": "NT_SPLITRIGHT",
+     "x": -8,
+     "y": -0.6263125,
+     "angle": 180,
+     "plug": 1
+    },
+    {
+     "type": "NT_SPLITLEFT",
+     "x": 8,
+     "y": -0.6263125,
+     "angle": 0,
+     "plug": -1
+    },
+    {
+     "type": "NT_SPLITTER",
+     "x": 0,
+     "y": 6,
+     "angle": -90,
+     "plug": 0
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail",
+     null
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ]
+    ],
+    "switches": []
+   }
+  },
+  "TS_LEFTSPLITINSIDE.8": {
+   "connections": [
+    {
+     "type": "1",
+     "x": -8,
+     "y": 3,
+     "angle": 180,
+     "plug": 1
+    },
+    {
+     "type": "NT_SPLITLEFT",
+     "x": 8,
+     "y": 1.6263125,
+     "angle": 0,
+     "plug": -1
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ]
+    ],
+    "switches": []
+   }
+  },
+  "6379CX1.8": {
+   "connections": [
+    {
+     "type": "5",
+     "x": -8.1875,
+     "y": 1.25,
+     "angle": 180,
+     "plug": 0
+    },
+    {
+     "type": "5",
+     "x": 7.8125,
+     "y": 5.5372,
+     "angle": 30,
+     "plug": 0
+    },
+    {
+     "type": "5",
+     "x": 7.8125,
+     "y": -3.0372,
+     "angle": -30,
+     "plug": 0
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "duplo",
+     "duplo",
+     "duplo"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "switches": [
+     {
+      "heel": 0,
+      "exits": [
+       1,
+       2
+      ],
+      "default": 1,
+      "legs": {
+       "1": "right",
+       "2": "left"
+      }
+     }
+    ]
+   }
+  },
+  "85976.8": {
+   "connections": [
+    {
+     "type": "narrow",
+     "x": -9.125,
+     "y": -3,
+     "angle": 180,
+     "plug": 0
+    },
+    {
+     "type": "narrow",
+     "x": 7.8455627,
+     "y": 4.0294372,
+     "angle": 45,
+     "plug": 0
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "narrow",
+     "narrow"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ]
+    ],
+    "switches": []
+   }
+  },
+  "10194-1.wagon": {
+   "connections": [
+    {
+     "type": "magnet",
+     "x": -16.75,
+     "y": 0,
+     "angle": 180,
+     "plug": 0
+    },
+    {
+     "type": "magnet",
+     "x": 16.75,
+     "y": 0,
+     "angle": 0,
+     "plug": 0
+    }
+   ],
+   "expect": {
+    "kinds": [
+     null,
+     null
+    ],
+    "paths": [],
+    "switches": []
+   }
+  },
+  "tb switch r40 comp base right.8": {
+   "connections": [
+    {
+     "type": "1",
+     "x": -2,
+     "y": 8,
+     "angle": 90,
+     "plug": 1
+    },
+    {
+     "type": "trixbrix_sw_r40_right_straight",
+     "x": -2,
+     "y": -8,
+     "angle": -90,
+     "plug": -1
+    },
+    {
+     "type": "trixbrix_sw_r40_right_turn",
+     "x": 1.0448187,
+     "y": -7.307337295,
+     "angle": -67.5,
+     "plug": -1
+    },
+    {
+     "type": "trixbrix_switchmotor",
+     "x": 5,
+     "y": 4.5,
+     "angle": 0,
+     "plug": 0
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail",
+     "rail",
+     null
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "switches": [
+     {
+      "heel": 0,
+      "exits": [
+       1,
+       2
+      ],
+      "default": 1,
+      "legs": {
+       "1": "straight",
+       "2": "right"
+      }
+     }
+    ]
+   }
+  },
+  "tb switch r40 comp det curved 45 right.8": {
+   "connections": [
+    {
+     "type": "trixbrix_sw_r40_right_straight",
+     "x": -3,
+     "y": 6.5,
+     "angle": 90,
+     "plug": 1
+    },
+    {
+     "type": "1",
+     "x": -2.231411216,
+     "y": -7.931029879,
+     "angle": -78.75,
+     "plug": -1
+    },
+    {
+     "type": "trixbrix_sw_r40_right_turn",
+     "x": 0.0448187,
+     "y": 7.192662705,
+     "angle": 112.5,
+     "plug": 2
+    },
+    {
+     "type": "1",
+     "x": 3.741215508,
+     "y": 0.277190679,
+     "angle": -56.25,
+     "plug": -2
+    }
+   ],
+   "expect": {
+    "kinds": [
+     "rail",
+     "rail",
+     "rail",
+     "rail"
+    ],
+    "paths": [
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "switches": []
+   }
+  }
+ },
+ "layouts": [
+  {
+   "name": "a point between two straights, and a monorail point turned 90",
+   "bricks": [
+    {
+     "id": "A",
+     "part": "2865.8",
+     "pivot": [
+      0,
+      0
+     ],
+     "orientation": 0,
+     "connexions": [
+      {
+       "id": "A0",
+       "linkedTo": ""
+      },
+      {
+       "id": "A1",
+       "linkedTo": "P0"
+      }
+     ]
+    },
+    {
+     "id": "P",
+     "part": "2861.8",
+     "pivot": [
+      24.9375,
+      -6.375
+     ],
+     "orientation": 0,
+     "connexions": [
+      {
+       "id": "P0",
+       "linkedTo": "A1"
+      },
+      {
+       "id": "P1",
+       "linkedTo": "B0"
+      },
+      {
+       "id": "P2",
+       "linkedTo": ""
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "part": "2865.8",
+     "pivot": [
+      48,
+      0
+     ],
+     "orientation": 0,
+     "connexions": [
+      {
+       "id": "B0",
+       "linkedTo": "P1"
+      },
+      {
+       "id": "B1",
+       "linkedTo": ""
+      }
+     ]
+    },
+    {
+     "id": "M",
+     "part": "2889.7",
+     "pivot": [
+      0,
+      100
+     ],
+     "orientation": 90,
+     "connexions": [
+      {
+       "id": "M0",
+       "linkedTo": ""
+      },
+      {
+       "id": "M1",
+       "linkedTo": ""
+      },
+      {
+       "id": "M2",
+       "linkedTo": ""
+      }
+     ]
+    },
+    {
+     "id": "W",
+     "part": "10194-1.wagon",
+     "pivot": [
+      0,
+      50
+     ],
+     "orientation": 0,
+     "connexions": [
+      {
+       "id": "W0",
+       "linkedTo": ""
+      },
+      {
+       "id": "W1",
+       "linkedTo": ""
+      }
+     ]
+    }
+   ],
+   "expect": {
+    "bricks": [
+     "A",
+     "P",
+     "B",
+     "M"
+    ],
+    "switches": [
+     {
+      "key": "P/0",
+      "exits": [
+       1,
+       2
+      ],
+      "default": 1
+     },
+     {
+      "key": "M/0",
+      "exits": [
+       1,
+       2
+      ],
+      "default": 1
+     }
+    ],
+    "partners": {
+     "A/0": null,
+     "A/1": "P/0",
+     "P/0": "A/1",
+     "P/1": "B/0",
+     "P/2": null,
+     "B/0": "P/1",
+     "B/1": null,
+     "M/0": null
+    },
+    "exits": {
+     "A/0": [
+      1
+     ],
+     "P/0": [
+      1,
+      2
+     ],
+     "P/1": [
+      0
+     ],
+     "P/2": [
+      0
+     ],
+     "M/1": [
+      0
+     ],
+     "M/2": [
+      0
+     ]
+    },
+    "ports": {
+     "A/0": [
+      -8,
+      0,
+      180
+     ],
+     "A/1": [
+      8,
+      0,
+      0
+     ],
+     "P/0": [
+      8,
+      0,
+      180
+     ],
+     "P/1": [
+      40,
+      0,
+      0
+     ],
+     "P/2": [
+      40.6927,
+      -12.95518,
+      -22.5
+     ],
+     "B/0": [
+      40,
+      0,
+      180
+     ],
+     "B/1": [
+      56,
+      0,
+      0
+     ],
+     "M/0": [
+      2.5625,
+      84,
+      270
+     ],
+     "M/1": [
+      2.5625,
+      116,
+      90
+     ],
+     "M/2": [
+      -5.6385,
+      103.799,
+      135
+     ]
+    },
+    "lengths": {
+     "A/0-1": 16,
+     "P/0-1": 32,
+     "P/0-2": 35.578634506,
+     "B/0-1": 16,
+     "M/0-1": 32,
+     "M/0-2": 21.99017293
+    }
+   }
+  }
+ ]
+}

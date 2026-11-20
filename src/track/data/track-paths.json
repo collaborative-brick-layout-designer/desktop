@@ -1,0 +1,9 @@
+{
+  "_about": "The ways through a part where the rules (trains design 3.2: electric circuits, two connections, the turn limit) would be wrong or need saying outright. Keys are library keys (part number and color, compared ignoring case); `paths` lists connection index pairs, each usable both ways. Both apps read this (web packages/parts-catalog/src/track/tables.ts, desktop src/track/data/track-paths.json; both tests check their copy). A part may also say it in its own XML with <TrackPaths> (not read yet).",
+  "parts": {
+    "TS_MONORAILCROSS.7": {
+      "paths": [[0, 1], [2, 3]],
+      "note": "4DBrix monorail crossing: straight through both ways, never round the corner."
+    }
+  }
+}

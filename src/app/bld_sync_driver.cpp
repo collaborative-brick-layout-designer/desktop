@@ -31,6 +31,9 @@
 //   module-move <moduleId> <dx> <dy>
 //                              move a module's parts together (studs), as one edit
 //   brick-delete <brickId>     delete a part, as one edit
+//   switches                   the editor's switch settings as JSON ("<brick>/<heel>": exit)
+//   switch-set <brick>/<heel> <exit|default>
+//                              set a switch (default: back to its usual way), as one edit
 //   shared                     the editor's shared (read-only) modules as JSON: id,
 //                              moduleId, version, by, members, placement, review
 //   shared-rows                what the server says about them (GET
@@ -74,6 +77,7 @@
 #include "sync/ServerApi.h"
 #include "sync/SidecarItems.h"
 #include "sync/SyncSession.h"
+#include "saveload/SidecarIO.h"
 
 #include "core/LayerBrick.h"
 #include "core/Map.h"
@@ -303,6 +307,23 @@ public:
                     if (l->kind() == core::LayerKind::Brick)
                         for (auto& b : static_cast<core::LayerBrick&>(*l).bricks)
                             if (m.memberIds.contains(b.guid)) b.displayArea.translate(by);
+            });
+        } else if (cmd == QLatin1String("switches")) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            reply(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(saveload::switchStatesToJson(map->sidecar.switchStates)).toJson(QJsonDocument::Compact)));
+        } else if (cmd == QLatin1String("switch-set") && a.size() == 3) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            bool ok = true;
+            const int exit = a[2] == QLatin1String("default") ? -1 : a[2].toInt(&ok);
+            if (!ok || !a[1].contains(QLatin1Char('/'))) return reply(QStringLiteral("error switch-set <brick>/<heel> <exit|default>")), true;
+            // (as SetSwitchStatesCommand: a flip is a sidecar change, never a part edit)
+            send(*map, [&] {
+                if (exit < 0) map->sidecar.switchStates.remove(a[1]);
+                else map->sidecar.switchStates.insert(a[1], exit);
             });
         } else if (cmd == QLatin1String("brick-delete") && a.size() == 2) {
             QString error;

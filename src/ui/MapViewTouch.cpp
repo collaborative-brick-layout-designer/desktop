@@ -76,6 +76,7 @@ void MapView::resizeEvent(QResizeEvent* e) {
     if (touchBar_ && touchBar_->isVisible()) touchBar_->place(viewport()->geometry());
     if (editBar_ && editBar_->isVisible()) editBar_->place(viewport()->geometry());
     placeBottomBars();
+    placeRunBar();
 }
 
 void MapView::panBy(QPointF delta) {
@@ -269,16 +270,17 @@ bool MapView::handleTouch(QTouchEvent* e) {
         const bool onItem = under && (isBrickItem(under) || isTextItem(under) || isRulerItem(under)
                                       || isLabelItem(under) || isVenueItem(under));
         const bool selectTool = tool_ == Tool::Select;
-        const bool asMouse = !selectTool
+        // Run mode: a finger only pans, or taps a switch to flip it.
+        const bool asMouse = !runMode_ && (!selectTool
             || (armedPart_.isEmpty() && (onItem || bendHandleAt(vp) >= 0 || rulerEndpointAt(mapToScene(vp), false)
-                                         || wouldDragGridOrigin(vp)));
+                                         || wouldDragGridOrigin(vp))));
         if (asMouse) {
             touchState_ = TouchState::Press;
             sendTouchMouse(QEvent::MouseButtonPress, touchStart_);
         } else {
             touchState_ = TouchState::PanOrTap;
         }
-        if (selectTool) {
+        if (selectTool && !runMode_) {
             longPressTimer_->start();
             longPressAnim_->start();
         }
@@ -346,7 +348,9 @@ bool MapView::handleTouch(QTouchEvent* e) {
         sendTouchMouse(QEvent::MouseButtonRelease, touchLast_);
         break;
     case TouchState::PanOrTap:
-        if (!armedPart_.isEmpty()) {
+        if (runMode_) {
+            flipSwitchNear(mapToScene(touchStart_.toPoint()) / rendering::SceneBuilder::kPixelsPerStud);
+        } else if (!armedPart_.isEmpty()) {
             const QString key = armedPart_;
             armedPart_.clear();
             addPartAtScenePos(key, mapToScene(touchStart_.toPoint()));

@@ -835,6 +835,7 @@ void SceneBuilder::clear() {
     clearVenue();
     clearModuleLabels();
     clearElectric();
+    clearSwitches();
     drawnVenue_.reset();
     drawnLabels_.clear();
     drawnModules_.clear();
@@ -863,6 +864,7 @@ void SceneBuilder::build(const core::Map& map) {
     addModuleLabels(map);
     drawnModules_ = map.sidecar.modules;
     addElectricCircuits(map);
+    addSwitches(map);
     built_ = true;
 }
 
@@ -878,6 +880,7 @@ void SceneBuilder::rebuildFollowers(const core::Map& posed, const QSet<QString>&
     clearElectric();
     addModuleLabels(posed, true);
     addElectricCircuits(posed);
+    if (switchesShown_) refreshSwitches(posed);
 
     // Rulers fixed to a moving part: their ends follow its pivot.
     for (const auto& layerPtr : posed.layers()) {
@@ -1488,6 +1491,11 @@ std::optional<SceneBuilder::Change> SceneBuilder::update(const core::Map& map) {
     if ((partsChanged || visibilityChanged) && (!electricItems_.isEmpty() || partLook_.electric)) {
         clearElectric();
         addElectricCircuits(map);
+        change.overlays = true;
+    }
+    if ((switchesShown_ || !switchItems_.isEmpty())
+        && (partsChanged || visibilityChanged || map.sidecar.switchStates != drawnSwitchStates_)) {
+        refreshSwitches(map);
         change.overlays = true;
     }
     return change;

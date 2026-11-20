@@ -943,6 +943,30 @@ struct SyncDoc::Impl {
         setFields(limits, cur, wantObj, false);
     }
 
+    // Switch settings (trains design 2.2): a Y.Map at meta.switchStates
+    // ("<brick>/<heel>" -> exit), as the web keeps it, one key at a time so
+    // flips of different switches merge. None set: the keys go, the map stays.
+    void writeSwitchStates(const QJsonObject& curMeta, const QMap<QString, int>& want) {
+        static const char* const kKey = "switchStates";
+        const QJsonObject wantObj = saveload::switchStatesToJson(want);
+        Output existing(ymap_get(meta, txn, kKey));
+        if (!existing || existing->tag != Y_MAP) {
+            if (wantObj.isEmpty()) return;
+            const YInput v = arena.itemMap(wantObj);
+            ymap_insert(meta, txn, kKey, &v);
+            ++ops;
+            return;
+        }
+        const Branch* states = youtput_read_ymap(existing.get());
+        const QJsonObject cur = curMeta.value(QLatin1String(kKey)).toObject();
+        for (auto it = cur.begin(); it != cur.end(); ++it)
+            if (!wantObj.contains(it.key())) {
+                ymap_remove(states, txn, arena.str(it.key()));
+                ++ops;
+            }
+        setFields(states, cur, wantObj, false);
+    }
+
     // Set changed fields of an item or layer map in place.
     void setFields(const Branch* map, const QJsonObject& cur, const QJsonObject& want, bool skipArrays) {
         for (auto it = want.begin(); it != want.end(); ++it) {
@@ -1373,6 +1397,7 @@ QByteArray SyncDoc::writeMap(const core::Map& map, bool undoStep) {
     if (writesSidecar) wantMeta.insert(QStringLiteral("cache"), sidecarWrite.blob);
     d.setFields(d.meta, curMeta, wantMeta, false);
     d.writeBudget(curMeta, map.sidecar.budgetLimits);
+    d.writeSwitchStates(curMeta, map.sidecar.switchStates);
     if (!sidecarWrite.items.isEmpty()) {
         const QJsonObject curItems = cur.value(QLatin1String("sidecarItems")).toObject();
         const QJsonObject& wantItems = sidecarWrite.items;

@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace bld::rendering {
+namespace bld::track {
 
 namespace {
 
@@ -125,4 +125,4 @@ std::vector<QPointF> offsetPathBetween(const std::vector<CircuitPathPoint>& path
     return out;
 }
 
-}  // namespace bld::rendering
+}  // namespace bld::track

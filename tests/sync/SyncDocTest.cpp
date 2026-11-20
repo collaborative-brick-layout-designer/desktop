@@ -507,3 +507,60 @@ TEST(SyncDocSidecar, BudgetTravelsAsTheWebsBudgetLimitsMap) {
     ASSERT_TRUE(mapOf(doc)->sidecar.budgetLimits);
     EXPECT_TRUE(mapOf(doc)->sidecar.budgetLimits->isEmpty());
 }
+
+// Switch settings travel as the web keeps them: a Y.Map at
+// meta.switchStates, one key a switch, so flips of different switches merge
+// (trains design 2.2). An older web build's copy in meta.cache is read too.
+TEST(SyncDocSidecar, SwitchStatesTravelAsTheWebsMap) {
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(serverDoc()));
+    auto map = mapOf(doc);
+    EXPECT_TRUE(map->sidecar.switchStates.isEmpty());
+    map->sidecar.switchStates = { { QStringLiteral("P/0"), 2 } };
+    const QByteArray update = doc.writeMap(*map);
+    ASSERT_FALSE(update.isEmpty());
+    const QJsonObject meta = doc.toJson().value(QLatin1String("meta")).toObject();
+    EXPECT_EQ(meta.value(QLatin1String("switchStates")).toObject().value(QLatin1String("P/0")).toInt(), 2);
+    EXPECT_FALSE(meta.value(QLatin1String("cache")).toObject().contains(QLatin1String("switchStates")));
+
+    // Another copy flips a different switch at the same time: both stay.
+    sync::SyncDoc other;
+    ASSERT_TRUE(other.applyUpdate(serverDoc()));
+    ASSERT_TRUE(other.applyUpdate(update));
+    auto theirs = mapOf(other);
+    EXPECT_EQ(theirs->sidecar.switchStates, map->sidecar.switchStates);
+    theirs->sidecar.switchStates.insert(QStringLiteral("Q/1"), 0);
+    const QByteArray fromThem = other.writeMap(*theirs);
+    map->sidecar.switchStates.insert(QStringLiteral("R/0"), 3);
+    const QByteArray fromMe = doc.writeMap(*map);
+    ASSERT_TRUE(doc.applyUpdate(fromThem));
+    ASSERT_TRUE(other.applyUpdate(fromMe));
+    const QMap<QString, int> both{ { QStringLiteral("P/0"), 2 }, { QStringLiteral("Q/1"), 0 }, { QStringLiteral("R/0"), 3 } };
+    EXPECT_EQ(mapOf(doc)->sidecar.switchStates, both);
+    EXPECT_EQ(mapOf(other)->sidecar.switchStates, both);
+
+    // Back to the default: the key goes.
+    auto mine = mapOf(doc);
+    mine->sidecar.switchStates.remove(QStringLiteral("P/0"));
+    ASSERT_FALSE(doc.writeMap(*mine).isEmpty());
+    EXPECT_FALSE(doc.toJson().value(QLatin1String("meta")).toObject().value(QLatin1String("switchStates")).toObject().contains(QLatin1String("P/0")));
+    EXPECT_TRUE(doc.writeMap(*mapOf(doc)).isEmpty());
+}
+
+TEST(SyncDocSidecar, SwitchStatesAnOlderWebBuildLeftInTheCacheAreRead) {
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(serverDoc()));
+    QJsonObject json = doc.toJson();
+    QJsonObject meta = json.value(QLatin1String("meta")).toObject();
+    QJsonObject cache = meta.value(QLatin1String("cache")).toObject();
+    cache.insert(QStringLiteral("switchStates"), QJsonObject{ { QStringLiteral("P/0"), 2 } });
+    meta.insert(QStringLiteral("cache"), cache);
+    json.insert(QStringLiteral("meta"), meta);
+    auto read = sync::mapFromDocJson(json, nullptr);
+    ASSERT_TRUE(read);
+    EXPECT_EQ(read->sidecar.switchStates, (QMap<QString, int>{ { QStringLiteral("P/0"), 2 } }));
+    // The doc's own map wins over the cache's.
+    meta.insert(QStringLiteral("switchStates"), QJsonObject{ { QStringLiteral("P/0"), 1 } });
+    json.insert(QStringLiteral("meta"), meta);
+    EXPECT_EQ(sync::mapFromDocJson(json, nullptr)->sidecar.switchStates, (QMap<QString, int>{ { QStringLiteral("P/0"), 1 } }));
+}

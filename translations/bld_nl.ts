@@ -579,6 +579,30 @@
         <translation>Selecteren verplaatst stukken, Draaien draait het stuk waarop je klikt, en Verwijderen haalt het weg. Verven kleurt de ondergrond en Wissen maakt hem weer schoon. Meten en Cirkel voegen een liniaal toe die je op de kaart kunt laten staan, en Zaal en Obstakel tekenen de muren van de zaal en dingen waar je vanaf moet blijven.</translation>
     </message>
     <message>
+        <source>Run trains</source>
+        <translation>Treinen laten rijden</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>Speel met de baan: klik op een wissel om hem om te zetten, zonder onderdelen te verplaatsen.</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>In rijmodus toont elke wissel een pijl langs de kant waarop hij staat; klik in de buurt om hem om te zetten. Onderdelen kunnen niet worden geselecteerd of verplaatst, dus er verandert niets per ongeluk. Omzettingen worden met iedereen gedeeld en kunnen ongedaan worden gemaakt; druk op Stoppen om verder te bouwen.</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>Wissels</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>Een wissel stuurt een trein de ene of de andere kant op; de pijl laat zien welke.</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>Klik met rechts op een wissel om hem te zetten, of zet de rijmodus aan en klik erop. Een groene pijl is de gewone kant; een oranje betekent dat hij naar de andere kant staat. Zet Beeld › Wissels aan om ze tijdens het bouwen te zien.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Huidig blad</translation>
     </message>
@@ -4370,6 +4394,10 @@
         <translation>Budgetlimiet voor %1</translation>
     </message>
     <message>
+        <source>A switch&apos;s setting</source>
+        <translation>De stand van een wissel</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Zaal</translation>
     </message>
@@ -7628,6 +7656,18 @@ Toch opslaan?</translation>
         <translation>&amp;Aanhechtpunten van linialen</translation>
     </message>
     <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>Treinen laten r&amp;ijden</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Treinen laten rijden: klik op een wissel om hem om te zetten. Onderdelen kunnen niet worden verplaatst.</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>&amp;Wissels</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>M&amp;odules</translation>
     </message>
@@ -9194,6 +9234,10 @@ Dit wordt niet opnieuw gevraagd. Om het later in deze of een andere layout over 
         <translation>uit welke versie elke set komt</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>wisselstanden</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9521,6 +9565,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>Stop met treinen laten rijden om onderdelen toe te voegen.</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -9885,6 +9933,50 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
             <numerusform>Plakken (%1 onderdelen op %n blad)</numerusform>
             <numerusform>Plakken (%1 onderdelen op %n bladen)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Straight</source>
+        <translation>Rechtdoor</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Rijmodus:&lt;/b&gt; klik op een wissel om hem om te zetten. Onderdelen kunnen niet worden verplaatst.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stoppen</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ Treinen laten rijden</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Treinen laten rijden: klik op een wissel om hem om te zetten. Onderdelen kunnen niet worden verplaatst.</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>Wissel zetten</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>Klik op een wissel om hem om te zetten.</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>Wissel gezet: %1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>Wissel zetten</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>Vanaf uiteinde %1: %2</translation>
     </message>
 </context>
 <context>

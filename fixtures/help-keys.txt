@@ -18,6 +18,8 @@ toolbar.panels
 toolbar.activeSheet
 sheets.fadeOthers
 tools.rail
+run.mode
+switch.flip
 status.sheet
 status.room
 status.budget

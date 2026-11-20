@@ -579,6 +579,30 @@
         <translation>「選択」はパーツを動かし、「回転」はクリックしたパーツを回し、「削除」は取り除きます。「ペイント」は地面に色を付け、「消しゴム」は消します。「計測」と「円」はマップに残せる定規を追加し、「会場」と「障害物」は会場の壁と、避けるべきものを描きます。</translation>
     </message>
     <message>
+        <source>Run trains</source>
+        <translation>列車を走らせる</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>レイアウトで遊ぶ：パーツを動かさずに、ポイントをクリックして切り替えます。</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>運転モードでは、各ポイントに開通している方向を示す矢印が出ます。近くをクリックすると切り替わります。パーツは選択も移動もできないので、うっかり変わることはありません。切り替えは全員と共有され、元に戻せます。停止を押すと組み立てに戻ります。</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>ポイント</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>ポイントは列車をどちらか一方へ進ませます。矢印がその向きを示します。</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>ポイントを右クリックして切り替えるか、運転モードにしてクリックします。緑の矢印はふだんの向き、オレンジの矢印はもう一方に切り替わっていることを示します。組み立て中に見るには 表示 › ポイント をオンにします。</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>現在のシート</translation>
     </message>
@@ -4344,6 +4368,10 @@
         <translation>%1 の予算の上限</translation>
     </message>
     <message>
+        <source>A switch&apos;s setting</source>
+        <translation>ポイントの開通方向</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>会場</translation>
     </message>
@@ -7578,6 +7606,18 @@ Save anyway?</source>
         <translation>定規の取り付けポイント(&amp;R)</translation>
     </message>
     <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>列車を走らせる(&amp;A)</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>列車を走らせる：ポイントをクリックして切り替えます。パーツは動かせません。</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>ポイント(&amp;T)</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>モジュール(&amp;O)</translation>
     </message>
@@ -9120,6 +9160,10 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>各セットがどのバージョンのものか</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>ポイントの開通方向</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9446,6 +9490,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>パーツを追加するには、列車の運転を止めてください。</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -9807,6 +9855,50 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
             <numerusform>貼り付け（シート %n 枚にパーツ %1 個）</numerusform>
         </translation>
     </message>
+    <message>
+        <source>Straight</source>
+        <translation>直進</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;運転モード：&lt;/b&gt;ポイントをクリックして切り替えます。パーツは動かせません。</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ 列車を走らせる</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>列車を走らせる：ポイントをクリックして切り替えます。パーツは動かせません。</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>ポイントを切り替える</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>ポイントをクリックして切り替えます。</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>ポイントを切り替えました：%1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>ポイントの向き</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>端 %1 から：%2</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleEditBar</name>
@@ -10061,7 +10153,7 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     </message>
     <message>
         <source>Stop</source>
-        <translation>やめる</translation>
+        <translation>停止</translation>
     </message>
     <message>
         <source>Share “%1”</source>

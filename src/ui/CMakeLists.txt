@@ -58,6 +58,7 @@ add_library(bld_ui STATIC
     MapViewDrag.cpp
     MapViewClipboard.cpp
     MapViewContextMenu.cpp
+    MapViewSwitches.cpp
     MapViewPaint.cpp
     MapViewTouch.cpp
     TouchActionBar.cpp
