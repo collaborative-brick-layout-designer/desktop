@@ -931,8 +931,8 @@
         <translation>Hent inn en LDraw-, BrickLink Studio- eller LDD-modell, lest av skrivebordsappens egen importør.</translation>
     </message>
     <message>
-        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
-        <translation>Modellen blir én egendefinert del du kan plassere hvor som helst, eller for et LDraw-layout blir delene plassert én etter én. Filen slettes fra serveren så snart den er lest. Deler bibliotekene ikke har, mangler i bildet, og forhåndsvisningen sier hvor mange.</translation>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. On the website, your browser reads the file; if it can’t, the server reads it and deletes it straight after. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>Modellen blir én egendefinert del du kan plassere hvor som helst, eller for et LDraw-layout blir delene plassert én etter én. På nettstedet leser nettleseren din filen; klarer den det ikke, leser serveren den og sletter den rett etterpå. Deler bibliotekene ikke har, mangler i bildet, og forhåndsvisningen sier hvor mange.</translation>
     </message>
     <message>
         <source>One part or its parts</source>
@@ -3257,8 +3257,8 @@
         <translation>Skrivebordsappens importør</translation>
     </message>
     <message>
-        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
-        <translation>Nettstedet leser modellen din slik skrivebordsappen gjør. Filen slettes så snart den er lest.</translation>
+        <source>Your browser reads your model as the desktop app does; if it can’t, the server reads it and deletes it straight after.</source>
+        <translation>Nettleseren din leser modellen din slik skrivebordsappen gjør; klarer den det ikke, leser serveren den og sletter den rett etterpå.</translation>
     </message>
     <message>
         <source>Line it up</source>

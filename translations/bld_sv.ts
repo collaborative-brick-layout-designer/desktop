@@ -931,8 +931,8 @@
         <translation>Ta in en LDraw-, BrickLink Studio- eller LDD-modell, läst av skrivbordsappens egen importör.</translation>
     </message>
     <message>
-        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
-        <translation>Modellen blir en egen del som du kan placera var som helst, eller för en LDraw-layout placeras delarna en och en. Filen tas bort från servern så snart den är läst. Delar som biblioteken saknar fattas i bilden, och förhandsvisningen säger hur många.</translation>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. On the website, your browser reads the file; if it can’t, the server reads it and deletes it straight after. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>Modellen blir en egen del som du kan placera var som helst, eller för en LDraw-layout placeras delarna en och en. På webbplatsen läser din webbläsare filen; om den inte kan det läser servern den och tar bort den direkt efteråt. Delar som biblioteken saknar fattas i bilden, och förhandsvisningen säger hur många.</translation>
     </message>
     <message>
         <source>One part or its parts</source>
@@ -3257,8 +3257,8 @@
         <translation>Skrivbordsappens importör</translation>
     </message>
     <message>
-        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
-        <translation>Webbplatsen läser din modell som skrivbordsappen gör. Filen tas bort så snart den är läst.</translation>
+        <source>Your browser reads your model as the desktop app does; if it can’t, the server reads it and deletes it straight after.</source>
+        <translation>Din webbläsare läser din modell som skrivbordsappen gör; om den inte kan det läser servern den och tar bort den direkt efteråt.</translation>
     </message>
     <message>
         <source>Line it up</source>

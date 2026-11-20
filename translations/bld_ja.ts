@@ -931,8 +931,8 @@
         <translation>LDraw、BrickLink Studio、LDD のモデルを、デスクトップアプリ自身のインポーターで読み込みます。</translation>
     </message>
     <message>
-        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
-        <translation>モデルはどこにでも置ける 1 つのカスタムパーツになります。LDraw のレイアウトなら、パーツを 1 つずつ配置することもできます。ファイルは読み込みが終わるとすぐサーバーから削除されます。ライブラリにないパーツは絵から抜け、その数はプレビューに表示されます。</translation>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. On the website, your browser reads the file; if it can’t, the server reads it and deletes it straight after. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>モデルはどこにでも置ける 1 つのカスタムパーツになります。LDraw のレイアウトなら、パーツを 1 つずつ配置することもできます。ウェブサイトではブラウザーがファイルを読み込みます。読み込めない場合はサーバーが読み込み、その直後に削除します。ライブラリにないパーツは絵から抜け、その数はプレビューに表示されます。</translation>
     </message>
     <message>
         <source>One part or its parts</source>
@@ -3239,8 +3239,8 @@
         <translation>デスクトップアプリのインポーター</translation>
     </message>
     <message>
-        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
-        <translation>サイトはデスクトップアプリと同じようにモデルを読み込みます。ファイルは読み込み後すぐ削除されます。</translation>
+        <source>Your browser reads your model as the desktop app does; if it can’t, the server reads it and deletes it straight after.</source>
+        <translation>ブラウザーがデスクトップアプリと同じようにモデルを読み込みます。読み込めない場合はサーバーが読み込み、その直後に削除します。</translation>
     </message>
     <message>
         <source>Line it up</source>

@@ -73,7 +73,7 @@
       "title": "Importing a model",
       "devices": "all",
       "steps": [
-        { "target": "import.model", "title": "The desktop app’s importer", "text": "The site reads your model as the desktop app does. The file is deleted once it’s read.", "apps": ["web"] },
+        { "target": "import.model", "title": "The desktop app’s importer", "text": "Your browser reads your model as the desktop app does; if it can’t, the server reads it and deletes it straight after.", "apps": ["web"] },
         { "target": "import.align", "title": "Line it up", "text": "Turn the model and move it until its studs sit on the grid.", "apps": ["web"] },
         { "target": "import.connections", "title": "Snap points", "text": "Uncheck any connection point you don’t want on the part.", "apps": ["web"] },
         { "target": "import.where", "title": "Where it goes", "text": "Put it in the layout you have open, or start a new layout with it.", "apps": ["web"] }

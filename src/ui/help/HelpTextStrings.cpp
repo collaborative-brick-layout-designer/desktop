@@ -137,7 +137,7 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("HelpTexts", "The desktop app reads LDraw, BrickLink Studio and LDD files with your own libraries, matches their parts and lists the ones it can’t match. It can also turn a model into a custom part. Then choose File › Save to Server… and it shows up here."),
     QT_TRANSLATE_NOOP("HelpTexts", "Importing a model"),
     QT_TRANSLATE_NOOP("HelpTexts", "Bring in an LDraw, BrickLink Studio or LDD model, read by the desktop app’s own importer."),
-    QT_TRANSLATE_NOOP("HelpTexts", "The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many."),
+    QT_TRANSLATE_NOOP("HelpTexts", "The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. On the website, your browser reads the file; if it can’t, the server reads it and deletes it straight after. Parts the libraries don’t have are left out of the picture, and the preview says how many."),
     QT_TRANSLATE_NOOP("HelpTexts", "One part or its parts"),
     QT_TRANSLATE_NOOP("HelpTexts", "Make the whole model one custom part, or place each of its parts as File › Open does."),
     QT_TRANSLATE_NOOP("HelpTexts", "One custom part keeps a building or a set together, drawn from above, with snap points where its track ends. Placing its parts one by one is for an LDraw layout: each piece becomes a part you can move, if the parts library has it."),

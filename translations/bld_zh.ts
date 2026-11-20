@@ -931,8 +931,8 @@
         <translation>导入 LDraw、BrickLink Studio 或 LDD 模型，由桌面应用自己的导入器读取。</translation>
     </message>
     <message>
-        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
-        <translation>模型会变成一个可以放在任何地方的自定义零件；对于 LDraw 布局，也可以逐个放置其中的零件。文件读取完毕后会立即从服务器删除。零件库中没有的零件不会出现在图中，预览会显示数量。</translation>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. On the website, your browser reads the file; if it can’t, the server reads it and deletes it straight after. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>模型会变成一个可以放在任何地方的自定义零件；对于 LDraw 布局，也可以逐个放置其中的零件。在网站上，由你的浏览器读取文件；如果浏览器无法读取，则由服务器读取，并在读取后立即删除。零件库中没有的零件不会出现在图中，预览会显示数量。</translation>
     </message>
     <message>
         <source>One part or its parts</source>
@@ -3239,8 +3239,8 @@
         <translation>桌面应用的导入器</translation>
     </message>
     <message>
-        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
-        <translation>网站按桌面应用的方式读取你的模型。文件读取完毕后会立即删除。</translation>
+        <source>Your browser reads your model as the desktop app does; if it can’t, the server reads it and deletes it straight after.</source>
+        <translation>你的浏览器会按桌面应用的方式读取模型；如果无法读取，则由服务器读取，并在读取后立即删除。</translation>
     </message>
     <message>
         <source>Line it up</source>

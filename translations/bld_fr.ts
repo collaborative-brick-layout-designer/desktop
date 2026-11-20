@@ -931,8 +931,8 @@
         <translation>Apportez un modèle LDraw, BrickLink Studio ou LDD, lu par l’importateur de l’application de bureau elle-même.</translation>
     </message>
     <message>
-        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
-        <translation>Le modèle devient une pièce personnalisée à placer où vous voulez, ou, pour un plan LDraw, ses pièces sont placées une à une. Le fichier est supprimé du serveur dès qu’il est lu. Les pièces absentes des bibliothèques manquent dans l’image, et l’aperçu dit combien.</translation>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. On the website, your browser reads the file; if it can’t, the server reads it and deletes it straight after. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>Le modèle devient une pièce personnalisée à placer où vous voulez, ou, pour un plan LDraw, ses pièces sont placées une à une. Sur le site, votre navigateur lit le fichier ; s’il n’y arrive pas, le serveur le lit et le supprime aussitôt après. Les pièces absentes des bibliothèques manquent dans l’image, et l’aperçu dit combien.</translation>
     </message>
     <message>
         <source>One part or its parts</source>
@@ -3257,8 +3257,8 @@
         <translation>L’importateur de l’application de bureau</translation>
     </message>
     <message>
-        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
-        <translation>Le site lit votre modèle comme l’application de bureau. Le fichier est supprimé dès qu’il est lu.</translation>
+        <source>Your browser reads your model as the desktop app does; if it can’t, the server reads it and deletes it straight after.</source>
+        <translation>Votre navigateur lit votre modèle comme l’application de bureau ; s’il n’y arrive pas, le serveur le lit et le supprime aussitôt après.</translation>
     </message>
     <message>
         <source>Line it up</source>

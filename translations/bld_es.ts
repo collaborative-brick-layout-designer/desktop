@@ -931,8 +931,8 @@
         <translation>Trae un modelo de LDraw, BrickLink Studio o LDD, leído por el propio importador de la aplicación de escritorio.</translation>
     </message>
     <message>
-        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
-        <translation>El modelo se convierte en una pieza personalizada que puedes colocar donde quieras o, en una maqueta de LDraw, sus piezas se colocan una a una. El archivo se borra del servidor en cuanto se lee. Las piezas que no tienen las bibliotecas faltan en la imagen, y la vista previa dice cuántas.</translation>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. On the website, your browser reads the file; if it can’t, the server reads it and deletes it straight after. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>El modelo se convierte en una pieza personalizada que puedes colocar donde quieras o, en una maqueta de LDraw, sus piezas se colocan una a una. En el sitio web, tu navegador lee el archivo; si no puede, lo lee el servidor y lo borra justo después. Las piezas que no tienen las bibliotecas faltan en la imagen, y la vista previa dice cuántas.</translation>
     </message>
     <message>
         <source>One part or its parts</source>
@@ -3257,8 +3257,8 @@
         <translation>El importador de la aplicación de escritorio</translation>
     </message>
     <message>
-        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
-        <translation>El sitio lee tu modelo igual que la aplicación de escritorio. El archivo se borra en cuanto se lee.</translation>
+        <source>Your browser reads your model as the desktop app does; if it can’t, the server reads it and deletes it straight after.</source>
+        <translation>Tu navegador lee tu modelo igual que la aplicación de escritorio; si no puede, lo lee el servidor y lo borra justo después.</translation>
     </message>
     <message>
         <source>Line it up</source>

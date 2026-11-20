@@ -931,8 +931,8 @@
         <translation>Traga um modelo LDraw, BrickLink Studio ou LDD, lido pelo próprio importador da aplicação de desktop.</translation>
     </message>
     <message>
-        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. The file is deleted from the server as soon as it’s read. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
-        <translation>O modelo torna-se uma peça personalizada que pode pôr em qualquer lado ou, num layout LDraw, as suas peças são colocadas uma a uma. O ficheiro é apagado do servidor assim que é lido. As peças que as bibliotecas não têm faltam na imagem, e a pré-visualização diz quantas.</translation>
+        <source>The model becomes one custom part you can place anywhere, or, for an LDraw layout, its parts are placed one by one. On the website, your browser reads the file; if it can’t, the server reads it and deletes it straight after. Parts the libraries don’t have are left out of the picture, and the preview says how many.</source>
+        <translation>O modelo torna-se uma peça personalizada que pode pôr em qualquer lado ou, num layout LDraw, as suas peças são colocadas uma a uma. No site, o seu navegador lê o ficheiro; se não conseguir, o servidor lê-o e apaga-o logo a seguir. As peças que as bibliotecas não têm faltam na imagem, e a pré-visualização diz quantas.</translation>
     </message>
     <message>
         <source>One part or its parts</source>
@@ -3257,8 +3257,8 @@
         <translation>O importador da aplicação de desktop</translation>
     </message>
     <message>
-        <source>The site reads your model as the desktop app does. The file is deleted once it’s read.</source>
-        <translation>O site lê o seu modelo como a aplicação de desktop. O ficheiro é apagado assim que é lido.</translation>
+        <source>Your browser reads your model as the desktop app does; if it can’t, the server reads it and deletes it straight after.</source>
+        <translation>O seu navegador lê o seu modelo como a aplicação de desktop; se não conseguir, o servidor lê-o e apaga-o logo a seguir.</translation>
     </message>
     <message>
         <source>Line it up</source>
