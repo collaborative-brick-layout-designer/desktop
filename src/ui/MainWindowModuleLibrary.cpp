@@ -10,6 +10,7 @@
 //     each part on its sheet; it asks first when the module was changed here.
 
 #include "MainWindow.h"
+#include "../core/ModuleSetup.h"
 
 #include "ConfirmDialog.h"
 #include "MapView.h"
@@ -237,6 +238,13 @@ void MainWindow::linkModule(const QString& moduleId, const QString& libraryId, i
     }
     mapView_->undoStack()->push(new edit::UpdateModuleCommand(*map, linked, tr("Link module to the Module library")));
     modulesPanel_->setMap(map);
+    // Its table and power go to the Module library with its parts; none set leaves the library's as they are.
+    const core::ModuleSetup setup = core::setupOf(linked);
+    if (!libraryId.isEmpty() && !setup.empty() && serverLibrary_ && serverLibrary_->state() == ServerLibrary::State::Ready)
+        serverLibrary_->api().setModuleSetup(libraryId, core::setupJson(setup), sync::whileAlive(this, [this] { serverLibrary_->refresh(); }),
+                                             [](const sync::ServerRefusal&) {
+                                                 // The parts are saved; the table and power can be set again from the Module library.
+                                             });
 }
 
 ModuleLibraryInfo MainWindow::moduleLibraryInfo(const core::Module& m) const {
@@ -475,7 +483,16 @@ void MainWindow::replaceWithLibrary(const QString& moduleId, core::Map& library,
     const auto sheetFor = edit::sheetForUpdate(*map, mod->memberIds);
     for (auto& batch : batches) batch.targetLayerGuid = sheetFor(batch.layerName);
     const QString name = mod->name;
+    // Its table and power come with the version, when the Module library has them.
+    const sync::ServerModule* sm = serverLibrary_ && !libraryId.isEmpty() ? serverLibrary_->module(libraryId) : nullptr;
+    const core::ModuleSetup setup = sm ? core::setupFromJson(sm->setup) : core::ModuleSetup{};
+    if (!setup.empty()) mapView_->undoStack()->beginMacro(tr("Update from Module library"));
     mapView_->undoStack()->push(new edit::ReplaceModulePartsCommand(*map, moduleId, std::move(batches), libraryId, version));
+    if (!setup.empty()) {
+        if (const core::Module* now = core::findModule(map->sidecar.modules, moduleId))
+            mapView_->undoStack()->push(new edit::UpdateModuleCommand(*map, core::withLibrarySetup(*now, setup), tr("Module table and power")));
+        mapView_->undoStack()->endMacro();
+    }
     mapView_->refreshScene();
     modulesPanel_->setMap(map);
     statusBar()->showMessage(tr("Updated “%1” from the Module library").arg(name), 5000);

@@ -13,6 +13,8 @@
 #include "ModuleThumbnail.h"
 #include "ModulesPanel.h"
 #include "ModuleLookDialog.h"
+#include "ModuleSetupDialog.h"
+#include "../core/ModuleSetup.h"
 #include "../rendering/ModuleLabels.h"
 #include "../edit/ModuleCommands.h"
 #include "NoticeArea.h"
@@ -545,11 +547,13 @@ void MainWindow::insertServerModule(const QString& moduleId) {
         const sync::ServerModule* sm = serverLibrary_->module(moduleId);
         if (!sm) sm = serverLibrary_->sharedModule(moduleId);
         const int version = sm ? sm->latestVersion : knownVersion;
-        auto place = [this, module, title, source, finish, moduleId, version, sharedLink] {
+        // Its table and power, as the library has them.
+        const core::ModuleSetup setup = sm ? core::setupFromJson(sm->setup) : core::ModuleSetup{};
+        auto place = [this, module, title, source, finish, moduleId, version, sharedLink, setup] {
             finish();
             if (!mapView_->currentMap()) return;
             if (!mapView_->placeModule(*module, title, source.toString(), mapView_->viewCentre(), nullptr, moduleId, version,
-                                       sharedLink))
+                                       sharedLink, setup))
                 return;
             modulesPanel_->setMap(mapView_->currentMap());
             layerPanel_->setMap(mapView_->currentMap(), mapView_->builder());
@@ -935,6 +939,40 @@ void MainWindow::editModuleLook(const QString& moduleId) {
     // Someone else's change (or an undo) shows in the window too.
     connect(mapView_->undoStack(), &QUndoStack::indexChanged, &dlg, &ModuleLookDialog::refresh);
     connect(mapView_, &MapView::mapLoaded, &dlg, &ModuleLookDialog::refresh);
+    dlg.exec();
+}
+
+void MainWindow::editModuleSetup(const QString& moduleId) {
+    const auto* start = mapView_->currentMap();
+    if (!start) return;
+    QString name;
+    for (const auto& m : start->sidecar.modules)
+        if (m.id == moduleId) name = m.name;
+    auto find = [this, moduleId]() -> const core::Module* {
+        const auto* map = mapView_->currentMap();
+        if (!map) return nullptr;
+        for (const auto& m : map->sidecar.modules)
+            if (m.id == moduleId) return &m;
+        return nullptr;
+    };
+    ModuleSetupDialog dlg(
+        name, ModuleSetupText::heightUnit(start),
+        [find]() -> std::optional<core::ModuleSetup> {
+            const core::Module* m = find();
+            if (!m) return std::nullopt;
+            return core::setupOf(*m);
+        },
+        [this, find](const core::ModuleSetup& changed, const QString& text) {
+            auto* map = mapView_->currentMap();
+            const core::Module* m = find();
+            if (!map || !m) return;
+            mapView_->undoStack()->push(new edit::UpdateModuleCommand(*map, core::withSetup(*m, changed), text));
+            modulesPanel_->setMap(map);
+        },
+        this);
+    // Someone else's change (or an undo) shows in the window too.
+    connect(mapView_->undoStack(), &QUndoStack::indexChanged, &dlg, &ModuleSetupDialog::refresh);
+    connect(mapView_, &MapView::mapLoaded, &dlg, &ModuleSetupDialog::refresh);
     dlg.exec();
 }
 

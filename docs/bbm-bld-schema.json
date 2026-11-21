@@ -153,7 +153,28 @@
         "outlineColor": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$", "description": "The module's outline color; absent for the default light blue." },
         "nameColor": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$", "description": "The module's name color; absent for the default light blue." },
         "sameColor": { "type": "boolean", "default": true, "description": "The outline and name colors change together. Written only when false." },
-        "pinned": { "type": "boolean", "default": false, "description": "Pinned in place: not moved or turned as a whole. Written only when true." }
+        "pinned": { "type": "boolean", "default": false, "description": "Pinned in place: not moved or turned as a whole. Written only when true." },
+        "table": {
+          "type": "object",
+          "description": "What the module stands on (core/ModuleSetup.h). Absent: not set. Store and show only.",
+          "properties": {
+            "type": { "type": "string", "enum": ["mils", "baseplate", "custom"], "description": "MILS, plain baseplate (loose baseplates on an ordinary table) or custom." },
+            "heightMm": { "type": "number", "exclusiveMinimum": 0, "maximum": 5000, "description": "The height entered, in mm, to a tenth." },
+            "measuredTo": { "type": "string", "enum": ["rail"], "description": "\"rail\": measured to the top of the rails. Absent: to the table top." }
+          },
+          "required": ["type"]
+        },
+        "power": {
+          "type": "object",
+          "description": "What the module needs from the wall (core/ModuleSetup.h). Absent: not set.",
+          "properties": {
+            "needed": { "type": "boolean" },
+            "outlets": { "type": "integer", "minimum": 0, "maximum": 50, "description": "Outlets it uses; absent counts as one. Only when needed." },
+            "watts": { "type": "integer", "minimum": 0, "maximum": 100000, "description": "Roughly how many watts. Only when needed." },
+            "plugSide": { "type": "string", "enum": ["front", "back", "left", "right"], "description": "Which side the plug comes out; front is the side people watch from." }
+          },
+          "required": ["needed"]
+        }
       },
       "required": ["id", "name", "members", "transform"]
     },

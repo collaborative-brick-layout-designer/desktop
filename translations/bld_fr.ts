@@ -1785,6 +1785,139 @@
     </message>
 </context>
 <context>
+    <name>ModuleSetupText</name>
+    <message>
+        <source>%1 cm</source>
+        <translation>%1 cm</translation>
+    </message>
+    <message>
+        <source>%1 studs</source>
+        <translation>%1 tenons</translation>
+    </message>
+    <message>
+        <source>In centimeters, like 78 or 78.1 cm</source>
+        <translation>En centimètres, par exemple 78 ou 78,1 cm</translation>
+    </message>
+    <message>
+        <source>In studs, like 98</source>
+        <translation>En tenons, par exemple 98</translation>
+    </message>
+    <message>
+        <source>In inches, like 30 3/4 or 32&quot;</source>
+        <translation>En pouces, par exemple 30 3/4 ou 32&quot;</translation>
+    </message>
+    <message>
+        <source>MILS</source>
+        <translation>MILS</translation>
+    </message>
+    <message>
+        <source>Plain baseplate</source>
+        <translation>Plaque de base simple</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Personnalisé</translation>
+    </message>
+    <message>
+        <source>A MILS module: its own legs or table, to the MILS height.</source>
+        <translation>Un module MILS : ses propres pieds ou sa table, à la hauteur MILS.</translation>
+    </message>
+    <message>
+        <source>Loose baseplates laid on an ordinary table.</source>
+        <translation>Des plaques de base posées sur une table ordinaire.</translation>
+    </message>
+    <message>
+        <source>Any other table or stand.</source>
+        <translation>Toute autre table ou support.</translation>
+    </message>
+    <message>
+        <source>At the front</source>
+        <translation>Devant</translation>
+    </message>
+    <message>
+        <source>At the back</source>
+        <translation>Derrière</translation>
+    </message>
+    <message>
+        <source>On the left</source>
+        <translation>À gauche</translation>
+    </message>
+    <message>
+        <source>On the right</source>
+        <translation>À droite</translation>
+    </message>
+    <message>
+        <source>%1 · %2 to the rails</source>
+        <translation>%1 · %2 jusqu’aux rails</translation>
+    </message>
+    <message>
+        <source>No power</source>
+        <translation>Pas d’électricité</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n outlet(s)</source>
+        <translation>
+            <numerusform>%n prise</numerusform>
+            <numerusform>%n prises</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>~%1 W</source>
+        <translation>~%1 W</translation>
+    </message>
+    <message>
+        <source>plug at the front</source>
+        <translation>prise devant</translation>
+    </message>
+    <message>
+        <source>plug at the back</source>
+        <translation>prise derrière</translation>
+    </message>
+    <message>
+        <source>plug at the left</source>
+        <translation>prise à gauche</translation>
+    </message>
+    <message>
+        <source>plug at the right</source>
+        <translation>prise à droite</translation>
+    </message>
+    <message>
+        <source>Power: %1</source>
+        <translation>Électricité : %1</translation>
+    </message>
+    <message>
+        <source>(not set for %1)</source>
+        <translation>(non renseigné pour %1)</translation>
+    </message>
+    <message>
+        <source>Power: none needed</source>
+        <translation>Électricité : aucune nécessaire</translation>
+    </message>
+    <message>
+        <source>Power: not set for any module</source>
+        <translation>Électricité : non renseignée pour tous les modules</translation>
+    </message>
+    <message>
+        <source>, ~%1 W</source>
+        <translation>, ~%1 W</translation>
+    </message>
+    <message numerus="yes">
+        <source>Power: %n module(s) need %1</source>
+        <translation>
+            <numerusform>Électricité : %n module a besoin de %1</numerusform>
+            <numerusform>Électricité : %n modules ont besoin de %1</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 to the rails</source>
+        <translation>%1 jusqu’aux rails</translation>
+    </message>
+    <message>
+        <source>Table not set: %1</source>
+        <translation>Table non renseignée : %1</translation>
+    </message>
+</context>
+<context>
     <name>NotificationWords</name>
     <message>
         <source>You</source>
@@ -6520,6 +6653,10 @@ Enregistrer la mienne comme nouvelle version : la copie de ce plan devient le mo
         <translation>La version de la bibliothèque de modules n’a pas de pièces.</translation>
     </message>
     <message>
+        <source>Module table and power</source>
+        <translation>Table et électricité du module</translation>
+    </message>
+    <message>
         <source>Updated “%1” from the Module library</source>
         <translation>« %1 » mis à jour depuis la bibliothèque de modules</translation>
     </message>
@@ -10221,6 +10358,10 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
         <translation>Couleurs…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>Table et électricité…</translation>
+    </message>
+    <message>
         <source>Attach Ruler Endpoint &amp;1 to This Brick</source>
         <translation>Attacher le bout &amp;1 de la règle à cette brique</translation>
     </message>
@@ -10693,6 +10834,113 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     </message>
 </context>
 <context>
+    <name>bld::ui::ModuleSetupDialog</name>
+    <message>
+        <source>Table and power</source>
+        <translation>Table et alimentation</translation>
+    </message>
+    <message>
+        <source>Table and power · %1</source>
+        <translation>Table et électricité · %1</translation>
+    </message>
+    <message>
+        <source>(module)</source>
+        <translation>(module)</translation>
+    </message>
+    <message>
+        <source>Table</source>
+        <translation>Table</translation>
+    </message>
+    <message>
+        <source>Not set</source>
+        <translation>Non renseigné</translation>
+    </message>
+    <message>
+        <source>Table type</source>
+        <translation>Type de table</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Type</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>Hauteur</translation>
+    </message>
+    <message>
+        <source>To the table top</source>
+        <translation>Jusqu’au plateau de la table</translation>
+    </message>
+    <message>
+        <source>To the top of the rails</source>
+        <translation>Jusqu’au haut des rails</translation>
+    </message>
+    <message>
+        <source>Measured</source>
+        <translation>Mesurée</translation>
+    </message>
+    <message>
+        <source>Power</source>
+        <translation>Électricité</translation>
+    </message>
+    <message>
+        <source>Doesn’t need power</source>
+        <translation>N’a pas besoin d’électricité</translation>
+    </message>
+    <message>
+        <source>Needs power</source>
+        <translation>A besoin d’électricité</translation>
+    </message>
+    <message>
+        <source>Outlets</source>
+        <translation>Prises</translation>
+    </message>
+    <message>
+        <source>Not known</source>
+        <translation>Inconnu</translation>
+    </message>
+    <message>
+        <source>About how many watts</source>
+        <translation>Environ combien de watts</translation>
+    </message>
+    <message>
+        <source>Plug side</source>
+        <translation>Côté de la prise</translation>
+    </message>
+    <message>
+        <source>Front is the side people watch from.</source>
+        <translation>Le devant est le côté d’où le public regarde.</translation>
+    </message>
+    <message>
+        <source>Clear all</source>
+        <translation>Tout effacer</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Terminé</translation>
+    </message>
+    <message>
+        <source>Module table</source>
+        <translation>Table du module</translation>
+    </message>
+    <message>
+        <source>Module power</source>
+        <translation>Électricité du module</translation>
+    </message>
+    <message>
+        <source>Clear module table and power</source>
+        <translation>Effacer la table et l’électricité du module</translation>
+    </message>
+    <message>
+        <source>That isn’t a height we can read. %1.</source>
+        <translation>Nous ne pouvons pas lire cette hauteur. %1.</translation>
+    </message>
+    <message>
+        <source>Pick a table type first</source>
+        <translation>Choisis d’abord un type de table</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::ModuleShareDialog</name>
     <message>
         <source>This module belongs to a club, so its members already have it. A club&apos;s module can&apos;t be shared with another club.</source>
@@ -10961,6 +11209,10 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
         <translation>Plus</translation>
     </message>
     <message>
+        <source>Tables and power</source>
+        <translation>Tables et alimentation</translation>
+    </message>
+    <message>
         <source>Select Its Parts</source>
         <translation>Sélectionner ses pièces</translation>
     </message>
@@ -11021,6 +11273,10 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
         <translation>Couleurs…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>Table et électricité…</translation>
+    </message>
+    <message>
         <source>Duplicate</source>
         <translation>Dupliquer</translation>
     </message>
@@ -11031,6 +11287,10 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
     <message>
         <source>Delete module</source>
         <translation>Supprimer le module</translation>
+    </message>
+    <message>
+        <source>Tables: not set for any module</source>
+        <translation>Tables : non renseignées pour tous les modules</translation>
     </message>
     <message>
         <source>[unnamed]</source>
@@ -12560,6 +12820,10 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Renommer…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>Table et électricité…</translation>
+    </message>
+    <message>
         <source>Share with a Club…</source>
         <translation>Partager avec un club…</translation>
     </message>
@@ -12626,6 +12890,14 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Renamed to &quot;%1&quot;</source>
         <translation>Renommé en « %1 »</translation>
+    </message>
+    <message>
+        <source>Not saved: %1</source>
+        <translation>Non enregistré : %1</translation>
+    </message>
+    <message>
+        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
+        <translation>Enregistré dans la bibliothèque de modules. Les plans le reçoivent quand ils ajoutent ce module ou le mettent à jour depuis la bibliothèque.</translation>
     </message>
     <message>
         <source>Gave &quot;%1&quot; back to %2</source>

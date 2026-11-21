@@ -686,6 +686,7 @@ void ImportBbmAsModuleCommand::redo() {
     }
     for (const auto& a : applied_)
         for (const QString& g : a.addedGuids) mod.memberIds.insert(g);
+    mod = core::withLibrarySetup(std::move(mod), setup_);
     map_.sidecar.modules.push_back(std::move(mod));
 }
 

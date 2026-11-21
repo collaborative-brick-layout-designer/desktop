@@ -128,7 +128,8 @@ const QStringList& knownModuleKeys() {
                                    QStringLiteral("showName"),   QStringLiteral("outlineColor"),
                                    QStringLiteral("nameColor"),  QStringLiteral("sameColor"),
                                    QStringLiteral("pinned"),     QStringLiteral("libraryModuleId"),
-                                   QStringLiteral("libraryVersion"), QStringLiteral("shared") };
+                                   QStringLiteral("libraryVersion"), QStringLiteral("shared"),
+                                   QStringLiteral("table"),      QStringLiteral("power") };
     return keys;
 }
 
@@ -160,6 +161,9 @@ QJsonObject encodeModule(const core::Module& m) {
     if (!m.libraryModuleId.isEmpty()) o[QStringLiteral("libraryModuleId")] = m.libraryModuleId;
     if (m.libraryVersion > 0) o[QStringLiteral("libraryVersion")] = m.libraryVersion;
     if (m.shared) o[QStringLiteral("shared")] = *m.shared;
+    // Its table and power (core/ModuleSetup.h), when set.
+    if (m.table) o[QStringLiteral("table")] = *m.table;
+    if (m.power) o[QStringLiteral("power")] = *m.power;
     return o;
 }
 
@@ -190,6 +194,12 @@ core::Module decodeModule(const QJsonObject& o) {
     // Shared (read-only): an object, as the web reads it (packages/ydoc sharedShape.ts).
     if (const QJsonValue shared = o.value(QStringLiteral("shared")); shared.isObject()) m.shared = shared.toObject();
     else if (!shared.isUndefined()) m.extras.insert(QStringLiteral("shared"), shared);
+    // Its table and power: objects; anything else is kept as it is.
+    for (const QString& key : { QStringLiteral("table"), QStringLiteral("power") }) {
+        const QJsonValue v = o.value(key);
+        if (v.isObject()) (key == QLatin1String("table") ? m.table : m.power) = v.toObject();
+        else if (!v.isUndefined()) m.extras.insert(key, v);
+    }
     for (auto it = o.constBegin(); it != o.constEnd(); ++it)
         if (!knownModuleKeys().contains(it.key())) m.extras.insert(it.key(), it.value());
     return m;

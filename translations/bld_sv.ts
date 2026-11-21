@@ -1785,6 +1785,139 @@
     </message>
 </context>
 <context>
+    <name>ModuleSetupText</name>
+    <message>
+        <source>%1 cm</source>
+        <translation>%1 cm</translation>
+    </message>
+    <message>
+        <source>%1 studs</source>
+        <translation>%1 knoppar</translation>
+    </message>
+    <message>
+        <source>In centimeters, like 78 or 78.1 cm</source>
+        <translation>I centimeter, till exempel 78 eller 78,1 cm</translation>
+    </message>
+    <message>
+        <source>In studs, like 98</source>
+        <translation>I knoppar, till exempel 98</translation>
+    </message>
+    <message>
+        <source>In inches, like 30 3/4 or 32&quot;</source>
+        <translation>I tum, till exempel 30 3/4 eller 32&quot;</translation>
+    </message>
+    <message>
+        <source>MILS</source>
+        <translation>MILS</translation>
+    </message>
+    <message>
+        <source>Plain baseplate</source>
+        <translation>Vanlig basplatta</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Egen</translation>
+    </message>
+    <message>
+        <source>A MILS module: its own legs or table, to the MILS height.</source>
+        <translation>En MILS-modul: egna ben eller eget bord, på MILS-höjd.</translation>
+    </message>
+    <message>
+        <source>Loose baseplates laid on an ordinary table.</source>
+        <translation>Lösa basplattor på ett vanligt bord.</translation>
+    </message>
+    <message>
+        <source>Any other table or stand.</source>
+        <translation>Alla andra bord eller ställ.</translation>
+    </message>
+    <message>
+        <source>At the front</source>
+        <translation>Fram</translation>
+    </message>
+    <message>
+        <source>At the back</source>
+        <translation>Bak</translation>
+    </message>
+    <message>
+        <source>On the left</source>
+        <translation>Till vänster</translation>
+    </message>
+    <message>
+        <source>On the right</source>
+        <translation>Till höger</translation>
+    </message>
+    <message>
+        <source>%1 · %2 to the rails</source>
+        <translation>%1 · %2 till rälsen</translation>
+    </message>
+    <message>
+        <source>No power</source>
+        <translation>Ingen el</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n outlet(s)</source>
+        <translation>
+            <numerusform>%n uttag</numerusform>
+            <numerusform>%n uttag</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>~%1 W</source>
+        <translation>~%1 W</translation>
+    </message>
+    <message>
+        <source>plug at the front</source>
+        <translation>kontakt fram</translation>
+    </message>
+    <message>
+        <source>plug at the back</source>
+        <translation>kontakt bak</translation>
+    </message>
+    <message>
+        <source>plug at the left</source>
+        <translation>kontakt till vänster</translation>
+    </message>
+    <message>
+        <source>plug at the right</source>
+        <translation>kontakt till höger</translation>
+    </message>
+    <message>
+        <source>Power: %1</source>
+        <translation>El: %1</translation>
+    </message>
+    <message>
+        <source>(not set for %1)</source>
+        <translation>(inte angivet för %1)</translation>
+    </message>
+    <message>
+        <source>Power: none needed</source>
+        <translation>El: behövs inte</translation>
+    </message>
+    <message>
+        <source>Power: not set for any module</source>
+        <translation>El: inte angivet för någon modul</translation>
+    </message>
+    <message>
+        <source>, ~%1 W</source>
+        <translation>, ~%1 W</translation>
+    </message>
+    <message numerus="yes">
+        <source>Power: %n module(s) need %1</source>
+        <translation>
+            <numerusform>El: %n modul behöver %1</numerusform>
+            <numerusform>El: %n moduler behöver %1</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 to the rails</source>
+        <translation>%1 till rälsen</translation>
+    </message>
+    <message>
+        <source>Table not set: %1</source>
+        <translation>Bord inte angivet: %1</translation>
+    </message>
+</context>
+<context>
     <name>NotificationWords</name>
     <message>
         <source>You</source>
@@ -6528,6 +6661,10 @@ Spara min som ny version: layoutens kopia blir modulen; deras finns kvar i versi
         <translation>Modulbibliotekets version har inga delar.</translation>
     </message>
     <message>
+        <source>Module table and power</source>
+        <translation>Modulens bord och el</translation>
+    </message>
+    <message>
         <source>Updated “%1” from the Module library</source>
         <translation>Uppdaterade ”%1” från modulbiblioteket</translation>
     </message>
@@ -10221,6 +10358,10 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <translation>Färger…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>Bord och el…</translation>
+    </message>
+    <message>
         <source>Attach Ruler Endpoint &amp;1 to This Brick</source>
         <translation>Fäst linjalens ändpunkt &amp;1 vid den här klossen</translation>
     </message>
@@ -10693,6 +10834,113 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     </message>
 </context>
 <context>
+    <name>bld::ui::ModuleSetupDialog</name>
+    <message>
+        <source>Table and power</source>
+        <translation>Bord och ström</translation>
+    </message>
+    <message>
+        <source>Table and power · %1</source>
+        <translation>Bord och el · %1</translation>
+    </message>
+    <message>
+        <source>(module)</source>
+        <translation>(modul)</translation>
+    </message>
+    <message>
+        <source>Table</source>
+        <translation>Bord</translation>
+    </message>
+    <message>
+        <source>Not set</source>
+        <translation>Inte angivet</translation>
+    </message>
+    <message>
+        <source>Table type</source>
+        <translation>Bordstyp</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>Höjd</translation>
+    </message>
+    <message>
+        <source>To the table top</source>
+        <translation>Till bordsskivan</translation>
+    </message>
+    <message>
+        <source>To the top of the rails</source>
+        <translation>Till rälsens överkant</translation>
+    </message>
+    <message>
+        <source>Measured</source>
+        <translation>Mätt</translation>
+    </message>
+    <message>
+        <source>Power</source>
+        <translation>El</translation>
+    </message>
+    <message>
+        <source>Doesn’t need power</source>
+        <translation>Behöver ingen el</translation>
+    </message>
+    <message>
+        <source>Needs power</source>
+        <translation>Behöver el</translation>
+    </message>
+    <message>
+        <source>Outlets</source>
+        <translation>Uttag</translation>
+    </message>
+    <message>
+        <source>Not known</source>
+        <translation>Okänt</translation>
+    </message>
+    <message>
+        <source>About how many watts</source>
+        <translation>Ungefär hur många watt</translation>
+    </message>
+    <message>
+        <source>Plug side</source>
+        <translation>Kontaktsida</translation>
+    </message>
+    <message>
+        <source>Front is the side people watch from.</source>
+        <translation>Fram är sidan som publiken tittar från.</translation>
+    </message>
+    <message>
+        <source>Clear all</source>
+        <translation>Rensa allt</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Klar</translation>
+    </message>
+    <message>
+        <source>Module table</source>
+        <translation>Modulens bord</translation>
+    </message>
+    <message>
+        <source>Module power</source>
+        <translation>Modulens el</translation>
+    </message>
+    <message>
+        <source>Clear module table and power</source>
+        <translation>Rensa modulens bord och el</translation>
+    </message>
+    <message>
+        <source>That isn’t a height we can read. %1.</source>
+        <translation>Vi kan inte läsa den höjden. %1.</translation>
+    </message>
+    <message>
+        <source>Pick a table type first</source>
+        <translation>Välj en bordstyp först</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::ModuleShareDialog</name>
     <message>
         <source>This module belongs to a club, so its members already have it. A club&apos;s module can&apos;t be shared with another club.</source>
@@ -10961,6 +11209,10 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <translation>Mer</translation>
     </message>
     <message>
+        <source>Tables and power</source>
+        <translation>Bord och ström</translation>
+    </message>
+    <message>
         <source>Select Its Parts</source>
         <translation>Markera dess delar</translation>
     </message>
@@ -11021,6 +11273,10 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <translation>Färger…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>Bord och el…</translation>
+    </message>
+    <message>
         <source>Duplicate</source>
         <translation>Duplicera</translation>
     </message>
@@ -11031,6 +11287,10 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     <message>
         <source>Delete module</source>
         <translation>Ta bort modul</translation>
+    </message>
+    <message>
+        <source>Tables: not set for any module</source>
+        <translation>Bord: inte angivet för någon modul</translation>
     </message>
     <message>
         <source>[unnamed]</source>
@@ -12560,6 +12820,10 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Byt namn…</translation>
     </message>
     <message>
+        <source>Table and power…</source>
+        <translation>Bord och el…</translation>
+    </message>
+    <message>
         <source>Share with a Club…</source>
         <translation>Dela med en klubb…</translation>
     </message>
@@ -12626,6 +12890,14 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Renamed to &quot;%1&quot;</source>
         <translation>Bytte namn till &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Not saved: %1</source>
+        <translation>Inte sparat: %1</translation>
+    </message>
+    <message>
+        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
+        <translation>Sparat i modulbiblioteket. Layouter får det när de lägger till modulen eller uppdaterar den från biblioteket.</translation>
     </message>
     <message>
         <source>Gave &quot;%1&quot; back to %2</source>

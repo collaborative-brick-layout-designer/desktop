@@ -47,6 +47,10 @@ struct Module {
     // Kept as the sidecar has it ({by, server, placement, review}, and
     // whatever a newer build adds); core/SharedModule.h reads it.
     std::optional<QJsonObject> shared;
+    // Its table and power (core/ModuleSetup.h; sidecar only), as the
+    // sidecar has them: read them with setupOf, write them with withSetup.
+    std::optional<QJsonObject> table;
+    std::optional<QJsonObject> power;
 
     // Fields a newer build (or the web) wrote that this one doesn't know,
     // kept so reading and writing the module again doesn't lose them.

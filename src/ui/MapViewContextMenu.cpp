@@ -397,6 +397,8 @@ bool MapView::addModuleMenu(QMenu& menu, const QString& clickedBrickGuid) {
                                                            m->showName ? tr("Hide module name") : tr("Show module name")));
     });
     menu.addAction(tr("Colors…"), this, [this, id] { emit moduleLookRequested(id); });
+    menu.addAction(tr("Table and power…"), this, [this, id] { emit moduleSetupRequested(id); })
+        ->setObjectName(QStringLiteral("moduleSetup"));
     if (moduleLibraryInfo_) {
         menu.addSeparator();
         for (const auto& e : moduleLibraryInfo_(*mod).entries) {

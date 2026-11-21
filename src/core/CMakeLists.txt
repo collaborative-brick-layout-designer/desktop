@@ -31,6 +31,8 @@ add_library(bld_core STATIC
     Train.h
     ModuleLook.h
     ModuleEdit.h
+    ModuleSetup.h
+    ModuleSetup.cpp
     SharedModule.h
     SharedModule.cpp
     Venue.h

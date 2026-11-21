@@ -4,7 +4,11 @@
 // and the tour card itself: Back / Next / Skip, Esc, Tab staying in the
 // card, the outline round the control, and toursSeen remembering it.
 
+#include "core/Map.h"
+#include "core/Module.h"
 #include "ui/MainWindow.h"
+#include "ui/MapView.h"
+#include "ui/ModulesPanel.h"
 #include "ui/SettingsDialog.h"
 #include "ui/UpdateCheck.h"
 #include "ui/theme/AppPrefs.h"
@@ -222,6 +226,35 @@ TEST_F(Tours, EveryEditorStepFindsItsControl) {
         // Help › Tour: … for each desktop tour.
         for (const auto* t : tours::desktopTours())
             EXPECT_NE(w.findChild<QAction*>(QStringLiteral("help.tour.") + t->id), nullptr) << t->id.toStdString();
+    }
+    QStandardPaths::setTestModeEnabled(false);
+}
+
+// The Modules tour: the panel, Make a module, a module's ⋯ and the
+// layout's Tables and power, with a module in the layout.
+TEST_F(Tours, EveryModulesStepFindsItsControl) {
+    QStandardPaths::setTestModeEnabled(true);
+    UpdateCheck::setCheckAtStartupEnabled(false);
+    parts::PartsLibrary lib;
+    {
+        MainWindow w(lib);
+        w.resize(1280, 800);
+        w.ensureDocument();
+        w.show();
+        auto* view = w.findChild<MapView*>();
+        auto* panel = w.findChild<ModulesPanel*>();
+        ASSERT_TRUE(view && panel);
+        core::Module m;
+        m.id = QStringLiteral("m1");
+        m.name = QStringLiteral("Depot");
+        view->currentMap()->sidecar.modules.push_back(m);
+        panel->setMap(view->currentMap());
+        panel->show();
+        panel->raise();
+        QApplication::processEvents();
+        for (const auto& s : tours::findTour(QStringLiteral("modules"))->steps)
+            EXPECT_NE(tours::findTarget(&w, s.target), nullptr) << s.target.toStdString();
+        view->currentMap()->sidecar.modules.clear();
     }
     QStandardPaths::setTestModeEnabled(false);
 }

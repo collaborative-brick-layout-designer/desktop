@@ -1,4 +1,7 @@
 #include "ModulesPanel.h"
+#include "ModuleSetupText.h"
+#include "help/HelpButton.h"
+#include "tours/Tours.h"
 #include "../edit/ModuleSheets.h"
 
 #include "../core/Map.h"
@@ -12,6 +15,7 @@
 #include <QFileInfo>
 #include <QFormLayout>
 #include <QHBoxLayout>
+#include <QLabel>
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QMenu>
@@ -36,6 +40,7 @@ ModulesPanel::ModulesPanel(QWidget* parent)
     auto* createBtn = new QPushButton(tr("Make a module"), host);
     createBtn->setObjectName(QStringLiteral("modulesMake"));
     createBtn->setToolTip(tr("Make the picked parts one module in this layout"));
+    tours::tag(createBtn, QStringLiteral("module.make"));
     auto* importBtn = new QPushButton(tr("Import…"), host);
     importBtn->setToolTip(tr("Import a .bbm file as a module"));
     auto* saveLibBtn = new QPushButton(tr("Save to Module library…"), host);
@@ -55,12 +60,38 @@ ModulesPanel::ModulesPanel(QWidget* parent)
     more_->setToolTip(tr("More for the selected module"));
     more_->setAccessibleName(tr("More"));
     more_->setEnabled(false);
+    tours::tag(more_, QStringLiteral("modules.more"));
     row->addWidget(more_);
     col->addLayout(row);
 
     list_ = new QListWidget(host);
     list_->setContextMenuPolicy(Qt::CustomContextMenu);
     col->addWidget(list_);
+
+    // For the layout's coordinator: what all the modules need together.
+    auto* summary = new QWidget(host);
+    summary->setObjectName(QStringLiteral("moduleSetupSummary"));
+    auto* summaryCol = new QVBoxLayout(summary);
+    summaryCol->setContentsMargins(4, 2, 4, 2);
+    summaryCol->setSpacing(1);
+    auto* summaryHead = new QHBoxLayout();
+    auto* summaryTitle = new QLabel(tr("Tables and power"), summary);
+    QFont bold = summaryTitle->font();
+    bold.setBold(true);
+    summaryTitle->setFont(bold);
+    summaryHead->addWidget(summaryTitle, 1);
+    summaryHead->addWidget(new help::HelpButton(QStringLiteral("module.setupSummary"), summary));
+    summaryCol->addLayout(summaryHead);
+    summaryPower_ = new QLabel(summary);
+    summaryPower_->setWordWrap(true);
+    summaryPower_->setObjectName(QStringLiteral("moduleSetupPower"));
+    summaryCol->addWidget(summaryPower_);
+    summaryTables_ = new QLabel(summary);
+    summaryTables_->setWordWrap(true);
+    summaryTables_->setObjectName(QStringLiteral("moduleSetupTables"));
+    summaryCol->addWidget(summaryTables_);
+    tours::tag(summary, QStringLiteral("module.setupSummary"));
+    col->addWidget(summary);
 
     setWidget(host);
 
@@ -173,6 +204,9 @@ void ModulesPanel::fillMenu(QMenu& menu, const QString& id) {
     connect(showName, &QAction::toggled, [this, id](bool on){ emit showNameRequested(id, on); });
     auto* look = menu.addAction(tr("Colors…"));
     connect(look, &QAction::triggered, [this, id]{ emit lookRequested(id); });
+    auto* setup = menu.addAction(tr("Table and power…"));
+    setup->setObjectName(QStringLiteral("moduleSetup"));
+    connect(setup, &QAction::triggered, [this, id]{ emit setupRequested(id); });
     auto* cloneAct = menu.addAction(tr("Duplicate"));
     connect(cloneAct, &QAction::triggered, [this, id]{ emit cloneRequested(id); });
 
@@ -197,9 +231,21 @@ void ModulesPanel::fillMenu(QMenu& menu, const QString& id) {
     connect(del, &QAction::triggered, [this, id]{ emit moduleDeleteRequested(id); });
 }
 
+QString ModulesPanel::summaryText() const {
+    return summaryPower_->text() + QLatin1Char('\n') + summaryTables_->text();
+}
+
 void ModulesPanel::setMap(const core::Map* map) {
     map_ = map;
     list_->clear();
+    const std::vector<core::Module> none;
+    const auto& modules = map ? map->sidecar.modules : none;
+    const auto unit = ModuleSetupText::heightUnit(map);
+    const core::SetupSummary sum = core::setupSummary(modules);
+    summaryPower_->setText(ModuleSetupText::summaryPower(sum));
+    const QStringList tables = ModuleSetupText::summaryTables(sum, unit);
+    summaryTables_->setText(tables.isEmpty() ? tr("Tables: not set for any module") : tables.join(QLatin1Char('\n')));
+    summaryPower_->parentWidget()->setVisible(!modules.empty());
     if (!map) return;
     for (const auto& m : map->sidecar.modules) {
         QString suffix;
@@ -216,7 +262,11 @@ void ModulesPanel::setMap(const core::Map* map) {
                 .arg(suffix)
                 .arg(m.pinned ? QStringLiteral(" 📌") : QString())
                 .arg(hidden.isEmpty() ? QString() : QStringLiteral(" — %1").arg(hidden)));
+        // Its table and power, on a line of its own.
+        const QString setupLine = ModuleSetupText::setupLine(core::setupOf(m), unit);
+        if (!setupLine.isEmpty()) item->setText(item->text() + QLatin1Char('\n') + setupLine);
         item->setData(Qt::UserRole + 7, hidden);
+        item->setData(Qt::UserRole + 8, setupLine);
         item->setToolTip(m.id);
         if (!m.outlineColor.isEmpty() || !m.nameColor.isEmpty()) {
             QPixmap dot(12, 12);

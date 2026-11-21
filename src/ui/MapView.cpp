@@ -3409,7 +3409,7 @@ std::optional<MapView::ModuleSnap> MapView::moduleSnapShift(const std::vector<co
 
 bool MapView::placeModule(core::Map& loaded, const QString& name, const QString& source, QPointF scenePos,
                           snapfeel::Session* dragSnap, const QString& libraryId, int libraryVersion,
-                          const std::optional<QJsonObject>& shared) {
+                          const std::optional<QJsonObject>& shared, const core::ModuleSetup& setup) {
     if (!map_) return false;
     {
         QStringList keys;
@@ -3500,6 +3500,8 @@ bool MapView::placeModule(core::Map& loaded, const QString& name, const QString&
     auto* cmd = new edit::ImportBbmAsModuleCommand(
         *map_, source, name, std::move(batches));
     if (!libraryId.isEmpty()) cmd->setLibrary(libraryId, libraryVersion);
+    // Its table and power come from the library too.
+    cmd->setSetup(setup);
     // Someone else's, shared read-only: locked, following its owner, with where it sits.
     if (shared && !libraryId.isEmpty()) {
         QJsonObject link = *shared;

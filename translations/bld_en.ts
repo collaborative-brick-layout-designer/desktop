@@ -12,6 +12,23 @@
     </message>
 </context>
 <context>
+    <name>ModuleSetupText</name>
+    <message numerus="yes">
+        <source>%n outlet(s)</source>
+        <translation>
+            <numerusform>%n outlet</numerusform>
+            <numerusform>%n outlets</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Power: %n module(s) need %1</source>
+        <translation>
+            <numerusform>Power: %n module needs %1</numerusform>
+            <numerusform>Power: %n modules need %1</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>NotificationWords</name>
     <message numerus="yes">
         <source>%n day(s) ago</source>

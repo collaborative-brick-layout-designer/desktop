@@ -4,6 +4,7 @@
 #include "../core/Brick.h"
 #include "../core/Group.h"
 #include "../core/LayerArea.h"
+#include "../core/ModuleSetup.h"
 #include "../core/LayerRuler.h"
 #include "../core/Module.h"
 #include "../core/Sidecar.h"
@@ -371,7 +372,7 @@ public:
     // `libraryId` / `libraryVersion`: from the library, the module is linked to it.
     bool placeModule(core::Map& module, const QString& name, const QString& source, QPointF scenePos,
                      snapfeel::Session* dragSnap = nullptr, const QString& libraryId = {}, int libraryVersion = 0,
-                     const std::optional<QJsonObject>& shared = std::nullopt);
+                     const std::optional<QJsonObject>& shared = std::nullopt, const core::ModuleSetup& setup = {});
     // (`shared`: someone else's module, shared read-only; its sidecar value {by, server}.
     // The placed module is locked and follows its owner's updates.)
     // What a module's library entries are, for its right-click menu (MainWindow knows the library).
@@ -475,6 +476,8 @@ signals:
     void editingModuleChanged(const QString& moduleId);
     // The map's right-click menu: a module's Colors...
     void moduleLookRequested(const QString& moduleId);
+    // Its table and power (the Table and power dialog).
+    void moduleSetupRequested(const QString& moduleId);
     // A module's library entry (save, publish or pull), and Make a module for the picked parts.
     void moduleLibraryActionRequested(const QString& moduleId, const QString& action);
     void makeModuleRequested();

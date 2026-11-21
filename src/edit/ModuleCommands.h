@@ -3,6 +3,7 @@
 #include "../core/Brick.h"
 #include "../core/Group.h"
 #include "../core/Module.h"
+#include "../core/ModuleSetup.h"
 #include "SharedLock.h"
 
 #include <QHash>
@@ -237,6 +238,8 @@ public:
     // sidecar value ({by, server, placement}); the placement's sheets are
     // filled in with where each sheet went. Call before pushing, with setLibrary.
     void setShared(QJsonObject shared) { shared_ = std::move(shared); }
+    // The library module's table and power (core/ModuleSetup.h): the new module gets them.
+    void setSetup(core::ModuleSetup setup) { setup_ = std::move(setup); }
 
     // After redo() runs (the undo stack pushes call redo immediately),
     // returns every (layerIndex, guid) pair the command inserted. Lets
@@ -272,6 +275,7 @@ private:
     QString libraryId_;
     int libraryVersion_ = 0;
     std::optional<QJsonObject> shared_;
+    core::ModuleSetup setup_;
 };
 
 // Update from library: the module's parts are replaced by a library
