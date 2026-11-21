@@ -611,14 +611,6 @@
         <translation>Nuovo percorso</translation>
     </message>
     <message>
-        <source>Click where the route starts on the track, then where it ends.</source>
-        <translation>Fai clic sul binario dove inizia il percorso, poi dove finisce.</translation>
-    </message>
-    <message>
-        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
-        <translation>Il percorso più breve lungo il binario viene trovato per te, attraverso gli scambi in entrambe le direzioni. Maiusc-clic aggiunge una sosta lungo la strada, per scegliere un&apos;altra linea. Dagli un nome e premi Salva percorso; Esc o Annulla smette.</translation>
-    </message>
-    <message>
         <source>Broken route</source>
         <translation>Percorso interrotto</translation>
     </message>
@@ -1289,6 +1281,14 @@
     <message>
         <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
         <translation>Scegli la distanza tra i punti di aggancio, da ogni bottoncino a ogni 32 bottoncini, e come agganciare: alla griglia oppure a passi interi da dove si trovava. Pezzi, moduli, elementi incollati, righelli, etichette e testo lo seguono, le frecce spostano di un passo e le estremità dei binari continuano a unirsi quando si incontrano. Disattiva l’aggancio per lasciare le cose esattamente dove le rilasci, oppure tieni premuto Alt (⌥ su Mac) per posizionare liberamente un righello, un’etichetta o un testo.</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
+        <translation>Fai clic sul binario dove inizia il percorso (o sulla testa di un treno), poi dove finisce.</translation>
+    </message>
+    <message>
+        <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
+        <translation>Il percorso più breve viene trovato per te, e le frecce mostrano in che verso va il treno. Non si gira mai sul posto, quindi può fare tutto il giro di un anello; Vai dall’altra parte lo manda nell’altro verso, e un percorso che inizia sulla testa di un treno va nel verso del treno. Maiusc-clic aggiunge una sosta; Esc o Annulla smette.</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -5531,6 +5531,10 @@
     <message>
         <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
         <translation>%1 inverte il treno su binario alimentato: lì serve un invertitore di polarità.</translation>
+    </message>
+    <message>
+        <source>The track doesn’t quite join here (the ends are %1 apart). Trains and routes run across it; nudge one piece to close the gap.</source>
+        <translation>Qui il binario non si unisce del tutto (le estremità distano %1). Treni e percorsi ci passano sopra; avvicina un pezzo per chiudere lo spazio.</translation>
     </message>
     <message>
         <source>Problem</source>
@@ -10457,6 +10461,10 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
         <translation>Nome del percorso</translation>
     </message>
     <message>
+        <source>Go the other way</source>
+        <translation>Vai dall’altra parte</translation>
+    </message>
+    <message>
         <source>Save route</source>
         <translation>Salva percorso</translation>
     </message>
@@ -10473,20 +10481,39 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
         <translation>Fai clic sul binario.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
-        <translation>&lt;b&gt;Nuovo percorso:&lt;/b&gt; fai clic sul binario dove inizia.</translation>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts (or on a train’s front).</source>
+        <translation>&lt;b&gt;Nuovo percorso:&lt;/b&gt; fai clic sul binario dove inizia (o sulla testa di un treno).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; starts at %1, the way it faces. Click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Nuovo percorso:&lt;/b&gt; parte da %1, nel suo verso. Fai clic dove finisce (Maiusc-clic aggiunge una sosta).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track, the way the arrows point%2.</source>
+        <translation>&lt;b&gt;Nuovo percorso:&lt;/b&gt; %1 lungo il binario, nel verso delle frecce%2.</translation>
     </message>
     <message>
         <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
         <translation>&lt;b&gt;Nuovo percorso:&lt;/b&gt; fai clic dove finisce (Maiusc-clic aggiunge una sosta).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
-        <translation>&lt;b&gt;Nuovo percorso:&lt;/b&gt; %1 lungo il binario%2. Maiusc-clic aggiunge una sosta.</translation>
-    </message>
-    <message>
         <source>, and it turns the train around</source>
         <translation>, e il treno si gira</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) on the way must be flipped while the train runs: it goes through them twice, set a different way each time.</source>
+        <translation>
+            <numerusform>%n scambio lungo il percorso va girato mentre il treno corre: ci passa due volte, impostato ogni volta in modo diverso.</numerusform>
+            <numerusform>%n scambi lungo il percorso vanno girati mentre il treno corre: ci passa due volte, impostati ogni volta in modo diverso.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop.</source>
+        <translation>Maiusc-clic aggiunge una sosta.</translation>
+    </message>
+    <message>
+        <source>Going this way, the train can’t get there without turning around.</source>
+        <translation>In questo verso il treno non ci arriva senza girarsi.</translation>
     </message>
     <message>
         <source>New route</source>
@@ -12089,6 +12116,10 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>Nuovo percorso</translation>
     </message>
     <message>
+        <source>Checks</source>
+        <translation>Controlli</translation>
+    </message>
+    <message>
         <source>Delete route</source>
         <translation>Elimina percorso</translation>
     </message>
@@ -12180,6 +12211,10 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>Il treno si gira</translation>
     </message>
     <message>
+        <source>Flip a switch on the way: it runs through it twice</source>
+        <translation>Gira uno scambio lungo la strada: il percorso ci passa due volte</translation>
+    </message>
+    <message>
         <source>Set switches</source>
         <translation>Imposta scambi</translation>
     </message>
@@ -12190,10 +12225,6 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>Delete</source>
         <translation>Elimina</translation>
-    </message>
-    <message>
-        <source>Route checks</source>
-        <translation>Controlli dei percorsi</translation>
     </message>
 </context>
 <context>

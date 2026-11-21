@@ -12,6 +12,11 @@
 // a (brick, heel) a train can leave by more than one way; its setting is
 // stored in the sidecar's switchStates, the default being the exit that
 // turns least.
+//
+// Two loose ends of one kind of track that nearly meet, facing each other
+// (a gap: within kGapReach, not half a stud, so not linked) are joined for
+// trains too: real track flexes that far, and a loop with a hairline gap
+// is still a loop. gaps() lists them so the editor can say so.
 
 #include "CircuitPath.h"
 #include "PartTrack.h"
@@ -53,6 +58,19 @@ struct PortRef {
     bool operator==(const PortRef&) const = default;
 };
 
+// Two ends of track that nearly meet, joined for trains though not linked.
+struct TrackGap {
+    PortRef a;
+    PortRef b;
+    QPointF at;        // halfway between them, studs
+    double gap = 0.0;  // how far apart, studs
+};
+
+// How far apart (studs) two facing loose ends may be and still join for trains. Links are made within half a stud.
+inline constexpr double kGapReach = 1.0;
+// How far (degrees) from facing each other they may be turned.
+inline constexpr double kGapTurn = 15.0;
+
 // A switch on the map.
 struct SwitchPoint : PartSwitch {
     QString brick;
@@ -78,8 +96,11 @@ public:
     bool has(const QString& brick) const { return bricks_.contains(brick); }
     const PartTrack* trackOf(const QString& brick) const;
 
-    // The connection a port is linked to, when that is track of the same kind.
+    // The connection a port is linked to, when that is track of the same kind,
+    // or the loose end it nearly meets (a gap).
     std::optional<PortRef> partner(const PortRef& port) const;
+    // Loose ends that nearly meet, joined for trains (in brick id order).
+    const QVector<TrackGap>& gaps() const { return gaps_; }
     // The connections a train coming in at `entry` can leave `brick` by.
     QVector<int> exits(const QString& brick, int entry) const;
     // Every switch, in brick order then heel.
@@ -111,6 +132,11 @@ private:
     QVector<SwitchPoint> switches_;
     QHash<QString, int> switchIndex_;
     mutable QHash<QString, std::vector<CircuitPathPoint>> paths_;
+    QHash<QString, PortRef> bridges_;  // "<brick>/<conn>" -> the loose end it nearly meets
+    QVector<TrackGap> gaps_;
+
+    std::optional<PortRef> linkedPartner(const PortRef& port) const;
+    void findGaps();
 };
 
 // switchStates with only the keys that name a switch here and one of its exits.

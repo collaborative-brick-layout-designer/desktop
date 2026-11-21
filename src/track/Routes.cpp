@@ -23,41 +23,107 @@ bool onStep(const TrackPosition& p, const RouteStep& s) {
     return p.brick == s.brick && ((p.from == s.from && p.to == s.to) || (p.from == s.to && p.to == s.from));
 }
 
-struct Leg {
-    std::vector<RouteStep> steps;
+// One way a search can be at a place: on `step`, `s` studs along it, `cost` studs from the start, by `steps`.
+struct Arrival {
+    RouteStep step;
+    double s = 0.0;
     double cost = 0.0;
+    std::vector<RouteStep> steps;
 };
 
-std::optional<Leg> searchLeg(const TrackNetwork& net, const RouteStep& start, double s0, const TrackPosition& target,
-                             const FindOptions& opts) {
-    if (onStep(target, start) && offsetOnStep(net, target, start) >= s0 - 1e-9)
-        return Leg{ { start }, offsetOnStep(net, target, start) - s0 };
-    QHash<QString, double> dist;
-    QHash<QString, std::optional<RouteStep>> prev;
-    const double startLen = net.pathLength(start.brick, start.from, start.to);
-    dist.insert(keyOf(start), startLen - s0);
-    prev.insert(keyOf(start), std::nullopt);
-    struct Open {
+// How close (studs) another way through a brick must pass to count as the same place.
+constexpr double kSameSpot = 0.5;
+
+// Where `at` falls on a path: the distance to it and how far along (studs).
+std::pair<double, double> projectOnPath(const std::vector<CircuitPathPoint>& pts, QPointF at) {
+    double bestD = std::numeric_limits<double>::infinity(), bestS = 0.0;
+    for (size_t k = 1; k < pts.size(); ++k) {
+        const auto& a = pts[k - 1];
+        const auto& b = pts[k];
+        const double dx = b.p.x() - a.p.x(), dy = b.p.y() - a.p.y();
+        const double l2 = dx * dx + dy * dy;
+        const double t = l2 > 0 ? std::clamp(((at.x() - a.p.x()) * dx + (at.y() - a.p.y()) * dy) / l2, 0.0, 1.0) : 0.0;
+        const double d = std::hypot(a.p.x() + dx * t - at.x(), a.p.y() + dy * t - at.y());
+        if (d < bestD - 1e-9) {
+            bestD = d;
+            bestS = a.s + (b.s - a.s) * t;
+        }
+    }
+    return { bestD, bestS };
+}
+
+// One leg of a search: from each of `sources` (a train on its step, heading
+// towards the step's `to`) to any of `targets`. Every way it can arrive
+// comes back, one per step, in the order first found: the next leg starts
+// from each. A source is its own search node (only part of its step is
+// ahead of it), so the way may come round and run the whole of that step
+// again. `last`: only the cheapest arrival matters, so stop once it is sure.
+std::vector<Arrival> searchLeg(const TrackNetwork& net, const std::vector<Arrival>& sources, const std::vector<TrackPosition>& targets,
+                               const FindOptions& opts, bool last) {
+    // A node: a source (index) or a step entered at its start.
+    struct Node {
+        int src = -1;
         RouteStep step;
+    };
+    struct Arrived {
+        RouteStep step;
+        double s;
+        double cost;
+        std::optional<Node> prev;  // nullopt: there at once, on source `src`'s own step
+        int src;
+    };
+    std::vector<Arrived> arrivals;
+    QHash<QString, size_t> arrivalAt;
+    double best = std::numeric_limits<double>::infinity();
+    const auto arrive = [&](const QString& key, const RouteStep& step, double s, double cost, std::optional<Node> prev, int src) {
+        const auto it = arrivalAt.constFind(key);
+        if (it != arrivalAt.constEnd()) {
+            if (cost >= arrivals[*it].cost - 1e-9) return;
+            arrivals[*it] = { step, s, cost, prev, src };
+        } else {
+            arrivalAt.insert(key, arrivals.size());
+            arrivals.push_back({ step, s, cost, prev, src });
+        }
+        if (cost < best) best = cost;
+    };
+    const auto targetOn = [&](const RouteStep& step) -> const TrackPosition* {
+        for (const auto& t : targets)
+            if (onStep(t, step)) return &t;
+        return nullptr;
+    };
+    QHash<QString, double> dist;
+    QHash<QString, Node> prev;
+    struct Open {
+        Node node;
+        QString key;
         double d;
     };
-    std::vector<Open> open{ { start, startLen - s0 } };
+    std::vector<Open> open;
+    for (size_t i = 0; i < sources.size(); ++i) {
+        const Arrival& src = sources[i];
+        // The target is on the source's step, ahead: there at once.
+        if (const TrackPosition* t = targetOn(src.step)) {
+            const double off = offsetOnStep(net, *t, src.step);
+            if (off >= src.s - 1e-9) arrive(keyOf(src.step), src.step, off, src.cost + off - src.s, std::nullopt, static_cast<int>(i));
+        }
+        open.push_back({ Node{ static_cast<int>(i), {} }, keyOf(src.step) + QChar(1) + QString::number(i),
+                         src.cost + net.pathLength(src.step.brick, src.step.from, src.step.to) - src.s });
+    }
     QSet<QString> done;
-    std::optional<std::pair<RouteStep, double>> found;
     while (!open.empty()) {
         size_t bi = 0;
         for (size_t i = 1; i < open.size(); ++i) {
             const Open& a = open[i];
             const Open& b = open[bi];
-            if (a.d < b.d - 1e-9 || (std::abs(a.d - b.d) <= 1e-9 && keyOf(a.step) < keyOf(b.step))) bi = i;
+            if (a.d < b.d - 1e-9 || (std::abs(a.d - b.d) <= 1e-9 && a.key < b.key)) bi = i;
         }
         const Open cur = open[bi];
         open.erase(open.begin() + static_cast<std::ptrdiff_t>(bi));
-        const QString key = keyOf(cur.step);
-        if (done.contains(key)) continue;
-        done.insert(key);
-        if (found && cur.d >= found->second) break;
-        const auto linked = net.partner({ cur.step.brick, cur.step.to });
+        if (done.contains(cur.key)) continue;
+        done.insert(cur.key);
+        if (last && cur.d >= best) break;
+        const RouteStep& step = cur.node.src >= 0 ? sources[static_cast<size_t>(cur.node.src)].step : cur.node.step;
+        const auto linked = net.partner({ step.brick, step.to });
         if (!linked) continue;
         const PortRef next = linked.value_or(PortRef{});
         QVector<int> exits = net.exits(next.brick, next.conn);
@@ -66,34 +132,36 @@ std::optional<Leg> searchLeg(const TrackNetwork& net, const RouteStep& start, do
         for (int x : exits) {
             const RouteStep ns{ next.brick, next.conn, x };
             const QString nk = keyOf(ns);
-            if (onStep(target, ns)) {
-                const double cost = cur.d + offsetOnStep(net, target, ns);
-                if (!found || cost < found->second - 1e-9) {
-                    found = std::make_pair(ns, cost);
-                    prev.insert(nk, cur.step);
-                }
+            if (const TrackPosition* t = targetOn(ns)) {
+                const double off = offsetOnStep(net, *t, ns);
+                arrive(nk, ns, off, cur.d + off, cur.node, -1);
                 continue;
             }
             const double nd = cur.d + net.pathLength(ns.brick, ns.from, ns.to);
             if (nd < dist.value(nk, std::numeric_limits<double>::infinity()) - 1e-9) {
                 dist.insert(nk, nd);
-                prev.insert(nk, cur.step);
-                open.push_back({ ns, nd });
+                prev.insert(nk, cur.node);
+                open.push_back({ Node{ -1, ns }, nk, nd });
             }
         }
     }
-    if (!found) return std::nullopt;
-    Leg leg;
-    leg.cost = found->second;
-    std::deque<RouteStep> steps{ found->first };
-    std::optional<RouteStep> p = prev.value(keyOf(found->first));
-    while (p.has_value()) {
-        const RouteStep step = p.value_or(RouteStep{});
-        steps.push_front(step);
-        p = prev.value(keyOf(step));
+    std::vector<Arrival> out;
+    for (const Arrived& a : arrivals) {
+        if (!a.prev) {
+            out.push_back({ a.step, a.s, a.cost, sources[static_cast<size_t>(a.src)].steps });
+            continue;
+        }
+        std::deque<RouteStep> tail{ a.step };
+        Node n = *a.prev;
+        while (n.src < 0) {
+            tail.push_front(n.step);
+            n = prev.value(keyOf(n.step));
+        }
+        std::vector<RouteStep> steps = sources[static_cast<size_t>(n.src)].steps;
+        steps.insert(steps.end(), tail.begin(), tail.end());
+        out.push_back({ a.step, a.s, a.cost, std::move(steps) });
     }
-    leg.steps.assign(steps.begin(), steps.end());
-    return leg;
+    return out;
 }
 
 bool joined(const TrackNetwork& net, const QString& a, const QString& b) {
@@ -158,7 +226,49 @@ std::optional<TrackPosition> nearestPosition(const TrackNetwork& net, QPointF at
 QMap<QString, int> routeSwitches(const TrackNetwork& net, const std::vector<RouteStep>& steps) {
     QMap<QString, int> out;
     for (const auto& s : steps)
-        if (const SwitchPoint* sw = net.switchAt(switchKey(s.brick, s.from)); sw && sw->exits.contains(s.to)) out.insert(sw->key, s.to);
+        if (const SwitchPoint* sw = net.switchAt(switchKey(s.brick, s.from)); sw && sw->exits.contains(s.to) && !out.contains(sw->key))
+            out.insert(sw->key, s.to);
+    return out;
+}
+
+QStringList routeBothWays(const TrackNetwork& net, const std::vector<RouteStep>& steps) {
+    QMap<QString, int> first;
+    QSet<QString> out;
+    for (const auto& s : steps) {
+        const SwitchPoint* sw = net.switchAt(switchKey(s.brick, s.from));
+        if (!sw || !sw->exits.contains(s.to)) continue;
+        if (!first.contains(sw->key)) first.insert(sw->key, s.to);
+        else if (first.value(sw->key) != s.to) out.insert(sw->key);
+    }
+    QStringList list(out.begin(), out.end());
+    list.sort();
+    return list;
+}
+
+Facing routeFacing(const Route& route) {
+    if (route.steps.empty()) return Facing::To;
+    const RouteStep& first = route.steps.front();
+    // The start's own path, or another leg of a switch sharing an end with it (sameSpot).
+    return first.brick == route.from.brick && (first.from == route.from.to || first.to == route.from.from) ? Facing::From : Facing::To;
+}
+
+std::vector<TrackPosition> sameSpot(const TrackNetwork& net, const TrackPosition& pos) {
+    std::vector<TrackPosition> out{ pos };
+    const PartTrack* t = net.trackOf(pos.brick);
+    const auto at = net.pointAtPosition(pos);
+    if (!t || !at) return out;
+    for (const auto& [i, j] : t->paths) {
+        if ((i == pos.from && j == pos.to) || (i == pos.to && j == pos.from)) continue;
+        const int shared = i == pos.from || i == pos.to ? i : j == pos.from || j == pos.to ? j : -1;
+        if (shared < 0) continue;
+        const int other = shared == i ? j : i;
+        TrackPosition alt = shared == pos.to ? TrackPosition{ pos.brick, other, shared, 0.0 } : TrackPosition{ pos.brick, shared, other, 0.0 };
+        const auto [d, s] = projectOnPath(net.path(alt.brick, alt.from, alt.to), at->p);
+        if (d <= kSameSpot) {
+            alt.s = s;
+            out.push_back(alt);
+        }
+    }
     return out;
 }
 
@@ -171,33 +281,33 @@ std::variant<RouteFound, RouteProblem> findRoute(const TrackNetwork& net, const 
         if (net.pathLength(p.brick, p.from, p.to) <= 0) return RouteProblem::NoTrack;
     if (points.size() == 2 && from.brick == to.brick && from.from == to.from && from.to == to.to && std::abs(from.s - to.s) < 0.5)
         return RouteProblem::SamePlace;
-    std::optional<Leg> best;
-    for (const RouteStep& start : { RouteStep{ from.brick, from.from, from.to }, RouteStep{ from.brick, from.to, from.from } }) {
-        std::vector<RouteStep> steps;
-        double cost = 0;
-        RouteStep at = start;
-        double s0 = offsetOnStep(net, from, start);
-        bool ok = true;
-        for (size_t i = 1; i < points.size(); ++i) {
-            const auto leg = searchLeg(net, at, s0, points[i], opts);
-            if (!leg) {
-                ok = false;
-                break;
-            }
-            if (steps.empty()) steps = leg->steps;
-            else steps.insert(steps.end(), leg->steps.begin() + 1, leg->steps.end());
-            cost += leg->cost;
-            at = leg->steps.back();
-            s0 = offsetOnStep(net, points[i], at);
+    std::vector<std::vector<TrackPosition>> spots;
+    for (const auto& p : points) spots.push_back(sameSpot(net, p));
+    std::vector<Facing> facings = opts.facing ? std::vector<Facing>{ *opts.facing } : std::vector<Facing>{ Facing::To, Facing::From };
+    std::optional<RouteFound> best;
+    for (const Facing facing : facings) {
+        std::vector<Arrival> at;
+        for (const auto& p : spots.front()) {
+            const RouteStep step = facing == Facing::To ? RouteStep{ p.brick, p.from, p.to } : RouteStep{ p.brick, p.to, p.from };
+            at.push_back({ step, offsetOnStep(net, p, step), 0.0, { step } });
         }
-        if (ok && (!best || cost < best->cost - 1e-9)) best = Leg{ steps, cost };
+        for (size_t i = 1; i < points.size() && !at.empty(); ++i) at = searchLeg(net, at, spots[i], opts, i + 1 == points.size());
+        const Arrival* end = nullptr;
+        for (const auto& a : at)
+            if (!end || a.cost < end->cost - 1e-9) end = &a;
+        if (!end) continue;
+        RouteFound found{ end->steps, end->cost, routeSwitches(net, end->steps), turnsAroundIn(end->steps), facing, routeBothWays(net, end->steps) };
+        // Better: needs no switch set both ways when the other does, else shorter (a tie keeps the first, the way as clicked).
+        const bool better = !best || (found.bothWays.isEmpty() != best->bothWays.isEmpty() ? !best->bothWays.isEmpty()
+                                                                                           : found.length < best->length - 1e-9);
+        if (better) best = std::move(found);
     }
     if (!best) {
         for (const auto& p : points)
             if (!joined(net, from.brick, p.brick)) return RouteProblem::NoTrack;
         return RouteProblem::TurnAround;
     }
-    return RouteFound{ best->steps, best->cost, routeSwitches(net, best->steps), turnsAroundIn(best->steps) };
+    return *best;
 }
 
 RouteStatus routeStatus(const TrackNetwork& net, const Route& route, const QMap<QString, int>& states) {
@@ -232,6 +342,7 @@ RouteStatus routeStatus(const TrackNetwork& net, const Route& route, const QMap<
     for (auto it = st.switches.constBegin(); it != st.switches.constEnd(); ++it)
         if (const SwitchPoint* sw = net.switchAt(it.key()); sw && net.settingOf(*sw, states) != it.value()) st.setAgainst << it.key();
     st.turnsAround = turnsAroundIn(steps);
+    st.bothWays = routeBothWays(net, steps);
     return st;
 }
 

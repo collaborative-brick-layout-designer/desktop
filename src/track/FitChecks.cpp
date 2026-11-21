@@ -504,6 +504,13 @@ std::vector<FitCheck> fitChecks(const TrackNetwork& net, const FitInput& input, 
             }
         }
     }
+    // Track that nearly meets: joined for trains, but worth closing up.
+    for (const TrackGap& g : net.gaps()) {
+        FitCheck& c = add(QStringLiteral("gap:") + switchKey(g.a.brick, g.a.conn) + QLatin1Char(':') + switchKey(g.b.brick, g.b.conn), QStringLiteral("gap"), false,
+                          QString(), g.at);
+        c.other = g.a.brick;
+        c.values.insert(QStringLiteral("gap"), g.gap);
+    }
     return out;
 }
 

@@ -611,14 +611,6 @@
         <translation>Novo percurso</translation>
     </message>
     <message>
-        <source>Click where the route starts on the track, then where it ends.</source>
-        <translation>Clique na linha onde o percurso começa e depois onde acaba.</translation>
-    </message>
-    <message>
-        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
-        <translation>O caminho mais curto ao longo da linha é encontrado por si, através de agulhas em qualquer sentido. Shift-clique adiciona uma paragem pelo caminho, para escolher outra linha. Dê-lhe um nome e prima Guardar percurso; Esc ou Cancelar para.</translation>
-    </message>
-    <message>
         <source>Broken route</source>
         <translation>Percurso interrompido</translation>
     </message>
@@ -1289,6 +1281,14 @@
     <message>
         <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
         <translation>Escolha a distância entre os pontos de encaixe, de cada pino a cada 32 pinos, e como as coisas encaixam: na grade, ou em passos inteiros a partir de onde estavam. Peças, módulos, itens colados, réguas, rótulos e textos seguem isso, as setas movem um passo, e as pontas dos trilhos continuam se encaixando quando se encontram. Desligue o encaixe para deixar as coisas exatamente onde você soltar, ou segure Alt (⌥ no Mac) para colocar livremente uma régua, um rótulo ou um texto.</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
+        <translation>Clique na via onde o percurso começa (ou na frente de um comboio) e depois onde acaba.</translation>
+    </message>
+    <message>
+        <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
+        <translation>O caminho mais curto é encontrado por si, e as setas mostram para que lado o comboio anda. Nunca inverte a marcha no sítio, por isso pode dar a volta inteira a um anel; Ir pelo outro lado manda-o pelo outro lado, e um percurso que começa na frente de um comboio segue para onde o comboio está virado. Shift-clique adiciona uma paragem; Esc ou Cancelar termina.</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -5531,6 +5531,10 @@
     <message>
         <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
         <translation>%1 inverte o comboio em via com corrente: precisa ali de um inversor de polaridade.</translation>
+    </message>
+    <message>
+        <source>The track doesn’t quite join here (the ends are %1 apart). Trains and routes run across it; nudge one piece to close the gap.</source>
+        <translation>Aqui a via não chega a juntar-se (as pontas estão a %1 uma da outra). Os comboios e os percursos passam por cima; aproxime uma peça para fechar a folga.</translation>
     </message>
     <message>
         <source>Problem</source>
@@ -10457,6 +10461,10 @@ Mantenha-o como %2 se ainda o abre noutro programa; Ficheiro › Exportar como m
         <translation>Nome do percurso</translation>
     </message>
     <message>
+        <source>Go the other way</source>
+        <translation>Ir pelo outro lado</translation>
+    </message>
+    <message>
         <source>Save route</source>
         <translation>Guardar percurso</translation>
     </message>
@@ -10473,20 +10481,39 @@ Mantenha-o como %2 se ainda o abre noutro programa; Ficheiro › Exportar como m
         <translation>Clique na linha.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
-        <translation>&lt;b&gt;Novo percurso:&lt;/b&gt; clique na linha onde começa.</translation>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts (or on a train’s front).</source>
+        <translation>&lt;b&gt;Novo percurso:&lt;/b&gt; clique na via onde começa (ou na frente de um comboio).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; starts at %1, the way it faces. Click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Novo percurso:&lt;/b&gt; começa em %1, para onde está virado. Clique onde acaba (Shift-clique adiciona uma paragem).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track, the way the arrows point%2.</source>
+        <translation>&lt;b&gt;Novo percurso:&lt;/b&gt; %1 ao longo da via, no sentido das setas%2.</translation>
     </message>
     <message>
         <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
         <translation>&lt;b&gt;Novo percurso:&lt;/b&gt; clique onde acaba (Shift-clique adiciona uma paragem).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
-        <translation>&lt;b&gt;Novo percurso:&lt;/b&gt; %1 ao longo da linha%2. Shift-clique adiciona uma paragem.</translation>
-    </message>
-    <message>
         <source>, and it turns the train around</source>
         <translation>, e o comboio inverte a marcha</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) on the way must be flipped while the train runs: it goes through them twice, set a different way each time.</source>
+        <translation>
+            <numerusform>%n agulha pelo caminho tem de ser mudada com o comboio em andamento: passa por ela duas vezes, posta de outra forma de cada vez.</numerusform>
+            <numerusform>%n agulhas pelo caminho têm de ser mudadas com o comboio em andamento: passa por elas duas vezes, postas de outra forma de cada vez.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop.</source>
+        <translation>Shift-clique adiciona uma paragem.</translation>
+    </message>
+    <message>
+        <source>Going this way, the train can’t get there without turning around.</source>
+        <translation>Por este lado, o comboio não consegue lá chegar sem inverter a marcha.</translation>
     </message>
     <message>
         <source>New route</source>
@@ -12089,6 +12116,10 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>Novo percurso</translation>
     </message>
     <message>
+        <source>Checks</source>
+        <translation>Verificações</translation>
+    </message>
+    <message>
         <source>Delete route</source>
         <translation>Eliminar percurso</translation>
     </message>
@@ -12180,6 +12211,10 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>O comboio inverte a marcha</translation>
     </message>
     <message>
+        <source>Flip a switch on the way: it runs through it twice</source>
+        <translation>Mude uma agulha pelo caminho: o percurso passa por ela duas vezes</translation>
+    </message>
+    <message>
         <source>Set switches</source>
         <translation>Pôr as agulhas</translation>
     </message>
@@ -12190,10 +12225,6 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>Delete</source>
         <translation>Eliminar</translation>
-    </message>
-    <message>
-        <source>Route checks</source>
-        <translation>Verificações de rotas</translation>
     </message>
 </context>
 <context>

@@ -60,7 +60,7 @@ std::vector<TrackRun> trackRuns(const TrackNetwork& net);
 const TrackRun* runAt(const std::vector<TrackRun>& runs, const QString& brick, int from, int to);
 
 struct FitCheck {
-    // siding, truck, coupler, uncoupled, clearance, overlap, trackKind, offEnd, lost, reverse, power
+    // siding, truck, coupler, uncoupled, clearance, overlap, trackKind, offEnd, lost, reverse, power, gap
     QString key;
     QString kind;
     bool error = false;  // else a warning
@@ -68,7 +68,7 @@ struct FitCheck {
     QString route;
     QString stock;
     int unit = -1;
-    QString other;  // the other train (overlap), or the brick (clearance, reverse, power)
+    QString other;  // the other train (overlap), or the brick (clearance, reverse, power, gap: one of the two)
     QPointF at;
     QMap<QString, double> values;  // lengths in studs, angles in degrees
 };

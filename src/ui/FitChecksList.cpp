@@ -60,6 +60,9 @@ QString fitCheckText(const track::FitCheck& c, const core::Map& map) {
     if (c.kind == QLatin1String("reverse")) return FitChecksList::tr("%1 turns the train around (a reversing loop or wye).").arg(route);
     if (c.kind == QLatin1String("power"))
         return FitChecksList::tr("%1 turns the train around on powered track: it needs a polarity switch there.").arg(route);
+    if (c.kind == QLatin1String("gap"))
+        return FitChecksList::tr("The track doesn’t quite join here (the ends are %1 apart). Trains and routes run across it; nudge one piece to close the gap.")
+            .arg(len("gap"));
     return {};
 }
 

@@ -49,6 +49,7 @@ namespace bld::edit    { class FlexMove; }
 namespace bld::parts   { class PartsLibrary; }
 #include "../rendering/SceneBuilder.h"
 #include "../track/TrackNetwork.h"
+#include "../track/Routes.h"
 
 class QToolButton;
 
@@ -328,7 +329,13 @@ public:
         std::optional<core::TrackPosition> from;
         std::vector<core::TrackPosition> via;
         std::optional<core::TrackPosition> to;
+        // Which way the train leaves the start; either (the shortest) when unset.
+        std::optional<track::Facing> facing;
+        // The train the route starts on (a start clicked on a train's front): it goes the way the train faces.
+        QString train;
     };
+    // Go the other way: the train leaves the start the other way (round the loop the long way).
+    void flipRouteDraft();
     const std::optional<RouteDraft>& routeDraft() const { return routeDraft_; }
     QWidget* routeDraftBanner() const { return routeBar_; }
     // The routes this person hid on their map (not the layout's business).
@@ -528,6 +535,7 @@ private:
     QLabel* routeBarText_ = nullptr;
     QLineEdit* routeName_ = nullptr;
     QPushButton* routeSave_ = nullptr;
+    QPushButton* routeFlip_ = nullptr;
     // The banner says what to click next, or the way found; the map shows it.
     void refreshRouteDraft();
     QString placingTrain_;

@@ -611,14 +611,6 @@
         <translation>新建路线</translation>
     </message>
     <message>
-        <source>Click where the route starts on the track, then where it ends.</source>
-        <translation>在轨道上点击路线的起点，然后点击终点。</translation>
-    </message>
-    <message>
-        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
-        <translation>会为你找到沿轨道的最短路线，可双向经过道岔。按住 Shift 点击可在途中添加停靠点，以选择另一条线路。命名后按“保存路线”；按 Esc 或“取消”停止。</translation>
-    </message>
-    <message>
         <source>Broken route</source>
         <translation>中断的路线</translation>
     </message>
@@ -1289,6 +1281,14 @@
     <message>
         <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
         <translation>选择吸附点之间的距离，从每个凸点到每 32 个凸点，并选择吸附方式：吸附到网格，或从原来的位置按整步移动。零件、模块、粘贴的内容、标尺、标签和文字都会遵循它，方向键每次移动一步，轨道末端相遇时仍会连接在一起。关闭吸附可以把东西准确放在松手的位置，或按住 Alt（Mac 上为 ⌥）自由放置标尺、标签或文字。</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
+        <translation>在轨道上点击路线的起点（也可以点列车的车头），再点击终点。</translation>
+    </message>
+    <message>
+        <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
+        <translation>系统会为你找出最短的路线，箭头显示列车的行驶方向。列车从不原地掉头，所以可能要绕整个环线一圈；“换个方向走”让它朝另一边绕行，从列车车头开始的路线会沿列车的朝向行驶。按住 Shift 点击添加停靠点；按 Esc 或“取消”结束。</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -5498,6 +5498,10 @@
     <message>
         <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
         <translation>%1会在通电轨道上让列车掉头：那里需要一个极性开关。</translation>
+    </message>
+    <message>
+        <source>The track doesn’t quite join here (the ends are %1 apart). Trains and routes run across it; nudge one piece to close the gap.</source>
+        <translation>这里的轨道没有完全接上（两端相距 %1）。列车和路线可以通过；把其中一块挪近，把缝隙合上。</translation>
     </message>
     <message>
         <source>Problem</source>
@@ -10378,6 +10382,10 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>路线名称</translation>
     </message>
     <message>
+        <source>Go the other way</source>
+        <translation>换个方向走</translation>
+    </message>
+    <message>
         <source>Save route</source>
         <translation>保存路线</translation>
     </message>
@@ -10394,20 +10402,38 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>请点击轨道。</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
-        <translation>&lt;b&gt;新建路线：&lt;/b&gt;在轨道上点击起点。</translation>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts (or on a train’s front).</source>
+        <translation>&lt;b&gt;新建路线：&lt;/b&gt;在轨道上点击起点（也可以点列车的车头）。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; starts at %1, the way it faces. Click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;新建路线：&lt;/b&gt;从%1出发，沿它的朝向行驶。点击终点（按住 Shift 点击添加停靠点）。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track, the way the arrows point%2.</source>
+        <translation>&lt;b&gt;新建路线：&lt;/b&gt;沿轨道 %1，按箭头方向行驶%2。</translation>
     </message>
     <message>
         <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
         <translation>&lt;b&gt;新建路线：&lt;/b&gt;点击终点（按住 Shift 点击添加停靠点）。</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
-        <translation>&lt;b&gt;新建路线：&lt;/b&gt;沿轨道 %1%2。按住 Shift 点击添加停靠点。</translation>
-    </message>
-    <message>
         <source>, and it turns the train around</source>
         <translation>，列车途中会掉头</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) on the way must be flipped while the train runs: it goes through them twice, set a different way each time.</source>
+        <translation>
+            <numerusform>途中有 %n 个道岔需要在列车行驶时扳动：列车会两次经过它们，每次方向不同。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop.</source>
+        <translation>按住 Shift 点击添加停靠点。</translation>
+    </message>
+    <message>
+        <source>Going this way, the train can’t get there without turning around.</source>
+        <translation>朝这个方向，列车不掉头就到不了那里。</translation>
     </message>
     <message>
         <source>New route</source>
@@ -11999,6 +12025,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>新建路线</translation>
     </message>
     <message>
+        <source>Checks</source>
+        <translation>检查</translation>
+    </message>
+    <message>
         <source>Delete route</source>
         <translation>删除路线</translation>
     </message>
@@ -12089,6 +12119,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>列车会掉头</translation>
     </message>
     <message>
+        <source>Flip a switch on the way: it runs through it twice</source>
+        <translation>途中要扳动一个道岔：路线会两次经过它</translation>
+    </message>
+    <message>
         <source>Set switches</source>
         <translation>设置道岔</translation>
     </message>
@@ -12099,10 +12133,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Delete</source>
         <translation>删除</translation>
-    </message>
-    <message>
-        <source>Route checks</source>
-        <translation>路线检查</translation>
     </message>
 </context>
 <context>

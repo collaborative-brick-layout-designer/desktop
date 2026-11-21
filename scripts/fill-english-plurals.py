@@ -30,6 +30,9 @@ SPECIAL = {
         "meanwhile. Apply it to the live layout, or discard it."
     ),
     "%1 (%n times)": "%1 (once)",
+    "%n switch(es) on the way must be flipped while the train runs: it goes through them twice, set a different way each time.": (
+        "%n switch on the way must be flipped while the train runs: it goes through it twice, set a different way each time."
+    ),
     "%n of these parts are on %1 too. Update them there so everyone sees the new versions?": (
         "%n of these parts is on %1 too. Update it there so everyone sees the new version?"
     ),

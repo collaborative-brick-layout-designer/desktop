@@ -4,7 +4,10 @@
 // person's map only, kept for next time. Taking a piece out from under it
 // turns it Broken (kept, dashed red); Find a new way goes round the other
 // side of the loop. Set switches sets its switches; Delete asks first.
-// The web's routes.spec.ts walks the same.
+// Go the other way sends the train the whole loop round (it never turns
+// around on the spot), arrows showing which way; a route started on a
+// train's front goes the way the train faces. The web's routes.spec.ts
+// walks the same.
 
 #include "ui/MainWindow.h"
 #include "ui/MapView.h"
@@ -56,7 +59,114 @@ std::pair<QPointF, QPointF> twoPlaces(const core::Map& map) {
     return { at[1], at[at.size() - 2] };
 }
 
+// A loose monorail straight on the loop.
+QString aStraight(const core::Map& map) {
+    for (const auto& l : map.layers())
+        if (l->kind() == core::LayerKind::Brick)
+            for (const auto& b : static_cast<const core::LayerBrick&>(*l).bricks)
+                if (b.partNumber == QLatin1String("2671.7") && b.myGroupId.isEmpty()) return b.guid;
+    return {};
+}
+
+// The direction arrows drawn: on the route being drawn ("draft"), or on a saved route (its id).
+int arrows(ui::MapView* view, const QString& on) {
+    int n = 0;
+    for (QGraphicsItem* it : view->scene()->items())
+        if (it->data(0).toString() == QLatin1String("route-arrow") && it->data(1).toString() == on) ++n;
+    return n;
+}
+
 }  // namespace
+
+TEST(RoutesUi, GoTheOtherWayRunsTheWholeLoopRound) {
+    ui::MainWindow w(library());
+    w.resize(1400, 900);
+    w.show();
+    auto* view = w.findChild<ui::MapView*>();
+    auto* panel = w.findChild<ui::RoutesPanel*>();
+    auto res = saveload::readBbm(QStringLiteral(BLD_SOURCE_DIR "/fixtures/bbm-corpus/tight-corner.bbm"));
+    view->loadMap(std::move(res.map));
+    const track::TrackNetwork net = track::trackNetworkOf(*view->currentMap(), library());
+    const QString straight = aStraight(*view->currentMap());
+    ASSERT_FALSE(straight.isEmpty());
+    const QPointF a = net.pointAtPosition({ straight, 0, 1, 5 })->p;
+    const QPointF b = net.pointAtPosition({ straight, 0, 1, 11 })->p;
+
+    // Two places close together on one piece: the shortest way runs straight there.
+    panel->findChild<QPushButton*>(QStringLiteral("routesNew"))->click();
+    auto* text = view->routeDraftBanner()->findChild<QLabel*>(QStringLiteral("RouteDraftText"));
+    auto* flip = view->routeDraftBanner()->findChild<QPushButton*>(QStringLiteral("RouteDraftFlip"));
+    view->routeDraftClick(a, false);
+    view->routeDraftClick(b, false);
+    EXPECT_TRUE(text->text().contains(QStringLiteral("the way the arrows point"))) << text->text().toStdString();
+    EXPECT_FALSE(flip->isHidden());
+    EXPECT_GE(arrows(view, QStringLiteral("draft")), 1);
+    const auto shortWay = track::findRoute(net, *view->routeDraft()->from, *view->routeDraft()->to);
+    ASSERT_TRUE(std::holds_alternative<track::RouteFound>(shortWay));
+    const track::RouteFound& near = std::get<track::RouteFound>(shortWay);
+    EXPECT_LT(near.length, 10.0);
+
+    // Go the other way: the whole loop round, back to the end from the other side.
+    flip->click();
+    ASSERT_TRUE(view->routeDraft()->facing);
+    EXPECT_NE(*view->routeDraft()->facing, near.facing);
+    EXPECT_TRUE(text->text().contains(QStringLiteral("the way the arrows point"))) << text->text().toStdString();
+    EXPECT_GT(arrows(view, QStringLiteral("draft")), 1);
+    view->routeDraftBanner()->findChild<QLineEdit*>(QStringLiteral("RouteDraftName"))->setText(QStringLiteral("Long way round"));
+    view->routeDraftBanner()->findChild<QPushButton*>(QStringLiteral("RouteDraftSave"))->click();
+    ASSERT_EQ(view->currentMap()->sidecar.routes.size(), 1u);
+    const core::Route route = view->currentMap()->sidecar.routes[0];
+    EXPECT_GT(route.steps.size(), 3u);
+    EXPECT_EQ(route.steps.front().brick, route.steps.back().brick);  // round past its start, back onto the same piece
+    EXPECT_EQ(track::routeFacing(route), near.facing == track::Facing::To ? track::Facing::From : track::Facing::To);
+    const track::RouteStatus st = track::routeStatus(net, route);
+    EXPECT_FALSE(st.broken);
+    EXPECT_GT(st.length, 50.0);
+    EXPECT_GT(arrows(view, route.id), 1);
+    auto* row = panel->findChild<QFrame*>(QStringLiteral("route_") + route.id);
+    ASSERT_TRUE(row);
+    EXPECT_TRUE(row->findChild<QLabel*>(QStringLiteral("routeStatus"))->text().startsWith(QStringLiteral("OK")));
+}
+
+TEST(RoutesUi, ARouteStartedOnATrainGoesTheWayItFaces) {
+    ui::MainWindow w(library());
+    w.resize(1400, 900);
+    w.show();
+    auto* view = w.findChild<ui::MapView*>();
+    auto res = saveload::readBbm(QStringLiteral(BLD_SOURCE_DIR "/fixtures/bbm-corpus/tight-corner.bbm"));
+    view->loadMap(std::move(res.map));
+    const track::TrackNetwork net = track::trackNetworkOf(*view->currentMap(), library());
+    const QString straight = aStraight(*view->currentMap());
+    core::RollingStock car = core::simpleStock(QStringLiteral("car1"), 16);
+    car.trackKind = QStringLiteral("monorail");
+    core::Train t;
+    t.id = QStringLiteral("t1");
+    t.name = QStringLiteral("Shuttle");
+    t.trackKind = QStringLiteral("monorail");
+    t.units = { { car.id, false } };
+    core::TrainPosition p;
+    static_cast<core::TrackPosition&>(p) = { straight, 0, 1, 8 };
+    p.facingTo = false;
+    t.position = p;
+    view->currentMap()->sidecar.rollingStock.push_back(car);
+    view->currentMap()->sidecar.trains.push_back(t);
+    view->startRouteDraft();
+    view->routeDraftClick(net.pointAtPosition(p)->p, false);
+    ASSERT_TRUE(view->routeDraft()->from);
+    EXPECT_EQ(view->routeDraft()->train, QStringLiteral("t1"));
+    ASSERT_TRUE(view->routeDraft()->facing);
+    EXPECT_EQ(*view->routeDraft()->facing, track::Facing::From);
+    auto* text = view->routeDraftBanner()->findChild<QLabel*>(QStringLiteral("RouteDraftText"));
+    EXPECT_TRUE(text->text().contains(QStringLiteral("starts at Shuttle, the way it faces"))) << text->text().toStdString();
+    // An end just ahead of it the other way: it goes round the loop, the way it faces, not backwards.
+    view->routeDraftClick(net.pointAtPosition({ straight, 0, 1, 12 })->p, false);
+    EXPECT_TRUE(view->saveRouteDraft(QStringLiteral("Shuttle run")));
+    const core::Route route = view->currentMap()->sidecar.routes.at(0);
+    EXPECT_EQ(route.train, QStringLiteral("t1"));
+    EXPECT_EQ(track::routeFacing(route), track::Facing::From);
+    EXPECT_GT(route.steps.size(), 3u);
+    view->cancelRouteDraft();
+}
 
 TEST(RoutesUi, DrawKeepHideBreakMendAndDelete) {
     QSettings().remove(QStringLiteral("routes"));

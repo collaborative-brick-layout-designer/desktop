@@ -70,9 +70,12 @@ change in one repo fails until the other has the same copy.
   web's `BLD_WRITE_CONTRACTS=1 pnpm --filter @cld/parts-catalog test`
   writes `ports` and `lengths`.
 - `route-search.json`: route search on a small made-up network (trains
-  design 4): the way found, its length, the switches it needs and where it
-  turns the train round, or why there is none; and each route checked again
-  with a part taken out (web packages/parts-catalog/src/track/routes.ts,
+  design 4), and on loops (an oval, a figure eight, a dog bone, hairline
+  gaps, part of the Fordyce 2026 layout): the way found for a train leaving
+  the start one way or either way, its length, the switches it needs (and
+  any it needs both ways) and where it turns the train round, or why there
+  is none; the loose ends that nearly meet (joined for trains); and each
+  route checked again with a part taken out (web packages/parts-catalog/src/track/routes.ts,
   desktop src/track/Routes.cpp). The web's
   `BLD_WRITE_CONTRACTS=1 pnpm --filter @cld/parts-catalog test` writes the
   `expect` and `status` values.

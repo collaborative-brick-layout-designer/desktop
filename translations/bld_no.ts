@@ -611,14 +611,6 @@
         <translation>Ny rute</translation>
     </message>
     <message>
-        <source>Click where the route starts on the track, then where it ends.</source>
-        <translation>Klikk på sporet der ruten starter, og så der den slutter.</translation>
-    </message>
-    <message>
-        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
-        <translation>Den korteste veien langs sporet finnes for deg, gjennom sporveksler begge veier. Skift-klikk legger til et stopp underveis, for å velge et annet spor. Gi den et navn og trykk Lagre rute; Esc eller Avbryt stopper.</translation>
-    </message>
-    <message>
         <source>Broken route</source>
         <translation>Brutt rute</translation>
     </message>
@@ -1289,6 +1281,14 @@
     <message>
         <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
         <translation>Velg hvor langt det er mellom festepunktene, fra hver knott til hver 32. knott, og hvordan ting festes: til rutenettet, eller i hele steg fra der de var. Deler, moduler, innlimte deler, linjaler, etiketter og tekst følger dette, piltastene flytter ett steg, og skinneender klikker fortsatt sammen når de møtes. Slå av festing for å legge ting akkurat der du slipper, eller hold Alt (⌥ på Mac) for å plassere en linjal, etikett eller tekst fritt.</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
+        <translation>Klikk på sporet der ruten begynner (eller på fronten av et tog), og så der den slutter.</translation>
+    </message>
+    <message>
+        <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
+        <translation>Den korteste veien blir funnet for deg, og piler viser hvilken vei toget kjører. Det snur aldri på stedet, så det kan kjøre hele sløyfen rundt; Kjør andre veien sender det rundt den andre veien, og en rute som begynner på fronten av et tog, kjører den veien toget vender. Skift-klikk legger til et stopp; Esc eller Avbryt stopper.</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -5531,6 +5531,10 @@
     <message>
         <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
         <translation>%1 snur toget på strømførende spor: der trengs en polvender.</translation>
+    </message>
+    <message>
+        <source>The track doesn’t quite join here (the ends are %1 apart). Trains and routes run across it; nudge one piece to close the gap.</source>
+        <translation>Her møtes ikke sporet helt (endene er %1 fra hverandre). Tog og ruter kjører over; skyv en del inntil for å lukke åpningen.</translation>
     </message>
     <message>
         <source>Problem</source>
@@ -10457,6 +10461,10 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
         <translation>Navn på ruten</translation>
     </message>
     <message>
+        <source>Go the other way</source>
+        <translation>Kjør andre veien</translation>
+    </message>
+    <message>
         <source>Save route</source>
         <translation>Lagre rute</translation>
     </message>
@@ -10473,20 +10481,39 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
         <translation>Klikk på sporet.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
-        <translation>&lt;b&gt;Ny rute:&lt;/b&gt; klikk på sporet der den starter.</translation>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts (or on a train’s front).</source>
+        <translation>&lt;b&gt;Ny rute:&lt;/b&gt; klikk på sporet der den begynner (eller på fronten av et tog).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; starts at %1, the way it faces. Click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Ny rute:&lt;/b&gt; begynner ved %1, den veien det vender. Klikk der den slutter (Skift-klikk legger til et stopp).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track, the way the arrows point%2.</source>
+        <translation>&lt;b&gt;Ny rute:&lt;/b&gt; %1 langs sporet, den veien pilene peker%2.</translation>
     </message>
     <message>
         <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
         <translation>&lt;b&gt;Ny rute:&lt;/b&gt; klikk der den slutter (Skift-klikk legger til et stopp).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
-        <translation>&lt;b&gt;Ny rute:&lt;/b&gt; %1 langs sporet%2. Skift-klikk legger til et stopp.</translation>
-    </message>
-    <message>
         <source>, and it turns the train around</source>
         <translation>, og toget snur underveis</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) on the way must be flipped while the train runs: it goes through them twice, set a different way each time.</source>
+        <translation>
+            <numerusform>%n sporveksel underveis må legges om mens toget kjører: det kjører gjennom den to ganger, lagt forskjellig hver gang.</numerusform>
+            <numerusform>%n sporveksler underveis må legges om mens toget kjører: det kjører gjennom dem to ganger, lagt forskjellig hver gang.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop.</source>
+        <translation>Skift-klikk legger til et stopp.</translation>
+    </message>
+    <message>
+        <source>Going this way, the train can’t get there without turning around.</source>
+        <translation>Denne veien kommer ikke toget dit uten å snu.</translation>
     </message>
     <message>
         <source>New route</source>
@@ -12089,6 +12116,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Ny rute</translation>
     </message>
     <message>
+        <source>Checks</source>
+        <translation>Kontroller</translation>
+    </message>
+    <message>
         <source>Delete route</source>
         <translation>Slett rute</translation>
     </message>
@@ -12180,6 +12211,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Toget snur</translation>
     </message>
     <message>
+        <source>Flip a switch on the way: it runs through it twice</source>
+        <translation>Legg om en sporveksel underveis: ruten kjører gjennom den to ganger</translation>
+    </message>
+    <message>
         <source>Set switches</source>
         <translation>Legg sporveksler</translation>
     </message>
@@ -12190,10 +12225,6 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Delete</source>
         <translation>Slett</translation>
-    </message>
-    <message>
-        <source>Route checks</source>
-        <translation>Rutekontroller</translation>
     </message>
 </context>
 <context>

@@ -611,14 +611,6 @@
         <translation>Neue Route</translation>
     </message>
     <message>
-        <source>Click where the route starts on the track, then where it ends.</source>
-        <translation>Klick auf das Gleis, wo die Route beginnt, dann dort, wo sie endet.</translation>
-    </message>
-    <message>
-        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
-        <translation>Der kürzeste Weg entlang des Gleises wird für dich gefunden, durch Weichen in beide Richtungen. Umschalt-Klick fügt einen Halt unterwegs hinzu, um ein anderes Gleis zu wählen. Gib ihr einen Namen und drück Route speichern; Esc oder Abbrechen hört auf.</translation>
-    </message>
-    <message>
         <source>Broken route</source>
         <translation>Unterbrochene Route</translation>
     </message>
@@ -1289,6 +1281,14 @@
     <message>
         <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
         <translation>Wähle, wie weit die Rasterpunkte auseinanderliegen, von jeder Noppe bis zu jeder 32. Noppe, und wie gerastet wird: aufs Raster oder in ganzen Schritten ab dort, wo etwas war. Teile, Module, eingefügte Teile, Lineale, Beschriftungen und Text folgen dem, die Pfeiltasten bewegen um einen Schritt, und Gleisenden rasten weiterhin ein, wenn sie sich treffen. Schalte das Raster aus, um Dinge genau dort abzulegen, wo du loslässt, oder halte Alt (⌥ auf dem Mac), um ein Lineal, eine Beschriftung oder Text frei zu platzieren.</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
+        <translation>Klick auf dem Gleis, wo die Route beginnt (oder auf die Spitze eines Zuges), dann dort, wo sie endet.</translation>
+    </message>
+    <message>
+        <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
+        <translation>Der kürzeste Weg wird für dich gefunden, und Pfeile zeigen, in welche Richtung der Zug fährt. Er wendet nie auf der Stelle, fährt also notfalls die ganze Schleife herum; „Andersherum fahren“ schickt ihn andersherum, und eine Route, die an der Spitze eines Zuges beginnt, fährt in seine Richtung. Umschalt-Klick fügt einen Halt hinzu; Esc oder Abbrechen beendet.</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -5531,6 +5531,10 @@
     <message>
         <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
         <translation>%1 dreht den Zug auf Gleis mit Strom um: Dort braucht es einen Polwender.</translation>
+    </message>
+    <message>
+        <source>The track doesn’t quite join here (the ends are %1 apart). Trains and routes run across it; nudge one piece to close the gap.</source>
+        <translation>Hier stößt das Gleis nicht ganz aneinander (die Enden liegen %1 auseinander). Züge und Routen fahren darüber; schieb ein Teil heran, um die Lücke zu schließen.</translation>
     </message>
     <message>
         <source>Problem</source>
@@ -10457,6 +10461,10 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
         <translation>Name der Route</translation>
     </message>
     <message>
+        <source>Go the other way</source>
+        <translation>Andersherum fahren</translation>
+    </message>
+    <message>
         <source>Save route</source>
         <translation>Route speichern</translation>
     </message>
@@ -10473,20 +10481,39 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
         <translation>Klick auf das Gleis.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
-        <translation>&lt;b&gt;Neue Route:&lt;/b&gt; Klick auf das Gleis, wo sie beginnt.</translation>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts (or on a train’s front).</source>
+        <translation>&lt;b&gt;Neue Route:&lt;/b&gt; Klick auf dem Gleis dort, wo sie beginnt (oder auf die Spitze eines Zuges).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; starts at %1, the way it faces. Click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Neue Route:&lt;/b&gt; beginnt bei %1, in seine Fahrtrichtung. Klick dort, wo sie endet (Umschalt-Klick fügt einen Halt hinzu).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track, the way the arrows point%2.</source>
+        <translation>&lt;b&gt;Neue Route:&lt;/b&gt; %1 entlang des Gleises, in Pfeilrichtung%2.</translation>
     </message>
     <message>
         <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
         <translation>&lt;b&gt;Neue Route:&lt;/b&gt; Klick dort, wo sie endet (Umschalt-Klick fügt einen Halt hinzu).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
-        <translation>&lt;b&gt;Neue Route:&lt;/b&gt; %1 entlang des Gleises%2. Umschalt-Klick fügt einen Halt hinzu.</translation>
-    </message>
-    <message>
         <source>, and it turns the train around</source>
         <translation>, und der Zug wendet dabei</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) on the way must be flipped while the train runs: it goes through them twice, set a different way each time.</source>
+        <translation>
+            <numerusform>%n Weiche unterwegs muss umgestellt werden, während der Zug fährt: Er fährt zweimal hindurch, jedes Mal anders gestellt.</numerusform>
+            <numerusform>%n Weichen unterwegs müssen umgestellt werden, während der Zug fährt: Er fährt zweimal hindurch, jedes Mal anders gestellt.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop.</source>
+        <translation>Umschalt-Klick fügt einen Halt hinzu.</translation>
+    </message>
+    <message>
+        <source>Going this way, the train can’t get there without turning around.</source>
+        <translation>In diese Richtung kommt der Zug nicht dorthin, ohne zu wenden.</translation>
     </message>
     <message>
         <source>New route</source>
@@ -12089,6 +12116,10 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>Neue Route</translation>
     </message>
     <message>
+        <source>Checks</source>
+        <translation>Prüfungen</translation>
+    </message>
+    <message>
         <source>Delete route</source>
         <translation>Route löschen</translation>
     </message>
@@ -12180,6 +12211,10 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>Der Zug wendet</translation>
     </message>
     <message>
+        <source>Flip a switch on the way: it runs through it twice</source>
+        <translation>Unterwegs eine Weiche umstellen: Die Route fährt zweimal hindurch</translation>
+    </message>
+    <message>
         <source>Set switches</source>
         <translation>Weichen stellen</translation>
     </message>
@@ -12190,10 +12225,6 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>Delete</source>
         <translation>Löschen</translation>
-    </message>
-    <message>
-        <source>Route checks</source>
-        <translation>Routenprüfungen</translation>
     </message>
 </context>
 <context>

@@ -604,6 +604,13 @@
             <numerusform>Updated %n sets to their newest versions. Undo (Ctrl+Z) puts them back.</numerusform>
         </translation>
     </message>
+    <message numerus="yes">
+        <source>%n switch(es) on the way must be flipped while the train runs: it goes through them twice, set a different way each time.</source>
+        <translation>
+            <numerusform>%n switch on the way must be flipped while the train runs: it goes through it twice, set a different way each time.</numerusform>
+            <numerusform>%n switches on the way must be flipped while the train runs: it goes through them twice, set a different way each time.</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleShareDialog</name>

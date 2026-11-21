@@ -611,14 +611,6 @@
         <translation>Nieuwe route</translation>
     </message>
     <message>
-        <source>Click where the route starts on the track, then where it ends.</source>
-        <translation>Klik op het spoor waar de route begint, en dan waar hij eindigt.</translation>
-    </message>
-    <message>
-        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
-        <translation>De kortste weg langs het spoor wordt voor je gezocht, door wissels in beide richtingen. Shift-klik voegt een stop onderweg toe, om een ander spoor te kiezen. Geef hem een naam en druk op Route opslaan; Esc of Annuleren stopt.</translation>
-    </message>
-    <message>
         <source>Broken route</source>
         <translation>Onderbroken route</translation>
     </message>
@@ -1289,6 +1281,14 @@
     <message>
         <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
         <translation>Kies hoe ver de snappunten uit elkaar liggen, van elke nop tot elke 32 noppen, en hoe er gesnapt wordt: op het raster, of in hele stappen vanaf waar iets was. Onderdelen, modules, geplakte stukken, linialen, labels en tekst volgen het, de pijltjestoetsen verplaatsen een stap, en spooreinden klikken nog steeds vast als ze elkaar raken. Zet snappen uit om dingen precies neer te zetten waar je loslaat, of houd Alt (⌥ op een Mac) ingedrukt om een liniaal, label of tekst vrij te plaatsen.</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
+        <translation>Klik op het spoor waar de route begint (of op de kop van een trein), en dan waar hij eindigt.</translation>
+    </message>
+    <message>
+        <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
+        <translation>De kortste weg wordt voor je gevonden, en pijlen laten zien welke kant de trein op rijdt. Hij keert nooit ter plekke, dus hij kan een hele lus rondrijden; Andersom rijden stuurt hem de andere kant op, en een route die op de kop van een trein begint, rijdt de kant op die de trein op kijkt. Shift-klik voegt een stop toe; Esc of Annuleren stopt.</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -5531,6 +5531,10 @@
     <message>
         <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
         <translation>%1 draait de trein om op spoor met stroom: daar is een ompoolschakelaar nodig.</translation>
+    </message>
+    <message>
+        <source>The track doesn’t quite join here (the ends are %1 apart). Trains and routes run across it; nudge one piece to close the gap.</source>
+        <translation>Hier sluit het spoor niet helemaal aan (de uiteinden liggen %1 uit elkaar). Treinen en routes rijden eroverheen; schuif een stuk aan om het gat te dichten.</translation>
     </message>
     <message>
         <source>Problem</source>
@@ -10457,6 +10461,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <translation>Naam van de route</translation>
     </message>
     <message>
+        <source>Go the other way</source>
+        <translation>Andersom rijden</translation>
+    </message>
+    <message>
         <source>Save route</source>
         <translation>Route opslaan</translation>
     </message>
@@ -10473,20 +10481,39 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <translation>Klik op het spoor.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
-        <translation>&lt;b&gt;Nieuwe route:&lt;/b&gt; klik op het spoor waar hij begint.</translation>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts (or on a train’s front).</source>
+        <translation>&lt;b&gt;Nieuwe route:&lt;/b&gt; klik op het spoor waar hij begint (of op de kop van een trein).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; starts at %1, the way it faces. Click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Nieuwe route:&lt;/b&gt; begint bij %1, de kant op die hij kijkt. Klik waar hij eindigt (Shift-klik voegt een stop toe).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track, the way the arrows point%2.</source>
+        <translation>&lt;b&gt;Nieuwe route:&lt;/b&gt; %1 langs het spoor, in de richting van de pijlen%2.</translation>
     </message>
     <message>
         <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
         <translation>&lt;b&gt;Nieuwe route:&lt;/b&gt; klik waar hij eindigt (Shift-klik voegt een stop toe).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
-        <translation>&lt;b&gt;Nieuwe route:&lt;/b&gt; %1 langs het spoor%2. Shift-klik voegt een stop toe.</translation>
-    </message>
-    <message>
         <source>, and it turns the train around</source>
         <translation>, en de trein keert onderweg</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) on the way must be flipped while the train runs: it goes through them twice, set a different way each time.</source>
+        <translation>
+            <numerusform>%n wissel onderweg moet worden omgezet terwijl de trein rijdt: hij rijdt er twee keer doorheen, telkens anders gezet.</numerusform>
+            <numerusform>%n wissels onderweg moeten worden omgezet terwijl de trein rijdt: hij rijdt er twee keer doorheen, telkens anders gezet.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop.</source>
+        <translation>Shift-klik voegt een stop toe.</translation>
+    </message>
+    <message>
+        <source>Going this way, the train can’t get there without turning around.</source>
+        <translation>Deze kant op kan de trein er niet komen zonder te keren.</translation>
     </message>
     <message>
         <source>New route</source>
@@ -12089,6 +12116,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Nieuwe route</translation>
     </message>
     <message>
+        <source>Checks</source>
+        <translation>Controles</translation>
+    </message>
+    <message>
         <source>Delete route</source>
         <translation>Route verwijderen</translation>
     </message>
@@ -12180,6 +12211,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>De trein keert</translation>
     </message>
     <message>
+        <source>Flip a switch on the way: it runs through it twice</source>
+        <translation>Zet onderweg een wissel om: de route rijdt er twee keer doorheen</translation>
+    </message>
+    <message>
         <source>Set switches</source>
         <translation>Wissels zetten</translation>
     </message>
@@ -12190,10 +12225,6 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Delete</source>
         <translation>Verwijderen</translation>
-    </message>
-    <message>
-        <source>Route checks</source>
-        <translation>Routecontroles</translation>
     </message>
 </context>
 <context>
