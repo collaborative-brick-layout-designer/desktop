@@ -12,6 +12,7 @@ add_executable(bld_edit_tests
     VenueDesignerTest.cpp
     SetsTest.cpp
     ConnectionCheckTest.cpp
+    SwitchCommandsTest.cpp
 )
 
 target_compile_definitions(bld_edit_tests PRIVATE BLD_SOURCE_DIR="${CMAKE_SOURCE_DIR}")

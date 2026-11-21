@@ -1,0 +1,95 @@
+#pragma once
+
+// Rolling stock and trains (trains design 2.3, 2.4): the layout's engines and
+// cars, in the sidecar's `rollingStock`, and the trains made of them, in its
+// `trains` (live, the web's meta.rollingStock and meta.trains, one Y.Map a
+// record). Lengths are studs. A car rides on its trucks; a truck's `at` is
+// studs from the car's middle, + towards its front. A train's position is
+// its head car's front truck on the track, facing `to` (the rest of the
+// train lies back towards `from`) or `from`. Fields this build doesn't know
+// are kept. The web's packages/parts-catalog/src/track/trains.ts is the same.
+
+#include "Route.h"
+
+#include <QJsonObject>
+#include <QString>
+
+#include <optional>
+#include <vector>
+
+namespace bld::core {
+
+struct Truck {
+    double at = 0.0;
+    double swivelMax = 30.0;
+    bool operator==(const Truck&) const = default;
+};
+
+struct Coupler {
+    QString type = QStringLiteral("magnet");  // magnet, fixed or none
+    double swivelMax = 37.0;
+    bool operator==(const Coupler&) const = default;
+};
+
+struct RollingStock {
+    QString id;
+    QString number;  // road number, shown on the map and in lists
+    QString name;
+    QString kind = QStringLiteral("car");  // engine, car, cab, unit, monorail
+    QString type;                          // free text: boxcar, hopper, steam...
+    QString trackKind = QStringLiteral("rail");
+    double length = 32.0;  // coupler pivot to coupler pivot
+    double width = 6.0;
+    double bodyLength = 30.0;
+    std::vector<Truck> trucks{ { 8.0, 30.0 }, { -8.0, 30.0 } };
+    Coupler front;
+    Coupler rear;
+    bool powered = false;
+    QString lookMode = QStringLiteral("simple");  // simple, part or model
+    QString color = QStringLiteral("#B40000");
+    QString partKey;  // the part used as its top view (part mode)
+    QString libraryId;  // the roster entry it was copied from
+    int libraryVersion = 0;
+    QString notes;
+    // look's fields this build doesn't know (a picture...).
+    QJsonObject lookExtras;
+    // Fields this build doesn't know (owner, tags, model, maxSpeed...), written back as they were.
+    QJsonObject extras;
+    bool operator==(const RollingStock&) const = default;
+};
+
+// A quick car of `length` studs: trucks a quarter of the way in from each end.
+inline RollingStock simpleStock(const QString& id, double length = 32.0) {
+    RollingStock s;
+    s.id = id;
+    s.length = length;
+    s.bodyLength = length - 2.0;
+    const double at = length / 2.0 - length / 4.0;
+    s.trucks = { { at, 30.0 }, { -at, 30.0 } };
+    return s;
+}
+
+struct TrainPosition : TrackPosition {
+    bool facingTo = true;  // facing `to`: the train lies back towards `from`
+    bool operator==(const TrainPosition&) const = default;
+};
+
+struct TrainUnit {
+    QString stock;
+    bool reversed = false;
+    bool operator==(const TrainUnit&) const = default;
+};
+
+struct Train {
+    QString id;
+    QString name;
+    QString trackKind = QStringLiteral("rail");
+    std::vector<TrainUnit> units;  // front to back
+    std::optional<TrainPosition> position;  // none: not on the map
+    QString color = QStringLiteral("#B40000");
+    double speed = 40.0;
+    QJsonObject extras;
+    bool operator==(const Train&) const = default;
+};
+
+}  // namespace bld::core

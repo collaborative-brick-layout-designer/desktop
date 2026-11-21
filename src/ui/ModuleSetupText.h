@@ -23,10 +23,7 @@ struct ModuleSetupText {
 public:
     using Unit = core::VenueLengthUnit;
 
-    // The unit heights are shown in. The account's length unit isn't there
-    // yet (trains design, Phase 0), so it is the layout's venue unit, which
-    // is feet and inches when the layout has no venue. When the account
-    // setting lands, this is the one place that changes.
+    // The unit heights are shown in: the account's length unit (Settings).
     static Unit heightUnit(const core::Map* map);
 
     // A height in mm for what someone typed, or nullopt: inches by default in

@@ -684,7 +684,7 @@ QWidget* ServerModulesTab::makeRow(const sync::ServerModule& m) {
     subtitle->setObjectName(QStringLiteral("rowSubtitle"));
     text->addWidget(subtitle);
     // Its table and power ("MILS · 30¾″ · Power: 2 outlets").
-    if (const QString line = ModuleSetupText::setupLine(core::setupFromJson(m.setup), ModuleSetupText::Unit::FeetInches); !line.isEmpty()) {
+    if (const QString line = ModuleSetupText::setupLine(core::setupFromJson(m.setup), ModuleSetupText::heightUnit(nullptr)); !line.isEmpty()) {
         auto* setup = libraryMutedLabel(line, frame);
         setup->setObjectName(QStringLiteral("rowSetup"));
         text->addWidget(setup);
@@ -805,7 +805,7 @@ QWidget* ServerModulesTab::makeSharedRow(const sync::ServerModule& m) {
     subtitle->setObjectName(QStringLiteral("rowSubtitle"));
     text->addWidget(subtitle);
     // Its table and power ("MILS · 30¾″ · Power: 2 outlets").
-    if (const QString line = ModuleSetupText::setupLine(core::setupFromJson(m.setup), ModuleSetupText::Unit::FeetInches); !line.isEmpty()) {
+    if (const QString line = ModuleSetupText::setupLine(core::setupFromJson(m.setup), ModuleSetupText::heightUnit(nullptr)); !line.isEmpty()) {
         auto* setup = libraryMutedLabel(line, frame);
         setup->setObjectName(QStringLiteral("rowSetup"));
         text->addWidget(setup);
@@ -897,7 +897,7 @@ void ServerModulesTab::editSetup(const QString& id) {
     // What the window shows: the server's, then each change as it is sent.
     editingSetup_ = core::setupFromJson(m->setup);
     ModuleSetupDialog dlg(
-        m->title, ModuleSetupText::Unit::FeetInches, [this]() -> std::optional<core::ModuleSetup> { return editingSetup_; },
+        m->title, ModuleSetupText::heightUnit(nullptr), [this]() -> std::optional<core::ModuleSetup> { return editingSetup_; },
         [this, id](const core::ModuleSetup& changed, const QString&) {
             editingSetup_ = changed;
             if (setupDialog_) setupDialog_->setError({});

@@ -57,9 +57,39 @@ change in one repo fails until the other has the same copy.
   `custom:<id>`, which every export names by its part number and the
   desktop's parts cache finds by either.
 
+- `track-kinds.json`: which connection types are track and what kind
+  (rail, monorail, Duplo, ...), with each kind's defaults (trains design
+  2.1; web packages/parts-catalog/src/track/tables.ts, desktop
+  src/track/data/track-kinds.json).
+- `track-paths.json`: the ways through parts where the rules would be wrong
+  (web tables.ts, desktop src/track/data/track-paths.json).
+- `track-network.json`: each part's ways through and switches, and a small
+  layout's network: switches, partners, exits, where each connection is and
+  each way's length (web packages/parts-catalog/src/track/partTrack.ts and
+  network.ts, desktop src/track/PartTrack.cpp and TrackNetwork.cpp). The
+  web's `BLD_WRITE_CONTRACTS=1 pnpm --filter @cld/parts-catalog test`
+  writes `ports` and `lengths`.
+- `route-search.json`: route search on a small made-up network (trains
+  design 4): the way found, its length, the switches it needs and where it
+  turns the train round, or why there is none; and each route checked again
+  with a part taken out (web packages/parts-catalog/src/track/routes.ts,
+  desktop src/track/Routes.cpp). The web's
+  `BLD_WRITE_CONTRACTS=1 pnpm --filter @cld/parts-catalog test` writes the
+  `expect` and `status` values.
+- `train-geometry.json`: trains on the route-search network (trains design
+  3.3): rolling stock records, and where each car's trucks, middle and
+  couplers sit for a train's head on the track, through switches as set,
+  and when it runs off the end (web packages/parts-catalog/src/track/trains.ts,
+  desktop src/track/Trains.cpp). The same command writes the `expect` values.
+  Its `overhang` (a car's swing on a curve), `runs` (the track between
+  switches and ends, and the length a train can stand in) and `checks`
+  (the fit checks for trains and routes: kind, severity, where, numbers)
+  are the fit checks (trains design 3.5; web fitChecks.ts, desktop
+  src/track/FitChecks.cpp).
+
 To change them: edit (or, for the imported part, run the desktop's
 `bld_sync_tests --gtest_filter='Contracts.*'` with `BLD_WRITE_CONTRACTS=1`),
-then `sha256sum doc-shape.json imported-part.json imported-part.xml module-members.json module-setup.json part-naming.json presence-colors.json shared-module-keep.json shared-module-placement.json shared-module-settle.json sidecar-hash.json update-guard.json > MANIFEST.sha256`
+then `sha256sum doc-shape.json imported-part.json imported-part.xml module-members.json module-setup.json part-naming.json presence-colors.json route-search.json shared-module-keep.json shared-module-placement.json shared-module-settle.json sidecar-hash.json track-kinds.json track-network.json track-paths.json update-guard.json > MANIFEST.sha256`
 and copy the folder to the other repo.
 - `presence-colors.json`: each person's first-choice presence color on a
   layout, and the colors a group of people here get (web

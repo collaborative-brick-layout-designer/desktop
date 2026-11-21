@@ -692,6 +692,47 @@ void LibraryApi::venues(std::function<void(const QList<VenueEntry>&)> done, Fail
     }, std::move(failed));
 }
 
+RosterStock LibraryApi::rosterStockFromJson(const QJsonObject& o) {
+    RosterStock r;
+    r.id = o.value(QLatin1String("id")).toString();
+    r.number = o.value(QLatin1String("number")).toString();
+    r.name = o.value(QLatin1String("name")).toString();
+    r.version = std::max(1, intOf(o.value(QLatin1String("version"))));
+    r.canManage = o.value(QLatin1String("canManage")).toBool();
+    r.owner = ownerOf(o);
+    r.record = o.value(QLatin1String("record")).toObject();
+    return r;
+}
+
+void LibraryApi::rollingStock(std::function<void(const QList<RosterStock>&)> done, Fail failed) {
+    sendJson("GET", QStringLiteral("/api/rolling-stock"), {}, [done = std::move(done)](const QJsonObject& o) {
+        QList<RosterStock> out;
+        for (const auto& v : o.value(QLatin1String("stock")).toArray()) out << rosterStockFromJson(v.toObject());
+        if (done) done(out);
+    }, std::move(failed));
+}
+
+void LibraryApi::createStock(const QJsonObject& record, const QString& orgSlug, std::function<void(const RosterStock&)> done, Fail failed) {
+    QJsonObject body{ { QStringLiteral("record"), record } };
+    if (!orgSlug.isEmpty()) body.insert(QStringLiteral("orgSlug"), orgSlug);
+    sendJson("POST", QStringLiteral("/api/rolling-stock"), body, [done = std::move(done)](const QJsonObject& o) {
+        if (done) done(rosterStockFromJson(o));
+    }, std::move(failed));
+}
+
+void LibraryApi::updateStock(const QString& id, const QJsonObject& record, std::function<void(const RosterStock&)> done, Fail failed) {
+    sendJson("PATCH", QStringLiteral("/api/rolling-stock/%1").arg(idPath(id)), QJsonObject{ { QStringLiteral("record"), record } },
+             [done = std::move(done)](const QJsonObject& o) {
+                 if (done) done(rosterStockFromJson(o));
+             }, std::move(failed));
+}
+
+void LibraryApi::deleteStock(const QString& id, std::function<void()> done, Fail failed) {
+    send("DELETE", QStringLiteral("/api/rolling-stock/%1").arg(idPath(id)), {}, {}, [done = std::move(done)](QNetworkReply*) {
+        if (done) done();
+    }, std::move(failed));
+}
+
 void LibraryApi::customParts(std::function<void(const QList<ServerPart>&)> done, Fail failed) {
     sendJson("GET", QStringLiteral("/api/custom-parts"), {}, [done = std::move(done)](const QJsonObject& o) {
         QList<ServerPart> out;

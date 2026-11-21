@@ -49,6 +49,8 @@ public:
     // edits kept as offline edits until its owner signs in again.
     bool signedOut() const { return signedOut_; }
     QString title() const { return title_; }
+    // The server's id of the layout open (empty before setUser).
+    QString layoutId() const { return layoutId_; }
     bool readOnly() const { return session_.readOnly(); }
     // Our access changed while open: view only, or editor again
     // (SyncSession::setReadOnly). Edits the server didn't take end the

@@ -9,9 +9,8 @@
 
 namespace bld::ui {
 
-ModuleSetupText::Unit ModuleSetupText::heightUnit(const core::Map* map) {
-    if (map && map->sidecar.venue) return map->sidecar.venue->lengthUnit;
-    return Unit::FeetInches;
+ModuleSetupText::Unit ModuleSetupText::heightUnit(const core::Map*) {
+    return edit::venue::accountLengthUnit();
 }
 
 std::optional<double> ModuleSetupText::parseHeightMm(const QString& text, Unit unit) {

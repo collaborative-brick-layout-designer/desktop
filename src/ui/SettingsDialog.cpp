@@ -397,6 +397,35 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
         });
     }
 
+    // Units: how lengths are shown (a venue without a unit of its own, and
+    // later train and route lengths). The account's `lengthUnit`.
+    {
+        auto* v = card(tr("Units"));
+        auto* lead = new QLabel(tr("How lengths are shown, such as a venue's walls."), this);
+        lead->setObjectName(QStringLiteral("Muted"));
+        lead->setWordWrap(true);
+        v->addWidget(help::withHelp(lead, QStringLiteral("settings.lengthUnit"), this));
+        auto* group = new QButtonGroup(this);
+        group->setObjectName(QStringLiteral("unitGroup"));
+        const std::pair<QString, QString> choices[] = {
+            { QStringLiteral("ftin"), tr("Feet and inches, like 12′ 6½″") },
+            { QStringLiteral("m"), tr("Metric, like 3.81 m") },
+            { QStringLiteral("studs"), tr("Studs: LEGO studs, 8 mm each") },
+        };
+        for (const auto& [id, label] : choices) {
+            auto* b = new QRadioButton(label, this);
+            b->setObjectName(QStringLiteral("unit_") + id);
+            group->addButton(b);
+            v->addWidget(b);
+            connect(b, &QRadioButton::toggled, this, [this, id](bool on) {
+                if (!on || loading_) return;
+                AppPrefs p = store_.prefs();
+                p.lengthUnit = id;
+                store_.update(p);
+            });
+        }
+    }
+
     // Editing: how strongly parts snap together (SnapFeel.h).
     {
         auto* v = card(tr("Editing"));
@@ -647,6 +676,7 @@ void SettingsDialog::load() {
     findChild<QCheckBox*>(QStringLiteral("largeText"))->setChecked(p.largeText);
     findChild<QCheckBox*>(QStringLiteral("helpIcons"))->setChecked(p.helpIcons);
     if (auto* snap = findChild<QRadioButton*>(QStringLiteral("snap_") + p.connectionSnap)) snap->setChecked(true);
+    if (auto* unit = findChild<QRadioButton*>(QStringLiteral("unit_") + p.lengthUnit)) unit->setChecked(true);
     const auto done = p.toursSeen.size();
     toursNote_->setText(done == 0 ? tr("You haven't finished any tours yet.")
                                   : done == 1 ? tr("You've seen one tour.") : tr("You've seen %1 tours.").arg(done));

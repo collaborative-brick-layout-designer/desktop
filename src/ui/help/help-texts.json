@@ -57,8 +57,8 @@
     },
     "toolbar.snap": {
       "title": "Snap",
-      "short": "Pieces jump to the nearest grid line, so rows stay straight.",
-      "more": "The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together."
+      "short": "Everything you place or move lands on the nearest stud, so pieces line up.",
+      "more": "Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely."
     },
     "toolbar.rotateStep": {
       "title": "Turn step",
@@ -92,6 +92,76 @@
       "short": "Pick what a click on the map does.",
       "more": "Select moves pieces, Turn turns the one you click, and Delete removes it. Paint colors the ground and Erase clears it. Measure and Circle add a ruler you can keep on the map, and Venue and Obstacle draw the venue’s walls and things to keep clear of.",
       "learnMoreUrl": "/help#shortcuts"
+    },
+    "run.mode": {
+      "title": "Run trains",
+      "short": "Play with the layout: click a switch to flip it, without moving any parts.",
+      "more": "In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can't be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building."
+    },
+    "switch.flip": {
+      "title": "Switches",
+      "short": "A switch sends a train one way or the other; the arrow shows which.",
+      "more": "Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build."
+    },
+    "panel.routes": {
+      "title": "Routes",
+      "short": "Named ways along the track, from one place to another.",
+      "more": "Each route shows its length and whether the track still fits it. The eye shows or hides a route on your map only; everyone else keeps their own view. Routes are saved with the layout and shared with everyone editing it."
+    },
+    "routes.new": {
+      "title": "New route",
+      "short": "Click where the route starts on the track, then where it ends.",
+      "more": "The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops."
+    },
+    "routes.broken": {
+      "title": "Broken route",
+      "short": "A part this route runs over was moved or removed.",
+      "more": "The route keeps its name, color, start and end, and is drawn dashed red as far as it still goes. Find a new way searches again from its start through its stops to its end."
+    },
+    "routes.setSwitches": {
+      "title": "Set switches",
+      "short": "Sets every switch on the route so a train follows it.",
+      "more": "Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once."
+    },
+    "panel.trains": {
+      "title": "Trains",
+      "short": "The layout's engines and cars, and the trains made of them.",
+      "more": "Make a car in a few seconds, put cars together into a train, and put the train on the track to see how it sits on curves. Trains and cars are saved with the layout and shared with everyone editing it."
+    },
+    "trains.newStock": {
+      "title": "New car",
+      "short": "A quick car needs only a length; everything else can wait.",
+      "more": "Give it a number or name so you can find it. More shows the width, where the trucks sit, the couplers, and whether it uses a part's picture. Lengths are in studs, as you count them on the model."
+    },
+    "trains.trucks": {
+      "title": "Trucks",
+      "short": "The wheel sets a car rides on, measured in studs from the middle of the car.",
+      "more": "The front truck follows the track and the rear one follows it a fixed distance behind, so on a curve the car's middle swings in and its ends swing out, as a real one does. A quick car puts them a quarter of the way in from each end."
+    },
+    "trains.roster": {
+      "title": "Roster",
+      "short": "Your own engines and cars, or a club's, ready to bring into any layout.",
+      "more": "Save a car to your roster or a club's, then add it to other layouts from there. A layout keeps its own copy, so it still opens anywhere; when the roster's car changes, Update brings the layout's copy up to date. Club rosters are changed by members who may edit the club's modules."
+    },
+    "trains.newTrain": {
+      "title": "New train",
+      "short": "Cars in order, front to back, that move as one.",
+      "more": "Add cars from this layout's rolling stock, put them in order, and turn any of them around. A train's length is from its front coupler to its rear one."
+    },
+    "trains.putOnTrack": {
+      "title": "Put on the track",
+      "short": "Click the track where the front of the train should be.",
+      "more": "The train runs back from there, following the switches as they are set. Click again elsewhere to move it. A train that runs off the end of the track is outlined in red."
+    },
+    "trains.turnAround": {
+      "title": "Turn around",
+      "short": "The train's last car becomes its front, and it faces the other way.",
+      "more": "The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo."
+    },
+    "trains.checks": {
+      "title": "Checks",
+      "short": "What doesn't fit: a train too long for its track, a curve too tight, cars too close to another track.",
+      "more": "The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends."
     },
     "status.sheet": {
       "title": "Current sheet",
@@ -369,6 +439,21 @@
       "title": "Snap strength",
       "short": "How strongly a part you drag pulls onto a matching connection nearby.",
       "more": "Gentle pulls only when the ends are close and lets go once you move away; Strong reaches further; Off never pulls, and the grid still lines parts up. Hold Alt (Option on a Mac) while dragging to place one part without snapping."
+    },
+    "settings.snapMode": {
+      "title": "How things snap",
+      "short": "Land on the nearest stud, or move in whole steps from where a piece was.",
+      "more": "Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap."
+    },
+    "settings.studGrid": {
+      "title": "Stud grid",
+      "short": "Faint lines one stud apart, so you can see where things will land.",
+      "more": "They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy."
+    },
+    "settings.lengthUnit": {
+      "title": "Units",
+      "short": "Show lengths in feet and inches, metric or studs.",
+      "more": "This is how the app shows lengths, such as a venue's walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm."
     },
     "room.tools": {
       "title": "Drawing tools",

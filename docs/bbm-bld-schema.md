@@ -296,6 +296,78 @@ for the whole app; the first time a layout without a budget is open after
 updating, the app offers once to bring that file in (Budget › Import Budget
 from File does the same at any time).
 
+## Switch settings
+
+```json
+"switchStates": { "17/0": 2, "23/1": 0 }
+```
+
+How the layout's switches are set (trains design 2.2): `"<brick id>/<heel
+connection>"` → the connection a train coming in at the heel leaves by. A
+switch is any part a train can leave by more than one way from one
+connection (points, wyes, crossovers, monorail points); which those are is
+worked out from the parts library, never stored. A switch without a key is
+set to its default, the way that turns least, so a layout with none set has
+no field. A key whose part is gone is ignored when read and dropped by the
+next write.
+
+Shared like the budget: the web keeps it at `meta.switchStates` (a Y.Map,
+one key a switch, not in `meta.cache`), so flips of different switches
+merge and the last flip of one switch wins; the desktop writes it there one
+key at a time. Never written to a `.bbm`: exporting one says it is left out.
+Added 2026-11 without a version bump (optional, additive).
+
+## Routes
+
+```json
+"routes": [ { "id": "r1", "name": "Yard to platform 2", "train": null,
+              "from": { "brick": "17", "from": 0, "to": 1, "s": 4 },
+              "to": { "brick": "42", "from": 1, "to": 0, "s": 8 },
+              "via": [ { "at": { "brick": "30", "from": 0, "to": 2, "s": 6 }, "reverse": false } ],
+              "steps": [ { "brick": "17", "from": 0, "to": 1 }, { "brick": "18", "from": 0, "to": 1 } ],
+              "color": "#3B82F6" } ]
+```
+
+Named routes (trains design 2.5). A place on the track is a brick, the way
+through it (connection `from` to `to`) and `s` studs from `from`. `steps` is
+the exact way chosen, so routes of equal length never swap; `from`, `to`
+and `via` are what was clicked, used to find a new way when the track
+under it changes. Whether a route is broken, its length and the switch
+settings it needs are worked out, never stored. `train` is for a later
+phase. Fields a build doesn't know are kept; an entry without `id` is
+dropped. Live, the web keeps them at `meta.routes`, a Y.Map of id -> a
+Y.Map of fields, so different routes and different fields of one merge.
+Whether a route shows on the map is each person's own, never in the file.
+Never written to a `.bbm`. Added 2026-11 without a version bump.
+
+## Rolling stock and trains
+
+```json
+"rollingStock": [ { "id": "s1", "number": "4021", "name": "Boxcar", "kind": "car", "type": "boxcar",
+                    "trackKind": "rail", "length": 32, "width": 6, "bodyLength": 30,
+                    "trucks": [ { "at": 8, "swivelMax": 30 }, { "at": -8, "swivelMax": 30 } ],
+                    "couplers": { "front": { "type": "magnet", "swivelMax": 37 }, "rear": { "type": "magnet", "swivelMax": 37 } },
+                    "powered": false, "look": { "mode": "simple", "color": "#B40000" },
+                    "libraryId": "…", "libraryVersion": 2, "notes": "" } ],
+"trains": [ { "id": "t1", "name": "Freight", "trackKind": "rail",
+              "units": [ { "stock": "s1", "reversed": false } ],
+              "position": { "brick": "17", "from": 0, "to": 1, "s": 4, "facing": "to" },
+              "color": "#B40000", "speed": 40 } ]
+```
+
+Rolling stock and trains (trains design 2.3, 2.4). Lengths are studs; a
+truck's `at` is studs from the car's middle, + towards its front. A car
+missing fields reads with a quick car's defaults (trucks a quarter of the
+way in from each end). A train's `position` is its head car's front truck
+on the track, `facing` `to` (the rest of the train lies back towards
+`from`) or `from`; null when it isn't on the map. Where each car sits is
+worked out (the body on the chord between its trucks), never stored. A car
+copied from a roster keeps `libraryId` and `libraryVersion`, so the layout
+opens anywhere and can be brought up to date. Fields a build doesn't know
+are kept; an entry without `id` is dropped. Live, the web keeps them at
+`meta.rollingStock` and `meta.trains`, Y.Maps of id -> a Y.Map of fields.
+Never written to a `.bbm`. Added 2026-11 without a version bump.
+
 ## Background image
 
 ```json

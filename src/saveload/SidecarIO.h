@@ -8,9 +8,12 @@
 #include <QJsonValue>
 #include <QString>
 
+#include "../core/Route.h"
+#include "../core/Train.h"
+
 #include <optional>
 
-namespace bld::core { struct Sidecar; struct SavedView; }
+namespace bld::core { struct Sidecar; struct SavedView; struct Route; }
 
 namespace bld::saveload {
 
@@ -47,6 +50,21 @@ QJsonObject sidecarToJson(const core::Sidecar& sidecar);
 // more), and back; nullopt when the value isn't an object (no budget).
 QJsonObject budgetLimitsToJson(const QMap<QString, int>& limits);
 std::optional<QMap<QString, int>> budgetLimitsFromJson(const QJsonValue& v);
+// switchStates: "<brick>/<heel>" to a connection index (a whole number, 0 or
+// more); anything else in the object is left out.
+QJsonObject switchStatesToJson(const QMap<QString, int>& states);
+QMap<QString, int> switchStatesFromJson(const QJsonValue& v);
+// A named route as the sidecar (and the web's meta.routes) keeps it; an
+// entry without an id reads as nullopt. Unknown fields are kept.
+QJsonObject routeToJson(const core::Route& r);
+std::optional<core::Route> routeFromJson(const QJsonValue& v);
+// A car or a train as the sidecar (and the web's meta.rollingStock and
+// meta.trains) keeps it; one without an id reads as nullopt. A car's missing
+// fields take a quick car's defaults. Unknown fields are kept.
+QJsonObject rollingStockToJson(const core::RollingStock& r);
+std::optional<core::RollingStock> rollingStockFromJson(const QJsonValue& v);
+QJsonObject trainToJson(const core::Train& t);
+std::optional<core::Train> trainFromJson(const QJsonValue& v);
 void sidecarFromJson(const QJsonObject& root, core::Sidecar& out);
 
 // One saved view as JSON and back (references/LAYOUT-FILE.md "Saved

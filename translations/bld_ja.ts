@@ -499,14 +499,6 @@
         <translation>スナップ</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>パーツが近くのグリッド線に吸い付くので、列がまっすぐ並びます。</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>数字はグリッド線の間隔（スタッド単位）です。定規、ラベル、テキスト、会場の角もここに合います。Alt（Mac では ⌥）を押したままにすると、離した場所にそのまま置けます。「オフ」を選ぶとすべてを落とした場所に置きます。線路の端は変わらずつながります。</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>回転ステップ</translation>
     </message>
@@ -577,6 +569,78 @@
     <message>
         <source>Select moves pieces, Turn turns the one you click, and Delete removes it. Paint colors the ground and Erase clears it. Measure and Circle add a ruler you can keep on the map, and Venue and Obstacle draw the venue’s walls and things to keep clear of.</source>
         <translation>「選択」はパーツを動かし、「回転」はクリックしたパーツを回し、「削除」は取り除きます。「ペイント」は地面に色を付け、「消しゴム」は消します。「計測」と「円」はマップに残せる定規を追加し、「会場」と「障害物」は会場の壁と、避けるべきものを描きます。</translation>
+    </message>
+    <message>
+        <source>Run trains</source>
+        <translation>列車を走らせる</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>レイアウトで遊ぶ：パーツを動かさずに、ポイントをクリックして切り替えます。</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>運転モードでは、各ポイントに開通している方向を示す矢印が出ます。近くをクリックすると切り替わります。パーツは選択も移動もできないので、うっかり変わることはありません。切り替えは全員と共有され、元に戻せます。停止を押すと組み立てに戻ります。</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>ポイント</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>ポイントは列車をどちらか一方へ進ませます。矢印がその向きを示します。</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>ポイントを右クリックして切り替えるか、運転モードにしてクリックします。緑の矢印はふだんの向き、オレンジの矢印はもう一方に切り替わっていることを示します。組み立て中に見るには 表示 › ポイント をオンにします。</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>ルート</translation>
+    </message>
+    <message>
+        <source>Named ways along the track, from one place to another.</source>
+        <translation>線路に沿った、場所から場所への名前付きの道筋です。</translation>
+    </message>
+    <message>
+        <source>Each route shows its length and whether the track still fits it. The eye shows or hides a route on your map only; everyone else keeps their own view. Routes are saved with the layout and shared with everyone editing it.</source>
+        <translation>各ルートは長さと、線路がまだ合っているかを表示します。目のボタンはあなたの地図でだけルートを表示・非表示にし、ほかの人は自分の表示のままです。ルートはレイアウトと一緒に保存され、編集しているみんなと共有されます。</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>新しいルート</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track, then where it ends.</source>
+        <translation>線路上のルートの始まりをクリックし、次に終わりをクリックします。</translation>
+    </message>
+    <message>
+        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
+        <translation>線路に沿った最短の道筋を、どちら向きのポイントも通って見つけます。Shift キーを押しながらクリックすると途中の停車点が加わり、別の線を選べます。名前を付けて「ルートを保存」を押します。Esc か「キャンセル」でやめます。</translation>
+    </message>
+    <message>
+        <source>Broken route</source>
+        <translation>切れたルート</translation>
+    </message>
+    <message>
+        <source>A part this route runs over was moved or removed.</source>
+        <translation>このルートが通るパーツが動かされたか、取り除かれました。</translation>
+    </message>
+    <message>
+        <source>The route keeps its name, color, start and end, and is drawn dashed red as far as it still goes. Find a new way searches again from its start through its stops to its end.</source>
+        <translation>ルートは名前、色、始まりと終わりを保ち、まだ届くところまで赤い破線で描かれます。「新しい道筋を探す」で始まりから停車点を通って終わりまでもう一度探します。</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>ポイントを切り替える</translation>
+    </message>
+    <message>
+        <source>Sets every switch on the route so a train follows it.</source>
+        <translation>列車がルートをたどるよう、ルート上のポイントをすべて切り替えます。</translation>
+    </message>
+    <message>
+        <source>Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once.</source>
+        <translation>逆向きのポイントは地図にオレンジの輪で表示され、ルートにその数が出ます。切り替えは元に戻せる 1 つの変更で、みんなにすぐ反映されます。</translation>
     </message>
     <message>
         <source>Current sheet</source>
@@ -681,6 +745,30 @@
     <message>
         <source>With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits.</source>
         <translation>「同じ色」をオンにすると、枠線と名前がいっしょに変わります。「既定に戻す」で水色に戻ります。長い名前は折り返され、小さくなり、それでも収まらないときだけ切り詰められます。</translation>
+    </message>
+    <message>
+        <source>Table and power</source>
+        <translation>テーブルと電源</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>このモジュールが何の上に置かれ、高さはいくつで、どれだけ電源が要るかです。テーブルを計画する人のための情報です。</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>MILS、ふつうの基礎板（ふつうのテーブルに置いた基礎板）、カスタムから選び、測った高さ（天板まで、またはレールの上面まで）を入力します。電源は使うコンセントの数、おおよそのワット数、プラグが出る側を入れます。モジュールをモジュールライブラリに保存すると、これも一緒に保存されます。</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>テーブルと電源</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>このレイアウトのモジュール全体で必要なもの：コンセントとワット数、種類ごとのテーブルの高さです。</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>各モジュールの ⋯ メニュー › テーブルと電源… から設定します。何も設定していないモジュールは未設定として数えるので、まだ知らせてくれていない人がわかります。</translation>
     </message>
     <message>
         <source>Edit module</source>
@@ -877,30 +965,6 @@
     <message>
         <source>Type a number next to a part to set its limit. The budget is saved with the layout and shared with everyone who edits it. A BlueBrick budget file (.bbb) can be imported or exported too.</source>
         <translation>パーツの横に数を入力すると上限になります。予算はレイアウトと一緒に保存され、編集する全員と共有されます。BlueBrick の予算ファイル (.bbb) の読み込みと書き出しもできます。</translation>
-    </message>
-    <message>
-        <source>Table and power</source>
-        <translation>台と電源</translation>
-    </message>
-    <message>
-        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
-        <translation>このモジュールが何の上に載るか、高さ、必要な電源。台を計画する人のための情報です。</translation>
-    </message>
-    <message>
-        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
-        <translation>MILS、ふつうの基礎板（ふつうのテーブルに置いた基礎板）、カスタムから選び、測った高さを入力します。台の天板まで、またはレールの上面までの高さです。電源は、使うコンセントの数、おおよそのワット数、プラグが出る側を入力します。モジュールをモジュールライブラリに保存すると、これも一緒に保存されます。</translation>
-    </message>
-    <message>
-        <source>Tables and power</source>
-        <translation>台と電源</translation>
-    </message>
-    <message>
-        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
-        <translation>このレイアウトのモジュール全体で必要なもの：コンセントとワット数、種類ごとの台の高さ。</translation>
-    </message>
-    <message>
-        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
-        <translation>各モジュールの台と電源は、その ⋯ メニュー › 台と電源… で設定します。何も設定していないモジュールは「未設定」として数えるので、まだ返事が必要な人がわかります。</translation>
     </message>
     <message>
         <source>Shared modules</source>
@@ -1199,6 +1263,10 @@
         <translation>「弱い」は端が近いときだけ引き寄せ、離れると放します。「強い」はより遠くから届きます。「オフ」は引き寄せませんが、グリッドにはそろいます。Alt（Mac では Option）を押しながらドラッグすると、1 個だけスナップせずに置けます。</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>会場の壁の長さや、列車機能での線路と列車の長さなど、アプリが長さを表示する単位です。独自の単位で描いた会場はその単位のままで、単位のない会場はこの設定に従います。1スタッドは8 mmです。</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>作図ツール</translation>
     </message>
@@ -1213,6 +1281,42 @@
     <message>
         <source>Units</source>
         <translation>単位</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>置いたり動かしたりしたものは一番近いポッチに乗るので、パーツがきれいに並びます。</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>スナップ点の間隔を、1ポッチごとから32ポッチごとまで選び、スナップの仕方も選べます：グリッドに合わせるか、元の位置から決まった歩幅で動かすかです。パーツ、モジュール、貼り付けたもの、定規、ラベル、テキストはすべてこれに従い、矢印キーは1歩ずつ動かし、線路の端は出会うと今までどおりつながります。離した場所にそのまま置きたいときはスナップをオフにするか、Alt（Macでは⌥）を押しながら定規、ラベル、テキストを自由に置いてください。</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>スナップの仕方</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>一番近いポッチに乗せるか、元の位置から決まった歩幅で動かします。</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>グリッドに合わせると、すべてが同じポッチの上にそろい、ほとんどのレイアウトに向いています。歩幅で動かすと、ポッチの間にあるパーツは動かしてもずれたまま、1歩ずつ動きます。どちらもスナップの横で選んだ歩幅を使います。</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>ポッチのグリッド</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>1ポッチ間隔の薄い線で、どこに置かれるかが分かります。</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>ポッチが見えるくらい拡大するとグリッドと一緒に表示され、縮小すると薄れて消えます。気になるときは、ここかツールバーのスナップボタンからオフにできます。</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>長さをフィートとインチ、メートル法、スタッドのどれで表示するかを選びます。</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -1541,6 +1645,102 @@
     <message>
         <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
         <translation>グループを開くと種類ごとに見られます。メールはすぐ、毎日か毎週のまとめ、または送らないを選べます。おやすみ時間中のメールは終わるまで待ちます。にぎやかなクラブをミュートしたり、すべてのメールを一時停止したりもできます。</translation>
+    </message>
+    <message>
+        <source>Trains</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>The layout&apos;s engines and cars, and the trains made of them.</source>
+        <translation>レイアウトの機関車と車両、それで組んだ列車。</translation>
+    </message>
+    <message>
+        <source>Make a car in a few seconds, put cars together into a train, and put the train on the track to see how it sits on curves. Trains and cars are saved with the layout and shared with everyone editing it.</source>
+        <translation>数秒で車両を作り、車両をつないで列車にし、線路に置いてカーブでの収まり方を確かめましょう。列車と車両はレイアウトと一緒に保存され、編集している全員と共有されます。</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>新しい車両</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a length; everything else can wait.</source>
+        <translation>簡単な車両に必要なのは長さだけ。ほかは後でかまいません。</translation>
+    </message>
+    <message>
+        <source>Give it a number or name so you can find it. More shows the width, where the trucks sit, the couplers, and whether it uses a part&apos;s picture. Lengths are in studs, as you count them on the model.</source>
+        <translation>見つけやすいように番号か名前を付けましょう。「詳細」では幅、台車の位置、連結器、部品の画像を使うかどうかを設定できます。長さはモデルで数えるのと同じスタッド単位です。</translation>
+    </message>
+    <message>
+        <source>Trucks</source>
+        <translation>台車</translation>
+    </message>
+    <message>
+        <source>The wheel sets a car rides on, measured in studs from the middle of the car.</source>
+        <translation>車両が乗っている車輪のセット。車両の中心からのスタッド数で測ります。</translation>
+    </message>
+    <message>
+        <source>The front truck follows the track and the rear one follows it a fixed distance behind, so on a curve the car&apos;s middle swings in and its ends swing out, as a real one does. A quick car puts them a quarter of the way in from each end.</source>
+        <translation>前の台車が線路に沿い、後ろの台車は一定の距離で続きます。そのためカーブでは実物と同じく車両の中央が内側に、両端が外側に振れます。簡単な車両では、両端から4分の1の位置に置かれます。</translation>
+    </message>
+    <message>
+        <source>Roster</source>
+        <translation>車両リスト</translation>
+    </message>
+    <message>
+        <source>Your own engines and cars, or a club&apos;s, ready to bring into any layout.</source>
+        <translation>自分の、またはクラブの機関車と車両。どのレイアウトにも持ち込めます。</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s, then add it to other layouts from there. A layout keeps its own copy, so it still opens anywhere; when the roster&apos;s car changes, Update brings the layout&apos;s copy up to date. Club rosters are changed by members who may edit the club&apos;s modules.</source>
+        <translation>車両を自分またはクラブの車両リストに保存し、そこからほかのレイアウトに追加します。レイアウトは自分のコピーを持つので、どこでも開けます。リストの車両が変わったら「更新」でレイアウトのコピーを最新にします。クラブの車両リストは、クラブのモジュールを編集できるメンバーが変更します。</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>新しい列車</translation>
+    </message>
+    <message>
+        <source>Cars in order, front to back, that move as one.</source>
+        <translation>前から後ろへ順に並んだ車両。まとめて動きます。</translation>
+    </message>
+    <message>
+        <source>Add cars from this layout&apos;s rolling stock, put them in order, and turn any of them around. A train&apos;s length is from its front coupler to its rear one.</source>
+        <translation>このレイアウトの車両から車両を追加し、順番に並べ、好きな車両を向き変えできます。列車の長さは先頭の連結器から最後の連結器までです。</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>線路に置く</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of the train should be.</source>
+        <translation>列車の先頭を置きたい線路の位置をクリックします。</translation>
+    </message>
+    <message>
+        <source>The train runs back from there, following the switches as they are set. Click again elsewhere to move it. A train that runs off the end of the track is outlined in red.</source>
+        <translation>列車はそこから後ろへ、ポイントの向きに従って並びます。別の場所をクリックすると移動します。線路の端からはみ出す列車は赤枠で示されます。</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>向きを変える</translation>
+    </message>
+    <message>
+        <source>The train&apos;s last car becomes its front, and it faces the other way.</source>
+        <translation>最後の車両が先頭になり、列車は反対を向きます。</translation>
+    </message>
+    <message>
+        <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
+        <translation>車両は線路上の位置のままで、順番と列車の向きだけが変わります。向きを変えるたびに、元に戻せる変更が1つ記録されます。</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>チェック</translation>
+    </message>
+    <message>
+        <source>What doesn&apos;t fit: a train too long for its track, a curve too tight, cars too close to another track.</source>
+        <translation>合わないもの: 線路に対して長すぎる列車、きつすぎるカーブ、ほかの線路に近すぎる車両。</translation>
+    </message>
+    <message>
+        <source>The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends.</source>
+        <translation>チェックは線路、列車、ポイントが変わるたびに計算し直され、何も止められません。「表示する」でその場所を画面に出します。「表示 › 線路の長さ」は、ポイントと端の間で列車が止まれる長さを各区間に表示します。</translation>
     </message>
 </context>
 <context>
@@ -2570,6 +2770,21 @@
     </message>
 </context>
 <context>
+    <name>Routes</name>
+    <message>
+        <source>There’s no track joining these two places.</source>
+        <translation>この 2 か所をつなぐ線路がありません。</translation>
+    </message>
+    <message>
+        <source>The only way needs the train to turn around.</source>
+        <translation>方向転換しないと行けない道筋しかありません。</translation>
+    </message>
+    <message>
+        <source>Pick an end somewhere else along the track.</source>
+        <translation>線路上の別の場所を端に選んでください。</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3355,7 +3570,7 @@
     </message>
     <message>
         <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
-        <translation>モジュールは、ひとかたまりで動くパーツの集まりです。クラブのメンバーが持ってくる台のようなものです。このレイアウトのモジュールはここに表示されます。</translation>
+        <translation>モジュールは、クラブのメンバーが持ってくるテーブルのように、ひとまとまりで動くパーツです。このレイアウトのモジュールがここに並びます。</translation>
     </message>
     <message>
         <source>Make a module</source>
@@ -3363,7 +3578,7 @@
     </message>
     <message>
         <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
-        <translation>パーツをいくつか選んで、モジュールを作るを選びます。モジュールライブラリに保存すると、ほかのレイアウトでも使えます。</translation>
+        <translation>パーツを選んでから「モジュールを作る」を押します。モジュールライブラリに保存すると、ほかのレイアウトでも使えます。</translation>
     </message>
     <message>
         <source>Each module&apos;s menu</source>
@@ -3371,15 +3586,51 @@
     </message>
     <message>
         <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
-        <translation>⋯ メニューでモジュールを編集し、色を付け、保存します。台と電源では、何の上に載るかと必要な電源を設定します。</translation>
+        <translation>⋯ メニューでモジュールの編集、色付け、保存ができます。「テーブルと電源」で置き場所と必要な電源を記録します。</translation>
     </message>
     <message>
         <source>Tables and power</source>
-        <translation>台と電源</translation>
+        <translation>テーブルと電源</translation>
     </message>
     <message>
         <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
-        <translation>ここでレイアウトのモジュールのコンセント、ワット数、台の高さを合計します。展示を計画する人のための情報です。</translation>
+        <translation>レイアウトがモジュールのコンセント、ワット数、テーブルの高さをここで合計します。展示を計画する人のための情報です。</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>ルート</translation>
+    </message>
+    <message>
+        <source>Your routes</source>
+        <translation>あなたのルート</translation>
+    </message>
+    <message>
+        <source>Routes are named ways along the track. Open this list from Panels; the eye hides one on your map only.</source>
+        <translation>ルートは線路に沿った名前付きの道筋です。「パネル」からこの一覧を開きます。目のボタンはあなたの地図でだけ隠します。</translation>
+    </message>
+    <message>
+        <source>Draw a route</source>
+        <translation>ルートを描く</translation>
+    </message>
+    <message>
+        <source>Press New route, then click on the track where it starts and where it ends. The shortest way is found for you.</source>
+        <translation>「新しいルート」を押し、線路上の始まりと終わりをクリックします。最短の道筋が見つかります。</translation>
+    </message>
+    <message>
+        <source>Stops on the way</source>
+        <translation>途中の停車点</translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop, to send the route along another line. Name it and press Save route.</source>
+        <translation>Shift キーを押しながらクリックすると停車点が加わり、別の線を通せます。名前を付けて「ルートを保存」を押します。</translation>
+    </message>
+    <message>
+        <source>Switches follow the route</source>
+        <translation>ポイントはルートに従う</translation>
+    </message>
+    <message>
+        <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
+        <translation>「ポイントを切り替える」でルート上のポイントをすべてその向きにします。運転モードでは手で切り替えられます。</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -3452,6 +3703,58 @@
     <message>
         <source>Put it in the layout you have open, or start a new layout with it.</source>
         <translation>開いているレイアウトに置くか、それで新しいレイアウトを始めます。</translation>
+    </message>
+    <message>
+        <source>Trains</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>Trains and cars</source>
+        <translation>列車と車両</translation>
+    </message>
+    <message>
+        <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
+        <translation>「パネル」から「列車」を開きます。「車両」にはこのレイアウトの機関車と車両、「列車」にはそれで組んだ列車があります。</translation>
+    </message>
+    <message>
+        <source>A quick car</source>
+        <translation>簡単な車両</translation>
+    </message>
+    <message>
+        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
+        <translation>「新しい車両」に必要なのは番号とスタッド単位の長さだけ。「詳細」で台車、連結器、部品の画像を設定します。</translation>
+    </message>
+    <message>
+        <source>Make a train</source>
+        <translation>列車を組む</translation>
+    </message>
+    <message>
+        <source>Tick a few cars and press Make a train, or press New train and add them in order, front first.</source>
+        <translation>車両にいくつかチェックを入れて「列車を組む」を押すか、「新しい列車」を押して先頭から順に追加します。</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>線路上</translation>
+    </message>
+    <message>
+        <source>Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track.</source>
+        <translation>「線路に置く」を押してから、先頭を置く場所をクリックします。各車両は実物の線路と同じく台車の間に収まります。</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>自分の車両リスト</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
+        <translation>車両を自分またはクラブの車両リストに保存すると、ほかのレイアウトで使えます。「更新」でレイアウトのコピーを最新にします。</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>チェック</translation>
+    </message>
+    <message>
+        <source>Checks lists what doesn&apos;t fit: a train too long for its track, a curve too tight. Show me finds the spot.</source>
+        <translation>チェックは合わないものを示します。長すぎる列車やきつすぎるカーブ。「表示する」で場所が分かります。</translation>
     </message>
 </context>
 <context>
@@ -4523,12 +4826,28 @@
         <translation>%1 の予算の上限</translation>
     </message>
     <message>
+        <source>A switch&apos;s setting</source>
+        <translation>ポイントの開通方向</translation>
+    </message>
+    <message>
+        <source>Route &quot;%1&quot;</source>
+        <translation>ルート「%1」</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>会場</translation>
     </message>
     <message>
         <source>Background image</source>
         <translation>背景画像</translation>
+    </message>
+    <message>
+        <source>Car &quot;%1&quot;</source>
+        <translation>車両「%1」</translation>
+    </message>
+    <message>
+        <source>Train &quot;%1&quot;</source>
+        <translation>列車「%1」</translation>
     </message>
 </context>
 <context>
@@ -5235,6 +5554,93 @@
     <message>
         <source>Close</source>
         <translation>閉じる</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FitChecksList</name>
+    <message>
+        <source>A train</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>A car</source>
+        <translation>車両</translation>
+    </message>
+    <message>
+        <source>A route</source>
+        <translation>ルート</translation>
+    </message>
+    <message>
+        <source>%1 (%2) is longer than the track it stands in (%3 between its switches and ends).</source>
+        <translation>%1（%2）は止まっている線路より長いです（ポイントと端の間は%3）。</translation>
+    </message>
+    <message>
+        <source>%1 in %2: the curve is too tight for its trucks (they turn %3; at most %4).</source>
+        <translation>%2の%1: カーブが台車にはきつすぎます（%3回転、最大%4）。</translation>
+    </message>
+    <message>
+        <source>%1 in %2 can&apos;t reach the car ahead: its couplers are %3 apart on this curve.</source>
+        <translation>%2の%1は前の車両に届きません。このカーブでは連結器が%3離れています。</translation>
+    </message>
+    <message>
+        <source>%1 in %2: its coupler turns %3 on this curve (at most %4).</source>
+        <translation>%2の%1: このカーブで連結器が%3回転します（最大%4）。</translation>
+    </message>
+    <message>
+        <source>%1 in %2 has no coupler to the car ahead.</source>
+        <translation>%2の%1には前の車両への連結器がありません。</translation>
+    </message>
+    <message>
+        <source>%1 in %2 is too close to the other track here.</source>
+        <translation>%2の%1はここでほかの線路に近すぎます。</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>別の列車</translation>
+    </message>
+    <message>
+        <source>%1 and %2 are on top of each other.</source>
+        <translation>%1と%2が重なっています。</translation>
+    </message>
+    <message>
+        <source>%1 in %2 doesn&apos;t run on this kind of track (it runs on %3).</source>
+        <translation>%2の%1はこの種類の線路を走れません（%3用です）。</translation>
+    </message>
+    <message>
+        <source>monorail</source>
+        <translation>モノレール</translation>
+    </message>
+    <message>
+        <source>train track</source>
+        <translation>鉄道線路</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track.</source>
+        <translation>%1が線路の端からはみ出しています。</translation>
+    </message>
+    <message>
+        <source>%1&apos;s track was moved or removed: put it on the track again.</source>
+        <translation>%1の線路が移動または削除されました。もう一度線路に置いてください。</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around (a reversing loop or wye).</source>
+        <translation>%1は列車の向きを変えます（リバースループかデルタ線）。</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
+        <translation>%1は給電された線路で列車の向きを変えます。そこに極性切替スイッチが必要です。</translation>
+    </message>
+    <message>
+        <source>Problem</source>
+        <translation>問題</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>表示する</translation>
     </message>
 </context>
 <context>
@@ -6697,20 +7103,52 @@ Save mine as a new version: yours becomes the module; theirs stays in its versio
         <translation>サーバーから開く: 自分とクラブのレイアウト、会場、モジュール、パーツ</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>パーツをグリッドにそろえます（クリックでオン・オフ、矢印で間隔を選択）</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 スタッド</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>スナップ %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>スナップ オフ</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>歩幅 %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>すべてをポッチのグリッドにそろえます（クリックでオン・オフ、矢印で間隔のポッチ数を選びます）</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>1ポッチごと</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>%1ポッチごと</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>グリッドに合わせる</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>歩幅で動かす</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>一番近いポッチ（または数ポッチごと）に乗るので、すべてがそろいます</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>元の位置から歩幅の整数倍だけ動き、ずれはそのまま保たれます</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>ポッチのグリッドを表示</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>1ポッチ間隔の薄い線。十分に拡大すると表示されます</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -7759,6 +8197,18 @@ Save anyway?</source>
     <message>
         <source>&amp;Ruler Attach Points</source>
         <translation>定規の取り付けポイント(&amp;R)</translation>
+    </message>
+    <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>列車を走らせる(&amp;A)</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>列車を走らせる：ポイントをクリックして切り替えます。パーツは動かせません。</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>ポイント(&amp;T)</translation>
     </message>
     <message>
         <source>M&amp;odules</source>
@@ -9303,6 +9753,14 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>各セットがどのバージョンのものか</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>ポイントの開通方向</translation>
+    </message>
+    <message>
+        <source>routes</source>
+        <translation>ルート</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9435,6 +9893,18 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     <message>
         <source>All notifications</source>
         <translation>すべての通知</translation>
+    </message>
+    <message>
+        <source>trains</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>rolling stock</source>
+        <translation>車両</translation>
+    </message>
+    <message>
+        <source>Sidin&amp;g Lengths</source>
+        <translation>線路の長さ(&amp;G)</translation>
     </message>
 </context>
 <context>
@@ -9629,6 +10099,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>パーツを追加するには、列車の運転を止めてください。</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -9994,6 +10468,118 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
             <numerusform>貼り付け（シート %n 枚にパーツ %1 個）</numerusform>
         </translation>
     </message>
+    <message>
+        <source>Straight</source>
+        <translation>直進</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;運転モード：&lt;/b&gt;ポイントをクリックして切り替えます。パーツは動かせません。</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ 列車を走らせる</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>列車を走らせる：ポイントをクリックして切り替えます。パーツは動かせません。</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>ポイントを切り替える</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>ポイントをクリックして切り替えます。</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>ポイントを切り替えました：%1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>ポイントの向き</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>端 %1 から：%2</translation>
+    </message>
+    <message>
+        <source>Route name</source>
+        <translation>ルート名</translation>
+    </message>
+    <message>
+        <source>Save route</source>
+        <translation>ルートを保存</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>キャンセル</translation>
+    </message>
+    <message>
+        <source>Route %1</source>
+        <translation>ルート %1</translation>
+    </message>
+    <message>
+        <source>Click on the track.</source>
+        <translation>線路の上をクリックしてください。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
+        <translation>&lt;b&gt;新しいルート：&lt;/b&gt;線路上の始まりをクリックします。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;新しいルート：&lt;/b&gt;終わりをクリックします（Shift キーを押しながらクリックすると停車点が加わります）。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
+        <translation>&lt;b&gt;新しいルート：&lt;/b&gt;線路に沿って %1%2。Shift キーを押しながらクリックすると停車点が加わります。</translation>
+    </message>
+    <message>
+        <source>, and it turns the train around</source>
+        <translation>、列車は途中で向きを変えます</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>新しいルート</translation>
+    </message>
+    <message>
+        <source>Route “%1” saved.</source>
+        <translation>ルート「%1」を保存しました。</translation>
+    </message>
+    <message>
+        <source>the train</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
+        <translation>&lt;b&gt;%1&lt;/b&gt;の先頭を置く線路の位置をクリックします。</translation>
+    </message>
+    <message>
+        <source>The train</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>Put %1 on the track</source>
+        <translation>%1を線路に置く</translation>
+    </message>
+    <message>
+        <source>%1 is on the track.</source>
+        <translation>%1を線路に置きました。</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track here.</source>
+        <translation>ここでは%1が線路の端からはみ出します。</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleEditBar</name>
@@ -10170,7 +10756,7 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     <name>bld::ui::ModuleSetupDialog</name>
     <message>
         <source>Table and power</source>
-        <translation>台と電源</translation>
+        <translation>テーブルと電源</translation>
     </message>
     <message>
         <source>Table and power · %1</source>
@@ -10542,7 +11128,7 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     </message>
     <message>
         <source>Tables and power</source>
-        <translation>台と電源</translation>
+        <translation>テーブルと電源</translation>
     </message>
     <message>
         <source>Select Its Parts</source>
@@ -11622,6 +12208,162 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
 </context>
 <context>
+    <name>bld::ui::RosterDialog</name>
+    <message>
+        <source>From a roster</source>
+        <translation>車両リストから</translation>
+    </message>
+    <message>
+        <source>Your engines and cars, and your clubs’. Add one to this layout; it keeps its own copy.</source>
+        <translation>自分とクラブの機関車と車両。このレイアウトに追加すると、レイアウトは自分のコピーを持ちます。</translation>
+    </message>
+    <message>
+        <source>Your roster is empty. Save a car from a layout to your roster, or a club’s, to use it in other layouts.</source>
+        <translation>車両リストは空です。レイアウトの車両を自分またはクラブの車両リストに保存すると、ほかのレイアウトで使えます。</translation>
+    </message>
+    <message>
+        <source>Unnamed</source>
+        <translation>名前なし</translation>
+    </message>
+    <message>
+        <source>Yours</source>
+        <translation>自分のもの</translation>
+    </message>
+    <message>
+        <source>In this layout</source>
+        <translation>このレイアウト内</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation>更新</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>追加</translation>
+    </message>
+    <message>
+        <source>Take off the roster</source>
+        <translation>車両リストから外す</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RoutesPanel</name>
+    <message>
+        <source>Routes</source>
+        <translation>ルート</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>新しいルート</translation>
+    </message>
+    <message>
+        <source>Delete route</source>
+        <translation>ルートを削除</translation>
+    </message>
+    <message>
+        <source>Delete the route “%1”?</source>
+        <translation>ルート「%1」を削除しますか？</translation>
+    </message>
+    <message>
+        <source>Rename route</source>
+        <translation>ルートの名前を変更</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>名前：</translation>
+    </message>
+    <message>
+        <source>Switches set for “%1”.</source>
+        <translation>「%1」のポイントを切り替えました。</translation>
+    </message>
+    <message>
+        <source>Set switches for a route</source>
+        <translation>ルートのポイントを切り替え</translation>
+    </message>
+    <message>
+        <source>Draw the route again from its new start or end.</source>
+        <translation>新しい始まりか終わりから、ルートを描き直してください。</translation>
+    </message>
+    <message>
+        <source>Found a new way for “%1”.</source>
+        <translation>「%1」の新しい道筋が見つかりました。</translation>
+    </message>
+    <message>
+        <source>Find a new way</source>
+        <translation>新しい道筋を探す</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then draw a route along it.</source>
+        <translation>このレイアウトにはまだ線路がありません。パーツパネルの線路グループから追加し、それに沿ってルートを描いてください。</translation>
+    </message>
+    <message>
+        <source>No routes yet. Press New route, then click two places on the track: where it starts and where it ends.</source>
+        <translation>まだルートがありません。「新しいルート」を押し、線路上の 2 か所（始まりと終わり）をクリックしてください。</translation>
+    </message>
+    <message>
+        <source>Untitled route</source>
+        <translation>名前のないルート</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation>表示中</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation>非表示</translation>
+    </message>
+    <message>
+        <source>Shown on your map (only yours)</source>
+        <translation>あなたの地図に表示中（あなたの地図だけ）</translation>
+    </message>
+    <message>
+        <source>Hidden on your map (only yours)</source>
+        <translation>あなたの地図で非表示（あなたの地図だけ）</translation>
+    </message>
+    <message>
+        <source>Hide %1 on your map</source>
+        <translation>%1 をあなたの地図で隠す</translation>
+    </message>
+    <message>
+        <source>Show %1 on your map</source>
+        <translation>%1 をあなたの地図に表示</translation>
+    </message>
+    <message>
+        <source>Broken: the track under it changed.</source>
+        <translation>切れています：下の線路が変わりました。</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) set the other way</source>
+        <translation>
+            <numerusform>逆向きのポイント %n 個</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Turns the train around</source>
+        <translation>列車が向きを変えます</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>ポイントを切り替える</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>名前を変更</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>削除</translation>
+    </message>
+    <message>
+        <source>Route checks</source>
+        <translation>ルートのチェック</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::SaveModuleDialog</name>
     <message>
         <source>Put everything on one sheet</source>
@@ -12054,12 +12796,12 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>「%1」に名前を変更しました</translation>
     </message>
     <message>
-        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
-        <translation>モジュールライブラリに保存しました。レイアウトにこのモジュールを追加するとき、またはライブラリから更新するときに反映されます。</translation>
-    </message>
-    <message>
         <source>Not saved: %1</source>
         <translation>保存されていません：%1</translation>
+    </message>
+    <message>
+        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
+        <translation>モジュールライブラリに保存しました。レイアウトにこのモジュールを追加するとき、またはライブラリから更新するときに反映されます。</translation>
     </message>
     <message>
         <source>Gave &quot;%1&quot; back to %2</source>
@@ -12734,6 +13476,26 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>文字とボタンを大きく</translation>
     </message>
     <message>
+        <source>Units</source>
+        <translation>単位</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>会場の壁など、長さの表示方法です。</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>フィートとインチ（例：12′ 6½″）</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>メートル法（例：3.81 m）</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>スタッド：LEGOのスタッド、1つ8 mm</translation>
+    </message>
+    <message>
         <source>Editing</source>
         <translation>編集</translation>
     </message>
@@ -12894,6 +13656,22 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Grid snap:</source>
         <translation>グリッドスナップ:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>グリッドに合わせる</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>歩幅で動かす</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>スナップの仕方:</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>拡大したときにポッチのグリッドを表示</translation>
     </message>
     <message>
         <source>Turn step:</source>
@@ -13518,6 +14296,181 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
 </context>
 <context>
+    <name>bld::ui::StockDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> スタッド</translation>
+    </message>
+    <message>
+        <source>Engine</source>
+        <translation>機関車</translation>
+    </message>
+    <message>
+        <source>Cab car</source>
+        <translation>制御車</translation>
+    </message>
+    <message>
+        <source>Powered car (multiple unit)</source>
+        <translation>電動車（編成）</translation>
+    </message>
+    <message>
+        <source>Monorail car</source>
+        <translation>モノレール車両</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>車両</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>新しい車両</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>車両を変更</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a number and a length. More details can wait.</source>
+        <translation>簡単な車両に必要なのは番号と長さだけ。詳細は後でかまいません。</translation>
+    </message>
+    <message>
+        <source>Number:</source>
+        <translation>番号:</translation>
+    </message>
+    <message>
+        <source>Boxcar</source>
+        <translation>有蓋車</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>名前:</translation>
+    </message>
+    <message>
+        <source>Kind:</source>
+        <translation>種類:</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>色</translation>
+    </message>
+    <message>
+        <source>Car color</source>
+        <translation>車両の色</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>色:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler</source>
+        <translation>連結器から連結器まで</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>長さ:</translation>
+    </message>
+    <message>
+        <source>More details</source>
+        <translation>詳細</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>幅:</translation>
+    </message>
+    <message>
+        <source>Body length:</source>
+        <translation>車体の長さ:</translation>
+    </message>
+    <message>
+        <source>Front truck, ahead of the middle:</source>
+        <translation>前の台車（中心より前）:</translation>
+    </message>
+    <message>
+        <source>Rear truck, behind the middle:</source>
+        <translation>後ろの台車（中心より後ろ）:</translation>
+    </message>
+    <message>
+        <source>Magnet</source>
+        <translation>マグネット</translation>
+    </message>
+    <message>
+        <source>Fixed bar</source>
+        <translation>固定バー</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>なし</translation>
+    </message>
+    <message>
+        <source>Front coupler:</source>
+        <translation>前の連結器:</translation>
+    </message>
+    <message>
+        <source>Rear coupler:</source>
+        <translation>後ろの連結器:</translation>
+    </message>
+    <message>
+        <source>Has a motor</source>
+        <translation>モーター付き</translation>
+    </message>
+    <message>
+        <source>Train track</source>
+        <translation>鉄道線路</translation>
+    </message>
+    <message>
+        <source>Monorail</source>
+        <translation>モノレール</translation>
+    </message>
+    <message>
+        <source>Runs on:</source>
+        <translation>走る線路:</translation>
+    </message>
+    <message>
+        <source>A box in its color</source>
+        <translation>その色の箱</translation>
+    </message>
+    <message>
+        <source>A part’s picture</source>
+        <translation>部品の画像</translation>
+    </message>
+    <message>
+        <source>Seen from above as:</source>
+        <translation>上から見た姿:</translation>
+    </message>
+    <message>
+        <source>Search train parts</source>
+        <translation>列車の部品を検索</translation>
+    </message>
+    <message>
+        <source>Picking a part sets the length from its couplers.</source>
+        <translation>部品を選ぶと、その連結器から長さが決まります。</translation>
+    </message>
+    <message>
+        <source>Notes:</source>
+        <translation>メモ:</translation>
+    </message>
+    <message>
+        <source>The front truck must be ahead of the rear one, and both within the car’s length.</source>
+        <translation>前の台車は後ろの台車より前にあり、どちらも車両の長さの内側に収まる必要があります。</translation>
+    </message>
+    <message>
+        <source>Add car</source>
+        <translation>車両を追加</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>保存</translation>
+    </message>
+    <message>
+        <source>Fewer details</source>
+        <translation>詳細を閉じる</translation>
+    </message>
+    <message>
+        <source>No train parts match. Parts with a coupler at each end show here.</source>
+        <translation>一致する列車の部品はありません。両端に連結器がある部品がここに表示されます。</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::TouchActionBar</name>
     <message>
         <source>Turn left</source>
@@ -13562,6 +14515,336 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Tap the map to place %1</source>
         <translation>マップをタップして %1 を置きます</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainDialog</name>
+    <message>
+        <source>New train</source>
+        <translation>新しい列車</translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>列車を変更</translation>
+    </message>
+    <message>
+        <source>Cars in order, front first. A train moves as one.</source>
+        <translation>先頭から順に並んだ車両。列車はまとめて動きます。</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>名前:</translation>
+    </message>
+    <message>
+        <source>Cars in the train, front first</source>
+        <translation>列車の車両（先頭から）</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation>前へ</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>戻る</translation>
+    </message>
+    <message>
+        <source>Turn car around</source>
+        <translation>車両の向きを変える</translation>
+    </message>
+    <message>
+        <source>Take out</source>
+        <translation>外す</translation>
+    </message>
+    <message>
+        <source>Car to add</source>
+        <translation>追加する車両</translation>
+    </message>
+    <message>
+        <source>Add to the end</source>
+        <translation>最後に追加</translation>
+    </message>
+    <message>
+        <source>This layout has no cars yet. Make one in Rolling stock first.</source>
+        <translation>このレイアウトにはまだ車両がありません。先に「車両」で作りましょう。</translation>
+    </message>
+    <message>
+        <source>Save train</source>
+        <translation>列車を保存</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>削除された車両</translation>
+    </message>
+    <message>
+        <source>turned around</source>
+        <translation>向き反転</translation>
+    </message>
+    <message>
+        <source>Length %1</source>
+        <translation>長さ %1</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>列車</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainsPanel</name>
+    <message>
+        <source>Trains</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>新しい列車</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>新しい車両</translation>
+    </message>
+    <message>
+        <source>From a roster…</source>
+        <translation>車両リストから…</translation>
+    </message>
+    <message>
+        <source>Rolling stock</source>
+        <translation>車両</translation>
+    </message>
+    <message>
+        <source>Added %1.</source>
+        <translation>%1を追加しました。</translation>
+    </message>
+    <message>
+        <source>Saved %1.</source>
+        <translation>%1を保存しました。</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>車両を変更</translation>
+    </message>
+    <message>
+        <source>Delete %1?</source>
+        <translation>%1を削除しますか?</translation>
+    </message>
+    <message>
+        <source>Delete %1 and take it out of %2?</source>
+        <translation>%1を削除して%2から外しますか?</translation>
+    </message>
+    <message>
+        <source>Delete car</source>
+        <translation>車両を削除</translation>
+    </message>
+    <message>
+        <source>Train %1</source>
+        <translation>列車 %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Made %1 from %n car(s). Put it on the track to see it.</source>
+        <translation>
+            <numerusform>%n両で%1を組みました。線路に置くと表示されます。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>列車を変更</translation>
+    </message>
+    <message>
+        <source>%1 turned around.</source>
+        <translation>%1の向きを変えました。</translation>
+    </message>
+    <message>
+        <source>Turn train around</source>
+        <translation>列車の向きを変える</translation>
+    </message>
+    <message>
+        <source>Take train off the track</source>
+        <translation>列車を線路から外す</translation>
+    </message>
+    <message>
+        <source>Delete %1? Its cars stay.</source>
+        <translation>%1を削除しますか? 車両は残ります。</translation>
+    </message>
+    <message>
+        <source>Delete train</source>
+        <translation>列車を削除</translation>
+    </message>
+    <message>
+        <source>Updated %1 from the roster.</source>
+        <translation>車両リストから%1を更新しました。</translation>
+    </message>
+    <message>
+        <source>Update car from roster</source>
+        <translation>車両リストから車両を更新</translation>
+    </message>
+    <message>
+        <source>Added %1 to this layout.</source>
+        <translation>%1をこのレイアウトに追加しました。</translation>
+    </message>
+    <message>
+        <source>Add car from roster</source>
+        <translation>車両リストから車両を追加</translation>
+    </message>
+    <message>
+        <source>Your rosters couldn’t be loaded: %1</source>
+        <translation>車両リストを読み込めませんでした: %1</translation>
+    </message>
+    <message>
+        <source>Saved %1 to the roster.</source>
+        <translation>%1を車両リストに保存しました。</translation>
+    </message>
+    <message>
+        <source>Save car to roster</source>
+        <translation>車両を車両リストに保存</translation>
+    </message>
+    <message>
+        <source>It couldn’t be saved to the roster: %1</source>
+        <translation>車両リストに保存できませんでした: %1</translation>
+    </message>
+    <message>
+        <source>Trains (%1)</source>
+        <translation>列車 (%1)</translation>
+    </message>
+    <message>
+        <source>Rolling stock (%1)</source>
+        <translation>車両 (%1)</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
+        <translation>まだ車両がありません。「新しい車両」を押しましょう。簡単な車両には番号と長さだけで十分です。</translation>
+    </message>
+    <message>
+        <source>Pick %1 for a new train</source>
+        <translation>%1を新しい列車に選ぶ</translation>
+    </message>
+    <message>
+        <source>In %1</source>
+        <translation>%1に所属</translation>
+    </message>
+    <message>
+        <source>The roster has a newer version</source>
+        <translation>車両リストに新しい版があります</translation>
+    </message>
+    <message>
+        <source>From a roster</source>
+        <translation>車両リストから</translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation>変更</translation>
+    </message>
+    <message>
+        <source>Update from roster</source>
+        <translation>車両リストから更新</translation>
+    </message>
+    <message>
+        <source>Save to roster</source>
+        <translation>車両リストに保存</translation>
+    </message>
+    <message>
+        <source>Save changes to %1’s roster</source>
+        <translation>%1の車両リストに変更を保存</translation>
+    </message>
+    <message>
+        <source>Save changes to your roster</source>
+        <translation>自分の車両リストに変更を保存</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>自分の車両リスト</translation>
+    </message>
+    <message>
+        <source>%1’s roster</source>
+        <translation>%1の車両リスト</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>削除</translation>
+    </message>
+    <message>
+        <source>Make a train of this car</source>
+        <translation>この車両で列車を組む</translation>
+    </message>
+    <message>
+        <source>Make a train of these %1 cars</source>
+        <translation>この%1両で列車を組む</translation>
+    </message>
+    <message>
+        <source>No trains yet. Make a car or two in Rolling stock first, then put them together here.</source>
+        <translation>まだ列車がありません。先に「車両」で車両を1、2両作り、ここでつなげましょう。</translation>
+    </message>
+    <message>
+        <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
+        <translation>まだ列車がありません。「新しい列車」を押すか、「車両」で車両にチェックを入れて列車を組みましょう。</translation>
+    </message>
+    <message>
+        <source>Untitled train</source>
+        <translation>名前のない列車</translation>
+    </message>
+    <message>
+        <source>Not on the map</source>
+        <translation>地図上にありません</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed</source>
+        <translation>線路が移動または削除されました</translation>
+    </message>
+    <message>
+        <source>Runs off the end of the track</source>
+        <translation>線路の端からはみ出しています</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>線路上</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n car(s)</source>
+        <translation>
+            <numerusform>%n両</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Click the track…</source>
+        <translation>線路をクリック…</translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation>移動</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>線路に置く</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet.</source>
+        <translation>このレイアウトにはまだ線路がありません。</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>向きを変える</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>線路から外す</translation>
+    </message>
+    <message>
+        <source>Sign in to a server first (File › Servers…) to use your roster and your clubs’.</source>
+        <translation>自分とクラブの車両リストを使うには、先にサーバーにサインインしてください（ファイル › サーバー…）。</translation>
+    </message>
+    <message>
+        <source>Take %1 off the roster? Layouts keep their copies.</source>
+        <translation>%1を車両リストから外しますか? レイアウトのコピーは残ります。</translation>
+    </message>
+    <message>
+        <source>It couldn’t be taken off the roster: %1</source>
+        <translation>車両リストから外せませんでした: %1</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>チェック</translation>
+    </message>
+    <message>
+        <source>Every train on the track fits: nothing too long, too tight or too close.</source>
+        <translation>線路上の列車はすべて収まっています。長すぎ、きつすぎ、近すぎるものはありません。</translation>
     </message>
 </context>
 <context>

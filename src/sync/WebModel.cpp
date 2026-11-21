@@ -322,6 +322,57 @@ void readSidecar(const QJsonObject& meta, const QJsonObject& items, core::Sideca
 // rows merge. Absent: no budget.
 void readBudget(const QJsonObject& meta, core::Sidecar& out) {
     out.budgetLimits = saveload::budgetLimitsFromJson(meta.value(QLatin1String("budgetLimits")));
+    // Switch settings (trains design 2.2) are kept the same way, at
+    // meta.switchStates. An older web build that imported a file left them
+    // in meta.cache: read from there until the first write moves them over.
+    const QJsonValue states = meta.value(QLatin1String("switchStates"));
+    out.switchStates = saveload::switchStatesFromJson(
+        states.isObject() ? states : meta.value(QLatin1String("cache")).toObject().value(QLatin1String("switchStates")));
+    // Named routes: a Y.Map at meta.routes (id -> the route's fields), or,
+    // from an older web build, the cache's list. Listed by name, then id,
+    // as the web lists them.
+    out.routes.clear();
+    const QJsonValue routes = meta.value(QLatin1String("routes"));
+    if (routes.isObject()) {
+        const QJsonObject all = routes.toObject();
+        for (auto it = all.begin(); it != all.end(); ++it) {
+            QJsonObject r = it.value().toObject();
+            r.insert(QStringLiteral("id"), it.key());
+            if (auto route = saveload::routeFromJson(r)) out.routes.push_back(std::move(*route));
+        }
+    } else {
+        for (const auto& v : meta.value(QLatin1String("cache")).toObject().value(QLatin1String("routes")).toArray())
+            if (auto route = saveload::routeFromJson(v)) out.routes.push_back(std::move(*route));
+    }
+    std::sort(out.routes.begin(), out.routes.end(), [](const core::Route& a, const core::Route& b) {
+        const int c = QString::localeAwareCompare(a.name, b.name);
+        return c != 0 ? c < 0 : a.id < b.id;
+    });
+    // Rolling stock and trains: Y.Maps at meta.rollingStock and meta.trains
+    // (or an older build's cache lists), in id order as the web reads them.
+    const auto records = [&meta](const char* key) {
+        QJsonArray list;
+        const QJsonValue y = meta.value(QLatin1String(key));
+        if (y.isObject()) {
+            const QJsonObject all = y.toObject();
+            for (auto it = all.begin(); it != all.end(); ++it) {  // QJsonObject keys are sorted
+                QJsonObject r = it.value().toObject();
+                r.insert(QStringLiteral("id"), it.key());
+                list.append(r);
+            }
+        } else {
+            list = meta.value(QLatin1String("cache")).toObject().value(QLatin1String(key)).toArray();
+        }
+        return list;
+    };
+    out.rollingStock.clear();
+    for (const auto& v : records("rollingStock"))
+        if (auto r = saveload::rollingStockFromJson(v)) out.rollingStock.push_back(std::move(*r));
+    out.trains.clear();
+    for (const auto& v : records("trains"))
+        if (auto t = saveload::trainFromJson(v)) out.trains.push_back(std::move(*t));
+    std::sort(out.rollingStock.begin(), out.rollingStock.end(), [](const auto& a, const auto& b) { return a.id < b.id; });
+    std::sort(out.trains.begin(), out.trains.end(), [](const auto& a, const auto& b) { return a.id < b.id; });
 }
 
 } // namespace

@@ -221,6 +221,8 @@ MapView::MapView(parts::PartsLibrary& parts, QWidget* parent)
     });
 
     builder_ = std::make_unique<rendering::SceneBuilder>(*scene, parts_);
+    // "Run trains" sits in the map's corner once there is a map.
+    connect(this, &MapView::mapLoaded, this, &MapView::placeRunBar);
 
     // No per-item live snap hook: connection snap runs as a single rigid
     // group shift in MapView::mouseMoveEvent after Qt has moved each item
@@ -514,18 +516,6 @@ void MapView::updateMap(std::unique_ptr<core::Map> map) {
 }
 
 namespace {
-
-// The part a module dropped on the map snaps to the grid by, as BlueBrick
-// drops a group: the first that has a connection, else the first.
-const core::Brick* moduleSnapLead(const std::vector<core::Brick>& bricks, parts::PartsLibrary& lib) {
-    for (const auto& b : bricks) {
-        const auto meta = lib.metadata(b.partNumber);
-        if (!meta) continue;
-        for (const auto& c : meta->connections)
-            if (!c.type.isEmpty()) return &b;
-    }
-    return bricks.empty() ? nullptr : &bricks.front();
-}
 
 QSet<QString> partGuids(const core::Map& map) {
     QSet<QString> out;
@@ -987,6 +977,19 @@ void MapView::mousePressEvent(QMouseEvent* e) {
     }
     lastMouseScenePos_ = mapToScene(e->pos());
 
+    // Run mode (trains design 6.3): a click flips the switch near it, and
+    // nothing is picked or moved; the middle button still pans. Drawing a
+    // route: a click picks a place on the track.
+    if (clicksTaken() && e->button() != Qt::MiddleButton) {
+        if (e->button() == Qt::LeftButton && !placingTrain_.isEmpty())
+            trainPlaceClick(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud);
+        else if (e->button() == Qt::LeftButton && routeDraft_)
+            routeDraftClick(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud, e->modifiers() & Qt::ShiftModifier);
+        else if (e->button() == Qt::LeftButton) flipSwitchNear(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud);
+        e->accept();
+        return;
+    }
+
     // A bend handle: the flexible run bends as its end is dragged.
     if (e->button() == Qt::LeftButton && tool_ == Tool::Select && !flex_) {
         const int h = bendHandleAt(e->pos());
@@ -1175,6 +1178,10 @@ void MapView::mousePressEvent(QMouseEvent* e) {
 }
 
 void MapView::mouseMoveEvent(QMouseEvent* e) {
+    if (clicksTaken() && !panning_) {
+        e->accept();
+        return;
+    }
     snapMods_ = e->modifiers();
     lastMouseScenePos_ = mapToScene(e->pos());
 
@@ -1368,6 +1375,10 @@ void MapView::mouseMoveEvent(QMouseEvent* e) {
 }
 
 void MapView::mouseReleaseEvent(QMouseEvent* e) {
+    if (clicksTaken() && e->button() != Qt::MiddleButton) {
+        e->accept();
+        return;
+    }
     snapMods_ = e->modifiers();
     if (areaMoveLayer_ >= 0 && e->button() == Qt::LeftButton) {
         const int li = areaMoveLayer_;
@@ -1675,6 +1686,22 @@ void MapView::finishVenueDraw() {
 }
 
 void MapView::keyPressEvent(QKeyEvent* e) {
+    // Run mode: no key moves, turns or deletes parts; Escape goes back to building.
+    if (routeDraft_) {
+        if (e->key() == Qt::Key_Escape) cancelRouteDraft();
+        e->accept();
+        return;
+    }
+    if (!placingTrain_.isEmpty()) {
+        if (e->key() == Qt::Key_Escape) cancelTrainPlacing();
+        e->accept();
+        return;
+    }
+    if (runMode_) {
+        if (e->key() == Qt::Key_Escape) setRunMode(false);
+        e->accept();
+        return;
+    }
     if (!map_) { QGraphicsView::keyPressEvent(e); return; }
     // Venue-draw commit/cancel keys.
     if (tool_ == Tool::DrawVenueOutline || tool_ == Tool::DrawVenueObstacle) {
@@ -1710,20 +1737,76 @@ void MapView::keyPressEvent(QKeyEvent* e) {
         e->accept();
         return;
     }
-    // Arrow keys: nudge selection by the current snap step (1 stud default).
+    // Arrow keys: the selection to the next grid line that way (a stud
+    // with the grid off).
     if (e->key() == Qt::Key_Left  || e->key() == Qt::Key_Right ||
         e->key() == Qt::Key_Up    || e->key() == Qt::Key_Down) {
-        const double step = snapStepStuds_ > 0.0 ? snapStepStuds_ : 1.0;
-        double dx = 0.0, dy = 0.0;
-        if (e->key() == Qt::Key_Left)  dx = -step;
-        if (e->key() == Qt::Key_Right) dx =  step;
-        if (e->key() == Qt::Key_Up)    dy = -step;
-        if (e->key() == Qt::Key_Down)  dy =  step;
-        nudgeSelected(dx, dy);
+        int dx = 0, dy = 0;
+        if (e->key() == Qt::Key_Left)  dx = -1;
+        if (e->key() == Qt::Key_Right) dx =  1;
+        if (e->key() == Qt::Key_Up)    dy = -1;
+        if (e->key() == Qt::Key_Down)  dy =  1;
+        nudgeSelectionStep(dx, dy);
         e->accept();
         return;
     }
     QGraphicsView::keyPressEvent(e);
+}
+
+std::optional<QPointF> MapView::selectionSnapRef() const {
+    if (!map_) return std::nullopt;
+    const auto& layers = map_->layers();
+    // The first picked part, in sheet order, by its snap corner.
+    const core::Brick* lead = nullptr;
+    int leadLi = -1;
+    std::ptrdiff_t leadAt = 0;
+    std::optional<QPointF> anno;
+    for (QGraphicsItem* it : scene()->selectedItems()) {
+        const int li = it->data(kBrickDataLayerIndex).toInt();
+        const QString guid = it->data(kBrickDataGuid).toString();
+        if (isLabelItem(it)) {
+            if (!anno) anno = it->scenePos() / studToPx();
+            continue;
+        }
+        if (li < 0 || li >= static_cast<int>(layers.size()) || !layers[li]) continue;
+        const auto* L = layers[li].get();
+        if (isBrickItem(it) && L->kind() == core::LayerKind::Brick) {
+            const auto& bricks = static_cast<const core::LayerBrick&>(*L).bricks;
+            for (std::size_t i = 0; i < bricks.size(); ++i) {
+                if (bricks[i].guid != guid) continue;
+                const auto at = static_cast<std::ptrdiff_t>(i);
+                if (!lead || li < leadLi || (li == leadLi && at < leadAt)) {
+                    lead = &bricks[i];
+                    leadLi = li;
+                    leadAt = at;
+                }
+                break;
+            }
+        } else if (!anno && isTextItem(it) && L->kind() == core::LayerKind::Text) {
+            for (const auto& c : static_cast<const core::LayerText&>(*L).textCells)
+                if (c.guid == guid) anno = c.displayArea.topLeft();
+        } else if (!anno && isRulerItem(it) && L->kind() == core::LayerKind::Ruler) {
+            for (const auto& any : static_cast<const core::LayerRuler&>(*L).rulers) {
+                if (any.kind == core::RulerKind::Linear && any.linear.guid == guid) anno = any.linear.point1;
+                if (any.kind == core::RulerKind::Circular && any.circular.guid == guid) anno = any.circular.center;
+            }
+        }
+    }
+    if (lead)
+        return parts::placement::grabSnapCorner(static_cast<const core::LayerBrick&>(*layers[leadLi]), *lead, parts_);
+    return anno;
+}
+
+void MapView::nudgeSelectionStep(int dx, int dy) {
+    if (dx == 0 && dy == 0) return;
+    const double step = snapStepStuds_;
+    const std::optional<QPointF> ref = step > 0.0 ? selectionSnapRef() : std::nullopt;
+    if (!ref) {
+        nudgeSelected(step > 0.0 ? dx * step : dx, step > 0.0 ? dy * step : dy);
+        return;
+    }
+    const QPointF delta = gridsnap::nudgeCorner(*ref, dx, dy, step, snapMode_) - *ref;
+    nudgeSelected(delta.x(), delta.y());
 }
 
 void MapView::nudgeSelected(double dxStuds, double dyStuds) {
@@ -2068,7 +2151,7 @@ void MapView::resolvePartPlacement(const QString& partKey, QPointF cursorScenePx
             probe.displayArea = QRectF(0, 0, widthStuds, heightStuds);
             parts::placement::placeByAreaCentre(probe, centreStuds, parts_);
             probe.displayArea.translate(
-                gridsnap::dragShift(centreStuds, parts::placement::snapCorner(probe, parts_), snapStepStuds_));
+                gridsnap::gridShift(parts::placement::snapCorner(probe, parts_), snapStepStuds_));
             centreStuds = parts::placement::imageCentre(probe, parts_);
         }
     }
@@ -2446,6 +2529,10 @@ void MapView::editSelectedTextContent() {
 }
 
 void MapView::mouseDoubleClickEvent(QMouseEvent* e) {
+    if (clicksTaken()) {
+        e->accept();
+        return;
+    }
     QGraphicsItem* under = itemUnder(e->pos());
     // Connection dots and hull outlines are children of their brick.
     while (under && under->parentItem() && !isBrickItem(under)) under = under->parentItem();
@@ -2924,9 +3011,9 @@ void MapView::addTextAtScenePos(const QString& text, QPointF sceneCenterPx) {
     c.font.sizePt = 12.0f;
     c.font.styleString = QStringLiteral("Regular");
     c.alignment = core::TextAlignment::Center;
-    // Its middle on the grid, as the parts are.
-    const QPointF centre = gridPoint(sceneCenterPx / pxPerStud);
-    c.displayArea = QRectF(centre.x() - widthStuds / 2.0, centre.y() - heightStuds / 2.0, widthStuds, heightStuds);
+    // Its top-left corner on the grid, the corner a drag snaps it by.
+    const QPointF corner = gridPoint(sceneCenterPx / pxPerStud - QPointF(widthStuds / 2.0, heightStuds / 2.0));
+    c.displayArea = QRectF(corner.x(), corner.y(), widthStuds, heightStuds);
     undoStack_->push(new edit::AddTextCellCommand(*map_, targetLayer, std::move(c)));  // indexChanged handler rebuilds the scene
 }
 
@@ -2982,6 +3069,11 @@ void MapView::showDropTag(QPoint viewportPos) {
 }
 
 void MapView::dragEnterEvent(QDragEnterEvent* e) {
+    if (clicksTaken()) {  // no parts are added in Run mode or while drawing a route
+        e->ignore();
+        showStatus(tr("Stop running trains to add parts."), 4000);
+        return;
+    }
     coarsePointer_ = false;
     snapMods_ = e->modifiers();
     // A new drag: its own snap state.
@@ -3185,9 +3277,9 @@ void MapView::updateModuleDragPreview(const QString& bbmPath, QPointF cursorScen
     if (snapStepStuds_ > 0.0) {
         const double pxPerStud = rendering::SceneBuilder::kPixelsPerStud;
         const QPointF cursorStuds = cursorScenePx / pxPerStud;
-        if (const core::Brick* lead = moduleSnapLead(dragPreviewModuleBricks_, parts_)) {
+        if (const core::Brick* lead = parts::placement::snapLead(dragPreviewModuleBricks_, parts_)) {
             const QPointF rawCorner = cursorStuds + parts::placement::snapCorner(*lead, parts_);
-            placedScene = (cursorStuds + gridsnap::dragShift(cursorStuds, rawCorner, snapStepStuds_)) * pxPerStud;
+            placedScene = (cursorStuds + gridsnap::gridShift(rawCorner, snapStepStuds_)) * pxPerStud;
         }
     }
     // Connection snap, as the drop will do it (with this drag's hold and
@@ -3362,9 +3454,9 @@ bool MapView::placeModule(core::Map& loaded, const QString& name, const QString&
     if (snapStepStuds_ > 0.0) {
         std::vector<core::Brick> all;
         for (const auto& batch : batches) all.insert(all.end(), batch.bricks.begin(), batch.bricks.end());
-        if (const core::Brick* lead = moduleSnapLead(all, parts_)) {
+        if (const core::Brick* lead = parts::placement::snapLead(all, parts_)) {
             const QPointF rawCorner = parts::placement::snapCorner(*lead, parts_) + targetCentre - srcCentre;
-            targetCentre += gridsnap::dragShift(targetCentre, rawCorner, snapStepStuds_);
+            targetCentre += gridsnap::gridShift(rawCorner, snapStepStuds_);
         }
     }
     const QPointF translation = targetCentre - srcCentre;

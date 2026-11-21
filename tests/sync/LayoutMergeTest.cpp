@@ -572,3 +572,83 @@ TEST(LayoutMerge, ASharedModuleOnlyOneSideTouchedIsThatSides) {
     EXPECT_DOUBLE_EQ(brick(*merged, QStringLiteral("a"))->displayArea.center().x(), 132);
     EXPECT_DOUBLE_EQ(core::sharedPlaced(onlyModule(*merged))->placement->x, 132);
 }
+
+// Switch settings merge one switch at a time (trains design 2.2): flips of
+// different switches both stay; the same switch flipped both ways waits
+// for the review, the server's by default.
+TEST(LayoutMerge, SwitchSettingsAreComparedAndMergedOneSwitchAtATime) {
+    Case c;
+    using States = QMap<QString, int>;
+    c.base->sidecar.switchStates = States{ { QStringLiteral("A/0"), 1 }, { QStringLiteral("B/0"), 2 } };
+    c.mine->sidecar.switchStates = States{ { QStringLiteral("A/0"), 2 }, { QStringLiteral("B/0"), 2 }, { QStringLiteral("C/0"), 1 } };
+    c.server->sidecar.switchStates = States{ { QStringLiteral("B/0"), 2 }, { QStringLiteral("C/0"), 2 } };
+    const Snapshot b = snapshotOf(*c.base), m = snapshotOf(*c.mine), s = snapshotOf(*c.server);
+    const auto changes = compareLayouts(b, m, s);
+    QStringList lines;
+    for (const auto& ch : changes)
+        if (ch.kind == QLatin1String("switch")) {
+            lines << ch.key + QLatin1Char(' ') + describe(ch);
+            EXPECT_FALSE(ch.allowsBoth());
+        }
+    EXPECT_EQ(lines.join(QLatin1Char('\n')).toStdString(),
+              "switch:A/0 A switch's setting: you changed it, the server deleted it\n"
+              "switch:C/0 A switch's setting: you added it, the server added it");
+    auto merged = mergeLayouts(m, s, changes, {});
+    ASSERT_TRUE(merged);
+    EXPECT_EQ(merged->sidecar.switchStates, (States{ { QStringLiteral("B/0"), 2 }, { QStringLiteral("C/0"), 2 } }));
+    merged = mergeLayouts(m, s, changes, { { QStringLiteral("switch:A/0"), Choice::Mine }, { QStringLiteral("switch:C/0"), Choice::Mine } });
+    ASSERT_TRUE(merged);
+    EXPECT_EQ(merged->sidecar.switchStates,
+              (States{ { QStringLiteral("A/0"), 2 }, { QStringLiteral("B/0"), 2 }, { QStringLiteral("C/0"), 1 } }));
+}
+
+
+TEST(LayoutMerge, RoutesAreComparedAndMergedOneRouteAtATime) {
+    Case c;
+    core::Route a, b;
+    a.id = QStringLiteral("ra");
+    a.name = QStringLiteral("A");
+    b.id = QStringLiteral("rb");
+    b.name = QStringLiteral("B");
+    c.base->sidecar.routes = { a };
+    core::Route a2 = a;
+    a2.name = QStringLiteral("A renamed");
+    c.mine->sidecar.routes = { a2 };
+    c.server->sidecar.routes = { a, b };
+    const Snapshot bs = snapshotOf(*c.base), m = snapshotOf(*c.mine), s = snapshotOf(*c.server);
+    const auto changes = compareLayouts(bs, m, s);
+    QStringList lines;
+    for (const auto& ch : changes)
+        if (ch.kind == QLatin1String("route")) lines << describe(ch);
+    EXPECT_EQ(lines.join(QLatin1Char('\n')).toStdString(),
+              "Route \"A renamed\": you changed it\nRoute \"B\": the server added it");
+    auto merged = mergeLayouts(m, s, changes, {});
+    ASSERT_TRUE(merged);
+    ASSERT_EQ(merged->sidecar.routes.size(), 2u);
+}
+
+TEST(LayoutMerge, CarsAndTrainsAreComparedAndMergedOneAtATime) {
+    Case c;
+    core::RollingStock a = core::simpleStock(QStringLiteral("sa"));
+    a.number = QStringLiteral("101");
+    core::Train t;
+    t.id = QStringLiteral("t1");
+    t.name = QStringLiteral("Local");
+    c.base->sidecar.rollingStock = { a };
+    core::RollingStock a2 = a;
+    a2.number = QStringLiteral("102");
+    c.mine->sidecar.rollingStock = { a2 };
+    c.server->sidecar.rollingStock = { a };
+    c.server->sidecar.trains = { t };
+    const Snapshot bs = snapshotOf(*c.base), m = snapshotOf(*c.mine), s = snapshotOf(*c.server);
+    const auto changes = compareLayouts(bs, m, s);
+    QStringList lines;
+    for (const auto& ch : changes)
+        if (ch.kind == QLatin1String("stock") || ch.kind == QLatin1String("train")) lines << describe(ch);
+    EXPECT_EQ(lines.join(QLatin1Char('\n')).toStdString(), "Car \"102\": you changed it\nTrain \"Local\": the server added it");
+    auto merged = mergeLayouts(m, s, changes, {});
+    ASSERT_TRUE(merged);
+    ASSERT_EQ(merged->sidecar.rollingStock.size(), 1u);
+    EXPECT_EQ(merged->sidecar.rollingStock[0].number, QStringLiteral("102"));
+    EXPECT_EQ(merged->sidecar.trains.size(), 1u);
+}

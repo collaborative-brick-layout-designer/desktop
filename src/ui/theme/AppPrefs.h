@@ -45,6 +45,10 @@ struct AppPrefs {
     int partsIconSize = kPartsIconDefault;
     // Connection Snap strength: "off", "gentle" or "strong" (SnapFeel.h).
     QString connectionSnap = QStringLiteral("gentle");
+    // The unit lengths are shown in: "ftin" (feet and inches, the default),
+    // "m" (metric) or "studs". A venue without a unit of its own shows in it
+    // (edit/venue/VenueUnits.h accountLengthUnit reads it back).
+    QString lengthUnit = QStringLiteral("ftin");
     // When these were last changed (here or on the server); invalid when
     // they never were.
     QDateTime updatedAt;

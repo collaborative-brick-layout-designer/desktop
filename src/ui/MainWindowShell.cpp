@@ -7,6 +7,8 @@
 
 #include "DesktopNotifier.h"
 #include "MainWindow.h"
+#include "RoutesPanel.h"
+#include "TrainsPanel.h"
 #include "NotificationViews.h"
 #include "SheetNames.h"
 #include "StatusMessages.h"
@@ -33,6 +35,7 @@
 #include "ServerList.h"
 #include "ServerWindow.h"
 
+#include "../core/GridSnap.h"
 #include "../core/Layer.h"
 #include "../core/LayerBrick.h"
 #include "../core/Map.h"
@@ -50,6 +53,7 @@
 #include <QPainter>
 #include <QFile>
 #include <QSettings>
+#include <QSignalBlocker>
 #include <QLayout>
 #include <QStatusBar>
 #include <QMenuBar>
@@ -61,6 +65,24 @@
 namespace bld::ui {
 
 namespace {
+
+// The saved snap step: 1 stud when never set; a step that is not a whole
+// number of studs any more (0.5) as the nearest one.
+double savedSnapStep() {
+    return gridsnap::validSnapStep(
+        QSettings().value(QStringLiteral("editing/snapStepStuds"), gridsnap::kDefaultSnapStep).toDouble());
+}
+
+// How moves snap, as saved: onto the grid unless "steps".
+gridsnap::SnapMode savedSnapMode() {
+    return gridsnap::snapModeFromId(QSettings().value(QStringLiteral("editing/snapMode")).toString());
+}
+
+QString snapButtonText(double step) {
+    if (!(step > 0.0)) return MainWindow::tr("Snap off");
+    return savedSnapMode() == gridsnap::SnapMode::Steps ? MainWindow::tr("Steps %1").arg(step)
+                                                         : MainWindow::tr("Snap %1").arg(step);
+}
 
 // Watches the map's viewport paint and reports when the zoom changed.
 class ZoomWatcher : public QObject {
@@ -158,6 +180,8 @@ void MainWindow::setupShell() {
     theme::PanelHeader::install(partsBrowser_, QStringLiteral("panel.parts"), prefs);
     theme::PanelHeader::install(layerPanel_, QStringLiteral("panel.sheets"), prefs);
     theme::PanelHeader::install(viewsPanel_, QStringLiteral("panel.views"), prefs);
+    theme::PanelHeader::install(routesPanel_, QStringLiteral("panel.routes"), prefs);
+    theme::PanelHeader::install(trainsPanel_, QStringLiteral("panel.trains"), prefs);
     theme::PanelHeader::install(partUsagePanel_, QStringLiteral("panel.partsList"), prefs);
     theme::PanelHeader::install(modulesPanel_, QStringLiteral("panel.modules"), prefs);
     theme::PanelHeader::install(moduleLibraryPanel_, QStringLiteral("panel.moduleLibrary"), prefs);
@@ -298,19 +322,20 @@ void MainWindow::setupShell() {
     updateTitle();
     toolbar->addSeparator();
 
-    // Snap: click turns it on or off, the arrow picks the step (vanilla's
-    // off + 32/16/8/4/2/1/0.5 studs).
+    // Snap: click turns it on or off, the arrow picks the step (whole studs
+    // only: everything lands on the one stud grid) and shows or hides the
+    // stud grid.
     auto* snapBtn = new QToolButton(this);
     snapBtn->setObjectName(QStringLiteral("tool.snap"));
     snapBtn->setPopupMode(QToolButton::MenuButtonPopup);
     snapBtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     snapBtn->setCheckable(true);
-    snapBtn->setToolTip(tr("Line pieces up on a grid (click to turn on or off, the arrow picks the step)"));
+    snapBtn->setToolTip(tr("Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)"));
     auto* snapMenu = new QMenu(snapBtn);
     auto* snapGroup = new QActionGroup(snapBtn);
     QHash<double, QAction*> snapActByValue;
-    for (double v : { 32.0, 16.0, 8.0, 4.0, 2.0, 1.0, 0.5 }) {
-        auto* a = snapMenu->addAction(tr("%1 studs").arg(v));
+    for (double v : { 1.0, 2.0, 4.0, 8.0, 16.0, 32.0 }) {
+        auto* a = snapMenu->addAction(v == 1.0 ? tr("Every stud") : tr("Every %1 studs").arg(v));
         a->setCheckable(true);
         a->setData(v);
         snapGroup->addAction(a);
@@ -318,22 +343,49 @@ void MainWindow::setupShell() {
         connect(a, &QAction::triggered, this, [this, snapBtn, v] {
             mapView_->setSnapStepStuds(v);
             snapBtn->setChecked(true);
-            snapBtn->setText(tr("Snap %1").arg(v));
+            snapBtn->setText(snapButtonText(v));
             QSettings s;
             s.beginGroup(QStringLiteral("editing"));
             s.setValue(QStringLiteral("snapStepStuds"), v);
         });
     }
+    snapMenu->addSeparator();
+    // How moves snap: onto the grid, or whole steps from where things were.
+    auto* modeGroup = new QActionGroup(snapBtn);
+    for (const auto mode : { gridsnap::SnapMode::Grid, gridsnap::SnapMode::Steps }) {
+        auto* a = snapMenu->addAction(mode == gridsnap::SnapMode::Grid ? tr("Snap to the grid") : tr("Move in steps"));
+        a->setObjectName(QStringLiteral("tool.snap.mode.") + gridsnap::snapModeId(mode));
+        a->setToolTip(mode == gridsnap::SnapMode::Grid
+                          ? tr("Things land on the nearest stud (or every few studs), so everything lines up")
+                          : tr("Things move a whole number of steps from where they were, keeping any offset they had"));
+        a->setCheckable(true);
+        a->setChecked(mode == savedSnapMode());
+        modeGroup->addAction(a);
+        connect(a, &QAction::triggered, this, [this, mode] {
+            QSettings().setValue(QStringLiteral("editing/snapMode"), gridsnap::snapModeId(mode));
+            applySetting(settings::Change::SnapMode);
+        });
+    }
+    snapMenu->addSeparator();
+    auto* studGridAct = snapMenu->addAction(tr("Show the stud grid"));
+    studGridAct->setObjectName(QStringLiteral("tool.snap.studGrid"));
+    studGridAct->setCheckable(true);
+    studGridAct->setToolTip(tr("Faint lines one stud apart, shown when you zoom in close enough to see them"));
+    studGridAct->setChecked(QSettings().value(QStringLiteral("view/studGrid"), true).toBool());
+    connect(studGridAct, &QAction::toggled, this, [this](bool on) {
+        QSettings().setValue(QStringLiteral("view/studGrid"), on);
+        applySetting(settings::Change::StudGrid);
+    });
     snapBtn->setMenu(snapMenu);
     connect(snapBtn, &QToolButton::clicked, this, [this, snapBtn](bool on) {
         double v = 0.0;
         if (on) {
-            v = 32.0;
+            v = gridsnap::kDefaultSnapStep;
             for (QAction* a : snapBtn->menu()->actions())
-                if (a->isChecked()) { v = a->data().toDouble(); break; }
+                if (a->isChecked() && a->data().toDouble() > 0.0) { v = a->data().toDouble(); break; }
         }
         mapView_->setSnapStepStuds(v);
-        snapBtn->setText(on ? tr("Snap %1").arg(v) : tr("Snap off"));
+        snapBtn->setText(snapButtonText(v));
         QSettings s;
         s.beginGroup(QStringLiteral("editing"));
         s.setValue(QStringLiteral("snapStepStuds"), v);
@@ -383,13 +435,15 @@ void MainWindow::setupShell() {
     {
         QSettings s;
         s.beginGroup(QStringLiteral("editing"));
-        const double snap = s.value(QStringLiteral("snapStepStuds"), 0.0).toDouble();
+        const double snap = savedSnapStep();
         const double rot = s.value(QStringLiteral("rotationStepDegrees"), 90.0).toDouble();
         mapView_->setSnapStepStuds(snap);
+        mapView_->setSnapMode(savedSnapMode());
+        mapView_->setStudGridShown(QSettings().value(QStringLiteral("view/studGrid"), true).toBool());
         mapView_->setRotationStepDegrees(rot);
         snapBtn->setChecked(snap > 0.0);
-        snapBtn->setText(snap > 0.0 ? tr("Snap %1").arg(snap) : tr("Snap off"));
-        if (auto* a = snapActByValue.value(snap > 0.0 ? snap : 32.0)) a->setChecked(true);
+        snapBtn->setText(snapButtonText(snap));
+        if (auto* a = snapActByValue.value(snap > 0.0 ? snap : gridsnap::kDefaultSnapStep)) a->setChecked(true);
         if (auto* a = rotActByValue.value(rot)) a->setChecked(true);
         rotBtn->setText(tr("Turn %1°").arg(rot));
         mapView_->setWheelZoomFactor(QSettings().value(QStringLiteral("general/wheelZoomFactor"), settings::kZoomNormal).toDouble());
@@ -555,7 +609,7 @@ void MainWindow::showTask(const QString& task) {
 
 QList<QDockWidget*> MainWindow::panelDocks() const {
     return { partsBrowser_, layerPanel_, viewsPanel_, partUsagePanel_,
-             modulesPanel_, moduleLibraryPanel_, venueLibraryPanel_ };
+             modulesPanel_, moduleLibraryPanel_, venueLibraryPanel_, routesPanel_, trainsPanel_ };
 }
 
 void MainWindow::openSettings() {
@@ -582,14 +636,34 @@ void MainWindow::applySetting(settings::Change c) {
     QSettings s;
     switch (c) {
     case settings::Change::SnapStep: {
-        const double v = s.value(QStringLiteral("editing/snapStepStuds"), 0.0).toDouble();
+        const double v = savedSnapStep();
         mapView_->setSnapStepStuds(v);
         // The toolbar's Snap button says so at once.
         if (auto* b = findChild<QToolButton*>(QStringLiteral("tool.snap"))) {
             b->setChecked(v > 0.0);
-            b->setText(v > 0.0 ? tr("Snap %1").arg(v) : tr("Snap off"));
+            b->setText(snapButtonText(v));
             if (b->menu())
-                for (QAction* a : b->menu()->actions()) a->setChecked(v > 0.0 && qFuzzyCompare(a->data().toDouble(), v));
+                for (QAction* a : b->menu()->actions())
+                    if (a->data().toDouble() > 0.0) a->setChecked(v > 0.0 && qFuzzyCompare(a->data().toDouble(), v));
+        }
+        break;
+    }
+    case settings::Change::SnapMode: {
+        const auto mode = savedSnapMode();
+        mapView_->setSnapMode(mode);
+        if (auto* a = findChild<QAction*>(QStringLiteral("tool.snap.mode.") + gridsnap::snapModeId(mode))) {
+            const QSignalBlocker block(a);
+            a->setChecked(true);
+        }
+        if (auto* b = findChild<QToolButton*>(QStringLiteral("tool.snap"))) b->setText(snapButtonText(mapView_->snapStepStuds()));
+        break;
+    }
+    case settings::Change::StudGrid: {
+        const bool on = s.value(QStringLiteral("view/studGrid"), true).toBool();
+        mapView_->setStudGridShown(on);
+        if (auto* a = findChild<QAction*>(QStringLiteral("tool.snap.studGrid"))) {
+            const QSignalBlocker block(a);
+            a->setChecked(on);
         }
         break;
     }
@@ -652,6 +726,16 @@ void MainWindow::startTourNamed(const QString& id) {
         tours::startTourOnNext("bld::ui::ServerWindow", id, store, ready);
         QTimer::singleShot(0, this, [this] { showServerWindow(); });
         return;
+    }
+    // The routes and trains tours are about their panels: shown first, so their steps have something to point at.
+    if (id == QLatin1String("routes") || id == QLatin1String("trains")) {
+        QDockWidget* dock = id == QLatin1String("routes") ? static_cast<QDockWidget*>(routesPanel_) : static_cast<QDockWidget*>(trainsPanel_);
+        if (dock && !dock->isVisible()) {
+            dock->show();
+            dock->raise();
+            QTimer::singleShot(0, this, [this, id] { tours::startTour(this, id, theme::PrefsStore::instance()); });
+            return;
+        }
     }
     tours::startTour(this, id, store);
 }

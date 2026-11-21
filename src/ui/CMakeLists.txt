@@ -58,6 +58,16 @@ add_library(bld_ui STATIC
     MapViewDrag.cpp
     MapViewClipboard.cpp
     MapViewContextMenu.cpp
+    MapViewSwitches.cpp
+    MapViewRoutes.cpp
+    MapViewTrains.cpp
+    MainWindowTrains.cpp
+    TrainDialogs.cpp
+    TrainDialogs.h
+    TrainsPanel.cpp
+    TrainsPanel.h
+    FitChecksList.cpp
+    FitChecksList.h
     MapViewPaint.cpp
     MapViewTouch.cpp
     TouchActionBar.cpp
@@ -114,6 +124,8 @@ add_library(bld_ui STATIC
     SharePictureDialog.cpp
     SharePictureDialog.h
     ViewsPanel.cpp
+    RoutesPanel.cpp
+    RoutesPanel.h
     ViewsPanel.h
     LoadingCard.cpp
     NoticeArea.cpp

@@ -68,6 +68,30 @@
       ]
     },
     {
+      "id": "routes",
+      "title": "Routes",
+      "devices": "large",
+      "steps": [
+        { "target": "panel.routes", "title": "Your routes", "text": "Routes are named ways along the track. Open this list from Panels; the eye hides one on your map only." },
+        { "target": "routes.new", "title": "Draw a route", "text": "Press New route, then click on the track where it starts and where it ends. The shortest way is found for you." },
+        { "target": "map", "title": "Stops on the way", "text": "Shift-click adds a stop, to send the route along another line. Name it and press Save route." },
+        { "target": "routes.setSwitches", "title": "Switches follow the route", "text": "Set switches turns every switch on the route its way. Run mode lets you flip them by hand." }
+      ]
+    },
+    {
+      "id": "trains",
+      "title": "Trains",
+      "devices": "large",
+      "steps": [
+        { "target": "panel.trains", "title": "Trains and cars", "text": "Open Trains from Panels. Rolling stock holds this layout's engines and cars; Trains holds the trains made of them." },
+        { "target": "trains.newStock", "title": "A quick car", "text": "New car needs only a number and a length in studs. More details sets the trucks, couplers and a part's picture." },
+        { "target": "trainsPanel.tabs", "title": "Make a train", "text": "Tick a few cars and press Make a train, or press New train and add them in order, front first." },
+        { "target": "trains.putOnTrack", "title": "On the track", "text": "Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track." },
+        { "target": "trains.checks", "title": "Checks", "text": "Checks lists what doesn't fit: a train too long for its track, a curve too tight. Show me finds the spot." },
+        { "target": "trains.roster", "title": "Your roster", "text": "Save a car to your roster or a club's to use it in other layouts. Update brings a layout's copy up to date." }
+      ]
+    },
+    {
       "id": "view",
       "title": "Looking at a layout",
       "devices": "phone",

@@ -1,6 +1,7 @@
 #include "VenueUnits.h"
 
 #include <QRegularExpression>
+#include <QSettings>
 
 #include <cmath>
 
@@ -93,5 +94,28 @@ QString formatAngle(double deg) {
     const long d = ((std::lround(deg) % 360) + 360) % 360;
     return QStringLiteral("%1°").arg(d);
 }
+
+QString lengthUnitId(LengthUnit unit) {
+    switch (unit) {
+    case LengthUnit::Metres: return QStringLiteral("m");
+    case LengthUnit::Studs: return QStringLiteral("studs");
+    case LengthUnit::FeetInches: break;
+    }
+    return QStringLiteral("ftin");
+}
+
+std::optional<LengthUnit> lengthUnitFromId(const QString& id) {
+    if (id == QLatin1String("ftin")) return LengthUnit::FeetInches;
+    if (id == QLatin1String("m")) return LengthUnit::Metres;
+    if (id == QLatin1String("studs")) return LengthUnit::Studs;
+    return std::nullopt;
+}
+
+LengthUnit accountLengthUnit() {
+    return lengthUnitFromId(QSettings().value(QStringLiteral("appearance/lengthUnit")).toString())
+        .value_or(LengthUnit::FeetInches);
+}
+
+LengthUnit shownUnit(const core::Venue& v) { return v.lengthUnit.value_or(accountLengthUnit()); }
 
 } // namespace bld::edit::venue

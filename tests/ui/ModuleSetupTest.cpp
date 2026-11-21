@@ -25,6 +25,7 @@
 #include <QMenu>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QSettings>
 #include <QSpinBox>
 #include <QStandardPaths>
 #include <QTest>
@@ -194,6 +195,26 @@ TEST(ModulesPanel, ShowsEachModulesTableAndPowerAndTheLayoutSummary) {
     EXPECT_EQ(setup->text(), QStringLiteral("Table and power…"));
     setup->trigger();
     EXPECT_EQ(asked, QStringLiteral("b"));
+}
+
+// Heights follow the account's length unit (Settings), at once.
+TEST(ModulesPanel, HeightsFollowTheAccountsLengthUnit) {
+    QStandardPaths::setTestModeEnabled(true);
+    core::Map map;
+    core::Module a;
+    a.id = QStringLiteral("a");
+    core::ModuleSetup s;
+    s.table = core::ModuleTable{ QStringLiteral("mils"), 781, false };
+    map.sidecar.modules.push_back(core::withSetup(a, s));
+    ui::ModulesPanel panel;
+    QSettings().setValue(QStringLiteral("appearance/lengthUnit"), QStringLiteral("m"));
+    panel.setMap(&map);
+    EXPECT_TRUE(panel.summaryText().endsWith(QStringLiteral("MILS: 1 — 78.1 cm (1)")));
+    QSettings().setValue(QStringLiteral("appearance/lengthUnit"), QStringLiteral("ftin"));
+    panel.setMap(&map);
+    EXPECT_TRUE(panel.summaryText().endsWith(QStringLiteral("MILS: 1 — 30¾″ (1)")));
+    QSettings().remove(QStringLiteral("appearance/lengthUnit"));
+    QStandardPaths::setTestModeEnabled(false);
 }
 
 // The whole way: a module in the layout, ⋯ › Table and power…, choices

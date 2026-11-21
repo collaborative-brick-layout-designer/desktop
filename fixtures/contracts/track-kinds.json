@@ -1,0 +1,45 @@
+{
+  "_about": "Which connection types are track, and what kind (trains design 2.1). Both apps read this (web packages/parts-catalog/src/track/tables.ts, desktop src/track/data/track-kinds.json; both tests check their copy). A type is looked up in order: notTrack, types, prefixes; failing those, a type in one of a part's electric circuits counts as `fallback`, so new 9V-style packages work without an update. Anything else is not track. Within one part, a path joins two connections of the same kind; between parts, connections link only when their types match (BlueBrick). maxTurnDegrees: a part with three or more track connections and no circuits has a path from i to j when entering at i and leaving at j turns at most this much.",
+  "kinds": {
+    "rail": { "carWidth": 6, "clearance": 8, "scale": 38, "swivelMax": 30 },
+    "monorail": { "carWidth": 4, "clearance": 5, "scale": 38, "swivelMax": 45 },
+    "duplo": { "carWidth": 8, "clearance": 10, "scale": 38, "swivelMax": 30 },
+    "narrow": { "carWidth": 4, "clearance": 6, "scale": 38, "swivelMax": 30 },
+    "coaster": { "carWidth": 4, "clearance": 6, "scale": 38, "swivelMax": 45 },
+    "plarail": { "carWidth": 4, "clearance": 6, "scale": 38, "swivelMax": 30 }
+  },
+  "types": {
+    "1": "rail",
+    "trixbrix_ng": "rail",
+    "trixbrix_bridge": "rail",
+    "5": "duplo",
+    "narrow": "narrow",
+    "3": "monorail",
+    "mono": "monorail",
+    "mono45": "monorail",
+    "monoramp": "monorail",
+    "coaster": "coaster",
+    "plarail": "plarail"
+  },
+  "prefixes": {
+    "trixbrix_sw_": "rail",
+    "NT_SPLIT": "rail"
+  },
+  "notTrack": [
+    "",
+    "0",
+    "2",
+    "16x16road",
+    "magnet",
+    "flexpivot",
+    "halfhinge",
+    "threequarterhinge",
+    "trixbrix_switchmotor",
+    "trixbrix_mils",
+    "bricktracks_lever",
+    "NT_SPLITTER",
+    "NT_TRIPLESPLITTER"
+  ],
+  "fallback": "rail",
+  "maxTurnDegrees": 60
+}

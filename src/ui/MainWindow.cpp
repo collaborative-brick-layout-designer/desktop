@@ -55,6 +55,7 @@
 #include "../saveload/SidecarIO.h"
 #include "TouchMode.h"
 #include "theme/AppIcon.h"
+#include "theme/AppPrefs.h"
 #include "theme/PanelHeader.h"
 
 #include <QAction>
@@ -293,6 +294,18 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
         layerPanel_->setMap(map, mapView_->builder());
     });
 
+    // Settings › Units: lengths drawn on the map (a venue without a unit of
+    // its own) follow it the moment it changes, here or on another device.
+    connect(&theme::PrefsStore::instance(), &theme::PrefsStore::changed, this,
+            [this, unit = theme::PrefsStore::instance().prefs().lengthUnit]() mutable {
+                const QString now = theme::PrefsStore::instance().prefs().lengthUnit;
+                if (now == unit) return;
+                unit = now;
+                mapView_->rebuildScene();
+                // Module heights in the Modules panel too.
+                if (modulesPanel_) modulesPanel_->setMap(mapView_->currentMap());
+            });
+
     partsBrowser_ = new PartsBrowser(parts_, this);
     addDockWidget(Qt::LeftDockWidgetArea, partsBrowser_);
     partsBrowser_->setBudget(budget_, [this]{ return static_cast<const core::Map*>(mapView_->currentMap()); });
@@ -375,6 +388,8 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     partUsagePanel_->bindMapView(mapView_);
     partUsagePanel_->setBudget(budget_);
     setupViews();
+    setupRoutes();
+    setupTrains();
     // Stable object names so saveState() / restoreState() know each dock.
     layerPanel_->setObjectName(QStringLiteral("dock.layers"));
     partsBrowser_->setObjectName(QStringLiteral("dock.parts"));

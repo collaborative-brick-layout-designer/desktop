@@ -135,9 +135,11 @@ const std::array<ToolInfo, 13>& tools() {
     return kTools;
 }
 
-DesignerState initialState(core::Venue v) {
+DesignerState initialState(core::Venue v, LengthUnit accountUnit) {
     DesignerState s;
-    s.unit = v.lengthUnit;  // the venue remembers the unit it was drawn in
+    // The venue remembers the unit it was drawn in; one without starts in the account's.
+    s.unit = v.lengthUnit.value_or(accountUnit);
+    s.accountUnit = accountUnit;
     s.history.present = std::move(v);
     return s;
 }
@@ -376,7 +378,7 @@ DesignerState reduce(DesignerState s, const Action& action) {
             },
             [&](const act::Undo&) {
                 s.history = undo(std::move(s.history));
-                s.unit = s.history.present.lengthUnit;
+                s.unit = s.history.present.lengthUnit.value_or(s.accountUnit);
                 s.selection.reset();
                 s.draft.clear();
                 s.cut.reset();
@@ -384,7 +386,7 @@ DesignerState reduce(DesignerState s, const Action& action) {
             },
             [&](const act::Redo&) {
                 s.history = redo(std::move(s.history));
-                s.unit = s.history.present.lengthUnit;
+                s.unit = s.history.present.lengthUnit.value_or(s.accountUnit);
                 s.selection.reset();
                 s.draft.clear();
                 s.cut.reset();
@@ -405,6 +407,12 @@ DesignerState reduce(DesignerState s, const Action& action) {
                 next.lengthUnit = a.unit;
                 next.extras.remove(QStringLiteral("lengthUnit"));  // a unit this build didn't know
                 return edited(std::move(s), std::move(next));
+            },
+            [&](const act::AccountUnit& a) {
+                if (a.unit == s.accountUnit) return s;
+                s.accountUnit = a.unit;
+                s.unit = s.venue().lengthUnit.value_or(a.unit);
+                return s;
             },
             [&](const act::Snap& a) {
                 s.snap = a.on;

@@ -2,6 +2,8 @@
 
 #include "AnchoredLabel.h"
 #include "Module.h"
+#include "Route.h"
+#include "Train.h"
 #include "SavedView.h"
 #include "Venue.h"
 
@@ -70,6 +72,18 @@ struct Sidecar {
     // (the web keeps it at meta.budgetLimits); .bbb files import and
     // export it.
     std::optional<QMap<QString, int>> budgetLimits;
+    // How the layout's switches are set (trains design 2.2): "<brick id>/<heel
+    // connection>" to the connection a train leaves by. A switch with no key
+    // is set to its default, the way that turns least. The web keeps it at
+    // meta.switchStates. Never in a .bbm.
+    QMap<QString, int> switchStates;
+    // Named routes (trains design 2.5), in the order the layout lists them.
+    // The web keeps them at meta.routes. Never in a .bbm.
+    std::vector<Route> routes;
+    // Rolling stock and trains (trains design 2.3, 2.4), in id order. The
+    // web keeps them at meta.rollingStock and meta.trains. Never in a .bbm.
+    std::vector<RollingStock> rollingStock;
+    std::vector<Train> trains;
     // Top-level fields this build doesn't know (a newer build's, the web's),
     // written back as they were.
     QJsonObject extras;
@@ -79,7 +93,7 @@ struct Sidecar {
     bool isEmpty() const {
         return anchoredLabels.empty() && modules.empty() && !venue.has_value()
                && backgroundImagePath.isEmpty() && views.empty() && sets.empty() && !budgetLimits.has_value()
-               && extras.isEmpty();
+               && switchStates.isEmpty() && routes.empty() && rollingStock.empty() && trains.empty() && extras.isEmpty();
     }
 };
 

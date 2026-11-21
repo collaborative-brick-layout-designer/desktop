@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../core/GridSnap.h"
 #include "../core/Brick.h"
 #include "../core/Group.h"
 #include "../core/LayerArea.h"
@@ -35,6 +36,8 @@ class QDragLeaveEvent;
 class QNativeGestureEvent;
 class QPointingDevice;
 class QLabel;
+class QLineEdit;
+class QPushButton;
 class QTimer;
 class QTouchEvent;
 class QVariantAnimation;
@@ -46,6 +49,9 @@ namespace bld::core    { class Map; class LayerGrid; }
 namespace bld::edit    { class FlexMove; }
 namespace bld::parts   { class PartsLibrary; }
 #include "../rendering/SceneBuilder.h"
+#include "../track/TrackNetwork.h"
+
+class QToolButton;
 
 namespace bld::ui {
 
@@ -135,9 +141,14 @@ public:
     rendering::SceneBuilder* builder() { return builder_.get(); }
     QUndoStack* undoStack() { return undoStack_.get(); }
 
-    // Snap step applied to brick drag-drop, in studs. 0 disables snapping.
+    // The stud grid's step, in whole studs (1 by default): what parts,
+    // modules, pastes, rulers, labels and text land on. 0 turns it off.
     void  setSnapStepStuds(double studs);
     double snapStepStuds() const { return snapStepStuds_; }
+    // How moves snap: onto the stud grid, or whole steps from where things
+    // started (new things, with no start, still land on the grid).
+    void setSnapMode(gridsnap::SnapMode m) { snapMode_ = m; }
+    gridsnap::SnapMode snapMode() const { return snapMode_; }
     // `studs` on the nearest grid point, unless the grid is off or Alt is
     // held: where a ruler end, label, text or venue corner goes.
     QPointF gridPoint(QPointF studs) const;
@@ -151,6 +162,14 @@ public:
     // Edit operations (invoked by menu/shortcut actions):
     void rotateSelected(float degrees);
     void nudgeSelected(double dxStuds, double dyStuds);
+    // An arrow key or Edit > Transform > Move Step: (dx, dy) is the way,
+    // each -1, 0 or +1. With the grid on, the selection's lead (its first
+    // part's snap corner, else its first ruler end, label or text corner)
+    // goes to the next grid line that way, the other axis onto its nearest
+    // line; with it off, one stud.
+    void nudgeSelectionStep(int dx, int dy);
+    // Where the selection's lead sits for the grid (studs), if anything is picked.
+    std::optional<QPointF> selectionSnapRef() const;
     void deleteSelected();
     void addPartAtViewCenter(const QString& partKey);
     // `dragSnap`: the snap session of the drag that drops it (its final
@@ -212,6 +231,18 @@ public:
     // than these are left out: the sub-grid's, then the grid's.
     int gridLinesDrawn() const { return gridLinesDrawn_; }
     static constexpr double kMinSubGridSpacingPx = 8.0;
+    // The stud grid (one stud apart, what everything snaps to): shown with
+    // the grid sheet's lines, fading in from this many screen pixels a stud.
+    static constexpr double kMinStudGridSpacingPx = 6.0;
+    static constexpr double kFullStudGridSpacingPx = 16.0;
+    void setStudGridShown(bool on) {
+        studGridShown_ = on;
+        if (viewport()) viewport()->update();
+        resetCachedContent();
+    }
+    bool studGridShown() const { return studGridShown_; }
+    // Whether the last paint drew the stud grid (for tests).
+    bool studGridDrawn() const { return studGridDrawn_; }
     static constexpr double kMinGridSpacingPx = 4.0;
     bool clipboardEmpty() const { return clipboard_.empty(); }
 
@@ -264,6 +295,59 @@ public:
 
     // Touch: a part picked by a tap in the parts panel waits for a tap on
     // the map (the action bar says so, with Cancel).
+    // Switches (trains design 6.3). Run mode: a click on a switch flips it
+    // (one undo step), parts can't be picked, moved or dropped, and there is
+    // no right-click menu; each switch shows its arrow. View > Switches
+    // shows the arrows while building.
+    void setRunMode(bool on);
+    bool runMode() const { return runMode_; }
+    // Run mode's banner (tests).
+    QWidget* runModeBanner() const { return runBar_; }
+    QWidget* runTrainsButton() const;
+    void setShowSwitches(bool on);
+    bool showSwitches() const { return showSwitches_; }
+    // The switch a click at `studs` means: the one whose heel or set way is
+    // nearest, within `reach` studs.
+    std::optional<track::SwitchPoint> switchNear(QPointF studs, double reach) const;
+    // Set a switch (back to its default drops its key), as one undo step.
+    void setSwitch(const QString& key, int exit);
+    // Run mode's click: flip the switch nearest `studs`; false when none is near.
+    bool flipSwitchNear(QPointF studs);
+    // Drawing a named route (trains design 6.2): a click picks the place on
+    // the track nearest it, its start then its end (Shift-click adds a stop
+    // on the way); the banner says how long the way found is, takes a name
+    // and saves it as one undo step. Nothing is picked or moved meanwhile.
+    void startRouteDraft();
+    void cancelRouteDraft();
+    bool drawingRoute() const { return routeDraft_.has_value(); }
+    // A click while drawing (tests call it with a place in studs).
+    void routeDraftClick(QPointF studs, bool shift);
+    // Save the route drawn, under `name`; false when there is no way to save.
+    bool saveRouteDraft(const QString& name);
+    // The route drawn so far and the way found (tests).
+    struct RouteDraft {
+        std::optional<core::TrackPosition> from;
+        std::vector<core::TrackPosition> via;
+        std::optional<core::TrackPosition> to;
+    };
+    const std::optional<RouteDraft>& routeDraft() const { return routeDraft_; }
+    QWidget* routeDraftBanner() const { return routeBar_; }
+    // The routes this person hid on their map (not the layout's business).
+    void setHiddenRoutes(const QSet<QString>& ids);
+    // Putting a train on the track (trains design 6.4): the next click on the
+    // track puts its head there, the rest of it the way more track lies, as
+    // one undo step. Nothing is picked or moved meanwhile; Esc stops.
+    void startTrainPlacing(const QString& trainId);
+    void cancelTrainPlacing();
+    const QString& placingTrain() const { return placingTrain_; }
+    // A click while placing (tests call it with a place in studs); false when it isn't on the track.
+    bool trainPlaceClick(QPointF studs);
+    QWidget* trainPlaceBanner() const { return trainBar_; }
+    // View > Siding Lengths (trains design 6.2): each run of track labeled with the length a train can stand in.
+    void setShowSidingLengths(bool on);
+    bool showSidingLengths() const { return showSidingLengths_; }
+    // A fit check's Show me: bring the spot (studs) into view, not closer than 2:1, and ring it for a moment.
+    void showSpot(QPointF studs);
     void armPartPlacement(const QString& partKey);
     void cancelPartPlacement();
     const QString& armedPart() const { return armedPart_; }
@@ -406,6 +490,12 @@ signals:
     // where they went when that could surprise (a hidden sheet, not the
     // picked one).
     void partsPlaced(const QList<int>& layers, int pickedLayer, int count, bool pasted);
+    // Run mode went on or off (the toolbar button and the banner follow).
+    void runModeChanged(bool on);
+    // Drawing a route started or stopped (the Routes panel's New route follows).
+    void routeDraftChanged(bool drawing);
+    // Putting a train on the track started (its id) or stopped (empty).
+    void trainPlacingChanged(const QString& trainId);
 
 protected:
     // Touch (pinch, two-finger pan, tap, drag, long press) and trackpad
@@ -435,6 +525,32 @@ protected:
     void dropEvent(QDropEvent* e) override;
 
 private:
+    bool runMode_ = false;
+    std::optional<RouteDraft> routeDraft_;
+    QWidget* routeBar_ = nullptr;
+    QLabel* routeBarText_ = nullptr;
+    QLineEdit* routeName_ = nullptr;
+    QPushButton* routeSave_ = nullptr;
+    // The banner says what to click next, or the way found; the map shows it.
+    void refreshRouteDraft();
+    QString placingTrain_;
+    bool showSidingLengths_ = false;
+    QWidget* trainBar_ = nullptr;
+    QLabel* trainBarText_ = nullptr;
+    // Run mode, drawing a route or putting a train on the track: clicks belong to them, not the parts.
+    bool clicksTaken() const { return runMode_ || routeDraft_.has_value() || !placingTrain_.isEmpty(); }
+    // Run mode's banner over the top of the map: what a click does, and Stop.
+    QWidget* runBar_ = nullptr;
+    // "Run trains", in the map's top right corner while building.
+    QToolButton* runButton_ = nullptr;
+    void placeRunBar();
+    bool showSwitches_ = false;
+    void applySwitchesShown();
+    // Run mode keeps nothing picked (Select All included), so no edit acts on parts.
+    void dropRunModePick();
+    // The right-click menu's "Set the switch" choices for the switch near `studs`.
+    void addSwitchMenu(class QMenu& menu, QPointF studs);
+
     struct BrickOriginSnapshot {
         QGraphicsItem* item = nullptr;
         int    layerIndex   = -1;
@@ -649,7 +765,8 @@ private:
     std::optional<core::Module> clipboardModule_;
 
     // Snap + rotation step config, updated by MainWindow from toolbar + QSettings.
-    double snapStepStuds_       = 0.0;     // 0 disables snap
+    double snapStepStuds_       = 1.0;     // 0 disables snap
+    gridsnap::SnapMode snapMode_ = gridsnap::kDefaultSnapMode;
     double rotationStepDegrees_ = 90.0;
 
     Tool   tool_ = Tool::Select;
@@ -850,6 +967,8 @@ private:
     // The guids of the parts picked now.
     QSet<QString> pickedParts();
     int gridLinesDrawn_ = 0;
+    bool studGridShown_ = true;
+    bool studGridDrawn_ = false;
     void refreshSelectionOverlay();
 
     // Set by the live connection-snap hook when the dragged brick is

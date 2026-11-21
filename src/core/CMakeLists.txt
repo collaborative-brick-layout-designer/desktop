@@ -27,6 +27,8 @@ add_library(bld_core STATIC
     RulerItem.h
     AnchoredLabel.h
     Module.h
+    Route.h
+    Train.h
     ModuleLook.h
     ModuleEdit.h
     ModuleSetup.h

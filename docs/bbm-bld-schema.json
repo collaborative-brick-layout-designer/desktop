@@ -38,6 +38,27 @@
       "type": "object",
       "additionalProperties": { "type": "integer", "minimum": 0 },
       "description": "The layout's budget: part number -> how many of that part the layout may use (0 = none; a part without an entry is unlimited or forbidden by the reader's preference, as in BlueBrick). Present, even empty, when the layout has a budget; absent when it has none. Shared with everyone who edits the layout (the live document keeps it at meta.budgetLimits). A BlueBrick .bbb file is the same list in XML. Added 2026-11, optional."
+    },
+    "switchStates": {
+      "type": "object",
+      "propertyNames": { "pattern": "^.+/[0-9]+$" },
+      "additionalProperties": { "type": "integer", "minimum": 0 },
+      "description": "How the layout's switches are set: \"<brick id>/<heel connection>\" -> the connection a train leaves by. A switch without a key is set to its default (the way that turns least); absent when none is set. Shared with everyone who edits the layout (the live document keeps it at meta.switchStates). Never in a .bbm. Added 2026-11, optional."
+    },
+    "routes": {
+      "type": "array",
+      "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "name": { "type": "string" } } },
+      "description": "Named routes: { id, name, train, from, to, via, steps, color }; places on the track are { brick, from, to, s }, steps { brick, from, to }. Unknown fields are kept. Live at meta.routes (a Y.Map of id -> a Y.Map of fields). Never in a .bbm. Added 2026-11, optional."
+    },
+    "rollingStock": {
+      "type": "array",
+      "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "number": { "type": "string" }, "length": { "type": "number" } } },
+      "description": "Engines and cars: { id, number, name, kind, type, trackKind, length, width, bodyLength, trucks: [{ at, swivelMax }], couplers: { front, rear }, powered, look: { mode, color, partKey }, libraryId?, libraryVersion?, notes } in studs; a truck's at is studs from the car's middle, + towards its front. Unknown fields are kept. Live at meta.rollingStock (a Y.Map of id -> a Y.Map of fields). Never in a .bbm. Added 2026-11, optional."
+    },
+    "trains": {
+      "type": "array",
+      "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "name": { "type": "string" } } },
+      "description": "Trains: { id, name, trackKind, units: [{ stock, reversed }], position, color, speed }; position is the head car's front truck as a place on the track plus facing (to or from), or null when not on the map. Unknown fields are kept. Live at meta.trains. Never in a .bbm. Added 2026-11, optional."
     }
   },
 

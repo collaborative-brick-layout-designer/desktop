@@ -3,7 +3,10 @@ add_library(bld_rendering STATIC
     SceneBuilder.h
     SceneBuilderInternal.h
     SceneBuilderElectric.cpp
-    CircuitPath.cpp
+    SceneBuilderSwitches.cpp
+    SceneBuilderRoutes.cpp
+    SceneBuilderTrains.cpp
+    SceneBuilderFit.cpp
     CircuitPath.h
     SceneBuilderSidecar.cpp
     ModuleLabels.cpp
@@ -25,6 +28,7 @@ target_link_libraries(bld_rendering
         bld_core
         bld_edit   # venue lengths in the chosen unit (edit/venue/VenueUnits.h)
         bld_parts
+        bld_track  # the centreline through a part (track/CircuitPath.h), the switches' arrows
         Qt6::Core
         Qt6::Gui
         Qt6::Widgets

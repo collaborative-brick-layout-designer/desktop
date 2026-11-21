@@ -507,3 +507,160 @@ TEST(SyncDocSidecar, BudgetTravelsAsTheWebsBudgetLimitsMap) {
     ASSERT_TRUE(mapOf(doc)->sidecar.budgetLimits);
     EXPECT_TRUE(mapOf(doc)->sidecar.budgetLimits->isEmpty());
 }
+
+// Switch settings travel as the web keeps them: a Y.Map at
+// meta.switchStates, one key a switch, so flips of different switches merge
+// (trains design 2.2). An older web build's copy in meta.cache is read too.
+TEST(SyncDocSidecar, SwitchStatesTravelAsTheWebsMap) {
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(serverDoc()));
+    auto map = mapOf(doc);
+    EXPECT_TRUE(map->sidecar.switchStates.isEmpty());
+    map->sidecar.switchStates = { { QStringLiteral("P/0"), 2 } };
+    const QByteArray update = doc.writeMap(*map);
+    ASSERT_FALSE(update.isEmpty());
+    const QJsonObject meta = doc.toJson().value(QLatin1String("meta")).toObject();
+    EXPECT_EQ(meta.value(QLatin1String("switchStates")).toObject().value(QLatin1String("P/0")).toInt(), 2);
+    EXPECT_FALSE(meta.value(QLatin1String("cache")).toObject().contains(QLatin1String("switchStates")));
+
+    // Another copy flips a different switch at the same time: both stay.
+    sync::SyncDoc other;
+    ASSERT_TRUE(other.applyUpdate(serverDoc()));
+    ASSERT_TRUE(other.applyUpdate(update));
+    auto theirs = mapOf(other);
+    EXPECT_EQ(theirs->sidecar.switchStates, map->sidecar.switchStates);
+    theirs->sidecar.switchStates.insert(QStringLiteral("Q/1"), 0);
+    const QByteArray fromThem = other.writeMap(*theirs);
+    map->sidecar.switchStates.insert(QStringLiteral("R/0"), 3);
+    const QByteArray fromMe = doc.writeMap(*map);
+    ASSERT_TRUE(doc.applyUpdate(fromThem));
+    ASSERT_TRUE(other.applyUpdate(fromMe));
+    const QMap<QString, int> both{ { QStringLiteral("P/0"), 2 }, { QStringLiteral("Q/1"), 0 }, { QStringLiteral("R/0"), 3 } };
+    EXPECT_EQ(mapOf(doc)->sidecar.switchStates, both);
+    EXPECT_EQ(mapOf(other)->sidecar.switchStates, both);
+
+    // Back to the default: the key goes.
+    auto mine = mapOf(doc);
+    mine->sidecar.switchStates.remove(QStringLiteral("P/0"));
+    ASSERT_FALSE(doc.writeMap(*mine).isEmpty());
+    EXPECT_FALSE(doc.toJson().value(QLatin1String("meta")).toObject().value(QLatin1String("switchStates")).toObject().contains(QLatin1String("P/0")));
+    EXPECT_TRUE(doc.writeMap(*mapOf(doc)).isEmpty());
+}
+
+TEST(SyncDocSidecar, SwitchStatesAnOlderWebBuildLeftInTheCacheAreRead) {
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(serverDoc()));
+    QJsonObject json = doc.toJson();
+    QJsonObject meta = json.value(QLatin1String("meta")).toObject();
+    QJsonObject cache = meta.value(QLatin1String("cache")).toObject();
+    cache.insert(QStringLiteral("switchStates"), QJsonObject{ { QStringLiteral("P/0"), 2 } });
+    meta.insert(QStringLiteral("cache"), cache);
+    json.insert(QStringLiteral("meta"), meta);
+    auto read = sync::mapFromDocJson(json, nullptr);
+    ASSERT_TRUE(read);
+    EXPECT_EQ(read->sidecar.switchStates, (QMap<QString, int>{ { QStringLiteral("P/0"), 2 } }));
+    // The doc's own map wins over the cache's.
+    meta.insert(QStringLiteral("switchStates"), QJsonObject{ { QStringLiteral("P/0"), 1 } });
+    json.insert(QStringLiteral("meta"), meta);
+    EXPECT_EQ(sync::mapFromDocJson(json, nullptr)->sidecar.switchStates, (QMap<QString, int>{ { QStringLiteral("P/0"), 1 } }));
+}
+
+// Named routes travel as the web keeps them: a Y.Map at meta.routes, one
+// Y.Map a route; a rename here and a new way there both stay; a delete goes.
+TEST(SyncDocSidecar, RoutesTravelAsTheWebsMaps) {
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(serverDoc()));
+    auto map = mapOf(doc);
+    core::Route r;
+    r.id = QStringLiteral("r1");
+    r.name = QStringLiteral("Main");
+    r.from = { QStringLiteral("A"), 0, 1, 2 };
+    r.to = { QStringLiteral("E"), 0, 1, 8 };
+    r.steps = { { QStringLiteral("A"), 0, 1 } };
+    map->sidecar.routes = { r };
+    const QByteArray update = doc.writeMap(*map);
+    ASSERT_FALSE(update.isEmpty());
+    const QJsonObject meta = doc.toJson().value(QLatin1String("meta")).toObject();
+    EXPECT_EQ(meta.value(QLatin1String("routes")).toObject().value(QLatin1String("r1")).toObject().value(QLatin1String("name")).toString(),
+              QStringLiteral("Main"));
+    EXPECT_FALSE(meta.value(QLatin1String("cache")).toObject().contains(QLatin1String("routes")));
+    EXPECT_TRUE(doc.writeMap(*mapOf(doc)).isEmpty());
+
+    sync::SyncDoc other;
+    ASSERT_TRUE(other.applyUpdate(serverDoc()));
+    ASSERT_TRUE(other.applyUpdate(update));
+    auto theirs = mapOf(other);
+    ASSERT_EQ(theirs->sidecar.routes.size(), 1u);
+    EXPECT_EQ(theirs->sidecar.routes[0], r);
+    theirs->sidecar.routes[0].steps = { { QStringLiteral("B"), 0, 1 } };
+    const QByteArray fromThem = other.writeMap(*theirs);
+    map->sidecar.routes[0].name = QStringLiteral("Main line");
+    const QByteArray fromMe = doc.writeMap(*map);
+    ASSERT_TRUE(doc.applyUpdate(fromThem));
+    ASSERT_TRUE(other.applyUpdate(fromMe));
+    for (sync::SyncDoc* d : { &doc, &other }) {
+        const auto m = mapOf(*d);
+        ASSERT_EQ(m->sidecar.routes.size(), 1u);
+        EXPECT_EQ(m->sidecar.routes[0].name, QStringLiteral("Main line"));
+        EXPECT_EQ(m->sidecar.routes[0].steps.front().brick, QStringLiteral("B"));
+    }
+    auto mine = mapOf(doc);
+    mine->sidecar.routes.clear();
+    ASSERT_FALSE(doc.writeMap(*mine).isEmpty());
+    EXPECT_TRUE(mapOf(doc)->sidecar.routes.empty());
+}
+
+// Rolling stock and trains travel as the web keeps them: Y.Maps at
+// meta.rollingStock and meta.trains, one Y.Map a record; a car changed here
+// and a train moved there both stay; a delete goes.
+TEST(SyncDocSidecar, RollingStockAndTrainsTravelAsTheWebsMaps) {
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(serverDoc()));
+    auto map = mapOf(doc);
+    core::RollingStock s = core::simpleStock(QStringLiteral("s1"), 32);
+    s.number = QStringLiteral("101");
+    core::Train t;
+    t.id = QStringLiteral("t1");
+    t.name = QStringLiteral("Local");
+    t.units = { { QStringLiteral("s1"), false } };
+    map->sidecar.rollingStock = { s };
+    map->sidecar.trains = { t };
+    const QByteArray update = doc.writeMap(*map);
+    ASSERT_FALSE(update.isEmpty());
+    const QJsonObject meta = doc.toJson().value(QLatin1String("meta")).toObject();
+    EXPECT_EQ(meta.value(QLatin1String("rollingStock")).toObject().value(QLatin1String("s1")).toObject().value(QLatin1String("number")).toString(),
+              QStringLiteral("101"));
+    EXPECT_TRUE(meta.value(QLatin1String("trains")).toObject().value(QLatin1String("t1")).toObject().value(QLatin1String("position")).isNull());
+    EXPECT_FALSE(meta.value(QLatin1String("cache")).toObject().contains(QLatin1String("trains")));
+    EXPECT_TRUE(doc.writeMap(*mapOf(doc)).isEmpty());
+
+    sync::SyncDoc other;
+    ASSERT_TRUE(other.applyUpdate(serverDoc()));
+    ASSERT_TRUE(other.applyUpdate(update));
+    auto theirs = mapOf(other);
+    ASSERT_EQ(theirs->sidecar.rollingStock.size(), 1u);
+    EXPECT_EQ(theirs->sidecar.rollingStock[0], s);
+    ASSERT_EQ(theirs->sidecar.trains.size(), 1u);
+    EXPECT_EQ(theirs->sidecar.trains[0], t);
+    core::TrainPosition p;
+    p.brick = QStringLiteral("A");
+    p.s = 4;
+    theirs->sidecar.trains[0].position = p;
+    const QByteArray fromThem = other.writeMap(*theirs);
+    map->sidecar.rollingStock[0].number = QStringLiteral("102");
+    const QByteArray fromMe = doc.writeMap(*map);
+    ASSERT_TRUE(doc.applyUpdate(fromThem));
+    ASSERT_TRUE(other.applyUpdate(fromMe));
+    for (sync::SyncDoc* d : { &doc, &other }) {
+        const auto m = mapOf(*d);
+        ASSERT_EQ(m->sidecar.rollingStock.size(), 1u);
+        EXPECT_EQ(m->sidecar.rollingStock[0].number, QStringLiteral("102"));
+        ASSERT_TRUE(m->sidecar.trains[0].position.has_value());
+        EXPECT_EQ(m->sidecar.trains[0].position->brick, QStringLiteral("A"));
+    }
+    auto mine = mapOf(doc);
+    mine->sidecar.trains.clear();
+    ASSERT_FALSE(doc.writeMap(*mine).isEmpty());
+    EXPECT_TRUE(mapOf(doc)->sidecar.trains.empty());
+    EXPECT_EQ(mapOf(doc)->sidecar.rollingStock.size(), 1u);
+}

@@ -499,14 +499,6 @@
         <translation>Vastklikken</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>Stukken springen naar de dichtstbijzijnde rasterlijn, zodat rijen recht blijven.</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>Het getal is de afstand tussen de rasterlijnen, in noppen; linialen, labels, tekst en zaalhoeken komen er ook op terecht. Houd Alt (⌥ op een Mac) ingedrukt om die precies neer te zetten waar je loslaat, of kies ‘uit’ om alles neer te zetten waar je het laat vallen. Railseinden klikken nog steeds aan elkaar.</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>Draaistap</translation>
     </message>
@@ -577,6 +569,78 @@
     <message>
         <source>Select moves pieces, Turn turns the one you click, and Delete removes it. Paint colors the ground and Erase clears it. Measure and Circle add a ruler you can keep on the map, and Venue and Obstacle draw the venue’s walls and things to keep clear of.</source>
         <translation>Selecteren verplaatst stukken, Draaien draait het stuk waarop je klikt, en Verwijderen haalt het weg. Verven kleurt de ondergrond en Wissen maakt hem weer schoon. Meten en Cirkel voegen een liniaal toe die je op de kaart kunt laten staan, en Zaal en Obstakel tekenen de muren van de zaal en dingen waar je vanaf moet blijven.</translation>
+    </message>
+    <message>
+        <source>Run trains</source>
+        <translation>Treinen laten rijden</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>Speel met de baan: klik op een wissel om hem om te zetten, zonder onderdelen te verplaatsen.</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>In rijmodus toont elke wissel een pijl langs de kant waarop hij staat; klik in de buurt om hem om te zetten. Onderdelen kunnen niet worden geselecteerd of verplaatst, dus er verandert niets per ongeluk. Omzettingen worden met iedereen gedeeld en kunnen ongedaan worden gemaakt; druk op Stoppen om verder te bouwen.</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>Wissels</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>Een wissel stuurt een trein de ene of de andere kant op; de pijl laat zien welke.</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>Klik met rechts op een wissel om hem te zetten, of zet de rijmodus aan en klik erop. Een groene pijl is de gewone kant; een oranje betekent dat hij naar de andere kant staat. Zet Beeld › Wissels aan om ze tijdens het bouwen te zien.</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>Routes</translation>
+    </message>
+    <message>
+        <source>Named ways along the track, from one place to another.</source>
+        <translation>Benoemde wegen langs het spoor, van de ene plek naar de andere.</translation>
+    </message>
+    <message>
+        <source>Each route shows its length and whether the track still fits it. The eye shows or hides a route on your map only; everyone else keeps their own view. Routes are saved with the layout and shared with everyone editing it.</source>
+        <translation>Elke route toont zijn lengte en of het spoor er nog bij past. Het oog toont of verbergt een route alleen op jouw kaart; ieder ander houdt zijn eigen weergave. Routes worden met de baan opgeslagen en gedeeld met iedereen die hem bewerkt.</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nieuwe route</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track, then where it ends.</source>
+        <translation>Klik op het spoor waar de route begint, en dan waar hij eindigt.</translation>
+    </message>
+    <message>
+        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
+        <translation>De kortste weg langs het spoor wordt voor je gezocht, door wissels in beide richtingen. Shift-klik voegt een stop onderweg toe, om een ander spoor te kiezen. Geef hem een naam en druk op Route opslaan; Esc of Annuleren stopt.</translation>
+    </message>
+    <message>
+        <source>Broken route</source>
+        <translation>Onderbroken route</translation>
+    </message>
+    <message>
+        <source>A part this route runs over was moved or removed.</source>
+        <translation>Een onderdeel waar deze route over loopt is verplaatst of weggehaald.</translation>
+    </message>
+    <message>
+        <source>The route keeps its name, color, start and end, and is drawn dashed red as far as it still goes. Find a new way searches again from its start through its stops to its end.</source>
+        <translation>De route houdt zijn naam, kleur, begin en eind, en wordt rood gestreept getekend zover hij nog gaat. Nieuwe weg zoeken zoekt opnieuw vanaf zijn begin, via zijn stops, naar zijn eind.</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Wissels zetten</translation>
+    </message>
+    <message>
+        <source>Sets every switch on the route so a train follows it.</source>
+        <translation>Zet elke wissel op de route zo dat een trein hem volgt.</translation>
+    </message>
+    <message>
+        <source>Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once.</source>
+        <translation>Wissels die de andere kant op staan tonen een oranje ring op de kaart, en de route zegt hoeveel het er zijn. Ze zetten is één wijziging die je ongedaan kunt maken, en iedereen ziet die meteen.</translation>
     </message>
     <message>
         <source>Current sheet</source>
@@ -681,6 +745,30 @@
     <message>
         <source>With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits.</source>
         <translation>Met Zelfde kleur aan veranderen de omtrek en de naam samen. Standaard herstellen brengt het lichtblauw terug. Lange namen lopen door op een nieuwe regel, worden kleiner en worden pas afgekapt als niets anders meer past.</translation>
+    </message>
+    <message>
+        <source>Table and power</source>
+        <translation>Tafel en stroom</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>Waar deze module op staat, hoe hoog hij is en welke stroom hij nodig heeft, voor wie de tafels plant.</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>Kies MILS, Gewone grondplaat (losse grondplaten op een gewone tafel) of Eigen, en typ de gemeten hoogte, tot het tafelblad of tot de bovenkant van de rails. Voor stroom: hoeveel stopcontacten hij gebruikt, ongeveer hoeveel watt en aan welke kant de stekker eruit komt. Bij het opslaan van de module in de modulebibliotheek gaat dit mee.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Tafels en stroom</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>Wat alle modules van deze baan samen nodig hebben: stopcontacten en watt, en de tafelhoogtes per soort.</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>Stel tafel en stroom van elke module in via zijn ⋯-menu › Tafel en stroom…. Modules zonder gegevens tellen als niet ingesteld, zodat je ziet wie het je nog moet vertellen.</translation>
     </message>
     <message>
         <source>Edit module</source>
@@ -877,30 +965,6 @@
     <message>
         <source>Type a number next to a part to set its limit. The budget is saved with the layout and shared with everyone who edits it. A BlueBrick budget file (.bbb) can be imported or exported too.</source>
         <translation>Typ een getal naast een onderdeel om de limiet in te stellen. Het budget wordt met de layout opgeslagen en gedeeld met iedereen die hem bewerkt. Een BlueBrick-budgetbestand (.bbb) kan ook worden geïmporteerd of geëxporteerd.</translation>
-    </message>
-    <message>
-        <source>Table and power</source>
-        <translation>Tafel en stroom</translation>
-    </message>
-    <message>
-        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
-        <translation>Waar deze module op staat, hoe hoog hij is en hoeveel stroom hij nodig heeft, voor wie de tafels plant.</translation>
-    </message>
-    <message>
-        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
-        <translation>Kies MILS, Gewone grondplaat (losse grondplaten op een gewone tafel) of Eigen, en typ de gemeten hoogte, tot het tafelblad of tot de bovenkant van de rails. Geef bij stroom aan hoeveel stopcontacten hij gebruikt, ongeveer hoeveel watt en aan welke kant de stekker eruit komt. Als je de module in de modulebibliotheek bewaart, gaat dit mee.</translation>
-    </message>
-    <message>
-        <source>Tables and power</source>
-        <translation>Tafels en stroom</translation>
-    </message>
-    <message>
-        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
-        <translation>Wat alle modules van deze layout samen nodig hebben: stopcontacten en watt, en de tafelhoogtes per soort.</translation>
-    </message>
-    <message>
-        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
-        <translation>Stel tafel en stroom van elke module in via het ⋯-menu › Tafel en stroom…. Modules zonder gegevens tellen als niet ingesteld, zo zie je wie het je nog moet laten weten.</translation>
     </message>
     <message>
         <source>Shared modules</source>
@@ -1199,6 +1263,10 @@
         <translation>Zacht trekt alleen als de uiteinden dichtbij zijn en laat los zodra je wegbeweegt; Sterk reikt verder; Uit trekt nooit, en het raster lijnt onderdelen nog steeds uit. Houd Alt (Option op een Mac) ingedrukt tijdens het slepen om één onderdeel neer te zetten zonder vastklikken.</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>Zo toont de app lengtes, zoals de muren van een zaal en, met treinen, spoor- en treinlengtes. Een zaal die in een eigen eenheid is getekend, houdt die; een zonder volgt deze instelling. Eén nop is 8 mm.</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>Tekengereedschap</translation>
     </message>
@@ -1213,6 +1281,42 @@
     <message>
         <source>Units</source>
         <translation>Eenheden</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>Alles wat je plaatst of verplaatst, komt op de dichtstbijzijnde nop terecht, zodat onderdelen netjes op een lijn liggen.</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>Kies hoe ver de snappunten uit elkaar liggen, van elke nop tot elke 32 noppen, en hoe er gesnapt wordt: op het raster, of in hele stappen vanaf waar iets was. Onderdelen, modules, geplakte stukken, linialen, labels en tekst volgen het, de pijltjestoetsen verplaatsen een stap, en spooreinden klikken nog steeds vast als ze elkaar raken. Zet snappen uit om dingen precies neer te zetten waar je loslaat, of houd Alt (⌥ op een Mac) ingedrukt om een liniaal, label of tekst vrij te plaatsen.</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>Hoe er gesnapt wordt</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>Op de dichtstbijzijnde nop landen, of in hele stappen bewegen vanaf waar een stuk was.</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>Op het raster snappen zet alles op dezelfde noppen, wat bij de meeste banen past. In stappen bewegen houdt een stuk dat tussen noppen ligt bij het verplaatsen even ver ernaast, stap voor stap. Beide gebruiken de stap die je naast Snappen kiest.</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>Noppenraster</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>Vage lijnen op één nop afstand, zodat je ziet waar dingen terechtkomen.</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>Ze verschijnen met het raster als je ver genoeg inzoomt om de noppen te zien, en vervagen als je uitzoomt. Zet ze hier uit, of via de knop Snappen in de werkbalk, als ze storen.</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>Toon lengtes in voet en inch, metrisch of in noppen.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -1541,6 +1645,102 @@
     <message>
         <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
         <translation>Open een groep om elke soort te zien. E-mail kan meteen komen, in een dagelijkse of wekelijkse samenvatting, of helemaal niet. Stille uren houden e-mails vast tot ze voorbij zijn, en je kunt een drukke club dempen of alle e-mail pauzeren.</translation>
+    </message>
+    <message>
+        <source>Trains</source>
+        <translation>Treinen</translation>
+    </message>
+    <message>
+        <source>The layout&apos;s engines and cars, and the trains made of them.</source>
+        <translation>De locomotieven en wagons van de layout, en de treinen die je ervan maakt.</translation>
+    </message>
+    <message>
+        <source>Make a car in a few seconds, put cars together into a train, and put the train on the track to see how it sits on curves. Trains and cars are saved with the layout and shared with everyone editing it.</source>
+        <translation>Maak in een paar seconden een wagon, zet wagons samen tot een trein en zet de trein op het spoor om te zien hoe hij in bochten staat. Treinen en wagons worden met de layout bewaard en gedeeld met iedereen die hem bewerkt.</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Nieuwe wagon</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a length; everything else can wait.</source>
+        <translation>Een snelle wagon heeft alleen een lengte nodig; de rest kan wachten.</translation>
+    </message>
+    <message>
+        <source>Give it a number or name so you can find it. More shows the width, where the trucks sit, the couplers, and whether it uses a part&apos;s picture. Lengths are in studs, as you count them on the model.</source>
+        <translation>Geef hem een nummer of naam zodat je hem terugvindt. Meer toont de breedte, waar de draaistellen zitten, de koppelingen en of hij de afbeelding van een onderdeel gebruikt. Lengtes zijn in noppen, zoals je ze op het model telt.</translation>
+    </message>
+    <message>
+        <source>Trucks</source>
+        <translation>Draaistellen</translation>
+    </message>
+    <message>
+        <source>The wheel sets a car rides on, measured in studs from the middle of the car.</source>
+        <translation>De wielstellen waarop een wagon rijdt, gemeten in noppen vanaf het midden van de wagon.</translation>
+    </message>
+    <message>
+        <source>The front truck follows the track and the rear one follows it a fixed distance behind, so on a curve the car&apos;s middle swings in and its ends swing out, as a real one does. A quick car puts them a quarter of the way in from each end.</source>
+        <translation>Het voorste draaistel volgt het spoor en het achterste volgt op een vaste afstand, dus in een bocht zwaait het midden van de wagon naar binnen en de uiteinden naar buiten, net als bij een echte. Een snelle wagon zet ze op een kwart van elk uiteinde.</translation>
+    </message>
+    <message>
+        <source>Roster</source>
+        <translation>Wagenpark</translation>
+    </message>
+    <message>
+        <source>Your own engines and cars, or a club&apos;s, ready to bring into any layout.</source>
+        <translation>Je eigen locomotieven en wagons, of die van een club, klaar voor elke layout.</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s, then add it to other layouts from there. A layout keeps its own copy, so it still opens anywhere; when the roster&apos;s car changes, Update brings the layout&apos;s copy up to date. Club rosters are changed by members who may edit the club&apos;s modules.</source>
+        <translation>Bewaar een wagon in je wagenpark of dat van een club en voeg hem van daaruit toe aan andere layouts. Een layout houdt een eigen kopie, dus hij opent overal; als de wagon in het wagenpark verandert, brengt Bijwerken de kopie van de layout bij. Clubwagenparken worden gewijzigd door leden die de modules van de club mogen bewerken.</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>Nieuwe trein</translation>
+    </message>
+    <message>
+        <source>Cars in order, front to back, that move as one.</source>
+        <translation>Wagons op volgorde, van voor naar achter, die samen bewegen.</translation>
+    </message>
+    <message>
+        <source>Add cars from this layout&apos;s rolling stock, put them in order, and turn any of them around. A train&apos;s length is from its front coupler to its rear one.</source>
+        <translation>Voeg wagons uit het rollend materieel van deze layout toe, zet ze op volgorde en draai er zoveel om als je wilt. De lengte van een trein loopt van de voorste tot de achterste koppeling.</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>Op het spoor zetten</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of the train should be.</source>
+        <translation>Klik op het spoor waar de voorkant van de trein moet staan.</translation>
+    </message>
+    <message>
+        <source>The train runs back from there, following the switches as they are set. Click again elsewhere to move it. A train that runs off the end of the track is outlined in red.</source>
+        <translation>De trein loopt van daar naar achteren en volgt de wissels zoals ze staan. Klik ergens anders om hem te verplaatsen. Een trein die voorbij het einde van het spoor steekt, krijgt een rode rand.</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>Omdraaien</translation>
+    </message>
+    <message>
+        <source>The train&apos;s last car becomes its front, and it faces the other way.</source>
+        <translation>De laatste wagon wordt de voorkant en de trein wijst de andere kant op.</translation>
+    </message>
+    <message>
+        <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
+        <translation>De wagons blijven waar ze op het spoor staan; alleen hun volgorde en de richting van de trein veranderen. Elke keer omdraaien is één wijziging die je ongedaan kunt maken.</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Controles</translation>
+    </message>
+    <message>
+        <source>What doesn&apos;t fit: a train too long for its track, a curve too tight, cars too close to another track.</source>
+        <translation>Wat niet past: een trein te lang voor zijn spoor, een te krappe bocht, wagons te dicht bij ander spoor.</translation>
+    </message>
+    <message>
+        <source>The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends.</source>
+        <translation>De controles worden opnieuw berekend zodra het spoor, een trein of een wissel verandert; niets wordt tegengehouden. Laat zien brengt de plek in beeld. Beeld › Spoorlengtes zet bij elk stuk spoor de lengte waarin een trein past, tussen zijn wissels en uiteinden.</translation>
     </message>
 </context>
 <context>
@@ -2586,6 +2786,21 @@
     </message>
 </context>
 <context>
+    <name>Routes</name>
+    <message>
+        <source>There’s no track joining these two places.</source>
+        <translation>Geen spoor verbindt deze twee plekken.</translation>
+    </message>
+    <message>
+        <source>The only way needs the train to turn around.</source>
+        <translation>De enige weg vraagt dat de trein keert.</translation>
+    </message>
+    <message>
+        <source>Pick an end somewhere else along the track.</source>
+        <translation>Kies een eind ergens anders langs het spoor.</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3375,15 +3590,15 @@
     </message>
     <message>
         <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
-        <translation>Een module is een groep onderdelen die als één stuk beweegt, zoals een tafel die een clublid meebrengt. Hier staan de modules van deze layout.</translation>
+        <translation>Een module is een stel onderdelen dat als één stuk beweegt, zoals een tafel die een clublid meebrengt. De modules van deze baan staan hier.</translation>
     </message>
     <message>
         <source>Make a module</source>
-        <translation>Een module maken</translation>
+        <translation>Module maken</translation>
     </message>
     <message>
         <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
-        <translation>Kies een paar onderdelen en daarna Een module maken. Bewaar hem in je modulebibliotheek om hem in andere layouts opnieuw te gebruiken.</translation>
+        <translation>Kies wat onderdelen en dan Module maken. Sla hem op in je modulebibliotheek om hem in andere banen te gebruiken.</translation>
     </message>
     <message>
         <source>Each module&apos;s menu</source>
@@ -3391,7 +3606,7 @@
     </message>
     <message>
         <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
-        <translation>Met het ⋯-menu bewerk, kleur en bewaar je een module. Tafel en stroom zegt waar hij op staat en hoeveel stroom hij nodig heeft.</translation>
+        <translation>Het ⋯-menu bewerkt, kleurt en bewaart een module. Tafel en stroom zegt waar hij op staat en welke stroom hij nodig heeft.</translation>
     </message>
     <message>
         <source>Tables and power</source>
@@ -3399,7 +3614,43 @@
     </message>
     <message>
         <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
-        <translation>Hier telt de layout de stopcontacten, watts en tafelhoogtes van zijn modules op, voor wie de tentoonstelling plant.</translation>
+        <translation>De baan telt hier de stopcontacten, watt en tafelhoogtes van zijn modules op, voor wie de tentoonstelling plant.</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>Routes</translation>
+    </message>
+    <message>
+        <source>Your routes</source>
+        <translation>Je routes</translation>
+    </message>
+    <message>
+        <source>Routes are named ways along the track. Open this list from Panels; the eye hides one on your map only.</source>
+        <translation>Routes zijn benoemde wegen langs het spoor. Open deze lijst via Panelen; het oog verbergt er een alleen op jouw kaart.</translation>
+    </message>
+    <message>
+        <source>Draw a route</source>
+        <translation>Een route tekenen</translation>
+    </message>
+    <message>
+        <source>Press New route, then click on the track where it starts and where it ends. The shortest way is found for you.</source>
+        <translation>Druk op Nieuwe route en klik op het spoor waar hij begint en waar hij eindigt. De kortste weg wordt voor je gezocht.</translation>
+    </message>
+    <message>
+        <source>Stops on the way</source>
+        <translation>Stops onderweg</translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop, to send the route along another line. Name it and press Save route.</source>
+        <translation>Shift-klik voegt een stop toe, om de route over een ander spoor te sturen. Geef hem een naam en druk op Route opslaan.</translation>
+    </message>
+    <message>
+        <source>Switches follow the route</source>
+        <translation>Wissels volgen de route</translation>
+    </message>
+    <message>
+        <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
+        <translation>Wissels zetten zet elke wissel op de route zijn kant op. In rijmodus zet je ze met de hand om.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -3472,6 +3723,58 @@
     <message>
         <source>Put it in the layout you have open, or start a new layout with it.</source>
         <translation>Zet het in de geopende layout, of begin er een nieuwe layout mee.</translation>
+    </message>
+    <message>
+        <source>Trains</source>
+        <translation>Treinen</translation>
+    </message>
+    <message>
+        <source>Trains and cars</source>
+        <translation>Treinen en wagons</translation>
+    </message>
+    <message>
+        <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
+        <translation>Open Treinen via Panelen. Rollend materieel bevat de locomotieven en wagons van deze layout; Treinen de treinen die ervan gemaakt zijn.</translation>
+    </message>
+    <message>
+        <source>A quick car</source>
+        <translation>Een snelle wagon</translation>
+    </message>
+    <message>
+        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
+        <translation>Nieuwe wagon heeft alleen een nummer en een lengte in noppen nodig. Meer details stelt draaistellen, koppelingen en de afbeelding van een onderdeel in.</translation>
+    </message>
+    <message>
+        <source>Make a train</source>
+        <translation>Een trein maken</translation>
+    </message>
+    <message>
+        <source>Tick a few cars and press Make a train, or press New train and add them in order, front first.</source>
+        <translation>Vink een paar wagons aan en druk op Een trein maken, of druk op Nieuwe trein en voeg ze op volgorde toe, voorkant eerst.</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>Op het spoor</translation>
+    </message>
+    <message>
+        <source>Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track.</source>
+        <translation>Druk op Op het spoor zetten en klik waar de voorkant moet komen. Elke wagon zit tussen zijn draaistellen, zoals op echt spoor.</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>Je wagenpark</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
+        <translation>Bewaar een wagon in je wagenpark of dat van een club om hem in andere layouts te gebruiken. Bijwerken brengt de kopie van een layout bij.</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Controles</translation>
+    </message>
+    <message>
+        <source>Checks lists what doesn&apos;t fit: a train too long for its track, a curve too tight. Show me finds the spot.</source>
+        <translation>Controles toont wat niet past: een te lange trein, een te krappe bocht. Laat zien vindt de plek.</translation>
     </message>
 </context>
 <context>
@@ -4551,12 +4854,28 @@
         <translation>Budgetlimiet voor %1</translation>
     </message>
     <message>
+        <source>A switch&apos;s setting</source>
+        <translation>De stand van een wissel</translation>
+    </message>
+    <message>
+        <source>Route &quot;%1&quot;</source>
+        <translation>Route ‘%1’</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Zaal</translation>
     </message>
     <message>
         <source>Background image</source>
         <translation>Achtergrondafbeelding</translation>
+    </message>
+    <message>
+        <source>Car &quot;%1&quot;</source>
+        <translation>Wagon &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Train &quot;%1&quot;</source>
+        <translation>Trein &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -5270,6 +5589,93 @@
     <message>
         <source>Close</source>
         <translation>Sluiten</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FitChecksList</name>
+    <message>
+        <source>A train</source>
+        <translation>Een trein</translation>
+    </message>
+    <message>
+        <source>A car</source>
+        <translation>Een wagon</translation>
+    </message>
+    <message>
+        <source>A route</source>
+        <translation>Een route</translation>
+    </message>
+    <message>
+        <source>%1 (%2) is longer than the track it stands in (%3 between its switches and ends).</source>
+        <translation>%1 (%2) is langer dan het spoor waarop hij staat (%3 tussen zijn wissels en uiteinden).</translation>
+    </message>
+    <message>
+        <source>%1 in %2: the curve is too tight for its trucks (they turn %3; at most %4).</source>
+        <translation>%1 in %2: de bocht is te krap voor de draaistellen (ze draaien %3; hoogstens %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 can&apos;t reach the car ahead: its couplers are %3 apart on this curve.</source>
+        <translation>%1 in %2 haalt de wagon ervoor niet: de koppelingen zitten in deze bocht %3 uit elkaar.</translation>
+    </message>
+    <message>
+        <source>%1 in %2: its coupler turns %3 on this curve (at most %4).</source>
+        <translation>%1 in %2: de koppeling draait %3 in deze bocht (hoogstens %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 has no coupler to the car ahead.</source>
+        <translation>%1 in %2 heeft geen koppeling naar de wagon ervoor.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 is too close to the other track here.</source>
+        <translation>%1 in %2 staat hier te dicht bij het andere spoor.</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>een andere trein</translation>
+    </message>
+    <message>
+        <source>%1 and %2 are on top of each other.</source>
+        <translation>%1 en %2 staan op elkaar.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 doesn&apos;t run on this kind of track (it runs on %3).</source>
+        <translation>%1 in %2 rijdt niet op dit soort spoor (hij rijdt op %3).</translation>
+    </message>
+    <message>
+        <source>monorail</source>
+        <translation>monorail</translation>
+    </message>
+    <message>
+        <source>train track</source>
+        <translation>treinspoor</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track.</source>
+        <translation>%1 steekt voorbij het einde van het spoor.</translation>
+    </message>
+    <message>
+        <source>%1&apos;s track was moved or removed: put it on the track again.</source>
+        <translation>Het spoor van %1 is verplaatst of verwijderd: zet hem opnieuw op het spoor.</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around (a reversing loop or wye).</source>
+        <translation>%1 draait de trein om (een keerlus of driehoek).</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
+        <translation>%1 draait de trein om op spoor met stroom: daar is een ompoolschakelaar nodig.</translation>
+    </message>
+    <message>
+        <source>Problem</source>
+        <translation>Probleem</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Waarschuwing</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Laat zien</translation>
     </message>
 </context>
 <context>
@@ -6745,20 +7151,52 @@ De mijne als nieuwe versie opslaan: jouw versie wordt de module; die van hen bli
         <translation>Openen van server: je layouts, zalen, modules en onderdelen, en die van je clubs</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>Stukken op een raster uitlijnen (klik om aan of uit te zetten, de pijl kiest de stap)</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 noppen</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>Vastklikken %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>Vastklikken uit</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>Stappen %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>Alles op het noppenraster uitlijnen (klik om aan of uit te zetten, de pijl kiest hoeveel noppen ertussen)</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>Elke nop</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>Elke %1 noppen</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Op het raster snappen</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>In stappen bewegen</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>Dingen landen op de dichtstbijzijnde nop (of om de paar noppen), zodat alles op een lijn ligt</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>Dingen bewegen een heel aantal stappen vanaf waar ze waren en houden hun verschuiving</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>Noppenraster tonen</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>Vage lijnen op één nop afstand, zichtbaar als je ver genoeg inzoomt</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -7811,6 +8249,18 @@ Toch opslaan?</translation>
     <message>
         <source>&amp;Ruler Attach Points</source>
         <translation>&amp;Aanhechtpunten van linialen</translation>
+    </message>
+    <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>Treinen laten r&amp;ijden</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Treinen laten rijden: klik op een wissel om hem om te zetten. Onderdelen kunnen niet worden verplaatst.</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>&amp;Wissels</translation>
     </message>
     <message>
         <source>M&amp;odules</source>
@@ -9379,6 +9829,14 @@ Dit wordt niet opnieuw gevraagd. Om het later in deze of een andere layout over 
         <translation>uit welke versie elke set komt</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>wisselstanden</translation>
+    </message>
+    <message>
+        <source>routes</source>
+        <translation>routes</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9512,6 +9970,18 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     <message>
         <source>All notifications</source>
         <translation>Alle meldingen</translation>
+    </message>
+    <message>
+        <source>trains</source>
+        <translation>treinen</translation>
+    </message>
+    <message>
+        <source>rolling stock</source>
+        <translation>rollend materieel</translation>
+    </message>
+    <message>
+        <source>Sidin&amp;g Lengths</source>
+        <translation>Spoorlen&amp;gtes</translation>
     </message>
 </context>
 <context>
@@ -9706,6 +10176,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>Stop met treinen laten rijden om onderdelen toe te voegen.</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -10074,6 +10548,118 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
             <numerusform>Plakken (%1 onderdelen op %n blad)</numerusform>
             <numerusform>Plakken (%1 onderdelen op %n bladen)</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Straight</source>
+        <translation>Rechtdoor</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Rijmodus:&lt;/b&gt; klik op een wissel om hem om te zetten. Onderdelen kunnen niet worden verplaatst.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stoppen</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ Treinen laten rijden</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Treinen laten rijden: klik op een wissel om hem om te zetten. Onderdelen kunnen niet worden verplaatst.</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>Wissel zetten</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>Klik op een wissel om hem om te zetten.</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>Wissel gezet: %1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>Wissel zetten</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>Vanaf uiteinde %1: %2</translation>
+    </message>
+    <message>
+        <source>Route name</source>
+        <translation>Naam van de route</translation>
+    </message>
+    <message>
+        <source>Save route</source>
+        <translation>Route opslaan</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>Route %1</source>
+        <translation>Route %1</translation>
+    </message>
+    <message>
+        <source>Click on the track.</source>
+        <translation>Klik op het spoor.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
+        <translation>&lt;b&gt;Nieuwe route:&lt;/b&gt; klik op het spoor waar hij begint.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Nieuwe route:&lt;/b&gt; klik waar hij eindigt (Shift-klik voegt een stop toe).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
+        <translation>&lt;b&gt;Nieuwe route:&lt;/b&gt; %1 langs het spoor%2. Shift-klik voegt een stop toe.</translation>
+    </message>
+    <message>
+        <source>, and it turns the train around</source>
+        <translation>, en de trein keert onderweg</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nieuwe route</translation>
+    </message>
+    <message>
+        <source>Route “%1” saved.</source>
+        <translation>Route ‘%1’ opgeslagen.</translation>
+    </message>
+    <message>
+        <source>the train</source>
+        <translation>de trein</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
+        <translation>Klik op het spoor waar de voorkant van &lt;b&gt;%1&lt;/b&gt; komt.</translation>
+    </message>
+    <message>
+        <source>The train</source>
+        <translation>De trein</translation>
+    </message>
+    <message>
+        <source>Put %1 on the track</source>
+        <translation>%1 op het spoor zetten</translation>
+    </message>
+    <message>
+        <source>%1 is on the track.</source>
+        <translation>%1 staat op het spoor.</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track here.</source>
+        <translation>%1 steekt hier voorbij het einde van het spoor.</translation>
     </message>
 </context>
 <context>
@@ -11714,6 +12300,163 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     </message>
 </context>
 <context>
+    <name>bld::ui::RosterDialog</name>
+    <message>
+        <source>From a roster</source>
+        <translation>Uit een wagenpark</translation>
+    </message>
+    <message>
+        <source>Your engines and cars, and your clubs’. Add one to this layout; it keeps its own copy.</source>
+        <translation>Je locomotieven en wagons, en die van je clubs. Voeg er een toe aan deze layout; hij houdt een eigen kopie.</translation>
+    </message>
+    <message>
+        <source>Your roster is empty. Save a car from a layout to your roster, or a club’s, to use it in other layouts.</source>
+        <translation>Je wagenpark is leeg. Bewaar een wagon uit een layout in je wagenpark, of dat van een club, om hem in andere layouts te gebruiken.</translation>
+    </message>
+    <message>
+        <source>Unnamed</source>
+        <translation>Naamloos</translation>
+    </message>
+    <message>
+        <source>Yours</source>
+        <translation>Van jou</translation>
+    </message>
+    <message>
+        <source>In this layout</source>
+        <translation>In deze layout</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation>Bijwerken</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Toevoegen</translation>
+    </message>
+    <message>
+        <source>Take off the roster</source>
+        <translation>Uit het wagenpark halen</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RoutesPanel</name>
+    <message>
+        <source>Routes</source>
+        <translation>Routes</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nieuwe route</translation>
+    </message>
+    <message>
+        <source>Delete route</source>
+        <translation>Route verwijderen</translation>
+    </message>
+    <message>
+        <source>Delete the route “%1”?</source>
+        <translation>De route ‘%1’ verwijderen?</translation>
+    </message>
+    <message>
+        <source>Rename route</source>
+        <translation>Route hernoemen</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Naam:</translation>
+    </message>
+    <message>
+        <source>Switches set for “%1”.</source>
+        <translation>Wissels gezet voor ‘%1’.</translation>
+    </message>
+    <message>
+        <source>Set switches for a route</source>
+        <translation>Wissels zetten voor een route</translation>
+    </message>
+    <message>
+        <source>Draw the route again from its new start or end.</source>
+        <translation>Teken de route opnieuw vanaf zijn nieuwe begin of eind.</translation>
+    </message>
+    <message>
+        <source>Found a new way for “%1”.</source>
+        <translation>Nieuwe weg gevonden voor ‘%1’.</translation>
+    </message>
+    <message>
+        <source>Find a new way</source>
+        <translation>Nieuwe weg zoeken</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then draw a route along it.</source>
+        <translation>Er ligt nog geen spoor op deze baan. Voeg wat toe uit de groep Spoor in het paneel Onderdelen en teken er dan een route langs.</translation>
+    </message>
+    <message>
+        <source>No routes yet. Press New route, then click two places on the track: where it starts and where it ends.</source>
+        <translation>Nog geen routes. Druk op Nieuwe route en klik dan op twee plekken op het spoor: waar hij begint en waar hij eindigt.</translation>
+    </message>
+    <message>
+        <source>Untitled route</source>
+        <translation>Route zonder naam</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation>Zichtbaar</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation>Verborgen</translation>
+    </message>
+    <message>
+        <source>Shown on your map (only yours)</source>
+        <translation>Zichtbaar op jouw kaart (alleen de jouwe)</translation>
+    </message>
+    <message>
+        <source>Hidden on your map (only yours)</source>
+        <translation>Verborgen op jouw kaart (alleen de jouwe)</translation>
+    </message>
+    <message>
+        <source>Hide %1 on your map</source>
+        <translation>%1 verbergen op jouw kaart</translation>
+    </message>
+    <message>
+        <source>Show %1 on your map</source>
+        <translation>%1 tonen op jouw kaart</translation>
+    </message>
+    <message>
+        <source>Broken: the track under it changed.</source>
+        <translation>Onderbroken: het spoor eronder is veranderd.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) set the other way</source>
+        <translation>
+            <numerusform>%n wissel staat de andere kant op</numerusform>
+            <numerusform>%n wissels staan de andere kant op</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Turns the train around</source>
+        <translation>De trein keert</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Wissels zetten</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Hernoemen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>Route checks</source>
+        <translation>Routecontroles</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::SaveModuleDialog</name>
     <message>
         <source>Put everything on one sheet</source>
@@ -12149,12 +12892,12 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Hernoemd naar &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
-        <translation>Bewaard in de modulebibliotheek. Layouts krijgen het als ze deze module toevoegen of bijwerken vanuit de bibliotheek.</translation>
-    </message>
-    <message>
         <source>Not saved: %1</source>
         <translation>Niet bewaard: %1</translation>
+    </message>
+    <message>
+        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
+        <translation>Bewaard in de modulebibliotheek. Layouts krijgen het als ze deze module toevoegen of bijwerken vanuit de bibliotheek.</translation>
     </message>
     <message>
         <source>Gave &quot;%1&quot; back to %2</source>
@@ -12829,6 +13572,26 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Grotere tekst en knoppen</translation>
     </message>
     <message>
+        <source>Units</source>
+        <translation>Eenheden</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>Hoe lengtes worden getoond, zoals de muren van een zaal.</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>Voet en inch, zoals 12′ 6½″</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>Metrisch, zoals 3,81 m</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>Noppen: LEGO-noppen, elk 8 mm</translation>
+    </message>
+    <message>
         <source>Editing</source>
         <translation>Bewerken</translation>
     </message>
@@ -12990,6 +13753,22 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Grid snap:</source>
         <translation>Vastklikken op raster:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Op het raster snappen</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>In stappen bewegen</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>Hoe er gesnapt wordt:</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>Noppenraster tonen bij inzoomen</translation>
     </message>
     <message>
         <source>Turn step:</source>
@@ -13614,6 +14393,181 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     </message>
 </context>
 <context>
+    <name>bld::ui::StockDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> noppen</translation>
+    </message>
+    <message>
+        <source>Engine</source>
+        <translation>Locomotief</translation>
+    </message>
+    <message>
+        <source>Cab car</source>
+        <translation>Stuurstandrijtuig</translation>
+    </message>
+    <message>
+        <source>Powered car (multiple unit)</source>
+        <translation>Motorrijtuig (treinstel)</translation>
+    </message>
+    <message>
+        <source>Monorail car</source>
+        <translation>Monorailwagon</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>Wagon</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Nieuwe wagon</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>Wagon wijzigen</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a number and a length. More details can wait.</source>
+        <translation>Een snelle wagon heeft alleen een nummer en een lengte nodig. Details kunnen wachten.</translation>
+    </message>
+    <message>
+        <source>Number:</source>
+        <translation>Nummer:</translation>
+    </message>
+    <message>
+        <source>Boxcar</source>
+        <translation>Gesloten wagon</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Naam:</translation>
+    </message>
+    <message>
+        <source>Kind:</source>
+        <translation>Soort:</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Kleur</translation>
+    </message>
+    <message>
+        <source>Car color</source>
+        <translation>Kleur van de wagon</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>Kleur:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler</source>
+        <translation>Koppeling tot koppeling</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>Lengte:</translation>
+    </message>
+    <message>
+        <source>More details</source>
+        <translation>Meer details</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Breedte:</translation>
+    </message>
+    <message>
+        <source>Body length:</source>
+        <translation>Lengte van de bak:</translation>
+    </message>
+    <message>
+        <source>Front truck, ahead of the middle:</source>
+        <translation>Voorste draaistel, voor het midden:</translation>
+    </message>
+    <message>
+        <source>Rear truck, behind the middle:</source>
+        <translation>Achterste draaistel, achter het midden:</translation>
+    </message>
+    <message>
+        <source>Magnet</source>
+        <translation>Magneet</translation>
+    </message>
+    <message>
+        <source>Fixed bar</source>
+        <translation>Vaste stang</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Front coupler:</source>
+        <translation>Voorste koppeling:</translation>
+    </message>
+    <message>
+        <source>Rear coupler:</source>
+        <translation>Achterste koppeling:</translation>
+    </message>
+    <message>
+        <source>Has a motor</source>
+        <translation>Heeft een motor</translation>
+    </message>
+    <message>
+        <source>Train track</source>
+        <translation>Treinspoor</translation>
+    </message>
+    <message>
+        <source>Monorail</source>
+        <translation>Monorail</translation>
+    </message>
+    <message>
+        <source>Runs on:</source>
+        <translation>Rijdt op:</translation>
+    </message>
+    <message>
+        <source>A box in its color</source>
+        <translation>Een blok in zijn kleur</translation>
+    </message>
+    <message>
+        <source>A part’s picture</source>
+        <translation>De afbeelding van een onderdeel</translation>
+    </message>
+    <message>
+        <source>Seen from above as:</source>
+        <translation>Van boven gezien als:</translation>
+    </message>
+    <message>
+        <source>Search train parts</source>
+        <translation>Treinonderdelen zoeken</translation>
+    </message>
+    <message>
+        <source>Picking a part sets the length from its couplers.</source>
+        <translation>Een onderdeel kiezen stelt de lengte in vanaf de koppelingen.</translation>
+    </message>
+    <message>
+        <source>Notes:</source>
+        <translation>Notities:</translation>
+    </message>
+    <message>
+        <source>The front truck must be ahead of the rear one, and both within the car’s length.</source>
+        <translation>Het voorste draaistel moet voor het achterste zitten, en beide binnen de lengte van de wagon.</translation>
+    </message>
+    <message>
+        <source>Add car</source>
+        <translation>Wagon toevoegen</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Opslaan</translation>
+    </message>
+    <message>
+        <source>Fewer details</source>
+        <translation>Minder details</translation>
+    </message>
+    <message>
+        <source>No train parts match. Parts with a coupler at each end show here.</source>
+        <translation>Geen treinonderdelen gevonden. Onderdelen met een koppeling aan elk uiteinde staan hier.</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::TouchActionBar</name>
     <message>
         <source>Turn left</source>
@@ -13658,6 +14612,338 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Tap the map to place %1</source>
         <translation>Tik op de kaart om %1 te plaatsen</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainDialog</name>
+    <message>
+        <source>New train</source>
+        <translation>Nieuwe trein</translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>Trein wijzigen</translation>
+    </message>
+    <message>
+        <source>Cars in order, front first. A train moves as one.</source>
+        <translation>Wagons op volgorde, voorkant eerst. Een trein beweegt als geheel.</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Naam:</translation>
+    </message>
+    <message>
+        <source>Cars in the train, front first</source>
+        <translation>Wagons in de trein, voorkant eerst</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation>Naar voren</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Vorige</translation>
+    </message>
+    <message>
+        <source>Turn car around</source>
+        <translation>Wagon omdraaien</translation>
+    </message>
+    <message>
+        <source>Take out</source>
+        <translation>Eruit halen</translation>
+    </message>
+    <message>
+        <source>Car to add</source>
+        <translation>Wagon om toe te voegen</translation>
+    </message>
+    <message>
+        <source>Add to the end</source>
+        <translation>Achteraan toevoegen</translation>
+    </message>
+    <message>
+        <source>This layout has no cars yet. Make one in Rolling stock first.</source>
+        <translation>Deze layout heeft nog geen wagons. Maak er eerst een in Rollend materieel.</translation>
+    </message>
+    <message>
+        <source>Save train</source>
+        <translation>Trein bewaren</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>Een verwijderde wagon</translation>
+    </message>
+    <message>
+        <source>turned around</source>
+        <translation>omgedraaid</translation>
+    </message>
+    <message>
+        <source>Length %1</source>
+        <translation>Lengte %1</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>Trein</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainsPanel</name>
+    <message>
+        <source>Trains</source>
+        <translation>Treinen</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>Nieuwe trein</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Nieuwe wagon</translation>
+    </message>
+    <message>
+        <source>From a roster…</source>
+        <translation>Uit een wagenpark…</translation>
+    </message>
+    <message>
+        <source>Rolling stock</source>
+        <translation>Rollend materieel</translation>
+    </message>
+    <message>
+        <source>Added %1.</source>
+        <translation>%1 toegevoegd.</translation>
+    </message>
+    <message>
+        <source>Saved %1.</source>
+        <translation>%1 bewaard.</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>Wagon wijzigen</translation>
+    </message>
+    <message>
+        <source>Delete %1?</source>
+        <translation>%1 verwijderen?</translation>
+    </message>
+    <message>
+        <source>Delete %1 and take it out of %2?</source>
+        <translation>%1 verwijderen en uit %2 halen?</translation>
+    </message>
+    <message>
+        <source>Delete car</source>
+        <translation>Wagon verwijderen</translation>
+    </message>
+    <message>
+        <source>Train %1</source>
+        <translation>Trein %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Made %1 from %n car(s). Put it on the track to see it.</source>
+        <translation>
+            <numerusform>%1 gemaakt van %n wagon. Zet hem op het spoor om hem te zien.</numerusform>
+            <numerusform>%1 gemaakt van %n wagons. Zet hem op het spoor om hem te zien.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>Trein wijzigen</translation>
+    </message>
+    <message>
+        <source>%1 turned around.</source>
+        <translation>%1 omgedraaid.</translation>
+    </message>
+    <message>
+        <source>Turn train around</source>
+        <translation>Trein omdraaien</translation>
+    </message>
+    <message>
+        <source>Take train off the track</source>
+        <translation>Trein van het spoor halen</translation>
+    </message>
+    <message>
+        <source>Delete %1? Its cars stay.</source>
+        <translation>%1 verwijderen? De wagons blijven.</translation>
+    </message>
+    <message>
+        <source>Delete train</source>
+        <translation>Trein verwijderen</translation>
+    </message>
+    <message>
+        <source>Updated %1 from the roster.</source>
+        <translation>%1 bijgewerkt uit het wagenpark.</translation>
+    </message>
+    <message>
+        <source>Update car from roster</source>
+        <translation>Wagon bijwerken uit wagenpark</translation>
+    </message>
+    <message>
+        <source>Added %1 to this layout.</source>
+        <translation>%1 aan deze layout toegevoegd.</translation>
+    </message>
+    <message>
+        <source>Add car from roster</source>
+        <translation>Wagon toevoegen uit wagenpark</translation>
+    </message>
+    <message>
+        <source>Your rosters couldn’t be loaded: %1</source>
+        <translation>Je wagenparken konden niet worden geladen: %1</translation>
+    </message>
+    <message>
+        <source>Saved %1 to the roster.</source>
+        <translation>%1 in het wagenpark bewaard.</translation>
+    </message>
+    <message>
+        <source>Save car to roster</source>
+        <translation>Wagon in wagenpark bewaren</translation>
+    </message>
+    <message>
+        <source>It couldn’t be saved to the roster: %1</source>
+        <translation>Hij kon niet in het wagenpark worden bewaard: %1</translation>
+    </message>
+    <message>
+        <source>Trains (%1)</source>
+        <translation>Treinen (%1)</translation>
+    </message>
+    <message>
+        <source>Rolling stock (%1)</source>
+        <translation>Rollend materieel (%1)</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
+        <translation>Nog geen rollend materieel. Druk op Nieuwe wagon: een nummer en een lengte is alles wat een snelle wagon nodig heeft.</translation>
+    </message>
+    <message>
+        <source>Pick %1 for a new train</source>
+        <translation>%1 kiezen voor een nieuwe trein</translation>
+    </message>
+    <message>
+        <source>In %1</source>
+        <translation>In %1</translation>
+    </message>
+    <message>
+        <source>The roster has a newer version</source>
+        <translation>Het wagenpark heeft een nieuwere versie</translation>
+    </message>
+    <message>
+        <source>From a roster</source>
+        <translation>Uit een wagenpark</translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation>Wijziging</translation>
+    </message>
+    <message>
+        <source>Update from roster</source>
+        <translation>Bijwerken uit wagenpark</translation>
+    </message>
+    <message>
+        <source>Save to roster</source>
+        <translation>In wagenpark bewaren</translation>
+    </message>
+    <message>
+        <source>Save changes to %1’s roster</source>
+        <translation>Wijzigingen bewaren in het wagenpark van %1</translation>
+    </message>
+    <message>
+        <source>Save changes to your roster</source>
+        <translation>Wijzigingen bewaren in je wagenpark</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>Je wagenpark</translation>
+    </message>
+    <message>
+        <source>%1’s roster</source>
+        <translation>Wagenpark van %1</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>Make a train of this car</source>
+        <translation>Een trein maken van deze wagon</translation>
+    </message>
+    <message>
+        <source>Make a train of these %1 cars</source>
+        <translation>Een trein maken van deze %1 wagons</translation>
+    </message>
+    <message>
+        <source>No trains yet. Make a car or two in Rolling stock first, then put them together here.</source>
+        <translation>Nog geen treinen. Maak eerst een of twee wagons in Rollend materieel en zet ze hier samen.</translation>
+    </message>
+    <message>
+        <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
+        <translation>Nog geen treinen. Druk op Nieuwe trein, of vink wagons aan in Rollend materieel en maak er een trein van.</translation>
+    </message>
+    <message>
+        <source>Untitled train</source>
+        <translation>Naamloze trein</translation>
+    </message>
+    <message>
+        <source>Not on the map</source>
+        <translation>Niet op de kaart</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed</source>
+        <translation>Het spoor is verplaatst of verwijderd</translation>
+    </message>
+    <message>
+        <source>Runs off the end of the track</source>
+        <translation>Steekt voorbij het einde van het spoor</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>Op het spoor</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n car(s)</source>
+        <translation>
+            <numerusform>%n wagon</numerusform>
+            <numerusform>%n wagons</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Click the track…</source>
+        <translation>Klik op het spoor…</translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation>Verplaatsen</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>Op het spoor zetten</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet.</source>
+        <translation>Deze layout heeft nog geen spoor.</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>Omdraaien</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>Van het spoor halen</translation>
+    </message>
+    <message>
+        <source>Sign in to a server first (File › Servers…) to use your roster and your clubs’.</source>
+        <translation>Meld je eerst aan bij een server (Bestand › Servers…) om je wagenpark en dat van je clubs te gebruiken.</translation>
+    </message>
+    <message>
+        <source>Take %1 off the roster? Layouts keep their copies.</source>
+        <translation>%1 uit het wagenpark halen? Layouts houden hun kopieën.</translation>
+    </message>
+    <message>
+        <source>It couldn’t be taken off the roster: %1</source>
+        <translation>Hij kon niet uit het wagenpark worden gehaald: %1</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Controles</translation>
+    </message>
+    <message>
+        <source>Every train on the track fits: nothing too long, too tight or too close.</source>
+        <translation>Elke trein op het spoor past: niets te lang, te krap of te dichtbij.</translation>
     </message>
 </context>
 <context>

@@ -9,12 +9,15 @@
 #include "../core/Group.h"
 #include "../core/LayerRuler.h"
 #include "../core/Module.h"
+#include "../core/Route.h"
+#include "../core/Train.h"
 #include "../core/TextCell.h"
 #include "../core/Venue.h"
 #include "../edit/venue/VenueUnits.h"
 #include "ModuleLabels.h"
 
 #include <QColor>
+#include <QMap>
 #include <QHash>
 #include <QList>
 #include <QPair>
@@ -121,6 +124,57 @@ public:
     // Ruler layers in `keepRulerLayers` (being dragged themselves) stay.
     void rebuildFollowers(const core::Map& posed, const QSet<QString>& moving,
                           const QSet<int>& keepRulerLayers);
+
+    // Switches (trains design 6.3): an arrow on each switch along the way
+    // it is set (the sidecar's switchStates), the other ways faint. Shown in
+    // Run mode, and while building with View > Switches. Drawn again by
+    // update() when parts or settings change; refreshSwitches() after a
+    // change of setShowSwitches.
+    void setShowSwitches(bool on) { switchesShown_ = on; }
+    bool showSwitches() const { return switchesShown_; }
+    void refreshSwitches(const core::Map& map);
+    // The switch arrows drawn, by switch key (tests): the arrow item.
+    const QHash<QString, QGraphicsItem*>& switchArrows() const { return switchArrowByKey_; }
+    // The arrow's color: the usual way, and set the other way.
+    static QColor switchSetColor();
+    static QColor switchTurnedColor();
+
+    // Named routes (trains design 6.2): each route not hidden on this
+    // person's map, as a wide line in its color along the track; a broken
+    // one dashed red as far as it goes; a ring on each switch it needs that
+    // is set the other way. The route being drawn: dashed, ends marked.
+    void setHiddenRoutes(const QSet<QString>& ids) { hiddenRoutes_ = ids; }
+    struct RouteDraftLook {
+        std::vector<std::vector<QPointF>> lines;  // studs
+        std::vector<QPointF> ends;                // studs
+    };
+    void setRouteDraft(std::optional<RouteDraftLook> d) { routeDraft_ = std::move(d); }
+    void refreshRoutes(const core::Map& map);
+    // The routes drawn, by id: their line items (tests).
+    const QHash<QString, QList<QGraphicsItem*>>& routeItems() const { return routeItemsById_; }
+    static QColor routeBrokenColor();
+
+    // Trains on the track (trains design 3.3, 6.4): each car's body on the
+    // chord between its trucks, a box in its color with a tick at each
+    // truck (or its part's picture), the head car's front pointed, numbers
+    // on. The train being put on the track (or picked) is outlined.
+    void setPickedTrain(const QString& id) { pickedTrain_ = id; }
+    void refreshTrains(const core::Map& map);
+    // Each train drawn, by id: its cars' body items, front first (tests).
+    const QHash<QString, QList<QGraphicsItem*>>& trainItems() const { return trainCarsById_; }
+    static QColor trainProblemColor();
+
+    // Fit checks on the map (trains design 3.5, 6.2): with View > Siding
+    // Lengths, each run of track labeled with the length a train can stand
+    // in; a ring at each spot a check is about (red: a problem, amber: a
+    // warning); and "Show me"'s spot, ringed.
+    void setShowSidingLengths(bool on) { showSidingLengths_ = on; }
+    void setSpotlight(std::optional<QPointF> studs) { spotlight_ = studs; }
+    void refreshFit(const core::Map& map);
+    // What is drawn (tests): the siding labels, the check rings, the spotlight.
+    int sidingLabelCount() const { return sidingLabels_; }
+    int checkRingCount() const { return checkRings_; }
+    bool spotlightShown() const { return spotlightShown_; }
 
     // Draw every module's frame and name again from `map` (a sheet shown or
     // hidden changes which parts frame a module, and how its frame is dashed).
@@ -249,6 +303,37 @@ private:
     void clearVenue();
     void clearModuleLabels();
     void clearElectric();
+    void clearSwitches();
+    void clearRoutes();
+    void addRoutes(const core::Map& map);
+    QSet<QString> hiddenRoutes_;
+    std::optional<RouteDraftLook> routeDraft_;
+    QList<QGraphicsItem*> routeItems_;
+    QHash<QString, QList<QGraphicsItem*>> routeItemsById_;
+    std::vector<core::Route> drawnRoutes_;
+    QMap<QString, int> drawnRouteSwitchStates_;
+    QMap<QString, int> drawnTrainSwitchStates_;
+    void clearTrains();
+    void addTrains(const core::Map& map);
+    QString pickedTrain_;
+    QList<QGraphicsItem*> trainItems_;
+    QHash<QString, QList<QGraphicsItem*>> trainCarsById_;
+    std::vector<core::RollingStock> drawnStock_;
+    std::vector<core::Train> drawnTrains_;
+    void clearFit();
+    void addFit(const core::Map& map);
+    bool showSidingLengths_ = false;
+    std::optional<QPointF> spotlight_;
+    QList<QGraphicsItem*> fitItems_;
+    int sidingLabels_ = 0;
+    int checkRings_ = 0;
+    bool spotlightShown_ = false;
+    std::vector<core::Route> drawnFitRoutes_;
+    void addSwitches(const core::Map& map);
+    bool switchesShown_ = false;
+    QList<QGraphicsItem*> switchItems_;
+    QHash<QString, QGraphicsItem*> switchArrowByKey_;
+    QMap<QString, int> drawnSwitchStates_;
     QPointF brickCentre(const core::Brick& b) const;
     std::optional<core::Venue> drawnVenue_;
     std::vector<core::AnchoredLabel> drawnLabels_;

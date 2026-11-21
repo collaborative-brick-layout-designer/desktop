@@ -1,5 +1,5 @@
 // Grid snap (core/GridSnap.h): the cases the web runs too
-// (fixtures/grid-snap-vectors.json, from vanilla BlueBrick under Wine), the
+// (fixtures/grid-snap-vectors.json: the one stud grid, nearest point), the
 // <SnapMargin>s of the real library, then each kind of item on the grid in
 // a MapView: parts dragged, placed and dropped as modules, rulers drawn,
 // moved and stretched, labels moved, text added and venue corners drawn.
@@ -7,6 +7,7 @@
 #include "core/GridSnap.h"
 #include "core/AnchoredLabel.h"
 #include "core/LayerBrick.h"
+#include "core/LayerGrid.h"
 #include "core/LayerRuler.h"
 #include "core/LayerText.h"
 #include "core/Map.h"
@@ -94,14 +95,66 @@ TEST(GridSnap, SharedDragCases) {
                                                     c[QLatin1String("orientation")].toDouble());
         const QPointF grab = pointOf(c[QLatin1String("grab")]);
         const QPointF mouse = pointOf(c[QLatin1String("mouse")]);
-        // Where the pointer has the corner, then the grid.
+        // Where the pointer has the corner, then the nearest grid point.
         const QPointF raw = topLeft + offset + (mouse - grab);
-        const QPointF corner = gridsnap::dragCorner(mouse, raw, c[QLatin1String("grid")].toDouble());
+        const QPointF corner = gridsnap::cornerOnGrid(raw, c[QLatin1String("grid")].toDouble());
         const QPointF centre = corner - offset + QPointF(size.width() / 2, size.height() / 2);
         const QPointF want = pointOf(c[QLatin1String("centre")]);
         EXPECT_NEAR(centre.x(), want.x(), 1e-3) << caseName(c).toStdString();
         EXPECT_NEAR(centre.y(), want.y(), 1e-3) << caseName(c).toStdString();
     }
+}
+
+TEST(GridSnap, SharedNudgeCases) {
+    const QJsonArray cases = vectors()[QLatin1String("nudges")].toArray();
+    ASSERT_GE(cases.size(), 10);
+    for (const QJsonValue& v : cases) {
+        const QJsonObject c = v.toObject();
+        const QJsonArray dir = c[QLatin1String("dir")].toArray();
+        const QPointF got = gridsnap::nudgeCorner(pointOf(c[QLatin1String("corner")]), dir[0].toInt(), dir[1].toInt(),
+                                                  c[QLatin1String("grid")].toDouble(),
+                                                  gridsnap::snapModeFromId(c[QLatin1String("mode")].toString()));
+        const QPointF want = pointOf(c[QLatin1String("moved")]);
+        EXPECT_NEAR(got.x(), want.x(), 1e-9) << caseName(c).toStdString();
+        EXPECT_NEAR(got.y(), want.y(), 1e-9) << caseName(c).toStdString();
+    }
+}
+
+// Steps mode: a move rounds to whole steps from where it started.
+TEST(GridSnap, SharedStepMoveCases) {
+    const QJsonArray cases = vectors()[QLatin1String("stepMoves")].toArray();
+    ASSERT_GE(cases.size(), 6);
+    for (const QJsonValue& v : cases) {
+        const QJsonObject c = v.toObject();
+        const QPointF start = pointOf(c[QLatin1String("start")]);
+        const QPointF raw = start + pointOf(c[QLatin1String("moved")]);
+        const QPointF got = raw + gridsnap::moveShift(gridsnap::SnapMode::Steps, start, raw, c[QLatin1String("grid")].toDouble());
+        const QPointF want = pointOf(c[QLatin1String("end")]);
+        EXPECT_NEAR(got.x(), want.x(), 1e-9) << caseName(c).toStdString();
+        EXPECT_NEAR(got.y(), want.y(), 1e-9) << caseName(c).toStdString();
+    }
+    EXPECT_EQ(gridsnap::snapModeFromId(QStringLiteral("steps")), gridsnap::SnapMode::Steps);
+    EXPECT_EQ(gridsnap::snapModeFromId(QStringLiteral("bogus")), gridsnap::SnapMode::Grid);
+    EXPECT_EQ(gridsnap::snapModeId(gridsnap::SnapMode::Steps), QStringLiteral("steps"));
+}
+
+// Wherever a part is grabbed, a fraction of a stud lands on the nearest
+// stud: the grid is anchored at the layout's origin, not at the grab.
+TEST(GridSnap, NearestStudWhereverItIsGrabbed) {
+    EXPECT_EQ(gridsnap::cornerOnGrid({ 3.4, -2.6 }, 1), QPointF(3, -3));
+    EXPECT_EQ(gridsnap::cornerOnGrid({ 3.6, -2.4 }, 1), QPointF(4, -2));
+    EXPECT_EQ(gridsnap::gridShift({ 10.3, 7.8 }, 1), QPointF(10, 8) - QPointF(10.3, 7.8));
+    EXPECT_EQ(gridsnap::gridShift({ 10.3, 7.8 }, 0), QPointF());
+}
+
+TEST(GridSnap, OnlyWholeStudSteps) {
+    EXPECT_EQ(gridsnap::kDefaultSnapStep, 1.0);
+    for (double s : gridsnap::kSnapSteps) EXPECT_EQ(s, std::floor(s)) << s;
+    EXPECT_EQ(gridsnap::validSnapStep(0.5), 1.0);
+    EXPECT_EQ(gridsnap::validSnapStep(0.0), 0.0);
+    EXPECT_EQ(gridsnap::validSnapStep(-3.0), 0.0);
+    EXPECT_EQ(gridsnap::validSnapStep(8.0), 8.0);
+    EXPECT_EQ(gridsnap::validSnapStep(40.0), 32.0);
 }
 
 TEST(GridSnap, SharedPointCases) {
@@ -128,7 +181,7 @@ TEST(GridSnap, AWholeStepApartIsOnTheLine) {
     // 0.1 + 0.2 is a hair under 0.3: still the line at 0.3 steps of 0.1.
     EXPECT_NEAR(gridsnap::floorToStep(0.1 + 0.2, 0.1), 0.3, 1e-12);
     EXPECT_EQ(gridsnap::floorToStep(-0.5, 1), -1);
-    EXPECT_EQ(gridsnap::dragCorner({ 3, 3 }, { 1.5, 1.5 }, 0), QPointF(1.5, 1.5));
+    EXPECT_EQ(gridsnap::cornerOnGrid({ 1.5, 1.5 }, 0), QPointF(1.5, 1.5));
 }
 
 // The real library: the parts the vectors use read their <SnapMargin>, and
@@ -342,10 +395,10 @@ protected:
 
 }  // namespace
 
-// Grabbed at (10, 5), 6.2 by 2.8 studs from its snap corner (3.8, 2.2):
-// dragged to (27.6, 13.9), the corner goes to the grid line at or before
-// the pointer, less the whole steps it had from it (none): (24, 8). The box
-// is half a stud left of it, so the 16-stud body sits on the grid.
+// Grabbed at (10, 5) and dragged to (27.6, 13.9): the pointer has its snap
+// corner (3.8, 2.2) at about (21.4, 11.1), and it goes to the nearest grid
+// point, (24, 8). The box is half a stud left of it, so the 16-stud body
+// sits on the grid.
 TEST_F(GridSnapView, APartLandsByItsSnapCorner) {
     pick(QStringLiteral("brick"), QStringLiteral("S"));
     const QPointF from = onScreen({ 10, 5 });
@@ -380,7 +433,8 @@ TEST_F(GridSnapView, AltKeepsAPartOnTheGrid) {
 }
 
 // From the parts list, held by the middle of its 17 x 8 box: its corner is
-// 8 by 4 studs from the pointer, so at (20.2, 9.7) it lands at (16 - 8, 8 - 0).
+// 8 by 4 studs from the pointer, so at (20.2, 9.7) it is at (12.2, 5.7) and
+// lands on the nearest grid point, (16, 8).
 TEST_F(GridSnapView, ANewPartLandsByItsSnapCorner) {
     QPointF centre;
     float orientation = 0;
@@ -388,8 +442,133 @@ TEST_F(GridSnapView, ANewPartLandsByItsSnapCorner) {
     view_->resolvePartPlacement(QStringLiteral("SM.7"), QPointF(20.2, 9.7) * kPx, &centre, &orientation, &snapped,
                                 nullptr);
     EXPECT_FALSE(snapped);
-    EXPECT_NEAR(centre.x(), 7.5 + 8.5, 1e-6);
+    EXPECT_NEAR(centre.x(), 15.5 + 8.5, 1e-6);
     EXPECT_NEAR(centre.y(), 8 + 4, 1e-6);
+}
+
+// On the one-stud grid (the default), a part dragged a fraction of a stud
+// lands with its snap corner on the nearest stud, wherever it was grabbed.
+TEST_F(GridSnapView, APartDraggedAFractionOfAStudLandsOnTheNearestStud) {
+    view_->setSnapStepStuds(1.0);
+    for (const QPointF grab : { QPointF(10, 5), QPointF(4.1, 9.6), QPointF(19.7, 6.9) }) {
+        const QPointF before = brick(QStringLiteral("S"))->displayArea.topLeft();
+        pick(QStringLiteral("brick"), QStringLiteral("S"));
+        const QPointF from = onScreen(grab);
+        const QPointF to = onScreen(grab + QPointF(0.3, 0.6));
+        drag(from, to);
+        const QPointF corner = brick(QStringLiteral("S"))->displayArea.topLeft() + QPointF(0.5, 0);
+        const QPointF raw = before + QPointF(0.5, 0) + (to - from);
+        EXPECT_NEAR(corner.x(), std::round(raw.x()), 1e-6) << grab.x();
+        EXPECT_NEAR(corner.y(), std::round(raw.y()), 1e-6) << grab.x();
+    }
+    // Three moves of about (0.3, 0.6): x rounds back to 4 each time, y
+    // goes 3, 4, 5.
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.x(), 3.5, 1e-6);
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.y(), 5, 1e-6);
+}
+
+// The arrow keys take the picked part's snap corner to the next grid line
+// that way, the other axis onto its nearest line, and one stud with the
+// grid off.
+TEST_F(GridSnapView, ArrowKeysNudgeOntoTheGrid) {
+    view_->setSnapStepStuds(1.0);
+    pick(QStringLiteral("brick"), QStringLiteral("S"));
+    QTest::keyClick(view_.get(), Qt::Key_Right);
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.x(), 3.5, 1e-6);  // corner 3.8 -> 4
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.y(), 2, 1e-6);    // 2.2 -> 2
+    QTest::keyClick(view_.get(), Qt::Key_Right);
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.x(), 4.5, 1e-6);
+    QTest::keyClick(view_.get(), Qt::Key_Up);
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.y(), 1, 1e-6);
+    view_->setSnapStepStuds(8.0);
+    QTest::keyClick(view_.get(), Qt::Key_Down);
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.x(), 7.5, 1e-6);  // 5 -> 8
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.y(), 8, 1e-6);    // 1 -> 8
+    view_->setSnapStepStuds(0.0);
+    QTest::keyClick(view_.get(), Qt::Key_Left);
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.x(), 6.5, 1e-6);
+    // One undo step each.
+    view_->undoStack()->undo();
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.x(), 7.5, 1e-6);
+}
+
+// Move in steps: the part moves whole steps from where it was, so the
+// part at (3.3, 2.2) (its corner at 3.8) stays 0.8 and 0.2 off the grid.
+TEST_F(GridSnapView, MovingInStepsKeepsAnOffGridPartsOffset) {
+    view_->setSnapStepStuds(1.0);
+    view_->setSnapMode(gridsnap::SnapMode::Steps);
+    pick(QStringLiteral("brick"), QStringLiteral("S"));
+    const QPointF from = onScreen({ 10, 5 });
+    const QPointF to = onScreen(QPointF(10, 5) + QPointF(2.3, 1.4));
+    drag(from, to);
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.x(), 3.3 + std::round((to - from).x()), 1e-6);
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.y(), 2.2 + std::round((to - from).y()), 1e-6);
+    // The arrow keys move a whole step, offset kept.
+    const double x = brick(QStringLiteral("S"))->displayArea.x();
+    QTest::keyClick(view_.get(), Qt::Key_Right);
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.x(), x + 1, 1e-6);
+    // Back on the grid, the next arrow key puts its corner on a stud.
+    view_->setSnapMode(gridsnap::SnapMode::Grid);
+    QTest::keyClick(view_.get(), Qt::Key_Right);
+    const QPointF corner = brick(QStringLiteral("S"))->displayArea.topLeft() + QPointF(0.5, 0);
+    EXPECT_NEAR(corner.x(), std::round(corner.x()), 1e-6);
+    EXPECT_NEAR(corner.y(), std::round(corner.y()), 1e-6);
+}
+
+TEST_F(GridSnapView, MovingInStepsMovesALabelWholeSteps) {
+    view_->setSnapMode(gridsnap::SnapMode::Steps);
+    pick(QStringLiteral("label"), QStringLiteral("label"));
+    QGraphicsItem* it = item(QStringLiteral("label"), QStringLiteral("label"));
+    ASSERT_TRUE(it);
+    const QPointF grab = onScreen(it->sceneBoundingRect().center() / kPx);
+    const QPointF to = onScreen(grab + QPointF(9.1, -7.2));
+    drag(grab, to);
+    // 8-stud steps: (9.1, -7.2) is one step each way.
+    EXPECT_NEAR(labelAt().x(), 10.3 + 8, 1e-6);
+    EXPECT_NEAR(labelAt().y(), 30.6 - 8, 1e-6);
+}
+
+TEST_F(GridSnapView, ArrowKeysNudgeALabelOntoTheGrid) {
+    pick(QStringLiteral("label"), QStringLiteral("label"));
+    QTest::keyClick(view_.get(), Qt::Key_Right);
+    EXPECT_NEAR(labelAt().x(), 16, 1e-6);  // 10.3 -> the next line, 16
+    EXPECT_NEAR(labelAt().y(), 32, 1e-6);  // 30.6 -> the nearest, 32
+}
+
+// A paste puts the lead part's snap corner on the nearest grid point.
+TEST_F(GridSnapView, APasteLandsOnTheGrid) {
+    view_->setSnapStepStuds(1.0);
+    pick(QStringLiteral("brick"), QStringLiteral("S"));
+    view_->copySelection();
+    view_->pasteClipboard();
+    const core::Brick* copy = nullptr;
+    for (const auto& l : view_->currentMap()->layers())
+        if (l->kind() == core::LayerKind::Brick)
+            for (const auto& b : static_cast<const core::LayerBrick&>(*l).bricks)
+                if (b.guid != QLatin1String("S")) copy = &b;
+    ASSERT_TRUE(copy);
+    const QPointF corner = copy->displayArea.topLeft() + QPointF(0.5, 0);
+    EXPECT_NEAR(corner.x(), std::round(corner.x()), 1e-6);
+    EXPECT_NEAR(corner.y(), std::round(corner.y()), 1e-6);
+}
+
+// The stud grid shows with the grid sheet's lines when the studs are far
+// enough apart on screen to see, and not when zoomed out or turned off.
+TEST_F(GridSnapView, TheStudGridShowsWhenZoomedIn) {
+    auto grid = std::make_unique<core::LayerGrid>();
+    grid->guid = QStringLiteral("G");
+    view_->currentMap()->layers().insert(view_->currentMap()->layers().begin(), std::move(grid));
+    const auto paint = [this] {
+        view_->resetCachedContent();
+        view_->viewport()->repaint();
+        return view_->studGridDrawn();
+    };
+    EXPECT_TRUE(paint());  // 14 px a stud
+    view_->setTransform(QTransform::fromScale(3.0 / kPx, 3.0 / kPx));
+    EXPECT_FALSE(paint());  // 3 px a stud: too fine
+    view_->setTransform(QTransform::fromScale(kStudPx / kPx, kStudPx / kPx));
+    view_->setStudGridShown(false);
+    EXPECT_FALSE(paint());
 }
 
 // A module dropped on the grid lands by its part with a connection.
@@ -533,14 +712,20 @@ TEST_F(GridSnapView, TextPickedWithAPartMovesWithIt) {
     EXPECT_NEAR(textCell(QStringLiteral("note"))->displayArea.y(), 60.3 + moved.y(), 1e-6);
 }
 
-TEST_F(GridSnapView, NewTextIsCentredOnTheGrid) {
+// New text puts its top-left corner on the grid, the corner a drag
+// snaps it by.
+TEST_F(GridSnapView, NewTextHasItsCornerOnTheGrid) {
     view_->addTextAtScenePos(QStringLiteral("Hello"), QPointF(13.1, 5.2) * kPx);
     const core::LayerText* text = nullptr;
     for (const auto& l : view_->currentMap()->layers())
         if (l->kind() == core::LayerKind::Text) text = static_cast<const core::LayerText*>(l.get());
     ASSERT_TRUE(text && !text->textCells.empty());
-    EXPECT_NEAR(text->textCells.back().displayArea.center().x(), 16, 1e-6);
-    EXPECT_NEAR(text->textCells.back().displayArea.center().y(), 8, 1e-6);
+    const QRectF a = text->textCells.back().displayArea;
+    EXPECT_NEAR(std::remainder(a.x(), 8.0), 0, 1e-6);
+    EXPECT_NEAR(std::remainder(a.y(), 8.0), 0, 1e-6);
+    // Still about where it was asked for.
+    EXPECT_LT(std::abs(a.center().x() - 13.1), 4 + 1e-6);
+    EXPECT_LT(std::abs(a.center().y() - 5.2), 4 + 1e-6);
 }
 
 TEST_F(GridSnapView, VenueCornersAreDrawnOnTheGrid) {
@@ -577,8 +762,17 @@ TEST_F(GridSnapView, DetachIsOnTheRulersMenu) {
     EXPECT_EQ(ruler(QStringLiteral("ruler"))->attachedBrick1Id, QStringLiteral("S"));
 }
 
+// On the 8-stud grid the first arrow key puts the corner (3.8) on the next
+// line, 8; moving in steps, it goes 8 studs from where it was.
 TEST_F(GridSnapView, ArrowKeysMoveByTheGridStep) {
     pick(QStringLiteral("brick"), QStringLiteral("S"));
+    QTest::keyClick(view_.get(), Qt::Key_Right);
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.x(), 7.5, 1e-6);
+    QTest::keyClick(view_.get(), Qt::Key_Right);
+    EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.x(), 15.5, 1e-6);
+    view_->undoStack()->undo();
+    view_->undoStack()->undo();
+    view_->setSnapMode(gridsnap::SnapMode::Steps);
     QTest::keyClick(view_.get(), Qt::Key_Right);
     EXPECT_NEAR(brick(QStringLiteral("S"))->displayArea.x(), 3.3 + 8, 1e-6);
 }

@@ -79,6 +79,7 @@
 #include <QPushButton>
 #include <QRegularExpression>
 #include <QSettings>
+#include <QSignalBlocker>
 #include <QSpinBox>
 #include <QStandardPaths>
 #include <QStatusBar>
@@ -451,16 +452,17 @@ void MainWindow::setupMenus() {
     // Transform submenu (BlueBrick parity).
     auto* transformMenu = edit->addMenu(tr("Transfor&m"));
     auto* moveStepMenu = transformMenu->addMenu(tr("&Move Step"));
-    auto addNudge = [this, moveStepMenu](const QString& label, double dx, double dy){
+    // As the arrow keys: to the next grid line that way.
+    auto addNudge = [this, moveStepMenu](const QString& label, int dx, int dy){
         auto* a = moveStepMenu->addAction(label);
         connect(a, &QAction::triggered, this, [this, dx, dy]{
-            mapView_->nudgeSelected(dx, dy);
+            mapView_->nudgeSelectionStep(dx, dy);
         });
     };
-    addNudge(tr("&Up"),    0.0, -1.0);
-    addNudge(tr("&Down"),  0.0,  1.0);
-    addNudge(tr("&Left"), -1.0,  0.0);
-    addNudge(tr("&Right"), 1.0,  0.0);
+    addNudge(tr("&Up"),    0, -1);
+    addNudge(tr("&Down"),  0,  1);
+    addNudge(tr("&Left"), -1,  0);
+    addNudge(tr("&Right"), 1,  0);
     auto* toBackAct = transformMenu->addAction(tr("Send to &Back"));
     toBackAct->setShortcut(QKeySequence(tr("Ctrl+Shift+[")));
     connect(toBackAct, &QAction::triggered, [this]{ mapView_->sendSelectionToBack(); });
@@ -636,6 +638,43 @@ void MainWindow::setupMenus() {
     addRenderToggle(tr("Brick &Hulls"),             QStringLiteral("view/brickHulls"),          false);
     addRenderToggle(tr("Brick E&levation Labels"),  QStringLiteral("view/brickElevation"),      false);
     addRenderToggle(tr("&Module Names"),             QStringLiteral("view/moduleNames"),         true);
+    // Run trains (trains design 6.3): Run mode, where a click on a switch
+    // flips it and parts can't be moved. Also the button in the map's corner.
+    {
+        auto* run = view->addAction(tr("Run Tr&ains"));
+        run->setObjectName(QStringLiteral("action.runTrains"));
+        run->setCheckable(true);
+        run->setToolTip(tr("Run trains: click a switch to flip it. Parts can't be moved."));
+        connect(run, &QAction::toggled, mapView_, &MapView::setRunMode);
+        connect(mapView_, &MapView::runModeChanged, run, [run](bool on) {
+            const QSignalBlocker quiet(run);
+            run->setChecked(on);
+        });
+    }
+    // The switches' arrows while building (Run mode always shows them).
+    {
+        auto* act = view->addAction(tr("Swi&tches"));
+        act->setObjectName(QStringLiteral("view.switches"));
+        act->setCheckable(true);
+        act->setChecked(QSettings().value(QStringLiteral("view/switches"), false).toBool());
+        mapView_->setShowSwitches(act->isChecked());
+        connect(act, &QAction::toggled, this, [this](bool on) {
+            QSettings().setValue(QStringLiteral("view/switches"), on);
+            mapView_->setShowSwitches(on);
+        });
+    }
+    // Each run of track labeled with the length a train can stand in (trains design 6.2).
+    {
+        auto* act = view->addAction(tr("Sidin&g Lengths"));
+        act->setObjectName(QStringLiteral("view.sidingLengths"));
+        act->setCheckable(true);
+        act->setChecked(QSettings().value(QStringLiteral("view/sidingLengths"), false).toBool());
+        mapView_->setShowSidingLengths(act->isChecked());
+        connect(act, &QAction::toggled, this, [this](bool on) {
+            QSettings().setValue(QStringLiteral("view/sidingLengths"), on);
+            mapView_->setShowSidingLengths(on);
+        });
+    }
 
     // Tools menu (libraries + Import submenu + preferences) lives in
     // MainWindowToolsMenu.cpp — it's ~180 lines on its own.

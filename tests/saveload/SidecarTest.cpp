@@ -495,3 +495,116 @@ TEST(Sidecar, RoundTripBudgetLimits) {
     saveload::sidecarFromJson(QJsonObject{ { QStringLiteral("budgetLimits"), QJsonArray{ 1, 2 } } }, notObj);
     EXPECT_FALSE(notObj.budgetLimits);
 }
+
+// Switch settings (trains design 2.2): "<brick>/<heel>" to an exit, written
+// only when one is set, kept through a save, and their bricks follow ids
+// renumbered on reading.
+TEST(Sidecar, RoundTripSwitchStates) {
+    core::Sidecar sc;
+    EXPECT_FALSE(saveload::sidecarToJson(sc).contains(QLatin1String("switchStates")));
+    sc.switchStates = { { QStringLiteral("17/0"), 2 }, { QStringLiteral("a/b/1"), 0 } };
+    EXPECT_FALSE(sc.isEmpty());
+    QTemporaryDir dir;
+    const QString path = dir.filePath("s.bbm.bld");
+    const QByteArray bbm = "<dummy bbm>";
+    QString err;
+    ASSERT_TRUE(saveload::writeSidecar(path, bbm, sc, &err)) << err.toStdString();
+    core::Sidecar back;
+    ASSERT_TRUE(saveload::readSidecar(path, bbm, back).ok);
+    EXPECT_EQ(back.switchStates, sc.switchStates);
+    EXPECT_TRUE(back.extras.isEmpty());
+
+    // Only whole exits of 0 or more on "<brick>/<heel>" keys.
+    core::Sidecar odd;
+    saveload::sidecarFromJson(QJsonObject{ { QStringLiteral("switchStates"),
+                                            QJsonObject{ { QStringLiteral("P/0"), 2 }, { QStringLiteral("bad"), 1 },
+                                                         { QStringLiteral("Q/0"), -1 }, { QStringLiteral("R/0"), 1.5 },
+                                                         { QStringLiteral("S/0"), QStringLiteral("1") } } } },
+                              odd);
+    EXPECT_EQ(odd.switchStates, (QMap<QString, int>{ { QStringLiteral("P/0"), 2 } }));
+
+    // Bricks renumbered on reading take their settings along.
+    saveload::renameSidecarIds(sc, { { QStringLiteral("17"), QStringLiteral("170") } });
+    EXPECT_EQ(sc.switchStates, (QMap<QString, int>{ { QStringLiteral("170/0"), 2 }, { QStringLiteral("a/b/1"), 0 } }));
+}
+
+// Named routes (trains design 2.5): kept through a save with fields this
+// build doesn't know, entries without an id left out, bricks renamed.
+TEST(Sidecar, RoundTripRoutes) {
+    core::Sidecar sc;
+    EXPECT_FALSE(saveload::sidecarToJson(sc).contains(QLatin1String("routes")));
+    core::Route r;
+    r.id = QStringLiteral("r1");
+    r.name = QStringLiteral("Main");
+    r.from = { QStringLiteral("17"), 0, 1, 2.5 };
+    r.to = { QStringLiteral("23"), 1, 0, 4 };
+    r.via = { { { QStringLiteral("19"), 0, 2, 1 }, false } };
+    r.steps = { { QStringLiteral("17"), 0, 1 }, { QStringLiteral("23"), 1, 0 } };
+    r.color = QStringLiteral("#A855F7");
+    r.extras = QJsonObject{ { QStringLiteral("future"), 3 } };
+    sc.routes = { r };
+    EXPECT_FALSE(sc.isEmpty());
+    QJsonObject json = saveload::sidecarToJson(sc);
+    QJsonArray list = json.value(QLatin1String("routes")).toArray();
+    list.append(QJsonObject{ { QStringLiteral("name"), QStringLiteral("no id") } });
+    json.insert(QStringLiteral("routes"), list);
+    core::Sidecar back;
+    saveload::sidecarFromJson(json, back);
+    ASSERT_EQ(back.routes.size(), 1u);
+    EXPECT_EQ(back.routes[0], r);
+    EXPECT_TRUE(back.extras.isEmpty());
+    EXPECT_TRUE(saveload::routeToJson(r).value(QLatin1String("train")).isNull());
+    saveload::renameSidecarIds(back, { { QStringLiteral("17"), QStringLiteral("170") }, { QStringLiteral("19"), QStringLiteral("190") } });
+    EXPECT_EQ(back.routes[0].from.brick, QStringLiteral("170"));
+    EXPECT_EQ(back.routes[0].steps[0].brick, QStringLiteral("170"));
+    EXPECT_EQ(back.routes[0].via[0].at.brick, QStringLiteral("190"));
+    EXPECT_EQ(back.routes[0].to.brick, QStringLiteral("23"));
+}
+
+// Rolling stock and trains (trains design 2.3, 2.4): kept through a save
+// with fields this build doesn't know, entries without an id left out, a
+// train's head renamed with its brick; none in an empty sidecar.
+TEST(Sidecar, RoundTripRollingStockAndTrains) {
+    core::Sidecar sc;
+    EXPECT_FALSE(saveload::sidecarToJson(sc).contains(QLatin1String("rollingStock")));
+    EXPECT_FALSE(saveload::sidecarToJson(sc).contains(QLatin1String("trains")));
+    core::RollingStock s = core::simpleStock(QStringLiteral("s1"), 28);
+    s.number = QStringLiteral("4021");
+    s.libraryId = QStringLiteral("L1");
+    s.libraryVersion = 2;
+    s.extras = QJsonObject{ { QStringLiteral("tags"), QJsonArray{ QStringLiteral("freight") } } };
+    core::Train t;
+    t.id = QStringLiteral("t1");
+    t.name = QStringLiteral("Freight");
+    t.units = { { QStringLiteral("s1"), false }, { QStringLiteral("s1"), true } };
+    core::TrainPosition p;
+    p.brick = QStringLiteral("17");
+    p.from = 0;
+    p.to = 1;
+    p.s = 3.5;
+    p.facingTo = false;
+    t.position = p;
+    t.extras = QJsonObject{ { QStringLiteral("later"), 1 } };
+    sc.rollingStock = { s };
+    sc.trains = { t };
+    EXPECT_FALSE(sc.isEmpty());
+    QJsonObject json = saveload::sidecarToJson(sc);
+    EXPECT_EQ(json.value(QLatin1String("trains")).toArray()[0].toObject().value(QLatin1String("position")).toObject().value(QLatin1String("facing")).toString(),
+              QStringLiteral("from"));
+    QJsonArray list = json.value(QLatin1String("rollingStock")).toArray();
+    list.append(QJsonObject{ { QStringLiteral("number"), QStringLiteral("no id") } });
+    json.insert(QStringLiteral("rollingStock"), list);
+    core::Sidecar back;
+    saveload::sidecarFromJson(json, back);
+    ASSERT_EQ(back.rollingStock.size(), 1u);
+    EXPECT_EQ(back.rollingStock[0], s);
+    ASSERT_EQ(back.trains.size(), 1u);
+    EXPECT_EQ(back.trains[0], t);
+    EXPECT_TRUE(back.extras.isEmpty());
+    saveload::renameSidecarIds(back, { { QStringLiteral("17"), QStringLiteral("170") } });
+    EXPECT_EQ(back.trains[0].position->brick, QStringLiteral("170"));
+    // A car without a roster link has neither field (as a web car).
+    const QJsonObject plain = saveload::rollingStockToJson(core::simpleStock(QStringLiteral("s2")));
+    EXPECT_FALSE(plain.contains(QLatin1String("libraryId")));
+    EXPECT_FALSE(plain.contains(QLatin1String("libraryVersion")));
+}

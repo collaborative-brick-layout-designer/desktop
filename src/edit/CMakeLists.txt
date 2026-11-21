@@ -55,6 +55,10 @@ add_library(bld_edit STATIC
     Connectivity.h
     Budget.cpp
     Budget.h
+    SwitchCommands.cpp
+    SwitchCommands.h
+    TrainCommands.cpp
+    TrainCommands.h
 )
 
 target_include_directories(bld_edit PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)

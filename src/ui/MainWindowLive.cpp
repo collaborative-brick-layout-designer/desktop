@@ -957,6 +957,9 @@ void MainWindow::onLiveReloaded() {
     // What names the active sheet ("Sheet: …" in the status bar) reads it again.
     if (moved) emit layerPanel_->activeLayerChanged(mapView_->currentMap()->selectedLayerIndex);
     modulesPanel_->setMap(mapView_->currentMap());
+    // The map was replaced: the Routes and Trains panels read the new one.
+    refreshRoutes();
+    refreshTrains();
     updateTitle();
 }
 

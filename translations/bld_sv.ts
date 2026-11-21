@@ -499,14 +499,6 @@
         <translation>Fäst</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>Delar hoppar till närmaste rutnätslinje, så att rader hålls raka.</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>Siffran är avståndet mellan rutnätslinjerna, i knoppar; linjaler, etiketter, text och lokalens hörn hamnar också på det. Håll Alt (⌥ på en Mac) för att lägga dem exakt där du släpper, eller välj ”av” för att placera allt där du släpper det. Rälsändar klickar fortfarande ihop.</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>Vridsteg</translation>
     </message>
@@ -577,6 +569,78 @@
     <message>
         <source>Select moves pieces, Turn turns the one you click, and Delete removes it. Paint colors the ground and Erase clears it. Measure and Circle add a ruler you can keep on the map, and Venue and Obstacle draw the venue’s walls and things to keep clear of.</source>
         <translation>Markera flyttar delar, Vrid vrider den du klickar på, och Ta bort tar bort den. Måla färgar marken och Sudda rensar den. Mät och Cirkel lägger till en linjal du kan ha kvar på kartan, och Lokal och Hinder ritar lokalens väggar och sådant man ska hålla sig undan från.</translation>
+    </message>
+    <message>
+        <source>Run trains</source>
+        <translation>Kör tåg</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>Lek med anläggningen: klicka på en växel för att lägga om den, utan att flytta några delar.</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>I körläget visar varje växel en pil längs den väg den är lagd; klicka nära den för att lägga om den. Delar kan inte väljas eller flyttas, så inget ändras av misstag. Omläggningar delas med alla och kan ångras; tryck på Stoppa för att bygga vidare.</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>Växlar</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>En växel skickar ett tåg åt det ena eller andra hållet; pilen visar vilket.</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>Högerklicka på en växel för att lägga den, eller slå på körläget och klicka på den. En grön pil är den vanliga vägen; en orange betyder att den är lagd åt andra hållet. Slå på Visa › Växlar för att se dem medan du bygger.</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>Rutter</translation>
+    </message>
+    <message>
+        <source>Named ways along the track, from one place to another.</source>
+        <translation>Namngivna vägar längs spåret, från ett ställe till ett annat.</translation>
+    </message>
+    <message>
+        <source>Each route shows its length and whether the track still fits it. The eye shows or hides a route on your map only; everyone else keeps their own view. Routes are saved with the layout and shared with everyone editing it.</source>
+        <translation>Varje rutt visar sin längd och om spåret fortfarande passar. Ögat visar eller döljer en rutt bara på din karta; alla andra behåller sin egen vy. Rutter sparas med anläggningen och delas med alla som redigerar den.</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Ny rutt</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track, then where it ends.</source>
+        <translation>Klicka på spåret där rutten börjar, och sedan där den slutar.</translation>
+    </message>
+    <message>
+        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
+        <translation>Den kortaste vägen längs spåret hittas åt dig, genom växlar åt båda håll. Skift-klick lägger till ett stopp på vägen, för att välja ett annat spår. Ge den ett namn och tryck på Spara rutt; Esc eller Avbryt slutar.</translation>
+    </message>
+    <message>
+        <source>Broken route</source>
+        <translation>Bruten rutt</translation>
+    </message>
+    <message>
+        <source>A part this route runs over was moved or removed.</source>
+        <translation>En del som den här rutten går över har flyttats eller tagits bort.</translation>
+    </message>
+    <message>
+        <source>The route keeps its name, color, start and end, and is drawn dashed red as far as it still goes. Find a new way searches again from its start through its stops to its end.</source>
+        <translation>Rutten behåller namn, färg, början och slut, och ritas rött streckad så långt den fortfarande går. Hitta en ny väg söker igen från början, via stoppen, till slutet.</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Lägg växlar</translation>
+    </message>
+    <message>
+        <source>Sets every switch on the route so a train follows it.</source>
+        <translation>Lägger varje växel på rutten så att ett tåg följer den.</translation>
+    </message>
+    <message>
+        <source>Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once.</source>
+        <translation>Växlar som ligger åt andra hållet visar en orange ring på kartan, och rutten säger hur många det är. Att lägga dem är en ändring du kan ångra, och alla ser den direkt.</translation>
     </message>
     <message>
         <source>Current sheet</source>
@@ -681,6 +745,30 @@
     <message>
         <source>With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits.</source>
         <translation>Med Samma färg på ändras konturen och namnet tillsammans. Återställ till standard tar tillbaka det ljusblå. Långa namn radbryts, blir mindre och kortas bara av när inget annat får plats.</translation>
+    </message>
+    <message>
+        <source>Table and power</source>
+        <translation>Bord och ström</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>Vad modulen står på, hur hög den är och vilken ström den behöver, för den som planerar borden.</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>Välj MILS, Vanlig basplatta (lösa basplattor på ett vanligt bord) eller Egen, och skriv höjden du mätte, till bordsskivan eller till rälsens överkant. För ström: hur många uttag den använder, ungefär hur många watt och vilken sida kontakten kommer ut. När modulen sparas i modulbiblioteket följer det med.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Bord och ström</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>Vad alla moduler i anläggningen behöver tillsammans: uttag och watt, och bordshöjder efter typ.</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>Ställ in bord och ström för varje modul från dess ⋯-meny › Bord och ström…. Moduler utan inställning räknas som ej inställda, så du ser vem som fortfarande måste berätta.</translation>
     </message>
     <message>
         <source>Edit module</source>
@@ -877,30 +965,6 @@
     <message>
         <source>Type a number next to a part to set its limit. The budget is saved with the layout and shared with everyone who edits it. A BlueBrick budget file (.bbb) can be imported or exported too.</source>
         <translation>Skriv ett tal bredvid en del för att sätta dess gräns. Budgeten sparas med layouten och delas med alla som redigerar den. En BlueBrick-budgetfil (.bbb) kan också importeras eller exporteras.</translation>
-    </message>
-    <message>
-        <source>Table and power</source>
-        <translation>Bord och el</translation>
-    </message>
-    <message>
-        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
-        <translation>Vad modulen står på, hur hög den är och hur mycket el den behöver, för den som planerar borden.</translation>
-    </message>
-    <message>
-        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
-        <translation>Välj MILS, Vanlig basplatta (lösa basplattor på ett vanligt bord) eller Egen och skriv höjden du mätte, till bordsskivan eller till rälsens överkant. För el anger du hur många uttag den använder, ungefär hur många watt och på vilken sida kontakten kommer ut. Sparar du modulen i modulbiblioteket följer detta med.</translation>
-    </message>
-    <message>
-        <source>Tables and power</source>
-        <translation>Bord och el</translation>
-    </message>
-    <message>
-        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
-        <translation>Vad alla moduler i den här layouten behöver tillsammans: uttag och watt, och bordshöjderna per typ.</translation>
-    </message>
-    <message>
-        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
-        <translation>Ange bord och el för varje modul i dess ⋯-meny › Bord och el…. Moduler utan uppgifter räknas som inte angivna, så du ser vem som fortfarande behöver höra av sig.</translation>
     </message>
     <message>
         <source>Shared modules</source>
@@ -1199,6 +1263,10 @@
         <translation>Mjuk drar bara när ändarna är nära och släpper så fort du flyttar bort; Stark når längre; Av drar aldrig, och rutnätet radar fortfarande upp delarna. Håll Alt (Option på en Mac) medan du drar för att placera en del utan fästning.</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>Så här visar appen längder, som väggarna i en lokal och, med tåg, spår- och tåglängder. En lokal som ritats i en egen enhet behåller den; en utan följer den här inställningen. En knopp är 8 mm.</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>Ritverktyg</translation>
     </message>
@@ -1213,6 +1281,42 @@
     <message>
         <source>Units</source>
         <translation>Enheter</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>Allt du placerar eller flyttar hamnar på närmaste knopp, så att delarna ligger i linje.</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>Välj hur långt det är mellan fästpunkterna, från varje knopp till var 32:a knopp, och hur saker fäster: mot rutnätet, eller i hela steg från där de var. Delar, moduler, inklistrade delar, linjaler, etiketter och text följer det, piltangenterna flyttar ett steg, och rälsändar klickar fortfarande ihop när de möts. Stäng av fästning för att lägga saker precis där du släpper, eller håll Alt (⌥ på Mac) för att placera en linjal, etikett eller text fritt.</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>Hur saker fäster</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>Hamna på närmaste knopp, eller flytta i hela steg från där delen var.</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>Fäst mot rutnätet lägger allt på samma knoppar, vilket passar de flesta banor. Flytta i steg håller en del som ligger mellan knoppar lika långt vid sidan när du flyttar den, ett steg i taget. Båda använder steget du väljer bredvid Fäst.</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>Knopprutnät</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>Svaga linjer en knopp ifrån varandra, så att du ser var saker hamnar.</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>De visas med rutnätet när du zoomar in tillräckligt för att se knopparna, och bleknar när du zoomar ut. Stäng av dem här, eller via Fäst-knappen i verktygsfältet, om de stör.</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>Visa längder i fot och tum, metriskt eller i knoppar.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -1541,6 +1645,102 @@
     <message>
         <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
         <translation>Öppna en grupp för att se varje sort. Mejl kan komma direkt, i en daglig eller veckovis sammanfattning, eller inte alls. Tysta timmar håller kvar mejl tills de är slut, och du kan tysta en livlig klubb eller pausa all e-post.</translation>
+    </message>
+    <message>
+        <source>Trains</source>
+        <translation>Tåg</translation>
+    </message>
+    <message>
+        <source>The layout&apos;s engines and cars, and the trains made of them.</source>
+        <translation>Layoutens lok och vagnar, och tågen du gör av dem.</translation>
+    </message>
+    <message>
+        <source>Make a car in a few seconds, put cars together into a train, and put the train on the track to see how it sits on curves. Trains and cars are saved with the layout and shared with everyone editing it.</source>
+        <translation>Gör en vagn på några sekunder, sätt ihop vagnar till ett tåg och ställ tåget på spåret för att se hur det står i kurvorna. Tåg och vagnar sparas med layouten och delas med alla som redigerar den.</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Ny vagn</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a length; everything else can wait.</source>
+        <translation>En snabb vagn behöver bara en längd; resten kan vänta.</translation>
+    </message>
+    <message>
+        <source>Give it a number or name so you can find it. More shows the width, where the trucks sit, the couplers, and whether it uses a part&apos;s picture. Lengths are in studs, as you count them on the model.</source>
+        <translation>Ge den ett nummer eller namn så att du hittar den. Mer visar bredden, var boggierna sitter, kopplen och om den använder en dels bild. Längder anges i knoppar, som du räknar dem på modellen.</translation>
+    </message>
+    <message>
+        <source>Trucks</source>
+        <translation>Boggier</translation>
+    </message>
+    <message>
+        <source>The wheel sets a car rides on, measured in studs from the middle of the car.</source>
+        <translation>Hjulparen en vagn går på, mätta i knoppar från vagnens mitt.</translation>
+    </message>
+    <message>
+        <source>The front truck follows the track and the rear one follows it a fixed distance behind, so on a curve the car&apos;s middle swings in and its ends swing out, as a real one does. A quick car puts them a quarter of the way in from each end.</source>
+        <translation>Den främre boggin följer spåret och den bakre följer efter på fast avstånd, så i en kurva svänger vagnens mitt inåt och ändarna utåt, som på en riktig. En snabb vagn sätter dem en fjärdedel in från varje ände.</translation>
+    </message>
+    <message>
+        <source>Roster</source>
+        <translation>Vagnpark</translation>
+    </message>
+    <message>
+        <source>Your own engines and cars, or a club&apos;s, ready to bring into any layout.</source>
+        <translation>Dina egna lok och vagnar, eller en klubbs, redo att tas in i vilken layout som helst.</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s, then add it to other layouts from there. A layout keeps its own copy, so it still opens anywhere; when the roster&apos;s car changes, Update brings the layout&apos;s copy up to date. Club rosters are changed by members who may edit the club&apos;s modules.</source>
+        <translation>Spara en vagn i din vagnpark eller en klubbs och lägg till den i andra layouter därifrån. En layout har en egen kopia, så den öppnas var som helst; när vagnen i vagnparken ändras uppdaterar Uppdatera layoutens kopia. Klubbens vagnpark ändras av medlemmar som får redigera klubbens moduler.</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>Nytt tåg</translation>
+    </message>
+    <message>
+        <source>Cars in order, front to back, that move as one.</source>
+        <translation>Vagnar i ordning, framifrån och bakåt, som rör sig tillsammans.</translation>
+    </message>
+    <message>
+        <source>Add cars from this layout&apos;s rolling stock, put them in order, and turn any of them around. A train&apos;s length is from its front coupler to its rear one.</source>
+        <translation>Lägg till vagnar från layoutens rullande materiel, ställ dem i ordning och vänd vilka du vill. Ett tågs längd är från det främre kopplet till det bakre.</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>Ställ på spåret</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of the train should be.</source>
+        <translation>Klicka på spåret där tågets front ska stå.</translation>
+    </message>
+    <message>
+        <source>The train runs back from there, following the switches as they are set. Click again elsewhere to move it. A train that runs off the end of the track is outlined in red.</source>
+        <translation>Tåget sträcker sig bakåt därifrån och följer växlarna som de är lagda. Klicka någon annanstans för att flytta det. Ett tåg som går utanför spårets slut får röd kant.</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>Vänd</translation>
+    </message>
+    <message>
+        <source>The train&apos;s last car becomes its front, and it faces the other way.</source>
+        <translation>Den sista vagnen blir fronten och tåget pekar åt andra hållet.</translation>
+    </message>
+    <message>
+        <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
+        <translation>Vagnarna står kvar där de är på spåret; bara ordningen och tågets riktning ändras. Varje vändning är en ändring du kan ångra.</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Kontroller</translation>
+    </message>
+    <message>
+        <source>What doesn&apos;t fit: a train too long for its track, a curve too tight, cars too close to another track.</source>
+        <translation>Det som inte passar: ett tåg för långt för sitt spår, en för snäv kurva, vagnar för nära ett annat spår.</translation>
+    </message>
+    <message>
+        <source>The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends.</source>
+        <translation>Kontrollerna räknas om när spåret, ett tåg eller en växel ändras; inget stoppas. Visa mig tar fram platsen. Visa › Spårlängder märker varje spårsträcka med längden ett tåg kan stå på, mellan växlar och ändar.</translation>
     </message>
 </context>
 <context>
@@ -2586,6 +2786,21 @@
     </message>
 </context>
 <context>
+    <name>Routes</name>
+    <message>
+        <source>There’s no track joining these two places.</source>
+        <translation>Inget spår förbinder de här två ställena.</translation>
+    </message>
+    <message>
+        <source>The only way needs the train to turn around.</source>
+        <translation>Den enda vägen kräver att tåget vänder.</translation>
+    </message>
+    <message>
+        <source>Pick an end somewhere else along the track.</source>
+        <translation>Välj en ände någon annanstans längs spåret.</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3375,15 +3590,15 @@
     </message>
     <message>
         <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
-        <translation>En modul är delar som rör sig som en enda bit, som ett bord en klubbmedlem tar med sig. Här listas layoutens moduler.</translation>
+        <translation>En modul är delar som flyttas som en enda bit, som ett bord en klubbmedlem tar med. Anläggningens moduler listas här.</translation>
     </message>
     <message>
         <source>Make a module</source>
-        <translation>Gör en modul</translation>
+        <translation>Skapa en modul</translation>
     </message>
     <message>
         <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
-        <translation>Välj några delar och sedan Gör en modul. Spara den i ditt modulbibliotek för att använda den igen i andra layouter.</translation>
+        <translation>Välj några delar och sedan Skapa en modul. Spara den i ditt modulbibliotek för att använda den i andra anläggningar.</translation>
     </message>
     <message>
         <source>Each module&apos;s menu</source>
@@ -3391,15 +3606,51 @@
     </message>
     <message>
         <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
-        <translation>Med ⋯-menyn redigerar, färgar och sparar du en modul. Bord och el säger vad den står på och hur mycket el den behöver.</translation>
+        <translation>⋯-menyn redigerar, färgar och sparar en modul. Bord och ström säger vad den står på och vilken ström den behöver.</translation>
     </message>
     <message>
         <source>Tables and power</source>
-        <translation>Bord och el</translation>
+        <translation>Bord och ström</translation>
     </message>
     <message>
         <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
-        <translation>Här lägger layouten ihop sina modulers uttag, watt och bordshöjder, för den som planerar utställningen.</translation>
+        <translation>Anläggningen räknar här ihop modulernas uttag, watt och bordshöjder, för den som planerar utställningen.</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>Rutter</translation>
+    </message>
+    <message>
+        <source>Your routes</source>
+        <translation>Dina rutter</translation>
+    </message>
+    <message>
+        <source>Routes are named ways along the track. Open this list from Panels; the eye hides one on your map only.</source>
+        <translation>Rutter är namngivna vägar längs spåret. Öppna listan från Paneler; ögat döljer en bara på din karta.</translation>
+    </message>
+    <message>
+        <source>Draw a route</source>
+        <translation>Rita en rutt</translation>
+    </message>
+    <message>
+        <source>Press New route, then click on the track where it starts and where it ends. The shortest way is found for you.</source>
+        <translation>Tryck på Ny rutt och klicka sedan på spåret där den börjar och där den slutar. Den kortaste vägen hittas åt dig.</translation>
+    </message>
+    <message>
+        <source>Stops on the way</source>
+        <translation>Stopp på vägen</translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop, to send the route along another line. Name it and press Save route.</source>
+        <translation>Skift-klick lägger till ett stopp, för att skicka rutten över ett annat spår. Ge den ett namn och tryck på Spara rutt.</translation>
+    </message>
+    <message>
+        <source>Switches follow the route</source>
+        <translation>Växlarna följer rutten</translation>
+    </message>
+    <message>
+        <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
+        <translation>Lägg växlar lägger varje växel på rutten åt dess håll. I körläget lägger du om dem för hand.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -3472,6 +3723,58 @@
     <message>
         <source>Put it in the layout you have open, or start a new layout with it.</source>
         <translation>Lägg den i layouten du har öppen, eller börja en ny layout med den.</translation>
+    </message>
+    <message>
+        <source>Trains</source>
+        <translation>Tåg</translation>
+    </message>
+    <message>
+        <source>Trains and cars</source>
+        <translation>Tåg och vagnar</translation>
+    </message>
+    <message>
+        <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
+        <translation>Öppna Tåg från Paneler. Rullande materiel har layoutens lok och vagnar; Tåg har tågen gjorda av dem.</translation>
+    </message>
+    <message>
+        <source>A quick car</source>
+        <translation>En snabb vagn</translation>
+    </message>
+    <message>
+        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
+        <translation>Ny vagn behöver bara ett nummer och en längd i knoppar. Fler detaljer ställer in boggier, koppel och en dels bild.</translation>
+    </message>
+    <message>
+        <source>Make a train</source>
+        <translation>Gör ett tåg</translation>
+    </message>
+    <message>
+        <source>Tick a few cars and press Make a train, or press New train and add them in order, front first.</source>
+        <translation>Kryssa för några vagnar och tryck Gör ett tåg, eller tryck Nytt tåg och lägg till dem i ordning, främst först.</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>På spåret</translation>
+    </message>
+    <message>
+        <source>Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track.</source>
+        <translation>Tryck Ställ på spåret och klicka där fronten ska vara. Varje vagn står mellan sina boggier, som på riktigt spår.</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>Din vagnpark</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
+        <translation>Spara en vagn i din vagnpark eller en klubbs för att använda den i andra layouter. Uppdatera gör en layouts kopia aktuell.</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Kontroller</translation>
+    </message>
+    <message>
+        <source>Checks lists what doesn&apos;t fit: a train too long for its track, a curve too tight. Show me finds the spot.</source>
+        <translation>Kontroller visar det som inte passar: ett för långt tåg, en för snäv kurva. Visa mig hittar platsen.</translation>
     </message>
 </context>
 <context>
@@ -4551,12 +4854,28 @@
         <translation>Budgetgräns för %1</translation>
     </message>
     <message>
+        <source>A switch&apos;s setting</source>
+        <translation>En växels läge</translation>
+    </message>
+    <message>
+        <source>Route &quot;%1&quot;</source>
+        <translation>Rutt ”%1”</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Lokal</translation>
     </message>
     <message>
         <source>Background image</source>
         <translation>Bakgrundsbild</translation>
+    </message>
+    <message>
+        <source>Car &quot;%1&quot;</source>
+        <translation>Vagn ”%1”</translation>
+    </message>
+    <message>
+        <source>Train &quot;%1&quot;</source>
+        <translation>Tåg ”%1”</translation>
     </message>
 </context>
 <context>
@@ -5270,6 +5589,93 @@
     <message>
         <source>Close</source>
         <translation>Stäng</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FitChecksList</name>
+    <message>
+        <source>A train</source>
+        <translation>Ett tåg</translation>
+    </message>
+    <message>
+        <source>A car</source>
+        <translation>En vagn</translation>
+    </message>
+    <message>
+        <source>A route</source>
+        <translation>En rutt</translation>
+    </message>
+    <message>
+        <source>%1 (%2) is longer than the track it stands in (%3 between its switches and ends).</source>
+        <translation>%1 (%2) är längre än spåret det står på (%3 mellan växlar och ändar).</translation>
+    </message>
+    <message>
+        <source>%1 in %2: the curve is too tight for its trucks (they turn %3; at most %4).</source>
+        <translation>%1 i %2: kurvan är för snäv för boggierna (de vrider sig %3; högst %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 can&apos;t reach the car ahead: its couplers are %3 apart on this curve.</source>
+        <translation>%1 i %2 når inte vagnen framför: kopplen är %3 isär i den här kurvan.</translation>
+    </message>
+    <message>
+        <source>%1 in %2: its coupler turns %3 on this curve (at most %4).</source>
+        <translation>%1 i %2: kopplet vrider sig %3 i den här kurvan (högst %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 has no coupler to the car ahead.</source>
+        <translation>%1 i %2 har inget koppel till vagnen framför.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 is too close to the other track here.</source>
+        <translation>%1 i %2 är för nära det andra spåret här.</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>ett annat tåg</translation>
+    </message>
+    <message>
+        <source>%1 and %2 are on top of each other.</source>
+        <translation>%1 och %2 står ovanpå varandra.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 doesn&apos;t run on this kind of track (it runs on %3).</source>
+        <translation>%1 i %2 går inte på den här sortens spår (den går på %3).</translation>
+    </message>
+    <message>
+        <source>monorail</source>
+        <translation>monorälsbana</translation>
+    </message>
+    <message>
+        <source>train track</source>
+        <translation>tågspår</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track.</source>
+        <translation>%1 går utanför spårets slut.</translation>
+    </message>
+    <message>
+        <source>%1&apos;s track was moved or removed: put it on the track again.</source>
+        <translation>Spåret för %1 har flyttats eller tagits bort: ställ det på spåret igen.</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around (a reversing loop or wye).</source>
+        <translation>%1 vänder tåget (en vändslinga eller ett triangelspår).</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
+        <translation>%1 vänder tåget på strömförande spår: där behövs en polvändare.</translation>
+    </message>
+    <message>
+        <source>Problem</source>
+        <translation>Problem</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Varning</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Visa mig</translation>
     </message>
 </context>
 <context>
@@ -6753,20 +7159,52 @@ Spara min som ny version: din blir modulen; deras finns kvar i versionshistorike
         <translation>Öppna från servern: dina layouter, lokaler, moduler och delar, och dina klubbars</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>Rada upp delar på ett rutnät (klicka för att slå på eller av, pilen väljer steget)</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 knoppar</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>Fäst %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>Fäst av</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>Steg %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>Lägg allt på knopprutnätet (klicka för att slå på eller av, pilen väljer hur många knoppar emellan)</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>Varje knopp</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>Var %1:e knopp</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Fäst mot rutnätet</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Flytta i steg</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>Saker hamnar på närmaste knopp (eller med några knoppars mellanrum), så att allt ligger i linje</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>Saker flyttas ett helt antal steg från där de var och behåller sin förskjutning</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>Visa knopprutnätet</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>Svaga linjer en knopp ifrån varandra, synliga när du zoomar in tillräckligt</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -8993,6 +9431,18 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
         <translation>&amp;Modulnamn</translation>
     </message>
     <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>Kör &amp;tåg</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Kör tåg: klicka på en växel för att lägga om den. Delar kan inte flyttas.</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>Vä&amp;xlar</translation>
+    </message>
+    <message>
         <source>&amp;Import .bbm as Module…</source>
         <translation>&amp;Importera .bbm som modul…</translation>
     </message>
@@ -9379,6 +9829,14 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
         <translation>vilken version varje set kom från</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>växellägen</translation>
+    </message>
+    <message>
+        <source>routes</source>
+        <translation>rutter</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9512,6 +9970,18 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     <message>
         <source>All notifications</source>
         <translation>Alla aviseringar</translation>
+    </message>
+    <message>
+        <source>trains</source>
+        <translation>tåg</translation>
+    </message>
+    <message>
+        <source>rolling stock</source>
+        <translation>rullande materiel</translation>
+    </message>
+    <message>
+        <source>Sidin&amp;g Lengths</source>
+        <translation>Spårlän&amp;gder</translation>
     </message>
 </context>
 <context>
@@ -9706,6 +10176,10 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>Sluta köra tåg för att lägga till delar.</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -10075,6 +10549,118 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
             <numerusform>Klistra in (%1 delar på %n blad)</numerusform>
         </translation>
     </message>
+    <message>
+        <source>Straight</source>
+        <translation>Rakt fram</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Körläge:&lt;/b&gt; klicka på en växel för att lägga om den. Delar kan inte flyttas.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stoppa</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ Kör tåg</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Kör tåg: klicka på en växel för att lägga om den. Delar kan inte flyttas.</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>Lägg en växel</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>Klicka på en växel för att lägga om den.</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>Växel lagd: %1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>Lägg växeln</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>Från ände %1: %2</translation>
+    </message>
+    <message>
+        <source>Route name</source>
+        <translation>Ruttens namn</translation>
+    </message>
+    <message>
+        <source>Save route</source>
+        <translation>Spara rutt</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Avbryt</translation>
+    </message>
+    <message>
+        <source>Route %1</source>
+        <translation>Rutt %1</translation>
+    </message>
+    <message>
+        <source>Click on the track.</source>
+        <translation>Klicka på spåret.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
+        <translation>&lt;b&gt;Ny rutt:&lt;/b&gt; klicka på spåret där den börjar.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Ny rutt:&lt;/b&gt; klicka där den slutar (Skift-klick lägger till ett stopp).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
+        <translation>&lt;b&gt;Ny rutt:&lt;/b&gt; %1 längs spåret%2. Skift-klick lägger till ett stopp.</translation>
+    </message>
+    <message>
+        <source>, and it turns the train around</source>
+        <translation>, och tåget vänder på vägen</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Ny rutt</translation>
+    </message>
+    <message>
+        <source>Route “%1” saved.</source>
+        <translation>Rutten ”%1” sparad.</translation>
+    </message>
+    <message>
+        <source>the train</source>
+        <translation>tåget</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
+        <translation>Klicka på spåret där fronten av &lt;b&gt;%1&lt;/b&gt; ska stå.</translation>
+    </message>
+    <message>
+        <source>The train</source>
+        <translation>Tåget</translation>
+    </message>
+    <message>
+        <source>Put %1 on the track</source>
+        <translation>Ställ %1 på spåret</translation>
+    </message>
+    <message>
+        <source>%1 is on the track.</source>
+        <translation>%1 står på spåret.</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track here.</source>
+        <translation>%1 går här utanför spårets slut.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleEditBar</name>
@@ -10251,7 +10837,7 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     <name>bld::ui::ModuleSetupDialog</name>
     <message>
         <source>Table and power</source>
-        <translation>Bord och el</translation>
+        <translation>Bord och ström</translation>
     </message>
     <message>
         <source>Table and power · %1</source>
@@ -10624,7 +11210,7 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     </message>
     <message>
         <source>Tables and power</source>
-        <translation>Bord och el</translation>
+        <translation>Bord och ström</translation>
     </message>
     <message>
         <source>Select Its Parts</source>
@@ -11714,6 +12300,163 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     </message>
 </context>
 <context>
+    <name>bld::ui::RosterDialog</name>
+    <message>
+        <source>From a roster</source>
+        <translation>Från en vagnpark</translation>
+    </message>
+    <message>
+        <source>Your engines and cars, and your clubs’. Add one to this layout; it keeps its own copy.</source>
+        <translation>Dina lok och vagnar, och dina klubbars. Lägg till en i den här layouten; den behåller en egen kopia.</translation>
+    </message>
+    <message>
+        <source>Your roster is empty. Save a car from a layout to your roster, or a club’s, to use it in other layouts.</source>
+        <translation>Din vagnpark är tom. Spara en vagn från en layout i din vagnpark, eller en klubbs, för att använda den i andra layouter.</translation>
+    </message>
+    <message>
+        <source>Unnamed</source>
+        <translation>Namnlös</translation>
+    </message>
+    <message>
+        <source>Yours</source>
+        <translation>Dina</translation>
+    </message>
+    <message>
+        <source>In this layout</source>
+        <translation>I den här layouten</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation>Uppdatera</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Lägg till</translation>
+    </message>
+    <message>
+        <source>Take off the roster</source>
+        <translation>Ta bort från vagnparken</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RoutesPanel</name>
+    <message>
+        <source>Routes</source>
+        <translation>Rutter</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Ny rutt</translation>
+    </message>
+    <message>
+        <source>Delete route</source>
+        <translation>Ta bort rutt</translation>
+    </message>
+    <message>
+        <source>Delete the route “%1”?</source>
+        <translation>Ta bort rutten ”%1”?</translation>
+    </message>
+    <message>
+        <source>Rename route</source>
+        <translation>Byt namn på rutt</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Namn:</translation>
+    </message>
+    <message>
+        <source>Switches set for “%1”.</source>
+        <translation>Växlar lagda för ”%1”.</translation>
+    </message>
+    <message>
+        <source>Set switches for a route</source>
+        <translation>Lägg växlar för en rutt</translation>
+    </message>
+    <message>
+        <source>Draw the route again from its new start or end.</source>
+        <translation>Rita rutten igen från dess nya början eller slut.</translation>
+    </message>
+    <message>
+        <source>Found a new way for “%1”.</source>
+        <translation>Hittade en ny väg för ”%1”.</translation>
+    </message>
+    <message>
+        <source>Find a new way</source>
+        <translation>Hitta en ny väg</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then draw a route along it.</source>
+        <translation>Det finns inget spår i anläggningen ännu. Lägg till från gruppen Spår i panelen Delar och rita sedan en rutt längs det.</translation>
+    </message>
+    <message>
+        <source>No routes yet. Press New route, then click two places on the track: where it starts and where it ends.</source>
+        <translation>Inga rutter ännu. Tryck på Ny rutt och klicka sedan på två ställen på spåret: där den börjar och där den slutar.</translation>
+    </message>
+    <message>
+        <source>Untitled route</source>
+        <translation>Rutt utan namn</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation>Visas</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation>Dold</translation>
+    </message>
+    <message>
+        <source>Shown on your map (only yours)</source>
+        <translation>Visas på din karta (bara din)</translation>
+    </message>
+    <message>
+        <source>Hidden on your map (only yours)</source>
+        <translation>Dold på din karta (bara din)</translation>
+    </message>
+    <message>
+        <source>Hide %1 on your map</source>
+        <translation>Dölj %1 på din karta</translation>
+    </message>
+    <message>
+        <source>Show %1 on your map</source>
+        <translation>Visa %1 på din karta</translation>
+    </message>
+    <message>
+        <source>Broken: the track under it changed.</source>
+        <translation>Bruten: spåret under har ändrats.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) set the other way</source>
+        <translation>
+            <numerusform>%n växel ligger åt andra hållet</numerusform>
+            <numerusform>%n växlar ligger åt andra hållet</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Turns the train around</source>
+        <translation>Tåget vänder</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Lägg växlar</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Byt namn</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Ta bort</translation>
+    </message>
+    <message>
+        <source>Route checks</source>
+        <translation>Ruttkontroller</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::SaveModuleDialog</name>
     <message>
         <source>Put everything on one sheet</source>
@@ -12149,12 +12892,12 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Bytte namn till &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
-        <translation>Sparat i modulbiblioteket. Layouter får det när de lägger till modulen eller uppdaterar den från biblioteket.</translation>
-    </message>
-    <message>
         <source>Not saved: %1</source>
         <translation>Inte sparat: %1</translation>
+    </message>
+    <message>
+        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
+        <translation>Sparat i modulbiblioteket. Layouter får det när de lägger till modulen eller uppdaterar den från biblioteket.</translation>
     </message>
     <message>
         <source>Gave &quot;%1&quot; back to %2</source>
@@ -12829,6 +13572,26 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Större text och knappar</translation>
     </message>
     <message>
+        <source>Units</source>
+        <translation>Enheter</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>Hur längder visas, som väggarna i en lokal.</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>Fot och tum, som 12′ 6½″</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>Metriskt, som 3,81 m</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>Knoppar: LEGO-knoppar, 8 mm var</translation>
+    </message>
+    <message>
         <source>Editing</source>
         <translation>Redigering</translation>
     </message>
@@ -12990,6 +13753,22 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Grid snap:</source>
         <translation>Fäst mot rutnät:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Fäst mot rutnätet</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Flytta i steg</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>Hur saker fäster:</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>Visa knopprutnätet vid inzoomning</translation>
     </message>
     <message>
         <source>Turn step:</source>
@@ -13614,6 +14393,181 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     </message>
 </context>
 <context>
+    <name>bld::ui::StockDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> knoppar</translation>
+    </message>
+    <message>
+        <source>Engine</source>
+        <translation>Lok</translation>
+    </message>
+    <message>
+        <source>Cab car</source>
+        <translation>Manövervagn</translation>
+    </message>
+    <message>
+        <source>Powered car (multiple unit)</source>
+        <translation>Motorvagn (motorvagnståg)</translation>
+    </message>
+    <message>
+        <source>Monorail car</source>
+        <translation>Monorälsvagn</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>Vagn</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Ny vagn</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>Ändra vagn</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a number and a length. More details can wait.</source>
+        <translation>En snabb vagn behöver bara ett nummer och en längd. Detaljer kan vänta.</translation>
+    </message>
+    <message>
+        <source>Number:</source>
+        <translation>Nummer:</translation>
+    </message>
+    <message>
+        <source>Boxcar</source>
+        <translation>Täckt godsvagn</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Namn:</translation>
+    </message>
+    <message>
+        <source>Kind:</source>
+        <translation>Typ:</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Färg</translation>
+    </message>
+    <message>
+        <source>Car color</source>
+        <translation>Vagnens färg</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>Färg:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler</source>
+        <translation>Koppel till koppel</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>Längd:</translation>
+    </message>
+    <message>
+        <source>More details</source>
+        <translation>Fler detaljer</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Bredd:</translation>
+    </message>
+    <message>
+        <source>Body length:</source>
+        <translation>Korglängd:</translation>
+    </message>
+    <message>
+        <source>Front truck, ahead of the middle:</source>
+        <translation>Främre boggi, framför mitten:</translation>
+    </message>
+    <message>
+        <source>Rear truck, behind the middle:</source>
+        <translation>Bakre boggi, bakom mitten:</translation>
+    </message>
+    <message>
+        <source>Magnet</source>
+        <translation>Magnet</translation>
+    </message>
+    <message>
+        <source>Fixed bar</source>
+        <translation>Fast stång</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ingen</translation>
+    </message>
+    <message>
+        <source>Front coupler:</source>
+        <translation>Främre koppel:</translation>
+    </message>
+    <message>
+        <source>Rear coupler:</source>
+        <translation>Bakre koppel:</translation>
+    </message>
+    <message>
+        <source>Has a motor</source>
+        <translation>Har en motor</translation>
+    </message>
+    <message>
+        <source>Train track</source>
+        <translation>Tågspår</translation>
+    </message>
+    <message>
+        <source>Monorail</source>
+        <translation>Monorail</translation>
+    </message>
+    <message>
+        <source>Runs on:</source>
+        <translation>Går på:</translation>
+    </message>
+    <message>
+        <source>A box in its color</source>
+        <translation>En låda i sin färg</translation>
+    </message>
+    <message>
+        <source>A part’s picture</source>
+        <translation>En dels bild</translation>
+    </message>
+    <message>
+        <source>Seen from above as:</source>
+        <translation>Sedd ovanifrån som:</translation>
+    </message>
+    <message>
+        <source>Search train parts</source>
+        <translation>Sök tågdelar</translation>
+    </message>
+    <message>
+        <source>Picking a part sets the length from its couplers.</source>
+        <translation>Att välja en del sätter längden utifrån dess koppel.</translation>
+    </message>
+    <message>
+        <source>Notes:</source>
+        <translation>Anteckningar:</translation>
+    </message>
+    <message>
+        <source>The front truck must be ahead of the rear one, and both within the car’s length.</source>
+        <translation>Den främre boggin måste sitta framför den bakre, och båda inom vagnens längd.</translation>
+    </message>
+    <message>
+        <source>Add car</source>
+        <translation>Lägg till vagn</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Spara</translation>
+    </message>
+    <message>
+        <source>Fewer details</source>
+        <translation>Färre detaljer</translation>
+    </message>
+    <message>
+        <source>No train parts match. Parts with a coupler at each end show here.</source>
+        <translation>Inga tågdelar matchar. Delar med koppel i varje ände visas här.</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::TouchActionBar</name>
     <message>
         <source>Turn left</source>
@@ -13658,6 +14612,338 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Tap the map to place %1</source>
         <translation>Tryck på kartan för att placera %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainDialog</name>
+    <message>
+        <source>New train</source>
+        <translation>Nytt tåg</translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>Ändra tåg</translation>
+    </message>
+    <message>
+        <source>Cars in order, front first. A train moves as one.</source>
+        <translation>Vagnar i ordning, främst först. Ett tåg rör sig tillsammans.</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Namn:</translation>
+    </message>
+    <message>
+        <source>Cars in the train, front first</source>
+        <translation>Vagnar i tåget, främst först</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation>Framåt</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Tillbaka</translation>
+    </message>
+    <message>
+        <source>Turn car around</source>
+        <translation>Vänd vagnen</translation>
+    </message>
+    <message>
+        <source>Take out</source>
+        <translation>Ta ut</translation>
+    </message>
+    <message>
+        <source>Car to add</source>
+        <translation>Vagn att lägga till</translation>
+    </message>
+    <message>
+        <source>Add to the end</source>
+        <translation>Lägg till sist</translation>
+    </message>
+    <message>
+        <source>This layout has no cars yet. Make one in Rolling stock first.</source>
+        <translation>Den här layouten har inga vagnar än. Gör en först under Rullande materiel.</translation>
+    </message>
+    <message>
+        <source>Save train</source>
+        <translation>Spara tåg</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>En borttagen vagn</translation>
+    </message>
+    <message>
+        <source>turned around</source>
+        <translation>vänd</translation>
+    </message>
+    <message>
+        <source>Length %1</source>
+        <translation>Längd %1</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>Tåg</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainsPanel</name>
+    <message>
+        <source>Trains</source>
+        <translation>Tåg</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>Nytt tåg</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Ny vagn</translation>
+    </message>
+    <message>
+        <source>From a roster…</source>
+        <translation>Från en vagnpark…</translation>
+    </message>
+    <message>
+        <source>Rolling stock</source>
+        <translation>Rullande materiel</translation>
+    </message>
+    <message>
+        <source>Added %1.</source>
+        <translation>%1 tillagd.</translation>
+    </message>
+    <message>
+        <source>Saved %1.</source>
+        <translation>%1 sparad.</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>Ändra vagn</translation>
+    </message>
+    <message>
+        <source>Delete %1?</source>
+        <translation>Ta bort %1?</translation>
+    </message>
+    <message>
+        <source>Delete %1 and take it out of %2?</source>
+        <translation>Ta bort %1 och ta ut den ur %2?</translation>
+    </message>
+    <message>
+        <source>Delete car</source>
+        <translation>Ta bort vagn</translation>
+    </message>
+    <message>
+        <source>Train %1</source>
+        <translation>Tåg %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Made %1 from %n car(s). Put it on the track to see it.</source>
+        <translation>
+            <numerusform>%1 gjort av %n vagn. Ställ det på spåret för att se det.</numerusform>
+            <numerusform>%1 gjort av %n vagnar. Ställ det på spåret för att se det.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>Ändra tåg</translation>
+    </message>
+    <message>
+        <source>%1 turned around.</source>
+        <translation>%1 vänt.</translation>
+    </message>
+    <message>
+        <source>Turn train around</source>
+        <translation>Vänd tåget</translation>
+    </message>
+    <message>
+        <source>Take train off the track</source>
+        <translation>Ta tåget från spåret</translation>
+    </message>
+    <message>
+        <source>Delete %1? Its cars stay.</source>
+        <translation>Ta bort %1? Vagnarna finns kvar.</translation>
+    </message>
+    <message>
+        <source>Delete train</source>
+        <translation>Ta bort tåg</translation>
+    </message>
+    <message>
+        <source>Updated %1 from the roster.</source>
+        <translation>%1 uppdaterad från vagnparken.</translation>
+    </message>
+    <message>
+        <source>Update car from roster</source>
+        <translation>Uppdatera vagn från vagnpark</translation>
+    </message>
+    <message>
+        <source>Added %1 to this layout.</source>
+        <translation>%1 tillagd i den här layouten.</translation>
+    </message>
+    <message>
+        <source>Add car from roster</source>
+        <translation>Lägg till vagn från vagnpark</translation>
+    </message>
+    <message>
+        <source>Your rosters couldn’t be loaded: %1</source>
+        <translation>Dina vagnparker kunde inte läsas in: %1</translation>
+    </message>
+    <message>
+        <source>Saved %1 to the roster.</source>
+        <translation>%1 sparad i vagnparken.</translation>
+    </message>
+    <message>
+        <source>Save car to roster</source>
+        <translation>Spara vagn i vagnpark</translation>
+    </message>
+    <message>
+        <source>It couldn’t be saved to the roster: %1</source>
+        <translation>Den kunde inte sparas i vagnparken: %1</translation>
+    </message>
+    <message>
+        <source>Trains (%1)</source>
+        <translation>Tåg (%1)</translation>
+    </message>
+    <message>
+        <source>Rolling stock (%1)</source>
+        <translation>Rullande materiel (%1)</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
+        <translation>Inget rullande materiel än. Tryck Ny vagn: ett nummer och en längd är allt en snabb vagn behöver.</translation>
+    </message>
+    <message>
+        <source>Pick %1 for a new train</source>
+        <translation>Välj %1 till ett nytt tåg</translation>
+    </message>
+    <message>
+        <source>In %1</source>
+        <translation>I %1</translation>
+    </message>
+    <message>
+        <source>The roster has a newer version</source>
+        <translation>Vagnparken har en nyare version</translation>
+    </message>
+    <message>
+        <source>From a roster</source>
+        <translation>Från en vagnpark</translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation>Ändring</translation>
+    </message>
+    <message>
+        <source>Update from roster</source>
+        <translation>Uppdatera från vagnpark</translation>
+    </message>
+    <message>
+        <source>Save to roster</source>
+        <translation>Spara i vagnpark</translation>
+    </message>
+    <message>
+        <source>Save changes to %1’s roster</source>
+        <translation>Spara ändringarna i %1s vagnpark</translation>
+    </message>
+    <message>
+        <source>Save changes to your roster</source>
+        <translation>Spara ändringarna i din vagnpark</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>Din vagnpark</translation>
+    </message>
+    <message>
+        <source>%1’s roster</source>
+        <translation>%1s vagnpark</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Ta bort</translation>
+    </message>
+    <message>
+        <source>Make a train of this car</source>
+        <translation>Gör ett tåg av den här vagnen</translation>
+    </message>
+    <message>
+        <source>Make a train of these %1 cars</source>
+        <translation>Gör ett tåg av de här %1 vagnarna</translation>
+    </message>
+    <message>
+        <source>No trains yet. Make a car or two in Rolling stock first, then put them together here.</source>
+        <translation>Inga tåg än. Gör först en vagn eller två under Rullande materiel och sätt ihop dem här.</translation>
+    </message>
+    <message>
+        <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
+        <translation>Inga tåg än. Tryck Nytt tåg, eller kryssa för vagnar under Rullande materiel och gör ett tåg av dem.</translation>
+    </message>
+    <message>
+        <source>Untitled train</source>
+        <translation>Namnlöst tåg</translation>
+    </message>
+    <message>
+        <source>Not on the map</source>
+        <translation>Inte på kartan</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed</source>
+        <translation>Spåret har flyttats eller tagits bort</translation>
+    </message>
+    <message>
+        <source>Runs off the end of the track</source>
+        <translation>Går utanför spårets slut</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>På spåret</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n car(s)</source>
+        <translation>
+            <numerusform>%n vagn</numerusform>
+            <numerusform>%n vagnar</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Click the track…</source>
+        <translation>Klicka på spåret…</translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation>Flytta</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>Ställ på spåret</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet.</source>
+        <translation>Den här layouten har inget spår än.</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>Vänd</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>Ta bort från spåret</translation>
+    </message>
+    <message>
+        <source>Sign in to a server first (File › Servers…) to use your roster and your clubs’.</source>
+        <translation>Logga först in på en server (Arkiv › Servrar…) för att använda din vagnpark och dina klubbars.</translation>
+    </message>
+    <message>
+        <source>Take %1 off the roster? Layouts keep their copies.</source>
+        <translation>Ta bort %1 från vagnparken? Layouterna behåller sina kopior.</translation>
+    </message>
+    <message>
+        <source>It couldn’t be taken off the roster: %1</source>
+        <translation>Den kunde inte tas bort från vagnparken: %1</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Kontroller</translation>
+    </message>
+    <message>
+        <source>Every train on the track fits: nothing too long, too tight or too close.</source>
+        <translation>Alla tåg på spåret passar: inget för långt, för snävt eller för nära.</translation>
     </message>
 </context>
 <context>

@@ -31,6 +31,17 @@
 //   module-move <moduleId> <dx> <dy>
 //                              move a module's parts together (studs), as one edit
 //   brick-delete <brickId>     delete a part, as one edit
+//   switches                   the editor's switch settings as JSON ("<brick>/<heel>": exit)
+//   routes                     the editor's named routes as JSON: id, name, steps, and
+//                              broken (true when its steps no longer join up, worked out
+//                              from links alone: no parts library here)
+//   switch-set <brick>/<heel> <exit|default>
+//                              set a switch (default: back to its usual way), as one edit
+//   trains                     the editor's rolling stock and trains as JSON:
+//                              {rollingStock: [...], trains: [...]}, as the sidecar keeps them
+//   stock-add <number> <length>
+//                              add a quick car (a new id), as one edit; ok <id>
+//   train-rename <id> <name>   rename a train, as one edit
 //   shared                     the editor's shared (read-only) modules as JSON: id,
 //                              moduleId, version, by, members, placement, review
 //   shared-rows                what the server says about them (GET
@@ -74,7 +85,9 @@
 #include "sync/ServerApi.h"
 #include "sync/SidecarItems.h"
 #include "sync/SyncSession.h"
+#include "saveload/SidecarIO.h"
 
+#include "core/Ids.h"
 #include "core/LayerBrick.h"
 #include "core/Map.h"
 
@@ -88,6 +101,7 @@
 #include <QThread>
 #include <QTimer>
 
+#include <algorithm>
 #include <cmath>
 #include <cstdio>
 #include <deque>
@@ -304,6 +318,88 @@ public:
                         for (auto& b : static_cast<core::LayerBrick&>(*l).bricks)
                             if (m.memberIds.contains(b.guid)) b.displayArea.translate(by);
             });
+        } else if (cmd == QLatin1String("switches")) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            reply(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(saveload::switchStatesToJson(map->sidecar.switchStates)).toJson(QJsonDocument::Compact)));
+        } else if (cmd == QLatin1String("routes")) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            // Which connection id is where, to see whether the steps still join.
+            QHash<QString, QPair<QString, int>> owner;
+            QHash<QString, QStringList> linkOf;  // brick -> each connection's partner id
+            for (const auto& l : map->layers())
+                if (l->kind() == core::LayerKind::Brick)
+                    for (const auto& b : static_cast<const core::LayerBrick&>(*l).bricks) {
+                        QStringList links;
+                        for (int i = 0; i < static_cast<int>(b.connections.size()); ++i) {
+                            owner.insert(b.connections[i].guid, { b.guid, i });
+                            links << b.connections[i].linkedToId;
+                        }
+                        linkOf.insert(b.guid, links);
+                    }
+            QJsonArray out;
+            for (const auto& r : map->sidecar.routes) {
+                bool broken = r.steps.empty();
+                for (size_t i = 0; i < r.steps.size() && !broken; ++i) {
+                    const auto& st = r.steps[i];
+                    if (!linkOf.contains(st.brick)) broken = true;
+                    else if (i + 1 < r.steps.size()) {
+                        const QStringList& links = linkOf.value(st.brick);
+                        const auto p = st.to < links.size() ? owner.value(links[st.to]) : QPair<QString, int>();
+                        broken = p.first != r.steps[i + 1].brick || p.second != r.steps[i + 1].from;
+                    }
+                }
+                QJsonObject o = saveload::routeToJson(r);
+                o.insert(QStringLiteral("broken"), broken);
+                out.append(o);
+            }
+            reply(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(out).toJson(QJsonDocument::Compact)));
+        } else if (cmd == QLatin1String("switch-set") && a.size() == 3) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            bool ok = true;
+            const int exit = a[2] == QLatin1String("default") ? -1 : a[2].toInt(&ok);
+            if (!ok || !a[1].contains(QLatin1Char('/'))) return reply(QStringLiteral("error switch-set <brick>/<heel> <exit|default>")), true;
+            // (as SetSwitchStatesCommand: a flip is a sidecar change, never a part edit)
+            send(*map, [&] {
+                if (exit < 0) map->sidecar.switchStates.remove(a[1]);
+                else map->sidecar.switchStates.insert(a[1], exit);
+            });
+        } else if (cmd == QLatin1String("trains")) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            QJsonArray stock, trains;
+            for (const auto& r : map->sidecar.rollingStock) stock.append(saveload::rollingStockToJson(r));
+            for (const auto& t : map->sidecar.trains) trains.append(saveload::trainToJson(t));
+            reply(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(QJsonObject{ { QStringLiteral("rollingStock"), stock }, { QStringLiteral("trains"), trains } })
+                                                               .toJson(QJsonDocument::Compact)));
+        } else if (cmd == QLatin1String("stock-add") && a.size() == 3) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            bool ok = false;
+            const double length = a[2].toDouble(&ok);
+            if (!ok || length <= 0) return reply(QStringLiteral("error stock-add <number> <length>")), true;
+            core::RollingStock car = core::simpleStock(core::newBbmId(), length);
+            car.number = a[1];
+            send(*map, [&] {
+                auto& list = map->sidecar.rollingStock;
+                list.insert(std::find_if(list.begin(), list.end(), [&](const core::RollingStock& x) { return car.id < x.id; }), car);
+            }, car.id);
+        } else if (cmd == QLatin1String("train-rename") && a.size() >= 3) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            const QString name = QStringList(a.mid(2)).join(QLatin1Char(' '));
+            send(*map, [&] {
+                for (auto& t : map->sidecar.trains)
+                    if (t.id == a[1]) t.name = name;
+            });
         } else if (cmd == QLatin1String("brick-delete") && a.size() == 2) {
             QString error;
             auto map = session_.editorMap(&error);
@@ -494,7 +590,7 @@ private:
     // breaks the lock on a shared (read-only) module: then nothing is sent
     // and the answer says why, as the app does (MapView::onSharedLockStep).
     // A shared module moved as a whole has its placement kept up.
-    void send(core::Map& map, const std::function<void()>& change) {
+    void send(core::Map& map, const std::function<void()>& change, const QString& answer = {}) {
         static parts::PartsLibrary noParts;
         edit::SharedLockState lock;
         lock.rebase(map, noParts);
@@ -502,7 +598,7 @@ private:
         if (const auto broken = lock.check(map)) return reply(QStringLiteral("error locked: ") + broken->message());
         lock.keepPlacements(map, noParts);
         session_.localEdit(map);
-        reply(QStringLiteral("ok"));
+        reply(answer.isEmpty() ? QStringLiteral("ok") : QStringLiteral("ok ") + answer);
     }
 
     // The server's API, signed in as the driver.

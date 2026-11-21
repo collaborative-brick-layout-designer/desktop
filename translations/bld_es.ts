@@ -499,14 +499,6 @@
         <translation>Ajuste</translation>
     </message>
     <message>
-        <source>Pieces jump to the nearest grid line, so rows stay straight.</source>
-        <translation>Las piezas saltan a la línea de cuadrícula más cercana, para que las filas queden rectas.</translation>
-    </message>
-    <message>
-        <source>The number is how far apart the grid lines are, in studs; rulers, labels, text and venue corners land on it too. Hold Alt (⌥ on a Mac) to put those exactly where you let go, or pick “off” to place everything where you drop it. Track ends still click together.</source>
-        <translation>El número es la distancia entre líneas de la cuadrícula, en studs; las reglas, etiquetas, textos y esquinas de la sala también se ajustan a ella. Mantén Alt (⌥ en Mac) para dejarlos justo donde sueltes, o elige «no» para dejarlo todo donde lo sueltes. Los extremos de las vías siguen encajando.</translation>
-    </message>
-    <message>
         <source>Turn step</source>
         <translation>Paso de giro</translation>
     </message>
@@ -577,6 +569,78 @@
     <message>
         <source>Select moves pieces, Turn turns the one you click, and Delete removes it. Paint colors the ground and Erase clears it. Measure and Circle add a ruler you can keep on the map, and Venue and Obstacle draw the venue’s walls and things to keep clear of.</source>
         <translation>Seleccionar mueve piezas, Girar gira la que pulsas y Borrar la quita. Pintar colorea el suelo y Goma lo limpia. Medir y Círculo añaden una regla que puede quedarse en el mapa, y Sala y Obstáculo dibujan las paredes de la sala y lo que hay que dejar libre.</translation>
+    </message>
+    <message>
+        <source>Run trains</source>
+        <translation>Poner trenes en marcha</translation>
+    </message>
+    <message>
+        <source>Play with the layout: click a switch to flip it, without moving any parts.</source>
+        <translation>Juega con el trazado: haz clic en un desvío para cambiarlo, sin mover ninguna pieza.</translation>
+    </message>
+    <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>En el modo de marcha, cada desvío muestra una flecha hacia el lado al que está puesto; haz clic cerca para cambiarlo. Las piezas no se pueden seleccionar ni mover, así que nada cambia por accidente. Los cambios se comparten con todos y se pueden deshacer; pulsa Detener para volver a construir.</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation>Desvíos</translation>
+    </message>
+    <message>
+        <source>A switch sends a train one way or the other; the arrow shows which.</source>
+        <translation>Un desvío manda un tren por un lado o por el otro; la flecha muestra por cuál.</translation>
+    </message>
+    <message>
+        <source>Right-click a switch to set it, or turn on Run mode and click it. A green arrow is the usual way; an orange one means it is set the other way. Turn on View › Switches to see them while you build.</source>
+        <translation>Haz clic derecho en un desvío para ponerlo, o activa el modo de marcha y haz clic en él. Una flecha verde es el camino habitual; una naranja significa que está puesto hacia el otro lado. Activa Ver › Desvíos para verlos mientras construyes.</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>Rutas</translation>
+    </message>
+    <message>
+        <source>Named ways along the track, from one place to another.</source>
+        <translation>Caminos con nombre a lo largo de la vía, de un sitio a otro.</translation>
+    </message>
+    <message>
+        <source>Each route shows its length and whether the track still fits it. The eye shows or hides a route on your map only; everyone else keeps their own view. Routes are saved with the layout and shared with everyone editing it.</source>
+        <translation>Cada ruta muestra su longitud y si la vía todavía le encaja. El ojo muestra u oculta una ruta solo en tu mapa; los demás mantienen su propia vista. Las rutas se guardan con el trazado y se comparten con todos los que lo editan.</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nueva ruta</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track, then where it ends.</source>
+        <translation>Haz clic en la vía donde empieza la ruta y luego donde termina.</translation>
+    </message>
+    <message>
+        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
+        <translation>Se busca por ti el camino más corto por la vía, pasando por desvíos en cualquier sentido. Mayús-clic añade una parada en el camino, para elegir otra línea. Ponle nombre y pulsa Guardar ruta; Esc o Cancelar lo detiene.</translation>
+    </message>
+    <message>
+        <source>Broken route</source>
+        <translation>Ruta rota</translation>
+    </message>
+    <message>
+        <source>A part this route runs over was moved or removed.</source>
+        <translation>Se movió o quitó una pieza por la que pasa esta ruta.</translation>
+    </message>
+    <message>
+        <source>The route keeps its name, color, start and end, and is drawn dashed red as far as it still goes. Find a new way searches again from its start through its stops to its end.</source>
+        <translation>La ruta conserva su nombre, color, inicio y final, y se dibuja en rojo discontinuo hasta donde todavía llega. Buscar otro camino vuelve a buscar desde su inicio, por sus paradas, hasta su final.</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Poner desvíos</translation>
+    </message>
+    <message>
+        <source>Sets every switch on the route so a train follows it.</source>
+        <translation>Pone cada desvío de la ruta para que un tren la siga.</translation>
+    </message>
+    <message>
+        <source>Switches set the other way show an orange ring on the map, and the route says how many there are. Setting them is one change you can undo, and everyone sees it at once.</source>
+        <translation>Los desvíos puestos hacia el otro lado muestran un anillo naranja en el mapa, y la ruta dice cuántos son. Ponerlos es un cambio que puedes deshacer, y todos lo ven al momento.</translation>
     </message>
     <message>
         <source>Current sheet</source>
@@ -681,6 +745,30 @@
     <message>
         <source>With Same color on, the outline and the name change together. Reset to default brings back the light blue. Long names wrap, get smaller, and are only cut short when nothing else fits.</source>
         <translation>Con «Mismo color», el contorno y el nombre cambian juntos. «Restablecer» devuelve el azul claro. Los nombres largos pasan de línea, se encogen y solo se cortan cuando no cabe otra cosa.</translation>
+    </message>
+    <message>
+        <source>Table and power</source>
+        <translation>Mesa y corriente</translation>
+    </message>
+    <message>
+        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
+        <translation>Sobre qué se apoya este módulo, qué altura tiene y la corriente que necesita, para quien planifica las mesas.</translation>
+    </message>
+    <message>
+        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
+        <translation>Elige MILS, Placa base simple (placas sueltas sobre una mesa normal) o Personalizada, y escribe la altura medida, hasta el tablero o hasta lo alto de los raíles. Para la corriente, indica cuántos enchufes usa, cuántos vatios aproximadamente y por qué lado sale el cable. Al guardar el módulo en la biblioteca de módulos se incluye esto.</translation>
+    </message>
+    <message>
+        <source>Tables and power</source>
+        <translation>Mesas y corriente</translation>
+    </message>
+    <message>
+        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
+        <translation>Lo que necesitan juntos todos los módulos de este trazado: enchufes y vatios, y las alturas de mesa por tipo.</translation>
+    </message>
+    <message>
+        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
+        <translation>Indica la mesa y la corriente de cada módulo desde su menú ⋯ › Mesa y corriente…. Los módulos sin datos cuentan como sin indicar, para que veas quién todavía tiene que decírtelo.</translation>
     </message>
     <message>
         <source>Edit module</source>
@@ -877,30 +965,6 @@
     <message>
         <source>Type a number next to a part to set its limit. The budget is saved with the layout and shared with everyone who edits it. A BlueBrick budget file (.bbb) can be imported or exported too.</source>
         <translation>Escribe un número junto a una pieza para fijar su límite. El presupuesto se guarda con la maqueta y se comparte con todos los que la editan. También se puede importar o exportar un archivo de presupuesto de BlueBrick (.bbb).</translation>
-    </message>
-    <message>
-        <source>Table and power</source>
-        <translation>Mesa y electricidad</translation>
-    </message>
-    <message>
-        <source>What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.</source>
-        <translation>Sobre qué se apoya este módulo, qué altura tiene y qué electricidad necesita, para quien planifica las mesas.</translation>
-    </message>
-    <message>
-        <source>Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along.</source>
-        <translation>Elige MILS, Placa base simple (placas base sueltas sobre una mesa normal) o Personalizada, y escribe la altura medida, hasta el tablero de la mesa o hasta la parte superior de los rieles. Para la electricidad, indica cuántos enchufes usa, cuántos vatios más o menos y por qué lado sale el enchufe. Al guardar el módulo en la biblioteca de módulos, esto va con él.</translation>
-    </message>
-    <message>
-        <source>Tables and power</source>
-        <translation>Mesas y electricidad</translation>
-    </message>
-    <message>
-        <source>What all of this layout’s modules need together: outlets and watts, and the table heights by type.</source>
-        <translation>Lo que necesitan juntos todos los módulos de este diseño: enchufes y vatios, y las alturas de mesa por tipo.</translation>
-    </message>
-    <message>
-        <source>Set each module’s table and power from its ⋯ menu › Table and power…. Modules with nothing set are counted as not set, so you can see who still needs to tell you.</source>
-        <translation>Indica la mesa y la electricidad de cada módulo en su menú ⋯ › Mesa y electricidad…. Los módulos sin datos cuentan como sin indicar, así ves quién todavía tiene que decírtelo.</translation>
     </message>
     <message>
         <source>Shared modules</source>
@@ -1199,6 +1263,10 @@
         <translation>Suave solo atrae cuando los extremos están cerca y suelta en cuanto te alejas; Fuerte llega más lejos; Desactivado nunca atrae, y la cuadrícula sigue alineando las piezas. Mantén Alt (Opción en Mac) al arrastrar para colocar una pieza sin ajuste.</translation>
     </message>
     <message>
+        <source>This is how the app shows lengths, such as a venue&apos;s walls and, with trains, track and train lengths. A venue drawn in a unit of its own keeps that unit; one without follows this setting. One stud is 8 mm.</source>
+        <translation>Así muestra la aplicación las longitudes, como las paredes de una sala y, con trenes, las longitudes de vías y trenes. Una sala dibujada en una unidad propia la conserva; una sin ella sigue este ajuste. Un stud mide 8 mm.</translation>
+    </message>
+    <message>
         <source>Drawing tools</source>
         <translation>Herramientas de dibujo</translation>
     </message>
@@ -1213,6 +1281,42 @@
     <message>
         <source>Units</source>
         <translation>Unidades</translation>
+    </message>
+    <message>
+        <source>Everything you place or move lands on the nearest stud, so pieces line up.</source>
+        <translation>Todo lo que colocas o mueves cae en el tetón más cercano, para que las piezas queden alineadas.</translation>
+    </message>
+    <message>
+        <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
+        <translation>Elige a qué distancia están los puntos de ajuste, desde cada tetón hasta cada 32 tetones, y cómo se ajustan las cosas: a la cuadrícula o en pasos enteros desde donde estaban. Las piezas, los módulos, lo pegado, las reglas, las etiquetas y el texto lo siguen, las flechas mueven un paso y los extremos de las vías siguen encajando al encontrarse. Desactiva el ajuste para dejar las cosas justo donde las sueltas, o mantén Alt (⌥ en un Mac) para colocar libremente una regla, una etiqueta o un texto.</translation>
+    </message>
+    <message>
+        <source>How things snap</source>
+        <translation>Cómo se ajustan las cosas</translation>
+    </message>
+    <message>
+        <source>Land on the nearest stud, or move in whole steps from where a piece was.</source>
+        <translation>Caer en el tetón más cercano o moverse en pasos enteros desde donde estaba la pieza.</translation>
+    </message>
+    <message>
+        <source>Snap to the grid lines everything up on the same studs, which suits most layouts. Move in steps keeps a piece that sits between studs just as far off when you move it, a step at a time. Both use the step you pick next to Snap.</source>
+        <translation>Ajustar a la cuadrícula alinea todo sobre los mismos tetones, lo que va bien para la mayoría de los diseños. Mover en pasos mantiene una pieza que está entre tetones igual de desplazada al moverla, paso a paso. Ambos usan el paso que eliges junto a Ajuste.</translation>
+    </message>
+    <message>
+        <source>Stud grid</source>
+        <translation>Cuadrícula de tetones</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, so you can see where things will land.</source>
+        <translation>Líneas suaves a un tetón de distancia, para que veas dónde caerán las cosas.</translation>
+    </message>
+    <message>
+        <source>They show with the grid when you zoom in close enough to see the studs, and fade away as you zoom out. Turn them off here, or from the Snap button on the toolbar, if they feel busy.</source>
+        <translation>Aparecen con la cuadrícula cuando acercas lo suficiente para ver los tetones y se desvanecen al alejar. Desactívalas aquí, o desde el botón Ajuste de la barra de herramientas, si te molestan.</translation>
+    </message>
+    <message>
+        <source>Show lengths in feet and inches, metric or studs.</source>
+        <translation>Muestra las longitudes en pies y pulgadas, en sistema métrico o en studs.</translation>
     </message>
     <message>
         <source>Show lengths in feet and inches, meters or studs.</source>
@@ -1541,6 +1645,102 @@
     <message>
         <source>Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email.</source>
         <translation>Abre un grupo para ver cada tipo. El correo puede llegar al momento, en un resumen diario o semanal, o nunca. Las horas de silencio retienen los correos hasta que terminan, y puedes silenciar un club muy activo o pausar todo el correo.</translation>
+    </message>
+    <message>
+        <source>Trains</source>
+        <translation>Trenes</translation>
+    </message>
+    <message>
+        <source>The layout&apos;s engines and cars, and the trains made of them.</source>
+        <translation>Las locomotoras y vagones del diseño, y los trenes formados con ellos.</translation>
+    </message>
+    <message>
+        <source>Make a car in a few seconds, put cars together into a train, and put the train on the track to see how it sits on curves. Trains and cars are saved with the layout and shared with everyone editing it.</source>
+        <translation>Crea un vagón en segundos, junta vagones en un tren y pon el tren en la vía para ver cómo queda en las curvas. Los trenes y vagones se guardan con el diseño y se comparten con todos los que lo editan.</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Vagón nuevo</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a length; everything else can wait.</source>
+        <translation>Un vagón rápido solo necesita una longitud; lo demás puede esperar.</translation>
+    </message>
+    <message>
+        <source>Give it a number or name so you can find it. More shows the width, where the trucks sit, the couplers, and whether it uses a part&apos;s picture. Lengths are in studs, as you count them on the model.</source>
+        <translation>Dale un número o un nombre para encontrarlo. Más muestra el ancho, dónde van los bogies, los enganches y si usa la imagen de una pieza. Las longitudes van en studs, como los cuentas en el modelo.</translation>
+    </message>
+    <message>
+        <source>Trucks</source>
+        <translation>Bogies</translation>
+    </message>
+    <message>
+        <source>The wheel sets a car rides on, measured in studs from the middle of the car.</source>
+        <translation>Los juegos de ruedas sobre los que va un vagón, medidos en studs desde el centro del vagón.</translation>
+    </message>
+    <message>
+        <source>The front truck follows the track and the rear one follows it a fixed distance behind, so on a curve the car&apos;s middle swings in and its ends swing out, as a real one does. A quick car puts them a quarter of the way in from each end.</source>
+        <translation>El bogie delantero sigue la vía y el trasero lo sigue a una distancia fija, así que en una curva el centro del vagón se mete hacia dentro y los extremos salen hacia fuera, como en uno real. Un vagón rápido los pone a un cuarto de cada extremo.</translation>
+    </message>
+    <message>
+        <source>Roster</source>
+        <translation>Parque</translation>
+    </message>
+    <message>
+        <source>Your own engines and cars, or a club&apos;s, ready to bring into any layout.</source>
+        <translation>Tus propias locomotoras y vagones, o los de un club, listos para llevar a cualquier diseño.</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s, then add it to other layouts from there. A layout keeps its own copy, so it still opens anywhere; when the roster&apos;s car changes, Update brings the layout&apos;s copy up to date. Club rosters are changed by members who may edit the club&apos;s modules.</source>
+        <translation>Guarda un vagón en tu parque o en el de un club y añádelo desde ahí a otros diseños. Cada diseño guarda su propia copia, así que se abre en cualquier sitio; cuando el vagón del parque cambia, Actualizar pone al día la copia del diseño. Los parques de club los cambian los miembros que pueden editar los módulos del club.</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>Tren nuevo</translation>
+    </message>
+    <message>
+        <source>Cars in order, front to back, that move as one.</source>
+        <translation>Vagones en orden, de delante atrás, que se mueven juntos.</translation>
+    </message>
+    <message>
+        <source>Add cars from this layout&apos;s rolling stock, put them in order, and turn any of them around. A train&apos;s length is from its front coupler to its rear one.</source>
+        <translation>Añade vagones del material rodante de este diseño, ordénalos y gira los que quieras. La longitud de un tren va de su enganche delantero al trasero.</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>Poner en la vía</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of the train should be.</source>
+        <translation>Haz clic en la vía donde debe ir la cabeza del tren.</translation>
+    </message>
+    <message>
+        <source>The train runs back from there, following the switches as they are set. Click again elsewhere to move it. A train that runs off the end of the track is outlined in red.</source>
+        <translation>El tren se extiende hacia atrás desde ahí, siguiendo los desvíos tal como están. Haz clic en otro sitio para moverlo. Un tren que se sale del final de la vía se marca en rojo.</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>Dar la vuelta</translation>
+    </message>
+    <message>
+        <source>The train&apos;s last car becomes its front, and it faces the other way.</source>
+        <translation>El último vagón pasa a ser la cabeza y el tren mira hacia el otro lado.</translation>
+    </message>
+    <message>
+        <source>The cars stay where they are on the track; only their order and the way the train points change. Each turn is one change you can undo.</source>
+        <translation>Los vagones se quedan donde están en la vía; solo cambian su orden y hacia dónde mira el tren. Cada vuelta es un cambio que puedes deshacer.</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Comprobaciones</translation>
+    </message>
+    <message>
+        <source>What doesn&apos;t fit: a train too long for its track, a curve too tight, cars too close to another track.</source>
+        <translation>Lo que no cabe: un tren demasiado largo para su vía, una curva demasiado cerrada, vagones demasiado cerca de otra vía.</translation>
+    </message>
+    <message>
+        <source>The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends.</source>
+        <translation>Las comprobaciones se rehacen cada vez que cambia la vía, un tren o un desvío; nada se bloquea. Muéstramelo lleva el sitio a la vista. Ver › Longitudes de vía rotula cada tramo con la longitud en la que cabe un tren, entre sus desvíos y extremos.</translation>
     </message>
 </context>
 <context>
@@ -2586,6 +2786,21 @@
     </message>
 </context>
 <context>
+    <name>Routes</name>
+    <message>
+        <source>There’s no track joining these two places.</source>
+        <translation>No hay vía que una estos dos sitios.</translation>
+    </message>
+    <message>
+        <source>The only way needs the train to turn around.</source>
+        <translation>El único camino exige que el tren dé la vuelta.</translation>
+    </message>
+    <message>
+        <source>Pick an end somewhere else along the track.</source>
+        <translation>Elige un extremo en otro punto de la vía.</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3375,15 +3590,15 @@
     </message>
     <message>
         <source>A module is parts that move as one piece, like a table a club member brings. This layout&apos;s modules are listed here.</source>
-        <translation>Un módulo son piezas que se mueven como una sola, como una mesa que trae un miembro del club. Aquí están los módulos de este diseño.</translation>
+        <translation>Un módulo son piezas que se mueven como una sola, como una mesa que trae un miembro del club. Aquí aparecen los módulos de este trazado.</translation>
     </message>
     <message>
         <source>Make a module</source>
-        <translation>Hacer un módulo</translation>
+        <translation>Crear un módulo</translation>
     </message>
     <message>
         <source>Pick some parts, then Make a module. Save it to your Module library to use it again in other layouts.</source>
-        <translation>Elige algunas piezas y luego Hacer un módulo. Guárdalo en tu biblioteca de módulos para usarlo de nuevo en otros diseños.</translation>
+        <translation>Elige algunas piezas y luego Crear un módulo. Guárdalo en tu biblioteca de módulos para usarlo en otros trazados.</translation>
     </message>
     <message>
         <source>Each module&apos;s menu</source>
@@ -3391,15 +3606,51 @@
     </message>
     <message>
         <source>The ⋯ menu edits, colors and saves a module. Table and power says what it stands on and the power it needs.</source>
-        <translation>El menú ⋯ edita, colorea y guarda un módulo. Mesa y electricidad dice sobre qué se apoya y qué electricidad necesita.</translation>
+        <translation>El menú ⋯ edita, colorea y guarda un módulo. Mesa y corriente indica sobre qué se apoya y la corriente que necesita.</translation>
     </message>
     <message>
         <source>Tables and power</source>
-        <translation>Mesas y electricidad</translation>
+        <translation>Mesas y corriente</translation>
     </message>
     <message>
         <source>The layout adds up its modules&apos; outlets, watts and table heights here, for whoever plans the show.</source>
-        <translation>Aquí el diseño suma los enchufes, los vatios y las alturas de mesa de sus módulos, para quien planifica la exposición.</translation>
+        <translation>El trazado suma aquí los enchufes, vatios y alturas de mesa de sus módulos, para quien planifica la exposición.</translation>
+    </message>
+    <message>
+        <source>Routes</source>
+        <translation>Rutas</translation>
+    </message>
+    <message>
+        <source>Your routes</source>
+        <translation>Tus rutas</translation>
+    </message>
+    <message>
+        <source>Routes are named ways along the track. Open this list from Panels; the eye hides one on your map only.</source>
+        <translation>Las rutas son caminos con nombre por la vía. Abre esta lista desde Paneles; el ojo oculta una solo en tu mapa.</translation>
+    </message>
+    <message>
+        <source>Draw a route</source>
+        <translation>Dibujar una ruta</translation>
+    </message>
+    <message>
+        <source>Press New route, then click on the track where it starts and where it ends. The shortest way is found for you.</source>
+        <translation>Pulsa Nueva ruta y haz clic en la vía donde empieza y donde termina. El camino más corto se busca por ti.</translation>
+    </message>
+    <message>
+        <source>Stops on the way</source>
+        <translation>Paradas en el camino</translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop, to send the route along another line. Name it and press Save route.</source>
+        <translation>Mayús-clic añade una parada, para llevar la ruta por otra línea. Ponle nombre y pulsa Guardar ruta.</translation>
+    </message>
+    <message>
+        <source>Switches follow the route</source>
+        <translation>Los desvíos siguen la ruta</translation>
+    </message>
+    <message>
+        <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
+        <translation>Poner desvíos pone cada desvío de la ruta a su lado. En modo de marcha los cambias a mano.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -3472,6 +3723,58 @@
     <message>
         <source>Put it in the layout you have open, or start a new layout with it.</source>
         <translation>Ponlo en la maqueta que tienes abierta, o empieza una maqueta nueva con ello.</translation>
+    </message>
+    <message>
+        <source>Trains</source>
+        <translation>Trenes</translation>
+    </message>
+    <message>
+        <source>Trains and cars</source>
+        <translation>Trenes y vagones</translation>
+    </message>
+    <message>
+        <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
+        <translation>Abre Trenes desde Paneles. Material rodante tiene las locomotoras y vagones de este diseño; Trenes, los trenes formados con ellos.</translation>
+    </message>
+    <message>
+        <source>A quick car</source>
+        <translation>Un vagón rápido</translation>
+    </message>
+    <message>
+        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
+        <translation>Vagón nuevo solo necesita un número y una longitud en studs. Más detalles fija los bogies, los enganches y la imagen de una pieza.</translation>
+    </message>
+    <message>
+        <source>Make a train</source>
+        <translation>Formar un tren</translation>
+    </message>
+    <message>
+        <source>Tick a few cars and press Make a train, or press New train and add them in order, front first.</source>
+        <translation>Marca unos vagones y pulsa Formar un tren, o pulsa Tren nuevo y añádelos en orden, empezando por delante.</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>En la vía</translation>
+    </message>
+    <message>
+        <source>Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track.</source>
+        <translation>Pulsa Poner en la vía y haz clic donde va la cabeza. Cada vagón queda entre sus bogies, como en una vía real.</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>Tu parque</translation>
+    </message>
+    <message>
+        <source>Save a car to your roster or a club&apos;s to use it in other layouts. Update brings a layout&apos;s copy up to date.</source>
+        <translation>Guarda un vagón en tu parque o en el de un club para usarlo en otros diseños. Actualizar pone al día la copia de un diseño.</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Comprobaciones</translation>
+    </message>
+    <message>
+        <source>Checks lists what doesn&apos;t fit: a train too long for its track, a curve too tight. Show me finds the spot.</source>
+        <translation>Comprobaciones muestra lo que no cabe: un tren demasiado largo, una curva cerrada. Muéstramelo encuentra el sitio.</translation>
     </message>
 </context>
 <context>
@@ -4551,12 +4854,28 @@
         <translation>Límite del presupuesto para %1</translation>
     </message>
     <message>
+        <source>A switch&apos;s setting</source>
+        <translation>La posición de un desvío</translation>
+    </message>
+    <message>
+        <source>Route &quot;%1&quot;</source>
+        <translation>Ruta «%1»</translation>
+    </message>
+    <message>
         <source>Venue</source>
         <translation>Sala</translation>
     </message>
     <message>
         <source>Background image</source>
         <translation>Imagen de fondo</translation>
+    </message>
+    <message>
+        <source>Car &quot;%1&quot;</source>
+        <translation>Vagón «%1»</translation>
+    </message>
+    <message>
+        <source>Train &quot;%1&quot;</source>
+        <translation>Tren «%1»</translation>
     </message>
 </context>
 <context>
@@ -5270,6 +5589,93 @@
     <message>
         <source>Close</source>
         <translation>Cerrar</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FitChecksList</name>
+    <message>
+        <source>A train</source>
+        <translation>Un tren</translation>
+    </message>
+    <message>
+        <source>A car</source>
+        <translation>Un vagón</translation>
+    </message>
+    <message>
+        <source>A route</source>
+        <translation>Una ruta</translation>
+    </message>
+    <message>
+        <source>%1 (%2) is longer than the track it stands in (%3 between its switches and ends).</source>
+        <translation>%1 (%2) es más largo que la vía en la que está (%3 entre sus desvíos y extremos).</translation>
+    </message>
+    <message>
+        <source>%1 in %2: the curve is too tight for its trucks (they turn %3; at most %4).</source>
+        <translation>%1 en %2: la curva es demasiado cerrada para sus bogies (giran %3; como mucho %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 can&apos;t reach the car ahead: its couplers are %3 apart on this curve.</source>
+        <translation>%1 en %2 no alcanza al vagón de delante: sus enganches quedan a %3 en esta curva.</translation>
+    </message>
+    <message>
+        <source>%1 in %2: its coupler turns %3 on this curve (at most %4).</source>
+        <translation>%1 en %2: su enganche gira %3 en esta curva (como mucho %4).</translation>
+    </message>
+    <message>
+        <source>%1 in %2 has no coupler to the car ahead.</source>
+        <translation>%1 en %2 no tiene enganche con el vagón de delante.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 is too close to the other track here.</source>
+        <translation>%1 en %2 está demasiado cerca de la otra vía aquí.</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>otro tren</translation>
+    </message>
+    <message>
+        <source>%1 and %2 are on top of each other.</source>
+        <translation>%1 y %2 están uno encima del otro.</translation>
+    </message>
+    <message>
+        <source>%1 in %2 doesn&apos;t run on this kind of track (it runs on %3).</source>
+        <translation>%1 en %2 no circula por este tipo de vía (circula por %3).</translation>
+    </message>
+    <message>
+        <source>monorail</source>
+        <translation>monorraíl</translation>
+    </message>
+    <message>
+        <source>train track</source>
+        <translation>vía de tren</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track.</source>
+        <translation>%1 se sale del final de la vía.</translation>
+    </message>
+    <message>
+        <source>%1&apos;s track was moved or removed: put it on the track again.</source>
+        <translation>La vía de %1 se movió o se quitó: vuelve a ponerlo en la vía.</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around (a reversing loop or wye).</source>
+        <translation>%1 da la vuelta al tren (un bucle de retorno o un triángulo).</translation>
+    </message>
+    <message>
+        <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
+        <translation>%1 da la vuelta al tren en vía con corriente: necesita un inversor de polaridad allí.</translation>
+    </message>
+    <message>
+        <source>Problem</source>
+        <translation>Problema</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Advertencia</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Muéstramelo</translation>
     </message>
 </context>
 <context>
@@ -6745,20 +7151,52 @@ Guardar la mía como versión nueva: la tuya pasa a ser el módulo; la suya qued
         <translation>Abrir desde el servidor: tus maquetas, salas, módulos y piezas, y los de tus clubes</translation>
     </message>
     <message>
-        <source>Line pieces up on a grid (click to turn on or off, the arrow picks the step)</source>
-        <translation>Alinear las piezas en una cuadrícula (clic para activar o desactivar, la flecha elige el paso)</translation>
-    </message>
-    <message>
-        <source>%1 studs</source>
-        <translation>%1 studs</translation>
-    </message>
-    <message>
         <source>Snap %1</source>
         <translation>Ajuste %1</translation>
     </message>
     <message>
         <source>Snap off</source>
         <translation>Ajuste desactivado</translation>
+    </message>
+    <message>
+        <source>Steps %1</source>
+        <translation>Pasos %1</translation>
+    </message>
+    <message>
+        <source>Line everything up on the stud grid (click to turn on or off, the arrow picks how many studs apart)</source>
+        <translation>Alinea todo en la cuadrícula de tetones (clic para activar o desactivar, la flecha elige cuántos tetones de separación)</translation>
+    </message>
+    <message>
+        <source>Every stud</source>
+        <translation>Cada tetón</translation>
+    </message>
+    <message>
+        <source>Every %1 studs</source>
+        <translation>Cada %1 tetones</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Ajustar a la cuadrícula</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Mover en pasos</translation>
+    </message>
+    <message>
+        <source>Things land on the nearest stud (or every few studs), so everything lines up</source>
+        <translation>Las cosas caen en el tetón más cercano (o cada pocos tetones), para que todo quede alineado</translation>
+    </message>
+    <message>
+        <source>Things move a whole number of steps from where they were, keeping any offset they had</source>
+        <translation>Las cosas se mueven un número entero de pasos desde donde estaban, conservando su desplazamiento</translation>
+    </message>
+    <message>
+        <source>Show the stud grid</source>
+        <translation>Mostrar la cuadrícula de tetones</translation>
+    </message>
+    <message>
+        <source>Faint lines one stud apart, shown when you zoom in close enough to see them</source>
+        <translation>Líneas suaves a un tetón de distancia, visibles al acercar lo suficiente</translation>
     </message>
     <message>
         <source>How far Turn left and Turn right turn</source>
@@ -7811,6 +8249,18 @@ Save anyway?</source>
     <message>
         <source>&amp;Ruler Attach Points</source>
         <translation>Puntos de sujeción de &amp;reglas</translation>
+    </message>
+    <message>
+        <source>Run Tr&amp;ains</source>
+        <translation>&amp;Poner trenes en marcha</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Poner trenes en marcha: haz clic en un desvío para cambiarlo. Las piezas no se pueden mover.</translation>
+    </message>
+    <message>
+        <source>Swi&amp;tches</source>
+        <translation>&amp;Desvíos</translation>
     </message>
     <message>
         <source>M&amp;odules</source>
@@ -9379,6 +9829,14 @@ No se te volverá a preguntar. Para traerlo más tarde a esta o a cualquier otra
         <translation>de qué versión viene cada set</translation>
     </message>
     <message>
+        <source>switch settings</source>
+        <translation>las posiciones de los desvíos</translation>
+    </message>
+    <message>
+        <source>routes</source>
+        <translation>rutas</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -9512,6 +9970,18 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     <message>
         <source>All notifications</source>
         <translation>Todas las notificaciones</translation>
+    </message>
+    <message>
+        <source>trains</source>
+        <translation>trenes</translation>
+    </message>
+    <message>
+        <source>rolling stock</source>
+        <translation>material rodante</translation>
+    </message>
+    <message>
+        <source>Sidin&amp;g Lengths</source>
+        <translation>Lon&amp;gitudes de vía</translation>
     </message>
 </context>
 <context>
@@ -9706,6 +10176,10 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     <message>
         <source>→ %1</source>
         <translation>→ %1</translation>
+    </message>
+    <message>
+        <source>Stop running trains to add parts.</source>
+        <translation>Deja de poner trenes en marcha para añadir piezas.</translation>
     </message>
     <message>
         <source>Insert module</source>
@@ -10075,6 +10549,118 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
             <numerusform>Pegar (%1 piezas en %n hojas)</numerusform>
         </translation>
     </message>
+    <message>
+        <source>Straight</source>
+        <translation>Recto</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Modo de marcha:&lt;/b&gt; haz clic en un desvío para cambiarlo. Las piezas no se pueden mover.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Detener</translation>
+    </message>
+    <message>
+        <source>▶ Run trains</source>
+        <translation>▶ Poner trenes en marcha</translation>
+    </message>
+    <message>
+        <source>Run trains: click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>Poner trenes en marcha: haz clic en un desvío para cambiarlo. Las piezas no se pueden mover.</translation>
+    </message>
+    <message>
+        <source>Set a switch</source>
+        <translation>Poner un desvío</translation>
+    </message>
+    <message>
+        <source>Click on a switch to flip it.</source>
+        <translation>Haz clic en un desvío para cambiarlo.</translation>
+    </message>
+    <message>
+        <source>Switch set: %1</source>
+        <translation>Desvío puesto: %1</translation>
+    </message>
+    <message>
+        <source>Set the switch</source>
+        <translation>Poner el desvío</translation>
+    </message>
+    <message>
+        <source>From end %1: %2</source>
+        <translation>Desde el extremo %1: %2</translation>
+    </message>
+    <message>
+        <source>Route name</source>
+        <translation>Nombre de la ruta</translation>
+    </message>
+    <message>
+        <source>Save route</source>
+        <translation>Guardar ruta</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>Route %1</source>
+        <translation>Ruta %1</translation>
+    </message>
+    <message>
+        <source>Click on the track.</source>
+        <translation>Haz clic en la vía.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
+        <translation>&lt;b&gt;Nueva ruta:&lt;/b&gt; haz clic en la vía donde empieza.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Nueva ruta:&lt;/b&gt; haz clic donde termina (Mayús-clic añade una parada).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
+        <translation>&lt;b&gt;Nueva ruta:&lt;/b&gt; %1 por la vía%2. Mayús-clic añade una parada.</translation>
+    </message>
+    <message>
+        <source>, and it turns the train around</source>
+        <translation>, y hace dar la vuelta al tren</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nueva ruta</translation>
+    </message>
+    <message>
+        <source>Route “%1” saved.</source>
+        <translation>Ruta «%1» guardada.</translation>
+    </message>
+    <message>
+        <source>the train</source>
+        <translation>el tren</translation>
+    </message>
+    <message>
+        <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
+        <translation>Haz clic en la vía donde va la cabeza de &lt;b&gt;%1&lt;/b&gt;.</translation>
+    </message>
+    <message>
+        <source>The train</source>
+        <translation>El tren</translation>
+    </message>
+    <message>
+        <source>Put %1 on the track</source>
+        <translation>Poner %1 en la vía</translation>
+    </message>
+    <message>
+        <source>%1 is on the track.</source>
+        <translation>%1 está en la vía.</translation>
+    </message>
+    <message>
+        <source>%1 runs off the end of the track here.</source>
+        <translation>%1 se sale del final de la vía aquí.</translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleEditBar</name>
@@ -10251,7 +10837,7 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     <name>bld::ui::ModuleSetupDialog</name>
     <message>
         <source>Table and power</source>
-        <translation>Mesa y electricidad</translation>
+        <translation>Mesa y corriente</translation>
     </message>
     <message>
         <source>Table and power · %1</source>
@@ -10624,7 +11210,7 @@ Mantenlo como %2 si aún lo abres en otro programa; Archivo › Exportar como ma
     </message>
     <message>
         <source>Tables and power</source>
-        <translation>Mesas y electricidad</translation>
+        <translation>Mesas y corriente</translation>
     </message>
     <message>
         <source>Select Its Parts</source>
@@ -11714,6 +12300,163 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
 </context>
 <context>
+    <name>bld::ui::RosterDialog</name>
+    <message>
+        <source>From a roster</source>
+        <translation>Desde un parque</translation>
+    </message>
+    <message>
+        <source>Your engines and cars, and your clubs’. Add one to this layout; it keeps its own copy.</source>
+        <translation>Tus locomotoras y vagones, y los de tus clubes. Añade uno a este diseño; guarda su propia copia.</translation>
+    </message>
+    <message>
+        <source>Your roster is empty. Save a car from a layout to your roster, or a club’s, to use it in other layouts.</source>
+        <translation>Tu parque está vacío. Guarda un vagón de un diseño en tu parque, o en el de un club, para usarlo en otros diseños.</translation>
+    </message>
+    <message>
+        <source>Unnamed</source>
+        <translation>Sin nombre</translation>
+    </message>
+    <message>
+        <source>Yours</source>
+        <translation>Tuyos</translation>
+    </message>
+    <message>
+        <source>In this layout</source>
+        <translation>En esta maqueta</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation>Actualizar</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Añadir</translation>
+    </message>
+    <message>
+        <source>Take off the roster</source>
+        <translation>Quitar del parque</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RoutesPanel</name>
+    <message>
+        <source>Routes</source>
+        <translation>Rutas</translation>
+    </message>
+    <message>
+        <source>New route</source>
+        <translation>Nueva ruta</translation>
+    </message>
+    <message>
+        <source>Delete route</source>
+        <translation>Eliminar ruta</translation>
+    </message>
+    <message>
+        <source>Delete the route “%1”?</source>
+        <translation>¿Eliminar la ruta «%1»?</translation>
+    </message>
+    <message>
+        <source>Rename route</source>
+        <translation>Cambiar el nombre de la ruta</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nombre:</translation>
+    </message>
+    <message>
+        <source>Switches set for “%1”.</source>
+        <translation>Desvíos puestos para «%1».</translation>
+    </message>
+    <message>
+        <source>Set switches for a route</source>
+        <translation>Poner desvíos para una ruta</translation>
+    </message>
+    <message>
+        <source>Draw the route again from its new start or end.</source>
+        <translation>Dibuja la ruta de nuevo desde su nuevo inicio o final.</translation>
+    </message>
+    <message>
+        <source>Found a new way for “%1”.</source>
+        <translation>Se encontró otro camino para «%1».</translation>
+    </message>
+    <message>
+        <source>Find a new way</source>
+        <translation>Buscar otro camino</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then draw a route along it.</source>
+        <translation>Todavía no hay vía en este trazado. Añade alguna del grupo Vías del panel Piezas y luego dibuja una ruta por ella.</translation>
+    </message>
+    <message>
+        <source>No routes yet. Press New route, then click two places on the track: where it starts and where it ends.</source>
+        <translation>Todavía no hay rutas. Pulsa Nueva ruta y haz clic en dos sitios de la vía: donde empieza y donde termina.</translation>
+    </message>
+    <message>
+        <source>Untitled route</source>
+        <translation>Ruta sin nombre</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation>Visible</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation>Oculta</translation>
+    </message>
+    <message>
+        <source>Shown on your map (only yours)</source>
+        <translation>Visible en tu mapa (solo en el tuyo)</translation>
+    </message>
+    <message>
+        <source>Hidden on your map (only yours)</source>
+        <translation>Oculta en tu mapa (solo en el tuyo)</translation>
+    </message>
+    <message>
+        <source>Hide %1 on your map</source>
+        <translation>Ocultar %1 en tu mapa</translation>
+    </message>
+    <message>
+        <source>Show %1 on your map</source>
+        <translation>Mostrar %1 en tu mapa</translation>
+    </message>
+    <message>
+        <source>Broken: the track under it changed.</source>
+        <translation>Rota: la vía bajo ella cambió.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>Bien</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) set the other way</source>
+        <translation>
+            <numerusform>%n desvío puesto hacia el otro lado</numerusform>
+            <numerusform>%n desvíos puestos hacia el otro lado</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Turns the train around</source>
+        <translation>Hace dar la vuelta al tren</translation>
+    </message>
+    <message>
+        <source>Set switches</source>
+        <translation>Poner desvíos</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Cambiar nombre</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Eliminar</translation>
+    </message>
+    <message>
+        <source>Route checks</source>
+        <translation>Comprobaciones de rutas</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::SaveModuleDialog</name>
     <message>
         <source>Put everything on one sheet</source>
@@ -12149,12 +12892,12 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <translation>Renombrado a «%1»</translation>
     </message>
     <message>
-        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
-        <translation>Guardado en la biblioteca de módulos. Los diseños lo reciben al añadir este módulo o al actualizarlo desde la biblioteca.</translation>
-    </message>
-    <message>
         <source>Not saved: %1</source>
         <translation>No guardado: %1</translation>
+    </message>
+    <message>
+        <source>Saved in the Module library. Layouts get it when they add this module or update it from the Module library.</source>
+        <translation>Guardado en la biblioteca de módulos. Los diseños lo reciben al añadir este módulo o al actualizarlo desde la biblioteca.</translation>
     </message>
     <message>
         <source>Gave &quot;%1&quot; back to %2</source>
@@ -12829,6 +13572,26 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <translation>Texto y botones más grandes</translation>
     </message>
     <message>
+        <source>Units</source>
+        <translation>Unidades</translation>
+    </message>
+    <message>
+        <source>How lengths are shown, such as a venue&apos;s walls.</source>
+        <translation>Cómo se muestran las longitudes, como las paredes de una sala.</translation>
+    </message>
+    <message>
+        <source>Feet and inches, like 12′ 6½″</source>
+        <translation>Pies y pulgadas, como 12′ 6½″</translation>
+    </message>
+    <message>
+        <source>Metric, like 3.81 m</source>
+        <translation>Métrico, como 3,81 m</translation>
+    </message>
+    <message>
+        <source>Studs: LEGO studs, 8 mm each</source>
+        <translation>Studs: studs de LEGO, de 8 mm cada uno</translation>
+    </message>
+    <message>
         <source>Editing</source>
         <translation>Edición</translation>
     </message>
@@ -12990,6 +13753,22 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>Grid snap:</source>
         <translation>Ajuste a la cuadrícula:</translation>
+    </message>
+    <message>
+        <source>Snap to the grid</source>
+        <translation>Ajustar a la cuadrícula</translation>
+    </message>
+    <message>
+        <source>Move in steps</source>
+        <translation>Mover en pasos</translation>
+    </message>
+    <message>
+        <source>How things snap:</source>
+        <translation>Cómo se ajustan las cosas:</translation>
+    </message>
+    <message>
+        <source>Show the stud grid when zoomed in</source>
+        <translation>Mostrar la cuadrícula de tetones al acercar</translation>
     </message>
     <message>
         <source>Turn step:</source>
@@ -13614,6 +14393,181 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     </message>
 </context>
 <context>
+    <name>bld::ui::StockDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> studs</translation>
+    </message>
+    <message>
+        <source>Engine</source>
+        <translation>Locomotora</translation>
+    </message>
+    <message>
+        <source>Cab car</source>
+        <translation>Coche cabina</translation>
+    </message>
+    <message>
+        <source>Powered car (multiple unit)</source>
+        <translation>Coche motor (automotor)</translation>
+    </message>
+    <message>
+        <source>Monorail car</source>
+        <translation>Vagón de monorraíl</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>Vagón</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Vagón nuevo</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>Cambiar vagón</translation>
+    </message>
+    <message>
+        <source>A quick car needs only a number and a length. More details can wait.</source>
+        <translation>Un vagón rápido solo necesita un número y una longitud. Los detalles pueden esperar.</translation>
+    </message>
+    <message>
+        <source>Number:</source>
+        <translation>Número:</translation>
+    </message>
+    <message>
+        <source>Boxcar</source>
+        <translation>Furgón</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nombre:</translation>
+    </message>
+    <message>
+        <source>Kind:</source>
+        <translation>Tipo:</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Color</translation>
+    </message>
+    <message>
+        <source>Car color</source>
+        <translation>Color del vagón</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>Color:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler</source>
+        <translation>De enganche a enganche</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>Longitud:</translation>
+    </message>
+    <message>
+        <source>More details</source>
+        <translation>Más detalles</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Ancho:</translation>
+    </message>
+    <message>
+        <source>Body length:</source>
+        <translation>Longitud de la caja:</translation>
+    </message>
+    <message>
+        <source>Front truck, ahead of the middle:</source>
+        <translation>Bogie delantero, delante del centro:</translation>
+    </message>
+    <message>
+        <source>Rear truck, behind the middle:</source>
+        <translation>Bogie trasero, detrás del centro:</translation>
+    </message>
+    <message>
+        <source>Magnet</source>
+        <translation>Imán</translation>
+    </message>
+    <message>
+        <source>Fixed bar</source>
+        <translation>Barra fija</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ninguno</translation>
+    </message>
+    <message>
+        <source>Front coupler:</source>
+        <translation>Enganche delantero:</translation>
+    </message>
+    <message>
+        <source>Rear coupler:</source>
+        <translation>Enganche trasero:</translation>
+    </message>
+    <message>
+        <source>Has a motor</source>
+        <translation>Tiene motor</translation>
+    </message>
+    <message>
+        <source>Train track</source>
+        <translation>Vía de tren</translation>
+    </message>
+    <message>
+        <source>Monorail</source>
+        <translation>Monorraíl</translation>
+    </message>
+    <message>
+        <source>Runs on:</source>
+        <translation>Circula por:</translation>
+    </message>
+    <message>
+        <source>A box in its color</source>
+        <translation>Una caja de su color</translation>
+    </message>
+    <message>
+        <source>A part’s picture</source>
+        <translation>La imagen de una pieza</translation>
+    </message>
+    <message>
+        <source>Seen from above as:</source>
+        <translation>Visto desde arriba como:</translation>
+    </message>
+    <message>
+        <source>Search train parts</source>
+        <translation>Buscar piezas de tren</translation>
+    </message>
+    <message>
+        <source>Picking a part sets the length from its couplers.</source>
+        <translation>Elegir una pieza fija la longitud según sus enganches.</translation>
+    </message>
+    <message>
+        <source>Notes:</source>
+        <translation>Notas:</translation>
+    </message>
+    <message>
+        <source>The front truck must be ahead of the rear one, and both within the car’s length.</source>
+        <translation>El bogie delantero debe ir delante del trasero, y los dos dentro de la longitud del vagón.</translation>
+    </message>
+    <message>
+        <source>Add car</source>
+        <translation>Añadir vagón</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Guardar</translation>
+    </message>
+    <message>
+        <source>Fewer details</source>
+        <translation>Menos detalles</translation>
+    </message>
+    <message>
+        <source>No train parts match. Parts with a coupler at each end show here.</source>
+        <translation>Ninguna pieza de tren coincide. Aquí salen las piezas con un enganche en cada extremo.</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::TouchActionBar</name>
     <message>
         <source>Turn left</source>
@@ -13658,6 +14612,338 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>Tap the map to place %1</source>
         <translation>Toca el mapa para colocar %1</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainDialog</name>
+    <message>
+        <source>New train</source>
+        <translation>Tren nuevo</translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>Cambiar tren</translation>
+    </message>
+    <message>
+        <source>Cars in order, front first. A train moves as one.</source>
+        <translation>Vagones en orden, primero el de delante. Un tren se mueve junto.</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nombre:</translation>
+    </message>
+    <message>
+        <source>Cars in the train, front first</source>
+        <translation>Vagones del tren, primero el de delante</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation>Adelante</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Atrás</translation>
+    </message>
+    <message>
+        <source>Turn car around</source>
+        <translation>Girar vagón</translation>
+    </message>
+    <message>
+        <source>Take out</source>
+        <translation>Sacar</translation>
+    </message>
+    <message>
+        <source>Car to add</source>
+        <translation>Vagón para añadir</translation>
+    </message>
+    <message>
+        <source>Add to the end</source>
+        <translation>Añadir al final</translation>
+    </message>
+    <message>
+        <source>This layout has no cars yet. Make one in Rolling stock first.</source>
+        <translation>Este diseño aún no tiene vagones. Crea uno primero en Material rodante.</translation>
+    </message>
+    <message>
+        <source>Save train</source>
+        <translation>Guardar tren</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>Un vagón que se eliminó</translation>
+    </message>
+    <message>
+        <source>turned around</source>
+        <translation>girado</translation>
+    </message>
+    <message>
+        <source>Length %1</source>
+        <translation>Longitud %1</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>Tren</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::TrainsPanel</name>
+    <message>
+        <source>Trains</source>
+        <translation>Trenes</translation>
+    </message>
+    <message>
+        <source>New train</source>
+        <translation>Tren nuevo</translation>
+    </message>
+    <message>
+        <source>New car</source>
+        <translation>Vagón nuevo</translation>
+    </message>
+    <message>
+        <source>From a roster…</source>
+        <translation>Desde un parque…</translation>
+    </message>
+    <message>
+        <source>Rolling stock</source>
+        <translation>Material rodante</translation>
+    </message>
+    <message>
+        <source>Added %1.</source>
+        <translation>%1 añadido.</translation>
+    </message>
+    <message>
+        <source>Saved %1.</source>
+        <translation>%1 guardado.</translation>
+    </message>
+    <message>
+        <source>Change car</source>
+        <translation>Cambiar vagón</translation>
+    </message>
+    <message>
+        <source>Delete %1?</source>
+        <translation>¿Eliminar %1?</translation>
+    </message>
+    <message>
+        <source>Delete %1 and take it out of %2?</source>
+        <translation>¿Eliminar %1 y quitarlo de %2?</translation>
+    </message>
+    <message>
+        <source>Delete car</source>
+        <translation>Eliminar vagón</translation>
+    </message>
+    <message>
+        <source>Train %1</source>
+        <translation>Tren %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Made %1 from %n car(s). Put it on the track to see it.</source>
+        <translation>
+            <numerusform>%1 formado con %n vagón. Ponlo en la vía para verlo.</numerusform>
+            <numerusform>%1 formado con %n vagones. Ponlo en la vía para verlo.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Change train</source>
+        <translation>Cambiar tren</translation>
+    </message>
+    <message>
+        <source>%1 turned around.</source>
+        <translation>%1 ha dado la vuelta.</translation>
+    </message>
+    <message>
+        <source>Turn train around</source>
+        <translation>Dar la vuelta al tren</translation>
+    </message>
+    <message>
+        <source>Take train off the track</source>
+        <translation>Quitar el tren de la vía</translation>
+    </message>
+    <message>
+        <source>Delete %1? Its cars stay.</source>
+        <translation>¿Eliminar %1? Sus vagones se quedan.</translation>
+    </message>
+    <message>
+        <source>Delete train</source>
+        <translation>Eliminar tren</translation>
+    </message>
+    <message>
+        <source>Updated %1 from the roster.</source>
+        <translation>%1 actualizado desde el parque.</translation>
+    </message>
+    <message>
+        <source>Update car from roster</source>
+        <translation>Actualizar vagón desde el parque</translation>
+    </message>
+    <message>
+        <source>Added %1 to this layout.</source>
+        <translation>%1 añadido a este diseño.</translation>
+    </message>
+    <message>
+        <source>Add car from roster</source>
+        <translation>Añadir vagón desde el parque</translation>
+    </message>
+    <message>
+        <source>Your rosters couldn’t be loaded: %1</source>
+        <translation>No se pudieron cargar tus parques: %1</translation>
+    </message>
+    <message>
+        <source>Saved %1 to the roster.</source>
+        <translation>%1 guardado en el parque.</translation>
+    </message>
+    <message>
+        <source>Save car to roster</source>
+        <translation>Guardar vagón en el parque</translation>
+    </message>
+    <message>
+        <source>It couldn’t be saved to the roster: %1</source>
+        <translation>No se pudo guardar en el parque: %1</translation>
+    </message>
+    <message>
+        <source>Trains (%1)</source>
+        <translation>Trenes (%1)</translation>
+    </message>
+    <message>
+        <source>Rolling stock (%1)</source>
+        <translation>Material rodante (%1)</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
+        <translation>Aún no hay material rodante. Pulsa Vagón nuevo: un número y una longitud es todo lo que necesita un vagón rápido.</translation>
+    </message>
+    <message>
+        <source>Pick %1 for a new train</source>
+        <translation>Elegir %1 para un tren nuevo</translation>
+    </message>
+    <message>
+        <source>In %1</source>
+        <translation>En %1</translation>
+    </message>
+    <message>
+        <source>The roster has a newer version</source>
+        <translation>El parque tiene una versión más nueva</translation>
+    </message>
+    <message>
+        <source>From a roster</source>
+        <translation>Desde un parque</translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation>Cambio</translation>
+    </message>
+    <message>
+        <source>Update from roster</source>
+        <translation>Actualizar desde el parque</translation>
+    </message>
+    <message>
+        <source>Save to roster</source>
+        <translation>Guardar en el parque</translation>
+    </message>
+    <message>
+        <source>Save changes to %1’s roster</source>
+        <translation>Guardar cambios en el parque de %1</translation>
+    </message>
+    <message>
+        <source>Save changes to your roster</source>
+        <translation>Guardar cambios en tu parque</translation>
+    </message>
+    <message>
+        <source>Your roster</source>
+        <translation>Tu parque</translation>
+    </message>
+    <message>
+        <source>%1’s roster</source>
+        <translation>Parque de %1</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Borrar</translation>
+    </message>
+    <message>
+        <source>Make a train of this car</source>
+        <translation>Formar un tren con este vagón</translation>
+    </message>
+    <message>
+        <source>Make a train of these %1 cars</source>
+        <translation>Formar un tren con estos %1 vagones</translation>
+    </message>
+    <message>
+        <source>No trains yet. Make a car or two in Rolling stock first, then put them together here.</source>
+        <translation>Aún no hay trenes. Crea primero un vagón o dos en Material rodante y júntalos aquí.</translation>
+    </message>
+    <message>
+        <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
+        <translation>Aún no hay trenes. Pulsa Tren nuevo, o marca vagones en Material rodante y forma un tren con ellos.</translation>
+    </message>
+    <message>
+        <source>Untitled train</source>
+        <translation>Tren sin nombre</translation>
+    </message>
+    <message>
+        <source>Not on the map</source>
+        <translation>No está en el mapa</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed</source>
+        <translation>Su vía se movió o se quitó</translation>
+    </message>
+    <message>
+        <source>Runs off the end of the track</source>
+        <translation>Se sale del final de la vía</translation>
+    </message>
+    <message>
+        <source>On the track</source>
+        <translation>En la vía</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n car(s)</source>
+        <translation>
+            <numerusform>%n vagón</numerusform>
+            <numerusform>%n vagones</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Click the track…</source>
+        <translation>Haz clic en la vía…</translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation>Mover</translation>
+    </message>
+    <message>
+        <source>Put on the track</source>
+        <translation>Poner en la vía</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet.</source>
+        <translation>Este diseño aún no tiene vía.</translation>
+    </message>
+    <message>
+        <source>Turn around</source>
+        <translation>Dar la vuelta</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>Quitar de la vía</translation>
+    </message>
+    <message>
+        <source>Sign in to a server first (File › Servers…) to use your roster and your clubs’.</source>
+        <translation>Inicia sesión primero en un servidor (Archivo › Servidores…) para usar tu parque y el de tus clubes.</translation>
+    </message>
+    <message>
+        <source>Take %1 off the roster? Layouts keep their copies.</source>
+        <translation>¿Quitar %1 del parque? Los diseños conservan sus copias.</translation>
+    </message>
+    <message>
+        <source>It couldn’t be taken off the roster: %1</source>
+        <translation>No se pudo quitar del parque: %1</translation>
+    </message>
+    <message>
+        <source>Checks</source>
+        <translation>Comprobaciones</translation>
+    </message>
+    <message>
+        <source>Every train on the track fits: nothing too long, too tight or too close.</source>
+        <translation>Todos los trenes en la vía caben: nada demasiado largo, cerrado o cerca.</translation>
     </message>
 </context>
 <context>
