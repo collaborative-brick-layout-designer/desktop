@@ -106,17 +106,20 @@ void MapView::routeDraftClick(QPointF studs, bool shift) {
         track::StockById stock;
         for (const auto& s : map_->sidecar.rollingStock) stock.insert(s.id, s);
         const core::Train* onTrain = nullptr;
+        core::TrainPosition head;
         for (const auto& t : map_->sidecar.trains) {
             if (!t.position || !track::placeTrain(net, t, stock, map_->sidecar.switchStates)) continue;
-            const auto head = net.pointAtPosition(*t.position);
-            if (head && std::hypot(head->p.x() - studs.x(), head->p.y() - studs.y()) <= reach) {
+            const core::TrainPosition at = *t.position;
+            const auto p = net.pointAtPosition(at);
+            if (p && std::hypot(p->p.x() - studs.x(), p->p.y() - studs.y()) <= reach) {
                 onTrain = &t;
+                head = at;
                 break;
             }
         }
         if (onTrain) {
-            d.from = static_cast<const core::TrackPosition&>(*onTrain->position);
-            d.facing = onTrain->position->facingTo ? track::Facing::To : track::Facing::From;
+            d.from = static_cast<const core::TrackPosition&>(head);
+            d.facing = head.facingTo ? track::Facing::To : track::Facing::From;
             d.train = onTrain->id;
         } else {
             d.from = pos;

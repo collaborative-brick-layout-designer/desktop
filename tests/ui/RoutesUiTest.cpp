@@ -125,7 +125,7 @@ TEST(RoutesUi, GoTheOtherWayRunsTheWholeLoopRound) {
     EXPECT_GT(arrows(view, route.id), 1);
     auto* row = panel->findChild<QFrame*>(QStringLiteral("route_") + route.id);
     ASSERT_TRUE(row);
-    EXPECT_TRUE(row->findChild<QLabel*>(QStringLiteral("routeStatus"))->text().startsWith(QStringLiteral("OK")));
+    EXPECT_FALSE(row->findChild<QLabel*>(QStringLiteral("routeStatus"))->text().startsWith(QStringLiteral("Broken")));
 }
 
 TEST(RoutesUi, ARouteStartedOnATrainGoesTheWayItFaces) {

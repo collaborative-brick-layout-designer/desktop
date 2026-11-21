@@ -75,7 +75,7 @@ std::vector<Arrival> searchLeg(const TrackNetwork& net, const std::vector<Arriva
     std::vector<Arrived> arrivals;
     QHash<QString, size_t> arrivalAt;
     double best = std::numeric_limits<double>::infinity();
-    const auto arrive = [&](const QString& key, const RouteStep& step, double s, double cost, std::optional<Node> prev, int src) {
+    const auto arrive = [&](const QString& key, const RouteStep& step, double s, double cost, const std::optional<Node>& prev, int src) {
         const auto it = arrivalAt.constFind(key);
         if (it != arrivalAt.constEnd()) {
             if (cost >= arrivals[*it].cost - 1e-9) return;
@@ -282,6 +282,7 @@ std::variant<RouteFound, RouteProblem> findRoute(const TrackNetwork& net, const 
     if (points.size() == 2 && from.brick == to.brick && from.from == to.from && from.to == to.to && std::abs(from.s - to.s) < 0.5)
         return RouteProblem::SamePlace;
     std::vector<std::vector<TrackPosition>> spots;
+    spots.reserve(points.size());
     for (const auto& p : points) spots.push_back(sameSpot(net, p));
     std::vector<Facing> facings = opts.facing ? std::vector<Facing>{ *opts.facing } : std::vector<Facing>{ Facing::To, Facing::From };
     std::optional<RouteFound> best;
