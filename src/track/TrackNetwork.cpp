@@ -6,6 +6,8 @@
 #include "../parts/PartsLibrary.h"
 
 #include <algorithm>
+#include <cmath>
+#include <limits>
 
 namespace bld::track {
 
@@ -43,6 +45,54 @@ TrackNetwork::TrackNetwork(const std::vector<TrackBrickInput>& bricks) {
             switches_.append(point);
         }
     }
+    findGaps();
+}
+
+// Pair up loose ends that nearly meet: in brick id then connection order,
+// each with the nearest one after it (ties: the first), of the same kind,
+// another brick, within kGapReach and facing it.
+void TrackNetwork::findGaps() {
+    struct Loose {
+        PortRef port;
+        QPointF p;
+        double angle;
+        QString kind;
+    };
+    std::vector<Loose> loose;
+    QStringList ids = order_;
+    ids.sort();
+    for (const QString& brick : ids) {
+        const PartTrack& t = bricks_.value(brick).track;
+        for (int conn = 0; conn < t.kinds.size(); ++conn) {
+            const auto& kind = t.kinds[conn];
+            if (!kind || linkedPartner({ brick, conn })) continue;
+            if (const auto at = port(brick, conn)) loose.push_back({ { brick, conn }, at->first, at->second, *kind });
+        }
+    }
+    std::vector<bool> used(loose.size(), false);
+    for (size_t i = 0; i < loose.size(); ++i) {
+        if (used[i]) continue;
+        const Loose& a = loose[i];
+        std::optional<size_t> best;
+        double bestD = std::numeric_limits<double>::infinity();
+        for (size_t j = i + 1; j < loose.size(); ++j) {
+            const Loose& b = loose[j];
+            if (used[j] || b.port.brick == a.port.brick || b.kind != a.kind) continue;
+            const double d = std::hypot(b.p.x() - a.p.x(), b.p.y() - a.p.y());
+            if (d > kGapReach || std::abs(wrapDegrees(a.angle - b.angle - 180.0)) > kGapTurn) continue;
+            if (d < bestD - 1e-9) {
+                best = j;
+                bestD = d;
+            }
+        }
+        if (!best) continue;
+        const Loose& b = loose[*best];
+        used[i] = true;
+        used[*best] = true;
+        bridges_.insert(switchKey(a.port.brick, a.port.conn), b.port);
+        bridges_.insert(switchKey(b.port.brick, b.port.conn), a.port);
+        gaps_.append({ a.port, b.port, (a.p + b.p) / 2.0, bestD });
+    }
 }
 
 const PartTrack* TrackNetwork::trackOf(const QString& brick) const {
@@ -51,6 +101,13 @@ const PartTrack* TrackNetwork::trackOf(const QString& brick) const {
 }
 
 std::optional<PortRef> TrackNetwork::partner(const PortRef& port) const {
+    if (auto linked = linkedPartner(port)) return linked;
+    const auto it = bridges_.constFind(switchKey(port.brick, port.conn));
+    if (it != bridges_.constEnd()) return *it;
+    return std::nullopt;
+}
+
+std::optional<PortRef> TrackNetwork::linkedPartner(const PortRef& port) const {
     const auto b = bricks_.constFind(port.brick);
     if (b == bricks_.constEnd() || port.conn < 0 || port.conn >= b->input.connexions.size()) return std::nullopt;
     const QString& link = b->input.connexions[port.conn].second;

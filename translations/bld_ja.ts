@@ -611,14 +611,6 @@
         <translation>新しいルート</translation>
     </message>
     <message>
-        <source>Click where the route starts on the track, then where it ends.</source>
-        <translation>線路上のルートの始まりをクリックし、次に終わりをクリックします。</translation>
-    </message>
-    <message>
-        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
-        <translation>線路に沿った最短の道筋を、どちら向きのポイントも通って見つけます。Shift キーを押しながらクリックすると途中の停車点が加わり、別の線を選べます。名前を付けて「ルートを保存」を押します。Esc か「キャンセル」でやめます。</translation>
-    </message>
-    <message>
         <source>Broken route</source>
         <translation>切れたルート</translation>
     </message>
@@ -1289,6 +1281,14 @@
     <message>
         <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
         <translation>スナップ点の間隔を、1ポッチごとから32ポッチごとまで選び、スナップの仕方も選べます：グリッドに合わせるか、元の位置から決まった歩幅で動かすかです。パーツ、モジュール、貼り付けたもの、定規、ラベル、テキストはすべてこれに従い、矢印キーは1歩ずつ動かし、線路の端は出会うと今までどおりつながります。離した場所にそのまま置きたいときはスナップをオフにするか、Alt（Macでは⌥）を押しながら定規、ラベル、テキストを自由に置いてください。</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
+        <translation>ルートの始まりの線路をクリックし（列車の先頭でもかまいません）、次に終わりをクリックします。</translation>
+    </message>
+    <message>
+        <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
+        <translation>最短の道筋が自動で見つかり、矢印で列車の進む向きがわかります。その場で向きを変えることはないので、ループを一周することもあります。「逆向きに進む」で反対回りにでき、列車の先頭から始めたルートはその列車の向きに進みます。Shift キーを押しながらクリックすると停車点が加わり、Esc か「キャンセル」で終わります。</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -5629,6 +5629,10 @@
     <message>
         <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
         <translation>%1は給電された線路で列車の向きを変えます。そこに極性切替スイッチが必要です。</translation>
+    </message>
+    <message>
+        <source>The track doesn’t quite join here (the ends are %1 apart). Trains and routes run across it; nudge one piece to close the gap.</source>
+        <translation>ここは線路がつながりきっていません（端と端が %1 離れています）。列車とルートは通り抜けますが、パーツを寄せてすき間を閉じてください。</translation>
     </message>
     <message>
         <source>Problem</source>
@@ -10517,6 +10521,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <translation>ルート名</translation>
     </message>
     <message>
+        <source>Go the other way</source>
+        <translation>逆向きに進む</translation>
+    </message>
+    <message>
         <source>Save route</source>
         <translation>ルートを保存</translation>
     </message>
@@ -10533,20 +10541,38 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <translation>線路の上をクリックしてください。</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
-        <translation>&lt;b&gt;新しいルート：&lt;/b&gt;線路上の始まりをクリックします。</translation>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts (or on a train’s front).</source>
+        <translation>&lt;b&gt;新しいルート：&lt;/b&gt;始まりの線路をクリックします（列車の先頭でもかまいません）。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; starts at %1, the way it faces. Click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;新しいルート：&lt;/b&gt;%1から、その向きに進みます。終わりをクリックします（Shift キーを押しながらクリックすると停車点が加わります）。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track, the way the arrows point%2.</source>
+        <translation>&lt;b&gt;新しいルート：&lt;/b&gt;線路に沿って %1、矢印の向きに進みます%2。</translation>
     </message>
     <message>
         <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
         <translation>&lt;b&gt;新しいルート：&lt;/b&gt;終わりをクリックします（Shift キーを押しながらクリックすると停車点が加わります）。</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
-        <translation>&lt;b&gt;新しいルート：&lt;/b&gt;線路に沿って %1%2。Shift キーを押しながらクリックすると停車点が加わります。</translation>
-    </message>
-    <message>
         <source>, and it turns the train around</source>
         <translation>、列車は途中で向きを変えます</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) on the way must be flipped while the train runs: it goes through them twice, set a different way each time.</source>
+        <translation>
+            <numerusform>途中のポイント %n 個を、列車の走行中に切り替える必要があります。同じポイントを 2 回、毎回違う向きで通ります。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop.</source>
+        <translation>Shift キーを押しながらクリックすると停車点が加わります。</translation>
+    </message>
+    <message>
+        <source>Going this way, the train can’t get there without turning around.</source>
+        <translation>この向きでは、列車は向きを変えないとそこへ行けません。</translation>
     </message>
     <message>
         <source>New route</source>
@@ -12257,6 +12283,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>新しいルート</translation>
     </message>
     <message>
+        <source>Checks</source>
+        <translation>チェック</translation>
+    </message>
+    <message>
         <source>Delete route</source>
         <translation>ルートを削除</translation>
     </message>
@@ -12347,6 +12377,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>列車が向きを変えます</translation>
     </message>
     <message>
+        <source>Flip a switch on the way: it runs through it twice</source>
+        <translation>途中でポイントを切り替えます：同じポイントを 2 回通ります</translation>
+    </message>
+    <message>
         <source>Set switches</source>
         <translation>ポイントを切り替える</translation>
     </message>
@@ -12357,10 +12391,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Delete</source>
         <translation>削除</translation>
-    </message>
-    <message>
-        <source>Route checks</source>
-        <translation>ルートのチェック</translation>
     </message>
 </context>
 <context>

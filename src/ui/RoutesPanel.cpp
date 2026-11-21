@@ -49,7 +49,7 @@ RoutesPanel::RoutesPanel(parts::PartsLibrary& parts, QWidget* parent) : QDockWid
     list_->addStretch(1);
     scroll->setWidget(inner);
     v->addWidget(scroll, 1);
-    checks_ = new FitChecksList(tr("Route checks"), body);
+    checks_ = new FitChecksList(tr("Checks"), body);
     connect(checks_, &FitChecksList::showRequested, this, &RoutesPanel::showSpotRequested);
     checks_->hide();
     v->addWidget(checks_);
@@ -122,6 +122,8 @@ bool RoutesPanel::findNewWay(const QString& id) {
     const track::TrackNetwork net = track::trackNetworkOf(*map_, parts_);
     track::FindOptions opts;
     for (const auto& v : r->via) opts.via.push_back(v.at);
+    // Either way round, the shortest, as when it was drawn; a train's route still the way the train leaves.
+    if (!r->train.isEmpty() && !r->steps.empty()) opts.facing = track::routeFacing(*r);
     const auto found = track::findRoute(net, r->from, r->to, opts);
     if (const auto* p = std::get_if<track::RouteProblem>(&found)) {
         message_->setText(track::problemText(*p) + QLatin1Char(' ') + tr("Draw the route again from its new start or end."));
@@ -174,14 +176,16 @@ void RoutesPanel::rebuild() {
         checks_->hide();
         return;
     }
-    // The routes' checks: turning a train around, and polarity on powered track.
-    if (map_->sidecar.routes.empty()) {
-        checks_->hide();
-    } else {
+    // The routes' checks (turning a train around, polarity on powered track),
+    // and track that nearly meets (joined for trains, worth closing up).
+    {
         track::FitInput in;
         in.routes = map_->sidecar.routes;
         in.states = map_->sidecar.switchStates;
-        checks_->setChecks(track::fitChecks(net, in), *map_, QString());
+        std::vector<track::FitCheck> checks;
+        for (auto& c : track::fitChecks(net, in))
+            if (!c.route.isEmpty() || c.kind == QLatin1String("gap")) checks.push_back(std::move(c));
+        checks_->setChecks(checks, *map_, QString());
     }
     const auto unit = edit::venue::accountLengthUnit();
     int at = 0;
@@ -222,6 +226,7 @@ void RoutesPanel::rebuild() {
             QString t = st.setAgainst.isEmpty() ? tr("OK") : tr("%n switch(es) set the other way", nullptr, static_cast<int>(st.setAgainst.size()));
             t += QStringLiteral(" · ") + edit::venue::formatLength(st.length, unit);
             if (!st.turnsAround.isEmpty()) t += QStringLiteral(" · ") + tr("Turns the train around");
+            if (!st.bothWays.isEmpty()) t += QStringLiteral(" · ") + tr("Flip a switch on the way: it runs through it twice");
             status->setText(t);
             if (!st.setAgainst.isEmpty()) status->setStyleSheet(QStringLiteral("color: #B45309; font-weight: 600;"));
         }

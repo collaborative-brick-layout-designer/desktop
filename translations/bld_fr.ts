@@ -611,14 +611,6 @@
         <translation>Nouvel itinéraire</translation>
     </message>
     <message>
-        <source>Click where the route starts on the track, then where it ends.</source>
-        <translation>Cliquez sur la voie là où l’itinéraire commence, puis là où il finit.</translation>
-    </message>
-    <message>
-        <source>The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops.</source>
-        <translation>Le chemin le plus court le long de la voie est trouvé pour vous, à travers les aiguillages dans les deux sens. Maj-clic ajoute un arrêt en route, pour choisir une autre voie. Nommez-le et appuyez sur Enregistrer l’itinéraire ; Échap ou Annuler arrête.</translation>
-    </message>
-    <message>
         <source>Broken route</source>
         <translation>Itinéraire rompu</translation>
     </message>
@@ -1289,6 +1281,14 @@
     <message>
         <source>Pick how far apart the snap points are, from every stud to every 32 studs, and how things snap: onto the grid, or in whole steps from where they were. Parts, modules, pasted pieces, rulers, labels and text all follow it, the arrow keys move a step, and track ends still click together when they meet. Turn snap off to put things exactly where you let go, or hold Alt (⌥ on a Mac) to place a ruler, label or text freely.</source>
         <translation>Choisissez l’écart entre les points d’accroche, de chaque tenon à tous les 32 tenons, et la façon d’accrocher : sur la grille, ou par pas entiers depuis l’endroit d’origine. Les pièces, modules, collages, règles, étiquettes et textes le suivent, les flèches déplacent d’un pas, et les bouts de voie s’emboîtent toujours quand ils se rencontrent. Désactivez l’accroche pour poser les choses exactement là où vous les lâchez, ou maintenez Alt (⌥ sur Mac) pour placer librement une règle, une étiquette ou un texte.</translation>
+    </message>
+    <message>
+        <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
+        <translation>Cliquez sur la voie là où l’itinéraire commence (ou sur l’avant d’un train), puis là où il finit.</translation>
+    </message>
+    <message>
+        <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
+        <translation>Le chemin le plus court est trouvé pour vous, et des flèches montrent dans quel sens roule le train. Il ne fait jamais demi-tour sur place, il peut donc faire tout le tour d’une boucle ; Passer par l’autre côté l’envoie dans l’autre sens, et un itinéraire commencé à l’avant d’un train part dans le sens du train. Maj-clic ajoute un arrêt ; Échap ou Annuler arrête.</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -5664,6 +5664,10 @@
     <message>
         <source>%1 turns the train around on powered track: it needs a polarity switch there.</source>
         <translation>%1 fait faire demi-tour au train sur une voie alimentée : il y faut un inverseur de polarité.</translation>
+    </message>
+    <message>
+        <source>The track doesn’t quite join here (the ends are %1 apart). Trains and routes run across it; nudge one piece to close the gap.</source>
+        <translation>Ici, la voie ne se rejoint pas tout à fait (les bouts sont à %1 l’un de l’autre). Les trains et les itinéraires passent quand même ; rapprochez une pièce pour fermer l’écart.</translation>
     </message>
     <message>
         <source>Problem</source>
@@ -10598,6 +10602,10 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
         <translation>Nom de l’itinéraire</translation>
     </message>
     <message>
+        <source>Go the other way</source>
+        <translation>Passer par l’autre côté</translation>
+    </message>
+    <message>
         <source>Save route</source>
         <translation>Enregistrer l’itinéraire</translation>
     </message>
@@ -10614,20 +10622,39 @@ Gardez-le en %2 si vous l’ouvrez encore dans un autre programme ; Fichier › 
         <translation>Cliquez sur la voie.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts.</source>
-        <translation>&lt;b&gt;Nouvel itinéraire :&lt;/b&gt; cliquez sur la voie là où il commence.</translation>
+        <source>&lt;b&gt;New route:&lt;/b&gt; click on the track where it starts (or on a train’s front).</source>
+        <translation>&lt;b&gt;Nouvel itinéraire :&lt;/b&gt; cliquez sur la voie là où il commence (ou sur l’avant d’un train).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; starts at %1, the way it faces. Click where it ends (Shift-click adds a stop on the way).</source>
+        <translation>&lt;b&gt;Nouvel itinéraire :&lt;/b&gt; part de %1, dans son sens. Cliquez là où il finit (Maj-clic ajoute un arrêt).</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track, the way the arrows point%2.</source>
+        <translation>&lt;b&gt;Nouvel itinéraire :&lt;/b&gt; %1 le long de la voie, dans le sens des flèches%2.</translation>
     </message>
     <message>
         <source>&lt;b&gt;New route:&lt;/b&gt; click where it ends (Shift-click adds a stop on the way).</source>
         <translation>&lt;b&gt;Nouvel itinéraire :&lt;/b&gt; cliquez là où il finit (Maj-clic ajoute un arrêt).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;New route:&lt;/b&gt; %1 along the track%2. Shift-click adds a stop.</source>
-        <translation>&lt;b&gt;Nouvel itinéraire :&lt;/b&gt; %1 le long de la voie%2. Maj-clic ajoute un arrêt.</translation>
-    </message>
-    <message>
         <source>, and it turns the train around</source>
         <translation>, et le train y fait demi-tour</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n switch(es) on the way must be flipped while the train runs: it goes through them twice, set a different way each time.</source>
+        <translation>
+            <numerusform>%n aiguillage sur le chemin doit être basculé pendant que le train roule : il le traverse deux fois, réglé autrement chaque fois.</numerusform>
+            <numerusform>%n aiguillages sur le chemin doivent être basculés pendant que le train roule : il les traverse deux fois, réglés autrement chaque fois.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Shift-click adds a stop.</source>
+        <translation>Maj-clic ajoute un arrêt.</translation>
+    </message>
+    <message>
+        <source>Going this way, the train can’t get there without turning around.</source>
+        <translation>Dans ce sens, le train ne peut pas y arriver sans faire demi-tour.</translation>
     </message>
     <message>
         <source>New route</source>
@@ -12349,6 +12376,10 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Nouvel itinéraire</translation>
     </message>
     <message>
+        <source>Checks</source>
+        <translation>Vérifications</translation>
+    </message>
+    <message>
         <source>Delete route</source>
         <translation>Supprimer l’itinéraire</translation>
     </message>
@@ -12440,6 +12471,10 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Le train fait demi-tour</translation>
     </message>
     <message>
+        <source>Flip a switch on the way: it runs through it twice</source>
+        <translation>Basculez un aiguillage en route : l’itinéraire le traverse deux fois</translation>
+    </message>
+    <message>
         <source>Set switches</source>
         <translation>Régler les aiguillages</translation>
     </message>
@@ -12450,10 +12485,6 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Delete</source>
         <translation>Supprimer</translation>
-    </message>
-    <message>
-        <source>Route checks</source>
-        <translation>Vérifications des itinéraires</translation>
     </message>
 </context>
 <context>

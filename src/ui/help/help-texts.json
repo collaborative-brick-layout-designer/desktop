@@ -110,8 +110,8 @@
     },
     "routes.new": {
       "title": "New route",
-      "short": "Click where the route starts on the track, then where it ends.",
-      "more": "The shortest way along the track is found for you, through switches in either direction. Shift-click adds a stop on the way, to pick another line. Name it and press Save route; Esc or Cancel stops."
+      "short": "Click where the route starts on the track (or on a train's front), then where it ends.",
+      "more": "The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train's front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops."
     },
     "routes.broken": {
       "title": "Broken route",

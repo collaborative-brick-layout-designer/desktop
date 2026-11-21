@@ -504,7 +504,11 @@ void TrainsPanel::rebuild() {
         in.trains = trains;
         in.stock = byId;
         in.states = switchStates;
-        checks_->setChecks(track::fitChecks(net, in), *map_, tr("Every train on the track fits: nothing too long, too tight or too close."));
+        // The trains' own (the track's and the routes' are in the Routes panel).
+        std::vector<track::FitCheck> checks;
+        for (auto& c : track::fitChecks(net, in))
+            if (!c.train.isEmpty()) checks.push_back(std::move(c));
+        checks_->setChecks(checks, *map_, tr("Every train on the track fits: nothing too long, too tight or too close."));
     } else {
         checks_->hide();
     }
