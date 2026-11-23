@@ -579,10 +579,6 @@
         <translation>Brinque com o traçado: clique numa agulha para a mudar, sem mover nenhuma peça.</translation>
     </message>
     <message>
-        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
-        <translation>No modo de circulação, cada agulha mostra uma seta para o lado para onde está posta; clique perto dela para a mudar. As peças não podem ser escolhidas nem movidas, por isso nada muda por engano. As mudanças são partilhadas com todos e podem ser anuladas; prima Parar para voltar a construir.</translation>
-    </message>
-    <message>
         <source>Switches</source>
         <translation>Agulhas</translation>
     </message>
@@ -1283,12 +1279,60 @@
         <translation>Escolha a distância entre os pontos de encaixe, de cada pino a cada 32 pinos, e como as coisas encaixam: na grade, ou em passos inteiros a partir de onde estavam. Peças, módulos, itens colados, réguas, rótulos e textos seguem isso, as setas movem um passo, e as pontas dos trilhos continuam se encaixando quando se encontram. Desligue o encaixe para deixar as coisas exatamente onde você soltar, ou segure Alt (⌥ no Mac) para colocar livremente uma régua, um rótulo ou um texto.</translation>
     </message>
     <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it, or press Play in the Run panel to run the trains. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>No modo de circulação, cada agulha mostra uma seta para o lado para onde está posta; clique perto dela para a mudar, ou prima Reproduzir no painel de circulação para pôr os comboios a andar. As peças não podem ser escolhidas nem movidas, por isso nada muda por engano. As mudanças são partilhadas com todos e podem ser anuladas; prima Parar para voltar a construir.</translation>
+    </message>
+    <message>
         <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
         <translation>Clique na via onde o percurso começa (ou na frente de um comboio) e depois onde acaba.</translation>
     </message>
     <message>
         <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
         <translation>O caminho mais curto é encontrado por si, e as setas mostram para que lado o comboio anda. Nunca inverte a marcha no sítio, por isso pode dar a volta inteira a um anel; Ir pelo outro lado manda-o pelo outro lado, e um percurso que começa na frente de um comboio segue para onde o comboio está virado. Shift-clique adiciona uma paragem; Esc ou Cancelar termina.</translation>
+    </message>
+    <message>
+        <source>Play runs every ticked train at its speed, on its route or the way the switches are set.</source>
+        <translation>Reproduzir põe a andar cada comboio marcado à sua velocidade, pelo seu percurso ou como as agulhas estão postas.</translation>
+    </message>
+    <message>
+        <source>Pick where each train runs: a route, or from where it stands, following the switches. A train stops at the end of its route or of the track, and two trains that would collide both stop, with a red ring where. The trains move on your screen only; Restart puts them back.</source>
+        <translation>Escolha por onde anda cada comboio: um percurso, ou a partir de onde está, seguindo as agulhas. Um comboio para no fim do percurso ou da via, e dois comboios que chocariam param ambos, com um anel vermelho no sítio. Os comboios só se movem no seu ecrã; Recomeçar põe-nos no lugar.</translation>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Velocidade</translation>
+    </message>
+    <message>
+        <source>How fast the train runs, as if it were a full-size train at the layout&apos;s scale.</source>
+        <translation>A rapidez do comboio, como se fosse um comboio real à escala do traçado.</translation>
+    </message>
+    <message>
+        <source>40 km/h (25 mph) is a gentle freight; a fast passenger train is 120 km/h (75 mph) or more. Real speed in the Run panel shows how fast the model itself goes on the table.</source>
+        <translation>40 km/h (25 mph) é um comboio de mercadorias calmo; um comboio de passageiros rápido anda a 120 km/h (75 mph) ou mais. Velocidade real, no painel de circulação, mostra a rapidez do próprio modelo em cima da mesa.</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>Escala</translation>
+    </message>
+    <message>
+        <source>The scale the layout&apos;s trains run at: 1:38 suits LEGO train track.</source>
+        <translation>A escala a que andam os comboios do traçado: 1:38 serve para a via LEGO.</translation>
+    </message>
+    <message>
+        <source>Speeds are full-size speeds made smaller by this much. LEGO track is about 1:38 next to real track; change it if your club runs at another scale. It is shared with everyone on this layout.</source>
+        <translation>As velocidades são velocidades reais reduzidas nesta proporção. A via LEGO é cerca de 1:38 em relação à via real; mude-a se o seu clube usa outra escala. É a mesma para todos neste traçado.</translation>
+    </message>
+    <message>
+        <source>Pushed through</source>
+        <translation>Talonada</translation>
+    </message>
+    <message>
+        <source>A train came out of a switch&apos;s side into it while it was set the other way, so it pushed it over.</source>
+        <translation>Um comboio saiu do ramal de uma agulha posta para o outro lado, e por isso talonou-a.</translation>
+    </message>
+    <message>
+        <source>Like a spring switch, the switch flips for the train and the run notes it. It flips on your screen only, for this run; Restart puts it back the way the layout has it.</source>
+        <translation>Como uma agulha de mola, a agulha muda para o comboio e a circulação regista-o. Só muda no seu ecrã, nesta circulação; Recomeçar devolve-a como está no traçado.</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -2801,6 +2845,29 @@
     </message>
 </context>
 <context>
+    <name>RunPanel</name>
+    <message>
+        <source>%1 mph</source>
+        <translation>%1 mph</translation>
+    </message>
+    <message>
+        <source>%1 km/h</source>
+        <translation>%1 km/h</translation>
+    </message>
+    <message>
+        <source>%1 in/s</source>
+        <translation>%1 in/s</translation>
+    </message>
+    <message>
+        <source>%1 studs/s</source>
+        <translation>%1 pinos/s</translation>
+    </message>
+    <message>
+        <source>%1 m/s</source>
+        <translation>%1 m/s</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3651,6 +3718,14 @@
     <message>
         <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
         <translation>Pôr as agulhas põe cada agulha do percurso no seu sentido. No modo de circulação muda-as à mão.</translation>
+    </message>
+    <message>
+        <source>Watch it run</source>
+        <translation>Veja-o andar</translation>
+    </message>
+    <message>
+        <source>Press Run, then Play. Each train runs its route at its scale speed; two that would collide both stop.</source>
+        <translation>Prima Circular e depois Reproduzir. Cada comboio faz o seu percurso à velocidade de escala; dois que chocariam param.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4866,6 +4941,10 @@
         <translation>Local</translation>
     </message>
     <message>
+        <source>Train scale</source>
+        <translation>Escala dos comboios</translation>
+    </message>
+    <message>
         <source>Background image</source>
         <translation>Imagem de fundo</translation>
     </message>
@@ -5679,7 +5758,7 @@
     </message>
     <message>
         <source>Show me</source>
-        <translation>Mostrar</translation>
+        <translation>Mostrar-me</translation>
     </message>
 </context>
 <context>
@@ -7911,6 +7990,14 @@ Guardar mesmo assim?</translation>
         <translation>Clube (LUG):</translation>
     </message>
     <message>
+        <source>Train scale</source>
+        <translation>Escala dos comboios</translation>
+    </message>
+    <message>
+        <source>Train scale:</source>
+        <translation>Escala dos comboios:</translation>
+    </message>
+    <message>
         <source>Open Venue &amp;Designer…</source>
         <translation>Abrir o &amp;editor de locais…</translation>
     </message>
@@ -9841,6 +9928,10 @@ Não voltaremos a perguntar. Para o trazer mais tarde para este ou outro layout,
         <translation>percursos</translation>
     </message>
     <message>
+        <source>the train scale</source>
+        <translation>a escala dos comboios</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -10562,8 +10653,8 @@ Mantenha-o como %2 se ainda o abre noutro programa; Ficheiro › Exportar como m
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
-        <translation>&lt;b&gt;Modo de circulação:&lt;/b&gt; clique numa agulha para a mudar. As peças não podem ser movidas.</translation>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; press Play to run the trains; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Modo de circulação:&lt;/b&gt; prima Reproduzir para pôr os comboios a andar; clique numa agulha para a mudar. As peças não podem ser movidas.</translation>
     </message>
     <message>
         <source>Stop</source>
@@ -10687,6 +10778,10 @@ Mantenha-o como %2 se ainda o abre noutro programa; Ficheiro › Exportar como m
     <message>
         <source>%1 runs off the end of the track here.</source>
         <translation>%1 sai aqui do fim da via.</translation>
+    </message>
+    <message>
+        <source>Set the train scale</source>
+        <translation>Definir a escala dos comboios</translation>
     </message>
 </context>
 <context>
@@ -12485,6 +12580,153 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>Delete</source>
         <translation>Eliminar</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RunPanel</name>
+    <message>
+        <source>Train</source>
+        <translation>Comboio</translation>
+    </message>
+    <message>
+        <source>A train</source>
+        <translation>Um comboio</translation>
+    </message>
+    <message>
+        <source>%1 and %2 would collide here, so both stopped.</source>
+        <translation>%1 e %2 chocariam aqui, por isso pararam ambos.</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>outro comboio</translation>
+    </message>
+    <message>
+        <source>%1 pushed through a switch that was set the other way. It flipped for this run.</source>
+        <translation>%1 talonou uma agulha posta para o outro lado. Mudou para esta circulação.</translation>
+    </message>
+    <message>
+        <source>A switch was set the other way for %1; it flipped for this run.</source>
+        <translation>Uma agulha estava posta para o outro lado para %1; mudou para esta circulação.</translation>
+    </message>
+    <message>
+        <source>its route</source>
+        <translation>o seu percurso</translation>
+    </message>
+    <message>
+        <source>%1 reached the end of %2.</source>
+        <translation>%1 chegou ao fim de %2.</translation>
+    </message>
+    <message>
+        <source>%1 reached the end of the track.</source>
+        <translation>%1 chegou ao fim da via.</translation>
+    </message>
+    <message>
+        <source>Run trains</source>
+        <translation>Pôr os comboios a andar</translation>
+    </message>
+    <message>
+        <source>▶ Play</source>
+        <translation>▶ Reproduzir</translation>
+    </message>
+    <message>
+        <source>Start every ticked train</source>
+        <translation>Pôr a andar cada comboio marcado</translation>
+    </message>
+    <message>
+        <source>↺ Restart</source>
+        <translation>↺ Recomeçar</translation>
+    </message>
+    <message>
+        <source>Every train back to where it started</source>
+        <translation>Cada comboio volta para onde começou</translation>
+    </message>
+    <message>
+        <source>How fast to watch</source>
+        <translation>A que velocidade ver</translation>
+    </message>
+    <message>
+        <source>How fast to watch: times real speed</source>
+        <translation>A que velocidade ver: vezes a velocidade real</translation>
+    </message>
+    <message>
+        <source>Show less</source>
+        <translation>Mostrar menos</translation>
+    </message>
+    <message>
+        <source>Show the trains</source>
+        <translation>Mostrar os comboios</translation>
+    </message>
+    <message>
+        <source>There are no trains on this layout yet.</source>
+        <translation>Este traçado ainda não tem comboios.</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Abrir Comboios</translation>
+    </message>
+    <message>
+        <source>Every train has stopped. Restart puts them back where they started.</source>
+        <translation>Todos os comboios pararam. Recomeçar põe-nos onde começaram.</translation>
+    </message>
+    <message>
+        <source>Scale 1:</source>
+        <translation>Escala 1:</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>Escala</translation>
+    </message>
+    <message>
+        <source>Real speed</source>
+        <translation>Velocidade real</translation>
+    </message>
+    <message>
+        <source>❚❚ Pause</source>
+        <translation>❚❚ Pausa</translation>
+    </message>
+    <message>
+        <source>Pause every train</source>
+        <translation>Pausar cada comboio</translation>
+    </message>
+    <message>
+        <source>Run %1</source>
+        <translation>Pôr %1 a andar</translation>
+    </message>
+    <message>
+        <source>Put it on the track, or draw a route for it, to run it.</source>
+        <translation>Ponha-o na via, ou desenhe um percurso para ele, para o pôr a andar.</translation>
+    </message>
+    <message>
+        <source>Where %1 runs</source>
+        <translation>Por onde anda %1</translation>
+    </message>
+    <message>
+        <source>From where it stands, following the switches</source>
+        <translation>A partir de onde está, seguindo as agulhas</translation>
+    </message>
+    <message>
+        <source>Route: %1</source>
+        <translation>Percurso: %1</translation>
+    </message>
+    <message>
+        <source>Running</source>
+        <translation>A andar</translation>
+    </message>
+    <message>
+        <source>At the end of its route</source>
+        <translation>No fim do seu percurso</translation>
+    </message>
+    <message>
+        <source>At the end of the track</source>
+        <translation>No fim da via</translation>
+    </message>
+    <message>
+        <source>Stopped: another train is in the way</source>
+        <translation>Parado: outro comboio está no caminho</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Mostrar-me</translation>
     </message>
 </context>
 <context>
@@ -14662,6 +14904,22 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>Name:</source>
         <translation>Nome:</translation>
+    </message>
+    <message>
+        <source> mph at scale</source>
+        <translation> mph à escala</translation>
+    </message>
+    <message>
+        <source> km/h at scale</source>
+        <translation> km/h à escala</translation>
+    </message>
+    <message>
+        <source>Train speed</source>
+        <translation>Velocidade do comboio</translation>
+    </message>
+    <message>
+        <source>Speed:</source>
+        <translation>Velocidade:</translation>
     </message>
     <message>
         <source>Cars in the train, front first</source>

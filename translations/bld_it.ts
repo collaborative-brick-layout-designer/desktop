@@ -579,10 +579,6 @@
         <translation>Gioca con il plastico: fai clic su uno scambio per cambiarlo, senza spostare alcun pezzo.</translation>
     </message>
     <message>
-        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
-        <translation>In modalità circolazione ogni scambio mostra una freccia verso il ramo su cui è impostato; fai clic vicino per cambiarlo. I pezzi non si possono selezionare né spostare, così niente cambia per sbaglio. I cambi sono condivisi con tutti e si possono annullare; premi Ferma per tornare a costruire.</translation>
-    </message>
-    <message>
         <source>Switches</source>
         <translation>Scambi</translation>
     </message>
@@ -1283,12 +1279,60 @@
         <translation>Scegli la distanza tra i punti di aggancio, da ogni bottoncino a ogni 32 bottoncini, e come agganciare: alla griglia oppure a passi interi da dove si trovava. Pezzi, moduli, elementi incollati, righelli, etichette e testo lo seguono, le frecce spostano di un passo e le estremità dei binari continuano a unirsi quando si incontrano. Disattiva l’aggancio per lasciare le cose esattamente dove le rilasci, oppure tieni premuto Alt (⌥ su Mac) per posizionare liberamente un righello, un’etichetta o un testo.</translation>
     </message>
     <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it, or press Play in the Run panel to run the trains. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>In modalità circolazione ogni scambio mostra una freccia verso il ramo su cui è impostato; fai clic vicino per cambiarlo, oppure premi Avvia nel pannello di circolazione per far circolare i treni. I pezzi non si possono selezionare né spostare, così niente cambia per sbaglio. I cambi sono condivisi con tutti e si possono annullare; premi Ferma per tornare a costruire.</translation>
+    </message>
+    <message>
         <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
         <translation>Fai clic sul binario dove inizia il percorso (o sulla testa di un treno), poi dove finisce.</translation>
     </message>
     <message>
         <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
         <translation>Il percorso più breve viene trovato per te, e le frecce mostrano in che verso va il treno. Non si gira mai sul posto, quindi può fare tutto il giro di un anello; Vai dall’altra parte lo manda nell’altro verso, e un percorso che inizia sulla testa di un treno va nel verso del treno. Maiusc-clic aggiunge una sosta; Esc o Annulla smette.</translation>
+    </message>
+    <message>
+        <source>Play runs every ticked train at its speed, on its route or the way the switches are set.</source>
+        <translation>Avvia fa circolare ogni treno spuntato alla sua velocità, sul suo percorso o come sono impostati gli scambi.</translation>
+    </message>
+    <message>
+        <source>Pick where each train runs: a route, or from where it stands, following the switches. A train stops at the end of its route or of the track, and two trains that would collide both stop, with a red ring where. The trains move on your screen only; Restart puts them back.</source>
+        <translation>Scegli dove circola ogni treno: un percorso, oppure da dove si trova, seguendo gli scambi. Un treno si ferma alla fine del suo percorso o del binario, e due treni che si scontrerebbero si fermano entrambi, con un anello rosso nel punto. I treni si muovono solo sul tuo schermo; Ricomincia li rimette a posto.</translation>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Velocità</translation>
+    </message>
+    <message>
+        <source>How fast the train runs, as if it were a full-size train at the layout&apos;s scale.</source>
+        <translation>Quanto va veloce il treno, come se fosse un treno vero alla scala del plastico.</translation>
+    </message>
+    <message>
+        <source>40 km/h (25 mph) is a gentle freight; a fast passenger train is 120 km/h (75 mph) or more. Real speed in the Run panel shows how fast the model itself goes on the table.</source>
+        <translation>40 km/h (25 mph) è un merci tranquillo; un treno passeggeri veloce va a 120 km/h (75 mph) o più. Velocità reale, nel pannello di circolazione, mostra quanto va veloce il modellino sul tavolo.</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>Scala</translation>
+    </message>
+    <message>
+        <source>The scale the layout&apos;s trains run at: 1:38 suits LEGO train track.</source>
+        <translation>La scala a cui circolano i treni del plastico: 1:38 va bene per i binari LEGO.</translation>
+    </message>
+    <message>
+        <source>Speeds are full-size speeds made smaller by this much. LEGO track is about 1:38 next to real track; change it if your club runs at another scale. It is shared with everyone on this layout.</source>
+        <translation>Le velocità sono velocità reali ridotte di tanto. I binari LEGO sono circa 1:38 rispetto a quelli veri; cambiala se il tuo club usa un&apos;altra scala. È la stessa per tutti su questo plastico.</translation>
+    </message>
+    <message>
+        <source>Pushed through</source>
+        <translation>Tallonato</translation>
+    </message>
+    <message>
+        <source>A train came out of a switch&apos;s side into it while it was set the other way, so it pushed it over.</source>
+        <translation>Un treno è uscito dal ramo di uno scambio impostato dall&apos;altra parte, e quindi lo ha tallonato.</translation>
+    </message>
+    <message>
+        <source>Like a spring switch, the switch flips for the train and the run notes it. It flips on your screen only, for this run; Restart puts it back the way the layout has it.</source>
+        <translation>Come uno scambio a molla, lo scambio si sposta per il treno e la circolazione lo annota. Si sposta solo sul tuo schermo, per questa circolazione; Ricomincia lo rimette come nel plastico.</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -2801,6 +2845,29 @@
     </message>
 </context>
 <context>
+    <name>RunPanel</name>
+    <message>
+        <source>%1 mph</source>
+        <translation>%1 mph</translation>
+    </message>
+    <message>
+        <source>%1 km/h</source>
+        <translation>%1 km/h</translation>
+    </message>
+    <message>
+        <source>%1 in/s</source>
+        <translation>%1 in/s</translation>
+    </message>
+    <message>
+        <source>%1 studs/s</source>
+        <translation>%1 bottoncini/s</translation>
+    </message>
+    <message>
+        <source>%1 m/s</source>
+        <translation>%1 m/s</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3651,6 +3718,14 @@
     <message>
         <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
         <translation>Imposta scambi mette ogni scambio del percorso nella sua direzione. La modalità circolazione li fa cambiare a mano.</translation>
+    </message>
+    <message>
+        <source>Watch it run</source>
+        <translation>Guardalo circolare</translation>
+    </message>
+    <message>
+        <source>Press Run, then Play. Each train runs its route at its scale speed; two that would collide both stop.</source>
+        <translation>Premi Circola, poi Avvia. Ogni treno fa il suo percorso a velocità in scala; due che si scontrerebbero si fermano.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4864,6 +4939,10 @@
     <message>
         <source>Venue</source>
         <translation>Sede</translation>
+    </message>
+    <message>
+        <source>Train scale</source>
+        <translation>Scala dei treni</translation>
     </message>
     <message>
         <source>Background image</source>
@@ -7911,6 +7990,14 @@ Salvare comunque?</translation>
         <translation>Club (LUG):</translation>
     </message>
     <message>
+        <source>Train scale</source>
+        <translation>Scala dei treni</translation>
+    </message>
+    <message>
+        <source>Train scale:</source>
+        <translation>Scala dei treni:</translation>
+    </message>
+    <message>
         <source>Open Venue &amp;Designer…</source>
         <translation>Apri &amp;progettazione sede…</translation>
     </message>
@@ -9841,6 +9928,10 @@ Non ti verrà chiesto di nuovo. Per portarlo più tardi in questo o in un altro 
         <translation>percorsi</translation>
     </message>
     <message>
+        <source>the train scale</source>
+        <translation>la scala dei treni</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -10562,8 +10653,8 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
-        <translation>&lt;b&gt;Modalità circolazione:&lt;/b&gt; fai clic su uno scambio per cambiarlo. I pezzi non si possono spostare.</translation>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; press Play to run the trains; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Modalità circolazione:&lt;/b&gt; premi Avvia per far circolare i treni; fai clic su uno scambio per cambiarlo. I pezzi non si possono spostare.</translation>
     </message>
     <message>
         <source>Stop</source>
@@ -10687,6 +10778,10 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
     <message>
         <source>%1 runs off the end of the track here.</source>
         <translation>%1 qui esce dalla fine del binario.</translation>
+    </message>
+    <message>
+        <source>Set the train scale</source>
+        <translation>Imposta la scala dei treni</translation>
     </message>
 </context>
 <context>
@@ -12485,6 +12580,153 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>Delete</source>
         <translation>Elimina</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RunPanel</name>
+    <message>
+        <source>Train</source>
+        <translation>Treno</translation>
+    </message>
+    <message>
+        <source>A train</source>
+        <translation>Un treno</translation>
+    </message>
+    <message>
+        <source>%1 and %2 would collide here, so both stopped.</source>
+        <translation>%1 e %2 si scontrerebbero qui, quindi si sono fermati entrambi.</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>un altro treno</translation>
+    </message>
+    <message>
+        <source>%1 pushed through a switch that was set the other way. It flipped for this run.</source>
+        <translation>%1 ha tallonato uno scambio impostato dall&apos;altra parte. Si è spostato per questa circolazione.</translation>
+    </message>
+    <message>
+        <source>A switch was set the other way for %1; it flipped for this run.</source>
+        <translation>Uno scambio era impostato dall&apos;altra parte per %1; si è spostato per questa circolazione.</translation>
+    </message>
+    <message>
+        <source>its route</source>
+        <translation>il suo percorso</translation>
+    </message>
+    <message>
+        <source>%1 reached the end of %2.</source>
+        <translation>%1 è arrivato alla fine di %2.</translation>
+    </message>
+    <message>
+        <source>%1 reached the end of the track.</source>
+        <translation>%1 è arrivato alla fine del binario.</translation>
+    </message>
+    <message>
+        <source>Run trains</source>
+        <translation>Far circolare i treni</translation>
+    </message>
+    <message>
+        <source>▶ Play</source>
+        <translation>▶ Avvia</translation>
+    </message>
+    <message>
+        <source>Start every ticked train</source>
+        <translation>Avvia ogni treno spuntato</translation>
+    </message>
+    <message>
+        <source>↺ Restart</source>
+        <translation>↺ Ricomincia</translation>
+    </message>
+    <message>
+        <source>Every train back to where it started</source>
+        <translation>Ogni treno torna dove è partito</translation>
+    </message>
+    <message>
+        <source>How fast to watch</source>
+        <translation>A che velocità guardare</translation>
+    </message>
+    <message>
+        <source>How fast to watch: times real speed</source>
+        <translation>A che velocità guardare: volte la velocità reale</translation>
+    </message>
+    <message>
+        <source>Show less</source>
+        <translation>Mostra meno</translation>
+    </message>
+    <message>
+        <source>Show the trains</source>
+        <translation>Mostra i treni</translation>
+    </message>
+    <message>
+        <source>There are no trains on this layout yet.</source>
+        <translation>Questo plastico non ha ancora treni.</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Apri Treni</translation>
+    </message>
+    <message>
+        <source>Every train has stopped. Restart puts them back where they started.</source>
+        <translation>Tutti i treni si sono fermati. Ricomincia li rimette dove sono partiti.</translation>
+    </message>
+    <message>
+        <source>Scale 1:</source>
+        <translation>Scala 1:</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>Scala</translation>
+    </message>
+    <message>
+        <source>Real speed</source>
+        <translation>Velocità reale</translation>
+    </message>
+    <message>
+        <source>❚❚ Pause</source>
+        <translation>❚❚ Pausa</translation>
+    </message>
+    <message>
+        <source>Pause every train</source>
+        <translation>Metti in pausa ogni treno</translation>
+    </message>
+    <message>
+        <source>Run %1</source>
+        <translation>Fai circolare %1</translation>
+    </message>
+    <message>
+        <source>Put it on the track, or draw a route for it, to run it.</source>
+        <translation>Mettilo sul binario, o disegna un percorso per lui, per farlo circolare.</translation>
+    </message>
+    <message>
+        <source>Where %1 runs</source>
+        <translation>Dove circola %1</translation>
+    </message>
+    <message>
+        <source>From where it stands, following the switches</source>
+        <translation>Da dove si trova, seguendo gli scambi</translation>
+    </message>
+    <message>
+        <source>Route: %1</source>
+        <translation>Percorso: %1</translation>
+    </message>
+    <message>
+        <source>Running</source>
+        <translation>In corsa</translation>
+    </message>
+    <message>
+        <source>At the end of its route</source>
+        <translation>Alla fine del suo percorso</translation>
+    </message>
+    <message>
+        <source>At the end of the track</source>
+        <translation>Alla fine del binario</translation>
+    </message>
+    <message>
+        <source>Stopped: another train is in the way</source>
+        <translation>Fermo: c&apos;è un altro treno di mezzo</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Mostrami</translation>
     </message>
 </context>
 <context>
@@ -14662,6 +14904,22 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>Name:</source>
         <translation>Nome:</translation>
+    </message>
+    <message>
+        <source> mph at scale</source>
+        <translation> mph in scala</translation>
+    </message>
+    <message>
+        <source> km/h at scale</source>
+        <translation> km/h in scala</translation>
+    </message>
+    <message>
+        <source>Train speed</source>
+        <translation>Velocità del treno</translation>
+    </message>
+    <message>
+        <source>Speed:</source>
+        <translation>Velocità:</translation>
     </message>
     <message>
         <source>Cars in the train, front first</source>

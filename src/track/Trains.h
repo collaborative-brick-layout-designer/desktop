@@ -62,6 +62,11 @@ using StockById = QHash<QString, core::RollingStock>;
 std::optional<PlacedTrain> placeTrain(const TrackNetwork& net, const core::Train& train, const StockById& stock,
                                       const QMap<QString, int>& states = {});
 
+// Where each unit sits on `line` (the track behind the head, its first point
+// the head car's front truck): as placeTrain, on a line the caller made (a
+// running train's: the way it came).
+PlacedTrain placeOnLine(TrackLine line, const std::vector<core::TrainUnit>& units, const StockById& stock);
+
 // A train's coupler-to-coupler length, studs.
 double trainLength(const core::Train& train, const StockById& stock);
 

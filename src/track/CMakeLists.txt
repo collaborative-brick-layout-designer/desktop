@@ -2,6 +2,8 @@
 # through each part, switches, and the network of a map. Derived from the
 # bricks and the parts library; nothing here is saved.
 add_library(bld_track STATIC
+    Animation.cpp
+    Animation.h
     CircuitPath.cpp
     CircuitPath.h
     PartTrack.cpp

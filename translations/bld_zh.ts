@@ -579,10 +579,6 @@
         <translation>玩转布局：点击道岔即可切换，不会移动任何零件。</translation>
     </message>
     <message>
-        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
-        <translation>在运行模式下，每个道岔都会显示一个箭头，指向它当前开通的方向；点击道岔附近即可切换。零件无法选中或移动，因此不会被误改。切换会与所有人共享，并且可以撤销；按“停止”回到搭建。</translation>
-    </message>
-    <message>
         <source>Switches</source>
         <translation>道岔</translation>
     </message>
@@ -1283,12 +1279,60 @@
         <translation>选择吸附点之间的距离，从每个凸点到每 32 个凸点，并选择吸附方式：吸附到网格，或从原来的位置按整步移动。零件、模块、粘贴的内容、标尺、标签和文字都会遵循它，方向键每次移动一步，轨道末端相遇时仍会连接在一起。关闭吸附可以把东西准确放在松手的位置，或按住 Alt（Mac 上为 ⌥）自由放置标尺、标签或文字。</translation>
     </message>
     <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it, or press Play in the Run panel to run the trains. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>在运行模式下，每个道岔都会显示一个箭头，指向它当前开通的方向；点击道岔附近即可切换，或在运行面板中按“播放”让列车开动。零件无法选中或移动，因此不会被误改。切换会与所有人共享，并且可以撤销；按“停止”回到搭建。</translation>
+    </message>
+    <message>
         <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
         <translation>在轨道上点击路线的起点（也可以点列车的车头），再点击终点。</translation>
     </message>
     <message>
         <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
         <translation>系统会为你找出最短的路线，箭头显示列车的行驶方向。列车从不原地掉头，所以可能要绕整个环线一圈；“换个方向走”让它朝另一边绕行，从列车车头开始的路线会沿列车的朝向行驶。按住 Shift 点击添加停靠点；按 Esc 或“取消”结束。</translation>
+    </message>
+    <message>
+        <source>Play runs every ticked train at its speed, on its route or the way the switches are set.</source>
+        <translation>“播放”让每列勾选的列车以自己的速度行驶，沿它的路线或按道岔当前的方向。</translation>
+    </message>
+    <message>
+        <source>Pick where each train runs: a route, or from where it stands, following the switches. A train stops at the end of its route or of the track, and two trains that would collide both stop, with a red ring where. The trains move on your screen only; Restart puts them back.</source>
+        <translation>选择每列列车怎么走：沿一条路线，或从它所在的位置按道岔行驶。列车会在路线或轨道尽头停下，两列将要相撞的列车都会停下，并在该处显示红圈。列车只在你的屏幕上移动；“重新开始”会把它们放回原处。</translation>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>速度</translation>
+    </message>
+    <message>
+        <source>How fast the train runs, as if it were a full-size train at the layout&apos;s scale.</source>
+        <translation>列车有多快，就像按布局比例的真实列车一样。</translation>
+    </message>
+    <message>
+        <source>40 km/h (25 mph) is a gentle freight; a fast passenger train is 120 km/h (75 mph) or more. Real speed in the Run panel shows how fast the model itself goes on the table.</source>
+        <translation>40 km/h（25 mph）是一列慢悠悠的货车；快速客车是 120 km/h（75 mph）或更快。运行面板中的“真实速度”显示模型本身在桌上跑得多快。</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>比例</translation>
+    </message>
+    <message>
+        <source>The scale the layout&apos;s trains run at: 1:38 suits LEGO train track.</source>
+        <translation>布局中列车运行的比例：1:38 适合 LEGO 轨道。</translation>
+    </message>
+    <message>
+        <source>Speeds are full-size speeds made smaller by this much. LEGO track is about 1:38 next to real track; change it if your club runs at another scale. It is shared with everyone on this layout.</source>
+        <translation>速度是按这个比例缩小的真实速度。LEGO 轨道约为真实轨道的 1:38；如果你的俱乐部使用其他比例，请修改。这个布局上的所有人都使用同一个比例。</translation>
+    </message>
+    <message>
+        <source>Pushed through</source>
+        <translation>挤岔通过</translation>
+    </message>
+    <message>
+        <source>A train came out of a switch&apos;s side into it while it was set the other way, so it pushed it over.</source>
+        <translation>列车从道岔的侧线驶入，而道岔开向另一边，于是把它挤开了。</translation>
+    </message>
+    <message>
+        <source>Like a spring switch, the switch flips for the train and the run notes it. It flips on your screen only, for this run; Restart puts it back the way the layout has it.</source>
+        <translation>像弹簧道岔一样，道岔会为列车切换，运行会记下这一点。它只在你的屏幕上、只在这次运行中切换；“重新开始”会把它恢复成布局中的样子。</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -2785,6 +2829,29 @@
     </message>
 </context>
 <context>
+    <name>RunPanel</name>
+    <message>
+        <source>%1 mph</source>
+        <translation>%1 mph</translation>
+    </message>
+    <message>
+        <source>%1 km/h</source>
+        <translation>%1 km/h</translation>
+    </message>
+    <message>
+        <source>%1 in/s</source>
+        <translation>%1 in/s</translation>
+    </message>
+    <message>
+        <source>%1 studs/s</source>
+        <translation>%1 颗粒/秒</translation>
+    </message>
+    <message>
+        <source>%1 m/s</source>
+        <translation>%1 m/s</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3631,6 +3698,14 @@
     <message>
         <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
         <translation>“设置道岔”会把路线上的每个道岔设为其方向。运行模式下可以手动切换。</translation>
+    </message>
+    <message>
+        <source>Watch it run</source>
+        <translation>看它跑起来</translation>
+    </message>
+    <message>
+        <source>Press Run, then Play. Each train runs its route at its scale speed; two that would collide both stop.</source>
+        <translation>按“运行”，再按“播放”。每列列车以比例速度沿路线行驶；将要相撞的两列会停下。</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4838,6 +4913,10 @@
         <translation>场地</translation>
     </message>
     <message>
+        <source>Train scale</source>
+        <translation>列车比例</translation>
+    </message>
+    <message>
         <source>Background image</source>
         <translation>背景图片</translation>
     </message>
@@ -5644,7 +5723,7 @@
     </message>
     <message>
         <source>Show me</source>
-        <translation>显示位置</translation>
+        <translation>带我看看</translation>
     </message>
 </context>
 <context>
@@ -7859,6 +7938,14 @@ Save anyway?</source>
         <translation>俱乐部（LUG）:</translation>
     </message>
     <message>
+        <source>Train scale</source>
+        <translation>列车比例</translation>
+    </message>
+    <message>
+        <source>Train scale:</source>
+        <translation>列车比例：</translation>
+    </message>
+    <message>
         <source>Open Venue &amp;Designer…</source>
         <translation>打开场地设计器(&amp;D)…</translation>
     </message>
@@ -9765,6 +9852,10 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>路线</translation>
     </message>
     <message>
+        <source>the train scale</source>
+        <translation>列车比例</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -10481,8 +10572,8 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
-        <translation>&lt;b&gt;运行模式：&lt;/b&gt;点击道岔即可切换。零件无法移动。</translation>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; press Play to run the trains; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;运行模式：&lt;/b&gt;按“播放”让列车开动；点击道岔即可切换。零件无法移动。</translation>
     </message>
     <message>
         <source>Stop</source>
@@ -10605,6 +10696,10 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     <message>
         <source>%1 runs off the end of the track here.</source>
         <translation>%1在这里超出了轨道尽头。</translation>
+    </message>
+    <message>
+        <source>Set the train scale</source>
+        <translation>设置列车比例</translation>
     </message>
 </context>
 <context>
@@ -12391,6 +12486,153 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Delete</source>
         <translation>删除</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RunPanel</name>
+    <message>
+        <source>Train</source>
+        <translation>列车</translation>
+    </message>
+    <message>
+        <source>A train</source>
+        <translation>一列列车</translation>
+    </message>
+    <message>
+        <source>%1 and %2 would collide here, so both stopped.</source>
+        <translation>%1 和 %2 将在这里相撞，所以都停下了。</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>另一列列车</translation>
+    </message>
+    <message>
+        <source>%1 pushed through a switch that was set the other way. It flipped for this run.</source>
+        <translation>%1 挤过了一个开向另一边的道岔。它在这次运行中已切换。</translation>
+    </message>
+    <message>
+        <source>A switch was set the other way for %1; it flipped for this run.</source>
+        <translation>一个道岔为 %1 开向了另一边；它在这次运行中已切换。</translation>
+    </message>
+    <message>
+        <source>its route</source>
+        <translation>它的路线</translation>
+    </message>
+    <message>
+        <source>%1 reached the end of %2.</source>
+        <translation>%1 到达了 %2 的终点。</translation>
+    </message>
+    <message>
+        <source>%1 reached the end of the track.</source>
+        <translation>%1 到达了轨道尽头。</translation>
+    </message>
+    <message>
+        <source>Run trains</source>
+        <translation>运行列车</translation>
+    </message>
+    <message>
+        <source>▶ Play</source>
+        <translation>▶ 播放</translation>
+    </message>
+    <message>
+        <source>Start every ticked train</source>
+        <translation>让每列勾选的列车出发</translation>
+    </message>
+    <message>
+        <source>↺ Restart</source>
+        <translation>↺ 重新开始</translation>
+    </message>
+    <message>
+        <source>Every train back to where it started</source>
+        <translation>每列列车回到出发的地方</translation>
+    </message>
+    <message>
+        <source>How fast to watch</source>
+        <translation>观看速度</translation>
+    </message>
+    <message>
+        <source>How fast to watch: times real speed</source>
+        <translation>观看速度：真实速度的倍数</translation>
+    </message>
+    <message>
+        <source>Show less</source>
+        <translation>收起</translation>
+    </message>
+    <message>
+        <source>Show the trains</source>
+        <translation>显示列车</translation>
+    </message>
+    <message>
+        <source>There are no trains on this layout yet.</source>
+        <translation>这个布局还没有列车。</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>打开列车</translation>
+    </message>
+    <message>
+        <source>Every train has stopped. Restart puts them back where they started.</source>
+        <translation>所有列车都已停下。“重新开始”会把它们放回出发的地方。</translation>
+    </message>
+    <message>
+        <source>Scale 1:</source>
+        <translation>比例 1:</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>比例</translation>
+    </message>
+    <message>
+        <source>Real speed</source>
+        <translation>真实速度</translation>
+    </message>
+    <message>
+        <source>❚❚ Pause</source>
+        <translation>❚❚ 暂停</translation>
+    </message>
+    <message>
+        <source>Pause every train</source>
+        <translation>暂停每列列车</translation>
+    </message>
+    <message>
+        <source>Run %1</source>
+        <translation>运行 %1</translation>
+    </message>
+    <message>
+        <source>Put it on the track, or draw a route for it, to run it.</source>
+        <translation>把它放到轨道上，或为它画一条路线，才能运行。</translation>
+    </message>
+    <message>
+        <source>Where %1 runs</source>
+        <translation>%1 的行驶方式</translation>
+    </message>
+    <message>
+        <source>From where it stands, following the switches</source>
+        <translation>从所在位置出发，按道岔行驶</translation>
+    </message>
+    <message>
+        <source>Route: %1</source>
+        <translation>路线：%1</translation>
+    </message>
+    <message>
+        <source>Running</source>
+        <translation>行驶中</translation>
+    </message>
+    <message>
+        <source>At the end of its route</source>
+        <translation>已到路线终点</translation>
+    </message>
+    <message>
+        <source>At the end of the track</source>
+        <translation>已到轨道尽头</translation>
+    </message>
+    <message>
+        <source>Stopped: another train is in the way</source>
+        <translation>已停下：另一列列车挡住了</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>带我看看</translation>
     </message>
 </context>
 <context>
@@ -14564,6 +14806,22 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Name:</source>
         <translation>名称:</translation>
+    </message>
+    <message>
+        <source> mph at scale</source>
+        <translation> mph（比例）</translation>
+    </message>
+    <message>
+        <source> km/h at scale</source>
+        <translation> km/h（比例）</translation>
+    </message>
+    <message>
+        <source>Train speed</source>
+        <translation>列车速度</translation>
+    </message>
+    <message>
+        <source>Speed:</source>
+        <translation>速度：</translation>
     </message>
     <message>
         <source>Cars in the train, front first</source>

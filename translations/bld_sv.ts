@@ -579,10 +579,6 @@
         <translation>Lek med anläggningen: klicka på en växel för att lägga om den, utan att flytta några delar.</translation>
     </message>
     <message>
-        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
-        <translation>I körläget visar varje växel en pil längs den väg den är lagd; klicka nära den för att lägga om den. Delar kan inte väljas eller flyttas, så inget ändras av misstag. Omläggningar delas med alla och kan ångras; tryck på Stoppa för att bygga vidare.</translation>
-    </message>
-    <message>
         <source>Switches</source>
         <translation>Växlar</translation>
     </message>
@@ -1283,12 +1279,60 @@
         <translation>Välj hur långt det är mellan fästpunkterna, från varje knopp till var 32:a knopp, och hur saker fäster: mot rutnätet, eller i hela steg från där de var. Delar, moduler, inklistrade delar, linjaler, etiketter och text följer det, piltangenterna flyttar ett steg, och rälsändar klickar fortfarande ihop när de möts. Stäng av fästning för att lägga saker precis där du släpper, eller håll Alt (⌥ på Mac) för att placera en linjal, etikett eller text fritt.</translation>
     </message>
     <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it, or press Play in the Run panel to run the trains. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>I körläget visar varje växel en pil längs den väg den är lagd; klicka nära den för att lägga om den, eller tryck på Spela i körpanelen för att köra tågen. Delar kan inte väljas eller flyttas, så inget ändras av misstag. Omläggningar delas med alla och kan ångras; tryck på Stoppa för att bygga vidare.</translation>
+    </message>
+    <message>
         <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
         <translation>Klicka på spåret där rutten börjar (eller på fronten av ett tåg) och sedan där den slutar.</translation>
     </message>
     <message>
         <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
         <translation>Den kortaste vägen hittas åt dig, och pilar visar åt vilket håll tåget kör. Det vänder aldrig på stället, så det kan köra hela slingan runt; Kör andra vägen skickar det runt åt andra hållet, och en rutt som börjar på fronten av ett tåg kör åt det håll tåget är vänt. Skift-klick lägger till ett stopp; Esc eller Avbryt slutar.</translation>
+    </message>
+    <message>
+        <source>Play runs every ticked train at its speed, on its route or the way the switches are set.</source>
+        <translation>Spela kör varje markerat tåg i sin fart, på sin rutt eller som växlarna ligger.</translation>
+    </message>
+    <message>
+        <source>Pick where each train runs: a route, or from where it stands, following the switches. A train stops at the end of its route or of the track, and two trains that would collide both stop, with a red ring where. The trains move on your screen only; Restart puts them back.</source>
+        <translation>Välj var varje tåg kör: en rutt, eller från där det står, efter växlarna. Ett tåg stannar vid slutet av sin rutt eller av spåret, och två tåg som skulle krocka stannar båda, med en röd ring där. Tågen rör sig bara på din skärm; Börja om ställer tillbaka dem.</translation>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Fart</translation>
+    </message>
+    <message>
+        <source>How fast the train runs, as if it were a full-size train at the layout&apos;s scale.</source>
+        <translation>Hur fort tåget kör, som om det vore ett riktigt tåg i layoutens skala.</translation>
+    </message>
+    <message>
+        <source>40 km/h (25 mph) is a gentle freight; a fast passenger train is 120 km/h (75 mph) or more. Real speed in the Run panel shows how fast the model itself goes on the table.</source>
+        <translation>40 km/h (25 mph) är ett lugnt godståg; ett snabbt persontåg kör 120 km/h (75 mph) eller mer. Verklig fart i körpanelen visar hur fort själva modellen går på bordet.</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>Skala</translation>
+    </message>
+    <message>
+        <source>The scale the layout&apos;s trains run at: 1:38 suits LEGO train track.</source>
+        <translation>Skalan som layoutens tåg kör i: 1:38 passar LEGO-spår.</translation>
+    </message>
+    <message>
+        <source>Speeds are full-size speeds made smaller by this much. LEGO track is about 1:38 next to real track; change it if your club runs at another scale. It is shared with everyone on this layout.</source>
+        <translation>Farter är verkliga farter gjorda så mycket mindre. LEGO-spår är ungefär 1:38 mot riktiga spår; ändra den om din klubb kör i en annan skala. Den är densamma för alla på den här layouten.</translation>
+    </message>
+    <message>
+        <source>Pushed through</source>
+        <translation>Uppskuren</translation>
+    </message>
+    <message>
+        <source>A train came out of a switch&apos;s side into it while it was set the other way, so it pushed it over.</source>
+        <translation>Ett tåg kom ut från en gren in i en växel som låg åt andra hållet, och skar därför upp den.</translation>
+    </message>
+    <message>
+        <source>Like a spring switch, the switch flips for the train and the run notes it. It flips on your screen only, for this run; Restart puts it back the way the layout has it.</source>
+        <translation>Som en fjäderväxel lägger sig växeln om för tåget och körningen noterar det. Den läggs om bara på din skärm, för den här körningen; Börja om lägger tillbaka den som layouten har den.</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -2801,6 +2845,29 @@
     </message>
 </context>
 <context>
+    <name>RunPanel</name>
+    <message>
+        <source>%1 mph</source>
+        <translation>%1 mph</translation>
+    </message>
+    <message>
+        <source>%1 km/h</source>
+        <translation>%1 km/h</translation>
+    </message>
+    <message>
+        <source>%1 in/s</source>
+        <translation>%1 in/s</translation>
+    </message>
+    <message>
+        <source>%1 studs/s</source>
+        <translation>%1 knoppar/s</translation>
+    </message>
+    <message>
+        <source>%1 m/s</source>
+        <translation>%1 m/s</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3651,6 +3718,14 @@
     <message>
         <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
         <translation>Lägg växlar lägger varje växel på rutten åt dess håll. I körläget lägger du om dem för hand.</translation>
+    </message>
+    <message>
+        <source>Watch it run</source>
+        <translation>Se det köra</translation>
+    </message>
+    <message>
+        <source>Press Run, then Play. Each train runs its route at its scale speed; two that would collide both stop.</source>
+        <translation>Tryck på Kör och sedan Spela. Varje tåg kör sin rutt i skalfart; två som skulle krocka stannar.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4864,6 +4939,10 @@
     <message>
         <source>Venue</source>
         <translation>Lokal</translation>
+    </message>
+    <message>
+        <source>Train scale</source>
+        <translation>Tågskala</translation>
     </message>
     <message>
         <source>Background image</source>
@@ -8319,6 +8398,14 @@ Spara ändå?</translation>
         <translation>Klubb (LUG):</translation>
     </message>
     <message>
+        <source>Train scale</source>
+        <translation>Tågskala</translation>
+    </message>
+    <message>
+        <source>Train scale:</source>
+        <translation>Tågskala:</translation>
+    </message>
+    <message>
         <source>Open Venue &amp;Designer…</source>
         <translation>Öppna &amp;lokaldesignern…</translation>
     </message>
@@ -9841,6 +9928,10 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
         <translation>rutter</translation>
     </message>
     <message>
+        <source>the train scale</source>
+        <translation>tågskalan</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -10562,8 +10653,8 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
-        <translation>&lt;b&gt;Körläge:&lt;/b&gt; klicka på en växel för att lägga om den. Delar kan inte flyttas.</translation>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; press Play to run the trains; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Körläge:&lt;/b&gt; tryck på Spela för att köra tågen; klicka på en växel för att lägga om den. Delar kan inte flyttas.</translation>
     </message>
     <message>
         <source>Stop</source>
@@ -10687,6 +10778,10 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     <message>
         <source>%1 runs off the end of the track here.</source>
         <translation>%1 går här utanför spårets slut.</translation>
+    </message>
+    <message>
+        <source>Set the train scale</source>
+        <translation>Ställ in tågskalan</translation>
     </message>
 </context>
 <context>
@@ -12485,6 +12580,153 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Delete</source>
         <translation>Ta bort</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RunPanel</name>
+    <message>
+        <source>Train</source>
+        <translation>Tåg</translation>
+    </message>
+    <message>
+        <source>A train</source>
+        <translation>Ett tåg</translation>
+    </message>
+    <message>
+        <source>%1 and %2 would collide here, so both stopped.</source>
+        <translation>%1 och %2 skulle krocka här, så båda stannade.</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>ett annat tåg</translation>
+    </message>
+    <message>
+        <source>%1 pushed through a switch that was set the other way. It flipped for this run.</source>
+        <translation>%1 skar upp en växel som låg åt andra hållet. Den lade sig om för den här körningen.</translation>
+    </message>
+    <message>
+        <source>A switch was set the other way for %1; it flipped for this run.</source>
+        <translation>En växel låg åt andra hållet för %1; den lade sig om för den här körningen.</translation>
+    </message>
+    <message>
+        <source>its route</source>
+        <translation>sin rutt</translation>
+    </message>
+    <message>
+        <source>%1 reached the end of %2.</source>
+        <translation>%1 kom fram till slutet av %2.</translation>
+    </message>
+    <message>
+        <source>%1 reached the end of the track.</source>
+        <translation>%1 kom fram till slutet av spåret.</translation>
+    </message>
+    <message>
+        <source>Run trains</source>
+        <translation>Kör tåg</translation>
+    </message>
+    <message>
+        <source>▶ Play</source>
+        <translation>▶ Spela</translation>
+    </message>
+    <message>
+        <source>Start every ticked train</source>
+        <translation>Starta varje markerat tåg</translation>
+    </message>
+    <message>
+        <source>↺ Restart</source>
+        <translation>↺ Börja om</translation>
+    </message>
+    <message>
+        <source>Every train back to where it started</source>
+        <translation>Varje tåg tillbaka dit det startade</translation>
+    </message>
+    <message>
+        <source>How fast to watch</source>
+        <translation>Hur fort du tittar</translation>
+    </message>
+    <message>
+        <source>How fast to watch: times real speed</source>
+        <translation>Hur fort du tittar: gånger verklig fart</translation>
+    </message>
+    <message>
+        <source>Show less</source>
+        <translation>Visa mindre</translation>
+    </message>
+    <message>
+        <source>Show the trains</source>
+        <translation>Visa tågen</translation>
+    </message>
+    <message>
+        <source>There are no trains on this layout yet.</source>
+        <translation>Den här layouten har inga tåg än.</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Öppna Tåg</translation>
+    </message>
+    <message>
+        <source>Every train has stopped. Restart puts them back where they started.</source>
+        <translation>Alla tåg har stannat. Börja om ställer tillbaka dem där de startade.</translation>
+    </message>
+    <message>
+        <source>Scale 1:</source>
+        <translation>Skala 1:</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>Skala</translation>
+    </message>
+    <message>
+        <source>Real speed</source>
+        <translation>Verklig fart</translation>
+    </message>
+    <message>
+        <source>❚❚ Pause</source>
+        <translation>❚❚ Paus</translation>
+    </message>
+    <message>
+        <source>Pause every train</source>
+        <translation>Pausa varje tåg</translation>
+    </message>
+    <message>
+        <source>Run %1</source>
+        <translation>Kör %1</translation>
+    </message>
+    <message>
+        <source>Put it on the track, or draw a route for it, to run it.</source>
+        <translation>Ställ det på spåret, eller rita en rutt för det, för att köra det.</translation>
+    </message>
+    <message>
+        <source>Where %1 runs</source>
+        <translation>Var %1 kör</translation>
+    </message>
+    <message>
+        <source>From where it stands, following the switches</source>
+        <translation>Från där det står, efter växlarna</translation>
+    </message>
+    <message>
+        <source>Route: %1</source>
+        <translation>Rutt: %1</translation>
+    </message>
+    <message>
+        <source>Running</source>
+        <translation>Kör</translation>
+    </message>
+    <message>
+        <source>At the end of its route</source>
+        <translation>Vid slutet av sin rutt</translation>
+    </message>
+    <message>
+        <source>At the end of the track</source>
+        <translation>Vid slutet av spåret</translation>
+    </message>
+    <message>
+        <source>Stopped: another train is in the way</source>
+        <translation>Stannat: ett annat tåg är i vägen</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Visa mig</translation>
     </message>
 </context>
 <context>
@@ -14662,6 +14904,22 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Name:</source>
         <translation>Namn:</translation>
+    </message>
+    <message>
+        <source> mph at scale</source>
+        <translation> mph i skala</translation>
+    </message>
+    <message>
+        <source> km/h at scale</source>
+        <translation> km/h i skala</translation>
+    </message>
+    <message>
+        <source>Train speed</source>
+        <translation>Tågfart</translation>
+    </message>
+    <message>
+        <source>Speed:</source>
+        <translation>Fart:</translation>
     </message>
     <message>
         <source>Cars in the train, front first</source>

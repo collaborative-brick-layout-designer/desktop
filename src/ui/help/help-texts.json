@@ -96,7 +96,7 @@
     "run.mode": {
       "title": "Run trains",
       "short": "Play with the layout: click a switch to flip it, without moving any parts.",
-      "more": "In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can't be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building."
+      "more": "In Run mode each switch shows an arrow along the way it is set; click near it to flip it, or press Play in the Run panel to run the trains. Parts can't be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building."
     },
     "switch.flip": {
       "title": "Switches",
@@ -162,6 +162,26 @@
       "title": "Checks",
       "short": "What doesn't fit: a train too long for its track, a curve too tight, cars too close to another track.",
       "more": "The checks are worked out again whenever the track, a train or a switch changes; nothing is stopped. Show me brings the spot into view. View › Siding lengths labels every stretch of track with the length a train can stand in, between its switches and ends."
+    },
+    "run.trains": {
+      "title": "Run trains",
+      "short": "Play runs every ticked train at its speed, on its route or the way the switches are set.",
+      "more": "Pick where each train runs: a route, or from where it stands, following the switches. A train stops at the end of its route or of the track, and two trains that would collide both stop, with a red ring where. The trains move on your screen only; Restart puts them back."
+    },
+    "trains.speed": {
+      "title": "Speed",
+      "short": "How fast the train runs, as if it were a full-size train at the layout's scale.",
+      "more": "40 km/h (25 mph) is a gentle freight; a fast passenger train is 120 km/h (75 mph) or more. Real speed in the Run panel shows how fast the model itself goes on the table."
+    },
+    "trains.scale": {
+      "title": "Scale",
+      "short": "The scale the layout's trains run at: 1:38 suits LEGO train track.",
+      "more": "Speeds are full-size speeds made smaller by this much. LEGO track is about 1:38 next to real track; change it if your club runs at another scale. It is shared with everyone on this layout."
+    },
+    "run.switchPushed": {
+      "title": "Pushed through",
+      "short": "A train came out of a switch's side into it while it was set the other way, so it pushed it over.",
+      "more": "Like a spring switch, the switch flips for the train and the run notes it. It flips on your screen only, for this run; Restart puts it back the way the layout has it."
     },
     "status.sheet": {
       "title": "Current sheet",

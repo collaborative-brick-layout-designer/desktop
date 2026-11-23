@@ -528,6 +528,29 @@ TEST(Sidecar, RoundTripSwitchStates) {
     EXPECT_EQ(sc.switchStates, (QMap<QString, int>{ { QStringLiteral("170/0"), 2 }, { QStringLiteral("a/b/1"), 0 } }));
 }
 
+// The train scale (trains design 5): written only when set, kept through a
+// save, and a value out of range (or not a whole number) reads as unset.
+TEST(Sidecar, RoundTripTrainScale) {
+    core::Sidecar sc;
+    EXPECT_FALSE(saveload::sidecarToJson(sc).contains(QLatin1String("trainScale")));
+    sc.trainScale = 87;
+    EXPECT_FALSE(sc.isEmpty());
+    QTemporaryDir dir;
+    const QString path = dir.filePath("s.bbm.bld");
+    const QByteArray bbm = "<dummy bbm>";
+    QString err;
+    ASSERT_TRUE(saveload::writeSidecar(path, bbm, sc, &err)) << err.toStdString();
+    core::Sidecar back;
+    ASSERT_TRUE(saveload::readSidecar(path, bbm, back).ok);
+    EXPECT_EQ(back.trainScale, 87);
+    EXPECT_TRUE(back.extras.isEmpty());
+    for (const QJsonValue& bad : { QJsonValue(3), QJsonValue(500), QJsonValue(38.5), QJsonValue(QStringLiteral("38")) }) {
+        core::Sidecar odd;
+        saveload::sidecarFromJson(QJsonObject{ { QStringLiteral("trainScale"), bad } }, odd);
+        EXPECT_FALSE(odd.trainScale.has_value());
+    }
+}
+
 // Named routes (trains design 2.5): kept through a save with fields this
 // build doesn't know, entries without an id left out, bricks renamed.
 TEST(Sidecar, RoundTripRoutes) {

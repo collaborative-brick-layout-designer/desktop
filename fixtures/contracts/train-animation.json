@@ -1,0 +1,831 @@
+{
+ "_about": "Running trains (trains design 5): on the network of route-search.json (its parts and bricks), with the stock of train-geometry.json. `speeds`: a scale speed (km/h) at a scale (1:N) as studs a second the model runs (1 stud = 8 mm) and metres a second it really runs. `runs`: trains run for `frames` steps of `dt` seconds, each on a route (from, to, steps) or, without one, the way the switches are set from its position; `parked` trains stand on the track. `expect`: what happened on which frame (a route's switch set for it, a trailing point pushed through, a route's end, the end of the track, a collision: both trains stop), the switches as the run has them after (`overlay`; the layout's are never changed), each train's state, how far its head went and where it is, and how far each head had gone at `checkpoints` frames. `touch`: whether two trains standing on the track touch. Web packages/parts-catalog/src/track/animation.test.ts (BLD_WRITE_CONTRACTS=1 writes `expect`), desktop tests/track/AnimationTest.cpp.",
+ "network": "route-search.json",
+ "stock": {
+  "boxcar": {
+   "length": 32,
+   "trucks": [
+    {
+     "at": 8,
+     "swivelMax": 30
+    },
+    {
+     "at": -8,
+     "swivelMax": 30
+    }
+   ]
+  },
+  "short": {
+   "length": 24,
+   "trucks": [
+    {
+     "at": 7,
+     "swivelMax": 30
+    },
+    {
+     "at": -5,
+     "swivelMax": 30
+    }
+   ]
+  }
+ },
+ "speeds": [
+  {
+   "kmh": 40,
+   "scale": 38,
+   "studsPerSecond": 36.549708,
+   "realMetresPerSecond": 0.292398
+  },
+  {
+   "kmh": 40,
+   "scale": 87,
+   "studsPerSecond": 15.96424,
+   "realMetresPerSecond": 0.127714
+  },
+  {
+   "kmh": 100,
+   "scale": 38,
+   "studsPerSecond": 91.374269,
+   "realMetresPerSecond": 0.730994
+  },
+  {
+   "kmh": 0,
+   "scale": 38,
+   "studsPerSecond": 0,
+   "realMetresPerSecond": 0
+  },
+  {
+   "kmh": 64.37376,
+   "scale": 38,
+   "studsPerSecond": 58.821053,
+   "realMetresPerSecond": 0.470568
+  }
+ ],
+ "runs": [
+  {
+   "name": "distance against time: 40 km/h at 1:38, following the switches to the end of the track",
+   "scale": 38,
+   "dt": 0.016666666666666666,
+   "frames": 1200,
+   "checkpoints": [
+    60,
+    120,
+    180
+   ],
+   "trains": [
+    {
+     "id": "t1",
+     "name": "t1",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "boxcar",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 24,
+      "facing": "to"
+     },
+     "color": "#E07000",
+     "speed": 40
+    }
+   ],
+   "expect": {
+    "notes": [
+     {
+      "frame": 166,
+      "kind": "pushedThrough",
+      "train": "t1",
+      "switchKey": "R/0",
+      "at": [
+       96,
+       0
+      ]
+     },
+     {
+      "frame": 354,
+      "kind": "endOfTrack",
+      "train": "t1",
+      "at": [
+       0,
+       0
+      ]
+     }
+    ],
+    "checkpoints": [
+     {
+      "frame": 60,
+      "distances": {
+       "t1": 36.549708
+      }
+     },
+     {
+      "frame": 120,
+      "distances": {
+       "t1": 73.099415
+      }
+     },
+     {
+      "frame": 180,
+      "distances": {
+       "t1": 109.649123
+      }
+     }
+    ],
+    "overlay": {
+     "R/0": 2
+    },
+    "trains": {
+     "t1": {
+      "state": "endOfTrack",
+      "distance": 215.110726,
+      "head": {
+       "brick": "A",
+       "from": 0,
+       "to": 1,
+       "s": 0,
+       "facing": "from"
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "a trailing point set against the train is pushed through",
+   "scale": 38,
+   "dt": 0.016666666666666666,
+   "frames": 120,
+   "checkpoints": [
+    30,
+    60
+   ],
+   "trains": [
+    {
+     "id": "t1",
+     "name": "t1",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "boxcar",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "B",
+      "from": 0,
+      "to": 1,
+      "s": 20,
+      "facing": "to"
+     },
+     "color": "#E07000",
+     "speed": 40
+    }
+   ],
+   "expect": {
+    "notes": [
+     {
+      "frame": 20,
+      "kind": "pushedThrough",
+      "train": "t1",
+      "switchKey": "Q/0",
+      "at": [
+       80,
+       0
+      ]
+     }
+    ],
+    "checkpoints": [
+     {
+      "frame": 30,
+      "distances": {
+       "t1": 18.274854
+      }
+     },
+     {
+      "frame": 60,
+      "distances": {
+       "t1": 36.549708
+      }
+     }
+    ],
+    "overlay": {
+     "Q/0": 2
+    },
+    "trains": {
+     "t1": {
+      "state": "running",
+      "distance": 73.099415,
+      "head": {
+       "brick": "T",
+       "from": 0,
+       "to": 1,
+       "s": 10.554422,
+       "facing": "to"
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "double speed at another scale",
+   "scale": 87,
+   "dt": 0.03333333333333333,
+   "frames": 60,
+   "checkpoints": [
+    15,
+    30
+   ],
+   "trains": [
+    {
+     "id": "t1",
+     "name": "t1",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "boxcar",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 24,
+      "facing": "to"
+     },
+     "color": "#E07000",
+     "speed": 80
+    }
+   ],
+   "expect": {
+    "notes": [],
+    "checkpoints": [
+     {
+      "frame": 15,
+      "distances": {
+       "t1": 15.96424
+      }
+     },
+     {
+      "frame": 30,
+      "distances": {
+       "t1": 31.92848
+      }
+     }
+    ],
+    "overlay": {},
+    "trains": {
+     "t1": {
+      "state": "running",
+      "distance": 63.85696,
+      "head": {
+       "brick": "T",
+       "from": 0,
+       "to": 1,
+       "s": 7.85696,
+       "facing": "to"
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "a route sets its switches as the train comes to them and stops at its end",
+   "scale": 38,
+   "dt": 0.016666666666666666,
+   "frames": 600,
+   "checkpoints": [
+    60
+   ],
+   "trains": [
+    {
+     "id": "t1",
+     "name": "t1",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "boxcar",
+       "reversed": false
+      },
+      {
+       "stock": "short",
+       "reversed": false
+      }
+     ],
+     "position": null,
+     "color": "#E07000",
+     "speed": 40
+    }
+   ],
+   "routes": {
+    "t1": {
+     "id": "r1",
+     "from": {
+      "brick": "A",
+      "from": 0,
+      "to": 1,
+      "s": 2
+     },
+     "to": {
+      "brick": "T",
+      "from": 0,
+      "to": 1,
+      "s": 8
+     },
+     "steps": [
+      {
+       "brick": "A",
+       "from": 0,
+       "to": 1
+      },
+      {
+       "brick": "P",
+       "from": 0,
+       "to": 2
+      },
+      {
+       "brick": "B",
+       "from": 0,
+       "to": 1
+      },
+      {
+       "brick": "Q",
+       "from": 2,
+       "to": 0
+      },
+      {
+       "brick": "E",
+       "from": 0,
+       "to": 1
+      },
+      {
+       "brick": "R",
+       "from": 0,
+       "to": 1
+      },
+      {
+       "brick": "T",
+       "from": 0,
+       "to": 1
+      }
+     ]
+    }
+   },
+   "expect": {
+    "notes": [
+     {
+      "frame": 23,
+      "kind": "routeSet",
+      "train": "t1",
+      "switchKey": "P/0",
+      "at": [
+       16,
+       0
+      ]
+     },
+     {
+      "frame": 106,
+      "kind": "pushedThrough",
+      "train": "t1",
+      "switchKey": "Q/0",
+      "at": [
+       80,
+       0
+      ]
+     },
+     {
+      "frame": 203,
+      "kind": "arrived",
+      "train": "t1",
+      "at": [
+       120,
+       0
+      ]
+     }
+    ],
+    "checkpoints": [
+     {
+      "frame": 60,
+      "distances": {
+       "t1": 36.549708
+      }
+     }
+    ],
+    "overlay": {
+     "P/0": 2,
+     "Q/0": 2
+    },
+    "trains": {
+     "t1": {
+      "state": "arrived",
+      "distance": 123.089986,
+      "head": {
+       "brick": "T",
+       "from": 0,
+       "to": 1,
+       "s": 8,
+       "facing": "to"
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "two trains head to head both stop before they touch",
+   "scale": 38,
+   "dt": 0.016666666666666666,
+   "frames": 240,
+   "checkpoints": [
+    30
+   ],
+   "trains": [
+    {
+     "id": "east",
+     "name": "east",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "boxcar",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 20,
+      "facing": "to"
+     },
+     "color": "#E07000",
+     "speed": 40
+    },
+    {
+     "id": "west",
+     "name": "west",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "boxcar",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 4,
+      "facing": "from"
+     },
+     "color": "#E07000",
+     "speed": 40
+    }
+   ],
+   "expect": {
+    "notes": [
+     {
+      "frame": 15,
+      "kind": "collision",
+      "train": "east",
+      "other": "west",
+      "at": [
+       68,
+       0
+      ]
+     }
+    ],
+    "checkpoints": [
+     {
+      "frame": 30,
+      "distances": {
+       "east": 8.528265,
+       "west": 8.528265
+      }
+     }
+    ],
+    "overlay": {},
+    "trains": {
+     "east": {
+      "state": "blocked",
+      "distance": 8.528265,
+      "head": {
+       "brick": "M",
+       "from": 0,
+       "to": 1,
+       "s": 28.528265,
+       "facing": "to"
+      }
+     },
+     "west": {
+      "state": "blocked",
+      "distance": 8.528265,
+      "head": {
+       "brick": "Q",
+       "from": 0,
+       "to": 1,
+       "s": 4.528265,
+       "facing": "to"
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "a running train stops short of a parked one",
+   "scale": 38,
+   "dt": 0.016666666666666666,
+   "frames": 240,
+   "checkpoints": [
+    30
+   ],
+   "trains": [
+    {
+     "id": "run",
+     "name": "run",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "short",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 0,
+      "facing": "to"
+     },
+     "color": "#E07000",
+     "speed": 40
+    }
+   ],
+   "parked": [
+    {
+     "id": "parked",
+     "name": "parked",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "boxcar",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 14,
+      "facing": "to"
+     },
+     "color": "#E07000",
+     "speed": 40
+    }
+   ],
+   "expect": {
+    "notes": [
+     {
+      "frame": 58,
+      "kind": "collision",
+      "train": "run",
+      "other": "parked",
+      "at": [
+       73.165692,
+       0
+      ]
+     }
+    ],
+    "checkpoints": [
+     {
+      "frame": 30,
+      "distances": {
+       "run": 18.274854
+      }
+     }
+    ],
+    "overlay": {},
+    "trains": {
+     "run": {
+      "state": "blocked",
+      "distance": 34.722222,
+      "head": {
+       "brick": "Q",
+       "from": 0,
+       "to": 1,
+       "s": 13.277778,
+       "facing": "from"
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "the layout's switches set the way: no push needed",
+   "scale": 38,
+   "dt": 0.016666666666666666,
+   "frames": 120,
+   "checkpoints": [
+    60
+   ],
+   "states": {
+    "Q/0": 2
+   },
+   "trains": [
+    {
+     "id": "t1",
+     "name": "t1",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "boxcar",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "B",
+      "from": 0,
+      "to": 1,
+      "s": 20,
+      "facing": "to"
+     },
+     "color": "#E07000",
+     "speed": 40
+    }
+   ],
+   "expect": {
+    "notes": [],
+    "checkpoints": [
+     {
+      "frame": 60,
+      "distances": {
+       "t1": 36.549708
+      }
+     }
+    ],
+    "overlay": {},
+    "trains": {
+     "t1": {
+      "state": "running",
+      "distance": 73.099415,
+      "head": {
+       "brick": "T",
+       "from": 0,
+       "to": 1,
+       "s": 10.554422,
+       "facing": "to"
+      }
+     }
+    }
+   }
+  }
+ ],
+ "touch": [
+  {
+   "name": "nose to nose on the straight, apart",
+   "a": {
+    "units": [
+     {
+      "stock": "boxcar",
+      "reversed": false
+     }
+    ],
+    "position": {
+     "brick": "M",
+     "from": 0,
+     "to": 1,
+     "s": 30,
+     "facing": "from"
+    }
+   },
+   "b": {
+    "units": [
+     {
+      "stock": "boxcar",
+      "reversed": false
+     }
+    ],
+    "position": {
+     "brick": "M",
+     "from": 0,
+     "to": 1,
+     "s": 10,
+     "facing": "to"
+    }
+   },
+   "expect": {
+    "touch": false
+   }
+  },
+  {
+   "name": "nose to nose on the straight, overlapping",
+   "a": {
+    "units": [
+     {
+      "stock": "boxcar",
+      "reversed": false
+     }
+    ],
+    "position": {
+     "brick": "M",
+     "from": 0,
+     "to": 1,
+     "s": 20,
+     "facing": "from"
+    }
+   },
+   "b": {
+    "units": [
+     {
+      "stock": "boxcar",
+      "reversed": false
+     }
+    ],
+    "position": {
+     "brick": "M",
+     "from": 0,
+     "to": 1,
+     "s": 10,
+     "facing": "to"
+    }
+   },
+   "expect": {
+    "touch": true
+   }
+  },
+  {
+   "name": "side by side on the passing loop",
+   "a": {
+    "units": [
+     {
+      "stock": "boxcar",
+      "reversed": false
+     }
+    ],
+    "position": {
+     "brick": "M",
+     "from": 0,
+     "to": 1,
+     "s": 30,
+     "facing": "to"
+    }
+   },
+   "b": {
+    "units": [
+     {
+      "stock": "boxcar",
+      "reversed": false
+     }
+    ],
+    "position": {
+     "brick": "B",
+     "from": 0,
+     "to": 1,
+     "s": 30,
+     "facing": "to"
+    }
+   },
+   "expect": {
+    "touch": false
+   }
+  },
+  {
+   "name": "one behind the other, couplers apart",
+   "a": {
+    "units": [
+     {
+      "stock": "boxcar",
+      "reversed": false
+     }
+    ],
+    "position": {
+     "brick": "E",
+     "from": 0,
+     "to": 1,
+     "s": 14,
+     "facing": "to"
+    }
+   },
+   "b": {
+    "units": [
+     {
+      "stock": "boxcar",
+      "reversed": false
+     }
+    ],
+    "position": {
+     "brick": "M",
+     "from": 0,
+     "to": 1,
+     "s": 20,
+     "facing": "to"
+    }
+   },
+   "expect": {
+    "touch": false
+   }
+  }
+ ]
+}

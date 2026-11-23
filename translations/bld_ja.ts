@@ -579,10 +579,6 @@
         <translation>レイアウトで遊ぶ：パーツを動かさずに、ポイントをクリックして切り替えます。</translation>
     </message>
     <message>
-        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
-        <translation>運転モードでは、各ポイントに開通している方向を示す矢印が出ます。近くをクリックすると切り替わります。パーツは選択も移動もできないので、うっかり変わることはありません。切り替えは全員と共有され、元に戻せます。停止を押すと組み立てに戻ります。</translation>
-    </message>
-    <message>
         <source>Switches</source>
         <translation>ポイント</translation>
     </message>
@@ -1283,12 +1279,60 @@
         <translation>スナップ点の間隔を、1ポッチごとから32ポッチごとまで選び、スナップの仕方も選べます：グリッドに合わせるか、元の位置から決まった歩幅で動かすかです。パーツ、モジュール、貼り付けたもの、定規、ラベル、テキストはすべてこれに従い、矢印キーは1歩ずつ動かし、線路の端は出会うと今までどおりつながります。離した場所にそのまま置きたいときはスナップをオフにするか、Alt（Macでは⌥）を押しながら定規、ラベル、テキストを自由に置いてください。</translation>
     </message>
     <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it, or press Play in the Run panel to run the trains. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>運転モードでは、各ポイントに開通している方向を示す矢印が出ます。近くをクリックすると切り替わり、運転パネルの再生を押すと列車が走ります。パーツは選択も移動もできないので、うっかり変わることはありません。切り替えは全員と共有され、元に戻せます。停止を押すと組み立てに戻ります。</translation>
+    </message>
+    <message>
         <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
         <translation>ルートの始まりの線路をクリックし（列車の先頭でもかまいません）、次に終わりをクリックします。</translation>
     </message>
     <message>
         <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
         <translation>最短の道筋が自動で見つかり、矢印で列車の進む向きがわかります。その場で向きを変えることはないので、ループを一周することもあります。「逆向きに進む」で反対回りにでき、列車の先頭から始めたルートはその列車の向きに進みます。Shift キーを押しながらクリックすると停車点が加わり、Esc か「キャンセル」で終わります。</translation>
+    </message>
+    <message>
+        <source>Play runs every ticked train at its speed, on its route or the way the switches are set.</source>
+        <translation>再生を押すと、チェックした各列車がそれぞれの速度で、ルートどおり、またはポイントの向きどおりに走ります。</translation>
+    </message>
+    <message>
+        <source>Pick where each train runs: a route, or from where it stands, following the switches. A train stops at the end of its route or of the track, and two trains that would collide both stop, with a red ring where. The trains move on your screen only; Restart puts them back.</source>
+        <translation>各列車の走らせ方を選びます。ルートか、今いる場所からポイントに従って走るかです。列車はルートや線路の終わりで止まり、ぶつかりそうな2本の列車はどちらも止まり、その場所に赤い輪が出ます。列車が動くのはあなたの画面だけです。最初からで元に戻ります。</translation>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>速度</translation>
+    </message>
+    <message>
+        <source>How fast the train runs, as if it were a full-size train at the layout&apos;s scale.</source>
+        <translation>レイアウトの縮尺で、実物の列車ならどれくらいの速さかを表します。</translation>
+    </message>
+    <message>
+        <source>40 km/h (25 mph) is a gentle freight; a fast passenger train is 120 km/h (75 mph) or more. Real speed in the Run panel shows how fast the model itself goes on the table.</source>
+        <translation>40 km/h（25 mph）はゆっくりした貨物列車、速い旅客列車は120 km/h（75 mph）以上です。運転パネルの実際の速度で、模型そのものがテーブルの上を走る速さがわかります。</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>縮尺</translation>
+    </message>
+    <message>
+        <source>The scale the layout&apos;s trains run at: 1:38 suits LEGO train track.</source>
+        <translation>このレイアウトの列車が走る縮尺です。LEGOの線路には1:38が合います。</translation>
+    </message>
+    <message>
+        <source>Speeds are full-size speeds made smaller by this much. LEGO track is about 1:38 next to real track; change it if your club runs at another scale. It is shared with everyone on this layout.</source>
+        <translation>速度は実物の速度をこの割合で小さくしたものです。LEGOの線路は実物の線路の約1:38です。クラブで別の縮尺を使うなら変更してください。このレイアウトの全員で共通です。</translation>
+    </message>
+    <message>
+        <source>Pushed through</source>
+        <translation>割り込み</translation>
+    </message>
+    <message>
+        <source>A train came out of a switch&apos;s side into it while it was set the other way, so it pushed it over.</source>
+        <translation>列車が、反対側に開通しているポイントに分岐側から入ったため、ポイントを押し割りました。</translation>
+    </message>
+    <message>
+        <source>Like a spring switch, the switch flips for the train and the run notes it. It flips on your screen only, for this run; Restart puts it back the way the layout has it.</source>
+        <translation>スプリングポイントのように、ポイントは列車に合わせて切り替わり、そのことが記録されます。切り替わるのはあなたの画面で、この運転の間だけです。最初からでレイアウトどおりに戻ります。</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -2785,6 +2829,29 @@
     </message>
 </context>
 <context>
+    <name>RunPanel</name>
+    <message>
+        <source>%1 mph</source>
+        <translation>%1 mph</translation>
+    </message>
+    <message>
+        <source>%1 km/h</source>
+        <translation>%1 km/h</translation>
+    </message>
+    <message>
+        <source>%1 in/s</source>
+        <translation>%1 in/s</translation>
+    </message>
+    <message>
+        <source>%1 studs/s</source>
+        <translation>%1 ポッチ/秒</translation>
+    </message>
+    <message>
+        <source>%1 m/s</source>
+        <translation>%1 m/s</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3631,6 +3698,14 @@
     <message>
         <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
         <translation>「ポイントを切り替える」でルート上のポイントをすべてその向きにします。運転モードでは手で切り替えられます。</translation>
+    </message>
+    <message>
+        <source>Watch it run</source>
+        <translation>走らせてみよう</translation>
+    </message>
+    <message>
+        <source>Press Run, then Play. Each train runs its route at its scale speed; two that would collide both stop.</source>
+        <translation>運転、続いて再生を押します。各列車は縮尺速度でルートを走り、ぶつかりそうな2本は止まります。</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4838,6 +4913,10 @@
         <translation>会場</translation>
     </message>
     <message>
+        <source>Train scale</source>
+        <translation>列車の縮尺</translation>
+    </message>
+    <message>
         <source>Background image</source>
         <translation>背景画像</translation>
     </message>
@@ -5644,7 +5723,7 @@
     </message>
     <message>
         <source>Show me</source>
-        <translation>表示する</translation>
+        <translation>見せて</translation>
     </message>
 </context>
 <context>
@@ -7859,6 +7938,14 @@ Save anyway?</source>
         <translation>クラブ (LUG):</translation>
     </message>
     <message>
+        <source>Train scale</source>
+        <translation>列車の縮尺</translation>
+    </message>
+    <message>
+        <source>Train scale:</source>
+        <translation>列車の縮尺：</translation>
+    </message>
+    <message>
         <source>Open Venue &amp;Designer…</source>
         <translation>会場デザイナーを開く(&amp;D)…</translation>
     </message>
@@ -9765,6 +9852,10 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>ルート</translation>
     </message>
     <message>
+        <source>the train scale</source>
+        <translation>列車の縮尺</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -10481,8 +10572,8 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
-        <translation>&lt;b&gt;運転モード：&lt;/b&gt;ポイントをクリックして切り替えます。パーツは動かせません。</translation>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; press Play to run the trains; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;運転モード：&lt;/b&gt;再生を押すと列車が走ります。ポイントをクリックして切り替えます。パーツは動かせません。</translation>
     </message>
     <message>
         <source>Stop</source>
@@ -10605,6 +10696,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     <message>
         <source>%1 runs off the end of the track here.</source>
         <translation>ここでは%1が線路の端からはみ出します。</translation>
+    </message>
+    <message>
+        <source>Set the train scale</source>
+        <translation>列車の縮尺を設定</translation>
     </message>
 </context>
 <context>
@@ -12391,6 +12486,153 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Delete</source>
         <translation>削除</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RunPanel</name>
+    <message>
+        <source>Train</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>A train</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>%1 and %2 would collide here, so both stopped.</source>
+        <translation>%1と%2がここでぶつかりそうなので、両方止まりました。</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>別の列車</translation>
+    </message>
+    <message>
+        <source>%1 pushed through a switch that was set the other way. It flipped for this run.</source>
+        <translation>%1が反対に開通していたポイントを押し割りました。この運転の間だけ切り替わっています。</translation>
+    </message>
+    <message>
+        <source>A switch was set the other way for %1; it flipped for this run.</source>
+        <translation>%1のためにポイントが反対に開通していました。この運転の間だけ切り替わっています。</translation>
+    </message>
+    <message>
+        <source>its route</source>
+        <translation>そのルート</translation>
+    </message>
+    <message>
+        <source>%1 reached the end of %2.</source>
+        <translation>%1が%2の終わりに着きました。</translation>
+    </message>
+    <message>
+        <source>%1 reached the end of the track.</source>
+        <translation>%1が線路の終わりに着きました。</translation>
+    </message>
+    <message>
+        <source>Run trains</source>
+        <translation>列車を走らせる</translation>
+    </message>
+    <message>
+        <source>▶ Play</source>
+        <translation>▶ 再生</translation>
+    </message>
+    <message>
+        <source>Start every ticked train</source>
+        <translation>チェックした列車をすべて走らせる</translation>
+    </message>
+    <message>
+        <source>↺ Restart</source>
+        <translation>↺ 最初から</translation>
+    </message>
+    <message>
+        <source>Every train back to where it started</source>
+        <translation>すべての列車を出発した場所に戻す</translation>
+    </message>
+    <message>
+        <source>How fast to watch</source>
+        <translation>見る速さ</translation>
+    </message>
+    <message>
+        <source>How fast to watch: times real speed</source>
+        <translation>見る速さ：実際の速度の何倍か</translation>
+    </message>
+    <message>
+        <source>Show less</source>
+        <translation>折りたたむ</translation>
+    </message>
+    <message>
+        <source>Show the trains</source>
+        <translation>列車を表示</translation>
+    </message>
+    <message>
+        <source>There are no trains on this layout yet.</source>
+        <translation>このレイアウトにはまだ列車がありません。</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>列車を開く</translation>
+    </message>
+    <message>
+        <source>Every train has stopped. Restart puts them back where they started.</source>
+        <translation>すべての列車が止まりました。最初からで出発した場所に戻ります。</translation>
+    </message>
+    <message>
+        <source>Scale 1:</source>
+        <translation>縮尺 1:</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>縮尺</translation>
+    </message>
+    <message>
+        <source>Real speed</source>
+        <translation>実際の速度</translation>
+    </message>
+    <message>
+        <source>❚❚ Pause</source>
+        <translation>❚❚ 一時停止</translation>
+    </message>
+    <message>
+        <source>Pause every train</source>
+        <translation>すべての列車を一時停止</translation>
+    </message>
+    <message>
+        <source>Run %1</source>
+        <translation>%1を走らせる</translation>
+    </message>
+    <message>
+        <source>Put it on the track, or draw a route for it, to run it.</source>
+        <translation>走らせるには、線路に置くか、ルートを描いてください。</translation>
+    </message>
+    <message>
+        <source>Where %1 runs</source>
+        <translation>%1の走らせ方</translation>
+    </message>
+    <message>
+        <source>From where it stands, following the switches</source>
+        <translation>今いる場所から、ポイントに従って</translation>
+    </message>
+    <message>
+        <source>Route: %1</source>
+        <translation>ルート：%1</translation>
+    </message>
+    <message>
+        <source>Running</source>
+        <translation>走行中</translation>
+    </message>
+    <message>
+        <source>At the end of its route</source>
+        <translation>ルートの終わり</translation>
+    </message>
+    <message>
+        <source>At the end of the track</source>
+        <translation>線路の終わり</translation>
+    </message>
+    <message>
+        <source>Stopped: another train is in the way</source>
+        <translation>停止中：別の列車がじゃまです</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>見せて</translation>
     </message>
 </context>
 <context>
@@ -14564,6 +14806,22 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Name:</source>
         <translation>名前:</translation>
+    </message>
+    <message>
+        <source> mph at scale</source>
+        <translation> mph（縮尺）</translation>
+    </message>
+    <message>
+        <source> km/h at scale</source>
+        <translation> km/h（縮尺）</translation>
+    </message>
+    <message>
+        <source>Train speed</source>
+        <translation>列車の速度</translation>
+    </message>
+    <message>
+        <source>Speed:</source>
+        <translation>速度：</translation>
     </message>
     <message>
         <source>Cars in the train, front first</source>

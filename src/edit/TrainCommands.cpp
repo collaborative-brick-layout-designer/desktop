@@ -63,4 +63,11 @@ QUndoCommand* makeRemoveStockCommand(core::Map& map, const QString& id, const QS
     return parent;
 }
 
+SetTrainScaleCommand::SetTrainScaleCommand(core::Map& map, std::optional<int> after, const QString& text, QUndoCommand* parent)
+    : QUndoCommand(text, parent), map_(map), before_(map.sidecar.trainScale), after_(after) {
+    // 1:38 is the default: kept as none, as the web does.
+    if (after_ == 38) after_.reset();
+    if (before_ == after_) setObsolete(true);
+}
+
 }  // namespace bld::edit

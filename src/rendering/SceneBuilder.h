@@ -13,6 +13,7 @@
 #include "../core/Train.h"
 #include "../core/TextCell.h"
 #include "../core/Venue.h"
+#include "../track/Trains.h"
 #include "../edit/venue/VenueUnits.h"
 #include "ModuleLabels.h"
 
@@ -29,6 +30,7 @@
 #include <QVector>
 
 class QGraphicsItem;
+class QGraphicsPathItem;
 class QGraphicsScene;
 
 namespace bld::core { class Layer; class Map; }
@@ -163,6 +165,18 @@ public:
     // Each train drawn, by id: its cars' body items, front first (tests).
     const QHash<QString, QList<QGraphicsItem*>>& trainItems() const { return trainCarsById_; }
     static QColor trainProblemColor();
+    // Running trains (trains design 5): the trains in `ids` aren't drawn
+    // standing; showRunFrame draws them where the run has them (moving the
+    // same items each frame) and a red ring at each spot two would collide.
+    void setRunningTrains(const QSet<QString>& ids, const core::Map& map);
+    void showRunFrame(const core::Map& map, const std::vector<std::pair<QString, std::optional<track::PlacedTrain>>>& placed,
+                      const std::vector<QPointF>& marks);
+    void clearRun();
+    // The running trains drawn, by id: their cars' body items (tests).
+    const QHash<QString, QList<QGraphicsItem*>>& runItems() const { return runCarsById_; }
+    int collisionMarks() const { return static_cast<int>(runMarks_.size()); }
+    // The switch arrows show these settings, not the layout's (a run's pushes); none: the layout's.
+    void setSwitchStatesShown(std::optional<QMap<QString, int>> states) { switchStatesShown_ = std::move(states); }
 
     // Fit checks on the map (trains design 3.5, 6.2): with View > Siding
     // Lengths, each run of track labeled with the length a train can stand
@@ -315,6 +329,13 @@ private:
     QMap<QString, int> drawnTrainSwitchStates_;
     void clearTrains();
     void addTrains(const core::Map& map);
+    QGraphicsPathItem* makeCar(const core::Train& t, size_t i, const track::PlacedUnit& u, const core::RollingStock& s,
+                               bool offTrack, bool picked);
+    QSet<QString> runningTrains_;
+    QHash<QString, QList<QGraphicsItem*>> runCarsById_;
+    QList<QGraphicsItem*> runMarks_;
+    std::vector<QPointF> runMarkSpots_;
+    std::optional<QMap<QString, int>> switchStatesShown_;
     QString pickedTrain_;
     QList<QGraphicsItem*> trainItems_;
     QHash<QString, QList<QGraphicsItem*>> trainCarsById_;

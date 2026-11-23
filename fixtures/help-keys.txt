@@ -32,6 +32,10 @@ trains.newTrain
 trains.putOnTrack
 trains.turnAround
 trains.checks
+run.trains
+trains.speed
+trains.scale
+run.switchPushed
 status.sheet
 status.room
 status.budget

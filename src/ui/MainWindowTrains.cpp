@@ -34,6 +34,11 @@ void MainWindow::setupTrains() {
     connect(trainsPanel_, &TrainsPanel::placeCancelled, mapView_, &MapView::cancelTrainPlacing);
     connect(trainsPanel_, &TrainsPanel::showSpotRequested, mapView_, &MapView::showSpot);
     connect(mapView_, &MapView::trainPlacingChanged, trainsPanel_, &TrainsPanel::setPlacing);
+    // The Run panel's Open Trains (a layout with no trains yet).
+    connect(mapView_, &MapView::openTrainsRequested, this, [this] {
+        trainsPanel_->show();
+        trainsPanel_->raise();
+    });
     connect(mapView_, &MapView::mapLoaded, this, [this] {
         mapView_->cancelTrainPlacing();
         refreshTrains();  // first: the panel's old map is gone
@@ -54,6 +59,7 @@ void MainWindow::refreshTrains() {
     trainsPanel_->setMap(mapView_->currentMap());
     trainsPanel_->setServerLibrary(serverLibrary_);
     trainsPanel_->setReadOnly(live_ && live_->active() && live_->readOnly());
+    mapView_->setRunReadOnly(live_ && live_->active() && live_->readOnly());
 }
 
 }  // namespace bld::ui
