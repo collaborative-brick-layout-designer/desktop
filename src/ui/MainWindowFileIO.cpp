@@ -30,6 +30,7 @@
 #include "PartDifferencesDialog.h"
 #include "PartsBrowser.h"
 #include "RecoverDialog.h"
+#include "EarlierSavesDialog.h"
 #include "ServerList.h"
 
 #include "../core/ColorSpec.h"
@@ -393,7 +394,19 @@ bool MainWindow::writeMapTo(const QString& path) {
                                  .arg(fileNameOf(path)));
         return false;
     }
-    const auto saidKept = [this, kept] {
+    // The file as it was goes to its earlier saves first (FileBackups.h); a
+    // copy that can't be made doesn't stop the save, and is said.
+    QString backupError;
+    const bool backedUp = FileBackups::keepBeforeSaving(path, &backupError);
+    const auto saidKept = [this, kept, backedUp, backupError, path] {
+        if (!backedUp) {
+            notices_->showNotice(QStringLiteral("earlier-save"), tr("An earlier save couldn't be kept"),
+                                 tr("%1 was saved, but the file as it was before couldn't be kept in "
+                                    "File › Earlier Saves…: %2")
+                                     .arg(fileNameOf(path), backupError),
+                                 { NoticeAction{ tr("OK"), {} } });
+            notices_->addHelp(QStringLiteral("earlier-save"), QStringLiteral("file.earlierSaves"));
+        }
         if (kept.isEmpty()) return;
         QStringList names;
         for (const QString& k : kept) names << fileNameOf(k);
@@ -1099,6 +1112,56 @@ bool MainWindow::recover(const AutosaveLeftover& leftover) {
             ? tr("Recovered the unsaved new layout. Save it to keep it.")
             : tr("Recovered the unsaved changes to %1. Save to keep them.").arg(fileNameOf(source));
     showFileMessage(statusBar(), text, source.isEmpty() ? leftover.layoutPath : source, 8000);
+    return true;
+}
+
+// ---------- Earlier saves (FileBackups.h) ------------------------------------
+
+void MainWindow::onEarlierSaves() {
+    EarlierSavesDialog dialog(currentFilePath_, this);
+    if (dialog.exec() != QDialog::Accepted || !dialog.chosen()) return;
+    const SavedCopy copy = *dialog.chosen();
+    const QString file = dialog.file();
+    if (dialog.action() == EarlierSavesDialog::Action::OpenCopy) {
+        openSavedCopy(copy, file);
+        return;
+    }
+    // Put back: the open layout's unsaved changes are asked about first when it is that file.
+    const bool isOpen = !currentFilePath_.isEmpty() && QFileInfo(currentFilePath_) == QFileInfo(file);
+    if (isOpen) {
+        if (!maybeSave()) return;
+        mapView_->undoStack()->setClean();
+    }
+    QString error;
+    if (!FileBackups::restore(copy, file, &error)) {
+        QMessageBox::warning(this, tr("Put back failed"),
+                             tr("The earlier save couldn't be put back in place of %1: %2").arg(fileNameOf(file), error));
+        return;
+    }
+    if (isOpen) openFile(file);
+    showFileMessage(statusBar(),
+                    tr("Put back the save of %1 from %2. The file as it was is kept in File › Earlier Saves….")
+                        .arg(fileNameOf(file), RecoverDialog::whenText(copy.at)),
+                    file, 8000);
+}
+
+bool MainWindow::openSavedCopy(const SavedCopy& copy, const QString& file) {
+    if (!openFile(copy.path)) return false;
+    // A new, unsaved layout: Save asks where, and never writes into the copies' folder.
+    QSettings s;
+    QStringList recent = s.value(kRecentListKey).toStringList();
+    recent.removeAll(copy.path);
+    s.setValue(kRecentListKey, recent);
+    if (s.value(QString::fromLatin1(kLastFileKey)).toString() == copy.path) s.remove(QString::fromLatin1(kLastFileKey));
+    rebuildRecentMenu();
+    currentFilePath_.clear();
+    saveFormatChosen_ = false;
+    mapView_->undoStack()->resetClean();
+    updateTitle();
+    showFileMessage(statusBar(),
+                    tr("Opened the save of %1 from %2 as a new layout. Use Save As to keep it; %1 itself is as it was.")
+                        .arg(fileNameOf(file), RecoverDialog::whenText(copy.at)),
+                    file, 10000);
     return true;
 }
 

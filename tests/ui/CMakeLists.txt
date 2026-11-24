@@ -41,6 +41,7 @@ add_executable(bld_ui_tests
     ThemeSwitchTest.cpp
     ToursTest.cpp
     RecentFilesTest.cpp
+    FileBackupsTest.cpp
     TouchTest.cpp
     PartsPacksTest.cpp
     PartsIconSizeTest.cpp

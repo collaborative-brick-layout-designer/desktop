@@ -162,8 +162,10 @@ clubs that plan a layout together.
 - Light, dark and color themes; touchscreen support (pinch, pan, long-press
   menus, a touch action bar); 10 languages besides English, seeded from
   BlueBrick's translations.
-- Autosave every few seconds with crash recovery, and a check for updates
-  (never automatic downloads).
+- Autosave every few seconds with crash recovery; earlier saves of each
+  layout file (the last 10 by default, File › Earlier Saves…); the server's
+  version history of a live layout (File › Version History…); and a check
+  for updates (never automatic downloads).
 
 ## Install
 

@@ -34,6 +34,8 @@ using Changed = std::function<void(Change)>;
 void addEditing(QVBoxLayout* into, QWidget* parent, const Changed& changed);
 void addLanguage(QVBoxLayout* into, QWidget* parent);
 void addStartingUp(QVBoxLayout* into, QWidget* parent);
+// Saving: how many earlier saves of each file to keep (FileBackups.h).
+void addSaving(QVBoxLayout* into, QWidget* parent);
 void addMapLabels(QVBoxLayout* into, QWidget* parent, const Changed& changed);
 // `openPartsFolders` opens Parts Folders… (left out when empty).
 void addParts(QVBoxLayout* into, QWidget* parent, const Changed& changed,

@@ -105,6 +105,10 @@ void MainWindow::setupMenus() {
     recoverAct->setObjectName(QStringLiteral("file.recover"));
     recoverAct->setToolTip(tr("Changes the app kept when it closed before they were saved"));
     connect(recoverAct, &QAction::triggered, this, &MainWindow::onRecoverUnsavedWork);
+    auto* earlierAct = file->addAction(tr("Earlier Saves…"));
+    earlierAct->setObjectName(QStringLiteral("file.earlierSaves"));
+    earlierAct->setToolTip(tr("Copies of a layout file from before each time it was saved over: open one, or put it back"));
+    connect(earlierAct, &QAction::triggered, this, &MainWindow::onEarlierSaves);
     setupLiveMenu(file);
 
     file->addSeparator();

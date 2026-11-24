@@ -143,6 +143,30 @@
         <translation>Wähle das Modell an seinem neuen Ort oder ein beliebiges anderes Modell, und das Teil wird mit derselben Nummer, Drehung und Ausrichtung neu daraus erstellt. Ab dann verwendet „Neu importieren“ die gewählte Datei.</translation>
     </message>
     <message>
+        <source>Earlier saves</source>
+        <translation>Frühere Speicherstände</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time you saved over it.</source>
+        <translation>Kopien einer Layoutdatei von vor jedem Mal, als du sie überschrieben hast.</translation>
+    </message>
+    <message>
+        <source>Open one as a copy to look at it or save it under a new name; the file stays as it is. Put Back makes the file as it was then, after keeping the file as it is now, so you can put that back too.</source>
+        <translation>Öffne eine als Kopie, um sie anzusehen oder unter neuem Namen zu speichern; die Datei bleibt, wie sie ist. „Zurückholen“ macht die Datei wieder so, wie sie damals war, nachdem die Datei, wie sie jetzt ist, aufbewahrt wurde, damit du auch diese zurückholen kannst.</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep</source>
+        <translation>Aufzubewahrende frühere Speicherstände</translation>
+    </message>
+    <message>
+        <source>How many copies of each layout file to keep from before you saved over it.</source>
+        <translation>Wie viele Kopien jeder Layoutdatei von vor dem Überschreiben aufbewahrt werden.</translation>
+    </message>
+    <message>
+        <source>They are kept on this computer, in the app’s own folder, and the oldest go first. None keeps no copies; changes you never saved are kept apart, for File › Recover Unsaved Work….</source>
+        <translation>Sie werden auf diesem Computer im eigenen Ordner der App aufbewahrt, die ältesten gehen zuerst. „Keine“ bewahrt keine Kopien auf; Änderungen, die du nie gespeichert hast, werden getrennt aufbewahrt, für Datei › Nicht gespeicherte Arbeit wiederherstellen….</translation>
+    </message>
+    <message>
         <source>Parts without a budget</source>
         <translation>Teile ohne Budget</translation>
     </message>
@@ -937,6 +961,18 @@
     <message>
         <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
         <translation>Warn- und Fehlerfarben behalten in beiden Fällen ihre Bedeutung. Text bleibt mit jeder Farbe gut lesbar.</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>Versionsverlauf</translation>
+    </message>
+    <message>
+        <source>Earlier versions of this layout, kept while people work on it, to look at, put back or copy out.</source>
+        <translation>Frühere Versionen dieses Layouts, aufbewahrt, während daran gearbeitet wird: zum Ansehen, Zurückholen oder Herauskopieren.</translation>
+    </message>
+    <message>
+        <source>A version is kept every half hour of editing, and just before big changes like an import, a restore or many parts deleted at once. Putting one back keeps the layout as it was first, so you can go back again. Copy one out to have it as a new layout and leave this one as it is.</source>
+        <translation>Eine Version wird jede halbe Stunde Bearbeitung aufbewahrt und kurz vor großen Änderungen wie einem Import, einer Wiederherstellung oder dem Löschen vieler Teile auf einmal. Beim Zurückholen wird zuerst das Layout, wie es ist, aufbewahrt, damit du wieder zurück kannst. Kopiere eine heraus, um sie als neues Layout zu haben und dieses so zu lassen, wie es ist.</translation>
     </message>
     <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
@@ -5624,6 +5660,103 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::EarlierSavesDialog</name>
+    <message>
+        <source>Put back the save from %1?</source>
+        <translation>Den Speicherstand von %1 zurückholen?</translation>
+    </message>
+    <message>
+        <source>%1 becomes as it was saved then.</source>
+        <translation>%1 wird so, wie es damals gespeichert war.</translation>
+    </message>
+    <message>
+        <source>The file as it is now is kept first, as an earlier save, so you can put it back too.</source>
+        <translation>Die Datei, wie sie jetzt ist, wird zuerst als früherer Speicherstand aufbewahrt, damit du auch sie zurückholen kannst.</translation>
+    </message>
+    <message>
+        <source>You can undo this from File › Earlier Saves….</source>
+        <translation>Du kannst das unter Datei › Frühere Speicherstände… rückgängig machen.</translation>
+    </message>
+    <message>
+        <source>Put Back</source>
+        <translation>Zurückholen</translation>
+    </message>
+    <message>
+        <source>Earlier saves</source>
+        <translation>Frühere Speicherstände</translation>
+    </message>
+    <message>
+        <source>Layout file:</source>
+        <translation>Layoutdatei:</translation>
+    </message>
+    <message>
+        <source>Layout file</source>
+        <translation>Layout-Datei</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Schließen</translation>
+    </message>
+    <message>
+        <source>Show Folder</source>
+        <translation>Ordner zeigen</translation>
+    </message>
+    <message>
+        <source>Open the folder the earlier saves of this file are kept in</source>
+        <translation>Den Ordner öffnen, in dem die früheren Speicherstände dieser Datei liegen</translation>
+    </message>
+    <message>
+        <source>Put Back…</source>
+        <translation>Zurückholen…</translation>
+    </message>
+    <message>
+        <source>Make the file as it was in the picked save (the file as it is now is kept first)</source>
+        <translation>Die Datei so machen wie im gewählten Speicherstand (die Datei, wie sie jetzt ist, wird zuerst aufbewahrt)</translation>
+    </message>
+    <message>
+        <source>Open as a Copy</source>
+        <translation>Als Kopie öffnen</translation>
+    </message>
+    <message>
+        <source>Open the picked save as a new layout, leaving the file as it is</source>
+        <translation>Den gewählten Speicherstand als neues Layout öffnen; die Datei bleibt, wie sie ist</translation>
+    </message>
+    <message>
+        <source>Saved before %1 — %2</source>
+        <translation>Gespeichert vor %1 — %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>There are no earlier saves yet. Each time you save a layout over its file, the file as it was is kept here: the last %n of each file (Settings › Saving).</source>
+        <translation>
+            <numerusform>Es gibt noch keine früheren Speicherstände. Jedes Mal, wenn du ein Layout über seine Datei speicherst, wird die Datei, wie sie war, hier aufbewahrt: die letzten %n jeder Datei (Einstellungen › Speichern).</numerusform>
+            <numerusform>Es gibt noch keine früheren Speicherstände. Jedes Mal, wenn du ein Layout über seine Datei speicherst, wird die Datei, wie sie war, hier aufbewahrt: die letzten %n jeder Datei (Einstellungen › Speichern).</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Earlier saves are turned off. Turn them on in Settings › Saving.</source>
+        <translation>Frühere Speicherstände sind ausgeschaltet. Schalte sie unter Einstellungen › Speichern ein.</translation>
+    </message>
+    <message>
+        <source>This file has no earlier saves yet. The next time you save over it, the file as it was is kept here.</source>
+        <translation>Diese Datei hat noch keine früheren Speicherstände. Wenn du sie das nächste Mal überschreibst, wird die Datei, wie sie war, hier aufbewahrt.</translation>
+    </message>
+    <message>
+        <source>Each time this file was saved, the file as it was just before was kept. Open one as a copy to look at it, or put it back in place of the file.</source>
+        <translation>Jedes Mal, wenn diese Datei gespeichert wurde, wurde sie, wie sie kurz davor war, aufbewahrt. Öffne einen als Kopie, um ihn anzusehen, oder hole ihn anstelle der Datei zurück.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FileBackups</name>
+    <message>
+        <source>The folder for earlier saves couldn&apos;t be made: %1</source>
+        <translation>Der Ordner für frühere Speicherstände konnte nicht angelegt werden: %1</translation>
+    </message>
+    <message>
+        <source>That earlier save isn&apos;t there any more.</source>
+        <translation>Dieser frühere Speicherstand ist nicht mehr da.</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::FindDialog</name>
     <message>
         <source>Find &amp;&amp; Replace</source>
@@ -8517,6 +8650,14 @@ Trotzdem speichern?</translation>
         <translation>Alle anderen, die dieses Layout gerade geöffnet haben</translation>
     </message>
     <message>
+        <source>Version Histor&amp;y…</source>
+        <translation>Versions&amp;verlauf…</translation>
+    </message>
+    <message>
+        <source>Earlier versions of the live layout that the server keeps: put one back or copy it out. For a layout file, see Earlier Saves…</source>
+        <translation>Frühere Versionen des Live-Layouts, die der Server aufbewahrt: eine zurückholen oder herauskopieren. Für eine Layoutdatei siehe Frühere Speicherstände…</translation>
+    </message>
+    <message>
         <source>Edit module closed</source>
         <translation>„Modul bearbeiten“ wurde beendet</translation>
     </message>
@@ -8937,6 +9078,14 @@ Deine Offline-Änderungen bleiben erhalten; Datei › Offline-Änderungen prüfe
     <message>
         <source>Cu&amp;t</source>
         <translation>Aus&amp;schneiden</translation>
+    </message>
+    <message>
+        <source>Earlier Saves…</source>
+        <translation>Frühere Speicherstände…</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time it was saved over: open one, or put it back</source>
+        <translation>Kopien einer Layoutdatei von vor jedem Überschreiben: eine öffnen oder zurückholen</translation>
     </message>
     <message>
         <source>Choose a file with the … button</source>
@@ -9827,6 +9976,14 @@ Du wirst nicht noch einmal gefragt. Um es später in dieses oder ein anderes Lay
         <translation>Vor dem Überschreiben konnte keine Kopie von %1 aufbewahrt werden, deshalb wurde nichts gespeichert. Nutze Datei › Speichern unter…, um unter einem neuen Namen zu speichern.</translation>
     </message>
     <message>
+        <source>An earlier save couldn&apos;t be kept</source>
+        <translation>Ein früherer Speicherstand konnte nicht aufbewahrt werden</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but the file as it was before couldn&apos;t be kept in File › Earlier Saves…: %2</source>
+        <translation>%1 wurde gespeichert, aber die Datei, wie sie vorher war, konnte nicht unter Datei › Frühere Speicherstände… aufbewahrt werden: %2</translation>
+    </message>
+    <message>
         <source>A copy was kept</source>
         <translation>Eine Kopie wurde aufbewahrt</translation>
     </message>
@@ -10025,6 +10182,22 @@ Sie bleiben erhalten, du kannst es also über Datei › Ungespeicherte Arbeit wi
     <message>
         <source>Recovered the unsaved changes to %1. Save to keep them.</source>
         <translation>Die ungespeicherten Änderungen an %1 wurden wiederhergestellt. Speichere, um sie zu behalten.</translation>
+    </message>
+    <message>
+        <source>Put back failed</source>
+        <translation>Zurückholen fehlgeschlagen</translation>
+    </message>
+    <message>
+        <source>The earlier save couldn&apos;t be put back in place of %1: %2</source>
+        <translation>Der frühere Speicherstand konnte nicht anstelle von %1 zurückgeholt werden: %2</translation>
+    </message>
+    <message>
+        <source>Put back the save of %1 from %2. The file as it was is kept in File › Earlier Saves….</source>
+        <translation>Der Speicherstand von %1 vom %2 ist zurückgeholt. Die Datei, wie sie war, liegt unter Datei › Frühere Speicherstände….</translation>
+    </message>
+    <message>
+        <source>Opened the save of %1 from %2 as a new layout. Use Save As to keep it; %1 itself is as it was.</source>
+        <translation>Der Speicherstand von %1 vom %2 ist als neues Layout geöffnet. Mit „Speichern unter“ behältst du ihn; %1 selbst ist, wie es war.</translation>
     </message>
     <message>
         <source>Recover &amp;Unsaved Work…</source>
@@ -13905,6 +14078,10 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>Beim Start</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
         <source>Parts and folders</source>
         <translation>Teile und Ordner</translation>
     </message>
@@ -14106,6 +14283,26 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>New layouts start from:</source>
         <translation>Neue Layouts beginnen mit:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Keine</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file</source>
+        <translation>Aufzubewahrende frühere Speicherstände je Datei</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file:</source>
+        <translation>Aufzubewahrende frühere Speicherstände je Datei:</translation>
+    </message>
+    <message>
+        <source>Each time you save over a layout file, the file as it was is kept on this computer. File › Earlier Saves… opens them or puts one back.</source>
+        <translation>Jedes Mal, wenn du eine Layoutdatei überschreibst, wird die Datei, wie sie war, auf diesem Computer aufbewahrt. Datei › Frühere Speicherstände… öffnet sie oder holt einen zurück.</translation>
+    </message>
+    <message>
+        <source>Show Earlier Saves Folder</source>
+        <translation>Ordner der früheren Speicherstände zeigen</translation>
     </message>
     <message>
         <source> px</source>
@@ -16024,6 +16221,179 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>(could not read file)</source>
         <translation>(Datei nicht lesbar)</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::VersionHistoryDialog</name>
+    <message>
+        <source>Put the layout back to %1?</source>
+        <translation>Das Layout auf %1 zurücksetzen?</translation>
+    </message>
+    <message>
+        <source>The layout becomes as it was in this version. Everyone working in it sees the change at once.</source>
+        <translation>Das Layout wird so, wie es in dieser Version war. Alle, die daran arbeiten, sehen die Änderung sofort.</translation>
+    </message>
+    <message>
+        <source>The layout as it is now is kept in this list first (“Before a restore”), so you can go back to it.</source>
+        <translation>Das Layout, wie es jetzt ist, wird zuerst in dieser Liste aufbewahrt („Vor einer Wiederherstellung“), damit du dorthin zurück kannst.</translation>
+    </message>
+    <message>
+        <source>To undo, restore the “Before a restore” version.</source>
+        <translation>Zum Rückgängigmachen die Version „Vor einer Wiederherstellung“ wiederherstellen.</translation>
+    </message>
+    <message>
+        <source>Restore This Version</source>
+        <translation>Diese Version wiederherstellen</translation>
+    </message>
+    <message>
+        <source>Keep a version now</source>
+        <translation>Jetzt eine Version aufbewahren</translation>
+    </message>
+    <message>
+        <source>A name for it (you can leave it empty), for example Before the show:</source>
+        <translation>Ein Name dafür (darf leer bleiben), zum Beispiel Vor der Ausstellung:</translation>
+    </message>
+    <message>
+        <source>Kept by hand</source>
+        <translation>Von Hand aufbewahrt</translation>
+    </message>
+    <message>
+        <source>Before a model was imported</source>
+        <translation>Bevor ein Modell importiert wurde</translation>
+    </message>
+    <message>
+        <source>Before changes were merged in</source>
+        <translation>Bevor Änderungen zusammengeführt wurden</translation>
+    </message>
+    <message>
+        <source>Before a restore</source>
+        <translation>Vor einer Wiederherstellung</translation>
+    </message>
+    <message>
+        <source>Before many parts were deleted</source>
+        <translation>Bevor viele Teile gelöscht wurden</translation>
+    </message>
+    <message>
+        <source>While editing</source>
+        <translation>Beim Bearbeiten</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>Versionsverlauf</translation>
+    </message>
+    <message>
+        <source>Version history of %1</source>
+        <translation>Versionsverlauf von %1</translation>
+    </message>
+    <message>
+        <source>Versions</source>
+        <translation>Versionen</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Schließen</translation>
+    </message>
+    <message>
+        <source>See on the Website</source>
+        <translation>Auf der Website ansehen</translation>
+    </message>
+    <message>
+        <source>Open the layout&apos;s history on the website, which draws each version</source>
+        <translation>Den Verlauf des Layouts auf der Website öffnen, die jede Version zeichnet</translation>
+    </message>
+    <message>
+        <source>Copy as a New Layout</source>
+        <translation>Als neues Layout kopieren</translation>
+    </message>
+    <message>
+        <source>Make a new layout of yours from the picked version; this one stays as it is</source>
+        <translation>Ein neues Layout von dir aus der gewählten Version machen; dieses bleibt, wie es ist</translation>
+    </message>
+    <message>
+        <source>Restore…</source>
+        <translation>Wiederherstellen…</translation>
+    </message>
+    <message>
+        <source>Put the layout back to the picked version (the layout as it is now is kept first)</source>
+        <translation>Das Layout auf die gewählte Version zurücksetzen (das Layout, wie es jetzt ist, wird zuerst aufbewahrt)</translation>
+    </message>
+    <message>
+        <source>Keep a Version Now…</source>
+        <translation>Jetzt eine Version aufbewahren…</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is now in this list, with a name if you like</source>
+        <translation>Das Layout, wie es jetzt ist, in dieser Liste aufbewahren, wenn du magst mit einem Namen</translation>
+    </message>
+    <message>
+        <source>Keeping a version…</source>
+        <translation>Version wird aufbewahrt…</translation>
+    </message>
+    <message>
+        <source>Kept a version of the layout as it is now.</source>
+        <translation>Eine Version des Layouts, wie es jetzt ist, wurde aufbewahrt.</translation>
+    </message>
+    <message>
+        <source>Putting the version back…</source>
+        <translation>Die Version wird zurückgeholt…</translation>
+    </message>
+    <message>
+        <source>The layout is back to how it was %1. How it was just before is kept as “Before a restore”.</source>
+        <translation>Das Layout ist wieder so wie %1. Wie es kurz davor war, ist als „Vor einer Wiederherstellung“ aufbewahrt.</translation>
+    </message>
+    <message>
+        <source>Making a copy…</source>
+        <translation>Kopie wird erstellt…</translation>
+    </message>
+    <message>
+        <source>Made a new layout, “%1”, from this version. It is in File › Open from Server….</source>
+        <translation>Aus dieser Version wurde ein neues Layout erstellt: „%1“. Es ist unter Datei › Vom Server öffnen….</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Lade…</translation>
+    </message>
+    <message>
+        <source>This server doesn&apos;t keep earlier versions of layouts yet. Ask its admin to update it.</source>
+        <translation>Dieser Server bewahrt noch keine früheren Versionen von Layouts auf. Bitte seinen Admin, ihn zu aktualisieren.</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>„%1“</translation>
+    </message>
+    <message>
+        <source>%1 — %2</source>
+        <translation>%1 – %2</translation>
+    </message>
+    <message>
+        <source> · %1</source>
+        <translation> · %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s)</source>
+        <translation>
+            <numerusform>%n Teil</numerusform>
+            <numerusform>%n Teile</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n sheet(s)</source>
+        <translation>
+            <numerusform>%n Blatt</numerusform>
+            <numerusform>%n Blätter</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No versions yet. One is kept after the first edits, then every half hour while people work on the layout, and just before big changes.</source>
+        <translation>Noch keine Versionen. Eine wird nach den ersten Änderungen aufbewahrt, dann jede halbe Stunde, während am Layout gearbeitet wird, und kurz vor großen Änderungen.</translation>
+    </message>
+    <message>
+        <source>Pick a version to put it back, or to copy it out as a new layout.</source>
+        <translation>Wähle eine Version, um sie zurückzuholen oder als neues Layout herauszukopieren.</translation>
+    </message>
+    <message>
+        <source>Pick a version to copy it out as a new layout. Only the layout&apos;s editors can put one back.</source>
+        <translation>Wähle eine Version, um sie als neues Layout herauszukopieren. Nur die Bearbeiter des Layouts können eine zurückholen.</translation>
     </message>
 </context>
 <context>

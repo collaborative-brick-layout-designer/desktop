@@ -143,6 +143,30 @@
         <translation>选择移动后的模型，或任何其他模型，零件就会用它重新生成，编号、转向和对齐方式保持不变。之后“重新导入”会使用你选的这个文件。</translation>
     </message>
     <message>
+        <source>Earlier saves</source>
+        <translation>以前的保存</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time you saved over it.</source>
+        <translation>每次覆盖保存布局文件之前，该文件的副本。</translation>
+    </message>
+    <message>
+        <source>Open one as a copy to look at it or save it under a new name; the file stays as it is. Put Back makes the file as it was then, after keeping the file as it is now, so you can put that back too.</source>
+        <translation>将其中一个作为副本打开，以便查看或另存为新名称；文件本身保持不变。“恢复”会把文件变回当时的样子，并先保留文件现在的样子，这样你也可以把它恢复回来。</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep</source>
+        <translation>要保留的以前保存</translation>
+    </message>
+    <message>
+        <source>How many copies of each layout file to keep from before you saved over it.</source>
+        <translation>每个布局文件在覆盖保存之前要保留多少份副本。</translation>
+    </message>
+    <message>
+        <source>They are kept on this computer, in the app’s own folder, and the oldest go first. None keeps no copies; changes you never saved are kept apart, for File › Recover Unsaved Work….</source>
+        <translation>它们保存在这台电脑上、应用自己的文件夹中，最旧的最先删除。选择“无”则不保留副本；从未保存的更改另行保存，供“文件 › 恢复未保存的工作…”使用。</translation>
+    </message>
+    <message>
         <source>Parts without a budget</source>
         <translation>没有预算的零件</translation>
     </message>
@@ -937,6 +961,18 @@
     <message>
         <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
         <translation>警告和错误的颜色在两种情况下都保持原意。任何颜色下文字都容易阅读。</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>版本历史</translation>
+    </message>
+    <message>
+        <source>Earlier versions of this layout, kept while people work on it, to look at, put back or copy out.</source>
+        <translation>这个布局以前的版本，在大家编辑时保留，可以查看、恢复或复制出来。</translation>
+    </message>
+    <message>
+        <source>A version is kept every half hour of editing, and just before big changes like an import, a restore or many parts deleted at once. Putting one back keeps the layout as it was first, so you can go back again. Copy one out to have it as a new layout and leave this one as it is.</source>
+        <translation>编辑时每半小时保留一个版本，并在导入、恢复或一次删除很多零件等大改动之前保留一个。恢复某个版本前会先保留布局现在的样子，所以你可以再回去。把某个版本复制出来，即可作为新布局使用，而这个布局保持不变。</translation>
     </message>
     <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
@@ -5589,6 +5625,102 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::EarlierSavesDialog</name>
+    <message>
+        <source>Put back the save from %1?</source>
+        <translation>恢复 %1 的保存吗？</translation>
+    </message>
+    <message>
+        <source>%1 becomes as it was saved then.</source>
+        <translation>%1 将变回当时保存的样子。</translation>
+    </message>
+    <message>
+        <source>The file as it is now is kept first, as an earlier save, so you can put it back too.</source>
+        <translation>文件现在的样子会先作为以前的保存保留，这样你也可以把它恢复回来。</translation>
+    </message>
+    <message>
+        <source>You can undo this from File › Earlier Saves….</source>
+        <translation>可以在“文件 › 以前的保存…”中撤销。</translation>
+    </message>
+    <message>
+        <source>Put Back</source>
+        <translation>恢复</translation>
+    </message>
+    <message>
+        <source>Earlier saves</source>
+        <translation>以前的保存</translation>
+    </message>
+    <message>
+        <source>Layout file:</source>
+        <translation>布局文件：</translation>
+    </message>
+    <message>
+        <source>Layout file</source>
+        <translation>布局文件</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <source>Show Folder</source>
+        <translation>显示文件夹</translation>
+    </message>
+    <message>
+        <source>Open the folder the earlier saves of this file are kept in</source>
+        <translation>打开保存这个文件以前保存的文件夹</translation>
+    </message>
+    <message>
+        <source>Put Back…</source>
+        <translation>恢复…</translation>
+    </message>
+    <message>
+        <source>Make the file as it was in the picked save (the file as it is now is kept first)</source>
+        <translation>把文件变成所选保存时的样子（先保留文件现在的样子）</translation>
+    </message>
+    <message>
+        <source>Open as a Copy</source>
+        <translation>作为副本打开</translation>
+    </message>
+    <message>
+        <source>Open the picked save as a new layout, leaving the file as it is</source>
+        <translation>把所选保存作为新布局打开，文件保持不变</translation>
+    </message>
+    <message>
+        <source>Saved before %1 — %2</source>
+        <translation>%1 之前的保存 — %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>There are no earlier saves yet. Each time you save a layout over its file, the file as it was is kept here: the last %n of each file (Settings › Saving).</source>
+        <translation>
+            <numerusform>还没有以前的保存。每次你覆盖保存布局文件时，文件原来的样子都会保留在这里：每个文件保留最近 %n 份（设置 › 保存）。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Earlier saves are turned off. Turn them on in Settings › Saving.</source>
+        <translation>以前的保存已关闭。请在“设置 › 保存”中打开。</translation>
+    </message>
+    <message>
+        <source>This file has no earlier saves yet. The next time you save over it, the file as it was is kept here.</source>
+        <translation>这个文件还没有以前的保存。下次覆盖保存时，文件原来的样子会保留在这里。</translation>
+    </message>
+    <message>
+        <source>Each time this file was saved, the file as it was just before was kept. Open one as a copy to look at it, or put it back in place of the file.</source>
+        <translation>这个文件每次保存时，都会保留它在保存之前的样子。打开其中一个副本查看，或用它替换文件。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FileBackups</name>
+    <message>
+        <source>The folder for earlier saves couldn&apos;t be made: %1</source>
+        <translation>无法创建以前保存的文件夹：%1</translation>
+    </message>
+    <message>
+        <source>That earlier save isn&apos;t there any more.</source>
+        <translation>那份以前的保存已经不在了。</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::FindDialog</name>
     <message>
         <source>Find &amp;&amp; Replace</source>
@@ -8464,6 +8596,14 @@ Save anyway?</source>
         <translation>现在打开此布局的其他所有人</translation>
     </message>
     <message>
+        <source>Version Histor&amp;y…</source>
+        <translation>版本历史(&amp;Y)…</translation>
+    </message>
+    <message>
+        <source>Earlier versions of the live layout that the server keeps: put one back or copy it out. For a layout file, see Earlier Saves…</source>
+        <translation>服务器保留的在线布局以前的版本：恢复其中一个或复制出来。布局文件请看“以前的保存…”</translation>
+    </message>
+    <message>
         <source>Edit module closed</source>
         <translation>“编辑模块”已关闭</translation>
     </message>
@@ -8876,6 +9016,14 @@ Your offline changes are kept; File › Review Offline Changes brings them back.
     <message>
         <source>Cu&amp;t</source>
         <translation>剪切(&amp;T)</translation>
+    </message>
+    <message>
+        <source>Earlier Saves…</source>
+        <translation>以前的保存…</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time it was saved over: open one, or put it back</source>
+        <translation>每次覆盖保存之前布局文件的副本：打开一个，或恢复它</translation>
     </message>
     <message>
         <source>Choose a file with the … button</source>
@@ -9752,6 +9900,14 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>覆盖保存前无法保留 %1 的副本，因此没有保存任何内容。请用 文件 › 另存为… 以新名称保存。</translation>
     </message>
     <message>
+        <source>An earlier save couldn&apos;t be kept</source>
+        <translation>无法保留以前的保存</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but the file as it was before couldn&apos;t be kept in File › Earlier Saves…: %2</source>
+        <translation>%1 已保存，但保存前的文件无法保留到“文件 › 以前的保存…”：%2</translation>
+    </message>
+    <message>
         <source>A copy was kept</source>
         <translation>已保留一份副本</translation>
     </message>
@@ -9948,6 +10104,22 @@ They are kept, so you can try again from File › Recover Unsaved Work….</sour
     <message>
         <source>Recovered the unsaved changes to %1. Save to keep them.</source>
         <translation>已恢复 %1 的未保存更改。保存以便保留。</translation>
+    </message>
+    <message>
+        <source>Put back failed</source>
+        <translation>恢复失败</translation>
+    </message>
+    <message>
+        <source>The earlier save couldn&apos;t be put back in place of %1: %2</source>
+        <translation>无法用以前的保存替换 %1：%2</translation>
+    </message>
+    <message>
+        <source>Put back the save of %1 from %2. The file as it was is kept in File › Earlier Saves….</source>
+        <translation>已恢复 %1 在 %2 的保存。文件原来的样子保留在“文件 › 以前的保存…”中。</translation>
+    </message>
+    <message>
+        <source>Opened the save of %1 from %2 as a new layout. Use Save As to keep it; %1 itself is as it was.</source>
+        <translation>已把 %1 在 %2 的保存作为新布局打开。用“另存为”保留它；%1 本身保持不变。</translation>
     </message>
     <message>
         <source>Recover &amp;Unsaved Work…</source>
@@ -13808,6 +13980,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>启动</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>保存</translation>
+    </message>
+    <message>
         <source>Parts and folders</source>
         <translation>零件和文件夹</translation>
     </message>
@@ -14008,6 +14184,26 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>New layouts start from:</source>
         <translation>新布局从以下布局开始:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>无</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file</source>
+        <translation>每个文件要保留的以前保存</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file:</source>
+        <translation>每个文件要保留的以前保存：</translation>
+    </message>
+    <message>
+        <source>Each time you save over a layout file, the file as it was is kept on this computer. File › Earlier Saves… opens them or puts one back.</source>
+        <translation>每次覆盖保存布局文件时，文件原来的样子会保留在这台电脑上。“文件 › 以前的保存…”可以打开它们或恢复其中一个。</translation>
+    </message>
+    <message>
+        <source>Show Earlier Saves Folder</source>
+        <translation>显示以前保存的文件夹</translation>
     </message>
     <message>
         <source> px</source>
@@ -15922,6 +16118,177 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>(could not read file)</source>
         <translation>（无法读取文件）</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::VersionHistoryDialog</name>
+    <message>
+        <source>Put the layout back to %1?</source>
+        <translation>把布局恢复到 %1 吗？</translation>
+    </message>
+    <message>
+        <source>The layout becomes as it was in this version. Everyone working in it sees the change at once.</source>
+        <translation>布局会变成这个版本的样子。正在编辑它的每个人都会立即看到改动。</translation>
+    </message>
+    <message>
+        <source>The layout as it is now is kept in this list first (“Before a restore”), so you can go back to it.</source>
+        <translation>布局现在的样子会先保留在这个列表中（“恢复之前”），这样你可以回到它。</translation>
+    </message>
+    <message>
+        <source>To undo, restore the “Before a restore” version.</source>
+        <translation>要撤销，请恢复“恢复之前”这个版本。</translation>
+    </message>
+    <message>
+        <source>Restore This Version</source>
+        <translation>恢复这个版本</translation>
+    </message>
+    <message>
+        <source>Keep a version now</source>
+        <translation>现在保留一个版本</translation>
+    </message>
+    <message>
+        <source>A name for it (you can leave it empty), for example Before the show:</source>
+        <translation>给它起个名字（可以留空），例如：展览之前：</translation>
+    </message>
+    <message>
+        <source>Kept by hand</source>
+        <translation>手动保留</translation>
+    </message>
+    <message>
+        <source>Before a model was imported</source>
+        <translation>导入模型之前</translation>
+    </message>
+    <message>
+        <source>Before changes were merged in</source>
+        <translation>合并更改之前</translation>
+    </message>
+    <message>
+        <source>Before a restore</source>
+        <translation>恢复之前</translation>
+    </message>
+    <message>
+        <source>Before many parts were deleted</source>
+        <translation>删除很多零件之前</translation>
+    </message>
+    <message>
+        <source>While editing</source>
+        <translation>编辑时</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>版本历史</translation>
+    </message>
+    <message>
+        <source>Version history of %1</source>
+        <translation>%1 的版本历史</translation>
+    </message>
+    <message>
+        <source>Versions</source>
+        <translation>版本</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <source>See on the Website</source>
+        <translation>在网站上查看</translation>
+    </message>
+    <message>
+        <source>Open the layout&apos;s history on the website, which draws each version</source>
+        <translation>在网站上打开布局的历史，网站会画出每个版本</translation>
+    </message>
+    <message>
+        <source>Copy as a New Layout</source>
+        <translation>复制为新布局</translation>
+    </message>
+    <message>
+        <source>Make a new layout of yours from the picked version; this one stays as it is</source>
+        <translation>用所选版本新建一个属于你的布局；这个布局保持不变</translation>
+    </message>
+    <message>
+        <source>Restore…</source>
+        <translation>恢复…</translation>
+    </message>
+    <message>
+        <source>Put the layout back to the picked version (the layout as it is now is kept first)</source>
+        <translation>把布局恢复到所选版本（先保留布局现在的样子）</translation>
+    </message>
+    <message>
+        <source>Keep a Version Now…</source>
+        <translation>现在保留一个版本…</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is now in this list, with a name if you like</source>
+        <translation>把布局现在的样子保留在这个列表中，可以起个名字</translation>
+    </message>
+    <message>
+        <source>Keeping a version…</source>
+        <translation>正在保留版本…</translation>
+    </message>
+    <message>
+        <source>Kept a version of the layout as it is now.</source>
+        <translation>已保留布局现在的一个版本。</translation>
+    </message>
+    <message>
+        <source>Putting the version back…</source>
+        <translation>正在恢复版本…</translation>
+    </message>
+    <message>
+        <source>The layout is back to how it was %1. How it was just before is kept as “Before a restore”.</source>
+        <translation>布局已回到 %1 的样子。恢复之前的样子保留为“恢复之前”。</translation>
+    </message>
+    <message>
+        <source>Making a copy…</source>
+        <translation>正在复制…</translation>
+    </message>
+    <message>
+        <source>Made a new layout, “%1”, from this version. It is in File › Open from Server….</source>
+        <translation>已用这个版本新建布局“%1”。它在“文件 › 从服务器打开…”中。</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>正在加载…</translation>
+    </message>
+    <message>
+        <source>This server doesn&apos;t keep earlier versions of layouts yet. Ask its admin to update it.</source>
+        <translation>这个服务器还不保留布局以前的版本。请让它的管理员更新服务器。</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>“%1”</translation>
+    </message>
+    <message>
+        <source>%1 — %2</source>
+        <translation>%1 — %2</translation>
+    </message>
+    <message>
+        <source> · %1</source>
+        <translation> · %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s)</source>
+        <translation>
+            <numerusform>%n 个零件</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n sheet(s)</source>
+        <translation>
+            <numerusform>%n 张图纸</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No versions yet. One is kept after the first edits, then every half hour while people work on the layout, and just before big changes.</source>
+        <translation>还没有版本。第一次编辑后会保留一个，之后编辑时每半小时一个，并在大改动之前保留。</translation>
+    </message>
+    <message>
+        <source>Pick a version to put it back, or to copy it out as a new layout.</source>
+        <translation>选择一个版本来恢复，或复制为新布局。</translation>
+    </message>
+    <message>
+        <source>Pick a version to copy it out as a new layout. Only the layout&apos;s editors can put one back.</source>
+        <translation>选择一个版本复制为新布局。只有布局的编辑者才能恢复版本。</translation>
     </message>
 </context>
 <context>

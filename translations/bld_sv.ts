@@ -143,6 +143,30 @@
         <translation>Välj modellen på dess nya plats, eller vilken annan modell som helst, så görs delen om från den med samma nummer, vridning och justering. Därefter använder Importera igen den fil du valde.</translation>
     </message>
     <message>
+        <source>Earlier saves</source>
+        <translation>Tidigare sparningar</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time you saved over it.</source>
+        <translation>Kopior av en layoutfil från före varje gång du sparade över den.</translation>
+    </message>
+    <message>
+        <source>Open one as a copy to look at it or save it under a new name; the file stays as it is. Put Back makes the file as it was then, after keeping the file as it is now, so you can put that back too.</source>
+        <translation>Öppna en som kopia för att titta på den eller spara den under ett nytt namn; filen förblir som den är. Lägg tillbaka gör filen som den var då, efter att filen som den är nu har sparats undan, så att du kan lägga tillbaka den också.</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep</source>
+        <translation>Tidigare sparningar att behålla</translation>
+    </message>
+    <message>
+        <source>How many copies of each layout file to keep from before you saved over it.</source>
+        <translation>Hur många kopior av varje layoutfil som behålls från före varje gång du sparade över den.</translation>
+    </message>
+    <message>
+        <source>They are kept on this computer, in the app’s own folder, and the oldest go first. None keeps no copies; changes you never saved are kept apart, for File › Recover Unsaved Work….</source>
+        <translation>De behålls på den här datorn, i appens egen mapp, och de äldsta försvinner först. Ingen behåller inga kopior; ändringar du aldrig sparade behålls för sig, för Arkiv › Återställ osparat arbete….</translation>
+    </message>
+    <message>
         <source>Parts without a budget</source>
         <translation>Delar utan budget</translation>
     </message>
@@ -937,6 +961,18 @@
     <message>
         <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
         <translation>Varnings- och felfärger behåller sin betydelse i båda fallen. Texten förblir lätt att läsa med alla färger.</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>Versionshistorik</translation>
+    </message>
+    <message>
+        <source>Earlier versions of this layout, kept while people work on it, to look at, put back or copy out.</source>
+        <translation>Tidigare versioner av den här layouten, behållna medan man arbetar med den, att titta på, lägga tillbaka eller kopiera ut.</translation>
+    </message>
+    <message>
+        <source>A version is kept every half hour of editing, and just before big changes like an import, a restore or many parts deleted at once. Putting one back keeps the layout as it was first, so you can go back again. Copy one out to have it as a new layout and leave this one as it is.</source>
+        <translation>En version behålls för varje halvtimme av redigering och strax före stora ändringar som en import, en återställning eller många delar borttagna på en gång. När du lägger tillbaka en behålls layouten som den är först, så att du kan gå tillbaka igen. Kopiera ut en för att ha den som en ny layout och låta den här vara som den är.</translation>
     </message>
     <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
@@ -5624,6 +5660,103 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::EarlierSavesDialog</name>
+    <message>
+        <source>Put back the save from %1?</source>
+        <translation>Lägga tillbaka sparningen från %1?</translation>
+    </message>
+    <message>
+        <source>%1 becomes as it was saved then.</source>
+        <translation>%1 blir som den var sparad då.</translation>
+    </message>
+    <message>
+        <source>The file as it is now is kept first, as an earlier save, so you can put it back too.</source>
+        <translation>Filen som den är nu behålls först, som en tidigare sparning, så att du kan lägga tillbaka den också.</translation>
+    </message>
+    <message>
+        <source>You can undo this from File › Earlier Saves….</source>
+        <translation>Du kan ångra det via Arkiv › Tidigare sparningar….</translation>
+    </message>
+    <message>
+        <source>Put Back</source>
+        <translation>Lägg tillbaka</translation>
+    </message>
+    <message>
+        <source>Earlier saves</source>
+        <translation>Tidigare sparningar</translation>
+    </message>
+    <message>
+        <source>Layout file:</source>
+        <translation>Layoutfil:</translation>
+    </message>
+    <message>
+        <source>Layout file</source>
+        <translation>Layoutfil</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Stäng</translation>
+    </message>
+    <message>
+        <source>Show Folder</source>
+        <translation>Visa mapp</translation>
+    </message>
+    <message>
+        <source>Open the folder the earlier saves of this file are kept in</source>
+        <translation>Öppna mappen där tidigare sparningar av den här filen behålls</translation>
+    </message>
+    <message>
+        <source>Put Back…</source>
+        <translation>Lägg tillbaka…</translation>
+    </message>
+    <message>
+        <source>Make the file as it was in the picked save (the file as it is now is kept first)</source>
+        <translation>Gör filen som i den valda sparningen (filen som den är nu behålls först)</translation>
+    </message>
+    <message>
+        <source>Open as a Copy</source>
+        <translation>Öppna som kopia</translation>
+    </message>
+    <message>
+        <source>Open the picked save as a new layout, leaving the file as it is</source>
+        <translation>Öppna den valda sparningen som en ny layout och låt filen vara som den är</translation>
+    </message>
+    <message>
+        <source>Saved before %1 — %2</source>
+        <translation>Sparad före %1 — %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>There are no earlier saves yet. Each time you save a layout over its file, the file as it was is kept here: the last %n of each file (Settings › Saving).</source>
+        <translation>
+            <numerusform>Det finns inga tidigare sparningar än. Varje gång du sparar en layout över dess fil behålls filen som den var här: de senaste %n av varje fil (Inställningar › Spara).</numerusform>
+            <numerusform>Det finns inga tidigare sparningar än. Varje gång du sparar en layout över dess fil behålls filen som den var här: de senaste %n av varje fil (Inställningar › Spara).</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Earlier saves are turned off. Turn them on in Settings › Saving.</source>
+        <translation>Tidigare sparningar är avstängda. Slå på dem i Inställningar › Spara.</translation>
+    </message>
+    <message>
+        <source>This file has no earlier saves yet. The next time you save over it, the file as it was is kept here.</source>
+        <translation>Den här filen har inga tidigare sparningar än. Nästa gång du sparar över den behålls filen som den var här.</translation>
+    </message>
+    <message>
+        <source>Each time this file was saved, the file as it was just before was kept. Open one as a copy to look at it, or put it back in place of the file.</source>
+        <translation>Varje gång den här filen sparades behölls den som den var strax före. Öppna en som kopia för att titta på den, eller lägg tillbaka den i stället för filen.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FileBackups</name>
+    <message>
+        <source>The folder for earlier saves couldn&apos;t be made: %1</source>
+        <translation>Mappen för tidigare sparningar kunde inte skapas: %1</translation>
+    </message>
+    <message>
+        <source>That earlier save isn&apos;t there any more.</source>
+        <translation>Den tidigare sparningen finns inte längre.</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::FindDialog</name>
     <message>
         <source>Find &amp;&amp; Replace</source>
@@ -8558,6 +8691,14 @@ Spara ändå?</translation>
         <translation>Öppna senas&amp;te</translation>
     </message>
     <message>
+        <source>Earlier Saves…</source>
+        <translation>Tidigare sparningar…</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time it was saved over: open one, or put it back</source>
+        <translation>Kopior av en layoutfil från före varje gång den sparades över: öppna en eller lägg tillbaka den</translation>
+    </message>
+    <message>
         <source>&amp;Save</source>
         <translation>&amp;Spara</translation>
     </message>
@@ -8962,6 +9103,14 @@ Spara ändå?</translation>
     <message>
         <source>Everyone else who has this layout open now</source>
         <translation>Alla andra som har den här layouten öppen nu</translation>
+    </message>
+    <message>
+        <source>Version Histor&amp;y…</source>
+        <translation>Versions&amp;historik…</translation>
+    </message>
+    <message>
+        <source>Earlier versions of the live layout that the server keeps: put one back or copy it out. For a layout file, see Earlier Saves…</source>
+        <translation>Tidigare versioner av live-layouten som servern behåller: lägg tillbaka en eller kopiera ut den. För en layoutfil, se Tidigare sparningar…</translation>
     </message>
     <message>
         <source>Edit module closed</source>
@@ -9827,6 +9976,14 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
         <translation>Det gick inte att behålla en kopia av %1 innan den sparades över, så inget sparades. Använd Arkiv › Spara som… för att spara under ett nytt namn.</translation>
     </message>
     <message>
+        <source>An earlier save couldn&apos;t be kept</source>
+        <translation>En tidigare sparning kunde inte behållas</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but the file as it was before couldn&apos;t be kept in File › Earlier Saves…: %2</source>
+        <translation>%1 sparades, men filen som den var före kunde inte behållas i Arkiv › Tidigare sparningar…: %2</translation>
+    </message>
+    <message>
         <source>A copy was kept</source>
         <translation>En kopia sparades</translation>
     </message>
@@ -10025,6 +10182,22 @@ De finns kvar, så du kan försöka igen via Arkiv › Återställ osparat arbet
     <message>
         <source>Recovered the unsaved changes to %1. Save to keep them.</source>
         <translation>De osparade ändringarna i %1 återställdes. Spara för att behålla dem.</translation>
+    </message>
+    <message>
+        <source>Put back failed</source>
+        <translation>Kunde inte lägga tillbaka</translation>
+    </message>
+    <message>
+        <source>The earlier save couldn&apos;t be put back in place of %1: %2</source>
+        <translation>Den tidigare sparningen kunde inte läggas tillbaka i stället för %1: %2</translation>
+    </message>
+    <message>
+        <source>Put back the save of %1 from %2. The file as it was is kept in File › Earlier Saves….</source>
+        <translation>Sparningen av %1 från %2 är tillbakalagd. Filen som den var finns i Arkiv › Tidigare sparningar….</translation>
+    </message>
+    <message>
+        <source>Opened the save of %1 from %2 as a new layout. Use Save As to keep it; %1 itself is as it was.</source>
+        <translation>Sparningen av %1 från %2 öppnades som en ny layout. Använd Spara som för att behålla den; %1 är som den var.</translation>
     </message>
     <message>
         <source>Recover &amp;Unsaved Work…</source>
@@ -13905,6 +14078,10 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Vid start</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Spara</translation>
+    </message>
+    <message>
         <source>Parts and folders</source>
         <translation>Delar och mappar</translation>
     </message>
@@ -14106,6 +14283,26 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>New layouts start from:</source>
         <translation>Nya layouter utgår från:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ingen</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file</source>
+        <translation>Tidigare sparningar att behålla av varje fil</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file:</source>
+        <translation>Tidigare sparningar att behålla av varje fil:</translation>
+    </message>
+    <message>
+        <source>Each time you save over a layout file, the file as it was is kept on this computer. File › Earlier Saves… opens them or puts one back.</source>
+        <translation>Varje gång du sparar över en layoutfil behålls filen som den var på den här datorn. Arkiv › Tidigare sparningar… öppnar dem eller lägger tillbaka en.</translation>
+    </message>
+    <message>
+        <source>Show Earlier Saves Folder</source>
+        <translation>Visa mappen med tidigare sparningar</translation>
     </message>
     <message>
         <source> px</source>
@@ -16024,6 +16221,179 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>(could not read file)</source>
         <translation>(kunde inte läsa filen)</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::VersionHistoryDialog</name>
+    <message>
+        <source>Put the layout back to %1?</source>
+        <translation>Ställa tillbaka layouten till %1?</translation>
+    </message>
+    <message>
+        <source>The layout becomes as it was in this version. Everyone working in it sees the change at once.</source>
+        <translation>Layouten blir som den var i den här versionen. Alla som arbetar med den ser ändringen direkt.</translation>
+    </message>
+    <message>
+        <source>The layout as it is now is kept in this list first (“Before a restore”), so you can go back to it.</source>
+        <translation>Layouten som den är nu behålls först i den här listan (”Före en återställning”), så att du kan gå tillbaka till den.</translation>
+    </message>
+    <message>
+        <source>To undo, restore the “Before a restore” version.</source>
+        <translation>För att ångra, återställ versionen ”Före en återställning”.</translation>
+    </message>
+    <message>
+        <source>Restore This Version</source>
+        <translation>Återställ den här versionen</translation>
+    </message>
+    <message>
+        <source>Keep a version now</source>
+        <translation>Behåll en version nu</translation>
+    </message>
+    <message>
+        <source>A name for it (you can leave it empty), for example Before the show:</source>
+        <translation>Ett namn på den (kan lämnas tomt), till exempel Före utställningen:</translation>
+    </message>
+    <message>
+        <source>Kept by hand</source>
+        <translation>Behållen för hand</translation>
+    </message>
+    <message>
+        <source>Before a model was imported</source>
+        <translation>Innan en modell importerades</translation>
+    </message>
+    <message>
+        <source>Before changes were merged in</source>
+        <translation>Innan ändringar slogs ihop</translation>
+    </message>
+    <message>
+        <source>Before a restore</source>
+        <translation>Före en återställning</translation>
+    </message>
+    <message>
+        <source>Before many parts were deleted</source>
+        <translation>Innan många delar togs bort</translation>
+    </message>
+    <message>
+        <source>While editing</source>
+        <translation>Under redigering</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>Versionshistorik</translation>
+    </message>
+    <message>
+        <source>Version history of %1</source>
+        <translation>Versionshistorik för %1</translation>
+    </message>
+    <message>
+        <source>Versions</source>
+        <translation>Versioner</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Stäng</translation>
+    </message>
+    <message>
+        <source>See on the Website</source>
+        <translation>Se på webbplatsen</translation>
+    </message>
+    <message>
+        <source>Open the layout&apos;s history on the website, which draws each version</source>
+        <translation>Öppna layoutens historik på webbplatsen, som ritar varje version</translation>
+    </message>
+    <message>
+        <source>Copy as a New Layout</source>
+        <translation>Kopiera som ny layout</translation>
+    </message>
+    <message>
+        <source>Make a new layout of yours from the picked version; this one stays as it is</source>
+        <translation>Gör en ny layout av din från den valda versionen; den här förblir som den är</translation>
+    </message>
+    <message>
+        <source>Restore…</source>
+        <translation>Återställ…</translation>
+    </message>
+    <message>
+        <source>Put the layout back to the picked version (the layout as it is now is kept first)</source>
+        <translation>Ställ tillbaka layouten till den valda versionen (layouten som den är nu behålls först)</translation>
+    </message>
+    <message>
+        <source>Keep a Version Now…</source>
+        <translation>Behåll en version nu…</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is now in this list, with a name if you like</source>
+        <translation>Behåll layouten som den är nu i den här listan, med ett namn om du vill</translation>
+    </message>
+    <message>
+        <source>Keeping a version…</source>
+        <translation>Behåller en version…</translation>
+    </message>
+    <message>
+        <source>Kept a version of the layout as it is now.</source>
+        <translation>En version av layouten som den är nu har behållits.</translation>
+    </message>
+    <message>
+        <source>Putting the version back…</source>
+        <translation>Lägger tillbaka versionen…</translation>
+    </message>
+    <message>
+        <source>The layout is back to how it was %1. How it was just before is kept as “Before a restore”.</source>
+        <translation>Layouten är som den var %1 igen. Hur den var strax före behålls som ”Före en återställning”.</translation>
+    </message>
+    <message>
+        <source>Making a copy…</source>
+        <translation>Gör en kopia…</translation>
+    </message>
+    <message>
+        <source>Made a new layout, “%1”, from this version. It is in File › Open from Server….</source>
+        <translation>En ny layout, ”%1”, gjordes från den här versionen. Den finns i Arkiv › Öppna från server….</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Läser in…</translation>
+    </message>
+    <message>
+        <source>This server doesn&apos;t keep earlier versions of layouts yet. Ask its admin to update it.</source>
+        <translation>Den här servern behåller inte tidigare versioner av layouter än. Be dess administratör uppdatera den.</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>”%1”</translation>
+    </message>
+    <message>
+        <source>%1 — %2</source>
+        <translation>%1 — %2</translation>
+    </message>
+    <message>
+        <source> · %1</source>
+        <translation> · %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s)</source>
+        <translation>
+            <numerusform>%n del</numerusform>
+            <numerusform>%n delar</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n sheet(s)</source>
+        <translation>
+            <numerusform>%n blad</numerusform>
+            <numerusform>%n blad</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No versions yet. One is kept after the first edits, then every half hour while people work on the layout, and just before big changes.</source>
+        <translation>Inga versioner än. En behålls efter de första ändringarna, sedan varje halvtimme medan man arbetar med layouten, och strax före stora ändringar.</translation>
+    </message>
+    <message>
+        <source>Pick a version to put it back, or to copy it out as a new layout.</source>
+        <translation>Välj en version för att lägga tillbaka den eller kopiera ut den som en ny layout.</translation>
+    </message>
+    <message>
+        <source>Pick a version to copy it out as a new layout. Only the layout&apos;s editors can put one back.</source>
+        <translation>Välj en version för att kopiera ut den som en ny layout. Bara layoutens redigerare kan lägga tillbaka en.</translation>
     </message>
 </context>
 <context>

@@ -101,6 +101,19 @@ constexpr Raw kDesktopOnly[] = {
       QT_TRANSLATE_NOOP("HelpTexts", "Pick the model in its new place, or any other model, and the part is "
                                      "made again from it with the same number, turn and alignment. From then "
                                      "on, Re-import uses the file you picked.") },
+    // File › Earlier Saves… and Settings › Saving (FileBackups.h)
+    { "file.earlierSaves", "",
+      QT_TRANSLATE_NOOP("HelpTexts", "Earlier saves"),
+      QT_TRANSLATE_NOOP("HelpTexts", "Copies of a layout file from before each time you saved over it."),
+      QT_TRANSLATE_NOOP("HelpTexts", "Open one as a copy to look at it or save it under a new name; the file "
+                                     "stays as it is. Put Back makes the file as it was then, after keeping the "
+                                     "file as it is now, so you can put that back too.") },
+    { "prefs.fileBackups", "",
+      QT_TRANSLATE_NOOP("HelpTexts", "Earlier saves to keep"),
+      QT_TRANSLATE_NOOP("HelpTexts", "How many copies of each layout file to keep from before you saved over it."),
+      QT_TRANSLATE_NOOP("HelpTexts", "They are kept on this computer, in the app’s own folder, and the oldest go "
+                                     "first. None keeps no copies; changes you never saved are kept apart, for "
+                                     "File › Recover Unsaved Work….") },
     // Preferences (Edit > Preferences...)
     { "prefs.budgetUnlimited", "",
       QT_TRANSLATE_NOOP("HelpTexts", "Parts without a budget"),

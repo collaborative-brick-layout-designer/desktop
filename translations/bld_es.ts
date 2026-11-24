@@ -143,6 +143,30 @@
         <translation>Elige el modelo en su nuevo sitio, o cualquier otro modelo, y la pieza se rehace a partir de él con el mismo número, giro y alineación. A partir de entonces, Reimportar usa el archivo que elegiste.</translation>
     </message>
     <message>
+        <source>Earlier saves</source>
+        <translation>Guardados anteriores</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time you saved over it.</source>
+        <translation>Copias de un archivo de maqueta de antes de cada vez que lo guardaste encima.</translation>
+    </message>
+    <message>
+        <source>Open one as a copy to look at it or save it under a new name; the file stays as it is. Put Back makes the file as it was then, after keeping the file as it is now, so you can put that back too.</source>
+        <translation>Abre una como copia para verla o guardarla con otro nombre; el archivo queda como está. Recuperar deja el archivo como estaba entonces, después de guardar el archivo tal como está, para que también puedas recuperarlo.</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep</source>
+        <translation>Guardados anteriores que conservar</translation>
+    </message>
+    <message>
+        <source>How many copies of each layout file to keep from before you saved over it.</source>
+        <translation>Cuántas copias de cada archivo de maqueta conservar de antes de guardarlo encima.</translation>
+    </message>
+    <message>
+        <source>They are kept on this computer, in the app’s own folder, and the oldest go first. None keeps no copies; changes you never saved are kept apart, for File › Recover Unsaved Work….</source>
+        <translation>Se conservan en este ordenador, en la carpeta de la aplicación, y las más antiguas se van primero. Ninguno no conserva copias; los cambios que nunca guardaste se conservan aparte, para Archivo › Recuperar trabajo sin guardar….</translation>
+    </message>
+    <message>
         <source>Parts without a budget</source>
         <translation>Piezas sin presupuesto</translation>
     </message>
@@ -937,6 +961,18 @@
     <message>
         <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
         <translation>Los colores de aviso y de error mantienen su significado en ambos casos. El texto se lee bien con cualquier color.</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>Historial de versiones</translation>
+    </message>
+    <message>
+        <source>Earlier versions of this layout, kept while people work on it, to look at, put back or copy out.</source>
+        <translation>Versiones anteriores de esta maqueta, conservadas mientras se trabaja en ella, para verlas, recuperarlas o copiarlas.</translation>
+    </message>
+    <message>
+        <source>A version is kept every half hour of editing, and just before big changes like an import, a restore or many parts deleted at once. Putting one back keeps the layout as it was first, so you can go back again. Copy one out to have it as a new layout and leave this one as it is.</source>
+        <translation>Se conserva una versión cada media hora de edición, y justo antes de cambios grandes como una importación, una restauración o muchas piezas borradas a la vez. Al recuperar una, primero se conserva la maqueta como está, para que puedas volver. Copia una para tenerla como maqueta nueva y dejar esta como está.</translation>
     </message>
     <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
@@ -5624,6 +5660,103 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::EarlierSavesDialog</name>
+    <message>
+        <source>Put back the save from %1?</source>
+        <translation>¿Recuperar el guardado del %1?</translation>
+    </message>
+    <message>
+        <source>%1 becomes as it was saved then.</source>
+        <translation>%1 vuelve a quedar como estaba guardado entonces.</translation>
+    </message>
+    <message>
+        <source>The file as it is now is kept first, as an earlier save, so you can put it back too.</source>
+        <translation>El archivo tal como está ahora se conserva primero, como guardado anterior, para que también puedas recuperarlo.</translation>
+    </message>
+    <message>
+        <source>You can undo this from File › Earlier Saves….</source>
+        <translation>Puedes deshacerlo desde Archivo › Guardados anteriores….</translation>
+    </message>
+    <message>
+        <source>Put Back</source>
+        <translation>Recuperar</translation>
+    </message>
+    <message>
+        <source>Earlier saves</source>
+        <translation>Guardados anteriores</translation>
+    </message>
+    <message>
+        <source>Layout file:</source>
+        <translation>Archivo de maqueta:</translation>
+    </message>
+    <message>
+        <source>Layout file</source>
+        <translation>Archivo de maqueta</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Cerrar</translation>
+    </message>
+    <message>
+        <source>Show Folder</source>
+        <translation>Mostrar carpeta</translation>
+    </message>
+    <message>
+        <source>Open the folder the earlier saves of this file are kept in</source>
+        <translation>Abrir la carpeta donde se conservan los guardados anteriores de este archivo</translation>
+    </message>
+    <message>
+        <source>Put Back…</source>
+        <translation>Recuperar…</translation>
+    </message>
+    <message>
+        <source>Make the file as it was in the picked save (the file as it is now is kept first)</source>
+        <translation>Dejar el archivo como en el guardado elegido (primero se conserva el archivo tal como está)</translation>
+    </message>
+    <message>
+        <source>Open as a Copy</source>
+        <translation>Abrir como copia</translation>
+    </message>
+    <message>
+        <source>Open the picked save as a new layout, leaving the file as it is</source>
+        <translation>Abrir el guardado elegido como maqueta nueva, sin tocar el archivo</translation>
+    </message>
+    <message>
+        <source>Saved before %1 — %2</source>
+        <translation>Guardado antes de %1 — %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>There are no earlier saves yet. Each time you save a layout over its file, the file as it was is kept here: the last %n of each file (Settings › Saving).</source>
+        <translation>
+            <numerusform>Todavía no hay guardados anteriores. Cada vez que guardas una maqueta encima de su archivo, el archivo como estaba se conserva aquí: los últimos %n de cada archivo (Ajustes › Guardado).</numerusform>
+            <numerusform>Todavía no hay guardados anteriores. Cada vez que guardas una maqueta encima de su archivo, el archivo como estaba se conserva aquí: los últimos %n de cada archivo (Ajustes › Guardado).</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Earlier saves are turned off. Turn them on in Settings › Saving.</source>
+        <translation>Los guardados anteriores están desactivados. Actívalos en Ajustes › Guardado.</translation>
+    </message>
+    <message>
+        <source>This file has no earlier saves yet. The next time you save over it, the file as it was is kept here.</source>
+        <translation>Este archivo todavía no tiene guardados anteriores. La próxima vez que lo guardes encima, el archivo como estaba se conservará aquí.</translation>
+    </message>
+    <message>
+        <source>Each time this file was saved, the file as it was just before was kept. Open one as a copy to look at it, or put it back in place of the file.</source>
+        <translation>Cada vez que se guardó este archivo, se conservó como estaba justo antes. Abre uno como copia para verlo, o recupéralo en lugar del archivo.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FileBackups</name>
+    <message>
+        <source>The folder for earlier saves couldn&apos;t be made: %1</source>
+        <translation>No se pudo crear la carpeta de guardados anteriores: %1</translation>
+    </message>
+    <message>
+        <source>That earlier save isn&apos;t there any more.</source>
+        <translation>Ese guardado anterior ya no está.</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::FindDialog</name>
     <message>
         <source>Find &amp;&amp; Replace</source>
@@ -8517,6 +8650,14 @@ Save anyway?</source>
         <translation>Todas las demás personas que tienen este diseño abierto ahora</translation>
     </message>
     <message>
+        <source>Version Histor&amp;y…</source>
+        <translation>Histor&amp;ial de versiones…</translation>
+    </message>
+    <message>
+        <source>Earlier versions of the live layout that the server keeps: put one back or copy it out. For a layout file, see Earlier Saves…</source>
+        <translation>Versiones anteriores de la maqueta en directo que conserva el servidor: recupera una o cópiala. Para un archivo de maqueta, mira Guardados anteriores…</translation>
+    </message>
+    <message>
         <source>Edit module closed</source>
         <translation>Se cerró Editar módulo</translation>
     </message>
@@ -8937,6 +9078,14 @@ Tus cambios sin conexión se conservan; Archivo › Revisar cambios sin conexió
     <message>
         <source>Cu&amp;t</source>
         <translation>Cor&amp;tar</translation>
+    </message>
+    <message>
+        <source>Earlier Saves…</source>
+        <translation>Guardados anteriores…</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time it was saved over: open one, or put it back</source>
+        <translation>Copias de un archivo de maqueta de antes de cada vez que se guardó encima: abre una o recupérala</translation>
     </message>
     <message>
         <source>Choose a file with the … button</source>
@@ -9827,6 +9976,14 @@ No se te volverá a preguntar. Para traerlo más tarde a esta o a cualquier otra
         <translation>No se pudo guardar una copia de %1 antes de guardar sobre él, así que no se guardó nada. Usa Archivo › Guardar como… para guardar con otro nombre.</translation>
     </message>
     <message>
+        <source>An earlier save couldn&apos;t be kept</source>
+        <translation>No se pudo conservar un guardado anterior</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but the file as it was before couldn&apos;t be kept in File › Earlier Saves…: %2</source>
+        <translation>%1 se guardó, pero el archivo como estaba antes no se pudo conservar en Archivo › Guardados anteriores…: %2</translation>
+    </message>
+    <message>
         <source>A copy was kept</source>
         <translation>Se guardó una copia</translation>
     </message>
@@ -10025,6 +10182,22 @@ Se conservan, así que puedes volver a intentarlo desde Archivo › Recuperar tr
     <message>
         <source>Recovered the unsaved changes to %1. Save to keep them.</source>
         <translation>Se recuperaron los cambios sin guardar de %1. Guarda para conservarlos.</translation>
+    </message>
+    <message>
+        <source>Put back failed</source>
+        <translation>No se pudo recuperar</translation>
+    </message>
+    <message>
+        <source>The earlier save couldn&apos;t be put back in place of %1: %2</source>
+        <translation>El guardado anterior no se pudo recuperar en lugar de %1: %2</translation>
+    </message>
+    <message>
+        <source>Put back the save of %1 from %2. The file as it was is kept in File › Earlier Saves….</source>
+        <translation>Se recuperó el guardado de %1 del %2. El archivo como estaba se conserva en Archivo › Guardados anteriores….</translation>
+    </message>
+    <message>
+        <source>Opened the save of %1 from %2 as a new layout. Use Save As to keep it; %1 itself is as it was.</source>
+        <translation>Se abrió el guardado de %1 del %2 como maqueta nueva. Usa Guardar como para conservarla; %1 sigue como estaba.</translation>
     </message>
     <message>
         <source>Recover &amp;Unsaved Work…</source>
@@ -13905,6 +14078,10 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
         <translation>Al empezar</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Guardado</translation>
+    </message>
+    <message>
         <source>Parts and folders</source>
         <translation>Piezas y carpetas</translation>
     </message>
@@ -14106,6 +14283,26 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>New layouts start from:</source>
         <translation>Las maquetas nuevas parten de:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ninguno</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file</source>
+        <translation>Guardados anteriores que conservar de cada archivo</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file:</source>
+        <translation>Guardados anteriores que conservar de cada archivo:</translation>
+    </message>
+    <message>
+        <source>Each time you save over a layout file, the file as it was is kept on this computer. File › Earlier Saves… opens them or puts one back.</source>
+        <translation>Cada vez que guardas encima de un archivo de maqueta, el archivo como estaba se conserva en este ordenador. Archivo › Guardados anteriores… los abre o recupera uno.</translation>
+    </message>
+    <message>
+        <source>Show Earlier Saves Folder</source>
+        <translation>Mostrar la carpeta de guardados anteriores</translation>
     </message>
     <message>
         <source> px</source>
@@ -16024,6 +16221,179 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>(could not read file)</source>
         <translation>(no se pudo leer el archivo)</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::VersionHistoryDialog</name>
+    <message>
+        <source>Put the layout back to %1?</source>
+        <translation>¿Devolver la maqueta al %1?</translation>
+    </message>
+    <message>
+        <source>The layout becomes as it was in this version. Everyone working in it sees the change at once.</source>
+        <translation>La maqueta queda como estaba en esta versión. Todos los que trabajan en ella ven el cambio al momento.</translation>
+    </message>
+    <message>
+        <source>The layout as it is now is kept in this list first (“Before a restore”), so you can go back to it.</source>
+        <translation>La maqueta tal como está ahora se conserva primero en esta lista («Antes de una restauración»), para que puedas volver a él.</translation>
+    </message>
+    <message>
+        <source>To undo, restore the “Before a restore” version.</source>
+        <translation>Para deshacerlo, restaura la versión «Antes de una restauración».</translation>
+    </message>
+    <message>
+        <source>Restore This Version</source>
+        <translation>Restaurar esta versión</translation>
+    </message>
+    <message>
+        <source>Keep a version now</source>
+        <translation>Conservar una versión ahora</translation>
+    </message>
+    <message>
+        <source>A name for it (you can leave it empty), for example Before the show:</source>
+        <translation>Un nombre para ella (puede quedar vacío), por ejemplo Antes de la exposición:</translation>
+    </message>
+    <message>
+        <source>Kept by hand</source>
+        <translation>Conservada a mano</translation>
+    </message>
+    <message>
+        <source>Before a model was imported</source>
+        <translation>Antes de importar un modelo</translation>
+    </message>
+    <message>
+        <source>Before changes were merged in</source>
+        <translation>Antes de fusionar cambios</translation>
+    </message>
+    <message>
+        <source>Before a restore</source>
+        <translation>Antes de una restauración</translation>
+    </message>
+    <message>
+        <source>Before many parts were deleted</source>
+        <translation>Antes de borrar muchas piezas</translation>
+    </message>
+    <message>
+        <source>While editing</source>
+        <translation>Mientras se editaba</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>Historial de versiones</translation>
+    </message>
+    <message>
+        <source>Version history of %1</source>
+        <translation>Historial de versiones de %1</translation>
+    </message>
+    <message>
+        <source>Versions</source>
+        <translation>Versiones</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Cerrar</translation>
+    </message>
+    <message>
+        <source>See on the Website</source>
+        <translation>Ver en la web</translation>
+    </message>
+    <message>
+        <source>Open the layout&apos;s history on the website, which draws each version</source>
+        <translation>Abrir el historial de la maqueta en la web, que dibuja cada versión</translation>
+    </message>
+    <message>
+        <source>Copy as a New Layout</source>
+        <translation>Copiar como maqueta nueva</translation>
+    </message>
+    <message>
+        <source>Make a new layout of yours from the picked version; this one stays as it is</source>
+        <translation>Hacer una maqueta nueva tuya a partir de la versión elegida; esta queda como está</translation>
+    </message>
+    <message>
+        <source>Restore…</source>
+        <translation>Restaurar…</translation>
+    </message>
+    <message>
+        <source>Put the layout back to the picked version (the layout as it is now is kept first)</source>
+        <translation>Devolver la maqueta a la versión elegida (primero se conserva la maqueta tal como está)</translation>
+    </message>
+    <message>
+        <source>Keep a Version Now…</source>
+        <translation>Conservar una versión ahora…</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is now in this list, with a name if you like</source>
+        <translation>Conservar la maqueta tal como está en esta lista, con un nombre si quieres</translation>
+    </message>
+    <message>
+        <source>Keeping a version…</source>
+        <translation>Conservando una versión…</translation>
+    </message>
+    <message>
+        <source>Kept a version of the layout as it is now.</source>
+        <translation>Se conservó una versión de la maqueta tal como está.</translation>
+    </message>
+    <message>
+        <source>Putting the version back…</source>
+        <translation>Recuperando la versión…</translation>
+    </message>
+    <message>
+        <source>The layout is back to how it was %1. How it was just before is kept as “Before a restore”.</source>
+        <translation>La maqueta vuelve a estar como el %1. Cómo estaba justo antes se conserva como «Antes de una restauración».</translation>
+    </message>
+    <message>
+        <source>Making a copy…</source>
+        <translation>Haciendo una copia…</translation>
+    </message>
+    <message>
+        <source>Made a new layout, “%1”, from this version. It is in File › Open from Server….</source>
+        <translation>Se hizo una maqueta nueva, «%1», a partir de esta versión. Está en Archivo › Abrir desde el servidor….</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Cargando…</translation>
+    </message>
+    <message>
+        <source>This server doesn&apos;t keep earlier versions of layouts yet. Ask its admin to update it.</source>
+        <translation>Este servidor todavía no conserva versiones anteriores de las maquetas. Pide a su admin que lo actualice.</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>«%1»</translation>
+    </message>
+    <message>
+        <source>%1 — %2</source>
+        <translation>%1 — %2</translation>
+    </message>
+    <message>
+        <source> · %1</source>
+        <translation> · %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s)</source>
+        <translation>
+            <numerusform>%n pieza</numerusform>
+            <numerusform>%n piezas</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n sheet(s)</source>
+        <translation>
+            <numerusform>%n hoja</numerusform>
+            <numerusform>%n hojas</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No versions yet. One is kept after the first edits, then every half hour while people work on the layout, and just before big changes.</source>
+        <translation>Todavía no hay versiones. Se conserva una tras las primeras ediciones, luego cada media hora mientras se trabaja en la maqueta, y justo antes de cambios grandes.</translation>
+    </message>
+    <message>
+        <source>Pick a version to put it back, or to copy it out as a new layout.</source>
+        <translation>Elige una versión para recuperarla o para copiarla como maqueta nueva.</translation>
+    </message>
+    <message>
+        <source>Pick a version to copy it out as a new layout. Only the layout&apos;s editors can put one back.</source>
+        <translation>Elige una versión para copiarla como maqueta nueva. Solo los editores de la maqueta pueden recuperar una.</translation>
     </message>
 </context>
 <context>

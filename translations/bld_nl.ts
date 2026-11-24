@@ -143,6 +143,30 @@
         <translation>Kies het model op de nieuwe plek, of een ander model, en het onderdeel wordt er opnieuw van gemaakt met hetzelfde nummer, dezelfde draai en uitlijning. Vanaf dan gebruikt Opnieuw importeren het bestand dat je koos.</translation>
     </message>
     <message>
+        <source>Earlier saves</source>
+        <translation>Eerdere versies van het bestand</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time you saved over it.</source>
+        <translation>Kopieën van een layoutbestand van vóór elke keer dat je eroverheen opsloeg.</translation>
+    </message>
+    <message>
+        <source>Open one as a copy to look at it or save it under a new name; the file stays as it is. Put Back makes the file as it was then, after keeping the file as it is now, so you can put that back too.</source>
+        <translation>Open er een als kopie om te bekijken of onder een nieuwe naam op te slaan; het bestand blijft zoals het is. Terugzetten maakt het bestand zoals het toen was, nadat het bestand zoals het nu is bewaard is, zodat je dat ook kunt terugzetten.</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep</source>
+        <translation>Te bewaren eerdere versies</translation>
+    </message>
+    <message>
+        <source>How many copies of each layout file to keep from before you saved over it.</source>
+        <translation>Hoeveel kopieën van elk layoutbestand bewaard worden van vóór het overschrijven.</translation>
+    </message>
+    <message>
+        <source>They are kept on this computer, in the app’s own folder, and the oldest go first. None keeps no copies; changes you never saved are kept apart, for File › Recover Unsaved Work….</source>
+        <translation>Ze worden op deze computer bewaard, in de eigen map van de app, en de oudste gaan eerst. Geen bewaart geen kopieën; wijzigingen die je nooit opsloeg worden apart bewaard, voor Bestand › Niet-opgeslagen werk herstellen….</translation>
+    </message>
+    <message>
         <source>Parts without a budget</source>
         <translation>Onderdelen zonder budget</translation>
     </message>
@@ -937,6 +961,18 @@
     <message>
         <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
         <translation>Waarschuwings- en foutkleuren houden in beide gevallen hun betekenis. Tekst blijft met elke kleur goed leesbaar.</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>Versiegeschiedenis</translation>
+    </message>
+    <message>
+        <source>Earlier versions of this layout, kept while people work on it, to look at, put back or copy out.</source>
+        <translation>Eerdere versies van deze layout, bewaard terwijl eraan gewerkt wordt, om te bekijken, terug te zetten of te kopiëren.</translation>
+    </message>
+    <message>
+        <source>A version is kept every half hour of editing, and just before big changes like an import, a restore or many parts deleted at once. Putting one back keeps the layout as it was first, so you can go back again. Copy one out to have it as a new layout and leave this one as it is.</source>
+        <translation>Er wordt een versie bewaard per half uur bewerken, en vlak voor grote wijzigingen zoals een import, een herstel of veel onderdelen tegelijk verwijderd. Bij terugzetten wordt eerst de layout zoals hij is bewaard, zodat je terug kunt. Kopieer er een om hem als nieuwe layout te hebben en deze te laten zoals hij is.</translation>
     </message>
     <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
@@ -5624,6 +5660,103 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::EarlierSavesDialog</name>
+    <message>
+        <source>Put back the save from %1?</source>
+        <translation>De versie van %1 terugzetten?</translation>
+    </message>
+    <message>
+        <source>%1 becomes as it was saved then.</source>
+        <translation>%1 wordt zoals het toen was opgeslagen.</translation>
+    </message>
+    <message>
+        <source>The file as it is now is kept first, as an earlier save, so you can put it back too.</source>
+        <translation>Het bestand zoals het nu is wordt eerst bewaard als eerdere versie, zodat je het ook kunt terugzetten.</translation>
+    </message>
+    <message>
+        <source>You can undo this from File › Earlier Saves….</source>
+        <translation>Je kunt dit ongedaan maken via Bestand › Eerdere versies….</translation>
+    </message>
+    <message>
+        <source>Put Back</source>
+        <translation>Terugzetten</translation>
+    </message>
+    <message>
+        <source>Earlier saves</source>
+        <translation>Eerdere versies van het bestand</translation>
+    </message>
+    <message>
+        <source>Layout file:</source>
+        <translation>Layoutbestand:</translation>
+    </message>
+    <message>
+        <source>Layout file</source>
+        <translation>Layoutbestand</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sluiten</translation>
+    </message>
+    <message>
+        <source>Show Folder</source>
+        <translation>Map tonen</translation>
+    </message>
+    <message>
+        <source>Open the folder the earlier saves of this file are kept in</source>
+        <translation>De map openen waarin de eerdere versies van dit bestand bewaard worden</translation>
+    </message>
+    <message>
+        <source>Put Back…</source>
+        <translation>Terugzetten…</translation>
+    </message>
+    <message>
+        <source>Make the file as it was in the picked save (the file as it is now is kept first)</source>
+        <translation>Het bestand maken zoals in de gekozen versie (het bestand zoals het nu is wordt eerst bewaard)</translation>
+    </message>
+    <message>
+        <source>Open as a Copy</source>
+        <translation>Openen als kopie</translation>
+    </message>
+    <message>
+        <source>Open the picked save as a new layout, leaving the file as it is</source>
+        <translation>De gekozen versie openen als nieuwe layout; het bestand blijft zoals het is</translation>
+    </message>
+    <message>
+        <source>Saved before %1 — %2</source>
+        <translation>Opgeslagen vóór %1 — %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>There are no earlier saves yet. Each time you save a layout over its file, the file as it was is kept here: the last %n of each file (Settings › Saving).</source>
+        <translation>
+            <numerusform>Er zijn nog geen eerdere versies. Elke keer dat je een layout over zijn bestand opslaat, wordt het bestand zoals het was hier bewaard: de laatste %n van elk bestand (Instellingen › Opslaan).</numerusform>
+            <numerusform>Er zijn nog geen eerdere versies. Elke keer dat je een layout over zijn bestand opslaat, wordt het bestand zoals het was hier bewaard: de laatste %n van elk bestand (Instellingen › Opslaan).</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Earlier saves are turned off. Turn them on in Settings › Saving.</source>
+        <translation>Eerdere versies staan uit. Zet ze aan in Instellingen › Opslaan.</translation>
+    </message>
+    <message>
+        <source>This file has no earlier saves yet. The next time you save over it, the file as it was is kept here.</source>
+        <translation>Dit bestand heeft nog geen eerdere versies. De volgende keer dat je eroverheen opslaat, wordt het bestand zoals het was hier bewaard.</translation>
+    </message>
+    <message>
+        <source>Each time this file was saved, the file as it was just before was kept. Open one as a copy to look at it, or put it back in place of the file.</source>
+        <translation>Elke keer dat dit bestand werd opgeslagen, werd het bewaard zoals het vlak ervoor was. Open er een als kopie om te bekijken, of zet hem terug in plaats van het bestand.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FileBackups</name>
+    <message>
+        <source>The folder for earlier saves couldn&apos;t be made: %1</source>
+        <translation>De map voor eerdere versies kon niet worden gemaakt: %1</translation>
+    </message>
+    <message>
+        <source>That earlier save isn&apos;t there any more.</source>
+        <translation>Die eerdere versie is er niet meer.</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::FindDialog</name>
     <message>
         <source>Find &amp;&amp; Replace</source>
@@ -8517,6 +8650,14 @@ Toch opslaan?</translation>
         <translation>Iedereen anders die deze layout nu open heeft</translation>
     </message>
     <message>
+        <source>Version Histor&amp;y…</source>
+        <translation>Versie&amp;geschiedenis…</translation>
+    </message>
+    <message>
+        <source>Earlier versions of the live layout that the server keeps: put one back or copy it out. For a layout file, see Earlier Saves…</source>
+        <translation>Eerdere versies van de live layout die de server bewaart: zet er een terug of kopieer hem. Voor een layoutbestand, zie Eerdere versies…</translation>
+    </message>
+    <message>
         <source>Edit module closed</source>
         <translation>Module bewerken is gesloten</translation>
     </message>
@@ -8937,6 +9078,14 @@ Je offline wijzigingen blijven bewaard; Bestand › Offline wijzigingen bekijken
     <message>
         <source>Cu&amp;t</source>
         <translation>Kn&amp;ippen</translation>
+    </message>
+    <message>
+        <source>Earlier Saves…</source>
+        <translation>Eerdere versies…</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time it was saved over: open one, or put it back</source>
+        <translation>Kopieën van een layoutbestand van vóór elke keer dat eroverheen werd opgeslagen: open er een of zet hem terug</translation>
     </message>
     <message>
         <source>Choose a file with the … button</source>
@@ -9827,6 +9976,14 @@ Dit wordt niet opnieuw gevraagd. Om het later in deze of een andere layout over 
         <translation>Er kon geen kopie van %1 worden bewaard voordat erover werd opgeslagen, dus er is niets opgeslagen. Gebruik Bestand › Opslaan als… om onder een nieuwe naam op te slaan.</translation>
     </message>
     <message>
+        <source>An earlier save couldn&apos;t be kept</source>
+        <translation>Een eerdere versie kon niet worden bewaard</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but the file as it was before couldn&apos;t be kept in File › Earlier Saves…: %2</source>
+        <translation>%1 is opgeslagen, maar het bestand zoals het eerst was kon niet worden bewaard in Bestand › Eerdere versies…: %2</translation>
+    </message>
+    <message>
         <source>A copy was kept</source>
         <translation>Er is een kopie bewaard</translation>
     </message>
@@ -10025,6 +10182,22 @@ Ze blijven bewaard, dus je kunt het opnieuw proberen via Bestand › Niet-opgesl
     <message>
         <source>Recovered the unsaved changes to %1. Save to keep them.</source>
         <translation>De niet-opgeslagen wijzigingen aan %1 zijn hersteld. Sla op om ze te bewaren.</translation>
+    </message>
+    <message>
+        <source>Put back failed</source>
+        <translation>Terugzetten mislukt</translation>
+    </message>
+    <message>
+        <source>The earlier save couldn&apos;t be put back in place of %1: %2</source>
+        <translation>De eerdere versie kon niet worden teruggezet in plaats van %1: %2</translation>
+    </message>
+    <message>
+        <source>Put back the save of %1 from %2. The file as it was is kept in File › Earlier Saves….</source>
+        <translation>De versie van %1 van %2 is teruggezet. Het bestand zoals het was staat in Bestand › Eerdere versies….</translation>
+    </message>
+    <message>
+        <source>Opened the save of %1 from %2 as a new layout. Use Save As to keep it; %1 itself is as it was.</source>
+        <translation>De versie van %1 van %2 is geopend als nieuwe layout. Gebruik Opslaan als om hem te bewaren; %1 zelf is zoals het was.</translation>
     </message>
     <message>
         <source>Recover &amp;Unsaved Work…</source>
@@ -13905,6 +14078,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Opstarten</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Opslaan</translation>
+    </message>
+    <message>
         <source>Parts and folders</source>
         <translation>Onderdelen en mappen</translation>
     </message>
@@ -14106,6 +14283,26 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>New layouts start from:</source>
         <translation>Nieuwe layouts beginnen met:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file</source>
+        <translation>Te bewaren eerdere versies per bestand</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file:</source>
+        <translation>Te bewaren eerdere versies per bestand:</translation>
+    </message>
+    <message>
+        <source>Each time you save over a layout file, the file as it was is kept on this computer. File › Earlier Saves… opens them or puts one back.</source>
+        <translation>Elke keer dat je over een layoutbestand opslaat, wordt het bestand zoals het was op deze computer bewaard. Bestand › Eerdere versies… opent ze of zet er een terug.</translation>
+    </message>
+    <message>
+        <source>Show Earlier Saves Folder</source>
+        <translation>Map met eerdere versies tonen</translation>
     </message>
     <message>
         <source> px</source>
@@ -16024,6 +16221,179 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>(could not read file)</source>
         <translation>(bestand kon niet worden gelezen)</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::VersionHistoryDialog</name>
+    <message>
+        <source>Put the layout back to %1?</source>
+        <translation>De layout terugzetten naar %1?</translation>
+    </message>
+    <message>
+        <source>The layout becomes as it was in this version. Everyone working in it sees the change at once.</source>
+        <translation>De layout wordt zoals hij in deze versie was. Iedereen die eraan werkt ziet de wijziging meteen.</translation>
+    </message>
+    <message>
+        <source>The layout as it is now is kept in this list first (“Before a restore”), so you can go back to it.</source>
+        <translation>De layout zoals hij nu is wordt eerst in deze lijst bewaard („Vóór een herstel”), zodat je ernaar terug kunt.</translation>
+    </message>
+    <message>
+        <source>To undo, restore the “Before a restore” version.</source>
+        <translation>Om dit ongedaan te maken, herstel je de versie „Vóór een herstel”.</translation>
+    </message>
+    <message>
+        <source>Restore This Version</source>
+        <translation>Deze versie herstellen</translation>
+    </message>
+    <message>
+        <source>Keep a version now</source>
+        <translation>Nu een versie bewaren</translation>
+    </message>
+    <message>
+        <source>A name for it (you can leave it empty), for example Before the show:</source>
+        <translation>Een naam ervoor (mag leeg blijven), bijvoorbeeld Vóór de beurs:</translation>
+    </message>
+    <message>
+        <source>Kept by hand</source>
+        <translation>Met de hand bewaard</translation>
+    </message>
+    <message>
+        <source>Before a model was imported</source>
+        <translation>Voordat een model werd geïmporteerd</translation>
+    </message>
+    <message>
+        <source>Before changes were merged in</source>
+        <translation>Voordat wijzigingen werden samengevoegd</translation>
+    </message>
+    <message>
+        <source>Before a restore</source>
+        <translation>Vóór een herstel</translation>
+    </message>
+    <message>
+        <source>Before many parts were deleted</source>
+        <translation>Voordat veel onderdelen werden verwijderd</translation>
+    </message>
+    <message>
+        <source>While editing</source>
+        <translation>Tijdens het bewerken</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>Versiegeschiedenis</translation>
+    </message>
+    <message>
+        <source>Version history of %1</source>
+        <translation>Versiegeschiedenis van %1</translation>
+    </message>
+    <message>
+        <source>Versions</source>
+        <translation>Versies</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sluiten</translation>
+    </message>
+    <message>
+        <source>See on the Website</source>
+        <translation>Bekijken op de website</translation>
+    </message>
+    <message>
+        <source>Open the layout&apos;s history on the website, which draws each version</source>
+        <translation>De geschiedenis van de layout openen op de website, die elke versie tekent</translation>
+    </message>
+    <message>
+        <source>Copy as a New Layout</source>
+        <translation>Kopiëren als nieuwe layout</translation>
+    </message>
+    <message>
+        <source>Make a new layout of yours from the picked version; this one stays as it is</source>
+        <translation>Een nieuwe layout van jou maken van de gekozen versie; deze blijft zoals hij is</translation>
+    </message>
+    <message>
+        <source>Restore…</source>
+        <translation>Herstellen…</translation>
+    </message>
+    <message>
+        <source>Put the layout back to the picked version (the layout as it is now is kept first)</source>
+        <translation>De layout terugzetten naar de gekozen versie (de layout zoals hij nu is wordt eerst bewaard)</translation>
+    </message>
+    <message>
+        <source>Keep a Version Now…</source>
+        <translation>Nu een versie bewaren…</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is now in this list, with a name if you like</source>
+        <translation>De layout zoals hij nu is in deze lijst bewaren, met een naam als je wilt</translation>
+    </message>
+    <message>
+        <source>Keeping a version…</source>
+        <translation>Versie wordt bewaard…</translation>
+    </message>
+    <message>
+        <source>Kept a version of the layout as it is now.</source>
+        <translation>Er is een versie van de layout zoals hij nu is bewaard.</translation>
+    </message>
+    <message>
+        <source>Putting the version back…</source>
+        <translation>Versie wordt teruggezet…</translation>
+    </message>
+    <message>
+        <source>The layout is back to how it was %1. How it was just before is kept as “Before a restore”.</source>
+        <translation>De layout is weer zoals op %1. Hoe hij vlak ervoor was is bewaard als „Vóór een herstel”.</translation>
+    </message>
+    <message>
+        <source>Making a copy…</source>
+        <translation>Kopie wordt gemaakt…</translation>
+    </message>
+    <message>
+        <source>Made a new layout, “%1”, from this version. It is in File › Open from Server….</source>
+        <translation>Er is een nieuwe layout, „%1”, van deze versie gemaakt. Hij staat in Bestand › Openen vanaf server….</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Laden…</translation>
+    </message>
+    <message>
+        <source>This server doesn&apos;t keep earlier versions of layouts yet. Ask its admin to update it.</source>
+        <translation>Deze server bewaart nog geen eerdere versies van layouts. Vraag de beheerder hem bij te werken.</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>‘%1’</translation>
+    </message>
+    <message>
+        <source>%1 — %2</source>
+        <translation>%1 — %2</translation>
+    </message>
+    <message>
+        <source> · %1</source>
+        <translation> · %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s)</source>
+        <translation>
+            <numerusform>%n onderdeel</numerusform>
+            <numerusform>%n onderdelen</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n sheet(s)</source>
+        <translation>
+            <numerusform>%n blad</numerusform>
+            <numerusform>%n bladen</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No versions yet. One is kept after the first edits, then every half hour while people work on the layout, and just before big changes.</source>
+        <translation>Nog geen versies. Er wordt er een bewaard na de eerste wijzigingen, dan elk half uur terwijl aan de layout gewerkt wordt, en vlak voor grote wijzigingen.</translation>
+    </message>
+    <message>
+        <source>Pick a version to put it back, or to copy it out as a new layout.</source>
+        <translation>Kies een versie om terug te zetten of als nieuwe layout te kopiëren.</translation>
+    </message>
+    <message>
+        <source>Pick a version to copy it out as a new layout. Only the layout&apos;s editors can put one back.</source>
+        <translation>Kies een versie om als nieuwe layout te kopiëren. Alleen bewerkers van de layout kunnen er een terugzetten.</translation>
     </message>
 </context>
 <context>

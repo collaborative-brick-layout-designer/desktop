@@ -466,6 +466,7 @@ SettingsDialog::SettingsDialog(PrefsStore& store, const QString& syncedHost,
     settings::addMapLabels(card(tr("Map labels")), this, changed);
     settings::addLanguage(card(tr("Language")), this);
     settings::addStartingUp(card(tr("Starting up")), this);
+    settings::addSaving(card(tr("Saving")), this);
     settings::addParts(card(tr("Parts and folders")), this, changed, openPartsFolders);
     settings::addImport(card(tr("Bringing in models"), QStringLiteral("prefs.ldraw")), this);
 

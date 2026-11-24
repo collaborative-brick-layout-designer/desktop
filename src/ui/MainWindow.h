@@ -16,6 +16,7 @@
 #include <utility>
 
 #include "Autosave.h"
+#include "FileBackups.h"
 #include "PlacementRefusal.h"
 #include "LibraryApi.h"
 #include "PartsUpload.h"
@@ -522,6 +523,11 @@ private:
     // resolved (the live layout keeps the server's) once it is published.
     void saveOfflineAsNew(const bld::sync::merge::Snapshot& mine);
     QAction* reviewOfflineAct_ = nullptr;
+    // File › Version History… (the live layout's, kept by the server).
+    QAction* versionHistoryAct_ = nullptr;
+    // Keep a version of the live layout on the server, then run `then`
+    // (whatever the answer; an older server has no history).
+    void keepLiveVersionThen(const QString& reason, std::function<void()> then);
     class LiveLayout* live_ = nullptr;
     QLabel* liveStatus_ = nullptr;
     QAction* disconnectAct_ = nullptr;
@@ -822,6 +828,12 @@ public:
     bool offerRecovery();
     // File › Recover Unsaved Work…: the same list, any time.
     void onRecoverUnsavedWork();
+    // File › Version History…: the live layout's versions on the server (VersionHistoryDialog.h).
+    void onVersionHistory();
+    // File › Earlier Saves…: the copies kept each time a file was saved over (FileBackups.h).
+    void onEarlierSaves();
+    // Opens an earlier save as a new, unsaved layout (the file it came from stays as it is).
+    bool openSavedCopy(const SavedCopy& copy, const QString& file);
 };
 
 }

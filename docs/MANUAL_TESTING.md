@@ -219,6 +219,16 @@ Set up: a ruler with both endpoints attached to bricks.
 - [ ] After crash-kill and relaunch, restore dialog offers the
       partially-edited state.
 
+### 4.3a Earlier saves and version history
+- [ ] Save a layout file twice with a change between. File › Earlier
+      Saves… lists one save; Open as a Copy opens it untitled and unsaved;
+      the file itself is unchanged.
+- [ ] Put Back… the save: the file is as it was, and the file as it was
+      before is listed too. Settings › Saving › None: saving keeps nothing.
+- [ ] Live on a server: File › Version History… lists versions; Keep a
+      Version Now… with a name, Restore… one (the map changes in place),
+      Copy as a New Layout, See on the Website.
+
 ### 4.4 Open Recent
 - [ ] File → Open Recent lists the last 12 files opened.
 - [ ] Clicking an entry opens that file.

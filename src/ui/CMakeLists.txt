@@ -140,6 +140,12 @@ add_library(bld_ui STATIC
     DesktopNotifier.h
     NotificationViews.h
     Autosave.cpp
+    EarlierSavesDialog.cpp
+    EarlierSavesDialog.h
+    FileBackups.cpp
+    FileBackups.h
+    VersionHistoryDialog.cpp
+    VersionHistoryDialog.h
     Autosave.h
     RecoverDialog.cpp
     RecoverDialog.h
