@@ -363,6 +363,9 @@ QSet<QString> partNumbersIn(const core::Map& map) {
         for (const auto& g : bricks.groups)
             if (!g.partNumber.isEmpty()) used.insert(g.partNumber.toUpper());
     }
+    // Engines and cars drawn with a part (an imported model's, or a train part's).
+    for (const auto& s : map.sidecar.rollingStock)
+        if (s.lookMode != QLatin1String("simple") && !s.partKey.isEmpty()) used.insert(s.partKey.toUpper());
     return used;
 }
 

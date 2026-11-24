@@ -655,6 +655,18 @@
         <translation>Sporveksler som ligger den andre veien vises med en oransje ring på kartet, og ruten sier hvor mange det er. Å legge dem er én endring du kan angre, og alle ser den med en gang.</translation>
     </message>
     <message>
+        <source>Import a model</source>
+        <translation>Importer en modell</translation>
+    </message>
+    <message>
+        <source>Make an engine or car of a model you built in LDraw, Studio or LDD.</source>
+        <translation>Lag et lokomotiv eller en vogn av en modell du har bygd i LDraw, Studio eller LDD.</translation>
+    </message>
+    <message>
+        <source>Pick the model&apos;s file: it becomes one of your parts, and its wheels, bogies and magnets show where its trucks and couplers go. Drag a marker if it&apos;s off, or press Turn around if the other end is the front. Tick the roster box to use the car in other layouts too.</source>
+        <translation>Velg modellens fil: den blir en av delene dine, og hjulene, boggiene og magnetene viser hvor boggiene og koblingene skal sitte. Dra en markør hvis den er feil, eller trykk Snu hvis den andre enden er fronten. Huk av for vognparken for å bruke vognen i andre oppsett også.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Gjeldende ark</translation>
     </message>
@@ -3756,6 +3768,14 @@
         <translation>Legg sporveksler legger hver sporveksel på ruten dens vei. I kjøremodus legger du dem om for hånd.</translation>
     </message>
     <message>
+        <source>A quick car, or your own model</source>
+        <translation>En rask vogn, eller din egen modell</translation>
+    </message>
+    <message>
+        <source>New car needs just a number and a length. Import a model… makes one of a model you built, wheels and all.</source>
+        <translation>Ny vogn trenger bare et nummer og en lengde. Importer en modell… lager en av modellen din, hjul og alt.</translation>
+    </message>
+    <message>
         <source>Watch it run</source>
         <translation>Se det kjøre</translation>
     </message>
@@ -3882,14 +3902,6 @@
     <message>
         <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
         <translation>Åpne Tog fra Paneler. Rullende materiell har oppsettets lokomotiver og vogner; Tog har togene laget av dem.</translation>
-    </message>
-    <message>
-        <source>A quick car</source>
-        <translation>En rask vogn</translation>
-    </message>
-    <message>
-        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
-        <translation>Ny vogn trenger bare et nummer og en lengde i knotter. Flere detaljer setter boggier, koblinger og bildet av en del.</translation>
     </message>
     <message>
         <source>Make a train</source>
@@ -8324,8 +8336,20 @@ Lagre likevel?</translation>
         <translation>delen «%1» er ikke i delene dine lenger</translation>
     </message>
     <message>
+        <source>Import a model as an engine or car</source>
+        <translation>Importer en modell som lokomotiv eller vogn</translation>
+    </message>
+    <message>
         <source>Import canceled.</source>
         <translation>Importen ble avbrutt.</translation>
+    </message>
+    <message>
+        <source>Import a model</source>
+        <translation>Importer en modell</translation>
+    </message>
+    <message>
+        <source>Added %1, made from %2</source>
+        <translation>La til %1, laget av %2</translation>
     </message>
     <message>
         <source>Replaced “%1” with %2</source>
@@ -15037,6 +15061,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>En boks i fargen sin</translation>
     </message>
     <message>
+        <source>The model it was made from, or a part’s picture</source>
+        <translation>Modellen den ble laget av, eller bildet av en del</translation>
+    </message>
+    <message>
         <source>A part’s picture</source>
         <translation>Bildet av en del</translation>
     </message>
@@ -15075,6 +15103,111 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>No train parts match. Parts with a coupler at each end show here.</source>
         <translation>Ingen togdeler passer. Deler med kobling i hver ende vises her.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::StockImportDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> knotter</translation>
+    </message>
+    <message>
+        <source>We found the trucks from the model’s bogies.</source>
+        <translation>Vi fant boggiene ut fra modellens boggiplater.</translation>
+    </message>
+    <message>
+        <source>We found the trucks from the model’s wheels.</source>
+        <translation>Vi fant boggiene ut fra modellens hjul.</translation>
+    </message>
+    <message>
+        <source>We couldn’t find wheels, so the trucks are a quarter of the way in from each end.</source>
+        <translation>Vi fant ingen hjul, så boggiene sitter en fjerdedel av lengden inn fra hver ende.</translation>
+    </message>
+    <message>
+        <source>The couplers are its magnets.</source>
+        <translation>Koblingene er magnetene.</translation>
+    </message>
+    <message>
+        <source>No magnets were found, so the couplers are just past each end.</source>
+        <translation>Ingen magneter ble funnet, så koblingene sitter like utenfor hver ende.</translation>
+    </message>
+    <message>
+        <source>Drag a marker to fix it.</source>
+        <translation>Dra en markør for å rette det.</translation>
+    </message>
+    <message>
+        <source>Import a model as an engine or car</source>
+        <translation>Importer en modell som lokomotiv eller vogn</translation>
+    </message>
+    <message>
+        <source>This is your model from above, its front to the right. The orange markers are its trucks (where the wheels turn), the blue ones its couplers. Check them, then add it.</source>
+        <translation>Dette er modellen din sett ovenfra, fronten mot høyre. De oransje markørene er boggiene (der hjulene svinger), de blå koblingene. Sjekk dem, og legg den så til.</translation>
+    </message>
+    <message>
+        <source>The model from above, front to the right, with its trucks and couplers</source>
+        <translation>Modellen sett ovenfra, fronten mot høyre, med boggier og koblinger</translation>
+    </message>
+    <message>
+        <source>Part name:</source>
+        <translation>Delens navn:</translation>
+    </message>
+    <message>
+        <source>Optional, shown on the map</source>
+        <translation>Valgfritt, vises på kartet</translation>
+    </message>
+    <message>
+        <source>Road number:</source>
+        <translation>Nummer:</translation>
+    </message>
+    <message>
+        <source>It’s a:</source>
+        <translation>Det er en:</translation>
+    </message>
+    <message>
+        <source>Turn around ⇄</source>
+        <translation>Snu ⇄</translation>
+    </message>
+    <message>
+        <source>The other end is the front</source>
+        <translation>Den andre enden er fronten</translation>
+    </message>
+    <message>
+        <source>Front truck:</source>
+        <translation>Fremre boggi:</translation>
+    </message>
+    <message>
+        <source>Rear truck:</source>
+        <translation>Bakre boggi:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler:</source>
+        <translation>Kobling til kobling:</translation>
+    </message>
+    <message>
+        <source>Also put it on my roster, for other layouts</source>
+        <translation>Legg den også i vognparken min, for andre oppsett</translation>
+    </message>
+    <message>
+        <source>Sign in to a server (File › Servers…) to keep a roster.</source>
+        <translation>Logg på en server (Fil › Servere…) for å ha en vognpark.</translation>
+    </message>
+    <message>
+        <source>Add to rolling stock</source>
+        <translation>Legg til i rullende materiell</translation>
+    </message>
+    <message>
+        <source>R</source>
+        <comment>rear truck</comment>
+        <translation>B</translation>
+    </message>
+    <message>
+        <source>F</source>
+        <comment>front truck</comment>
+        <translation>F</translation>
+    </message>
+    <message>
+        <source>Front →</source>
+        <translation>Front →</translation>
     </message>
 </context>
 <context>
@@ -15230,6 +15363,14 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Fra en vognpark…</translation>
     </message>
     <message>
+        <source>Import a model…</source>
+        <translation>Importer en modell…</translation>
+    </message>
+    <message>
+        <source>Make an engine or car of a model you built in LDraw, Studio or LDD</source>
+        <translation>Lag et lokomotiv eller en vogn av en modell du har bygd i LDraw, Studio eller LDD</translation>
+    </message>
+    <message>
         <source>Rolling stock</source>
         <translation>Rullende materiell</translation>
     </message>
@@ -15331,10 +15472,6 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Rolling stock (%1)</source>
         <translation>Rullende materiell (%1)</translation>
-    </message>
-    <message>
-        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
-        <translation>Ingen rullende materiell ennå. Trykk Ny vogn: et nummer og en lengde er alt en rask vogn trenger.</translation>
     </message>
     <message>
         <source>Pick %1 for a new train</source>
@@ -15466,6 +15603,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Checks</source>
         <translation>Kontroller</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs. Or bring in a model you built with Import a model….</source>
+        <translation>Ikke noe rullende materiell ennå. Trykk Ny vogn: et nummer og en lengde er alt en rask vogn trenger. Eller hent inn en modell du har bygd med Importer en modell….</translation>
     </message>
     <message>
         <source>Every train on the track fits: nothing too long, too tight or too close.</source>
@@ -16677,7 +16818,7 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     </message>
     <message>
         <source>R</source>
-        <translation>R</translation>
+        <translation>B</translation>
     </message>
     <message>
         <source>Shift+R</source>

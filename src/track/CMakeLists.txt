@@ -10,6 +10,8 @@ add_library(bld_track STATIC
     PartTrack.h
     Routes.cpp
     Routes.h
+    StockGuess.cpp
+    StockGuess.h
     Trains.cpp
     Trains.h
     FitChecks.cpp

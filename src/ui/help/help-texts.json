@@ -143,6 +143,11 @@
       "short": "Your own engines and cars, or a club's, ready to bring into any layout.",
       "more": "Save a car to your roster or a club's, then add it to other layouts from there. A layout keeps its own copy, so it still opens anywhere; when the roster's car changes, Update brings the layout's copy up to date. Club rosters are changed by members who may edit the club's modules."
     },
+    "trains.importModel": {
+      "title": "Import a model",
+      "short": "Make an engine or car of a model you built in LDraw, Studio or LDD.",
+      "more": "Pick the model's file: it becomes one of your parts, and its wheels, bogies and magnets show where its trucks and couplers go. Drag a marker if it's off, or press Turn around if the other end is the front. Tick the roster box to use the car in other layouts too."
+    },
     "trains.newTrain": {
       "title": "New train",
       "short": "Cars in order, front to back, that move as one.",

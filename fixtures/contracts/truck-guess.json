@@ -1,0 +1,415 @@
+{
+  "_about": "Guessing where a model's trucks and couplers are (trains design 3.3, Phase 6): web packages/parts-catalog/src/track/stockGuess.ts, desktop src/track/StockGuess.cpp; both keep `parts` word for word and both run every vector. Input: the model's parts as each app's LDraw reader flattens them (`model`, a file here, or `refs`), each part's origin seen from above in studs (x, y = -LDraw z, y down), the model's footprint `bounds` and the picture's middle `centre` in the same frame. The long side of `bounds` is the car's length; quarterTurns 1 turns the picture clockwise so it runs along x, the front (+) to the right. A part's id is its file name without folders or .dat, lower case; an entry ending in * is a prefix. Bogie plates and motors are the trucks' pivots: when they make two or more clusters (parts within clusterGap studs along the car of each other), the outermost two are the trucks; else wheel parts' clusters; else a quarter of the length in from each end. Couplers: the outermost two coupler parts, when at least minCouplerSpan apart, give the length (body 2 studs shorter); else the body is the footprint and the length 2 studs more. Every number is rounded to 1/100 stud. trucks are [front, rear], studs from the picture's middle along the car. The three .mpd files are from the LDraw Official Model Repository (author TotalyWicked), redistributable under CCAL 2.0.",
+  "parts": {
+    "_about": "Part ids by what they are on a car. Wheels and bogies under it, couplers at its ends.",
+    "clusterGap": 6,
+    "minCouplerSpan": 4,
+    "bogie": [
+      "4092a",
+      "4092b",
+      "18626",
+      "2686",
+      "2686c01",
+      "2686c02"
+    ],
+    "motor": [
+      "2894c01",
+      "87574c01",
+      "88002*",
+      "2683c01",
+      "2684c01",
+      "579c01",
+      "579c02",
+      "579c03",
+      "579p01c01",
+      "579p01c02",
+      "579p01c03",
+      "501ac01",
+      "501bc01",
+      "501cc01"
+    ],
+    "wheel": [
+      "2878",
+      "2878c01",
+      "2878c02",
+      "38339",
+      "38339c01",
+      "38339c02",
+      "38340",
+      "57878",
+      "55423",
+      "85489a",
+      "85489b",
+      "85489ac01",
+      "4180c01",
+      "4180c02",
+      "243c01",
+      "244c01",
+      "244c02",
+      "244c03",
+      "245c01",
+      "245c02",
+      "447c01",
+      "867",
+      "50254",
+      "2927"
+    ],
+    "coupler": [
+      "2920",
+      "4022",
+      "4022c01",
+      "4022c02",
+      "4023",
+      "4023c01",
+      "4023c02",
+      "29084",
+      "64414",
+      "64422",
+      "64417c01",
+      "2609b",
+      "2609bc01",
+      "2609c",
+      "2609cc01",
+      "2609d",
+      "2609dc01",
+      "30159b",
+      "30159bc01",
+      "753c01",
+      "753c02",
+      "2607bc01",
+      "499c01",
+      "735",
+      "290"
+    ]
+  },
+  "vectors": [
+    {
+      "name": "Santa Fe Super Chief engine (OMR 10020-1): two bogies, magnets at both ends, the cab end longer",
+      "model": "truck-guess-10020-1.mpd",
+      "bounds": {
+        "x": -14.5,
+        "y": -3,
+        "width": 32,
+        "height": 6
+      },
+      "centre": {
+        "x": 1.5,
+        "y": 0
+      },
+      "expect": {
+        "quarterTurns": 0,
+        "length": 30.0,
+        "width": 6.0,
+        "bodyLength": 28.0,
+        "trucks": [
+          7.5,
+          -10.5
+        ],
+        "trucksFrom": "bogies",
+        "couplersFrom": "found"
+      }
+    },
+    {
+      "name": "Caboose (OMR 10014-1): one axle at each end, no bogies",
+      "model": "truck-guess-10014-1.mpd",
+      "bounds": {
+        "x": -8.5,
+        "y": -3,
+        "width": 17,
+        "height": 6
+      },
+      "centre": {
+        "x": 0,
+        "y": 0
+      },
+      "expect": {
+        "quarterTurns": 0,
+        "length": 15.0,
+        "width": 6.0,
+        "bodyLength": 13.0,
+        "trucks": [
+          4.5,
+          -4.5
+        ],
+        "trucksFrom": "wheels",
+        "couplersFrom": "found"
+      }
+    },
+    {
+      "name": "Tanker (OMR 10016-1): two bogies on a 6 x 24 base",
+      "model": "truck-guess-10016-1.mpd",
+      "bounds": {
+        "x": -12.5,
+        "y": -3,
+        "width": 25,
+        "height": 6
+      },
+      "centre": {
+        "x": 0,
+        "y": 0
+      },
+      "expect": {
+        "quarterTurns": 0,
+        "length": 23.0,
+        "width": 6.0,
+        "bodyLength": 21.0,
+        "trucks": [
+          7.0,
+          -7.0
+        ],
+        "trucksFrom": "bogies",
+        "couplersFrom": "found"
+      }
+    },
+    {
+      "name": "the caboose built along y: turned a quarter, its far (top) end the front",
+      "refs": [
+        {
+          "id": "2920",
+          "x": 0,
+          "y": -7.5
+        },
+        {
+          "id": "4022",
+          "x": 0,
+          "y": -6
+        },
+        {
+          "id": "2878c01",
+          "x": 0,
+          "y": -4.5
+        },
+        {
+          "id": "2920",
+          "x": 0,
+          "y": 7.5
+        },
+        {
+          "id": "4022",
+          "x": 0,
+          "y": 6
+        },
+        {
+          "id": "2878c01",
+          "x": 0,
+          "y": 4.5
+        },
+        {
+          "id": "3005",
+          "x": 2.5,
+          "y": 0
+        }
+      ],
+      "bounds": {
+        "x": -3,
+        "y": -8.5,
+        "width": 6,
+        "height": 17
+      },
+      "centre": {
+        "x": 0,
+        "y": 0
+      },
+      "expect": {
+        "quarterTurns": 1,
+        "length": 15.0,
+        "width": 6.0,
+        "bodyLength": 13.0,
+        "trucks": [
+          4.5,
+          -4.5
+        ],
+        "trucksFrom": "wheels",
+        "couplersFrom": "found"
+      }
+    },
+    {
+      "name": "no train parts at all: trucks a quarter of the way in from each end, magnets just past the body",
+      "refs": [
+        {
+          "id": "3001.dat",
+          "x": -4,
+          "y": 0
+        },
+        {
+          "id": "3001.dat",
+          "x": 4,
+          "y": 0
+        }
+      ],
+      "bounds": {
+        "x": -10,
+        "y": -2,
+        "width": 20,
+        "height": 4
+      },
+      "centre": {
+        "x": 0,
+        "y": 0
+      },
+      "expect": {
+        "quarterTurns": 0,
+        "length": 22.0,
+        "width": 4.0,
+        "bodyLength": 20.0,
+        "trucks": [
+          5.5,
+          -5.5
+        ],
+        "trucksFrom": "none",
+        "couplersFrom": "none"
+      }
+    },
+    {
+      "name": "one bogie only (the other end's wheels are another kind): the wheels decide",
+      "refs": [
+        {
+          "id": "4092a",
+          "x": 9,
+          "y": 0
+        },
+        {
+          "id": "2878c01",
+          "x": 6.5,
+          "y": 0
+        },
+        {
+          "id": "2878c01",
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "id": "S\\85489a.dat",
+          "x": -8,
+          "y": 3
+        },
+        {
+          "id": "85489a",
+          "x": -8,
+          "y": -3
+        },
+        {
+          "id": "2920",
+          "x": -14,
+          "y": 0
+        },
+        {
+          "id": "2920.DAT",
+          "x": 14,
+          "y": 0
+        }
+      ],
+      "bounds": {
+        "x": -14.5,
+        "y": -3.5,
+        "width": 29,
+        "height": 7
+      },
+      "centre": {
+        "x": 0,
+        "y": 0
+      },
+      "expect": {
+        "quarterTurns": 0,
+        "length": 28.0,
+        "width": 7.0,
+        "bodyLength": 26.0,
+        "trucks": [
+          9.0,
+          -8.0
+        ],
+        "trucksFrom": "wheels",
+        "couplersFrom": "found"
+      }
+    },
+    {
+      "name": "a monorail car: two wheel chassis, no magnets",
+      "refs": [
+        {
+          "id": "2686c01.dat",
+          "x": -5,
+          "y": 0
+        },
+        {
+          "id": "2686c01.dat",
+          "x": 5,
+          "y": 0
+        },
+        {
+          "id": "2687",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "bounds": {
+        "x": -10,
+        "y": -2,
+        "width": 20,
+        "height": 4
+      },
+      "centre": {
+        "x": 0,
+        "y": 0
+      },
+      "expect": {
+        "quarterTurns": 0,
+        "length": 22.0,
+        "width": 4.0,
+        "bodyLength": 20.0,
+        "trucks": [
+          5.0,
+          -5.0
+        ],
+        "trucksFrom": "bogies",
+        "couplersFrom": "none"
+      }
+    },
+    {
+      "name": "a 9V motor and a bogie plate",
+      "refs": [
+        {
+          "id": "2894c01.dat",
+          "x": 10,
+          "y": 0
+        },
+        {
+          "id": "4092b",
+          "x": -10,
+          "y": 0
+        },
+        {
+          "id": "64422",
+          "x": -15.5,
+          "y": 0
+        },
+        {
+          "id": "64422",
+          "x": 15.5,
+          "y": 0
+        }
+      ],
+      "bounds": {
+        "x": -16,
+        "y": -3,
+        "width": 32,
+        "height": 6
+      },
+      "centre": {
+        "x": 0,
+        "y": 0
+      },
+      "expect": {
+        "quarterTurns": 0,
+        "length": 31.0,
+        "width": 6.0,
+        "bodyLength": 29.0,
+        "trucks": [
+          10.0,
+          -10.0
+        ],
+        "trucksFrom": "bogies",
+        "couplersFrom": "found"
+      }
+    }
+  ]
+}

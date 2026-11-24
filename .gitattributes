@@ -1,2 +1,4 @@
 # Byte-exact goldens: never converted to CRLF on a Windows checkout.
 fixtures/part-list-csv/*.csv -text
+# Shared contract models: byte for byte as in the web repo (MANIFEST.sha256).
+fixtures/contracts/*.mpd -text

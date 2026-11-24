@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../import/ImportToPart.h"
+#include "../track/StockGuess.h"
 
 #include <QImage>
 #include <QMargins>
@@ -11,6 +12,7 @@
 #include <QVector>
 
 #include <functional>
+#include <optional>
 
 namespace bld::parts { class PartsLibrary; }
 
@@ -59,6 +61,10 @@ struct PreparedPart {
     QPointF     alignShift;
     ImportStats stats;
     QStringList warnings;
+    // Where its trucks and couplers seem to be, were it an engine or car
+    // (Trains › Import a model…): turned by its own quarterTurns, not by
+    // this part's. None when the model's parts couldn't be read for it.
+    std::optional<track::StockGuess> stockGuess;
     QString     error;                             // non-empty: nothing to import
     bool        cancelled = false;                 // the user cancelled the bake
     bool ok() const { return error.isEmpty() && !sprite.isNull(); }

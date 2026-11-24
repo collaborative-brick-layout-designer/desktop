@@ -3,6 +3,8 @@ add_library(bld_import STATIC
     # subfile mesh resolver, top-down rasterizer, BlueBrick-format
     # rasterizer fallback for inline primitives).
     ldraw/LDrawReader.cpp
+    StockModel.cpp
+    StockModel.h
     ldraw/LDrawReader.h
     ldraw/LDrawColors.cpp
     ldraw/LDrawColors.h
@@ -90,4 +92,4 @@ target_include_directories(bld_import PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
 add_library(bld_puff OBJECT zip/puff.c zip/puff.h)
 set_target_properties(bld_puff PROPERTIES BLD_THIRD_PARTY ON)
 target_link_libraries(bld_import PRIVATE bld_puff)
-target_link_libraries(bld_import PUBLIC bld_core bld_geom bld_parts bld_edit bld_saveload Qt6::Core Qt6::Gui)
+target_link_libraries(bld_import PUBLIC bld_core bld_geom bld_parts bld_edit bld_saveload bld_track Qt6::Core Qt6::Gui)

@@ -42,6 +42,12 @@
 //   stock-add <number> <length>
 //                              add a quick car (a new id), as one edit; ok <id>
 //   train-rename <id> <name>   rename a train, as one edit
+//   stock-add-model <number> <partKey> <length> <front> <rear>
+//                              add an engine drawn with a part (an imported model's), as
+//                              Trains › Import a model… makes one, as one edit; ok <id>
+//   stock-part <stockId>       the server's parts downloaded as the app does (PartsSync),
+//                              then the car's picture looked up: ok {partKey, found,
+//                              partNumber, pxPerStud, width, height} (pixels)
 //   shared                     the editor's shared (read-only) modules as JSON: id,
 //                              moduleId, version, by, members, placement, review
 //   shared-rows                what the server says about them (GET
@@ -76,6 +82,7 @@
 
 #include "sync/LayoutMerge.h"
 #include "sync/LibraryApi.h"
+#include "sync/PartsSync.h"
 #include "sync/NotificationCenter.h"
 #include "core/SharedModule.h"
 #include "edit/SharedLock.h"
@@ -94,6 +101,7 @@
 #include <QDateTime>
 #include <QEventLoop>
 #include <QGuiApplication>
+#include <QPixmap>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QMutex>
@@ -243,7 +251,7 @@ public:
                       : QStringLiteral("error not synced (%1)").arg(QLatin1String(statusName(session_.status()))));
         } else if (cmd == QLatin1String("features")) {
             // What this build does that older ones don't (the web's journeys ask, to know what to expect of it).
-            reply(QStringLiteral("ok keepIds"));
+            reply(QStringLiteral("ok keepIds stockModels"));
         } else if (cmd == QLatin1String("status")) {
             reply(QStringLiteral("ok %1 %2").arg(QLatin1String(statusName(session_.status()))).arg(session_.unsyncedEdits()));
         } else if (cmd == QLatin1String("move") && a.size() == 4) {
@@ -391,6 +399,61 @@ public:
                 auto& list = map->sidecar.rollingStock;
                 list.insert(std::find_if(list.begin(), list.end(), [&](const core::RollingStock& x) { return car.id < x.id; }), car);
             }, car.id);
+        } else if (cmd == QLatin1String("stock-add-model") && a.size() == 6) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            bool ok1 = false, ok2 = false, ok3 = false;
+            const double length = a[3].toDouble(&ok1), front = a[4].toDouble(&ok2), rear = a[5].toDouble(&ok3);
+            if (!ok1 || !ok2 || !ok3 || length <= 0)
+                return reply(QStringLiteral("error stock-add-model <number> <partKey> <length> <front> <rear>")), true;
+            core::RollingStock car = core::simpleStock(core::newBbmId(), length);
+            car.number = a[1];
+            car.kind = QStringLiteral("engine");
+            car.powered = true;
+            car.trucks = { { front, 30.0 }, { rear, 30.0 } };
+            car.lookMode = QStringLiteral("model");
+            car.partKey = a[2];
+            car.extras.insert(QStringLiteral("model"), QJsonObject{ { QStringLiteral("partKey"), a[2] },
+                                                                    { QStringLiteral("file"), QStringLiteral("driver.ldr") },
+                                                                    { QStringLiteral("format"), QStringLiteral("ldraw") } });
+            send(*map, [&] {
+                auto& list = map->sidecar.rollingStock;
+                list.insert(std::find_if(list.begin(), list.end(), [&](const core::RollingStock& x) { return car.id < x.id; }), car);
+            }, car.id);
+        } else if (cmd == QLatin1String("stock-part") && a.size() == 2) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            const auto it = std::find_if(map->sidecar.rollingStock.begin(), map->sidecar.rollingStock.end(),
+                                         [&](const core::RollingStock& x) { return x.id == a[1]; });
+            if (it == map->sidecar.rollingStock.end()) return reply(QStringLiteral("error no such car")), true;
+            const QString partKey = it->partKey;
+            const QString dir = cache_.filePath(QStringLiteral("server-parts"));
+            sync::PartsSync job(server_, token_, dir);
+            bool done = false;
+            QString failed;
+            QObject::connect(&job, &sync::PartsSync::finished, [&] { done = true; });
+            QObject::connect(&job, &sync::PartsSync::failed, [&](const QString& m, bool) {
+                failed = m;
+                done = true;
+            });
+            job.start();
+            if (!waitFor([&] { return done; }, 60000) || !failed.isEmpty())
+                return reply(QStringLiteral("error parts sync: ") + (failed.isEmpty() ? QStringLiteral("timed out") : failed)), true;
+            parts::PartsLibrary lib;
+            lib.addSearchPath(dir);
+            lib.scan();
+            const auto meta = lib.metadata(partKey);
+            const QPixmap pm = lib.pixmap(partKey);
+            QJsonObject out{ { QStringLiteral("partKey"), partKey }, { QStringLiteral("found"), meta.has_value() && !pm.isNull() } };
+            if (meta) {
+                out.insert(QStringLiteral("partNumber"), meta->partNumber);
+                out.insert(QStringLiteral("pxPerStud"), meta->pxPerStud);
+            }
+            out.insert(QStringLiteral("width"), pm.width());
+            out.insert(QStringLiteral("height"), pm.height());
+            reply(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(out).toJson(QJsonDocument::Compact)));
         } else if (cmd == QLatin1String("train-rename") && a.size() >= 3) {
             QString error;
             auto map = session_.editorMap(&error);

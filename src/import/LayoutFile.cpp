@@ -222,6 +222,9 @@ QMap<QString, QByteArray> layoutPartFiles(const core::Map& map, const parts::Par
         for (const auto& g : bricks.groups)
             if (!g.partNumber.isEmpty()) todo << g.partNumber;
     }
+    // Engines and cars drawn with a part: an imported model travels with the layout.
+    for (const auto& s : map.sidecar.rollingStock)
+        if (s.lookMode != QLatin1String("simple") && !s.partKey.isEmpty()) todo << s.partKey;
     const QString root = QFileInfo(standardRoot).canonicalFilePath();
     QMap<QString, QByteArray> files;
     QSet<QString> seen;
@@ -371,6 +374,17 @@ int renamePartInMap(core::Map& map, const QString& from, const QString& to) {
             g.partNumber = to;
             ++changed;
         }
+    }
+    for (auto& s : map.sidecar.rollingStock) {
+        if (s.partKey.isEmpty() || s.partKey.compare(from, Qt::CaseInsensitive) != 0) continue;
+        s.partKey = to;
+        // Its model names the same part.
+        QJsonObject model = s.extras.value(QLatin1String("model")).toObject();
+        if (model.value(QLatin1String("partKey")).toString().compare(from, Qt::CaseInsensitive) == 0) {
+            model.insert(QStringLiteral("partKey"), to);
+            s.extras.insert(QStringLiteral("model"), model);
+        }
+        ++changed;
     }
     return changed;
 }

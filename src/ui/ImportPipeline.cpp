@@ -5,6 +5,7 @@
 #include "../core/LayerBrick.h"
 #include "../core/Map.h"
 #include "../import/ImportConnections.h"
+#include "../import/StockModel.h"
 #include "../import/ldd/LDDAssets.h"
 #include "../import/ldd/LDDLDrawMapping.h"
 #include "../import/ldd/LDDMaterials.h"
@@ -112,6 +113,7 @@ PreparedPart fromLDrawGeometry(PreparedPart out, const import::LDrawReadResult& 
         return out;
     }
     fillFromRaster(out, rast);
+    out.stockGuess = import::stockGuessFor(read, rast.meshBoundsXZ, rast.spriteStuds);
     addConnections(out, read, parts, rast.spriteStuds.center(), &lib, &loader);
     return out;
 }
@@ -182,6 +184,8 @@ PreparedPart fromBlueBrickParts(PreparedPart out, const import::LDrawReadResult&
         scene.render(&p, QRectF(QPointF(0, 0), canvas.size()), canvas);
     }
     out.connections = import::externalConnections(*model, parts, c / kPx);
+    // The parts' own places, in the frame the sprites were laid out in.
+    out.stockGuess = import::stockGuessFor(read, QRectF(bounds.topLeft() / kPx, bounds.size() / kPx), QRectF(canvas.topLeft() / kPx, canvas.size() / kPx));
     return out;
 }
 
@@ -212,6 +216,8 @@ PreparedPart fromLDDGeometry(PreparedPart out, const import::LDrawReadResult& re
         return out;
     }
     fillFromRaster(out, rast);
+    // Part numbers the truck guess knows: LDraw's, through ldraw.xml.
+    out.stockGuess = import::stockGuessFor(mapping ? mapping->toLDraw(read) : read, rast.meshBoundsXZ, rast.spriteStuds);
     // Snap points need LDraw part numbers: go through ldraw.xml. The LDD
     // mesh frame (+Y up, image y = LDD z) and the converted LDraw model's
     // top-down frame (y = -LDraw z = LDD z) line up.

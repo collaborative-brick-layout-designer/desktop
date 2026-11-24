@@ -31,6 +31,7 @@ void MainWindow::setupTrains() {
                 if (core::Map* map = mapView_->currentMap()) mapView_->undoStack()->push(new edit::SetTrainCommand(*map, id, after, what));
             });
     connect(trainsPanel_, &TrainsPanel::placeRequested, mapView_, &MapView::startTrainPlacing);
+    connect(trainsPanel_, &TrainsPanel::importModelRequested, this, &MainWindow::importModelAsStock);
     connect(trainsPanel_, &TrainsPanel::placeCancelled, mapView_, &MapView::cancelTrainPlacing);
     connect(trainsPanel_, &TrainsPanel::showSpotRequested, mapView_, &MapView::showSpot);
     connect(mapView_, &MapView::trainPlacingChanged, trainsPanel_, &TrainsPanel::setPlacing);

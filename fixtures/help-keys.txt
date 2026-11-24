@@ -28,6 +28,7 @@ panel.trains
 trains.newStock
 trains.trucks
 trains.roster
+trains.importModel
 trains.newTrain
 trains.putOnTrack
 trains.turnAround

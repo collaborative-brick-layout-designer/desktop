@@ -13,13 +13,19 @@
 #include "MapView.h"
 #include "NoticeArea.h"
 #include "ServerLibrary.h"
+#include "StockImportDialog.h"
+#include "TrainDialogs.h"
+#include "TrainsPanel.h"
+#include "../edit/TrainCommands.h"
 #include "help/HelpButton.h"
+#include "../core/Ids.h"
 #include "../core/Map.h"
 #include "../parts/PartsLibrary.h"
 
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDialog>
+#include <QDate>
 #include <QDialogButtonBox>
 #include <QDir>
 #include <QFileDialog>
@@ -34,6 +40,7 @@
 #include <QRegularExpression>
 #include <QSettings>
 #include <QStatusBar>
+#include <QTabWidget>
 #include <QVBoxLayout>
 
 #include <algorithm>
@@ -178,6 +185,75 @@ QString MainWindow::writeOverImportedPart(const PreparedPart& part, const QStrin
     // The old part's picture is forgotten and every copy on the map redrawn.
     registerImportedPart(QDir(dir).filePath(written + QStringLiteral(".xml")));
     return written;
+}
+
+void MainWindow::importModelAsStock() {
+    if (!mapView_->currentMap()) return;
+    const QString title = tr("Import a model as an engine or car");
+    const QString dir = QSettings().value(QStringLiteral("import/stockLastDir")).toString();
+    const QString path = askModelFile ? askModelFile(title, dir) : QFileDialog::getOpenFileName(this, title, dir, modelFileFilter());
+    if (path.isEmpty()) return;
+    QSettings().setValue(QStringLiteral("import/stockLastDir"), QFileInfo(path).absolutePath());
+    importModelAsStockFile(path);
+}
+
+void MainWindow::importModelAsStockFile(const QString& path) {
+    const HeavyRunner runHeavy = [this](const QString& label, const std::function<void(CancelToken&)>& work) {
+        return runBackground(this, label, work);
+    };
+    PreparedPart part = prepareImport(path, currentImportSettings(), parts_, runHeavy);
+    if (!part.ok()) {
+        if (part.cancelled) statusBar()->showMessage(part.error, 3000);
+        else QMessageBox::warning(this, part.kindLabel, part.error);
+        return;
+    }
+    const track::StockGuess guess = stockGuessOf(part);
+    const bool canRoster = serverLibrary_ && !serverLibrary_->token().isEmpty();
+    StockImportDialog dlg(std::move(part), guess, canRoster, this);
+    if (!(runStockImportDialog ? runStockImportDialog(dlg) : dlg.exec() == QDialog::Accepted)) {
+        statusBar()->showMessage(tr("Import canceled."), 3000);
+        return;
+    }
+    core::Map* map = mapView_->currentMap();
+    if (!map) return;
+    // The part goes with your other imports, in a Rolling stock folder (a Parts panel category).
+    const QString root = importedPartsRoot();
+    const QString dir = categoryDir(root, QStringLiteral("Rolling stock"));
+    const QString name = dlg.partName();
+    QString err;
+    const QString key = writeImportedPart(dlg.part(), name, dir, map->author, false, &err, freeImportKey(name, dir));
+    if (key.isEmpty()) {
+        QMessageBox::warning(this, dlg.part().kindLabel, tr("Could not save the custom part: %1").arg(err));
+        return;
+    }
+    QString libKey = registerImportedPart(QDir(dir).filePath(key + QStringLiteral(".xml")));
+    if (libKey.isEmpty()) libKey = key;
+    // The next color no other car has, as New car picks.
+    static const QStringList kColors = { QStringLiteral("#B40000"), QStringLiteral("#0055BF"), QStringLiteral("#237841"),
+                                         QStringLiteral("#F2CD37"), QStringLiteral("#6C6E68"), QStringLiteral("#FE8A18"),
+                                         QStringLiteral("#05131D"), QStringLiteral("#A0A5A9") };
+    QString color = kColors.at(static_cast<int>(map->sidecar.rollingStock.size() % kColors.size()));
+    for (const QString& c : kColors) {
+        if (std::none_of(map->sidecar.rollingStock.begin(), map->sidecar.rollingStock.end(),
+                         [&](const core::RollingStock& s) { return s.color.compare(c, Qt::CaseInsensitive) == 0; })) {
+            color = c;
+            break;
+        }
+    }
+    const core::RollingStock s = stockFromModel(core::newBbmId(), libKey, dlg.setup(), dlg.number(),
+                                                dlg.kind(), QFileInfo(path).fileName(), import::importFormatOf(path), color,
+                                                QDate::currentDate().toString(Qt::ISODate));
+    mapView_->undoStack()->push(new edit::SetStockCommand(*map, s.id, s, tr("Import a model")));
+    if (trainsPanel_) {
+        trainsPanel_->show();
+        trainsPanel_->raise();
+        trainsPanel_->tabs()->setCurrentIndex(1);
+        if (dlg.toRoster()) trainsPanel_->saveToRoster(s.id, QString());
+    }
+    statusBar()->showMessage(tr("Added %1, made from %2").arg(stockLabel(s), QFileInfo(path).fileName()), 8000);
+    // Others in a live layout see the picture once the part is on the server.
+    if (live_ && live_->active()) offerPlacedParts();
+    else offerToSendImportedPart(key);
 }
 
 void MainWindow::importModelFile(const QString& path) {

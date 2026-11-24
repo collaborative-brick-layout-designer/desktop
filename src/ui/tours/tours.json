@@ -84,7 +84,7 @@
       "devices": "large",
       "steps": [
         { "target": "panel.trains", "title": "Trains and cars", "text": "Open Trains from Panels. Rolling stock holds this layout's engines and cars; Trains holds the trains made of them." },
-        { "target": "trains.newStock", "title": "A quick car", "text": "New car needs only a number and a length in studs. More details sets the trucks, couplers and a part's picture." },
+        { "target": "trains.newStock", "title": "A quick car, or your own model", "text": "New car needs just a number and a length. Import a model… makes one of a model you built, wheels and all." },
         { "target": "trainsPanel.tabs", "title": "Make a train", "text": "Tick a few cars and press Make a train, or press New train and add them in order, front first." },
         { "target": "trains.putOnTrack", "title": "On the track", "text": "Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track." },
         { "target": "run.mode", "title": "Watch it run", "text": "Press Run, then Play. Each train runs its route at its scale speed; two that would collide both stop." },

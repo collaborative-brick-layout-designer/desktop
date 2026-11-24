@@ -122,6 +122,11 @@ TrainsPanel::TrainsPanel(parts::PartsLibrary& parts, QWidget* parent) : QDockWid
     fromRoster_->setObjectName(QStringLiteral("rosterOpen"));
     connect(fromRoster_, &QPushButton::clicked, this, &TrainsPanel::openRoster);
     stop->addWidget(help::withHelp(fromRoster_, QStringLiteral("trains.roster"), stockPage));
+    importModel_ = new QPushButton(tr("Import a model…"), stockPage);
+    importModel_->setObjectName(QStringLiteral("stockImport"));
+    importModel_->setToolTip(tr("Make an engine or car of a model you built in LDraw, Studio or LDD"));
+    connect(importModel_, &QPushButton::clicked, this, &TrainsPanel::importModelRequested);
+    stop->addWidget(help::withHelp(importModel_, QStringLiteral("trains.importModel"), stockPage));
     stop->addStretch(1);
     sv->addLayout(stop);
     stockEmpty_ = new QLabel(stockPage);
@@ -408,6 +413,7 @@ void TrainsPanel::rebuild() {
     newTrain_->setEnabled(editable);
     newStock_->setEnabled(editable);
     fromRoster_->setEnabled(editable);
+    importModel_->setEnabled(editable);
     const auto unit = edit::venue::accountLengthUnit();
     const std::vector<core::RollingStock> noStock;
     const std::vector<core::Train> noTrains;
@@ -424,7 +430,7 @@ void TrainsPanel::rebuild() {
 
     // Rolling stock.
     stockEmpty_->setVisible(stock.empty());
-    stockEmpty_->setText(tr("No rolling stock yet. Press New car: a number and a length is all a quick car needs."));
+    stockEmpty_->setText(tr("No rolling stock yet. Press New car: a number and a length is all a quick car needs. Or bring in a model you built with Import a model…."));
     const bool signedIn = library_ && !library_->token().isEmpty();
     int at = 0;
     for (const auto& s : stock) {

@@ -73,6 +73,7 @@ public:
     void setRoster(const QList<sync::RosterStock>& entries);
 
     QTabWidget* tabs() const { return tabs_; }
+    QPushButton* importModelButton() const { return importModel_; }
     FitChecksList* checksList() const { return checks_; }
     QString message() const;
 
@@ -82,6 +83,8 @@ signals:
     void stockRemoved(const QString& id, const QString& what);
     void trainEdited(const QString& id, const std::optional<core::Train>& after, const QString& what);
     void placeRequested(const QString& trainId);
+    // Import a model…: an LDraw, Studio or LDD model as an engine or car (MainWindow picks the file).
+    void importModelRequested();
     void placeCancelled();
     // A fit check's Show me: the spot on the map (studs).
     void showSpotRequested(QPointF studs);
@@ -110,6 +113,7 @@ private:
     QPushButton* newTrain_ = nullptr;
     QPushButton* newStock_ = nullptr;
     QPushButton* fromRoster_ = nullptr;
+    QPushButton* importModel_ = nullptr;
     QPushButton* makeTrain_ = nullptr;
     QLabel* message_ = nullptr;
     FitChecksList* checks_ = nullptr;

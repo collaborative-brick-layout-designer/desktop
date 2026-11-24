@@ -368,6 +368,16 @@ are kept; an entry without `id` is dropped. Live, the web keeps them at
 `meta.rollingStock` and `meta.trains`, Y.Maps of id -> a Y.Map of fields.
 Never written to a `.bbm`. Added 2026-11 without a version bump.
 
+An engine or car made from an imported model (Trains › Import a model…)
+has `"look": { "mode": "model", "color": "#B40000", "partKey": "<the
+model's part>" }` and `"model": { "partKey": "<the same part>", "file":
+"engine.io", "format": "studio", "importedAt": "2026-11-24" }` (`format`
+`ldraw`, `studio` or `ldd`). The part is drawn from above, front to the
+right, its middle the car's middle. In a `.bld-layout` it travels in
+`parts/` with the other parts the layout uses; a server's custom part is
+`custom:<id>` live, and named by its part number in files. Builds that
+don't know `model` keep it; the look draws as a part's picture.
+
 ## Train scale
 
 ```json

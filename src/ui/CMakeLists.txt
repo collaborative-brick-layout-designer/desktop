@@ -66,6 +66,8 @@ add_library(bld_ui STATIC
     RunPanel.h
     RunSpeeds.h
     MainWindowTrains.cpp
+    StockImportDialog.cpp
+    StockImportDialog.h
     TrainDialogs.cpp
     TrainDialogs.h
     TrainsPanel.cpp
