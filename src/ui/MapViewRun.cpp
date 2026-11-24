@@ -35,7 +35,11 @@ track::StockById stockOf(const core::Map& map) {
 
 }  // namespace
 
-int MapView::trainScale() const { return map_ ? track::asScale(map_->sidecar.trainScale ? std::optional<double>(*map_->sidecar.trainScale) : std::nullopt) : track::kDefaultScale; }
+int MapView::trainScale() const {
+    if (!map_) return track::kDefaultScale;
+    const std::optional<int>& s = map_->sidecar.trainScale;
+    return track::asScale(s.has_value() ? std::optional<double>(s.value()) : std::nullopt);
+}
 
 QHash<QString, std::optional<RunPick>> MapView::runPicksNow(QSet<QString>* onTrack, QSet<QString>* broken) const {
     QHash<QString, std::optional<RunPick>> out;
@@ -107,7 +111,8 @@ void MapView::refreshRunPanel() {
     v.readOnly = runReadOnly_;
     v.picks = runPicksNow(&v.onTrack, &v.brokenRoutes);
     if (run_)
-        for (const QString& id : run_->trainIds()) v.states.insert(id, *run_->stateOf(id));
+        for (const QString& id : run_->trainIds())
+            if (const auto st = run_->stateOf(id)) v.states.insert(id, st.value());
     v.notes = runNotes_;
     runPanel_->show(*map_, v);
     runPanel_->setVisible(true);
@@ -152,12 +157,13 @@ void MapView::playRun(bool play) {
         QSet<QString> ids;
         for (const auto& t : map_->sidecar.trains) {
             const auto p = picks.value(t.id);
-            if (!p || !p->on) continue;
+            if (!p.has_value() || !p.value().on) continue;
+            const QString routeId = p.value().route;
             track::RunPlan plan;
             plan.train = t;
-            if (!p->route.isEmpty())
+            if (!routeId.isEmpty())
                 for (const auto& r : map_->sidecar.routes)
-                    if (r.id == p->route) plan.route = r;
+                    if (r.id == routeId) plan.route = r;
             plans.push_back(plan);
             ids.insert(t.id);
         }

@@ -282,12 +282,12 @@ void TrainRun::enter(Running& r, size_t i, std::vector<RunNote>& notes) {
     if (const auto* facing = net_.switchAt(switchKey(st.brick, st.from));
         facing && facing->exits.contains(st.to) && net_.settingOf(*facing, now) != st.to) {
         overlay_.insert(facing->key, st.to);
-        notes.push_back({ RunNoteKind::RouteSet, r.train.id, {}, facing->key, net_.port(st.brick, st.from)->first });
+        notes.push_back({ RunNoteKind::RouteSet, r.train.id, {}, facing->key, net_.port(st.brick, st.from).value_or(std::pair<QPointF, double>()).first });
     }
     if (const auto* trailing = net_.switchAt(switchKey(st.brick, st.to));
         trailing && trailing->exits.contains(st.from) && net_.settingOf(*trailing, now) != st.from) {
         overlay_.insert(trailing->key, st.from);
-        notes.push_back({ RunNoteKind::PushedThrough, r.train.id, {}, trailing->key, net_.port(st.brick, st.to)->first });
+        notes.push_back({ RunNoteKind::PushedThrough, r.train.id, {}, trailing->key, net_.port(st.brick, st.to).value_or(std::pair<QPointF, double>()).first });
     }
 }
 
@@ -431,7 +431,7 @@ void TrainRun::collide(const std::vector<size_t>* moved, std::vector<RunNote>& n
         }
         // A route's own end, or the track's, isn't news when the train stopped short of another.
         const QString ta = runs_[h.a].train.id;
-        const QString tb = h.b ? runs_[*h.b].train.id : QString();
+        const QString tb = h.b.has_value() ? runs_[h.b.value()].train.id : QString();
         notes.erase(std::remove_if(notes.begin(), notes.end(),
                                    [&](const RunNote& n) {
                                        return (n.kind == RunNoteKind::Arrived || n.kind == RunNoteKind::EndOfTrack) &&
