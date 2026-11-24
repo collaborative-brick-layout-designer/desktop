@@ -3,6 +3,8 @@
 #include "ConfirmDialog.h"
 #include "RecoverDialog.h"
 #include "help/HelpButton.h"
+#include "theme/AppPrefs.h"
+#include "tours/Tours.h"
 
 #include <QDesktopServices>
 #include <QDialogButtonBox>
@@ -62,7 +64,19 @@ VersionHistoryDialog::VersionHistoryDialog(sync::LibraryApi& api, const QString&
     title->setWordWrap(true);
     head->addWidget(title, 1);
     head->addWidget(new help::HelpButton(QStringLiteral("history.versions"), this));
+    auto* tour = new QPushButton(VersionHistoryDialog::tr("Show Me Around"), this);
+    tour->setObjectName(QStringLiteral("versionHistoryTour"));
+    tour->setFlat(true);
+    head->addWidget(tour);
     col->addLayout(head);
+
+    // Said while the site keeps no new versions; the ones kept can still be looked at and copied out.
+    off_ = new QLabel(VersionHistoryDialog::tr("Version history is switched off on this server, so no new versions are kept and one can't be put back. "
+                                               "The ones already kept can still be copied out as a new layout."), this);
+    off_->setObjectName(QStringLiteral("versionHistoryOff"));
+    off_->setWordWrap(true);
+    off_->setVisible(false);
+    col->addWidget(off_);
 
     status_ = new QLabel(this);
     status_->setObjectName(QStringLiteral("versionHistoryStatus"));
@@ -75,6 +89,7 @@ VersionHistoryDialog::VersionHistoryDialog(sync::LibraryApi& api, const QString&
     list_->setMinimumSize(480, 280);
     list_->setWordWrap(true);
     col->addWidget(list_, 1);
+    tours::tag(list_, QStringLiteral("versionHistory.list"));
 
     auto* buttons = new QDialogButtonBox(this);
     auto* close = buttons->addButton(VersionHistoryDialog::tr("Close"), QDialogButtonBox::RejectRole);
@@ -91,7 +106,12 @@ VersionHistoryDialog::VersionHistoryDialog(sync::LibraryApi& api, const QString&
     keep_->setObjectName(QStringLiteral("versionHistoryKeep"));
     keep_->setToolTip(VersionHistoryDialog::tr("Keep the layout as it is now in this list, with a name if you like"));
     col->addWidget(buttons);
+    tours::tag(keep_, QStringLiteral("versionHistory.keep"));
+    tours::tag(restore_, QStringLiteral("versionHistory.restore"));
+    tours::tag(copy_, QStringLiteral("versionHistory.copy"));
 
+    connect(tour, &QPushButton::clicked, this,
+            [this] { tours::startTour(this, QStringLiteral("history"), theme::PrefsStore::instance()); });
     connect(close, &QPushButton::clicked, this, &QDialog::reject);
     connect(list_, &QListWidget::currentRowChanged, this, [this] { updateButtons(); });
     connect(web_, &QPushButton::clicked, this, [this] { openLink(api_.layoutHistoryWebUrl(layoutId_)); });
@@ -149,7 +169,8 @@ void VersionHistoryDialog::reload() {
         [this, alive = std::weak_ptr<int>(alive_), keepText](const sync::LayoutVersions& v) {
             if (alive.expired()) return;
             versions_ = v.versions;
-            canRestore_ = v.canRestore;
+            canRestore_ = v.canRestore && v.enabled;
+            enabled_ = v.enabled;
             busy_ = false;
             fill();
             if (keepText != VersionHistoryDialog::tr("Loading…")) status_->setText(keepText);
@@ -210,6 +231,7 @@ void VersionHistoryDialog::failed(const sync::ServerRefusal& r) {
 
 void VersionHistoryDialog::updateButtons() {
     const bool picked = current() >= 0;
+    off_->setVisible(!enabled_);
     keep_->setVisible(canRestore_);
     restore_->setVisible(canRestore_);
     keep_->setEnabled(!busy_);

@@ -120,6 +120,15 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("Tours", "Uncheck any connection point you don’t want on the part."),
     QT_TRANSLATE_NOOP("Tours", "Where it goes"),
     QT_TRANSLATE_NOOP("Tours", "Put it in the layout you have open, or start a new layout with it."),
+    QT_TRANSLATE_NOOP("Tours", "Version history"),
+    QT_TRANSLATE_NOOP("Tours", "Every version is here"),
+    QT_TRANSLATE_NOOP("Tours", "A version is kept as you work, and before big changes. Pick one to look at it."),
+    QT_TRANSLATE_NOOP("Tours", "Keep one now"),
+    QT_TRANSLATE_NOOP("Tours", "Keep the layout as it is, with a name like Before the show, so you can find it again."),
+    QT_TRANSLATE_NOOP("Tours", "Put one back"),
+    QT_TRANSLATE_NOOP("Tours", "Restore makes the layout as it was. How it is now is kept first, so you can go back."),
+    QT_TRANSLATE_NOOP("Tours", "Copy one out"),
+    QT_TRANSLATE_NOOP("Tours", "Make a new layout from a version, and leave this one as it is."),
 };
 
 }  // namespace

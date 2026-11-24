@@ -73,7 +73,7 @@ QStringList tourStrings();
 // a new language takes a restart, as everywhere else in the app.
 const Catalogue& catalogue();
 const Tour* findTour(const QString& id);
-// The tours offered here: not the phone-only ones.
+// The tours offered here: not the phone-only ones, nor Version history's, which its window starts.
 QList<const Tour*> desktopTours();
 // "2 of 5".
 QString stepCount(int n, int total);

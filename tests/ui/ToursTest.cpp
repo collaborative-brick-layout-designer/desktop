@@ -83,8 +83,9 @@ TEST_F(Tours, TheCatalogueIsTheWebAppsFile) {
     EXPECT_EQ(c.welcome.id, QStringLiteral("welcome"));
     QStringList ids;
     for (const auto& t : c.tours) ids << t.id;
-    // The web's "import" tour (its import dialog) has web steps only: not here.
-    EXPECT_EQ(ids, (QStringList{ "editor", "rooms", "clubs", "modules", "routes", "trains", "view" }));
+    // The web's "import" tour (its import dialog) has web steps only: not here. "history" is
+    // Version History's own (its window starts it), so it isn't in Help or Settings.
+    EXPECT_EQ(ids, (QStringList{ "editor", "rooms", "clubs", "modules", "routes", "trains", "view", "history" }));
     EXPECT_EQ(tours::findTour(QStringLiteral("import")), nullptr);
     // The venue tour keeps its id; people see "Venues".
     EXPECT_EQ(tours::findTour(QStringLiteral("rooms"))->title, QStringLiteral("Venues"));
@@ -102,6 +103,10 @@ TEST_F(Tours, TheCatalogueIsTheWebAppsFile) {
     for (const auto* t : tours::desktopTours()) here << t->id;
     EXPECT_EQ(here, (QStringList{ "editor", "rooms", "clubs", "modules", "routes", "trains" }));
     EXPECT_EQ(tours::stepCount(2, 5), QStringLiteral("2 of 5"));
+    // Version history: the list, keeping one, restoring and copying out (tagged in VersionHistoryDialog).
+    QStringList targets;
+    for (const auto& st : tours::findTour(QStringLiteral("history"))->steps) targets << st.target;
+    EXPECT_EQ(targets, (QStringList{ "versionHistory.list", "versionHistory.keep", "versionHistory.restore", "versionHistory.copy" }));
 
     // The embedded copy is the file in the tree, and it says where its twin lives.
     const QByteArray embedded = readAll(QStringLiteral(":/bld/tours/tours.json"));

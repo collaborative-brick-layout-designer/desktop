@@ -114,6 +114,17 @@
         { "target": "import.connections", "title": "Snap points", "text": "Uncheck any connection point you don’t want on the part.", "apps": ["web"] },
         { "target": "import.where", "title": "Where it goes", "text": "Put it in the layout you have open, or start a new layout with it.", "apps": ["web"] }
       ]
+    },
+    {
+      "id": "history",
+      "title": "Version history",
+      "devices": "all",
+      "steps": [
+        { "target": "versionHistory.list", "title": "Every version is here", "text": "A version is kept as you work, and before big changes. Pick one to look at it." },
+        { "target": "versionHistory.keep", "title": "Keep one now", "text": "Keep the layout as it is, with a name like Before the show, so you can find it again." },
+        { "target": "versionHistory.restore", "title": "Put one back", "text": "Restore makes the layout as it was. How it is now is kept first, so you can go back." },
+        { "target": "versionHistory.copy", "title": "Copy one out", "text": "Make a new layout from a version, and leave this one as it is." }
+      ]
     }
   ]
 }

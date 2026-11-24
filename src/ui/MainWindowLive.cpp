@@ -138,6 +138,8 @@ void MainWindow::setupLiveMenu(QMenu* file) {
                                       "For a layout file, see Earlier Saves…"));
     versionHistoryAct_->setEnabled(false);
     connect(versionHistoryAct_, &QAction::triggered, this, &MainWindow::onVersionHistory);
+    // The switch is the server's to change at any time: asked again whenever the menu opens.
+    connect(file, &QMenu::aboutToShow, this, &MainWindow::refreshVersionHistoryStatus);
 
     // While live, Undo / Redo revert this desktop's own edits on the server.
     liveUndoAct_ = new QAction(tr("&Undo"), this);
@@ -555,6 +557,7 @@ void MainWindow::openLive(const sync::ConnectResult& r) {
     liveToken_ = r.token;
     liveLayoutId_ = r.layoutId;
     liveInfo_ = r.info;
+    refreshVersionHistoryStatus();
     sync::ServerApi api;
     if (live_->active()) live_->close();
     api.setBase(r.server);
@@ -1044,7 +1047,7 @@ void MainWindow::updateLiveUi() {
     const bool waiting = on && live_->session().offlineEdits()
                          && live_->session().status() == sync::SyncClient::Status::Synced;
     reviewOfflineAct_->setEnabled(waiting);
-    versionHistoryAct_->setEnabled(on && !liveLayoutId_.isEmpty());
+    updateVersionHistoryAction();
     // Clashing edits waiting for review: everything else is live (others'
     // changes show, and edits that don't clash are sent). Said for as long
     // as that lasts (the status bar counts them too).
@@ -1278,6 +1281,26 @@ void bld::ui::MainWindow::onVersionHistory() {
     if (!live_->active() || liveLayoutId_.isEmpty()) return;
     VersionHistoryDialog dialog(sharedLiveApi(), liveLayoutId_, live_->title(), this);
     dialog.exec();
+}
+
+void bld::ui::MainWindow::updateVersionHistoryAction() {
+    const bool on = live_ && live_->active() && !liveLayoutId_.isEmpty();
+    versionHistoryAct_->setEnabled(on && versionHistoryOn_);
+    versionHistoryAct_->setToolTip(versionHistoryOn_
+        ? tr("Earlier versions of the live layout that the server keeps: put one back or copy it out. For a layout file, see Earlier Saves…")
+        : tr("Version history is switched off on this server, so no new versions are kept. Ask its admin to switch it on."));
+}
+
+void bld::ui::MainWindow::refreshVersionHistoryStatus() {
+    if (!live_ || !live_->active() || liveLayoutId_.isEmpty()) return;
+    // An older server has no answer (404): its history, if any, is as it was.
+    sharedLiveApi().versionHistoryStatus(
+        [this, alive = std::weak_ptr<int>(versionStatusAlive_)](bool enabled) {
+            if (alive.expired() || versionHistoryOn_ == enabled) return;
+            versionHistoryOn_ = enabled;
+            updateVersionHistoryAction();
+        },
+        [](const sync::ServerRefusal&) {});
 }
 
 void bld::ui::MainWindow::keepLiveVersionThen(const QString& reason, std::function<void()> then) {

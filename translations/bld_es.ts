@@ -3836,6 +3836,42 @@
         <translation>Ponlo en la maqueta que tienes abierta, o empieza una maqueta nueva con ello.</translation>
     </message>
     <message>
+        <source>Version history</source>
+        <translation>Historial de versiones</translation>
+    </message>
+    <message>
+        <source>Every version is here</source>
+        <translation>Aquí está cada versión</translation>
+    </message>
+    <message>
+        <source>A version is kept as you work, and before big changes. Pick one to look at it.</source>
+        <translation>Se conserva una versión mientras trabajas y antes de cambios grandes. Elige una para verla.</translation>
+    </message>
+    <message>
+        <source>Keep one now</source>
+        <translation>Conservar una ahora</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is, with a name like Before the show, so you can find it again.</source>
+        <translation>Conserva la maqueta tal como está, con un nombre como «Antes del evento», para encontrarla después.</translation>
+    </message>
+    <message>
+        <source>Put one back</source>
+        <translation>Recuperar una</translation>
+    </message>
+    <message>
+        <source>Restore makes the layout as it was. How it is now is kept first, so you can go back.</source>
+        <translation>Restaurar deja la maqueta como estaba. Antes se conserva cómo está ahora, para que puedas volver.</translation>
+    </message>
+    <message>
+        <source>Copy one out</source>
+        <translation>Copiar una</translation>
+    </message>
+    <message>
+        <source>Make a new layout from a version, and leave this one as it is.</source>
+        <translation>Crea una maqueta nueva a partir de una versión y deja esta como está.</translation>
+    </message>
+    <message>
         <source>Trains</source>
         <translation>Trenes</translation>
     </message>
@@ -8914,6 +8950,10 @@ Save anyway?</source>
 Your offline changes are kept; File › Review Offline Changes brings them back.</source>
         <translation>No se pudo publicar tu versión: %1
 Tus cambios sin conexión se conservan; Archivo › Revisar cambios sin conexión los trae de vuelta.</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept. Ask its admin to switch it on.</source>
+        <translation>El historial de versiones está desactivado en este servidor, así que no se conservan versiones nuevas. Pide a su administrador que lo active.</translation>
     </message>
     <message>
         <source>Review now</source>
@@ -16284,6 +16324,14 @@ Conservar ambas: la de la maqueta se añade con un número de pieza nuevo, y est
     <message>
         <source>Version history of %1</source>
         <translation>Historial de versiones de %1</translation>
+    </message>
+    <message>
+        <source>Show Me Around</source>
+        <translation>Muéstrame</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept and one can&apos;t be put back. The ones already kept can still be copied out as a new layout.</source>
+        <translation>El historial de versiones está desactivado en este servidor, así que no se conservan versiones nuevas ni se puede recuperar ninguna. Las ya conservadas aún se pueden copiar como maqueta nueva.</translation>
     </message>
     <message>
         <source>Versions</source>

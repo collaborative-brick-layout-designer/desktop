@@ -3836,6 +3836,42 @@
         <translation>Lägg den i layouten du har öppen, eller börja en ny layout med den.</translation>
     </message>
     <message>
+        <source>Version history</source>
+        <translation>Versionshistorik</translation>
+    </message>
+    <message>
+        <source>Every version is here</source>
+        <translation>Varje version finns här</translation>
+    </message>
+    <message>
+        <source>A version is kept as you work, and before big changes. Pick one to look at it.</source>
+        <translation>En version sparas medan du arbetar och före stora ändringar. Välj en för att titta på den.</translation>
+    </message>
+    <message>
+        <source>Keep one now</source>
+        <translation>Spara en nu</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is, with a name like Before the show, so you can find it again.</source>
+        <translation>Spara layouten som den är, med ett namn som ”Före showen”, så att du hittar den igen.</translation>
+    </message>
+    <message>
+        <source>Put one back</source>
+        <translation>Lägg tillbaka en</translation>
+    </message>
+    <message>
+        <source>Restore makes the layout as it was. How it is now is kept first, so you can go back.</source>
+        <translation>Återställ gör layouten som den var. Hur den är nu sparas först, så att du kan gå tillbaka.</translation>
+    </message>
+    <message>
+        <source>Copy one out</source>
+        <translation>Kopiera ut en</translation>
+    </message>
+    <message>
+        <source>Make a new layout from a version, and leave this one as it is.</source>
+        <translation>Gör en ny layout av en version och låt den här vara som den är.</translation>
+    </message>
+    <message>
         <source>Trains</source>
         <translation>Tåg</translation>
     </message>
@@ -9369,6 +9405,10 @@ Spara ändå?</translation>
 Your offline changes are kept; File › Review Offline Changes brings them back.</source>
         <translation>Kunde inte publicera din version: %1
 Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram dem igen.</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept. Ask its admin to switch it on.</source>
+        <translation>Versionshistorik är avstängd på den här servern, så inga nya versioner sparas. Be administratören slå på den.</translation>
     </message>
     <message>
         <source>Review now</source>
@@ -16284,6 +16324,14 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Version history of %1</source>
         <translation>Versionshistorik för %1</translation>
+    </message>
+    <message>
+        <source>Show Me Around</source>
+        <translation>Visa mig runt</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept and one can&apos;t be put back. The ones already kept can still be copied out as a new layout.</source>
+        <translation>Versionshistorik är avstängd på den här servern, så inga nya versioner sparas och ingen kan läggas tillbaka. De som redan sparats kan fortfarande kopieras ut som en ny layout.</translation>
     </message>
     <message>
         <source>Versions</source>

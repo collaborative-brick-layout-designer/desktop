@@ -488,6 +488,7 @@ void LibraryApi::layoutVersions(const QString& layoutId, std::function<void(cons
              [done = std::move(done)](const QJsonObject& o) {
                  LayoutVersions out;
                  out.canRestore = o.value(QLatin1String("canRestore")).toBool(false);
+                 out.enabled = o.value(QLatin1String("enabled")).toBool(true);
                  for (const auto& v : o.value(QLatin1String("versions")).toArray()) {
                      const QJsonObject vo = v.toObject();
                      LayoutVersion ver;
@@ -507,6 +508,14 @@ void LibraryApi::layoutVersions(const QString& layoutId, std::function<void(cons
                      if (!ver.id.isEmpty()) out.versions << ver;
                  }
                  if (done) done(out);
+             },
+             std::move(failed));
+}
+
+void LibraryApi::versionHistoryStatus(std::function<void(bool)> done, Fail failed) {
+    sendJson("GET", QStringLiteral("/api/version-history/status"), {},
+             [done = std::move(done)](const QJsonObject& o) {
+                 if (done) done(o.value(QLatin1String("enabled")).toBool(true));
              },
              std::move(failed));
 }

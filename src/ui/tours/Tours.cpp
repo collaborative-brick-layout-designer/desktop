@@ -175,7 +175,8 @@ const Tour* findTour(const QString& id) {
 QList<const Tour*> desktopTours() {
     QList<const Tour*> out;
     for (const Tour& t : catalogue().tours)
-        if (t.devices != QLatin1String("phone")) out.append(&t);
+        // Not the phone ones, nor the ones a dialog starts itself (Version history's "Show Me Around").
+        if (t.devices != QLatin1String("phone") && t.id != QLatin1String("history")) out.append(&t);
     return out;
 }
 

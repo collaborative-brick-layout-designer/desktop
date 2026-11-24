@@ -8,6 +8,7 @@
 
 #include "LibraryApi.h"
 #include "ui/VersionHistoryDialog.h"
+#include "ui/tours/Tours.h"
 
 #include <gtest/gtest.h>
 
@@ -149,4 +150,50 @@ TEST_F(VersionHistory, AnOlderServerWithoutHistoryIsSaidPlainly) {
     ui::VersionHistoryDialog d(api_, QStringLiteral("L1"), QStringLiteral("Yard"));
     ASSERT_TRUE(waitFor([&] { return statusOf(d).contains(QStringLiteral("doesn't keep earlier versions")); }));
     EXPECT_FALSE(button(d, "versionHistoryCopy")->isEnabled());
+}
+
+TEST_F(VersionHistory, TheTourPointsAtTheListAndTheThreeButtonsAndStartsFromShowMeAround) {
+    http_.reply(kVersions, 200, list(true));
+    ui::VersionHistoryDialog d(api_, QStringLiteral("L1"), QStringLiteral("Yard"));
+    d.show();
+    ASSERT_TRUE(waitFor([&] { return listOf(d)->count() == 2; }));
+    for (const auto& step : ui::tours::findTour(QStringLiteral("history"))->steps)
+        EXPECT_NE(ui::tours::findTarget(&d, step.target), nullptr) << step.target.toStdString();
+    button(d, "versionHistoryTour")->click();
+    auto* overlay = d.findChild<ui::tours::TourOverlay*>();
+    ASSERT_NE(overlay, nullptr);
+    EXPECT_EQ(overlay->tour().id, QStringLiteral("history"));
+    overlay->finish();
+}
+
+TEST_F(VersionHistory, SwitchedOffItSaysSoKeepsNothingAndStillCopiesOut) {
+    QJsonObject off = list(true);
+    off.insert(QStringLiteral("enabled"), false);
+    http_.reply(kVersions, 200, off);
+    ui::VersionHistoryDialog d(api_, QStringLiteral("L1"), QStringLiteral("Yard"));
+    d.show();
+    ASSERT_TRUE(waitFor([&] { return listOf(d)->count() == 2; }));
+    auto* note = d.findChild<QLabel*>(QStringLiteral("versionHistoryOff"));
+    ASSERT_NE(note, nullptr);
+    EXPECT_TRUE(note->isVisible());
+    EXPECT_TRUE(note->text().contains(QStringLiteral("switched off")));
+    EXPECT_FALSE(button(d, "versionHistoryKeep")->isVisible());
+    EXPECT_FALSE(button(d, "versionHistoryRestore")->isVisible());
+    EXPECT_TRUE(button(d, "versionHistoryCopy")->isEnabled());
+}
+
+TEST_F(VersionHistory, TheStatusSaysWhetherTheServerKeepsNewVersions) {
+    http_.reply("/api/version-history/status", 200, QJsonObject{ { QStringLiteral("enabled"), false } });
+    int answered = -1;
+    api_.versionHistoryStatus([&](bool on) { answered = on ? 1 : 0; }, [&](const sync::ServerRefusal&) { answered = 2; });
+    ASSERT_TRUE(waitFor([&] { return answered != -1; }));
+    EXPECT_EQ(answered, 0);
+}
+
+TEST_F(VersionHistory, AnOlderServerHasNoStatusPageAndNothingIsAssumed) {
+    http_.reply("/api/version-history/status", 404, QJsonObject{ { QStringLiteral("error"), QStringLiteral("not_found") } });
+    int answered = -1;
+    api_.versionHistoryStatus([&](bool on) { answered = on ? 1 : 0; }, [&](const sync::ServerRefusal&) { answered = 2; });
+    ASSERT_TRUE(waitFor([&] { return answered != -1; }));
+    EXPECT_EQ(answered, 2);
 }

@@ -3836,6 +3836,42 @@
         <translation>Mettez-le dans le plan ouvert, ou commencez un nouveau plan avec.</translation>
     </message>
     <message>
+        <source>Version history</source>
+        <translation>Historique des versions</translation>
+    </message>
+    <message>
+        <source>Every version is here</source>
+        <translation>Chaque version est ici</translation>
+    </message>
+    <message>
+        <source>A version is kept as you work, and before big changes. Pick one to look at it.</source>
+        <translation>Une version est gardée pendant que vous travaillez, et avant les gros changements. Choisissez-en une pour la regarder.</translation>
+    </message>
+    <message>
+        <source>Keep one now</source>
+        <translation>En garder une maintenant</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is, with a name like Before the show, so you can find it again.</source>
+        <translation>Gardez le plan tel qu&apos;il est, avec un nom comme « Avant le salon », pour le retrouver.</translation>
+    </message>
+    <message>
+        <source>Put one back</source>
+        <translation>En rétablir une</translation>
+    </message>
+    <message>
+        <source>Restore makes the layout as it was. How it is now is kept first, so you can go back.</source>
+        <translation>Rétablir remet le plan comme il était. Son état actuel est d&apos;abord gardé, pour que vous puissiez revenir.</translation>
+    </message>
+    <message>
+        <source>Copy one out</source>
+        <translation>En copier une</translation>
+    </message>
+    <message>
+        <source>Make a new layout from a version, and leave this one as it is.</source>
+        <translation>Faites un nouveau plan à partir d&apos;une version, et laissez celui-ci tel qu&apos;il est.</translation>
+    </message>
+    <message>
         <source>Trains</source>
         <translation>Trains</translation>
     </message>
@@ -8914,6 +8950,10 @@ Enregistrer quand même ?</translation>
 Your offline changes are kept; File › Review Offline Changes brings them back.</source>
         <translation>Impossible de publier votre version : %1
 Vos changements hors ligne sont gardés ; Fichier › Revoir les changements hors ligne les ramène.</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept. Ask its admin to switch it on.</source>
+        <translation>L&apos;historique des versions est désactivé sur ce serveur : aucune nouvelle version n&apos;est gardée. Demandez à son administrateur de l&apos;activer.</translation>
     </message>
     <message>
         <source>Review now</source>
@@ -16284,6 +16324,14 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>Version history of %1</source>
         <translation>Historique des versions de %1</translation>
+    </message>
+    <message>
+        <source>Show Me Around</source>
+        <translation>Faites-moi visiter</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept and one can&apos;t be put back. The ones already kept can still be copied out as a new layout.</source>
+        <translation>L&apos;historique des versions est désactivé sur ce serveur : aucune nouvelle version n&apos;est gardée et aucune ne peut être rétablie. Celles déjà gardées peuvent encore être copiées comme nouveau plan.</translation>
     </message>
     <message>
         <source>Versions</source>

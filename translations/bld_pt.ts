@@ -3836,6 +3836,42 @@
         <translation>Ponha-o no layout que tem aberto, ou comece um layout novo com ele.</translation>
     </message>
     <message>
+        <source>Version history</source>
+        <translation>Histórico de versões</translation>
+    </message>
+    <message>
+        <source>Every version is here</source>
+        <translation>Cada versão está aqui</translation>
+    </message>
+    <message>
+        <source>A version is kept as you work, and before big changes. Pick one to look at it.</source>
+        <translation>Uma versão é guardada enquanto trabalha e antes de grandes alterações. Escolha uma para a ver.</translation>
+    </message>
+    <message>
+        <source>Keep one now</source>
+        <translation>Guardar uma agora</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is, with a name like Before the show, so you can find it again.</source>
+        <translation>Guarde o layout como está, com um nome como «Antes do evento», para o encontrar depois.</translation>
+    </message>
+    <message>
+        <source>Put one back</source>
+        <translation>Repor uma</translation>
+    </message>
+    <message>
+        <source>Restore makes the layout as it was. How it is now is kept first, so you can go back.</source>
+        <translation>Restaurar deixa o layout como estava. Antes, guarda-se como está agora, para poder voltar.</translation>
+    </message>
+    <message>
+        <source>Copy one out</source>
+        <translation>Copiar uma</translation>
+    </message>
+    <message>
+        <source>Make a new layout from a version, and leave this one as it is.</source>
+        <translation>Crie um novo layout a partir de uma versão e deixe este como está.</translation>
+    </message>
+    <message>
         <source>Trains</source>
         <translation>Comboios</translation>
     </message>
@@ -8914,6 +8950,10 @@ Guardar mesmo assim?</translation>
 Your offline changes are kept; File › Review Offline Changes brings them back.</source>
         <translation>Não foi possível publicar a sua versão: %1
 As suas alterações offline ficam guardadas; Ficheiro › Rever alterações offline trá-las de volta.</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept. Ask its admin to switch it on.</source>
+        <translation>O histórico de versões está desligado neste servidor, por isso não são guardadas novas versões. Peça ao administrador para o ligar.</translation>
     </message>
     <message>
         <source>Review now</source>
@@ -16284,6 +16324,14 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>Version history of %1</source>
         <translation>Histórico de versões de %1</translation>
+    </message>
+    <message>
+        <source>Show Me Around</source>
+        <translation>Mostre-me</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept and one can&apos;t be put back. The ones already kept can still be copied out as a new layout.</source>
+        <translation>O histórico de versões está desligado neste servidor, por isso não são guardadas novas versões e nenhuma pode ser reposta. As já guardadas ainda podem ser copiadas como novo layout.</translation>
     </message>
     <message>
         <source>Versions</source>

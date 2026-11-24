@@ -54,8 +54,11 @@ private:
     QString layoutId_;
     QList<sync::LayoutVersion> versions_;
     bool canRestore_ = false;
+    // The site keeps new versions (Admin › Backups can switch it off: then nothing can be kept or put back).
+    bool enabled_ = true;
     bool busy_ = false;
     QLabel* status_ = nullptr;
+    QLabel* off_ = nullptr;
     QListWidget* list_ = nullptr;
     QPushButton* keep_ = nullptr;
     QPushButton* restore_ = nullptr;

@@ -3816,6 +3816,42 @@
         <translation>開いているレイアウトに置くか、それで新しいレイアウトを始めます。</translation>
     </message>
     <message>
+        <source>Version history</source>
+        <translation>バージョン履歴</translation>
+    </message>
+    <message>
+        <source>Every version is here</source>
+        <translation>すべてのバージョンはここにあります</translation>
+    </message>
+    <message>
+        <source>A version is kept as you work, and before big changes. Pick one to look at it.</source>
+        <translation>作業中と大きな変更の前に、バージョンが残されます。選ぶと中身を見られます。</translation>
+    </message>
+    <message>
+        <source>Keep one now</source>
+        <translation>今すぐ残す</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is, with a name like Before the show, so you can find it again.</source>
+        <translation>「イベント前」のような名前を付けて、今のレイアウトをそのまま残します。あとで見つけやすくなります。</translation>
+    </message>
+    <message>
+        <source>Put one back</source>
+        <translation>戻す</translation>
+    </message>
+    <message>
+        <source>Restore makes the layout as it was. How it is now is kept first, so you can go back.</source>
+        <translation>復元すると、レイアウトがそのバージョンの状態に戻ります。今の状態は先に残されるので、元に戻せます。</translation>
+    </message>
+    <message>
+        <source>Copy one out</source>
+        <translation>コピーして取り出す</translation>
+    </message>
+    <message>
+        <source>Make a new layout from a version, and leave this one as it is.</source>
+        <translation>バージョンから新しいレイアウトを作ります。今のレイアウトはそのままです。</translation>
+    </message>
+    <message>
         <source>Trains</source>
         <translation>列車</translation>
     </message>
@@ -8856,6 +8892,10 @@ Save anyway?</source>
 Your offline changes are kept; File › Review Offline Changes brings them back.</source>
         <translation>あなたの版を公開できませんでした: %1
 オフラインの変更は残っています。ファイル › オフラインの変更を確認 で戻せます。</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept. Ask its admin to switch it on.</source>
+        <translation>このサーバーではバージョン履歴がオフなので、新しいバージョンは残りません。管理者にオンにしてもらってください。</translation>
     </message>
     <message>
         <source>Review now</source>
@@ -16181,6 +16221,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Version history of %1</source>
         <translation>%1 のバージョン履歴</translation>
+    </message>
+    <message>
+        <source>Show Me Around</source>
+        <translation>案内を見る</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept and one can&apos;t be put back. The ones already kept can still be copied out as a new layout.</source>
+        <translation>このサーバーではバージョン履歴がオフなので、新しいバージョンは残らず、戻すこともできません。すでに残されたバージョンは、新しいレイアウトとしてコピーできます。</translation>
     </message>
     <message>
         <source>Versions</source>
