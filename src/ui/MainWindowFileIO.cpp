@@ -1122,7 +1122,7 @@ void MainWindow::onEarlierSaves() {
     if (dialog.exec() != QDialog::Accepted) return;
     const std::optional<SavedCopy> chosen = dialog.chosen();
     if (!chosen) return;
-    const SavedCopy copy = *chosen;
+    const SavedCopy& copy = *chosen;
     const QString file = dialog.file();
     if (dialog.action() == EarlierSavesDialog::Action::OpenCopy) {
         openSavedCopy(copy, file);

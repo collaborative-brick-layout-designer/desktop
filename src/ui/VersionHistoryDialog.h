@@ -13,6 +13,7 @@
 #include <QDialog>
 
 #include <functional>
+#include <memory>
 
 class QLabel;
 class QListWidget;
@@ -60,6 +61,8 @@ private:
     QPushButton* restore_ = nullptr;
     QPushButton* copy_ = nullptr;
     QPushButton* web_ = nullptr;
+    // Answers that arrive after the dialog closed are dropped.
+    std::shared_ptr<int> alive_ = std::make_shared<int>(0);
 };
 
 } // namespace bld::ui

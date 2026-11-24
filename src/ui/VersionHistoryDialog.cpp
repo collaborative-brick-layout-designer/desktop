@@ -99,15 +99,14 @@ VersionHistoryDialog::VersionHistoryDialog(sync::LibraryApi& api, const QString&
         QString name;
         if (!askName(this, &name)) return;
         setBusy(true, VersionHistoryDialog::tr("Keeping a version…"));
-        QPointer<VersionHistoryDialog> self(this);
         api_.keepLayoutVersion(
             layoutId_, QStringLiteral("manual"), name,
-            [self](const QString&) {
-                if (!self) return;
-                self->setBusy(false, VersionHistoryDialog::tr("Kept a version of the layout as it is now."));
-                self->reload();
+            [this, alive = std::weak_ptr<int>(alive_)](const QString&) {
+                if (alive.expired()) return;
+                setBusy(false, VersionHistoryDialog::tr("Kept a version of the layout as it is now."));
+                reload();
             },
-            [self](const sync::ServerRefusal& r) { if (self) self->failed(r); });
+            [this, alive = std::weak_ptr<int>(alive_)](const sync::ServerRefusal& r) { if (!alive.expired()) failed(r); });
     });
     connect(restore_, &QPushButton::clicked, this, [this] {
         const int row = current();
@@ -115,30 +114,28 @@ VersionHistoryDialog::VersionHistoryDialog(sync::LibraryApi& api, const QString&
         const sync::LayoutVersion v = versions_.at(row);
         if (!confirmRestore(this, RecoverDialog::whenText(v.createdAt))) return;
         setBusy(true, VersionHistoryDialog::tr("Putting the version back…"));
-        QPointer<VersionHistoryDialog> self(this);
         api_.restoreLayoutVersion(
             layoutId_, v.id,
-            [self, v](const QString&) {
-                if (!self) return;
-                self->setBusy(false, VersionHistoryDialog::tr("The layout is back to how it was %1. How it was just before is kept as “Before a restore”.")
+            [this, alive = std::weak_ptr<int>(alive_), v](const QString&) {
+                if (alive.expired()) return;
+                setBusy(false, VersionHistoryDialog::tr("The layout is back to how it was %1. How it was just before is kept as “Before a restore”.")
                                          .arg(RecoverDialog::whenText(v.createdAt)));
-                self->reload();
+                reload();
             },
-            [self](const sync::ServerRefusal& r) { if (self) self->failed(r); });
+            [this, alive = std::weak_ptr<int>(alive_)](const sync::ServerRefusal& r) { if (!alive.expired()) failed(r); });
     });
     connect(copy_, &QPushButton::clicked, this, [this] {
         const int row = current();
         if (row < 0) return;
         setBusy(true, VersionHistoryDialog::tr("Making a copy…"));
-        QPointer<VersionHistoryDialog> self(this);
         api_.copyLayoutVersion(
             layoutId_, versions_.at(row).id,
-            [self](const QString& id, const QString& title) {
-                if (!self) return;
-                self->setBusy(false, VersionHistoryDialog::tr("Made a new layout, “%1”, from this version. It is in File › Open from Server….").arg(title));
-                emit self->copied(id, title);
+            [this, alive = std::weak_ptr<int>(alive_)](const QString& id, const QString& title) {
+                if (alive.expired()) return;
+                setBusy(false, VersionHistoryDialog::tr("Made a new layout, “%1”, from this version. It is in File › Open from Server….").arg(title));
+                emit copied(id, title);
             },
-            [self](const sync::ServerRefusal& r) { if (self) self->failed(r); });
+            [this, alive = std::weak_ptr<int>(alive_)](const sync::ServerRefusal& r) { if (!alive.expired()) failed(r); });
     });
     // Asked for once the dialog is built (the answer may come at any time).
     QTimer::singleShot(0, this, &VersionHistoryDialog::reload);
@@ -146,26 +143,25 @@ VersionHistoryDialog::VersionHistoryDialog(sync::LibraryApi& api, const QString&
 
 void VersionHistoryDialog::reload() {
     setBusy(true, versions_.isEmpty() ? VersionHistoryDialog::tr("Loading…") : status_->text());
-    QPointer<VersionHistoryDialog> self(this);
     const QString keepText = status_->text();
     api_.layoutVersions(
         layoutId_,
-        [self, keepText](const sync::LayoutVersions& v) {
-            if (!self) return;
-            self->versions_ = v.versions;
-            self->canRestore_ = v.canRestore;
-            self->busy_ = false;
-            self->fill();
-            if (keepText != VersionHistoryDialog::tr("Loading…")) self->status_->setText(keepText);
+        [this, alive = std::weak_ptr<int>(alive_), keepText](const sync::LayoutVersions& v) {
+            if (alive.expired()) return;
+            versions_ = v.versions;
+            canRestore_ = v.canRestore;
+            busy_ = false;
+            fill();
+            if (keepText != VersionHistoryDialog::tr("Loading…")) status_->setText(keepText);
         },
-        [self](const sync::ServerRefusal& r) {
-            if (!self) return;
+        [this, alive = std::weak_ptr<int>(alive_)](const sync::ServerRefusal& r) {
+            if (alive.expired()) return;
             if (r.status == 404)
-                self->status_->setText(VersionHistoryDialog::tr("This server doesn't keep earlier versions of layouts yet. Ask its admin to update it."));
+                status_->setText(VersionHistoryDialog::tr("This server doesn't keep earlier versions of layouts yet. Ask its admin to update it."));
             else
-                self->failed(r);
-            self->busy_ = false;
-            self->updateButtons();
+                failed(r);
+            busy_ = false;
+            updateButtons();
         });
 }
 
