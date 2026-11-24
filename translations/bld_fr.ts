@@ -143,6 +143,30 @@
         <translation>Choisissez le modèle à son nouvel emplacement, ou n’importe quel autre, et la pièce est refaite à partir de lui avec le même numéro, la même rotation et le même alignement. Ensuite, Réimporter utilise le fichier choisi.</translation>
     </message>
     <message>
+        <source>Earlier saves</source>
+        <translation>Enregistrements précédents</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time you saved over it.</source>
+        <translation>Des copies d’un fichier de plan d’avant chaque fois que vous l’avez enregistré par-dessus.</translation>
+    </message>
+    <message>
+        <source>Open one as a copy to look at it or save it under a new name; the file stays as it is. Put Back makes the file as it was then, after keeping the file as it is now, so you can put that back too.</source>
+        <translation>Ouvrez-en une comme copie pour la regarder ou l’enregistrer sous un nouveau nom ; le fichier reste tel quel. Rétablir remet le fichier comme il était alors, après avoir gardé le fichier tel qu’il est, pour que vous puissiez le rétablir aussi.</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep</source>
+        <translation>Enregistrements précédents à garder</translation>
+    </message>
+    <message>
+        <source>How many copies of each layout file to keep from before you saved over it.</source>
+        <translation>Combien de copies de chaque fichier de plan garder d’avant chaque enregistrement par-dessus.</translation>
+    </message>
+    <message>
+        <source>They are kept on this computer, in the app’s own folder, and the oldest go first. None keeps no copies; changes you never saved are kept apart, for File › Recover Unsaved Work….</source>
+        <translation>Elles sont gardées sur cet ordinateur, dans le dossier de l’application, et les plus anciennes partent en premier. Aucun ne garde aucune copie ; les modifications jamais enregistrées sont gardées à part, pour Fichier › Récupérer le travail non enregistré….</translation>
+    </message>
+    <message>
         <source>Parts without a budget</source>
         <translation>Pièces sans budget</translation>
     </message>
@@ -937,6 +961,18 @@
     <message>
         <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
         <translation>Les couleurs d’avertissement et d’erreur gardent leur sens dans les deux cas. Le texte reste facile à lire avec toute couleur.</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>Historique des versions</translation>
+    </message>
+    <message>
+        <source>Earlier versions of this layout, kept while people work on it, to look at, put back or copy out.</source>
+        <translation>Les versions précédentes de ce plan, gardées pendant qu’on y travaille, à regarder, rétablir ou copier.</translation>
+    </message>
+    <message>
+        <source>A version is kept every half hour of editing, and just before big changes like an import, a restore or many parts deleted at once. Putting one back keeps the layout as it was first, so you can go back again. Copy one out to have it as a new layout and leave this one as it is.</source>
+        <translation>Une version est gardée toutes les demi-heures de modification, et juste avant les grands changements comme une importation, une restauration ou beaucoup de pièces supprimées d’un coup. En rétablir une garde d’abord le plan tel qu’il est, pour pouvoir y revenir. Copiez-en une pour l’avoir comme nouveau plan et laisser celui-ci tel quel.</translation>
     </message>
     <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
@@ -5624,6 +5660,103 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::EarlierSavesDialog</name>
+    <message>
+        <source>Put back the save from %1?</source>
+        <translation>Rétablir l’enregistrement du %1 ?</translation>
+    </message>
+    <message>
+        <source>%1 becomes as it was saved then.</source>
+        <translation>%1 redevient tel qu’il était enregistré alors.</translation>
+    </message>
+    <message>
+        <source>The file as it is now is kept first, as an earlier save, so you can put it back too.</source>
+        <translation>Le fichier tel qu’il est maintenant est d’abord gardé comme enregistrement précédent, pour que vous puissiez le rétablir aussi.</translation>
+    </message>
+    <message>
+        <source>You can undo this from File › Earlier Saves….</source>
+        <translation>Vous pouvez l’annuler depuis Fichier › Enregistrements précédents….</translation>
+    </message>
+    <message>
+        <source>Put Back</source>
+        <translation>Rétablir</translation>
+    </message>
+    <message>
+        <source>Earlier saves</source>
+        <translation>Enregistrements précédents</translation>
+    </message>
+    <message>
+        <source>Layout file:</source>
+        <translation>Fichier de plan :</translation>
+    </message>
+    <message>
+        <source>Layout file</source>
+        <translation>Fichier de plan</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Fermer</translation>
+    </message>
+    <message>
+        <source>Show Folder</source>
+        <translation>Afficher le dossier</translation>
+    </message>
+    <message>
+        <source>Open the folder the earlier saves of this file are kept in</source>
+        <translation>Ouvrir le dossier où sont gardés les enregistrements précédents de ce fichier</translation>
+    </message>
+    <message>
+        <source>Put Back…</source>
+        <translation>Rétablir…</translation>
+    </message>
+    <message>
+        <source>Make the file as it was in the picked save (the file as it is now is kept first)</source>
+        <translation>Remettre le fichier comme dans l’enregistrement choisi (le fichier tel qu’il est est gardé d’abord)</translation>
+    </message>
+    <message>
+        <source>Open as a Copy</source>
+        <translation>Ouvrir comme copie</translation>
+    </message>
+    <message>
+        <source>Open the picked save as a new layout, leaving the file as it is</source>
+        <translation>Ouvrir l’enregistrement choisi comme nouveau plan, sans toucher au fichier</translation>
+    </message>
+    <message>
+        <source>Saved before %1 — %2</source>
+        <translation>Enregistré avant %1 — %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>There are no earlier saves yet. Each time you save a layout over its file, the file as it was is kept here: the last %n of each file (Settings › Saving).</source>
+        <translation>
+            <numerusform>Il n’y a pas encore d’enregistrement précédent. Chaque fois que vous enregistrez un plan par-dessus son fichier, le fichier tel qu’il était est gardé ici : les %n derniers de chaque fichier (Réglages › Enregistrement).</numerusform>
+            <numerusform>Il n’y a pas encore d’enregistrement précédent. Chaque fois que vous enregistrez un plan par-dessus son fichier, le fichier tel qu’il était est gardé ici : les %n derniers de chaque fichier (Réglages › Enregistrement).</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Earlier saves are turned off. Turn them on in Settings › Saving.</source>
+        <translation>Les enregistrements précédents sont désactivés. Activez-les dans Réglages › Enregistrement.</translation>
+    </message>
+    <message>
+        <source>This file has no earlier saves yet. The next time you save over it, the file as it was is kept here.</source>
+        <translation>Ce fichier n’a pas encore d’enregistrement précédent. La prochaine fois que vous l’enregistrerez par-dessus, le fichier tel qu’il était sera gardé ici.</translation>
+    </message>
+    <message>
+        <source>Each time this file was saved, the file as it was just before was kept. Open one as a copy to look at it, or put it back in place of the file.</source>
+        <translation>Chaque fois que ce fichier a été enregistré, il a été gardé tel qu’il était juste avant. Ouvrez-en un comme copie pour le regarder, ou rétablissez-le à la place du fichier.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FileBackups</name>
+    <message>
+        <source>The folder for earlier saves couldn&apos;t be made: %1</source>
+        <translation>Le dossier des enregistrements précédents n’a pas pu être créé : %1</translation>
+    </message>
+    <message>
+        <source>That earlier save isn&apos;t there any more.</source>
+        <translation>Cet enregistrement précédent n’est plus là.</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::FindDialog</name>
     <message>
         <source>Find &amp;&amp; Replace</source>
@@ -8517,6 +8650,14 @@ Enregistrer quand même ?</translation>
         <translation>Toutes les autres personnes qui ont cette disposition ouverte en ce moment</translation>
     </message>
     <message>
+        <source>Version Histor&amp;y…</source>
+        <translation>Histor&amp;ique des versions…</translation>
+    </message>
+    <message>
+        <source>Earlier versions of the live layout that the server keeps: put one back or copy it out. For a layout file, see Earlier Saves…</source>
+        <translation>Les versions précédentes du plan en direct que garde le serveur : en rétablir une ou la copier. Pour un fichier de plan, voir Enregistrements précédents…</translation>
+    </message>
+    <message>
         <source>Edit module closed</source>
         <translation>« Modifier le module » s’est fermé</translation>
     </message>
@@ -8937,6 +9078,14 @@ Vos changements hors ligne sont gardés ; Fichier › Revoir les changements hor
     <message>
         <source>Cu&amp;t</source>
         <translation>Co&amp;uper</translation>
+    </message>
+    <message>
+        <source>Earlier Saves…</source>
+        <translation>Enregistrements précédents…</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time it was saved over: open one, or put it back</source>
+        <translation>Des copies d’un fichier de plan d’avant chaque enregistrement par-dessus : en ouvrir une ou la rétablir</translation>
     </message>
     <message>
         <source>Choose a file with the … button</source>
@@ -9827,6 +9976,14 @@ La question ne vous sera plus posée. Pour le reprendre plus tard dans ce plan o
         <translation>Une copie de %1 n’a pas pu être gardée avant de l’écraser : rien n’a été enregistré. Utilisez Fichier › Enregistrer sous… pour enregistrer sous un nouveau nom.</translation>
     </message>
     <message>
+        <source>An earlier save couldn&apos;t be kept</source>
+        <translation>Un enregistrement précédent n’a pas pu être gardé</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but the file as it was before couldn&apos;t be kept in File › Earlier Saves…: %2</source>
+        <translation>%1 a été enregistré, mais le fichier tel qu’il était avant n’a pas pu être gardé dans Fichier › Enregistrements précédents… : %2</translation>
+    </message>
+    <message>
         <source>A copy was kept</source>
         <translation>Une copie a été gardée</translation>
     </message>
@@ -10025,6 +10182,22 @@ Elles sont gardées : vous pouvez réessayer depuis Fichier › Récupérer le t
     <message>
         <source>Recovered the unsaved changes to %1. Save to keep them.</source>
         <translation>Les modifications non enregistrées de %1 ont été récupérées. Enregistrez pour les garder.</translation>
+    </message>
+    <message>
+        <source>Put back failed</source>
+        <translation>Échec du rétablissement</translation>
+    </message>
+    <message>
+        <source>The earlier save couldn&apos;t be put back in place of %1: %2</source>
+        <translation>L’enregistrement précédent n’a pas pu être rétabli à la place de %1 : %2</translation>
+    </message>
+    <message>
+        <source>Put back the save of %1 from %2. The file as it was is kept in File › Earlier Saves….</source>
+        <translation>L’enregistrement de %1 du %2 est rétabli. Le fichier tel qu’il était est gardé dans Fichier › Enregistrements précédents….</translation>
+    </message>
+    <message>
+        <source>Opened the save of %1 from %2 as a new layout. Use Save As to keep it; %1 itself is as it was.</source>
+        <translation>L’enregistrement de %1 du %2 est ouvert comme nouveau plan. Utilisez Enregistrer sous pour le garder ; %1 lui-même est inchangé.</translation>
     </message>
     <message>
         <source>Recover &amp;Unsaved Work…</source>
@@ -13905,6 +14078,10 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
         <translation>Au démarrage</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Enregistrement</translation>
+    </message>
+    <message>
         <source>Parts and folders</source>
         <translation>Pièces et dossiers</translation>
     </message>
@@ -14106,6 +14283,26 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>New layouts start from:</source>
         <translation>Les nouveaux plans partent de :</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Aucun</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file</source>
+        <translation>Enregistrements précédents à garder par fichier</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file:</source>
+        <translation>Enregistrements précédents à garder par fichier :</translation>
+    </message>
+    <message>
+        <source>Each time you save over a layout file, the file as it was is kept on this computer. File › Earlier Saves… opens them or puts one back.</source>
+        <translation>Chaque fois que vous enregistrez par-dessus un fichier de plan, le fichier tel qu’il était est gardé sur cet ordinateur. Fichier › Enregistrements précédents… les ouvre ou en rétablit un.</translation>
+    </message>
+    <message>
+        <source>Show Earlier Saves Folder</source>
+        <translation>Afficher le dossier des enregistrements précédents</translation>
     </message>
     <message>
         <source> px</source>
@@ -16024,6 +16221,179 @@ Garder les deux : celle du plan est ajoutée sous un nouveau numéro de pièce, 
     <message>
         <source>(could not read file)</source>
         <translation>(fichier illisible)</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::VersionHistoryDialog</name>
+    <message>
+        <source>Put the layout back to %1?</source>
+        <translation>Remettre le plan au %1 ?</translation>
+    </message>
+    <message>
+        <source>The layout becomes as it was in this version. Everyone working in it sees the change at once.</source>
+        <translation>Le plan redevient tel qu’il était dans cette version. Tous ceux qui y travaillent voient le changement aussitôt.</translation>
+    </message>
+    <message>
+        <source>The layout as it is now is kept in this list first (“Before a restore”), so you can go back to it.</source>
+        <translation>Le plan tel qu’il est maintenant est d’abord gardé dans cette liste (« Avant une restauration »), pour que vous puissiez y revenir.</translation>
+    </message>
+    <message>
+        <source>To undo, restore the “Before a restore” version.</source>
+        <translation>Pour annuler, restaurez la version « Avant une restauration ».</translation>
+    </message>
+    <message>
+        <source>Restore This Version</source>
+        <translation>Restaurer cette version</translation>
+    </message>
+    <message>
+        <source>Keep a version now</source>
+        <translation>Garder une version maintenant</translation>
+    </message>
+    <message>
+        <source>A name for it (you can leave it empty), for example Before the show:</source>
+        <translation>Un nom pour elle (facultatif), par exemple Avant l’expo :</translation>
+    </message>
+    <message>
+        <source>Kept by hand</source>
+        <translation>Gardée à la main</translation>
+    </message>
+    <message>
+        <source>Before a model was imported</source>
+        <translation>Avant l’importation d’un modèle</translation>
+    </message>
+    <message>
+        <source>Before changes were merged in</source>
+        <translation>Avant la fusion de modifications</translation>
+    </message>
+    <message>
+        <source>Before a restore</source>
+        <translation>Avant une restauration</translation>
+    </message>
+    <message>
+        <source>Before many parts were deleted</source>
+        <translation>Avant la suppression de nombreuses pièces</translation>
+    </message>
+    <message>
+        <source>While editing</source>
+        <translation>Pendant la modification</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>Historique des versions</translation>
+    </message>
+    <message>
+        <source>Version history of %1</source>
+        <translation>Historique des versions de %1</translation>
+    </message>
+    <message>
+        <source>Versions</source>
+        <translation>Versions</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Fermer</translation>
+    </message>
+    <message>
+        <source>See on the Website</source>
+        <translation>Voir sur le site</translation>
+    </message>
+    <message>
+        <source>Open the layout&apos;s history on the website, which draws each version</source>
+        <translation>Ouvrir l’historique du plan sur le site, qui dessine chaque version</translation>
+    </message>
+    <message>
+        <source>Copy as a New Layout</source>
+        <translation>Copier comme nouveau plan</translation>
+    </message>
+    <message>
+        <source>Make a new layout of yours from the picked version; this one stays as it is</source>
+        <translation>Faire un nouveau plan à vous à partir de la version choisie ; celui-ci reste tel quel</translation>
+    </message>
+    <message>
+        <source>Restore…</source>
+        <translation>Restaurer…</translation>
+    </message>
+    <message>
+        <source>Put the layout back to the picked version (the layout as it is now is kept first)</source>
+        <translation>Remettre le plan à la version choisie (le plan tel qu’il est est gardé d’abord)</translation>
+    </message>
+    <message>
+        <source>Keep a Version Now…</source>
+        <translation>Garder une version maintenant…</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is now in this list, with a name if you like</source>
+        <translation>Garder le plan tel qu’il est dans cette liste, avec un nom si vous voulez</translation>
+    </message>
+    <message>
+        <source>Keeping a version…</source>
+        <translation>Version en cours de sauvegarde…</translation>
+    </message>
+    <message>
+        <source>Kept a version of the layout as it is now.</source>
+        <translation>Une version du plan tel qu’il est a été gardée.</translation>
+    </message>
+    <message>
+        <source>Putting the version back…</source>
+        <translation>Rétablissement de la version…</translation>
+    </message>
+    <message>
+        <source>The layout is back to how it was %1. How it was just before is kept as “Before a restore”.</source>
+        <translation>Le plan est revenu à son état du %1. Son état juste avant est gardé comme « Avant une restauration ».</translation>
+    </message>
+    <message>
+        <source>Making a copy…</source>
+        <translation>Copie en cours…</translation>
+    </message>
+    <message>
+        <source>Made a new layout, “%1”, from this version. It is in File › Open from Server….</source>
+        <translation>Un nouveau plan, « %1 », a été fait à partir de cette version. Il est dans Fichier › Ouvrir depuis le serveur….</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Chargement…</translation>
+    </message>
+    <message>
+        <source>This server doesn&apos;t keep earlier versions of layouts yet. Ask its admin to update it.</source>
+        <translation>Ce serveur ne garde pas encore les versions précédentes des plans. Demandez à son admin de le mettre à jour.</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>« %1 »</translation>
+    </message>
+    <message>
+        <source>%1 — %2</source>
+        <translation>%1 — %2</translation>
+    </message>
+    <message>
+        <source> · %1</source>
+        <translation> · %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s)</source>
+        <translation>
+            <numerusform>%n pièce</numerusform>
+            <numerusform>%n pièces</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n sheet(s)</source>
+        <translation>
+            <numerusform>%n feuille</numerusform>
+            <numerusform>%n feuilles</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No versions yet. One is kept after the first edits, then every half hour while people work on the layout, and just before big changes.</source>
+        <translation>Pas encore de versions. Une est gardée après les premières modifications, puis toutes les demi-heures pendant qu’on travaille sur le plan, et juste avant les grands changements.</translation>
+    </message>
+    <message>
+        <source>Pick a version to put it back, or to copy it out as a new layout.</source>
+        <translation>Choisissez une version pour la rétablir, ou pour la copier comme nouveau plan.</translation>
+    </message>
+    <message>
+        <source>Pick a version to copy it out as a new layout. Only the layout&apos;s editors can put one back.</source>
+        <translation>Choisissez une version pour la copier comme nouveau plan. Seuls les éditeurs du plan peuvent en rétablir une.</translation>
     </message>
 </context>
 <context>

@@ -35,6 +35,7 @@ add_executable(bld_sync_tests
     ServerWindowTest.cpp
     ClubLogosTest.cpp
     ClubMembersTest.cpp
+    VersionHistoryTest.cpp
     TokenStoreTest.cpp
     SyncTestMain.cpp
 )

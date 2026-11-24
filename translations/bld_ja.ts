@@ -143,6 +143,30 @@
         <translation>新しい場所にあるモデル、またはほかのモデルを選ぶと、同じ番号、回転、位置合わせでパーツが作り直されます。それ以降、「再インポート」は選んだファイルを使います。</translation>
     </message>
     <message>
+        <source>Earlier saves</source>
+        <translation>以前の保存</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time you saved over it.</source>
+        <translation>レイアウトファイルを上書き保存するたびに、その前の状態を残したコピーです。</translation>
+    </message>
+    <message>
+        <source>Open one as a copy to look at it or save it under a new name; the file stays as it is. Put Back makes the file as it was then, after keeping the file as it is now, so you can put that back too.</source>
+        <translation>コピーとして開いて確認したり、別の名前で保存したりできます。ファイルはそのままです。「戻す」はファイルを当時の状態に戻します。その前に今の状態を残すので、そちらも戻せます。</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep</source>
+        <translation>残しておく以前の保存</translation>
+    </message>
+    <message>
+        <source>How many copies of each layout file to keep from before you saved over it.</source>
+        <translation>各レイアウトファイルについて、上書き保存の前の状態をいくつ残すか。</translation>
+    </message>
+    <message>
+        <source>They are kept on this computer, in the app’s own folder, and the oldest go first. None keeps no copies; changes you never saved are kept apart, for File › Recover Unsaved Work….</source>
+        <translation>このコンピューターのアプリ専用フォルダーに保存され、古いものから消えます。「なし」ではコピーを残しません。一度も保存していない変更は別に保管され、「ファイル › 未保存の作業を復元…」で使います。</translation>
+    </message>
+    <message>
         <source>Parts without a budget</source>
         <translation>予算のないパーツ</translation>
     </message>
@@ -937,6 +961,18 @@
     <message>
         <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
         <translation>警告やエラーの色はどちらでも意味が変わりません。どの色でも文字は読みやすいままです。</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>バージョン履歴</translation>
+    </message>
+    <message>
+        <source>Earlier versions of this layout, kept while people work on it, to look at, put back or copy out.</source>
+        <translation>このレイアウトの以前のバージョン。編集中に残され、見る・戻す・コピーすることができます。</translation>
+    </message>
+    <message>
+        <source>A version is kept every half hour of editing, and just before big changes like an import, a restore or many parts deleted at once. Putting one back keeps the layout as it was first, so you can go back again. Copy one out to have it as a new layout and leave this one as it is.</source>
+        <translation>編集中は30分ごとに、またインポート、復元、一度に多くのパーツの削除など大きな変更の直前にバージョンを残します。戻す前に今のレイアウトを残すので、また元に戻せます。コピーすると新しいレイアウトとして使え、このレイアウトはそのままです。</translation>
     </message>
     <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
@@ -5589,6 +5625,102 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::EarlierSavesDialog</name>
+    <message>
+        <source>Put back the save from %1?</source>
+        <translation>%1 の保存に戻しますか？</translation>
+    </message>
+    <message>
+        <source>%1 becomes as it was saved then.</source>
+        <translation>%1 は当時保存された状態に戻ります。</translation>
+    </message>
+    <message>
+        <source>The file as it is now is kept first, as an earlier save, so you can put it back too.</source>
+        <translation>今のファイルは先に以前の保存として残るので、そちらも戻せます。</translation>
+    </message>
+    <message>
+        <source>You can undo this from File › Earlier Saves….</source>
+        <translation>「ファイル › 以前の保存…」から元に戻せます。</translation>
+    </message>
+    <message>
+        <source>Put Back</source>
+        <translation>戻す</translation>
+    </message>
+    <message>
+        <source>Earlier saves</source>
+        <translation>以前の保存</translation>
+    </message>
+    <message>
+        <source>Layout file:</source>
+        <translation>レイアウトファイル：</translation>
+    </message>
+    <message>
+        <source>Layout file</source>
+        <translation>レイアウトファイル</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
+    </message>
+    <message>
+        <source>Show Folder</source>
+        <translation>フォルダーを表示</translation>
+    </message>
+    <message>
+        <source>Open the folder the earlier saves of this file are kept in</source>
+        <translation>このファイルの以前の保存があるフォルダーを開きます</translation>
+    </message>
+    <message>
+        <source>Put Back…</source>
+        <translation>戻す…</translation>
+    </message>
+    <message>
+        <source>Make the file as it was in the picked save (the file as it is now is kept first)</source>
+        <translation>選んだ保存の状態にファイルを戻します（今のファイルは先に残します）</translation>
+    </message>
+    <message>
+        <source>Open as a Copy</source>
+        <translation>コピーとして開く</translation>
+    </message>
+    <message>
+        <source>Open the picked save as a new layout, leaving the file as it is</source>
+        <translation>選んだ保存を新しいレイアウトとして開きます。ファイルはそのままです</translation>
+    </message>
+    <message>
+        <source>Saved before %1 — %2</source>
+        <translation>%1 より前の保存 — %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>There are no earlier saves yet. Each time you save a layout over its file, the file as it was is kept here: the last %n of each file (Settings › Saving).</source>
+        <translation>
+            <numerusform>以前の保存はまだありません。レイアウトをファイルに上書き保存するたびに、それまでのファイルがここに残ります：各ファイルの最新 %n 件（設定 › 保存）。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Earlier saves are turned off. Turn them on in Settings › Saving.</source>
+        <translation>以前の保存はオフになっています。「設定 › 保存」でオンにしてください。</translation>
+    </message>
+    <message>
+        <source>This file has no earlier saves yet. The next time you save over it, the file as it was is kept here.</source>
+        <translation>このファイルにはまだ以前の保存がありません。次に上書き保存すると、それまでのファイルがここに残ります。</translation>
+    </message>
+    <message>
+        <source>Each time this file was saved, the file as it was just before was kept. Open one as a copy to look at it, or put it back in place of the file.</source>
+        <translation>このファイルを保存するたびに、その直前の状態が残されました。コピーとして開いて確認するか、ファイルの代わりに戻してください。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FileBackups</name>
+    <message>
+        <source>The folder for earlier saves couldn&apos;t be made: %1</source>
+        <translation>以前の保存用のフォルダーを作れませんでした：%1</translation>
+    </message>
+    <message>
+        <source>That earlier save isn&apos;t there any more.</source>
+        <translation>その以前の保存はもうありません。</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::FindDialog</name>
     <message>
         <source>Find &amp;&amp; Replace</source>
@@ -8464,6 +8596,14 @@ Save anyway?</source>
         <translation>今このレイアウトを開いている他のすべての人</translation>
     </message>
     <message>
+        <source>Version Histor&amp;y…</source>
+        <translation>バージョン履歴(&amp;Y)…</translation>
+    </message>
+    <message>
+        <source>Earlier versions of the live layout that the server keeps: put one back or copy it out. For a layout file, see Earlier Saves…</source>
+        <translation>サーバーが残しているライブレイアウトの以前のバージョン：戻したりコピーしたりできます。レイアウトファイルは「以前の保存…」を見てください</translation>
+    </message>
+    <message>
         <source>Edit module closed</source>
         <translation>「モジュールを編集」を閉じました</translation>
     </message>
@@ -8876,6 +9016,14 @@ Your offline changes are kept; File › Review Offline Changes brings them back.
     <message>
         <source>Cu&amp;t</source>
         <translation>切り取り(&amp;T)</translation>
+    </message>
+    <message>
+        <source>Earlier Saves…</source>
+        <translation>以前の保存…</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time it was saved over: open one, or put it back</source>
+        <translation>上書き保存するたびに残したレイアウトファイルのコピー：開くか、戻します</translation>
     </message>
     <message>
         <source>Choose a file with the … button</source>
@@ -9752,6 +9900,14 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>上書きする前に %1 のコピーを残せなかったため、何も保存していません。ファイル › 名前を付けて保存… で別の名前で保存してください。</translation>
     </message>
     <message>
+        <source>An earlier save couldn&apos;t be kept</source>
+        <translation>以前の保存を残せませんでした</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but the file as it was before couldn&apos;t be kept in File › Earlier Saves…: %2</source>
+        <translation>%1 は保存されましたが、保存前のファイルを「ファイル › 以前の保存…」に残せませんでした：%2</translation>
+    </message>
+    <message>
         <source>A copy was kept</source>
         <translation>コピーを残しました</translation>
     </message>
@@ -9948,6 +10104,22 @@ They are kept, so you can try again from File › Recover Unsaved Work….</sour
     <message>
         <source>Recovered the unsaved changes to %1. Save to keep them.</source>
         <translation>%1 の未保存の変更を復元しました。残すには保存してください。</translation>
+    </message>
+    <message>
+        <source>Put back failed</source>
+        <translation>戻せませんでした</translation>
+    </message>
+    <message>
+        <source>The earlier save couldn&apos;t be put back in place of %1: %2</source>
+        <translation>以前の保存を %1 の代わりに戻せませんでした：%2</translation>
+    </message>
+    <message>
+        <source>Put back the save of %1 from %2. The file as it was is kept in File › Earlier Saves….</source>
+        <translation>%1 を %2 の保存に戻しました。戻す前のファイルは「ファイル › 以前の保存…」にあります。</translation>
+    </message>
+    <message>
+        <source>Opened the save of %1 from %2 as a new layout. Use Save As to keep it; %1 itself is as it was.</source>
+        <translation>%1 の %2 の保存を新しいレイアウトとして開きました。残すには「名前を付けて保存」を使ってください。%1 自体はそのままです。</translation>
     </message>
     <message>
         <source>Recover &amp;Unsaved Work…</source>
@@ -13808,6 +13980,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>起動時</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>保存</translation>
+    </message>
+    <message>
         <source>Parts and folders</source>
         <translation>パーツとフォルダー</translation>
     </message>
@@ -14008,6 +14184,26 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>New layouts start from:</source>
         <translation>新しいレイアウトの出発点:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>なし</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file</source>
+        <translation>各ファイルで残す以前の保存</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file:</source>
+        <translation>各ファイルで残す以前の保存：</translation>
+    </message>
+    <message>
+        <source>Each time you save over a layout file, the file as it was is kept on this computer. File › Earlier Saves… opens them or puts one back.</source>
+        <translation>レイアウトファイルに上書き保存するたびに、それまでのファイルがこのコンピューターに残ります。「ファイル › 以前の保存…」で開いたり戻したりできます。</translation>
+    </message>
+    <message>
+        <source>Show Earlier Saves Folder</source>
+        <translation>以前の保存のフォルダーを表示</translation>
     </message>
     <message>
         <source> px</source>
@@ -15922,6 +16118,177 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>(could not read file)</source>
         <translation>（ファイルを読み込めませんでした）</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::VersionHistoryDialog</name>
+    <message>
+        <source>Put the layout back to %1?</source>
+        <translation>レイアウトを %1 の状態に戻しますか？</translation>
+    </message>
+    <message>
+        <source>The layout becomes as it was in this version. Everyone working in it sees the change at once.</source>
+        <translation>レイアウトはこのバージョンの状態になります。編集中の全員にすぐ反映されます。</translation>
+    </message>
+    <message>
+        <source>The layout as it is now is kept in this list first (“Before a restore”), so you can go back to it.</source>
+        <translation>今のレイアウトは先にこの一覧に残ります（「復元の前」）。そこへ戻れます。</translation>
+    </message>
+    <message>
+        <source>To undo, restore the “Before a restore” version.</source>
+        <translation>元に戻すには「復元の前」のバージョンを復元してください。</translation>
+    </message>
+    <message>
+        <source>Restore This Version</source>
+        <translation>このバージョンを復元</translation>
+    </message>
+    <message>
+        <source>Keep a version now</source>
+        <translation>今のバージョンを残す</translation>
+    </message>
+    <message>
+        <source>A name for it (you can leave it empty), for example Before the show:</source>
+        <translation>名前（空でもかまいません）。例：展示会の前：</translation>
+    </message>
+    <message>
+        <source>Kept by hand</source>
+        <translation>手動で残したもの</translation>
+    </message>
+    <message>
+        <source>Before a model was imported</source>
+        <translation>モデルをインポートする前</translation>
+    </message>
+    <message>
+        <source>Before changes were merged in</source>
+        <translation>変更をまとめる前</translation>
+    </message>
+    <message>
+        <source>Before a restore</source>
+        <translation>復元の前</translation>
+    </message>
+    <message>
+        <source>Before many parts were deleted</source>
+        <translation>多くのパーツを削除する前</translation>
+    </message>
+    <message>
+        <source>While editing</source>
+        <translation>編集中</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>バージョン履歴</translation>
+    </message>
+    <message>
+        <source>Version history of %1</source>
+        <translation>%1 のバージョン履歴</translation>
+    </message>
+    <message>
+        <source>Versions</source>
+        <translation>バージョン</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
+    </message>
+    <message>
+        <source>See on the Website</source>
+        <translation>ウェブサイトで見る</translation>
+    </message>
+    <message>
+        <source>Open the layout&apos;s history on the website, which draws each version</source>
+        <translation>ウェブサイトでレイアウトの履歴を開きます。各バージョンが描かれます</translation>
+    </message>
+    <message>
+        <source>Copy as a New Layout</source>
+        <translation>新しいレイアウトとしてコピー</translation>
+    </message>
+    <message>
+        <source>Make a new layout of yours from the picked version; this one stays as it is</source>
+        <translation>選んだバージョンからあなたの新しいレイアウトを作ります。このレイアウトはそのままです</translation>
+    </message>
+    <message>
+        <source>Restore…</source>
+        <translation>復元…</translation>
+    </message>
+    <message>
+        <source>Put the layout back to the picked version (the layout as it is now is kept first)</source>
+        <translation>選んだバージョンにレイアウトを戻します（今のレイアウトは先に残します）</translation>
+    </message>
+    <message>
+        <source>Keep a Version Now…</source>
+        <translation>今のバージョンを残す…</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is now in this list, with a name if you like</source>
+        <translation>今のレイアウトをこの一覧に残します。名前も付けられます</translation>
+    </message>
+    <message>
+        <source>Keeping a version…</source>
+        <translation>バージョンを残しています…</translation>
+    </message>
+    <message>
+        <source>Kept a version of the layout as it is now.</source>
+        <translation>今のレイアウトのバージョンを残しました。</translation>
+    </message>
+    <message>
+        <source>Putting the version back…</source>
+        <translation>バージョンを戻しています…</translation>
+    </message>
+    <message>
+        <source>The layout is back to how it was %1. How it was just before is kept as “Before a restore”.</source>
+        <translation>レイアウトは %1 の状態に戻りました。直前の状態は「復元の前」として残っています。</translation>
+    </message>
+    <message>
+        <source>Making a copy…</source>
+        <translation>コピーしています…</translation>
+    </message>
+    <message>
+        <source>Made a new layout, “%1”, from this version. It is in File › Open from Server….</source>
+        <translation>このバージョンから新しいレイアウト「%1」を作りました。「ファイル › サーバーから開く…」にあります。</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>読み込み中…</translation>
+    </message>
+    <message>
+        <source>This server doesn&apos;t keep earlier versions of layouts yet. Ask its admin to update it.</source>
+        <translation>このサーバーはまだレイアウトの以前のバージョンを残していません。管理者に更新を頼んでください。</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>「%1」</translation>
+    </message>
+    <message>
+        <source>%1 — %2</source>
+        <translation>%1 — %2</translation>
+    </message>
+    <message>
+        <source> · %1</source>
+        <translation> · %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s)</source>
+        <translation>
+            <numerusform>%n 個のパーツ</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n sheet(s)</source>
+        <translation>
+            <numerusform>%n 枚のシート</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No versions yet. One is kept after the first edits, then every half hour while people work on the layout, and just before big changes.</source>
+        <translation>まだバージョンはありません。最初の編集の後に一つ残り、その後は編集中に30分ごと、また大きな変更の直前に残ります。</translation>
+    </message>
+    <message>
+        <source>Pick a version to put it back, or to copy it out as a new layout.</source>
+        <translation>戻すか、新しいレイアウトとしてコピーするバージョンを選んでください。</translation>
+    </message>
+    <message>
+        <source>Pick a version to copy it out as a new layout. Only the layout&apos;s editors can put one back.</source>
+        <translation>新しいレイアウトとしてコピーするバージョンを選んでください。戻せるのはレイアウトの編集者だけです。</translation>
     </message>
 </context>
 <context>

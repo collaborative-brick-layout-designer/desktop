@@ -1,6 +1,7 @@
 #include "SettingsSections.h"
 
 #include "BudgetSession.h"
+#include "FileBackups.h"
 #include "ImportPipeline.h"
 #include "TranslationCoverage.h"
 #include "help/HelpButton.h"
@@ -14,6 +15,7 @@
 #include <QCheckBox>
 #include <QColorDialog>
 #include <QComboBox>
+#include <QDesktopServices>
 #include <QDir>
 #include <QDoubleSpinBox>
 #include <QEventLoop>
@@ -249,6 +251,32 @@ void addStartingUp(QVBoxLayout* into, QWidget* parent) {
                               false, Text::tr("BlueBrick map (*.bbm)"), &edit);
     edit->setPlaceholderText(Text::tr("None: new layouts start empty"));
     f->addRow(Text::tr("New layouts start from:"), help::withHelp(tpl, QStringLiteral("prefs.newTemplate"), parent));
+}
+
+void addSaving(QVBoxLayout* into, QWidget* parent) {
+    QFormLayout* f = form(into);
+    auto* keep = new QSpinBox(parent);
+    keep->setObjectName(QStringLiteral("files/keepSavedCopies"));
+    keep->setRange(0, FileBackups::kMaxKeep);
+    keep->setSpecialValueText(Text::tr("None"));
+    keep->setAccessibleName(Text::tr("Earlier saves to keep of each file"));
+    keep->setValue(FileBackups::keepCount());
+    QObject::connect(keep, &QSpinBox::valueChanged, keep, [](int v) { FileBackups::setKeepCount(v); });
+    f->addRow(Text::tr("Earlier saves to keep of each file:"), help::withHelp(keep, QStringLiteral("prefs.fileBackups"), parent));
+    into->addWidget(muted(Text::tr("Each time you save over a layout file, the file as it was is kept on this computer. "
+                                   "File › Earlier Saves… opens them or puts one back."),
+                          parent));
+    auto* row = new QHBoxLayout;
+    auto* open = new QPushButton(Text::tr("Show Earlier Saves Folder"), parent);
+    open->setObjectName(QStringLiteral("earlierSavesFolder"));
+    open->setAutoDefault(false);
+    QObject::connect(open, &QPushButton::clicked, open, [] {
+        QDir().mkpath(FileBackups::folder());
+        QDesktopServices::openUrl(QUrl::fromLocalFile(FileBackups::folder()));
+    });
+    row->addWidget(open);
+    row->addStretch(1);
+    into->addLayout(row);
 }
 
 void addMapLabels(QVBoxLayout* into, QWidget* parent, const Changed& changed) {

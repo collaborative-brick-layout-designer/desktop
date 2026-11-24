@@ -23,6 +23,7 @@
 #include <QNetworkAccessManager>
 #include <QObject>
 #include <QString>
+#include <QStringList>
 #include <QUrl>
 
 #include <algorithm>
@@ -155,6 +156,25 @@ struct ModuleShares {
     // "Used in 4 layouts (Riverside LUG: 3, Bob: 1)", or empty when it's placed nowhere.
     QString usedInText() const;
     int layoutsOf(const QString& orgId) const;
+};
+
+// One version in a server layout's history (GET /api/layouts/:id/versions).
+struct LayoutVersion {
+    QString id;
+    // auto / manual / before-import / before-merge / before-restore / before-bulk-delete
+    QString reason;
+    QString title;
+    QString label;          // a name someone gave it, or empty
+    QDateTime createdAt;
+    QString createdBy;      // who kept it, or empty
+    QStringList editors;    // who edited since the one before
+    int parts = 0;
+    int sheets = 0;
+};
+
+struct LayoutVersions {
+    QList<LayoutVersion> versions;  // newest first
+    bool canRestore = false;        // an editor of the layout
 };
 
 // One shared module a layout places, as the server sees it
@@ -417,6 +437,19 @@ public:
     // What the server updated automatically since you last had the layout
     // open. Asked once on opening: the server then notes that you have it
     // open, so the same updates aren't listed again.
+    // A layout's version history (servers with it; an older server answers 404).
+    void layoutVersions(const QString& layoutId, std::function<void(const LayoutVersions&)> done, Fail failed);
+    // Keep a version now: reason "manual" (with an optional name), "before-import" or "before-merge".
+    void keepLayoutVersion(const QString& layoutId, const QString& reason, const QString& label,
+                           std::function<void(const QString& id)> done, Fail failed);
+    // Put a version back (the server keeps the layout as it was first: `safety`).
+    void restoreLayoutVersion(const QString& layoutId, const QString& versionId,
+                              std::function<void(const QString& safety)> done, Fail failed);
+    // A new layout of yours from a version.
+    void copyLayoutVersion(const QString& layoutId, const QString& versionId,
+                           std::function<void(const QString& id, const QString& title)> done, Fail failed);
+    // The layout's history page on the website (shows each version).
+    QUrl layoutHistoryWebUrl(const QString& layoutId) const;
     void sharedModulesWhileAway(const QString& layoutId, std::function<void(const QList<SharedAwayUpdate>&)> done, Fail failed);
     // "Make it mine": the copy becomes an ordinary module of the layout.
     void detachSharedModule(const QString& layoutId, const QString& placedId, std::function<void(bool changed)> done,

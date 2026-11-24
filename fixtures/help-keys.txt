@@ -120,3 +120,4 @@ collection.audience
 account.publicName
 notifications.bell
 notifications.settings
+history.versions

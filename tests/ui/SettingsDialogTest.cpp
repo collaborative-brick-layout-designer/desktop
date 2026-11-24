@@ -204,7 +204,7 @@ TEST_F(SettingsDialogTest, OneWindowWithSectionsForEverySetting) {
     QStringList names;
     for (int i = 0; i < nav->count(); ++i) names << nav->item(i)->text();
     EXPECT_EQ(names, (QStringList{ QStringLiteral("Light or dark"), QStringLiteral("Color"), QStringLiteral("Units"), QStringLiteral("Editing"),
-                                   QStringLiteral("Map labels"), QStringLiteral("Language"), QStringLiteral("Starting up"),
+                                   QStringLiteral("Map labels"), QStringLiteral("Language"), QStringLiteral("Starting up"), QStringLiteral("Saving"),
                                    QStringLiteral("Parts and folders"), QStringLiteral("Bringing in models"),
                                    QStringLiteral("Help"), QStringLiteral("Notifications"), QStringLiteral("Servers") }));
     dialog.findChild<QPushButton*>(QStringLiteral("partsFolders"))->click();

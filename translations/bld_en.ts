@@ -286,6 +286,16 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::EarlierSavesDialog</name>
+    <message numerus="yes">
+        <source>There are no earlier saves yet. Each time you save a layout over its file, the file as it was is kept here: the last %n of each file (Settings › Saving).</source>
+        <translation>
+            <numerusform>There are no earlier saves yet. Each time you save a layout over its file, the file as it was is kept here: the last %n of each file (Settings › Saving).</numerusform>
+            <numerusform>There are no earlier saves yet. Each time you save a layout over its file, the file as it was is kept here: the last %n of each file (Settings › Saving).</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::ImportPipeline</name>
     <message numerus="yes">
         <source>%1 (%n times)</source>
@@ -805,6 +815,23 @@
         <translation>
             <numerusform>&lt;b&gt;Obstacles&lt;/b&gt;: %n drawn.</numerusform>
             <numerusform>&lt;b&gt;Obstacles&lt;/b&gt;: %n drawn.</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::VersionHistoryDialog</name>
+    <message numerus="yes">
+        <source>%n part(s)</source>
+        <translation>
+            <numerusform>%n part</numerusform>
+            <numerusform>%n parts</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n sheet(s)</source>
+        <translation>
+            <numerusform>%n sheet</numerusform>
+            <numerusform>%n sheets</numerusform>
         </translation>
     </message>
 </context>

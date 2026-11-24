@@ -363,6 +363,9 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("HelpTexts", "Notification settings"),
     QT_TRANSLATE_NOOP("HelpTexts", "Choose, for each kind of notification, whether it shows in the app, how it’s emailed, and when it’s quiet."),
     QT_TRANSLATE_NOOP("HelpTexts", "Open a group to see each kind. Email can come right away, in a daily or weekly summary, or not at all. Quiet hours hold emails until they end, and you can mute a busy club or pause all email."),
+    QT_TRANSLATE_NOOP("HelpTexts", "Version history"),
+    QT_TRANSLATE_NOOP("HelpTexts", "Earlier versions of this layout, kept while people work on it, to look at, put back or copy out."),
+    QT_TRANSLATE_NOOP("HelpTexts", "A version is kept every half hour of editing, and just before big changes like an import, a restore or many parts deleted at once. Putting one back keeps the layout as it was first, so you can go back again. Copy one out to have it as a new layout and leave this one as it is."),
 };
 
 }  // namespace

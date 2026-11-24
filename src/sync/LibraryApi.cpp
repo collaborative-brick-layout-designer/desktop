@@ -483,6 +483,67 @@ void LibraryApi::setSharedModuleUpdates(const QString& layoutId, const QString& 
              std::move(failed));
 }
 
+void LibraryApi::layoutVersions(const QString& layoutId, std::function<void(const LayoutVersions&)> done, Fail failed) {
+    sendJson("GET", QStringLiteral("/api/layouts/%1/versions").arg(idPath(layoutId)), {},
+             [done = std::move(done)](const QJsonObject& o) {
+                 LayoutVersions out;
+                 out.canRestore = o.value(QLatin1String("canRestore")).toBool(false);
+                 for (const auto& v : o.value(QLatin1String("versions")).toArray()) {
+                     const QJsonObject vo = v.toObject();
+                     LayoutVersion ver;
+                     ver.id = vo.value(QLatin1String("id")).toString();
+                     ver.reason = vo.value(QLatin1String("reason")).toString();
+                     ver.title = vo.value(QLatin1String("title")).toString();
+                     ver.label = vo.value(QLatin1String("label")).toString();
+                     ver.createdAt = timeOf(vo.value(QLatin1String("createdAt")));
+                     ver.createdBy = vo.value(QLatin1String("createdBy")).toObject().value(QLatin1String("name")).toString();
+                     for (const auto& e : vo.value(QLatin1String("editors")).toArray()) {
+                         const QString name = e.toObject().value(QLatin1String("name")).toString();
+                         if (!name.isEmpty()) ver.editors << name;
+                     }
+                     const QJsonObject sum = vo.value(QLatin1String("summary")).toObject();
+                     ver.parts = intOf(sum.value(QLatin1String("parts")));
+                     ver.sheets = intOf(sum.value(QLatin1String("sheets")));
+                     if (!ver.id.isEmpty()) out.versions << ver;
+                 }
+                 if (done) done(out);
+             },
+             std::move(failed));
+}
+
+void LibraryApi::keepLayoutVersion(const QString& layoutId, const QString& reason, const QString& label,
+                                   std::function<void(const QString&)> done, Fail failed) {
+    QJsonObject body{ { QStringLiteral("reason"), reason } };
+    if (!label.trimmed().isEmpty()) body.insert(QStringLiteral("label"), label.trimmed().left(80));
+    sendJson("POST", QStringLiteral("/api/layouts/%1/versions").arg(idPath(layoutId)), body,
+             [done = std::move(done)](const QJsonObject& o) {
+                 if (done) done(o.value(QLatin1String("id")).toString());
+             },
+             std::move(failed));
+}
+
+void LibraryApi::restoreLayoutVersion(const QString& layoutId, const QString& versionId,
+                                      std::function<void(const QString&)> done, Fail failed) {
+    sendJson("POST", QStringLiteral("/api/layouts/%1/versions/%2/restore").arg(idPath(layoutId), idPath(versionId)), QJsonObject{},
+             [done = std::move(done)](const QJsonObject& o) {
+                 if (done) done(o.value(QLatin1String("safety")).toString());
+             },
+             std::move(failed));
+}
+
+void LibraryApi::copyLayoutVersion(const QString& layoutId, const QString& versionId,
+                                   std::function<void(const QString&, const QString&)> done, Fail failed) {
+    sendJson("POST", QStringLiteral("/api/layouts/%1/versions/%2/copy").arg(idPath(layoutId), idPath(versionId)), QJsonObject{},
+             [done = std::move(done)](const QJsonObject& o) {
+                 if (done) done(o.value(QLatin1String("id")).toString(), o.value(QLatin1String("title")).toString());
+             },
+             std::move(failed));
+}
+
+QUrl LibraryApi::layoutHistoryWebUrl(const QString& layoutId) const {
+    return url(QStringLiteral("/editor/%1/history").arg(idPath(layoutId)));
+}
+
 void LibraryApi::sharedModulesWhileAway(const QString& layoutId, std::function<void(const QList<SharedAwayUpdate>&)> done,
                                         Fail failed) {
     sendJson("POST", QStringLiteral("/api/layouts/%1/shared-modules/away").arg(idPath(layoutId)), QJsonObject{},

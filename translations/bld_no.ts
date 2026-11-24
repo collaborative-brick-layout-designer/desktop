@@ -143,6 +143,30 @@
         <translation>Velg modellen på det nye stedet, eller en hvilken som helst annen modell, så lages delen på nytt fra den med samme nummer, dreining og justering. Fra da av bruker Importer på nytt filen du valgte.</translation>
     </message>
     <message>
+        <source>Earlier saves</source>
+        <translation>Tidligere lagringer</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time you saved over it.</source>
+        <translation>Kopier av en layoutfil fra før hver gang du lagret over den.</translation>
+    </message>
+    <message>
+        <source>Open one as a copy to look at it or save it under a new name; the file stays as it is. Put Back makes the file as it was then, after keeping the file as it is now, so you can put that back too.</source>
+        <translation>Åpne en som kopi for å se på den eller lagre den under et nytt navn; filen blir som den er. Legg tilbake gjør filen som den var da, etter at filen slik den er nå er tatt vare på, så du kan legge den tilbake også.</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep</source>
+        <translation>Tidligere lagringer å beholde</translation>
+    </message>
+    <message>
+        <source>How many copies of each layout file to keep from before you saved over it.</source>
+        <translation>Hvor mange kopier av hver layoutfil som beholdes fra før du lagret over den.</translation>
+    </message>
+    <message>
+        <source>They are kept on this computer, in the app’s own folder, and the oldest go first. None keeps no copies; changes you never saved are kept apart, for File › Recover Unsaved Work….</source>
+        <translation>De beholdes på denne datamaskinen, i appens egen mappe, og de eldste går først. Ingen beholder ingen kopier; endringer du aldri lagret beholdes for seg, for Fil › Gjenopprett ulagret arbeid….</translation>
+    </message>
+    <message>
         <source>Parts without a budget</source>
         <translation>Deler uten budsjett</translation>
     </message>
@@ -937,6 +961,18 @@
     <message>
         <source>Warning and error colors keep their meaning either way. Text stays easy to read with any color.</source>
         <translation>Advarsels- og feilfarger beholder betydningen sin i begge tilfeller. Teksten forblir lett å lese med alle farger.</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>Versjonshistorikk</translation>
+    </message>
+    <message>
+        <source>Earlier versions of this layout, kept while people work on it, to look at, put back or copy out.</source>
+        <translation>Tidligere versjoner av denne layouten, tatt vare på mens det arbeides med den, til å se på, legge tilbake eller kopiere ut.</translation>
+    </message>
+    <message>
+        <source>A version is kept every half hour of editing, and just before big changes like an import, a restore or many parts deleted at once. Putting one back keeps the layout as it was first, so you can go back again. Copy one out to have it as a new layout and leave this one as it is.</source>
+        <translation>En versjon tas vare på for hver halvtime med redigering, og rett før store endringer som en import, en gjenoppretting eller mange deler slettet på en gang. Når du legger tilbake en, tas layouten slik den er vare på først, så du kan gå tilbake igjen. Kopier ut en for å ha den som en ny layout og la denne være som den er.</translation>
     </message>
     <message>
         <source>Search by name or number, or pick a group like Track or Baseplate; the letters you type may have gaps, so &quot;plt2&quot; finds &quot;plate2x4&quot;. Drag a part onto the map, or double-click it to add it in the middle. On an empty map, one click is enough.</source>
@@ -5624,6 +5660,103 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::EarlierSavesDialog</name>
+    <message>
+        <source>Put back the save from %1?</source>
+        <translation>Legge tilbake lagringen fra %1?</translation>
+    </message>
+    <message>
+        <source>%1 becomes as it was saved then.</source>
+        <translation>%1 blir slik den var lagret da.</translation>
+    </message>
+    <message>
+        <source>The file as it is now is kept first, as an earlier save, so you can put it back too.</source>
+        <translation>Filen slik den er nå tas vare på først, som en tidligere lagring, så du kan legge den tilbake også.</translation>
+    </message>
+    <message>
+        <source>You can undo this from File › Earlier Saves….</source>
+        <translation>Du kan angre dette fra Fil › Tidligere lagringer….</translation>
+    </message>
+    <message>
+        <source>Put Back</source>
+        <translation>Legg tilbake</translation>
+    </message>
+    <message>
+        <source>Earlier saves</source>
+        <translation>Tidligere lagringer</translation>
+    </message>
+    <message>
+        <source>Layout file:</source>
+        <translation>Layoutfil:</translation>
+    </message>
+    <message>
+        <source>Layout file</source>
+        <translation>Layoutfil</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Lukk</translation>
+    </message>
+    <message>
+        <source>Show Folder</source>
+        <translation>Vis mappe</translation>
+    </message>
+    <message>
+        <source>Open the folder the earlier saves of this file are kept in</source>
+        <translation>Åpne mappen der tidligere lagringer av denne filen beholdes</translation>
+    </message>
+    <message>
+        <source>Put Back…</source>
+        <translation>Legg tilbake…</translation>
+    </message>
+    <message>
+        <source>Make the file as it was in the picked save (the file as it is now is kept first)</source>
+        <translation>Gjør filen som i den valgte lagringen (filen slik den er nå tas vare på først)</translation>
+    </message>
+    <message>
+        <source>Open as a Copy</source>
+        <translation>Åpne som kopi</translation>
+    </message>
+    <message>
+        <source>Open the picked save as a new layout, leaving the file as it is</source>
+        <translation>Åpne den valgte lagringen som en ny layout og la filen være som den er</translation>
+    </message>
+    <message>
+        <source>Saved before %1 — %2</source>
+        <translation>Lagret før %1 — %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>There are no earlier saves yet. Each time you save a layout over its file, the file as it was is kept here: the last %n of each file (Settings › Saving).</source>
+        <translation>
+            <numerusform>Det finnes ingen tidligere lagringer ennå. Hver gang du lagrer en layout over filen sin, beholdes filen slik den var her: de siste %n av hver fil (Innstillinger › Lagring).</numerusform>
+            <numerusform>Det finnes ingen tidligere lagringer ennå. Hver gang du lagrer en layout over filen sin, beholdes filen slik den var her: de siste %n av hver fil (Innstillinger › Lagring).</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Earlier saves are turned off. Turn them on in Settings › Saving.</source>
+        <translation>Tidligere lagringer er slått av. Slå dem på i Innstillinger › Lagring.</translation>
+    </message>
+    <message>
+        <source>This file has no earlier saves yet. The next time you save over it, the file as it was is kept here.</source>
+        <translation>Denne filen har ingen tidligere lagringer ennå. Neste gang du lagrer over den, beholdes filen slik den var her.</translation>
+    </message>
+    <message>
+        <source>Each time this file was saved, the file as it was just before was kept. Open one as a copy to look at it, or put it back in place of the file.</source>
+        <translation>Hver gang denne filen ble lagret, ble den tatt vare på slik den var rett før. Åpne en som kopi for å se på den, eller legg den tilbake i stedet for filen.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::FileBackups</name>
+    <message>
+        <source>The folder for earlier saves couldn&apos;t be made: %1</source>
+        <translation>Mappen for tidligere lagringer kunne ikke lages: %1</translation>
+    </message>
+    <message>
+        <source>That earlier save isn&apos;t there any more.</source>
+        <translation>Den tidligere lagringen er ikke der lenger.</translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::FindDialog</name>
     <message>
         <source>Find &amp;&amp; Replace</source>
@@ -8558,6 +8691,14 @@ Lagre likevel?</translation>
         <translation>Åpne n&amp;ylige</translation>
     </message>
     <message>
+        <source>Earlier Saves…</source>
+        <translation>Tidligere lagringer…</translation>
+    </message>
+    <message>
+        <source>Copies of a layout file from before each time it was saved over: open one, or put it back</source>
+        <translation>Kopier av en layoutfil fra før hver gang den ble lagret over: åpne en, eller legg den tilbake</translation>
+    </message>
+    <message>
         <source>&amp;Save</source>
         <translation>&amp;Lagre</translation>
     </message>
@@ -8962,6 +9103,14 @@ Lagre likevel?</translation>
     <message>
         <source>Everyone else who has this layout open now</source>
         <translation>Alle andre som har dette oppsettet åpent nå</translation>
+    </message>
+    <message>
+        <source>Version Histor&amp;y…</source>
+        <translation>Versjons&amp;historikk…</translation>
+    </message>
+    <message>
+        <source>Earlier versions of the live layout that the server keeps: put one back or copy it out. For a layout file, see Earlier Saves…</source>
+        <translation>Tidligere versjoner av live-layouten som serveren tar vare på: legg tilbake en eller kopier den ut. For en layoutfil, se Tidligere lagringer…</translation>
     </message>
     <message>
         <source>Edit module closed</source>
@@ -9827,6 +9976,14 @@ De frakoblede endringene dine er tatt vare på; Fil › Gå gjennom frakoblede e
         <translation>Det var ikke mulig å ta vare på en kopi av %1 før den ble lagret over, så ingenting ble lagret. Bruk Fil › Lagre som… for å lagre med et nytt navn.</translation>
     </message>
     <message>
+        <source>An earlier save couldn&apos;t be kept</source>
+        <translation>En tidligere lagring kunne ikke beholdes</translation>
+    </message>
+    <message>
+        <source>%1 was saved, but the file as it was before couldn&apos;t be kept in File › Earlier Saves…: %2</source>
+        <translation>%1 ble lagret, men filen slik den var før kunne ikke beholdes i Fil › Tidligere lagringer…: %2</translation>
+    </message>
+    <message>
         <source>A copy was kept</source>
         <translation>En kopi ble tatt vare på</translation>
     </message>
@@ -10025,6 +10182,22 @@ De er tatt vare på, så du kan prøve igjen fra Fil › Gjenopprett ulagret arb
     <message>
         <source>Recovered the unsaved changes to %1. Save to keep them.</source>
         <translation>De ulagrede endringene i %1 ble gjenopprettet. Lagre for å beholde dem.</translation>
+    </message>
+    <message>
+        <source>Put back failed</source>
+        <translation>Kunne ikke legge tilbake</translation>
+    </message>
+    <message>
+        <source>The earlier save couldn&apos;t be put back in place of %1: %2</source>
+        <translation>Den tidligere lagringen kunne ikke legges tilbake i stedet for %1: %2</translation>
+    </message>
+    <message>
+        <source>Put back the save of %1 from %2. The file as it was is kept in File › Earlier Saves….</source>
+        <translation>Lagringen av %1 fra %2 er lagt tilbake. Filen slik den var ligger i Fil › Tidligere lagringer….</translation>
+    </message>
+    <message>
+        <source>Opened the save of %1 from %2 as a new layout. Use Save As to keep it; %1 itself is as it was.</source>
+        <translation>Lagringen av %1 fra %2 er åpnet som en ny layout. Bruk Lagre som for å beholde den; %1 selv er som den var.</translation>
     </message>
     <message>
         <source>Recover &amp;Unsaved Work…</source>
@@ -13905,6 +14078,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Oppstart</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Lagring</translation>
+    </message>
+    <message>
         <source>Parts and folders</source>
         <translation>Deler og mapper</translation>
     </message>
@@ -14106,6 +14283,26 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>New layouts start from:</source>
         <translation>Nye layouter starter fra:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ingen</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file</source>
+        <translation>Tidligere lagringer å beholde av hver fil</translation>
+    </message>
+    <message>
+        <source>Earlier saves to keep of each file:</source>
+        <translation>Tidligere lagringer å beholde av hver fil:</translation>
+    </message>
+    <message>
+        <source>Each time you save over a layout file, the file as it was is kept on this computer. File › Earlier Saves… opens them or puts one back.</source>
+        <translation>Hver gang du lagrer over en layoutfil, beholdes filen slik den var på denne datamaskinen. Fil › Tidligere lagringer… åpner dem eller legger tilbake en.</translation>
+    </message>
+    <message>
+        <source>Show Earlier Saves Folder</source>
+        <translation>Vis mappen med tidligere lagringer</translation>
     </message>
     <message>
         <source> px</source>
@@ -16024,6 +16221,179 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>(could not read file)</source>
         <translation>(kunne ikke lese filen)</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::VersionHistoryDialog</name>
+    <message>
+        <source>Put the layout back to %1?</source>
+        <translation>Sette layouten tilbake til %1?</translation>
+    </message>
+    <message>
+        <source>The layout becomes as it was in this version. Everyone working in it sees the change at once.</source>
+        <translation>Layouten blir slik den var i denne versjonen. Alle som arbeider i den ser endringen med en gang.</translation>
+    </message>
+    <message>
+        <source>The layout as it is now is kept in this list first (“Before a restore”), so you can go back to it.</source>
+        <translation>Layouten slik den er nå tas vare på i denne listen først («Før en gjenoppretting»), så du kan gå tilbake til den.</translation>
+    </message>
+    <message>
+        <source>To undo, restore the “Before a restore” version.</source>
+        <translation>For å angre, gjenopprett versjonen «Før en gjenoppretting».</translation>
+    </message>
+    <message>
+        <source>Restore This Version</source>
+        <translation>Gjenopprett denne versjonen</translation>
+    </message>
+    <message>
+        <source>Keep a version now</source>
+        <translation>Ta vare på en versjon nå</translation>
+    </message>
+    <message>
+        <source>A name for it (you can leave it empty), for example Before the show:</source>
+        <translation>Et navn på den (kan stå tomt), for eksempel Før utstillingen:</translation>
+    </message>
+    <message>
+        <source>Kept by hand</source>
+        <translation>Tatt vare på for hånd</translation>
+    </message>
+    <message>
+        <source>Before a model was imported</source>
+        <translation>Før en modell ble importert</translation>
+    </message>
+    <message>
+        <source>Before changes were merged in</source>
+        <translation>Før endringer ble slått sammen</translation>
+    </message>
+    <message>
+        <source>Before a restore</source>
+        <translation>Før en gjenoppretting</translation>
+    </message>
+    <message>
+        <source>Before many parts were deleted</source>
+        <translation>Før mange deler ble slettet</translation>
+    </message>
+    <message>
+        <source>While editing</source>
+        <translation>Under redigering</translation>
+    </message>
+    <message>
+        <source>Version history</source>
+        <translation>Versjonshistorikk</translation>
+    </message>
+    <message>
+        <source>Version history of %1</source>
+        <translation>Versjonshistorikk for %1</translation>
+    </message>
+    <message>
+        <source>Versions</source>
+        <translation>Versjoner</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Lukk</translation>
+    </message>
+    <message>
+        <source>See on the Website</source>
+        <translation>Se på nettstedet</translation>
+    </message>
+    <message>
+        <source>Open the layout&apos;s history on the website, which draws each version</source>
+        <translation>Åpne layoutens historikk på nettstedet, som tegner hver versjon</translation>
+    </message>
+    <message>
+        <source>Copy as a New Layout</source>
+        <translation>Kopier som ny layout</translation>
+    </message>
+    <message>
+        <source>Make a new layout of yours from the picked version; this one stays as it is</source>
+        <translation>Lag en ny layout av din fra den valgte versjonen; denne blir som den er</translation>
+    </message>
+    <message>
+        <source>Restore…</source>
+        <translation>Gjenopprett…</translation>
+    </message>
+    <message>
+        <source>Put the layout back to the picked version (the layout as it is now is kept first)</source>
+        <translation>Sett layouten tilbake til den valgte versjonen (layouten slik den er nå tas vare på først)</translation>
+    </message>
+    <message>
+        <source>Keep a Version Now…</source>
+        <translation>Ta vare på en versjon nå…</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is now in this list, with a name if you like</source>
+        <translation>Ta vare på layouten slik den er nå i denne listen, med et navn om du vil</translation>
+    </message>
+    <message>
+        <source>Keeping a version…</source>
+        <translation>Tar vare på en versjon…</translation>
+    </message>
+    <message>
+        <source>Kept a version of the layout as it is now.</source>
+        <translation>En versjon av layouten slik den er nå er tatt vare på.</translation>
+    </message>
+    <message>
+        <source>Putting the version back…</source>
+        <translation>Legger tilbake versjonen…</translation>
+    </message>
+    <message>
+        <source>The layout is back to how it was %1. How it was just before is kept as “Before a restore”.</source>
+        <translation>Layouten er slik den var %1 igjen. Slik den var rett før er tatt vare på som «Før en gjenoppretting».</translation>
+    </message>
+    <message>
+        <source>Making a copy…</source>
+        <translation>Lager en kopi…</translation>
+    </message>
+    <message>
+        <source>Made a new layout, “%1”, from this version. It is in File › Open from Server….</source>
+        <translation>En ny layout, «%1», ble laget fra denne versjonen. Den ligger i Fil › Åpne fra server….</translation>
+    </message>
+    <message>
+        <source>Loading…</source>
+        <translation>Laster…</translation>
+    </message>
+    <message>
+        <source>This server doesn&apos;t keep earlier versions of layouts yet. Ask its admin to update it.</source>
+        <translation>Denne serveren tar ikke vare på tidligere versjoner av layouter ennå. Be administratoren oppdatere den.</translation>
+    </message>
+    <message>
+        <source>“%1”</source>
+        <translation>«%1»</translation>
+    </message>
+    <message>
+        <source>%1 — %2</source>
+        <translation>%1 — %2</translation>
+    </message>
+    <message>
+        <source> · %1</source>
+        <translation> · %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n part(s)</source>
+        <translation>
+            <numerusform>%n del</numerusform>
+            <numerusform>%n deler</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n sheet(s)</source>
+        <translation>
+            <numerusform>%n ark</numerusform>
+            <numerusform>%n ark</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No versions yet. One is kept after the first edits, then every half hour while people work on the layout, and just before big changes.</source>
+        <translation>Ingen versjoner ennå. En tas vare på etter de første endringene, så hver halvtime mens det arbeides med layouten, og rett før store endringer.</translation>
+    </message>
+    <message>
+        <source>Pick a version to put it back, or to copy it out as a new layout.</source>
+        <translation>Velg en versjon for å legge den tilbake eller kopiere den ut som en ny layout.</translation>
+    </message>
+    <message>
+        <source>Pick a version to copy it out as a new layout. Only the layout&apos;s editors can put one back.</source>
+        <translation>Velg en versjon for å kopiere den ut som en ny layout. Bare layoutens redaktører kan legge tilbake en.</translation>
     </message>
 </context>
 <context>

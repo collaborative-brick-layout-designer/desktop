@@ -38,6 +38,7 @@
 #include "PrefsSync.h"
 #include "theme/AppPrefs.h"
 #include "UploadPartsDialog.h"
+#include "VersionHistoryDialog.h"
 
 #include <QAction>
 #include <QBuffer>
@@ -131,6 +132,12 @@ void MainWindow::setupLiveMenu(QMenu* file) {
     reviewOfflineAct_->setToolTip(tr("Compare what you changed offline with the server's layout"));
     reviewOfflineAct_->setEnabled(false);
     connect(reviewOfflineAct_, &QAction::triggered, this, &MainWindow::onReviewOfflineEdits);
+    versionHistoryAct_ = file->addAction(tr("Version Histor&y…"));
+    versionHistoryAct_->setObjectName(QStringLiteral("file.versionHistory"));
+    versionHistoryAct_->setToolTip(tr("Earlier versions of the live layout that the server keeps: put one back or copy it out. "
+                                      "For a layout file, see Earlier Saves…"));
+    versionHistoryAct_->setEnabled(false);
+    connect(versionHistoryAct_, &QAction::triggered, this, &MainWindow::onVersionHistory);
 
     // While live, Undo / Redo revert this desktop's own edits on the server.
     liveUndoAct_ = new QAction(tr("&Undo"), this);
@@ -1037,6 +1044,7 @@ void MainWindow::updateLiveUi() {
     const bool waiting = on && live_->session().offlineEdits()
                          && live_->session().status() == sync::SyncClient::Status::Synced;
     reviewOfflineAct_->setEnabled(waiting);
+    versionHistoryAct_->setEnabled(on && !liveLayoutId_.isEmpty());
     // Clashing edits waiting for review: everything else is live (others'
     // changes show, and edits that don't clash are sent). Said for as long
     // as that lasts (the status bar counts them too).
@@ -1091,15 +1099,20 @@ void MainWindow::onReviewOfflineEdits() {
     });
     if (!clash) {
         QString error;
-        const auto merged = sync::merge::mergeLayouts(mine, server, changes, {}, &error);
+        auto merged = sync::merge::mergeLayouts(mine, server, changes, {}, &error);
         if (merged) {
             const int n = static_cast<int>(std::count_if(changes.cbegin(), changes.cend(), [](const sync::merge::ItemChange& c) {
                 return c.mine != sync::merge::Side::Unchanged;
             }));
-            session.resolveOffline(merged.get());
-            notices_->showNotice(QStringLiteral("live-offline-sent"), tr("You're live again"),
-                                 tr("Your %n offline change(s) were sent.", nullptr, n), { NoticeAction{ tr("OK"), {} } });
-            updateLiveUi();
+            // The layout as it was goes in its version history first.
+            std::shared_ptr<core::Map> result(merged.release());
+            keepLiveVersionThen(QStringLiteral("before-merge"), [this, result, n] {
+                if (!live_->active() || !live_->session().offlineEdits()) return;
+                live_->session().resolveOffline(result.get());
+                notices_->showNotice(QStringLiteral("live-offline-sent"), tr("You're live again"),
+                                     tr("Your %n offline change(s) were sent.", nullptr, n), { NoticeAction{ tr("OK"), {} } });
+                updateLiveUi();
+            });
             return;
         }
         // Couldn't be merged by itself: the window lets the person choose.
@@ -1128,15 +1141,20 @@ void MainWindow::onReviewOfflineEdits() {
             break;
         }
         const auto serverNow = sync::merge::snapshotOf(*now);
-        const auto merged = sync::merge::mergeLayouts(
+        auto merged = sync::merge::mergeLayouts(
             mine, serverNow, sync::merge::compareLayouts(base, mine, serverNow), dlg.choices(), &error);
         if (!merged) {
             QMessageBox::warning(this, tr("Review Offline Changes"),
                                  tr("Could not merge your changes: %1").arg(error));
             break;
         }
-        session.resolveOffline(merged.get());
-        statusBar()->showMessage(tr("Your offline changes were applied to the live layout."), 5000);
+        std::shared_ptr<core::Map> result(merged.release());
+        keepLiveVersionThen(QStringLiteral("before-merge"), [this, result] {
+            if (!live_->active() || !live_->session().offlineEdits()) return;
+            live_->session().resolveOffline(result.get());
+            statusBar()->showMessage(tr("Your offline changes were applied to the live layout."), 5000);
+            updateLiveUi();
+        });
         break;
     }
     case sync::CompareDialog::Action::Discard:
@@ -1144,14 +1162,19 @@ void MainWindow::onReviewOfflineEdits() {
         statusBar()->showMessage(tr("Your offline changes were discarded."), 5000);
         break;
     case sync::CompareDialog::Action::ReplaceServer: {
-        const auto map = sync::merge::mapOf(mine, &error);
+        auto map = sync::merge::mapOf(mine, &error);
         if (!map) {
             QMessageBox::warning(this, tr("Review Offline Changes"),
                                  tr("Could not read your version: %1").arg(error));
             break;
         }
-        session.resolveOffline(map.get());
-        statusBar()->showMessage(tr("Your version replaced the server's."), 5000);
+        std::shared_ptr<core::Map> result(map.release());
+        keepLiveVersionThen(QStringLiteral("before-merge"), [this, result] {
+            if (!live_->active() || !live_->session().offlineEdits()) return;
+            live_->session().resolveOffline(result.get());
+            statusBar()->showMessage(tr("Your version replaced the server's."), 5000);
+            updateLiveUi();
+        });
         break;
     }
     case sync::CompareDialog::Action::SaveAsNew:
@@ -1246,4 +1269,32 @@ void bld::ui::MainWindow::openCatalogOnWeb(bool parts) {
         return;
     }
     QDesktopServices::openUrl(catalogWebUrl(server->url, parts));
+
+}
+
+// ---------- Version history (the server's, of the live layout) -------------
+
+void bld::ui::MainWindow::onVersionHistory() {
+    if (!live_->active() || liveLayoutId_.isEmpty()) return;
+    VersionHistoryDialog dialog(sharedLiveApi(), liveLayoutId_, live_->title(), this);
+    dialog.exec();
+}
+
+void bld::ui::MainWindow::keepLiveVersionThen(const QString& reason, std::function<void()> then) {
+    if (!live_ || !live_->active() || liveLayoutId_.isEmpty() || live_->signedOut()) {
+        then();
+        return;
+    }
+    // Whatever the server answers (an older one has no history: 404), and
+    // at the latest after a few seconds, the change goes on.
+    auto pending = std::make_shared<std::function<void()>>(std::move(then));
+    const auto go = [pending] {
+        if (!*pending) return;
+        const auto f = std::move(*pending);
+        *pending = nullptr;
+        f();
+    };
+    QTimer::singleShot(4000, this, go);
+    sharedLiveApi().keepLayoutVersion(liveLayoutId_, reason, QString(), [go](const QString&) { go(); },
+                                      [go](const sync::ServerRefusal&) { go(); });
 }
