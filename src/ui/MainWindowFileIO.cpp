@@ -1119,8 +1119,10 @@ bool MainWindow::recover(const AutosaveLeftover& leftover) {
 
 void MainWindow::onEarlierSaves() {
     EarlierSavesDialog dialog(currentFilePath_, this);
-    if (dialog.exec() != QDialog::Accepted || !dialog.chosen()) return;
-    const SavedCopy copy = *dialog.chosen();
+    if (dialog.exec() != QDialog::Accepted) return;
+    const std::optional<SavedCopy> chosen = dialog.chosen();
+    if (!chosen) return;
+    const SavedCopy copy = *chosen;
     const QString file = dialog.file();
     if (dialog.action() == EarlierSavesDialog::Action::OpenCopy) {
         openSavedCopy(copy, file);

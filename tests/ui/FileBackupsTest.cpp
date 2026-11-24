@@ -198,7 +198,9 @@ TEST_F(EarlierSavesWindow, SavingOverALayoutFileKeepsTheOneBeforeAndFileMenuOpen
         EXPECT_TRUE(list->item(0)->text().startsWith(QStringLiteral("Saved before")));
         dialog.findChild<QPushButton*>(QStringLiteral("earlierSavesOpen"))->click();
         EXPECT_EQ(dialog.action(), ui::EarlierSavesDialog::Action::OpenCopy);
-        ASSERT_TRUE(window_->openSavedCopy(*dialog.chosen(), dialog.file()));
+        const auto chosen = dialog.chosen();
+        ASSERT_TRUE(chosen.has_value());
+        ASSERT_TRUE(window_->openSavedCopy(*chosen, dialog.file()));
     }
     // A new, unsaved layout as the file was; the file itself unchanged.
     EXPECT_NE(view->currentMap()->author, QStringLiteral("Changed"));

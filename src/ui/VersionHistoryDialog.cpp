@@ -12,6 +12,7 @@
 #include <QListWidget>
 #include <QPushButton>
 #include <QPointer>
+#include <QTimer>
 #include <QVBoxLayout>
 
 namespace bld::ui {
@@ -139,7 +140,8 @@ VersionHistoryDialog::VersionHistoryDialog(sync::LibraryApi& api, const QString&
             },
             [self](const sync::ServerRefusal& r) { if (self) self->failed(r); });
     });
-    reload();
+    // Asked for once the dialog is built (the answer may come at any time).
+    QTimer::singleShot(0, this, &VersionHistoryDialog::reload);
 }
 
 void VersionHistoryDialog::reload() {
