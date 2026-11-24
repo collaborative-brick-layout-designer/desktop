@@ -431,7 +431,8 @@ void TrainRun::collide(const std::vector<size_t>* moved, std::vector<RunNote>& n
         }
         // A route's own end, or the track's, isn't news when the train stopped short of another.
         const QString ta = runs_[h.a].train.id;
-        const QString tb = h.b.has_value() ? runs_[h.b.value()].train.id : QString();
+        QString tb;
+        if (const std::optional<size_t> b = h.b) tb = runs_[*b].train.id;
         notes.erase(std::remove_if(notes.begin(), notes.end(),
                                    [&](const RunNote& n) {
                                        return (n.kind == RunNoteKind::Arrived || n.kind == RunNoteKind::EndOfTrack) &&

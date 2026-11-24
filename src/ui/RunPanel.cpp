@@ -215,7 +215,8 @@ void RunPanel::show(const core::Map& map, const RunView& view) {
             if (view.onTrack.contains(t.id)) where->addItem(tr("From where it stands, following the switches"), QString());
             for (const auto& r : map.sidecar.routes)
                 if (!view.brokenRoutes.contains(r.id)) where->addItem(tr("Route: %1").arg(r.name), r.id);
-            where->setCurrentIndex(std::max(0, where->findData(p.value().route)));
+            const QString routeId = p ? p->route : QString();
+            where->setCurrentIndex(std::max(0, where->findData(routeId)));
             connect(where, &QComboBox::currentIndexChanged, this, [this, id = t.id, where](int i) {
                 if (filling_ || i < 0) return;
                 emit pickChanged(id, RunPick{ true, where->itemData(i).toString() });
