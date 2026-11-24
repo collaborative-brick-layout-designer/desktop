@@ -3816,6 +3816,42 @@
         <translation>把它放进当前打开的布局，或用它新建一个布局。</translation>
     </message>
     <message>
+        <source>Version history</source>
+        <translation>版本历史</translation>
+    </message>
+    <message>
+        <source>Every version is here</source>
+        <translation>所有版本都在这里</translation>
+    </message>
+    <message>
+        <source>A version is kept as you work, and before big changes. Pick one to look at it.</source>
+        <translation>你工作时以及大的改动之前，都会保留一个版本。选一个来查看。</translation>
+    </message>
+    <message>
+        <source>Keep one now</source>
+        <translation>现在保留一个</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is, with a name like Before the show, so you can find it again.</source>
+        <translation>把布局按现在的样子保留下来，起个名字，比如“展会之前”，方便以后找到。</translation>
+    </message>
+    <message>
+        <source>Put one back</source>
+        <translation>恢复一个</translation>
+    </message>
+    <message>
+        <source>Restore makes the layout as it was. How it is now is kept first, so you can go back.</source>
+        <translation>恢复会让布局回到当时的样子。现在的样子会先保留下来，所以你还能回去。</translation>
+    </message>
+    <message>
+        <source>Copy one out</source>
+        <translation>复制一个</translation>
+    </message>
+    <message>
+        <source>Make a new layout from a version, and leave this one as it is.</source>
+        <translation>用某个版本做一个新布局，当前这个保持不变。</translation>
+    </message>
+    <message>
         <source>Trains</source>
         <translation>列车</translation>
     </message>
@@ -8856,6 +8892,10 @@ Save anyway?</source>
 Your offline changes are kept; File › Review Offline Changes brings them back.</source>
         <translation>无法发布你的版本：%1
 你的离线更改已保留；文件 › 查看离线更改 可以找回它们。</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept. Ask its admin to switch it on.</source>
+        <translation>此服务器已关闭版本历史，所以不会再保留新版本。请让管理员打开它。</translation>
     </message>
     <message>
         <source>Review now</source>
@@ -16181,6 +16221,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Version history of %1</source>
         <translation>%1 的版本历史</translation>
+    </message>
+    <message>
+        <source>Show Me Around</source>
+        <translation>带我看看</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept and one can&apos;t be put back. The ones already kept can still be copied out as a new layout.</source>
+        <translation>此服务器已关闭版本历史，所以不会再保留新版本，也不能恢复任何版本。已保留的版本仍可复制为新布局。</translation>
     </message>
     <message>
         <source>Versions</source>

@@ -175,6 +175,7 @@ struct LayoutVersion {
 struct LayoutVersions {
     QList<LayoutVersion> versions;  // newest first
     bool canRestore = false;        // an editor of the layout
+    bool enabled = true;            // the site keeps new versions (Admin › Backups can switch it off)
 };
 
 // One shared module a layout places, as the server sees it
@@ -439,6 +440,8 @@ public:
     // open, so the same updates aren't listed again.
     // A layout's version history (servers with it; an older server answers 404).
     void layoutVersions(const QString& layoutId, std::function<void(const LayoutVersions&)> done, Fail failed);
+    // Whether the server keeps new versions (an older server, with no answer: yes, as far as is known).
+    void versionHistoryStatus(std::function<void(bool enabled)> done, Fail failed);
     // Keep a version now: reason "manual" (with an optional name), "before-import" or "before-merge".
     void keepLayoutVersion(const QString& layoutId, const QString& reason, const QString& label,
                            std::function<void(const QString& id)> done, Fail failed);

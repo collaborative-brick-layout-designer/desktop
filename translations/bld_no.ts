@@ -3836,6 +3836,42 @@
         <translation>Legg den i layoutet du har åpent, eller start et nytt layout med den.</translation>
     </message>
     <message>
+        <source>Version history</source>
+        <translation>Versjonshistorikk</translation>
+    </message>
+    <message>
+        <source>Every version is here</source>
+        <translation>Hver versjon er her</translation>
+    </message>
+    <message>
+        <source>A version is kept as you work, and before big changes. Pick one to look at it.</source>
+        <translation>En versjon tas vare på mens du jobber og før store endringer. Velg en for å se på den.</translation>
+    </message>
+    <message>
+        <source>Keep one now</source>
+        <translation>Ta vare på en nå</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is, with a name like Before the show, so you can find it again.</source>
+        <translation>Ta vare på layouten slik den er, med et navn som «Før showet», så du finner den igjen.</translation>
+    </message>
+    <message>
+        <source>Put one back</source>
+        <translation>Legg en tilbake</translation>
+    </message>
+    <message>
+        <source>Restore makes the layout as it was. How it is now is kept first, so you can go back.</source>
+        <translation>Gjenopprett gjør layouten slik den var. Slik den er nå, tas det vare på først, så du kan gå tilbake.</translation>
+    </message>
+    <message>
+        <source>Copy one out</source>
+        <translation>Kopier en ut</translation>
+    </message>
+    <message>
+        <source>Make a new layout from a version, and leave this one as it is.</source>
+        <translation>Lag en ny layout fra en versjon, og la denne være som den er.</translation>
+    </message>
+    <message>
         <source>Trains</source>
         <translation>Tog</translation>
     </message>
@@ -9369,6 +9405,10 @@ Lagre likevel?</translation>
 Your offline changes are kept; File › Review Offline Changes brings them back.</source>
         <translation>Kunne ikke publisere din versjon: %1
 De frakoblede endringene dine er tatt vare på; Fil › Gå gjennom frakoblede endringer henter dem tilbake.</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept. Ask its admin to switch it on.</source>
+        <translation>Versjonshistorikk er slått av på denne serveren, så nye versjoner tas ikke vare på. Be administratoren slå det på.</translation>
     </message>
     <message>
         <source>Review now</source>
@@ -16284,6 +16324,14 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>Version history of %1</source>
         <translation>Versjonshistorikk for %1</translation>
+    </message>
+    <message>
+        <source>Show Me Around</source>
+        <translation>Vis meg rundt</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept and one can&apos;t be put back. The ones already kept can still be copied out as a new layout.</source>
+        <translation>Versjonshistorikk er slått av på denne serveren, så nye versjoner tas ikke vare på, og ingen kan legges tilbake. De som allerede er tatt vare på, kan fortsatt kopieres ut som en ny layout.</translation>
     </message>
     <message>
         <source>Versions</source>

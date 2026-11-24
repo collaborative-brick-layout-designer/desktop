@@ -830,6 +830,11 @@ public:
     void onRecoverUnsavedWork();
     // File › Version History…: the live layout's versions on the server (VersionHistoryDialog.h).
     void onVersionHistory();
+    // Whether the server keeps new versions (Admin › Backups can switch it off): File › Version History… says so while it is off.
+    void refreshVersionHistoryStatus();
+    void updateVersionHistoryAction();
+    bool versionHistoryOn_ = true;
+    std::shared_ptr<int> versionStatusAlive_ = std::make_shared<int>(0);
     // File › Earlier Saves…: the copies kept each time a file was saved over (FileBackups.h).
     void onEarlierSaves();
     // Opens an earlier save as a new, unsaved layout (the file it came from stays as it is).

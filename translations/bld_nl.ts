@@ -3836,6 +3836,42 @@
         <translation>Zet het in de geopende layout, of begin er een nieuwe layout mee.</translation>
     </message>
     <message>
+        <source>Version history</source>
+        <translation>Versiegeschiedenis</translation>
+    </message>
+    <message>
+        <source>Every version is here</source>
+        <translation>Elke versie staat hier</translation>
+    </message>
+    <message>
+        <source>A version is kept as you work, and before big changes. Pick one to look at it.</source>
+        <translation>Een versie wordt bewaard terwijl je werkt en vóór grote wijzigingen. Kies er een om hem te bekijken.</translation>
+    </message>
+    <message>
+        <source>Keep one now</source>
+        <translation>Nu een bewaren</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is, with a name like Before the show, so you can find it again.</source>
+        <translation>Bewaar de layout zoals hij is, met een naam zoals „Voor de show”, zodat je hem terugvindt.</translation>
+    </message>
+    <message>
+        <source>Put one back</source>
+        <translation>Een terugzetten</translation>
+    </message>
+    <message>
+        <source>Restore makes the layout as it was. How it is now is kept first, so you can go back.</source>
+        <translation>Herstellen maakt de layout weer zoals hij was. Hoe hij nu is, wordt eerst bewaard, zodat je terug kunt.</translation>
+    </message>
+    <message>
+        <source>Copy one out</source>
+        <translation>Een kopiëren</translation>
+    </message>
+    <message>
+        <source>Make a new layout from a version, and leave this one as it is.</source>
+        <translation>Maak van een versie een nieuwe layout en laat deze zoals hij is.</translation>
+    </message>
+    <message>
         <source>Trains</source>
         <translation>Treinen</translation>
     </message>
@@ -8914,6 +8950,10 @@ Toch opslaan?</translation>
 Your offline changes are kept; File › Review Offline Changes brings them back.</source>
         <translation>Je versie kon niet worden gepubliceerd: %1
 Je offline wijzigingen blijven bewaard; Bestand › Offline wijzigingen bekijken brengt ze terug.</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept. Ask its admin to switch it on.</source>
+        <translation>De versiegeschiedenis staat uit op deze server, dus er worden geen nieuwe versies bewaard. Vraag de beheerder om hem aan te zetten.</translation>
     </message>
     <message>
         <source>Review now</source>
@@ -16284,6 +16324,14 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Version history of %1</source>
         <translation>Versiegeschiedenis van %1</translation>
+    </message>
+    <message>
+        <source>Show Me Around</source>
+        <translation>Laat me rondkijken</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept and one can&apos;t be put back. The ones already kept can still be copied out as a new layout.</source>
+        <translation>De versiegeschiedenis staat uit op deze server, dus er worden geen nieuwe versies bewaard en er kan er geen worden teruggezet. De al bewaarde versies kun je nog wel als nieuwe layout kopiëren.</translation>
     </message>
     <message>
         <source>Versions</source>

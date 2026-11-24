@@ -3836,6 +3836,42 @@
         <translation>Leg es in das geöffnete Layout, oder beginne damit ein neues Layout.</translation>
     </message>
     <message>
+        <source>Version history</source>
+        <translation>Versionsverlauf</translation>
+    </message>
+    <message>
+        <source>Every version is here</source>
+        <translation>Hier ist jede Version</translation>
+    </message>
+    <message>
+        <source>A version is kept as you work, and before big changes. Pick one to look at it.</source>
+        <translation>Eine Version wird beim Arbeiten und vor großen Änderungen aufbewahrt. Wähle eine aus, um sie anzusehen.</translation>
+    </message>
+    <message>
+        <source>Keep one now</source>
+        <translation>Jetzt aufbewahren</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is, with a name like Before the show, so you can find it again.</source>
+        <translation>Bewahre das Layout so auf, wie es ist, mit einem Namen wie „Vor der Show“, damit du es wiederfindest.</translation>
+    </message>
+    <message>
+        <source>Put one back</source>
+        <translation>Eine zurückholen</translation>
+    </message>
+    <message>
+        <source>Restore makes the layout as it was. How it is now is kept first, so you can go back.</source>
+        <translation>Wiederherstellen macht das Layout wieder so, wie es war. Wie es jetzt ist, wird vorher aufbewahrt, damit du zurückgehen kannst.</translation>
+    </message>
+    <message>
+        <source>Copy one out</source>
+        <translation>Eine herauskopieren</translation>
+    </message>
+    <message>
+        <source>Make a new layout from a version, and leave this one as it is.</source>
+        <translation>Mache aus einer Version ein neues Layout und lass dieses so, wie es ist.</translation>
+    </message>
+    <message>
         <source>Trains</source>
         <translation>Züge</translation>
     </message>
@@ -8914,6 +8950,10 @@ Trotzdem speichern?</translation>
 Your offline changes are kept; File › Review Offline Changes brings them back.</source>
         <translation>Deine Version konnte nicht veröffentlicht werden: %1
 Deine Offline-Änderungen bleiben erhalten; Datei › Offline-Änderungen prüfen holt sie zurück.</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept. Ask its admin to switch it on.</source>
+        <translation>Der Versionsverlauf ist auf diesem Server ausgeschaltet, deshalb werden keine neuen Versionen aufbewahrt. Bitte den Admin, ihn einzuschalten.</translation>
     </message>
     <message>
         <source>Review now</source>
@@ -16284,6 +16324,14 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>Version history of %1</source>
         <translation>Versionsverlauf von %1</translation>
+    </message>
+    <message>
+        <source>Show Me Around</source>
+        <translation>Zeig mir alles</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept and one can&apos;t be put back. The ones already kept can still be copied out as a new layout.</source>
+        <translation>Der Versionsverlauf ist auf diesem Server ausgeschaltet, deshalb werden keine neuen Versionen aufbewahrt und keine kann zurückgeholt werden. Bereits aufbewahrte Versionen kannst du weiterhin als neues Layout herauskopieren.</translation>
     </message>
     <message>
         <source>Versions</source>

@@ -3836,6 +3836,42 @@
         <translation>Mettilo nel layout che hai aperto, o inizia con esso un nuovo layout.</translation>
     </message>
     <message>
+        <source>Version history</source>
+        <translation>Cronologia delle versioni</translation>
+    </message>
+    <message>
+        <source>Every version is here</source>
+        <translation>Ogni versione è qui</translation>
+    </message>
+    <message>
+        <source>A version is kept as you work, and before big changes. Pick one to look at it.</source>
+        <translation>Una versione viene conservata mentre lavori e prima dei grandi cambiamenti. Scegline una per guardarla.</translation>
+    </message>
+    <message>
+        <source>Keep one now</source>
+        <translation>Conservane una ora</translation>
+    </message>
+    <message>
+        <source>Keep the layout as it is, with a name like Before the show, so you can find it again.</source>
+        <translation>Conserva il layout così com&apos;è, con un nome come «Prima dell&apos;evento», per ritrovarlo.</translation>
+    </message>
+    <message>
+        <source>Put one back</source>
+        <translation>Ripristinane una</translation>
+    </message>
+    <message>
+        <source>Restore makes the layout as it was. How it is now is kept first, so you can go back.</source>
+        <translation>Ripristina riporta il layout com&apos;era. Prima viene conservato com&apos;è ora, così puoi tornare indietro.</translation>
+    </message>
+    <message>
+        <source>Copy one out</source>
+        <translation>Copiane una</translation>
+    </message>
+    <message>
+        <source>Make a new layout from a version, and leave this one as it is.</source>
+        <translation>Crea un nuovo layout da una versione e lascia questo com&apos;è.</translation>
+    </message>
+    <message>
         <source>Trains</source>
         <translation>Treni</translation>
     </message>
@@ -8914,6 +8950,10 @@ Salvare comunque?</translation>
 Your offline changes are kept; File › Review Offline Changes brings them back.</source>
         <translation>Impossibile pubblicare la tua versione: %1
 Le tue modifiche offline sono conservate; File › Rivedi modifiche offline le riporta.</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept. Ask its admin to switch it on.</source>
+        <translation>La cronologia delle versioni è disattivata su questo server, quindi non vengono conservate nuove versioni. Chiedi all&apos;amministratore di attivarla.</translation>
     </message>
     <message>
         <source>Review now</source>
@@ -16284,6 +16324,14 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>Version history of %1</source>
         <translation>Cronologia delle versioni di %1</translation>
+    </message>
+    <message>
+        <source>Show Me Around</source>
+        <translation>Fammi vedere</translation>
+    </message>
+    <message>
+        <source>Version history is switched off on this server, so no new versions are kept and one can&apos;t be put back. The ones already kept can still be copied out as a new layout.</source>
+        <translation>La cronologia delle versioni è disattivata su questo server, quindi non vengono conservate nuove versioni e nessuna può essere ripristinata. Quelle già conservate si possono ancora copiare come nuovo layout.</translation>
     </message>
     <message>
         <source>Versions</source>
