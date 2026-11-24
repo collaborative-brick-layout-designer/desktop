@@ -53,7 +53,7 @@
     "rollingStock": {
       "type": "array",
       "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "number": { "type": "string" }, "length": { "type": "number" } } },
-      "description": "Engines and cars: { id, number, name, kind, type, trackKind, length, width, bodyLength, trucks: [{ at, swivelMax }], couplers: { front, rear }, powered, look: { mode, color, partKey }, libraryId?, libraryVersion?, notes } in studs; a truck's at is studs from the car's middle, + towards its front. Unknown fields are kept. Live at meta.rollingStock (a Y.Map of id -> a Y.Map of fields). Never in a .bbm. Added 2026-11, optional."
+      "description": "Engines and cars: { id, number, name, kind, type, trackKind, length, width, bodyLength, trucks: [{ at, swivelMax }], couplers: { front, rear }, powered, look: { mode (simple, part or model), color, partKey }, model?: { partKey, file, format, importedAt } (an imported model's), libraryId?, libraryVersion?, notes } in studs; a truck's at is studs from the car's middle, + towards its front. Unknown fields are kept. Live at meta.rollingStock (a Y.Map of id -> a Y.Map of fields). Never in a .bbm. Added 2026-11, optional."
     },
     "trains": {
       "type": "array",

@@ -655,6 +655,18 @@
         <translation>方向不对的道岔在地图上显示橙色圆环，路线会显示数量。设置它们是一次可撤销的更改，所有人都会立即看到。</translation>
     </message>
     <message>
+        <source>Import a model</source>
+        <translation>导入模型</translation>
+    </message>
+    <message>
+        <source>Make an engine or car of a model you built in LDraw, Studio or LDD.</source>
+        <translation>用你在 LDraw、Studio 或 LDD 中搭建的模型做一辆机车或车厢。</translation>
+    </message>
+    <message>
+        <source>Pick the model&apos;s file: it becomes one of your parts, and its wheels, bogies and magnets show where its trucks and couplers go. Drag a marker if it&apos;s off, or press Turn around if the other end is the front. Tick the roster box to use the car in other layouts too.</source>
+        <translation>选择模型文件：它会成为你的一个零件，模型的车轮、转向架和磁铁会显示转向架和车钩的位置。位置不对就拖动标记，另一端是车头就按掉头。勾选车辆名册，就能在其他布局中使用这辆车。</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>当前图纸</translation>
     </message>
@@ -3736,6 +3748,14 @@
         <translation>“设置道岔”会把路线上的每个道岔设为其方向。运行模式下可以手动切换。</translation>
     </message>
     <message>
+        <source>A quick car, or your own model</source>
+        <translation>快速车厢，或你自己的模型</translation>
+    </message>
+    <message>
+        <source>New car needs just a number and a length. Import a model… makes one of a model you built, wheels and all.</source>
+        <translation>新车厢只需要编号和长度。导入模型…可以用你搭建的模型做一辆，连车轮一起。</translation>
+    </message>
+    <message>
         <source>Watch it run</source>
         <translation>看它跑起来</translation>
     </message>
@@ -3862,14 +3882,6 @@
     <message>
         <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
         <translation>从“面板”打开“列车”。“车辆”里是这个布局的机车和车厢，“列车”里是用它们编成的列车。</translation>
-    </message>
-    <message>
-        <source>A quick car</source>
-        <translation>快速车厢</translation>
-    </message>
-    <message>
-        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
-        <translation>“新车厢”只需要编号和以颗粒计的长度。“更多细节”可以设置转向架、车钩和零件图片。</translation>
     </message>
     <message>
         <source>Make a train</source>
@@ -9618,8 +9630,20 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>零件“%1”已不在你的零件中</translation>
     </message>
     <message>
+        <source>Import a model as an engine or car</source>
+        <translation>将模型导入为机车或车厢</translation>
+    </message>
+    <message>
         <source>Import canceled.</source>
         <translation>导入已取消。</translation>
+    </message>
+    <message>
+        <source>Import a model</source>
+        <translation>导入模型</translation>
+    </message>
+    <message>
+        <source>Added %1, made from %2</source>
+        <translation>已添加 %1，由 %2 制作</translation>
     </message>
     <message>
         <source>Replaced “%1” with %2</source>
@@ -14938,6 +14962,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>它颜色的方块</translation>
     </message>
     <message>
+        <source>The model it was made from, or a part’s picture</source>
+        <translation>它所来自的模型，或零件的图片</translation>
+    </message>
+    <message>
         <source>A part’s picture</source>
         <translation>零件图片</translation>
     </message>
@@ -14976,6 +15004,111 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>No train parts match. Parts with a coupler at each end show here.</source>
         <translation>没有匹配的火车零件。两端都有车钩的零件会显示在这里。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::StockImportDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> 颗粒</translation>
+    </message>
+    <message>
+        <source>We found the trucks from the model’s bogies.</source>
+        <translation>我们根据模型的转向架板找到了转向架。</translation>
+    </message>
+    <message>
+        <source>We found the trucks from the model’s wheels.</source>
+        <translation>我们根据模型的车轮找到了转向架。</translation>
+    </message>
+    <message>
+        <source>We couldn’t find wheels, so the trucks are a quarter of the way in from each end.</source>
+        <translation>没有找到车轮，所以转向架位于距两端各四分之一长度处。</translation>
+    </message>
+    <message>
+        <source>The couplers are its magnets.</source>
+        <translation>车钩就是它的磁铁。</translation>
+    </message>
+    <message>
+        <source>No magnets were found, so the couplers are just past each end.</source>
+        <translation>没有找到磁铁，所以车钩就在两端外侧。</translation>
+    </message>
+    <message>
+        <source>Drag a marker to fix it.</source>
+        <translation>拖动标记即可修正。</translation>
+    </message>
+    <message>
+        <source>Import a model as an engine or car</source>
+        <translation>将模型导入为机车或车厢</translation>
+    </message>
+    <message>
+        <source>This is your model from above, its front to the right. The orange markers are its trucks (where the wheels turn), the blue ones its couplers. Check them, then add it.</source>
+        <translation>这是从上方看的模型，车头朝右。橙色标记是转向架（车轮转动处），蓝色是车钩。检查后再添加。</translation>
+    </message>
+    <message>
+        <source>The model from above, front to the right, with its trucks and couplers</source>
+        <translation>从上方看的模型（车头朝右），带转向架和车钩</translation>
+    </message>
+    <message>
+        <source>Part name:</source>
+        <translation>零件名称：</translation>
+    </message>
+    <message>
+        <source>Optional, shown on the map</source>
+        <translation>可选，显示在地图上</translation>
+    </message>
+    <message>
+        <source>Road number:</source>
+        <translation>编号：</translation>
+    </message>
+    <message>
+        <source>It’s a:</source>
+        <translation>类型：</translation>
+    </message>
+    <message>
+        <source>Turn around ⇄</source>
+        <translation>掉头 ⇄</translation>
+    </message>
+    <message>
+        <source>The other end is the front</source>
+        <translation>另一端是车头</translation>
+    </message>
+    <message>
+        <source>Front truck:</source>
+        <translation>前转向架：</translation>
+    </message>
+    <message>
+        <source>Rear truck:</source>
+        <translation>后转向架：</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler:</source>
+        <translation>车钩到车钩：</translation>
+    </message>
+    <message>
+        <source>Also put it on my roster, for other layouts</source>
+        <translation>同时放入我的车辆名册，供其他布局使用</translation>
+    </message>
+    <message>
+        <source>Sign in to a server (File › Servers…) to keep a roster.</source>
+        <translation>登录服务器（文件 › 服务器…）即可使用车辆名册。</translation>
+    </message>
+    <message>
+        <source>Add to rolling stock</source>
+        <translation>添加到车辆</translation>
+    </message>
+    <message>
+        <source>R</source>
+        <comment>rear truck</comment>
+        <translation>后</translation>
+    </message>
+    <message>
+        <source>F</source>
+        <comment>front truck</comment>
+        <translation>前</translation>
+    </message>
+    <message>
+        <source>Front →</source>
+        <translation>车头 →</translation>
     </message>
 </context>
 <context>
@@ -15131,6 +15264,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>从名册添加…</translation>
     </message>
     <message>
+        <source>Import a model…</source>
+        <translation>导入模型…</translation>
+    </message>
+    <message>
+        <source>Make an engine or car of a model you built in LDraw, Studio or LDD</source>
+        <translation>用你在 LDraw、Studio 或 LDD 中搭建的模型做一辆机车或车厢</translation>
+    </message>
+    <message>
         <source>Rolling stock</source>
         <translation>车辆</translation>
     </message>
@@ -15231,10 +15372,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Rolling stock (%1)</source>
         <translation>车辆 (%1)</translation>
-    </message>
-    <message>
-        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
-        <translation>还没有车辆。按“新车厢”：快速车厢只需要编号和长度。</translation>
     </message>
     <message>
         <source>Pick %1 for a new train</source>
@@ -15365,6 +15502,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Checks</source>
         <translation>检查</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs. Or bring in a model you built with Import a model….</source>
+        <translation>还没有车辆。按新车厢：快速车厢只需编号和长度。或者用导入模型…带来你搭建的模型。</translation>
     </message>
     <message>
         <source>Every train on the track fits: nothing too long, too tight or too close.</source>
@@ -16572,7 +16713,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>R</source>
-        <translation>R</translation>
+        <translation>后</translation>
     </message>
     <message>
         <source>Shift+R</source>

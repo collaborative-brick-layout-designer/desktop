@@ -164,6 +164,14 @@ protected:
     // Which ZIP Add Parts from a Zip reads (empty: cancelled); tests answer
     // instead of the file picker.
     std::function<QString()> askPartsZip;
+    // Trains › Import a model… (trains design Phase 6): an LDraw, Studio or
+    // LDD model made into a part, then an engine or car drawn with it, its
+    // trucks and couplers as confirmed in the StockImportDialog. The model
+    // file comes from askModelFile (else the picker); tests confirm the
+    // dialog instead of showing it (false: cancelled).
+    void importModelAsStock();
+    void importModelAsStockFile(const QString& path);
+    std::function<bool(class StockImportDialog&)> runStockImportDialog;
     // Save Selection as Set: tests fill in the dialog and say whether it was
     // saved (instead of showing it), and answer which file the set goes to
     // (instead of the file picker; empty: cancelled).

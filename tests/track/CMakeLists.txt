@@ -4,6 +4,7 @@ add_executable(bld_track_tests
     TrainsTest.cpp
     FitChecksTest.cpp
     AnimationTest.cpp
+    StockGuessTest.cpp
 )
 
 target_compile_definitions(bld_track_tests PRIVATE
@@ -14,6 +15,7 @@ target_compile_definitions(bld_track_tests PRIVATE
 target_link_libraries(bld_track_tests
     PRIVATE
         bld_track
+        bld_import
         bld_saveload
         bld_parts
         bld_core

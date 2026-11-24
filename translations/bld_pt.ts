@@ -655,6 +655,18 @@
         <translation>As agulhas postas para o outro lado mostram um anel laranja no mapa, e o percurso diz quantas são. Pô-las é uma alteração que pode anular, e todos a veem logo.</translation>
     </message>
     <message>
+        <source>Import a model</source>
+        <translation>Importar um modelo</translation>
+    </message>
+    <message>
+        <source>Make an engine or car of a model you built in LDraw, Studio or LDD.</source>
+        <translation>Faça uma locomotiva ou carruagem de um modelo que construiu em LDraw, Studio ou LDD.</translation>
+    </message>
+    <message>
+        <source>Pick the model&apos;s file: it becomes one of your parts, and its wheels, bogies and magnets show where its trucks and couplers go. Drag a marker if it&apos;s off, or press Turn around if the other end is the front. Tick the roster box to use the car in other layouts too.</source>
+        <translation>Escolha o ficheiro do modelo: torna-se uma das suas peças, e as rodas, bogies e ímanes mostram onde ficam os bogies e engates. Arraste um marcador se estiver errado, ou carregue em Inverter se a outra ponta for a frente. Marque a caixa do parque para usar a carruagem noutros layouts também.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Folha atual</translation>
     </message>
@@ -3756,6 +3768,14 @@
         <translation>Pôr as agulhas põe cada agulha do percurso no seu sentido. No modo de circulação muda-as à mão.</translation>
     </message>
     <message>
+        <source>A quick car, or your own model</source>
+        <translation>Uma carruagem rápida, ou o seu modelo</translation>
+    </message>
+    <message>
+        <source>New car needs just a number and a length. Import a model… makes one of a model you built, wheels and all.</source>
+        <translation>Nova carruagem só precisa de um número e um comprimento. Importar um modelo… faz uma do seu modelo, com rodas e tudo.</translation>
+    </message>
+    <message>
         <source>Watch it run</source>
         <translation>Veja-o andar</translation>
     </message>
@@ -3882,14 +3902,6 @@
     <message>
         <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
         <translation>Abra Comboios a partir de Painéis. Material circulante tem as locomotivas e carruagens deste layout; Comboios tem os comboios feitos com elas.</translation>
-    </message>
-    <message>
-        <source>A quick car</source>
-        <translation>Uma carruagem rápida</translation>
-    </message>
-    <message>
-        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
-        <translation>Nova carruagem só precisa de um número e de um comprimento em studs. Mais detalhes define os bogies, os engates e a imagem de uma peça.</translation>
     </message>
     <message>
         <source>Make a train</source>
@@ -9685,8 +9697,20 @@ Não voltaremos a perguntar. Para o trazer mais tarde para este ou outro layout,
         <translation>a peça “%1” já não está nas suas peças</translation>
     </message>
     <message>
+        <source>Import a model as an engine or car</source>
+        <translation>Importar um modelo como locomotiva ou carruagem</translation>
+    </message>
+    <message>
         <source>Import canceled.</source>
         <translation>Importação cancelada.</translation>
+    </message>
+    <message>
+        <source>Import a model</source>
+        <translation>Importar um modelo</translation>
+    </message>
+    <message>
+        <source>Added %1, made from %2</source>
+        <translation>Adicionado %1, feito a partir de %2</translation>
     </message>
     <message>
         <source>Replaced “%1” with %2</source>
@@ -15037,6 +15061,10 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>Uma caixa da sua cor</translation>
     </message>
     <message>
+        <source>The model it was made from, or a part’s picture</source>
+        <translation>O modelo de onde foi feito, ou a imagem de uma peça</translation>
+    </message>
+    <message>
         <source>A part’s picture</source>
         <translation>A imagem de uma peça</translation>
     </message>
@@ -15075,6 +15103,111 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>No train parts match. Parts with a coupler at each end show here.</source>
         <translation>Nenhuma peça de comboio corresponde. Aqui aparecem as peças com um engate em cada ponta.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::StockImportDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> studs</translation>
+    </message>
+    <message>
+        <source>We found the trucks from the model’s bogies.</source>
+        <translation>Encontrámos os bogies pelas placas de bogie do modelo.</translation>
+    </message>
+    <message>
+        <source>We found the trucks from the model’s wheels.</source>
+        <translation>Encontrámos os bogies pelas rodas do modelo.</translation>
+    </message>
+    <message>
+        <source>We couldn’t find wheels, so the trucks are a quarter of the way in from each end.</source>
+        <translation>Não encontrámos rodas, por isso os bogies ficam a um quarto do comprimento de cada ponta.</translation>
+    </message>
+    <message>
+        <source>The couplers are its magnets.</source>
+        <translation>Os engates são os ímanes.</translation>
+    </message>
+    <message>
+        <source>No magnets were found, so the couplers are just past each end.</source>
+        <translation>Não foram encontrados ímanes, por isso os engates ficam logo a seguir a cada ponta.</translation>
+    </message>
+    <message>
+        <source>Drag a marker to fix it.</source>
+        <translation>Arraste um marcador para corrigir.</translation>
+    </message>
+    <message>
+        <source>Import a model as an engine or car</source>
+        <translation>Importar um modelo como locomotiva ou carruagem</translation>
+    </message>
+    <message>
+        <source>This is your model from above, its front to the right. The orange markers are its trucks (where the wheels turn), the blue ones its couplers. Check them, then add it.</source>
+        <translation>Este é o seu modelo visto de cima, com a frente à direita. Os marcadores laranja são os bogies (onde as rodas viram), os azuis os engates. Verifique-os e depois adicione-o.</translation>
+    </message>
+    <message>
+        <source>The model from above, front to the right, with its trucks and couplers</source>
+        <translation>O modelo visto de cima, frente à direita, com bogies e engates</translation>
+    </message>
+    <message>
+        <source>Part name:</source>
+        <translation>Nome da peça:</translation>
+    </message>
+    <message>
+        <source>Optional, shown on the map</source>
+        <translation>Opcional, mostrado no mapa</translation>
+    </message>
+    <message>
+        <source>Road number:</source>
+        <translation>Número:</translation>
+    </message>
+    <message>
+        <source>It’s a:</source>
+        <translation>É um(a):</translation>
+    </message>
+    <message>
+        <source>Turn around ⇄</source>
+        <translation>Inverter ⇄</translation>
+    </message>
+    <message>
+        <source>The other end is the front</source>
+        <translation>A outra ponta é a frente</translation>
+    </message>
+    <message>
+        <source>Front truck:</source>
+        <translation>Bogie da frente:</translation>
+    </message>
+    <message>
+        <source>Rear truck:</source>
+        <translation>Bogie de trás:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler:</source>
+        <translation>De engate a engate:</translation>
+    </message>
+    <message>
+        <source>Also put it on my roster, for other layouts</source>
+        <translation>Pôr também no meu parque, para outros layouts</translation>
+    </message>
+    <message>
+        <source>Sign in to a server (File › Servers…) to keep a roster.</source>
+        <translation>Inicie sessão num servidor (Ficheiro › Servidores…) para ter um parque.</translation>
+    </message>
+    <message>
+        <source>Add to rolling stock</source>
+        <translation>Adicionar ao material circulante</translation>
+    </message>
+    <message>
+        <source>R</source>
+        <comment>rear truck</comment>
+        <translation>T</translation>
+    </message>
+    <message>
+        <source>F</source>
+        <comment>front truck</comment>
+        <translation>F</translation>
+    </message>
+    <message>
+        <source>Front →</source>
+        <translation>Frente →</translation>
     </message>
 </context>
 <context>
@@ -15230,6 +15363,14 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>De um parque…</translation>
     </message>
     <message>
+        <source>Import a model…</source>
+        <translation>Importar um modelo…</translation>
+    </message>
+    <message>
+        <source>Make an engine or car of a model you built in LDraw, Studio or LDD</source>
+        <translation>Faça uma locomotiva ou carruagem de um modelo que construiu em LDraw, Studio ou LDD</translation>
+    </message>
+    <message>
         <source>Rolling stock</source>
         <translation>Material circulante</translation>
     </message>
@@ -15331,10 +15472,6 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>Rolling stock (%1)</source>
         <translation>Material circulante (%1)</translation>
-    </message>
-    <message>
-        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
-        <translation>Ainda não há material circulante. Carregue em Nova carruagem: um número e um comprimento é tudo o que uma carruagem rápida precisa.</translation>
     </message>
     <message>
         <source>Pick %1 for a new train</source>
@@ -15466,6 +15603,10 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>Checks</source>
         <translation>Verificações</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs. Or bring in a model you built with Import a model….</source>
+        <translation>Ainda não há material circulante. Carregue em Nova carruagem: um número e um comprimento é tudo o que uma carruagem rápida precisa. Ou traga um modelo seu com Importar um modelo….</translation>
     </message>
     <message>
         <source>Every train on the track fits: nothing too long, too tight or too close.</source>
@@ -16677,7 +16818,7 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     </message>
     <message>
         <source>R</source>
-        <translation>R</translation>
+        <translation>T</translation>
     </message>
     <message>
         <source>Shift+R</source>

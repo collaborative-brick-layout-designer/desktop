@@ -655,6 +655,18 @@
         <translation>Wissels die de andere kant op staan tonen een oranje ring op de kaart, en de route zegt hoeveel het er zijn. Ze zetten is één wijziging die je ongedaan kunt maken, en iedereen ziet die meteen.</translation>
     </message>
     <message>
+        <source>Import a model</source>
+        <translation>Een model importeren</translation>
+    </message>
+    <message>
+        <source>Make an engine or car of a model you built in LDraw, Studio or LDD.</source>
+        <translation>Maak een locomotief of wagon van een model dat je in LDraw, Studio of LDD hebt gebouwd.</translation>
+    </message>
+    <message>
+        <source>Pick the model&apos;s file: it becomes one of your parts, and its wheels, bogies and magnets show where its trucks and couplers go. Drag a marker if it&apos;s off, or press Turn around if the other end is the front. Tick the roster box to use the car in other layouts too.</source>
+        <translation>Kies het bestand van het model: het wordt een van je onderdelen, en de wielen, draaistellen en magneten laten zien waar de draaistellen en koppelingen komen. Sleep een markering als die niet klopt, of druk op Omdraaien als het andere eind de voorkant is. Vink het wagenpark aan om de wagon ook in andere layouts te gebruiken.</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>Huidig blad</translation>
     </message>
@@ -3756,6 +3768,14 @@
         <translation>Wissels zetten zet elke wissel op de route zijn kant op. In rijmodus zet je ze met de hand om.</translation>
     </message>
     <message>
+        <source>A quick car, or your own model</source>
+        <translation>Een snelle wagon, of je eigen model</translation>
+    </message>
+    <message>
+        <source>New car needs just a number and a length. Import a model… makes one of a model you built, wheels and all.</source>
+        <translation>Nieuwe wagon heeft alleen een nummer en een lengte nodig. Een model importeren… maakt er een van je model, met wielen en al.</translation>
+    </message>
+    <message>
         <source>Watch it run</source>
         <translation>Kijk hem rijden</translation>
     </message>
@@ -3882,14 +3902,6 @@
     <message>
         <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
         <translation>Open Treinen via Panelen. Rollend materieel bevat de locomotieven en wagons van deze layout; Treinen de treinen die ervan gemaakt zijn.</translation>
-    </message>
-    <message>
-        <source>A quick car</source>
-        <translation>Een snelle wagon</translation>
-    </message>
-    <message>
-        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
-        <translation>Nieuwe wagon heeft alleen een nummer en een lengte in noppen nodig. Meer details stelt draaistellen, koppelingen en de afbeelding van een onderdeel in.</translation>
     </message>
     <message>
         <source>Make a train</source>
@@ -9685,8 +9697,20 @@ Dit wordt niet opnieuw gevraagd. Om het later in deze of een andere layout over 
         <translation>het onderdeel ‘%1’ staat niet meer in je onderdelen</translation>
     </message>
     <message>
+        <source>Import a model as an engine or car</source>
+        <translation>Een model importeren als locomotief of wagon</translation>
+    </message>
+    <message>
         <source>Import canceled.</source>
         <translation>Import geannuleerd.</translation>
+    </message>
+    <message>
+        <source>Import a model</source>
+        <translation>Een model importeren</translation>
+    </message>
+    <message>
+        <source>Added %1, made from %2</source>
+        <translation>%1 toegevoegd, gemaakt van %2</translation>
     </message>
     <message>
         <source>Replaced “%1” with %2</source>
@@ -15037,6 +15061,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Een blok in zijn kleur</translation>
     </message>
     <message>
+        <source>The model it was made from, or a part’s picture</source>
+        <translation>Het model waarvan hij gemaakt is, of de afbeelding van een onderdeel</translation>
+    </message>
+    <message>
         <source>A part’s picture</source>
         <translation>De afbeelding van een onderdeel</translation>
     </message>
@@ -15075,6 +15103,111 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>No train parts match. Parts with a coupler at each end show here.</source>
         <translation>Geen treinonderdelen gevonden. Onderdelen met een koppeling aan elk uiteinde staan hier.</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::StockImportDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> noppen</translation>
+    </message>
+    <message>
+        <source>We found the trucks from the model’s bogies.</source>
+        <translation>We vonden de draaistellen aan de draaistelplaten van het model.</translation>
+    </message>
+    <message>
+        <source>We found the trucks from the model’s wheels.</source>
+        <translation>We vonden de draaistellen aan de wielen van het model.</translation>
+    </message>
+    <message>
+        <source>We couldn’t find wheels, so the trucks are a quarter of the way in from each end.</source>
+        <translation>We vonden geen wielen, dus de draaistellen zitten een kwart van de lengte van elk eind.</translation>
+    </message>
+    <message>
+        <source>The couplers are its magnets.</source>
+        <translation>De koppelingen zijn de magneten.</translation>
+    </message>
+    <message>
+        <source>No magnets were found, so the couplers are just past each end.</source>
+        <translation>Er zijn geen magneten gevonden, dus de koppelingen zitten net voorbij elk eind.</translation>
+    </message>
+    <message>
+        <source>Drag a marker to fix it.</source>
+        <translation>Sleep een markering om het te verbeteren.</translation>
+    </message>
+    <message>
+        <source>Import a model as an engine or car</source>
+        <translation>Een model importeren als locomotief of wagon</translation>
+    </message>
+    <message>
+        <source>This is your model from above, its front to the right. The orange markers are its trucks (where the wheels turn), the blue ones its couplers. Check them, then add it.</source>
+        <translation>Dit is je model van bovenaf, de voorkant rechts. De oranje markeringen zijn de draaistellen (waar de wielen draaien), de blauwe de koppelingen. Controleer ze en voeg het dan toe.</translation>
+    </message>
+    <message>
+        <source>The model from above, front to the right, with its trucks and couplers</source>
+        <translation>Het model van bovenaf, voorkant rechts, met draaistellen en koppelingen</translation>
+    </message>
+    <message>
+        <source>Part name:</source>
+        <translation>Naam van het onderdeel:</translation>
+    </message>
+    <message>
+        <source>Optional, shown on the map</source>
+        <translation>Optioneel, op de kaart getoond</translation>
+    </message>
+    <message>
+        <source>Road number:</source>
+        <translation>Nummer:</translation>
+    </message>
+    <message>
+        <source>It’s a:</source>
+        <translation>Het is een:</translation>
+    </message>
+    <message>
+        <source>Turn around ⇄</source>
+        <translation>Omdraaien ⇄</translation>
+    </message>
+    <message>
+        <source>The other end is the front</source>
+        <translation>Het andere eind is de voorkant</translation>
+    </message>
+    <message>
+        <source>Front truck:</source>
+        <translation>Voorste draaistel:</translation>
+    </message>
+    <message>
+        <source>Rear truck:</source>
+        <translation>Achterste draaistel:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler:</source>
+        <translation>Koppeling tot koppeling:</translation>
+    </message>
+    <message>
+        <source>Also put it on my roster, for other layouts</source>
+        <translation>Ook in mijn wagenpark zetten, voor andere layouts</translation>
+    </message>
+    <message>
+        <source>Sign in to a server (File › Servers…) to keep a roster.</source>
+        <translation>Meld je aan bij een server (Bestand › Servers…) om een wagenpark bij te houden.</translation>
+    </message>
+    <message>
+        <source>Add to rolling stock</source>
+        <translation>Toevoegen aan rollend materieel</translation>
+    </message>
+    <message>
+        <source>R</source>
+        <comment>rear truck</comment>
+        <translation>A</translation>
+    </message>
+    <message>
+        <source>F</source>
+        <comment>front truck</comment>
+        <translation>V</translation>
+    </message>
+    <message>
+        <source>Front →</source>
+        <translation>Voorkant →</translation>
     </message>
 </context>
 <context>
@@ -15230,6 +15363,14 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Uit een wagenpark…</translation>
     </message>
     <message>
+        <source>Import a model…</source>
+        <translation>Een model importeren…</translation>
+    </message>
+    <message>
+        <source>Make an engine or car of a model you built in LDraw, Studio or LDD</source>
+        <translation>Maak een locomotief of wagon van een model dat je in LDraw, Studio of LDD hebt gebouwd</translation>
+    </message>
+    <message>
         <source>Rolling stock</source>
         <translation>Rollend materieel</translation>
     </message>
@@ -15331,10 +15472,6 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Rolling stock (%1)</source>
         <translation>Rollend materieel (%1)</translation>
-    </message>
-    <message>
-        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
-        <translation>Nog geen rollend materieel. Druk op Nieuwe wagon: een nummer en een lengte is alles wat een snelle wagon nodig heeft.</translation>
     </message>
     <message>
         <source>Pick %1 for a new train</source>
@@ -15466,6 +15603,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Checks</source>
         <translation>Controles</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs. Or bring in a model you built with Import a model….</source>
+        <translation>Nog geen rollend materieel. Druk op Nieuwe wagon: een nummer en een lengte is alles wat een snelle wagon nodig heeft. Of breng een eigen model binnen met Een model importeren….</translation>
     </message>
     <message>
         <source>Every train on the track fits: nothing too long, too tight or too close.</source>
@@ -16677,7 +16818,7 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     </message>
     <message>
         <source>R</source>
-        <translation>R</translation>
+        <translation>A</translation>
     </message>
     <message>
         <source>Shift+R</source>

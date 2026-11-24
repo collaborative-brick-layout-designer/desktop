@@ -166,7 +166,9 @@ StockDialog::StockDialog(const core::RollingStock& initial, bool isNew, parts::P
     runsOn_->setCurrentIndex(initial.trackKind == QLatin1String("monorail") ? 1 : 0);
     mf->addRow(tr("Runs on:"), runsOn_);
     lookSimple_ = new QRadioButton(tr("A box in its color"), moreBox_);
-    lookPart_ = new QRadioButton(tr("A part’s picture"), moreBox_);
+    lookPart_ = new QRadioButton(initial.lookMode == QLatin1String("model") ? tr("The model it was made from, or a part’s picture")
+                                                                          : tr("A part’s picture"),
+                                 moreBox_);
     (initial.lookMode == QLatin1String("simple") ? lookSimple_ : lookPart_)->setChecked(true);
     auto* looks = new QVBoxLayout;
     looks->addWidget(lookSimple_);
@@ -304,7 +306,9 @@ core::RollingStock StockDialog::stock() const {
     s.rear.type = rearCoupler_->currentData().toString();
     s.powered = powered_->isChecked();
     s.trackKind = runsOn_->currentData().toString();
-    s.lookMode = lookPart_->isChecked() ? QStringLiteral("part") : QStringLiteral("simple");
+    // A car made from a model keeps that look while its picture is the model's part.
+    const bool model = base_.lookMode == QLatin1String("model") && partKey_ == base_.partKey;
+    s.lookMode = !lookPart_->isChecked() ? QStringLiteral("simple") : model ? QStringLiteral("model") : QStringLiteral("part");
     s.partKey = partKey_;
     s.notes = notes_->toPlainText();
     return s;

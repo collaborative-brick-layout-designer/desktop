@@ -655,6 +655,18 @@
         <translation>逆向きのポイントは地図にオレンジの輪で表示され、ルートにその数が出ます。切り替えは元に戻せる 1 つの変更で、みんなにすぐ反映されます。</translation>
     </message>
     <message>
+        <source>Import a model</source>
+        <translation>モデルを読み込む</translation>
+    </message>
+    <message>
+        <source>Make an engine or car of a model you built in LDraw, Studio or LDD.</source>
+        <translation>LDraw、Studio、LDDで作ったモデルから機関車や車両を作ります。</translation>
+    </message>
+    <message>
+        <source>Pick the model&apos;s file: it becomes one of your parts, and its wheels, bogies and magnets show where its trucks and couplers go. Drag a marker if it&apos;s off, or press Turn around if the other end is the front. Tick the roster box to use the car in other layouts too.</source>
+        <translation>モデルのファイルを選ぶと、あなたのパーツになり、車輪・台車・マグネットから台車と連結器の位置がわかります。ずれていたら目印をドラッグし、反対側が前なら向きを変えるを押します。ほかのレイアウトでも使うには車両リストのチェックを入れます。</translation>
+    </message>
+    <message>
         <source>Current sheet</source>
         <translation>現在のシート</translation>
     </message>
@@ -3736,6 +3748,14 @@
         <translation>「ポイントを切り替える」でルート上のポイントをすべてその向きにします。運転モードでは手で切り替えられます。</translation>
     </message>
     <message>
+        <source>A quick car, or your own model</source>
+        <translation>かんたんな車両か、自作モデル</translation>
+    </message>
+    <message>
+        <source>New car needs just a number and a length. Import a model… makes one of a model you built, wheels and all.</source>
+        <translation>新しい車両は番号と長さだけで作れます。モデルを読み込む…なら自作モデルから車輪ごと作れます。</translation>
+    </message>
+    <message>
         <source>Watch it run</source>
         <translation>走らせてみよう</translation>
     </message>
@@ -3862,14 +3882,6 @@
     <message>
         <source>Open Trains from Panels. Rolling stock holds this layout&apos;s engines and cars; Trains holds the trains made of them.</source>
         <translation>「パネル」から「列車」を開きます。「車両」にはこのレイアウトの機関車と車両、「列車」にはそれで組んだ列車があります。</translation>
-    </message>
-    <message>
-        <source>A quick car</source>
-        <translation>簡単な車両</translation>
-    </message>
-    <message>
-        <source>New car needs only a number and a length in studs. More details sets the trucks, couplers and a part&apos;s picture.</source>
-        <translation>「新しい車両」に必要なのは番号とスタッド単位の長さだけ。「詳細」で台車、連結器、部品の画像を設定します。</translation>
     </message>
     <message>
         <source>Make a train</source>
@@ -9618,8 +9630,20 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>パーツ「%1」はもう自分のパーツにありません</translation>
     </message>
     <message>
+        <source>Import a model as an engine or car</source>
+        <translation>モデルを機関車・車両として読み込む</translation>
+    </message>
+    <message>
         <source>Import canceled.</source>
         <translation>インポートをキャンセルしました。</translation>
+    </message>
+    <message>
+        <source>Import a model</source>
+        <translation>モデルを読み込む</translation>
+    </message>
+    <message>
+        <source>Added %1, made from %2</source>
+        <translation>%1を追加しました（%2から）</translation>
     </message>
     <message>
         <source>Replaced “%1” with %2</source>
@@ -14938,6 +14962,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>その色の箱</translation>
     </message>
     <message>
+        <source>The model it was made from, or a part’s picture</source>
+        <translation>元のモデル、またはパーツの絵</translation>
+    </message>
+    <message>
         <source>A part’s picture</source>
         <translation>部品の画像</translation>
     </message>
@@ -14976,6 +15004,111 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>No train parts match. Parts with a coupler at each end show here.</source>
         <translation>一致する列車の部品はありません。両端に連結器がある部品がここに表示されます。</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::StockImportDialog</name>
+    <message>
+        <source> studs</source>
+        <translation> スタッド</translation>
+    </message>
+    <message>
+        <source>We found the trucks from the model’s bogies.</source>
+        <translation>モデルの台車プレートから台車を見つけました。</translation>
+    </message>
+    <message>
+        <source>We found the trucks from the model’s wheels.</source>
+        <translation>モデルの車輪から台車を見つけました。</translation>
+    </message>
+    <message>
+        <source>We couldn’t find wheels, so the trucks are a quarter of the way in from each end.</source>
+        <translation>車輪が見つからなかったので、台車は両端から長さの4分の1内側にあります。</translation>
+    </message>
+    <message>
+        <source>The couplers are its magnets.</source>
+        <translation>連結器はモデルのマグネットです。</translation>
+    </message>
+    <message>
+        <source>No magnets were found, so the couplers are just past each end.</source>
+        <translation>マグネットが見つからなかったので、連結器は両端のすぐ外にあります。</translation>
+    </message>
+    <message>
+        <source>Drag a marker to fix it.</source>
+        <translation>目印をドラッグして直せます。</translation>
+    </message>
+    <message>
+        <source>Import a model as an engine or car</source>
+        <translation>モデルを機関車・車両として読み込む</translation>
+    </message>
+    <message>
+        <source>This is your model from above, its front to the right. The orange markers are its trucks (where the wheels turn), the blue ones its couplers. Check them, then add it.</source>
+        <translation>上から見たあなたのモデルです（前が右）。オレンジの目印は台車（車輪が回る所）、青は連結器です。確かめてから追加してください。</translation>
+    </message>
+    <message>
+        <source>The model from above, front to the right, with its trucks and couplers</source>
+        <translation>上から見たモデル（前が右）と台車・連結器</translation>
+    </message>
+    <message>
+        <source>Part name:</source>
+        <translation>パーツ名:</translation>
+    </message>
+    <message>
+        <source>Optional, shown on the map</source>
+        <translation>省略可。地図に表示されます</translation>
+    </message>
+    <message>
+        <source>Road number:</source>
+        <translation>番号:</translation>
+    </message>
+    <message>
+        <source>It’s a:</source>
+        <translation>種類:</translation>
+    </message>
+    <message>
+        <source>Turn around ⇄</source>
+        <translation>向きを変える ⇄</translation>
+    </message>
+    <message>
+        <source>The other end is the front</source>
+        <translation>反対側が前です</translation>
+    </message>
+    <message>
+        <source>Front truck:</source>
+        <translation>前の台車:</translation>
+    </message>
+    <message>
+        <source>Rear truck:</source>
+        <translation>後ろの台車:</translation>
+    </message>
+    <message>
+        <source>Coupler to coupler:</source>
+        <translation>連結器から連結器まで:</translation>
+    </message>
+    <message>
+        <source>Also put it on my roster, for other layouts</source>
+        <translation>ほかのレイアウト用に車両リストにも入れる</translation>
+    </message>
+    <message>
+        <source>Sign in to a server (File › Servers…) to keep a roster.</source>
+        <translation>車両リストを使うにはサーバーにサインインしてください（ファイル › サーバー…）。</translation>
+    </message>
+    <message>
+        <source>Add to rolling stock</source>
+        <translation>車両に追加</translation>
+    </message>
+    <message>
+        <source>R</source>
+        <comment>rear truck</comment>
+        <translation>後</translation>
+    </message>
+    <message>
+        <source>F</source>
+        <comment>front truck</comment>
+        <translation>前</translation>
+    </message>
+    <message>
+        <source>Front →</source>
+        <translation>前 →</translation>
     </message>
 </context>
 <context>
@@ -15131,6 +15264,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>車両リストから…</translation>
     </message>
     <message>
+        <source>Import a model…</source>
+        <translation>モデルを読み込む…</translation>
+    </message>
+    <message>
+        <source>Make an engine or car of a model you built in LDraw, Studio or LDD</source>
+        <translation>LDraw、Studio、LDDで作ったモデルから機関車や車両を作ります</translation>
+    </message>
+    <message>
         <source>Rolling stock</source>
         <translation>車両</translation>
     </message>
@@ -15231,10 +15372,6 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Rolling stock (%1)</source>
         <translation>車両 (%1)</translation>
-    </message>
-    <message>
-        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs.</source>
-        <translation>まだ車両がありません。「新しい車両」を押しましょう。簡単な車両には番号と長さだけで十分です。</translation>
     </message>
     <message>
         <source>Pick %1 for a new train</source>
@@ -15365,6 +15502,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Checks</source>
         <translation>チェック</translation>
+    </message>
+    <message>
+        <source>No rolling stock yet. Press New car: a number and a length is all a quick car needs. Or bring in a model you built with Import a model….</source>
+        <translation>まだ車両がありません。新しい車両を押してください。かんたんな車両なら番号と長さだけです。自作モデルはモデルを読み込む…から追加できます。</translation>
     </message>
     <message>
         <source>Every train on the track fits: nothing too long, too tight or too close.</source>
@@ -16572,7 +16713,7 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     </message>
     <message>
         <source>R</source>
-        <translation>R</translation>
+        <translation>後</translation>
     </message>
     <message>
         <source>Shift+R</source>
