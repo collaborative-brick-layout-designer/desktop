@@ -325,6 +325,10 @@ void readBudget(const QJsonObject& meta, core::Sidecar& out) {
     // Switch settings (trains design 2.2) are kept the same way, at
     // meta.switchStates. An older web build that imported a file left them
     // in meta.cache: read from there until the first write moves them over.
+    // The train scale: a plain number at meta.trainScale (or an older build's cache).
+    const QJsonValue scale = meta.value(QLatin1String("trainScale"));
+    out.trainScale = saveload::trainScaleFromJson(
+        scale.isUndefined() ? meta.value(QLatin1String("cache")).toObject().value(QLatin1String("trainScale")) : scale);
     const QJsonValue states = meta.value(QLatin1String("switchStates"));
     out.switchStates = saveload::switchStatesFromJson(
         states.isObject() ? states : meta.value(QLatin1String("cache")).toObject().value(QLatin1String("switchStates")));

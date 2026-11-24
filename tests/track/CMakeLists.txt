@@ -3,6 +3,7 @@ add_executable(bld_track_tests
     RoutesTest.cpp
     TrainsTest.cpp
     FitChecksTest.cpp
+    AnimationTest.cpp
 )
 
 target_compile_definitions(bld_track_tests PRIVATE

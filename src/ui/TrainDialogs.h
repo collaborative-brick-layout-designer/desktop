@@ -17,6 +17,7 @@
 class QCheckBox;
 class QComboBox;
 class QDoubleSpinBox;
+class QSpinBox;
 class QLabel;
 class QLineEdit;
 class QListWidget;
@@ -98,12 +99,14 @@ public:
     void removeUnit(int i);
     QLineEdit* nameEdit() const { return name_; }
     QPushButton* saveButton() const { return save_; }
+    QSpinBox* speedBox() const { return speed_; }
 
 private:
     void rebuild();
     core::Train t_;
     std::vector<core::RollingStock> stock_;
     QLineEdit* name_ = nullptr;
+    QSpinBox* speed_ = nullptr;
     QListWidget* list_ = nullptr;
     QComboBox* add_ = nullptr;
     QLabel* length_ = nullptr;

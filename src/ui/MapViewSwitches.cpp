@@ -58,7 +58,7 @@ void MapView::setRunMode(bool on) {
         runBar_ = bar;
         auto* row = new QHBoxLayout(runBar_);
         row->setContentsMargins(12, 6, 8, 6);
-        auto* text = new QLabel(tr("<b>Run mode:</b> click a switch to flip it. Parts can't be moved."), runBar_);
+        auto* text = new QLabel(tr("<b>Run mode:</b> press Play to run the trains; click a switch to flip it. Parts can't be moved."), runBar_);
         text->setObjectName(QStringLiteral("RunModeText"));
         row->addWidget(help::withHelp(text, QStringLiteral("run.mode"), runBar_));
         auto* stop = new QPushButton(tr("Stop"), runBar_);
@@ -69,6 +69,11 @@ void MapView::setRunMode(bool on) {
     }
     if (runBar_) runBar_->setVisible(on);
     placeRunBar();
+    if (!on) {
+        endRun();
+        runPicks_.clear();
+    }
+    refreshRunPanel();
     emit runModeChanged(on);
 }
 
@@ -157,7 +162,16 @@ bool MapView::flipSwitchNear(QPointF studs) {
         return false;
     }
     const track::TrackNetwork net = track::trackNetworkOf(*map_, parts_);
-    const int exit = track::nextExit(*sw, net.settingOf(*sw, map_->sidecar.switchStates));
+    // From where it is set now (a running train may have pushed it): the click is the layout's again.
+    const int exit = track::nextExit(*sw, net.settingOf(*sw, run_ ? run_->states() : map_->sidecar.switchStates));
+    if (run_) {
+        run_->dropOverlay(sw->key);
+        if (builder_) {
+            auto shown = run_->states();
+            shown.insert(sw->key, exit);
+            builder_->setSwitchStatesShown(shown);
+        }
+    }
     setSwitch(sw->key, exit);
     showStatus(tr("Switch set: %1").arg(legLabel(sw->legs.value(exit, QStringLiteral("straight")))), 3000);
     return true;

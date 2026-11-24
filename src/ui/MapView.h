@@ -51,6 +51,10 @@ namespace bld::parts   { class PartsLibrary; }
 #include "../rendering/SceneBuilder.h"
 #include "../track/TrackNetwork.h"
 #include "../track/Routes.h"
+#include "../track/Animation.h"
+#include "RunPanel.h"
+
+#include <QElapsedTimer>
 
 class QToolButton;
 
@@ -314,6 +318,27 @@ public:
     void setSwitch(const QString& key, int exit);
     // Run mode's click: flip the switch nearest `studs`; false when none is near.
     bool flipSwitchNear(QPointF studs);
+    // Running trains (trains design 5, MapViewRun.cpp): the Run panel in
+    // the corner while Run mode is on; Play builds a run of the ticked
+    // trains (each on its route, or from where it stands following the
+    // switches) and moves it about 60 times a second. Nothing is written
+    // to the layout; Restart, a change of trains or leaving Run mode puts
+    // the trains back where they stand.
+    void playRun(bool play);
+    void restartRun();
+    void setRunPick(const QString& trainId, const RunPick& pick);
+    void setRunMultiplier(double m);
+    void setRunRealSpeed(bool on);
+    // The layout's train scale (shared, one undo step).
+    void setTrainScale(int scale);
+    int trainScale() const;
+    // A viewer can watch but not change the scale.
+    void setRunReadOnly(bool readOnly) { runReadOnly_ = readOnly; }
+    // One frame of `seconds` (the timer's; tests drive it).
+    void stepRun(double seconds);
+    const track::TrainRun* trainRun() const { return run_.get(); }
+    bool runPlaying() const { return runPlaying_; }
+    RunPanel* runPanel() const { return runPanel_; }
     // Drawing a named route (trains design 6.2): a click picks the place on
     // the track nearest it, its start then its end (Shift-click adds a stop
     // on the way); the banner says how long the way found is, takes a name
@@ -503,6 +528,8 @@ signals:
     void routeDraftChanged(bool drawing);
     // Putting a train on the track started (its id) or stopped (empty).
     void trainPlacingChanged(const QString& trainId);
+    // The Run panel's Open Trains (a layout with no trains yet).
+    void openTrainsRequested();
 
 protected:
     // Touch (pinch, two-finger pan, tap, drag, long press) and trackpad
@@ -554,6 +581,25 @@ private:
     void placeRunBar();
     bool showSwitches_ = false;
     void applySwitchesShown();
+    std::unique_ptr<track::TrainRun> run_;
+    QTimer* runTimer_ = nullptr;
+    QElapsedTimer runClock_;
+    bool runPlaying_ = false;
+    double runMultiplier_ = 1.0;
+    bool runRealSpeed_ = false;
+    bool runReadOnly_ = false;
+    int runScaleSeen_ = track::kDefaultScale;
+    QHash<QString, RunPick> runPicks_;
+    std::vector<ShownNote> runNotes_;
+    int runNoteId_ = 0;
+    RunPanel* runPanel_ = nullptr;
+    QHash<QString, std::optional<RunPick>> runPicksNow(QSet<QString>* onTrack = nullptr, QSet<QString>* broken = nullptr) const;
+    void refreshRunPanel();
+    void placeRunPanel();
+    void showRunFrame();
+    void endRun();
+    // After the layout changed (an edit, an undo, a live update): the run takes the layout's switches, the panel follows.
+    void runMapChanged();
     // Run mode keeps nothing picked (Select All included), so no edit acts on parts.
     void dropRunModePick();
     // The right-click menu's "Set the switch" choices for the switch near `studs`.

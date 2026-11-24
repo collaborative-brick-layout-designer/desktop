@@ -565,6 +565,39 @@ TEST(SyncDocSidecar, SwitchStatesAnOlderWebBuildLeftInTheCacheAreRead) {
     EXPECT_EQ(sync::mapFromDocJson(json, nullptr)->sidecar.switchStates, (QMap<QString, int>{ { QStringLiteral("P/0"), 1 } }));
 }
 
+// The train scale travels as the web keeps it: a plain number at
+// meta.trainScale, never in the cache; back to 1:38, the key goes. An older
+// web build's copy in meta.cache is read too.
+TEST(SyncDocSidecar, TrainScaleTravelsAsTheWebsNumber) {
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(serverDoc()));
+    auto map = mapOf(doc);
+    EXPECT_FALSE(map->sidecar.trainScale.has_value());
+    map->sidecar.trainScale = 87;
+    const QByteArray update = doc.writeMap(*map);
+    ASSERT_FALSE(update.isEmpty());
+    QJsonObject meta = doc.toJson().value(QLatin1String("meta")).toObject();
+    EXPECT_EQ(meta.value(QLatin1String("trainScale")).toInt(), 87);
+    EXPECT_FALSE(meta.value(QLatin1String("cache")).toObject().contains(QLatin1String("trainScale")));
+    sync::SyncDoc other;
+    ASSERT_TRUE(other.applyUpdate(serverDoc()));
+    ASSERT_TRUE(other.applyUpdate(update));
+    EXPECT_EQ(mapOf(other)->sidecar.trainScale, 87);
+    EXPECT_TRUE(doc.writeMap(*mapOf(doc)).isEmpty());
+    auto mine = mapOf(doc);
+    mine->sidecar.trainScale.reset();
+    ASSERT_FALSE(doc.writeMap(*mine).isEmpty());
+    EXPECT_FALSE(doc.toJson().value(QLatin1String("meta")).toObject().contains(QLatin1String("trainScale")));
+
+    QJsonObject json = doc.toJson();
+    meta = json.value(QLatin1String("meta")).toObject();
+    QJsonObject cache = meta.value(QLatin1String("cache")).toObject();
+    cache.insert(QStringLiteral("trainScale"), 64);
+    meta.insert(QStringLiteral("cache"), cache);
+    json.insert(QStringLiteral("meta"), meta);
+    EXPECT_EQ(sync::mapFromDocJson(json, nullptr)->sidecar.trainScale, 64);
+}
+
 // Named routes travel as the web keeps them: a Y.Map at meta.routes, one
 // Y.Map a route; a rename here and a new way there both stay; a delete goes.
 TEST(SyncDocSidecar, RoutesTravelAsTheWebsMaps) {

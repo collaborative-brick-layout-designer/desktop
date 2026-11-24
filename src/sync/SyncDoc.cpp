@@ -967,6 +967,23 @@ struct SyncDoc::Impl {
         setFields(states, cur, wantObj, false);
     }
 
+    // The train scale (trains design 5): a plain number at meta.trainScale, as
+    // the web keeps it; none (1:38): the key goes.
+    void writeTrainScale(const QJsonObject& curMeta, const std::optional<int>& want) {
+        static const char* const kKey = "trainScale";
+        const QJsonValue cur = curMeta.value(QLatin1String(kKey));
+        if (!want) {
+            if (cur.isUndefined()) return;
+            ymap_remove(meta, txn, kKey);
+            ++ops;
+            return;
+        }
+        if (cur.isDouble() && cur.toDouble() == *want) return;
+        const YInput v = arena.plain(QJsonValue(*want));
+        ymap_insert(meta, txn, kKey, &v);
+        ++ops;
+    }
+
     // Named routes (trains design 2.5): a Y.Map at meta.routes, id -> a
     // Y.Map of the route's fields, as the web keeps them: only the fields
     // that changed are written, so two people's edits to different routes,
@@ -1476,6 +1493,7 @@ QByteArray SyncDoc::writeMap(const core::Map& map, bool undoStep) {
     d.writeRoutes(curMeta, map.sidecar.routes);
     d.writeRollingStock(curMeta, map.sidecar.rollingStock);
     d.writeTrains(curMeta, map.sidecar.trains);
+    d.writeTrainScale(curMeta, map.sidecar.trainScale);
     if (!sidecarWrite.items.isEmpty()) {
         const QJsonObject curItems = cur.value(QLatin1String("sidecarItems")).toObject();
         const QJsonObject& wantItems = sidecarWrite.items;

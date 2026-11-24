@@ -42,6 +42,19 @@ private:
     std::optional<core::Train> after_;
 };
 
+// The layout's train scale (trains design 5), 1:N; none: 1:38. One undo step.
+class SetTrainScaleCommand : public QUndoCommand {
+public:
+    SetTrainScaleCommand(core::Map& map, std::optional<int> after, const QString& text, QUndoCommand* parent = nullptr);
+    void undo() override { map_.sidecar.trainScale = before_; }
+    void redo() override { map_.sidecar.trainScale = after_; }
+
+private:
+    core::Map& map_;
+    std::optional<int> before_;
+    std::optional<int> after_;
+};
+
 // Delete a car and take it out of its trains: one undo step.
 QUndoCommand* makeRemoveStockCommand(core::Map& map, const QString& id, const QString& text);
 

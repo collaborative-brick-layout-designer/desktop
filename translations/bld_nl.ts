@@ -579,10 +579,6 @@
         <translation>Speel met de baan: klik op een wissel om hem om te zetten, zonder onderdelen te verplaatsen.</translation>
     </message>
     <message>
-        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
-        <translation>In rijmodus toont elke wissel een pijl langs de kant waarop hij staat; klik in de buurt om hem om te zetten. Onderdelen kunnen niet worden geselecteerd of verplaatst, dus er verandert niets per ongeluk. Omzettingen worden met iedereen gedeeld en kunnen ongedaan worden gemaakt; druk op Stoppen om verder te bouwen.</translation>
-    </message>
-    <message>
         <source>Switches</source>
         <translation>Wissels</translation>
     </message>
@@ -1283,12 +1279,60 @@
         <translation>Kies hoe ver de snappunten uit elkaar liggen, van elke nop tot elke 32 noppen, en hoe er gesnapt wordt: op het raster, of in hele stappen vanaf waar iets was. Onderdelen, modules, geplakte stukken, linialen, labels en tekst volgen het, de pijltjestoetsen verplaatsen een stap, en spooreinden klikken nog steeds vast als ze elkaar raken. Zet snappen uit om dingen precies neer te zetten waar je loslaat, of houd Alt (⌥ op een Mac) ingedrukt om een liniaal, label of tekst vrij te plaatsen.</translation>
     </message>
     <message>
+        <source>In Run mode each switch shows an arrow along the way it is set; click near it to flip it, or press Play in the Run panel to run the trains. Parts can&apos;t be picked or moved, so nothing changes by accident. Flips are shared with everyone and can be undone; press Stop to get back to building.</source>
+        <translation>In rijmodus toont elke wissel een pijl langs de kant waarop hij staat; klik in de buurt om hem om te zetten, of druk op Afspelen in het rijpaneel om de treinen te laten rijden. Onderdelen kunnen niet worden geselecteerd of verplaatst, dus er verandert niets per ongeluk. Omzettingen worden met iedereen gedeeld en kunnen ongedaan worden gemaakt; druk op Stoppen om verder te bouwen.</translation>
+    </message>
+    <message>
         <source>Click where the route starts on the track (or on a train&apos;s front), then where it ends.</source>
         <translation>Klik op het spoor waar de route begint (of op de kop van een trein), en dan waar hij eindigt.</translation>
     </message>
     <message>
         <source>The shortest way is found for you, and arrows show which way the train runs. It never turns around on the spot, so it may go all the way round a loop; Go the other way sends it round the other way, and a route started on a train&apos;s front goes the way the train faces. Shift-click adds a stop on the way; Esc or Cancel stops.</source>
         <translation>De kortste weg wordt voor je gevonden, en pijlen laten zien welke kant de trein op rijdt. Hij keert nooit ter plekke, dus hij kan een hele lus rondrijden; Andersom rijden stuurt hem de andere kant op, en een route die op de kop van een trein begint, rijdt de kant op die de trein op kijkt. Shift-klik voegt een stop toe; Esc of Annuleren stopt.</translation>
+    </message>
+    <message>
+        <source>Play runs every ticked train at its speed, on its route or the way the switches are set.</source>
+        <translation>Afspelen laat elke aangevinkte trein op zijn snelheid rijden, over zijn route of zoals de wissels staan.</translation>
+    </message>
+    <message>
+        <source>Pick where each train runs: a route, or from where it stands, following the switches. A train stops at the end of its route or of the track, and two trains that would collide both stop, with a red ring where. The trains move on your screen only; Restart puts them back.</source>
+        <translation>Kies waar elke trein rijdt: een route, of vanaf waar hij staat, de wissels volgend. Een trein stopt aan het eind van zijn route of van het spoor, en twee treinen die zouden botsen stoppen allebei, met een rode ring op die plek. De treinen bewegen alleen op jouw scherm; Opnieuw zet ze terug.</translation>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Snelheid</translation>
+    </message>
+    <message>
+        <source>How fast the train runs, as if it were a full-size train at the layout&apos;s scale.</source>
+        <translation>Hoe snel de trein rijdt, alsof het een echte trein is op de schaal van de layout.</translation>
+    </message>
+    <message>
+        <source>40 km/h (25 mph) is a gentle freight; a fast passenger train is 120 km/h (75 mph) or more. Real speed in the Run panel shows how fast the model itself goes on the table.</source>
+        <translation>40 km/h (25 mph) is een rustige goederentrein; een snelle reizigerstrein rijdt 120 km/h (75 mph) of meer. Echte snelheid in het rijpaneel toont hoe snel het model zelf over de tafel rijdt.</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>Schaal</translation>
+    </message>
+    <message>
+        <source>The scale the layout&apos;s trains run at: 1:38 suits LEGO train track.</source>
+        <translation>De schaal waarop de treinen van de layout rijden: 1:38 past bij LEGO-spoor.</translation>
+    </message>
+    <message>
+        <source>Speeds are full-size speeds made smaller by this much. LEGO track is about 1:38 next to real track; change it if your club runs at another scale. It is shared with everyone on this layout.</source>
+        <translation>Snelheden zijn echte snelheden, zoveel kleiner gemaakt. LEGO-spoor is ongeveer 1:38 ten opzichte van echt spoor; verander het als je club op een andere schaal rijdt. Het is voor iedereen op deze layout hetzelfde.</translation>
+    </message>
+    <message>
+        <source>Pushed through</source>
+        <translation>Opengereden</translation>
+    </message>
+    <message>
+        <source>A train came out of a switch&apos;s side into it while it was set the other way, so it pushed it over.</source>
+        <translation>Een trein kwam uit een tak van een wissel die de andere kant op stond, en heeft hem dus opengereden.</translation>
+    </message>
+    <message>
+        <source>Like a spring switch, the switch flips for the train and the run notes it. It flips on your screen only, for this run; Restart puts it back the way the layout has it.</source>
+        <translation>Zoals bij een veerwissel springt de wissel om voor de trein en de rit noteert het. Hij springt alleen op jouw scherm om, voor deze rit; Opnieuw zet hem terug zoals de layout hem heeft.</translation>
     </message>
     <message>
         <source>How things snap</source>
@@ -2801,6 +2845,29 @@
     </message>
 </context>
 <context>
+    <name>RunPanel</name>
+    <message>
+        <source>%1 mph</source>
+        <translation>%1 mph</translation>
+    </message>
+    <message>
+        <source>%1 km/h</source>
+        <translation>%1 km/h</translation>
+    </message>
+    <message>
+        <source>%1 in/s</source>
+        <translation>%1 in/s</translation>
+    </message>
+    <message>
+        <source>%1 studs/s</source>
+        <translation>%1 noppen/s</translation>
+    </message>
+    <message>
+        <source>%1 m/s</source>
+        <translation>%1 m/s</translation>
+    </message>
+</context>
+<context>
     <name>SavedViews</name>
     <message>
         <source>View</source>
@@ -3651,6 +3718,14 @@
     <message>
         <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
         <translation>Wissels zetten zet elke wissel op de route zijn kant op. In rijmodus zet je ze met de hand om.</translation>
+    </message>
+    <message>
+        <source>Watch it run</source>
+        <translation>Kijk hem rijden</translation>
+    </message>
+    <message>
+        <source>Press Run, then Play. Each train runs its route at its scale speed; two that would collide both stop.</source>
+        <translation>Druk op Rijden en dan op Afspelen. Elke trein rijdt zijn route op schaalsnelheid; twee die zouden botsen stoppen.</translation>
     </message>
     <message>
         <source>Looking at a layout</source>
@@ -4864,6 +4939,10 @@
     <message>
         <source>Venue</source>
         <translation>Zaal</translation>
+    </message>
+    <message>
+        <source>Train scale</source>
+        <translation>Treinschaal</translation>
     </message>
     <message>
         <source>Background image</source>
@@ -7911,6 +7990,14 @@ Toch opslaan?</translation>
         <translation>Club (LUG):</translation>
     </message>
     <message>
+        <source>Train scale</source>
+        <translation>Treinschaal</translation>
+    </message>
+    <message>
+        <source>Train scale:</source>
+        <translation>Treinschaal:</translation>
+    </message>
+    <message>
         <source>Open Venue &amp;Designer…</source>
         <translation>Zaal&amp;ontwerper openen…</translation>
     </message>
@@ -9841,6 +9928,10 @@ Dit wordt niet opnieuw gevraagd. Om het later in deze of een andere layout over 
         <translation>routes</translation>
     </message>
     <message>
+        <source>the train scale</source>
+        <translation>de treinschaal</translation>
+    </message>
+    <message>
         <source>BlueBrick can&apos;t hold %1, so the .bbm leaves them out. Your layout keeps them.
 
 Export anyway?</source>
@@ -10562,8 +10653,8 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Run mode:&lt;/b&gt; click a switch to flip it. Parts can&apos;t be moved.</source>
-        <translation>&lt;b&gt;Rijmodus:&lt;/b&gt; klik op een wissel om hem om te zetten. Onderdelen kunnen niet worden verplaatst.</translation>
+        <source>&lt;b&gt;Run mode:&lt;/b&gt; press Play to run the trains; click a switch to flip it. Parts can&apos;t be moved.</source>
+        <translation>&lt;b&gt;Rijmodus:&lt;/b&gt; druk op Afspelen om de treinen te laten rijden; klik op een wissel om hem om te zetten. Onderdelen kunnen niet worden verplaatst.</translation>
     </message>
     <message>
         <source>Stop</source>
@@ -10687,6 +10778,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     <message>
         <source>%1 runs off the end of the track here.</source>
         <translation>%1 steekt hier voorbij het einde van het spoor.</translation>
+    </message>
+    <message>
+        <source>Set the train scale</source>
+        <translation>Treinschaal instellen</translation>
     </message>
 </context>
 <context>
@@ -12485,6 +12580,153 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Delete</source>
         <translation>Verwijderen</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::RunPanel</name>
+    <message>
+        <source>Train</source>
+        <translation>Trein</translation>
+    </message>
+    <message>
+        <source>A train</source>
+        <translation>Een trein</translation>
+    </message>
+    <message>
+        <source>%1 and %2 would collide here, so both stopped.</source>
+        <translation>%1 en %2 zouden hier botsen, dus zijn ze allebei gestopt.</translation>
+    </message>
+    <message>
+        <source>another train</source>
+        <translation>een andere trein</translation>
+    </message>
+    <message>
+        <source>%1 pushed through a switch that was set the other way. It flipped for this run.</source>
+        <translation>%1 heeft een wissel opengereden die de andere kant op stond. Hij is voor deze rit omgesprongen.</translation>
+    </message>
+    <message>
+        <source>A switch was set the other way for %1; it flipped for this run.</source>
+        <translation>Een wissel stond de andere kant op voor %1; hij is voor deze rit omgesprongen.</translation>
+    </message>
+    <message>
+        <source>its route</source>
+        <translation>zijn route</translation>
+    </message>
+    <message>
+        <source>%1 reached the end of %2.</source>
+        <translation>%1 is aan het eind van %2.</translation>
+    </message>
+    <message>
+        <source>%1 reached the end of the track.</source>
+        <translation>%1 is aan het eind van het spoor.</translation>
+    </message>
+    <message>
+        <source>Run trains</source>
+        <translation>Treinen laten rijden</translation>
+    </message>
+    <message>
+        <source>▶ Play</source>
+        <translation>▶ Afspelen</translation>
+    </message>
+    <message>
+        <source>Start every ticked train</source>
+        <translation>Elke aangevinkte trein starten</translation>
+    </message>
+    <message>
+        <source>↺ Restart</source>
+        <translation>↺ Opnieuw</translation>
+    </message>
+    <message>
+        <source>Every train back to where it started</source>
+        <translation>Elke trein terug naar waar hij begon</translation>
+    </message>
+    <message>
+        <source>How fast to watch</source>
+        <translation>Hoe snel je kijkt</translation>
+    </message>
+    <message>
+        <source>How fast to watch: times real speed</source>
+        <translation>Hoe snel je kijkt: keer de echte snelheid</translation>
+    </message>
+    <message>
+        <source>Show less</source>
+        <translation>Minder tonen</translation>
+    </message>
+    <message>
+        <source>Show the trains</source>
+        <translation>De treinen tonen</translation>
+    </message>
+    <message>
+        <source>There are no trains on this layout yet.</source>
+        <translation>Deze layout heeft nog geen treinen.</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Treinen openen</translation>
+    </message>
+    <message>
+        <source>Every train has stopped. Restart puts them back where they started.</source>
+        <translation>Alle treinen zijn gestopt. Opnieuw zet ze terug waar ze begonnen.</translation>
+    </message>
+    <message>
+        <source>Scale 1:</source>
+        <translation>Schaal 1:</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>Schaal</translation>
+    </message>
+    <message>
+        <source>Real speed</source>
+        <translation>Echte snelheid</translation>
+    </message>
+    <message>
+        <source>❚❚ Pause</source>
+        <translation>❚❚ Pauze</translation>
+    </message>
+    <message>
+        <source>Pause every train</source>
+        <translation>Elke trein pauzeren</translation>
+    </message>
+    <message>
+        <source>Run %1</source>
+        <translation>%1 laten rijden</translation>
+    </message>
+    <message>
+        <source>Put it on the track, or draw a route for it, to run it.</source>
+        <translation>Zet hem op het spoor, of teken een route voor hem, om hem te laten rijden.</translation>
+    </message>
+    <message>
+        <source>Where %1 runs</source>
+        <translation>Waar %1 rijdt</translation>
+    </message>
+    <message>
+        <source>From where it stands, following the switches</source>
+        <translation>Vanaf waar hij staat, de wissels volgend</translation>
+    </message>
+    <message>
+        <source>Route: %1</source>
+        <translation>Route: %1</translation>
+    </message>
+    <message>
+        <source>Running</source>
+        <translation>Rijdt</translation>
+    </message>
+    <message>
+        <source>At the end of its route</source>
+        <translation>Aan het eind van zijn route</translation>
+    </message>
+    <message>
+        <source>At the end of the track</source>
+        <translation>Aan het eind van het spoor</translation>
+    </message>
+    <message>
+        <source>Stopped: another train is in the way</source>
+        <translation>Gestopt: er staat een andere trein in de weg</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Laat zien</translation>
     </message>
 </context>
 <context>
@@ -14662,6 +14904,22 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Name:</source>
         <translation>Naam:</translation>
+    </message>
+    <message>
+        <source> mph at scale</source>
+        <translation> mph op schaal</translation>
+    </message>
+    <message>
+        <source> km/h at scale</source>
+        <translation> km/h op schaal</translation>
+    </message>
+    <message>
+        <source>Train speed</source>
+        <translation>Treinsnelheid</translation>
+    </message>
+    <message>
+        <source>Speed:</source>
+        <translation>Snelheid:</translation>
     </message>
     <message>
         <source>Cars in the train, front first</source>

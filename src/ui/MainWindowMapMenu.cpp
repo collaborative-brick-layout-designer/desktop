@@ -12,6 +12,7 @@
 #include "MapView.h"
 #include "VenueLibraryPanel.h"
 #include "venue/VenueDesignerDialog.h"
+#include "help/HelpButton.h"
 
 #include "../core/Map.h"
 #include "../core/Venue.h"
@@ -27,6 +28,8 @@
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
 #include <QHBoxLayout>
+#include <QLabel>
+#include <QSpinBox>
 #include <QPushButton>
 #include <QDir>
 #include <QFile>
@@ -150,6 +153,16 @@ void MainWindow::setupMapMenu() {
         form->addRow(tr("Event:"),   eventE);
         form->addRow(tr("Date:"),    dateE);
         form->addRow(tr("Comment:"), commentE);
+        // The scale the layout's trains run at (trains design 5): a layout setting, kept beside the .bbm.
+        auto* scaleE = new QSpinBox(&dlg);
+        scaleE->setObjectName(QStringLiteral("generalTrainScale"));
+        scaleE->setRange(track::kMinScale, track::kMaxScale);
+        scaleE->setPrefix(QStringLiteral("1:"));
+        scaleE->setValue(mapView_->trainScale());
+        scaleE->setAccessibleName(tr("Train scale"));
+        auto* scaleL = new QLabel(tr("Train scale:"), &dlg);
+        scaleL->setBuddy(scaleE);
+        form->addRow(help::withHelp(scaleL, QStringLiteral("trains.scale"), &dlg), scaleE);
         auto* bb = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dlg);
         form->addRow(bb);
         connect(bb, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
@@ -160,6 +173,7 @@ void MainWindow::setupMapMenu() {
             dateE->date(), commentE->toPlainText()
         };
         mapView_->undoStack()->push(new edit::ChangeGeneralInfoCommand(*m, std::move(next)));
+        mapView_->setTrainScale(scaleE->value());
     });
 
     mapMenu->addSeparator();

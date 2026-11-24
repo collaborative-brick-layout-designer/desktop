@@ -387,6 +387,9 @@ MapView::~MapView() {
 
 void MapView::loadMap(std::unique_ptr<core::Map> map) {
     undoStack_->clear();
+    // Another layout: no run (it ran on the old one's track).
+    endRun();
+    runPicks_.clear();
     // Any in-flight drag snapshots reference QGraphicsItems in the
     // previous scene — builder_->clear() / build() below will delete
     // those. Drop the snapshots first so no mouse event re-enters with
@@ -632,6 +635,7 @@ void MapView::rebuildScene() {
         scene()->clearSelection();
     }
     builder_->build(*map_);
+    runMapChanged();
     applyViewFilter();
     applyModuleState();
     applySheetFade();
@@ -678,6 +682,7 @@ void MapView::refreshScene() {
     }
     if (!change) return rebuildScene(); // structural: nothing was done
     ++sceneUpdates_;
+    runMapChanged();
     patchPickIndex(*change, map_.get());
     lastPartsAdded_ = change->partsAdded;
     lastPartsRemoved_ = change->partsRemoved;

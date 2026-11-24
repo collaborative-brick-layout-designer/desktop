@@ -77,7 +77,7 @@ void SceneBuilder::addSwitches(const core::Map& map) {
     const double w = kWidthStuds * px;
     for (const track::SwitchPoint& sw : net.switches()) {
         if (hidden.contains(sw.brick)) continue;
-        const int setExit = net.settingOf(sw, map.sidecar.switchStates);
+        const int setExit = net.settingOf(sw, switchStatesShown_ ? *switchStatesShown_ : map.sidecar.switchStates);
         double len = kArrowStuds;
         for (int exit : sw.exits) {
             const auto& pts = net.path(sw.brick, sw.heel, exit);

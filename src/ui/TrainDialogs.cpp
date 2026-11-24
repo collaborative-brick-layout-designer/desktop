@@ -3,6 +3,7 @@
 #include "../edit/venue/VenueUnits.h"
 #include "../parts/PartsLibrary.h"
 #include "../track/Trains.h"
+#include "RunSpeeds.h"
 #include "help/HelpButton.h"
 
 #include <QCheckBox>
@@ -19,6 +20,7 @@
 #include <QPushButton>
 #include <QRadioButton>
 #include <QScrollArea>
+#include <QSpinBox>
 #include <QVBoxLayout>
 
 #include <algorithm>
@@ -322,6 +324,15 @@ TrainDialog::TrainDialog(const core::Train& initial, const std::vector<core::Rol
     name_ = new QLineEdit(initial.name, this);
     name_->setObjectName(QStringLiteral("trainName"));
     form->addRow(tr("Name:"), name_);
+    // How fast it runs (trains design 5): scale km/h, shown in mph for feet and inches.
+    speed_ = new QSpinBox(this);
+    speed_->setObjectName(QStringLiteral("trainSpeed"));
+    speed_->setRange(1, 500);
+    speed_->setValue(RunSpeeds::kmhToShown(initial.speed > 0 ? initial.speed : 40.0));
+    speed_->setSuffix(RunSpeeds::usesMiles() ? tr(" mph at scale") : tr(" km/h at scale"));
+    speed_->setAccessibleName(tr("Train speed"));
+    auto* speedLabel = new QLabel(tr("Speed:"), this);
+    form->addRow(help::withHelp(speedLabel, QStringLiteral("trains.speed"), this), speed_);
     v->addLayout(form);
     list_ = new QListWidget(this);
     list_->setObjectName(QStringLiteral("trainUnits"));
@@ -415,6 +426,9 @@ void TrainDialog::rebuild() {
 core::Train TrainDialog::train() const {
     core::Train t = t_;
     t.name = name_->text().trimmed().isEmpty() ? tr("Train") : name_->text().trimmed();
+    // Unchanged in the box: the speed as it was (no rounding through mph).
+    if (speed_->value() != RunSpeeds::kmhToShown(t_.speed > 0 ? t_.speed : 40.0))
+        t.speed = std::round(RunSpeeds::shownToKmh(speed_->value()) * 100.0) / 100.0;
     return t;
 }
 

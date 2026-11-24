@@ -63,15 +63,19 @@ Running runningGeometry(const core::RollingStock& s, bool reversed) {
 std::optional<QPointF> lineAt(const TrackLine& line, double d) {
     const auto& pts = line.pts;
     if (pts.empty() || d > pts.back().d + 1e-9) return std::nullopt;
-    for (size_t i = 1; i < pts.size(); ++i) {
-        const auto& a = pts[i - 1];
-        const auto& b = pts[i];
-        if (d <= b.d) {
-            const double f = b.d > a.d ? (d - a.d) / (b.d - a.d) : 0.0;
-            return QPointF(a.p.x() + (b.p.x() - a.p.x()) * f, a.p.y() + (b.p.y() - a.p.y()) * f);
-        }
+    if (d <= pts.front().d) return pts.front().p;
+    // The first point at or past d (distances only grow along the line).
+    size_t lo = 1;
+    size_t hi = pts.size() - 1;
+    while (lo < hi) {
+        const size_t mid = (lo + hi) / 2;
+        if (pts[mid].d >= d) hi = mid;
+        else lo = mid + 1;
     }
-    return pts.front().p;
+    const auto& a = pts[lo - 1];
+    const auto& b = pts[lo];
+    const double f = b.d > a.d ? (d - a.d) / (b.d - a.d) : 0.0;
+    return QPointF(a.p.x() + (b.p.x() - a.p.x()) * f, a.p.y() + (b.p.y() - a.p.y()) * f);
 }
 
 TrackLine trackBehind(const TrackNetwork& net, const core::TrainPosition& head, double length, const QMap<QString, int>& states) {
@@ -121,16 +125,18 @@ TrackLine trackBehind(const TrackNetwork& net, const core::TrainPosition& head, 
 std::optional<PlacedTrain> placeTrain(const TrackNetwork& net, const core::Train& train, const StockById& stock,
                                       const QMap<QString, int>& states) {
     if (!train.position) return std::nullopt;
+    TrackLine line = trackBehind(net, *train.position, trainLength(train, stock) + 64.0, states);
+    if (line.pts.size() < 2) return std::nullopt;
+    return placeOnLine(std::move(line), train.units, stock);
+}
+
+PlacedTrain placeOnLine(TrackLine line, const std::vector<core::TrainUnit>& trainUnits, const StockById& stock) {
     std::vector<std::pair<const core::TrainUnit*, const core::RollingStock*>> units;
-    double total = 0.0;
-    for (const auto& u : train.units) {
+    for (const auto& u : trainUnits) {
         const auto it = stock.constFind(u.stock);
         if (it == stock.constEnd()) continue;
         units.push_back({ &u, &it.value() });
-        total += it->length;
     }
-    const TrackLine line = trackBehind(net, *train.position, total + 64.0, states);
-    if (line.pts.size() < 2) return std::nullopt;
     PlacedTrain out;
     out.line = line;
     std::optional<QPointF> couplerAt;

@@ -368,6 +368,20 @@ are kept; an entry without `id` is dropped. Live, the web keeps them at
 `meta.rollingStock` and `meta.trains`, Y.Maps of id -> a Y.Map of fields.
 Never written to a `.bbm`. Added 2026-11 without a version bump.
 
+## Train scale
+
+```json
+"trainScale": 87
+```
+
+The scale the layout's trains run at (trains design 5): 1:`trainScale`, a
+whole number from 10 to 220. A train's `speed` is scale km/h, so it runs
+at `speed / 3.6 / trainScale` metres a second on the table. Absent means
+1:38 (LEGO track gauge against standard gauge); a value out of range reads
+as absent. Live, the web keeps it at `meta.trainScale` (a plain number, the
+last one set wins). Running trains is each person's own and writes nothing.
+Never written to a `.bbm`. Added 2026-11 without a version bump.
+
 ## Background image
 
 ```json

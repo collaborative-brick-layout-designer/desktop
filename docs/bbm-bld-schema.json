@@ -59,6 +59,12 @@
       "type": "array",
       "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "name": { "type": "string" } } },
       "description": "Trains: { id, name, trackKind, units: [{ stock, reversed }], position, color, speed }; position is the head car's front truck as a place on the track plus facing (to or from), or null when not on the map. Unknown fields are kept. Live at meta.trains. Never in a .bbm. Added 2026-11, optional."
+    },
+    "trainScale": {
+      "type": "integer",
+      "minimum": 10,
+      "maximum": 220,
+      "description": "The scale trains run at, 1:trainScale (a train's speed is scale km/h). Absent: 1:38. Live at meta.trainScale. Never in a .bbm. Added 2026-11, optional."
     }
   },
 

@@ -96,6 +96,8 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("Tours", "Tick a few cars and press Make a train, or press New train and add them in order, front first."),
     QT_TRANSLATE_NOOP("Tours", "On the track"),
     QT_TRANSLATE_NOOP("Tours", "Press Put on the track, then click where its front goes. Each car sits between its trucks, as on real track."),
+    QT_TRANSLATE_NOOP("Tours", "Watch it run"),
+    QT_TRANSLATE_NOOP("Tours", "Press Run, then Play. Each train runs its route at its scale speed; two that would collide both stop."),
     QT_TRANSLATE_NOOP("Tours", "Checks"),
     QT_TRANSLATE_NOOP("Tours", "Checks lists what doesn't fit: a train too long for its track, a curve too tight. Show me finds the spot."),
     QT_TRANSLATE_NOOP("Tours", "Your roster"),

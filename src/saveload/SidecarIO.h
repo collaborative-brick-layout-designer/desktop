@@ -65,6 +65,8 @@ QJsonObject rollingStockToJson(const core::RollingStock& r);
 std::optional<core::RollingStock> rollingStockFromJson(const QJsonValue& v);
 QJsonObject trainToJson(const core::Train& t);
 std::optional<core::Train> trainFromJson(const QJsonValue& v);
+// A sidecar's trainScale: a whole number from 10 to 220 (1:N); none otherwise.
+std::optional<int> trainScaleFromJson(const QJsonValue& v);
 void sidecarFromJson(const QJsonObject& root, core::Sidecar& out);
 
 // One saved view as JSON and back (references/LAYOUT-FILE.md "Saved

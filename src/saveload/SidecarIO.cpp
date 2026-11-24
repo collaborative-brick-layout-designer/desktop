@@ -83,7 +83,7 @@ const QStringList& knownRootKeys() {
                                    QStringLiteral("views"),          QStringLiteral("sets"),
                                    QStringLiteral("budgetLimits"),   QStringLiteral("switchStates"),
                                    QStringLiteral("routes"),         QStringLiteral("rollingStock"),
-                                   QStringLiteral("trains") };
+                                   QStringLiteral("trains"),         QStringLiteral("trainScale") };
     return keys;
 }
 
@@ -414,6 +414,7 @@ QJsonObject sidecarToJson(const core::Sidecar& sidecar) {
         for (const auto& t : sidecar.trains) trains.append(trainToJson(t));
         root[QStringLiteral("trains")] = trains;
     }
+    if (sidecar.trainScale) root[QStringLiteral("trainScale")] = *sidecar.trainScale;
     return root;
 }
 
@@ -640,8 +641,16 @@ std::optional<QMap<QString, int>> budgetLimitsFromJson(const QJsonValue& v) {
     return out;
 }
 
+std::optional<int> trainScaleFromJson(const QJsonValue& v) {
+    if (!v.isDouble()) return std::nullopt;
+    const double d = v.toDouble();
+    if (!std::isfinite(d) || d != std::floor(d) || d < 10 || d > 220) return std::nullopt;
+    return static_cast<int>(d);
+}
+
 void sidecarFromJson(const QJsonObject& root, core::Sidecar& out) {
     out.budgetLimits = budgetLimitsFromJson(root.value(QStringLiteral("budgetLimits")));
+    out.trainScale = trainScaleFromJson(root.value(QStringLiteral("trainScale")));
     out.switchStates = switchStatesFromJson(root.value(QStringLiteral("switchStates")));
     out.routes.clear();
     for (const auto& v : root.value(QStringLiteral("routes")).toArray())

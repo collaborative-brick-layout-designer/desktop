@@ -89,10 +89,20 @@ change in one repo fails until the other has the same copy.
   (the fit checks for trains and routes: kind, severity, where, numbers)
   are the fit checks (trains design 3.5; web fitChecks.ts, desktop
   src/track/FitChecks.cpp).
+- `train-animation.json`: running trains on the route-search.json network
+  (trains design 5): a scale speed as studs a second and real metres a
+  second; trains run frame by frame, on a route or following the
+  switches, with what happens on which frame (a route's switch set, a
+  trailing point pushed through, a route's end, the end of the track, a
+  collision: both stop), the switches the run flipped (never the
+  layout's), and where each head is after; and whether two trains standing
+  on the track touch (web packages/parts-catalog/src/track/animation.ts,
+  desktop src/track/Animation.cpp). The same command writes the `expect`
+  values.
 
 To change them: edit (or, for the imported part, run the desktop's
 `bld_sync_tests --gtest_filter='Contracts.*'` with `BLD_WRITE_CONTRACTS=1`),
-then `sha256sum doc-shape.json imported-part.json imported-part.xml module-members.json module-setup.json part-naming.json presence-colors.json route-search.json shared-module-keep.json shared-module-placement.json shared-module-settle.json sidecar-hash.json track-kinds.json track-network.json track-paths.json update-guard.json > MANIFEST.sha256`
+then `sha256sum doc-shape.json imported-part.json imported-part.xml module-members.json module-setup.json part-naming.json presence-colors.json route-search.json shared-module-keep.json shared-module-placement.json shared-module-settle.json sidecar-hash.json track-kinds.json track-network.json track-paths.json train-animation.json train-geometry.json update-guard.json > MANIFEST.sha256`
 and copy the folder to the other repo.
 - `presence-colors.json`: each person's first-choice presence color on a
   layout, and the colors a group of people here get (web

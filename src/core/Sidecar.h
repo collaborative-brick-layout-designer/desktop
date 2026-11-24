@@ -84,6 +84,10 @@ struct Sidecar {
     // web keeps them at meta.rollingStock and meta.trains. Never in a .bbm.
     std::vector<RollingStock> rollingStock;
     std::vector<Train> trains;
+    // The scale trains run at (trains design 5): 1:trainScale, a whole number
+    // from 10 to 220; unset means 1:38 (LEGO track gauge). The web keeps it at
+    // meta.trainScale. Never in a .bbm.
+    std::optional<int> trainScale;
     // Top-level fields this build doesn't know (a newer build's, the web's),
     // written back as they were.
     QJsonObject extras;
@@ -93,7 +97,7 @@ struct Sidecar {
     bool isEmpty() const {
         return anchoredLabels.empty() && modules.empty() && !venue.has_value()
                && backgroundImagePath.isEmpty() && views.empty() && sets.empty() && !budgetLimits.has_value()
-               && switchStates.isEmpty() && routes.empty() && rollingStock.empty() && trains.empty() && extras.isEmpty();
+               && switchStates.isEmpty() && routes.empty() && rollingStock.empty() && trains.empty() && !trainScale.has_value() && extras.isEmpty();
     }
 };
 

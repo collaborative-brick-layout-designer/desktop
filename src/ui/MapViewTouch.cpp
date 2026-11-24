@@ -77,6 +77,7 @@ void MapView::resizeEvent(QResizeEvent* e) {
     if (editBar_ && editBar_->isVisible()) editBar_->place(viewport()->geometry());
     placeBottomBars();
     placeRunBar();
+    placeRunPanel();
 }
 
 void MapView::panBy(QPointF delta) {
