@@ -3,6 +3,8 @@
 #include "ServerList.h"
 #include "TokenStore.h"
 
+#include <QDateTime>
+
 #include <utility>
 
 namespace bld::sync {
@@ -21,6 +23,7 @@ struct NotificationCenter::Live {
     QList<NotificationItem> early;
     int generation = 0;
     bool settingsAsked = false;
+    QHash<QString, Answer> answers;  // by the notification's id
 };
 
 NotificationCenter::NotificationCenter(QObject* parent) : QObject(parent) {}
@@ -130,6 +133,7 @@ void NotificationCenter::add(const QUrl& url, const QString& label, const QStrin
         live_.insert(key, l);
     }
     l->src.label = label;
+    if (l->token != token) l->answers.clear();  // maybe someone else now
     l->token = token;
     l->api->setBase(url);
     l->api->setToken(token);
@@ -176,6 +180,91 @@ void NotificationCenter::changedHere(const QUrl& server) {
         l->soon->stop();
         ask(keyOf(server));
     }
+}
+
+const NotificationCenter::Answer* NotificationCenter::answer(const QUrl& server, const QString& id) const {
+    const Live* l = liveOf(server);
+    const auto it = l ? l->answers.constFind(id) : QHash<QString, Answer>::const_iterator();
+    return l && it != l->answers.cend() ? &*it : nullptr;
+}
+
+void NotificationCenter::settle(const QUrl& server, const QString& token, const QString& id, const std::function<void(Answer&)>& change) {
+    Live* l = liveOf(server);
+    if (!l || l->token != token) return;
+    change(l->answers[id]);
+    emit answerChanged(server, id);
+}
+
+void NotificationCenter::act(const QUrl& server, const NotificationItem& n, const QString& action) {
+    Live* l = liveOf(server);
+    if (!l || l->answers[n.id].sending) return;
+    const QString token = l->token;
+    settle(server, token, n.id, [](Answer& a) {
+        a = Answer{};
+        a.sending = true;
+    });
+    l->api->act(
+        n.id, action,
+        [this, server, token, n](const NotificationActResult& r) {
+            settle(server, token, n.id, [&](Answer& a) {
+                a = Answer{};
+                a.already = r.already;
+                a.layoutId = r.result.value(QLatin1String("layoutId")).toString();
+                a.item = r.item;
+                if (a.item) return;
+                a.item = n;
+                a.item->outcome = r.outcome;
+                a.item->actions.clear();
+                a.item->doneAt = QDateTime::currentMSecsSinceEpoch();
+            });
+            changedHere(server);
+        },
+        [this, server, token, n](const ServerRefusal& r) {
+            settle(server, token, n.id, [&](Answer& a) {
+                a = Answer{};
+                a.error = r.message.isEmpty() ? describe(r) : r.message;
+            });
+        });
+}
+
+void NotificationCenter::acknowledge(const QUrl& server, const NotificationItem& n) {
+    Live* l = liveOf(server);
+    if (!l || l->answers[n.id].sending) return;
+    const QString token = l->token;
+    settle(server, token, n.id, [](Answer& a) {
+        a = Answer{};
+        a.sending = true;
+    });
+    l->api->acknowledge(
+        n.id,
+        [this, server, token, n] {
+            settle(server, token, n.id, [&](Answer& a) {
+                a = Answer{};
+                a.item = n;
+                a.item->actions.clear();
+                a.item->outcome = QStringLiteral("acknowledged");
+                a.item->doneAt = a.item->readAt = QDateTime::currentMSecsSinceEpoch();
+            });
+            changedHere(server);
+        },
+        [this, server, token, n](const ServerRefusal& r) {
+            settle(server, token, n.id, [&](Answer& a) {
+                a = Answer{};
+                a.error = describe(r);
+            });
+        });
+}
+
+void NotificationCenter::setRead(const QUrl& server, const QString& id, bool read, std::function<void()> refused) {
+    Live* l = liveOf(server);
+    if (!l) return;
+    const QString token = l->token;
+    if (l->answers.contains(id)) settle(server, token, id, [](Answer& a) { a.readError.clear(); });
+    l->api->setRead(id, read, [this, server] { changedHere(server); },
+                    [this, server, token, id, refused = std::move(refused)](const ServerRefusal& r) {
+                        if (refused) refused();
+                        settle(server, token, id, [&](Answer& a) { a.readError = describe(r); });
+                    });
 }
 
 void NotificationCenter::onHint(const QString& key, const QJsonObject& hint) {

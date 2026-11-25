@@ -38,10 +38,12 @@
 #include <QJsonDocument>
 #include <QLabel>
 #include <QLineEdit>
+#include <QPointer>
 #include <QPushButton>
 #include <QSettings>
 #include <QStandardPaths>
 #include <QTimeZone>
+#include <QTimer>
 #include <QToolButton>
 
 using namespace bld;
@@ -732,6 +734,8 @@ TEST_F(NotificationsOldServer, AnOlderServerKeepsItsNoticesAndWebsiteLinksQuietl
     ASSERT_TRUE(waitFor([&] { return sw->clubWaitingNote()->findChild<QPushButton*>(QStringLiteral("openClubPartners")); }));
 }
 
+const QByteArray kClubListPath = "/api/notifications?type=club.partner_request,club.offer_received&limit=50";
+
 class NotificationsClubRequests : public NotificationsWindow {
 protected:
     void beforeOpen() override {
@@ -739,39 +743,250 @@ protected:
                     { { QStringLiteral("clubs"), QJsonArray{ QJsonObject{ { QStringLiteral("slug"), QStringLiteral("train") },
                                                                           { QStringLiteral("name"), QStringLiteral("Train Club") },
                                                                           { QStringLiteral("count"), 1 } } } } });
-        const QJsonObject partner = item(QStringLiteral("p1"), QStringLiteral("club.partner_request"),
-                                         QStringLiteral("Rail Club asked Train Club to be partners"), kNow, false,
-                                         { QStringLiteral("accept"), QStringLiteral("decline") }, { { QStringLiteral("club"), club("train", "Train Club") } });
-        serveNotifications(http_, 1, { partner }, 1);
-        http_.reply("/api/notifications?type=club.partner_request,club.offer_received&limit=50", 200, page({ partner }, 1, 1));
+        serveNotifications(http_, 1, { waiting() }, 1);
+        http_.reply(kClubListPath, 200, page({ waiting() }, 1, 1));
+        http_.reply("/api/notifications/p1/act", 200,
+                    { { QStringLiteral("ok"), true }, { QStringLiteral("outcome"), QStringLiteral("declined") },
+                      { QStringLiteral("notification"), declined() } });
+        // As the server does: what was answered is listed as answered from then on.
+        http_.beforeAnswer = [this](const QByteArray&, const QByteArray& path) {
+            if (path == "/api/notifications/p1/act" && serverLike_) serveAnswered();
+        };
     }
+    static QJsonObject waiting() {
+        return item(QStringLiteral("p1"), QStringLiteral("club.partner_request"), QStringLiteral("Rail Club asked Train Club to be partners"), kNow,
+                    false, { QStringLiteral("accept"), QStringLiteral("decline") }, { { QStringLiteral("club"), club("train", "Train Club") } });
+    }
+    static QJsonObject declined() {
+        return item(QStringLiteral("p1"), QStringLiteral("club.partner_request"), QStringLiteral("Rail Club asked Train Club to be partners"), kNow,
+                    true, {},
+                    { { QStringLiteral("club"), club("train", "Train Club") }, { QStringLiteral("outcome"), QStringLiteral("declined") },
+                      { QStringLiteral("doneAt"), static_cast<double>(kNow + 5) },
+                      { QStringLiteral("outcomeBy"), QJsonObject{ { QStringLiteral("id"), QStringLiteral("me") },
+                                                                  { QStringLiteral("name"), QStringLiteral("Me") },
+                                                                  { QStringLiteral("you"), true } } } });
+    }
+    void serveAnswered() {
+        for (const QByteArray& path : { QByteArray("/api/notifications/count"), kUnreadPath, kPanelPath, kClubListPath }) http_.clear(path);
+        http_.reply("/api/notifications/count", 200, counts(0));
+        http_.reply(kUnreadPath, 200, page({}, 0));
+        http_.reply(kPanelPath, 200, page({ declined() }, 0));
+        http_.reply(kClubListPath, 200, page({ declined() }, 0));
+    }
+    // The Modules tab with the request on it, and nothing still on its way.
+    void openModules() {
+        ASSERT_TRUE(waitFor([&] { return window_->notifications()->support(http_.base()) == sync::NotificationCenter::Support::Yes; }));
+        window_->showServerWindow(static_cast<int>(ui::ServerWindow::Tab::Modules));
+        note_ = window_->serverWindow()->clubWaitingNote();
+        ASSERT_TRUE(waitFor([&] { return row(); }));
+        EXPECT_EQ(note_->findChild<QPushButton*>(QStringLiteral("openClubPartners")), nullptr);  // not the website any more
+    }
+    ui::NotificationRow* row() const { return note_->findChild<ui::NotificationRow*>(QStringLiteral("notificationRow:p1")); }
+    // The list is asked for again and the row the person clicked is gone, another in its place.
+    void replaceRow() {
+        const QPointer<ui::NotificationRow> was = row();
+        window_->notifications()->refresh(http_.base());
+        ASSERT_TRUE(waitFor([&] { return !was && row(); }));
+    }
+    // The whole tab is made again (from the event loop, so the old rows are really deleted).
+    void rebuildTab() {
+        QTimer::singleShot(0, library_, [this] { emit library_->changed(); });
+    }
+    QString error() const {
+        auto* l = row() ? row()->findChild<QLabel*>(QStringLiteral("notificationError")) : nullptr;
+        return l && !l->isHidden() ? l->text() : QString();
+    }
+
+    QWidget* note_ = nullptr;
+    bool serverLike_ = true;
 };
 
 TEST_F(NotificationsClubRequests, AClubsPartnerRequestIsAnsweredOnTheModulesTab) {
-    ASSERT_TRUE(waitFor([&] { return window_->notifications()->support(http_.base()) == sync::NotificationCenter::Support::Yes; }));
-    window_->showServerWindow(static_cast<int>(ui::ServerWindow::Tab::Modules));
-    ui::ServerWindow* sw = window_->serverWindow();
-    QWidget* note = sw->clubWaitingNote();
-    ASSERT_TRUE(waitFor([&] { return note->findChild<ui::NotificationRow*>(QStringLiteral("notificationRow:p1")); }));
-    EXPECT_EQ(note->findChild<QPushButton*>(QStringLiteral("openClubPartners")), nullptr);  // not the website any more
-    http_.reply("/api/notifications/p1/act", 200,
-                { { QStringLiteral("ok"), true }, { QStringLiteral("outcome"), QStringLiteral("declined") },
-                  { QStringLiteral("notification"),
-                    item(QStringLiteral("p1"), QStringLiteral("club.partner_request"), QStringLiteral("Rail Club asked Train Club to be partners"),
-                         kNow, true, {},
-                         { { QStringLiteral("club"), club("train", "Train Club") }, { QStringLiteral("outcome"), QStringLiteral("declined") },
-                           { QStringLiteral("doneAt"), static_cast<double>(kNow + 5) },
-                           { QStringLiteral("outcomeBy"), QJsonObject{ { QStringLiteral("id"), QStringLiteral("me") },
-                                                                       { QStringLiteral("name"), QStringLiteral("Me") },
-                                                                       { QStringLiteral("you"), true } } } }) } });
-    auto* row = note->findChild<ui::NotificationRow*>(QStringLiteral("notificationRow:p1"));
-    button(row, "notificationDecline")->click();
+    openModules();
+    if (HasFatalFailure()) return;
+    button(row(), "notificationDecline")->click();
     EXPECT_TRUE(asked_.isEmpty());  // the web asks only before turning down a request to join
     ASSERT_TRUE(waitFor([&] { return lastRequest(http_, "POST", "/api/notifications/p1/act"); }));
-    ASSERT_TRUE(waitFor([&] {
-        auto* r = note->findChild<ui::NotificationRow*>(QStringLiteral("notificationRow:p1"));
-        return r && outcome(r) == QStringLiteral("You declined");
-    }));
+    const int listed = count(http_, "GET", kClubListPath);
+    ASSERT_TRUE(waitFor([&] { return outcome(row()) == QStringLiteral("You declined"); }));
+    // It stays once the list was asked again too.
+    ASSERT_TRUE(waitFor([&] { return count(http_, "GET", kClubListPath) > listed; }));
+    waitFor([] { return false; }, 200);
+    EXPECT_EQ(outcome(row()), QStringLiteral("You declined"));
+}
+
+TEST_F(NotificationsClubRequests, AnAnswerOnItsWayReachesTheRowThatTookItsPlace) {
+    openModules();
+    if (HasFatalFailure()) return;
+    http_.hold.insert("/api/notifications/p1/act");
+    button(row(), "notificationDecline")->click();
+    ASSERT_TRUE(waitFor([&] { return lastRequest(http_, "POST", "/api/notifications/p1/act"); }));
+    replaceRow();
+    if (HasFatalFailure()) return;
+    // Still being answered: not to be answered twice.
+    EXPECT_FALSE(button(row(), "notificationDecline")->isEnabled());
+    const int counted = count(http_, "GET", "/api/notifications/count");
+    http_.release("/api/notifications/p1/act");
+    EXPECT_TRUE(waitFor([&] { return outcome(row()) == QStringLiteral("You declined"); }));
+    EXPECT_TRUE(waitFor([&] { return count(http_, "GET", "/api/notifications/count") > counted; }));
+    // And the list asked for after it still has it.
+    EXPECT_TRUE(waitFor([&] { return window_->notifications()->totalWaiting() == 0; }));
+    EXPECT_EQ(outcome(row()), QStringLiteral("You declined"));
+}
+
+TEST_F(NotificationsClubRequests, AnAnswerOnItsWayReachesAModulesTabMadeAgain) {
+    openModules();
+    if (HasFatalFailure()) return;
+    http_.hold.insert("/api/notifications/p1/act");
+    button(row(), "notificationDecline")->click();
+    ASSERT_TRUE(waitFor([&] { return lastRequest(http_, "POST", "/api/notifications/p1/act"); }));
+    const QPointer<ui::NotificationRow> was = row();
+    rebuildTab();
+    ASSERT_TRUE(waitFor([&] { return !was && row(); }));
+    http_.release("/api/notifications/p1/act");
+    EXPECT_TRUE(waitFor([&] { return outcome(row()) == QStringLiteral("You declined"); }));
+    // And once more after it was answered.
+    const QPointer<ui::NotificationRow> answered = row();
+    rebuildTab();
+    ASSERT_TRUE(waitFor([&] { return !answered; }));
+    EXPECT_TRUE(waitFor([&] { return outcome(row()) == QStringLiteral("You declined"); }));
+}
+
+TEST_F(NotificationsClubRequests, ARefusedAnswerIsSaidOnTheRowThatTookItsPlace) {
+    openModules();
+    if (HasFatalFailure()) return;
+    serverLike_ = false;
+    http_.clear("/api/notifications/p1/act");
+    http_.reply("/api/notifications/p1/act", 403, { { QStringLiteral("error"), QStringLiteral("email_not_verified") },
+                                                    { QStringLiteral("message"), QStringLiteral("Confirm your email address first.") } });
+    http_.hold.insert("/api/notifications/p1/act");
+    button(row(), "notificationDecline")->click();
+    ASSERT_TRUE(waitFor([&] { return lastRequest(http_, "POST", "/api/notifications/p1/act"); }));
+    replaceRow();
+    if (HasFatalFailure()) return;
+    http_.release("/api/notifications/p1/act");
+    EXPECT_TRUE(waitFor([&] { return error() == QStringLiteral("Confirm your email address first."); }));
+    // To try again, and still said when the list is asked again.
+    EXPECT_TRUE(button(row(), "notificationDecline")->isEnabled());
+    replaceRow();
+    if (HasFatalFailure()) return;
+    EXPECT_EQ(error(), QStringLiteral("Confirm your email address first."));
+    http_.clear("/api/notifications/p1/act");
+    http_.hold.insert("/api/notifications/p1/act");
+    button(row(), "notificationDecline")->click();
+    EXPECT_EQ(error(), QString());
+}
+
+TEST_F(NotificationsClubRequests, AListAskedForBeforeTheAnswerDoesntPutTheRequestBack) {
+    openModules();
+    if (HasFatalFailure()) return;
+    serverLike_ = false;
+    // The list is asked for, then the request answered, and the list (from before) comes last.
+    http_.hold.insert(kClubListPath);
+    const int listed = count(http_, "GET", kClubListPath);
+    window_->notifications()->refresh(http_.base());
+    ASSERT_TRUE(waitFor([&] { return count(http_, "GET", kClubListPath) > listed; }));
+    http_.hold.insert("/api/notifications/count");
+    button(row(), "notificationDecline")->click();
+    ASSERT_TRUE(waitFor([&] { return outcome(row()) == QStringLiteral("You declined"); }));
+    const QPointer<ui::NotificationRow> was = row();
+    http_.release(kClubListPath);
+    ASSERT_TRUE(waitFor([&] { return !was && row(); }));
+    EXPECT_EQ(outcome(row()), QStringLiteral("You declined"));
+    EXPECT_EQ(button(row(), "notificationDecline"), nullptr);
+    // The list asked for afterwards has it answered: it stays.
+    serveAnswered();
+    const QPointer<ui::NotificationRow> stale = row();
+    http_.release("/api/notifications/count");
+    ASSERT_TRUE(waitFor([&] { return !stale; }));
+    ASSERT_NE(row(), nullptr);
+    EXPECT_EQ(outcome(row()), QStringLiteral("You declined"));
+}
+
+// The bell's panel: the same for what's answered, acknowledged or marked read there.
+class NotificationsPanelRaces : public NotificationsWindow {
+protected:
+    void beforeOpen() override {
+        serveNotifications(http_, 2,
+                           { item(QStringLiteral("n1"), QStringLiteral("club.invite"), QStringLiteral("Rail Club invited you"), kNow + 30, false,
+                                  { QStringLiteral("accept"), QStringLiteral("decline") }, { { QStringLiteral("club"), club("rail", "Rail Club") } }),
+                             item(QStringLiteral("w1"), QStringLiteral("moderation.warning"), QStringLiteral("Warning from the site team"), kNow, false,
+                                  { QStringLiteral("acknowledge") }) },
+                           1);
+    }
+    // Clicks `what` of the item `id`, whose request to `path` is held, then has the row replaced.
+    void clickThenReplace(const QString& id, const char* what, const QByteArray& path) {
+        panel_ = openPanel();
+        ASSERT_TRUE(waitFor([&] { return row(id); }));
+        // The panel asks every server again as it opens: that's over.
+        const int loads = panel_->list()->loads();
+        waitFor([&] { return panel_->list()->loads() > loads; }, 400);
+        waitFor([] { return false; }, 200);
+        http_.hold.insert(path);
+        auto* b = row(id)->findChild<QAbstractButton*>(QLatin1String(what));
+        ASSERT_NE(b, nullptr);
+        b->click();
+        ASSERT_TRUE(waitFor([&] { return lastRequest(http_, "POST", path); }));
+        const QPointer<ui::NotificationRow> was = row(id);
+        panel_->list()->reload();
+        ASSERT_TRUE(waitFor([&] { return !was && row(id); }));
+    }
+    ui::NotificationRow* row(const QString& id) const { return panel_->list()->row(id); }
+    QString error(const QString& id) const {
+        auto* l = row(id) ? row(id)->findChild<QLabel*>(QStringLiteral("notificationError")) : nullptr;
+        return l && !l->isHidden() ? l->text() : QString();
+    }
+    int counted() const { return count(http_, "GET", "/api/notifications/count"); }
+
+    ui::NotificationPanel* panel_ = nullptr;
+};
+
+TEST_F(NotificationsPanelRaces, AnAnswerReachesTheRowThatTookItsPlace) {
+    http_.reply("/api/notifications/n1/act", 200, { { QStringLiteral("ok"), true }, { QStringLiteral("outcome"), QStringLiteral("accepted") } });
+    clickThenReplace(QStringLiteral("n1"), "notificationAccept", "/api/notifications/n1/act");
+    if (HasFatalFailure()) return;
+    EXPECT_FALSE(button(row(QStringLiteral("n1")), "notificationAccept")->isEnabled());
+    const int before = counted();
+    http_.release("/api/notifications/n1/act");
+    EXPECT_TRUE(waitFor([&] { return !outcome(row(QStringLiteral("n1"))).isEmpty(); }));
+    EXPECT_TRUE(waitFor([&] { return counted() > before; }));
+}
+
+TEST_F(NotificationsPanelRaces, IUnderstandReachesTheRowThatTookItsPlace) {
+    http_.reply("/api/notifications/w1/acknowledge", 200, { { QStringLiteral("ok"), true } });
+    clickThenReplace(QStringLiteral("w1"), "notificationAcknowledge", "/api/notifications/w1/acknowledge");
+    if (HasFatalFailure()) return;
+    const int before = counted();
+    http_.release("/api/notifications/w1/acknowledge");
+    EXPECT_TRUE(waitFor([&] { return outcome(row(QStringLiteral("w1"))) == QStringLiteral("You understood"); }));
+    EXPECT_TRUE(waitFor([&] { return counted() > before; }));
+}
+
+TEST_F(NotificationsPanelRaces, ARefusedIUnderstandIsSaidOnTheRowThatTookItsPlace) {
+    http_.reply("/api/notifications/w1/acknowledge", 500, { { QStringLiteral("error"), QStringLiteral("internal") } });
+    clickThenReplace(QStringLiteral("w1"), "notificationAcknowledge", "/api/notifications/w1/acknowledge");
+    if (HasFatalFailure()) return;
+    http_.release("/api/notifications/w1/acknowledge");
+    EXPECT_TRUE(waitFor([&] { return !error(QStringLiteral("w1")).isEmpty(); }));
+    EXPECT_TRUE(button(row(QStringLiteral("w1")), "notificationAcknowledge")->isEnabled());
+}
+
+TEST_F(NotificationsPanelRaces, MarkedReadIsCountedAgainWhenItsRowIsGone) {
+    http_.reply("/api/notifications/n1/read", 200, { { QStringLiteral("ok"), true } });
+    clickThenReplace(QStringLiteral("n1"), "notificationReadToggle", "/api/notifications/n1/read");
+    if (HasFatalFailure()) return;
+    const int before = counted();
+    http_.release("/api/notifications/n1/read");
+    EXPECT_TRUE(waitFor([&] { return counted() > before; }));
+}
+
+TEST_F(NotificationsPanelRaces, ARefusedMarkAsReadIsSaidOnTheRowThatTookItsPlace) {
+    http_.reply("/api/notifications/n1/read", 500, { { QStringLiteral("error"), QStringLiteral("internal") } });
+    clickThenReplace(QStringLiteral("n1"), "notificationReadToggle", "/api/notifications/n1/read");
+    if (HasFatalFailure()) return;
+    http_.release("/api/notifications/n1/read");
+    EXPECT_TRUE(waitFor([&] { return !error(QStringLiteral("n1")).isEmpty(); }));
+    EXPECT_FALSE(row(QStringLiteral("n1"))->item().read());
 }
 
 class NotificationsTwoServers : public NotificationsWindow {

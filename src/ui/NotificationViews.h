@@ -77,7 +77,7 @@ class NotificationRow : public QFrame {
     Q_OBJECT
 public:
     NotificationRow(sync::NotificationCenter& center, const QUrl& server, const sync::NotificationItem& n, bool compact,
-                    const QString& serverLabel, bool answeredFirstElsewhere, QWidget* parent);
+                    const QString& serverLabel, QWidget* parent);
     const sync::NotificationItem& item() const { return item_; }
     QUrl server() const { return server_; }
 
@@ -86,16 +86,14 @@ public:
 
 signals:
     void openRequested(const QUrl& server, const bld::sync::NotificationItem& n, const bld::ui::NotificationPlace& place);
-    // Answered here: `already` when someone else had answered first.
-    void answered(const QString& id, bool already);
 
 private:
     void build();
-    void act(const QString& action);
-    void acknowledge();
     void setRead(bool read);
-    void setBusy(bool busy);
-    void showError(const QString& text);
+    // What was answered here, also from a row this one took the place of.
+    void takeAnswer();
+    // Busy while an answer is on its way; what went wrong with the last one.
+    void showAnswerState();
 
     sync::NotificationCenter& center_;
     QUrl server_;
@@ -166,7 +164,6 @@ private:
     QTimer* typing_ = nullptr;
     QList<Entry> entries_;
     QHash<QString, QString> cursors_;  // per server key: the next page's cursor
-    QSet<QString> already_;            // answered here after someone else had
     QSet<QString> openGroups_;
     bool stale_ = true;
     int generation_ = 0;
@@ -192,7 +189,6 @@ private:
     QStringList types_;
     QString club_;
     QVBoxLayout* rows_ = nullptr;
-    QSet<QString> answered_;  // stay shown (with what happened) until the list is asked again
     int generation_ = 0;
 };
 
