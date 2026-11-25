@@ -58,9 +58,19 @@ namespace bld::parts   { class PartsLibrary; }
 
 class QToolButton;
 
+class QMenu;
+
 namespace bld::ui {
 
 class SelectionOverlay;
+
+// A car standing on the track: its train, its stock record, its index among the placed cars, its middle (studs).
+struct CarAt {
+    QString train;
+    QString stock;
+    int unit = 0;
+    QPointF middle;
+};
 
 class MapView : public QGraphicsView {
     Q_OBJECT
@@ -370,11 +380,24 @@ public:
     // track puts its head there, the rest of it the way more track lies, as
     // one undo step. Nothing is picked or moved meanwhile; Esc stops.
     void startTrainPlacing(const QString& trainId);
+    // The same for cars, coupled, as a cut (Live Ops design 2.3).
+    void startCarsPlacing(const QStringList& stockIds);
+    const QStringList& placingCars() const { return placingCars_; }
     void cancelTrainPlacing();
     const QString& placingTrain() const { return placingTrain_; }
     // A click while placing (tests call it with a place in studs); false when it isn't on the track.
     bool trainPlaceClick(QPointF studs);
     QWidget* trainPlaceBanner() const { return trainBar_; }
+    // Cars standing on the track (MapViewCars.cpp): the one at a place, dragged along the track, its load, off the track.
+    std::optional<CarAt> carAt(QPointF studs) const;
+    bool startCarDrag(QPointF studs, QPoint press);
+    void moveCarDrag(QPointF studs, QPoint at);
+    void endCarDrag(QPoint globalPos);
+    void cancelCarDrag();
+    bool draggingCar() const { return carDrag_ != nullptr; }
+    void setCarLoad(const QString& stockId, const QString& load);
+    void takeCarOff(const QString& stockId);
+    QMenu* makeCarMenu(const QString& stockId);
     // View > Siding Lengths (trains design 6.2): each run of track labeled with the length a train can stand in.
     void setShowSidingLengths(bool on);
     bool showSidingLengths() const { return showSidingLengths_; }
@@ -590,6 +613,12 @@ private:
     // The banner says what to click next, or the way found; the map shows it.
     void refreshRouteDraft();
     QString placingTrain_;
+    QStringList placingCars_;
+    struct CarDrag;
+    std::shared_ptr<CarDrag> carDrag_;
+    bool carsMove() const;
+    void showCarMenu(const QString& stockId, QPoint globalPos);
+    void beginPlacing(const QString& name);
     bool showPlaces_ = true;
     std::optional<PlacePick> placePick_;
     QWidget* placeBar_ = nullptr;

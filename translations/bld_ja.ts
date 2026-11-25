@@ -783,6 +783,30 @@
         <translation>MILS、ふつうの基礎板（ふつうのテーブルに置いた基礎板）、カスタムから選び、測った高さ（天板まで、またはレールの上面まで）を入力します。電源は使うコンセントの数、おおよそのワット数、プラグが出る側を入れます。モジュールをモジュールライブラリに保存すると、これも一緒に保存されます。</translation>
     </message>
     <message>
+        <source>Cars on the track</source>
+        <translation>線路上の車両</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track: it goes, with the cars on the side you drag it to, and the rest stay.</source>
+        <translation>車両を線路に沿ってドラッグすると、引いた側の車両と一緒に動き、残りはそのままです。</translation>
+    </message>
+    <message>
+        <source>An engine takes everything coupled to it; a car that meets another couples to it, and Undo puts everything back. Put on the track puts a car on its own, or ticked ones there coupled. Click a car (on a phone, tap it, then drag) for its load and Take off the track.</source>
+        <translation>機関車は連結されているものをすべて引きます。別の車両に触れると連結し、元に戻すで元どおりになります。「線路に置く」は1両だけ、またはチェックした車両を連結して置きます。車両をクリック（スマホではタップしてからドラッグ）すると、積荷と「線路から外す」が選べます。</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>積荷</translation>
+    </message>
+    <message>
+        <source>Whether the car is loaded or empty, shown as a filled or an open mark on it.</source>
+        <translation>車両が積車か空車かを、塗りつぶしまたは白抜きの印で示します。</translation>
+    </message>
+    <message>
+        <source>It is this layout’s own: a car on your roster has none, and saving a car to a roster leaves it out. Pick Doesn’t apply for a caboose or an engine.</source>
+        <translation>このレイアウトだけのものです。車両リストの車両にはなく、車両リストに保存しても含まれません。車掌車や機関車には「該当なし」を選びます。</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>場所</translation>
     </message>
@@ -3814,6 +3838,14 @@
     <message>
         <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
         <translation>表示 › 場所 で各停車位置と入る両数を表示します。モジュールの線路上の場所はモジュールと一緒に移動します。</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>線路上の車両</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
+        <translation>車両を線路に沿ってドラッグすると、移動や切り離しができ、別の車両に触れると連結します。車両をクリックすると積荷を選べます。</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -11042,6 +11074,80 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <translation>列車</translation>
     </message>
     <message>
+        <source>Coupled to %1.</source>
+        <translation>%1に連結しました。</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: two trains don’t couple.</source>
+        <translation>%1の手前で停止：列車どうしは連結しません。</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: there’s no coupler at that end.</source>
+        <translation>%1の手前で停止：その端に連結器がありません。</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: a train can have up to %2 cars.</source>
+        <translation>%1の手前で停止：1つの列車は%2両までです。</translation>
+    </message>
+    <message>
+        <source>Stopped against %1.</source>
+        <translation>%1の手前で停止しました。</translation>
+    </message>
+    <message>
+        <source>Someone else moved cars. Drag again.</source>
+        <translation>ほかの人が車両を動かしました。もう一度ドラッグしてください。</translation>
+    </message>
+    <message>
+        <source>Move cars</source>
+        <translation>車両を移動</translation>
+    </message>
+    <message>
+        <source>Couple cars</source>
+        <translation>車両を連結</translation>
+    </message>
+    <message>
+        <source>Change load</source>
+        <translation>積荷を変更</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>車両を線路から外す</translation>
+    </message>
+    <message>
+        <source>On its own</source>
+        <translation>単独</translation>
+    </message>
+    <message numerus="yes">
+        <source>Coupled to %n other(s)</source>
+        <translation>
+            <numerusform>ほか%n両と連結</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>積荷</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>該当なし</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>空車</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>積車</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>線路から外す</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>列車を開く</translation>
+    </message>
+    <message>
         <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
         <translation>&lt;b&gt;%1&lt;/b&gt;の先頭を置く線路の位置をクリックします。</translation>
     </message>
@@ -15603,6 +15709,16 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
 <context>
     <name>bld::ui::TrainDialog</name>
     <message>
+        <source>Cars</source>
+        <translation>車両</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 and %n more</source>
+        <translation>
+            <numerusform>%1 ほか%n両</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>New train</source>
         <translation>新しい列車</translation>
     </message>
@@ -15718,6 +15834,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>車両</translation>
     </message>
     <message>
+        <source>A layout can have up to %1 cars.</source>
+        <translation>レイアウトの車両は%1両までです。</translation>
+    </message>
+    <message>
         <source>Added %1.</source>
         <translation>%1を追加しました。</translation>
     </message>
@@ -15764,8 +15884,16 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>列車の向きを変える</translation>
     </message>
     <message>
+        <source>Take cars off the track</source>
+        <translation>車両を線路から外す</translation>
+    </message>
+    <message>
         <source>Take train off the track</source>
         <translation>列車を線路から外す</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>車両を線路から外す</translation>
     </message>
     <message>
         <source>Delete %1? Its cars stay.</source>
@@ -15820,6 +15948,16 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>%1を新しい列車に選ぶ</translation>
     </message>
     <message>
+        <source>On the track, on its own</source>
+        <translation>線路上、単独</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the track, coupled to %n other(s)</source>
+        <translation>
+            <numerusform>線路上、ほか%n両と連結</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>In %1</source>
         <translation>%1に所属</translation>
     </message>
@@ -15830,6 +15968,26 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>From a roster</source>
         <translation>車両リストから</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>積荷</translation>
+    </message>
+    <message>
+        <source>Load of %1</source>
+        <translation>%1の積荷</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>該当なし</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>空車</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>積車</translation>
     </message>
     <message>
         <source>Change</source>
@@ -15864,6 +16022,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>削除</translation>
     </message>
     <message>
+        <source>Put this car on the track</source>
+        <translation>この車両を線路に置く</translation>
+    </message>
+    <message>
+        <source>Put these %1 cars on the track, coupled</source>
+        <translation>これら%1両を連結して線路に置く</translation>
+    </message>
+    <message>
         <source>Make a train of this car</source>
         <translation>この車両で列車を組む</translation>
     </message>
@@ -15878,6 +16044,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
         <translation>まだ列車がありません。「新しい列車」を押すか、「車両」で車両にチェックを入れて列車を組みましょう。</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>線路上の車両</translation>
     </message>
     <message>
         <source>Untitled train</source>

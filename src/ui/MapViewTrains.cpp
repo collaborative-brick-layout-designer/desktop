@@ -6,9 +6,10 @@
 
 #include "MapView.h"
 
-#include "../edit/TrainCommands.h"
+#include "../edit/CutCommands.h"
 #include "../track/Routes.h"
-#include "../track/Trains.h"
+#include "../track/Cuts.h"
+#include "TrainDialogs.h"
 #include "help/HelpButton.h"
 
 #include <QFrame>
@@ -25,14 +26,37 @@ namespace bld::ui {
 
 void MapView::startTrainPlacing(const QString& trainId) {
     if (!map_) return;
-    const auto& trains = map_->sidecar.trains;
-    const auto it = std::find_if(trains.begin(), trains.end(), [&](const core::Train& t) { return t.id == trainId; });
-    if (it == trains.end()) return;
+    for (const auto& t : namedTrains(map_->sidecar))
+        if (t.id == trainId) {
+            placingCars_.clear();
+            placingTrain_ = trainId;
+            beginPlacing(t.name.isEmpty() ? tr("the train") : t.name);
+            return;
+        }
+}
+
+void MapView::startCarsPlacing(const QStringList& stockIds) {
+    if (!map_) return;
+    const auto stock = track::stockById(map_->sidecar);
+    core::Train cut;
+    QStringList cars;
+    for (const QString& id : stockIds)
+        if (stock.contains(id)) {
+            cars << id;
+            cut.units.push_back({ id, false });
+        }
+    if (cars.isEmpty()) return;
+    placingCars_ = cars;
+    placingTrain_ = QStringLiteral("cars");
+    beginPlacing(cutName(cut, stock));
+}
+
+void MapView::beginPlacing(const QString& name) {
+    cancelCarDrag();
     if (runMode_) setRunMode(false);
     if (routeDraft_) cancelRouteDraft();
     cancelPlacePick();
     if (scene()) scene()->clearSelection();
-    placingTrain_ = trainId;
     setInteractive(false);
     if (!trainBar_) {
         auto* bar = new QFrame(viewport());
@@ -50,22 +74,22 @@ void MapView::startTrainPlacing(const QString& trainId) {
         connect(cancel, &QPushButton::clicked, this, &MapView::cancelTrainPlacing);
         trainBar_ = bar;
     }
-    const QString name = it->name.isEmpty() ? tr("the train") : it->name;
     trainBarText_->setText(tr("Click the track where the front of <b>%1</b> goes.").arg(name.toHtmlEscaped()));
     trainBar_->adjustSize();
     trainBar_->move(viewport()->rect().center().x() - trainBar_->width() / 2, 10);
     trainBar_->show();
     trainBar_->raise();
     if (builder_) {
-        builder_->setPickedTrain(trainId);
+        builder_->setPickedTrain(placingTrain_);
         builder_->refreshTrains(*map_);
     }
-    emit trainPlacingChanged(trainId);
+    emit trainPlacingChanged(placingTrain_);
 }
 
 void MapView::cancelTrainPlacing() {
     if (placingTrain_.isEmpty()) return;
     placingTrain_.clear();
+    placingCars_.clear();
     setInteractive(!clicksTaken());
     if (trainBar_) trainBar_->hide();
     if (builder_) {
@@ -77,12 +101,30 @@ void MapView::cancelTrainPlacing() {
 
 bool MapView::trainPlaceClick(QPointF studs) {
     if (placingTrain_.isEmpty() || !map_) return false;
-    const auto& trains = map_->sidecar.trains;
-    const auto it = std::find_if(trains.begin(), trains.end(), [&](const core::Train& t) { return t.id == placingTrain_; });
-    if (it == trains.end()) {
-        cancelTrainPlacing();
-        return false;
+    const auto stock = track::stockById(map_->sidecar);
+    const auto trains = track::settleTrains(map_->sidecar.trains, stock);
+    core::Train placed;
+    QString name;
+    if (!placingCars_.isEmpty()) {
+        std::vector<core::RollingStock> cars;
+        for (const QString& id : placingCars_)
+            if (stock.contains(id)) cars.push_back(stock[id]);
+        if (cars.empty()) {
+            cancelTrainPlacing();
+            return false;
+        }
+        placed = track::newCut(QString(), cars, core::TrainPosition());
+        name = cutName(placed, stock);
+    } else {
+        const auto it = std::find_if(trains.begin(), trains.end(), [&](const core::Train& t) { return t.id == placingTrain_; });
+        if (it == trains.end()) {
+            cancelTrainPlacing();
+            return false;
+        }
+        placed = *it;
+        name = !placed.name.isEmpty() ? placed.name : placed.cut ? cutName(placed, stock) : tr("The train");
     }
+    const core::Train what = placed;
     const track::TrackNetwork net = track::trackNetworkOf(*map_, parts_);
     const double reach = std::max(3.0, 24.0 / (transform().m11() * rendering::SceneBuilder::kPixelsPerStud));
     const auto pos = track::nearestPosition(net, studs, reach);
@@ -90,16 +132,14 @@ bool MapView::trainPlaceClick(QPointF studs) {
         showStatus(tr("Click on the track."), 3000);
         return false;
     }
-    track::StockById stock;
-    for (const auto& s : map_->sidecar.rollingStock) stock.insert(s.id, s);
-    core::Train placed = *it;
     std::optional<core::Train> fallback;
     bool fits = false;
     for (const bool facingTo : { true, false }) {
         core::TrainPosition p;
         static_cast<core::TrackPosition&>(p) = *pos;
         p.facingTo = facingTo;
-        core::Train t = *it;
+        core::Train t = what;
+        t.over.reset();
         t.position = p;
         const auto where = track::placeTrain(net, t, stock, map_->sidecar.switchStates);
         if (where && !where->offTrack) {
@@ -111,10 +151,13 @@ bool MapView::trainPlaceClick(QPointF studs) {
         if (!fallback && facingTo) fallback = t;
     }
     if (!fits) placed = fallback.value_or(placed);
-    const QString name = placed.name.isEmpty() ? tr("The train") : placed.name;
-    const QString id = placed.id;
+    const core::TrainPosition at = placed.position.value_or(core::TrainPosition());
+    const QStringList cars = placingCars_;
     cancelTrainPlacing();
-    undoStack_->push(new edit::SetTrainCommand(*map_, id, placed, tr("Put %1 on the track").arg(name)));
+    const auto& states = map_->sidecar.switchStates;
+    const track::CutChange change = cars.isEmpty() ? track::putTrainOnTrack(net, trains, stock, states, what, at)
+                                                   : track::putCarsOnTrack(net, trains, stock, states, cars, at);
+    undoStack_->push(new edit::CutCommand(*map_, change, tr("Put %1 on the track").arg(name)));
     showStatus(fits ? tr("%1 is on the track.").arg(name) : tr("%1 runs off the end of the track here.").arg(name), 3000);
     return true;
 }

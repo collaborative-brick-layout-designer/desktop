@@ -783,6 +783,30 @@
         <translation>Kies MILS, Gewone grondplaat (losse grondplaten op een gewone tafel) of Eigen, en typ de gemeten hoogte, tot het tafelblad of tot de bovenkant van de rails. Voor stroom: hoeveel stopcontacten hij gebruikt, ongeveer hoeveel watt en aan welke kant de stekker eruit komt. Bij het opslaan van de module in de modulebibliotheek gaat dit mee.</translation>
     </message>
     <message>
+        <source>Cars on the track</source>
+        <translation>Wagons op het spoor</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track: it goes, with the cars on the side you drag it to, and the rest stay.</source>
+        <translation>Sleep een wagon langs het spoor: hij gaat met de wagons aan de kant waarheen je sleept, de rest blijft staan.</translation>
+    </message>
+    <message>
+        <source>An engine takes everything coupled to it; a car that meets another couples to it, and Undo puts everything back. Put on the track puts a car on its own, or ticked ones there coupled. Click a car (on a phone, tap it, then drag) for its load and Take off the track.</source>
+        <translation>Een locomotief neemt alles mee wat eraan gekoppeld is; een wagon die een andere raakt koppelt eraan, en Ongedaan maken zet alles terug. Op het spoor zetten zet een wagon alleen neer, of de aangevinkte gekoppeld. Klik op een wagon (op een telefoon: tik erop en sleep dan) voor zijn lading en Van het spoor halen.</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Lading</translation>
+    </message>
+    <message>
+        <source>Whether the car is loaded or empty, shown as a filled or an open mark on it.</source>
+        <translation>Of de wagon geladen of leeg is, met een gevuld of open teken erop.</translation>
+    </message>
+    <message>
+        <source>It is this layout’s own: a car on your roster has none, and saving a car to a roster leaves it out. Pick Doesn’t apply for a caboose or an engine.</source>
+        <translation>Die is alleen van deze lay-out: een wagon in je wagenpark heeft er geen, en bij opslaan in een wagenpark blijft die weg. Kies Niet van toepassing voor een remwagen of locomotief.</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>Plaatsen</translation>
     </message>
@@ -3834,6 +3858,14 @@
     <message>
         <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
         <translation>Beeld › Plaatsen toont elke standplaats en hoeveel wagons er passen. Plaatsen op het spoor van een module gaan mee met de module.</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>Wagons op het spoor</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
+        <translation>Sleep een wagon langs het spoor om hem te verplaatsen of los te koppelen; raakt hij een andere, dan koppelt hij. Klik op een wagon voor zijn lading.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -11125,6 +11157,81 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <translation>de trein</translation>
     </message>
     <message>
+        <source>Coupled to %1.</source>
+        <translation>Gekoppeld aan %1.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: two trains don’t couple.</source>
+        <translation>Gestopt tegen %1: twee treinen koppelen niet.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: there’s no coupler at that end.</source>
+        <translation>Gestopt tegen %1: er zit geen koppeling aan dat eind.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: a train can have up to %2 cars.</source>
+        <translation>Gestopt tegen %1: een trein kan hoogstens %2 wagons hebben.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1.</source>
+        <translation>Gestopt tegen %1.</translation>
+    </message>
+    <message>
+        <source>Someone else moved cars. Drag again.</source>
+        <translation>Iemand anders heeft wagons verplaatst. Sleep opnieuw.</translation>
+    </message>
+    <message>
+        <source>Move cars</source>
+        <translation>Wagons verplaatsen</translation>
+    </message>
+    <message>
+        <source>Couple cars</source>
+        <translation>Wagons koppelen</translation>
+    </message>
+    <message>
+        <source>Change load</source>
+        <translation>Lading wijzigen</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>Wagon van het spoor halen</translation>
+    </message>
+    <message>
+        <source>On its own</source>
+        <translation>Alleen</translation>
+    </message>
+    <message numerus="yes">
+        <source>Coupled to %n other(s)</source>
+        <translation>
+            <numerusform>Gekoppeld aan %n andere</numerusform>
+            <numerusform>Gekoppeld aan %n andere</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Lading</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Niet van toepassing</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Leeg</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Geladen</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>Van het spoor halen</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Treinen openen</translation>
+    </message>
+    <message>
         <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
         <translation>Klik op het spoor waar de voorkant van &lt;b&gt;%1&lt;/b&gt; komt.</translation>
     </message>
@@ -15702,6 +15809,17 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
 <context>
     <name>bld::ui::TrainDialog</name>
     <message>
+        <source>Cars</source>
+        <translation>Wagons</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 and %n more</source>
+        <translation>
+            <numerusform>%1 en nog %n</numerusform>
+            <numerusform>%1 en nog %n</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>New train</source>
         <translation>Nieuwe trein</translation>
     </message>
@@ -15817,6 +15935,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Rollend materieel</translation>
     </message>
     <message>
+        <source>A layout can have up to %1 cars.</source>
+        <translation>Een lay-out kan hoogstens %1 wagons hebben.</translation>
+    </message>
+    <message>
         <source>Added %1.</source>
         <translation>%1 toegevoegd.</translation>
     </message>
@@ -15864,8 +15986,16 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Trein omdraaien</translation>
     </message>
     <message>
+        <source>Take cars off the track</source>
+        <translation>Wagons van het spoor halen</translation>
+    </message>
+    <message>
         <source>Take train off the track</source>
         <translation>Trein van het spoor halen</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>Wagon van het spoor halen</translation>
     </message>
     <message>
         <source>Delete %1? Its cars stay.</source>
@@ -15920,6 +16050,17 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>%1 kiezen voor een nieuwe trein</translation>
     </message>
     <message>
+        <source>On the track, on its own</source>
+        <translation>Op het spoor, alleen</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the track, coupled to %n other(s)</source>
+        <translation>
+            <numerusform>Op het spoor, gekoppeld aan %n andere</numerusform>
+            <numerusform>Op het spoor, gekoppeld aan %n andere</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>In %1</source>
         <translation>In %1</translation>
     </message>
@@ -15930,6 +16071,26 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>From a roster</source>
         <translation>Uit een wagenpark</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Lading</translation>
+    </message>
+    <message>
+        <source>Load of %1</source>
+        <translation>Lading van %1</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Niet van toepassing</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Leeg</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Geladen</translation>
     </message>
     <message>
         <source>Change</source>
@@ -15964,6 +16125,14 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
         <translation>Verwijderen</translation>
     </message>
     <message>
+        <source>Put this car on the track</source>
+        <translation>Deze wagon op het spoor zetten</translation>
+    </message>
+    <message>
+        <source>Put these %1 cars on the track, coupled</source>
+        <translation>Deze %1 wagons gekoppeld op het spoor zetten</translation>
+    </message>
+    <message>
         <source>Make a train of this car</source>
         <translation>Een trein maken van deze wagon</translation>
     </message>
@@ -15978,6 +16147,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
         <translation>Nog geen treinen. Druk op Nieuwe trein, of vink wagons aan in Rollend materieel en maak er een trein van.</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>Wagons op het spoor</translation>
     </message>
     <message>
         <source>Untitled train</source>

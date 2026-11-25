@@ -164,6 +164,10 @@ public:
     // truck (or its part's picture), the head car's front pointed, numbers
     // on. The train being put on the track (or picked) is outlined.
     void setPickedTrain(const QString& id) { pickedTrain_ = id; }
+    // Where cars being dragged would stop (Live Ops design 2.3); drawn over the trains.
+    void showCarGhost(const core::Map& map, const std::vector<std::pair<core::Train, track::PlacedTrain>>& placed);
+    void clearCarGhost();
+    const QList<QGraphicsItem*>& carGhost() const { return carGhost_; }
     void refreshTrains(const core::Map& map);
     // Each train drawn, by id: its cars' body items, front first (tests).
     const QHash<QString, QList<QGraphicsItem*>>& trainItems() const { return trainCarsById_; }
@@ -346,6 +350,7 @@ private:
     std::vector<QPointF> runMarkSpots_;
     std::optional<QMap<QString, int>> switchStatesShown_;
     QString pickedTrain_;
+    QList<QGraphicsItem*> carGhost_;
     QList<QGraphicsItem*> trainItems_;
     QHash<QString, QList<QGraphicsItem*>> trainCarsById_;
     std::vector<core::RollingStock> drawnStock_;

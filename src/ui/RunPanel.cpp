@@ -1,5 +1,7 @@
 #include "RunPanel.h"
 
+#include "TrainDialogs.h"
+
 #include "RunSpeeds.h"
 #include "../core/Map.h"
 #include "help/HelpButton.h"
@@ -21,7 +23,7 @@ namespace bld::ui {
 namespace {
 
 QString trainName(const core::Map& map, const QString& id) {
-    for (const auto& t : map.sidecar.trains)
+    for (const auto& t : runnableTrains(map.sidecar))
         if (t.id == id) return t.name.isEmpty() ? RunPanel::tr("Train") : t.name;
     return RunPanel::tr("A train");
 }
@@ -172,7 +174,7 @@ void RunPanel::show(const core::Map& map, const RunView& view) {
     scale_->setEnabled(!view.readOnly);
     real_->setChecked(view.realSpeed);
 
-    const auto& trains = map.sidecar.trains;
+    const auto trains = runnableTrains(map.sidecar);
     empty_->setVisible(trains.empty());
     openTrains_->setVisible(trains.empty());
     clearLayout(trainsBox_);

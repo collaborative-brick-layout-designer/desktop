@@ -638,6 +638,13 @@
             <numerusform>%n switches on the way must be flipped while the train runs: it goes through them twice, set a different way each time.</numerusform>
         </translation>
     </message>
+    <message numerus="yes">
+        <source>Coupled to %n other(s)</source>
+        <translation>
+            <numerusform>Coupled to %n other</numerusform>
+            <numerusform>Coupled to %n others</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>bld::ui::ModuleShareDialog</name>
@@ -782,12 +789,29 @@
     </message>
 </context>
 <context>
+    <name>bld::ui::TrainDialog</name>
+    <message numerus="yes">
+        <source>%1 and %n more</source>
+        <translation>
+            <numerusform>%1 and %n more</numerusform>
+            <numerusform>%1 and %n more</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>bld::ui::TrainsPanel</name>
     <message numerus="yes">
         <source>Made %1 from %n car(s). Put it on the track to see it.</source>
         <translation>
             <numerusform>Made %1 from %n car. Put it on the track to see it.</numerusform>
             <numerusform>Made %1 from %n cars. Put it on the track to see it.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>On the track, coupled to %n other(s)</source>
+        <translation>
+            <numerusform>On the track, coupled to %n other</numerusform>
+            <numerusform>On the track, coupled to %n others</numerusform>
         </translation>
     </message>
     <message numerus="yes">

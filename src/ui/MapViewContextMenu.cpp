@@ -50,6 +50,13 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
         e->accept();
         return;
     }
+    // A car standing on the track: its own menu.
+    if (carsMove())
+        if (const auto car = carAt(mapToScene(e->pos()) / rendering::SceneBuilder::kPixelsPerStud)) {
+            showCarMenu(car->stock, e->globalPos());
+            e->accept();
+            return;
+        }
     // Snapshot the pre-selection state so the "attach ruler to brick" flow
     // can detect a selected-ruler + clicked-brick combination BEFORE the
     // auto-reselect below overwrites things.

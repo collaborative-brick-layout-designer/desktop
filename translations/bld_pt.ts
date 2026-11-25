@@ -783,6 +783,30 @@
         <translation>Escolha MILS, Placa base simples (placas soltas numa mesa normal) ou Personalizada, e escreva a altura medida, até ao tampo ou até ao topo dos carris. Para a corrente, diga quantas tomadas usa, cerca de quantos watts e de que lado sai a ficha. Guardar o módulo na biblioteca de módulos leva isto consigo.</translation>
     </message>
     <message>
+        <source>Cars on the track</source>
+        <translation>Carruagens na via</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track: it goes, with the cars on the side you drag it to, and the rest stay.</source>
+        <translation>Arraste uma carruagem ao longo da via: vai com as carruagens do lado para onde a arrasta, e as outras ficam.</translation>
+    </message>
+    <message>
+        <source>An engine takes everything coupled to it; a car that meets another couples to it, and Undo puts everything back. Put on the track puts a car on its own, or ticked ones there coupled. Click a car (on a phone, tap it, then drag) for its load and Take off the track.</source>
+        <translation>Uma locomotiva leva tudo o que tem engatado; uma carruagem que toca noutra engata-se, e Anular repõe tudo. Pôr na via põe uma carruagem sozinha, ou as assinaladas engatadas. Clique numa carruagem (no telemóvel, toque e depois arraste) para a carga e Tirar da via.</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Carga</translation>
+    </message>
+    <message>
+        <source>Whether the car is loaded or empty, shown as a filled or an open mark on it.</source>
+        <translation>Se a carruagem vai carregada ou vazia, com uma marca cheia ou aberta sobre ela.</translation>
+    </message>
+    <message>
+        <source>It is this layout’s own: a car on your roster has none, and saving a car to a roster leaves it out. Pick Doesn’t apply for a caboose or an engine.</source>
+        <translation>É só desta maquete: uma carruagem do seu parque não tem, e ao guardar num parque fica de fora. Escolha Não se aplica para um furgão ou uma locomotiva.</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>Locais</translation>
     </message>
@@ -3834,6 +3858,14 @@
     <message>
         <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
         <translation>Ver › Locais mostra cada posição e quantos vagões cabem. Os locais na linha de um módulo vão com o módulo.</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>Carruagens na via</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
+        <translation>Arraste uma carruagem ao longo da via para a mover ou desengatar; se tocar noutra, engata-se. Clique numa carruagem para a carga.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -11125,6 +11157,81 @@ Mantenha-o como %2 se ainda o abre noutro programa; Ficheiro › Exportar como m
         <translation>o comboio</translation>
     </message>
     <message>
+        <source>Coupled to %1.</source>
+        <translation>Engatada a %1.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: two trains don’t couple.</source>
+        <translation>Parou contra %1: dois comboios não se engatam.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: there’s no coupler at that end.</source>
+        <translation>Parou contra %1: não há engate nessa ponta.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: a train can have up to %2 cars.</source>
+        <translation>Parou contra %1: um comboio pode ter até %2 carruagens.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1.</source>
+        <translation>Parou contra %1.</translation>
+    </message>
+    <message>
+        <source>Someone else moved cars. Drag again.</source>
+        <translation>Outra pessoa moveu carruagens. Arraste de novo.</translation>
+    </message>
+    <message>
+        <source>Move cars</source>
+        <translation>Mover carruagens</translation>
+    </message>
+    <message>
+        <source>Couple cars</source>
+        <translation>Engatar carruagens</translation>
+    </message>
+    <message>
+        <source>Change load</source>
+        <translation>Alterar carga</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>Tirar carruagem da via</translation>
+    </message>
+    <message>
+        <source>On its own</source>
+        <translation>Sozinha</translation>
+    </message>
+    <message numerus="yes">
+        <source>Coupled to %n other(s)</source>
+        <translation>
+            <numerusform>Engatada a mais %n</numerusform>
+            <numerusform>Engatada a mais %n</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Carga</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Não se aplica</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Vazia</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Carregada</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>Tirar da via</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Abrir Comboios</translation>
+    </message>
+    <message>
         <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
         <translation>Clique na via onde fica a frente de &lt;b&gt;%1&lt;/b&gt;.</translation>
     </message>
@@ -15702,6 +15809,17 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
 <context>
     <name>bld::ui::TrainDialog</name>
     <message>
+        <source>Cars</source>
+        <translation>Carruagens</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 and %n more</source>
+        <translation>
+            <numerusform>%1 e mais %n</numerusform>
+            <numerusform>%1 e mais %n</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>New train</source>
         <translation>Novo comboio</translation>
     </message>
@@ -15817,6 +15935,10 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>Material circulante</translation>
     </message>
     <message>
+        <source>A layout can have up to %1 cars.</source>
+        <translation>Uma maquete pode ter até %1 carruagens.</translation>
+    </message>
+    <message>
         <source>Added %1.</source>
         <translation>%1 adicionada.</translation>
     </message>
@@ -15864,8 +15986,16 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>Inverter o comboio</translation>
     </message>
     <message>
+        <source>Take cars off the track</source>
+        <translation>Tirar carruagens da via</translation>
+    </message>
+    <message>
         <source>Take train off the track</source>
         <translation>Tirar o comboio da via</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>Tirar carruagem da via</translation>
     </message>
     <message>
         <source>Delete %1? Its cars stay.</source>
@@ -15920,6 +16050,17 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>Escolher %1 para um novo comboio</translation>
     </message>
     <message>
+        <source>On the track, on its own</source>
+        <translation>Na via, sozinha</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the track, coupled to %n other(s)</source>
+        <translation>
+            <numerusform>Na via, engatada a mais %n</numerusform>
+            <numerusform>Na via, engatada a mais %n</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>In %1</source>
         <translation>Em %1</translation>
     </message>
@@ -15930,6 +16071,26 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>From a roster</source>
         <translation>De um parque</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Carga</translation>
+    </message>
+    <message>
+        <source>Load of %1</source>
+        <translation>Carga de %1</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Não se aplica</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Vazia</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Carregada</translation>
     </message>
     <message>
         <source>Change</source>
@@ -15964,6 +16125,14 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
         <translation>Eliminar</translation>
     </message>
     <message>
+        <source>Put this car on the track</source>
+        <translation>Pôr esta carruagem na via</translation>
+    </message>
+    <message>
+        <source>Put these %1 cars on the track, coupled</source>
+        <translation>Pôr estas %1 carruagens na via, engatadas</translation>
+    </message>
+    <message>
         <source>Make a train of this car</source>
         <translation>Formar um comboio com esta carruagem</translation>
     </message>
@@ -15978,6 +16147,10 @@ Manter ambas: a do layout é adicionada com um novo número de peça, e este lay
     <message>
         <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
         <translation>Ainda não há comboios. Carregue em Novo comboio, ou marca carruagens em Material circulante e forme um comboio.</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>Carruagens na via</translation>
     </message>
     <message>
         <source>Untitled train</source>

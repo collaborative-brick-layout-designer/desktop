@@ -86,7 +86,8 @@
         { "target": "ops.places", "title": "Where cars go", "text": "Places are the industries, yards, staging and interchanges along your track. Open this list from Panels." },
         { "target": "places.new", "title": "Name a place", "text": "Press New place, then click the track where the cars stand. Give it a name and kind, and the cars it takes and sends." },
         { "target": "ops.spot", "title": "Spots", "text": "A place can have several spots. Each says how many cars fit, worked out from the track unless you type it." },
-        { "target": "map", "title": "On the map", "text": "View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module." }
+        { "target": "map", "title": "On the map", "text": "View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module." },
+        { "target": "map", "title": "Cars on the track", "text": "Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load." }
       ]
     },
     {

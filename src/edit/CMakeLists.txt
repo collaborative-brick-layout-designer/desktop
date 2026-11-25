@@ -15,6 +15,8 @@ add_library(bld_edit STATIC
     SharedModuleKeep.cpp
     SharedSettle.cpp
     SharedModulePlacement.h
+    CutCommands.cpp
+    CutCommands.h
     LabelCommands.cpp
     LabelCommands.h
     RotateTurn.cpp

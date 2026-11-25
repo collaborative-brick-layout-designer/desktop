@@ -1,0 +1,3231 @@
+{
+ "_about": "Cars on the track (Live Ops design 2.3): on the network of route-search.json, with the stock here. `settle`: what trains and cars (`cars`: each car's own opsCut) that people changed at once read as: each car in one place, none lost. `moves`: dragging the car at index `unit` of `train` to a point: which cars move, how far, what they couple to or stop against, and the records after (`over`: how they stand over switches). `takeOuts`: one car taken off the track. `limits`: what the apps hold a layout to. `valid`: what the server takes (a record's field). Web packages/parts-catalog/src/track/cuts.test.ts (BLD_WRITE_CONTRACTS=1 writes `expect`), desktop tests/track/CutsTest.cpp.",
+ "network": "route-search.json",
+ "limits": {
+  "units": 200,
+  "records": 2000
+ },
+ "stock": {
+  "a": {
+   "length": 12,
+   "trucks": [
+    {
+     "at": 3,
+     "swivelMax": 30
+    },
+    {
+     "at": -3,
+     "swivelMax": 30
+    }
+   ]
+  },
+  "b": {
+   "length": 12,
+   "trucks": [
+    {
+     "at": 4,
+     "swivelMax": 30
+    },
+    {
+     "at": -2,
+     "swivelMax": 30
+    }
+   ]
+  },
+  "c": {
+   "length": 12,
+   "trucks": [
+    {
+     "at": 3,
+     "swivelMax": 30
+    },
+    {
+     "at": -3,
+     "swivelMax": 30
+    }
+   ]
+  },
+  "d": {
+   "length": 12,
+   "trucks": [
+    {
+     "at": 3,
+     "swivelMax": 30
+    },
+    {
+     "at": -3,
+     "swivelMax": 30
+    }
+   ]
+  },
+  "e": {
+   "length": 12,
+   "trucks": [
+    {
+     "at": 3,
+     "swivelMax": 30
+    },
+    {
+     "at": -3,
+     "swivelMax": 30
+    }
+   ]
+  },
+  "f": {
+   "length": 12,
+   "trucks": [
+    {
+     "at": 3,
+     "swivelMax": 30
+    },
+    {
+     "at": -3,
+     "swivelMax": 30
+    }
+   ]
+  },
+  "x": {
+   "length": 12,
+   "kind": "engine",
+   "powered": true,
+   "trucks": [
+    {
+     "at": 3,
+     "swivelMax": 30
+    },
+    {
+     "at": -3,
+     "swivelMax": 30
+    }
+   ]
+  },
+  "n": {
+   "length": 12,
+   "trucks": [
+    {
+     "at": 3,
+     "swivelMax": 30
+    },
+    {
+     "at": -3,
+     "swivelMax": 30
+    }
+   ],
+   "couplers": {
+    "front": {
+     "type": "none",
+     "swivelMax": 37
+    },
+    "rear": {
+     "type": "none",
+     "swivelMax": 37
+    }
+   }
+  }
+ },
+ "settle": [
+  {
+   "name": "nothing to settle: plain trains may share a car",
+   "trains": [
+    {
+     "id": "p",
+     "name": "p",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40
+    },
+    {
+     "id": "q",
+     "name": "q",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40
+    }
+   ],
+   "expect": {
+    "p": [
+     "a"
+    ],
+    "q": [
+     "a"
+    ]
+   }
+  },
+  {
+   "name": "two people split one car off: its own record says which cut",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t3",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "T",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "cars": {
+    "a": "t1",
+    "b": "t1",
+    "c": "t3"
+   },
+   "expect": {
+    "t1": [
+     "a",
+     "b"
+    ],
+    "t2": [],
+    "t3": [
+     "c"
+    ]
+   }
+  },
+  {
+   "name": "two people split two cars off: the list that won still names one",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t3",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "T",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "cars": {
+    "a": "t1",
+    "b": "t2",
+    "c": "t3"
+   },
+   "expect": {
+    "t1": [
+     "a"
+    ],
+    "t2": [
+     "b"
+    ],
+    "t3": [
+     "c"
+    ]
+   }
+  },
+  {
+   "name": "two people couple to one cut: the car its list lost is at its end",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "",
+     "trackKind": "rail",
+     "units": [],
+     "position": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true,
+     "emptiedAt": 1
+    },
+    {
+     "id": "t3",
+     "name": "",
+     "trackKind": "rail",
+     "units": [],
+     "position": {
+      "brick": "T",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true,
+     "emptiedAt": 1
+    }
+   ],
+   "cars": {
+    "a": "t1",
+    "b": "t1",
+    "c": "t1"
+   },
+   "expect": {
+    "t1": [
+     "a",
+     "b",
+     "c"
+    ],
+    "t2": [],
+    "t3": []
+   }
+  },
+  {
+   "name": "coupled to a cut that was coupled away: it stands where that cut did",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "",
+     "trackKind": "rail",
+     "units": [],
+     "position": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true,
+     "emptiedAt": 1
+    }
+   ],
+   "cars": {
+    "a": "t1",
+    "b": "t1",
+    "c": "t2"
+   },
+   "expect": {
+    "t1": [
+     "a",
+     "b"
+    ],
+    "t2": [
+     "c"
+    ]
+   }
+  },
+  {
+   "name": "its cut was deleted, or is off the track: the list that names it, a train's before a cut's",
+   "trains": [
+    {
+     "id": "t2",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "z",
+     "name": "z",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40
+    },
+    {
+     "id": "off",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": null,
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "cars": {
+    "a": "gone",
+    "b": "off"
+   },
+   "expect": {
+    "t2": [],
+    "z": [
+     "a",
+     "b"
+    ],
+    "off": [
+     "b"
+    ]
+   }
+  },
+  {
+   "name": "named twice in one list: once",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "cars": {
+    "a": "t1"
+   },
+   "expect": {
+    "t1": [
+     "a",
+     "b"
+    ]
+   }
+  }
+ ],
+ "moves": [
+  {
+   "name": "the last car dragged back: it alone",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 2,
+   "to": [
+    6,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "c"
+    ],
+    "by": -29,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "new",
+       "name": "",
+       "cut": true,
+       "units": [
+        "c"
+       ],
+       "position": {
+        "brick": "A",
+        "from": 0,
+        "to": 1,
+        "s": 9,
+        "facing": "to"
+       },
+       "over": {}
+      },
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a",
+        "b"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 30,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {
+      "a": "t1",
+      "b": "t1",
+      "c": "new"
+     },
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "the first car dragged ahead: it alone",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    84,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": 25,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "new",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a"
+       ],
+       "position": {
+        "brick": "E",
+        "from": 0,
+        "to": 1,
+        "s": 7,
+        "facing": "to"
+       },
+       "over": {
+        "Q/0": 1
+       }
+      },
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "b",
+        "c"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 19,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {
+      "a": "new",
+      "b": "t1",
+      "c": "t1"
+     },
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "the middle car dragged ahead: it and the one ahead of it",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 1,
+   "to": [
+    70,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a",
+     "b"
+    ],
+    "by": 22,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "new",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a",
+        "b"
+       ],
+       "position": {
+        "brick": "E",
+        "from": 0,
+        "to": 1,
+        "s": 4,
+        "facing": "to"
+       },
+       "over": {
+        "Q/0": 1
+       }
+      },
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "c"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 6,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {
+      "a": "new",
+      "b": "new",
+      "c": "t1"
+     },
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "the middle car dragged back: it and the one behind it",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 1,
+   "to": [
+    20,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "b",
+     "c"
+    ],
+    "by": -28,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "new",
+       "name": "",
+       "cut": true,
+       "units": [
+        "b",
+        "c"
+       ],
+       "position": {
+        "brick": "P",
+        "from": 0,
+        "to": 1,
+        "s": 7,
+        "facing": "to"
+       },
+       "over": {}
+      },
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 30,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {
+      "a": "t1",
+      "b": "new",
+      "c": "new"
+     },
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "the last car dragged ahead: all of them",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 2,
+   "to": [
+    60,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a",
+     "b",
+     "c"
+    ],
+    "by": 25,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a",
+        "b",
+        "c"
+       ],
+       "position": {
+        "brick": "E",
+        "from": 0,
+        "to": 1,
+        "s": 7,
+        "facing": "to"
+       },
+       "over": {
+        "Q/0": 1
+       }
+      }
+     ],
+     "cars": {},
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "a hand's shake: nothing",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 1,
+   "to": [
+    48.2,
+    0
+   ],
+   "expect": null
+  },
+  {
+   "name": "an engine takes the whole train",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "t1",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "x",
+       "reversed": false
+      },
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    40,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "x",
+     "a",
+     "b"
+    ],
+    "by": -19,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t1",
+       "name": "t1",
+       "cut": false,
+       "units": [
+        "x",
+        "a",
+        "b"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 11,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {},
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "cars pulled off a train with an engine: the train keeps the engine",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "t1",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "x",
+       "reversed": false
+      },
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40
+    }
+   ],
+   "train": "t1",
+   "unit": 1,
+   "to": [
+    20,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a",
+     "b"
+    ],
+    "by": -27,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "new",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a",
+        "b"
+       ],
+       "position": {
+        "brick": "P",
+        "from": 0,
+        "to": 1,
+        "s": 7,
+        "facing": "to"
+       },
+       "over": {}
+      },
+      {
+       "id": "t1",
+       "name": "t1",
+       "cut": false,
+       "units": [
+        "x"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 30,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {
+      "a": "new",
+      "b": "new",
+      "x": "t1"
+     },
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "an engine's side moves: the rest is the new cut",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "t1",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "x",
+       "reversed": false
+      },
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40
+    }
+   ],
+   "train": "t1",
+   "unit": 1,
+   "to": [
+    70,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "x",
+     "a"
+    ],
+    "by": 23,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t1",
+       "name": "t1",
+       "cut": false,
+       "units": [
+        "x",
+        "a"
+       ],
+       "position": {
+        "brick": "E",
+        "from": 0,
+        "to": 1,
+        "s": 5,
+        "facing": "to"
+       },
+       "over": {
+        "Q/0": 1
+       }
+      },
+      {
+       "id": "new",
+       "name": "",
+       "cut": true,
+       "units": [
+        "b"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 7,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {
+      "a": "t1",
+      "b": "new",
+      "x": "t1"
+     },
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "to the end of the track and no further",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "A",
+      "from": 0,
+      "to": 1,
+      "s": 12,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    -30,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": -6,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a"
+       ],
+       "position": {
+        "brick": "A",
+        "from": 0,
+        "to": 1,
+        "s": 6,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {},
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "meets a cut's rear: couples",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "A",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "d",
+       "reversed": false
+      },
+      {
+       "stock": "e",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    35,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": 30,
+    "couples": "t2",
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t2",
+       "name": "",
+       "cut": true,
+       "units": [
+        "d",
+        "e",
+        "a"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 30,
+        "facing": "to"
+       },
+       "over": {
+        "Q/0": 1
+       }
+      }
+     ],
+     "cars": {
+      "a": "t2",
+      "d": "t2",
+      "e": "t2"
+     },
+     "emptied": [
+      "t1"
+     ]
+    }
+   }
+  },
+  {
+   "name": "meets a cut's front, that faces it: couples, turned",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "A",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "d",
+       "reversed": false
+      },
+      {
+       "stock": "e",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "from"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    40,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": 26,
+    "couples": "t2",
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t2",
+       "name": "",
+       "cut": true,
+       "units": [
+        "-a",
+        "d",
+        "e"
+       ],
+       "position": {
+        "brick": "P",
+        "from": 0,
+        "to": 1,
+        "s": 12,
+        "facing": "from"
+       },
+       "over": {
+        "P/0": 1
+       }
+      }
+     ],
+     "cars": {
+      "a": "t2",
+      "d": "t2",
+      "e": "t2"
+     },
+     "emptied": [
+      "t1"
+     ]
+    }
+   }
+  },
+  {
+   "name": "backs onto a cut's front: couples",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "d",
+       "reversed": false
+      },
+      {
+       "stock": "e",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    60,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": -14,
+    "couples": "t2",
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t2",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a",
+        "d",
+        "e"
+       ],
+       "position": {
+        "brick": "Q",
+        "from": 0,
+        "to": 1,
+        "s": 6,
+        "facing": "from"
+       },
+       "over": {
+        "Q/0": 1
+       }
+      }
+     ],
+     "cars": {
+      "a": "t2",
+      "d": "t2",
+      "e": "t2"
+     },
+     "emptied": [
+      "t1"
+     ]
+    }
+   }
+  },
+  {
+   "name": "backs onto a cut's rear",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "d",
+       "reversed": false
+      },
+      {
+       "stock": "e",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "from"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    60,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": -18,
+    "couples": "t2",
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t2",
+       "name": "",
+       "cut": true,
+       "units": [
+        "d",
+        "e",
+        "-a"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 8,
+        "facing": "from"
+       },
+       "over": {
+        "Q/0": 1
+       }
+      }
+     ],
+     "cars": {
+      "a": "t2",
+      "d": "t2",
+      "e": "t2"
+     },
+     "emptied": [
+      "t1"
+     ]
+    }
+   }
+  },
+  {
+   "name": "to a train: the train's record stays",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "A",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "t2",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "d",
+       "reversed": false
+      },
+      {
+       "stock": "e",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    35,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": 30,
+    "couples": "t2",
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t2",
+       "name": "t2",
+       "cut": false,
+       "units": [
+        "d",
+        "e",
+        "a"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 30,
+        "facing": "to"
+       },
+       "over": {
+        "Q/0": 1
+       }
+      }
+     ],
+     "cars": {
+      "a": "t2",
+      "d": "t2",
+      "e": "t2"
+     },
+     "emptied": [
+      "t1"
+     ]
+    }
+   }
+  },
+  {
+   "name": "to a train that faces it: the train's record and its front stay",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "A",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "t2",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "d",
+       "reversed": false
+      },
+      {
+       "stock": "e",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "from"
+     },
+     "color": "#B40000",
+     "speed": 40
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    40,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": 26,
+    "couples": "t2",
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t2",
+       "name": "t2",
+       "cut": false,
+       "units": [
+        "-a",
+        "d",
+        "e"
+       ],
+       "position": {
+        "brick": "P",
+        "from": 0,
+        "to": 1,
+        "s": 12,
+        "facing": "from"
+       },
+       "over": {
+        "P/0": 1
+       }
+      }
+     ],
+     "cars": {
+      "a": "t2",
+      "d": "t2",
+      "e": "t2"
+     },
+     "emptied": [
+      "t1"
+     ]
+    }
+   }
+  },
+  {
+   "name": "two trains don't couple",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "t1",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "A",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40
+    },
+    {
+     "id": "t2",
+     "name": "t2",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "d",
+       "reversed": false
+      },
+      {
+       "stock": "e",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    35,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": 30,
+    "couples": null,
+    "blockedBy": "t2",
+    "why": "trains",
+    "change": {
+     "trains": [
+      {
+       "id": "t1",
+       "name": "t1",
+       "cut": false,
+       "units": [
+        "a"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 6,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {},
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "no coupler: they stop against each other",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "n",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "A",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "d",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    52,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "n"
+    ],
+    "by": 42,
+    "couples": null,
+    "blockedBy": "t2",
+    "why": "coupler",
+    "change": {
+     "trains": [
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "n"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 18,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {},
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "the cut with the engine keeps its record",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "x",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "A",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "d",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    52,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "x"
+    ],
+    "by": 42,
+    "couples": "t2",
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "d",
+        "x"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 30,
+        "facing": "to"
+       },
+       "over": {
+        "Q/0": 1
+       }
+      }
+     ],
+     "cars": {
+      "d": "t1",
+      "x": "t1"
+     },
+     "emptied": [
+      "t2"
+     ]
+    }
+   }
+  },
+  {
+   "name": "a split that meets another cut couples to it",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    },
+    {
+     "id": "t2",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "d",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "E",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    84,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": 14,
+    "couples": "t2",
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t2",
+       "name": "",
+       "cut": true,
+       "units": [
+        "d",
+        "a"
+       ],
+       "position": {
+        "brick": "E",
+        "from": 0,
+        "to": 1,
+        "s": 8,
+        "facing": "to"
+       },
+       "over": {
+        "Q/0": 1
+       }
+      },
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "b"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 19,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {
+      "a": "t2",
+      "b": "t1",
+      "d": "t2"
+     },
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "over a switch as it is set, and it stays so",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "A",
+      "from": 0,
+      "to": 1,
+      "s": 14,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    24,
+    4
+   ],
+   "states": {
+    "P/0": 2
+   },
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": 14.272,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a"
+       ],
+       "position": {
+        "brick": "P",
+        "from": 0,
+        "to": 2,
+        "s": 12.272,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {},
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "trailing a switch set against it",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "B",
+      "from": 0,
+      "to": 1,
+      "s": 20,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    78,
+    0
+   ],
+   "states": {
+    "Q/0": 1
+   },
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": 31.569,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "new",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a"
+       ],
+       "position": {
+        "brick": "E",
+        "from": 0,
+        "to": 1,
+        "s": 1.024,
+        "facing": "to"
+       },
+       "over": {
+        "Q/0": 2
+       }
+      },
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "b"
+       ],
+       "position": {
+        "brick": "B",
+        "from": 0,
+        "to": 1,
+        "s": 9,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {
+      "a": "new",
+      "b": "t1"
+     },
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "backing over a switch flipped under it: the way it stands",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 4,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true,
+     "over": {
+      "P/0": 1
+     }
+    }
+   ],
+   "train": "t1",
+   "unit": 1,
+   "to": [
+    10,
+    0
+   ],
+   "states": {
+    "P/0": 2
+   },
+   "expect": {
+    "moved": [
+     "b"
+    ],
+    "by": -12,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "new",
+       "name": "",
+       "cut": true,
+       "units": [
+        "b"
+       ],
+       "position": {
+        "brick": "A",
+        "from": 0,
+        "to": 1,
+        "s": 13,
+        "facing": "to"
+       },
+       "over": {}
+      },
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 4,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {
+      "a": "t1",
+      "b": "new"
+     },
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "its track is gone",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "gone",
+      "from": 0,
+      "to": 1,
+      "s": 4,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    10,
+    0
+   ],
+   "expect": null
+  },
+  {
+   "name": "round a loop",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "T",
+      "from": 0,
+      "to": 1,
+      "s": 8,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 0,
+   "to": [
+    116,
+    8
+   ],
+   "expect": {
+    "moved": [
+     "a"
+    ],
+    "by": 35.566,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a"
+       ],
+       "position": {
+        "brick": "V",
+        "from": 0,
+        "to": 1,
+        "s": 1,
+        "facing": "from"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {},
+     "emptied": []
+    }
+   }
+  },
+  {
+   "name": "a car whose record is gone stays with the car before it",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "zz",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "train": "t1",
+   "unit": 2,
+   "to": [
+    6,
+    0
+   ],
+   "expect": {
+    "moved": [
+     "c"
+    ],
+    "by": -29,
+    "couples": null,
+    "blockedBy": null,
+    "why": null,
+    "change": {
+     "trains": [
+      {
+       "id": "new",
+       "name": "",
+       "cut": true,
+       "units": [
+        "c"
+       ],
+       "position": {
+        "brick": "A",
+        "from": 0,
+        "to": 1,
+        "s": 9,
+        "facing": "to"
+       },
+       "over": {}
+      },
+      {
+       "id": "t1",
+       "name": "",
+       "cut": true,
+       "units": [
+        "a",
+        "zz",
+        "b"
+       ],
+       "position": {
+        "brick": "M",
+        "from": 0,
+        "to": 1,
+        "s": 30,
+        "facing": "to"
+       },
+       "over": {}
+      }
+     ],
+     "cars": {
+      "a": "t1",
+      "b": "t1",
+      "c": "new",
+      "zz": "t1"
+     },
+     "emptied": []
+    }
+   }
+  }
+ ],
+ "takeOuts": [
+  {
+   "name": "the only car",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "car": "a",
+   "expect": {
+    "trains": [],
+    "cars": {
+     "a": null
+    },
+    "emptied": [
+     "t1"
+    ]
+   }
+  },
+  {
+   "name": "a train's only car",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "t1",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40
+    }
+   ],
+   "car": "a",
+   "expect": {
+    "trains": [
+     {
+      "id": "t1",
+      "name": "t1",
+      "cut": false,
+      "units": [],
+      "position": null,
+      "over": {}
+     }
+    ],
+    "cars": {
+     "a": null
+    },
+    "emptied": []
+   }
+  },
+  {
+   "name": "the first",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "car": "a",
+   "expect": {
+    "trains": [
+     {
+      "id": "t1",
+      "name": "",
+      "cut": true,
+      "units": [
+       "b",
+       "c"
+      ],
+      "position": {
+       "brick": "M",
+       "from": 0,
+       "to": 1,
+       "s": 19,
+       "facing": "to"
+      },
+      "over": {}
+     }
+    ],
+    "cars": {
+     "a": null
+    },
+    "emptied": []
+   }
+  },
+  {
+   "name": "the last",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "car": "c",
+   "expect": {
+    "trains": [
+     {
+      "id": "t1",
+      "name": "",
+      "cut": true,
+      "units": [
+       "a",
+       "b"
+      ],
+      "position": {
+       "brick": "M",
+       "from": 0,
+       "to": 1,
+       "s": 30,
+       "facing": "to"
+      },
+      "over": {}
+     }
+    ],
+    "cars": {
+     "c": null
+    },
+    "emptied": []
+   }
+  },
+  {
+   "name": "between: two cuts",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "car": "b",
+   "expect": {
+    "trains": [
+     {
+      "id": "t1",
+      "name": "",
+      "cut": true,
+      "units": [
+       "a"
+      ],
+      "position": {
+       "brick": "M",
+       "from": 0,
+       "to": 1,
+       "s": 30,
+       "facing": "to"
+      },
+      "over": {}
+     },
+     {
+      "id": "new",
+      "name": "",
+      "cut": true,
+      "units": [
+       "c"
+      ],
+      "position": {
+       "brick": "M",
+       "from": 0,
+       "to": 1,
+       "s": 6,
+       "facing": "to"
+      },
+      "over": {}
+     }
+    ],
+    "cars": {
+     "a": "t1",
+     "b": null,
+     "c": "new"
+    },
+    "emptied": []
+   }
+  },
+  {
+   "name": "between, the engine behind",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "t1",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "x",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40
+    }
+   ],
+   "car": "b",
+   "expect": {
+    "trains": [
+     {
+      "id": "new",
+      "name": "",
+      "cut": true,
+      "units": [
+       "a"
+      ],
+      "position": {
+       "brick": "M",
+       "from": 0,
+       "to": 1,
+       "s": 30,
+       "facing": "to"
+      },
+      "over": {}
+     },
+     {
+      "id": "t1",
+      "name": "t1",
+      "cut": false,
+      "units": [
+       "x"
+      ],
+      "position": {
+       "brick": "M",
+       "from": 0,
+       "to": 1,
+       "s": 6,
+       "facing": "to"
+      },
+      "over": {}
+     }
+    ],
+    "cars": {
+     "a": "new",
+     "b": null,
+     "x": "t1"
+    },
+    "emptied": []
+   }
+  },
+  {
+   "name": "not standing anywhere",
+   "trains": [
+    {
+     "id": "t1",
+     "name": "",
+     "trackKind": "rail",
+     "units": [
+      {
+       "stock": "a",
+       "reversed": false
+      },
+      {
+       "stock": "b",
+       "reversed": false
+      },
+      {
+       "stock": "c",
+       "reversed": false
+      }
+     ],
+     "position": {
+      "brick": "M",
+      "from": 0,
+      "to": 1,
+      "s": 30,
+      "facing": "to"
+     },
+     "color": "#B40000",
+     "speed": 40,
+     "cut": true
+    }
+   ],
+   "car": "f",
+   "expect": {
+    "trains": [],
+    "cars": {
+     "f": null
+    },
+    "emptied": []
+   }
+  }
+ ]
+}

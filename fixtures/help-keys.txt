@@ -48,6 +48,8 @@ dialog.exportImage
 dialog.exportPartList
 dialog.moduleLook
 dialog.moduleSetup
+ops.cut
+ops.load
 ops.places
 ops.spot
 module.setupSummary

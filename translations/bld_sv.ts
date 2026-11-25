@@ -783,6 +783,30 @@
         <translation>Välj MILS, Vanlig basplatta (lösa basplattor på ett vanligt bord) eller Egen, och skriv höjden du mätte, till bordsskivan eller till rälsens överkant. För ström: hur många uttag den använder, ungefär hur många watt och vilken sida kontakten kommer ut. När modulen sparas i modulbiblioteket följer det med.</translation>
     </message>
     <message>
+        <source>Cars on the track</source>
+        <translation>Vagnar på spåret</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track: it goes, with the cars on the side you drag it to, and the rest stay.</source>
+        <translation>Dra en vagn längs spåret: den går med vagnarna på den sida du drar den åt, och resten står kvar.</translation>
+    </message>
+    <message>
+        <source>An engine takes everything coupled to it; a car that meets another couples to it, and Undo puts everything back. Put on the track puts a car on its own, or ticked ones there coupled. Click a car (on a phone, tap it, then drag) for its load and Take off the track.</source>
+        <translation>Ett lok tar med allt som är kopplat till det; en vagn som möter en annan kopplas till den, och Ångra ställer tillbaka allt. Ställ på spåret ställer en vagn för sig, eller de ikryssade hopkopplade. Klicka på en vagn (på telefon: tryck på den och dra sedan) för lasten och Ta bort från spåret.</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Last</translation>
+    </message>
+    <message>
+        <source>Whether the car is loaded or empty, shown as a filled or an open mark on it.</source>
+        <translation>Om vagnen är lastad eller tom, visat som ett fyllt eller öppet märke på den.</translation>
+    </message>
+    <message>
+        <source>It is this layout’s own: a car on your roster has none, and saving a car to a roster leaves it out. Pick Doesn’t apply for a caboose or an engine.</source>
+        <translation>Den hör bara till den här layouten: en vagn i din vagnpark har ingen, och den utelämnas när du sparar i en vagnpark. Välj Inte aktuellt för en konduktörsvagn eller ett lok.</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>Platser</translation>
     </message>
@@ -3834,6 +3858,14 @@
     <message>
         <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
         <translation>Visa › Platser visar varje uppställning och hur många vagnar som ryms. Platser på en moduls spår följer modulen.</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>Vagnar på spåret</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
+        <translation>Dra en vagn längs spåret för att flytta den eller koppla loss den; möter den en annan kopplas de ihop. Klicka på en vagn för lasten.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -11125,6 +11157,81 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <translation>tåget</translation>
     </message>
     <message>
+        <source>Coupled to %1.</source>
+        <translation>Kopplad till %1.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: two trains don’t couple.</source>
+        <translation>Stannade mot %1: två tåg kopplas inte ihop.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: there’s no coupler at that end.</source>
+        <translation>Stannade mot %1: det finns inget koppel i den änden.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: a train can have up to %2 cars.</source>
+        <translation>Stannade mot %1: ett tåg kan ha upp till %2 vagnar.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1.</source>
+        <translation>Stannade mot %1.</translation>
+    </message>
+    <message>
+        <source>Someone else moved cars. Drag again.</source>
+        <translation>Någon annan flyttade vagnar. Dra igen.</translation>
+    </message>
+    <message>
+        <source>Move cars</source>
+        <translation>Flytta vagnar</translation>
+    </message>
+    <message>
+        <source>Couple cars</source>
+        <translation>Koppla vagnar</translation>
+    </message>
+    <message>
+        <source>Change load</source>
+        <translation>Ändra last</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>Ta bort vagn från spåret</translation>
+    </message>
+    <message>
+        <source>On its own</source>
+        <translation>För sig själv</translation>
+    </message>
+    <message numerus="yes">
+        <source>Coupled to %n other(s)</source>
+        <translation>
+            <numerusform>Kopplad till %n annan</numerusform>
+            <numerusform>Kopplad till %n andra</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Last</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Inte aktuellt</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Tom</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Lastad</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>Ta bort från spåret</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Öppna Tåg</translation>
+    </message>
+    <message>
         <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
         <translation>Klicka på spåret där fronten av &lt;b&gt;%1&lt;/b&gt; ska stå.</translation>
     </message>
@@ -15702,6 +15809,17 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
 <context>
     <name>bld::ui::TrainDialog</name>
     <message>
+        <source>Cars</source>
+        <translation>Vagnar</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 and %n more</source>
+        <translation>
+            <numerusform>%1 och %n till</numerusform>
+            <numerusform>%1 och %n till</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>New train</source>
         <translation>Nytt tåg</translation>
     </message>
@@ -15817,6 +15935,10 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Rullande materiel</translation>
     </message>
     <message>
+        <source>A layout can have up to %1 cars.</source>
+        <translation>En layout kan ha upp till %1 vagnar.</translation>
+    </message>
+    <message>
         <source>Added %1.</source>
         <translation>%1 tillagd.</translation>
     </message>
@@ -15864,8 +15986,16 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Vänd tåget</translation>
     </message>
     <message>
+        <source>Take cars off the track</source>
+        <translation>Ta bort vagnar från spåret</translation>
+    </message>
+    <message>
         <source>Take train off the track</source>
         <translation>Ta tåget från spåret</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>Ta bort vagn från spåret</translation>
     </message>
     <message>
         <source>Delete %1? Its cars stay.</source>
@@ -15920,6 +16050,17 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Välj %1 till ett nytt tåg</translation>
     </message>
     <message>
+        <source>On the track, on its own</source>
+        <translation>På spåret, för sig själv</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the track, coupled to %n other(s)</source>
+        <translation>
+            <numerusform>På spåret, kopplad till %n annan</numerusform>
+            <numerusform>På spåret, kopplad till %n andra</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>In %1</source>
         <translation>I %1</translation>
     </message>
@@ -15930,6 +16071,26 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>From a roster</source>
         <translation>Från en vagnpark</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Last</translation>
+    </message>
+    <message>
+        <source>Load of %1</source>
+        <translation>Last för %1</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Inte aktuellt</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Tom</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Lastad</translation>
     </message>
     <message>
         <source>Change</source>
@@ -15964,6 +16125,14 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
         <translation>Ta bort</translation>
     </message>
     <message>
+        <source>Put this car on the track</source>
+        <translation>Ställ den här vagnen på spåret</translation>
+    </message>
+    <message>
+        <source>Put these %1 cars on the track, coupled</source>
+        <translation>Ställ de här %1 vagnarna på spåret, hopkopplade</translation>
+    </message>
+    <message>
         <source>Make a train of this car</source>
         <translation>Gör ett tåg av den här vagnen</translation>
     </message>
@@ -15978,6 +16147,10 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
         <translation>Inga tåg än. Tryck Nytt tåg, eller kryssa för vagnar under Rullande materiel och gör ett tåg av dem.</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>Vagnar på spåret</translation>
     </message>
     <message>
         <source>Untitled train</source>

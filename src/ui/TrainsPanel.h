@@ -9,6 +9,7 @@
 
 #include "../core/Train.h"
 #include "../sync/LibraryApi.h"
+#include "../track/Cuts.h"
 
 #include <QDockWidget>
 #include <QHash>
@@ -64,6 +65,10 @@ public:
     void changeTrain(const QString& id);
     void turnAround(const QString& id);
     void takeOff(const QString& id);
+    // One car off the track.
+    void takeCarOff(const QString& stockId);
+    // Put the ticked cars on the track, coupled.
+    void placeTicked();
     bool removeTrain(const QString& id);
     // Rosters: add an entry to this layout (or bring its copy up to date), and save a car to one.
     void addFromRoster(const sync::RosterStock& entry);
@@ -83,6 +88,11 @@ signals:
     void stockRemoved(const QString& id, const QString& what);
     void trainEdited(const QString& id, const std::optional<core::Train>& after, const QString& what);
     void placeRequested(const QString& trainId);
+    // Cars put on the track, coupled; a change of where cars stand; a car's load.
+    void carsPlaceRequested(const QStringList& stockIds);
+    void cutChanged(const track::CutChange& change, const QString& what);
+    void carRemoved(const QString& stockId, const track::CutChange& first, const QString& what);
+    void loadChanged(const QString& stockId, const QString& load);
     // Import a model…: an LDraw, Studio or LDD model as an engine or car (MainWindow picks the file).
     void importModelRequested();
     void placeCancelled();
@@ -99,6 +109,7 @@ private:
     sync::LibraryApi& api();
     sync::LibraryApi api_;
     parts::PartsLibrary& parts_;
+    std::vector<core::Train> trains_;  // as they stand now (cuts with no cars left out)
     const core::Map* map_ = nullptr;
     ServerLibrary* library_ = nullptr;
     bool readOnly_ = false;
@@ -114,6 +125,7 @@ private:
     QPushButton* newStock_ = nullptr;
     QPushButton* fromRoster_ = nullptr;
     QPushButton* importModel_ = nullptr;
+    QPushButton* placeCars_ = nullptr;
     QPushButton* makeTrain_ = nullptr;
     QLabel* message_ = nullptr;
     FitChecksList* checks_ = nullptr;

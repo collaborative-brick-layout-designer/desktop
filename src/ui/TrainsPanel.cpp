@@ -9,11 +9,13 @@
 #include "../edit/venue/VenueUnits.h"
 #include "../saveload/SidecarIO.h"
 #include "../track/FitChecks.h"
-#include "../track/Trains.h"
+#include "../track/Cuts.h"
+#include "../edit/CutCommands.h"
 #include "help/HelpButton.h"
 #include "tours/Tours.h"
 
 #include <QCheckBox>
+#include <QComboBox>
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -134,6 +136,10 @@ TrainsPanel::TrainsPanel(parts::PartsLibrary& parts, QWidget* parent) : QDockWid
     stockEmpty_->setWordWrap(true);
     sv->addWidget(stockEmpty_);
     stockList_ = scrolled(stockPage, sv);
+    placeCars_ = new QPushButton(stockPage);
+    placeCars_->setObjectName(QStringLiteral("carsPlace"));
+    connect(placeCars_, &QPushButton::clicked, this, &TrainsPanel::placeTicked);
+    sv->addWidget(placeCars_);
     makeTrain_ = new QPushButton(stockPage);
     makeTrain_->setObjectName(QStringLiteral("trainFromTicked"));
     connect(makeTrain_, &QPushButton::clicked, this, [this] { makeTrainOfTicked(); });
@@ -160,6 +166,7 @@ TrainsPanel::TrainsPanel(parts::PartsLibrary& parts, QWidget* parent) : QDockWid
 
 void TrainsPanel::setMap(const core::Map* map) {
     map_ = map;
+    trains_ = map_ ? track::standingTrains(map_->sidecar) : std::vector<core::Train>{};
     // No cars yet: Rolling stock is where to start.
     if (map_ && map_->sidecar.rollingStock.empty()) tabs_->setCurrentIndex(1);
     // Ticks of cars no longer here go.
@@ -205,14 +212,17 @@ const core::RollingStock* TrainsPanel::stockById(const QString& id) const {
 }
 
 const core::Train* TrainsPanel::trainById(const QString& id) const {
-    if (!map_) return nullptr;
-    for (const auto& t : map_->sidecar.trains)
+    for (const auto& t : trains_)
         if (t.id == id) return &t;
     return nullptr;
 }
 
 void TrainsPanel::newStock() {
     if (!map_) return;
+    if (map_->sidecar.rollingStock.size() >= static_cast<size_t>(track::kMaxRecords)) {
+        say(tr("A layout can have up to %1 cars.").arg(track::kMaxRecords));
+        return;
+    }
     core::RollingStock s = core::simpleStock(core::newBbmId(), 32.0);
     s.color = nextColor(map_->sidecar.rollingStock, [](const core::RollingStock& x) { return x.color; });
     const auto made = editStock_(s, true);
@@ -235,11 +245,19 @@ bool TrainsPanel::removeStock(const QString& id) {
     const core::RollingStock* s = stockById(id);
     if (!s || !map_) return false;
     QStringList in;
-    for (const auto& t : map_->sidecar.trains)
-        if (std::any_of(t.units.begin(), t.units.end(), [&](const core::TrainUnit& u) { return u.stock == id; })) in << t.name;
+    for (const auto& t : trains_)
+        if (!t.cut && std::any_of(t.units.begin(), t.units.end(), [&](const core::TrainUnit& u) { return u.stock == id; })) in << t.name;
     const QString q = in.isEmpty() ? tr("Delete %1?").arg(stockLabel(*s))
                                    : tr("Delete %1 and take it out of %2?").arg(stockLabel(*s), in.join(QStringLiteral(", ")));
     if (!confirm_(q)) return false;
+    // The cars on either side of it stay where they stand.
+    const core::Train* at = track::standingIn(id, trains_);
+    if (at && at->cut) {
+        const auto byId = track::stockById(map_->sidecar);
+        const track::TrackNetwork net = track::trackNetworkOf(*map_, parts_);
+        emit carRemoved(id, track::takeOut(net, track::settleTrains(map_->sidecar.trains, byId), byId, map_->sidecar.switchStates, id, core::newBbmId()), tr("Delete car"));
+        return true;
+    }
     emit stockRemoved(id, tr("Delete car"));
     return true;
 }
@@ -254,7 +272,7 @@ QString TrainsPanel::makeTrainOfTicked() {
     if (!map_ || ticked_.isEmpty()) return {};
     core::Train t;
     t.id = core::newBbmId();
-    t.name = tr("Train %1").arg(map_->sidecar.trains.size() + 1);
+    t.name = tr("Train %1").arg(std::count_if(trains_.begin(), trains_.end(), [](const core::Train& x) { return !x.cut; }) + 1);
     t.color = nextColor(map_->sidecar.trains, [](const core::Train& x) { return x.color; });
     for (const QString& id : ticked_)
         if (stockById(id)) t.units.push_back({ id, false });
@@ -270,7 +288,7 @@ void TrainsPanel::newTrain() {
     if (!map_) return;
     core::Train t;
     t.id = core::newBbmId();
-    t.name = tr("Train %1").arg(map_->sidecar.trains.size() + 1);
+    t.name = tr("Train %1").arg(std::count_if(trains_.begin(), trains_.end(), [](const core::Train& x) { return !x.cut; }) + 1);
     t.color = nextColor(map_->sidecar.trains, [](const core::Train& x) { return x.color; });
     const auto made = editTrain_(t);
     if (!made || made->units.empty()) return;
@@ -283,29 +301,51 @@ void TrainsPanel::changeTrain(const QString& id) {
     if (!t) return;
     const auto changed = editTrain_(*t);
     if (!changed) return;
-    core::Train after = *changed;
-    if (after.units.empty()) after.position.reset();
-    say(tr("Saved %1.").arg(after.name));
-    emit trainEdited(id, after, tr("Change train"));
+    say(tr("Saved %1.").arg(changed->name));
+    const auto byId = track::stockById(map_->sidecar);
+    const track::TrackNetwork net = track::trackNetworkOf(*map_, parts_);
+    const auto standing = track::settleTrains(map_->sidecar.trains, byId);
+    // (Its color and speed are the dialog's too.)
+    emit cutChanged(track::changedTrain(net, standing, byId, map_->sidecar.switchStates, *changed), tr("Change train"));
 }
 
 void TrainsPanel::turnAround(const QString& id) {
     const core::Train* t = trainById(id);
     if (!t || !map_) return;
-    track::StockById stock;
-    for (const auto& s : map_->sidecar.rollingStock) stock.insert(s.id, s);
+    const auto stock = track::stockById(map_->sidecar);
     const track::TrackNetwork net = track::trackNetworkOf(*map_, parts_);
-    const core::Train after = track::turnedAround(net, *t, stock, map_->sidecar.switchStates);
-    say(tr("%1 turned around.").arg(t->name));
-    emit trainEdited(id, after, tr("Turn train around"));
+    const core::Train after = track::turnStanding(net, *t, stock, map_->sidecar.switchStates);
+    say(tr("%1 turned around.").arg(t->cut ? cutName(*t, stock) : t->name));
+    track::CutChange change;
+    change.trains.push_back(after);
+    emit cutChanged(change, tr("Turn train around"));
 }
 
 void TrainsPanel::takeOff(const QString& id) {
     const core::Train* t = trainById(id);
     if (!t || !t->position) return;
+    if (t->cut) {
+        emit cutChanged(edit::takeCutOff(map_->sidecar, id), tr("Take cars off the track"));
+        return;
+    }
     core::Train after = *t;
     after.position.reset();
     emit trainEdited(id, after, tr("Take train off the track"));
+}
+
+void TrainsPanel::takeCarOff(const QString& stockId) {
+    if (!map_) return;
+    const auto byId = track::stockById(map_->sidecar);
+    const track::TrackNetwork net = track::trackNetworkOf(*map_, parts_);
+    emit cutChanged(track::takeOut(net, track::settleTrains(map_->sidecar.trains, byId), byId, map_->sidecar.switchStates, stockId, core::newBbmId()),
+                    tr("Take car off the track"));
+}
+
+void TrainsPanel::placeTicked() {
+    const QStringList cars = ticked_;
+    ticked_.clear();
+    rebuild();
+    emit carsPlaceRequested(cars);
 }
 
 bool TrainsPanel::removeTrain(const QString& id) {
@@ -322,6 +362,11 @@ void TrainsPanel::addFromRoster(const sync::RosterStock& entry) {
         if (s.libraryId == entry.id) {
             QJsonObject r = entry.record;
             r.insert(QStringLiteral("id"), s.id);  // trains keep their cars
+            // (Where it stands and its load are this layout's.)
+            r.remove(QStringLiteral("opsCut"));
+            r.remove(QStringLiteral("opsLoad"));
+            if (s.opsCut) r.insert(QStringLiteral("opsCut"), *s.opsCut);
+            if (!s.opsLoad.isEmpty()) r.insert(QStringLiteral("opsLoad"), s.opsLoad);
             if (const auto up = saveload::rollingStockFromJson(r)) {
                 say(tr("Updated %1 from the roster.").arg(shown));
                 emit stockEdited(s.id, up, tr("Update car from roster"));
@@ -330,6 +375,8 @@ void TrainsPanel::addFromRoster(const sync::RosterStock& entry) {
         }
     QJsonObject r = entry.record;
     r.insert(QStringLiteral("id"), core::newBbmId());
+    r.remove(QStringLiteral("opsCut"));
+    r.remove(QStringLiteral("opsLoad"));
     if (const auto s = saveload::rollingStockFromJson(r)) {
         say(tr("Added %1 to this layout.").arg(shown));
         emit stockEdited(s->id, s, tr("Add car from roster"));
@@ -388,7 +435,7 @@ void TrainsPanel::saveToRoster(const QString& stockId, const QString& orgSlug) {
     const core::RollingStock* s = stockById(stockId);
     if (!s || !library_ || library_->token().isEmpty()) return;
     QJsonObject record = saveload::rollingStockToJson(*s);
-    for (const char* k : { "id", "libraryId", "libraryVersion" }) record.remove(QLatin1String(k));
+    for (const char* k : { "id", "libraryId", "libraryVersion", "opsCut", "opsLoad" }) record.remove(QLatin1String(k));
     const QString& id = stockId;
     const auto done = [this, id](const sync::RosterStock& e) {
         const core::RollingStock* now = stockById(id);
@@ -416,16 +463,16 @@ void TrainsPanel::rebuild() {
     importModel_->setEnabled(editable);
     const auto unit = edit::venue::accountLengthUnit();
     const std::vector<core::RollingStock> noStock;
-    const std::vector<core::Train> noTrains;
     const auto& stock = map_ ? map_->sidecar.rollingStock : noStock;
-    const auto& trains = map_ ? map_->sidecar.trains : noTrains;
+    const auto& trains = trains_;
+    const auto made = std::count_if(trains.begin(), trains.end(), [](const core::Train& t) { return !t.cut; });
     const QMap<QString, int> noStates;
     const auto& switchStates = map_ ? map_->sidecar.switchStates : noStates;
     track::StockById byId;
     for (const auto& s : stock) byId.insert(s.id, s);
-    const track::TrackNetwork net = map_ && !trains.empty() ? track::trackNetworkOf(*map_, parts_) : track::TrackNetwork();
+    const track::TrackNetwork net = map_ ? track::trackNetworkOf(*map_, parts_) : track::TrackNetwork();
     const bool hasTrack = !net.brickIds().isEmpty();
-    tabs_->setTabText(0, tr("Trains (%1)").arg(trains.size()));
+    tabs_->setTabText(0, tr("Trains (%1)").arg(made));
     tabs_->setTabText(1, tr("Rolling stock (%1)").arg(stock.size()));
 
     // Rolling stock.
@@ -454,10 +501,16 @@ void TrainsPanel::rebuild() {
         head->addWidget(name, 1);
         head->addWidget(new QLabel(edit::venue::formatLength(s.length, unit), row));
         v->addLayout(head);
+        const core::Train* standing = track::standingIn(s.id, trains);
         QStringList facts{ stockKindLabel(s.kind) };
+        const int others = standing ? static_cast<int>(standing->units.size()) - 1 : 0;
+        facts << (!standing ? tr("Not on the map")
+                  : !standing->cut ? tr("On the track")
+                  : others == 0 ? tr("On the track, on its own")
+                                : tr("On the track, coupled to %n other(s)", nullptr, others));
         QStringList in;
         for (const auto& t : trains)
-            if (std::any_of(t.units.begin(), t.units.end(), [&](const core::TrainUnit& u) { return u.stock == s.id; })) in << t.name;
+            if (!t.cut && std::any_of(t.units.begin(), t.units.end(), [&](const core::TrainUnit& u) { return u.stock == s.id; })) in << t.name;
         if (!in.isEmpty()) facts << tr("In %1").arg(in.join(QStringLiteral(", ")));
         const auto entry = roster_.constFind(s.libraryId);
         const bool newer = !s.libraryId.isEmpty() && entry != roster_.constEnd() && s.libraryVersion < entry->version;
@@ -467,6 +520,34 @@ void TrainsPanel::rebuild() {
         factLabel->setWordWrap(true);
         v->addWidget(factLabel);
         if (editable) {
+            auto* onTrack = new QHBoxLayout;
+            auto* place = new QPushButton(standing ? tr("Move") : tr("Put on the track"), row);
+            place->setObjectName(QStringLiteral("carPlace"));
+            place->setEnabled(hasTrack);
+            if (!hasTrack) place->setToolTip(tr("There’s no track on this layout yet."));
+            connect(place, &QPushButton::clicked, this, [this, id = s.id] { emit carsPlaceRequested({ id }); });
+            onTrack->addWidget(help::withHelp(place, QStringLiteral("ops.cut"), row));
+            if (standing) {
+                auto* off = new QPushButton(tr("Take off the track"), row);
+                off->setObjectName(QStringLiteral("carTakeOff"));
+                connect(off, &QPushButton::clicked, this, [this, id = s.id] { takeCarOff(id); });
+                onTrack->addWidget(off);
+            }
+            onTrack->addStretch(1);
+            v->addLayout(onTrack);
+            auto* loadRow = new QHBoxLayout;
+            loadRow->addWidget(new QLabel(tr("Load"), row));
+            auto* load = new QComboBox(row);
+            load->setObjectName(QStringLiteral("carLoad"));
+            load->setAccessibleName(tr("Load of %1").arg(stockLabel(s)));
+            load->addItem(tr("Doesn’t apply"), QString());
+            load->addItem(tr("Empty"), QStringLiteral("empty"));
+            load->addItem(tr("Loaded"), QStringLiteral("loaded"));
+            load->setCurrentIndex(std::max(0, load->findData(s.opsLoad)));
+            connect(load, &QComboBox::activated, this, [this, load, id = s.id] { emit loadChanged(id, load->currentData().toString()); });
+            loadRow->addWidget(help::withHelp(load, QStringLiteral("ops.load"), row));
+            loadRow->addStretch(1);
+            v->addLayout(loadRow);
             auto* actions = new QHBoxLayout;
             auto* change = new QPushButton(tr("Change"), row);
             change->setObjectName(QStringLiteral("stockChange"));
@@ -500,6 +581,10 @@ void TrainsPanel::rebuild() {
         }
         stockList_->insertWidget(at++, row);
     }
+    placeCars_->setVisible(editable && !ticked_.isEmpty());
+    placeCars_->setEnabled(hasTrack);
+    placeCars_->setToolTip(hasTrack ? QString() : tr("There’s no track on this layout yet."));
+    placeCars_->setText(ticked_.size() == 1 ? tr("Put this car on the track") : tr("Put these %1 cars on the track, coupled").arg(ticked_.size()));
     makeTrain_->setVisible(editable && !ticked_.isEmpty());
     makeTrain_->setText(ticked_.size() == 1 ? tr("Make a train of this car") : tr("Make a train of these %1 cars").arg(ticked_.size()));
 
@@ -520,11 +605,22 @@ void TrainsPanel::rebuild() {
     }
 
     // Trains.
-    trainsEmpty_->setVisible(trains.empty());
+    trainsEmpty_->setVisible(made == 0);
     trainsEmpty_->setText(stock.empty() ? tr("No trains yet. Make a car or two in Rolling stock first, then put them together here.")
                                         : tr("No trains yet. Press New train, or tick cars in Rolling stock and make a train of them."));
     at = 0;
-    for (const auto& t : trains) {
+    // Trains someone made, then the cars standing on the track on their own.
+    std::vector<core::Train> listed = trains;
+    std::stable_partition(listed.begin(), listed.end(), [](const core::Train& t) { return !t.cut; });
+    bool headed = false;
+    for (const auto& t : listed) {
+        if (t.cut && !headed) {
+            headed = true;
+            auto* title = new QLabel(tr("Cars on the track"));
+            title->setObjectName(QStringLiteral("cutsTitle"));
+            title->setStyleSheet(QStringLiteral("font-weight: 600;"));
+            trainList_->insertWidget(at++, help::withHelp(title, QStringLiteral("ops.cut"), this));
+        }
         const auto placed = t.position ? track::placeTrain(net, t, byId, switchStates) : std::nullopt;
         auto* row = new QFrame;
         row->setObjectName(QStringLiteral("train_") + t.id);
@@ -533,7 +629,7 @@ void TrainsPanel::rebuild() {
         v->setContentsMargins(8, 6, 8, 6);
         auto* head = new QHBoxLayout;
         head->addWidget(swatch(t.color, row));
-        auto* name = new QLabel(t.name.isEmpty() ? tr("Untitled train") : t.name, row);
+        auto* name = new QLabel(t.cut && t.name.isEmpty() ? cutName(t, byId) : t.name.isEmpty() ? tr("Untitled train") : t.name, row);
         name->setObjectName(QStringLiteral("trainName"));
         name->setStyleSheet(QStringLiteral("font-weight: 600;"));
         head->addWidget(name, 1);
@@ -576,6 +672,10 @@ void TrainsPanel::rebuild() {
             }
             actions->addStretch(1);
             v->addLayout(actions);
+            if (t.cut) {
+                trainList_->insertWidget(at++, row);
+                continue;
+            }
             auto* more = new QHBoxLayout;
             auto* change = new QPushButton(tr("Change"), row);
             change->setObjectName(QStringLiteral("trainChange"));

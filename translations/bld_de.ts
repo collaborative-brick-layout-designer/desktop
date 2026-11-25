@@ -783,6 +783,30 @@
         <translation>Wähl MILS, Einfache Grundplatte (lose Grundplatten auf einem normalen Tisch) oder Eigene und gib die gemessene Höhe ein, bis zur Tischplatte oder bis zur Schienenoberkante. Für den Strom gib an, wie viele Steckdosen es braucht, wie viele Watt ungefähr und auf welcher Seite der Stecker herauskommt. Beim Speichern des Moduls in der Modulbibliothek wird das mitgenommen.</translation>
     </message>
     <message>
+        <source>Cars on the track</source>
+        <translation>Wagen auf dem Gleis</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track: it goes, with the cars on the side you drag it to, and the rest stay.</source>
+        <translation>Zieh einen Wagen am Gleis entlang: Er fährt mit den Wagen auf der Seite, zu der du ihn ziehst, der Rest bleibt stehen.</translation>
+    </message>
+    <message>
+        <source>An engine takes everything coupled to it; a car that meets another couples to it, and Undo puts everything back. Put on the track puts a car on its own, or ticked ones there coupled. Click a car (on a phone, tap it, then drag) for its load and Take off the track.</source>
+        <translation>Eine Lok nimmt alles mit, was an ihr hängt; ein Wagen, der auf einen anderen trifft, kuppelt an, und Rückgängig stellt alles wieder her. „Aufs Gleis setzen“ setzt einen Wagen allein aufs Gleis oder die angehakten gekuppelt. Klick einen Wagen an (am Handy antippen, dann ziehen) für seine Ladung und „Vom Gleis nehmen“.</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Ladung</translation>
+    </message>
+    <message>
+        <source>Whether the car is loaded or empty, shown as a filled or an open mark on it.</source>
+        <translation>Ob der Wagen beladen oder leer ist, als gefüllte oder offene Markierung auf ihm.</translation>
+    </message>
+    <message>
+        <source>It is this layout’s own: a car on your roster has none, and saving a car to a roster leaves it out. Pick Doesn’t apply for a caboose or an engine.</source>
+        <translation>Sie gehört nur zu diesem Layout: Ein Wagen in deinem Fuhrpark hat keine, und beim Speichern in einen Fuhrpark bleibt sie weg. Wähle „Trifft nicht zu“ für einen Begleitwagen oder eine Lok.</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>Orte</translation>
     </message>
@@ -3834,6 +3858,14 @@
     <message>
         <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
         <translation>Ansicht › Orte zeigt jeden Stellplatz und wie viele Wagen er fasst. Orte auf dem Gleis eines Moduls gehen mit dem Modul mit.</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>Wagen auf dem Gleis</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
+        <translation>Zieh einen Wagen am Gleis entlang, um ihn zu bewegen oder abzukuppeln; trifft er auf einen anderen, kuppelt er an. Klick einen Wagen an für seine Ladung.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -11125,6 +11157,81 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
         <translation>den Zug</translation>
     </message>
     <message>
+        <source>Coupled to %1.</source>
+        <translation>An %1 gekuppelt.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: two trains don’t couple.</source>
+        <translation>Vor %1 angehalten: Zwei Züge kuppeln nicht.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: there’s no coupler at that end.</source>
+        <translation>Vor %1 angehalten: An diesem Ende ist keine Kupplung.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: a train can have up to %2 cars.</source>
+        <translation>Vor %1 angehalten: Ein Zug kann bis zu %2 Wagen haben.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1.</source>
+        <translation>Vor %1 angehalten.</translation>
+    </message>
+    <message>
+        <source>Someone else moved cars. Drag again.</source>
+        <translation>Jemand anderes hat Wagen bewegt. Zieh noch einmal.</translation>
+    </message>
+    <message>
+        <source>Move cars</source>
+        <translation>Wagen bewegen</translation>
+    </message>
+    <message>
+        <source>Couple cars</source>
+        <translation>Wagen kuppeln</translation>
+    </message>
+    <message>
+        <source>Change load</source>
+        <translation>Ladung ändern</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>Wagen vom Gleis nehmen</translation>
+    </message>
+    <message>
+        <source>On its own</source>
+        <translation>Allein</translation>
+    </message>
+    <message numerus="yes">
+        <source>Coupled to %n other(s)</source>
+        <translation>
+            <numerusform>Mit %n anderen gekuppelt</numerusform>
+            <numerusform>Mit %n anderen gekuppelt</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Ladung</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Trifft nicht zu</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Leer</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Beladen</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>Vom Gleis nehmen</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Züge öffnen</translation>
+    </message>
+    <message>
         <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
         <translation>Klick auf das Gleis, wo die Spitze von &lt;b&gt;%1&lt;/b&gt; hinsoll.</translation>
     </message>
@@ -15702,6 +15809,17 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
 <context>
     <name>bld::ui::TrainDialog</name>
     <message>
+        <source>Cars</source>
+        <translation>Wagen</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 and %n more</source>
+        <translation>
+            <numerusform>%1 und %n weiterer</numerusform>
+            <numerusform>%1 und %n weitere</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>New train</source>
         <translation>Neuer Zug</translation>
     </message>
@@ -15817,6 +15935,10 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>Fahrzeuge</translation>
     </message>
     <message>
+        <source>A layout can have up to %1 cars.</source>
+        <translation>Ein Layout kann bis zu %1 Wagen haben.</translation>
+    </message>
+    <message>
         <source>Added %1.</source>
         <translation>%1 hinzugefügt.</translation>
     </message>
@@ -15864,8 +15986,16 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>Zug umdrehen</translation>
     </message>
     <message>
+        <source>Take cars off the track</source>
+        <translation>Wagen vom Gleis nehmen</translation>
+    </message>
+    <message>
         <source>Take train off the track</source>
         <translation>Zug vom Gleis nehmen</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>Wagen vom Gleis nehmen</translation>
     </message>
     <message>
         <source>Delete %1? Its cars stay.</source>
@@ -15920,6 +16050,17 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>%1 für einen neuen Zug wählen</translation>
     </message>
     <message>
+        <source>On the track, on its own</source>
+        <translation>Auf dem Gleis, allein</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the track, coupled to %n other(s)</source>
+        <translation>
+            <numerusform>Auf dem Gleis, mit %n anderen gekuppelt</numerusform>
+            <numerusform>Auf dem Gleis, mit %n anderen gekuppelt</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>In %1</source>
         <translation>In %1</translation>
     </message>
@@ -15930,6 +16071,26 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>From a roster</source>
         <translation>Aus einem Fuhrpark</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Ladung</translation>
+    </message>
+    <message>
+        <source>Load of %1</source>
+        <translation>Ladung von %1</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Trifft nicht zu</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Leer</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Beladen</translation>
     </message>
     <message>
         <source>Change</source>
@@ -15964,6 +16125,14 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
         <translation>Löschen</translation>
     </message>
     <message>
+        <source>Put this car on the track</source>
+        <translation>Diesen Wagen aufs Gleis setzen</translation>
+    </message>
+    <message>
+        <source>Put these %1 cars on the track, coupled</source>
+        <translation>Diese %1 Wagen gekuppelt aufs Gleis setzen</translation>
+    </message>
+    <message>
         <source>Make a train of this car</source>
         <translation>Einen Zug aus diesem Wagen bilden</translation>
     </message>
@@ -15978,6 +16147,10 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
         <translation>Noch keine Züge. Drück Neuer Zug, oder hak Wagen unter Fahrzeuge an und bilde einen Zug daraus.</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>Wagen auf dem Gleis</translation>
     </message>
     <message>
         <source>Untitled train</source>

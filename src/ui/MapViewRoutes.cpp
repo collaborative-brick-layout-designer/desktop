@@ -7,6 +7,7 @@
 // start on a train's front is that train's route, the way it faces. The
 // web's RouteDraftBanner (editor/EditorPage.tsx) does the same.
 
+#include "TrainDialogs.h"
 #include "MapView.h"
 
 #include "../core/Ids.h"
@@ -108,7 +109,8 @@ void MapView::routeDraftClick(QPointF studs, bool shift) {
         for (const auto& s : map_->sidecar.rollingStock) stock.insert(s.id, s);
         const core::Train* onTrain = nullptr;
         core::TrainPosition head;
-        for (const auto& t : map_->sidecar.trains) {
+        const auto trains = namedTrains(map_->sidecar);
+        for (const auto& t : trains) {
             if (!t.position || !track::placeTrain(net, t, stock, map_->sidecar.switchStates)) continue;
             const core::TrainPosition at = *t.position;
             const auto p = net.pointAtPosition(at);
@@ -164,7 +166,7 @@ void MapView::refreshRouteDraft() {
     const auto* ok = found ? std::get_if<track::RouteFound>(&*found) : nullptr;
     QString trainName;
     if (!d.train.isEmpty())
-        for (const auto& t : map_ ? map_->sidecar.trains : std::vector<core::Train>{})
+        for (const auto& t : map_ ? namedTrains(map_->sidecar) : std::vector<core::Train>{})
             if (t.id == d.train) trainName = t.name.isEmpty() ? tr("the train") : t.name;
     const auto* problem = found ? std::get_if<track::RouteProblem>(&*found) : nullptr;
     QString text;

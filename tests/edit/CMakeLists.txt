@@ -14,6 +14,7 @@ add_executable(bld_edit_tests
     ConnectionCheckTest.cpp
     SwitchCommandsTest.cpp
     PlaceCommandsTest.cpp
+    CutCommandsTest.cpp
 )
 
 target_compile_definitions(bld_edit_tests PRIVATE BLD_SOURCE_DIR="${CMAKE_SOURCE_DIR}")

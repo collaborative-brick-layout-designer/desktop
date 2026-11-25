@@ -61,6 +61,7 @@ add_library(bld_ui STATIC
     MapViewSwitches.cpp
     MapViewRoutes.cpp
     MapViewTrains.cpp
+    MapViewCars.cpp
     MapViewRun.cpp
     RunPanel.cpp
     RunPanel.h

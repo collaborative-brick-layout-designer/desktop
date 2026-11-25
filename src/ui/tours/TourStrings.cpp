@@ -96,6 +96,8 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("Tours", "A place can have several spots. Each says how many cars fit, worked out from the track unless you type it."),
     QT_TRANSLATE_NOOP("Tours", "On the map"),
     QT_TRANSLATE_NOOP("Tours", "View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module."),
+    QT_TRANSLATE_NOOP("Tours", "Cars on the track"),
+    QT_TRANSLATE_NOOP("Tours", "Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load."),
     QT_TRANSLATE_NOOP("Tours", "Trains"),
     QT_TRANSLATE_NOOP("Tours", "Trains and cars"),
     QT_TRANSLATE_NOOP("Tours", "Open Trains from Panels. Rolling stock holds this layout's engines and cars; Trains holds the trains made of them."),
