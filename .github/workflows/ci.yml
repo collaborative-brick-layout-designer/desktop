@@ -1,15 +1,22 @@
 name: CI
 
+# On every pull request, and again on main after every merge: pull requests
+# merged close together were never tested together otherwise. The platform
+# builds and their tests run on main in nightly.yml.
 on:
   pull_request:
+    branches: [main]
+  push:
     branches: [main]
   workflow_dispatch:
 
 # A newer push to the same PR supersedes the running build.
 # One run per pull request: a newer push cancels the older run, which only
-# held a runner. Runs on main and tags are never cancelled.
+# held a runner. Runs on main and tags are never cancelled: each commit on
+# main is its own group, so its run always finishes (a queued run in a shared
+# group is dropped when a newer one queues).
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || (github.event_name == 'push' && github.sha) || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
@@ -21,6 +28,8 @@ env:
 jobs:
   commit-lint:
     name: Conventional Commits
+    # What a pull request adds; on main there is nothing to compare with.
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -51,6 +60,8 @@ jobs:
           echo "All commits follow conventional commit format."
 
   build:
+    # On main nightly.yml makes these.
+    if: github.event_name != 'push'
     uses: ./.github/workflows/build.yml
 
   sanitizers:
@@ -215,10 +226,11 @@ jobs:
         run: scripts/bluebrick-oracle/compat.sh bluebrick build/src/app/bld_convert parts/BlueBrickParts/parts
 
   lint:
-    # clang-tidy's bug-finding checks on the lines a pull request changes
+    # clang-tidy's bug-finding checks on the lines a pull request (or, on
+    # main, what was just merged) changes
     # (blocking) and clang-format on them (advisory); scripts/ci/lint-changes.sh.
     name: Lint changed lines
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -259,7 +271,9 @@ jobs:
           cmake --build build --parallel
 
       - name: Lint
-        run: scripts/ci/lint-changes.sh "origin/${{ github.base_ref }}" build
+        env:
+          BASE: ${{ github.event_name == 'push' && github.event.before || format('origin/{0}', github.base_ref) }}
+        run: scripts/ci/lint-changes.sh "$BASE" build
 
       # Every string marked for translation is in every .ts file, and no
       # .ts file keeps strings the source dropped (lupdate's view, whatever
