@@ -11,6 +11,7 @@
 #include "../track/FitChecks.h"
 #include "../track/Cuts.h"
 #include "../edit/CutCommands.h"
+#include "../edit/OpsCommands.h"
 #include "help/HelpButton.h"
 #include "tours/Tours.h"
 
@@ -249,7 +250,7 @@ bool TrainsPanel::removeStock(const QString& id) {
         if (!t.cut && std::any_of(t.units.begin(), t.units.end(), [&](const core::TrainUnit& u) { return u.stock == id; })) in << t.name;
     const QString q = in.isEmpty() ? tr("Delete %1?").arg(stockLabel(*s))
                                    : tr("Delete %1 and take it out of %2?").arg(stockLabel(*s), in.join(QStringLiteral(", ")));
-    if (!confirm_(q)) return false;
+    if (!confirm_(edit::pocketOf(*map_, id).isEmpty() ? q : q + QLatin1Char(' ') + tr("Its waybill stays, waiting for another car."))) return false;
     // The cars on either side of it stay where they stand.
     const core::Train* at = track::standingIn(id, trains_);
     if (at && at->cut) {
@@ -355,6 +356,13 @@ bool TrainsPanel::removeTrain(const QString& id) {
     return true;
 }
 
+namespace {
+// What a car does in this layout (Live Ops): never a roster's.
+void withoutOps(QJsonObject& r) {
+    for (const char* k : { "opsCut", "opsLoad", "opsWaybill", "opsHome", "opsAt", "opsHold" }) r.remove(QLatin1String(k));
+}
+}  // namespace
+
 void TrainsPanel::addFromRoster(const sync::RosterStock& entry) {
     if (!map_) return;
     const QString shown = QStringList{ entry.number, entry.name }.join(QLatin1Char(' ')).trimmed();
@@ -363,11 +371,14 @@ void TrainsPanel::addFromRoster(const sync::RosterStock& entry) {
             QJsonObject r = entry.record;
             r.insert(QStringLiteral("id"), s.id);  // trains keep their cars
             // (Where it stands and its load are this layout's.)
-            r.remove(QStringLiteral("opsCut"));
-            r.remove(QStringLiteral("opsLoad"));
-            if (s.opsCut) r.insert(QStringLiteral("opsCut"), *s.opsCut);
-            if (!s.opsLoad.isEmpty()) r.insert(QStringLiteral("opsLoad"), s.opsLoad);
-            if (const auto up = saveload::rollingStockFromJson(r)) {
+            withoutOps(r);
+            if (auto up = saveload::rollingStockFromJson(r)) {
+                up->opsCut = s.opsCut;
+                up->opsLoad = s.opsLoad;
+                up->opsWaybill = s.opsWaybill;
+                up->opsHome = s.opsHome;
+                up->opsAt = s.opsAt;
+                up->opsHold = s.opsHold;
                 say(tr("Updated %1 from the roster.").arg(shown));
                 emit stockEdited(s.id, up, tr("Update car from roster"));
             }
@@ -375,8 +386,7 @@ void TrainsPanel::addFromRoster(const sync::RosterStock& entry) {
         }
     QJsonObject r = entry.record;
     r.insert(QStringLiteral("id"), core::newBbmId());
-    r.remove(QStringLiteral("opsCut"));
-    r.remove(QStringLiteral("opsLoad"));
+    withoutOps(r);
     if (const auto s = saveload::rollingStockFromJson(r)) {
         say(tr("Added %1 to this layout.").arg(shown));
         emit stockEdited(s->id, s, tr("Add car from roster"));
@@ -435,7 +445,8 @@ void TrainsPanel::saveToRoster(const QString& stockId, const QString& orgSlug) {
     const core::RollingStock* s = stockById(stockId);
     if (!s || !library_ || library_->token().isEmpty()) return;
     QJsonObject record = saveload::rollingStockToJson(*s);
-    for (const char* k : { "id", "libraryId", "libraryVersion", "opsCut", "opsLoad" }) record.remove(QLatin1String(k));
+    for (const char* k : { "id", "libraryId", "libraryVersion" }) record.remove(QLatin1String(k));
+    withoutOps(record);
     const QString& id = stockId;
     const auto done = [this, id](const sync::RosterStock& e) {
         const core::RollingStock* now = stockById(id);

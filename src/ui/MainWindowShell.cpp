@@ -7,6 +7,7 @@
 
 #include "DesktopNotifier.h"
 #include "MainWindow.h"
+#include "LiveOpsPanel.h"
 #include "PlacesPanel.h"
 #include "RoutesPanel.h"
 #include "TrainsPanel.h"
@@ -183,6 +184,7 @@ void MainWindow::setupShell() {
     theme::PanelHeader::install(viewsPanel_, QStringLiteral("panel.views"), prefs);
     theme::PanelHeader::install(routesPanel_, QStringLiteral("panel.routes"), prefs);
     theme::PanelHeader::install(placesPanel_, QStringLiteral("ops.places"), prefs);
+    theme::PanelHeader::install(opsPanel_, QStringLiteral("ops.waybill"), prefs);
     theme::PanelHeader::install(trainsPanel_, QStringLiteral("panel.trains"), prefs);
     theme::PanelHeader::install(partUsagePanel_, QStringLiteral("panel.partsList"), prefs);
     theme::PanelHeader::install(modulesPanel_, QStringLiteral("panel.modules"), prefs);
@@ -611,7 +613,7 @@ void MainWindow::showTask(const QString& task) {
 
 QList<QDockWidget*> MainWindow::panelDocks() const {
     return { partsBrowser_, layerPanel_, viewsPanel_, partUsagePanel_,
-             modulesPanel_, moduleLibraryPanel_, venueLibraryPanel_, routesPanel_, trainsPanel_, placesPanel_ };
+             modulesPanel_, moduleLibraryPanel_, venueLibraryPanel_, routesPanel_, trainsPanel_, placesPanel_, opsPanel_ };
 }
 
 void MainWindow::openSettings() {

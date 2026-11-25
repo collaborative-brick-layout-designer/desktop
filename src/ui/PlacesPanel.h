@@ -44,8 +44,8 @@ public:
     // Open a place; `fresh`: just made, its name ready to type over.
     void openPlace(const QString& owner, const QString& id, bool fresh);
     const QString& openId() const { return openId_; }
-    // Asks before deleting (default: a Yes / No box).
-    void setConfirm(std::function<bool(const QString& name)> f) { confirm_ = std::move(f); }
+    // Asks before deleting (default: a Yes / No box); `uses`: what names the place.
+    void setConfirm(std::function<bool(const QString& name, const QString& uses)> f) { confirm_ = std::move(f); }
     // Draws waiting changes now (they are drawn once the event that made them is done).
     void drawNow();
 
@@ -94,7 +94,7 @@ private:
     QString openId_;
     bool fresh_ = false;
     QScrollArea* scroll_ = nullptr;
-    std::function<bool(const QString&)> confirm_;
+    std::function<bool(const QString&, const QString&)> confirm_;
 };
 
 }  // namespace bld::ui

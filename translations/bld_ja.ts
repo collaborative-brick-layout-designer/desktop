@@ -807,6 +807,78 @@
         <translation>このレイアウトだけのものです。車両リストの車両にはなく、車両リストに保存しても含まれません。車掌車や機関車には「該当なし」を選びます。</translation>
     </message>
     <message>
+        <source>Waybills</source>
+        <translation>運送状</translation>
+    </message>
+    <message>
+        <source>A waybill says where a car goes next: up to four legs, each a place, a spot if you like, and its load.</source>
+        <translation>運送状は、車両が次にどこへ行くかを示します。最大 4 区間で、それぞれに場所、必要なら停車位置、積荷があります。</translation>
+    </message>
+    <message>
+        <source>Delivered turns it to its next leg, and the car’s load with it; after the last one the car goes to its home. A waybill without a car waits for one: pick the car on it.</source>
+        <translation>「配達済み」で次の区間に進み、車両の積荷も変わります。最後の区間のあと、車両は所属場所へ戻ります。車両のない運送状は車両を待ちます。運送状で車両を選んでください。</translation>
+    </message>
+    <message>
+        <source>Make waybills</source>
+        <translation>運送状を作る</translation>
+    </message>
+    <message>
+        <source>Gives every car without a waybill somewhere to go, from what your places send out and take in.</source>
+        <translation>運送状のない車両すべてに、場所が送り出すものと受け入れるものから行き先を与えます。</translation>
+    </message>
+    <message>
+        <source>Each car is sent empty to a place that sends out its type, then loaded to one that takes it in; no place gets more cars than it holds. Shuffle picks again. You can change any of them afterward, and Undo takes them all back.</source>
+        <translation>各車両は、その種類を送り出す場所へ空で行き、次に受け入れる場所へ積んで行きます。収容数を超える場所はありません。「シャッフル」で選び直せます。あとでどれでも変更でき、元に戻すですべて取り消せます。</translation>
+    </message>
+    <message>
+        <source>Set aside and home</source>
+        <translation>取り置きと所属場所</translation>
+    </message>
+    <message>
+        <source>A car set aside stays where it is: no job takes it, and Make waybills passes it by.</source>
+        <translation>取り置きした車両はその場に残ります。どの仕業も運ばず、「運送状を作る」も飛ばします。</translation>
+    </message>
+    <message>
+        <source>Home is the place a car goes back to when it has no waybill, such as a yard or staging. A car that isn’t on the track can be at a place off the layout.</source>
+        <translation>所属場所は、運送状のない車両が戻る場所で、操車場や留置線などです。線路上にない車両は、レイアウトの外の場所にいることもできます。</translation>
+    </message>
+    <message>
+        <source>Jobs</source>
+        <translation>仕業</translation>
+    </message>
+    <message>
+        <source>A job is one crew’s work: the places it stops at, in order, and the train that does it.</source>
+        <translation>仕業は 1 組の乗務員の仕事です。停まる場所の順番と、それを行う列車を決めます。</translation>
+    </message>
+    <message>
+        <source>A car goes with the first job that stops where it is and, later on, where it goes; if there is none, by way of yards. Put the jobs in order with the arrows, and pick the job’s train so the cars on it are set out too.</source>
+        <translation>車両は、今いる場所に停まり、その先で行き先に停まる最初の仕業で運ばれます。なければ操車場を経由します。矢印で仕業を並べ、仕業の列車を選ぶと、その列車の車両も切り離されます。</translation>
+    </message>
+    <message>
+        <source>Switch list</source>
+        <translation>入換表</translation>
+    </message>
+    <message>
+        <source>What to set out and pick up at each stop, kept up to date as cars move and waybills and jobs change.</source>
+        <translation>各停車場所で切り離す車両と連結する車両です。車両、運送状、仕業が変わると更新されます。</translation>
+    </message>
+    <message>
+        <source>Cars to set out are listed nearest the engine first, and cars to pick up in the order they stand. A spot with no room is passed by, and spots for repairs and engines are left free.</source>
+        <translation>切り離す車両は機関車に近い順、連結する車両は並んでいる順です。空きのない停車位置は飛ばし、修理用と機関車用の停車位置は空けておきます。</translation>
+    </message>
+    <message>
+        <source>Can’t route</source>
+        <translation>経路なし</translation>
+    </message>
+    <message>
+        <source>Cars that have somewhere to go but no way there now, each with why.</source>
+        <translation>行き先はあるのに今は行く方法がない車両と、その理由です。</translation>
+    </message>
+    <message>
+        <source>Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <translation>何も失われません。仕業を足すか、空きを作るか、運送状を変えるまで、車両はその場に残ります。場所、線路、仕業を削除すると、その車両がここに出ます。</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>場所</translation>
     </message>
@@ -3804,10 +3876,6 @@
         <translation>「ポイントを切り替える」でルート上のポイントをすべてその向きにします。運転モードでは手で切り替えられます。</translation>
     </message>
     <message>
-        <source>Places</source>
-        <translation>場所</translation>
-    </message>
-    <message>
         <source>Where cars go</source>
         <translation>車両の行き先</translation>
     </message>
@@ -3846,6 +3914,22 @@
     <message>
         <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
         <translation>車両を線路に沿ってドラッグすると、移動や切り離しができ、別の車両に触れると連結します。車両をクリックすると積荷を選べます。</translation>
+    </message>
+    <message>
+        <source>Where each car goes</source>
+        <translation>車両の行き先</translation>
+    </message>
+    <message>
+        <source>Open Live Ops from Panels. Make waybills gives every car somewhere to go, and you can change any of them.</source>
+        <translation>パネルから Live Ops を開きます。「運送状を作る」で全車両に行き先ができ、どれでも変更できます。</translation>
+    </message>
+    <message>
+        <source>Jobs and switch lists</source>
+        <translation>仕業と入換表</translation>
+    </message>
+    <message>
+        <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
+        <translation>仕業は 1 組の乗務員の仕事で、停まる場所を並べたものです。入換表に切り離しと連結が出ます。</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -3974,6 +4058,10 @@
     <message>
         <source>Trains</source>
         <translation>列車</translation>
+    </message>
+    <message>
+        <source>Live Ops</source>
+        <translation>Live Ops</translation>
     </message>
     <message>
         <source>Trains and cars</source>
@@ -5095,6 +5183,14 @@
     <message>
         <source>Place &quot;%1&quot;</source>
         <translation>場所「%1」</translation>
+    </message>
+    <message>
+        <source>A waybill</source>
+        <translation>運送状</translation>
+    </message>
+    <message>
+        <source>Job &quot;%1&quot;</source>
+        <translation>仕業「%1」</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -6558,6 +6654,425 @@
     <message>
         <source>Reconnecting…</source>
         <translation>再接続しています…</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::LiveOpsPanel</name>
+    <message>
+        <source>Live Ops</source>
+        <translation>Live Ops</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>削除</translation>
+    </message>
+    <message>
+        <source>New waybill</source>
+        <translation>新しい運送状</translation>
+    </message>
+    <message>
+        <source>Make waybills</source>
+        <translation>運送状を作る</translation>
+    </message>
+    <message>
+        <source>Delivered</source>
+        <translation>配達済み</translation>
+    </message>
+    <message>
+        <source>Job %1</source>
+        <translation>仕業 %1</translation>
+    </message>
+    <message>
+        <source>New job</source>
+        <translation>新しい仕業</translation>
+    </message>
+    <message>
+        <source>Delete this waybill? The car stays where it is. You can undo this.</source>
+        <translation>この運送状を削除しますか？車両はその場に残ります。元に戻せます。</translation>
+    </message>
+    <message>
+        <source>Delete waybill</source>
+        <translation>運送状を削除</translation>
+    </message>
+    <message>
+        <source>Delete the job “%1”? Its cars and their waybills stay; another job takes them, or they’re listed under Can’t route. You can undo this.</source>
+        <translation>仕業「%1」を削除しますか？車両と運送状は残り、別の仕業が運ぶか、「経路なし」に出ます。元に戻せます。</translation>
+    </message>
+    <message>
+        <source>Delete job</source>
+        <translation>仕業を削除</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>モジュール</translation>
+    </message>
+    <message>
+        <source>(no name)</source>
+        <translation>（名前なし）</translation>
+    </message>
+    <message>
+        <source>Cars</source>
+        <translation>車両</translation>
+    </message>
+    <message>
+        <source>Waybills</source>
+        <translation>運送状</translation>
+    </message>
+    <message>
+        <source>Jobs</source>
+        <translation>仕業</translation>
+    </message>
+    <message>
+        <source>Cars go to places: industries, yards, staging and interchanges. There are none on this layout yet.</source>
+        <translation>車両は場所へ行きます。工場、操車場、留置線、受け渡し場所です。このレイアウトにはまだありません。</translation>
+    </message>
+    <message>
+        <source>Open Places</source>
+        <translation>場所を開く</translation>
+    </message>
+    <message>
+        <source>There are no cars on this layout yet.</source>
+        <translation>このレイアウトにはまだ車両がありません。</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>列車を開く</translation>
+    </message>
+    <message>
+        <source>Can’t route (%1)</source>
+        <translation>経路なし (%1)</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>見せて</translation>
+    </message>
+    <message>
+        <source>Waybill</source>
+        <translation>運送状</translation>
+    </message>
+    <message>
+        <source>At %1</source>
+        <translation>%1 にいます</translation>
+    </message>
+    <message>
+        <source>On the track, at no place</source>
+        <translation>線路上、どの場所でもない</translation>
+    </message>
+    <message>
+        <source>Not on the track</source>
+        <translation>線路上にない</translation>
+    </message>
+    <message>
+        <source>Set aside</source>
+        <translation>取り置き</translation>
+    </message>
+    <message>
+        <source>Set a car aside</source>
+        <translation>車両を取り置き</translation>
+    </message>
+    <message>
+        <source>Home</source>
+        <translation>所属場所</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>なし</translation>
+    </message>
+    <message>
+        <source>Change a car’s home</source>
+        <translation>車両の所属場所を変更</translation>
+    </message>
+    <message>
+        <source>Where it is</source>
+        <translation>いる場所</translation>
+    </message>
+    <message>
+        <source>Nowhere</source>
+        <translation>どこでもない</translation>
+    </message>
+    <message>
+        <source>Change where a car is</source>
+        <translation>車両のいる場所を変更</translation>
+    </message>
+    <message>
+        <source>Make waybills…</source>
+        <translation>運送状を作る…</translation>
+    </message>
+    <message>
+        <source>No waybills yet. A waybill says where a car goes next: make one for every car at once, or write one.</source>
+        <translation>運送状はまだありません。運送状は、車両が次にどこへ行くかを示します。全車両分をまとめて作るか、1 枚書いてください。</translation>
+    </message>
+    <message>
+        <source>Waiting for a car</source>
+        <translation>車両待ち</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation>完了</translation>
+    </message>
+    <message>
+        <source>No legs yet</source>
+        <translation>区間はまだありません</translation>
+    </message>
+    <message>
+        <source>1 car</source>
+        <translation>1 両</translation>
+    </message>
+    <message>
+        <source>%1 cars</source>
+        <translation>%1 両</translation>
+    </message>
+    <message>
+        <source>No car can get one:</source>
+        <translation>作れる車両がありません:</translation>
+    </message>
+    <message>
+        <source>Every car that isn’t set aside has a waybill.</source>
+        <translation>取り置き以外の全車両に運送状があります。</translation>
+    </message>
+    <message>
+        <source>Every car has a waybill.</source>
+        <translation>全車両に運送状があります。</translation>
+    </message>
+    <message>
+        <source>, then </source>
+        <translation>、次に </translation>
+    </message>
+    <message>
+        <source>Left without:</source>
+        <translation>作られないもの:</translation>
+    </message>
+    <message>
+        <source>%1 without a type (set it in Trains).</source>
+        <translation>%1 は種類がありません（列車で設定）。</translation>
+    </message>
+    <message>
+        <source>%1 no two places send out and take in (set what each place sends out and takes in).</source>
+        <translation>%1 は、送り出す場所と受け入れる場所の組がありません（場所ごとに設定）。</translation>
+    </message>
+    <message>
+        <source>%1 with no room left at the places they’d go to.</source>
+        <translation>%1 は行き先に空きがありません。</translation>
+    </message>
+    <message>
+        <source>Add 1 waybill</source>
+        <translation>運送状を 1 枚追加</translation>
+    </message>
+    <message>
+        <source>Add %1 waybills</source>
+        <translation>運送状を %1 枚追加</translation>
+    </message>
+    <message>
+        <source>Shuffle</source>
+        <translation>シャッフル</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>キャンセル</translation>
+    </message>
+    <message>
+        <source>Change waybill</source>
+        <translation>運送状を変更</translation>
+    </message>
+    <message>
+        <source>← All waybills</source>
+        <translation>← すべての運送状</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>車両</translation>
+    </message>
+    <message>
+        <source>%1 (has a waybill)</source>
+        <translation>%1（運送状あり）</translation>
+    </message>
+    <message>
+        <source>Give a waybill to a car</source>
+        <translation>車両に運送状を渡す</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>開始</translation>
+    </message>
+    <message>
+        <source>Not said</source>
+        <translation>指定なし</translation>
+    </message>
+    <message>
+        <source>Leg %1 · now</source>
+        <translation>区間 %1・現在</translation>
+    </message>
+    <message>
+        <source>Leg %1</source>
+        <translation>区間 %1</translation>
+    </message>
+    <message>
+        <source>Not used</source>
+        <translation>使わない</translation>
+    </message>
+    <message>
+        <source>Leg %1 goes to</source>
+        <translation>区間 %1 の行き先</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>停車位置</translation>
+    </message>
+    <message>
+        <source>Any</source>
+        <translation>どれでも</translation>
+    </message>
+    <message>
+        <source>A spot</source>
+        <translation>停車位置</translation>
+    </message>
+    <message>
+        <source>One that was deleted (any)</source>
+        <translation>削除された停車位置（どれでも）</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>積荷</translation>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation>お知らせ</translation>
+    </message>
+    <message>
+        <source>It has left the layout</source>
+        <translation>レイアウトから出ました</translation>
+    </message>
+    <message>
+        <source>The waybill turns to its next leg, and the load with it.</source>
+        <translation>運送状が次の区間に進み、積荷も変わります。</translation>
+    </message>
+    <message>
+        <source>Start it again</source>
+        <translation>最初からやり直す</translation>
+    </message>
+    <message>
+        <source>Start a waybill again</source>
+        <translation>運送状を最初からやり直す</translation>
+    </message>
+    <message>
+        <source>Delete this waybill</source>
+        <translation>この運送状を削除</translation>
+    </message>
+    <message>
+        <source>No jobs yet. A job is one crew’s work: the places it stops at, in order. Cars with a waybill are given to the first job that can take them.</source>
+        <translation>仕業はまだありません。仕業は 1 組の乗務員の仕事で、停まる場所を順に並べたものです。運送状のある車両は、運べる最初の仕業に割り当てられます。</translation>
+    </message>
+    <message>
+        <source>A job</source>
+        <translation>仕業</translation>
+    </message>
+    <message>
+        <source>Move %1 up</source>
+        <translation>%1 を上へ</translation>
+    </message>
+    <message>
+        <source>Move %1 down</source>
+        <translation>%1 を下へ</translation>
+    </message>
+    <message>
+        <source>Move job</source>
+        <translation>仕業を移動</translation>
+    </message>
+    <message>
+        <source>Change job</source>
+        <translation>仕業を変更</translation>
+    </message>
+    <message>
+        <source>← All jobs</source>
+        <translation>← すべての仕業</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>名前</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>種類</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>列車</translation>
+    </message>
+    <message>
+        <source>None yet</source>
+        <translation>まだなし</translation>
+    </message>
+    <message>
+        <source>A train that was deleted</source>
+        <translation>削除された列車</translation>
+    </message>
+    <message>
+        <source>Stops</source>
+        <translation>停車場所</translation>
+    </message>
+    <message>
+        <source>Move stop</source>
+        <translation>停車場所を移動</translation>
+    </message>
+    <message>
+        <source>Remove %1</source>
+        <translation>%1 を外す</translation>
+    </message>
+    <message>
+        <source>Remove stop</source>
+        <translation>停車場所を外す</translation>
+    </message>
+    <message>
+        <source>No track joins the stop before to %1.</source>
+        <translation>前の停車場所から %1 へつながる線路がありません。</translation>
+    </message>
+    <message>
+        <source>Add its first stop…</source>
+        <translation>最初の停車場所を追加…</translation>
+    </message>
+    <message>
+        <source>Add a stop…</source>
+        <translation>停車場所を追加…</translation>
+    </message>
+    <message>
+        <source>Add a stop</source>
+        <translation>停車場所を追加</translation>
+    </message>
+    <message>
+        <source>Add stop</source>
+        <translation>停車場所を追加</translation>
+    </message>
+    <message>
+        <source>Switch list</source>
+        <translation>入換表</translation>
+    </message>
+    <message>
+        <source>Add the places it stops at.</source>
+        <translation>停まる場所を追加してください。</translation>
+    </message>
+    <message>
+        <source>Nothing to do: no car goes by this job now.</source>
+        <translation>することはありません。今この仕業で運ぶ車両はありません。</translation>
+    </message>
+    <message>
+        <source>a spot</source>
+        <translation>停車位置</translation>
+    </message>
+    <message>
+        <source>Set out %1</source>
+        <translation>%1 を切り離す</translation>
+    </message>
+    <message>
+        <source>Set out %1 at %2</source>
+        <translation>%1 を %2 で切り離す</translation>
+    </message>
+    <message>
+        <source>Pick up %1 for %2</source>
+        <translation>%1 を連結（%2 行き）</translation>
+    </message>
+    <message>
+        <source>Delete this job</source>
+        <translation>この仕業を削除</translation>
     </message>
 </context>
 <context>
@@ -10184,6 +10699,14 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>場所</translation>
     </message>
     <message>
+        <source>waybills</source>
+        <translation>運送状</translation>
+    </message>
+    <message>
+        <source>jobs</source>
+        <translation>仕業</translation>
+    </message>
+    <message>
         <source>the train scale</source>
         <translation>列車の縮尺</translation>
     </message>
@@ -11142,6 +11665,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     <message>
         <source>Take off the track</source>
         <translation>線路から外す</translation>
+    </message>
+    <message>
+        <source>Waybill and Live Ops</source>
+        <translation>運送状と Live Ops</translation>
     </message>
     <message>
         <source>Open Trains</source>
@@ -12281,6 +12808,197 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     <message>
         <source>Notifications</source>
         <translation>通知</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::OpsText</name>
+    <message>
+        <source>A place that was deleted</source>
+        <translation>削除された場所</translation>
+    </message>
+    <message>
+        <source>a spot</source>
+        <translation>停車位置</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>削除された車両</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>積車</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>空</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>該当なし</translation>
+    </message>
+    <message>
+        <source>Loaded to %1</source>
+        <translation>積車で %1 へ</translation>
+    </message>
+    <message>
+        <source>Empty to %1</source>
+        <translation>空で %1 へ</translation>
+    </message>
+    <message>
+        <source>To %1</source>
+        <translation>%1 へ</translation>
+    </message>
+    <message>
+        <source>Nowhere to go: it stays.</source>
+        <translation>行き先なし: その場に残ります。</translation>
+    </message>
+    <message>
+        <source>Home to %1</source>
+        <translation>所属場所 %1 へ</translation>
+    </message>
+    <message>
+        <source>%1: it’s there</source>
+        <translation>%1: 到着済み</translation>
+    </message>
+    <message>
+        <source>a job</source>
+        <translation>仕業</translation>
+    </message>
+    <message>
+        <source>%1, with %2 first</source>
+        <translation>%1、まず %2 で</translation>
+    </message>
+    <message>
+        <source>%1, with %2</source>
+        <translation>%1、%2 で</translation>
+    </message>
+    <message>
+        <source>It’s set aside.</source>
+        <translation>取り置きされています。</translation>
+    </message>
+    <message>
+        <source>It isn’t on the track. Put it on the track, or say which place off the layout it’s at.</source>
+        <translation>線路上にありません。線路に置くか、レイアウトの外のどの場所にいるかを指定してください。</translation>
+    </message>
+    <message>
+        <source>It isn’t at a place.</source>
+        <translation>どの場所にもいません。</translation>
+    </message>
+    <message>
+        <source>There are too many jobs and places to work out its way.</source>
+        <translation>仕業と場所が多すぎて経路を計算できません。</translation>
+    </message>
+    <message>
+        <source>Its home was deleted. Pick another.</source>
+        <translation>所属場所が削除されました。別の場所を選んでください。</translation>
+    </message>
+    <message>
+        <source>The place it goes to was deleted. Pick another on its waybill.</source>
+        <translation>行き先の場所が削除されました。運送状で別の場所を選んでください。</translation>
+    </message>
+    <message>
+        <source>No track joins %1 to %2.</source>
+        <translation>%1 から %2 へつながる線路がありません。</translation>
+    </message>
+    <message>
+        <source>The job whose train it’s on doesn’t go to %1.</source>
+        <translation>この車両の列車の仕業は %1 へ行きません。</translation>
+    </message>
+    <message>
+        <source>No job stops at %1.</source>
+        <translation>%1 に停まる仕業がありません。</translation>
+    </message>
+    <message>
+        <source>No job goes from %1 to %2.</source>
+        <translation>%1 から %2 へ行く仕業がありません。</translation>
+    </message>
+    <message>
+        <source>%1 is full (%2 of %3).</source>
+        <translation>%1 は満車です（%2 / %3）。</translation>
+    </message>
+    <message>
+        <source>%1 is full.</source>
+        <translation>%1 は満車です。</translation>
+    </message>
+    <message>
+        <source>Local</source>
+        <translation>区間貨物</translation>
+    </message>
+    <message>
+        <source>Yard job</source>
+        <translation>操車場の仕業</translation>
+    </message>
+    <message>
+        <source>Through freight</source>
+        <translation>直通貨物</translation>
+    </message>
+    <message>
+        <source>Turn</source>
+        <translation>回転</translation>
+    </message>
+    <message>
+        <source>Works the industries along the way.</source>
+        <translation>途中の工場を回ります。</translation>
+    </message>
+    <message>
+        <source>Sorts cars in a yard.</source>
+        <translation>操車場で車両を仕分けます。</translation>
+    </message>
+    <message>
+        <source>Runs from one yard or staging to another.</source>
+        <translation>操車場や留置線の間を走ります。</translation>
+    </message>
+    <message>
+        <source>Goes out, works, and comes back.</source>
+        <translation>出て、仕事をして、戻ります。</translation>
+    </message>
+    <message>
+        <source>1 stop</source>
+        <translation>停車 1 か所</translation>
+    </message>
+    <message>
+        <source>%1 stops</source>
+        <translation>停車 %1 か所</translation>
+    </message>
+    <message>
+        <source>no work</source>
+        <translation>仕事なし</translation>
+    </message>
+    <message>
+        <source>1 move</source>
+        <translation>1 件</translation>
+    </message>
+    <message>
+        <source>%1 moves</source>
+        <translation>%1 件</translation>
+    </message>
+    <message>
+        <source>1 waybill</source>
+        <translation>運送状 1 枚</translation>
+    </message>
+    <message>
+        <source>%1 waybills</source>
+        <translation>運送状 %1 枚</translation>
+    </message>
+    <message>
+        <source>1 job</source>
+        <translation>仕業 1 件</translation>
+    </message>
+    <message>
+        <source>%1 jobs</source>
+        <translation>仕業 %1 件</translation>
+    </message>
+    <message>
+        <source>1 car’s home</source>
+        <translation>車両 1 両の所属場所</translation>
+    </message>
+    <message>
+        <source>%1 cars’ homes</source>
+        <translation>車両 %1 両の所属場所</translation>
+    </message>
+    <message>
+        <source>In use by %1: nothing is lost, and those cars are listed under Can’t route in Live Ops until you send them somewhere else.</source>
+        <translation>使用中: %1。何も失われません。別の行き先を選ぶまで、その車両は Live Ops の「経路なし」に出ます。</translation>
     </message>
 </context>
 <context>
@@ -15856,6 +16574,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Delete %1 and take it out of %2?</source>
         <translation>%1を削除して%2から外しますか?</translation>
+    </message>
+    <message>
+        <source>Its waybill stays, waiting for another car.</source>
+        <translation>運送状は残り、別の車両を待ちます。</translation>
     </message>
     <message>
         <source>Delete car</source>

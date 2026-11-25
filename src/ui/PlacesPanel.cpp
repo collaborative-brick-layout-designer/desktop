@@ -1,5 +1,6 @@
 #include "PlacesPanel.h"
 
+#include "OpsText.h"
 #include "PlacesText.h"
 
 #include "../core/Ids.h"
@@ -65,8 +66,9 @@ PlacesPanel::PlacesPanel(parts::PartsLibrary& parts, QWidget* parent) : QDockWid
     scroll_->setWidgetResizable(true);
     scroll_->setFrameShape(QFrame::NoFrame);
     setWidget(scroll_);
-    confirm_ = [this](const QString& name) {
-        return QMessageBox::question(this, tr("Delete place"), tr("Delete the place “%1”? The track stays. You can undo this.").arg(name)) == QMessageBox::Yes;
+    confirm_ = [this](const QString& name, const QString& uses) {
+        const QString q = tr("Delete the place “%1”? The track stays. You can undo this.").arg(name);
+        return QMessageBox::question(this, tr("Delete place"), uses.isEmpty() ? q : q + QStringLiteral("\n\n") + uses) == QMessageBox::Yes;
     };
     rebuild();
 }
@@ -189,7 +191,7 @@ void PlacesPanel::pickTrack(const QString& spotId) {
 
 void PlacesPanel::removeOpen() {
     const auto here = open();
-    if (!here || readOnly_ || here->first.locked || !confirm_(str(here->second, "name"))) return;
+    if (!here || readOnly_ || here->first.locked || !confirm_(str(here->second, "name"), map_ ? OpsText::uses(edit::usesOf(*map_, { openId_ })) : QString())) return;
     const QString owner = openOwner_;
     const QString id = openId_;
     openId_.clear();

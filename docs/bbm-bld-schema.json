@@ -53,12 +53,22 @@
     "rollingStock": {
       "type": "array",
       "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "number": { "type": "string" }, "length": { "type": "number" } } },
-      "description": "Engines and cars: { id, number, name, kind, type, trackKind, length, width, bodyLength, trucks: [{ at, swivelMax }], couplers: { front, rear }, powered, look: { mode (simple, part or model), color, partKey }, model?: { partKey, file, format, importedAt } (an imported model's), libraryId?, libraryVersion?, notes, opsCut? (the cut or train it stands in), opsLoad? (loaded or empty) } in studs; a truck's at is studs from the car's middle, + towards its front. Unknown fields are kept. Live at meta.rollingStock (a Y.Map of id -> a Y.Map of fields). Never in a .bbm. Added 2026-11, optional."
+      "description": "Engines and cars: { id, number, name, kind, type, trackKind, length, width, bodyLength, trucks: [{ at, swivelMax }], couplers: { front, rear }, powered, look: { mode (simple, part or model), color, partKey }, model?: { partKey, file, format, importedAt } (an imported model's), libraryId?, libraryVersion?, notes, opsCut? (the cut or train it stands in), opsLoad? (loaded or empty), opsWaybill? (the waybill in its pocket), opsHome? (a place), opsAt? (a place off the layout), opsHold? (set aside) } in studs; a truck's at is studs from the car's middle, + towards its front. Unknown fields are kept. Live at meta.rollingStock (a Y.Map of id -> a Y.Map of fields). Never in a .bbm. Added 2026-11, optional."
     },
     "trains": {
       "type": "array",
       "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "name": { "type": "string" } } },
       "description": "Trains: { id, name, trackKind, units: [{ stock, reversed }], position, color, speed, cut? (cars standing on the track), over? (how it stands over switches), emptiedAt? }; position is the head car's front truck as a place on the track plus facing (to or from), or null when not on the map. Unknown fields are kept. Live at meta.trains. Never in a .bbm. Added 2026-11, optional."
+    },
+    "waybills": {
+      "type": "array",
+      "items": { "type": "object", "required": ["id"] },
+      "description": "Waybills: { id, car (its id, or empty while it waits for one), from, leg (the slot it is on, 1 to 4; 0: finished), to1, spot1, load1, note1 ... to4, spot4, load4, note4 }: four slots, those with a to (a place's id) used. In a car's pocket when the car's opsWaybill names it too. Unknown fields are kept. Live at meta.waybills (a Y.Map of id -> a Y.Map of fields). Never in a .bbm. Added 2026-11, optional."
+    },
+    "opsJobs": {
+      "type": "array",
+      "items": { "type": "object", "required": ["id"] },
+      "description": "Jobs: { id, name, kind (local, yard, through or turn), train, order, stop_<id>: { place, at } ... }, the stops in at order, the jobs in order. Unknown fields are kept. Live at meta.opsJobs. Never in a .bbm. Added 2026-11, optional."
     },
     "layoutPlaces": {
       "type": "array",

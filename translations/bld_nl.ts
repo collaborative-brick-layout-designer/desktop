@@ -807,6 +807,78 @@
         <translation>Die is alleen van deze lay-out: een wagon in je wagenpark heeft er geen, en bij opslaan in een wagenpark blijft die weg. Kies Niet van toepassing voor een remwagen of locomotief.</translation>
     </message>
     <message>
+        <source>Waybills</source>
+        <translation>Vrachtbrieven</translation>
+    </message>
+    <message>
+        <source>A waybill says where a car goes next: up to four legs, each a place, a spot if you like, and its load.</source>
+        <translation>Een vrachtbrief zegt waar een wagon daarna heen gaat: tot vier trajecten, elk een plaats, desgewenst een standplaats, en de lading.</translation>
+    </message>
+    <message>
+        <source>Delivered turns it to its next leg, and the car’s load with it; after the last one the car goes to its home. A waybill without a car waits for one: pick the car on it.</source>
+        <translation>Afgeleverd zet hem op het volgende traject, en de lading van de wagon mee; na het laatste gaat de wagon naar zijn thuisplaats. Een vrachtbrief zonder wagon wacht op een: kies de wagon erop.</translation>
+    </message>
+    <message>
+        <source>Make waybills</source>
+        <translation>Vrachtbrieven maken</translation>
+    </message>
+    <message>
+        <source>Gives every car without a waybill somewhere to go, from what your places send out and take in.</source>
+        <translation>Geeft elke wagon zonder vrachtbrief een bestemming, uit wat je plaatsen verzenden en ontvangen.</translation>
+    </message>
+    <message>
+        <source>Each car is sent empty to a place that sends out its type, then loaded to one that takes it in; no place gets more cars than it holds. Shuffle picks again. You can change any of them afterward, and Undo takes them all back.</source>
+        <translation>Elke wagon gaat leeg naar een plaats die zijn soort verzendt, dan geladen naar een die het ontvangt; geen plaats krijgt meer wagons dan erin passen. Schudden kiest opnieuw. Daarna kun je ze wijzigen, en Ongedaan maken haalt ze allemaal weg.</translation>
+    </message>
+    <message>
+        <source>Set aside and home</source>
+        <translation>Apart gezet en thuisplaats</translation>
+    </message>
+    <message>
+        <source>A car set aside stays where it is: no job takes it, and Make waybills passes it by.</source>
+        <translation>Een apart gezette wagon blijft staan: geen dienst neemt hem mee, en Vrachtbrieven maken slaat hem over.</translation>
+    </message>
+    <message>
+        <source>Home is the place a car goes back to when it has no waybill, such as a yard or staging. A car that isn’t on the track can be at a place off the layout.</source>
+        <translation>De thuisplaats is waar een wagon zonder vrachtbrief naar terugkeert, zoals een rangeerterrein of een opstelplaats. Een wagon die niet op het spoor staat, kan op een plaats buiten de baan zijn.</translation>
+    </message>
+    <message>
+        <source>Jobs</source>
+        <translation>Diensten</translation>
+    </message>
+    <message>
+        <source>A job is one crew’s work: the places it stops at, in order, and the train that does it.</source>
+        <translation>Een dienst is het werk van één ploeg: de plaatsen waar ze stopt, op volgorde, en de trein die het doet.</translation>
+    </message>
+    <message>
+        <source>A car goes with the first job that stops where it is and, later on, where it goes; if there is none, by way of yards. Put the jobs in order with the arrows, and pick the job’s train so the cars on it are set out too.</source>
+        <translation>Een wagon gaat met de eerste dienst die stopt waar hij staat en, verderop, waar hij heen moet; anders via rangeerterreinen. Zet de diensten op volgorde met de pijlen en kies de trein van de dienst, zodat ook zijn wagons worden uitgezet.</translation>
+    </message>
+    <message>
+        <source>Switch list</source>
+        <translation>Rangeerlijst</translation>
+    </message>
+    <message>
+        <source>What to set out and pick up at each stop, kept up to date as cars move and waybills and jobs change.</source>
+        <translation>Wat je bij elke stop uitzet en ophaalt, bijgewerkt als wagons, vrachtbrieven en diensten veranderen.</translation>
+    </message>
+    <message>
+        <source>Cars to set out are listed nearest the engine first, and cars to pick up in the order they stand. A spot with no room is passed by, and spots for repairs and engines are left free.</source>
+        <translation>Uit te zetten wagons staan van dichtbij de locomotief naar ver, op te halen wagons in de volgorde waarin ze staan. Een volle standplaats wordt overgeslagen, en die voor reparatie en locomotieven blijven vrij.</translation>
+    </message>
+    <message>
+        <source>Can’t route</source>
+        <translation>Geen route</translation>
+    </message>
+    <message>
+        <source>Cars that have somewhere to go but no way there now, each with why.</source>
+        <translation>Wagons die een bestemming hebben maar nu geen weg erheen, elk met de reden.</translation>
+    </message>
+    <message>
+        <source>Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <translation>Er gaat niets verloren: elke wagon blijft staan tot je een dienst toevoegt, ruimte maakt of zijn vrachtbrief wijzigt. Verwijder je een plaats, spoor of een dienst, dan staan de wagons hier.</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>Plaatsen</translation>
     </message>
@@ -3824,10 +3896,6 @@
         <translation>Wissels zetten zet elke wissel op de route zijn kant op. In rijmodus zet je ze met de hand om.</translation>
     </message>
     <message>
-        <source>Places</source>
-        <translation>Plaatsen</translation>
-    </message>
-    <message>
         <source>Where cars go</source>
         <translation>Waar wagons heen gaan</translation>
     </message>
@@ -3866,6 +3934,22 @@
     <message>
         <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
         <translation>Sleep een wagon langs het spoor om hem te verplaatsen of los te koppelen; raakt hij een andere, dan koppelt hij. Klik op een wagon voor zijn lading.</translation>
+    </message>
+    <message>
+        <source>Where each car goes</source>
+        <translation>Waar elke wagon heen gaat</translation>
+    </message>
+    <message>
+        <source>Open Live Ops from Panels. Make waybills gives every car somewhere to go, and you can change any of them.</source>
+        <translation>Open Live Ops via Panelen. Vrachtbrieven maken geeft elke wagon een bestemming, en je kunt ze allemaal wijzigen.</translation>
+    </message>
+    <message>
+        <source>Jobs and switch lists</source>
+        <translation>Diensten en rangeerlijsten</translation>
+    </message>
+    <message>
+        <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
+        <translation>Een dienst is het werk van één ploeg: de plaatsen waar ze stopt. De rangeerlijst zegt wat je uitzet en ophaalt.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -3994,6 +4078,10 @@
     <message>
         <source>Trains</source>
         <translation>Treinen</translation>
+    </message>
+    <message>
+        <source>Live Ops</source>
+        <translation>Live Ops</translation>
     </message>
     <message>
         <source>Trains and cars</source>
@@ -5123,6 +5211,14 @@
     <message>
         <source>Place &quot;%1&quot;</source>
         <translation>Plaats &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>A waybill</source>
+        <translation>Een vrachtbrief</translation>
+    </message>
+    <message>
+        <source>Job &quot;%1&quot;</source>
+        <translation>Dienst “%1”</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -6604,6 +6700,425 @@
     <message>
         <source>Reconnecting…</source>
         <translation>Opnieuw verbinden…</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::LiveOpsPanel</name>
+    <message>
+        <source>Live Ops</source>
+        <translation>Live Ops</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>New waybill</source>
+        <translation>Nieuwe vrachtbrief</translation>
+    </message>
+    <message>
+        <source>Make waybills</source>
+        <translation>Vrachtbrieven maken</translation>
+    </message>
+    <message>
+        <source>Delivered</source>
+        <translation>Afgeleverd</translation>
+    </message>
+    <message>
+        <source>Job %1</source>
+        <translation>Dienst %1</translation>
+    </message>
+    <message>
+        <source>New job</source>
+        <translation>Nieuwe dienst</translation>
+    </message>
+    <message>
+        <source>Delete this waybill? The car stays where it is. You can undo this.</source>
+        <translation>Deze vrachtbrief verwijderen? De wagon blijft staan. Je kunt dit ongedaan maken.</translation>
+    </message>
+    <message>
+        <source>Delete waybill</source>
+        <translation>Vrachtbrief verwijderen</translation>
+    </message>
+    <message>
+        <source>Delete the job “%1”? Its cars and their waybills stay; another job takes them, or they’re listed under Can’t route. You can undo this.</source>
+        <translation>De dienst “%1” verwijderen? De wagons en hun vrachtbrieven blijven; een andere dienst neemt ze mee, of ze staan onder Geen route. Je kunt dit ongedaan maken.</translation>
+    </message>
+    <message>
+        <source>Delete job</source>
+        <translation>Dienst verwijderen</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>Module</translation>
+    </message>
+    <message>
+        <source>(no name)</source>
+        <translation>(geen naam)</translation>
+    </message>
+    <message>
+        <source>Cars</source>
+        <translation>Wagons</translation>
+    </message>
+    <message>
+        <source>Waybills</source>
+        <translation>Vrachtbrieven</translation>
+    </message>
+    <message>
+        <source>Jobs</source>
+        <translation>Diensten</translation>
+    </message>
+    <message>
+        <source>Cars go to places: industries, yards, staging and interchanges. There are none on this layout yet.</source>
+        <translation>Wagons gaan naar plaatsen: industrieën, rangeerterreinen, opstelplaatsen en uitwisselpunten. Op deze baan zijn er nog geen.</translation>
+    </message>
+    <message>
+        <source>Open Places</source>
+        <translation>Plaatsen openen</translation>
+    </message>
+    <message>
+        <source>There are no cars on this layout yet.</source>
+        <translation>Op deze baan zijn nog geen wagons.</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Treinen openen</translation>
+    </message>
+    <message>
+        <source>Can’t route (%1)</source>
+        <translation>Geen route (%1)</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Laat zien</translation>
+    </message>
+    <message>
+        <source>Waybill</source>
+        <translation>Vrachtbrief</translation>
+    </message>
+    <message>
+        <source>At %1</source>
+        <translation>Bij %1</translation>
+    </message>
+    <message>
+        <source>On the track, at no place</source>
+        <translation>Op het spoor, niet bij een plaats</translation>
+    </message>
+    <message>
+        <source>Not on the track</source>
+        <translation>Niet op het spoor</translation>
+    </message>
+    <message>
+        <source>Set aside</source>
+        <translation>Apart gezet</translation>
+    </message>
+    <message>
+        <source>Set a car aside</source>
+        <translation>Wagon apart zetten</translation>
+    </message>
+    <message>
+        <source>Home</source>
+        <translation>Thuisplaats</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Change a car’s home</source>
+        <translation>Thuisplaats van een wagon wijzigen</translation>
+    </message>
+    <message>
+        <source>Where it is</source>
+        <translation>Waar hij is</translation>
+    </message>
+    <message>
+        <source>Nowhere</source>
+        <translation>Nergens</translation>
+    </message>
+    <message>
+        <source>Change where a car is</source>
+        <translation>Wijzigen waar een wagon is</translation>
+    </message>
+    <message>
+        <source>Make waybills…</source>
+        <translation>Vrachtbrieven maken…</translation>
+    </message>
+    <message>
+        <source>No waybills yet. A waybill says where a car goes next: make one for every car at once, or write one.</source>
+        <translation>Nog geen vrachtbrieven. Een vrachtbrief zegt waar een wagon daarna heen gaat: maak ze voor alle wagons tegelijk, of schrijf er een.</translation>
+    </message>
+    <message>
+        <source>Waiting for a car</source>
+        <translation>Wacht op een wagon</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation>Klaar</translation>
+    </message>
+    <message>
+        <source>No legs yet</source>
+        <translation>Nog geen trajecten</translation>
+    </message>
+    <message>
+        <source>1 car</source>
+        <translation>1 wagon</translation>
+    </message>
+    <message>
+        <source>%1 cars</source>
+        <translation>%1 wagons</translation>
+    </message>
+    <message>
+        <source>No car can get one:</source>
+        <translation>Geen wagon kan er een krijgen:</translation>
+    </message>
+    <message>
+        <source>Every car that isn’t set aside has a waybill.</source>
+        <translation>Elke wagon die niet apart gezet is, heeft een vrachtbrief.</translation>
+    </message>
+    <message>
+        <source>Every car has a waybill.</source>
+        <translation>Elke wagon heeft een vrachtbrief.</translation>
+    </message>
+    <message>
+        <source>, then </source>
+        <translation>, daarna </translation>
+    </message>
+    <message>
+        <source>Left without:</source>
+        <translation>Zonder blijven:</translation>
+    </message>
+    <message>
+        <source>%1 without a type (set it in Trains).</source>
+        <translation>%1 zonder soort (stel die in bij Treinen).</translation>
+    </message>
+    <message>
+        <source>%1 no two places send out and take in (set what each place sends out and takes in).</source>
+        <translation>%1 die geen twee plaatsen verzenden en ontvangen (stel in wat elke plaats verzendt en ontvangt).</translation>
+    </message>
+    <message>
+        <source>%1 with no room left at the places they’d go to.</source>
+        <translation>%1 zonder ruimte op de plaatsen waar ze heen zouden gaan.</translation>
+    </message>
+    <message>
+        <source>Add 1 waybill</source>
+        <translation>1 vrachtbrief toevoegen</translation>
+    </message>
+    <message>
+        <source>Add %1 waybills</source>
+        <translation>%1 vrachtbrieven toevoegen</translation>
+    </message>
+    <message>
+        <source>Shuffle</source>
+        <translation>Schudden</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>Change waybill</source>
+        <translation>Vrachtbrief wijzigen</translation>
+    </message>
+    <message>
+        <source>← All waybills</source>
+        <translation>← Alle vrachtbrieven</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>Wagon</translation>
+    </message>
+    <message>
+        <source>%1 (has a waybill)</source>
+        <translation>%1 (heeft een vrachtbrief)</translation>
+    </message>
+    <message>
+        <source>Give a waybill to a car</source>
+        <translation>Een wagon een vrachtbrief geven</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>Van</translation>
+    </message>
+    <message>
+        <source>Not said</source>
+        <translation>Niet opgegeven</translation>
+    </message>
+    <message>
+        <source>Leg %1 · now</source>
+        <translation>Traject %1 · nu</translation>
+    </message>
+    <message>
+        <source>Leg %1</source>
+        <translation>Traject %1</translation>
+    </message>
+    <message>
+        <source>Not used</source>
+        <translation>Niet gebruikt</translation>
+    </message>
+    <message>
+        <source>Leg %1 goes to</source>
+        <translation>Bestemming van traject %1</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Standplaats</translation>
+    </message>
+    <message>
+        <source>Any</source>
+        <translation>Elke</translation>
+    </message>
+    <message>
+        <source>A spot</source>
+        <translation>Een standplaats</translation>
+    </message>
+    <message>
+        <source>One that was deleted (any)</source>
+        <translation>Een verwijderde (elke)</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Lading</translation>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation>Opmerking</translation>
+    </message>
+    <message>
+        <source>It has left the layout</source>
+        <translation>Hij heeft de baan verlaten</translation>
+    </message>
+    <message>
+        <source>The waybill turns to its next leg, and the load with it.</source>
+        <translation>De vrachtbrief gaat naar het volgende traject, en de lading mee.</translation>
+    </message>
+    <message>
+        <source>Start it again</source>
+        <translation>Opnieuw beginnen</translation>
+    </message>
+    <message>
+        <source>Start a waybill again</source>
+        <translation>Een vrachtbrief opnieuw beginnen</translation>
+    </message>
+    <message>
+        <source>Delete this waybill</source>
+        <translation>Deze vrachtbrief verwijderen</translation>
+    </message>
+    <message>
+        <source>No jobs yet. A job is one crew’s work: the places it stops at, in order. Cars with a waybill are given to the first job that can take them.</source>
+        <translation>Nog geen diensten. Een dienst is het werk van één ploeg: de plaatsen waar ze stopt, op volgorde. Wagons met een vrachtbrief gaan naar de eerste dienst die ze kan meenemen.</translation>
+    </message>
+    <message>
+        <source>A job</source>
+        <translation>Een dienst</translation>
+    </message>
+    <message>
+        <source>Move %1 up</source>
+        <translation>%1 omhoog</translation>
+    </message>
+    <message>
+        <source>Move %1 down</source>
+        <translation>%1 omlaag</translation>
+    </message>
+    <message>
+        <source>Move job</source>
+        <translation>Dienst verplaatsen</translation>
+    </message>
+    <message>
+        <source>Change job</source>
+        <translation>Dienst wijzigen</translation>
+    </message>
+    <message>
+        <source>← All jobs</source>
+        <translation>← Alle diensten</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>Soort</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>Trein</translation>
+    </message>
+    <message>
+        <source>None yet</source>
+        <translation>Nog geen</translation>
+    </message>
+    <message>
+        <source>A train that was deleted</source>
+        <translation>Een verwijderde trein</translation>
+    </message>
+    <message>
+        <source>Stops</source>
+        <translation>Stops</translation>
+    </message>
+    <message>
+        <source>Move stop</source>
+        <translation>Stop verplaatsen</translation>
+    </message>
+    <message>
+        <source>Remove %1</source>
+        <translation>%1 weghalen</translation>
+    </message>
+    <message>
+        <source>Remove stop</source>
+        <translation>Stop weghalen</translation>
+    </message>
+    <message>
+        <source>No track joins the stop before to %1.</source>
+        <translation>Geen spoor verbindt de vorige stop met %1.</translation>
+    </message>
+    <message>
+        <source>Add its first stop…</source>
+        <translation>Eerste stop toevoegen…</translation>
+    </message>
+    <message>
+        <source>Add a stop…</source>
+        <translation>Stop toevoegen…</translation>
+    </message>
+    <message>
+        <source>Add a stop</source>
+        <translation>Een stop toevoegen</translation>
+    </message>
+    <message>
+        <source>Add stop</source>
+        <translation>Stop toevoegen</translation>
+    </message>
+    <message>
+        <source>Switch list</source>
+        <translation>Rangeerlijst</translation>
+    </message>
+    <message>
+        <source>Add the places it stops at.</source>
+        <translation>Voeg de plaatsen toe waar hij stopt.</translation>
+    </message>
+    <message>
+        <source>Nothing to do: no car goes by this job now.</source>
+        <translation>Niets te doen: er gaat nu geen wagon met deze dienst mee.</translation>
+    </message>
+    <message>
+        <source>a spot</source>
+        <translation>een standplaats</translation>
+    </message>
+    <message>
+        <source>Set out %1</source>
+        <translation>%1 uitzetten</translation>
+    </message>
+    <message>
+        <source>Set out %1 at %2</source>
+        <translation>%1 uitzetten bij %2</translation>
+    </message>
+    <message>
+        <source>Pick up %1 for %2</source>
+        <translation>%1 ophalen voor %2</translation>
+    </message>
+    <message>
+        <source>Delete this job</source>
+        <translation>Deze dienst verwijderen</translation>
     </message>
 </context>
 <context>
@@ -10261,6 +10776,14 @@ Dit wordt niet opnieuw gevraagd. Om het later in deze of een andere layout over 
         <translation>plaatsen</translation>
     </message>
     <message>
+        <source>waybills</source>
+        <translation>vrachtbrieven</translation>
+    </message>
+    <message>
+        <source>jobs</source>
+        <translation>diensten</translation>
+    </message>
+    <message>
         <source>the train scale</source>
         <translation>de treinschaal</translation>
     </message>
@@ -11226,6 +11749,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     <message>
         <source>Take off the track</source>
         <translation>Van het spoor halen</translation>
+    </message>
+    <message>
+        <source>Waybill and Live Ops</source>
+        <translation>Vrachtbrief en Live Ops</translation>
     </message>
     <message>
         <source>Open Trains</source>
@@ -12372,6 +12899,197 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     <message>
         <source>Notifications</source>
         <translation>Meldingen</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::OpsText</name>
+    <message>
+        <source>A place that was deleted</source>
+        <translation>Een verwijderde plaats</translation>
+    </message>
+    <message>
+        <source>a spot</source>
+        <translation>een standplaats</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>Een verwijderde wagon</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Geladen</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Leeg</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Niet van toepassing</translation>
+    </message>
+    <message>
+        <source>Loaded to %1</source>
+        <translation>Geladen naar %1</translation>
+    </message>
+    <message>
+        <source>Empty to %1</source>
+        <translation>Leeg naar %1</translation>
+    </message>
+    <message>
+        <source>To %1</source>
+        <translation>Naar %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to go: it stays.</source>
+        <translation>Geen bestemming: hij blijft staan.</translation>
+    </message>
+    <message>
+        <source>Home to %1</source>
+        <translation>Naar huis, %1</translation>
+    </message>
+    <message>
+        <source>%1: it’s there</source>
+        <translation>%1: hij is er</translation>
+    </message>
+    <message>
+        <source>a job</source>
+        <translation>een dienst</translation>
+    </message>
+    <message>
+        <source>%1, with %2 first</source>
+        <translation>%1, eerst met %2</translation>
+    </message>
+    <message>
+        <source>%1, with %2</source>
+        <translation>%1, met %2</translation>
+    </message>
+    <message>
+        <source>It’s set aside.</source>
+        <translation>Hij is apart gezet.</translation>
+    </message>
+    <message>
+        <source>It isn’t on the track. Put it on the track, or say which place off the layout it’s at.</source>
+        <translation>Hij staat niet op het spoor. Zet hem op het spoor, of zeg op welke plaats buiten de baan hij is.</translation>
+    </message>
+    <message>
+        <source>It isn’t at a place.</source>
+        <translation>Hij staat niet bij een plaats.</translation>
+    </message>
+    <message>
+        <source>There are too many jobs and places to work out its way.</source>
+        <translation>Er zijn te veel diensten en plaatsen om zijn weg te bepalen.</translation>
+    </message>
+    <message>
+        <source>Its home was deleted. Pick another.</source>
+        <translation>Zijn thuisplaats is verwijderd. Kies een andere.</translation>
+    </message>
+    <message>
+        <source>The place it goes to was deleted. Pick another on its waybill.</source>
+        <translation>De plaats waar hij heen gaat is verwijderd. Kies een andere op zijn vrachtbrief.</translation>
+    </message>
+    <message>
+        <source>No track joins %1 to %2.</source>
+        <translation>Geen spoor verbindt %1 met %2.</translation>
+    </message>
+    <message>
+        <source>The job whose train it’s on doesn’t go to %1.</source>
+        <translation>De dienst in wiens trein hij zit, gaat niet naar %1.</translation>
+    </message>
+    <message>
+        <source>No job stops at %1.</source>
+        <translation>Geen dienst stopt bij %1.</translation>
+    </message>
+    <message>
+        <source>No job goes from %1 to %2.</source>
+        <translation>Geen dienst gaat van %1 naar %2.</translation>
+    </message>
+    <message>
+        <source>%1 is full (%2 of %3).</source>
+        <translation>%1 is vol (%2 van %3).</translation>
+    </message>
+    <message>
+        <source>%1 is full.</source>
+        <translation>%1 is vol.</translation>
+    </message>
+    <message>
+        <source>Local</source>
+        <translation>Buurtgoederentrein</translation>
+    </message>
+    <message>
+        <source>Yard job</source>
+        <translation>Rangeerdienst</translation>
+    </message>
+    <message>
+        <source>Through freight</source>
+        <translation>Doorgaande goederentrein</translation>
+    </message>
+    <message>
+        <source>Turn</source>
+        <translation>Draaien</translation>
+    </message>
+    <message>
+        <source>Works the industries along the way.</source>
+        <translation>Bedient de industrieën onderweg.</translation>
+    </message>
+    <message>
+        <source>Sorts cars in a yard.</source>
+        <translation>Sorteert wagons op een rangeerterrein.</translation>
+    </message>
+    <message>
+        <source>Runs from one yard or staging to another.</source>
+        <translation>Rijdt van het ene rangeerterrein of de ene opstelplaats naar de andere.</translation>
+    </message>
+    <message>
+        <source>Goes out, works, and comes back.</source>
+        <translation>Gaat weg, werkt en komt terug.</translation>
+    </message>
+    <message>
+        <source>1 stop</source>
+        <translation>1 stop</translation>
+    </message>
+    <message>
+        <source>%1 stops</source>
+        <translation>%1 stops</translation>
+    </message>
+    <message>
+        <source>no work</source>
+        <translation>geen werk</translation>
+    </message>
+    <message>
+        <source>1 move</source>
+        <translation>1 beweging</translation>
+    </message>
+    <message>
+        <source>%1 moves</source>
+        <translation>%1 bewegingen</translation>
+    </message>
+    <message>
+        <source>1 waybill</source>
+        <translation>1 vrachtbrief</translation>
+    </message>
+    <message>
+        <source>%1 waybills</source>
+        <translation>%1 vrachtbrieven</translation>
+    </message>
+    <message>
+        <source>1 job</source>
+        <translation>1 dienst</translation>
+    </message>
+    <message>
+        <source>%1 jobs</source>
+        <translation>%1 diensten</translation>
+    </message>
+    <message>
+        <source>1 car’s home</source>
+        <translation>de thuisplaats van 1 wagon</translation>
+    </message>
+    <message>
+        <source>%1 cars’ homes</source>
+        <translation>de thuisplaats van %1 wagons</translation>
+    </message>
+    <message>
+        <source>In use by %1: nothing is lost, and those cars are listed under Can’t route in Live Ops until you send them somewhere else.</source>
+        <translation>In gebruik bij %1: er gaat niets verloren, en die wagons staan in Live Ops onder Geen route tot je ze ergens anders heen stuurt.</translation>
     </message>
 </context>
 <context>
@@ -15957,6 +16675,10 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>Delete %1 and take it out of %2?</source>
         <translation>%1 verwijderen en uit %2 halen?</translation>
+    </message>
+    <message>
+        <source>Its waybill stays, waiting for another car.</source>
+        <translation>Zijn vrachtbrief blijft en wacht op een andere wagon.</translation>
     </message>
     <message>
         <source>Delete car</source>

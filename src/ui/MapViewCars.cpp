@@ -188,6 +188,7 @@ QMenu* MapView::makeCarMenu(const QString& stockId) {
     }
     menu->addAction(tr("Take off the track"), this, [this, stockId] { takeCarOff(stockId); })->setObjectName(QStringLiteral("CarTakeOff"));
     menu->addSeparator();
+    menu->addAction(tr("Waybill and Live Ops"), this, [this, stockId] { emit carOpsRequested(stockId); })->setObjectName(QStringLiteral("CarOps"));
     menu->addAction(tr("Open Trains"), this, &MapView::openTrainsRequested);
     return menu;
 }

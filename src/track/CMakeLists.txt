@@ -18,6 +18,10 @@ add_library(bld_track STATIC
     Cuts.h
     FitChecks.cpp
     FitChecks.h
+    Ops.cpp
+    Ops.h
+    OpsView.cpp
+    OpsView.h
     PlacesOnTrack.cpp
     PlacesOnTrack.h
     TrackNetwork.cpp

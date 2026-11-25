@@ -50,6 +50,12 @@ dialog.moduleLook
 dialog.moduleSetup
 ops.cut
 ops.load
+ops.waybill
+ops.make
+ops.hold
+ops.job
+ops.switchList
+ops.cantRoute
 ops.places
 ops.spot
 module.setupSummary

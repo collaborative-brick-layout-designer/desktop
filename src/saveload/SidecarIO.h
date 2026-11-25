@@ -61,6 +61,8 @@ std::optional<core::Route> routeFromJson(const QJsonValue& v);
 // A car or a train as the sidecar (and the web's meta.rollingStock and
 // meta.trains) keeps it; one without an id reads as nullopt. A car's missing
 // fields take a quick car's defaults. Unknown fields are kept.
+// Records kept as they are written (waybills, jobs): those with an id, each id once, in id order.
+QJsonArray recordsFromJson(const QJsonValue& v);
 QJsonObject rollingStockToJson(const core::RollingStock& r);
 std::optional<core::RollingStock> rollingStockFromJson(const QJsonValue& v);
 QJsonObject trainToJson(const core::Train& t);

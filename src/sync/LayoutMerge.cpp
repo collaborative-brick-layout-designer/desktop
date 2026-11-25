@@ -127,6 +127,13 @@ Items itemsOf(const Snapshot& s) {
     for (const auto& r : s.sidecar.value(QLatin1String("layoutPlaces")).toArray())
         out.insert(QStringLiteral("place:") + r.toObject().value(QLatin1String("id")).toString(),
                    { QStringLiteral("place"), {}, r, {} });
+    // Waybills and jobs, one row each (a record is taken whole).
+    for (const auto& r : s.sidecar.value(QLatin1String("waybills")).toArray())
+        out.insert(QStringLiteral("waybill:") + r.toObject().value(QLatin1String("id")).toString(),
+                   { QStringLiteral("waybill"), {}, r, {} });
+    for (const auto& r : s.sidecar.value(QLatin1String("opsJobs")).toArray())
+        out.insert(QStringLiteral("job:") + r.toObject().value(QLatin1String("id")).toString(),
+                   { QStringLiteral("job"), {}, r, {} });
     // Switch settings, one row a switch: flips of different switches merge.
     const QJsonObject switches = s.sidecar.value(QLatin1String("switchStates")).toObject();
     for (auto it = switches.begin(); it != switches.end(); ++it)
@@ -266,6 +273,8 @@ public:
         if (c.kind == QLatin1String("stock")) return takeSidecarItem(c, QStringLiteral("rollingStock"), false);
         if (c.kind == QLatin1String("train")) return takeSidecarItem(c, QStringLiteral("trains"), false);
         if (c.kind == QLatin1String("place")) return takeSidecarItem(c, QStringLiteral("layoutPlaces"), false);
+        if (c.kind == QLatin1String("waybill")) return takeSidecarItem(c, QStringLiteral("waybills"), false);
+        if (c.kind == QLatin1String("job")) return takeSidecarItem(c, QStringLiteral("opsJobs"), false);
         if (c.kind == QLatin1String("budget")) return takeBudgetRow(c);
         if (c.kind == QLatin1String("switch")) return takeSwitchRow(c);
         if (c.kind == QLatin1String("venue") || c.kind == QLatin1String("background") || c.kind == QLatin1String("trainScale")) {
@@ -779,6 +788,8 @@ QString describe(const ItemChange& c) {
     } else if (c.kind == QLatin1String("switch")) what = Text::tr("A switch's setting");
     else if (c.kind == QLatin1String("route")) what = Text::tr("Route \"%1\"").arg(v.value(QLatin1String("name")).toString());
     else if (c.kind == QLatin1String("place")) what = Text::tr("Place \"%1\"").arg(v.value(QLatin1String("name")).toString());
+    else if (c.kind == QLatin1String("waybill")) what = Text::tr("A waybill");
+    else if (c.kind == QLatin1String("job")) what = Text::tr("Job \"%1\"").arg(v.value(QLatin1String("name")).toString());
     else if (c.kind == QLatin1String("stock")) {
         const QString n = QStringList{ v.value(QLatin1String("number")).toString(), v.value(QLatin1String("name")).toString() }.join(QLatin1Char(' ')).trimmed();
         what = Text::tr("Car \"%1\"").arg(n);

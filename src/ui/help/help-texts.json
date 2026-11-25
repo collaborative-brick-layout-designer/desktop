@@ -256,6 +256,36 @@
       "short": "Whether the car is loaded or empty, shown as a filled or an open mark on it.",
       "more": "It is this layout’s own: a car on your roster has none, and saving a car to a roster leaves it out. Pick Doesn’t apply for a caboose or an engine."
     },
+    "ops.waybill": {
+      "title": "Waybills",
+      "short": "A waybill says where a car goes next: up to four legs, each a place, a spot if you like, and its load.",
+      "more": "Delivered turns it to its next leg, and the car’s load with it; after the last one the car goes to its home. A waybill without a car waits for one: pick the car on it."
+    },
+    "ops.make": {
+      "title": "Make waybills",
+      "short": "Gives every car without a waybill somewhere to go, from what your places send out and take in.",
+      "more": "Each car is sent empty to a place that sends out its type, then loaded to one that takes it in; no place gets more cars than it holds. Shuffle picks again. You can change any of them afterward, and Undo takes them all back."
+    },
+    "ops.hold": {
+      "title": "Set aside and home",
+      "short": "A car set aside stays where it is: no job takes it, and Make waybills passes it by.",
+      "more": "Home is the place a car goes back to when it has no waybill, such as a yard or staging. A car that isn’t on the track can be at a place off the layout."
+    },
+    "ops.job": {
+      "title": "Jobs",
+      "short": "A job is one crew’s work: the places it stops at, in order, and the train that does it.",
+      "more": "A car goes with the first job that stops where it is and, later on, where it goes; if there is none, by way of yards. Put the jobs in order with the arrows, and pick the job’s train so the cars on it are set out too."
+    },
+    "ops.switchList": {
+      "title": "Switch list",
+      "short": "What to set out and pick up at each stop, kept up to date as cars move and waybills and jobs change.",
+      "more": "Cars to set out are listed nearest the engine first, and cars to pick up in the order they stand. A spot with no room is passed by, and spots for repairs and engines are left free."
+    },
+    "ops.cantRoute": {
+      "title": "Can’t route",
+      "short": "Cars that have somewhere to go but no way there now, each with why.",
+      "more": "Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here."
+    },
     "ops.places": {
       "title": "Places",
       "short": "Places are where cars go: industries, yards, staging and interchanges, named on the track.",

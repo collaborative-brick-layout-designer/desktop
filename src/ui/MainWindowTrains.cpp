@@ -22,7 +22,20 @@ void MainWindow::setupTrains() {
     trainsPanel_->hide();  // Panels > Trains, or the trains tour, shows it
     connect(trainsPanel_, &TrainsPanel::stockEdited, this,
             [this](const QString& id, const std::optional<core::RollingStock>& after, const QString& what) {
-                if (core::Map* map = mapView_->currentMap()) mapView_->undoStack()->push(new edit::SetStockCommand(*map, id, after, what));
+                core::Map* map = mapView_->currentMap();
+                if (!map) return;
+                // What it does in this layout isn't the editor's: that may have changed since it opened.
+                std::optional<core::RollingStock> to = after;
+                for (const auto& s : map->sidecar.rollingStock)
+                    if (to && s.id == id) {
+                        to->opsCut = s.opsCut;
+                        to->opsLoad = s.opsLoad;
+                        to->opsWaybill = s.opsWaybill;
+                        to->opsHome = s.opsHome;
+                        to->opsAt = s.opsAt;
+                        to->opsHold = s.opsHold;
+                    }
+                mapView_->undoStack()->push(new edit::SetStockCommand(*map, id, to, what));
             });
     connect(trainsPanel_, &TrainsPanel::stockRemoved, this, [this](const QString& id, const QString& what) {
         if (core::Map* map = mapView_->currentMap()) mapView_->undoStack()->push(edit::makeRemoveStockCommand(*map, id, what));

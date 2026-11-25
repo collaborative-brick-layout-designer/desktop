@@ -44,6 +44,8 @@
 #include "../edit/LabelCommands.h"
 #include "../edit/LayerCommands.h"
 #include "../edit/ModuleCommands.h"
+#include "../edit/OpsCommands.h"
+#include "OpsText.h"
 #include "../edit/Budget.h"
 #include "../edit/VenueValidator.h"
 
@@ -391,6 +393,7 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     setupRoutes();
     setupTrains();
     setupPlaces();
+    setupOps();
     // Stable object names so saveState() / restoreState() know each dock.
     layerPanel_->setObjectName(QStringLiteral("dock.layers"));
     partsBrowser_->setObjectName(QStringLiteral("dock.parts"));
@@ -440,6 +443,9 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
         const int n = static_cast<int>(mod->memberIds.size());
         DeleteWording w;
         w.removes = tr("The module and its %n part(s) leave the map.", nullptr, n);
+        QStringList places;
+        for (const auto& p : std::as_const(mod->places)) places << p.toObject().value(QLatin1String("id")).toString();
+        if (const QString uses = OpsText::uses(edit::usesOf(*map, places)); !uses.isEmpty()) w.removes += QLatin1Char(' ') + uses;
         w.keeps = tr("The Module library doesn’t change. To keep the parts, choose Ungroup instead.");
         w.undo = ConfirmDialog::undoWithCtrlZ();
         if (!ConfirmDialog::confirmDelete(this, mod->name, w)) return;
