@@ -16,6 +16,8 @@ add_library(bld_track STATIC
     Trains.h
     FitChecks.cpp
     FitChecks.h
+    PlacesOnTrack.cpp
+    PlacesOnTrack.h
     TrackNetwork.cpp
     TrackNetwork.h
 )

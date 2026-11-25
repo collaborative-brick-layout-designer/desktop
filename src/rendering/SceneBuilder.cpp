@@ -839,6 +839,7 @@ void SceneBuilder::clear() {
     clearRoutes();
     clearTrains();
     clearFit();
+    clearPlaces();
     drawnVenue_.reset();
     drawnLabels_.clear();
     drawnModules_.clear();
@@ -871,6 +872,7 @@ void SceneBuilder::build(const core::Map& map) {
     addRoutes(map);
     addTrains(map);
     addFit(map);
+    addPlaces(map);
     built_ = true;
 }
 
@@ -1520,6 +1522,11 @@ std::optional<SceneBuilder::Change> SceneBuilder::update(const core::Map& map) {
     } else if ((!map.sidecar.routes.empty() || !fitItems_.isEmpty() || showSidingLengths_)
                && (partsChanged || map.sidecar.routes != drawnFitRoutes_)) {
         refreshFit(map);
+        change.overlays = true;
+    }
+    if (const auto places = placesIn(map); places != drawnPlaces_
+        || ((partsChanged || visibilityChanged) && std::any_of(places.begin(), places.end(), [](const QJsonArray& a) { return !a.isEmpty(); }))) {
+        refreshPlaces(map);
         change.overlays = true;
     }
     return change;

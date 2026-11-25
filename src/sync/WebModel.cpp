@@ -13,6 +13,7 @@
 #include "core/LayerRuler.h"
 #include "core/LayerText.h"
 #include "core/Map.h"
+#include "core/Places.h"
 
 #include <QJsonArray>
 #include <QSet>
@@ -366,9 +367,26 @@ void readBudget(const QJsonObject& meta, core::Sidecar& out) {
             }
         } else {
             list = meta.value(QLatin1String("cache")).toObject().value(QLatin1String(key)).toArray();
+            // (An older web build that imported a file kept the places in the cache's extras.)
+            if (qstrcmp(key, "places") == 0) {
+                const QJsonObject cache = meta.value(QLatin1String("cache")).toObject();
+                list = cache.value(QLatin1String("layoutPlaces")).toArray();
+                if (list.isEmpty()) list = cache.value(QLatin1String("extras")).toObject().value(QLatin1String("layoutPlaces")).toArray();
+            }
         }
         return list;
     };
+    // The layout's places, within the limits, by name then id as the web lists them.
+    std::vector<QJsonValue> byName;
+    const QJsonArray own = records("places");
+    for (const auto& v : own)
+        if (const auto p = core::places::readPlace(v)) byName.push_back(*p);
+    std::sort(byName.begin(), byName.end(), [](const QJsonValue& a, const QJsonValue& b) {
+        const int c = QString::localeAwareCompare(a.toObject().value(QLatin1String("name")).toString(), b.toObject().value(QLatin1String("name")).toString());
+        return c != 0 ? c < 0 : a.toObject().value(QLatin1String("id")).toString() < b.toObject().value(QLatin1String("id")).toString();
+    });
+    out.layoutPlaces = QJsonArray();
+    for (const auto& p : byName) out.layoutPlaces.append(p);
     out.rollingStock.clear();
     for (const auto& v : records("rollingStock"))
         if (auto r = saveload::rollingStockFromJson(v)) out.rollingStock.push_back(std::move(*r));

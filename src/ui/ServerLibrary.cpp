@@ -3,6 +3,7 @@
 #include "ModuleShareDialog.h"
 #include "ModuleSetupDialog.h"
 #include "NotificationViews.h"
+#include "PlacesText.h"
 #include "help/HelpButton.h"
 #include "ReturnWording.h"
 
@@ -59,6 +60,14 @@ void showLibraryPicture(QLabel* label, const QImage& img) {
                                                Qt::SmoothTransformation));
     px.setDevicePixelRatio(dpr);
     label->setPixmap(px);
+}
+
+// A library module's places, counted ("2 industries, 1 yard").
+QString placesLine(const sync::ServerModule& m) {
+    QList<std::pair<QString, int>> counts;
+    for (const auto& v : m.placeCounts)
+        counts.append({ v.toObject().value(QLatin1String("kind")).toString(), v.toObject().value(QLatin1String("count")).toInt() });
+    return PlacesText::counts(counts);
 }
 
 QLabel* libraryMutedLabel(const QString& text, QWidget* parent) {
@@ -683,7 +692,12 @@ QWidget* ServerModulesTab::makeRow(const sync::ServerModule& m) {
     auto* subtitle = libraryMutedLabel(sub, frame);
     subtitle->setObjectName(QStringLiteral("rowSubtitle"));
     text->addWidget(subtitle);
-    // Its table and power ("MILS · 30¾″ · Power: 2 outlets").
+    // Its places ("2 industries, 1 yard"), and its table and power ("MILS · 30¾″ · Power: 2 outlets").
+    if (const QString line = placesLine(m); !line.isEmpty()) {
+        auto* places = libraryMutedLabel(line, frame);
+        places->setObjectName(QStringLiteral("rowPlaces"));
+        text->addWidget(places);
+    }
     if (const QString line = ModuleSetupText::setupLine(core::setupFromJson(m.setup), ModuleSetupText::heightUnit(nullptr)); !line.isEmpty()) {
         auto* setup = libraryMutedLabel(line, frame);
         setup->setObjectName(QStringLiteral("rowSetup"));
@@ -804,7 +818,12 @@ QWidget* ServerModulesTab::makeSharedRow(const sync::ServerModule& m) {
     auto* subtitle = libraryMutedLabel(sub, frame);
     subtitle->setObjectName(QStringLiteral("rowSubtitle"));
     text->addWidget(subtitle);
-    // Its table and power ("MILS · 30¾″ · Power: 2 outlets").
+    // Its places ("2 industries, 1 yard"), and its table and power ("MILS · 30¾″ · Power: 2 outlets").
+    if (const QString line = placesLine(m); !line.isEmpty()) {
+        auto* places = libraryMutedLabel(line, frame);
+        places->setObjectName(QStringLiteral("rowPlaces"));
+        text->addWidget(places);
+    }
     if (const QString line = ModuleSetupText::setupLine(core::setupFromJson(m.setup), ModuleSetupText::heightUnit(nullptr)); !line.isEmpty()) {
         auto* setup = libraryMutedLabel(line, frame);
         setup->setObjectName(QStringLiteral("rowSetup"));

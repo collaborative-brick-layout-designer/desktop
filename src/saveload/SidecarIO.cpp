@@ -2,6 +2,8 @@
 #include "VenueJson.h"
 
 #include "../core/DrawnLimits.h"
+#include "../core/Places.h"
+#include "../core/Map.h"
 #include "../core/Sidecar.h"
 
 #include <QCoreApplication>
@@ -83,7 +85,8 @@ const QStringList& knownRootKeys() {
                                    QStringLiteral("views"),          QStringLiteral("sets"),
                                    QStringLiteral("budgetLimits"),   QStringLiteral("switchStates"),
                                    QStringLiteral("routes"),         QStringLiteral("rollingStock"),
-                                   QStringLiteral("trains"),         QStringLiteral("trainScale") };
+                                   QStringLiteral("trains"),         QStringLiteral("trainScale"),
+                                   QStringLiteral("layoutPlaces") };
     return keys;
 }
 
@@ -129,7 +132,8 @@ const QStringList& knownModuleKeys() {
                                    QStringLiteral("nameColor"),  QStringLiteral("sameColor"),
                                    QStringLiteral("pinned"),     QStringLiteral("libraryModuleId"),
                                    QStringLiteral("libraryVersion"), QStringLiteral("shared"),
-                                   QStringLiteral("table"),      QStringLiteral("power") };
+                                   QStringLiteral("table"),      QStringLiteral("power"),
+                                   QStringLiteral("places") };
     return keys;
 }
 
@@ -164,6 +168,7 @@ QJsonObject encodeModule(const core::Module& m) {
     // Its table and power (core/ModuleSetup.h), when set.
     if (m.table) o[QStringLiteral("table")] = *m.table;
     if (m.power) o[QStringLiteral("power")] = *m.power;
+    if (!m.places.isEmpty()) o[QStringLiteral("places")] = m.places;
     return o;
 }
 
@@ -200,6 +205,7 @@ core::Module decodeModule(const QJsonObject& o) {
         if (v.isObject()) (key == QLatin1String("table") ? m.table : m.power) = v.toObject();
         else if (!v.isUndefined()) m.extras.insert(key, v);
     }
+    m.places = core::places::readPlaces(o.value(QStringLiteral("places")));
     for (auto it = o.constBegin(); it != o.constEnd(); ++it)
         if (!knownModuleKeys().contains(it.key())) m.extras.insert(it.key(), it.value());
     return m;
@@ -415,6 +421,7 @@ QJsonObject sidecarToJson(const core::Sidecar& sidecar) {
         root[QStringLiteral("trains")] = trains;
     }
     if (sidecar.trainScale) root[QStringLiteral("trainScale")] = *sidecar.trainScale;
+    if (!sidecar.layoutPlaces.isEmpty()) root[QStringLiteral("layoutPlaces")] = sidecar.layoutPlaces;
     return root;
 }
 
@@ -661,6 +668,7 @@ void sidecarFromJson(const QJsonObject& root, core::Sidecar& out) {
     out.trains.clear();
     for (const auto& v : root.value(QStringLiteral("trains")).toArray())
         if (auto t = trainFromJson(v)) out.trains.push_back(std::move(*t));
+    out.layoutPlaces = core::places::readPlaces(root.value(QStringLiteral("layoutPlaces")));
     out.sets.clear();
     for (const auto& v : root.value(QStringLiteral("sets")).toArray())
         if (auto s = decodePlacedSet(v)) out.sets.push_back(std::move(*s));
@@ -704,6 +712,32 @@ void sidecarFromJson(const QJsonObject& root, core::Sidecar& out) {
     }
 }
 
+void readModulePlaces(const QString& bbmPath, core::Map& module) {
+    core::Sidecar had;
+    if (!QFile::exists(sidecarPathFor(bbmPath)) || !readSidecar(sidecarPathFor(bbmPath), {}, had).ok) return;
+    QJsonArray all = had.layoutPlaces;
+    for (const auto& m : had.modules)
+        for (const auto& p : m.places) all.append(p);
+    module.sidecar.layoutPlaces = core::places::readPlaces(all);
+}
+
+bool writeModulePlaces(const QString& bbmPath, const core::Map& module, QString* error) {
+    const QString path = sidecarPathFor(bbmPath);
+    core::Sidecar out;
+    const bool there = QFile::exists(path);
+    if (!there && module.sidecar.layoutPlaces.isEmpty()) return true;
+    if (there) readSidecar(path, {}, out);
+    out.layoutPlaces = module.sidecar.layoutPlaces;
+    // (Modules of a layout kept as a module file: their parts are other ones now.)
+    for (auto& m : out.modules) m.places = QJsonArray();
+    QFile f(bbmPath);
+    if (!f.open(QIODevice::ReadOnly)) {
+        if (error) *error = f.errorString();
+        return false;
+    }
+    return writeSidecar(path, f.readAll(), out, error);
+}
+
 void renameSidecarIds(core::Sidecar& sidecar, const QHash<QString, QString>& renamed) {
     if (renamed.isEmpty()) return;
     const auto rename = [&](QString& id) {
@@ -721,7 +755,10 @@ void renameSidecarIds(core::Sidecar& sidecar, const QHash<QString, QString>& ren
             members.insert(id);
         }
         m.memberIds = members;
+        m.places = core::places::renamed(m.places, [&](QString id) { rename(id); return std::optional(id); });
     }
+    // Places name the bricks their spots are on.
+    sidecar.layoutPlaces = core::places::renamed(sidecar.layoutPlaces, [&](QString id) { rename(id); return std::optional(id); });
     // Routes name the bricks they run over.
     for (auto& r : sidecar.routes) {
         rename(r.from.brick);

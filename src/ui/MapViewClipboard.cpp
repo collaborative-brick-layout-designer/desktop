@@ -122,6 +122,7 @@ void MapView::pasteClipboard() {
     QHash<QString, std::vector<core::Brick>> byLayer;
     QStringList layerOrder;
     QSet<QString> newGuids;
+    QHash<QString, QString> pastedAs; // each copied part's new id (for a module's places)
     QHash<QString, core::PlacedSet> copiedAnchors; // new anchor part -> its original's link
     // With Use Budget Limitation, bricks beyond their budget are left out
     // (as BlueBrick's duplicate does).
@@ -137,6 +138,7 @@ void MapView::pasteClipboard() {
         }
         core::Brick b = src.brick;
         b.guid = core::newBbmId();
+        pastedAs.insert(src.brick.guid, b.guid);
         if (src.placedSet) copiedAnchors.insert(b.guid, *src.placedSet);
         // Its own connections: new ids, joined again where it lands.
         for (auto& c : b.connections) {
@@ -205,7 +207,7 @@ void MapView::pasteClipboard() {
     // (A shared module's copy is another shared placement: its owner's name,
     // the same link and lock. Where it sits is worked out from its parts.)
     if (clipboardModule_ && refused == 0 && editingModuleId_.isEmpty() && !newGuids.isEmpty()) {
-        core::Module copy = core::copyOfPlaced(*clipboardModule_, newGuids, core::newBbmId(), QPointF());
+        core::Module copy = core::copyOfPlaced(*clipboardModule_, newGuids, core::newBbmId(), QPointF(), pastedAs);
         if (copy.shared) copy.shared->remove(QStringLiteral("placement"));
         undoStack_->push(new edit::AddModuleCommand(*map_, std::move(copy)));
     }

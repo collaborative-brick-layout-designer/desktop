@@ -3,6 +3,7 @@ add_executable(bld_track_tests
     RoutesTest.cpp
     TrainsTest.cpp
     FitChecksTest.cpp
+    PlacesOnTrackTest.cpp
     AnimationTest.cpp
     StockGuessTest.cpp
 )

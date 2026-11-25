@@ -783,6 +783,30 @@
         <translation>Kies MILS, Gewone grondplaat (losse grondplaten op een gewone tafel) of Eigen, en typ de gemeten hoogte, tot het tafelblad of tot de bovenkant van de rails. Voor stroom: hoeveel stopcontacten hij gebruikt, ongeveer hoeveel watt en aan welke kant de stekker eruit komt. Bij het opslaan van de module in de modulebibliotheek gaat dit mee.</translation>
     </message>
     <message>
+        <source>Places</source>
+        <translation>Plaatsen</translation>
+    </message>
+    <message>
+        <source>Places are where cars go: industries, yards, staging and interchanges, named on the track.</source>
+        <translation>Plaatsen zijn waar wagons heen gaan: industrieën, rangeerterreinen, opstelsporen en uitwisselpunten, met een naam op het spoor.</translation>
+    </message>
+    <message>
+        <source>Press New place, then click the track where the cars stand (or right-click track › Make a place…). A place on a module’s track belongs to the module and goes along with it, notes and all, through the Module library. View › Places shows them on the map; a module shared with you keeps its owner’s.</source>
+        <translation>Druk op Nieuwe plaats en klik dan op het spoor waar de wagons staan (of rechtsklik op spoor › Plaats maken…). Een plaats op het spoor van een module hoort bij de module en gaat mee, met notities en al, via de modulebibliotheek. Beeld › Plaatsen toont ze op de kaart; een met jou gedeelde module houdt die van de eigenaar.</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Standplaatsen</translation>
+    </message>
+    <message>
+        <source>A spot is a stretch of track at a place where cars stand, and how many fit.</source>
+        <translation>Een standplaats is een stuk spoor op een plaats waar wagons staan, en hoeveel er passen.</translation>
+    </message>
+    <message>
+        <source>Click a piece of the track; the spot is the whole track between switches and ends that it is on. Cars it holds comes from that track’s length (a typical car is 32 studs); type a number to say it yourself, and the spot is then that much track around the piece. If the track is removed, the spot says so: pick its track again.</source>
+        <translation>Klik op een stuk spoor; de standplaats is het hele spoor tussen wissels en uiteinden waar het op ligt. Hoeveel wagons passen komt van de lengte van dat spoor (een gewone wagon is 32 noppen); typ een getal om het zelf te zeggen, dan is de standplaats zoveel spoor rond het stuk. Als het spoor weg is, zegt de standplaats dat: kies het opnieuw.</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>Tafels en stroom</translation>
     </message>
@@ -3196,6 +3220,10 @@
         <translation>%1 is een gedeelde module, dus zijn rails kunnen hier niet worden gebogen. Je kunt de hele module verplaatsen en draaien.</translation>
     </message>
     <message>
+        <source>%1 is a shared module, so its places are its owner&apos;s. They change here with its owner&apos;s updates.</source>
+        <translation>%1 is een gedeelde module, dus de plaatsen zijn van de eigenaar. Ze veranderen hier met de updates van de eigenaar.</translation>
+    </message>
+    <message>
         <source>%1 is a shared module, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
         <translation>%1 is een gedeelde module, dus zijn onderdelen kunnen hier niet worden veranderd. Je kunt hem als geheel verplaatsen, draaien of verwijderen.</translation>
     </message>
@@ -3214,6 +3242,10 @@
     <message>
         <source>%1 is shared by %2, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
         <translation>%1 wordt gedeeld door %2, dus zijn rails kunnen hier niet worden gebogen. Je kunt de hele module verplaatsen en draaien.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its places are %2&apos;s. They change here with %2&apos;s updates.</source>
+        <translation>%1 wordt gedeeld door %2, dus de plaatsen zijn van %2. Ze veranderen hier met de updates van %2.</translation>
     </message>
     <message>
         <source>%1 is shared by %2, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
@@ -3766,6 +3798,42 @@
     <message>
         <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
         <translation>Wissels zetten zet elke wissel op de route zijn kant op. In rijmodus zet je ze met de hand om.</translation>
+    </message>
+    <message>
+        <source>Places</source>
+        <translation>Plaatsen</translation>
+    </message>
+    <message>
+        <source>Where cars go</source>
+        <translation>Waar wagons heen gaan</translation>
+    </message>
+    <message>
+        <source>Places are the industries, yards, staging and interchanges along your track. Open this list from Panels.</source>
+        <translation>Plaatsen zijn de industrieën, rangeerterreinen, opstelsporen en uitwisselpunten langs je spoor. Open deze lijst via Panelen.</translation>
+    </message>
+    <message>
+        <source>Name a place</source>
+        <translation>Een plaats een naam geven</translation>
+    </message>
+    <message>
+        <source>Press New place, then click the track where the cars stand. Give it a name and kind, and the cars it takes and sends.</source>
+        <translation>Druk op Nieuwe plaats en klik op het spoor waar de wagons staan. Geef naam en soort, en welke wagons er komen en gaan.</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Standplaatsen</translation>
+    </message>
+    <message>
+        <source>A place can have several spots. Each says how many cars fit, worked out from the track unless you type it.</source>
+        <translation>Een plaats kan meer standplaatsen hebben. Elk zegt hoeveel wagons passen, berekend uit het spoor als je niets typt.</translation>
+    </message>
+    <message>
+        <source>On the map</source>
+        <translation>Op de kaart</translation>
+    </message>
+    <message>
+        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
+        <translation>Beeld › Plaatsen toont elke standplaats en hoeveel wagons er passen. Plaatsen op het spoor van een module gaan mee met de module.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -5019,6 +5087,10 @@
     <message>
         <source>Route &quot;%1&quot;</source>
         <translation>Route ‘%1’</translation>
+    </message>
+    <message>
+        <source>Place &quot;%1&quot;</source>
+        <translation>Plaats &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -8535,6 +8607,10 @@ Toch opslaan?</translation>
         <translation>&amp;Wissels</translation>
     </message>
     <message>
+        <source>Places</source>
+        <translation>Plaatsen</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>M&amp;odules</translation>
     </message>
@@ -10149,6 +10225,10 @@ Dit wordt niet opnieuw gevraagd. Om het later in deze of een andere layout over 
         <translation>routes</translation>
     </message>
     <message>
+        <source>places</source>
+        <translation>plaatsen</translation>
+    </message>
+    <message>
         <source>the train scale</source>
         <translation>de treinschaal</translation>
     </message>
@@ -10694,6 +10774,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
         <translation>Tafel en stroom…</translation>
     </message>
     <message>
+        <source>Places…</source>
+        <translation>Plaatsen…</translation>
+    </message>
+    <message>
         <source>Attach Ruler Endpoint &amp;1 to This Brick</source>
         <translation>Uiteinde &amp;1 van liniaal aan deze steen vastmaken</translation>
     </message>
@@ -10940,6 +11024,50 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     <message>
         <source>Cancel</source>
         <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New place:&lt;/b&gt; click the track where cars stand.</source>
+        <translation>&lt;b&gt;Nieuwe plaats:&lt;/b&gt; klik op het spoor waar wagons staan.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New place:&lt;/b&gt; click the track where cars stand on %1.</source>
+        <translation>&lt;b&gt;Nieuwe plaats:&lt;/b&gt; klik op het spoor op %1 waar wagons staan.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Spot:&lt;/b&gt; click the track where cars stand.</source>
+        <translation>&lt;b&gt;Standplaats:&lt;/b&gt; klik op het spoor waar wagons staan.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Spot:&lt;/b&gt; click the track where cars stand on %1.</source>
+        <translation>&lt;b&gt;Standplaats:&lt;/b&gt; klik op het spoor op %1 waar wagons staan.</translation>
+    </message>
+    <message>
+        <source>That track isn’t part of “%1”. Click the module’s own track.</source>
+        <translation>Dat spoor hoort niet bij &quot;%1&quot;. Klik op het spoor van de module.</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>Standplaats %1</translation>
+    </message>
+    <message>
+        <source>There can be up to %1 places here.</source>
+        <translation>Hier is ruimte voor %1 plaatsen.</translation>
+    </message>
+    <message>
+        <source>Place %1</source>
+        <translation>Plaats %1</translation>
+    </message>
+    <message>
+        <source>Put a spot on the track</source>
+        <translation>Een standplaats op het spoor zetten</translation>
+    </message>
+    <message>
+        <source>New place</source>
+        <translation>Nieuwe plaats</translation>
+    </message>
+    <message>
+        <source>Make a Place…</source>
+        <translation>Plaats maken…</translation>
     </message>
     <message>
         <source>Route %1</source>
@@ -11634,6 +11762,10 @@ Houd het als %2 als je het nog in een ander programma opent; Bestand › Exporte
     <message>
         <source>Table and power…</source>
         <translation>Tafel en stroom…</translation>
+    </message>
+    <message>
+        <source>Places…</source>
+        <translation>Plaatsen…</translation>
     </message>
     <message>
         <source>Duplicate</source>
@@ -12412,6 +12544,316 @@ Allebei houden: die van de layout wordt toegevoegd onder een nieuw onderdeelnumm
     <message>
         <source>All categories</source>
         <translation>Alle categorieën</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::PlacesPanel</name>
+    <message>
+        <source>Places</source>
+        <translation>Plaatsen</translation>
+    </message>
+    <message>
+        <source>Delete place</source>
+        <translation>Plaats verwijderen</translation>
+    </message>
+    <message>
+        <source>Delete the place “%1”? The track stays. You can undo this.</source>
+        <translation>De plaats &quot;%1&quot; verwijderen? Het spoor blijft. Je kunt dit ongedaan maken.</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>Module</translation>
+    </message>
+    <message>
+        <source>Place %1</source>
+        <translation>Plaats %1</translation>
+    </message>
+    <message>
+        <source>New place</source>
+        <translation>Nieuwe plaats</translation>
+    </message>
+    <message>
+        <source>Places on %1</source>
+        <translation>Plaatsen op %1</translation>
+    </message>
+    <message>
+        <source>Show all</source>
+        <translation>Alles tonen</translation>
+    </message>
+    <message>
+        <source>New place off the layout</source>
+        <translation>Nieuwe plaats buiten de baan</translation>
+    </message>
+    <message>
+        <source>This module is shared with you, so its places are its owner’s.</source>
+        <translation>Deze module is met jou gedeeld, dus de plaatsen zijn van de eigenaar.</translation>
+    </message>
+    <message>
+        <source>No places on this layout yet.</source>
+        <translation>Er zijn nog geen plaatsen op deze baan.</translation>
+    </message>
+    <message>
+        <source>No places yet. A place is where cars go: an industry, a yard, staging or an interchange. Press New place, then click the track where the cars stand.</source>
+        <translation>Nog geen plaatsen. Een plaats is waar wagons heen gaan: een industrie, een rangeerterrein, een opstelspoor of een uitwisselpunt. Druk op Nieuwe plaats en klik dan op het spoor waar de wagons staan.</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then name the places along it.</source>
+        <translation>Er ligt nog geen spoor op deze baan. Voeg wat toe uit de groep Spoor in het paneel Onderdelen en geef dan de plaatsen erlangs een naam.</translation>
+    </message>
+    <message>
+        <source>No places on this module yet.</source>
+        <translation>Er zijn nog geen plaatsen op deze module.</translation>
+    </message>
+    <message>
+        <source>No places on this module yet. Press New place, then click the module’s track where the cars stand.</source>
+        <translation>Er zijn nog geen plaatsen op deze module. Druk op Nieuwe plaats en klik dan op het spoor van de module waar de wagons staan.</translation>
+    </message>
+    <message>
+        <source>This layout</source>
+        <translation>Deze baan</translation>
+    </message>
+    <message>
+        <source>%1 (shared with you)</source>
+        <translation>%1 (met jou gedeeld)</translation>
+    </message>
+    <message>
+        <source>(no name)</source>
+        <translation>(geen naam)</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Laat zien</translation>
+    </message>
+    <message>
+        <source>1 spot</source>
+        <translation>1 standplaats</translation>
+    </message>
+    <message>
+        <source>%1 spots</source>
+        <translation>%1 standplaatsen</translation>
+    </message>
+    <message>
+        <source>1 spot has lost its track</source>
+        <translation>1 standplaats is zijn spoor kwijt</translation>
+    </message>
+    <message>
+        <source>%1 spots have lost their track</source>
+        <translation>%1 standplaatsen zijn hun spoor kwijt</translation>
+    </message>
+    <message>
+        <source>← All places</source>
+        <translation>← Alle plaatsen</translation>
+    </message>
+    <message>
+        <source>On this layout</source>
+        <translation>Op deze baan</translation>
+    </message>
+    <message>
+        <source>On %1</source>
+        <translation>Op %1</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>Rename place</source>
+        <translation>Plaats hernoemen</translation>
+    </message>
+    <message>
+        <source>Change a place</source>
+        <translation>Een plaats wijzigen</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>Soort</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Standplaatsen</translation>
+    </message>
+    <message>
+        <source>No spots: cars that go here leave the layout.</source>
+        <translation>Geen standplaatsen: wagons die hierheen gaan verlaten de baan.</translation>
+    </message>
+    <message>
+        <source>Rename spot</source>
+        <translation>Standplaats hernoemen</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Standplaats</translation>
+    </message>
+    <message>
+        <source>From the track</source>
+        <translation>Uit het spoor</translation>
+    </message>
+    <message>
+        <source>Change a spot</source>
+        <translation>Een standplaats wijzigen</translation>
+    </message>
+    <message>
+        <source>Cars it holds</source>
+        <translation>Wagons die passen</translation>
+    </message>
+    <message>
+        <source>Anything</source>
+        <translation>Alles</translation>
+    </message>
+    <message>
+        <source>Used for</source>
+        <translation>Gebruikt voor</translation>
+    </message>
+    <message>
+        <source>No track picked yet.</source>
+        <translation>Nog geen spoor gekozen.</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed. Pick it again.</source>
+        <translation>Het spoor is verplaatst of weggehaald. Kies het opnieuw.</translation>
+    </message>
+    <message>
+        <source>%1 (from the track’s length)</source>
+        <translation>%1 (uit de lengte van het spoor)</translation>
+    </message>
+    <message>
+        <source>This is a switch: say how many cars it holds, or pick track beside it.</source>
+        <translation>Dit is een wissel: zeg hoeveel wagons er passen, of kies spoor ernaast.</translation>
+    </message>
+    <message>
+        <source>Pick its track</source>
+        <translation>Spoor kiezen</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>Remove a spot</source>
+        <translation>Een standplaats weghalen</translation>
+    </message>
+    <message>
+        <source>Add a spot</source>
+        <translation>Een standplaats toevoegen</translation>
+    </message>
+    <message>
+        <source>Separate with commas</source>
+        <translation>Scheid met komma&apos;s</translation>
+    </message>
+    <message>
+        <source>Takes in</source>
+        <translation>Neemt aan</translation>
+    </message>
+    <message>
+        <source>Sends out</source>
+        <translation>Verstuurt</translation>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>Labels</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Notities</translation>
+    </message>
+    <message>
+        <source>Delete this place</source>
+        <translation>Deze plaats verwijderen</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::PlacesText</name>
+    <message>
+        <source>Industry</source>
+        <translation>Industrie</translation>
+    </message>
+    <message>
+        <source>Yard</source>
+        <translation>Rangeerterrein</translation>
+    </message>
+    <message>
+        <source>Staging</source>
+        <translation>Opstelspoor</translation>
+    </message>
+    <message>
+        <source>Interchange</source>
+        <translation>Uitwisselpunt</translation>
+    </message>
+    <message>
+        <source>Somewhere cars are loaded or unloaded.</source>
+        <translation>Waar wagons worden geladen of gelost.</translation>
+    </message>
+    <message>
+        <source>Where cars are sorted into trains.</source>
+        <translation>Waar wagons tot treinen worden gesorteerd.</translation>
+    </message>
+    <message>
+        <source>Off the layout: where trains come from and go to.</source>
+        <translation>Buiten de baan: waar treinen vandaan komen en heen gaan.</translation>
+    </message>
+    <message>
+        <source>Where cars change to another railroad, the rest of the world.</source>
+        <translation>Waar wagons overgaan naar een andere spoorweg, de rest van de wereld.</translation>
+    </message>
+    <message>
+        <source>Arrival</source>
+        <translation>Aankomst</translation>
+    </message>
+    <message>
+        <source>Departure</source>
+        <translation>Vertrek</translation>
+    </message>
+    <message>
+        <source>Sorting</source>
+        <translation>Sorteren</translation>
+    </message>
+    <message>
+        <source>Repair</source>
+        <translation>Reparatie</translation>
+    </message>
+    <message>
+        <source>Engines</source>
+        <translation>Locs</translation>
+    </message>
+    <message>
+        <source>1 industry</source>
+        <translation>1 industrie</translation>
+    </message>
+    <message>
+        <source>%1 industries</source>
+        <translation>%1 industrieën</translation>
+    </message>
+    <message>
+        <source>1 yard</source>
+        <translation>1 rangeerterrein</translation>
+    </message>
+    <message>
+        <source>%1 yards</source>
+        <translation>%1 rangeerterreinen</translation>
+    </message>
+    <message>
+        <source>%1 staging</source>
+        <translation>%1 × opstelspoor</translation>
+    </message>
+    <message>
+        <source>1 interchange</source>
+        <translation>1 uitwisselpunt</translation>
+    </message>
+    <message>
+        <source>%1 interchanges</source>
+        <translation>%1 uitwisselpunten</translation>
+    </message>
+    <message>
+        <source>Too short for a car</source>
+        <translation>Te kort voor een wagon</translation>
+    </message>
+    <message>
+        <source>1 car</source>
+        <translation>1 wagon</translation>
+    </message>
+    <message>
+        <source>%1 cars</source>
+        <translation>%1 wagons</translation>
     </message>
 </context>
 <context>

@@ -39,6 +39,11 @@
 //                              set a switch (default: back to its usual way), as one edit
 //   trains                     the editor's rolling stock and trains as JSON:
 //                              {rollingStock: [...], trains: [...]}, as the sidecar keeps them
+//   places                     the editor's places as JSON: {layout: [...], modules: [{id, name, places}]}
+//   place-set <moduleId|layout> <place JSON>
+//                              add or change a place, as one edit
+//   place-module <name> <brickId>
+//                              make a module of one part (its places go with it), as one edit
 //   stock-add <number> <length>
 //                              add a quick car (a new id), as one edit; ok <id>
 //   train-rename <id> <name>   rename a train, as one edit
@@ -85,6 +90,8 @@
 #include "sync/PartsSync.h"
 #include "sync/NotificationCenter.h"
 #include "core/SharedModule.h"
+#include "edit/ModuleCommands.h"
+#include "edit/PlaceCommands.h"
 #include "edit/SharedLock.h"
 #include "parts/PartsLibrary.h"
 #include "edit/SharedSettle.h"
@@ -97,6 +104,7 @@
 #include "core/Ids.h"
 #include "core/LayerBrick.h"
 #include "core/Map.h"
+#include "core/Places.h"
 
 #include <QDateTime>
 #include <QEventLoop>
@@ -377,6 +385,31 @@ public:
                 if (exit < 0) map->sidecar.switchStates.remove(a[1]);
                 else map->sidecar.switchStates.insert(a[1], exit);
             });
+        } else if (cmd == QLatin1String("places")) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            QJsonArray modules;
+            for (const auto& m : map->sidecar.modules)
+                modules.append(QJsonObject{ { QStringLiteral("id"), m.id }, { QStringLiteral("name"), m.name }, { QStringLiteral("places"), m.places } });
+            reply(QStringLiteral("ok ")
+                  + QString::fromUtf8(QJsonDocument(QJsonObject{ { QStringLiteral("layout"), map->sidecar.layoutPlaces }, { QStringLiteral("modules"), modules } })
+                                          .toJson(QJsonDocument::Compact)));
+        } else if (cmd == QLatin1String("place-set") && a.size() >= 3) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            const auto place = core::places::readPlace(QJsonDocument::fromJson(a.mid(2).join(QLatin1Char(' ')).toUtf8()).object());
+            if (!place) return reply(QStringLiteral("error not a place")), true;
+            edit::SetPlaceCommand step(*map, a[1] == QLatin1String("layout") ? QString() : a[1],
+                                       place->value(QLatin1String("id")).toString(), place, QString());
+            send(*map, [&] { step.redo(); });
+        } else if (cmd == QLatin1String("place-module") && a.size() == 3) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            edit::CreateModuleCommand step(*map, a[1], { { 0, a[2] } });
+            send(*map, [&] { step.redo(); }, step.moduleId());
         } else if (cmd == QLatin1String("trains")) {
             QString error;
             auto map = session_.editorMap(&error);

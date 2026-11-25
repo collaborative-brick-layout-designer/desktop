@@ -246,6 +246,16 @@
       "short": "What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.",
       "more": "Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along."
     },
+    "ops.places": {
+      "title": "Places",
+      "short": "Places are where cars go: industries, yards, staging and interchanges, named on the track.",
+      "more": "Press New place, then click the track where the cars stand (or right-click track › Make a place…). A place on a module’s track belongs to the module and goes along with it, notes and all, through the Module library. View › Places shows them on the map; a module shared with you keeps its owner’s."
+    },
+    "ops.spot": {
+      "title": "Spots",
+      "short": "A spot is a stretch of track at a place where cars stand, and how many fit.",
+      "more": "Click a piece of the track; the spot is the whole track between switches and ends that it is on. Cars it holds comes from that track’s length (a typical car is 32 studs); type a number to say it yourself, and the spot is then that much track around the piece. If the track is removed, the spot says so: pick its track again."
+    },
     "module.setupSummary": {
       "title": "Tables and power",
       "short": "What all of this layout’s modules need together: outlets and watts, and the table heights by type.",

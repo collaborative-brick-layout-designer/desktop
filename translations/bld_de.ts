@@ -783,6 +783,30 @@
         <translation>Wähl MILS, Einfache Grundplatte (lose Grundplatten auf einem normalen Tisch) oder Eigene und gib die gemessene Höhe ein, bis zur Tischplatte oder bis zur Schienenoberkante. Für den Strom gib an, wie viele Steckdosen es braucht, wie viele Watt ungefähr und auf welcher Seite der Stecker herauskommt. Beim Speichern des Moduls in der Modulbibliothek wird das mitgenommen.</translation>
     </message>
     <message>
+        <source>Places</source>
+        <translation>Orte</translation>
+    </message>
+    <message>
+        <source>Places are where cars go: industries, yards, staging and interchanges, named on the track.</source>
+        <translation>Orte sind Ziele für Wagen: Industrien, Rangierbahnhöfe, Abstellanlagen und Übergabestellen, am Gleis benannt.</translation>
+    </message>
+    <message>
+        <source>Press New place, then click the track where the cars stand (or right-click track › Make a place…). A place on a module’s track belongs to the module and goes along with it, notes and all, through the Module library. View › Places shows them on the map; a module shared with you keeps its owner’s.</source>
+        <translation>Drück „Neuer Ort“ und klick dann auf das Gleis, auf dem die Wagen stehen (oder Rechtsklick auf ein Gleis › Ort anlegen…). Ein Ort auf dem Gleis eines Moduls gehört zum Modul und geht samt Notizen mit ihm durch die Modulbibliothek. Ansicht › Orte zeigt sie auf der Karte; ein mit dir geteiltes Modul behält die seines Eigentümers.</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Stellplätze</translation>
+    </message>
+    <message>
+        <source>A spot is a stretch of track at a place where cars stand, and how many fit.</source>
+        <translation>Ein Stellplatz ist ein Stück Gleis an einem Ort, auf dem Wagen stehen, und wie viele hinpassen.</translation>
+    </message>
+    <message>
+        <source>Click a piece of the track; the spot is the whole track between switches and ends that it is on. Cars it holds comes from that track’s length (a typical car is 32 studs); type a number to say it yourself, and the spot is then that much track around the piece. If the track is removed, the spot says so: pick its track again.</source>
+        <translation>Klick auf ein Gleisstück; der Stellplatz ist das ganze Gleis zwischen Weichen und Enden, auf dem es liegt. Wie viele Wagen passen, ergibt sich aus der Länge dieses Gleises (ein üblicher Wagen hat 32 Noppen); gib selbst eine Zahl ein, dann ist der Stellplatz so viel Gleis um das Stück herum. Wird das Gleis entfernt, sagt der Stellplatz das: Wähl sein Gleis neu.</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>Tische und Strom</translation>
     </message>
@@ -3196,6 +3220,10 @@
         <translation>%1 ist ein geteiltes Modul, daher können seine Gleise hier nicht gebogen werden. Du kannst das ganze Modul verschieben und drehen.</translation>
     </message>
     <message>
+        <source>%1 is a shared module, so its places are its owner&apos;s. They change here with its owner&apos;s updates.</source>
+        <translation>%1 ist ein geteiltes Modul, daher gehören seine Orte dem Eigentümer. Sie ändern sich hier mit dessen Aktualisierungen.</translation>
+    </message>
+    <message>
         <source>%1 is a shared module, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
         <translation>%1 ist ein geteiltes Modul, daher können seine Teile hier nicht geändert werden. Du kannst es als Ganzes verschieben, drehen oder entfernen.</translation>
     </message>
@@ -3214,6 +3242,10 @@
     <message>
         <source>%1 is shared by %2, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
         <translation>%1 wird von %2 geteilt, daher können seine Gleise hier nicht gebogen werden. Du kannst das ganze Modul verschieben und drehen.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its places are %2&apos;s. They change here with %2&apos;s updates.</source>
+        <translation>%1 wird von %2 geteilt, daher gehören seine Orte %2. Sie ändern sich hier mit den Aktualisierungen von %2.</translation>
     </message>
     <message>
         <source>%1 is shared by %2, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
@@ -3766,6 +3798,42 @@
     <message>
         <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
         <translation>Weichen stellen stellt jede Weiche auf der Route in ihre Richtung. Im Fahrmodus stellst du sie von Hand um.</translation>
+    </message>
+    <message>
+        <source>Places</source>
+        <translation>Orte</translation>
+    </message>
+    <message>
+        <source>Where cars go</source>
+        <translation>Wohin Wagen fahren</translation>
+    </message>
+    <message>
+        <source>Places are the industries, yards, staging and interchanges along your track. Open this list from Panels.</source>
+        <translation>Orte sind die Industrien, Rangierbahnhöfe, Abstellanlagen und Übergabestellen an deinem Gleis. Öffne die Liste über Bereiche.</translation>
+    </message>
+    <message>
+        <source>Name a place</source>
+        <translation>Einen Ort benennen</translation>
+    </message>
+    <message>
+        <source>Press New place, then click the track where the cars stand. Give it a name and kind, and the cars it takes and sends.</source>
+        <translation>Drück „Neuer Ort“ und klick auf das Gleis, auf dem die Wagen stehen. Gib Name und Art an und welche Wagen er annimmt und abschickt.</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Stellplätze</translation>
+    </message>
+    <message>
+        <source>A place can have several spots. Each says how many cars fit, worked out from the track unless you type it.</source>
+        <translation>Ein Ort kann mehrere Stellplätze haben. Jeder sagt, wie viele Wagen passen: aus dem Gleis berechnet, wenn du nichts eingibst.</translation>
+    </message>
+    <message>
+        <source>On the map</source>
+        <translation>Auf der Karte</translation>
+    </message>
+    <message>
+        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
+        <translation>Ansicht › Orte zeigt jeden Stellplatz und wie viele Wagen er fasst. Orte auf dem Gleis eines Moduls gehen mit dem Modul mit.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -5019,6 +5087,10 @@
     <message>
         <source>Route &quot;%1&quot;</source>
         <translation>Route „%1“</translation>
+    </message>
+    <message>
+        <source>Place &quot;%1&quot;</source>
+        <translation>Ort „%1“</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -8535,6 +8607,10 @@ Trotzdem speichern?</translation>
         <translation>Wei&amp;chen</translation>
     </message>
     <message>
+        <source>Places</source>
+        <translation>Orte</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>M&amp;odule</translation>
     </message>
@@ -10149,6 +10225,10 @@ Du wirst nicht noch einmal gefragt. Um es später in dieses oder ein anderes Lay
         <translation>Routen</translation>
     </message>
     <message>
+        <source>places</source>
+        <translation>Orte</translation>
+    </message>
+    <message>
         <source>the train scale</source>
         <translation>den Zugmaßstab</translation>
     </message>
@@ -10694,6 +10774,10 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
         <translation>Tisch und Strom…</translation>
     </message>
     <message>
+        <source>Places…</source>
+        <translation>Orte…</translation>
+    </message>
+    <message>
         <source>Attach Ruler Endpoint &amp;1 to This Brick</source>
         <translation>Lineal-Endpunkt &amp;1 an diesen Stein hängen</translation>
     </message>
@@ -10940,6 +11024,50 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New place:&lt;/b&gt; click the track where cars stand.</source>
+        <translation>&lt;b&gt;Neuer Ort:&lt;/b&gt; Klick auf das Gleis, auf dem Wagen stehen.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New place:&lt;/b&gt; click the track where cars stand on %1.</source>
+        <translation>&lt;b&gt;Neuer Ort:&lt;/b&gt; Klick auf das Gleis auf %1, auf dem Wagen stehen.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Spot:&lt;/b&gt; click the track where cars stand.</source>
+        <translation>&lt;b&gt;Stellplatz:&lt;/b&gt; Klick auf das Gleis, auf dem Wagen stehen.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Spot:&lt;/b&gt; click the track where cars stand on %1.</source>
+        <translation>&lt;b&gt;Stellplatz:&lt;/b&gt; Klick auf das Gleis auf %1, auf dem Wagen stehen.</translation>
+    </message>
+    <message>
+        <source>That track isn’t part of “%1”. Click the module’s own track.</source>
+        <translation>Dieses Gleis gehört nicht zu „%1“. Klick auf ein Gleis des Moduls.</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>Stellplatz %1</translation>
+    </message>
+    <message>
+        <source>There can be up to %1 places here.</source>
+        <translation>Hier ist Platz für %1 Orte.</translation>
+    </message>
+    <message>
+        <source>Place %1</source>
+        <translation>Ort %1</translation>
+    </message>
+    <message>
+        <source>Put a spot on the track</source>
+        <translation>Stellplatz aufs Gleis setzen</translation>
+    </message>
+    <message>
+        <source>New place</source>
+        <translation>Neuer Ort</translation>
+    </message>
+    <message>
+        <source>Make a Place…</source>
+        <translation>Ort anlegen…</translation>
     </message>
     <message>
         <source>Route %1</source>
@@ -11634,6 +11762,10 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     <message>
         <source>Table and power…</source>
         <translation>Tisch und Strom…</translation>
+    </message>
+    <message>
+        <source>Places…</source>
+        <translation>Orte…</translation>
     </message>
     <message>
         <source>Duplicate</source>
@@ -12412,6 +12544,316 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>All categories</source>
         <translation>Alle Kategorien</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::PlacesPanel</name>
+    <message>
+        <source>Places</source>
+        <translation>Orte</translation>
+    </message>
+    <message>
+        <source>Delete place</source>
+        <translation>Ort löschen</translation>
+    </message>
+    <message>
+        <source>Delete the place “%1”? The track stays. You can undo this.</source>
+        <translation>Den Ort „%1“ löschen? Das Gleis bleibt. Du kannst das rückgängig machen.</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>Modul</translation>
+    </message>
+    <message>
+        <source>Place %1</source>
+        <translation>Ort %1</translation>
+    </message>
+    <message>
+        <source>New place</source>
+        <translation>Neuer Ort</translation>
+    </message>
+    <message>
+        <source>Places on %1</source>
+        <translation>Orte auf %1</translation>
+    </message>
+    <message>
+        <source>Show all</source>
+        <translation>Alle zeigen</translation>
+    </message>
+    <message>
+        <source>New place off the layout</source>
+        <translation>Neuer Ort außerhalb der Anlage</translation>
+    </message>
+    <message>
+        <source>This module is shared with you, so its places are its owner’s.</source>
+        <translation>Dieses Modul wird mit dir geteilt, daher gehören seine Orte dem Eigentümer.</translation>
+    </message>
+    <message>
+        <source>No places on this layout yet.</source>
+        <translation>Auf dieser Anlage gibt es noch keine Orte.</translation>
+    </message>
+    <message>
+        <source>No places yet. A place is where cars go: an industry, a yard, staging or an interchange. Press New place, then click the track where the cars stand.</source>
+        <translation>Noch keine Orte. Ein Ort ist ein Ziel für Wagen: eine Industrie, ein Rangierbahnhof, eine Abstellanlage oder eine Übergabestelle. Drück „Neuer Ort“ und klick dann auf das Gleis, auf dem die Wagen stehen.</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then name the places along it.</source>
+        <translation>Auf dieser Anlage gibt es noch kein Gleis. Füg welches aus der Gleis-Gruppe im Teile-Bereich hinzu und benenne dann die Orte daran.</translation>
+    </message>
+    <message>
+        <source>No places on this module yet.</source>
+        <translation>Auf diesem Modul gibt es noch keine Orte.</translation>
+    </message>
+    <message>
+        <source>No places on this module yet. Press New place, then click the module’s track where the cars stand.</source>
+        <translation>Auf diesem Modul gibt es noch keine Orte. Drück „Neuer Ort“ und klick dann auf das Gleis des Moduls, auf dem die Wagen stehen.</translation>
+    </message>
+    <message>
+        <source>This layout</source>
+        <translation>Diese Anlage</translation>
+    </message>
+    <message>
+        <source>%1 (shared with you)</source>
+        <translation>%1 (mit dir geteilt)</translation>
+    </message>
+    <message>
+        <source>(no name)</source>
+        <translation>(ohne Namen)</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Zeig es mir</translation>
+    </message>
+    <message>
+        <source>1 spot</source>
+        <translation>1 Stellplatz</translation>
+    </message>
+    <message>
+        <source>%1 spots</source>
+        <translation>%1 Stellplätze</translation>
+    </message>
+    <message>
+        <source>1 spot has lost its track</source>
+        <translation>1 Stellplatz hat sein Gleis verloren</translation>
+    </message>
+    <message>
+        <source>%1 spots have lost their track</source>
+        <translation>%1 Stellplätze haben ihr Gleis verloren</translation>
+    </message>
+    <message>
+        <source>← All places</source>
+        <translation>← Alle Orte</translation>
+    </message>
+    <message>
+        <source>On this layout</source>
+        <translation>Auf dieser Anlage</translation>
+    </message>
+    <message>
+        <source>On %1</source>
+        <translation>Auf %1</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <source>Rename place</source>
+        <translation>Ort umbenennen</translation>
+    </message>
+    <message>
+        <source>Change a place</source>
+        <translation>Ort ändern</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>Art</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Stellplätze</translation>
+    </message>
+    <message>
+        <source>No spots: cars that go here leave the layout.</source>
+        <translation>Keine Stellplätze: Wagen, die hierher fahren, verlassen die Anlage.</translation>
+    </message>
+    <message>
+        <source>Rename spot</source>
+        <translation>Stellplatz umbenennen</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Stellplatz</translation>
+    </message>
+    <message>
+        <source>From the track</source>
+        <translation>Aus dem Gleis</translation>
+    </message>
+    <message>
+        <source>Change a spot</source>
+        <translation>Stellplatz ändern</translation>
+    </message>
+    <message>
+        <source>Cars it holds</source>
+        <translation>Platz für Wagen</translation>
+    </message>
+    <message>
+        <source>Anything</source>
+        <translation>Alles</translation>
+    </message>
+    <message>
+        <source>Used for</source>
+        <translation>Genutzt für</translation>
+    </message>
+    <message>
+        <source>No track picked yet.</source>
+        <translation>Noch kein Gleis gewählt.</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed. Pick it again.</source>
+        <translation>Sein Gleis wurde verschoben oder entfernt. Wähl es neu.</translation>
+    </message>
+    <message>
+        <source>%1 (from the track’s length)</source>
+        <translation>%1 (aus der Gleislänge)</translation>
+    </message>
+    <message>
+        <source>This is a switch: say how many cars it holds, or pick track beside it.</source>
+        <translation>Das ist eine Weiche: Gib an, wie viele Wagen passen, oder wähl ein Gleis daneben.</translation>
+    </message>
+    <message>
+        <source>Pick its track</source>
+        <translation>Gleis wählen</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Entfernen</translation>
+    </message>
+    <message>
+        <source>Remove a spot</source>
+        <translation>Stellplatz entfernen</translation>
+    </message>
+    <message>
+        <source>Add a spot</source>
+        <translation>Stellplatz hinzufügen</translation>
+    </message>
+    <message>
+        <source>Separate with commas</source>
+        <translation>Durch Kommas trennen</translation>
+    </message>
+    <message>
+        <source>Takes in</source>
+        <translation>Nimmt an</translation>
+    </message>
+    <message>
+        <source>Sends out</source>
+        <translation>Schickt ab</translation>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>Schlagwörter</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Notizen</translation>
+    </message>
+    <message>
+        <source>Delete this place</source>
+        <translation>Diesen Ort löschen</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::PlacesText</name>
+    <message>
+        <source>Industry</source>
+        <translation>Industrie</translation>
+    </message>
+    <message>
+        <source>Yard</source>
+        <translation>Rangierbahnhof</translation>
+    </message>
+    <message>
+        <source>Staging</source>
+        <translation>Abstellanlage</translation>
+    </message>
+    <message>
+        <source>Interchange</source>
+        <translation>Übergabestelle</translation>
+    </message>
+    <message>
+        <source>Somewhere cars are loaded or unloaded.</source>
+        <translation>Hier werden Wagen be- oder entladen.</translation>
+    </message>
+    <message>
+        <source>Where cars are sorted into trains.</source>
+        <translation>Hier werden Wagen zu Zügen sortiert.</translation>
+    </message>
+    <message>
+        <source>Off the layout: where trains come from and go to.</source>
+        <translation>Außerhalb der Anlage: woher Züge kommen und wohin sie fahren.</translation>
+    </message>
+    <message>
+        <source>Where cars change to another railroad, the rest of the world.</source>
+        <translation>Hier wechseln Wagen zu einer anderen Bahn, dem Rest der Welt.</translation>
+    </message>
+    <message>
+        <source>Arrival</source>
+        <translation>Ankunft</translation>
+    </message>
+    <message>
+        <source>Departure</source>
+        <translation>Abfahrt</translation>
+    </message>
+    <message>
+        <source>Sorting</source>
+        <translation>Sortieren</translation>
+    </message>
+    <message>
+        <source>Repair</source>
+        <translation>Reparatur</translation>
+    </message>
+    <message>
+        <source>Engines</source>
+        <translation>Loks</translation>
+    </message>
+    <message>
+        <source>1 industry</source>
+        <translation>1 Industrie</translation>
+    </message>
+    <message>
+        <source>%1 industries</source>
+        <translation>%1 Industrien</translation>
+    </message>
+    <message>
+        <source>1 yard</source>
+        <translation>1 Rangierbahnhof</translation>
+    </message>
+    <message>
+        <source>%1 yards</source>
+        <translation>%1 Rangierbahnhöfe</translation>
+    </message>
+    <message>
+        <source>%1 staging</source>
+        <translation>%1 × Abstellanlage</translation>
+    </message>
+    <message>
+        <source>1 interchange</source>
+        <translation>1 Übergabestelle</translation>
+    </message>
+    <message>
+        <source>%1 interchanges</source>
+        <translation>%1 Übergabestellen</translation>
+    </message>
+    <message>
+        <source>Too short for a car</source>
+        <translation>Zu kurz für einen Wagen</translation>
+    </message>
+    <message>
+        <source>1 car</source>
+        <translation>1 Wagen</translation>
+    </message>
+    <message>
+        <source>%1 cars</source>
+        <translation>%1 Wagen</translation>
     </message>
 </context>
 <context>

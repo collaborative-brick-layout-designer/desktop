@@ -60,6 +60,12 @@
       "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "name": { "type": "string" } } },
       "description": "Trains: { id, name, trackKind, units: [{ stock, reversed }], position, color, speed }; position is the head car's front truck as a place on the track plus facing (to or from), or null when not on the map. Unknown fields are kept. Live at meta.trains. Never in a .bbm. Added 2026-11, optional."
     },
+    "layoutPlaces": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/place" },
+      "maxItems": 200,
+      "description": "The layout's own places (Live Ops), on track that is in no module; a module's are in its places. Live at meta.places, one Y.Map a place. Never in a .bbm. Added 2026-11, optional."
+    },
     "trainScale": {
       "type": "integer",
       "minimum": 10,
@@ -69,6 +75,41 @@
   },
 
   "definitions": {
+    "place": {
+      "type": "object",
+      "description": "A place where cars go (core/Places.h): an industry, a yard, staging or an interchange. Fields a newer build added are kept.",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "name": { "type": "string", "maxLength": 80 },
+        "kind": { "type": "string", "maxLength": 40, "description": "industry, yard, staging or interchange." },
+        "spots": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "maxLength": 64 },
+              "name": { "type": "string", "maxLength": 80 },
+              "track": {
+                "type": "object",
+                "description": "The piece of track it was picked on: a way through a part. Absent: none.",
+                "properties": { "brick": { "type": "string" }, "from": { "type": "integer" }, "to": { "type": "integer" } },
+                "required": ["brick", "from", "to"]
+              },
+              "capacity": { "type": "integer", "minimum": 1, "maximum": 999, "description": "Cars it holds. Absent: worked out from the track." },
+              "role": { "type": "string", "description": "A yard track's use: arrival, departure, class, rip, engine." }
+            },
+            "required": ["id", "name"]
+          }
+        },
+        "accepts": { "type": "array", "maxItems": 20, "items": { "type": "string", "maxLength": 40 }, "description": "Car types it takes in." },
+        "ships": { "type": "array", "maxItems": 20, "items": { "type": "string", "maxLength": 40 }, "description": "Car types it sends out." },
+        "tags": { "type": "array", "maxItems": 20, "items": { "type": "string", "maxLength": 40 } },
+        "notes": { "type": "string", "maxLength": 2000 },
+        "source": { "type": "string", "maxLength": 64, "description": "A placed module's place: its id in the Module library." }
+      },
+      "required": ["id", "name", "kind", "spots", "accepts", "ships", "tags", "notes"]
+    },
     "color": {
       "type": "object",
       "description": "Color with optional KnownColor preservation for round-trip.",
@@ -180,6 +221,12 @@
             "plugSide": { "type": "string", "enum": ["front", "back", "left", "right"], "description": "Which side the plug comes out; front is the side people watch from." }
           },
           "required": ["needed"]
+        },
+        "places": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/place" },
+          "maxItems": 200,
+          "description": "The module's places (Live Ops, core/Places.h). Absent: none."
         }
       },
       "required": ["id", "name", "members", "transform"]

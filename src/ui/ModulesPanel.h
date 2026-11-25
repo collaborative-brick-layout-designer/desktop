@@ -37,6 +37,8 @@ signals:
     void lookRequested(const QString& moduleId);
     // Its table and power (the Table and power dialog).
     void setupRequested(const QString& moduleId);
+    // Its places (the Places panel).
+    void placesRequested(const QString& moduleId);
     void showNameRequested(const QString& moduleId, bool show);
     // Edit module (or Done editing: an empty id), and Pin in place / Unpin.
     void editRequested(const QString& moduleId);

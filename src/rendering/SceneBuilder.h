@@ -52,6 +52,9 @@ namespace bld::rendering {
 // BlueBrick and the web draw it (render-parity/areas.json).
 QColor areaCellColor(const QColor& cell, int transparency);
 
+// The color a kind of place has on the map and in the Places panel.
+QColor placeColor(const QString& kind);
+
 class SceneBuilder {
 public:
     static constexpr int kPixelsPerStud = 8;
@@ -185,6 +188,12 @@ public:
     void setShowSidingLengths(bool on) { showSidingLengths_ = on; }
     void setSpotlight(std::optional<QPointF> studs) { spotlight_ = studs; }
     void refreshFit(const core::Map& map);
+    // Places on the map (Live Ops design 6): with View > Places, each spot's
+    // bracket along its track and each place's name. `cars` words a capacity.
+    void setShowPlaces(bool on) { showPlaces_ = on; }
+    void setPlaceCars(std::function<QString(int)> cars) { placeCars_ = std::move(cars); }
+    void refreshPlaces(const core::Map& map);
+    const QStringList& placeLabels() const { return placeLabels_; }
     // What is drawn (tests): the siding labels, the check rings, the spotlight.
     int sidingLabelCount() const { return sidingLabels_; }
     int checkRingCount() const { return checkRings_; }
@@ -341,6 +350,14 @@ private:
     QHash<QString, QList<QGraphicsItem*>> trainCarsById_;
     std::vector<core::RollingStock> drawnStock_;
     std::vector<core::Train> drawnTrains_;
+    void clearPlaces();
+    void addPlaces(const core::Map& map);
+    static QList<QJsonArray> placesIn(const core::Map& map);
+    bool showPlaces_ = true;
+    std::function<QString(int)> placeCars_;
+    QList<QGraphicsItem*> placeItems_;
+    QStringList placeLabels_;
+    QList<QJsonArray> drawnPlaces_;
     void clearFit();
     void addFit(const core::Map& map);
     bool showSidingLengths_ = false;

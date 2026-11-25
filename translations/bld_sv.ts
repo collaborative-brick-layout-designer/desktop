@@ -783,6 +783,30 @@
         <translation>Välj MILS, Vanlig basplatta (lösa basplattor på ett vanligt bord) eller Egen, och skriv höjden du mätte, till bordsskivan eller till rälsens överkant. För ström: hur många uttag den använder, ungefär hur många watt och vilken sida kontakten kommer ut. När modulen sparas i modulbiblioteket följer det med.</translation>
     </message>
     <message>
+        <source>Places</source>
+        <translation>Platser</translation>
+    </message>
+    <message>
+        <source>Places are where cars go: industries, yards, staging and interchanges, named on the track.</source>
+        <translation>Platser är dit vagnar går: industrier, bangårdar, väntspår och utväxlingar, namngivna på spåret.</translation>
+    </message>
+    <message>
+        <source>Press New place, then click the track where the cars stand (or right-click track › Make a place…). A place on a module’s track belongs to the module and goes along with it, notes and all, through the Module library. View › Places shows them on the map; a module shared with you keeps its owner’s.</source>
+        <translation>Tryck på Ny plats och klicka sedan på spåret där vagnarna står (eller högerklicka på spår › Skapa en plats…). En plats på en moduls spår hör till modulen och följer med, anteckningar och allt, genom modulbiblioteket. Visa › Platser visar dem på kartan; en modul som delas med dig behåller ägarens.</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Uppställningar</translation>
+    </message>
+    <message>
+        <source>A spot is a stretch of track at a place where cars stand, and how many fit.</source>
+        <translation>En uppställning är en bit spår på en plats där vagnar står, och hur många som ryms.</translation>
+    </message>
+    <message>
+        <source>Click a piece of the track; the spot is the whole track between switches and ends that it is on. Cars it holds comes from that track’s length (a typical car is 32 studs); type a number to say it yourself, and the spot is then that much track around the piece. If the track is removed, the spot says so: pick its track again.</source>
+        <translation>Klicka på en spårbit; uppställningen är hela spåret mellan växlar och ändar som den ligger på. Hur många vagnar som ryms kommer av spårets längd (en vanlig vagn är 32 knoppar); skriv ett tal för att säga det själv, då är uppställningen så mycket spår runt biten. Tas spåret bort säger uppställningen det: välj spår igen.</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>Bord och ström</translation>
     </message>
@@ -3196,6 +3220,10 @@
         <translation>%1 är en delad modul, så dess räls kan inte böjas här. Du kan flytta och vrida hela modulen.</translation>
     </message>
     <message>
+        <source>%1 is a shared module, so its places are its owner&apos;s. They change here with its owner&apos;s updates.</source>
+        <translation>%1 är en delad modul, så platserna är ägarens. De ändras här med ägarens uppdateringar.</translation>
+    </message>
+    <message>
         <source>%1 is a shared module, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
         <translation>%1 är en delad modul, så dess delar kan inte ändras här. Du kan flytta den, vrida den eller ta bort den som en helhet.</translation>
     </message>
@@ -3214,6 +3242,10 @@
     <message>
         <source>%1 is shared by %2, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
         <translation>%1 delas av %2, så dess räls kan inte böjas här. Du kan flytta och vrida hela modulen.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its places are %2&apos;s. They change here with %2&apos;s updates.</source>
+        <translation>%1 delas av %2, så platserna är från %2. De ändras här med uppdateringar från %2.</translation>
     </message>
     <message>
         <source>%1 is shared by %2, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
@@ -3766,6 +3798,42 @@
     <message>
         <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
         <translation>Lägg växlar lägger varje växel på rutten åt dess håll. I körläget lägger du om dem för hand.</translation>
+    </message>
+    <message>
+        <source>Places</source>
+        <translation>Platser</translation>
+    </message>
+    <message>
+        <source>Where cars go</source>
+        <translation>Dit vagnar går</translation>
+    </message>
+    <message>
+        <source>Places are the industries, yards, staging and interchanges along your track. Open this list from Panels.</source>
+        <translation>Platser är industrierna, bangårdarna, väntspåren och utväxlingarna längs spåret. Öppna listan från Paneler.</translation>
+    </message>
+    <message>
+        <source>Name a place</source>
+        <translation>Namnge en plats</translation>
+    </message>
+    <message>
+        <source>Press New place, then click the track where the cars stand. Give it a name and kind, and the cars it takes and sends.</source>
+        <translation>Tryck på Ny plats och klicka på spåret där vagnarna står. Ge den namn och typ, och vilka vagnar den tar emot och skickar.</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Uppställningar</translation>
+    </message>
+    <message>
+        <source>A place can have several spots. Each says how many cars fit, worked out from the track unless you type it.</source>
+        <translation>En plats kan ha flera uppställningar. Var och en säger hur många vagnar som ryms, räknat från spåret om du inte skriver det.</translation>
+    </message>
+    <message>
+        <source>On the map</source>
+        <translation>På kartan</translation>
+    </message>
+    <message>
+        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
+        <translation>Visa › Platser visar varje uppställning och hur många vagnar som ryms. Platser på en moduls spår följer modulen.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -5019,6 +5087,10 @@
     <message>
         <source>Route &quot;%1&quot;</source>
         <translation>Rutt ”%1”</translation>
+    </message>
+    <message>
+        <source>Place &quot;%1&quot;</source>
+        <translation>Plats ”%1”</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -9747,6 +9819,10 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
         <translation>Vä&amp;xlar</translation>
     </message>
     <message>
+        <source>Places</source>
+        <translation>Platser</translation>
+    </message>
+    <message>
         <source>&amp;Import .bbm as Module…</source>
         <translation>&amp;Importera .bbm som modul…</translation>
     </message>
@@ -10147,6 +10223,10 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
     <message>
         <source>routes</source>
         <translation>rutter</translation>
+    </message>
+    <message>
+        <source>places</source>
+        <translation>platser</translation>
     </message>
     <message>
         <source>the train scale</source>
@@ -10694,6 +10774,10 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
         <translation>Bord och el…</translation>
     </message>
     <message>
+        <source>Places…</source>
+        <translation>Platser…</translation>
+    </message>
+    <message>
         <source>Attach Ruler Endpoint &amp;1 to This Brick</source>
         <translation>Fäst linjalens ändpunkt &amp;1 vid den här klossen</translation>
     </message>
@@ -10940,6 +11024,50 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     <message>
         <source>Cancel</source>
         <translation>Avbryt</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New place:&lt;/b&gt; click the track where cars stand.</source>
+        <translation>&lt;b&gt;Ny plats:&lt;/b&gt; klicka på spåret där vagnar står.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New place:&lt;/b&gt; click the track where cars stand on %1.</source>
+        <translation>&lt;b&gt;Ny plats:&lt;/b&gt; klicka på spåret på %1 där vagnar står.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Spot:&lt;/b&gt; click the track where cars stand.</source>
+        <translation>&lt;b&gt;Uppställning:&lt;/b&gt; klicka på spåret där vagnar står.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Spot:&lt;/b&gt; click the track where cars stand on %1.</source>
+        <translation>&lt;b&gt;Uppställning:&lt;/b&gt; klicka på spåret på %1 där vagnar står.</translation>
+    </message>
+    <message>
+        <source>That track isn’t part of “%1”. Click the module’s own track.</source>
+        <translation>Det spåret hör inte till ”%1”. Klicka på modulens eget spår.</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>Uppställning %1</translation>
+    </message>
+    <message>
+        <source>There can be up to %1 places here.</source>
+        <translation>Här ryms %1 platser.</translation>
+    </message>
+    <message>
+        <source>Place %1</source>
+        <translation>Plats %1</translation>
+    </message>
+    <message>
+        <source>Put a spot on the track</source>
+        <translation>Sätt en uppställning på spåret</translation>
+    </message>
+    <message>
+        <source>New place</source>
+        <translation>Ny plats</translation>
+    </message>
+    <message>
+        <source>Make a Place…</source>
+        <translation>Skapa en plats…</translation>
     </message>
     <message>
         <source>Route %1</source>
@@ -11634,6 +11762,10 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     <message>
         <source>Table and power…</source>
         <translation>Bord och el…</translation>
+    </message>
+    <message>
+        <source>Places…</source>
+        <translation>Platser…</translation>
     </message>
     <message>
         <source>Duplicate</source>
@@ -12412,6 +12544,316 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>All categories</source>
         <translation>Alla kategorier</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::PlacesPanel</name>
+    <message>
+        <source>Places</source>
+        <translation>Platser</translation>
+    </message>
+    <message>
+        <source>Delete place</source>
+        <translation>Ta bort plats</translation>
+    </message>
+    <message>
+        <source>Delete the place “%1”? The track stays. You can undo this.</source>
+        <translation>Ta bort platsen ”%1”? Spåret är kvar. Du kan ångra.</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>Modul</translation>
+    </message>
+    <message>
+        <source>Place %1</source>
+        <translation>Plats %1</translation>
+    </message>
+    <message>
+        <source>New place</source>
+        <translation>Ny plats</translation>
+    </message>
+    <message>
+        <source>Places on %1</source>
+        <translation>Platser på %1</translation>
+    </message>
+    <message>
+        <source>Show all</source>
+        <translation>Visa alla</translation>
+    </message>
+    <message>
+        <source>New place off the layout</source>
+        <translation>Ny plats utanför anläggningen</translation>
+    </message>
+    <message>
+        <source>This module is shared with you, so its places are its owner’s.</source>
+        <translation>Den här modulen delas med dig, så platserna är ägarens.</translation>
+    </message>
+    <message>
+        <source>No places on this layout yet.</source>
+        <translation>Det finns inga platser i anläggningen ännu.</translation>
+    </message>
+    <message>
+        <source>No places yet. A place is where cars go: an industry, a yard, staging or an interchange. Press New place, then click the track where the cars stand.</source>
+        <translation>Inga platser ännu. En plats är dit vagnar går: en industri, en bangård, ett väntspår eller en utväxling. Tryck på Ny plats och klicka sedan på spåret där vagnarna står.</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then name the places along it.</source>
+        <translation>Det finns inget spår i anläggningen ännu. Lägg till från gruppen Spår i panelen Delar och namnge sedan platserna längs det.</translation>
+    </message>
+    <message>
+        <source>No places on this module yet.</source>
+        <translation>Det finns inga platser på den här modulen ännu.</translation>
+    </message>
+    <message>
+        <source>No places on this module yet. Press New place, then click the module’s track where the cars stand.</source>
+        <translation>Det finns inga platser på den här modulen ännu. Tryck på Ny plats och klicka sedan på modulens spår där vagnarna står.</translation>
+    </message>
+    <message>
+        <source>This layout</source>
+        <translation>Den här anläggningen</translation>
+    </message>
+    <message>
+        <source>%1 (shared with you)</source>
+        <translation>%1 (delas med dig)</translation>
+    </message>
+    <message>
+        <source>(no name)</source>
+        <translation>(utan namn)</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Visa mig</translation>
+    </message>
+    <message>
+        <source>1 spot</source>
+        <translation>1 uppställning</translation>
+    </message>
+    <message>
+        <source>%1 spots</source>
+        <translation>%1 uppställningar</translation>
+    </message>
+    <message>
+        <source>1 spot has lost its track</source>
+        <translation>1 uppställning har förlorat sitt spår</translation>
+    </message>
+    <message>
+        <source>%1 spots have lost their track</source>
+        <translation>%1 uppställningar har förlorat sina spår</translation>
+    </message>
+    <message>
+        <source>← All places</source>
+        <translation>← Alla platser</translation>
+    </message>
+    <message>
+        <source>On this layout</source>
+        <translation>I den här anläggningen</translation>
+    </message>
+    <message>
+        <source>On %1</source>
+        <translation>På %1</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Namn</translation>
+    </message>
+    <message>
+        <source>Rename place</source>
+        <translation>Byt namn på platsen</translation>
+    </message>
+    <message>
+        <source>Change a place</source>
+        <translation>Ändra en plats</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Uppställningar</translation>
+    </message>
+    <message>
+        <source>No spots: cars that go here leave the layout.</source>
+        <translation>Inga uppställningar: vagnar som går hit lämnar anläggningen.</translation>
+    </message>
+    <message>
+        <source>Rename spot</source>
+        <translation>Byt namn på uppställningen</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Uppställning</translation>
+    </message>
+    <message>
+        <source>From the track</source>
+        <translation>Från spåret</translation>
+    </message>
+    <message>
+        <source>Change a spot</source>
+        <translation>Ändra en uppställning</translation>
+    </message>
+    <message>
+        <source>Cars it holds</source>
+        <translation>Vagnar som ryms</translation>
+    </message>
+    <message>
+        <source>Anything</source>
+        <translation>Vad som helst</translation>
+    </message>
+    <message>
+        <source>Used for</source>
+        <translation>Används till</translation>
+    </message>
+    <message>
+        <source>No track picked yet.</source>
+        <translation>Inget spår valt ännu.</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed. Pick it again.</source>
+        <translation>Spåret flyttades eller togs bort. Välj det igen.</translation>
+    </message>
+    <message>
+        <source>%1 (from the track’s length)</source>
+        <translation>%1 (från spårets längd)</translation>
+    </message>
+    <message>
+        <source>This is a switch: say how many cars it holds, or pick track beside it.</source>
+        <translation>Det här är en växel: säg hur många vagnar som ryms, eller välj spår bredvid.</translation>
+    </message>
+    <message>
+        <source>Pick its track</source>
+        <translation>Välj spår</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Ta bort</translation>
+    </message>
+    <message>
+        <source>Remove a spot</source>
+        <translation>Ta bort en uppställning</translation>
+    </message>
+    <message>
+        <source>Add a spot</source>
+        <translation>Lägg till en uppställning</translation>
+    </message>
+    <message>
+        <source>Separate with commas</source>
+        <translation>Skilj med kommatecken</translation>
+    </message>
+    <message>
+        <source>Takes in</source>
+        <translation>Tar emot</translation>
+    </message>
+    <message>
+        <source>Sends out</source>
+        <translation>Skickar</translation>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>Taggar</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Anteckningar</translation>
+    </message>
+    <message>
+        <source>Delete this place</source>
+        <translation>Ta bort den här platsen</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::PlacesText</name>
+    <message>
+        <source>Industry</source>
+        <translation>Industri</translation>
+    </message>
+    <message>
+        <source>Yard</source>
+        <translation>Bangård</translation>
+    </message>
+    <message>
+        <source>Staging</source>
+        <translation>Väntspår</translation>
+    </message>
+    <message>
+        <source>Interchange</source>
+        <translation>Utväxling</translation>
+    </message>
+    <message>
+        <source>Somewhere cars are loaded or unloaded.</source>
+        <translation>Där vagnar lastas eller lossas.</translation>
+    </message>
+    <message>
+        <source>Where cars are sorted into trains.</source>
+        <translation>Där vagnar sorteras till tåg.</translation>
+    </message>
+    <message>
+        <source>Off the layout: where trains come from and go to.</source>
+        <translation>Utanför anläggningen: där tåg kommer från och går till.</translation>
+    </message>
+    <message>
+        <source>Where cars change to another railroad, the rest of the world.</source>
+        <translation>Där vagnar går över till en annan järnväg, resten av världen.</translation>
+    </message>
+    <message>
+        <source>Arrival</source>
+        <translation>Ankomst</translation>
+    </message>
+    <message>
+        <source>Departure</source>
+        <translation>Avgång</translation>
+    </message>
+    <message>
+        <source>Sorting</source>
+        <translation>Sortering</translation>
+    </message>
+    <message>
+        <source>Repair</source>
+        <translation>Reparation</translation>
+    </message>
+    <message>
+        <source>Engines</source>
+        <translation>Lok</translation>
+    </message>
+    <message>
+        <source>1 industry</source>
+        <translation>1 industri</translation>
+    </message>
+    <message>
+        <source>%1 industries</source>
+        <translation>%1 industrier</translation>
+    </message>
+    <message>
+        <source>1 yard</source>
+        <translation>1 bangård</translation>
+    </message>
+    <message>
+        <source>%1 yards</source>
+        <translation>%1 bangårdar</translation>
+    </message>
+    <message>
+        <source>%1 staging</source>
+        <translation>%1 väntspår</translation>
+    </message>
+    <message>
+        <source>1 interchange</source>
+        <translation>1 utväxling</translation>
+    </message>
+    <message>
+        <source>%1 interchanges</source>
+        <translation>%1 utväxlingar</translation>
+    </message>
+    <message>
+        <source>Too short for a car</source>
+        <translation>För kort för en vagn</translation>
+    </message>
+    <message>
+        <source>1 car</source>
+        <translation>1 vagn</translation>
+    </message>
+    <message>
+        <source>%1 cars</source>
+        <translation>%1 vagnar</translation>
     </message>
 </context>
 <context>

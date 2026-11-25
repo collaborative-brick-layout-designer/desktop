@@ -170,8 +170,8 @@ Module detached(Module m) {
     return m;
 }
 
-Module sharedCopyOf(const Module& m, QSet<QString> members, QString newId, QPointF moved) {
-    Module c = copyOfModule(m, std::move(members), std::move(newId));
+Module sharedCopyOf(const Module& m, QSet<QString> members, QString newId, QPointF moved, const QHash<QString, QString>& renamed) {
+    Module c = copyOfModule(m, std::move(members), std::move(newId), renamed);
     const auto s = sharedPlaced(m);
     if (!s) return c;
     c.name = m.name;
@@ -184,9 +184,9 @@ Module sharedCopyOf(const Module& m, QSet<QString> members, QString newId, QPoin
     return c;
 }
 
-Module copyOfPlaced(const Module& m, QSet<QString> members, QString newId, QPointF moved) {
-    return isSharedModule(m) ? sharedCopyOf(m, std::move(members), std::move(newId), moved)
-                             : copyOfModule(m, std::move(members), std::move(newId));
+Module copyOfPlaced(const Module& m, QSet<QString> members, QString newId, QPointF moved, const QHash<QString, QString>& renamed) {
+    return isSharedModule(m) ? sharedCopyOf(m, std::move(members), std::move(newId), moved, renamed)
+                             : copyOfModule(m, std::move(members), std::move(newId), renamed);
 }
 
 QString lockMessage(const QString& name, const QString& by, LockedAction what) {
@@ -208,6 +208,8 @@ QString lockMessage(const QString& name, const QString& by, LockedAction what) {
             return SharedModuleText::tr("%1 is a shared module, so its track can't be bent here. You can move and "
                                         "turn the whole module.")
                 .arg(n);
+        case LockedAction::Places:
+            return SharedModuleText::tr("%1 is a shared module, so its places are its owner's. They change here with its owner's updates.").arg(n);
         case LockedAction::Edit:
         case LockedAction::Parts: break;
         }
@@ -231,6 +233,8 @@ QString lockMessage(const QString& name, const QString& by, LockedAction what) {
         return SharedModuleText::tr("%1 is shared by %2, so its track can't be bent here. You can move and turn the "
                                     "whole module.")
             .arg(n, by);
+    case LockedAction::Places:
+        return SharedModuleText::tr("%1 is shared by %2, so its places are %2's. They change here with %2's updates.").arg(n, by);
     case LockedAction::Edit:
     case LockedAction::Parts: break;
     }
@@ -261,6 +265,7 @@ std::optional<LockedAction> keepsLock(const Module& was, const Module& next) {
     if (!b || b->moduleId != a->moduleId) return LockedAction::Dissolve;
     if (b->members != a->members) return LockedAction::Members;
     if (next.name != was.name) return LockedAction::Rename;
+    if (next.places != was.places) return LockedAction::Places;
     return std::nullopt;
 }
 

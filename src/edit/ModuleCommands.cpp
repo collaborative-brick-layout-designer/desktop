@@ -9,6 +9,7 @@
 
 #include "../core/Groups.h"
 
+#include "../core/Places.h"
 #include "../core/Brick.h"
 #include "../core/Layer.h"
 #include "../core/LayerBrick.h"
@@ -60,10 +61,16 @@ void CreateModuleCommand::redo() {
     m.id = moduleId_;
     m.name = name_;
     for (const auto& mem : members_) m.memberIds.insert(mem.guid);
+    const auto split = core::places::adopted(map_.sidecar.layoutPlaces, m.memberIds);
+    adopted_ = split.module;
+    map_.sidecar.layoutPlaces = split.layout;
+    m.places = adopted_;
     map_.sidecar.modules.push_back(std::move(m));
 }
 
 void CreateModuleCommand::undo() {
+    for (const auto& p : std::as_const(adopted_))
+        map_.sidecar.layoutPlaces = core::places::withPlace(map_.sidecar.layoutPlaces, p.toObject());
     const int i = findModuleIndex(map_, moduleId_);
     if (i >= 0) map_.sidecar.modules.erase(map_.sidecar.modules.begin() + i);
 }
@@ -352,6 +359,7 @@ void CloneModuleCommand::redo() {
                 if (!srcMod.memberIds.contains(b.guid)) continue;
                 core::Brick copy = b;
                 copy.guid = core::newBbmId();
+                cloneOf_.insert(b.guid, copy.guid);
                 copy.displayArea.translate(offsetStuds_);
                 // Clones shouldn't inherit the source's connection links —
                 // new bricks are un-linked and snap fresh.
@@ -382,7 +390,10 @@ void CloneModuleCommand::redo() {
     QSet<QString> members;
     for (const auto& a : appliedBricks_) members.insert(a.guid);
     // (A shared module's copy is another shared placement, under its owner's name.)
-    core::Module m = core::copyOfPlaced(srcMod, std::move(members), newModuleId_, offsetStuds_);
+    core::Module m = core::copyOfPlaced(srcMod, std::move(members), newModuleId_, offsetStuds_, cloneOf_);
+    // The same ids again on redo.
+    if (!clonePlaces_) clonePlaces_ = m.places;
+    m.places = *clonePlaces_;
     if (!newName_.isEmpty() && !core::isSharedModule(srcMod)) m.name = newName_;
     map_.sidecar.modules.push_back(std::move(m));
 }
@@ -420,12 +431,61 @@ void FlattenModuleCommand::redo() {
     removed_ = map_.sidecar.modules[i];
     insertIndex_ = i;
     map_.sidecar.modules.erase(map_.sidecar.modules.begin() + i);
+    if (!released_) {
+        const QJsonArray& had = map_.sidecar.layoutPlaces;
+        const QJsonArray all = core::places::released(had, removed_->places, [] { return core::newBbmId(); });
+        released_ = QJsonArray();
+        for (qsizetype k = had.size(); k < all.size(); ++k) released_->append(all.at(k));
+    }
+    for (const auto& p : std::as_const(*released_))
+        map_.sidecar.layoutPlaces = core::places::withPlace(map_.sidecar.layoutPlaces, p.toObject());
 }
 
 void FlattenModuleCommand::undo() {
     if (!removed_) return;
+    if (released_)
+        for (const auto& p : std::as_const(*released_))
+            map_.sidecar.layoutPlaces = core::places::without(map_.sidecar.layoutPlaces, p.toObject().value(QLatin1String("id")).toString());
     const int idx = std::min<int>(insertIndex_, static_cast<int>(map_.sidecar.modules.size()));
     map_.sidecar.modules.insert(map_.sidecar.modules.begin() + idx, *removed_);
+}
+
+// ----- A library version's places -----
+
+QJsonArray placesOn(const std::vector<ImportBbmAsModuleCommand::LayerBatch>& batches, const QStringList& guids) {
+    QJsonArray all;
+    QHash<QString, QString> to;
+    qsizetype at = 0;
+    for (const auto& batch : batches) {
+        for (const auto& p : batch.places) all.append(p);
+        for (qsizetype i = 0; i < static_cast<qsizetype>(batch.bricks.size()); ++i, ++at)
+            if (i < batch.sourceIds.size() && at < guids.size()) to.insert(batch.sourceIds[i], guids[at]);
+    }
+    if (all.isEmpty()) return {};
+    return core::places::renamed(all, [&to](const QString& id) { return to.contains(id) ? std::optional(to.value(id)) : std::nullopt; });
+}
+
+QJsonArray placesInModule(const core::Map& module) {
+    QJsonArray all = module.sidecar.layoutPlaces;
+    for (const auto& m : module.sidecar.modules)
+        for (const auto& p : m.places) all.append(p);
+    return core::places::readPlaces(all);
+}
+
+void ReplaceModulePartsCommand::setPlaces(core::Module& mod, const QStringList& members) {
+    if (!placesAfter_) {
+        const QJsonArray version = placesOn(batches_, members);
+        if (!version.isEmpty()) {
+            placesAfter_ = core::places::updated(mod.places, version, [] { return core::newBbmId(); });
+        } else if (core::isSharedModule(mod)) {
+            // Exactly its owner's.
+            placesAfter_ = QJsonArray();
+        } else {
+            const QSet<QString> here(members.begin(), members.end());
+            placesAfter_ = core::places::renamed(mod.places, [&here](const QString& id) { return here.contains(id) ? std::optional(id) : std::nullopt; });
+        }
+    }
+    mod.places = *placesAfter_;
 }
 
 // ----- ReplaceModulePartsCommand -----
@@ -489,6 +549,7 @@ void ReplaceModulePartsCommand::redo() {
                 sharedAfter_->insert(QStringLiteral("retired"), QJsonArray::fromStringList(core::moreRetired(had, plan.removed)));
             }
             const QStringList members = applyKeep(map_, plan, batches_);
+            keepOrder_ = members;
             keepMembers_ = QSet<QString>(members.begin(), members.end());
             keepAfter_ = sheetsNow();
         } else {
@@ -499,6 +560,7 @@ void ReplaceModulePartsCommand::redo() {
         m.libraryModuleId = libraryId_;
         m.libraryVersion = libraryVersion_;
         if (sharedAfter_) m.shared = *sharedAfter_;
+        setPlaces(m, keepOrder_);
         return;
     }
     removed_.clear();
@@ -530,6 +592,10 @@ void ReplaceModulePartsCommand::redo() {
     mod.libraryModuleId = libraryId_;
     mod.libraryVersion = libraryVersion_;
     if (sharedAfter_) mod.shared = *sharedAfter_;
+    QStringList order;
+    for (const auto& batch : batches_)
+        for (const auto& b : batch.bricks) order << b.guid;
+    setPlaces(mod, order);
 }
 
 void ReplaceModulePartsCommand::undo() {
@@ -687,6 +753,12 @@ void ImportBbmAsModuleCommand::redo() {
     for (const auto& a : applied_)
         for (const QString& g : a.addedGuids) mod.memberIds.insert(g);
     mod = core::withLibrarySetup(std::move(mod), setup_);
+    if (!places_) {
+        QStringList order;
+        for (const auto& a : applied_) order << a.addedGuids;
+        places_ = core::places::copied(placesOn(batches_, order), [](const QString& id) { return std::optional(id); }, [] { return core::newBbmId(); });
+    }
+    mod.places = *places_;
     map_.sidecar.modules.push_back(std::move(mod));
 }
 

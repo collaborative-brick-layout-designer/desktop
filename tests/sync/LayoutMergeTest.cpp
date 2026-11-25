@@ -627,6 +627,25 @@ TEST(LayoutMerge, RoutesAreComparedAndMergedOneRouteAtATime) {
     ASSERT_EQ(merged->sidecar.routes.size(), 2u);
 }
 
+TEST(LayoutMerge, PlacesAreComparedAndMergedOneAtATime) {
+    const auto place = [](const QString& id, const QString& name) {
+        return QJsonObject{ { QStringLiteral("id"), id }, { QStringLiteral("name"), name }, { QStringLiteral("kind"), QStringLiteral("yard") } };
+    };
+    Case c;
+    c.base->sidecar.layoutPlaces = QJsonArray{ place(QStringLiteral("a"), QStringLiteral("Cannery")) };
+    c.mine->sidecar.layoutPlaces = QJsonArray{ place(QStringLiteral("a"), QStringLiteral("Mill")) };
+    c.server->sidecar.layoutPlaces = QJsonArray{ place(QStringLiteral("a"), QStringLiteral("Cannery")), place(QStringLiteral("b"), QStringLiteral("Yard")) };
+    const Snapshot bs = snapshotOf(*c.base), m = snapshotOf(*c.mine), s = snapshotOf(*c.server);
+    const auto changes = compareLayouts(bs, m, s);
+    QStringList lines;
+    for (const auto& ch : changes)
+        if (ch.kind == QLatin1String("place")) lines << describe(ch);
+    EXPECT_EQ(lines.join(QLatin1Char('\n')).toStdString(), "Place \"Mill\": you changed it\nPlace \"Yard\": the server added it");
+    auto merged = mergeLayouts(m, s, changes, {});
+    ASSERT_TRUE(merged);
+    ASSERT_EQ(merged->sidecar.layoutPlaces.size(), 2);
+}
+
 TEST(LayoutMerge, CarsAndTrainsAreComparedAndMergedOneAtATime) {
     Case c;
     core::RollingStock a = core::simpleStock(QStringLiteral("sa"));

@@ -9,6 +9,8 @@
 //   - Update from Module library: a newer version comes in where the module sits,
 //     each part on its sheet; it asks first when the module was changed here.
 
+#include "../core/Places.h"
+#include "../saveload/SidecarIO.h"
 #include "MainWindow.h"
 #include "../core/ModuleSetup.h"
 
@@ -74,6 +76,8 @@ std::optional<core::Map> moduleMapOf(const core::Map& map, const core::Module& m
     }
     if (total == 0) return std::nullopt;
     out.nbItems = total;
+    // Its places are the module's contents too, so each version has its own (core/Places.h).
+    out.sidecar.layoutPlaces = core::places::forLibrary(mod.places, mod.memberIds);
     return out;
 }
 
@@ -345,7 +349,8 @@ void MainWindow::publishModule(const QString& moduleId) {
     o.confirmLabel = tr("Save");
     o.danger = false;
     if (!confirmModuleLibrary(o)) return;
-    const auto r = saveload::writeBbm(*module, file);
+    auto r = saveload::writeBbm(*module, file);
+    if (r.ok) r.ok = saveload::writeModulePlaces(file, *module, &r.error);
     if (!r.ok) {
         QMessageBox::warning(this, tr("Update Module library file"), r.error);
         return;
@@ -458,6 +463,7 @@ void MainWindow::pullModule(const QString& moduleId, bool askIfChanged) {
         QMessageBox::warning(this, tr("Update from Module library file"), tr("Could not read %1: %2").arg(file, res.error));
         return;
     }
+    saveload::readModulePlaces(file, *res.map);
     parts::placement::fixStaleAreas(*res.map, parts_);
     if (edit::matchesVersion(edit::batchesOfModule(*res.map), edit::placedParts(*map, mod->memberIds), parts_)) {
         statusBar()->showMessage(tr("“%1” already matches %2").arg(name, QFileInfo(file).fileName()), 5000);

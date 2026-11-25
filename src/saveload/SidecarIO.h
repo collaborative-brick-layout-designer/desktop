@@ -13,7 +13,7 @@
 
 #include <optional>
 
-namespace bld::core { struct Sidecar; struct SavedView; struct Route; }
+namespace bld::core { class Map; struct Sidecar; struct SavedView; struct Route; }
 
 namespace bld::saveload {
 
@@ -75,6 +75,12 @@ void sidecarFromJson(const QJsonObject& root, core::Sidecar& out);
 // isn't a view at all (no id).
 QJsonObject viewToJson(const core::SavedView& view);
 std::optional<core::SavedView> viewFromJson(const QJsonValue& value);
+
+// A module kept as a .bbm file (the Module library folder on this computer)
+// has its places (core/Places.h) in its .bbm.bld, as the layout's own: read
+// them into / write them from the map's sidecar. Nothing else of it is touched.
+void readModulePlaces(const QString& bbmPath, core::Map& module);
+bool writeModulePlaces(const QString& bbmPath, const core::Map& module, QString* error = nullptr);
 
 // Points the sidecar's references (views' sheets, labels' targets, module
 // members) at the ids the map was renumbered to (LoadResult::renamedIds).

@@ -43,6 +43,7 @@ QString legLabel(const QString& name) {
 void MapView::setRunMode(bool on) {
     if (runMode_ == on) return;
     if (on) cancelTrainPlacing();
+    if (on) cancelPlacePick();
     runMode_ = on;
     if (on && scene()) {
         scene()->clearSelection();

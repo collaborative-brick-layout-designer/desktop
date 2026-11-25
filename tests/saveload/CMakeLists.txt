@@ -4,6 +4,7 @@ add_executable(bld_saveload_tests
     RealFixtureTest.cpp
     SidecarTest.cpp
     ModuleSetupTest.cpp
+    PlacesTest.cpp
     SetIOTest.cpp
     VenueJsonTest.cpp
 )

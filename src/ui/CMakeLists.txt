@@ -130,6 +130,12 @@ add_library(bld_ui STATIC
     SharePictureDialog.cpp
     SharePictureDialog.h
     ViewsPanel.cpp
+    PlacesPanel.cpp
+    PlacesPanel.h
+    PlacesText.cpp
+    PlacesText.h
+    MapViewPlaces.cpp
+    MainWindowPlaces.cpp
     RoutesPanel.cpp
     RoutesPanel.h
     ViewsPanel.h

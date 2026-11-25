@@ -114,7 +114,7 @@ change in one repo fails until the other has the same copy.
 
 To change them: edit (or, for the imported part, run the desktop's
 `bld_sync_tests --gtest_filter='Contracts.*'` with `BLD_WRITE_CONTRACTS=1`),
-then `sha256sum doc-shape.json imported-part.json imported-part.xml module-members.json module-setup.json part-naming.json presence-colors.json route-search.json shared-module-keep.json shared-module-placement.json shared-module-settle.json sidecar-hash.json track-kinds.json track-network.json track-paths.json train-animation.json train-geometry.json truck-guess.json truck-guess-10014-1.mpd truck-guess-10016-1.mpd truck-guess-10020-1.mpd update-guard.json > MANIFEST.sha256`
+then `sha256sum doc-shape.json imported-part.json imported-part.xml module-members.json module-setup.json part-naming.json places.json presence-colors.json route-search.json shared-module-keep.json shared-module-placement.json shared-module-settle.json sidecar-hash.json track-kinds.json track-network.json track-paths.json train-animation.json train-geometry.json truck-guess.json truck-guess-10014-1.mpd truck-guess-10016-1.mpd truck-guess-10020-1.mpd update-guard.json > MANIFEST.sha256`
 and copy the folder to the other repo.
 - `presence-colors.json`: each person's first-choice presence color on a
   layout, and the colors a group of people here get (web
@@ -124,4 +124,15 @@ and copy the folder to the other repo.
   `table` and `power` read as, which setups the server takes
   (`PATCH /api/modules/:id`), and the layout summary a coordinator sees.
   `BLD_WRITE_CONTRACTS=1 pnpm --filter @cld/modules test` writes the
+  answers.
+- `places.json`: places (Live Ops; web packages/bbm/src/places.ts, desktop
+  src/core/Places.cpp): the limits, what a stored place reads as and its
+  size, which places the server takes (ws/placesGuard.ts), and what
+  happens to places when a module is copied, updated from the Module
+  library, saved to it, made of parts or taken apart; the counts and the
+  cars a spot holds. `onTrack` is where a spot is on the track of
+  route-search.json and how much a train can stand in (web
+  packages/parts-catalog/src/track/places.ts, desktop
+  src/track/PlacesOnTrack.cpp). `BLD_WRITE_CONTRACTS=1 pnpm --filter
+  @cld/bbm test`, then the same for `@cld/parts-catalog`, writes the
   answers.
