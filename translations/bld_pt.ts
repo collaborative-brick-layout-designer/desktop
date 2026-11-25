@@ -875,7 +875,7 @@
         <translation>Carruagens que têm para onde ir mas agora não têm como, cada uma com o motivo.</translation>
     </message>
     <message>
-        <source>Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <source>Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
         <translation>Nada se perde: cada uma fica onde está até adicionar um serviço, arranjar espaço ou mudar a guia. Ao eliminar um local, vias ou um serviço, as carruagens aparecem aqui.</translation>
     </message>
     <message>

@@ -875,7 +875,7 @@
         <translation>Wagen, die ein Ziel haben, aber gerade keinen Weg dorthin, jeweils mit dem Grund.</translation>
     </message>
     <message>
-        <source>Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <source>Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
         <translation>Nichts geht verloren: Jeder bleibt, wo er ist, bis du einen Auftrag hinzufügst, Platz schaffst oder seinen Frachtbrief änderst. Löschst du einen Ort, Gleise oder einen Auftrag, stehen die betroffenen Wagen hier.</translation>
     </message>
     <message>

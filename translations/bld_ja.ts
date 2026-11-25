@@ -875,7 +875,7 @@
         <translation>行き先はあるのに今は行く方法がない車両と、その理由です。</translation>
     </message>
     <message>
-        <source>Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <source>Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
         <translation>何も失われません。仕業を足すか、空きを作るか、運送状を変えるまで、車両はその場に残ります。場所、線路、仕業を削除すると、その車両がここに出ます。</translation>
     </message>
     <message>

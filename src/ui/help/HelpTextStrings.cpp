@@ -172,7 +172,7 @@ const char* const kStrings[] = {
     QT_TRANSLATE_NOOP("HelpTexts", "Cars to set out are listed nearest the engine first, and cars to pick up in the order they stand. A spot with no room is passed by, and spots for repairs and engines are left free."),
     QT_TRANSLATE_NOOP("HelpTexts", "Can’t route"),
     QT_TRANSLATE_NOOP("HelpTexts", "Cars that have somewhere to go but no way there now, each with why."),
-    QT_TRANSLATE_NOOP("HelpTexts", "Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here."),
+    QT_TRANSLATE_NOOP("HelpTexts", "Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here."),
     QT_TRANSLATE_NOOP("HelpTexts", "Places"),
     QT_TRANSLATE_NOOP("HelpTexts", "Places are where cars go: industries, yards, staging and interchanges, named on the track."),
     QT_TRANSLATE_NOOP("HelpTexts", "Press New place, then click the track where the cars stand (or right-click track › Make a place…). A place on a module’s track belongs to the module and goes along with it, notes and all, through the Module library. View › Places shows them on the map; a module shared with you keeps its owner’s."),

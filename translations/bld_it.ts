@@ -875,7 +875,7 @@
         <translation>Vagoni che hanno dove andare ma ora nessun modo per arrivarci, ognuno con il motivo.</translation>
     </message>
     <message>
-        <source>Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <source>Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
         <translation>Niente va perso: ognuno resta dov’è finché non aggiungi un servizio, fai posto o cambi la sua lettera di vettura. Se elimini un luogo, dei binari o un servizio, i suoi vagoni compaiono qui.</translation>
     </message>
     <message>

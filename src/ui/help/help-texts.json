@@ -284,7 +284,7 @@
     "ops.cantRoute": {
       "title": "Can’t route",
       "short": "Cars that have somewhere to go but no way there now, each with why.",
-      "more": "Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here."
+      "more": "Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here."
     },
     "ops.places": {
       "title": "Places",

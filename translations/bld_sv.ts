@@ -875,7 +875,7 @@
         <translation>Vagnar som har ett mål men ingen väg dit nu, var och en med orsaken.</translation>
     </message>
     <message>
-        <source>Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <source>Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
         <translation>Inget går förlorat: var och en står kvar tills du lägger till ett uppdrag, gör plats eller ändrar fraktsedeln. Tar du bort en plats, spår eller ett uppdrag står vagnarna här.</translation>
     </message>
     <message>

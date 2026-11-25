@@ -875,7 +875,7 @@
         <translation>Vogner som har et mål, men ingen vei dit nå, hver med årsaken.</translation>
     </message>
     <message>
-        <source>Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <source>Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
         <translation>Ingenting går tapt: hver blir stående til du legger til et oppdrag, gjør plass eller endrer fraktbrevet. Sletter du et sted, spor eller et oppdrag, står vognene her.</translation>
     </message>
     <message>

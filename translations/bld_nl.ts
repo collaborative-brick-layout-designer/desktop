@@ -875,7 +875,7 @@
         <translation>Wagons die een bestemming hebben maar nu geen weg erheen, elk met de reden.</translation>
     </message>
     <message>
-        <source>Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <source>Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
         <translation>Er gaat niets verloren: elke wagon blijft staan tot je een dienst toevoegt, ruimte maakt of zijn vrachtbrief wijzigt. Verwijder je een plaats, spoor of een dienst, dan staan de wagons hier.</translation>
     </message>
     <message>

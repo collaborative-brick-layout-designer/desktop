@@ -875,7 +875,7 @@
         <translation>Les wagons qui ont une destination mais pas de moyen d’y aller, chacun avec la raison.</translation>
     </message>
     <message>
-        <source>Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <source>Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
         <translation>Rien n’est perdu : chacun reste où il est jusqu’à ce que vous ajoutiez une mission, fassiez de la place ou changiez sa lettre de voiture. Supprimer un lieu, de la voie ou une mission liste ici ses wagons.</translation>
     </message>
     <message>

@@ -875,7 +875,7 @@
         <translation>有去处但现在无法到达的车厢，以及各自的原因。</translation>
     </message>
     <message>
-        <source>Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <source>Nothing is lost: each stays where it is until you add a job, free up a spot, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
         <translation>什么都不会丢失：在您添加作业、腾出空位或更改运单之前，车厢都留在原地。删除地点、轨道或作业时，相关车厢会列在这里。</translation>
     </message>
     <message>
