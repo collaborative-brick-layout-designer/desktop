@@ -509,6 +509,8 @@ QJsonObject rollingStockToJson(const core::RollingStock& r) {
     if (!r.libraryId.isEmpty()) o[QStringLiteral("libraryId")] = r.libraryId;
     if (r.libraryVersion > 0) o[QStringLiteral("libraryVersion")] = r.libraryVersion;
     o[QStringLiteral("notes")] = r.notes;
+    if (r.opsCut) o[QStringLiteral("opsCut")] = *r.opsCut;
+    if (!r.opsLoad.isEmpty()) o[QStringLiteral("opsLoad")] = r.opsLoad;
     return o;
 }
 
@@ -554,9 +556,11 @@ std::optional<core::RollingStock> rollingStockFromJson(const QJsonValue& v) {
     r.libraryId = o.value(QLatin1String("libraryId")).toString();
     r.libraryVersion = o.value(QLatin1String("libraryVersion")).toInt(0);
     r.notes = o.value(QLatin1String("notes")).toString();
+    if (o.value(QLatin1String("opsCut")).isString()) r.opsCut = o.value(QLatin1String("opsCut")).toString();
+    r.opsLoad = o.value(QLatin1String("opsLoad")).toString();
     r.extras = o;
     for (const char* k : { "id", "number", "name", "kind", "type", "trackKind", "length", "width", "bodyLength", "trucks", "couplers",
-                           "powered", "look", "libraryId", "libraryVersion", "notes" })
+                           "powered", "look", "libraryId", "libraryVersion", "notes", "opsCut", "opsLoad" })
         r.extras.remove(QLatin1String(k));
     return r;
 }
@@ -578,6 +582,9 @@ QJsonObject trainToJson(const core::Train& t) {
     }
     o[QStringLiteral("color")] = t.color;
     o[QStringLiteral("speed")] = t.speed;
+    if (t.cut) o[QStringLiteral("cut")] = true;
+    if (t.over) o[QStringLiteral("over")] = switchStatesToJson(*t.over);
+    if (t.emptiedAt) o[QStringLiteral("emptiedAt")] = *t.emptiedAt;
     return o;
 }
 
@@ -603,8 +610,11 @@ std::optional<core::Train> trainFromJson(const QJsonValue& v) {
     }
     if (o.value(QLatin1String("color")).isString()) t.color = o.value(QLatin1String("color")).toString();
     t.speed = o.value(QLatin1String("speed")).toDouble(40.0);
+    t.cut = o.value(QLatin1String("cut")).toBool();
+    if (o.value(QLatin1String("over")).isObject()) t.over = switchStatesFromJson(o.value(QLatin1String("over")));
+    if (o.value(QLatin1String("emptiedAt")).isDouble()) t.emptiedAt = o.value(QLatin1String("emptiedAt")).toDouble();
     t.extras = o;
-    for (const char* k : { "id", "name", "trackKind", "units", "position", "color", "speed" }) t.extras.remove(QLatin1String(k));
+    for (const char* k : { "id", "name", "trackKind", "units", "position", "color", "speed", "cut", "over", "emptiedAt" }) t.extras.remove(QLatin1String(k));
     return t;
 }
 
@@ -766,19 +776,22 @@ void renameSidecarIds(core::Sidecar& sidecar, const QHash<QString, QString>& ren
         for (auto& v : r.via) rename(v.at.brick);
         for (auto& s : r.steps) rename(s.brick);
     }
-    // A train on the track names the brick its head is on.
-    for (auto& t : sidecar.trains)
-        if (t.position) rename(t.position->brick);
     // Switch settings name their brick: "<brick>/<heel>".
-    if (!sidecar.switchStates.isEmpty()) {
+    const auto renameSwitches = [&](QMap<QString, int>& of) {
         QMap<QString, int> states;
-        for (auto it = sidecar.switchStates.constBegin(); it != sidecar.switchStates.constEnd(); ++it) {
+        for (auto it = of.constBegin(); it != of.constEnd(); ++it) {
             const qsizetype at = it.key().lastIndexOf(QLatin1Char('/'));
             QString brick = it.key().left(at);
             rename(brick);
             states.insert(brick + it.key().mid(at), it.value());
         }
-        sidecar.switchStates = states;
+        of = states;
+    };
+    renameSwitches(sidecar.switchStates);
+    // A train on the track names the brick its head is on, and the switches it stands over.
+    for (auto& t : sidecar.trains) {
+        if (t.position) rename(t.position->brick);
+        if (t.over) renameSwitches(*t.over);
     }
 }
 

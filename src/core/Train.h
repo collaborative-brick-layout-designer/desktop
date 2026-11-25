@@ -12,6 +12,7 @@
 #include "Route.h"
 
 #include <QJsonObject>
+#include <QMap>
 #include <QString>
 
 #include <optional>
@@ -51,6 +52,10 @@ struct RollingStock {
     QString libraryId;  // the roster entry it was copied from
     int libraryVersion = 0;
     QString notes;
+    // The cut or train on the track it stands in (Live Ops design 2.3, track/Cuts.h);
+    // empty: none, unset: never moved. The layout's own, never a roster's.
+    std::optional<QString> opsCut;
+    QString opsLoad;  // loaded, empty, or none: it doesn't apply
     // look's fields this build doesn't know (a picture...).
     QJsonObject lookExtras;
     // Fields this build doesn't know (owner, tags, model, maxSpeed...), written back as they were.
@@ -88,6 +93,10 @@ struct Train {
     std::optional<TrainPosition> position;  // none: not on the map
     QString color = QStringLiteral("#B40000");
     double speed = 40.0;
+    bool cut = false;  // cars standing on the track, not a train someone made (track/Cuts.h)
+    // How it stands over switches ("<brick>/<heel>" -> the exit its cars are on), however they are set now.
+    std::optional<QMap<QString, int>> over;
+    std::optional<double> emptiedAt;  // when its last car left it (ms); such a cut is kept a while
     QJsonObject extras;
     bool operator==(const Train&) const = default;
 };

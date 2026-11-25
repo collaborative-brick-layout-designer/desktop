@@ -7,6 +7,8 @@
 // before. The layout's scale (1:38 unless changed) is shared: it is a
 // setting of the layout. The web's editor/trainRun.ts does the same.
 
+#include "TrainDialogs.h"
+#include "../track/Cuts.h"
 #include "MapView.h"
 
 #include "RunPanel.h"
@@ -47,7 +49,7 @@ QHash<QString, std::optional<RunPick>> MapView::runPicksNow(QSet<QString>* onTra
     const track::TrackNetwork net = track::trackNetworkOf(*map_, parts_);
     const auto stock = stockOf(*map_);
     QSet<QString> standing;
-    for (const auto& t : map_->sidecar.trains)
+    for (const auto& t : runnableTrains(map_->sidecar))
         if (t.position && track::placeTrain(net, t, stock, map_->sidecar.switchStates)) standing.insert(t.id);
     QSet<QString> bad;
     for (const auto& r : map_->sidecar.routes)
@@ -55,7 +57,7 @@ QHash<QString, std::optional<RunPick>> MapView::runPicksNow(QSet<QString>* onTra
     const auto usable = [&](const QString& route) {
         return std::any_of(map_->sidecar.routes.begin(), map_->sidecar.routes.end(), [&](const core::Route& r) { return r.id == route && !bad.contains(r.id); });
     };
-    for (const auto& t : map_->sidecar.trains) {
+    for (const auto& t : runnableTrains(map_->sidecar)) {
         if (t.units.empty()) {
             out.insert(t.id, std::nullopt);
             continue;
@@ -155,7 +157,7 @@ void MapView::playRun(bool play) {
         const auto picks = runPicksNow();
         std::vector<track::RunPlan> plans;
         QSet<QString> ids;
-        for (const auto& t : map_->sidecar.trains) {
+        for (const auto& t : runnableTrains(map_->sidecar)) {
             const auto p = picks.value(t.id);
             if (!p.has_value() || !p.value().on) continue;
             const QString routeId = p.value().route;
@@ -171,7 +173,7 @@ void MapView::playRun(bool play) {
         const track::TrackNetwork net = track::trackNetworkOf(*map_, parts_);
         const auto stock = stockOf(*map_);
         track::TrainRun::Parked parked;
-        for (const auto& t : map_->sidecar.trains)
+        for (const auto& t : track::standingTrains(map_->sidecar))
             if (!ids.contains(t.id) && t.position) parked.push_back({ t.id, track::placeTrain(net, t, stock, map_->sidecar.switchStates) });
         run_ = std::make_unique<track::TrainRun>(net, stock, plans, map_->sidecar.switchStates, trainScale(), parked);
         for (const auto& n : run_->startNotes()) runNotes_.push_back({ ++runNoteId_, n });

@@ -125,7 +125,10 @@ TrackLine trackBehind(const TrackNetwork& net, const core::TrainPosition& head, 
 std::optional<PlacedTrain> placeTrain(const TrackNetwork& net, const core::Train& train, const StockById& stock,
                                       const QMap<QString, int>& states) {
     if (!train.position) return std::nullopt;
-    TrackLine line = trackBehind(net, *train.position, trainLength(train, stock) + 64.0, states);
+    // (Over switches as it stands on them, however they are set now.)
+    QMap<QString, int> as = states;
+    if (train.over) as.insert(*train.over);
+    TrackLine line = trackBehind(net, *train.position, trainLength(train, stock) + 64.0, as);
     if (line.pts.size() < 2) return std::nullopt;
     return placeOnLine(std::move(line), train.units, stock);
 }
@@ -185,6 +188,7 @@ PlacedTrain placeOnLine(TrackLine line, const std::vector<core::TrainUnit>& trai
             const int steps = static_cast<int>(std::floor(((g.half - g.front) + 8.0) / 0.25 + 1e-9));
             for (int k = 0; k <= steps; ++k) {
                 const double d = first + k * 0.25;
+                if (d > line.pts.back().d + 0.25) break;  // nothing can be placed past the line's end
                 const double v = gap(d);
                 if (v < best) {
                     best = v;

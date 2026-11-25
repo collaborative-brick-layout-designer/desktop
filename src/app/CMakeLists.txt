@@ -135,4 +135,4 @@ set_target_properties(bld_import_server PROPERTIES OUTPUT_NAME "bld-import-serve
 # Headless live-sync client, driven by a script on stdin, for the
 # end-to-end test with the web editor (web repo e2e/test/desktopLiveSync.spec.ts).
 add_executable(bld_sync_driver bld_sync_driver.cpp)
-target_link_libraries(bld_sync_driver PRIVATE bld_sync bld_edit bld_parts bld_core Qt6::Core Qt6::Gui)
+target_link_libraries(bld_sync_driver PRIVATE bld_sync bld_edit bld_parts bld_track bld_core Qt6::Core Qt6::Gui)

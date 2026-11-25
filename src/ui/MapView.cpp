@@ -1002,6 +1002,13 @@ void MapView::mousePressEvent(QMouseEvent* e) {
         return;
     }
 
+    // A car standing on the track is dragged along it (a click opens its menu).
+    if (e->button() == Qt::LeftButton && startCarDrag(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud, e->pos())) {
+        e->accept();
+        return;
+    }
+    if (carDrag_) cancelCarDrag();
+
     // A bend handle: the flexible run bends as its end is dragged.
     if (e->button() == Qt::LeftButton && tool_ == Tool::Select && !flex_) {
         const int h = bendHandleAt(e->pos());
@@ -1196,6 +1203,12 @@ void MapView::mouseMoveEvent(QMouseEvent* e) {
     }
     snapMods_ = e->modifiers();
     lastMouseScenePos_ = mapToScene(e->pos());
+
+    if (carDrag_) {
+        moveCarDrag(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud, e->pos());
+        e->accept();
+        return;
+    }
 
     // Over a bend handle: a hand says it can be dragged.
     if (e->buttons() == Qt::NoButton) {
@@ -1392,6 +1405,11 @@ void MapView::mouseReleaseEvent(QMouseEvent* e) {
         return;
     }
     snapMods_ = e->modifiers();
+    if (carDrag_ && e->button() == Qt::LeftButton) {
+        endCarDrag(e->globalPosition().toPoint());
+        e->accept();
+        return;
+    }
     if (areaMoveLayer_ >= 0 && e->button() == Qt::LeftButton) {
         const int li = areaMoveLayer_;
         areaMoveLayer_ = -1;
@@ -1701,6 +1719,11 @@ void MapView::keyPressEvent(QKeyEvent* e) {
     // Run mode: no key moves, turns or deletes parts; Escape goes back to building.
     if (routeDraft_) {
         if (e->key() == Qt::Key_Escape) cancelRouteDraft();
+        e->accept();
+        return;
+    }
+    if (carDrag_ && e->key() == Qt::Key_Escape) {
+        cancelCarDrag();
         e->accept();
         return;
     }

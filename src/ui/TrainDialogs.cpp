@@ -2,7 +2,8 @@
 
 #include "../edit/venue/VenueUnits.h"
 #include "../parts/PartsLibrary.h"
-#include "../track/Trains.h"
+#include "../core/Sidecar.h"
+#include "../track/Cuts.h"
 #include "RunSpeeds.h"
 #include "help/HelpButton.h"
 
@@ -67,6 +68,32 @@ QString stockKindLabel(const QString& kind) {
 QString stockLabel(const core::RollingStock& s) {
     const QString l = QStringList{ s.number, s.name }.join(QLatin1Char(' ')).trimmed();
     return l.isEmpty() ? stockKindLabel(s.kind) : l;
+}
+
+QString cutName(const core::Train& cut, const track::StockById& stock) {
+    QStringList names;
+    for (const auto& u : cut.units)
+        if (stock.contains(u.stock)) names << stockLabel(stock[u.stock]);
+    if (names.isEmpty()) return TrainDialog::tr("Cars");
+    if (names.size() == 1) return names.front();
+    return TrainDialog::tr("%1 and %n more", nullptr, static_cast<int>(names.size()) - 1).arg(names.front());
+}
+
+std::vector<core::Train> namedTrains(const core::Sidecar& sidecar) {
+    const auto stock = track::stockById(sidecar);
+    auto out = track::standingTrains(sidecar);
+    for (auto& t : out)
+        if (t.cut && t.name.isEmpty()) t.name = cutName(t, stock);
+    return out;
+}
+
+std::vector<core::Train> runnableTrains(const core::Sidecar& sidecar) {
+    const auto stock = track::stockById(sidecar);
+    auto out = namedTrains(sidecar);
+    std::erase_if(out, [&](const core::Train& t) {
+        return t.cut && std::none_of(t.units.begin(), t.units.end(), [&](const core::TrainUnit& u) { return stock.contains(u.stock) && track::isEngine(stock[u.stock]); });
+    });
+    return out;
 }
 
 core::RollingStock withLength(core::RollingStock s, double length) {
@@ -385,7 +412,7 @@ TrainDialog::TrainDialog(const core::Train& initial, const std::vector<core::Rol
 }
 
 void TrainDialog::addUnit(const QString& stockId) {
-    if (stockId.isEmpty()) return;
+    if (stockId.isEmpty() || t_.units.size() >= static_cast<size_t>(track::kMaxUnits)) return;
     t_.units.push_back({ stockId, false });
     rebuild();
     list_->setCurrentRow(list_->count() - 1);

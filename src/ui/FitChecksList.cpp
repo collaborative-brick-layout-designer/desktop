@@ -23,8 +23,9 @@ QString deg(double v) { return QStringLiteral("%1°").arg(std::lround(v)); }
 
 QString fitCheckText(const track::FitCheck& c, const core::Map& map) {
     const auto& sc = map.sidecar;
+    const auto trains = namedTrains(sc);
     QString train = FitChecksList::tr("A train");
-    for (const auto& t : sc.trains)
+    for (const auto& t : trains)
         if (t.id == c.train && !t.name.isEmpty()) train = t.name;
     const core::RollingStock* car = nullptr;
     for (const auto& s : sc.rollingStock)
@@ -48,7 +49,7 @@ QString fitCheckText(const track::FitCheck& c, const core::Map& map) {
     if (c.kind == QLatin1String("clearance")) return FitChecksList::tr("%1 in %2 is too close to the other track here.").arg(carName, train);
     if (c.kind == QLatin1String("overlap")) {
         QString other = FitChecksList::tr("another train");
-        for (const auto& t : sc.trains)
+        for (const auto& t : trains)
             if (t.id == c.other && !t.name.isEmpty()) other = t.name;
         return FitChecksList::tr("%1 and %2 are on top of each other.").arg(train, other);
     }

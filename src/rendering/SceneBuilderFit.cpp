@@ -8,6 +8,7 @@
 
 #include "../core/Map.h"
 #include "../edit/venue/VenueUnits.h"
+#include "../track/Cuts.h"
 #include "../track/FitChecks.h"
 
 #include <QBrush>
@@ -85,7 +86,7 @@ void SceneBuilder::addFit(const core::Map& map) {
     }
     if (!anyTrain && map.sidecar.routes.empty()) return;
     track::FitInput in;
-    in.trains = map.sidecar.trains;
+    in.trains = track::standingTrains(map.sidecar);
     for (const auto& s : map.sidecar.rollingStock) in.stock.insert(s.id, s);
     in.routes = map.sidecar.routes;
     in.states = map.sidecar.switchStates;

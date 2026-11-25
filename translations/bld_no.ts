@@ -783,6 +783,30 @@
         <translation>Velg MILS, Enkel byggeplate (løse byggeplater på et vanlig bord) eller Egendefinert, og skriv høyden du målte, til bordplaten eller til toppen av skinnene. For strøm: hvor mange stikkontakter den bruker, omtrent hvor mange watt og hvilken side kontakten kommer ut. Når modulen lagres i modulbiblioteket, blir dette med.</translation>
     </message>
     <message>
+        <source>Cars on the track</source>
+        <translation>Vogner på sporet</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track: it goes, with the cars on the side you drag it to, and the rest stay.</source>
+        <translation>Dra en vogn langs sporet: den går med vognene på siden du drar den mot, og resten blir stående.</translation>
+    </message>
+    <message>
+        <source>An engine takes everything coupled to it; a car that meets another couples to it, and Undo puts everything back. Put on the track puts a car on its own, or ticked ones there coupled. Click a car (on a phone, tap it, then drag) for its load and Take off the track.</source>
+        <translation>Et lokomotiv tar med alt som er koblet til; en vogn som møter en annen kobles til, og Angre setter alt tilbake. Sett på sporet setter en vogn alene, eller de avkryssede sammenkoblet. Klikk på en vogn (på telefon: trykk på den, så dra) for lasten og Ta av sporet.</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Last</translation>
+    </message>
+    <message>
+        <source>Whether the car is loaded or empty, shown as a filled or an open mark on it.</source>
+        <translation>Om vognen er lastet eller tom, vist som et fylt eller åpent merke på den.</translation>
+    </message>
+    <message>
+        <source>It is this layout’s own: a car on your roster has none, and saving a car to a roster leaves it out. Pick Doesn’t apply for a caboose or an engine.</source>
+        <translation>Den hører bare til denne layouten: en vogn i vognparken din har ingen, og den blir utelatt når du lagrer i en vognpark. Velg Ikke aktuelt for en konduktørvogn eller et lokomotiv.</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>Steder</translation>
     </message>
@@ -3834,6 +3858,14 @@
     <message>
         <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
         <translation>Vis › Steder viser hver plass og hvor mange vogner den rommer. Steder på sporet til en modul følger modulen.</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>Vogner på sporet</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
+        <translation>Dra en vogn langs sporet for å flytte den eller koble den fra; møter den en annen, kobles den til. Klikk på en vogn for lasten.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -11125,6 +11157,81 @@ Behold den som %2 hvis du fortsatt åpner den i et annet program; Fil › Ekspor
         <translation>toget</translation>
     </message>
     <message>
+        <source>Coupled to %1.</source>
+        <translation>Koblet til %1.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: two trains don’t couple.</source>
+        <translation>Stoppet mot %1: to tog kobles ikke sammen.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: there’s no coupler at that end.</source>
+        <translation>Stoppet mot %1: det er ingen kobling i den enden.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: a train can have up to %2 cars.</source>
+        <translation>Stoppet mot %1: et tog kan ha opptil %2 vogner.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1.</source>
+        <translation>Stoppet mot %1.</translation>
+    </message>
+    <message>
+        <source>Someone else moved cars. Drag again.</source>
+        <translation>Noen andre flyttet vogner. Dra på nytt.</translation>
+    </message>
+    <message>
+        <source>Move cars</source>
+        <translation>Flytt vogner</translation>
+    </message>
+    <message>
+        <source>Couple cars</source>
+        <translation>Koble vogner</translation>
+    </message>
+    <message>
+        <source>Change load</source>
+        <translation>Endre last</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>Ta vogn av sporet</translation>
+    </message>
+    <message>
+        <source>On its own</source>
+        <translation>Alene</translation>
+    </message>
+    <message numerus="yes">
+        <source>Coupled to %n other(s)</source>
+        <translation>
+            <numerusform>Koblet til %n annen</numerusform>
+            <numerusform>Koblet til %n andre</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Last</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Ikke aktuelt</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Tom</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Lastet</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>Ta av sporet</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Åpne Tog</translation>
+    </message>
+    <message>
         <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
         <translation>Klikk på sporet der fronten av &lt;b&gt;%1&lt;/b&gt; skal være.</translation>
     </message>
@@ -15702,6 +15809,17 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
 <context>
     <name>bld::ui::TrainDialog</name>
     <message>
+        <source>Cars</source>
+        <translation>Vogner</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 and %n more</source>
+        <translation>
+            <numerusform>%1 og %n til</numerusform>
+            <numerusform>%1 og %n til</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>New train</source>
         <translation>Nytt tog</translation>
     </message>
@@ -15817,6 +15935,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Rullende materiell</translation>
     </message>
     <message>
+        <source>A layout can have up to %1 cars.</source>
+        <translation>En layout kan ha opptil %1 vogner.</translation>
+    </message>
+    <message>
         <source>Added %1.</source>
         <translation>%1 lagt til.</translation>
     </message>
@@ -15864,8 +15986,16 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Snu toget</translation>
     </message>
     <message>
+        <source>Take cars off the track</source>
+        <translation>Ta vogner av sporet</translation>
+    </message>
+    <message>
         <source>Take train off the track</source>
         <translation>Ta toget av sporet</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>Ta vogn av sporet</translation>
     </message>
     <message>
         <source>Delete %1? Its cars stay.</source>
@@ -15920,6 +16050,17 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Velg %1 til et nytt tog</translation>
     </message>
     <message>
+        <source>On the track, on its own</source>
+        <translation>På sporet, alene</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the track, coupled to %n other(s)</source>
+        <translation>
+            <numerusform>På sporet, koblet til %n annen</numerusform>
+            <numerusform>På sporet, koblet til %n andre</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>In %1</source>
         <translation>I %1</translation>
     </message>
@@ -15930,6 +16071,26 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>From a roster</source>
         <translation>Fra en vognpark</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Last</translation>
+    </message>
+    <message>
+        <source>Load of %1</source>
+        <translation>Lasten til %1</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Ikke aktuelt</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Tom</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Lastet</translation>
     </message>
     <message>
         <source>Change</source>
@@ -15964,6 +16125,14 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
         <translation>Slett</translation>
     </message>
     <message>
+        <source>Put this car on the track</source>
+        <translation>Sett denne vognen på sporet</translation>
+    </message>
+    <message>
+        <source>Put these %1 cars on the track, coupled</source>
+        <translation>Sett disse %1 vognene på sporet, sammenkoblet</translation>
+    </message>
+    <message>
         <source>Make a train of this car</source>
         <translation>Lag et tog av denne vognen</translation>
     </message>
@@ -15978,6 +16147,10 @@ Behold begge: layoutens legges til under et nytt delenummer, og denne layouten b
     <message>
         <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
         <translation>Ingen tog ennå. Trykk Nytt tog, eller kryss av vogner i Rullende materiell og lag et tog av dem.</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>Vogner på sporet</translation>
     </message>
     <message>
         <source>Untitled train</source>

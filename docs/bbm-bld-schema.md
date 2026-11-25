@@ -369,6 +369,15 @@ are kept; an entry without `id` is dropped. Live, the web keeps them at
 `meta.rollingStock` and `meta.trains`, Y.Maps of id -> a Y.Map of fields.
 Never written to a `.bbm`. Added 2026-11 without a version bump.
 
+Cars on the track (Live Ops design 2.3). A train with `"cut": true` is a cut:
+cars standing on the track on their own, coupled in order. A car's `opsCut`
+is the id of the cut or train it stands in (`""`: none), and wins over the
+lists: a car is drawn in that one only, at its end when its `units` doesn't
+name it (two people changed it at once). `opsLoad` is `loaded`, `empty` or
+absent. A train's `over` (`"<brick>/<heel>"` -> exit) is how it stands over
+switches, however they are set now. A cut coupled away is left with no
+units and `emptiedAt` (ms) for a day. All optional.
+
 An engine or car made from an imported model (Trains › Import a model…)
 has `"look": { "mode": "model", "color": "#B40000", "partKey": "<the
 model's part>" }` and `"model": { "partKey": "<the same part>", "file":

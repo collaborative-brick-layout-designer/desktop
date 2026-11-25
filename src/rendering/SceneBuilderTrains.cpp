@@ -10,7 +10,7 @@
 
 #include "../core/Map.h"
 #include "../parts/PartsLibrary.h"
-#include "../track/Trains.h"
+#include "../track/Cuts.h"
 
 #include <QFont>
 #include <QGraphicsEllipseItem>
@@ -42,6 +42,7 @@ QColor darker(const QColor& c) {
 QColor SceneBuilder::trainProblemColor() { return QColor(0xDC, 0x26, 0x26); }
 
 void SceneBuilder::clearTrains() {
+    clearCarGhost();
     for (auto* it : trainItems_) {
         scene_.removeItem(it);
         delete it;
@@ -64,7 +65,7 @@ void SceneBuilder::addTrains(const core::Map& map) {
     track::StockById stock;
     for (const auto& s : map.sidecar.rollingStock) stock.insert(s.id, s);
     const track::TrackNetwork net = track::trackNetworkOf(map, parts_);
-    for (const auto& t : map.sidecar.trains) {
+    for (const auto& t : track::standingTrains(map.sidecar)) {
         if (runningTrains_.contains(t.id)) continue;  // drawn by the run (showRunFrame)
         const auto placed = track::placeTrain(net, t, stock, map.sidecar.switchStates);
         if (!placed || placed->units.empty()) continue;
@@ -133,6 +134,15 @@ QGraphicsPathItem* SceneBuilder::makeCar(const core::Train& t, size_t i, const t
         n->setPen(Qt::NoPen);
         n->setBrush(outline);
     }
+    if (s.opsLoad == QLatin1String("loaded") || s.opsLoad == QLatin1String("empty")) {
+        // Its load: a filled mark, or an open one, at its rear.
+        const double lr = std::min(wid / 4.0, px);
+        auto* mark = new QGraphicsEllipseItem(QRectF(-lr, -lr, 2 * lr, 2 * lr), body);
+        mark->setPos(-len / 2 + px * 1.6, 0);
+        mark->setPen(QPen(Qt::white, px * 0.35));
+        if (s.opsLoad == QLatin1String("loaded")) mark->setBrush(Qt::white);
+        mark->setData(0, QStringLiteral("load-") + s.opsLoad);
+    }
     if (!s.number.isEmpty()) {
         auto* text = new QGraphicsSimpleTextItem(s.number, body);
         QFont f;
@@ -149,6 +159,29 @@ QGraphicsPathItem* SceneBuilder::makeCar(const core::Train& t, size_t i, const t
         if (flip) text->setRotation(180);
     }
     return body;
+}
+
+// ---- dragging cars (Live Ops design 2.3) -----------------------------------
+
+void SceneBuilder::showCarGhost(const core::Map& map, const std::vector<std::pair<core::Train, track::PlacedTrain>>& placed) {
+    clearCarGhost();
+    const auto stock = track::stockById(map.sidecar);
+    for (const auto& [t, p] : placed)
+        for (size_t i = 0; i < p.units.size(); ++i) {
+            auto* body = makeCar(t, i, p.units[i], stock.value(p.units[i].stock), p.offTrack, true);
+            body->setOpacity(0.7);
+            body->setZValue(kZ + 1);
+            scene_.addItem(body);
+            carGhost_ << body;
+        }
+}
+
+void SceneBuilder::clearCarGhost() {
+    for (auto* it : carGhost_) {
+        scene_.removeItem(it);
+        delete it;
+    }
+    carGhost_.clear();
 }
 
 // ---- running trains (trains design 5) --------------------------------------
@@ -179,20 +212,21 @@ void SceneBuilder::showRunFrame(const core::Map& map, const std::vector<std::pai
     track::StockById stock;
     for (const auto& s : map.sidecar.rollingStock) stock.insert(s.id, s);
     const double px = kPixelsPerStud;
+    const auto trains = track::standingTrains(map.sidecar);
     QSet<QString> seen;
     for (const auto& [id, p] : placed) {
         seen.insert(id);
-        const auto t = std::find_if(map.sidecar.trains.begin(), map.sidecar.trains.end(), [&](const core::Train& x) { return x.id == id; });
+        const auto t = std::find_if(trains.begin(), trains.end(), [&](const core::Train& x) { return x.id == id; });
         QList<QGraphicsItem*>& cars = runCarsById_[id];
         const size_t n = p ? p->units.size() : 0;
-        if (t == map.sidecar.trains.end() || static_cast<size_t>(cars.size()) != n) {
+        if (t == trains.end() || static_cast<size_t>(cars.size()) != n) {
             // New, or its cars changed: drawn again.
             for (auto* it : cars) {
                 scene_.removeItem(it);
                 delete it;
             }
             cars.clear();
-            if (t == map.sidecar.trains.end() || !p) continue;
+            if (t == trains.end() || !p) continue;
             for (size_t i = 0; i < n; ++i) {
                 auto* body = makeCar(*t, i, p->units[i], stock.value(p->units[i].stock), false, false);
                 body->setZValue(kZ + 1);

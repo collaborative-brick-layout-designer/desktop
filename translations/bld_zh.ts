@@ -783,6 +783,30 @@
         <translation>选择 MILS、普通底板（放在普通桌子上的散底板）或自定义，并输入测得的高度（到桌面或到轨面）。电源方面，填写使用几个插座、大约多少瓦，以及插头从哪一侧引出。将模块保存到模块库时，这些信息会一起保存。</translation>
     </message>
     <message>
+        <source>Cars on the track</source>
+        <translation>轨道上的车厢</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track: it goes, with the cars on the side you drag it to, and the rest stay.</source>
+        <translation>沿轨道拖动车厢：它会带着拖动方向一侧的车厢移动，其余的留在原处。</translation>
+    </message>
+    <message>
+        <source>An engine takes everything coupled to it; a car that meets another couples to it, and Undo puts everything back. Put on the track puts a car on its own, or ticked ones there coupled. Click a car (on a phone, tap it, then drag) for its load and Take off the track.</source>
+        <translation>机车会带走与它相连的全部车厢；车厢碰到另一节就会挂上，撤销可恢复原状。“放到轨道上”放置单节车厢，或把勾选的车厢连挂后放置。点击车厢（手机上先轻触再拖动）可设置载货或移出轨道。</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>载货</translation>
+    </message>
+    <message>
+        <source>Whether the car is loaded or empty, shown as a filled or an open mark on it.</source>
+        <translation>车厢是重车还是空车，以实心或空心标记显示。</translation>
+    </message>
+    <message>
+        <source>It is this layout’s own: a car on your roster has none, and saving a car to a roster leaves it out. Pick Doesn’t apply for a caboose or an engine.</source>
+        <translation>它只属于此布局：名册中的车厢没有，保存到名册时也不包含。守车或机车请选择“不适用”。</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>地点</translation>
     </message>
@@ -3814,6 +3838,14 @@
     <message>
         <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
         <translation>视图 › 地点 显示每个停车位和能停多少辆。模块轨道上的地点会随模块一起走。</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>轨道上的车厢</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
+        <translation>沿轨道拖动车厢可移动或摘开；碰到另一节就会挂上。点击车厢可设置载货。</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -11042,6 +11074,80 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>列车</translation>
     </message>
     <message>
+        <source>Coupled to %1.</source>
+        <translation>已挂到%1。</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: two trains don’t couple.</source>
+        <translation>停在%1前：两列列车不会连挂。</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: there’s no coupler at that end.</source>
+        <translation>停在%1前：那一端没有车钩。</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: a train can have up to %2 cars.</source>
+        <translation>停在%1前：一列列车最多%2节车厢。</translation>
+    </message>
+    <message>
+        <source>Stopped against %1.</source>
+        <translation>停在%1前。</translation>
+    </message>
+    <message>
+        <source>Someone else moved cars. Drag again.</source>
+        <translation>其他人移动了车厢。请重新拖动。</translation>
+    </message>
+    <message>
+        <source>Move cars</source>
+        <translation>移动车厢</translation>
+    </message>
+    <message>
+        <source>Couple cars</source>
+        <translation>连挂车厢</translation>
+    </message>
+    <message>
+        <source>Change load</source>
+        <translation>更改载货</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>将车厢移出轨道</translation>
+    </message>
+    <message>
+        <source>On its own</source>
+        <translation>单独</translation>
+    </message>
+    <message numerus="yes">
+        <source>Coupled to %n other(s)</source>
+        <translation>
+            <numerusform>与另外%n节连挂</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>载货</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>不适用</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>空车</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>重车</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>移出轨道</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>打开列车</translation>
+    </message>
+    <message>
         <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
         <translation>点击轨道上&lt;b&gt;%1&lt;/b&gt;车头要放的位置。</translation>
     </message>
@@ -15603,6 +15709,16 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
 <context>
     <name>bld::ui::TrainDialog</name>
     <message>
+        <source>Cars</source>
+        <translation>车厢</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 and %n more</source>
+        <translation>
+            <numerusform>%1等，另有%n节</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>New train</source>
         <translation>新列车</translation>
     </message>
@@ -15718,6 +15834,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>车辆</translation>
     </message>
     <message>
+        <source>A layout can have up to %1 cars.</source>
+        <translation>一个布局最多%1节车厢。</translation>
+    </message>
+    <message>
         <source>Added %1.</source>
         <translation>已添加%1。</translation>
     </message>
@@ -15764,8 +15884,16 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>列车掉头</translation>
     </message>
     <message>
+        <source>Take cars off the track</source>
+        <translation>将车厢移出轨道</translation>
+    </message>
+    <message>
         <source>Take train off the track</source>
         <translation>把列车移出轨道</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>将车厢移出轨道</translation>
     </message>
     <message>
         <source>Delete %1? Its cars stay.</source>
@@ -15820,6 +15948,16 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>为新列车选择%1</translation>
     </message>
     <message>
+        <source>On the track, on its own</source>
+        <translation>在轨道上，单独</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the track, coupled to %n other(s)</source>
+        <translation>
+            <numerusform>在轨道上，与另外%n节连挂</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>In %1</source>
         <translation>在%1中</translation>
     </message>
@@ -15830,6 +15968,26 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>From a roster</source>
         <translation>从名册添加</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>载货</translation>
+    </message>
+    <message>
+        <source>Load of %1</source>
+        <translation>%1的载货</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>不适用</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>空车</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>重车</translation>
     </message>
     <message>
         <source>Change</source>
@@ -15864,6 +16022,14 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
         <translation>删除</translation>
     </message>
     <message>
+        <source>Put this car on the track</source>
+        <translation>将这节车厢放到轨道上</translation>
+    </message>
+    <message>
+        <source>Put these %1 cars on the track, coupled</source>
+        <translation>将这%1节车厢连挂后放到轨道上</translation>
+    </message>
+    <message>
         <source>Make a train of this car</source>
         <translation>用这节车厢编组列车</translation>
     </message>
@@ -15878,6 +16044,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
         <translation>还没有列车。按“新列车”，或在“车辆”里勾选车厢编组列车。</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>轨道上的车厢</translation>
     </message>
     <message>
         <source>Untitled train</source>

@@ -8,6 +8,7 @@
 
 #include "../core/Train.h"
 #include "../sync/LibraryApi.h"
+#include "../track/Trains.h"
 
 #include <QDialog>
 #include <QList>
@@ -26,12 +27,19 @@ class QPushButton;
 class QRadioButton;
 class QWidget;
 
+namespace bld::core { struct Sidecar; }
 namespace bld::parts { class PartsLibrary; }
 
 namespace bld::ui {
 
 // Plain words for each kind of stock (the record keeps the key).
 QString stockKindLabel(const QString& kind);
+// A cut's name: its first car, and how many more.
+QString cutName(const core::Train& cut, const track::StockById& stock);
+// A layout's trains as they stand, each with a name to show (a cut's is its cars').
+std::vector<core::Train> namedTrains(const core::Sidecar& sidecar);
+// Those that can run: not cars standing without an engine.
+std::vector<core::Train> runnableTrains(const core::Sidecar& sidecar);
 // "4021 Boxcar", or its kind when it has neither.
 QString stockLabel(const core::RollingStock& s);
 // Change a car's length, keeping its trucks the same share in from each end.

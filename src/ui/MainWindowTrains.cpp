@@ -9,6 +9,7 @@
 #include "TrainsPanel.h"
 
 #include "../core/Map.h"
+#include "../edit/CutCommands.h"
 #include "../edit/TrainCommands.h"
 
 #include <QUndoStack>
@@ -31,6 +32,19 @@ void MainWindow::setupTrains() {
                 if (core::Map* map = mapView_->currentMap()) mapView_->undoStack()->push(new edit::SetTrainCommand(*map, id, after, what));
             });
     connect(trainsPanel_, &TrainsPanel::placeRequested, mapView_, &MapView::startTrainPlacing);
+    connect(trainsPanel_, &TrainsPanel::carsPlaceRequested, mapView_, &MapView::startCarsPlacing);
+    connect(trainsPanel_, &TrainsPanel::loadChanged, mapView_, &MapView::setCarLoad);
+    connect(trainsPanel_, &TrainsPanel::cutChanged, this, [this](const track::CutChange& change, const QString& what) {
+        if (core::Map* map = mapView_->currentMap()) mapView_->undoStack()->push(new edit::CutCommand(*map, change, what));
+    });
+    connect(trainsPanel_, &TrainsPanel::carRemoved, this, [this](const QString& id, const track::CutChange& first, const QString& what) {
+        core::Map* map = mapView_->currentMap();
+        if (!map) return;
+        mapView_->undoStack()->beginMacro(what);
+        mapView_->undoStack()->push(new edit::CutCommand(*map, first, what));
+        mapView_->undoStack()->push(edit::makeRemoveStockCommand(*map, id, what));
+        mapView_->undoStack()->endMacro();
+    });
     connect(trainsPanel_, &TrainsPanel::importModelRequested, this, &MainWindow::importModelAsStock);
     connect(trainsPanel_, &TrainsPanel::placeCancelled, mapView_, &MapView::cancelTrainPlacing);
     connect(trainsPanel_, &TrainsPanel::showSpotRequested, mapView_, &MapView::showSpot);

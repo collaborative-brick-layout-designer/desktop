@@ -46,6 +46,11 @@
 //                              make a module of one part (its places go with it), as one edit
 //   stock-add <number> <length>
 //                              add a quick car (a new id), as one edit; ok <id>
+//   (the next two read the parts library at PARTS_DIR, as the server does)
+//   cars-place <stockId>... <x> <y>
+//                              put cars on the track at a spot (studs), coupled, as one edit
+//   car-drag <stockId> <x> <y> drag a car along the track to a spot (studs), as one edit
+//   car-load <stockId> <load>  set a car's load (loaded or empty), as one edit
 //   train-rename <id> <name>   rename a train, as one edit
 //   stock-add-model <number> <partKey> <length> <front> <rear>
 //                              add an engine drawn with a part (an imported model's), as
@@ -90,10 +95,13 @@
 #include "sync/PartsSync.h"
 #include "sync/NotificationCenter.h"
 #include "core/SharedModule.h"
+#include "edit/CutCommands.h"
 #include "edit/ModuleCommands.h"
 #include "edit/PlaceCommands.h"
 #include "edit/SharedLock.h"
 #include "parts/PartsLibrary.h"
+#include "track/Cuts.h"
+#include "track/Routes.h"
 #include "edit/SharedSettle.h"
 #include "sync/Presence.h"
 #include "sync/ServerApi.h"
@@ -487,6 +495,51 @@ public:
             out.insert(QStringLiteral("width"), pm.width());
             out.insert(QStringLiteral("height"), pm.height());
             reply(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(out).toJson(QJsonDocument::Compact)));
+        } else if ((cmd == QLatin1String("car-drag") || cmd == QLatin1String("cars-place")) && a.size() >= 4) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            parts::PartsLibrary lib;
+            lib.addSearchPath(qEnvironmentVariable("PARTS_DIR"));
+            lib.scan();
+            const auto stock = track::stockById(map->sidecar);
+            const auto trains = track::settleTrains(map->sidecar.trains, stock);
+            const auto net = track::trackNetworkOf(*map, lib);
+            const auto& states = map->sidecar.switchStates;
+            const QPointF at(a[a.size() - 2].toDouble(), a[a.size() - 1].toDouble());
+            track::CutChange change;
+            if (cmd == QLatin1String("cars-place")) {
+                const auto pos = track::nearestPosition(net, at, 3.0);
+                if (!pos) return reply(QStringLiteral("error no track there")), true;
+                core::TrainPosition p;
+                static_cast<core::TrackPosition&>(p) = *pos;
+                // Facing the way they fit, as the app does.
+                std::vector<core::RollingStock> cars;
+                for (const QString& c : a.mid(1, a.size() - 3)) cars.push_back(stock.value(c));
+                const auto fits = track::placeTrain(net, track::newCut(QString(), cars, p), stock, states);
+                p.facingTo = fits && !fits->offTrack;
+                change = track::putCarsOnTrack(net, trains, stock, states, a.mid(1, a.size() - 3), p);
+            } else {
+                const core::Train* t = track::standingIn(a[1], trains);
+                const auto placed = t ? track::placeTrain(net, *t, stock, states) : std::nullopt;
+                if (!placed) return reply(QStringLiteral("error it isn't on the track")), true;
+                int unit = -1;
+                for (size_t i = 0; i < placed->units.size(); ++i)
+                    if (placed->units[i].stock == a[1]) unit = static_cast<int>(i);
+                const auto drag = track::startDrag(net, trains, stock, states, t->id, unit, core::newBbmId());
+                const auto move = drag ? drag->to(at) : std::nullopt;
+                if (!move) return reply(QStringLiteral("error it doesn't move")), true;
+                change = move->change;
+            }
+            send(*map, [&] { edit::CutCommand(*map, change, QString()).redo(); });
+        } else if (cmd == QLatin1String("car-load") && a.size() == 3) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            send(*map, [&] {
+                for (auto& s : map->sidecar.rollingStock)
+                    if (s.id == a[1]) s.opsLoad = a[2];
+            });
         } else if (cmd == QLatin1String("train-rename") && a.size() >= 3) {
             QString error;
             auto map = session_.editorMap(&error);

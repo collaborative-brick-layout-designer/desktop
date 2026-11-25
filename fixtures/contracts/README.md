@@ -79,6 +79,13 @@ change in one repo fails until the other has the same copy.
   desktop src/track/Routes.cpp). The web's
   `BLD_WRITE_CONTRACTS=1 pnpm --filter @cld/parts-catalog test` writes the
   `expect` and `status` values.
+- `cuts.json`: cars on the track (Live Ops design 2.3; web
+  packages/parts-catalog/src/track/cuts.ts, desktop src/track/Cuts.cpp):
+  what trains and cars people changed at once read as, what dragging a car
+  does (which cars come, what they couple to), taking one off the track,
+  and the limits. The web's
+  `BLD_WRITE_CONTRACTS=1 vitest run src/track/cuts.test.ts` writes the
+  `expect` values.
 - `train-geometry.json`: trains on the route-search network (trains design
   3.3): rolling stock records, and where each car's trucks, middle and
   couplers sit for a train's head on the track, through switches as set,
@@ -114,7 +121,7 @@ change in one repo fails until the other has the same copy.
 
 To change them: edit (or, for the imported part, run the desktop's
 `bld_sync_tests --gtest_filter='Contracts.*'` with `BLD_WRITE_CONTRACTS=1`),
-then `sha256sum doc-shape.json imported-part.json imported-part.xml module-members.json module-setup.json part-naming.json places.json presence-colors.json route-search.json shared-module-keep.json shared-module-placement.json shared-module-settle.json sidecar-hash.json track-kinds.json track-network.json track-paths.json train-animation.json train-geometry.json truck-guess.json truck-guess-10014-1.mpd truck-guess-10016-1.mpd truck-guess-10020-1.mpd update-guard.json > MANIFEST.sha256`
+then `sha256sum cuts.json doc-shape.json imported-part.json imported-part.xml module-members.json module-setup.json part-naming.json places.json presence-colors.json route-search.json shared-module-keep.json shared-module-placement.json shared-module-settle.json sidecar-hash.json track-kinds.json track-network.json track-paths.json train-animation.json train-geometry.json truck-guess.json truck-guess-10014-1.mpd truck-guess-10016-1.mpd truck-guess-10020-1.mpd update-guard.json > MANIFEST.sha256`
 and copy the folder to the other repo.
 - `presence-colors.json`: each person's first-choice presence color on a
   layout, and the colors a group of people here get (web

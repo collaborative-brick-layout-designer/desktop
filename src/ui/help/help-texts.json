@@ -246,6 +246,16 @@
       "short": "What this module stands on, how tall it is, and the power it needs, for whoever plans the tables.",
       "more": "Pick MILS, Plain baseplate (loose baseplates on an ordinary table) or Custom, and type the height you measured, to the table top or to the top of the rails. For power, say how many outlets it uses, roughly how many watts, and which side the plug comes out. Saving the module to the Module library takes these along."
     },
+    "ops.cut": {
+      "title": "Cars on the track",
+      "short": "Drag a car along the track: it goes, with the cars on the side you drag it to, and the rest stay.",
+      "more": "An engine takes everything coupled to it; a car that meets another couples to it, and Undo puts everything back. Put on the track puts a car on its own, or ticked ones there coupled. Click a car (on a phone, tap it, then drag) for its load and Take off the track."
+    },
+    "ops.load": {
+      "title": "Load",
+      "short": "Whether the car is loaded or empty, shown as a filled or an open mark on it.",
+      "more": "It is this layout’s own: a car on your roster has none, and saving a car to a roster leaves it out. Pick Doesn’t apply for a caboose or an engine."
+    },
     "ops.places": {
       "title": "Places",
       "short": "Places are where cars go: industries, yards, staging and interchanges, named on the track.",

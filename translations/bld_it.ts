@@ -783,6 +783,30 @@
         <translation>Scegli MILS, Base semplice (basi sciolte su un tavolo normale) o Personalizzato, e scrivi l&apos;altezza misurata, fino al piano del tavolo o alla sommità dei binari. Per la corrente, indica quante prese usa, circa quanti watt e da che lato esce la spina. Salvare il modulo nella libreria dei moduli porta con sé questi dati.</translation>
     </message>
     <message>
+        <source>Cars on the track</source>
+        <translation>Vagoni sul binario</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track: it goes, with the cars on the side you drag it to, and the rest stay.</source>
+        <translation>Trascina un vagone lungo il binario: va con i vagoni dal lato verso cui lo trascini, gli altri restano.</translation>
+    </message>
+    <message>
+        <source>An engine takes everything coupled to it; a car that meets another couples to it, and Undo puts everything back. Put on the track puts a car on its own, or ticked ones there coupled. Click a car (on a phone, tap it, then drag) for its load and Take off the track.</source>
+        <translation>Una locomotiva porta con sé tutto ciò che ha agganciato; un vagone che ne tocca un altro si aggancia, e Annulla rimette tutto a posto. Metti sul binario mette un vagone da solo, o quelli spuntati, agganciati. Fai clic su un vagone (sul telefono toccalo, poi trascina) per il carico e Togli dal binario.</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Carico</translation>
+    </message>
+    <message>
+        <source>Whether the car is loaded or empty, shown as a filled or an open mark on it.</source>
+        <translation>Se il vagone è carico o vuoto, con un segno pieno o aperto su di esso.</translation>
+    </message>
+    <message>
+        <source>It is this layout’s own: a car on your roster has none, and saving a car to a roster leaves it out. Pick Doesn’t apply for a caboose or an engine.</source>
+        <translation>È solo di questo plastico: un vagone del tuo parco non ne ha, e salvandolo in un parco resta fuori. Scegli Non si applica per un carro di servizio o una locomotiva.</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>Luoghi</translation>
     </message>
@@ -3834,6 +3858,14 @@
     <message>
         <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
         <translation>Vista › Luoghi mostra ogni postazione e quanti carri tiene. I luoghi sul binario di un modulo seguono il modulo.</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>Vagoni sul binario</translation>
+    </message>
+    <message>
+        <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
+        <translation>Trascina un vagone lungo il binario per spostarlo o sganciarlo; se ne tocca un altro si aggancia. Fai clic su un vagone per il carico.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -11125,6 +11157,81 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
         <translation>il treno</translation>
     </message>
     <message>
+        <source>Coupled to %1.</source>
+        <translation>Agganciato a %1.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: two trains don’t couple.</source>
+        <translation>Fermo contro %1: due treni non si agganciano.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: there’s no coupler at that end.</source>
+        <translation>Fermo contro %1: a quell&apos;estremità non c&apos;è gancio.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1: a train can have up to %2 cars.</source>
+        <translation>Fermo contro %1: un treno può avere fino a %2 vagoni.</translation>
+    </message>
+    <message>
+        <source>Stopped against %1.</source>
+        <translation>Fermo contro %1.</translation>
+    </message>
+    <message>
+        <source>Someone else moved cars. Drag again.</source>
+        <translation>Qualcun altro ha spostato dei vagoni. Trascina di nuovo.</translation>
+    </message>
+    <message>
+        <source>Move cars</source>
+        <translation>Sposta vagoni</translation>
+    </message>
+    <message>
+        <source>Couple cars</source>
+        <translation>Aggancia vagoni</translation>
+    </message>
+    <message>
+        <source>Change load</source>
+        <translation>Cambia carico</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>Togli vagone dal binario</translation>
+    </message>
+    <message>
+        <source>On its own</source>
+        <translation>Da solo</translation>
+    </message>
+    <message numerus="yes">
+        <source>Coupled to %n other(s)</source>
+        <translation>
+            <numerusform>Agganciato a %n altro</numerusform>
+            <numerusform>Agganciato ad altri %n</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Carico</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Non si applica</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Vuoto</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Carico</translation>
+    </message>
+    <message>
+        <source>Take off the track</source>
+        <translation>Togli dal binario</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Apri Treni</translation>
+    </message>
+    <message>
         <source>Click the track where the front of &lt;b&gt;%1&lt;/b&gt; goes.</source>
         <translation>Fai clic sul binario dove va la testa di &lt;b&gt;%1&lt;/b&gt;.</translation>
     </message>
@@ -15702,6 +15809,17 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
 <context>
     <name>bld::ui::TrainDialog</name>
     <message>
+        <source>Cars</source>
+        <translation>Vagoni</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 and %n more</source>
+        <translation>
+            <numerusform>%1 e %n altro</numerusform>
+            <numerusform>%1 e altri %n</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>New train</source>
         <translation>Nuovo treno</translation>
     </message>
@@ -15817,6 +15935,10 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>Materiale rotabile</translation>
     </message>
     <message>
+        <source>A layout can have up to %1 cars.</source>
+        <translation>Un plastico può avere fino a %1 vagoni.</translation>
+    </message>
+    <message>
         <source>Added %1.</source>
         <translation>%1 aggiunto.</translation>
     </message>
@@ -15864,8 +15986,16 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>Inverti il treno</translation>
     </message>
     <message>
+        <source>Take cars off the track</source>
+        <translation>Togli vagoni dal binario</translation>
+    </message>
+    <message>
         <source>Take train off the track</source>
         <translation>Togli il treno dal binario</translation>
+    </message>
+    <message>
+        <source>Take car off the track</source>
+        <translation>Togli vagone dal binario</translation>
     </message>
     <message>
         <source>Delete %1? Its cars stay.</source>
@@ -15920,6 +16050,17 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>Scegli %1 per un nuovo treno</translation>
     </message>
     <message>
+        <source>On the track, on its own</source>
+        <translation>Sul binario, da solo</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the track, coupled to %n other(s)</source>
+        <translation>
+            <numerusform>Sul binario, agganciato a %n altro</numerusform>
+            <numerusform>Sul binario, agganciato ad altri %n</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>In %1</source>
         <translation>In %1</translation>
     </message>
@@ -15930,6 +16071,26 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>From a roster</source>
         <translation>Da un parco</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Carico</translation>
+    </message>
+    <message>
+        <source>Load of %1</source>
+        <translation>Carico di %1</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Non si applica</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Vuoto</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Carico</translation>
     </message>
     <message>
         <source>Change</source>
@@ -15964,6 +16125,14 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
         <translation>Elimina</translation>
     </message>
     <message>
+        <source>Put this car on the track</source>
+        <translation>Metti questo vagone sul binario</translation>
+    </message>
+    <message>
+        <source>Put these %1 cars on the track, coupled</source>
+        <translation>Metti questi %1 vagoni sul binario, agganciati</translation>
+    </message>
+    <message>
         <source>Make a train of this car</source>
         <translation>Forma un treno con questo vagone</translation>
     </message>
@@ -15978,6 +16147,10 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>No trains yet. Press New train, or tick cars in Rolling stock and make a train of them.</source>
         <translation>Ancora nessun treno. Premi Nuovo treno, oppure spunta vagoni in Materiale rotabile e formane un treno.</translation>
+    </message>
+    <message>
+        <source>Cars on the track</source>
+        <translation>Vagoni sul binario</translation>
     </message>
     <message>
         <source>Untitled train</source>
