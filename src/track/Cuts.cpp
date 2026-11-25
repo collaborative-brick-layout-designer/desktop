@@ -46,7 +46,7 @@ struct Way {
 std::optional<Way> wayThrough(const TrackNetwork& net, const core::TrainPosition& at, double behind, const States& states) {
     const int enter = at.facingTo ? at.to : at.from;
     const int leave = at.facingTo ? at.from : at.to;
-    const std::vector<CircuitPathPoint> pts = net.path(at.brick, enter, leave);
+    const auto& pts = net.path(at.brick, enter, leave);
     if (pts.size() < 2) return std::nullopt;
     const double len = pts.back().s;
     const double s = std::max(0.0, std::min(at.s, len));
@@ -68,7 +68,7 @@ std::optional<Way> wayThrough(const TrackNetwork& net, const core::TrainPosition
             way.endBehind = true;
             break;
         }
-        const std::vector<CircuitPathPoint> p = net.path(next->brick, next->conn, *out);
+        const auto& p = net.path(next->brick, next->conn, *out);
         cur = { next->brick, next->conn, *out, way.max, p.back().s, p };
         back.push_back(cur);
         way.max += cur.len;
@@ -82,7 +82,7 @@ std::optional<Way> wayThrough(const TrackNetwork& net, const core::TrainPosition
             way.endAhead = true;
             break;
         }
-        const std::vector<CircuitPathPoint> p = net.path(next->brick, *out, next->conn);
+        const auto& p = net.path(next->brick, *out, next->conn);
         cur = { next->brick, *out, next->conn, way.min - p.back().s, p.back().s, p };
         front.push_back(cur);
         way.min -= cur.len;
@@ -106,7 +106,8 @@ std::vector<Hit> project(const Way& way, QPointF at, double reach) {
         // (No point of a brick's way is further from its start than its length.)
         if (std::hypot(p0.x() - at.x(), p0.y() - at.y()) > g.len + reach) continue;
         double best = reach;
-        std::optional<double> d;
+        bool near = false;
+        double d = 0.0;
         for (size_t k = 1; k < g.pts.size(); ++k) {
             const auto& a = g.pts[k - 1];
             const auto& b = g.pts[k];
@@ -117,10 +118,11 @@ std::vector<Hit> project(const Way& way, QPointF at, double reach) {
             const double off = std::hypot(a.p.x() + dx * t - at.x(), a.p.y() + dy * t - at.y());
             if (off <= best) {
                 best = off;
+                near = true;
                 d = g.d0 + a.s + (b.s - a.s) * t;
             }
         }
-        if (d) out.push_back({ *d, best });
+        if (near) out.push_back({ d, best });
     }
     return out;
 }
@@ -249,8 +251,8 @@ std::optional<core::Train> coupled(const TrackNetwork& net, const Way& way, cons
     const bool flip = !keepMover && !faces;
     core::TrainPosition position;
     if (!flip) {
-        if (!ahead) position = *mover.position;
-        else if (faces) position = *other.position;
+        if (!ahead) position = mover.position.value_or(position);
+        else if (faces) position = other.position.value_or(position);
         else {
             // Where its rear truck is on the way, in the stretch it takes up.
             std::optional<Hit> best;
@@ -265,7 +267,7 @@ std::optional<core::Train> coupled(const TrackNetwork& net, const Way& way, cons
         const core::RollingStock s = stock[u.stock];
         position = positionAt(way, tail - (s.length / 2.0 + rearTruckOf(s, u.reversed)), false);
     } else {
-        position = *other.position;
+        position = other.position.value_or(position);
     }
     States over = (keepMover ? other : mover).over.value_or(States());
     over.insert((keepMover ? mover : other).over.value_or(States()));
@@ -397,7 +399,7 @@ std::optional<CutDrag> startDrag(const TrackNetwork& net, const std::vector<core
     if (!placed || unit < 0 || static_cast<size_t>(unit) >= placed->units.size()) return std::nullopt;
     d->placed = *placed;
     const size_t n = placed->units.size();
-    auto way = wayThrough(net, *it->position, placed->units.back().back, walk);
+    auto way = wayThrough(net, it->position.value_or(core::TrainPosition()), placed->units.back().back, walk);
     if (!way) return std::nullopt;
     d->way = std::move(*way);
     for (size_t i = 0; i < it->units.size() && d->at.size() < n; ++i)
@@ -570,7 +572,7 @@ CutChange takeOut(const TrackNetwork& net, const std::vector<core::Train>& train
     const auto placed = placeTrain(net, *train, stock, states);
     States as = states;
     if (train->over) as.insert(*train->over);
-    const auto way = placed ? wayThrough(net, *train->position, placed->units.empty() ? 0.0 : placed->units.back().back, as) : std::nullopt;
+    const auto way = placed && train->position ? wayThrough(net, *train->position, placed->units.empty() ? 0.0 : placed->units.back().back, as) : std::nullopt;
     std::optional<double> nextD;
     if (placed && !behind.empty())
         for (const auto& u : placed->units)
@@ -686,7 +688,7 @@ namespace {
 
 std::optional<States> overNow(const TrackNetwork& net, const core::Train& train, const StockById& stock, const States& states, bool ahead) {
     const auto placed = placeTrain(net, train, stock, states);
-    if (!placed || placed->units.empty()) return std::nullopt;
+    if (!train.position || !placed || placed->units.empty()) return std::nullopt;
     States as = states;
     if (train.over) as.insert(*train.over);
     const double tail = placed->units.back().back;

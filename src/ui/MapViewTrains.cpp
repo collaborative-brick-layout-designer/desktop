@@ -151,11 +151,12 @@ bool MapView::trainPlaceClick(QPointF studs) {
         if (!fallback && facingTo) fallback = t;
     }
     if (!fits) placed = fallback.value_or(placed);
+    const core::TrainPosition at = placed.position.value_or(core::TrainPosition());
     const QStringList cars = placingCars_;
     cancelTrainPlacing();
     const auto& states = map_->sidecar.switchStates;
-    const track::CutChange change = cars.isEmpty() ? track::putTrainOnTrack(net, trains, stock, states, what, *placed.position)
-                                                   : track::putCarsOnTrack(net, trains, stock, states, cars, *placed.position);
+    const track::CutChange change = cars.isEmpty() ? track::putTrainOnTrack(net, trains, stock, states, what, at)
+                                                   : track::putCarsOnTrack(net, trains, stock, states, cars, at);
     undoStack_->push(new edit::CutCommand(*map_, change, tr("Put %1 on the track").arg(name)));
     showStatus(fits ? tr("%1 is on the track.").arg(name) : tr("%1 runs off the end of the track here.").arg(name), 3000);
     return true;

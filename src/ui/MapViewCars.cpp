@@ -65,8 +65,9 @@ std::optional<CarAt> MapView::carAt(QPointF studs) const {
     for (const auto& t : track::standingTrains(map_->sidecar)) {
         const auto placed = track::placeTrain(net, t, stock, map_->sidecar.switchStates);
         if (!placed) continue;
-        for (size_t i = 0; i < placed->units.size(); ++i) {
-            const auto& u = placed->units[i];
+        const std::vector<track::PlacedUnit>& units = placed->units;
+        for (size_t i = 0; i < units.size(); ++i) {
+            const auto& u = units[i];
             const core::RollingStock s = stock.value(u.stock);
             const double a = qDegreesToRadians(u.angle);
             const QPointF d = studs - u.centre;
@@ -144,10 +145,12 @@ void MapView::endCarDrag(QPoint globalPos) {
         showCarMenu(d->stock, globalPos);
         return;
     }
-    if (!d->latest) return;
-    const QString text = moveText(*d->latest, map_->sidecar);
-    if (!d->latest->change.isEmpty())
-        undoStack_->push(new edit::CutCommand(*map_, d->latest->change, d->latest->couples.isEmpty() ? tr("Move cars") : tr("Couple cars")));
+    const std::optional<track::CutMove> move = d->latest;
+    if (!move) return;
+    const track::CutMove& m = *move;
+    const QString text = moveText(m, map_->sidecar);
+    if (!m.change.isEmpty())
+        undoStack_->push(new edit::CutCommand(*map_, m.change, m.couples.isEmpty() ? tr("Move cars") : tr("Couple cars")));
     if (!text.isEmpty()) showStatus(text, 4000);
 }
 
