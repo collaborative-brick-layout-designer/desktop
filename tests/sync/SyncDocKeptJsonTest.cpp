@@ -615,6 +615,48 @@ TEST(SyncDocKeptJson, AnUpdateArrivingBeforeTheOneItFollowsWaitsForIt) {
 // steps stay whole while others delete around them; and it does the same
 // when loaded again (from the cache file or the server's copy) or after a
 // reset (back to the server's copy).
+// A part on the map twice (two people moving it to another sheet at once),
+// and the second one then taken out by someone else (the server does, for a
+// shared module's parts): the first stays as it was, and the next write
+// changes nothing of it.
+TEST(SyncDocKeptJson, APartThereTwiceGoesBackToOne) {
+    const QByteArray added = QByteArray::fromBase64(
+        "AQn0AwCHu57UrQnwAQEoAPQDAAJpZAF3ATUoAPQDAAtkaXNwbGF5QXJlYQF2BAF4faACAXl9oAIFd2lkdGh8Qz6AAAZo"
+        "ZWlnaHR8Qr6AACgA9AMAB215R3JvdXABdwAoAPQDAApwYXJ0TnVtYmVyAXcHb3RoZXIuMSgA9AMAC29yaWVudGF0aW9u"
+        "AX0AKAD0AwAaYWN0aXZlQ29ubmVjdGlvblBvaW50SW5kZXgBfQAoAPQDAAhhbHRpdHVkZQF9ACgA9AMACmNvbm5leGlv"
+        "bnMBdQAA");
+    const QByteArray taken = QByteArray::fromBase64("AAH0AwEACQ==");
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(webDoc()));
+    sync::MapReader reader;
+    const auto before = bytes(doc.toJson());
+    ASSERT_TRUE(reader.read(doc.toJson()));
+
+    const auto partsWithId = [](const core::Map& map) {
+        QStringList numbers;
+        for (const auto& L : map.layers()) {
+            if (L->kind() != core::LayerKind::Brick) continue;
+            for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks)
+                if (b.guid == QStringLiteral("5")) numbers << b.partNumber;
+        }
+        return numbers;
+    };
+    ASSERT_TRUE(doc.applyUpdate(added));
+    const auto twice = reader.read(doc.toJson());
+    ASSERT_TRUE(twice);
+    EXPECT_EQ(partsWithId(*twice).size(), 2);
+
+    ASSERT_TRUE(doc.applyUpdate(taken));
+    EXPECT_EQ(bytes(doc.toJson()), before);
+    const auto once = reader.read(doc.toJson());
+    ASSERT_TRUE(once);
+    EXPECT_EQ(partsWithId(*once), QStringList{ QStringLiteral("TABLE96X190") });
+    doc.writeMap(*once);
+    const auto after = sync::mapFromDocJson(doc.toJson());
+    ASSERT_TRUE(after);
+    EXPECT_EQ(partsWithId(*after), QStringList{ QStringLiteral("TABLE96X190") });
+}
+
 TEST(SyncDocKeptJson, LiveDocsKeepWhatWasDeleted) {
     sync::SyncDoc doc;
     ASSERT_TRUE(doc.applyUpdate(webDoc()));
