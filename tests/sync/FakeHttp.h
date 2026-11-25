@@ -66,23 +66,24 @@ public:
     // `newestFirst`: answer the held requests in the opposite order to how they came.
     void release(const QByteArray& path, bool newestFirst = false) {
         hold.remove(path);
-        std::vector<std::pair<QPointer<QTcpSocket>, QByteArray>> still, mine;
-        for (auto& [s, p] : std::exchange(held_, {})) {
-            if (p != path) still.emplace_back(s, p);
-            else mine.emplace_back(s, p);
-        }
+        std::vector<Held> still, mine;
+        for (const Held& h : std::exchange(held_, {})) (h.path == path ? mine : still).push_back(h);
         held_ = std::move(still);
         if (newestFirst) std::reverse(mine.begin(), mine.end());
         // Each answer waits for the one before to be read, so they arrive in this order.
-        for (auto& [s, p] : mine) {
+        for (const auto& [s, p, method] : mine) {
             if (!s) continue;
-            answer(s, p);
+            answer(s, p, method);
             s->waitForBytesWritten(1000);
             QElapsedTimer t;
             t.start();
             while (t.elapsed() < 150) QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
         }
     }
+
+    // Called with the method and path right before each answer is picked (held ones when
+    // they're released), so a test can change what is served as the server would.
+    std::function<void(const QByteArray& method, const QByteArray& path)> beforeAnswer;
 
     std::vector<Request> requests;
     // When set, WebSocket upgrade requests are handed over (e.g. to
@@ -120,15 +121,16 @@ private:
         pending_.remove(s);
         requests.push_back(req);
         if (hold.contains(req.path)) {
-            held_.emplace_back(s, req.path);
+            held_.push_back({ s, req.path, req.method });
             return;
         }
-        const QByteArray forMethod = req.method + ' ' + req.path;
-        answer(s, answers(forMethod) ? forMethod : req.path);
+        answer(s, req.path, req.method);
     }
 
-    void answer(QTcpSocket* s, const QByteArray& path) {
-        auto& q = replies_[path];
+    void answer(QTcpSocket* s, const QByteArray& path, const QByteArray& method) {
+        if (beforeAnswer) beforeAnswer(method, path);
+        const QByteArray forMethod = method + ' ' + path;
+        auto& q = replies_[answers(forMethod) ? forMethod : path];
         const Reply r = q.empty() ? Reply{ 404, QByteArrayLiteral("{\"error\":\"not_found\"}"),
                                            QByteArrayLiteral("application/json") }
                                   : q.front();
@@ -144,7 +146,11 @@ private:
     QTcpServer server_;
     QElapsedTimer clock_;
     QHash<QTcpSocket*, QByteArray> pending_;
-    std::vector<std::pair<QPointer<QTcpSocket>, QByteArray>> held_;
+    struct Held {
+        QPointer<QTcpSocket> socket;
+        QByteArray path, method;
+    };
+    std::vector<Held> held_;
     struct Reply {
         int status;
         QByteArray body, contentType;

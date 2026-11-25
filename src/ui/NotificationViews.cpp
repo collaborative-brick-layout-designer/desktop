@@ -155,12 +155,19 @@ QString clipped(const QString& text, int max) {
 }  // namespace
 
 NotificationRow::NotificationRow(sync::NotificationCenter& center, const QUrl& server, const sync::NotificationItem& n,
-                                 bool compact, const QString& serverLabel, bool answeredFirstElsewhere, QWidget* parent)
-    : QFrame(parent), center_(center), server_(server), item_(n), compact_(compact), serverLabel_(serverLabel),
-      already_(answeredFirstElsewhere) {
+                                 bool compact, const QString& serverLabel, QWidget* parent)
+    : QFrame(parent), center_(center), server_(server), item_(n), compact_(compact), serverLabel_(serverLabel) {
     setObjectName(QStringLiteral("notificationRow:") + n.id);
     setProperty("libraryRow", true);
+    takeAnswer();
     build();
+    connect(&center_, &sync::NotificationCenter::answerChanged, this, [this](const QUrl& u, const QString& id) {
+        if (id != item_.id || sync::NotificationCenter::keyOf(u) != sync::NotificationCenter::keyOf(server_)) return;
+        const bool wasWaiting = item_.waits() || item_.needsAcknowledge();
+        takeAnswer();
+        if (wasWaiting && !(item_.waits() || item_.needsAcknowledge())) build();
+        else showAnswerState();
+    });
 }
 
 void NotificationRow::build() {
@@ -231,7 +238,7 @@ void NotificationRow::build() {
         accept->setObjectName(QStringLiteral("notificationAccept"));
         accept->setProperty("accent", true);
         accept->setAccessibleName(tr("%1: %2").arg(NotificationWords::acceptLabel(n), n.title));
-        connect(accept, &QPushButton::clicked, this, [this] { act(QStringLiteral("accept")); });
+        connect(accept, &QPushButton::clicked, this, [this] { center_.act(server_, item_, QStringLiteral("accept")); });
         buttons->addWidget(accept);
         busyButtons_ << accept;
         if (n.actions.contains(QLatin1String("decline"))) {
@@ -241,7 +248,7 @@ void NotificationRow::build() {
             connect(decline, &QPushButton::clicked, this, [this] {
                 if (NotificationWords::declineNeedsConfirm(item_.type) && !(confirm && confirm(this, NotificationWords::declineQuestion())))
                     return;
-                act(QStringLiteral("decline"));
+                center_.act(server_, item_, QStringLiteral("decline"));
             });
             buttons->addWidget(decline);
             busyButtons_ << decline;
@@ -251,7 +258,7 @@ void NotificationRow::build() {
         auto* ack = new QPushButton(tr("I understand"), this);
         ack->setObjectName(QStringLiteral("notificationAcknowledge"));
         ack->setProperty("accent", true);
-        connect(ack, &QPushButton::clicked, this, [this] { acknowledge(); });
+        connect(ack, &QPushButton::clicked, this, [this] { center_.acknowledge(server_, item_); });
         buttons->addWidget(ack);
         busyButtons_ << ack;
     }
@@ -301,83 +308,38 @@ void NotificationRow::build() {
     toggle->setAccessibleName(n.read() ? tr("Mark “%1” as unread").arg(n.title) : tr("Mark “%1” as read").arg(n.title));
     connect(toggle, &QToolButton::clicked, this, [this] { setRead(!item_.read()); });
     h->addWidget(toggle, 0, Qt::AlignTop);
+    showAnswerState();
     style()->unpolish(this);
     style()->polish(this);
 }
 
-void NotificationRow::setBusy(bool busy) {
-    for (QPushButton* b : std::as_const(busyButtons_))
-        if (b) b->setEnabled(!busy);
+void NotificationRow::takeAnswer() {
+    const auto* a = center_.answer(server_, item_.id);
+    if (!a) return;
+    already_ = a->already;
+    resultLayoutId_ = a->layoutId;
+    // The server's own word on it, once the list has it answered, goes first.
+    if (a->item && (item_.waits() || item_.needsAcknowledge())) item_ = *a->item;
 }
 
-void NotificationRow::showError(const QString& text) {
-    if (!error_) return;
-    error_->setText(text);
-    error_->setVisible(!text.isEmpty());
+void NotificationRow::showAnswerState() {
+    const auto* a = center_.answer(server_, item_.id);
+    for (QPushButton* b : std::as_const(busyButtons_)) b->setEnabled(!a || !a->sending);
+    // A refused answer is over once it was answered (elsewhere).
+    const bool open = item_.waits() || item_.needsAcknowledge();
+    error_->setText(!a ? QString() : open && !a->error.isEmpty() ? a->error : a->readError);
+    error_->setVisible(!error_->text().isEmpty());
 }
 
 void NotificationRow::setRead(bool read) {
-    sync::NotificationApi* api = center_.api(server_);
-    if (!api) return;
+    if (!center_.api(server_)) return;
     // Shown at once; the server's answer (and its hint) follows.
     item_.readAt = read ? QDateTime::currentMSecsSinceEpoch() : 0;
     build();
-    const QUrl server = server_;
-    sync::NotificationCenter* center = &center_;
-    api->setRead(item_.id, read, sync::whileAlive(this, [center, server] { center->changedHere(server); }),
-                 sync::whileAlive(this, [this, read](const sync::ServerRefusal& r) {
-                     item_.readAt = read ? 0 : QDateTime::currentMSecsSinceEpoch();
-                     build();
-                     showError(sync::describe(r));
-                 }));
-}
-
-void NotificationRow::act(const QString& action) {
-    sync::NotificationApi* api = center_.api(server_);
-    if (!api) return;
-    setBusy(true);
-    showError({});
-    const QUrl server = server_;
-    sync::NotificationCenter* center = &center_;
-    api->act(item_.id, action,
-             sync::whileAlive(this, [this, center, server](const sync::NotificationActResult& r) {
-                 if (r.item) item_ = *r.item;
-                 else {
-                     item_.outcome = r.outcome;
-                     item_.actions.clear();
-                     item_.doneAt = QDateTime::currentMSecsSinceEpoch();
-                 }
-                 already_ = r.already;
-                 resultLayoutId_ = r.result.value(QLatin1String("layoutId")).toString();
-                 build();
-                 emit answered(item_.id, r.already);
-                 center->changedHere(server);
-             }),
-             sync::whileAlive(this, [this](const sync::ServerRefusal& r) {
-                 setBusy(false);
-                 showError(r.message.isEmpty() ? sync::describe(r) : r.message);
-             }));
-}
-
-void NotificationRow::acknowledge() {
-    sync::NotificationApi* api = center_.api(server_);
-    if (!api) return;
-    setBusy(true);
-    showError({});
-    const QUrl server = server_;
-    sync::NotificationCenter* center = &center_;
-    api->acknowledge(item_.id,
-                     sync::whileAlive(this, [this, center, server] {
-                         item_.actions.clear();
-                         item_.outcome = QStringLiteral("acknowledged");
-                         item_.doneAt = item_.readAt = QDateTime::currentMSecsSinceEpoch();
-                         build();
-                         center->changedHere(server);
-                     }),
-                     sync::whileAlive(this, [this](const sync::ServerRefusal& r) {
-                         setBusy(false);
-                         showError(sync::describe(r));
-                     }));
+    center_.setRead(server_, item_.id, read, sync::whileAlive(this, [this, read] {
+        item_.readAt = read ? 0 : QDateTime::currentMSecsSinceEpoch();
+        build();
+    }));
 }
 
 // ---------- The list ----------------------------------------------------------
@@ -428,7 +390,7 @@ NotificationList::NotificationList(sync::NotificationCenter& center, bool compac
             sync::NotificationApi* api = center_.api(u);
             if (!api) continue;
             sync::NotificationCenter* bell = &center_;
-            api->readAll({}, sync::whileAlive(this, [bell, u](int) { bell->changedHere(u); }),
+            api->readAll({}, [bell, u](int) { bell->changedHere(u); },
                          sync::whileAlive(this, [this](const sync::ServerRefusal& r) {
                              status_->setText(sync::describe(r));
                              status_->show();
@@ -671,11 +633,8 @@ void NotificationList::rebuild() {
         const QUrl server = serverOf.value(n.id);
         const auto* s = center_.source(server);
         auto* row = new NotificationRow(center_, server, n, compact_, several && s ? s->label : QString(),
-                                        already_.contains(n.id), parent);
+                                        parent);
         connect(row, &NotificationRow::openRequested, this, &NotificationList::openRequested);
-        connect(row, &NotificationRow::answered, this, [this](const QString& id, bool already) {
-            if (already) already_.insert(id);
-        });
         return row;
     };
     int at = 0;
@@ -769,9 +728,10 @@ void NotificationRequests::reload() {
     api->list(q, sync::whileAlive(this, [this, gen](const sync::NotificationPage& page) {
         if (gen != generation_) return;
         // An answered one stays, saying what happened, until it's no longer listed.
-        QSet<QString> keep;
-        for (NotificationRow* r : rows())
-            if (!r->item().waits()) keep.insert(r->item().id);
+        const auto answeredHere = [this](const QString& id) {
+            const auto* a = center_.answer(server_, id);
+            return a && a->item;
+        };
         while (QLayoutItem* it = rows_->takeAt(0)) {
             if (QWidget* w = it->widget()) {
                 w->hide();
@@ -781,8 +741,8 @@ void NotificationRequests::reload() {
         }
         for (const sync::NotificationItem& n : page.items) {
             if (!n.club || n.club->slug != club_) continue;
-            if (!n.waits() && !keep.contains(n.id)) continue;
-            auto* row = new NotificationRow(center_, server_, n, true, {}, false, this);
+            if (!n.waits() && !answeredHere(n.id)) continue;
+            auto* row = new NotificationRow(center_, server_, n, true, {}, this);
             connect(row, &NotificationRow::openRequested, this, &NotificationRequests::openRequested);
             rows_->addWidget(row);
         }
