@@ -1,0 +1,5580 @@
+{
+ "limits": {
+  "waybills": 2000,
+  "jobs": 100,
+  "stops": 40,
+  "name": 80,
+  "note": 200,
+  "slots": 4,
+  "steps": 600000,
+  "kinds": [
+   "local",
+   "yard",
+   "through",
+   "turn"
+  ]
+ },
+ "routing": [
+  {
+   "name": "direct: the first job that stops at both, in order",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "c1",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "c2",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "cannery",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j1",
+     "train": "",
+     "stops": [
+      "yard",
+      "mill",
+      "cannery"
+     ]
+    },
+    {
+     "id": "j2",
+     "train": "",
+     "stops": [
+      "cannery",
+      "mill"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "c1",
+      "job": "j2",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "m1",
+      "jobs": 1
+     },
+     {
+      "car": "c2",
+      "job": "j1",
+      "pickUp": 1,
+      "setOut": 2,
+      "spot": "dock",
+      "jobs": 1
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [],
+    "lists": [
+     {
+      "job": "j1",
+      "stops": [
+       {
+        "place": "yard",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "mill",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "c2",
+          "to": "cannery"
+         }
+        ]
+       },
+       {
+        "place": "cannery",
+        "setOut": [
+         {
+          "car": "c2",
+          "spot": "dock"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     },
+     {
+      "job": "j2",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "c1",
+          "to": "mill"
+         }
+        ]
+       },
+       {
+        "place": "mill",
+        "setOut": [
+         {
+          "car": "c1",
+          "spot": "m1"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "through a yard: one job there, another on",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "c1",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j2",
+     "train": "",
+     "stops": [
+      "yard",
+      "mill",
+      "yard"
+     ]
+    },
+    {
+     "id": "j1",
+     "train": "",
+     "stops": [
+      "yard",
+      "cannery",
+      "yard"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "c1",
+      "job": "j1",
+      "pickUp": 1,
+      "setOut": 2,
+      "spot": "y1",
+      "jobs": 2
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [],
+    "lists": [
+     {
+      "job": "j2",
+      "stops": [
+       {
+        "place": "yard",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "mill",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "yard",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     },
+     {
+      "job": "j1",
+      "stops": [
+       {
+        "place": "yard",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "c1",
+          "to": "mill"
+         }
+        ]
+       },
+       {
+        "place": "yard",
+        "setOut": [
+         {
+          "car": "c1",
+          "spot": "y1"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "through two yards",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    },
+    {
+     "id": "yard2",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "z",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "far",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "f",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    }
+   ],
+   "cars": [
+    {
+     "id": "c1",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "far",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "a",
+     "train": "",
+     "stops": [
+      "cannery",
+      "yard"
+     ]
+    },
+    {
+     "id": "b",
+     "train": "",
+     "stops": [
+      "yard",
+      "yard2"
+     ]
+    },
+    {
+     "id": "c",
+     "train": "",
+     "stops": [
+      "yard2",
+      "far"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "c1",
+      "job": "a",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "y1",
+      "jobs": 3
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [],
+    "lists": [
+     {
+      "job": "a",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "c1",
+          "to": "far"
+         }
+        ]
+       },
+       {
+        "place": "yard",
+        "setOut": [
+         {
+          "car": "c1",
+          "spot": "y1"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     },
+     {
+      "job": "b",
+      "stops": [
+       {
+        "place": "yard",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "yard2",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     },
+     {
+      "job": "c",
+      "stops": [
+       {
+        "place": "yard2",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "far",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "the same job the next time it goes out",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "c1",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "cannery",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "yard",
+      "cannery",
+      "mill",
+      "yard"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "c1",
+      "job": "j",
+      "pickUp": 2,
+      "setOut": 3,
+      "spot": "y1",
+      "jobs": 2
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "yard",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "mill",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "c1",
+          "to": "cannery"
+         }
+        ]
+       },
+       {
+        "place": "yard",
+        "setOut": [
+         {
+          "car": "c1",
+          "spot": "y1"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "no job goes there",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "c1",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "c2",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": null,
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "mill",
+      "cannery"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [],
+    "arrived": [],
+    "cantRoute": [
+     {
+      "car": "c1",
+      "why": "noJob",
+      "from": "cannery",
+      "place": "mill"
+     }
+    ],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "mill",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "no track joins them",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    },
+    {
+     "id": "isle",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "i",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 7
+      }
+     ]
+    }
+   ],
+   "cars": [
+    {
+     "id": "c1",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "isle",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "cannery",
+      "isle"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [],
+    "arrived": [],
+    "cantRoute": [
+     {
+      "car": "c1",
+      "why": "noTrack",
+      "from": "cannery",
+      "place": "isle"
+     }
+    ],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "isle",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "a full spot: the car stays where it is",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "c1",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "m1",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": null,
+     "hold": false
+    },
+    {
+     "id": "m2",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": null,
+     "hold": false
+    },
+    {
+     "id": "m3",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m2"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": null,
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "cannery",
+      "mill"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [],
+    "arrived": [],
+    "cantRoute": [
+     {
+      "car": "c1",
+      "why": "full",
+      "place": "mill",
+      "spot": "",
+      "count": 3,
+      "capacity": 3
+     }
+    ],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "mill",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "the cars that leave make room, whichever comes first",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "b",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "m1",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "cannery",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "m2",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "cannery",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "m3",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m2"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": null,
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "cannery",
+      "mill",
+      "cannery"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "a",
+      "job": "j",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "m1",
+      "jobs": 1
+     },
+     {
+      "car": "b",
+      "job": "j",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "m1",
+      "jobs": 1
+     },
+     {
+      "car": "m1",
+      "job": "j",
+      "pickUp": 1,
+      "setOut": 2,
+      "spot": "dock",
+      "jobs": 1
+     },
+     {
+      "car": "m2",
+      "job": "j",
+      "pickUp": 1,
+      "setOut": 2,
+      "spot": "dock",
+      "jobs": 1
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "a",
+          "to": "mill"
+         },
+         {
+          "car": "b",
+          "to": "mill"
+         }
+        ]
+       },
+       {
+        "place": "mill",
+        "setOut": [
+         {
+          "car": "a",
+          "spot": "m1"
+         },
+         {
+          "car": "b",
+          "spot": "m1"
+         }
+        ],
+        "pickUp": [
+         {
+          "car": "m1",
+          "to": "cannery"
+         },
+         {
+          "car": "m2",
+          "to": "cannery"
+         }
+        ]
+       },
+       {
+        "place": "cannery",
+        "setOut": [
+         {
+          "car": "m1",
+          "spot": "dock"
+         },
+         {
+          "car": "m2",
+          "spot": "dock"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "one that must stay takes its room up again",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    },
+    {
+     "id": "tiny",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "t",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "b",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "tiny",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "c",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": null,
+     "hold": false
+    },
+    {
+     "id": "d",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m2"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": null,
+     "hold": false
+    },
+    {
+     "id": "t",
+     "length": 32,
+     "at": {
+      "place": "tiny",
+      "spot": "t"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": null,
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "cannery",
+      "mill",
+      "tiny"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [],
+    "arrived": [],
+    "cantRoute": [
+     {
+      "car": "a",
+      "why": "full",
+      "place": "mill",
+      "spot": "",
+      "count": 3,
+      "capacity": 3
+     },
+     {
+      "car": "b",
+      "why": "full",
+      "place": "tiny",
+      "spot": "",
+      "count": 1,
+      "capacity": 1
+     }
+    ],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "mill",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "tiny",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "the waybill’s own spot, and one that is gone",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "m2",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "b",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "gone",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "c",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "m2",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "cannery",
+      "mill"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "a",
+      "job": "j",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "m2",
+      "jobs": 1
+     },
+     {
+      "car": "b",
+      "job": "j",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "m1",
+      "jobs": 1
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [
+     {
+      "car": "c",
+      "why": "full",
+      "place": "mill",
+      "spot": "m2",
+      "count": 1,
+      "capacity": 1
+     }
+    ],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "a",
+          "to": "mill"
+         },
+         {
+          "car": "b",
+          "to": "mill"
+         }
+        ]
+       },
+       {
+        "place": "mill",
+        "setOut": [
+         {
+          "car": "a",
+          "spot": "m2"
+         },
+         {
+          "car": "b",
+          "spot": "m1"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "another spot at the same place",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "m2",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "b",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m2"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "m2",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "x",
+     "train": "",
+     "stops": [
+      "cannery"
+     ]
+    },
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "mill"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [],
+    "arrived": [
+     "b"
+    ],
+    "cantRoute": [
+     {
+      "car": "a",
+      "why": "full",
+      "place": "mill",
+      "spot": "m2",
+      "count": 1,
+      "capacity": 1
+     }
+    ],
+    "lists": [
+     {
+      "job": "x",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     },
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "mill",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "room by the track’s length",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 40,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "yard",
+      "spot": "y2",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "b",
+     "length": 40,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "yard",
+      "spot": "y2",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "c",
+     "length": 40,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "yard",
+      "spot": "y2",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "cannery",
+      "yard"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "a",
+      "job": "j",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "y2",
+      "jobs": 1
+     },
+     {
+      "car": "b",
+      "job": "j",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "y2",
+      "jobs": 1
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [
+     {
+      "car": "c",
+      "why": "full",
+      "place": "yard",
+      "spot": "y2",
+      "count": 2,
+      "capacity": null
+     }
+    ],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "a",
+          "to": "yard"
+         },
+         {
+          "car": "b",
+          "to": "yard"
+         }
+        ]
+       },
+       {
+        "place": "yard",
+        "setOut": [
+         {
+          "car": "a",
+          "spot": "y2"
+         },
+         {
+          "car": "b",
+          "spot": "y2"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "on a job’s train: nearest the engine comes off first",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    },
+    {
+     "id": "nowork",
+     "kind": "industry",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": null,
+     "onTrack": true,
+     "train": "T",
+     "unit": 1,
+     "fromEngine": 1,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "b",
+     "length": 32,
+     "at": null,
+     "onTrack": true,
+     "train": "T",
+     "unit": 3,
+     "fromEngine": 3,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "c",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "cut",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "d",
+     "length": 32,
+     "at": null,
+     "onTrack": true,
+     "train": "T",
+     "unit": 2,
+     "fromEngine": 2,
+     "to": {
+      "place": "cannery",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "e",
+     "length": 32,
+     "at": null,
+     "onTrack": true,
+     "train": "T",
+     "unit": 4,
+     "fromEngine": 4,
+     "to": {
+      "place": "nowork",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "T",
+     "stops": [
+      "cannery",
+      "mill"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "a",
+      "job": "j",
+      "pickUp": -1,
+      "setOut": 1,
+      "spot": "m1",
+      "jobs": 1
+     },
+     {
+      "car": "b",
+      "job": "j",
+      "pickUp": -1,
+      "setOut": 1,
+      "spot": "m1",
+      "jobs": 1
+     },
+     {
+      "car": "c",
+      "job": "j",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "m2",
+      "jobs": 1
+     },
+     {
+      "car": "d",
+      "job": "j",
+      "pickUp": -1,
+      "setOut": 0,
+      "spot": "dock",
+      "jobs": 1
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [
+     {
+      "car": "e",
+      "why": "noJob",
+      "from": "",
+      "place": "nowork"
+     }
+    ],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [
+         {
+          "car": "d",
+          "spot": "dock"
+         }
+        ],
+        "pickUp": [
+         {
+          "car": "c",
+          "to": "mill"
+         }
+        ]
+       },
+       {
+        "place": "mill",
+        "setOut": [
+         {
+          "car": "a",
+          "spot": "m1"
+         },
+         {
+          "car": "b",
+          "spot": "m1"
+         },
+         {
+          "car": "c",
+          "spot": "m2"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "on a job’s train, to a yard for the next job",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": null,
+     "onTrack": true,
+     "train": "T",
+     "unit": 1,
+     "fromEngine": 1,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "T",
+     "stops": [
+      "cannery",
+      "yard"
+     ]
+    },
+    {
+     "id": "k",
+     "train": "",
+     "stops": [
+      "yard",
+      "mill"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "a",
+      "job": "j",
+      "pickUp": -1,
+      "setOut": 1,
+      "spot": "y1",
+      "jobs": 2
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "yard",
+        "setOut": [
+         {
+          "car": "a",
+          "spot": "y1"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     },
+     {
+      "job": "k",
+      "stops": [
+       {
+        "place": "yard",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "mill",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "picked up in the order they stand",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m2"
+     },
+     "onTrack": true,
+     "train": "q",
+     "unit": 1,
+     "fromEngine": 0,
+     "to": {
+      "place": "cannery",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "b",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m2"
+     },
+     "onTrack": true,
+     "train": "q",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "cannery",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "c",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "z",
+     "unit": 5,
+     "fromEngine": 0,
+     "to": {
+      "place": "cannery",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "mill",
+      "cannery"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "a",
+      "job": "j",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "dock",
+      "jobs": 1
+     },
+     {
+      "car": "b",
+      "job": "j",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "dock",
+      "jobs": 1
+     },
+     {
+      "car": "c",
+      "job": "j",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "dock",
+      "jobs": 1
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "mill",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "c",
+          "to": "cannery"
+         },
+         {
+          "car": "b",
+          "to": "cannery"
+         },
+         {
+          "car": "a",
+          "to": "cannery"
+         }
+        ]
+       },
+       {
+        "place": "cannery",
+        "setOut": [
+         {
+          "car": "c",
+          "spot": "dock"
+         },
+         {
+          "car": "b",
+          "spot": "dock"
+         },
+         {
+          "car": "a",
+          "spot": "dock"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "to a place off the layout, and back from one",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "stage",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "b",
+     "length": 32,
+     "at": {
+      "place": "stage",
+      "spot": ""
+     },
+     "onTrack": false,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "cannery",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "stage",
+      "cannery",
+      "stage"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "a",
+      "job": "j",
+      "pickUp": 1,
+      "setOut": 2,
+      "spot": "",
+      "jobs": 1
+     },
+     {
+      "car": "b",
+      "job": "j",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "dock",
+      "jobs": 1
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "stage",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "b",
+          "to": "cannery"
+         }
+        ]
+       },
+       {
+        "place": "cannery",
+        "setOut": [
+         {
+          "car": "b",
+          "spot": "dock"
+         }
+        ],
+        "pickUp": [
+         {
+          "car": "a",
+          "to": "stage"
+         }
+        ]
+       },
+       {
+        "place": "stage",
+        "setOut": [
+         {
+          "car": "a",
+          "spot": ""
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "not on the track, not at a place, set aside, gone, home, arrived",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": null,
+     "onTrack": false,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "b",
+     "length": 32,
+     "at": null,
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "c",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": true
+    },
+    {
+     "id": "d",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "gone",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "e",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "cannery",
+      "spot": "",
+      "why": "home"
+     },
+     "hold": false
+    },
+    {
+     "id": "f",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "g",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "gone2",
+      "spot": "",
+      "why": "home"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "mill",
+      "cannery",
+      "mill"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [],
+    "arrived": [
+     "f"
+    ],
+    "cantRoute": [
+     {
+      "car": "a",
+      "why": "offTrack"
+     },
+     {
+      "car": "b",
+      "why": "nowhere"
+     },
+     {
+      "car": "c",
+      "why": "held"
+     },
+     {
+      "car": "d",
+      "why": "placeGone",
+      "place": "gone",
+      "by": "waybill"
+     },
+     {
+      "car": "e",
+      "why": "full",
+      "place": "cannery",
+      "spot": "",
+      "count": 3,
+      "capacity": 3
+     },
+     {
+      "car": "g",
+      "why": "placeGone",
+      "place": "gone2",
+      "by": "home"
+     }
+    ],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "mill",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "mill",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "a stop at a place that is gone is passed by",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "gone",
+      "cannery",
+      "gone",
+      "mill"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "a",
+      "job": "j",
+      "pickUp": 1,
+      "setOut": 3,
+      "spot": "m1",
+      "jobs": 1
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "gone",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "a",
+          "to": "mill"
+         }
+        ]
+       },
+       {
+        "place": "gone",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "mill",
+        "setOut": [
+         {
+          "car": "a",
+          "spot": "m1"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "two records of one id: the first counts",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "yard",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "a",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "cannery",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "cannery",
+      "mill"
+     ]
+    },
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "mill",
+      "cannery"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "a",
+      "job": "j",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "m1",
+      "jobs": 1
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [],
+    "lists": [
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "a",
+          "to": "mill"
+         }
+        ]
+       },
+       {
+        "place": "mill",
+        "setOut": [
+         {
+          "car": "a",
+          "spot": "m1"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "names that are odd",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    },
+    {
+     "id": "constructor",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "hasOwnProperty",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    }
+   ],
+   "cars": [
+    {
+     "id": "__proto__",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "constructor",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "toString",
+     "train": "",
+     "stops": [
+      "cannery",
+      "constructor"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "__proto__",
+      "job": "toString",
+      "pickUp": 0,
+      "setOut": 1,
+      "spot": "hasOwnProperty",
+      "jobs": 1
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [],
+    "lists": [
+     {
+      "job": "toString",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": [
+         {
+          "car": "__proto__",
+          "to": "constructor"
+         }
+        ]
+       },
+       {
+        "place": "constructor",
+        "setOut": [
+         {
+          "car": "__proto__",
+          "spot": "hasOwnProperty"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "two jobs of one train",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": null,
+     "onTrack": true,
+     "train": "T",
+     "unit": 1,
+     "fromEngine": 1,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "i",
+     "train": "T",
+     "stops": [
+      "cannery"
+     ]
+    },
+    {
+     "id": "j",
+     "train": "T",
+     "stops": [
+      "mill"
+     ]
+    }
+   ],
+   "expect": {
+    "cars": [
+     {
+      "car": "a",
+      "job": "j",
+      "pickUp": -1,
+      "setOut": 0,
+      "spot": "m1",
+      "jobs": 1
+     }
+    ],
+    "arrived": [],
+    "cantRoute": [],
+    "lists": [
+     {
+      "job": "i",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     },
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "mill",
+        "setOut": [
+         {
+          "car": "a",
+          "spot": "m1"
+         }
+        ],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "too much work: said so",
+   "places": [
+    {
+     "id": "cannery",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "dock",
+       "capacity": 3,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "mill",
+     "kind": "industry",
+     "spots": [
+      {
+       "id": "m1",
+       "capacity": 2,
+       "usable": null,
+       "role": "",
+       "track": 1
+      },
+      {
+       "id": "m2",
+       "capacity": 1,
+       "usable": null,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "yard",
+     "kind": "yard",
+     "spots": [
+      {
+       "id": "rip",
+       "capacity": 5,
+       "usable": null,
+       "role": "rip",
+       "track": 1
+      },
+      {
+       "id": "y1",
+       "capacity": 4,
+       "usable": null,
+       "role": "class",
+       "track": 1
+      },
+      {
+       "id": "y2",
+       "capacity": null,
+       "usable": 100,
+       "role": "",
+       "track": 1
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "kind": "staging",
+     "spots": []
+    }
+   ],
+   "cars": [
+    {
+     "id": "a",
+     "length": 32,
+     "at": {
+      "place": "cannery",
+      "spot": "dock"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "mill",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    },
+    {
+     "id": "b",
+     "length": 32,
+     "at": {
+      "place": "mill",
+      "spot": "m1"
+     },
+     "onTrack": true,
+     "train": "",
+     "unit": 0,
+     "fromEngine": 0,
+     "to": {
+      "place": "cannery",
+      "spot": "",
+      "why": "waybill"
+     },
+     "hold": false
+    }
+   ],
+   "jobs": [
+    {
+     "id": "i",
+     "train": "",
+     "stops": [
+      "yard",
+      "stage"
+     ]
+    },
+    {
+     "id": "j",
+     "train": "",
+     "stops": [
+      "cannery",
+      "mill",
+      "cannery"
+     ]
+    }
+   ],
+   "maxSteps": 8,
+   "expect": {
+    "cars": [],
+    "arrived": [],
+    "cantRoute": [
+     {
+      "car": "a",
+      "why": "tooMuch"
+     },
+     {
+      "car": "b",
+      "why": "tooMuch"
+     }
+    ],
+    "lists": [
+     {
+      "job": "i",
+      "stops": [
+       {
+        "place": "yard",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "stage",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     },
+     {
+      "job": "j",
+      "stops": [
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "mill",
+        "setOut": [],
+        "pickUp": []
+       },
+       {
+        "place": "cannery",
+        "setOut": [],
+        "pickUp": []
+       }
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "make": [
+  {
+   "name": "seed 1",
+   "cars": [
+    {
+     "id": "c0",
+     "type": "hopper",
+     "at": "mine"
+    },
+    {
+     "id": "c1",
+     "type": " HOPPER",
+     "at": ""
+    },
+    {
+     "id": "c2",
+     "type": "hopper",
+     "at": "power"
+    },
+    {
+     "id": "c3",
+     "type": "hopper",
+     "at": ""
+    },
+    {
+     "id": "c4",
+     "type": "hopper",
+     "at": ""
+    },
+    {
+     "id": "c5",
+     "type": "reefer",
+     "at": "farm"
+    },
+    {
+     "id": "c6",
+     "type": "boxcar",
+     "at": "store"
+    },
+    {
+     "id": "c7",
+     "type": "boxcar",
+     "at": ""
+    },
+    {
+     "id": "c8",
+     "type": "boxcar",
+     "at": "farm"
+    },
+    {
+     "id": "c9",
+     "type": "tank",
+     "at": ""
+    },
+    {
+     "id": "c10",
+     "type": "",
+     "at": ""
+    },
+    {
+     "id": "c11",
+     "type": "reefer",
+     "at": ""
+    }
+   ],
+   "places": [
+    {
+     "id": "mine",
+     "ships": [
+      "hopper"
+     ],
+     "accepts": [],
+     "capacity": 4
+    },
+    {
+     "id": "power",
+     "ships": [],
+     "accepts": [
+      "Hopper "
+     ],
+     "capacity": 3
+    },
+    {
+     "id": "farm",
+     "ships": [
+      "reefer",
+      "boxcar"
+     ],
+     "accepts": [
+      "boxcar"
+     ],
+     "capacity": 2
+    },
+    {
+     "id": "store",
+     "ships": [
+      "boxcar"
+     ],
+     "accepts": [
+      "reefer",
+      "boxcar"
+     ],
+     "capacity": null
+    }
+   ],
+   "heading": {
+    "power": 1
+   },
+   "seed": 1,
+   "expect": {
+    "made": [
+     {
+      "car": "c2",
+      "from": "mine",
+      "legs": [
+       {
+        "to": "mine",
+        "spot": "",
+        "load": "empty",
+        "note": ""
+       },
+       {
+        "to": "power",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c8",
+      "from": "farm",
+      "legs": [
+       {
+        "to": "store",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c4",
+      "from": "mine",
+      "legs": [
+       {
+        "to": "mine",
+        "spot": "",
+        "load": "empty",
+        "note": ""
+       },
+       {
+        "to": "power",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c7",
+      "from": "farm",
+      "legs": [
+       {
+        "to": "farm",
+        "spot": "",
+        "load": "empty",
+        "note": ""
+       },
+       {
+        "to": "store",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c11",
+      "from": "farm",
+      "legs": [
+       {
+        "to": "farm",
+        "spot": "",
+        "load": "empty",
+        "note": ""
+       },
+       {
+        "to": "store",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c5",
+      "from": "farm",
+      "legs": [
+       {
+        "to": "store",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "skipped": [
+     {
+      "car": "c10",
+      "why": "noType"
+     },
+     {
+      "car": "c1",
+      "why": "full"
+     },
+     {
+      "car": "c9",
+      "why": "noPlaces"
+     },
+     {
+      "car": "c6",
+      "why": "full"
+     },
+     {
+      "car": "c3",
+      "why": "full"
+     },
+     {
+      "car": "c0",
+      "why": "full"
+     }
+    ]
+   }
+  },
+  {
+   "name": "seed 2",
+   "cars": [
+    {
+     "id": "c0",
+     "type": "hopper",
+     "at": "mine"
+    },
+    {
+     "id": "c1",
+     "type": " HOPPER",
+     "at": ""
+    },
+    {
+     "id": "c2",
+     "type": "hopper",
+     "at": "power"
+    },
+    {
+     "id": "c3",
+     "type": "hopper",
+     "at": ""
+    },
+    {
+     "id": "c4",
+     "type": "hopper",
+     "at": ""
+    },
+    {
+     "id": "c5",
+     "type": "reefer",
+     "at": "farm"
+    },
+    {
+     "id": "c6",
+     "type": "boxcar",
+     "at": "store"
+    },
+    {
+     "id": "c7",
+     "type": "boxcar",
+     "at": ""
+    },
+    {
+     "id": "c8",
+     "type": "boxcar",
+     "at": "farm"
+    },
+    {
+     "id": "c9",
+     "type": "tank",
+     "at": ""
+    },
+    {
+     "id": "c10",
+     "type": "",
+     "at": ""
+    },
+    {
+     "id": "c11",
+     "type": "reefer",
+     "at": ""
+    }
+   ],
+   "places": [
+    {
+     "id": "mine",
+     "ships": [
+      "hopper"
+     ],
+     "accepts": [],
+     "capacity": 4
+    },
+    {
+     "id": "power",
+     "ships": [],
+     "accepts": [
+      "Hopper "
+     ],
+     "capacity": 3
+    },
+    {
+     "id": "farm",
+     "ships": [
+      "reefer",
+      "boxcar"
+     ],
+     "accepts": [
+      "boxcar"
+     ],
+     "capacity": 2
+    },
+    {
+     "id": "store",
+     "ships": [
+      "boxcar"
+     ],
+     "accepts": [
+      "reefer",
+      "boxcar"
+     ],
+     "capacity": null
+    }
+   ],
+   "heading": {
+    "power": 1
+   },
+   "seed": 2,
+   "expect": {
+    "made": [
+     {
+      "car": "c3",
+      "from": "mine",
+      "legs": [
+       {
+        "to": "mine",
+        "spot": "",
+        "load": "empty",
+        "note": ""
+       },
+       {
+        "to": "power",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c4",
+      "from": "mine",
+      "legs": [
+       {
+        "to": "mine",
+        "spot": "",
+        "load": "empty",
+        "note": ""
+       },
+       {
+        "to": "power",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c8",
+      "from": "farm",
+      "legs": [
+       {
+        "to": "store",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c7",
+      "from": "farm",
+      "legs": [
+       {
+        "to": "farm",
+        "spot": "",
+        "load": "empty",
+        "note": ""
+       },
+       {
+        "to": "store",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c5",
+      "from": "farm",
+      "legs": [
+       {
+        "to": "store",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c11",
+      "from": "farm",
+      "legs": [
+       {
+        "to": "farm",
+        "spot": "",
+        "load": "empty",
+        "note": ""
+       },
+       {
+        "to": "store",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "skipped": [
+     {
+      "car": "c0",
+      "why": "full"
+     },
+     {
+      "car": "c1",
+      "why": "full"
+     },
+     {
+      "car": "c9",
+      "why": "noPlaces"
+     },
+     {
+      "car": "c2",
+      "why": "full"
+     },
+     {
+      "car": "c10",
+      "why": "noType"
+     },
+     {
+      "car": "c6",
+      "why": "full"
+     }
+    ]
+   }
+  },
+  {
+   "name": "seed 4294967295",
+   "cars": [
+    {
+     "id": "c0",
+     "type": "hopper",
+     "at": "mine"
+    },
+    {
+     "id": "c1",
+     "type": " HOPPER",
+     "at": ""
+    },
+    {
+     "id": "c2",
+     "type": "hopper",
+     "at": "power"
+    },
+    {
+     "id": "c3",
+     "type": "hopper",
+     "at": ""
+    },
+    {
+     "id": "c4",
+     "type": "hopper",
+     "at": ""
+    },
+    {
+     "id": "c5",
+     "type": "reefer",
+     "at": "farm"
+    },
+    {
+     "id": "c6",
+     "type": "boxcar",
+     "at": "store"
+    },
+    {
+     "id": "c7",
+     "type": "boxcar",
+     "at": ""
+    },
+    {
+     "id": "c8",
+     "type": "boxcar",
+     "at": "farm"
+    },
+    {
+     "id": "c9",
+     "type": "tank",
+     "at": ""
+    },
+    {
+     "id": "c10",
+     "type": "",
+     "at": ""
+    },
+    {
+     "id": "c11",
+     "type": "reefer",
+     "at": ""
+    }
+   ],
+   "places": [
+    {
+     "id": "mine",
+     "ships": [
+      "hopper"
+     ],
+     "accepts": [],
+     "capacity": 4
+    },
+    {
+     "id": "power",
+     "ships": [],
+     "accepts": [
+      "Hopper "
+     ],
+     "capacity": 3
+    },
+    {
+     "id": "farm",
+     "ships": [
+      "reefer",
+      "boxcar"
+     ],
+     "accepts": [
+      "boxcar"
+     ],
+     "capacity": 2
+    },
+    {
+     "id": "store",
+     "ships": [
+      "boxcar"
+     ],
+     "accepts": [
+      "reefer",
+      "boxcar"
+     ],
+     "capacity": null
+    }
+   ],
+   "heading": {
+    "power": 1
+   },
+   "seed": 4294967295,
+   "expect": {
+    "made": [
+     {
+      "car": "c7",
+      "from": "farm",
+      "legs": [
+       {
+        "to": "farm",
+        "spot": "",
+        "load": "empty",
+        "note": ""
+       },
+       {
+        "to": "store",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c1",
+      "from": "mine",
+      "legs": [
+       {
+        "to": "mine",
+        "spot": "",
+        "load": "empty",
+        "note": ""
+       },
+       {
+        "to": "power",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c3",
+      "from": "mine",
+      "legs": [
+       {
+        "to": "mine",
+        "spot": "",
+        "load": "empty",
+        "note": ""
+       },
+       {
+        "to": "power",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c11",
+      "from": "farm",
+      "legs": [
+       {
+        "to": "farm",
+        "spot": "",
+        "load": "empty",
+        "note": ""
+       },
+       {
+        "to": "store",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c5",
+      "from": "farm",
+      "legs": [
+       {
+        "to": "store",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "car": "c8",
+      "from": "farm",
+      "legs": [
+       {
+        "to": "store",
+        "spot": "",
+        "load": "loaded",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "skipped": [
+     {
+      "car": "c0",
+      "why": "full"
+     },
+     {
+      "car": "c9",
+      "why": "noPlaces"
+     },
+     {
+      "car": "c2",
+      "why": "full"
+     },
+     {
+      "car": "c4",
+      "why": "full"
+     },
+     {
+      "car": "c6",
+      "why": "full"
+     },
+     {
+      "car": "c10",
+      "why": "noType"
+     }
+    ]
+   }
+  },
+  {
+   "name": "a place that only sends to itself",
+   "cars": [
+    {
+     "id": "a",
+     "type": "boxcar",
+     "at": ""
+    }
+   ],
+   "places": [
+    {
+     "id": "x",
+     "ships": [
+      "boxcar"
+     ],
+     "accepts": [
+      "boxcar"
+     ],
+     "capacity": null
+    }
+   ],
+   "heading": {},
+   "seed": 1,
+   "expect": {
+    "made": [],
+    "skipped": [
+     {
+      "car": "a",
+      "why": "noPlaces"
+     }
+    ]
+   }
+  },
+  {
+   "name": "full everywhere",
+   "cars": [
+    {
+     "id": "a",
+     "type": "boxcar",
+     "at": "x"
+    },
+    {
+     "id": "b",
+     "type": "boxcar",
+     "at": ""
+    }
+   ],
+   "places": [
+    {
+     "id": "x",
+     "ships": [
+      "boxcar"
+     ],
+     "accepts": [],
+     "capacity": null
+    },
+    {
+     "id": "y",
+     "ships": [],
+     "accepts": [
+      "boxcar"
+     ],
+     "capacity": 1
+    }
+   ],
+   "heading": {
+    "y": 1
+   },
+   "seed": 1,
+   "expect": {
+    "made": [],
+    "skipped": [
+     {
+      "car": "a",
+      "why": "full"
+     },
+     {
+      "car": "b",
+      "why": "full"
+     }
+    ]
+   }
+  }
+ ],
+ "waybills": [
+  {
+   "name": "two legs, on the first",
+   "record": {
+    "id": "w",
+    "car": "c",
+    "from": "m",
+    "leg": 1,
+    "to1": "m",
+    "load1": "empty",
+    "to3": "p",
+    "load3": "loaded",
+    "note3": "Ice first",
+    "spot3": "s"
+   },
+   "load": "empty",
+   "expect": {
+    "waybill": {
+     "id": "w",
+     "car": "c",
+     "from": "m",
+     "leg": 1,
+     "legs": [
+      {
+       "to": "m",
+       "spot": "",
+       "load": "empty",
+       "note": ""
+      },
+      null,
+      {
+       "to": "p",
+       "spot": "s",
+       "load": "loaded",
+       "note": "Ice first"
+      },
+      null
+     ]
+    },
+    "slot": 1,
+    "turned": {
+     "leg": 3,
+     "load": "loaded"
+    }
+   }
+  },
+  {
+   "name": "its last leg",
+   "record": {
+    "id": "w",
+    "car": "c",
+    "leg": 3,
+    "to1": "m",
+    "load1": "empty",
+    "to3": "p",
+    "load3": "loaded"
+   },
+   "load": "loaded",
+   "expect": {
+    "waybill": {
+     "id": "w",
+     "car": "c",
+     "from": "",
+     "leg": 3,
+     "legs": [
+      {
+       "to": "m",
+       "spot": "",
+       "load": "empty",
+       "note": ""
+      },
+      null,
+      {
+       "to": "p",
+       "spot": "",
+       "load": "loaded",
+       "note": ""
+      },
+      null
+     ]
+    },
+    "slot": 3,
+    "turned": {
+     "leg": 0,
+     "load": "empty"
+    }
+   }
+  },
+  {
+   "name": "finished",
+   "record": {
+    "id": "w",
+    "car": "c",
+    "leg": 0,
+    "to1": "m"
+   },
+   "load": "empty",
+   "expect": {
+    "waybill": {
+     "id": "w",
+     "car": "c",
+     "from": "",
+     "leg": 0,
+     "legs": [
+      {
+       "to": "m",
+       "spot": "",
+       "load": "",
+       "note": ""
+      },
+      null,
+      null,
+      null
+     ]
+    },
+    "slot": 0,
+    "turned": {
+     "leg": 0,
+     "load": "empty"
+    }
+   }
+  },
+  {
+   "name": "a leg that was cleared is passed by",
+   "record": {
+    "id": "w",
+    "leg": 2,
+    "to1": "m",
+    "to4": "p"
+   },
+   "load": "loaded",
+   "expect": {
+    "waybill": {
+     "id": "w",
+     "car": "",
+     "from": "",
+     "leg": 2,
+     "legs": [
+      {
+       "to": "m",
+       "spot": "",
+       "load": "",
+       "note": ""
+      },
+      null,
+      null,
+      {
+       "to": "p",
+       "spot": "",
+       "load": "",
+       "note": ""
+      }
+     ]
+    },
+    "slot": 4,
+    "turned": {
+     "leg": 0,
+     "load": "empty"
+    }
+   }
+  },
+  {
+   "name": "nothing left after it",
+   "record": {
+    "id": "w",
+    "leg": 4,
+    "to1": "m"
+   },
+   "load": "",
+   "expect": {
+    "waybill": {
+     "id": "w",
+     "car": "",
+     "from": "",
+     "leg": 4,
+     "legs": [
+      {
+       "to": "m",
+       "spot": "",
+       "load": "",
+       "note": ""
+      },
+      null,
+      null,
+      null
+     ]
+    },
+    "slot": 0,
+    "turned": {
+     "leg": 0,
+     "load": ""
+    }
+   }
+  },
+  {
+   "name": "odd values",
+   "record": {
+    "id": "w",
+    "car": 5,
+    "leg": "2",
+    "to1": [
+     "x"
+    ],
+    "to2": "p",
+    "load2": "half",
+    "spot2": 3,
+    "note2": null
+   },
+   "load": "full",
+   "expect": {
+    "waybill": {
+     "id": "w",
+     "car": "",
+     "from": "",
+     "leg": 1,
+     "legs": [
+      null,
+      {
+       "to": "p",
+       "spot": "",
+       "load": "",
+       "note": ""
+      },
+      null,
+      null
+     ]
+    },
+    "slot": 2,
+    "turned": {
+     "leg": 0,
+     "load": "full"
+    }
+   }
+  },
+  {
+   "name": "no load said: it changes over",
+   "record": {
+    "id": "w",
+    "leg": 1,
+    "to1": "a",
+    "to2": "b"
+   },
+   "load": "loaded",
+   "expect": {
+    "waybill": {
+     "id": "w",
+     "car": "",
+     "from": "",
+     "leg": 1,
+     "legs": [
+      {
+       "to": "a",
+       "spot": "",
+       "load": "",
+       "note": ""
+      },
+      {
+       "to": "b",
+       "spot": "",
+       "load": "",
+       "note": ""
+      },
+      null,
+      null
+     ]
+    },
+    "slot": 1,
+    "turned": {
+     "leg": 2,
+     "load": "empty"
+    }
+   }
+  }
+ ],
+ "jobs": [
+  {
+   "name": "stops by their place, then id",
+   "record": {
+    "id": "j",
+    "name": "Turn",
+    "kind": "turn",
+    "train": "t",
+    "order": 2.5,
+    "stop_b": {
+     "place": "y",
+     "at": 2
+    },
+    "stop_a": {
+     "place": "x",
+     "at": 2
+    },
+    "stop_c": {
+     "place": "z",
+     "at": -1
+    },
+    "later": 1
+   },
+   "expect": {
+    "id": "j",
+    "name": "Turn",
+    "kind": "turn",
+    "train": "t",
+    "order": 2.5,
+    "stops": [
+     {
+      "id": "c",
+      "place": "z",
+      "at": -1
+     },
+     {
+      "id": "a",
+      "place": "x",
+      "at": 2
+     },
+     {
+      "id": "b",
+      "place": "y",
+      "at": 2
+     }
+    ]
+   }
+  },
+  {
+   "name": "odd values",
+   "record": {
+    "id": "j",
+    "name": 5,
+    "kind": "",
+    "order": "x",
+    "stop_a": "x",
+    "stop_b": {
+     "place": ""
+    },
+    "stop_c": {
+     "place": "z",
+     "at": "q"
+    },
+    "stop_": {
+     "place": "q",
+     "at": 1
+    }
+   },
+   "expect": {
+    "id": "j",
+    "name": "",
+    "kind": "local",
+    "train": "",
+    "order": 0,
+    "stops": [
+     {
+      "id": "c",
+      "place": "z",
+      "at": 0
+     },
+     {
+      "id": "",
+      "place": "q",
+      "at": 1
+     }
+    ]
+   }
+  }
+ ],
+ "spotUnder": {
+  "spots": [
+   {
+    "place": "a",
+    "spot": "1",
+    "line": [
+     [
+      0,
+      0
+     ],
+     [
+      40,
+      0
+     ]
+    ]
+   },
+   {
+    "place": "a",
+    "spot": "2",
+    "line": [
+     [
+      40,
+      0
+     ],
+     [
+      80,
+      0
+     ]
+    ]
+   },
+   {
+    "place": "b",
+    "spot": "1",
+    "line": [
+     [
+      0,
+      8
+     ],
+     [
+      80,
+      8
+     ]
+    ]
+   },
+   {
+    "place": "c",
+    "spot": "1",
+    "line": [
+     [
+      200,
+      200
+     ]
+    ]
+   }
+  ],
+  "cases": [
+   {
+    "trucks": [
+     [
+      10,
+      0
+     ],
+     [
+      26,
+      0.5
+     ]
+    ],
+    "expect": {
+     "place": "a",
+     "spot": "1"
+    }
+   },
+   {
+    "trucks": [
+     [
+      30,
+      0
+     ],
+     [
+      50,
+      0
+     ]
+    ],
+    "expect": {
+     "place": "a",
+     "spot": "1"
+    }
+   },
+   {
+    "trucks": [
+     [
+      38,
+      0
+     ],
+     [
+      41.4,
+      0
+     ]
+    ],
+    "expect": {
+     "place": "a",
+     "spot": "1"
+    }
+   },
+   {
+    "trucks": [
+     [
+      10,
+      7
+     ],
+     [
+      26,
+      9.4
+     ]
+    ],
+    "expect": {
+     "place": "b",
+     "spot": "1"
+    }
+   },
+   {
+    "trucks": [
+     [
+      10,
+      4
+     ],
+     [
+      26,
+      4
+     ]
+    ],
+    "expect": null
+   },
+   {
+    "trucks": [
+     [
+      200,
+      201
+     ],
+     [
+      230,
+      200
+     ]
+    ],
+    "expect": {
+     "place": "c",
+     "spot": "1"
+    }
+   },
+   {
+    "trucks": [
+     [
+      40,
+      0
+     ],
+     [
+      40,
+      0
+     ]
+    ],
+    "expect": {
+     "place": "a",
+     "spot": "1"
+    }
+   }
+  ]
+ },
+ "broken": {
+  "places": [
+   {
+    "id": "cannery",
+    "kind": "industry",
+    "spots": [
+     {
+      "id": "dock",
+      "capacity": 3,
+      "usable": null,
+      "role": "",
+      "track": 1
+     }
+    ]
+   },
+   {
+    "id": "mill",
+    "kind": "industry",
+    "spots": [
+     {
+      "id": "m1",
+      "capacity": 2,
+      "usable": null,
+      "role": "",
+      "track": 1
+     },
+     {
+      "id": "m2",
+      "capacity": 1,
+      "usable": null,
+      "role": "",
+      "track": 1
+     }
+    ]
+   },
+   {
+    "id": "yard",
+    "kind": "yard",
+    "spots": [
+     {
+      "id": "rip",
+      "capacity": 5,
+      "usable": null,
+      "role": "rip",
+      "track": 1
+     },
+     {
+      "id": "y1",
+      "capacity": 4,
+      "usable": null,
+      "role": "class",
+      "track": 1
+     },
+     {
+      "id": "y2",
+      "capacity": null,
+      "usable": 100,
+      "role": "",
+      "track": 1
+     }
+    ]
+   },
+   {
+    "id": "stage",
+    "kind": "staging",
+    "spots": []
+   },
+   {
+    "id": "isle",
+    "kind": "industry",
+    "spots": [
+     {
+      "id": "i",
+      "capacity": 2,
+      "usable": null,
+      "role": "",
+      "track": 7
+     }
+    ]
+   }
+  ],
+  "cases": [
+   {
+    "name": "joined",
+    "stops": [
+     "cannery",
+     "mill",
+     "yard"
+    ],
+    "expect": []
+   },
+   {
+    "name": "a break",
+    "stops": [
+     "cannery",
+     "isle",
+     "mill"
+    ],
+    "expect": [
+     1,
+     2
+    ]
+   },
+   {
+    "name": "off the layout between",
+    "stops": [
+     "cannery",
+     "stage",
+     "mill"
+    ],
+    "expect": []
+   },
+   {
+    "name": "gone ones",
+    "stops": [
+     "gone",
+     "cannery",
+     "gone",
+     "isle"
+    ],
+    "expect": [
+     3
+    ]
+   }
+  ]
+ },
+ "between": [
+  {
+   "a": null,
+   "b": null,
+   "expect": 1
+  },
+  {
+   "a": null,
+   "b": 3,
+   "expect": 2
+  },
+  {
+   "a": 3,
+   "b": null,
+   "expect": 4
+  },
+  {
+   "a": 1,
+   "b": 2,
+   "expect": 1.5
+  },
+  {
+   "a": 1,
+   "b": 1.0000000000000002,
+   "expect": null
+  }
+ ]
+}

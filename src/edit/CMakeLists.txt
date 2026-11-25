@@ -16,6 +16,8 @@ add_library(bld_edit STATIC
     SharedSettle.cpp
     SharedModulePlacement.h
     CutCommands.cpp
+    OpsCommands.cpp
+    OpsCommands.h
     CutCommands.h
     LabelCommands.cpp
     LabelCommands.h

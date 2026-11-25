@@ -300,6 +300,8 @@ private:
     // The Places panel (Live Ops design 6; MainWindowPlaces.cpp), and a module's Places….
     void setupPlaces();
     void refreshPlaces();
+    void setupOps();
+    void refreshOps();
     void showModulePlaces(const QString& moduleId);
     // Shows a saved view on this screen only: its sheets, grid and labels,
     // fitted to its area.
@@ -321,6 +323,7 @@ private:
     class RoutesPanel* routesPanel_ = nullptr;
     class TrainsPanel* trainsPanel_ = nullptr;
     class PlacesPanel* placesPanel_ = nullptr;
+    class LiveOpsPanel* opsPanel_ = nullptr;
     class ViewIndicator* viewIndicator_ = nullptr;
     QString activeViewId_;
     QAction* exportImageAct_ = nullptr;  // File > Export as Image ("More options…")

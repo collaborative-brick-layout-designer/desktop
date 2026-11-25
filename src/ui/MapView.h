@@ -574,6 +574,8 @@ signals:
     void trainPlacingChanged(const QString& trainId);
     // The Run panel's Open Trains (a layout with no trains yet).
     void openTrainsRequested();
+    // A car's menu asks for its waybill, or where it goes (the Live Ops panel).
+    void carOpsRequested(const QString& stockId);
 
 protected:
     // Touch (pinch, two-finger pan, tap, drag, long press) and trackpad

@@ -91,6 +91,11 @@ struct Sidecar {
     // The layout's own places, on track that is in no module (core/Places.h);
     // a module's are its own. The web keeps them at meta.places. Never in a .bbm.
     QJsonArray layoutPlaces;
+    // Waybills and jobs (Live Ops design 2.4, 2.5; track/Ops.h reads them), as
+    // they are written, in id order. The web keeps them at meta.waybills and
+    // meta.opsJobs. Never in a .bbm.
+    QJsonArray waybills;
+    QJsonArray opsJobs;
     // Top-level fields this build doesn't know (a newer build's, the web's),
     // written back as they were.
     QJsonObject extras;
@@ -100,7 +105,7 @@ struct Sidecar {
     bool isEmpty() const {
         return anchoredLabels.empty() && modules.empty() && !venue.has_value()
                && backgroundImagePath.isEmpty() && views.empty() && sets.empty() && !budgetLimits.has_value()
-               && switchStates.isEmpty() && routes.empty() && rollingStock.empty() && trains.empty() && !trainScale.has_value() && layoutPlaces.isEmpty() && extras.isEmpty();
+               && switchStates.isEmpty() && routes.empty() && rollingStock.empty() && trains.empty() && !trainScale.has_value() && layoutPlaces.isEmpty() && waybills.isEmpty() && opsJobs.isEmpty() && extras.isEmpty();
     }
 };
 

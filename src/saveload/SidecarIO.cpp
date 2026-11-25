@@ -86,7 +86,8 @@ const QStringList& knownRootKeys() {
                                    QStringLiteral("budgetLimits"),   QStringLiteral("switchStates"),
                                    QStringLiteral("routes"),         QStringLiteral("rollingStock"),
                                    QStringLiteral("trains"),         QStringLiteral("trainScale"),
-                                   QStringLiteral("layoutPlaces") };
+                                   QStringLiteral("layoutPlaces"),   QStringLiteral("waybills"),
+                                   QStringLiteral("opsJobs") };
     return keys;
 }
 
@@ -422,6 +423,8 @@ QJsonObject sidecarToJson(const core::Sidecar& sidecar) {
     }
     if (sidecar.trainScale) root[QStringLiteral("trainScale")] = *sidecar.trainScale;
     if (!sidecar.layoutPlaces.isEmpty()) root[QStringLiteral("layoutPlaces")] = sidecar.layoutPlaces;
+    if (!sidecar.waybills.isEmpty()) root[QStringLiteral("waybills")] = sidecar.waybills;
+    if (!sidecar.opsJobs.isEmpty()) root[QStringLiteral("opsJobs")] = sidecar.opsJobs;
     return root;
 }
 
@@ -481,6 +484,17 @@ std::optional<core::Route> routeFromJson(const QJsonValue& v) {
     return r;
 }
 
+QJsonArray recordsFromJson(const QJsonValue& v) {
+    std::map<QString, QJsonObject> byId;
+    for (const auto& r : v.toArray()) {
+        const QString id = r.toObject().value(QLatin1String("id")).toString();
+        if (!id.isEmpty()) byId.emplace(id, r.toObject());
+    }
+    QJsonArray out;
+    for (const auto& [id, r] : byId) out.append(r);
+    return out;
+}
+
 QJsonObject rollingStockToJson(const core::RollingStock& r) {
     QJsonObject o = r.extras;
     o[QStringLiteral("id")] = r.id;
@@ -511,6 +525,10 @@ QJsonObject rollingStockToJson(const core::RollingStock& r) {
     o[QStringLiteral("notes")] = r.notes;
     if (r.opsCut) o[QStringLiteral("opsCut")] = *r.opsCut;
     if (!r.opsLoad.isEmpty()) o[QStringLiteral("opsLoad")] = r.opsLoad;
+    if (r.opsWaybill) o[QStringLiteral("opsWaybill")] = *r.opsWaybill;
+    if (r.opsHome) o[QStringLiteral("opsHome")] = *r.opsHome;
+    if (r.opsAt) o[QStringLiteral("opsAt")] = *r.opsAt;
+    if (r.opsHold) o[QStringLiteral("opsHold")] = *r.opsHold;
     return o;
 }
 
@@ -558,9 +576,17 @@ std::optional<core::RollingStock> rollingStockFromJson(const QJsonValue& v) {
     r.notes = o.value(QLatin1String("notes")).toString();
     if (o.value(QLatin1String("opsCut")).isString()) r.opsCut = o.value(QLatin1String("opsCut")).toString();
     r.opsLoad = o.value(QLatin1String("opsLoad")).toString();
+    const auto ops = [&o](const char* k) {
+        const QJsonValue field = o.value(QLatin1String(k));
+        return field.isString() ? std::optional(field.toString()) : std::nullopt;
+    };
+    r.opsWaybill = ops("opsWaybill");
+    r.opsHome = ops("opsHome");
+    r.opsAt = ops("opsAt");
+    if (o.value(QLatin1String("opsHold")).isBool()) r.opsHold = o.value(QLatin1String("opsHold")).toBool();
     r.extras = o;
     for (const char* k : { "id", "number", "name", "kind", "type", "trackKind", "length", "width", "bodyLength", "trucks", "couplers",
-                           "powered", "look", "libraryId", "libraryVersion", "notes", "opsCut", "opsLoad" })
+                           "powered", "look", "libraryId", "libraryVersion", "notes", "opsCut", "opsLoad", "opsWaybill", "opsHome", "opsAt", "opsHold" })
         r.extras.remove(QLatin1String(k));
     return r;
 }
@@ -679,6 +705,8 @@ void sidecarFromJson(const QJsonObject& root, core::Sidecar& out) {
     for (const auto& v : root.value(QStringLiteral("trains")).toArray())
         if (auto t = trainFromJson(v)) out.trains.push_back(std::move(*t));
     out.layoutPlaces = core::places::readPlaces(root.value(QStringLiteral("layoutPlaces")));
+    out.waybills = recordsFromJson(root.value(QStringLiteral("waybills")));
+    out.opsJobs = recordsFromJson(root.value(QStringLiteral("opsJobs")));
     out.sets.clear();
     for (const auto& v : root.value(QStringLiteral("sets")).toArray())
         if (auto s = decodePlacedSet(v)) out.sets.push_back(std::move(*s));

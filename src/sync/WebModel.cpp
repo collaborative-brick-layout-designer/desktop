@@ -367,7 +367,9 @@ void readBudget(const QJsonObject& meta, core::Sidecar& out) {
             }
         } else {
             list = meta.value(QLatin1String("cache")).toObject().value(QLatin1String(key)).toArray();
-            // (An older web build that imported a file kept the places in the cache's extras.)
+            // (An older web build that imported a file kept these in the cache's extras.)
+            if (list.isEmpty() && (qstrcmp(key, "waybills") == 0 || qstrcmp(key, "opsJobs") == 0))
+                list = meta.value(QLatin1String("cache")).toObject().value(QLatin1String("extras")).toObject().value(QLatin1String(key)).toArray();
             if (qstrcmp(key, "places") == 0) {
                 const QJsonObject cache = meta.value(QLatin1String("cache")).toObject();
                 list = cache.value(QLatin1String("layoutPlaces")).toArray();
@@ -387,6 +389,8 @@ void readBudget(const QJsonObject& meta, core::Sidecar& out) {
     });
     out.layoutPlaces = QJsonArray();
     for (const auto& p : byName) out.layoutPlaces.append(p);
+    out.waybills = saveload::recordsFromJson(records("waybills"));
+    out.opsJobs = saveload::recordsFromJson(records("opsJobs"));
     out.rollingStock.clear();
     for (const auto& v : records("rollingStock"))
         if (auto r = saveload::rollingStockFromJson(v)) out.rollingStock.push_back(std::move(*r));

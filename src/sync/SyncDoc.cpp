@@ -1030,6 +1030,17 @@ struct SyncDoc::Impl {
         writeRecordMap(curMeta, "places", wantObj);
     }
 
+    // Waybills and jobs (Live Ops design 2.4, 2.5): Y.Maps at meta.waybills and meta.opsJobs, kept the same way.
+    void writeRecords(const QJsonObject& curMeta, const char* key, const QJsonArray& want) {
+        QJsonObject wantObj;
+        for (const auto& r : want) {
+            QJsonObject o = r.toObject();
+            const QString id = o.take(QLatin1String("id")).toString();
+            wantObj.insert(id, o);
+        }
+        writeRecordMap(curMeta, key, wantObj);
+    }
+
     // A Y.Map at meta.<kKey>, id -> a Y.Map of the record's fields.
     void writeRecordMap(const QJsonObject& curMeta, const char* kKey, const QJsonObject& wantObj) {
         Output existing(ymap_get(meta, txn, kKey));
@@ -1505,6 +1516,8 @@ QByteArray SyncDoc::writeMap(const core::Map& map, bool undoStep) {
     d.writeTrains(curMeta, map.sidecar.trains);
     d.writeTrainScale(curMeta, map.sidecar.trainScale);
     d.writePlaces(curMeta, map.sidecar.layoutPlaces);
+    d.writeRecords(curMeta, "waybills", map.sidecar.waybills);
+    d.writeRecords(curMeta, "opsJobs", map.sidecar.opsJobs);
     if (!sidecarWrite.items.isEmpty()) {
         const QJsonObject curItems = cur.value(QLatin1String("sidecarItems")).toObject();
         const QJsonObject& wantItems = sidecarWrite.items;

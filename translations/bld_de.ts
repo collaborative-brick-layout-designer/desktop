@@ -807,6 +807,78 @@
         <translation>Sie gehört nur zu diesem Layout: Ein Wagen in deinem Fuhrpark hat keine, und beim Speichern in einen Fuhrpark bleibt sie weg. Wähle „Trifft nicht zu“ für einen Begleitwagen oder eine Lok.</translation>
     </message>
     <message>
+        <source>Waybills</source>
+        <translation>Frachtbriefe</translation>
+    </message>
+    <message>
+        <source>A waybill says where a car goes next: up to four legs, each a place, a spot if you like, and its load.</source>
+        <translation>Ein Frachtbrief sagt, wohin ein Wagen als Nächstes fährt: bis zu vier Etappen, jede ein Ort, auf Wunsch ein Stellplatz, und die Ladung.</translation>
+    </message>
+    <message>
+        <source>Delivered turns it to its next leg, and the car’s load with it; after the last one the car goes to its home. A waybill without a car waits for one: pick the car on it.</source>
+        <translation>„Zugestellt“ schaltet ihn auf die nächste Etappe und die Ladung des Wagens mit; nach der letzten fährt der Wagen zu seinem Heimatort. Ein Frachtbrief ohne Wagen wartet auf einen: Wähl den Wagen darauf aus.</translation>
+    </message>
+    <message>
+        <source>Make waybills</source>
+        <translation>Frachtbriefe erstellen</translation>
+    </message>
+    <message>
+        <source>Gives every car without a waybill somewhere to go, from what your places send out and take in.</source>
+        <translation>Gibt jedem Wagen ohne Frachtbrief ein Ziel, nach dem, was deine Orte versenden und annehmen.</translation>
+    </message>
+    <message>
+        <source>Each car is sent empty to a place that sends out its type, then loaded to one that takes it in; no place gets more cars than it holds. Shuffle picks again. You can change any of them afterward, and Undo takes them all back.</source>
+        <translation>Jeder Wagen fährt leer zu einem Ort, der seine Art versendet, dann beladen zu einem, der sie annimmt; kein Ort bekommt mehr Wagen, als er fasst. „Mischen“ wählt neu. Du kannst danach jeden ändern, und Rückgängig nimmt alle zurück.</translation>
+    </message>
+    <message>
+        <source>Set aside and home</source>
+        <translation>Abgestellt und Heimatort</translation>
+    </message>
+    <message>
+        <source>A car set aside stays where it is: no job takes it, and Make waybills passes it by.</source>
+        <translation>Ein abgestellter Wagen bleibt, wo er ist: Kein Auftrag nimmt ihn mit, und „Frachtbriefe erstellen“ übergeht ihn.</translation>
+    </message>
+    <message>
+        <source>Home is the place a car goes back to when it has no waybill, such as a yard or staging. A car that isn’t on the track can be at a place off the layout.</source>
+        <translation>Der Heimatort ist der Ort, zu dem ein Wagen ohne Frachtbrief zurückkehrt, etwa ein Rangierbahnhof oder eine Abstellanlage. Ein Wagen, der nicht auf dem Gleis steht, kann an einem Ort außerhalb der Anlage sein.</translation>
+    </message>
+    <message>
+        <source>Jobs</source>
+        <translation>Aufträge</translation>
+    </message>
+    <message>
+        <source>A job is one crew’s work: the places it stops at, in order, and the train that does it.</source>
+        <translation>Ein Auftrag ist die Arbeit einer Mannschaft: die Orte, an denen sie hält, der Reihe nach, und der Zug, der sie macht.</translation>
+    </message>
+    <message>
+        <source>A car goes with the first job that stops where it is and, later on, where it goes; if there is none, by way of yards. Put the jobs in order with the arrows, and pick the job’s train so the cars on it are set out too.</source>
+        <translation>Ein Wagen fährt mit dem ersten Auftrag, der dort hält, wo er steht, und später dort, wohin er soll; sonst über Rangierbahnhöfe. Ordne die Aufträge mit den Pfeilen und wähl den Zug des Auftrags, damit auch die Wagen darin abgestellt werden.</translation>
+    </message>
+    <message>
+        <source>Switch list</source>
+        <translation>Rangierliste</translation>
+    </message>
+    <message>
+        <source>What to set out and pick up at each stop, kept up to date as cars move and waybills and jobs change.</source>
+        <translation>Was an jedem Halt abzustellen und abzuholen ist, immer aktuell, wenn sich Wagen, Frachtbriefe und Aufträge ändern.</translation>
+    </message>
+    <message>
+        <source>Cars to set out are listed nearest the engine first, and cars to pick up in the order they stand. A spot with no room is passed by, and spots for repairs and engines are left free.</source>
+        <translation>Abzustellende Wagen stehen nach Nähe zur Lok, abzuholende in der Reihenfolge, in der sie stehen. Ein voller Stellplatz wird übergangen, und Stellplätze für Reparaturen und Loks bleiben frei.</translation>
+    </message>
+    <message>
+        <source>Can’t route</source>
+        <translation>Nicht zu leiten</translation>
+    </message>
+    <message>
+        <source>Cars that have somewhere to go but no way there now, each with why.</source>
+        <translation>Wagen, die ein Ziel haben, aber gerade keinen Weg dorthin, jeweils mit dem Grund.</translation>
+    </message>
+    <message>
+        <source>Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <translation>Nichts geht verloren: Jeder bleibt, wo er ist, bis du einen Auftrag hinzufügst, Platz schaffst oder seinen Frachtbrief änderst. Löschst du einen Ort, Gleise oder einen Auftrag, stehen die betroffenen Wagen hier.</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>Orte</translation>
     </message>
@@ -3824,10 +3896,6 @@
         <translation>Weichen stellen stellt jede Weiche auf der Route in ihre Richtung. Im Fahrmodus stellst du sie von Hand um.</translation>
     </message>
     <message>
-        <source>Places</source>
-        <translation>Orte</translation>
-    </message>
-    <message>
         <source>Where cars go</source>
         <translation>Wohin Wagen fahren</translation>
     </message>
@@ -3866,6 +3934,22 @@
     <message>
         <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
         <translation>Zieh einen Wagen am Gleis entlang, um ihn zu bewegen oder abzukuppeln; trifft er auf einen anderen, kuppelt er an. Klick einen Wagen an für seine Ladung.</translation>
+    </message>
+    <message>
+        <source>Where each car goes</source>
+        <translation>Wohin jeder Wagen fährt</translation>
+    </message>
+    <message>
+        <source>Open Live Ops from Panels. Make waybills gives every car somewhere to go, and you can change any of them.</source>
+        <translation>Öffne Live Ops unter Fenster. „Frachtbriefe erstellen“ gibt jedem Wagen ein Ziel, und du kannst jeden davon ändern.</translation>
+    </message>
+    <message>
+        <source>Jobs and switch lists</source>
+        <translation>Aufträge und Rangierlisten</translation>
+    </message>
+    <message>
+        <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
+        <translation>Ein Auftrag ist die Arbeit einer Mannschaft: die Orte, an denen sie hält. Die Rangierliste sagt, was abzustellen und abzuholen ist.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -3994,6 +4078,10 @@
     <message>
         <source>Trains</source>
         <translation>Züge</translation>
+    </message>
+    <message>
+        <source>Live Ops</source>
+        <translation>Live Ops</translation>
     </message>
     <message>
         <source>Trains and cars</source>
@@ -5123,6 +5211,14 @@
     <message>
         <source>Place &quot;%1&quot;</source>
         <translation>Ort „%1“</translation>
+    </message>
+    <message>
+        <source>A waybill</source>
+        <translation>Ein Frachtbrief</translation>
+    </message>
+    <message>
+        <source>Job &quot;%1&quot;</source>
+        <translation>Auftrag „%1“</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -6604,6 +6700,425 @@
     <message>
         <source>Reconnecting…</source>
         <translation>Verbinde erneut…</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::LiveOpsPanel</name>
+    <message>
+        <source>Live Ops</source>
+        <translation>Live Ops</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>New waybill</source>
+        <translation>Neuer Frachtbrief</translation>
+    </message>
+    <message>
+        <source>Make waybills</source>
+        <translation>Frachtbriefe erstellen</translation>
+    </message>
+    <message>
+        <source>Delivered</source>
+        <translation>Zugestellt</translation>
+    </message>
+    <message>
+        <source>Job %1</source>
+        <translation>Auftrag %1</translation>
+    </message>
+    <message>
+        <source>New job</source>
+        <translation>Neuer Auftrag</translation>
+    </message>
+    <message>
+        <source>Delete this waybill? The car stays where it is. You can undo this.</source>
+        <translation>Diesen Frachtbrief löschen? Der Wagen bleibt, wo er ist. Du kannst das rückgängig machen.</translation>
+    </message>
+    <message>
+        <source>Delete waybill</source>
+        <translation>Frachtbrief löschen</translation>
+    </message>
+    <message>
+        <source>Delete the job “%1”? Its cars and their waybills stay; another job takes them, or they’re listed under Can’t route. You can undo this.</source>
+        <translation>Den Auftrag „%1“ löschen? Seine Wagen und ihre Frachtbriefe bleiben; ein anderer Auftrag übernimmt sie, oder sie stehen unter „Nicht zu leiten“. Du kannst das rückgängig machen.</translation>
+    </message>
+    <message>
+        <source>Delete job</source>
+        <translation>Auftrag löschen</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>Modul</translation>
+    </message>
+    <message>
+        <source>(no name)</source>
+        <translation>(ohne Namen)</translation>
+    </message>
+    <message>
+        <source>Cars</source>
+        <translation>Wagen</translation>
+    </message>
+    <message>
+        <source>Waybills</source>
+        <translation>Frachtbriefe</translation>
+    </message>
+    <message>
+        <source>Jobs</source>
+        <translation>Aufträge</translation>
+    </message>
+    <message>
+        <source>Cars go to places: industries, yards, staging and interchanges. There are none on this layout yet.</source>
+        <translation>Wagen fahren zu Orten: Industrien, Rangierbahnhöfe, Abstellanlagen und Übergabestellen. Auf dieser Anlage gibt es noch keine.</translation>
+    </message>
+    <message>
+        <source>Open Places</source>
+        <translation>Orte öffnen</translation>
+    </message>
+    <message>
+        <source>There are no cars on this layout yet.</source>
+        <translation>Auf dieser Anlage gibt es noch keine Wagen.</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Züge öffnen</translation>
+    </message>
+    <message>
+        <source>Can’t route (%1)</source>
+        <translation>Nicht zu leiten (%1)</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Zeig es mir</translation>
+    </message>
+    <message>
+        <source>Waybill</source>
+        <translation>Frachtbrief</translation>
+    </message>
+    <message>
+        <source>At %1</source>
+        <translation>Bei %1</translation>
+    </message>
+    <message>
+        <source>On the track, at no place</source>
+        <translation>Auf dem Gleis, an keinem Ort</translation>
+    </message>
+    <message>
+        <source>Not on the track</source>
+        <translation>Nicht auf dem Gleis</translation>
+    </message>
+    <message>
+        <source>Set aside</source>
+        <translation>Abgestellt</translation>
+    </message>
+    <message>
+        <source>Set a car aside</source>
+        <translation>Wagen abstellen</translation>
+    </message>
+    <message>
+        <source>Home</source>
+        <translation>Heimatort</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Keine</translation>
+    </message>
+    <message>
+        <source>Change a car’s home</source>
+        <translation>Heimatort eines Wagens ändern</translation>
+    </message>
+    <message>
+        <source>Where it is</source>
+        <translation>Wo er ist</translation>
+    </message>
+    <message>
+        <source>Nowhere</source>
+        <translation>Nirgends</translation>
+    </message>
+    <message>
+        <source>Change where a car is</source>
+        <translation>Ändern, wo ein Wagen ist</translation>
+    </message>
+    <message>
+        <source>Make waybills…</source>
+        <translation>Frachtbriefe erstellen…</translation>
+    </message>
+    <message>
+        <source>No waybills yet. A waybill says where a car goes next: make one for every car at once, or write one.</source>
+        <translation>Noch keine Frachtbriefe. Ein Frachtbrief sagt, wohin ein Wagen als Nächstes fährt: Erstell sie für alle Wagen auf einmal oder schreib einen.</translation>
+    </message>
+    <message>
+        <source>Waiting for a car</source>
+        <translation>Wartet auf einen Wagen</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation>Fertig</translation>
+    </message>
+    <message>
+        <source>No legs yet</source>
+        <translation>Noch keine Etappen</translation>
+    </message>
+    <message>
+        <source>1 car</source>
+        <translation>1 Wagen</translation>
+    </message>
+    <message>
+        <source>%1 cars</source>
+        <translation>%1 Wagen</translation>
+    </message>
+    <message>
+        <source>No car can get one:</source>
+        <translation>Kein Wagen kann einen bekommen:</translation>
+    </message>
+    <message>
+        <source>Every car that isn’t set aside has a waybill.</source>
+        <translation>Jeder Wagen, der nicht abgestellt ist, hat einen Frachtbrief.</translation>
+    </message>
+    <message>
+        <source>Every car has a waybill.</source>
+        <translation>Jeder Wagen hat einen Frachtbrief.</translation>
+    </message>
+    <message>
+        <source>, then </source>
+        <translation>, dann </translation>
+    </message>
+    <message>
+        <source>Left without:</source>
+        <translation>Ohne bleiben:</translation>
+    </message>
+    <message>
+        <source>%1 without a type (set it in Trains).</source>
+        <translation>%1 ohne Art (leg sie unter Züge fest).</translation>
+    </message>
+    <message>
+        <source>%1 no two places send out and take in (set what each place sends out and takes in).</source>
+        <translation>%1, die keine zwei Orte versenden und annehmen (leg fest, was jeder Ort versendet und annimmt).</translation>
+    </message>
+    <message>
+        <source>%1 with no room left at the places they’d go to.</source>
+        <translation>%1, für die an ihren Zielorten kein Platz mehr ist.</translation>
+    </message>
+    <message>
+        <source>Add 1 waybill</source>
+        <translation>1 Frachtbrief hinzufügen</translation>
+    </message>
+    <message>
+        <source>Add %1 waybills</source>
+        <translation>%1 Frachtbriefe hinzufügen</translation>
+    </message>
+    <message>
+        <source>Shuffle</source>
+        <translation>Mischen</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Change waybill</source>
+        <translation>Frachtbrief ändern</translation>
+    </message>
+    <message>
+        <source>← All waybills</source>
+        <translation>← Alle Frachtbriefe</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>Wagen</translation>
+    </message>
+    <message>
+        <source>%1 (has a waybill)</source>
+        <translation>%1 (hat einen Frachtbrief)</translation>
+    </message>
+    <message>
+        <source>Give a waybill to a car</source>
+        <translation>Einem Wagen einen Frachtbrief geben</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>Von</translation>
+    </message>
+    <message>
+        <source>Not said</source>
+        <translation>Nicht angegeben</translation>
+    </message>
+    <message>
+        <source>Leg %1 · now</source>
+        <translation>Etappe %1 · jetzt</translation>
+    </message>
+    <message>
+        <source>Leg %1</source>
+        <translation>Etappe %1</translation>
+    </message>
+    <message>
+        <source>Not used</source>
+        <translation>Nicht benutzt</translation>
+    </message>
+    <message>
+        <source>Leg %1 goes to</source>
+        <translation>Ziel von Etappe %1</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Stellplatz</translation>
+    </message>
+    <message>
+        <source>Any</source>
+        <translation>Beliebig</translation>
+    </message>
+    <message>
+        <source>A spot</source>
+        <translation>Ein Stellplatz</translation>
+    </message>
+    <message>
+        <source>One that was deleted (any)</source>
+        <translation>Ein gelöschter (beliebig)</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Ladung</translation>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation>Hinweis</translation>
+    </message>
+    <message>
+        <source>It has left the layout</source>
+        <translation>Er hat die Anlage verlassen</translation>
+    </message>
+    <message>
+        <source>The waybill turns to its next leg, and the load with it.</source>
+        <translation>Der Frachtbrief geht zur nächsten Etappe, und die Ladung mit ihm.</translation>
+    </message>
+    <message>
+        <source>Start it again</source>
+        <translation>Von vorn beginnen</translation>
+    </message>
+    <message>
+        <source>Start a waybill again</source>
+        <translation>Einen Frachtbrief von vorn beginnen</translation>
+    </message>
+    <message>
+        <source>Delete this waybill</source>
+        <translation>Diesen Frachtbrief löschen</translation>
+    </message>
+    <message>
+        <source>No jobs yet. A job is one crew’s work: the places it stops at, in order. Cars with a waybill are given to the first job that can take them.</source>
+        <translation>Noch keine Aufträge. Ein Auftrag ist die Arbeit einer Mannschaft: die Orte, an denen sie hält, der Reihe nach. Wagen mit Frachtbrief gehen an den ersten Auftrag, der sie mitnehmen kann.</translation>
+    </message>
+    <message>
+        <source>A job</source>
+        <translation>Ein Auftrag</translation>
+    </message>
+    <message>
+        <source>Move %1 up</source>
+        <translation>%1 nach oben</translation>
+    </message>
+    <message>
+        <source>Move %1 down</source>
+        <translation>%1 nach unten</translation>
+    </message>
+    <message>
+        <source>Move job</source>
+        <translation>Auftrag verschieben</translation>
+    </message>
+    <message>
+        <source>Change job</source>
+        <translation>Auftrag ändern</translation>
+    </message>
+    <message>
+        <source>← All jobs</source>
+        <translation>← Alle Aufträge</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>Art</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>Zug</translation>
+    </message>
+    <message>
+        <source>None yet</source>
+        <translation>Noch keiner</translation>
+    </message>
+    <message>
+        <source>A train that was deleted</source>
+        <translation>Ein gelöschter Zug</translation>
+    </message>
+    <message>
+        <source>Stops</source>
+        <translation>Halte</translation>
+    </message>
+    <message>
+        <source>Move stop</source>
+        <translation>Halt verschieben</translation>
+    </message>
+    <message>
+        <source>Remove %1</source>
+        <translation>%1 entfernen</translation>
+    </message>
+    <message>
+        <source>Remove stop</source>
+        <translation>Halt entfernen</translation>
+    </message>
+    <message>
+        <source>No track joins the stop before to %1.</source>
+        <translation>Kein Gleis verbindet den Halt davor mit %1.</translation>
+    </message>
+    <message>
+        <source>Add its first stop…</source>
+        <translation>Ersten Halt hinzufügen…</translation>
+    </message>
+    <message>
+        <source>Add a stop…</source>
+        <translation>Halt hinzufügen…</translation>
+    </message>
+    <message>
+        <source>Add a stop</source>
+        <translation>Einen Halt hinzufügen</translation>
+    </message>
+    <message>
+        <source>Add stop</source>
+        <translation>Halt hinzufügen</translation>
+    </message>
+    <message>
+        <source>Switch list</source>
+        <translation>Rangierliste</translation>
+    </message>
+    <message>
+        <source>Add the places it stops at.</source>
+        <translation>Füg die Orte hinzu, an denen er hält.</translation>
+    </message>
+    <message>
+        <source>Nothing to do: no car goes by this job now.</source>
+        <translation>Nichts zu tun: Kein Wagen fährt gerade mit diesem Auftrag.</translation>
+    </message>
+    <message>
+        <source>a spot</source>
+        <translation>ein Stellplatz</translation>
+    </message>
+    <message>
+        <source>Set out %1</source>
+        <translation>%1 abstellen</translation>
+    </message>
+    <message>
+        <source>Set out %1 at %2</source>
+        <translation>%1 bei %2 abstellen</translation>
+    </message>
+    <message>
+        <source>Pick up %1 for %2</source>
+        <translation>%1 abholen, Ziel %2</translation>
+    </message>
+    <message>
+        <source>Delete this job</source>
+        <translation>Diesen Auftrag löschen</translation>
     </message>
 </context>
 <context>
@@ -10261,6 +10776,14 @@ Du wirst nicht noch einmal gefragt. Um es später in dieses oder ein anderes Lay
         <translation>Orte</translation>
     </message>
     <message>
+        <source>waybills</source>
+        <translation>Frachtbriefe</translation>
+    </message>
+    <message>
+        <source>jobs</source>
+        <translation>Aufträge</translation>
+    </message>
+    <message>
         <source>the train scale</source>
         <translation>den Zugmaßstab</translation>
     </message>
@@ -11226,6 +11749,10 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     <message>
         <source>Take off the track</source>
         <translation>Vom Gleis nehmen</translation>
+    </message>
+    <message>
+        <source>Waybill and Live Ops</source>
+        <translation>Frachtbrief und Live Ops</translation>
     </message>
     <message>
         <source>Open Trains</source>
@@ -12372,6 +12899,197 @@ Behalte sie als %2, wenn du sie noch in einem anderen Programm öffnest; Datei �
     <message>
         <source>Notifications</source>
         <translation>Benachrichtigungen</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::OpsText</name>
+    <message>
+        <source>A place that was deleted</source>
+        <translation>Ein gelöschter Ort</translation>
+    </message>
+    <message>
+        <source>a spot</source>
+        <translation>ein Stellplatz</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>Ein gelöschter Wagen</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Beladen</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Leer</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Trifft nicht zu</translation>
+    </message>
+    <message>
+        <source>Loaded to %1</source>
+        <translation>Beladen nach %1</translation>
+    </message>
+    <message>
+        <source>Empty to %1</source>
+        <translation>Leer nach %1</translation>
+    </message>
+    <message>
+        <source>To %1</source>
+        <translation>Nach %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to go: it stays.</source>
+        <translation>Kein Ziel: Er bleibt stehen.</translation>
+    </message>
+    <message>
+        <source>Home to %1</source>
+        <translation>Heim nach %1</translation>
+    </message>
+    <message>
+        <source>%1: it’s there</source>
+        <translation>%1: Er ist da</translation>
+    </message>
+    <message>
+        <source>a job</source>
+        <translation>ein Auftrag</translation>
+    </message>
+    <message>
+        <source>%1, with %2 first</source>
+        <translation>%1, zuerst mit %2</translation>
+    </message>
+    <message>
+        <source>%1, with %2</source>
+        <translation>%1, mit %2</translation>
+    </message>
+    <message>
+        <source>It’s set aside.</source>
+        <translation>Er ist abgestellt.</translation>
+    </message>
+    <message>
+        <source>It isn’t on the track. Put it on the track, or say which place off the layout it’s at.</source>
+        <translation>Er steht nicht auf dem Gleis. Setz ihn aufs Gleis oder gib an, an welchem Ort außerhalb der Anlage er ist.</translation>
+    </message>
+    <message>
+        <source>It isn’t at a place.</source>
+        <translation>Er ist an keinem Ort.</translation>
+    </message>
+    <message>
+        <source>There are too many jobs and places to work out its way.</source>
+        <translation>Es gibt zu viele Aufträge und Orte, um seinen Weg zu berechnen.</translation>
+    </message>
+    <message>
+        <source>Its home was deleted. Pick another.</source>
+        <translation>Sein Heimatort wurde gelöscht. Wähl einen anderen.</translation>
+    </message>
+    <message>
+        <source>The place it goes to was deleted. Pick another on its waybill.</source>
+        <translation>Der Zielort wurde gelöscht. Wähl auf seinem Frachtbrief einen anderen.</translation>
+    </message>
+    <message>
+        <source>No track joins %1 to %2.</source>
+        <translation>Kein Gleis verbindet %1 mit %2.</translation>
+    </message>
+    <message>
+        <source>The job whose train it’s on doesn’t go to %1.</source>
+        <translation>Der Auftrag, in dessen Zug er ist, fährt nicht nach %1.</translation>
+    </message>
+    <message>
+        <source>No job stops at %1.</source>
+        <translation>Kein Auftrag hält bei %1.</translation>
+    </message>
+    <message>
+        <source>No job goes from %1 to %2.</source>
+        <translation>Kein Auftrag fährt von %1 nach %2.</translation>
+    </message>
+    <message>
+        <source>%1 is full (%2 of %3).</source>
+        <translation>%1 ist voll (%2 von %3).</translation>
+    </message>
+    <message>
+        <source>%1 is full.</source>
+        <translation>%1 ist voll.</translation>
+    </message>
+    <message>
+        <source>Local</source>
+        <translation>Nahgüterzug</translation>
+    </message>
+    <message>
+        <source>Yard job</source>
+        <translation>Rangierdienst</translation>
+    </message>
+    <message>
+        <source>Through freight</source>
+        <translation>Durchgangsgüterzug</translation>
+    </message>
+    <message>
+        <source>Turn</source>
+        <translation>Drehen</translation>
+    </message>
+    <message>
+        <source>Works the industries along the way.</source>
+        <translation>Bedient die Industrien unterwegs.</translation>
+    </message>
+    <message>
+        <source>Sorts cars in a yard.</source>
+        <translation>Sortiert Wagen in einem Rangierbahnhof.</translation>
+    </message>
+    <message>
+        <source>Runs from one yard or staging to another.</source>
+        <translation>Fährt von einem Rangierbahnhof oder einer Abstellanlage zur nächsten.</translation>
+    </message>
+    <message>
+        <source>Goes out, works, and comes back.</source>
+        <translation>Fährt hinaus, arbeitet und kommt zurück.</translation>
+    </message>
+    <message>
+        <source>1 stop</source>
+        <translation>1 Halt</translation>
+    </message>
+    <message>
+        <source>%1 stops</source>
+        <translation>%1 Halte</translation>
+    </message>
+    <message>
+        <source>no work</source>
+        <translation>keine Arbeit</translation>
+    </message>
+    <message>
+        <source>1 move</source>
+        <translation>1 Bewegung</translation>
+    </message>
+    <message>
+        <source>%1 moves</source>
+        <translation>%1 Bewegungen</translation>
+    </message>
+    <message>
+        <source>1 waybill</source>
+        <translation>1 Frachtbrief</translation>
+    </message>
+    <message>
+        <source>%1 waybills</source>
+        <translation>%1 Frachtbriefe</translation>
+    </message>
+    <message>
+        <source>1 job</source>
+        <translation>1 Auftrag</translation>
+    </message>
+    <message>
+        <source>%1 jobs</source>
+        <translation>%1 Aufträge</translation>
+    </message>
+    <message>
+        <source>1 car’s home</source>
+        <translation>Heimatort von 1 Wagen</translation>
+    </message>
+    <message>
+        <source>%1 cars’ homes</source>
+        <translation>Heimatort von %1 Wagen</translation>
+    </message>
+    <message>
+        <source>In use by %1: nothing is lost, and those cars are listed under Can’t route in Live Ops until you send them somewhere else.</source>
+        <translation>Verwendet von: %1. Nichts geht verloren; die Wagen stehen in Live Ops unter „Nicht zu leiten“, bis du sie woandershin schickst.</translation>
     </message>
 </context>
 <context>
@@ -15957,6 +16675,10 @@ Beide behalten: Die des Layouts kommt unter einer neuen Teilenummer hinzu, und d
     <message>
         <source>Delete %1 and take it out of %2?</source>
         <translation>%1 löschen und aus %2 herausnehmen?</translation>
+    </message>
+    <message>
+        <source>Its waybill stays, waiting for another car.</source>
+        <translation>Sein Frachtbrief bleibt und wartet auf einen anderen Wagen.</translation>
     </message>
     <message>
         <source>Delete car</source>

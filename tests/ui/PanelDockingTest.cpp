@@ -235,7 +235,7 @@ TEST_F(PanelsInMainWindow, PanelsMenuHasTheWebsListAndFirstLayout) {
     EXPECT_FALSE(dock("dock.parts")->isHidden());
     EXPECT_FALSE(dock("dock.layers")->isHidden());
     for (const char* hidden : { "dock.views", "dock.partUsage", "dock.modules", "dock.moduleLibrary",
-                                "dock.venueLibrary", "dock.places" })
+                                "dock.venueLibrary", "dock.places", "dock.liveops" })
         EXPECT_TRUE(dock(hidden)->isHidden()) << hidden;
 
     // Ticking a hidden panel brings it back on the right; unticking hides it.

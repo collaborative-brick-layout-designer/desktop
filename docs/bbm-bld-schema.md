@@ -465,6 +465,20 @@ a surrogate pair are left out.
   multiple venues we'd add a parallel `"venues": [...]` array and bump
   `schemaVersion`.
 
+## `waybills` and `opsJobs`
+
+Live Ops (since 2026-11). A waybill is `{ id, car, from, leg, to1, spot1,
+load1, note1, ... note4 }`: four slots, those with a `to` (a place's `id`)
+used, `leg` the one it is on (1 to 4; 0: finished). It is in a car's pocket
+when its `car` and the car's `opsWaybill` name each other; else it waits for
+a car. A job is `{ id, name, kind, train, order, stop_<id>: { place, at },
+... }`: its stops in `at` order, the jobs in `order`. A car also has
+`opsHome` (the place it goes back to), `opsAt` (the place off the layout it
+is at while it isn't on the track) and `opsHold` (set aside). Switch lists
+are worked out, never stored (src/track/Ops.h). Unknown fields are kept; the
+web keeps them at `meta.waybills` and `meta.opsJobs`, one Y.Map of fields a
+record. Never in a `.bbm`.
+
 ## `layoutPlaces`
 
 Places (Live Ops): where cars go. The layout's own, on track that is in no

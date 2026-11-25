@@ -51,6 +51,14 @@
 //                              put cars on the track at a spot (studs), coupled, as one edit
 //   car-drag <stockId> <x> <y> drag a car along the track to a spot (studs), as one edit
 //   car-load <stockId> <load>  set a car's load (loaded or empty), as one edit
+//   ops                        the editor's waybills and jobs as JSON: {waybills: [...], opsJobs: [...]}
+//   ops-lists                  each job's switch list, worked out here, as JSON (reads PARTS_DIR too):
+//                              [{job, stops: [{place, setOut: [{car, spot}], pickUp: [{car, to}]}]}]
+//   waybill-add <stockId|-> <placeId> <load>
+//                              a waybill of one leg, for a car or (-) none, as one edit; ok <id>
+//   waybill-turn <stockId>     delivered: the car's waybill turns, as one edit
+//   job-add <name> <placeId>...  a job and its stops, as one edit; ok <id>
+//   job-stop <jobId> <placeId> a stop added at its end, as one edit
 //   train-rename <id> <name>   rename a train, as one edit
 //   stock-add-model <number> <partKey> <length> <front> <rear>
 //                              add an engine drawn with a part (an imported model's), as
@@ -96,11 +104,13 @@
 #include "sync/NotificationCenter.h"
 #include "core/SharedModule.h"
 #include "edit/CutCommands.h"
+#include "edit/OpsCommands.h"
 #include "edit/ModuleCommands.h"
 #include "edit/PlaceCommands.h"
 #include "edit/SharedLock.h"
 #include "parts/PartsLibrary.h"
 #include "track/Cuts.h"
+#include "track/OpsView.h"
 #include "track/Routes.h"
 #include "edit/SharedSettle.h"
 #include "sync/Presence.h"
@@ -540,6 +550,62 @@ public:
                 for (auto& s : map->sidecar.rollingStock)
                     if (s.id == a[1]) s.opsLoad = a[2];
             });
+        } else if (cmd == QLatin1String("ops")) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            reply(QStringLiteral("ok ")
+                  + QString::fromUtf8(QJsonDocument(QJsonObject{ { QStringLiteral("waybills"), map->sidecar.waybills }, { QStringLiteral("opsJobs"), map->sidecar.opsJobs } })
+                                          .toJson(QJsonDocument::Compact)));
+        } else if (cmd == QLatin1String("ops-lists")) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            parts::PartsLibrary lib;
+            lib.addSearchPath(qEnvironmentVariable("PARTS_DIR"));
+            lib.scan();
+            const auto net = track::trackNetworkOf(*map, lib);
+            QJsonArray out;
+            for (const auto& [job, list] : track::opsView(*map, net, track::trackRuns(net)).routing.lists) {
+                QJsonArray stops;
+                for (const auto& s : list) {
+                    QJsonArray setOut, pickUp;
+                    for (const auto& m : s.setOut) setOut.append(QJsonObject{ { QStringLiteral("car"), m.car }, { QStringLiteral("spot"), m.spot } });
+                    for (const auto& m : s.pickUp) pickUp.append(QJsonObject{ { QStringLiteral("car"), m.car }, { QStringLiteral("to"), m.to } });
+                    stops.append(QJsonObject{ { QStringLiteral("place"), s.place }, { QStringLiteral("setOut"), setOut }, { QStringLiteral("pickUp"), pickUp } });
+                }
+                out.append(QJsonObject{ { QStringLiteral("job"), job }, { QStringLiteral("stops"), stops } });
+            }
+            reply(QStringLiteral("ok ") + QString::fromUtf8(QJsonDocument(out).toJson(QJsonDocument::Compact)));
+        } else if (cmd == QLatin1String("waybill-add") && a.size() == 4) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            const QString id = core::newBbmId();
+            edit::OpsCommand step(*map, edit::newWaybill(*map, id, a[1] == QLatin1String("-") ? QString() : a[1], { { a[2], QString(), a[3], QString() } }), QString());
+            send(*map, [&] { step.redo(); }, id);
+        } else if (cmd == QLatin1String("waybill-turn") && a.size() == 2) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            edit::OpsCommand step(*map, edit::turnedCar(*map, a[1]), QString());
+            send(*map, [&] { step.redo(); });
+        } else if (cmd == QLatin1String("job-add") && a.size() >= 2) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            const QString id = core::newBbmId();
+            send(*map, [&] {
+                edit::OpsCommand(*map, edit::newJob(*map, id, QStringLiteral("Job %1")), QString()).redo();
+                edit::OpsCommand(*map, edit::changedJob(*map, id, { { QStringLiteral("name"), a[1] } }), QString()).redo();
+                for (const QString& place : a.mid(2)) edit::OpsCommand(*map, edit::addedStop(*map, id, place), QString()).redo();
+            }, id);
+        } else if (cmd == QLatin1String("job-stop") && a.size() == 3) {
+            QString error;
+            auto map = session_.editorMap(&error);
+            if (!map) return reply(QStringLiteral("error ") + error), true;
+            edit::OpsCommand step(*map, edit::addedStop(*map, a[1], a[2]), QString());
+            send(*map, [&] { step.redo(); });
         } else if (cmd == QLatin1String("train-rename") && a.size() >= 3) {
             QString error;
             auto map = session_.editorMap(&error);

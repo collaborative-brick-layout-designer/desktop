@@ -807,6 +807,78 @@
         <translation>它只属于此布局：名册中的车厢没有，保存到名册时也不包含。守车或机车请选择“不适用”。</translation>
     </message>
     <message>
+        <source>Waybills</source>
+        <translation>运单</translation>
+    </message>
+    <message>
+        <source>A waybill says where a car goes next: up to four legs, each a place, a spot if you like, and its load.</source>
+        <translation>运单说明车厢接下来去哪里：最多四段行程，每段一个地点、可选的停车位和载货。</translation>
+    </message>
+    <message>
+        <source>Delivered turns it to its next leg, and the car’s load with it; after the last one the car goes to its home. A waybill without a car waits for one: pick the car on it.</source>
+        <translation>“已送达”会转到下一段行程，车厢的载货也随之改变；最后一段之后，车厢回到归属地。没有车厢的运单会等待一辆：在运单上选择车厢。</translation>
+    </message>
+    <message>
+        <source>Make waybills</source>
+        <translation>制作运单</translation>
+    </message>
+    <message>
+        <source>Gives every car without a waybill somewhere to go, from what your places send out and take in.</source>
+        <translation>根据各地点发出和接收的货物，给每辆没有运单的车厢一个去处。</translation>
+    </message>
+    <message>
+        <source>Each car is sent empty to a place that sends out its type, then loaded to one that takes it in; no place gets more cars than it holds. Shuffle picks again. You can change any of them afterward, and Undo takes them all back.</source>
+        <translation>每辆车厢先空车去发出其类型的地点，再重车去接收它的地点；任何地点都不会超过容量。“重新选”会再选一次。之后可以更改任何一张，撤销会全部收回。</translation>
+    </message>
+    <message>
+        <source>Set aside and home</source>
+        <translation>搁置与归属地</translation>
+    </message>
+    <message>
+        <source>A car set aside stays where it is: no job takes it, and Make waybills passes it by.</source>
+        <translation>搁置的车厢留在原地：没有作业会带走它，“制作运单”也会跳过它。</translation>
+    </message>
+    <message>
+        <source>Home is the place a car goes back to when it has no waybill, such as a yard or staging. A car that isn’t on the track can be at a place off the layout.</source>
+        <translation>归属地是没有运单的车厢返回的地点，例如编组场或待避区。不在轨道上的车厢可以位于布局之外的地点。</translation>
+    </message>
+    <message>
+        <source>Jobs</source>
+        <translation>作业</translation>
+    </message>
+    <message>
+        <source>A job is one crew’s work: the places it stops at, in order, and the train that does it.</source>
+        <translation>作业是一个班组的工作：按顺序停靠的地点，以及执行它的列车。</translation>
+    </message>
+    <message>
+        <source>A car goes with the first job that stops where it is and, later on, where it goes; if there is none, by way of yards. Put the jobs in order with the arrows, and pick the job’s train so the cars on it are set out too.</source>
+        <translation>车厢跟随第一个先停靠其所在地、之后停靠其目的地的作业；没有的话就经由编组场。用箭头排列作业，并选择作业的列车，这样列车上的车厢也会被甩下。</translation>
+    </message>
+    <message>
+        <source>Switch list</source>
+        <translation>调车单</translation>
+    </message>
+    <message>
+        <source>What to set out and pick up at each stop, kept up to date as cars move and waybills and jobs change.</source>
+        <translation>每个停靠点要甩下和挂上的车厢，随车厢、运单和作业的变化保持更新。</translation>
+    </message>
+    <message>
+        <source>Cars to set out are listed nearest the engine first, and cars to pick up in the order they stand. A spot with no room is passed by, and spots for repairs and engines are left free.</source>
+        <translation>要甩下的车厢按离机车由近到远排列，要挂上的按其停放顺序排列。没有空位的停车位会跳过，维修和机车停车位保持空闲。</translation>
+    </message>
+    <message>
+        <source>Can’t route</source>
+        <translation>无法安排</translation>
+    </message>
+    <message>
+        <source>Cars that have somewhere to go but no way there now, each with why.</source>
+        <translation>有去处但现在无法到达的车厢，以及各自的原因。</translation>
+    </message>
+    <message>
+        <source>Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <translation>什么都不会丢失：在您添加作业、腾出空位或更改运单之前，车厢都留在原地。删除地点、轨道或作业时，相关车厢会列在这里。</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>地点</translation>
     </message>
@@ -3804,10 +3876,6 @@
         <translation>“设置道岔”会把路线上的每个道岔设为其方向。运行模式下可以手动切换。</translation>
     </message>
     <message>
-        <source>Places</source>
-        <translation>地点</translation>
-    </message>
-    <message>
         <source>Where cars go</source>
         <translation>车辆去哪里</translation>
     </message>
@@ -3846,6 +3914,22 @@
     <message>
         <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
         <translation>沿轨道拖动车厢可移动或摘开；碰到另一节就会挂上。点击车厢可设置载货。</translation>
+    </message>
+    <message>
+        <source>Where each car goes</source>
+        <translation>每辆车厢的去处</translation>
+    </message>
+    <message>
+        <source>Open Live Ops from Panels. Make waybills gives every car somewhere to go, and you can change any of them.</source>
+        <translation>从面板打开 Live Ops。“制作运单”会给每辆车厢一个去处，您可以更改任何一张。</translation>
+    </message>
+    <message>
+        <source>Jobs and switch lists</source>
+        <translation>作业与调车单</translation>
+    </message>
+    <message>
+        <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
+        <translation>作业是一个班组的工作：停靠的地点。调车单说明要甩下和挂上哪些车厢。</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -3974,6 +4058,10 @@
     <message>
         <source>Trains</source>
         <translation>列车</translation>
+    </message>
+    <message>
+        <source>Live Ops</source>
+        <translation>Live Ops</translation>
     </message>
     <message>
         <source>Trains and cars</source>
@@ -5095,6 +5183,14 @@
     <message>
         <source>Place &quot;%1&quot;</source>
         <translation>地点“%1”</translation>
+    </message>
+    <message>
+        <source>A waybill</source>
+        <translation>一张运单</translation>
+    </message>
+    <message>
+        <source>Job &quot;%1&quot;</source>
+        <translation>作业“%1”</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -6558,6 +6654,425 @@
     <message>
         <source>Reconnecting…</source>
         <translation>正在重新连接…</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::LiveOpsPanel</name>
+    <message>
+        <source>Live Ops</source>
+        <translation>Live Ops</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>删除</translation>
+    </message>
+    <message>
+        <source>New waybill</source>
+        <translation>新运单</translation>
+    </message>
+    <message>
+        <source>Make waybills</source>
+        <translation>制作运单</translation>
+    </message>
+    <message>
+        <source>Delivered</source>
+        <translation>已送达</translation>
+    </message>
+    <message>
+        <source>Job %1</source>
+        <translation>作业 %1</translation>
+    </message>
+    <message>
+        <source>New job</source>
+        <translation>新作业</translation>
+    </message>
+    <message>
+        <source>Delete this waybill? The car stays where it is. You can undo this.</source>
+        <translation>删除这张运单？车厢留在原地。可以撤销。</translation>
+    </message>
+    <message>
+        <source>Delete waybill</source>
+        <translation>删除运单</translation>
+    </message>
+    <message>
+        <source>Delete the job “%1”? Its cars and their waybills stay; another job takes them, or they’re listed under Can’t route. You can undo this.</source>
+        <translation>删除作业“%1”？其车厢和运单会保留；由其他作业接手，或列在“无法安排”下。可以撤销。</translation>
+    </message>
+    <message>
+        <source>Delete job</source>
+        <translation>删除作业</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>模块</translation>
+    </message>
+    <message>
+        <source>(no name)</source>
+        <translation>（无名称）</translation>
+    </message>
+    <message>
+        <source>Cars</source>
+        <translation>车厢</translation>
+    </message>
+    <message>
+        <source>Waybills</source>
+        <translation>运单</translation>
+    </message>
+    <message>
+        <source>Jobs</source>
+        <translation>作业</translation>
+    </message>
+    <message>
+        <source>Cars go to places: industries, yards, staging and interchanges. There are none on this layout yet.</source>
+        <translation>车厢前往各地点：工厂、编组场、待避区和交接点。此布局还没有任何地点。</translation>
+    </message>
+    <message>
+        <source>Open Places</source>
+        <translation>打开地点</translation>
+    </message>
+    <message>
+        <source>There are no cars on this layout yet.</source>
+        <translation>此布局还没有车厢。</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>打开列车</translation>
+    </message>
+    <message>
+        <source>Can’t route (%1)</source>
+        <translation>无法安排 (%1)</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>带我看看</translation>
+    </message>
+    <message>
+        <source>Waybill</source>
+        <translation>运单</translation>
+    </message>
+    <message>
+        <source>At %1</source>
+        <translation>位于 %1</translation>
+    </message>
+    <message>
+        <source>On the track, at no place</source>
+        <translation>在轨道上，不在任何地点</translation>
+    </message>
+    <message>
+        <source>Not on the track</source>
+        <translation>不在轨道上</translation>
+    </message>
+    <message>
+        <source>Set aside</source>
+        <translation>搁置</translation>
+    </message>
+    <message>
+        <source>Set a car aside</source>
+        <translation>搁置车厢</translation>
+    </message>
+    <message>
+        <source>Home</source>
+        <translation>归属地</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>无</translation>
+    </message>
+    <message>
+        <source>Change a car’s home</source>
+        <translation>更改车厢的归属地</translation>
+    </message>
+    <message>
+        <source>Where it is</source>
+        <translation>所在位置</translation>
+    </message>
+    <message>
+        <source>Nowhere</source>
+        <translation>无</translation>
+    </message>
+    <message>
+        <source>Change where a car is</source>
+        <translation>更改车厢的所在位置</translation>
+    </message>
+    <message>
+        <source>Make waybills…</source>
+        <translation>制作运单…</translation>
+    </message>
+    <message>
+        <source>No waybills yet. A waybill says where a car goes next: make one for every car at once, or write one.</source>
+        <translation>还没有运单。运单说明车厢接下来去哪里：一次为所有车厢制作，或手写一张。</translation>
+    </message>
+    <message>
+        <source>Waiting for a car</source>
+        <translation>等待车厢</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation>已完成</translation>
+    </message>
+    <message>
+        <source>No legs yet</source>
+        <translation>还没有行程</translation>
+    </message>
+    <message>
+        <source>1 car</source>
+        <translation>1 辆</translation>
+    </message>
+    <message>
+        <source>%1 cars</source>
+        <translation>%1 辆</translation>
+    </message>
+    <message>
+        <source>No car can get one:</source>
+        <translation>没有车厢可以得到运单：</translation>
+    </message>
+    <message>
+        <source>Every car that isn’t set aside has a waybill.</source>
+        <translation>每辆未搁置的车厢都有运单。</translation>
+    </message>
+    <message>
+        <source>Every car has a waybill.</source>
+        <translation>每辆车厢都有运单。</translation>
+    </message>
+    <message>
+        <source>, then </source>
+        <translation>，然后 </translation>
+    </message>
+    <message>
+        <source>Left without:</source>
+        <translation>没有得到的：</translation>
+    </message>
+    <message>
+        <source>%1 without a type (set it in Trains).</source>
+        <translation>%1没有类型（在列车中设置）。</translation>
+    </message>
+    <message>
+        <source>%1 no two places send out and take in (set what each place sends out and takes in).</source>
+        <translation>%1没有一对地点发出并接收（设置各地点发出和接收的类型）。</translation>
+    </message>
+    <message>
+        <source>%1 with no room left at the places they’d go to.</source>
+        <translation>%1要去的地点没有空位。</translation>
+    </message>
+    <message>
+        <source>Add 1 waybill</source>
+        <translation>添加 1 张运单</translation>
+    </message>
+    <message>
+        <source>Add %1 waybills</source>
+        <translation>添加 %1 张运单</translation>
+    </message>
+    <message>
+        <source>Shuffle</source>
+        <translation>重新选</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <source>Change waybill</source>
+        <translation>更改运单</translation>
+    </message>
+    <message>
+        <source>← All waybills</source>
+        <translation>← 所有运单</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>车厢</translation>
+    </message>
+    <message>
+        <source>%1 (has a waybill)</source>
+        <translation>%1（已有运单）</translation>
+    </message>
+    <message>
+        <source>Give a waybill to a car</source>
+        <translation>把运单交给车厢</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>从</translation>
+    </message>
+    <message>
+        <source>Not said</source>
+        <translation>未说明</translation>
+    </message>
+    <message>
+        <source>Leg %1 · now</source>
+        <translation>行程 %1 · 当前</translation>
+    </message>
+    <message>
+        <source>Leg %1</source>
+        <translation>行程 %1</translation>
+    </message>
+    <message>
+        <source>Not used</source>
+        <translation>未使用</translation>
+    </message>
+    <message>
+        <source>Leg %1 goes to</source>
+        <translation>行程 %1 的目的地</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>停车位</translation>
+    </message>
+    <message>
+        <source>Any</source>
+        <translation>任意</translation>
+    </message>
+    <message>
+        <source>A spot</source>
+        <translation>一个停车位</translation>
+    </message>
+    <message>
+        <source>One that was deleted (any)</source>
+        <translation>已删除的停车位（任意）</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>载货</translation>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation>通知</translation>
+    </message>
+    <message>
+        <source>It has left the layout</source>
+        <translation>它已离开布局</translation>
+    </message>
+    <message>
+        <source>The waybill turns to its next leg, and the load with it.</source>
+        <translation>运单转到下一段行程，载货也随之改变。</translation>
+    </message>
+    <message>
+        <source>Start it again</source>
+        <translation>重新开始</translation>
+    </message>
+    <message>
+        <source>Start a waybill again</source>
+        <translation>重新开始运单</translation>
+    </message>
+    <message>
+        <source>Delete this waybill</source>
+        <translation>删除这张运单</translation>
+    </message>
+    <message>
+        <source>No jobs yet. A job is one crew’s work: the places it stops at, in order. Cars with a waybill are given to the first job that can take them.</source>
+        <translation>还没有作业。作业是一个班组的工作：按顺序停靠的地点。有运单的车厢会分给第一个能带走它的作业。</translation>
+    </message>
+    <message>
+        <source>A job</source>
+        <translation>一个作业</translation>
+    </message>
+    <message>
+        <source>Move %1 up</source>
+        <translation>上移 %1</translation>
+    </message>
+    <message>
+        <source>Move %1 down</source>
+        <translation>下移 %1</translation>
+    </message>
+    <message>
+        <source>Move job</source>
+        <translation>移动作业</translation>
+    </message>
+    <message>
+        <source>Change job</source>
+        <translation>更改作业</translation>
+    </message>
+    <message>
+        <source>← All jobs</source>
+        <translation>← 所有作业</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>名称</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>类型</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>列车</translation>
+    </message>
+    <message>
+        <source>None yet</source>
+        <translation>还没有</translation>
+    </message>
+    <message>
+        <source>A train that was deleted</source>
+        <translation>已删除的列车</translation>
+    </message>
+    <message>
+        <source>Stops</source>
+        <translation>停靠点</translation>
+    </message>
+    <message>
+        <source>Move stop</source>
+        <translation>移动停靠点</translation>
+    </message>
+    <message>
+        <source>Remove %1</source>
+        <translation>移除 %1</translation>
+    </message>
+    <message>
+        <source>Remove stop</source>
+        <translation>移除停靠点</translation>
+    </message>
+    <message>
+        <source>No track joins the stop before to %1.</source>
+        <translation>没有轨道连接上一个停靠点与 %1。</translation>
+    </message>
+    <message>
+        <source>Add its first stop…</source>
+        <translation>添加第一个停靠点…</translation>
+    </message>
+    <message>
+        <source>Add a stop…</source>
+        <translation>添加停靠点…</translation>
+    </message>
+    <message>
+        <source>Add a stop</source>
+        <translation>添加停靠点</translation>
+    </message>
+    <message>
+        <source>Add stop</source>
+        <translation>添加停靠点</translation>
+    </message>
+    <message>
+        <source>Switch list</source>
+        <translation>调车单</translation>
+    </message>
+    <message>
+        <source>Add the places it stops at.</source>
+        <translation>添加它停靠的地点。</translation>
+    </message>
+    <message>
+        <source>Nothing to do: no car goes by this job now.</source>
+        <translation>无事可做：现在没有车厢由此作业运送。</translation>
+    </message>
+    <message>
+        <source>a spot</source>
+        <translation>一个停车位</translation>
+    </message>
+    <message>
+        <source>Set out %1</source>
+        <translation>甩下 %1</translation>
+    </message>
+    <message>
+        <source>Set out %1 at %2</source>
+        <translation>在 %2 甩下 %1</translation>
+    </message>
+    <message>
+        <source>Pick up %1 for %2</source>
+        <translation>挂上 %1，去 %2</translation>
+    </message>
+    <message>
+        <source>Delete this job</source>
+        <translation>删除此作业</translation>
     </message>
 </context>
 <context>
@@ -10184,6 +10699,14 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>地点</translation>
     </message>
     <message>
+        <source>waybills</source>
+        <translation>运单</translation>
+    </message>
+    <message>
+        <source>jobs</source>
+        <translation>作业</translation>
+    </message>
+    <message>
         <source>the train scale</source>
         <translation>列车比例</translation>
     </message>
@@ -11142,6 +11665,10 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     <message>
         <source>Take off the track</source>
         <translation>移出轨道</translation>
+    </message>
+    <message>
+        <source>Waybill and Live Ops</source>
+        <translation>运单与 Live Ops</translation>
     </message>
     <message>
         <source>Open Trains</source>
@@ -12281,6 +12808,197 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     <message>
         <source>Notifications</source>
         <translation>通知</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::OpsText</name>
+    <message>
+        <source>A place that was deleted</source>
+        <translation>已删除的地点</translation>
+    </message>
+    <message>
+        <source>a spot</source>
+        <translation>一个停车位</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>已删除的车厢</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>重车</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>空</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>不适用</translation>
+    </message>
+    <message>
+        <source>Loaded to %1</source>
+        <translation>重车去 %1</translation>
+    </message>
+    <message>
+        <source>Empty to %1</source>
+        <translation>空车去 %1</translation>
+    </message>
+    <message>
+        <source>To %1</source>
+        <translation>去 %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to go: it stays.</source>
+        <translation>没有去处：留在原地。</translation>
+    </message>
+    <message>
+        <source>Home to %1</source>
+        <translation>回归属地 %1</translation>
+    </message>
+    <message>
+        <source>%1: it’s there</source>
+        <translation>%1：已到达</translation>
+    </message>
+    <message>
+        <source>a job</source>
+        <translation>一个作业</translation>
+    </message>
+    <message>
+        <source>%1, with %2 first</source>
+        <translation>%1，先由 %2 运送</translation>
+    </message>
+    <message>
+        <source>%1, with %2</source>
+        <translation>%1，由 %2 运送</translation>
+    </message>
+    <message>
+        <source>It’s set aside.</source>
+        <translation>它被搁置了。</translation>
+    </message>
+    <message>
+        <source>It isn’t on the track. Put it on the track, or say which place off the layout it’s at.</source>
+        <translation>它不在轨道上。请把它放到轨道上，或说明它在布局之外的哪个地点。</translation>
+    </message>
+    <message>
+        <source>It isn’t at a place.</source>
+        <translation>它不在任何地点。</translation>
+    </message>
+    <message>
+        <source>There are too many jobs and places to work out its way.</source>
+        <translation>作业和地点太多，无法算出它的路线。</translation>
+    </message>
+    <message>
+        <source>Its home was deleted. Pick another.</source>
+        <translation>它的归属地已删除。请另选一个。</translation>
+    </message>
+    <message>
+        <source>The place it goes to was deleted. Pick another on its waybill.</source>
+        <translation>它要去的地点已删除。请在运单上另选一个。</translation>
+    </message>
+    <message>
+        <source>No track joins %1 to %2.</source>
+        <translation>没有轨道连接 %1 与 %2。</translation>
+    </message>
+    <message>
+        <source>The job whose train it’s on doesn’t go to %1.</source>
+        <translation>它所在列车的作业不去 %1。</translation>
+    </message>
+    <message>
+        <source>No job stops at %1.</source>
+        <translation>没有作业停靠 %1。</translation>
+    </message>
+    <message>
+        <source>No job goes from %1 to %2.</source>
+        <translation>没有作业从 %1 去 %2。</translation>
+    </message>
+    <message>
+        <source>%1 is full (%2 of %3).</source>
+        <translation>%1 已满（%2 / %3）。</translation>
+    </message>
+    <message>
+        <source>%1 is full.</source>
+        <translation>%1 已满。</translation>
+    </message>
+    <message>
+        <source>Local</source>
+        <translation>区间小运转</translation>
+    </message>
+    <message>
+        <source>Yard job</source>
+        <translation>编组场作业</translation>
+    </message>
+    <message>
+        <source>Through freight</source>
+        <translation>直通货运</translation>
+    </message>
+    <message>
+        <source>Turn</source>
+        <translation>转向</translation>
+    </message>
+    <message>
+        <source>Works the industries along the way.</source>
+        <translation>服务沿途的工厂。</translation>
+    </message>
+    <message>
+        <source>Sorts cars in a yard.</source>
+        <translation>在编组场编排车厢。</translation>
+    </message>
+    <message>
+        <source>Runs from one yard or staging to another.</source>
+        <translation>在编组场或待避区之间运行。</translation>
+    </message>
+    <message>
+        <source>Goes out, works, and comes back.</source>
+        <translation>外出作业后返回。</translation>
+    </message>
+    <message>
+        <source>1 stop</source>
+        <translation>1 个停靠点</translation>
+    </message>
+    <message>
+        <source>%1 stops</source>
+        <translation>%1 个停靠点</translation>
+    </message>
+    <message>
+        <source>no work</source>
+        <translation>没有工作</translation>
+    </message>
+    <message>
+        <source>1 move</source>
+        <translation>1 次移动</translation>
+    </message>
+    <message>
+        <source>%1 moves</source>
+        <translation>%1 次移动</translation>
+    </message>
+    <message>
+        <source>1 waybill</source>
+        <translation>1 张运单</translation>
+    </message>
+    <message>
+        <source>%1 waybills</source>
+        <translation>%1 张运单</translation>
+    </message>
+    <message>
+        <source>1 job</source>
+        <translation>1 个作业</translation>
+    </message>
+    <message>
+        <source>%1 jobs</source>
+        <translation>%1 个作业</translation>
+    </message>
+    <message>
+        <source>1 car’s home</source>
+        <translation>1 辆车厢的归属地</translation>
+    </message>
+    <message>
+        <source>%1 cars’ homes</source>
+        <translation>%1 辆车厢的归属地</translation>
+    </message>
+    <message>
+        <source>In use by %1: nothing is lost, and those cars are listed under Can’t route in Live Ops until you send them somewhere else.</source>
+        <translation>正被使用：%1。什么都不会丢失；在您送往别处之前，这些车厢列在 Live Ops 的“无法安排”下。</translation>
     </message>
 </context>
 <context>
@@ -15856,6 +16574,10 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>Delete %1 and take it out of %2?</source>
         <translation>删除%1并把它从%2中移出？</translation>
+    </message>
+    <message>
+        <source>Its waybill stays, waiting for another car.</source>
+        <translation>它的运单会保留，等待另一辆车厢。</translation>
     </message>
     <message>
         <source>Delete car</source>

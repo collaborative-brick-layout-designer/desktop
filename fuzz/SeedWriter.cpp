@@ -84,6 +84,19 @@ int main(int argc, char** argv) {
     car.opsLoad = QStringLiteral("loaded");
     core::RollingStock off = core::simpleStock(QStringLiteral("c2"), 20);
     off.opsCut = QString();
+    car.opsWaybill = QStringLiteral("wb-1");
+    car.opsHome = QStringLiteral("pl-1");
+    off.opsAt = QString();
+    off.opsHold = true;
+    // A waybill in the first car's pocket, and a job.
+    sidecar.waybills = QJsonArray{ QJsonObject{ { QStringLiteral("id"), QStringLiteral("wb-1") }, { QStringLiteral("car"), QStringLiteral("c1") },
+                                                { QStringLiteral("from"), QStringLiteral("pl-1") }, { QStringLiteral("leg"), 1 },
+                                                { QStringLiteral("to1"), QStringLiteral("pl-1") }, { QStringLiteral("spot1"), QStringLiteral("s1") },
+                                                { QStringLiteral("load1"), QStringLiteral("loaded") }, { QStringLiteral("note1"), QStringLiteral("Ice first") } } };
+    sidecar.opsJobs = QJsonArray{ QJsonObject{ { QStringLiteral("id"), QStringLiteral("jb-1") }, { QStringLiteral("name"), QStringLiteral("Cannery Turn") },
+                                               { QStringLiteral("kind"), QStringLiteral("turn") }, { QStringLiteral("train"), QStringLiteral("ct-1") },
+                                               { QStringLiteral("order"), 1 },
+                                               { QStringLiteral("stop_a"), QJsonObject{ { QStringLiteral("place"), QStringLiteral("pl-1") }, { QStringLiteral("at"), 1.5 } } } } };
     sidecar.rollingStock = { car, off };
     core::Train cut;
     cut.id = QStringLiteral("ct-1");

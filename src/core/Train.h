@@ -56,6 +56,13 @@ struct RollingStock {
     // empty: none, unset: never moved. The layout's own, never a roster's.
     std::optional<QString> opsCut;
     QString opsLoad;  // loaded, empty, or none: it doesn't apply
+    // Live Ops (track/Ops.h), the layout's own too; unset: never set. The
+    // waybill in its pocket (when that names this car as well), the place it
+    // goes back to, the place off the layout it is at, and set aside.
+    std::optional<QString> opsWaybill;
+    std::optional<QString> opsHome;
+    std::optional<QString> opsAt;
+    std::optional<bool> opsHold;
     // look's fields this build doesn't know (a picture...).
     QJsonObject lookExtras;
     // Fields this build doesn't know (owner, tags, model, maxSpeed...), written back as they were.

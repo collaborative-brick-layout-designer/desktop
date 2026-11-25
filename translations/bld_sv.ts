@@ -807,6 +807,78 @@
         <translation>Den hör bara till den här layouten: en vagn i din vagnpark har ingen, och den utelämnas när du sparar i en vagnpark. Välj Inte aktuellt för en konduktörsvagn eller ett lok.</translation>
     </message>
     <message>
+        <source>Waybills</source>
+        <translation>Fraktsedlar</translation>
+    </message>
+    <message>
+        <source>A waybill says where a car goes next: up to four legs, each a place, a spot if you like, and its load.</source>
+        <translation>En fraktsedel säger vart en vagn ska härnäst: upp till fyra etapper, var och en med en plats, en uppställning om du vill, och lasten.</translation>
+    </message>
+    <message>
+        <source>Delivered turns it to its next leg, and the car’s load with it; after the last one the car goes to its home. A waybill without a car waits for one: pick the car on it.</source>
+        <translation>Levererad vänder den till nästa etapp, och vagnens last med den; efter den sista går vagnen till sin hemplats. En fraktsedel utan vagn väntar på en: välj vagnen på den.</translation>
+    </message>
+    <message>
+        <source>Make waybills</source>
+        <translation>Gör fraktsedlar</translation>
+    </message>
+    <message>
+        <source>Gives every car without a waybill somewhere to go, from what your places send out and take in.</source>
+        <translation>Ger varje vagn utan fraktsedel ett mål, utifrån vad dina platser skickar och tar emot.</translation>
+    </message>
+    <message>
+        <source>Each car is sent empty to a place that sends out its type, then loaded to one that takes it in; no place gets more cars than it holds. Shuffle picks again. You can change any of them afterward, and Undo takes them all back.</source>
+        <translation>Varje vagn går tom till en plats som skickar dess typ, sedan lastad till en som tar emot den; ingen plats får fler vagnar än den rymmer. Blanda väljer om. Du kan ändra dem efteråt, och Ångra tar tillbaka alla.</translation>
+    </message>
+    <message>
+        <source>Set aside and home</source>
+        <translation>Undanställd och hemplats</translation>
+    </message>
+    <message>
+        <source>A car set aside stays where it is: no job takes it, and Make waybills passes it by.</source>
+        <translation>En undanställd vagn står kvar: inget uppdrag tar den, och Gör fraktsedlar hoppar över den.</translation>
+    </message>
+    <message>
+        <source>Home is the place a car goes back to when it has no waybill, such as a yard or staging. A car that isn’t on the track can be at a place off the layout.</source>
+        <translation>Hemplatsen är dit en vagn utan fraktsedel återvänder, som en bangård eller en uppställningsplats. En vagn som inte står på spåret kan vara på en plats utanför anläggningen.</translation>
+    </message>
+    <message>
+        <source>Jobs</source>
+        <translation>Uppdrag</translation>
+    </message>
+    <message>
+        <source>A job is one crew’s work: the places it stops at, in order, and the train that does it.</source>
+        <translation>Ett uppdrag är ett lags arbete: platserna där det stannar, i ordning, och tåget som gör det.</translation>
+    </message>
+    <message>
+        <source>A car goes with the first job that stops where it is and, later on, where it goes; if there is none, by way of yards. Put the jobs in order with the arrows, and pick the job’s train so the cars on it are set out too.</source>
+        <translation>En vagn går med det första uppdraget som stannar där den är och, längre fram, dit den ska; annars via bangårdar. Ordna uppdragen med pilarna och välj uppdragets tåg så att vagnarna i det också ställs ut.</translation>
+    </message>
+    <message>
+        <source>Switch list</source>
+        <translation>Växlingslista</translation>
+    </message>
+    <message>
+        <source>What to set out and pick up at each stop, kept up to date as cars move and waybills and jobs change.</source>
+        <translation>Vad som ska ställas ut och hämtas vid varje stopp, uppdaterat när vagnar, fraktsedlar och uppdrag ändras.</translation>
+    </message>
+    <message>
+        <source>Cars to set out are listed nearest the engine first, and cars to pick up in the order they stand. A spot with no room is passed by, and spots for repairs and engines are left free.</source>
+        <translation>Vagnar som ställs ut står närmast loket först, och vagnar som hämtas i den ordning de står. En full uppställning hoppas över, och de för reparation och lok hålls fria.</translation>
+    </message>
+    <message>
+        <source>Can’t route</source>
+        <translation>Utan väg</translation>
+    </message>
+    <message>
+        <source>Cars that have somewhere to go but no way there now, each with why.</source>
+        <translation>Vagnar som har ett mål men ingen väg dit nu, var och en med orsaken.</translation>
+    </message>
+    <message>
+        <source>Nothing is lost: each stays where it is until you add a job, make room, or change its waybill. Deleting a place, some track or a job lists the cars it was for here.</source>
+        <translation>Inget går förlorat: var och en står kvar tills du lägger till ett uppdrag, gör plats eller ändrar fraktsedeln. Tar du bort en plats, spår eller ett uppdrag står vagnarna här.</translation>
+    </message>
+    <message>
         <source>Places</source>
         <translation>Platser</translation>
     </message>
@@ -3824,10 +3896,6 @@
         <translation>Lägg växlar lägger varje växel på rutten åt dess håll. I körläget lägger du om dem för hand.</translation>
     </message>
     <message>
-        <source>Places</source>
-        <translation>Platser</translation>
-    </message>
-    <message>
         <source>Where cars go</source>
         <translation>Dit vagnar går</translation>
     </message>
@@ -3866,6 +3934,22 @@
     <message>
         <source>Drag a car along the track to move it or uncouple it; one that meets another couples. Click a car for its load.</source>
         <translation>Dra en vagn längs spåret för att flytta den eller koppla loss den; möter den en annan kopplas de ihop. Klicka på en vagn för lasten.</translation>
+    </message>
+    <message>
+        <source>Where each car goes</source>
+        <translation>Vart varje vagn ska</translation>
+    </message>
+    <message>
+        <source>Open Live Ops from Panels. Make waybills gives every car somewhere to go, and you can change any of them.</source>
+        <translation>Öppna Live Ops från Paneler. Gör fraktsedlar ger varje vagn ett mål, och du kan ändra alla.</translation>
+    </message>
+    <message>
+        <source>Jobs and switch lists</source>
+        <translation>Uppdrag och växlingslistor</translation>
+    </message>
+    <message>
+        <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
+        <translation>Ett uppdrag är ett lags arbete: platserna där det stannar. Växlingslistan säger vad som ska ställas ut och hämtas.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -3994,6 +4078,10 @@
     <message>
         <source>Trains</source>
         <translation>Tåg</translation>
+    </message>
+    <message>
+        <source>Live Ops</source>
+        <translation>Live Ops</translation>
     </message>
     <message>
         <source>Trains and cars</source>
@@ -5123,6 +5211,14 @@
     <message>
         <source>Place &quot;%1&quot;</source>
         <translation>Plats ”%1”</translation>
+    </message>
+    <message>
+        <source>A waybill</source>
+        <translation>En fraktsedel</translation>
+    </message>
+    <message>
+        <source>Job &quot;%1&quot;</source>
+        <translation>Uppdrag ”%1”</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -6604,6 +6700,425 @@
     <message>
         <source>Reconnecting…</source>
         <translation>Återansluter…</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::LiveOpsPanel</name>
+    <message>
+        <source>Live Ops</source>
+        <translation>Live Ops</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Ta bort</translation>
+    </message>
+    <message>
+        <source>New waybill</source>
+        <translation>Ny fraktsedel</translation>
+    </message>
+    <message>
+        <source>Make waybills</source>
+        <translation>Gör fraktsedlar</translation>
+    </message>
+    <message>
+        <source>Delivered</source>
+        <translation>Levererad</translation>
+    </message>
+    <message>
+        <source>Job %1</source>
+        <translation>Uppdrag %1</translation>
+    </message>
+    <message>
+        <source>New job</source>
+        <translation>Nytt uppdrag</translation>
+    </message>
+    <message>
+        <source>Delete this waybill? The car stays where it is. You can undo this.</source>
+        <translation>Ta bort den här fraktsedeln? Vagnen står kvar. Du kan ångra det.</translation>
+    </message>
+    <message>
+        <source>Delete waybill</source>
+        <translation>Ta bort fraktsedel</translation>
+    </message>
+    <message>
+        <source>Delete the job “%1”? Its cars and their waybills stay; another job takes them, or they’re listed under Can’t route. You can undo this.</source>
+        <translation>Ta bort uppdraget ”%1”? Vagnarna och deras fraktsedlar är kvar; ett annat uppdrag tar dem, eller så står de under Utan väg. Du kan ångra det.</translation>
+    </message>
+    <message>
+        <source>Delete job</source>
+        <translation>Ta bort uppdrag</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>Modul</translation>
+    </message>
+    <message>
+        <source>(no name)</source>
+        <translation>(utan namn)</translation>
+    </message>
+    <message>
+        <source>Cars</source>
+        <translation>Vagnar</translation>
+    </message>
+    <message>
+        <source>Waybills</source>
+        <translation>Fraktsedlar</translation>
+    </message>
+    <message>
+        <source>Jobs</source>
+        <translation>Uppdrag</translation>
+    </message>
+    <message>
+        <source>Cars go to places: industries, yards, staging and interchanges. There are none on this layout yet.</source>
+        <translation>Vagnar går till platser: industrier, bangårdar, uppställning och utväxling. Det finns inga på den här anläggningen än.</translation>
+    </message>
+    <message>
+        <source>Open Places</source>
+        <translation>Öppna Platser</translation>
+    </message>
+    <message>
+        <source>There are no cars on this layout yet.</source>
+        <translation>Det finns inga vagnar på den här anläggningen än.</translation>
+    </message>
+    <message>
+        <source>Open Trains</source>
+        <translation>Öppna Tåg</translation>
+    </message>
+    <message>
+        <source>Can’t route (%1)</source>
+        <translation>Utan väg (%1)</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Visa mig</translation>
+    </message>
+    <message>
+        <source>Waybill</source>
+        <translation>Fraktsedel</translation>
+    </message>
+    <message>
+        <source>At %1</source>
+        <translation>Vid %1</translation>
+    </message>
+    <message>
+        <source>On the track, at no place</source>
+        <translation>På spåret, inte vid någon plats</translation>
+    </message>
+    <message>
+        <source>Not on the track</source>
+        <translation>Inte på spåret</translation>
+    </message>
+    <message>
+        <source>Set aside</source>
+        <translation>Undanställd</translation>
+    </message>
+    <message>
+        <source>Set a car aside</source>
+        <translation>Ställ undan en vagn</translation>
+    </message>
+    <message>
+        <source>Home</source>
+        <translation>Hemplats</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ingen</translation>
+    </message>
+    <message>
+        <source>Change a car’s home</source>
+        <translation>Ändra en vagns hemplats</translation>
+    </message>
+    <message>
+        <source>Where it is</source>
+        <translation>Var den är</translation>
+    </message>
+    <message>
+        <source>Nowhere</source>
+        <translation>Ingenstans</translation>
+    </message>
+    <message>
+        <source>Change where a car is</source>
+        <translation>Ändra var en vagn är</translation>
+    </message>
+    <message>
+        <source>Make waybills…</source>
+        <translation>Gör fraktsedlar…</translation>
+    </message>
+    <message>
+        <source>No waybills yet. A waybill says where a car goes next: make one for every car at once, or write one.</source>
+        <translation>Inga fraktsedlar än. En fraktsedel säger vart en vagn ska härnäst: gör dem för alla vagnar på en gång, eller skriv en.</translation>
+    </message>
+    <message>
+        <source>Waiting for a car</source>
+        <translation>Väntar på en vagn</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation>Klar</translation>
+    </message>
+    <message>
+        <source>No legs yet</source>
+        <translation>Inga etapper än</translation>
+    </message>
+    <message>
+        <source>1 car</source>
+        <translation>1 vagn</translation>
+    </message>
+    <message>
+        <source>%1 cars</source>
+        <translation>%1 vagnar</translation>
+    </message>
+    <message>
+        <source>No car can get one:</source>
+        <translation>Ingen vagn kan få någon:</translation>
+    </message>
+    <message>
+        <source>Every car that isn’t set aside has a waybill.</source>
+        <translation>Varje vagn som inte är undanställd har en fraktsedel.</translation>
+    </message>
+    <message>
+        <source>Every car has a waybill.</source>
+        <translation>Varje vagn har en fraktsedel.</translation>
+    </message>
+    <message>
+        <source>, then </source>
+        <translation>, sedan </translation>
+    </message>
+    <message>
+        <source>Left without:</source>
+        <translation>Utan blir:</translation>
+    </message>
+    <message>
+        <source>%1 without a type (set it in Trains).</source>
+        <translation>%1 utan typ (ange den i Tåg).</translation>
+    </message>
+    <message>
+        <source>%1 no two places send out and take in (set what each place sends out and takes in).</source>
+        <translation>%1 som inga två platser skickar och tar emot (ange vad varje plats skickar och tar emot).</translation>
+    </message>
+    <message>
+        <source>%1 with no room left at the places they’d go to.</source>
+        <translation>%1 utan utrymme på platserna de skulle till.</translation>
+    </message>
+    <message>
+        <source>Add 1 waybill</source>
+        <translation>Lägg till 1 fraktsedel</translation>
+    </message>
+    <message>
+        <source>Add %1 waybills</source>
+        <translation>Lägg till %1 fraktsedlar</translation>
+    </message>
+    <message>
+        <source>Shuffle</source>
+        <translation>Blanda</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Avbryt</translation>
+    </message>
+    <message>
+        <source>Change waybill</source>
+        <translation>Ändra fraktsedel</translation>
+    </message>
+    <message>
+        <source>← All waybills</source>
+        <translation>← Alla fraktsedlar</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>Vagn</translation>
+    </message>
+    <message>
+        <source>%1 (has a waybill)</source>
+        <translation>%1 (har en fraktsedel)</translation>
+    </message>
+    <message>
+        <source>Give a waybill to a car</source>
+        <translation>Ge en vagn en fraktsedel</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>Från</translation>
+    </message>
+    <message>
+        <source>Not said</source>
+        <translation>Inte angivet</translation>
+    </message>
+    <message>
+        <source>Leg %1 · now</source>
+        <translation>Etapp %1 · nu</translation>
+    </message>
+    <message>
+        <source>Leg %1</source>
+        <translation>Etapp %1</translation>
+    </message>
+    <message>
+        <source>Not used</source>
+        <translation>Används inte</translation>
+    </message>
+    <message>
+        <source>Leg %1 goes to</source>
+        <translation>Mål för etapp %1</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Uppställning</translation>
+    </message>
+    <message>
+        <source>Any</source>
+        <translation>Vilken som helst</translation>
+    </message>
+    <message>
+        <source>A spot</source>
+        <translation>En uppställning</translation>
+    </message>
+    <message>
+        <source>One that was deleted (any)</source>
+        <translation>En som tagits bort (vilken som helst)</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Last</translation>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation>Notis</translation>
+    </message>
+    <message>
+        <source>It has left the layout</source>
+        <translation>Den har lämnat anläggningen</translation>
+    </message>
+    <message>
+        <source>The waybill turns to its next leg, and the load with it.</source>
+        <translation>Fraktsedeln går till nästa etapp, och lasten med den.</translation>
+    </message>
+    <message>
+        <source>Start it again</source>
+        <translation>Börja om</translation>
+    </message>
+    <message>
+        <source>Start a waybill again</source>
+        <translation>Börja om en fraktsedel</translation>
+    </message>
+    <message>
+        <source>Delete this waybill</source>
+        <translation>Ta bort den här fraktsedeln</translation>
+    </message>
+    <message>
+        <source>No jobs yet. A job is one crew’s work: the places it stops at, in order. Cars with a waybill are given to the first job that can take them.</source>
+        <translation>Inga uppdrag än. Ett uppdrag är ett lags arbete: platserna där det stannar, i ordning. Vagnar med fraktsedel ges till det första uppdraget som kan ta dem.</translation>
+    </message>
+    <message>
+        <source>A job</source>
+        <translation>Ett uppdrag</translation>
+    </message>
+    <message>
+        <source>Move %1 up</source>
+        <translation>Flytta upp %1</translation>
+    </message>
+    <message>
+        <source>Move %1 down</source>
+        <translation>Flytta ner %1</translation>
+    </message>
+    <message>
+        <source>Move job</source>
+        <translation>Flytta uppdrag</translation>
+    </message>
+    <message>
+        <source>Change job</source>
+        <translation>Ändra uppdrag</translation>
+    </message>
+    <message>
+        <source>← All jobs</source>
+        <translation>← Alla uppdrag</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Namn</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>Tåg</translation>
+    </message>
+    <message>
+        <source>None yet</source>
+        <translation>Inget än</translation>
+    </message>
+    <message>
+        <source>A train that was deleted</source>
+        <translation>Ett tåg som tagits bort</translation>
+    </message>
+    <message>
+        <source>Stops</source>
+        <translation>Stopp</translation>
+    </message>
+    <message>
+        <source>Move stop</source>
+        <translation>Flytta stopp</translation>
+    </message>
+    <message>
+        <source>Remove %1</source>
+        <translation>Ta bort %1</translation>
+    </message>
+    <message>
+        <source>Remove stop</source>
+        <translation>Ta bort stopp</translation>
+    </message>
+    <message>
+        <source>No track joins the stop before to %1.</source>
+        <translation>Inget spår förbinder stoppet före med %1.</translation>
+    </message>
+    <message>
+        <source>Add its first stop…</source>
+        <translation>Lägg till det första stoppet…</translation>
+    </message>
+    <message>
+        <source>Add a stop…</source>
+        <translation>Lägg till ett stopp…</translation>
+    </message>
+    <message>
+        <source>Add a stop</source>
+        <translation>Lägg till ett stopp</translation>
+    </message>
+    <message>
+        <source>Add stop</source>
+        <translation>Lägg till stopp</translation>
+    </message>
+    <message>
+        <source>Switch list</source>
+        <translation>Växlingslista</translation>
+    </message>
+    <message>
+        <source>Add the places it stops at.</source>
+        <translation>Lägg till platserna där det stannar.</translation>
+    </message>
+    <message>
+        <source>Nothing to do: no car goes by this job now.</source>
+        <translation>Inget att göra: ingen vagn går med det här uppdraget nu.</translation>
+    </message>
+    <message>
+        <source>a spot</source>
+        <translation>en uppställning</translation>
+    </message>
+    <message>
+        <source>Set out %1</source>
+        <translation>Ställ ut %1</translation>
+    </message>
+    <message>
+        <source>Set out %1 at %2</source>
+        <translation>Ställ ut %1 vid %2</translation>
+    </message>
+    <message>
+        <source>Pick up %1 for %2</source>
+        <translation>Hämta %1 till %2</translation>
+    </message>
+    <message>
+        <source>Delete this job</source>
+        <translation>Ta bort det här uppdraget</translation>
     </message>
 </context>
 <context>
@@ -10261,6 +10776,14 @@ Dina offlineändringar finns kvar; Arkiv › Granska offlineändringar tar fram 
         <translation>platser</translation>
     </message>
     <message>
+        <source>waybills</source>
+        <translation>fraktsedlar</translation>
+    </message>
+    <message>
+        <source>jobs</source>
+        <translation>uppdrag</translation>
+    </message>
+    <message>
         <source>the train scale</source>
         <translation>tågskalan</translation>
     </message>
@@ -11226,6 +11749,10 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     <message>
         <source>Take off the track</source>
         <translation>Ta bort från spåret</translation>
+    </message>
+    <message>
+        <source>Waybill and Live Ops</source>
+        <translation>Fraktsedel och Live Ops</translation>
     </message>
     <message>
         <source>Open Trains</source>
@@ -12372,6 +12899,197 @@ Behåll den som %2 om du fortfarande öppnar den i ett annat program; Arkiv › 
     <message>
         <source>Notifications</source>
         <translation>Aviseringar</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::OpsText</name>
+    <message>
+        <source>A place that was deleted</source>
+        <translation>En plats som tagits bort</translation>
+    </message>
+    <message>
+        <source>a spot</source>
+        <translation>en uppställning</translation>
+    </message>
+    <message>
+        <source>A car that was deleted</source>
+        <translation>En borttagen vagn</translation>
+    </message>
+    <message>
+        <source>Loaded</source>
+        <translation>Lastad</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Tom</translation>
+    </message>
+    <message>
+        <source>Doesn’t apply</source>
+        <translation>Inte aktuellt</translation>
+    </message>
+    <message>
+        <source>Loaded to %1</source>
+        <translation>Lastad till %1</translation>
+    </message>
+    <message>
+        <source>Empty to %1</source>
+        <translation>Tom till %1</translation>
+    </message>
+    <message>
+        <source>To %1</source>
+        <translation>Till %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to go: it stays.</source>
+        <translation>Inget mål: den står kvar.</translation>
+    </message>
+    <message>
+        <source>Home to %1</source>
+        <translation>Hem till %1</translation>
+    </message>
+    <message>
+        <source>%1: it’s there</source>
+        <translation>%1: den är där</translation>
+    </message>
+    <message>
+        <source>a job</source>
+        <translation>ett uppdrag</translation>
+    </message>
+    <message>
+        <source>%1, with %2 first</source>
+        <translation>%1, först med %2</translation>
+    </message>
+    <message>
+        <source>%1, with %2</source>
+        <translation>%1, med %2</translation>
+    </message>
+    <message>
+        <source>It’s set aside.</source>
+        <translation>Den är undanställd.</translation>
+    </message>
+    <message>
+        <source>It isn’t on the track. Put it on the track, or say which place off the layout it’s at.</source>
+        <translation>Den står inte på spåret. Ställ den på spåret, eller ange vilken plats utanför anläggningen den är på.</translation>
+    </message>
+    <message>
+        <source>It isn’t at a place.</source>
+        <translation>Den är inte vid någon plats.</translation>
+    </message>
+    <message>
+        <source>There are too many jobs and places to work out its way.</source>
+        <translation>Det finns för många uppdrag och platser för att räkna ut dess väg.</translation>
+    </message>
+    <message>
+        <source>Its home was deleted. Pick another.</source>
+        <translation>Dess hemplats har tagits bort. Välj en annan.</translation>
+    </message>
+    <message>
+        <source>The place it goes to was deleted. Pick another on its waybill.</source>
+        <translation>Platsen den ska till har tagits bort. Välj en annan på fraktsedeln.</translation>
+    </message>
+    <message>
+        <source>No track joins %1 to %2.</source>
+        <translation>Inget spår förbinder %1 med %2.</translation>
+    </message>
+    <message>
+        <source>The job whose train it’s on doesn’t go to %1.</source>
+        <translation>Uppdraget vars tåg den står i går inte till %1.</translation>
+    </message>
+    <message>
+        <source>No job stops at %1.</source>
+        <translation>Inget uppdrag stannar vid %1.</translation>
+    </message>
+    <message>
+        <source>No job goes from %1 to %2.</source>
+        <translation>Inget uppdrag går från %1 till %2.</translation>
+    </message>
+    <message>
+        <source>%1 is full (%2 of %3).</source>
+        <translation>%1 är full (%2 av %3).</translation>
+    </message>
+    <message>
+        <source>%1 is full.</source>
+        <translation>%1 är full.</translation>
+    </message>
+    <message>
+        <source>Local</source>
+        <translation>Lokalgods</translation>
+    </message>
+    <message>
+        <source>Yard job</source>
+        <translation>Bangårdsuppdrag</translation>
+    </message>
+    <message>
+        <source>Through freight</source>
+        <translation>Genomgående gods</translation>
+    </message>
+    <message>
+        <source>Turn</source>
+        <translation>Vrid</translation>
+    </message>
+    <message>
+        <source>Works the industries along the way.</source>
+        <translation>Betjänar industrierna längs vägen.</translation>
+    </message>
+    <message>
+        <source>Sorts cars in a yard.</source>
+        <translation>Sorterar vagnar på en bangård.</translation>
+    </message>
+    <message>
+        <source>Runs from one yard or staging to another.</source>
+        <translation>Går från en bangård eller uppställning till en annan.</translation>
+    </message>
+    <message>
+        <source>Goes out, works, and comes back.</source>
+        <translation>Går ut, arbetar och kommer tillbaka.</translation>
+    </message>
+    <message>
+        <source>1 stop</source>
+        <translation>1 stopp</translation>
+    </message>
+    <message>
+        <source>%1 stops</source>
+        <translation>%1 stopp</translation>
+    </message>
+    <message>
+        <source>no work</source>
+        <translation>inget arbete</translation>
+    </message>
+    <message>
+        <source>1 move</source>
+        <translation>1 rörelse</translation>
+    </message>
+    <message>
+        <source>%1 moves</source>
+        <translation>%1 rörelser</translation>
+    </message>
+    <message>
+        <source>1 waybill</source>
+        <translation>1 fraktsedel</translation>
+    </message>
+    <message>
+        <source>%1 waybills</source>
+        <translation>%1 fraktsedlar</translation>
+    </message>
+    <message>
+        <source>1 job</source>
+        <translation>1 uppdrag</translation>
+    </message>
+    <message>
+        <source>%1 jobs</source>
+        <translation>%1 uppdrag</translation>
+    </message>
+    <message>
+        <source>1 car’s home</source>
+        <translation>hemplatsen för 1 vagn</translation>
+    </message>
+    <message>
+        <source>%1 cars’ homes</source>
+        <translation>hemplatsen för %1 vagnar</translation>
+    </message>
+    <message>
+        <source>In use by %1: nothing is lost, and those cars are listed under Can’t route in Live Ops until you send them somewhere else.</source>
+        <translation>Används av %1: inget går förlorat, och de vagnarna står under Utan väg i Live Ops tills du skickar dem någon annanstans.</translation>
     </message>
 </context>
 <context>
@@ -15957,6 +16675,10 @@ Behåll båda: layoutens läggs till under ett nytt delnummer, och den här layo
     <message>
         <source>Delete %1 and take it out of %2?</source>
         <translation>Ta bort %1 och ta ut den ur %2?</translation>
+    </message>
+    <message>
+        <source>Its waybill stays, waiting for another car.</source>
+        <translation>Dess fraktsedel finns kvar och väntar på en annan vagn.</translation>
     </message>
     <message>
         <source>Delete car</source>

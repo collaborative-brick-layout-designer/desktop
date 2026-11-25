@@ -121,10 +121,10 @@ TEST(PlacesUi, NewPlaceIsPutOnTheTrackAndChangedAtOnceWithUndo) {
     EXPECT_EQ(a.labels().size(), 1);
 
     // Deleted after asking; undo brings it back.
-    a.panel->setConfirm([](const QString&) { return false; });
+    a.panel->setConfirm([](const QString&, const QString&) { return false; });
     a.panel->removeOpen();
     EXPECT_EQ(a.map().sidecar.layoutPlaces.size(), 1);
-    a.panel->setConfirm([](const QString&) { return true; });
+    a.panel->setConfirm([](const QString&, const QString&) { return true; });
     a.panel->removeOpen();
     EXPECT_TRUE(a.map().sidecar.layoutPlaces.isEmpty());
     EXPECT_TRUE(a.labels().isEmpty());

@@ -704,6 +704,67 @@ TEST(SyncDocSidecar, PlacesTravelAsTheWebsMapAndInTheModulesValue) {
     EXPECT_EQ(items.value(QLatin1String("m:m1")).toObject().value(QLatin1String("places")).toArray(), m.places);
 }
 
+// Waybills and jobs travel as the web keeps them: Y.Maps at meta.waybills
+// and meta.opsJobs, one Y.Map a record; different fields and stops merge, in
+// the maps the server made, and a delete goes.
+TEST(SyncDocSidecar, WaybillsAndJobsTravelAsTheWebsMaps) {
+    const QString kId = QStringLiteral("id");
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(serverDoc()));
+    auto map = mapOf(doc);
+    map->sidecar.waybills = QJsonArray{ QJsonObject{ { kId, QStringLiteral("w") }, { QStringLiteral("car"), QStringLiteral("a") }, { QStringLiteral("leg"), 1 }, { QStringLiteral("later"), QJsonArray{ 1, 2 } } } };
+    map->sidecar.opsJobs = QJsonArray{ QJsonObject{ { kId, QStringLiteral("j") }, { QStringLiteral("stop_a"), QJsonObject{ { QStringLiteral("place"), QStringLiteral("p") }, { QStringLiteral("at"), 1.5 } } } } };
+    const QByteArray update = doc.writeMap(*map);
+    ASSERT_FALSE(update.isEmpty());
+    const QJsonObject meta = doc.toJson().value(QLatin1String("meta")).toObject();
+    EXPECT_EQ(meta.value(QLatin1String("waybills")).toObject().value(QLatin1String("w")).toObject().value(QLatin1String("car")).toString(), QStringLiteral("a"));
+    EXPECT_FALSE(meta.value(QLatin1String("cache")).toObject().contains(QLatin1String("waybills")));
+    EXPECT_TRUE(doc.writeMap(*mapOf(doc)).isEmpty());
+
+    sync::SyncDoc other;
+    ASSERT_TRUE(other.applyUpdate(serverDoc()));
+    ASSERT_TRUE(other.applyUpdate(update));
+    auto theirs = mapOf(other);
+    ASSERT_EQ(theirs->sidecar.waybills, map->sidecar.waybills);
+    ASSERT_EQ(theirs->sidecar.opsJobs, map->sidecar.opsJobs);
+    const auto put = [](QJsonArray& list, const QString& key, const QJsonValue& v) {
+        QJsonObject r = list.at(0).toObject();
+        r.insert(key, v);
+        list.replace(0, r);
+    };
+    const auto stop = [](const char* place, double at) { return QJsonObject{ { QStringLiteral("place"), QLatin1String(place) }, { QStringLiteral("at"), at } }; };
+    put(theirs->sidecar.waybills, QStringLiteral("note1"), QStringLiteral("Ice first"));
+    put(theirs->sidecar.opsJobs, QStringLiteral("stop_b"), stop("q", 2));
+    const QByteArray fromThem = other.writeMap(*theirs);
+    put(map->sidecar.waybills, QStringLiteral("leg"), 2);
+    put(map->sidecar.opsJobs, QStringLiteral("stop_c"), stop("r", 3));
+    const QByteArray fromMe = doc.writeMap(*map);
+    ASSERT_TRUE(doc.applyUpdate(fromThem));
+    ASSERT_TRUE(other.applyUpdate(fromMe));
+    for (sync::SyncDoc* d : { &doc, &other }) {
+        const auto m = mapOf(*d);
+        const QJsonObject w = m->sidecar.waybills.at(0).toObject();
+        EXPECT_EQ(w.value(QLatin1String("note1")).toString(), QStringLiteral("Ice first"));
+        EXPECT_EQ(w.value(QLatin1String("leg")).toInt(), 2);
+        EXPECT_EQ(w.value(QLatin1String("later")).toArray(), (QJsonArray{ 1, 2 }));
+        const QJsonObject j = m->sidecar.opsJobs.at(0).toObject();
+        for (const char* k : { "stop_a", "stop_b", "stop_c" }) EXPECT_TRUE(j.contains(QLatin1String(k))) << k;
+    }
+    // A car's own fields, unset and empty apart.
+    auto mine = mapOf(doc);
+    core::RollingStock s = core::simpleStock(QStringLiteral("a"), 32);
+    s.opsWaybill = QStringLiteral("w");
+    s.opsHome = QString();
+    s.opsHold = true;
+    mine->sidecar.rollingStock = { s };
+    mine->sidecar.waybills = QJsonArray();
+    ASSERT_FALSE(doc.writeMap(*mine).isEmpty());
+    const auto after = mapOf(doc);
+    EXPECT_TRUE(after->sidecar.waybills.isEmpty());
+    ASSERT_EQ(after->sidecar.rollingStock.size(), 1u);
+    EXPECT_EQ(after->sidecar.rollingStock[0], s);
+}
+
 // Rolling stock and trains travel as the web keeps them: Y.Maps at
 // meta.rollingStock and meta.trains, one Y.Map a record; a car changed here
 // and a train moved there both stay; a delete goes.

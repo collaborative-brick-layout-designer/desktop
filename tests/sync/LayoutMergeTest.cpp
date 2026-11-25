@@ -646,6 +646,27 @@ TEST(LayoutMerge, PlacesAreComparedAndMergedOneAtATime) {
     ASSERT_EQ(merged->sidecar.layoutPlaces.size(), 2);
 }
 
+TEST(LayoutMerge, WaybillsAndJobsAreComparedAndMergedOneAtATime) {
+    const auto rec = [](const char* id, const char* key, const char* v) { return QJsonObject{ { QStringLiteral("id"), QLatin1String(id) }, { QLatin1String(key), QLatin1String(v) } }; };
+    Case c;
+    c.base->sidecar.waybills = QJsonArray{ rec("w1", "car", "a") };
+    c.base->sidecar.opsJobs = QJsonArray{ rec("j1", "name", "Turn") };
+    c.mine->sidecar.waybills = QJsonArray{ rec("w1", "car", "b") };
+    c.mine->sidecar.opsJobs = QJsonArray{ rec("j1", "name", "Mill Turn") };
+    c.server->sidecar.waybills = QJsonArray{ rec("w1", "car", "a"), rec("w2", "car", "c") };
+    c.server->sidecar.opsJobs = QJsonArray{ rec("j1", "name", "Turn"), rec("j2", "name", "Local") };
+    const Snapshot bs = snapshotOf(*c.base), m = snapshotOf(*c.mine), s = snapshotOf(*c.server);
+    const auto changes = compareLayouts(bs, m, s);
+    QStringList lines;
+    for (const auto& ch : changes)
+        if (ch.kind == QLatin1String("waybill") || ch.kind == QLatin1String("job")) lines << describe(ch);
+    EXPECT_EQ(lines.join(QLatin1Char('\n')).toStdString(), "Job \"Mill Turn\": you changed it\nJob \"Local\": the server added it\nA waybill: you changed it\nA waybill: the server added it");
+    auto merged = mergeLayouts(m, s, changes, {});
+    ASSERT_TRUE(merged);
+    EXPECT_EQ(merged->sidecar.waybills.size(), 2);
+    EXPECT_EQ(merged->sidecar.opsJobs.size(), 2);
+}
+
 TEST(LayoutMerge, CarsAndTrainsAreComparedAndMergedOneAtATime) {
     Case c;
     core::RollingStock a = core::simpleStock(QStringLiteral("sa"));
