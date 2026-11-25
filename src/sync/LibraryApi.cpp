@@ -115,6 +115,7 @@ ServerModule LibraryApi::moduleFromJson(const QJsonObject& o) {
     m.latestVersion = intOf(o.value(QLatin1String("latestVersion")));
     m.empty = o.value(QLatin1String("empty")).toBool(false);
     m.setup = o.value(QLatin1String("setup")).toObject();
+    m.placeCounts = o.value(QLatin1String("placeCounts")).toArray();
     const QJsonValue at = o.value(QLatin1String("thumbnailAt"));
     m.thumbnailAt = at.isDouble() ? static_cast<qint64>(at.toDouble()) : 0;
     m.updatedAt = timeOf(o.value(QLatin1String("updatedAt")));

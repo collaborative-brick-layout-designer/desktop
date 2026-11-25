@@ -38,6 +38,7 @@ void MapView::startRouteDraft() {
     if (routeDraft_) return;
     if (runMode_) setRunMode(false);
     cancelTrainPlacing();
+    cancelPlacePick();
     if (scene()) scene()->clearSelection();
     routeDraft_ = RouteDraft{};
     setInteractive(false);

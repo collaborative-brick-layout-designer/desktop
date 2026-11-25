@@ -390,6 +390,7 @@ MainWindow::MainWindow(parts::PartsLibrary& parts, QWidget* parent)
     setupViews();
     setupRoutes();
     setupTrains();
+    setupPlaces();
     // Stable object names so saveState() / restoreState() know each dock.
     layerPanel_->setObjectName(QStringLiteral("dock.layers"));
     partsBrowser_->setObjectName(QStringLiteral("dock.parts"));
@@ -858,6 +859,7 @@ QString MainWindow::saveModuleLocally(const core::Map& module, int partCount, co
     if (!target.endsWith(QStringLiteral(".bbm"), Qt::CaseInsensitive)) target += QStringLiteral(".bbm");
 
     auto r = saveload::writeBbm(module, target);
+    if (r.ok) r.ok = saveload::writeModulePlaces(target, module, &r.error);
     if (!r.ok) {
         QMessageBox::warning(this, tr("Save module failed"), r.error);
         return {};
@@ -1012,11 +1014,13 @@ batchesFromModuleMap(const core::Map& loaded) {
         batch.layerName = L->name.isEmpty() ? QStringLiteral("Module") : L->name;
         for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks) {
             core::Brick copy = b;
+            batch.sourceIds << b.guid;
             copy.guid.clear();  // command mints fresh guids
             batch.bricks.push_back(std::move(copy));
         }
         if (!batch.bricks.empty()) batches.push_back(std::move(batch));
     }
+    if (!batches.empty()) batches.front().places = edit::placesInModule(loaded);
     return batches;
 }
 
@@ -1028,6 +1032,7 @@ void MainWindow::onImportModuleFromLibraryPath(const QString& bbmPath) {
         QMessageBox::warning(this, tr("Import failed"), loaded.error);
         return;
     }
+    saveload::readModulePlaces(bbmPath, *loaded.map);
     parts::placement::fixStaleAreas(*loaded.map, parts_);
     auto batches = batchesFromModuleMap(*loaded.map);
     if (batches.empty()) return;
@@ -1055,6 +1060,7 @@ void MainWindow::onImportBbmAsModule() {
         QMessageBox::warning(this, tr("Import failed"), loaded.error);
         return;
     }
+    saveload::readModulePlaces(path, *loaded.map);
     parts::placement::fixStaleAreas(*loaded.map, parts_);
     auto batches = batchesFromModuleMap(*loaded.map);
     if (batches.empty()) {

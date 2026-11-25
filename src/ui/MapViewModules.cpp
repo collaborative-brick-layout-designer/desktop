@@ -15,7 +15,9 @@
 #include "../core/Map.h"
 #include "../core/ModuleEdit.h"
 #include "../edit/Connectivity.h"
+#include "../core/Places.h"
 #include "../edit/ModuleCommands.h"
+#include "../edit/PlaceCommands.h"
 #include "../edit/SetUpdates.h"
 #include "../rendering/ModuleLabels.h"
 #include "../rendering/SceneBuilder.h"
@@ -280,9 +282,17 @@ void MapView::absorbIntoEditedModule(const QSet<QString>& guids) {
     QStringList dissolve;
     for (const auto& m : map_->sidecar.modules)
         if (m.id != editingModuleId_ && !m.memberIds.isEmpty() && guids.contains(m.memberIds)) dissolve << m.id;
+    // Its places become the edited module's.
+    QJsonArray places;
+    for (const auto& m : map_->sidecar.modules)
+        if (dissolve.contains(m.id))
+            for (const QJsonValue& p : m.places) places.append(p);
     for (const QString& id : dissolve) undoStack_->push(new edit::DeleteModuleCommand(*map_, id));
     const core::Module* mod = core::findModule(map_->sidecar.modules, editingModuleId_);
     if (!mod) return;
+    for (const QJsonValue& p : std::as_const(places))
+        if (edit::placesOf(std::as_const(*map_), editingModuleId_).size() < core::places::kMaxPlaces)
+            undoStack_->push(new edit::SetPlaceCommand(*map_, editingModuleId_, p.toObject().value(QLatin1String("id")).toString(), p.toObject(), tr("Add to module")));
     undoStack_->push(new edit::SetModuleMembersCommand(*map_, editingModuleId_, mod->memberIds + guids, tr("Add to module")));
 }
 

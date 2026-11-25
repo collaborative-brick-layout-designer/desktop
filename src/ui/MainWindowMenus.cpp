@@ -680,6 +680,19 @@ void MainWindow::setupMenus() {
         });
     }
 
+    // The places' brackets and names (Live Ops design 6); on unless turned off.
+    {
+        auto* act = view->addAction(tr("Places"));
+        act->setObjectName(QStringLiteral("view.places"));
+        act->setCheckable(true);
+        act->setChecked(QSettings().value(QStringLiteral("view/places"), true).toBool());
+        mapView_->setShowPlaces(act->isChecked());
+        connect(act, &QAction::toggled, this, [this](bool on) {
+            QSettings().setValue(QStringLiteral("view/places"), on);
+            mapView_->setShowPlaces(on);
+        });
+    }
+
     // Tools menu (libraries + Import submenu + preferences) lives in
     // MainWindowToolsMenu.cpp — it's ~180 lines on its own.
     setupToolsMenu();

@@ -108,6 +108,7 @@ LayerBatches batchesOfModule(const core::Map& module) {
         batch.layerName = L->name.isEmpty() ? QStringLiteral("Module") : L->name;
         for (const auto& b : layer.bricks) {
             core::Brick copy = b;
+            batch.sourceIds << b.guid;
             copy.guid.clear();
             batch.bricks.push_back(std::move(copy));
         }
@@ -115,6 +116,7 @@ LayerBatches batchesOfModule(const core::Map& module) {
         batch.groups = core::cloneGroups(layer, batch.bricks, [] { return core::newBbmId(); });
         if (!batch.bricks.empty()) out.push_back(std::move(batch));
     }
+    if (!out.empty()) out.front().places = placesInModule(module);
     return out;
 }
 

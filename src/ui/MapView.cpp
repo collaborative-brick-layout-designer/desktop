@@ -1,4 +1,6 @@
 #include "MapView.h"
+#include "PlacesText.h"
+#include "../saveload/SidecarIO.h"
 #include "SheetNames.h"
 #include "ActiveSheet.h"
 
@@ -221,6 +223,8 @@ MapView::MapView(parts::PartsLibrary& parts, QWidget* parent)
     });
 
     builder_ = std::make_unique<rendering::SceneBuilder>(*scene, parts_);
+    builder_->setPlaceCars(&PlacesText::capacityOf);
+    builder_->setShowPlaces(showPlaces_);
     // "Run trains" sits in the map's corner once there is a map.
     connect(this, &MapView::mapLoaded, this, &MapView::placeRunBar);
 
@@ -986,7 +990,10 @@ void MapView::mousePressEvent(QMouseEvent* e) {
     // nothing is picked or moved; the middle button still pans. Drawing a
     // route: a click picks a place on the track.
     if (clicksTaken() && e->button() != Qt::MiddleButton) {
-        if (e->button() == Qt::LeftButton && !placingTrain_.isEmpty())
+        if (e->button() == Qt::LeftButton && placePick_) {
+            const PlacePick pick = *placePick_;
+            placePickClick(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud, pick);
+        } else if (e->button() == Qt::LeftButton && !placingTrain_.isEmpty())
             trainPlaceClick(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud);
         else if (e->button() == Qt::LeftButton && routeDraft_)
             routeDraftClick(lastMouseScenePos_ / rendering::SceneBuilder::kPixelsPerStud, e->modifiers() & Qt::ShiftModifier);
@@ -1694,6 +1701,11 @@ void MapView::keyPressEvent(QKeyEvent* e) {
     // Run mode: no key moves, turns or deletes parts; Escape goes back to building.
     if (routeDraft_) {
         if (e->key() == Qt::Key_Escape) cancelRouteDraft();
+        e->accept();
+        return;
+    }
+    if (placePick_) {
+        if (e->key() == Qt::Key_Escape) cancelPlacePick();
         e->accept();
         return;
     }
@@ -3373,6 +3385,7 @@ bool MapView::dropModuleAt(const QString& bbmPath, QPointF scenePos, snapfeel::S
     if (bbmPath.isEmpty()) return false;
     auto res = saveload::readBbm(bbmPath);
     if (!res.ok()) return false;
+    saveload::readModulePlaces(bbmPath, *res.map);
     return placeModule(*res.map, QFileInfo(bbmPath).completeBaseName(), bbmPath, scenePos, dragSnap);
 }
 
@@ -3442,6 +3455,7 @@ bool MapView::placeModule(core::Map& loaded, const QString& name, const QString&
         for (const auto& b : static_cast<const core::LayerBrick&>(*L).bricks) {
             srcCentre += b.displayArea.center(); ++count;
             core::Brick copy = b;
+            batch.sourceIds << b.guid;
             copy.guid.clear();
             batch.bricks.push_back(std::move(copy));
         }
@@ -3451,6 +3465,7 @@ bool MapView::placeModule(core::Map& loaded, const QString& name, const QString&
         if (!batch.bricks.empty()) batches.push_back(std::move(batch));
     }
     if (batches.empty() || count == 0) return false;
+    batches.front().places = edit::placesInModule(loaded);
     srcCentre /= count;
     QPointF targetCentre(scenePos.x() / px, scenePos.y() / px);
     // On the grid, the module's lead part's snap corner lands on it, as

@@ -72,6 +72,7 @@ add_executable(bld_ui_tests
     SwitchesTest.cpp
     RunTrainsTest.cpp
     RoutesUiTest.cpp
+    PlacesUiTest.cpp
     TrainsUiTest.cpp
     StockImportUiTest.cpp
     ShellTest.cpp

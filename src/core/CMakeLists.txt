@@ -33,6 +33,8 @@ add_library(bld_core STATIC
     ModuleEdit.h
     ModuleSetup.h
     ModuleSetup.cpp
+    Places.h
+    Places.cpp
     SharedModule.h
     SharedModule.cpp
     Venue.h

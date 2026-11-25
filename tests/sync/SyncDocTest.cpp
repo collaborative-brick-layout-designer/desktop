@@ -643,6 +643,67 @@ TEST(SyncDocSidecar, RoutesTravelAsTheWebsMaps) {
     EXPECT_TRUE(mapOf(doc)->sidecar.routes.empty());
 }
 
+// The layout's places travel as the web keeps them: a Y.Map at meta.places,
+// one Y.Map a place; a rename here and a note there both stay; a module's go
+// with its value; a delete goes; what a newer build put there stays.
+TEST(SyncDocSidecar, PlacesTravelAsTheWebsMapAndInTheModulesValue) {
+    const auto place = [](const QString& id) {
+        return QJsonObject{ { QStringLiteral("id"), id },
+                            { QStringLiteral("name"), QStringLiteral("Cannery") },
+                            { QStringLiteral("kind"), QStringLiteral("industry") },
+                            { QStringLiteral("spots"), QJsonArray{ QJsonObject{ { QStringLiteral("id"), QStringLiteral("s1") }, { QStringLiteral("name"), QStringLiteral("Dock") } } } },
+                            { QStringLiteral("accepts"), QJsonArray{ QStringLiteral("reefer") } },
+                            { QStringLiteral("ships"), QJsonArray() },
+                            { QStringLiteral("tags"), QJsonArray() },
+                            { QStringLiteral("notes"), QString() },
+                            { QStringLiteral("later"), QJsonArray{ 1, 2 } } };
+    };
+    sync::SyncDoc doc;
+    ASSERT_TRUE(doc.applyUpdate(serverDoc()));
+    auto map = mapOf(doc);
+    map->sidecar.layoutPlaces = QJsonArray{ place(QStringLiteral("p1")) };
+    const QByteArray update = doc.writeMap(*map);
+    ASSERT_FALSE(update.isEmpty());
+    const QJsonObject meta = doc.toJson().value(QLatin1String("meta")).toObject();
+    EXPECT_EQ(meta.value(QLatin1String("places")).toObject().value(QLatin1String("p1")).toObject(), place(QStringLiteral("p1")));
+    EXPECT_FALSE(meta.value(QLatin1String("cache")).toObject().contains(QLatin1String("layoutPlaces")));
+    EXPECT_TRUE(doc.writeMap(*mapOf(doc)).isEmpty());
+
+    sync::SyncDoc other;
+    ASSERT_TRUE(other.applyUpdate(serverDoc()));
+    ASSERT_TRUE(other.applyUpdate(update));
+    auto theirs = mapOf(other);
+    ASSERT_EQ(theirs->sidecar.layoutPlaces, map->sidecar.layoutPlaces);
+    QJsonObject noted = place(QStringLiteral("p1"));
+    noted.insert(QStringLiteral("notes"), QStringLiteral("Ice first"));
+    theirs->sidecar.layoutPlaces = QJsonArray{ noted };
+    const QByteArray fromThem = other.writeMap(*theirs);
+    QJsonObject named = place(QStringLiteral("p1"));
+    named.insert(QStringLiteral("name"), QStringLiteral("Mill"));
+    map->sidecar.layoutPlaces = QJsonArray{ named };
+    const QByteArray fromMe = doc.writeMap(*map);
+    ASSERT_TRUE(doc.applyUpdate(fromThem));
+    ASSERT_TRUE(other.applyUpdate(fromMe));
+    for (sync::SyncDoc* d : { &doc, &other }) {
+        const QJsonObject p = mapOf(*d)->sidecar.layoutPlaces.at(0).toObject();
+        EXPECT_EQ(p.value(QLatin1String("name")).toString(), QStringLiteral("Mill"));
+        EXPECT_EQ(p.value(QLatin1String("notes")).toString(), QStringLiteral("Ice first"));
+        EXPECT_EQ(p.value(QLatin1String("later")).toArray(), (QJsonArray{ 1, 2 }));
+    }
+
+    auto mine = mapOf(doc);
+    core::Module m;
+    m.id = QStringLiteral("m1");
+    m.name = QStringLiteral("Depot");
+    m.places = mine->sidecar.layoutPlaces;
+    mine->sidecar.modules.push_back(m);
+    mine->sidecar.layoutPlaces = QJsonArray();
+    ASSERT_FALSE(doc.writeMap(*mine).isEmpty());
+    EXPECT_TRUE(mapOf(doc)->sidecar.layoutPlaces.isEmpty());
+    const QJsonObject items = doc.toJson().value(QLatin1String("sidecarItems")).toObject();
+    EXPECT_EQ(items.value(QLatin1String("m:m1")).toObject().value(QLatin1String("places")).toArray(), m.places);
+}
+
 // Rolling stock and trains travel as the web keeps them: Y.Maps at
 // meta.rollingStock and meta.trains, one Y.Map a record; a car changed here
 // and a train moved there both stay; a delete goes.

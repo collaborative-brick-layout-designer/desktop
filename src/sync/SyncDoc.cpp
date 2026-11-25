@@ -1020,6 +1020,16 @@ struct SyncDoc::Impl {
         writeRecordMap(curMeta, "trains", wantObj);
     }
 
+    // The layout's own places (Live Ops design 2.1): a Y.Map at meta.places, kept the same way.
+    void writePlaces(const QJsonObject& curMeta, const QJsonArray& want) {
+        QJsonObject wantObj;
+        for (const QJsonValue& p : want) {
+            const QJsonObject o = p.toObject();
+            wantObj.insert(o.value(QLatin1String("id")).toString(), o);
+        }
+        writeRecordMap(curMeta, "places", wantObj);
+    }
+
     // A Y.Map at meta.<kKey>, id -> a Y.Map of the record's fields.
     void writeRecordMap(const QJsonObject& curMeta, const char* kKey, const QJsonObject& wantObj) {
         Output existing(ymap_get(meta, txn, kKey));
@@ -1494,6 +1504,7 @@ QByteArray SyncDoc::writeMap(const core::Map& map, bool undoStep) {
     d.writeRollingStock(curMeta, map.sidecar.rollingStock);
     d.writeTrains(curMeta, map.sidecar.trains);
     d.writeTrainScale(curMeta, map.sidecar.trainScale);
+    d.writePlaces(curMeta, map.sidecar.layoutPlaces);
     if (!sidecarWrite.items.isEmpty()) {
         const QJsonObject curItems = cur.value(QLatin1String("sidecarItems")).toObject();
         const QJsonObject& wantItems = sidecarWrite.items;

@@ -18,6 +18,7 @@
 
 #include <QByteArray>
 #include <QDateTime>
+#include <QJsonArray>
 #include <QJsonObject>
 #include <QList>
 #include <QNetworkAccessManager>
@@ -112,6 +113,8 @@ struct ServerModule {
     // Its table and power (core/ModuleSetup.h), as the server sends them:
     // {table?, power?}; empty when not set (or an older server).
     QJsonObject setup;
+    // How many places (Live Ops) of each kind it has: [{kind, count}] (empty on older servers).
+    QJsonArray placeCounts;
     bool empty = false;     // no parts yet: adding it would place nothing (older servers leave it out)
     qint64 thumbnailAt = 0;  // when its picture was made (ms); 0: none yet
     QDateTime updatedAt;

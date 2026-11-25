@@ -65,6 +65,18 @@ int main(int argc, char** argv) {
     mod.id = QStringLiteral("M1");
     mod.name = QStringLiteral("Yard");
     mod.memberIds = { QStringLiteral("1"), QStringLiteral("2") };
+    // A place, on the module and on the layout.
+    const QJsonObject place{ { QStringLiteral("id"), QStringLiteral("pl-1") },
+                             { QStringLiteral("name"), QStringLiteral("Acme Cannery") },
+                             { QStringLiteral("kind"), QStringLiteral("industry") },
+                             { QStringLiteral("spots"), QJsonArray{ QJsonObject{ { QStringLiteral("id"), QStringLiteral("s1") },
+                                                                                 { QStringLiteral("name"), QStringLiteral("Dock") },
+                                                                                 { QStringLiteral("track"), QJsonObject{ { QStringLiteral("brick"), QStringLiteral("1") }, { QStringLiteral("from"), 0 }, { QStringLiteral("to"), 1 } } },
+                                                                                 { QStringLiteral("capacity"), 3 } } } },
+                             { QStringLiteral("accepts"), QJsonArray{ QStringLiteral("reefer") } },
+                             { QStringLiteral("notes"), QStringLiteral("Ice at\nthe yard") } };
+    mod.places = QJsonArray{ place };
+    sidecar.layoutPlaces = QJsonArray{ place };
     sidecar.modules.push_back(mod);
     sidecar.venue = sampleVenue();
     saveload::writeSidecar(root.filePath(QStringLiteral("sidecar/seed.bbm.bld")), QByteArray("bbm"), sidecar);

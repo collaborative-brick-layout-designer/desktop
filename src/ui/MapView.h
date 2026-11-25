@@ -380,6 +380,23 @@ public:
     bool showSidingLengths() const { return showSidingLengths_; }
     // A fit check's Show me: bring the spot (studs) into view, not closer than 2:1, and ring it for a moment.
     void showSpot(QPointF studs);
+    // View > Places (Live Ops design 6): the places' brackets and names.
+    void setShowPlaces(bool on);
+    bool showPlaces() const { return showPlaces_; }
+    // Picking track for a place: the next click on the track puts a spot
+    // there, as one undo step. Nothing is picked or moved meanwhile; Esc stops.
+    struct PlacePick {
+        // The module it is on, empty for the layout's own; unset: whichever the track is in.
+        std::optional<QString> owner;
+        QString place;  // empty: a new place
+        QString spot;   // empty: a new spot
+    };
+    void startPlacePick(const PlacePick& pick);
+    void cancelPlacePick();
+    bool pickingPlace() const { return placePick_.has_value(); }
+    // A click while picking, or Make a place on the menu; false (and it says why) when it can't go there.
+    bool placePickClick(QPointF studs, const PlacePick& pick);
+    QWidget* placePickBanner() const { return placeBar_; }
     void armPartPlacement(const QString& partKey);
     void cancelPartPlacement();
     const QString& armedPart() const { return armedPart_; }
@@ -510,6 +527,10 @@ signals:
     void moduleLookRequested(const QString& moduleId);
     // Its table and power (the Table and power dialog).
     void moduleSetupRequested(const QString& moduleId);
+    // Its places (the Places panel), and a place put on the track (a new one: its name is asked for).
+    void modulePlacesRequested(const QString& moduleId);
+    void placePickChanged(bool picking);
+    void placePicked(const QString& owner, const QString& placeId, bool fresh);
     // A module's library entry (save, publish or pull), and Make a module for the picked parts.
     void moduleLibraryActionRequested(const QString& moduleId, const QString& action);
     void makeModuleRequested();
@@ -569,11 +590,16 @@ private:
     // The banner says what to click next, or the way found; the map shows it.
     void refreshRouteDraft();
     QString placingTrain_;
+    bool showPlaces_ = true;
+    std::optional<PlacePick> placePick_;
+    QWidget* placeBar_ = nullptr;
+    QLabel* placeBarText_ = nullptr;
+    void addPlaceMenu(class QMenu& menu, QPointF studs);
     bool showSidingLengths_ = false;
     QWidget* trainBar_ = nullptr;
     QLabel* trainBarText_ = nullptr;
     // Run mode, drawing a route or putting a train on the track: clicks belong to them, not the parts.
-    bool clicksTaken() const { return runMode_ || routeDraft_.has_value() || !placingTrain_.isEmpty(); }
+    bool clicksTaken() const { return runMode_ || routeDraft_.has_value() || !placingTrain_.isEmpty() || placePick_.has_value(); }
     // Run mode's banner over the top of the map: what a click does, and Stop.
     QWidget* runBar_ = nullptr;
     // "Run trains", in the map's top right corner while building.

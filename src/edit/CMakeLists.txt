@@ -57,6 +57,8 @@ add_library(bld_edit STATIC
     Budget.h
     SwitchCommands.cpp
     SwitchCommands.h
+    PlaceCommands.cpp
+    PlaceCommands.h
     TrainCommands.cpp
     TrainCommands.h
 )

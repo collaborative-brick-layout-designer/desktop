@@ -1,6 +1,10 @@
 #pragma once
 
+#include "Ids.h"
+#include "Places.h"
+
 #include <QDateTime>
+#include <QHash>
 #include <QJsonObject>
 #include <QSet>
 #include <QString>
@@ -52,6 +56,9 @@ struct Module {
     std::optional<QJsonObject> table;
     std::optional<QJsonObject> power;
 
+    // Its places (core/Places.h; sidecar only): they go where it goes.
+    QJsonArray places;
+
     // Fields a newer build (or the web) wrote that this one doesn't know,
     // kept so reading and writing the module again doesn't lose them.
     QJsonObject extras;
@@ -63,8 +70,8 @@ struct Module {
 // the Modules panel's Duplicate): "X (copy)", the same look, not linked to
 // the Module library, not pinned (it is there to be moved), no source file.
 // (A shared module's copy is another shared placement: core/SharedModule.h
-// sharedCopyOf.)
-inline Module copyOfModule(const Module& m, QSet<QString> members, QString newId) {
+// sharedCopyOf.) `renamed` gives each part's id in the copy, for its places' spots.
+inline Module copyOfModule(const Module& m, QSet<QString> members, QString newId, const QHash<QString, QString>& renamed = {}) {
     Module c = m;
     c.id = std::move(newId);
     c.name = m.name.isEmpty() ? QStringLiteral("(copy)") : m.name + QStringLiteral(" (copy)");
@@ -76,6 +83,9 @@ inline Module copyOfModule(const Module& m, QSet<QString> members, QString newId
     c.libraryModuleId.clear();
     c.libraryVersion = 0;
     c.shared.reset();
+    c.places = places::copied(
+        m.places, [&renamed](const QString& id) { return renamed.contains(id) ? std::optional(renamed.value(id)) : std::nullopt; },
+        [] { return newBbmId(); });
     return c;
 }
 

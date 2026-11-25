@@ -783,6 +783,30 @@
         <translation>Scegli MILS, Base semplice (basi sciolte su un tavolo normale) o Personalizzato, e scrivi l&apos;altezza misurata, fino al piano del tavolo o alla sommità dei binari. Per la corrente, indica quante prese usa, circa quanti watt e da che lato esce la spina. Salvare il modulo nella libreria dei moduli porta con sé questi dati.</translation>
     </message>
     <message>
+        <source>Places</source>
+        <translation>Luoghi</translation>
+    </message>
+    <message>
+        <source>Places are where cars go: industries, yards, staging and interchanges, named on the track.</source>
+        <translation>I luoghi sono dove vanno i carri: industrie, scali, zone di attesa e interscambi, con un nome sul binario.</translation>
+    </message>
+    <message>
+        <source>Press New place, then click the track where the cars stand (or right-click track › Make a place…). A place on a module’s track belongs to the module and goes along with it, notes and all, through the Module library. View › Places shows them on the map; a module shared with you keeps its owner’s.</source>
+        <translation>Premi Nuovo luogo, poi fai clic sul binario dove stanno i carri (o clic destro sul binario › Crea un luogo…). Un luogo sul binario di un modulo appartiene al modulo e lo segue, note comprese, attraverso la libreria dei moduli. Vista › Luoghi li mostra sulla mappa; un modulo condiviso con te tiene quelli del suo proprietario.</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Postazioni</translation>
+    </message>
+    <message>
+        <source>A spot is a stretch of track at a place where cars stand, and how many fit.</source>
+        <translation>Una postazione è un tratto di binario di un luogo dove stanno i carri, e quanti ce ne stanno.</translation>
+    </message>
+    <message>
+        <source>Click a piece of the track; the spot is the whole track between switches and ends that it is on. Cars it holds comes from that track’s length (a typical car is 32 studs); type a number to say it yourself, and the spot is then that much track around the piece. If the track is removed, the spot says so: pick its track again.</source>
+        <translation>Fai clic su un pezzo di binario; la postazione è tutto il binario tra scambi ed estremità su cui si trova. Quanti carri ci stanno viene dalla lunghezza di quel binario (un carro tipico è di 32 bottoncini); scrivi un numero per dirlo tu, e la postazione è allora tanto binario attorno al pezzo. Se il binario viene tolto, la postazione lo dice: sceglilo di nuovo.</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>Tavoli e corrente</translation>
     </message>
@@ -3196,6 +3220,10 @@
         <translation>%1 è un modulo condiviso, quindi qui i suoi binari non si possono curvare. Puoi spostare e ruotare tutto il modulo.</translation>
     </message>
     <message>
+        <source>%1 is a shared module, so its places are its owner&apos;s. They change here with its owner&apos;s updates.</source>
+        <translation>%1 è un modulo condiviso, quindi i suoi luoghi sono del proprietario. Qui cambiano con gli aggiornamenti del proprietario.</translation>
+    </message>
+    <message>
         <source>%1 is a shared module, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
         <translation>%1 è un modulo condiviso, quindi qui i suoi pezzi non si possono cambiare. Puoi spostarlo, ruotarlo o rimuoverlo per intero.</translation>
     </message>
@@ -3214,6 +3242,10 @@
     <message>
         <source>%1 is shared by %2, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
         <translation>%1 è condiviso da %2, quindi qui i suoi binari non si possono curvare. Puoi spostare e ruotare tutto il modulo.</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its places are %2&apos;s. They change here with %2&apos;s updates.</source>
+        <translation>%1 è condiviso da %2, quindi i suoi luoghi sono di %2. Qui cambiano con gli aggiornamenti di %2.</translation>
     </message>
     <message>
         <source>%1 is shared by %2, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
@@ -3766,6 +3798,42 @@
     <message>
         <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
         <translation>Imposta scambi mette ogni scambio del percorso nella sua direzione. La modalità circolazione li fa cambiare a mano.</translation>
+    </message>
+    <message>
+        <source>Places</source>
+        <translation>Luoghi</translation>
+    </message>
+    <message>
+        <source>Where cars go</source>
+        <translation>Dove vanno i carri</translation>
+    </message>
+    <message>
+        <source>Places are the industries, yards, staging and interchanges along your track. Open this list from Panels.</source>
+        <translation>I luoghi sono le industrie, gli scali, le zone di attesa e gli interscambi lungo il binario. Apri questo elenco da Pannelli.</translation>
+    </message>
+    <message>
+        <source>Name a place</source>
+        <translation>Dai un nome a un luogo</translation>
+    </message>
+    <message>
+        <source>Press New place, then click the track where the cars stand. Give it a name and kind, and the cars it takes and sends.</source>
+        <translation>Premi Nuovo luogo, poi fai clic sul binario dove stanno i carri. Dagli nome, tipo e i carri che riceve e spedisce.</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Postazioni</translation>
+    </message>
+    <message>
+        <source>A place can have several spots. Each says how many cars fit, worked out from the track unless you type it.</source>
+        <translation>Un luogo può avere più postazioni. Ognuna dice quanti carri ci stanno, calcolati dal binario se non li scrivi.</translation>
+    </message>
+    <message>
+        <source>On the map</source>
+        <translation>Sulla mappa</translation>
+    </message>
+    <message>
+        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
+        <translation>Vista › Luoghi mostra ogni postazione e quanti carri tiene. I luoghi sul binario di un modulo seguono il modulo.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -5019,6 +5087,10 @@
     <message>
         <source>Route &quot;%1&quot;</source>
         <translation>Percorso «%1»</translation>
+    </message>
+    <message>
+        <source>Place &quot;%1&quot;</source>
+        <translation>Luogo &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -8535,6 +8607,10 @@ Salvare comunque?</translation>
         <translation>Sc&amp;ambi</translation>
     </message>
     <message>
+        <source>Places</source>
+        <translation>Luoghi</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>M&amp;oduli</translation>
     </message>
@@ -10149,6 +10225,10 @@ Non ti verrà chiesto di nuovo. Per portarlo più tardi in questo o in un altro 
         <translation>percorsi</translation>
     </message>
     <message>
+        <source>places</source>
+        <translation>i luoghi</translation>
+    </message>
+    <message>
         <source>the train scale</source>
         <translation>la scala dei treni</translation>
     </message>
@@ -10694,6 +10774,10 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
         <translation>Tavolo e corrente…</translation>
     </message>
     <message>
+        <source>Places…</source>
+        <translation>Luoghi…</translation>
+    </message>
+    <message>
         <source>Attach Ruler Endpoint &amp;1 to This Brick</source>
         <translation>Attacca l&apos;estremità &amp;1 del righello a questo mattoncino</translation>
     </message>
@@ -10940,6 +11024,50 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
     <message>
         <source>Cancel</source>
         <translation>Annulla</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New place:&lt;/b&gt; click the track where cars stand.</source>
+        <translation>&lt;b&gt;Nuovo luogo:&lt;/b&gt; fai clic sul binario dove stanno i carri.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New place:&lt;/b&gt; click the track where cars stand on %1.</source>
+        <translation>&lt;b&gt;Nuovo luogo:&lt;/b&gt; fai clic sul binario di %1 dove stanno i carri.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Spot:&lt;/b&gt; click the track where cars stand.</source>
+        <translation>&lt;b&gt;Postazione:&lt;/b&gt; fai clic sul binario dove stanno i carri.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Spot:&lt;/b&gt; click the track where cars stand on %1.</source>
+        <translation>&lt;b&gt;Postazione:&lt;/b&gt; fai clic sul binario di %1 dove stanno i carri.</translation>
+    </message>
+    <message>
+        <source>That track isn’t part of “%1”. Click the module’s own track.</source>
+        <translation>Quel binario non fa parte di &quot;%1&quot;. Fai clic sul binario del modulo.</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>Postazione %1</translation>
+    </message>
+    <message>
+        <source>There can be up to %1 places here.</source>
+        <translation>Qui c&apos;è posto per %1 luoghi.</translation>
+    </message>
+    <message>
+        <source>Place %1</source>
+        <translation>Luogo %1</translation>
+    </message>
+    <message>
+        <source>Put a spot on the track</source>
+        <translation>Metti una postazione sul binario</translation>
+    </message>
+    <message>
+        <source>New place</source>
+        <translation>Nuovo luogo</translation>
+    </message>
+    <message>
+        <source>Make a Place…</source>
+        <translation>Crea un luogo…</translation>
     </message>
     <message>
         <source>Route %1</source>
@@ -11634,6 +11762,10 @@ Tienilo come %2 se lo apri ancora in un altro programma; File › Esporta come m
     <message>
         <source>Table and power…</source>
         <translation>Tavolo e corrente…</translation>
+    </message>
+    <message>
+        <source>Places…</source>
+        <translation>Luoghi…</translation>
     </message>
     <message>
         <source>Duplicate</source>
@@ -12412,6 +12544,316 @@ Tieni entrambi: quello del layout viene aggiunto con un nuovo numero di pezzo, e
     <message>
         <source>All categories</source>
         <translation>Tutte le categorie</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::PlacesPanel</name>
+    <message>
+        <source>Places</source>
+        <translation>Luoghi</translation>
+    </message>
+    <message>
+        <source>Delete place</source>
+        <translation>Elimina luogo</translation>
+    </message>
+    <message>
+        <source>Delete the place “%1”? The track stays. You can undo this.</source>
+        <translation>Eliminare il luogo &quot;%1&quot;? Il binario resta. Puoi annullare.</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>Modulo</translation>
+    </message>
+    <message>
+        <source>Place %1</source>
+        <translation>Luogo %1</translation>
+    </message>
+    <message>
+        <source>New place</source>
+        <translation>Nuovo luogo</translation>
+    </message>
+    <message>
+        <source>Places on %1</source>
+        <translation>Luoghi su %1</translation>
+    </message>
+    <message>
+        <source>Show all</source>
+        <translation>Mostra tutti</translation>
+    </message>
+    <message>
+        <source>New place off the layout</source>
+        <translation>Nuovo luogo fuori dal plastico</translation>
+    </message>
+    <message>
+        <source>This module is shared with you, so its places are its owner’s.</source>
+        <translation>Questo modulo è condiviso con te, quindi i suoi luoghi sono del proprietario.</translation>
+    </message>
+    <message>
+        <source>No places on this layout yet.</source>
+        <translation>Su questo plastico non ci sono ancora luoghi.</translation>
+    </message>
+    <message>
+        <source>No places yet. A place is where cars go: an industry, a yard, staging or an interchange. Press New place, then click the track where the cars stand.</source>
+        <translation>Ancora nessun luogo. Un luogo è dove vanno i carri: un&apos;industria, uno scalo, una zona di attesa o un interscambio. Premi Nuovo luogo, poi fai clic sul binario dove stanno i carri.</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then name the places along it.</source>
+        <translation>Su questo plastico non c&apos;è ancora binario. Aggiungine dal gruppo Binari del pannello Pezzi, poi dai un nome ai luoghi lungo di esso.</translation>
+    </message>
+    <message>
+        <source>No places on this module yet.</source>
+        <translation>Su questo modulo non ci sono ancora luoghi.</translation>
+    </message>
+    <message>
+        <source>No places on this module yet. Press New place, then click the module’s track where the cars stand.</source>
+        <translation>Su questo modulo non ci sono ancora luoghi. Premi Nuovo luogo, poi fai clic sul binario del modulo dove stanno i carri.</translation>
+    </message>
+    <message>
+        <source>This layout</source>
+        <translation>Questo plastico</translation>
+    </message>
+    <message>
+        <source>%1 (shared with you)</source>
+        <translation>%1 (condiviso con te)</translation>
+    </message>
+    <message>
+        <source>(no name)</source>
+        <translation>(senza nome)</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>Mostrami</translation>
+    </message>
+    <message>
+        <source>1 spot</source>
+        <translation>1 postazione</translation>
+    </message>
+    <message>
+        <source>%1 spots</source>
+        <translation>%1 postazioni</translation>
+    </message>
+    <message>
+        <source>1 spot has lost its track</source>
+        <translation>1 postazione ha perso il suo binario</translation>
+    </message>
+    <message>
+        <source>%1 spots have lost their track</source>
+        <translation>%1 postazioni hanno perso il loro binario</translation>
+    </message>
+    <message>
+        <source>← All places</source>
+        <translation>← Tutti i luoghi</translation>
+    </message>
+    <message>
+        <source>On this layout</source>
+        <translation>Su questo plastico</translation>
+    </message>
+    <message>
+        <source>On %1</source>
+        <translation>Su %1</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nome</translation>
+    </message>
+    <message>
+        <source>Rename place</source>
+        <translation>Rinomina luogo</translation>
+    </message>
+    <message>
+        <source>Change a place</source>
+        <translation>Modifica un luogo</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>Tipo</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Postazioni</translation>
+    </message>
+    <message>
+        <source>No spots: cars that go here leave the layout.</source>
+        <translation>Nessuna postazione: i carri che vanno qui lasciano il plastico.</translation>
+    </message>
+    <message>
+        <source>Rename spot</source>
+        <translation>Rinomina postazione</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>Postazione</translation>
+    </message>
+    <message>
+        <source>From the track</source>
+        <translation>Dal binario</translation>
+    </message>
+    <message>
+        <source>Change a spot</source>
+        <translation>Modifica una postazione</translation>
+    </message>
+    <message>
+        <source>Cars it holds</source>
+        <translation>Carri che tiene</translation>
+    </message>
+    <message>
+        <source>Anything</source>
+        <translation>Qualsiasi</translation>
+    </message>
+    <message>
+        <source>Used for</source>
+        <translation>Usato per</translation>
+    </message>
+    <message>
+        <source>No track picked yet.</source>
+        <translation>Nessun binario scelto ancora.</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed. Pick it again.</source>
+        <translation>Il suo binario è stato spostato o tolto. Sceglilo di nuovo.</translation>
+    </message>
+    <message>
+        <source>%1 (from the track’s length)</source>
+        <translation>%1 (dalla lunghezza del binario)</translation>
+    </message>
+    <message>
+        <source>This is a switch: say how many cars it holds, or pick track beside it.</source>
+        <translation>Questo è uno scambio: di&apos; quanti carri tiene, o scegli il binario accanto.</translation>
+    </message>
+    <message>
+        <source>Pick its track</source>
+        <translation>Scegli il suo binario</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Rimuovi</translation>
+    </message>
+    <message>
+        <source>Remove a spot</source>
+        <translation>Togli una postazione</translation>
+    </message>
+    <message>
+        <source>Add a spot</source>
+        <translation>Aggiungi una postazione</translation>
+    </message>
+    <message>
+        <source>Separate with commas</source>
+        <translation>Separa con virgole</translation>
+    </message>
+    <message>
+        <source>Takes in</source>
+        <translation>Riceve</translation>
+    </message>
+    <message>
+        <source>Sends out</source>
+        <translation>Spedisce</translation>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>Etichette</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Note</translation>
+    </message>
+    <message>
+        <source>Delete this place</source>
+        <translation>Elimina questo luogo</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::PlacesText</name>
+    <message>
+        <source>Industry</source>
+        <translation>Industria</translation>
+    </message>
+    <message>
+        <source>Yard</source>
+        <translation>Scalo</translation>
+    </message>
+    <message>
+        <source>Staging</source>
+        <translation>Zona di attesa</translation>
+    </message>
+    <message>
+        <source>Interchange</source>
+        <translation>Interscambio</translation>
+    </message>
+    <message>
+        <source>Somewhere cars are loaded or unloaded.</source>
+        <translation>Dove i carri si caricano o si scaricano.</translation>
+    </message>
+    <message>
+        <source>Where cars are sorted into trains.</source>
+        <translation>Dove i carri si ordinano in treni.</translation>
+    </message>
+    <message>
+        <source>Off the layout: where trains come from and go to.</source>
+        <translation>Fuori dal plastico: da dove vengono e dove vanno i treni.</translation>
+    </message>
+    <message>
+        <source>Where cars change to another railroad, the rest of the world.</source>
+        <translation>Dove i carri passano a un&apos;altra ferrovia, il resto del mondo.</translation>
+    </message>
+    <message>
+        <source>Arrival</source>
+        <translation>Arrivo</translation>
+    </message>
+    <message>
+        <source>Departure</source>
+        <translation>Partenza</translation>
+    </message>
+    <message>
+        <source>Sorting</source>
+        <translation>Smistamento</translation>
+    </message>
+    <message>
+        <source>Repair</source>
+        <translation>Riparazione</translation>
+    </message>
+    <message>
+        <source>Engines</source>
+        <translation>Locomotive</translation>
+    </message>
+    <message>
+        <source>1 industry</source>
+        <translation>1 industria</translation>
+    </message>
+    <message>
+        <source>%1 industries</source>
+        <translation>%1 industrie</translation>
+    </message>
+    <message>
+        <source>1 yard</source>
+        <translation>1 scalo</translation>
+    </message>
+    <message>
+        <source>%1 yards</source>
+        <translation>%1 scali</translation>
+    </message>
+    <message>
+        <source>%1 staging</source>
+        <translation>%1 di attesa</translation>
+    </message>
+    <message>
+        <source>1 interchange</source>
+        <translation>1 interscambio</translation>
+    </message>
+    <message>
+        <source>%1 interchanges</source>
+        <translation>%1 interscambi</translation>
+    </message>
+    <message>
+        <source>Too short for a car</source>
+        <translation>Troppo corto per un carro</translation>
+    </message>
+    <message>
+        <source>1 car</source>
+        <translation>1 carro</translation>
+    </message>
+    <message>
+        <source>%1 cars</source>
+        <translation>%1 carri</translation>
     </message>
 </context>
 <context>

@@ -112,12 +112,12 @@ Module withReview(Module m, const std::optional<SharedReview>& review);
 Module detached(Module m);
 // A shared module's copy (Duplicate, paste): another shared placement, under
 // the owner's name, with the same link and lock, moved along by `moved`.
-Module sharedCopyOf(const Module& m, QSet<QString> members, QString newId, QPointF moved);
+Module sharedCopyOf(const Module& m, QSet<QString> members, QString newId, QPointF moved, const QHash<QString, QString>& renamed = {});
 // copyOfModule, or sharedCopyOf for a shared module.
-Module copyOfPlaced(const Module& m, QSet<QString> members, QString newId, QPointF moved);
+Module copyOfPlaced(const Module& m, QSet<QString> members, QString newId, QPointF moved, const QHash<QString, QString>& renamed = {});
 
 // What was asked of a shared module (for the reason given).
-enum class LockedAction { Parts, Edit, Rename, Members, Dissolve, Bend };
+enum class LockedAction { Parts, Edit, Rename, Members, Dissolve, Bend, Places };
 
 // Why it can't be done, in plain words (the web's lockMessage).
 QString lockMessage(const QString& name, const QString& by, LockedAction what);

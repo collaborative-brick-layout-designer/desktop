@@ -7,6 +7,7 @@
 
 #include "DesktopNotifier.h"
 #include "MainWindow.h"
+#include "PlacesPanel.h"
 #include "RoutesPanel.h"
 #include "TrainsPanel.h"
 #include "NotificationViews.h"
@@ -181,6 +182,7 @@ void MainWindow::setupShell() {
     theme::PanelHeader::install(layerPanel_, QStringLiteral("panel.sheets"), prefs);
     theme::PanelHeader::install(viewsPanel_, QStringLiteral("panel.views"), prefs);
     theme::PanelHeader::install(routesPanel_, QStringLiteral("panel.routes"), prefs);
+    theme::PanelHeader::install(placesPanel_, QStringLiteral("ops.places"), prefs);
     theme::PanelHeader::install(trainsPanel_, QStringLiteral("panel.trains"), prefs);
     theme::PanelHeader::install(partUsagePanel_, QStringLiteral("panel.partsList"), prefs);
     theme::PanelHeader::install(modulesPanel_, QStringLiteral("panel.modules"), prefs);
@@ -609,7 +611,7 @@ void MainWindow::showTask(const QString& task) {
 
 QList<QDockWidget*> MainWindow::panelDocks() const {
     return { partsBrowser_, layerPanel_, viewsPanel_, partUsagePanel_,
-             modulesPanel_, moduleLibraryPanel_, venueLibraryPanel_, routesPanel_, trainsPanel_ };
+             modulesPanel_, moduleLibraryPanel_, venueLibraryPanel_, routesPanel_, trainsPanel_, placesPanel_ };
 }
 
 void MainWindow::openSettings() {
@@ -727,9 +729,11 @@ void MainWindow::startTourNamed(const QString& id) {
         QTimer::singleShot(0, this, [this] { showServerWindow(); });
         return;
     }
-    // The routes and trains tours are about their panels: shown first, so their steps have something to point at.
-    if (id == QLatin1String("routes") || id == QLatin1String("trains")) {
-        QDockWidget* dock = id == QLatin1String("routes") ? static_cast<QDockWidget*>(routesPanel_) : static_cast<QDockWidget*>(trainsPanel_);
+    // The routes, trains and places tours are about their panels: shown first, so their steps have something to point at.
+    if (id == QLatin1String("routes") || id == QLatin1String("trains") || id == QLatin1String("ops")) {
+        QDockWidget* dock = id == QLatin1String("routes") ? static_cast<QDockWidget*>(routesPanel_)
+                            : id == QLatin1String("ops")  ? static_cast<QDockWidget*>(placesPanel_)
+                                                           : static_cast<QDockWidget*>(trainsPanel_);
         if (dock && !dock->isVisible()) {
             dock->show();
             dock->raise();

@@ -676,6 +676,9 @@ void MainWindow::onExportBbm() {
     if (!map->sidecar.routes.empty()) lost << tr("routes");
     if (!map->sidecar.trains.empty()) lost << tr("trains");
     if (!map->sidecar.rollingStock.empty()) lost << tr("rolling stock");
+    if (!map->sidecar.layoutPlaces.isEmpty()
+        || std::any_of(map->sidecar.modules.begin(), map->sidecar.modules.end(), [](const core::Module& m) { return !m.places.isEmpty(); }))
+        lost << tr("places");
     if (map->sidecar.trainScale) lost << tr("the train scale");
     if (!lost.isEmpty()) {
         QMessageBox box(QMessageBox::Question, tr("Export BlueBrick map"),

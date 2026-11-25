@@ -38,6 +38,8 @@ private:
     QString     moduleId_;
     QString     name_;
     std::vector<Member> members_;
+    // The layout's places that are all on its parts become its own (core/Places.h); undo gives them back.
+    QJsonArray adopted_;
 };
 
 // Add a whole module entry (a copy made by Duplicate or paste). Undo removes it.
@@ -178,6 +180,8 @@ private:
     struct LayerClone { int layerIndex = -1; std::vector<core::Brick> bricks; std::vector<core::Group> groups; };
     std::vector<LayerClone> clones_;
     bool captured_ = false;
+    QHash<QString, QString> cloneOf_;  // each part's copy, for its places' spots
+    std::optional<QJsonArray> clonePlaces_;
 };
 
 // Dissolve a module: remove the sidecar entry so its members become
@@ -193,6 +197,8 @@ private:
     QString    moduleId_;
     std::optional<core::Module> removed_;
     int insertIndex_ = -1;
+    // Its places, the layout's own now (its parts stay, so they do too).
+    std::optional<QJsonArray> released_;
 };
 
 // Load a .bbm, merge its brick layers into the current map (remapping guids
@@ -215,6 +221,8 @@ public:
         std::vector<core::Brick> bricks;
         std::vector<core::Group> groups;  // the sets (groups) the bricks are in
         QString targetLayerGuid;          // where an unmatched batch goes; empty: a new layer
+        QStringList sourceIds;            // each brick's id in the module's own contents (its places name them)
+        QJsonArray places;                // on the first batch: the module's places (core/Places.h)
     };
 
     ImportBbmAsModuleCommand(core::Map& map,
@@ -276,7 +284,15 @@ private:
     int libraryVersion_ = 0;
     std::optional<QJsonObject> shared_;
     core::ModuleSetup setup_;
+    // Its places, as this placed copy's own (the first redo works them out).
+    std::optional<QJsonArray> places_;
 };
+
+// The batches' places, each part's id in the module now its id in `guids`
+// (the new parts', in the batches' order).
+QJsonArray placesOn(const std::vector<ImportBbmAsModuleCommand::LayerBatch>& batches, const QStringList& guids);
+// A module map's places: its own, and those of the modules placed in it.
+QJsonArray placesInModule(const core::Map& module);
 
 // Update from library: the module's parts are replaced by a library
 // version's (`batches`, already placed where the module is, each with its
@@ -321,11 +337,16 @@ private:
     int kept_ = 0;
     std::optional<QHash<QString, SheetState>> keepBefore_, keepAfter_;
     QSet<QString> keepMembers_;
+    QStringList keepOrder_;  // the same, in the version's order
     // The old parts, where they were (layer guid, index), for undo.
     struct Removed { QString layerGuid; int index = 0; core::Brick brick; };
     std::vector<Removed> removed_;
     std::optional<core::Module> before_;
     std::optional<QJsonObject> sharedAfter_;
+    // The module's places after it (the first redo works them out): the
+    // version's, or, when it has none, an ordinary module's own.
+    std::optional<QJsonArray> placesAfter_;
+    void setPlaces(core::Module& mod, const QStringList& members);
 };
 
 // "Make it mine" for a layout that isn't live (a file): the shared module

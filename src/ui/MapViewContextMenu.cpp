@@ -118,6 +118,7 @@ void MapView::contextMenuEvent(QContextMenuEvent* e) {
     QMenu menu(this);
     // A switch near the click: set it (whatever is drawn over it).
     addSwitchMenu(menu, mapToScene(e->pos()) / rendering::SceneBuilder::kPixelsPerStud);
+    addPlaceMenu(menu, mapToScene(e->pos()) / rendering::SceneBuilder::kPixelsPerStud);
     const bool wholeModule = addModuleMenu(menu, clickedBrickGuid);
     const auto sel = scene()->selectedItems();
     const bool hasSel = !sel.isEmpty();
@@ -399,6 +400,7 @@ bool MapView::addModuleMenu(QMenu& menu, const QString& clickedBrickGuid) {
     menu.addAction(tr("Colors…"), this, [this, id] { emit moduleLookRequested(id); });
     menu.addAction(tr("Table and power…"), this, [this, id] { emit moduleSetupRequested(id); })
         ->setObjectName(QStringLiteral("moduleSetup"));
+    menu.addAction(tr("Places…"), this, [this, id] { emit modulePlacesRequested(id); })->setObjectName(QStringLiteral("modulePlaces"));
     if (moduleLibraryInfo_) {
         menu.addSeparator();
         for (const auto& e : moduleLibraryInfo_(*mod).entries) {

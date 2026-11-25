@@ -30,6 +30,7 @@ void MapView::startTrainPlacing(const QString& trainId) {
     if (it == trains.end()) return;
     if (runMode_) setRunMode(false);
     if (routeDraft_) cancelRouteDraft();
+    cancelPlacePick();
     if (scene()) scene()->clearSelection();
     placingTrain_ = trainId;
     setInteractive(false);
@@ -65,7 +66,7 @@ void MapView::startTrainPlacing(const QString& trainId) {
 void MapView::cancelTrainPlacing() {
     if (placingTrain_.isEmpty()) return;
     placingTrain_.clear();
-    setInteractive(!runMode_ && !routeDraft_);
+    setInteractive(!clicksTaken());
     if (trainBar_) trainBar_->hide();
     if (builder_) {
         builder_->setPickedTrain(QString());

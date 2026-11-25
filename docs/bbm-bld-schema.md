@@ -155,6 +155,7 @@ anchor moves.
     `heightMm` is what was entered, in mm; without `measuredTo` it is to
     the table top.
   - `power`: `{ needed, outlets?, watts?, plugSide?: "front" | "back" | "left" | "right" }`.
+- Its places (Live Ops): `places`, see `layoutPlaces` below.
     `outlets` absent counts as one; front is the side people watch from.
   - A Module library module keeps the same two on the server; adding it
     to a layout, or updating a placed copy from the library, copies them.
@@ -454,3 +455,23 @@ a surrogate pair are left out.
   per project (hence the single `"venue": ...` key). If we ever support
   multiple venues we'd add a parallel `"venues": [...]` array and bump
   `schemaVersion`.
+
+## `layoutPlaces`
+
+Places (Live Ops): where cars go. The layout's own, on track that is in no
+module, are in `layoutPlaces`; a module's are in its `places`, and go where
+the module goes. Each place:
+
+```json
+{ "id": "pl-1", "name": "Acme Cannery", "kind": "industry",
+  "spots": [{ "id": "s1", "name": "Dock", "track": { "brick": "B12", "from": 0, "to": 1 }, "capacity": 3 }],
+  "accepts": ["reefer"], "ships": [], "tags": [], "notes": "" }
+```
+
+`kind` is `industry`, `yard`, `staging` or `interchange`. A spot's `track` is
+the piece it was picked on (absent: none); its `capacity` in cars is absent
+when it comes from the track's length. `source` is a placed module's place's
+id in the Module library. Both apps put what they read within the limits of
+`fixtures/contracts/places.json` and keep fields they don't know. Live, the
+web keeps `layoutPlaces` at `meta.places` (a Y.Map of id to a Y.Map of
+fields). Never in a `.bbm`.

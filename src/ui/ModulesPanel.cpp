@@ -1,5 +1,6 @@
 #include "ModulesPanel.h"
 #include "ModuleSetupText.h"
+#include "PlacesText.h"
 #include "help/HelpButton.h"
 #include "tours/Tours.h"
 #include "../edit/ModuleSheets.h"
@@ -207,6 +208,9 @@ void ModulesPanel::fillMenu(QMenu& menu, const QString& id) {
     auto* setup = menu.addAction(tr("Table and power…"));
     setup->setObjectName(QStringLiteral("moduleSetup"));
     connect(setup, &QAction::triggered, [this, id]{ emit setupRequested(id); });
+    auto* places = menu.addAction(tr("Places…"));
+    places->setObjectName(QStringLiteral("modulePlaces"));
+    connect(places, &QAction::triggered, [this, id]{ emit placesRequested(id); });
     auto* cloneAct = menu.addAction(tr("Duplicate"));
     connect(cloneAct, &QAction::triggered, [this, id]{ emit cloneRequested(id); });
 
@@ -265,6 +269,10 @@ void ModulesPanel::setMap(const core::Map* map) {
         // Its table and power, on a line of its own.
         const QString setupLine = ModuleSetupText::setupLine(core::setupOf(m), unit);
         if (!setupLine.isEmpty()) item->setText(item->text() + QLatin1Char('\n') + setupLine);
+        // Its places: "2 industries, 1 yard".
+        const QString placesLine = PlacesText::places(m.places);
+        if (!placesLine.isEmpty()) item->setText(item->text() + QLatin1Char('\n') + placesLine);
+        item->setData(Qt::UserRole + 9, placesLine);
         item->setData(Qt::UserRole + 7, hidden);
         item->setData(Qt::UserRole + 8, setupLine);
         item->setToolTip(m.id);

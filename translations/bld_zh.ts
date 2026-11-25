@@ -783,6 +783,30 @@
         <translation>选择 MILS、普通底板（放在普通桌子上的散底板）或自定义，并输入测得的高度（到桌面或到轨面）。电源方面，填写使用几个插座、大约多少瓦，以及插头从哪一侧引出。将模块保存到模块库时，这些信息会一起保存。</translation>
     </message>
     <message>
+        <source>Places</source>
+        <translation>地点</translation>
+    </message>
+    <message>
+        <source>Places are where cars go: industries, yards, staging and interchanges, named on the track.</source>
+        <translation>地点是车辆要去的地方：工厂、编组场、待避线和交换站，在轨道上命名。</translation>
+    </message>
+    <message>
+        <source>Press New place, then click the track where the cars stand (or right-click track › Make a place…). A place on a module’s track belongs to the module and goes along with it, notes and all, through the Module library. View › Places shows them on the map; a module shared with you keeps its owner’s.</source>
+        <translation>按“新地点”，然后点击车辆停放的轨道（或右键点击轨道 › 创建地点…）。模块轨道上的地点属于该模块，会连同备注随模块进出模块库。视图 › 地点 在地图上显示它们；共享给你的模块保留其所有者的地点。</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>停车位</translation>
+    </message>
+    <message>
+        <source>A spot is a stretch of track at a place where cars stand, and how many fit.</source>
+        <translation>停车位是地点中停放车辆的一段轨道，以及能停多少辆。</translation>
+    </message>
+    <message>
+        <source>Click a piece of the track; the spot is the whole track between switches and ends that it is on. Cars it holds comes from that track’s length (a typical car is 32 studs); type a number to say it yourself, and the spot is then that much track around the piece. If the track is removed, the spot says so: pick its track again.</source>
+        <translation>点击一段轨道；停车位是它所在的道岔与端点之间的整条轨道。能停的车辆数由这条轨道的长度得出（普通车辆长 32 凸点）；也可以自己输入数字，停车位就是该部件周围那么长的轨道。如果轨道被移除，停车位会说明：请重新选择轨道。</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>桌子和电源</translation>
     </message>
@@ -3180,6 +3204,10 @@
         <translation>%1 是共享模块，所以这里不能弯曲它的轨道。你可以移动和旋转整个模块。</translation>
     </message>
     <message>
+        <source>%1 is a shared module, so its places are its owner&apos;s. They change here with its owner&apos;s updates.</source>
+        <translation>%1 是共享模块，所以它的地点属于所有者。它们会随所有者的更新而改变。</translation>
+    </message>
+    <message>
         <source>%1 is a shared module, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
         <translation>%1 是共享模块，所以这里不能更改它的零件。你可以把它作为整体移动、旋转或移除。</translation>
     </message>
@@ -3198,6 +3226,10 @@
     <message>
         <source>%1 is shared by %2, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
         <translation>%1 由 %2 共享，所以这里不能弯曲它的轨道。你可以移动和旋转整个模块。</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its places are %2&apos;s. They change here with %2&apos;s updates.</source>
+        <translation>%1 由 %2 共享，所以它的地点属于 %2。它们会随 %2 的更新而改变。</translation>
     </message>
     <message>
         <source>%1 is shared by %2, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
@@ -3746,6 +3778,42 @@
     <message>
         <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
         <translation>“设置道岔”会把路线上的每个道岔设为其方向。运行模式下可以手动切换。</translation>
+    </message>
+    <message>
+        <source>Places</source>
+        <translation>地点</translation>
+    </message>
+    <message>
+        <source>Where cars go</source>
+        <translation>车辆去哪里</translation>
+    </message>
+    <message>
+        <source>Places are the industries, yards, staging and interchanges along your track. Open this list from Panels.</source>
+        <translation>地点是轨道沿线的工厂、编组场、待避线和交换站。从“面板”打开此列表。</translation>
+    </message>
+    <message>
+        <source>Name a place</source>
+        <translation>命名地点</translation>
+    </message>
+    <message>
+        <source>Press New place, then click the track where the cars stand. Give it a name and kind, and the cars it takes and sends.</source>
+        <translation>按“新地点”，然后点击车辆停放的轨道。填写名称和类型，以及它接收和发出的车辆。</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>停车位</translation>
+    </message>
+    <message>
+        <source>A place can have several spots. Each says how many cars fit, worked out from the track unless you type it.</source>
+        <translation>一个地点可以有多个停车位。如果你不填写，每个停车位能停多少辆由轨道算出。</translation>
+    </message>
+    <message>
+        <source>On the map</source>
+        <translation>在地图上</translation>
+    </message>
+    <message>
+        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
+        <translation>视图 › 地点 显示每个停车位和能停多少辆。模块轨道上的地点会随模块一起走。</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -4991,6 +5059,10 @@
     <message>
         <source>Route &quot;%1&quot;</source>
         <translation>路线“%1”</translation>
+    </message>
+    <message>
+        <source>Place &quot;%1&quot;</source>
+        <translation>地点“%1”</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -8482,6 +8554,10 @@ Save anyway?</source>
         <translation>道岔(&amp;T)</translation>
     </message>
     <message>
+        <source>Places</source>
+        <translation>地点</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>模块(&amp;O)</translation>
     </message>
@@ -10072,6 +10148,10 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>路线</translation>
     </message>
     <message>
+        <source>places</source>
+        <translation>地点</translation>
+    </message>
+    <message>
         <source>the train scale</source>
         <translation>列车比例</translation>
     </message>
@@ -10616,6 +10696,10 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
         <translation>桌台和电源…</translation>
     </message>
     <message>
+        <source>Places…</source>
+        <translation>地点…</translation>
+    </message>
+    <message>
         <source>Attach Ruler Endpoint &amp;1 to This Brick</source>
         <translation>把标尺端点 1 附着到这块积木(&amp;1)</translation>
     </message>
@@ -10858,6 +10942,50 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     <message>
         <source>Cancel</source>
         <translation>取消</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New place:&lt;/b&gt; click the track where cars stand.</source>
+        <translation>&lt;b&gt;新地点：&lt;/b&gt;请点击车辆停放的轨道。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New place:&lt;/b&gt; click the track where cars stand on %1.</source>
+        <translation>&lt;b&gt;新地点：&lt;/b&gt;请点击 %1 上车辆停放的轨道。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Spot:&lt;/b&gt; click the track where cars stand.</source>
+        <translation>&lt;b&gt;停车位：&lt;/b&gt;请点击车辆停放的轨道。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Spot:&lt;/b&gt; click the track where cars stand on %1.</source>
+        <translation>&lt;b&gt;停车位：&lt;/b&gt;请点击 %1 上车辆停放的轨道。</translation>
+    </message>
+    <message>
+        <source>That track isn’t part of “%1”. Click the module’s own track.</source>
+        <translation>该轨道不属于“%1”。请点击模块自己的轨道。</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>停车位 %1</translation>
+    </message>
+    <message>
+        <source>There can be up to %1 places here.</source>
+        <translation>这里最多 %1 个地点。</translation>
+    </message>
+    <message>
+        <source>Place %1</source>
+        <translation>地点 %1</translation>
+    </message>
+    <message>
+        <source>Put a spot on the track</source>
+        <translation>把停车位放到轨道上</translation>
+    </message>
+    <message>
+        <source>New place</source>
+        <translation>新地点</translation>
+    </message>
+    <message>
+        <source>Make a Place…</source>
+        <translation>创建地点…</translation>
     </message>
     <message>
         <source>Route %1</source>
@@ -11550,6 +11678,10 @@ Keep it as %2 if you still open it in another program; File › Export as BlueBr
     <message>
         <source>Table and power…</source>
         <translation>桌台和电源…</translation>
+    </message>
+    <message>
+        <source>Places…</source>
+        <translation>地点…</translation>
     </message>
     <message>
         <source>Duplicate</source>
@@ -12318,6 +12450,316 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>All categories</source>
         <translation>所有分类</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::PlacesPanel</name>
+    <message>
+        <source>Places</source>
+        <translation>地点</translation>
+    </message>
+    <message>
+        <source>Delete place</source>
+        <translation>删除地点</translation>
+    </message>
+    <message>
+        <source>Delete the place “%1”? The track stays. You can undo this.</source>
+        <translation>删除地点“%1”？轨道会保留。可以撤销。</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>模块</translation>
+    </message>
+    <message>
+        <source>Place %1</source>
+        <translation>地点 %1</translation>
+    </message>
+    <message>
+        <source>New place</source>
+        <translation>新地点</translation>
+    </message>
+    <message>
+        <source>Places on %1</source>
+        <translation>%1 上的地点</translation>
+    </message>
+    <message>
+        <source>Show all</source>
+        <translation>全部显示</translation>
+    </message>
+    <message>
+        <source>New place off the layout</source>
+        <translation>布局外的新地点</translation>
+    </message>
+    <message>
+        <source>This module is shared with you, so its places are its owner’s.</source>
+        <translation>此模块是共享给你的，所以它的地点属于所有者。</translation>
+    </message>
+    <message>
+        <source>No places on this layout yet.</source>
+        <translation>此布局还没有地点。</translation>
+    </message>
+    <message>
+        <source>No places yet. A place is where cars go: an industry, a yard, staging or an interchange. Press New place, then click the track where the cars stand.</source>
+        <translation>还没有地点。地点是车辆要去的地方：工厂、编组场、待避线或交换站。按“新地点”，然后点击车辆停放的轨道。</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then name the places along it.</source>
+        <translation>此布局还没有轨道。请从零件面板的轨道组添加，然后命名沿线的地点。</translation>
+    </message>
+    <message>
+        <source>No places on this module yet.</source>
+        <translation>此模块还没有地点。</translation>
+    </message>
+    <message>
+        <source>No places on this module yet. Press New place, then click the module’s track where the cars stand.</source>
+        <translation>此模块还没有地点。按“新地点”，然后点击模块上车辆停放的轨道。</translation>
+    </message>
+    <message>
+        <source>This layout</source>
+        <translation>此布局</translation>
+    </message>
+    <message>
+        <source>%1 (shared with you)</source>
+        <translation>%1（共享给你）</translation>
+    </message>
+    <message>
+        <source>(no name)</source>
+        <translation>（无名称）</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>带我看看</translation>
+    </message>
+    <message>
+        <source>1 spot</source>
+        <translation>1 个停车位</translation>
+    </message>
+    <message>
+        <source>%1 spots</source>
+        <translation>%1 个停车位</translation>
+    </message>
+    <message>
+        <source>1 spot has lost its track</source>
+        <translation>1 个停车位失去了轨道</translation>
+    </message>
+    <message>
+        <source>%1 spots have lost their track</source>
+        <translation>%1 个停车位失去了轨道</translation>
+    </message>
+    <message>
+        <source>← All places</source>
+        <translation>← 所有地点</translation>
+    </message>
+    <message>
+        <source>On this layout</source>
+        <translation>在此布局上</translation>
+    </message>
+    <message>
+        <source>On %1</source>
+        <translation>在 %1 上</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>名称</translation>
+    </message>
+    <message>
+        <source>Rename place</source>
+        <translation>重命名地点</translation>
+    </message>
+    <message>
+        <source>Change a place</source>
+        <translation>更改地点</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>类型</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>停车位</translation>
+    </message>
+    <message>
+        <source>No spots: cars that go here leave the layout.</source>
+        <translation>没有停车位：去这里的车辆会离开布局。</translation>
+    </message>
+    <message>
+        <source>Rename spot</source>
+        <translation>重命名停车位</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>停车位</translation>
+    </message>
+    <message>
+        <source>From the track</source>
+        <translation>由轨道得出</translation>
+    </message>
+    <message>
+        <source>Change a spot</source>
+        <translation>更改停车位</translation>
+    </message>
+    <message>
+        <source>Cars it holds</source>
+        <translation>能停的车辆</translation>
+    </message>
+    <message>
+        <source>Anything</source>
+        <translation>任意</translation>
+    </message>
+    <message>
+        <source>Used for</source>
+        <translation>用途</translation>
+    </message>
+    <message>
+        <source>No track picked yet.</source>
+        <translation>还没有选择轨道。</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed. Pick it again.</source>
+        <translation>它的轨道被移动或移除了。请重新选择。</translation>
+    </message>
+    <message>
+        <source>%1 (from the track’s length)</source>
+        <translation>%1（由轨道长度得出）</translation>
+    </message>
+    <message>
+        <source>This is a switch: say how many cars it holds, or pick track beside it.</source>
+        <translation>这是道岔：请填写能停多少辆，或选择旁边的轨道。</translation>
+    </message>
+    <message>
+        <source>Pick its track</source>
+        <translation>选择轨道</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>移除</translation>
+    </message>
+    <message>
+        <source>Remove a spot</source>
+        <translation>移除停车位</translation>
+    </message>
+    <message>
+        <source>Add a spot</source>
+        <translation>添加停车位</translation>
+    </message>
+    <message>
+        <source>Separate with commas</source>
+        <translation>用逗号分隔</translation>
+    </message>
+    <message>
+        <source>Takes in</source>
+        <translation>接收</translation>
+    </message>
+    <message>
+        <source>Sends out</source>
+        <translation>发出</translation>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>标签</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>备注</translation>
+    </message>
+    <message>
+        <source>Delete this place</source>
+        <translation>删除此地点</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::PlacesText</name>
+    <message>
+        <source>Industry</source>
+        <translation>工厂</translation>
+    </message>
+    <message>
+        <source>Yard</source>
+        <translation>编组场</translation>
+    </message>
+    <message>
+        <source>Staging</source>
+        <translation>待避线</translation>
+    </message>
+    <message>
+        <source>Interchange</source>
+        <translation>交换站</translation>
+    </message>
+    <message>
+        <source>Somewhere cars are loaded or unloaded.</source>
+        <translation>装卸货物的地方。</translation>
+    </message>
+    <message>
+        <source>Where cars are sorted into trains.</source>
+        <translation>把车辆编成列车的地方。</translation>
+    </message>
+    <message>
+        <source>Off the layout: where trains come from and go to.</source>
+        <translation>布局之外：列车来自和前往的地方。</translation>
+    </message>
+    <message>
+        <source>Where cars change to another railroad, the rest of the world.</source>
+        <translation>车辆转到其他铁路、外部世界的地方。</translation>
+    </message>
+    <message>
+        <source>Arrival</source>
+        <translation>到达</translation>
+    </message>
+    <message>
+        <source>Departure</source>
+        <translation>出发</translation>
+    </message>
+    <message>
+        <source>Sorting</source>
+        <translation>分类</translation>
+    </message>
+    <message>
+        <source>Repair</source>
+        <translation>维修</translation>
+    </message>
+    <message>
+        <source>Engines</source>
+        <translation>机车</translation>
+    </message>
+    <message>
+        <source>1 industry</source>
+        <translation>1 座工厂</translation>
+    </message>
+    <message>
+        <source>%1 industries</source>
+        <translation>%1 座工厂</translation>
+    </message>
+    <message>
+        <source>1 yard</source>
+        <translation>1 个编组场</translation>
+    </message>
+    <message>
+        <source>%1 yards</source>
+        <translation>%1 个编组场</translation>
+    </message>
+    <message>
+        <source>%1 staging</source>
+        <translation>%1 条待避线</translation>
+    </message>
+    <message>
+        <source>1 interchange</source>
+        <translation>1 个交换站</translation>
+    </message>
+    <message>
+        <source>%1 interchanges</source>
+        <translation>%1 个交换站</translation>
+    </message>
+    <message>
+        <source>Too short for a car</source>
+        <translation>太短，停不下一辆车</translation>
+    </message>
+    <message>
+        <source>1 car</source>
+        <translation>1 辆</translation>
+    </message>
+    <message>
+        <source>%1 cars</source>
+        <translation>%1 辆</translation>
     </message>
 </context>
 <context>

@@ -297,6 +297,10 @@ private:
     // The Trains panel (trains design 6.4; MainWindowTrains.cpp).
     void setupTrains();
     void refreshTrains();
+    // The Places panel (Live Ops design 6; MainWindowPlaces.cpp), and a module's Places….
+    void setupPlaces();
+    void refreshPlaces();
+    void showModulePlaces(const QString& moduleId);
     // Shows a saved view on this screen only: its sheets, grid and labels,
     // fitted to its area.
     void goToView(const core::SavedView& view);
@@ -316,6 +320,7 @@ private:
     class ViewsPanel* viewsPanel_ = nullptr;
     class RoutesPanel* routesPanel_ = nullptr;
     class TrainsPanel* trainsPanel_ = nullptr;
+    class PlacesPanel* placesPanel_ = nullptr;
     class ViewIndicator* viewIndicator_ = nullptr;
     QString activeViewId_;
     QAction* exportImageAct_ = nullptr;  // File > Export as Image ("More options…")

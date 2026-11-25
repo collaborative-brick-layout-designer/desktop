@@ -783,6 +783,30 @@
         <translation>MILS、ふつうの基礎板（ふつうのテーブルに置いた基礎板）、カスタムから選び、測った高さ（天板まで、またはレールの上面まで）を入力します。電源は使うコンセントの数、おおよそのワット数、プラグが出る側を入れます。モジュールをモジュールライブラリに保存すると、これも一緒に保存されます。</translation>
     </message>
     <message>
+        <source>Places</source>
+        <translation>場所</translation>
+    </message>
+    <message>
+        <source>Places are where cars go: industries, yards, staging and interchanges, named on the track.</source>
+        <translation>場所は車両の行き先です：工場、操車場、待機線、接続駅を線路の上で名付けます。</translation>
+    </message>
+    <message>
+        <source>Press New place, then click the track where the cars stand (or right-click track › Make a place…). A place on a module’s track belongs to the module and goes along with it, notes and all, through the Module library. View › Places shows them on the map; a module shared with you keeps its owner’s.</source>
+        <translation>「新しい場所」を押し、車両が止まる線路をクリックします（または線路を右クリック › 場所を作る…）。モジュールの線路上の場所はモジュールのもので、メモも含めてモジュールライブラリを通じて一緒に移動します。表示 › 場所 で地図に表示します。共有されたモジュールは持ち主の場所のままです。</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>停車位置</translation>
+    </message>
+    <message>
+        <source>A spot is a stretch of track at a place where cars stand, and how many fit.</source>
+        <translation>停車位置は、場所の中で車両が止まる線路の区間と、そこに入る両数です。</translation>
+    </message>
+    <message>
+        <source>Click a piece of the track; the spot is the whole track between switches and ends that it is on. Cars it holds comes from that track’s length (a typical car is 32 studs); type a number to say it yourself, and the spot is then that much track around the piece. If the track is removed, the spot says so: pick its track again.</source>
+        <translation>線路のパーツをクリックします。停車位置は、そのパーツがあるポイントから端までの線路全体です。入る両数はその線路の長さから決まります（標準の車両は 32 スタッド）。数を入力すると自分で決められ、停車位置はパーツの周りのその分の線路になります。線路がなくなると表示されるので、選び直してください。</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>テーブルと電源</translation>
     </message>
@@ -3180,6 +3204,10 @@
         <translation>%1 は共有モジュールなので、ここでは線路を曲げられません。モジュール全体の移動と回転はできます。</translation>
     </message>
     <message>
+        <source>%1 is a shared module, so its places are its owner&apos;s. They change here with its owner&apos;s updates.</source>
+        <translation>%1 は共有モジュールなので、場所は持ち主のものです。ここでは持ち主の更新で変わります。</translation>
+    </message>
+    <message>
         <source>%1 is a shared module, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
         <translation>%1 は共有モジュールなので、ここではパーツを変更できません。モジュール全体の移動、回転、削除はできます。</translation>
     </message>
@@ -3198,6 +3226,10 @@
     <message>
         <source>%1 is shared by %2, so its track can&apos;t be bent here. You can move and turn the whole module.</source>
         <translation>%1 は %2 が共有しているので、ここでは線路を曲げられません。モジュール全体の移動と回転はできます。</translation>
+    </message>
+    <message>
+        <source>%1 is shared by %2, so its places are %2&apos;s. They change here with %2&apos;s updates.</source>
+        <translation>%1 は %2 が共有しているので、場所は %2 のものです。ここでは %2 の更新で変わります。</translation>
     </message>
     <message>
         <source>%1 is shared by %2, so its parts can&apos;t be changed here. You can move it, turn it or remove it as a whole.</source>
@@ -3746,6 +3778,42 @@
     <message>
         <source>Set switches turns every switch on the route its way. Run mode lets you flip them by hand.</source>
         <translation>「ポイントを切り替える」でルート上のポイントをすべてその向きにします。運転モードでは手で切り替えられます。</translation>
+    </message>
+    <message>
+        <source>Places</source>
+        <translation>場所</translation>
+    </message>
+    <message>
+        <source>Where cars go</source>
+        <translation>車両の行き先</translation>
+    </message>
+    <message>
+        <source>Places are the industries, yards, staging and interchanges along your track. Open this list from Panels.</source>
+        <translation>場所は線路沿いの工場、操車場、待機線、接続駅です。「パネル」からこの一覧を開きます。</translation>
+    </message>
+    <message>
+        <source>Name a place</source>
+        <translation>場所に名前を付ける</translation>
+    </message>
+    <message>
+        <source>Press New place, then click the track where the cars stand. Give it a name and kind, and the cars it takes and sends.</source>
+        <translation>「新しい場所」を押し、車両が止まる線路をクリックします。名前と種類、受け入れる車両と送り出す車両を決めます。</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>停車位置</translation>
+    </message>
+    <message>
+        <source>A place can have several spots. Each says how many cars fit, worked out from the track unless you type it.</source>
+        <translation>場所には複数の停車位置を置けます。入力しなければ、入る両数は線路から計算されます。</translation>
+    </message>
+    <message>
+        <source>On the map</source>
+        <translation>地図の上</translation>
+    </message>
+    <message>
+        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
+        <translation>表示 › 場所 で各停車位置と入る両数を表示します。モジュールの線路上の場所はモジュールと一緒に移動します。</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
@@ -4991,6 +5059,10 @@
     <message>
         <source>Route &quot;%1&quot;</source>
         <translation>ルート「%1」</translation>
+    </message>
+    <message>
+        <source>Place &quot;%1&quot;</source>
+        <translation>場所「%1」</translation>
     </message>
     <message>
         <source>Venue</source>
@@ -8482,6 +8554,10 @@ Save anyway?</source>
         <translation>ポイント(&amp;T)</translation>
     </message>
     <message>
+        <source>Places</source>
+        <translation>場所</translation>
+    </message>
+    <message>
         <source>M&amp;odules</source>
         <translation>モジュール(&amp;O)</translation>
     </message>
@@ -10072,6 +10148,10 @@ You won&apos;t be asked again. To bring it into this or any other layout later, 
         <translation>ルート</translation>
     </message>
     <message>
+        <source>places</source>
+        <translation>場所</translation>
+    </message>
+    <message>
         <source>the train scale</source>
         <translation>列車の縮尺</translation>
     </message>
@@ -10616,6 +10696,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
         <translation>台と電源…</translation>
     </message>
     <message>
+        <source>Places…</source>
+        <translation>場所…</translation>
+    </message>
+    <message>
         <source>Attach Ruler Endpoint &amp;1 to This Brick</source>
         <translation>定規の端点 1 をこのパーツに取り付ける(&amp;1)</translation>
     </message>
@@ -10858,6 +10942,50 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     <message>
         <source>Cancel</source>
         <translation>キャンセル</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New place:&lt;/b&gt; click the track where cars stand.</source>
+        <translation>&lt;b&gt;新しい場所：&lt;/b&gt;車両が止まる線路をクリックしてください。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;New place:&lt;/b&gt; click the track where cars stand on %1.</source>
+        <translation>&lt;b&gt;新しい場所：&lt;/b&gt;%1 の、車両が止まる線路をクリックしてください。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Spot:&lt;/b&gt; click the track where cars stand.</source>
+        <translation>&lt;b&gt;停車位置：&lt;/b&gt;車両が止まる線路をクリックしてください。</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Spot:&lt;/b&gt; click the track where cars stand on %1.</source>
+        <translation>&lt;b&gt;停車位置：&lt;/b&gt;%1 の、車両が止まる線路をクリックしてください。</translation>
+    </message>
+    <message>
+        <source>That track isn’t part of “%1”. Click the module’s own track.</source>
+        <translation>その線路は「%1」の一部ではありません。モジュールの線路をクリックしてください。</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>停車位置 %1</translation>
+    </message>
+    <message>
+        <source>There can be up to %1 places here.</source>
+        <translation>ここに置ける場所は %1 個までです。</translation>
+    </message>
+    <message>
+        <source>Place %1</source>
+        <translation>場所 %1</translation>
+    </message>
+    <message>
+        <source>Put a spot on the track</source>
+        <translation>停車位置を線路に置く</translation>
+    </message>
+    <message>
+        <source>New place</source>
+        <translation>新しい場所</translation>
+    </message>
+    <message>
+        <source>Make a Place…</source>
+        <translation>場所を作る…</translation>
     </message>
     <message>
         <source>Route %1</source>
@@ -11550,6 +11678,10 @@ Collaborative Brick Layout Designer のレイアウト（%3）として保存す
     <message>
         <source>Table and power…</source>
         <translation>台と電源…</translation>
+    </message>
+    <message>
+        <source>Places…</source>
+        <translation>場所…</translation>
     </message>
     <message>
         <source>Duplicate</source>
@@ -12318,6 +12450,316 @@ Keep both: the layout&apos;s is added under a new part number, and this layout u
     <message>
         <source>All categories</source>
         <translation>すべてのカテゴリ</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::PlacesPanel</name>
+    <message>
+        <source>Places</source>
+        <translation>場所</translation>
+    </message>
+    <message>
+        <source>Delete place</source>
+        <translation>場所を削除</translation>
+    </message>
+    <message>
+        <source>Delete the place “%1”? The track stays. You can undo this.</source>
+        <translation>場所「%1」を削除しますか？線路は残ります。元に戻せます。</translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation>モジュール</translation>
+    </message>
+    <message>
+        <source>Place %1</source>
+        <translation>場所 %1</translation>
+    </message>
+    <message>
+        <source>New place</source>
+        <translation>新しい場所</translation>
+    </message>
+    <message>
+        <source>Places on %1</source>
+        <translation>%1 の場所</translation>
+    </message>
+    <message>
+        <source>Show all</source>
+        <translation>すべて表示</translation>
+    </message>
+    <message>
+        <source>New place off the layout</source>
+        <translation>レイアウト外の新しい場所</translation>
+    </message>
+    <message>
+        <source>This module is shared with you, so its places are its owner’s.</source>
+        <translation>このモジュールはあなたに共有されたものなので、場所は持ち主のものです。</translation>
+    </message>
+    <message>
+        <source>No places on this layout yet.</source>
+        <translation>このレイアウトにはまだ場所がありません。</translation>
+    </message>
+    <message>
+        <source>No places yet. A place is where cars go: an industry, a yard, staging or an interchange. Press New place, then click the track where the cars stand.</source>
+        <translation>まだ場所がありません。場所は車両の行き先です：工場、操車場、待機線、接続駅。「新しい場所」を押し、車両が止まる線路をクリックしてください。</translation>
+    </message>
+    <message>
+        <source>There’s no track on this layout yet. Add some from the Parts panel’s Track group, then name the places along it.</source>
+        <translation>このレイアウトにはまだ線路がありません。パーツパネルの線路グループから追加し、線路沿いの場所に名前を付けてください。</translation>
+    </message>
+    <message>
+        <source>No places on this module yet.</source>
+        <translation>このモジュールにはまだ場所がありません。</translation>
+    </message>
+    <message>
+        <source>No places on this module yet. Press New place, then click the module’s track where the cars stand.</source>
+        <translation>このモジュールにはまだ場所がありません。「新しい場所」を押し、車両が止まるモジュールの線路をクリックしてください。</translation>
+    </message>
+    <message>
+        <source>This layout</source>
+        <translation>このレイアウト</translation>
+    </message>
+    <message>
+        <source>%1 (shared with you)</source>
+        <translation>%1（あなたに共有）</translation>
+    </message>
+    <message>
+        <source>(no name)</source>
+        <translation>（名前なし）</translation>
+    </message>
+    <message>
+        <source>Show me</source>
+        <translation>見せて</translation>
+    </message>
+    <message>
+        <source>1 spot</source>
+        <translation>停車位置 1 か所</translation>
+    </message>
+    <message>
+        <source>%1 spots</source>
+        <translation>停車位置 %1 か所</translation>
+    </message>
+    <message>
+        <source>1 spot has lost its track</source>
+        <translation>1 か所の停車位置の線路がなくなりました</translation>
+    </message>
+    <message>
+        <source>%1 spots have lost their track</source>
+        <translation>%1 か所の停車位置の線路がなくなりました</translation>
+    </message>
+    <message>
+        <source>← All places</source>
+        <translation>← すべての場所</translation>
+    </message>
+    <message>
+        <source>On this layout</source>
+        <translation>このレイアウト上</translation>
+    </message>
+    <message>
+        <source>On %1</source>
+        <translation>%1 の上</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>名前</translation>
+    </message>
+    <message>
+        <source>Rename place</source>
+        <translation>場所の名前を変更</translation>
+    </message>
+    <message>
+        <source>Change a place</source>
+        <translation>場所を変更</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>種類</translation>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>停車位置</translation>
+    </message>
+    <message>
+        <source>No spots: cars that go here leave the layout.</source>
+        <translation>停車位置なし：ここへ行く車両はレイアウトから出ます。</translation>
+    </message>
+    <message>
+        <source>Rename spot</source>
+        <translation>停車位置の名前を変更</translation>
+    </message>
+    <message>
+        <source>Spot</source>
+        <translation>停車位置</translation>
+    </message>
+    <message>
+        <source>From the track</source>
+        <translation>線路から</translation>
+    </message>
+    <message>
+        <source>Change a spot</source>
+        <translation>停車位置を変更</translation>
+    </message>
+    <message>
+        <source>Cars it holds</source>
+        <translation>入る両数</translation>
+    </message>
+    <message>
+        <source>Anything</source>
+        <translation>何でも</translation>
+    </message>
+    <message>
+        <source>Used for</source>
+        <translation>用途</translation>
+    </message>
+    <message>
+        <source>No track picked yet.</source>
+        <translation>まだ線路が選ばれていません。</translation>
+    </message>
+    <message>
+        <source>Its track was moved or removed. Pick it again.</source>
+        <translation>線路が動いたか取り除かれました。選び直してください。</translation>
+    </message>
+    <message>
+        <source>%1 (from the track’s length)</source>
+        <translation>%1（線路の長さから）</translation>
+    </message>
+    <message>
+        <source>This is a switch: say how many cars it holds, or pick track beside it.</source>
+        <translation>ここはポイントです。入る両数を入力するか、隣の線路を選んでください。</translation>
+    </message>
+    <message>
+        <source>Pick its track</source>
+        <translation>線路を選ぶ</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>削除</translation>
+    </message>
+    <message>
+        <source>Remove a spot</source>
+        <translation>停車位置を取り除く</translation>
+    </message>
+    <message>
+        <source>Add a spot</source>
+        <translation>停車位置を追加</translation>
+    </message>
+    <message>
+        <source>Separate with commas</source>
+        <translation>コンマで区切る</translation>
+    </message>
+    <message>
+        <source>Takes in</source>
+        <translation>受け入れる車両</translation>
+    </message>
+    <message>
+        <source>Sends out</source>
+        <translation>送り出す車両</translation>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>タグ</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>メモ</translation>
+    </message>
+    <message>
+        <source>Delete this place</source>
+        <translation>この場所を削除</translation>
+    </message>
+</context>
+<context>
+    <name>bld::ui::PlacesText</name>
+    <message>
+        <source>Industry</source>
+        <translation>工場</translation>
+    </message>
+    <message>
+        <source>Yard</source>
+        <translation>操車場</translation>
+    </message>
+    <message>
+        <source>Staging</source>
+        <translation>待機線</translation>
+    </message>
+    <message>
+        <source>Interchange</source>
+        <translation>接続駅</translation>
+    </message>
+    <message>
+        <source>Somewhere cars are loaded or unloaded.</source>
+        <translation>車両に荷物を積み下ろしする所。</translation>
+    </message>
+    <message>
+        <source>Where cars are sorted into trains.</source>
+        <translation>車両を列車に仕分ける所。</translation>
+    </message>
+    <message>
+        <source>Off the layout: where trains come from and go to.</source>
+        <translation>レイアウトの外：列車が来て、出て行く所。</translation>
+    </message>
+    <message>
+        <source>Where cars change to another railroad, the rest of the world.</source>
+        <translation>車両がほかの鉄道、外の世界へ移る所。</translation>
+    </message>
+    <message>
+        <source>Arrival</source>
+        <translation>到着</translation>
+    </message>
+    <message>
+        <source>Departure</source>
+        <translation>出発</translation>
+    </message>
+    <message>
+        <source>Sorting</source>
+        <translation>仕分け</translation>
+    </message>
+    <message>
+        <source>Repair</source>
+        <translation>修理</translation>
+    </message>
+    <message>
+        <source>Engines</source>
+        <translation>機関車</translation>
+    </message>
+    <message>
+        <source>1 industry</source>
+        <translation>工場 1</translation>
+    </message>
+    <message>
+        <source>%1 industries</source>
+        <translation>工場 %1</translation>
+    </message>
+    <message>
+        <source>1 yard</source>
+        <translation>操車場 1</translation>
+    </message>
+    <message>
+        <source>%1 yards</source>
+        <translation>操車場 %1</translation>
+    </message>
+    <message>
+        <source>%1 staging</source>
+        <translation>待機線 %1</translation>
+    </message>
+    <message>
+        <source>1 interchange</source>
+        <translation>接続駅 1</translation>
+    </message>
+    <message>
+        <source>%1 interchanges</source>
+        <translation>接続駅 %1</translation>
+    </message>
+    <message>
+        <source>Too short for a car</source>
+        <translation>車両には短すぎます</translation>
+    </message>
+    <message>
+        <source>1 car</source>
+        <translation>1 両</translation>
+    </message>
+    <message>
+        <source>%1 cars</source>
+        <translation>%1 両</translation>
     </message>
 </context>
 <context>
