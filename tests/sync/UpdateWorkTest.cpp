@@ -175,3 +175,11 @@ TEST(UpdateWork, SplittingOneLongBlockManyTimesIsRefused) {
     ASSERT_TRUE(d.applyUpdate(deletions(9, { { 10, 2 }, { 150'000, 3 } }), &err)) << err.toStdString();
     ASSERT_TRUE(d.applyUpdate(insertsInto(3), &err)) << err.toStdString();
 }
+
+// A deleted range that starts where the update has nothing counts the block
+// it ends inside, as the web's yjsWork.ts does.
+TEST(UpdateWork, ARangeAcrossAGapCountsWhatItSplits) {
+    const QByteArray update = QByteArray::fromBase64("AwF6AAABAOIAAAF6JAD///8DAXoBA0FBcg==");
+    EXPECT_GT(sync::guard::updateWork({}, update), sync::guard::kMaxUpdateWork);
+    EXPECT_GE(sync::guard::updateWorkBound({}, update), sync::guard::updateWork({}, update));
+}
