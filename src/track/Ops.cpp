@@ -302,14 +302,14 @@ OpsRouting routeCars(const std::vector<OpsPlace>& placesIn, const std::vector<Op
                     if (target >= 0 && !loose && stops[static_cast<size_t>(target)].piece != s.piece) target = -1;
                     const auto it = out.constFind(s.place);
                     // (As it was before this stop: an insert below doesn't change it.)
-                    const bool had = it != out.constEnd();
-                    const int hadJobs = had ? it->jobs : 0;
-                    const int hadJob = had ? it->job : -1;
-                    if (target >= 0 && s.place != dest && (!had || (hadJobs == r && hadJob == ji))) {
+                    const bool known = it != out.constEnd();
+                    const int hadJobs = known ? it->jobs : 0;
+                    const int hadJob = known ? it->job : -1;
+                    if (target >= 0 && s.place != dest && (!known || (hadJobs == r && hadJob == ji))) {
                         out.insert(s.place, { r, ji, k, target });
                         grew = true;
                     }
-                    if (r == 1 ? s.place == dest : isYard(s.place) && had && hadJobs == r - 1) target = k;
+                    if (r == 1 ? s.place == dest : isYard(s.place) && known && hadJobs == r - 1) target = k;
                 }
             }
             if (!grew) break;
