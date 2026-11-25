@@ -47,13 +47,13 @@ cp::NewId newIds() {
 QSet<QString> strings(const QJsonValue& v) {
     QSet<QString> out;
     const QJsonArray a = v.toArray();
-    for (const QJsonValue& x : a) out.insert(x.toString());
+    for (const auto& x : a) out.insert(x.toString());
     return out;
 }
 
 QJsonArray idsOf(const QJsonArray& places) {
     QJsonArray out;
-    for (const QJsonValue& p : places) out.append(p.toObject().value(QLatin1String("id")));
+    for (const auto& p : places) out.append(p.toObject().value(QLatin1String("id")));
     return out;
 }
 
@@ -148,7 +148,7 @@ TEST(Places, WhatHappensToThemIsTheSameInBothApps) {
         const QJsonObject c = v.toObject();
         QStringList kinds;
         const QJsonArray given = c.value(QLatin1String("kinds")).toArray();
-        for (const QJsonValue& k : given) kinds << k.toString();
+        for (const auto& k : given) kinds << k.toString();
         QJsonArray got;
         for (const auto& [kind, n] : cp::counts(kinds)) got.append(QJsonObject{ { QStringLiteral("kind"), kind }, { QStringLiteral("count"), n } });
         EXPECT_EQ(got, c.value(QLatin1String("expect")).toArray());

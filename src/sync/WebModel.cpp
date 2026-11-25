@@ -379,14 +379,14 @@ void readBudget(const QJsonObject& meta, core::Sidecar& out) {
     // The layout's places, within the limits, by name then id as the web lists them.
     std::vector<QJsonValue> byName;
     const QJsonArray own = records("places");
-    for (const QJsonValue& v : own)
+    for (const auto& v : own)
         if (const auto p = core::places::readPlace(v)) byName.push_back(*p);
     std::sort(byName.begin(), byName.end(), [](const QJsonValue& a, const QJsonValue& b) {
         const int c = QString::localeAwareCompare(a.toObject().value(QLatin1String("name")).toString(), b.toObject().value(QLatin1String("name")).toString());
         return c != 0 ? c < 0 : a.toObject().value(QLatin1String("id")).toString() < b.toObject().value(QLatin1String("id")).toString();
     });
     out.layoutPlaces = QJsonArray();
-    for (const QJsonValue& p : byName) out.layoutPlaces.append(p);
+    for (const auto& p : byName) out.layoutPlaces.append(p);
     out.rollingStock.clear();
     for (const auto& v : records("rollingStock"))
         if (auto r = saveload::rollingStockFromJson(v)) out.rollingStock.push_back(std::move(*r));

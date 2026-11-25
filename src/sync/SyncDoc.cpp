@@ -1023,7 +1023,7 @@ struct SyncDoc::Impl {
     // The layout's own places (Live Ops design 2.1): a Y.Map at meta.places, kept the same way.
     void writePlaces(const QJsonObject& curMeta, const QJsonArray& want) {
         QJsonObject wantObj;
-        for (const QJsonValue& p : want) {
+        for (const auto& p : want) {
             const QJsonObject o = p.toObject();
             wantObj.insert(o.value(QLatin1String("id")).toString(), o);
         }

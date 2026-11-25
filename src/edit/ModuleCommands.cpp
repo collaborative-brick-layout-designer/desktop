@@ -69,7 +69,7 @@ void CreateModuleCommand::redo() {
 }
 
 void CreateModuleCommand::undo() {
-    for (const QJsonValue& p : std::as_const(adopted_))
+    for (const auto& p : std::as_const(adopted_))
         map_.sidecar.layoutPlaces = core::places::withPlace(map_.sidecar.layoutPlaces, p.toObject());
     const int i = findModuleIndex(map_, moduleId_);
     if (i >= 0) map_.sidecar.modules.erase(map_.sidecar.modules.begin() + i);
@@ -437,14 +437,14 @@ void FlattenModuleCommand::redo() {
         released_ = QJsonArray();
         for (qsizetype k = had.size(); k < all.size(); ++k) released_->append(all.at(k));
     }
-    for (const QJsonValue& p : std::as_const(*released_))
+    for (const auto& p : std::as_const(*released_))
         map_.sidecar.layoutPlaces = core::places::withPlace(map_.sidecar.layoutPlaces, p.toObject());
 }
 
 void FlattenModuleCommand::undo() {
     if (!removed_) return;
     if (released_)
-        for (const QJsonValue& p : std::as_const(*released_))
+        for (const auto& p : std::as_const(*released_))
             map_.sidecar.layoutPlaces = core::places::without(map_.sidecar.layoutPlaces, p.toObject().value(QLatin1String("id")).toString());
     const int idx = std::min<int>(insertIndex_, static_cast<int>(map_.sidecar.modules.size()));
     map_.sidecar.modules.insert(map_.sidecar.modules.begin() + idx, *removed_);
@@ -457,7 +457,7 @@ QJsonArray placesOn(const std::vector<ImportBbmAsModuleCommand::LayerBatch>& bat
     QHash<QString, QString> to;
     qsizetype at = 0;
     for (const auto& batch : batches) {
-        for (const QJsonValue& p : batch.places) all.append(p);
+        for (const auto& p : batch.places) all.append(p);
         for (qsizetype i = 0; i < static_cast<qsizetype>(batch.bricks.size()); ++i, ++at)
             if (i < batch.sourceIds.size() && at < guids.size()) to.insert(batch.sourceIds[i], guids[at]);
     }
@@ -468,7 +468,7 @@ QJsonArray placesOn(const std::vector<ImportBbmAsModuleCommand::LayerBatch>& bat
 QJsonArray placesInModule(const core::Map& module) {
     QJsonArray all = module.sidecar.layoutPlaces;
     for (const auto& m : module.sidecar.modules)
-        for (const QJsonValue& p : m.places) all.append(p);
+        for (const auto& p : m.places) all.append(p);
     return core::places::readPlaces(all);
 }
 

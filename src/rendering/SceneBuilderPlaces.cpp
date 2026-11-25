@@ -81,16 +81,17 @@ void SceneBuilder::addPlaces(const core::Map& map) {
     f.setBold(true);
     f.setPixelSize(static_cast<int>(1.6 * px));
     for (const QJsonArray& list : std::as_const(drawnPlaces_)) {
-        for (const QJsonValue& pv : list) {
+        for (const auto& pv : list) {
             const QJsonObject place = pv.toObject();
             const QColor color = placeColor(place.value(QLatin1String("kind")).toString());
             const QJsonArray spots = place.value(QLatin1String("spots")).toArray();
             bool first = true;
-            for (const QJsonValue& sv : spots) {
+            for (const auto& sv : spots) {
                 const QJsonObject spot = sv.toObject();
                 const track::SpotNow now = track::spotNow(&net, runs, spot);
-                if (!now.at || now.at->line.empty()) continue;
-                const auto& line = now.at->line;
+                const track::SpotOnTrack at = now.at.value_or(track::SpotOnTrack{});
+                const auto& line = at.line;
+                if (line.empty()) continue;
                 if (line.size() > 1) {
                     QPainterPath along;
                     along.moveTo(line.front() * px);
@@ -113,7 +114,8 @@ void SceneBuilder::addPlaces(const core::Map& map) {
                 first = false;
                 QStringList second;
                 if (spots.size() > 1) second << spot.value(QLatin1String("name")).toString();
-                if (now.capacity && placeCars_) second << placeCars_(*now.capacity);
+                const int cars = now.capacity.value_or(-1);
+                if (cars >= 0 && placeCars_) second << placeCars_(cars);
                 second.removeAll(QString());
                 if (!second.isEmpty()) words << second.join(QStringLiteral(": "));
                 words.removeAll(QString());
@@ -122,7 +124,7 @@ void SceneBuilder::addPlaces(const core::Map& map) {
                 text->setFont(f);
                 text->setBrush(Qt::white);
                 const QRectF b = text->boundingRect();
-                const QPointF c = now.at->middle * px;
+                const QPointF c = at.middle * px;
                 auto* tag = new QGraphicsRectItem(QRectF(c.x() - b.width() / 2 - 4, c.y() - b.height() - 8, b.width() + 8, b.height() + 4));
                 tag->setBrush(color);
                 tag->setPen(Qt::NoPen);

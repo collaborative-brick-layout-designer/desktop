@@ -717,7 +717,7 @@ void readModulePlaces(const QString& bbmPath, core::Map& module) {
     if (!QFile::exists(sidecarPathFor(bbmPath)) || !readSidecar(sidecarPathFor(bbmPath), {}, had).ok) return;
     QJsonArray all = had.layoutPlaces;
     for (const auto& m : had.modules)
-        for (const QJsonValue& p : m.places) all.append(p);
+        for (const auto& p : m.places) all.append(p);
     module.sidecar.layoutPlaces = core::places::readPlaces(all);
 }
 

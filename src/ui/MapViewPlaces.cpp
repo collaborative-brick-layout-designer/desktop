@@ -140,9 +140,9 @@ bool MapView::placePickClick(QPointF studs, const PlacePick& pick) {
             return false;
         }
         QStringList names;
-        for (const QJsonValue& p : std::as_const(map_->sidecar.layoutPlaces)) names << p.toObject().value(QLatin1String("name")).toString();
+        for (const auto& p : std::as_const(map_->sidecar.layoutPlaces)) names << p.toObject().value(QLatin1String("name")).toString();
         for (const auto& m : map_->sidecar.modules)
-            for (const QJsonValue& p : m.places) names << p.toObject().value(QLatin1String("name")).toString();
+            for (const auto& p : m.places) names << p.toObject().value(QLatin1String("name")).toString();
         int n = 1;
         while (names.contains(tr("Place %1").arg(n))) ++n;
         place = QJsonObject{ { QStringLiteral("id"), core::newBbmId() },

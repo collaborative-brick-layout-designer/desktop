@@ -65,7 +65,7 @@ void showLibraryPicture(QLabel* label, const QImage& img) {
 // A library module's places, counted ("2 industries, 1 yard").
 QString placesLine(const sync::ServerModule& m) {
     QList<std::pair<QString, int>> counts;
-    for (const QJsonValue& v : m.placeCounts)
+    for (const auto& v : m.placeCounts)
         counts.append({ v.toObject().value(QLatin1String("kind")).toString(), v.toObject().value(QLatin1String("count")).toInt() });
     return PlacesText::counts(counts);
 }

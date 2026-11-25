@@ -172,7 +172,7 @@ void PlacesPanel::newPlaceOffLayout() {
     if (!map_ || readOnly_) return;
     QStringList names;
     for (const auto& g : groups())
-        for (const QJsonValue& p : g.places) names << str(p.toObject(), "name");
+        for (const auto& p : g.places) names << str(p.toObject(), "name");
     int n = 1;
     while (names.contains(tr("Place %1").arg(n))) ++n;
     const QJsonObject place{ { QStringLiteral("id"), core::newBbmId() },     { QStringLiteral("name"), tr("Place %1").arg(n) },
@@ -310,7 +310,7 @@ void PlacesPanel::buildList(QVBoxLayout* v) {
         auto* head = note(g.owner.isEmpty() ? tr("This layout") : g.locked ? tr("%1 (shared with you)").arg(g.name) : g.name, body);
         head->setStyleSheet(QStringLiteral("font-weight: 600;"));
         v->addWidget(head);
-        for (const QJsonValue& pv : g.places) {
+        for (const auto& pv : g.places) {
             const QJsonObject p = pv.toObject();
             auto* row = new QFrame(body);
             row->setObjectName(QStringLiteral("place_") + str(p, "id"));
@@ -333,7 +333,7 @@ void PlacesPanel::buildList(QVBoxLayout* v) {
             bool known = true;
             std::optional<QPointF> first;
             const QJsonArray spots = spotsOf(p);
-            for (const QJsonValue& sv : spots) {
+            for (const auto& sv : spots) {
                 const track::SpotNow s = now(sv.toObject());
                 if (s.at && !first) first = s.at->middle;
                 if (!s.at && sv.toObject().contains(QLatin1String("track"))) ++lost;
@@ -417,7 +417,7 @@ void PlacesPanel::buildEditor(QVBoxLayout* v, const Group& group, const QJsonObj
     v->addWidget(help::withHelp(spotsHead, QStringLiteral("ops.spot"), body));
     const QJsonArray spots = spotsOf(place);
     if (spots.isEmpty()) v->addWidget(note(tr("No spots: cars that go here leave the layout."), body));
-    for (const QJsonValue& sv : spots) {
+    for (const auto& sv : spots) {
         const QJsonObject s = sv.toObject();
         const QString sid = str(s, "id");
         auto* box = new QFrame(body);
@@ -498,7 +498,7 @@ void PlacesPanel::buildEditor(QVBoxLayout* v, const Group& group, const QJsonObj
                     [&](QJsonObject& p) {
                         QJsonArray left;
                         const QJsonArray had = spotsOf(p);
-                        for (const QJsonValue& x : had)
+                        for (const auto& x : had)
                             if (str(x.toObject(), "id") != sid) left.append(x);
                         p.insert(QStringLiteral("spots"), left);
                     },
@@ -521,7 +521,7 @@ void PlacesPanel::buildEditor(QVBoxLayout* v, const Group& group, const QJsonObj
     const auto words = [&](const QString& label, const QString& object, const char* key, bool suggest) {
         QStringList had;
         const QJsonArray list = place.value(QLatin1String(key)).toArray();
-        for (const QJsonValue& w : list) had << w.toString();
+        for (const auto& w : list) had << w.toString();
         auto* e = new QLineEdit(had.join(QStringLiteral(", ")), body);
         e->setObjectName(object);
         e->setReadOnly(locked);

@@ -53,7 +53,7 @@ std::unique_ptr<core::Map> layout() {
 
 QStringList ids(const QJsonArray& places) {
     QStringList out;
-    for (const QJsonValue& p : places) out << p.toObject().value(QLatin1String("id")).toString();
+    for (const auto& p : places) out << p.toObject().value(QLatin1String("id")).toString();
     out.sort();
     return out;
 }

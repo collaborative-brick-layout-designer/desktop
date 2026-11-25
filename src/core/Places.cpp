@@ -52,7 +52,7 @@ bool goodWords(const QJsonValue& v) {
 QJsonArray readWords(const QJsonValue& v) {
     QJsonArray out;
     const QJsonArray words = v.toArray();
-    for (const QJsonValue& x : words) {
+    for (const auto& x : words) {
         if (!x.isString() || out.size() >= kMaxWords) continue;
         const QString word = clip(x.toString(), kMaxWord);
         if (!word.isEmpty()) out.append(word);
@@ -104,7 +104,7 @@ int placeSize(const QJsonValue& v) {
     if (v.isArray()) {
         int n = 2;
         const QJsonArray a = v.toArray();
-        for (const QJsonValue& x : a) n += placeSize(x) + 1;
+        for (const auto& x : a) n += placeSize(x) + 1;
         return n;
     }
     if (v.isObject()) {
@@ -127,7 +127,7 @@ bool validPlace(const QJsonValue& v) {
     if (!get(o, "spots").isArray()) return false;
     const QJsonArray spots = get(o, "spots").toArray();
     if (spots.size() > kMaxSpots) return false;
-    for (const QJsonValue& sv : spots) {
+    for (const auto& sv : spots) {
         if (!sv.isObject()) return false;
         const QJsonObject s = sv.toObject();
         if (!goodId(get(s, "id"), kMaxId) || !goodText(get(s, "name"), kMaxName)) return false;
@@ -143,7 +143,7 @@ bool validPlaces(const QJsonValue& v) {
     const QJsonArray a = v.toArray();
     if (a.size() > kMaxPlaces) return false;
     QSet<QString> seen;
-    for (const QJsonValue& p : a) {
+    for (const auto& p : a) {
         if (!validPlace(p)) return false;
         seen.insert(idOf(p));
     }
@@ -157,7 +157,7 @@ std::optional<QJsonObject> readPlace(const QJsonValue& v) {
     QJsonArray spots;
     QSet<QString> seen;
     const QJsonArray stored = get(o, "spots").toArray();
-    for (const QJsonValue& s : stored) {
+    for (const auto& s : stored) {
         const auto spot = readSpot(s);
         if (!spot || spots.size() >= kMaxSpots || seen.contains(idOf(*spot))) continue;
         seen.insert(idOf(*spot));
@@ -179,7 +179,7 @@ std::optional<QJsonObject> readPlace(const QJsonValue& v) {
     if (placeSize(out) <= kMaxSize) return out;
     // Too big: without what this build doesn't know.
     QJsonArray bare;
-    for (const QJsonValue& sv : std::as_const(spots)) {
+    for (const auto& sv : std::as_const(spots)) {
         const QJsonObject s = sv.toObject();
         QJsonObject b;
         for (const char* k : { "id", "name", "track", "capacity", "role" })
@@ -194,7 +194,7 @@ QJsonArray readPlaces(const QJsonValue& v) {
     QJsonArray out;
     QSet<QString> seen;
     const QJsonArray stored = v.toArray();
-    for (const QJsonValue& x : stored) {
+    for (const auto& x : stored) {
         const auto p = readPlace(x);
         if (!p || out.size() >= kMaxPlaces || seen.contains(idOf(*p))) continue;
         seen.insert(idOf(*p));
@@ -205,11 +205,11 @@ QJsonArray readPlaces(const QJsonValue& v) {
 
 QJsonArray renamed(const QJsonArray& places, const Rename& rename) {
     QJsonArray out;
-    for (const QJsonValue& pv : places) {
+    for (const auto& pv : places) {
         QJsonObject p = pv.toObject();
         QJsonArray spots;
         const QJsonArray had = get(p, "spots").toArray();
-        for (const QJsonValue& sv : had) {
+        for (const auto& sv : had) {
             QJsonObject s = sv.toObject();
             if (s.contains(QLatin1String("track"))) {
                 QJsonObject t = get(s, "track").toObject();
@@ -231,7 +231,7 @@ QJsonArray renamed(const QJsonArray& places, const Rename& rename) {
 QJsonArray copied(const QJsonArray& places, const Rename& rename, const NewId& newId) {
     QJsonArray out;
     const QJsonArray here = renamed(places, rename);
-    for (const QJsonValue& pv : here) {
+    for (const auto& pv : here) {
         QJsonObject p = pv.toObject();
         p.insert(QStringLiteral("source"), sourceOf(p));
         p.insert(QStringLiteral("id"), newId());
@@ -242,10 +242,10 @@ QJsonArray copied(const QJsonArray& places, const Rename& rename, const NewId& n
 
 QJsonArray updated(const QJsonArray& current, const QJsonArray& next, const NewId& newId) {
     QHash<QString, QString> bySource;
-    for (const QJsonValue& p : current) bySource.insert(sourceOf(p.toObject()), idOf(p));
+    for (const auto& p : current) bySource.insert(sourceOf(p.toObject()), idOf(p));
     QSet<QString> used;
     QJsonArray out;
-    for (const QJsonValue& pv : next) {
+    for (const auto& pv : next) {
         QJsonObject p = pv.toObject();
         const QString key = sourceOf(p);
         QString id = bySource.value(key);
@@ -262,7 +262,7 @@ QJsonArray forLibrary(const QJsonArray& places, const QSet<QString>& members) {
     QJsonArray out;
     QSet<QString> seen;
     const QJsonArray own = renamed(places, [&members](const QString& id) { return members.contains(id) ? std::optional(id) : std::nullopt; });
-    for (const QJsonValue& pv : own) {
+    for (const auto& pv : own) {
         QJsonObject p = pv.toObject();
         const QString id = sourceOf(p);
         if (seen.contains(id)) continue;
@@ -277,14 +277,14 @@ QJsonArray forLibrary(const QJsonArray& places, const QSet<QString>& members) {
 QStringList bricksOf(const QJsonObject& place) {
     QStringList out;
     const QJsonArray spots = get(place, "spots").toArray();
-    for (const QJsonValue& s : spots)
+    for (const auto& s : spots)
         if (s.toObject().contains(QLatin1String("track"))) out << get(get(s.toObject(), "track").toObject(), "brick").toString();
     return out;
 }
 
 Adopted adopted(const QJsonArray& layoutPlaces, const QSet<QString>& members) {
     Adopted out;
-    for (const QJsonValue& p : layoutPlaces) {
+    for (const auto& p : layoutPlaces) {
         const QStringList bricks = bricksOf(p.toObject());
         const bool all = !bricks.isEmpty() && std::all_of(bricks.begin(), bricks.end(), [&](const QString& b) { return members.contains(b); });
         if (all && out.module.size() < kMaxPlaces) out.module.append(p);
@@ -295,7 +295,7 @@ Adopted adopted(const QJsonArray& layoutPlaces, const QSet<QString>& members) {
 
 QJsonArray released(const QJsonArray& layoutPlaces, const QJsonArray& places, const NewId& newId) {
     QJsonArray out = layoutPlaces;
-    for (const QJsonValue& pv : places) {
+    for (const auto& pv : places) {
         if (out.size() >= kMaxPlaces) break;
         QJsonObject p = pv.toObject();
         p.remove(QStringLiteral("source"));
@@ -318,7 +318,7 @@ QList<std::pair<QString, int>> counts(const QStringList& all) {
 
 QList<std::pair<QString, int>> countsOf(const QJsonArray& places) {
     QStringList all;
-    for (const QJsonValue& p : places) all << get(p.toObject(), "kind").toString();
+    for (const auto& p : places) all << get(p.toObject(), "kind").toString();
     return counts(all);
 }
 

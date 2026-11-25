@@ -286,11 +286,11 @@ void MapView::absorbIntoEditedModule(const QSet<QString>& guids) {
     QJsonArray places;
     for (const auto& m : map_->sidecar.modules)
         if (dissolve.contains(m.id))
-            for (const QJsonValue& p : m.places) places.append(p);
+            for (const auto& p : m.places) places.append(p);
     for (const QString& id : dissolve) undoStack_->push(new edit::DeleteModuleCommand(*map_, id));
     const core::Module* mod = core::findModule(map_->sidecar.modules, editingModuleId_);
     if (!mod) return;
-    for (const QJsonValue& p : std::as_const(places))
+    for (const auto& p : std::as_const(places))
         if (edit::placesOf(std::as_const(*map_), editingModuleId_).size() < core::places::kMaxPlaces)
             undoStack_->push(new edit::SetPlaceCommand(*map_, editingModuleId_, p.toObject().value(QLatin1String("id")).toString(), p.toObject(), tr("Add to module")));
     undoStack_->push(new edit::SetModuleMembersCommand(*map_, editingModuleId_, mod->memberIds + guids, tr("Add to module")));
