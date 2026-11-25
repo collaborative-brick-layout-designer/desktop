@@ -136,10 +136,10 @@ std::pair<int, QString> turnedWaybill(const Waybill& w, const QString& load) {
     after.leg = k + 1 > kWaybillSlots ? 0 : k + 1;
     const int next = currentSlot(after);
     if (next) {
-        const QString l = w.legs[static_cast<size_t>(next - 1)]->load;
+        const QString l = w.legs[static_cast<size_t>(next - 1)].value_or(WaybillLeg()).load;
         return { next, l.isEmpty() ? flipped(load) : l };
     }
-    const QString l = w.legs[static_cast<size_t>(k - 1)]->load;
+    const QString l = w.legs[static_cast<size_t>(k - 1)].value_or(WaybillLeg()).load;
     return { 0, flipped(l.isEmpty() ? load : l) };
 }
 
@@ -155,7 +155,8 @@ Job asJob(const QJsonObject& r) {
         j.stops.push_back({ it.key().mid(5), place, s.value(QLatin1String("at")).toDouble() });
     }
     std::sort(j.stops.begin(), j.stops.end(), [](const JobStop& a, const JobStop& b) { return a.at != b.at ? a.at < b.at : a.id < b.id; });
-    if (j.stops.size() > 2U * kMaxStops) j.stops.resize(2U * kMaxStops);
+    constexpr size_t kKept = static_cast<size_t>(2) * kMaxStops;
+    if (j.stops.size() > kKept) j.stops.resize(kKept);
     j.id = text(r, QStringLiteral("id"));
     j.name = text(r, QStringLiteral("name"));
     j.kind = text(r, QStringLiteral("kind"));
@@ -300,12 +301,15 @@ OpsRouting routeCars(const std::vector<OpsPlace>& placesIn, const std::vector<Op
                     const Stop& s = stops[static_cast<size_t>(k)];
                     if (target >= 0 && !loose && stops[static_cast<size_t>(target)].piece != s.piece) target = -1;
                     const auto it = out.constFind(s.place);
-                    const std::optional<Way> w = it == out.constEnd() ? std::nullopt : std::optional(*it);
-                    if (target >= 0 && s.place != dest && (!w || (w->jobs == r && w->job == ji))) {
+                    // (As it was before this stop: an insert below doesn't change it.)
+                    const bool had = it != out.constEnd();
+                    const int hadJobs = had ? it->jobs : 0;
+                    const int hadJob = had ? it->job : -1;
+                    if (target >= 0 && s.place != dest && (!had || (hadJobs == r && hadJob == ji))) {
                         out.insert(s.place, { r, ji, k, target });
                         grew = true;
                     }
-                    if (r == 1 ? s.place == dest : isYard(s.place) && w && w->jobs == r - 1) target = k;
+                    if (r == 1 ? s.place == dest : isYard(s.place) && had && hadJobs == r - 1) target = k;
                 }
             }
             if (!grew) break;

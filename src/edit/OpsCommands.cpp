@@ -356,9 +356,10 @@ OpsChange movedStop(const core::Map& map, const QString& job, const QString& sto
 
 OpsChange removedStop(const core::Map& map, const QString& job, const QString& stop) {
     OpsChange c;
-    if (auto r = record(map, true, job)) {
+    auto r = record(map, true, job);
+    if (r) {
         r->remove(track::stopField(stop));
-        c.records.push_back({ true, job, *r });
+        c.records.push_back({ true, job, std::move(r) });
     }
     return c;
 }
