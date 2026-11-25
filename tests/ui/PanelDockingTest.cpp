@@ -223,7 +223,7 @@ TEST_F(PanelsInMainWindow, PanelsMenuHasTheWebsListAndFirstLayout) {
     for (QAction* a : menu->actions()) names << a->text();
     // The web's PANEL_TITLES, in its order.
     EXPECT_EQ(names, (QStringList{ "Parts", "Sheets", "Views", "Parts list", "Modules", "Module library",
-                                   "Venue library", "Routes", "Trains" }));
+                                   "Venue library", "Routes", "Trains", "Places" }));
     // The toolbar's Panels button opens the same menu.
     auto* button = window_->findChild<QToolButton*>(QStringLiteral("tool.panels"));
     ASSERT_NE(button, nullptr);
@@ -235,7 +235,7 @@ TEST_F(PanelsInMainWindow, PanelsMenuHasTheWebsListAndFirstLayout) {
     EXPECT_FALSE(dock("dock.parts")->isHidden());
     EXPECT_FALSE(dock("dock.layers")->isHidden());
     for (const char* hidden : { "dock.views", "dock.partUsage", "dock.modules", "dock.moduleLibrary",
-                                "dock.venueLibrary" })
+                                "dock.venueLibrary", "dock.places" })
         EXPECT_TRUE(dock(hidden)->isHidden()) << hidden;
 
     // Ticking a hidden panel brings it back on the right; unticking hides it.
