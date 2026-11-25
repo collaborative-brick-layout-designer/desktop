@@ -78,6 +78,28 @@ int main(int argc, char** argv) {
     mod.places = QJsonArray{ place };
     sidecar.layoutPlaces = QJsonArray{ place };
     sidecar.modules.push_back(mod);
+    // Two cars coupled on the track as a cut, one loaded, and an empty cut.
+    core::RollingStock car = core::simpleStock(QStringLiteral("c1"), 20);
+    car.opsCut = QStringLiteral("ct-1");
+    car.opsLoad = QStringLiteral("loaded");
+    core::RollingStock off = core::simpleStock(QStringLiteral("c2"), 20);
+    off.opsCut = QString();
+    sidecar.rollingStock = { car, off };
+    core::Train cut;
+    cut.id = QStringLiteral("ct-1");
+    cut.cut = true;
+    cut.units = { { QStringLiteral("c1"), false }, { QStringLiteral("c2"), true } };
+    core::TrainPosition at;
+    at.brick = QStringLiteral("1");
+    at.to = 1;
+    at.s = 2.5;
+    cut.position = at;
+    cut.over = QMap<QString, int>{ { QStringLiteral("1/0"), 2 } };
+    core::Train empty = cut;
+    empty.id = QStringLiteral("ct-2");
+    empty.units.clear();
+    empty.emptiedAt = 1.7e12;
+    sidecar.trains = { cut, empty };
     sidecar.venue = sampleVenue();
     saveload::writeSidecar(root.filePath(QStringLiteral("sidecar/seed.bbm.bld")), QByteArray("bbm"), sidecar);
 

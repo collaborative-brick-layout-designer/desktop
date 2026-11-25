@@ -367,7 +367,14 @@ qint64 rangeWork(const std::vector<Block>& list, quint64 clock, quint64 length) 
     if (from >= to) return 0;
     const qsizetype i = indexOf(list, from);
     const qsizetype j = indexOf(list, to - 1);
-    if (i < 0 || j < 0) return static_cast<qint64>(list.size());
+    if (i < 0 || j < 0) {
+        // A gap: as if it walked them all, and what it splits at either end.
+        qint64 work = static_cast<qint64>(list.size());
+        if (i >= 0 && list[static_cast<size_t>(i)].clock < from) work += static_cast<qint64>(list[static_cast<size_t>(i)].length);
+        if (j >= 0 && list[static_cast<size_t>(j)].clock + list[static_cast<size_t>(j)].length > to)
+            work += static_cast<qint64>(list[static_cast<size_t>(j)].length);
+        return work;
+    }
     qint64 work = j - i + 1;
     const Block& a = list[static_cast<size_t>(i)];
     const Block& b = list[static_cast<size_t>(j)];
