@@ -903,6 +903,42 @@
         <translation>Clique numa peça de linha; a posição é toda a linha entre agulhas e extremos em que ela está. Os vagões que cabem vêm do comprimento dessa linha (um vagão comum tem 32 pinos); escreva um número para o dizer, e a posição passa a ser essa linha à volta da peça. Se a linha for removida, a posição avisa: escolha-a de novo.</translation>
     </message>
     <message>
+        <source>Sessions</source>
+        <translation>Sessões</translation>
+    </message>
+    <message>
+        <source>A session is one evening of operating: people get roles, jobs go out, and each person moves the cars their role allows.</source>
+        <translation>Uma sessão é uma noite de operação: as pessoas recebem papéis, os trabalhos saem e cada um move os vagões que seu papel permite.</translation>
+    </message>
+    <message>
+        <source>Set up the crew, then press Start the session: the track is locked while it runs, and Pause unlocks it. When you end it, leave the cars where they are for next time, or put every car back where the session started. Past sessions keep a log of every move.</source>
+        <translation>Monte a equipe e pressione Iniciar a sessão: a via fica bloqueada enquanto ela corre, e Pausar a libera. Ao encerrá-la, deixe os vagões onde estão para a próxima vez, ou devolva cada vagão aonde a sessão começou. Sessões passadas guardam um registro de cada movimento.</translation>
+    </message>
+    <message>
+        <source>Crew</source>
+        <translation>Equipe</translation>
+    </message>
+    <message>
+        <source>The people in a session and their roles; people who only view the layout can be crew too.</source>
+        <translation>As pessoas de uma sessão e seus papéis; quem só visualiza o layout também pode ser equipe.</translation>
+    </message>
+    <message>
+        <source>Add someone from the people the layout is shared with, give them a role, and for a crew, their job; for a yardmaster, their yard. A guest on this device has no account, so they use this computer or phone. Nobody gets more than their role: a crew who views the layout still can’t change the track.</source>
+        <translation>Adicione alguém entre as pessoas com quem o layout é compartilhado, dê um papel e, para uma equipe, seu trabalho; para um chefe de pátio, seu pátio. Um convidado neste dispositivo não tem conta, então usa este computador ou telefone. Ninguém tem mais que seu papel: uma equipe que só visualiza o layout continua sem poder mudar a via.</translation>
+    </message>
+    <message>
+        <source>Roles</source>
+        <translation>Papéis</translation>
+    </message>
+    <message>
+        <source>The dispatcher sets any switch and sends jobs out; a yardmaster works their yard; a crew works their job’s stops once it is out.</source>
+        <translation>O despachante muda qualquer chave e envia os trabalhos; um chefe de pátio trabalha seu pátio; uma equipe, as paradas do seu trabalho depois que ele sai.</translation>
+    </message>
+    <message>
+        <source>The host (who started the session) and the layout’s owner may move any car. While a session runs nobody changes the track, and a move outside your role is refused with the reason. The main line between stops is the dispatcher’s.</source>
+        <translation>O anfitrião (quem iniciou a sessão) e o dono do layout podem mover qualquer vagão. Durante uma sessão ninguém muda a via, e um movimento fora do seu papel é recusado com o motivo. A linha principal entre as paradas é do despachante.</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>Mesas e corrente</translation>
     </message>
@@ -3950,6 +3986,14 @@
     <message>
         <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
         <translation>Um serviço é o trabalho de uma equipa: os locais onde para. A lista de manobras diz o que deixar e recolher.</translation>
+    </message>
+    <message>
+        <source>Run a session</source>
+        <translation>Conduzir uma sessão</translation>
+    </message>
+    <message>
+        <source>Give people roles, then start. The track locks, and each person moves only what their role allows.</source>
+        <translation>Dê papéis às pessoas e comece. A via é bloqueada e cada pessoa move só o que seu papel permite.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>

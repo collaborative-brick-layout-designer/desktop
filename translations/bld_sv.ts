@@ -903,6 +903,42 @@
         <translation>Klicka på en spårbit; uppställningen är hela spåret mellan växlar och ändar som den ligger på. Hur många vagnar som ryms kommer av spårets längd (en vanlig vagn är 32 knoppar); skriv ett tal för att säga det själv, då är uppställningen så mycket spår runt biten. Tas spåret bort säger uppställningen det: välj spår igen.</translation>
     </message>
     <message>
+        <source>Sessions</source>
+        <translation>Pass</translation>
+    </message>
+    <message>
+        <source>A session is one evening of operating: people get roles, jobs go out, and each person moves the cars their role allows.</source>
+        <translation>Ett pass är en kväll med trafik: folk får roller, uppdrag går ut och var och en flyttar de vagnar som rollen tillåter.</translation>
+    </message>
+    <message>
+        <source>Set up the crew, then press Start the session: the track is locked while it runs, and Pause unlocks it. When you end it, leave the cars where they are for next time, or put every car back where the session started. Past sessions keep a log of every move.</source>
+        <translation>Sätt ihop besättningen och tryck sedan på Starta passet: spåret är låst medan det pågår, och Paus låser upp det. När du avslutar det låter du vagnarna stå kvar till nästa gång, eller ställer tillbaka varje vagn där passet började. Tidigare pass sparar en logg över varje förflyttning.</translation>
+    </message>
+    <message>
+        <source>Crew</source>
+        <translation>Besättning</translation>
+    </message>
+    <message>
+        <source>The people in a session and their roles; people who only view the layout can be crew too.</source>
+        <translation>Personerna i ett pass och deras roller; den som bara tittar på layouten kan också vara besättning.</translation>
+    </message>
+    <message>
+        <source>Add someone from the people the layout is shared with, give them a role, and for a crew, their job; for a yardmaster, their yard. A guest on this device has no account, so they use this computer or phone. Nobody gets more than their role: a crew who views the layout still can’t change the track.</source>
+        <translation>Lägg till någon bland dem layouten delas med, ge en roll och, för en besättning, dess uppdrag; för en bangårdsförman, bangården. En gäst på den här enheten har inget konto och använder den här datorn eller telefonen. Ingen får mer än sin roll: en besättning som bara tittar på layouten kan fortfarande inte ändra spåret.</translation>
+    </message>
+    <message>
+        <source>Roles</source>
+        <translation>Roller</translation>
+    </message>
+    <message>
+        <source>The dispatcher sets any switch and sends jobs out; a yardmaster works their yard; a crew works their job’s stops once it is out.</source>
+        <translation>Tågklareraren lägger om vilken växel som helst och skickar ut uppdrag; en bangårdsförman arbetar på sin bangård; en besättning vid uppdragets stopp när det har gått ut.</translation>
+    </message>
+    <message>
+        <source>The host (who started the session) and the layout’s owner may move any car. While a session runs nobody changes the track, and a move outside your role is refused with the reason. The main line between stops is the dispatcher’s.</source>
+        <translation>Värden (den som startade passet) och layoutens ägare får flytta vilken vagn som helst. Medan ett pass pågår ändrar ingen spåret, och en förflyttning utanför din roll nekas med orsaken. Huvudlinjen mellan stoppen tillhör tågklareraren.</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>Bord och ström</translation>
     </message>
@@ -3950,6 +3986,14 @@
     <message>
         <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
         <translation>Ett uppdrag är ett lags arbete: platserna där det stannar. Växlingslistan säger vad som ska ställas ut och hämtas.</translation>
+    </message>
+    <message>
+        <source>Run a session</source>
+        <translation>Kör ett pass</translation>
+    </message>
+    <message>
+        <source>Give people roles, then start. The track locks, and each person moves only what their role allows.</source>
+        <translation>Ge folk roller och starta. Spåret låses och var och en flyttar bara det rollen tillåter.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>

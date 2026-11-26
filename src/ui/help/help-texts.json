@@ -296,6 +296,21 @@
       "short": "A spot is a stretch of track at a place where cars stand, and how many fit.",
       "more": "Click a piece of the track; the spot is the whole track between switches and ends that it is on. Cars it holds comes from that track’s length (a typical car is 32 studs); type a number to say it yourself, and the spot is then that much track around the piece. If the track is removed, the spot says so: pick its track again."
     },
+    "ops.session": {
+      "title": "Sessions",
+      "short": "A session is one evening of operating: people get roles, jobs go out, and each person moves the cars their role allows.",
+      "more": "Set up the crew, then press Start the session: the track is locked while it runs, and Pause unlocks it. When you end it, leave the cars where they are for next time, or put every car back where the session started. Past sessions keep a log of every move."
+    },
+    "ops.crew": {
+      "title": "Crew",
+      "short": "The people in a session and their roles; people who only view the layout can be crew too.",
+      "more": "Add someone from the people the layout is shared with, give them a role, and for a crew, their job; for a yardmaster, their yard. A guest on this device has no account, so they use this computer or phone. Nobody gets more than their role: a crew who views the layout still can’t change the track."
+    },
+    "ops.roles": {
+      "title": "Roles",
+      "short": "The dispatcher sets any switch and sends jobs out; a yardmaster works their yard; a crew works their job’s stops once it is out.",
+      "more": "The host (who started the session) and the layout’s owner may move any car. While a session runs nobody changes the track, and a move outside your role is refused with the reason. The main line between stops is the dispatcher’s."
+    },
     "module.setupSummary": {
       "title": "Tables and power",
       "short": "What all of this layout’s modules need together: outlets and watts, and the table heights by type.",

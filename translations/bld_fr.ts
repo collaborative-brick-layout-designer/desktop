@@ -903,6 +903,42 @@
         <translation>Cliquez sur une pièce de voie ; l’emplacement est toute la voie entre aiguillages et extrémités où elle se trouve. Le nombre de wagons vient de la longueur de cette voie (un wagon courant fait 32 tenons) ; tapez un nombre pour le dire vous-même, et l’emplacement est alors cette longueur de voie autour de la pièce. Si la voie est retirée, l’emplacement le dit : choisissez-la de nouveau.</translation>
     </message>
     <message>
+        <source>Sessions</source>
+        <translation>Sessions</translation>
+    </message>
+    <message>
+        <source>A session is one evening of operating: people get roles, jobs go out, and each person moves the cars their role allows.</source>
+        <translation>Une session, c’est une soirée d’exploitation : chacun reçoit un rôle, les missions partent, et chacun déplace les wagons que son rôle permet.</translation>
+    </message>
+    <message>
+        <source>Set up the crew, then press Start the session: the track is locked while it runs, and Pause unlocks it. When you end it, leave the cars where they are for next time, or put every car back where the session started. Past sessions keep a log of every move.</source>
+        <translation>Composez l’équipe, puis appuyez sur Démarrer la session : la voie est verrouillée pendant qu’elle tourne, et Pause la déverrouille. Quand vous la terminez, laissez les wagons où ils sont pour la prochaine fois, ou remettez chaque wagon là où la session a commencé. Les sessions passées gardent un journal de chaque mouvement.</translation>
+    </message>
+    <message>
+        <source>Crew</source>
+        <translation>Équipe</translation>
+    </message>
+    <message>
+        <source>The people in a session and their roles; people who only view the layout can be crew too.</source>
+        <translation>Les personnes d’une session et leurs rôles ; celles qui ne font que voir le plan peuvent aussi faire partie de l’équipe.</translation>
+    </message>
+    <message>
+        <source>Add someone from the people the layout is shared with, give them a role, and for a crew, their job; for a yardmaster, their yard. A guest on this device has no account, so they use this computer or phone. Nobody gets more than their role: a crew who views the layout still can’t change the track.</source>
+        <translation>Ajoutez quelqu’un parmi les personnes avec qui le plan est partagé, donnez-lui un rôle et, pour une équipe, sa mission ; pour un chef de gare de triage, sa gare. Un invité sur cet appareil n’a pas de compte : il utilise cet ordinateur ou ce téléphone. Personne n’a plus que son rôle : une équipe qui ne fait que voir le plan ne peut toujours pas changer la voie.</translation>
+    </message>
+    <message>
+        <source>Roles</source>
+        <translation>Rôles</translation>
+    </message>
+    <message>
+        <source>The dispatcher sets any switch and sends jobs out; a yardmaster works their yard; a crew works their job’s stops once it is out.</source>
+        <translation>Le régulateur manœuvre n’importe quel aiguillage et lance les missions ; un chef de triage travaille sa gare ; une équipe, les arrêts de sa mission une fois lancée.</translation>
+    </message>
+    <message>
+        <source>The host (who started the session) and the layout’s owner may move any car. While a session runs nobody changes the track, and a move outside your role is refused with the reason. The main line between stops is the dispatcher’s.</source>
+        <translation>L’hôte (qui a démarré la session) et le propriétaire du plan peuvent déplacer n’importe quel wagon. Pendant une session, personne ne change la voie, et un mouvement hors de votre rôle est refusé avec la raison. La ligne principale entre les arrêts revient au régulateur.</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>Tables et alimentation</translation>
     </message>
@@ -3950,6 +3986,14 @@
     <message>
         <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
         <translation>Une mission est le travail d’une équipe : les lieux où elle s’arrête. Sa liste de manœuvres dit quoi déposer et quoi prendre.</translation>
+    </message>
+    <message>
+        <source>Run a session</source>
+        <translation>Mener une session</translation>
+    </message>
+    <message>
+        <source>Give people roles, then start. The track locks, and each person moves only what their role allows.</source>
+        <translation>Donnez des rôles, puis démarrez. La voie se verrouille et chacun ne déplace que ce que son rôle permet.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>

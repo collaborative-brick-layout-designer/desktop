@@ -903,6 +903,42 @@
         <translation>線路のパーツをクリックします。停車位置は、そのパーツがあるポイントから端までの線路全体です。入る両数はその線路の長さから決まります（標準の車両は 32 スタッド）。数を入力すると自分で決められ、停車位置はパーツの周りのその分の線路になります。線路がなくなると表示されるので、選び直してください。</translation>
     </message>
     <message>
+        <source>Sessions</source>
+        <translation>セッション</translation>
+    </message>
+    <message>
+        <source>A session is one evening of operating: people get roles, jobs go out, and each person moves the cars their role allows.</source>
+        <translation>セッションは一晩の運転会です。各自に役割があり、ジョブが出発し、各自は役割で許された車両を動かします。</translation>
+    </message>
+    <message>
+        <source>Set up the crew, then press Start the session: the track is locked while it runs, and Pause unlocks it. When you end it, leave the cars where they are for next time, or put every car back where the session started. Past sessions keep a log of every move.</source>
+        <translation>クルーを決めてから「セッションを開始」を押します。実行中は線路がロックされ、「一時停止」で解除されます。終了するときは、次回のために車両をそのまま残すか、すべての車両をセッション開始時の位置に戻せます。過去のセッションにはすべての移動の記録が残ります。</translation>
+    </message>
+    <message>
+        <source>Crew</source>
+        <translation>クルー</translation>
+    </message>
+    <message>
+        <source>The people in a session and their roles; people who only view the layout can be crew too.</source>
+        <translation>セッションの参加者とその役割です。レイアウトを見るだけの人もクルーになれます。</translation>
+    </message>
+    <message>
+        <source>Add someone from the people the layout is shared with, give them a role, and for a crew, their job; for a yardmaster, their yard. A guest on this device has no account, so they use this computer or phone. Nobody gets more than their role: a crew who views the layout still can’t change the track.</source>
+        <translation>レイアウトを共有している人から誰かを追加し、役割を与えます。クルーにはジョブを、ヤードマスターにはヤードを割り当てます。この端末のゲストはアカウントがないので、このコンピューターや電話を使います。誰も役割以上のことはできません。レイアウトを見るだけのクルーは線路を変更できません。</translation>
+    </message>
+    <message>
+        <source>Roles</source>
+        <translation>役割</translation>
+    </message>
+    <message>
+        <source>The dispatcher sets any switch and sends jobs out; a yardmaster works their yard; a crew works their job’s stops once it is out.</source>
+        <translation>指令員はどのポイントも切り替え、ジョブを出発させます。ヤードマスターは自分のヤードを、クルーは出発後に自分のジョブの停車地を担当します。</translation>
+    </message>
+    <message>
+        <source>The host (who started the session) and the layout’s owner may move any car. While a session runs nobody changes the track, and a move outside your role is refused with the reason. The main line between stops is the dispatcher’s.</source>
+        <translation>ホスト（セッションを開始した人）とレイアウトの所有者はどの車両も動かせます。セッション中は誰も線路を変更できず、役割外の移動は理由とともに拒否されます。停車地の間の本線は指令員の担当です。</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>テーブルと電源</translation>
     </message>
@@ -3930,6 +3966,14 @@
     <message>
         <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
         <translation>仕業は 1 組の乗務員の仕事で、停まる場所を並べたものです。入換表に切り離しと連結が出ます。</translation>
+    </message>
+    <message>
+        <source>Run a session</source>
+        <translation>セッションを運営</translation>
+    </message>
+    <message>
+        <source>Give people roles, then start. The track locks, and each person moves only what their role allows.</source>
+        <translation>役割を割り当ててから開始します。線路がロックされ、各自は役割で許されたものだけを動かします。</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>
