@@ -139,7 +139,9 @@ TEST_F(FileBackupsTest, ABbmKeepsItsLabelsModulesAndVenueAndPutBackRemovesOnesIt
 
 TEST_F(FileBackupsTest, PutBackKeepsTheFileEvenWithKeepingOff) {
     write(file_, "old");
-    ASSERT_TRUE(ui::FileBackups::keepBeforeSaving(file_, nullptr, QDateTime::currentDateTime()));
+    // The put-back copy is stamped "now", so make the first the very same moment.
+    const QDateTime now = QDateTime::currentDateTime();
+    ASSERT_TRUE(ui::FileBackups::keepBeforeSaving(file_, nullptr, now));
     ui::FileBackups::setKeepCount(0);
     write(file_, "new");
     const auto copy = ui::FileBackups::copiesOf(file_).first();
@@ -148,6 +150,32 @@ TEST_F(FileBackupsTest, PutBackKeepsTheFileEvenWithKeepingOff) {
     const auto copies = ui::FileBackups::copiesOf(file_);
     ASSERT_EQ(copies.size(), 1);
     EXPECT_EQ(readAll(copies.first().path), "new");
+}
+
+TEST_F(FileBackupsTest, CopiesMadeInTheSameMillisecondListNewestFirst) {
+    const QDateTime t = QDateTime::currentDateTime();
+    write(file_, "one");
+    ASSERT_TRUE(ui::FileBackups::keepBeforeSaving(file_, nullptr, t));
+    write(file_, "two");
+    ASSERT_TRUE(ui::FileBackups::keepBeforeSaving(file_, nullptr, t));
+    write(file_, "three");
+    ASSERT_TRUE(ui::FileBackups::keepBeforeSaving(file_, nullptr, t));
+    auto copies = ui::FileBackups::copiesOf(file_);
+    ASSERT_EQ(copies.size(), 3);
+    EXPECT_EQ(readAll(copies.at(0).path), "three");
+    EXPECT_EQ(readAll(copies.at(1).path), "two");
+    EXPECT_EQ(readAll(copies.at(2).path), "one");
+
+    // Trimming drops the oldest, not the one just taken.
+    ui::FileBackups::trim(file_, 2);
+    copies = ui::FileBackups::copiesOf(file_);
+    ASSERT_EQ(copies.size(), 2);
+    EXPECT_EQ(readAll(copies.at(0).path), "three");
+    EXPECT_EQ(readAll(copies.at(1).path), "two");
+
+    // Same as the newest: nothing new.
+    ASSERT_TRUE(ui::FileBackups::keepBeforeSaving(file_, nullptr, t));
+    EXPECT_EQ(ui::FileBackups::copiesOf(file_).size(), 2);
 }
 
 // writeMapTo is the window's own (what Save and Save As call).
