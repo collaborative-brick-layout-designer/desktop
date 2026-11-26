@@ -903,6 +903,42 @@
         <translation>Klikk på et spor; plassen er hele sporet mellom sporveksler og ender som det ligger på. Hvor mange vogner det er rom til kommer fra lengden på sporet (en vanlig vogn er 32 knotter); skriv et tall for å si det selv, så er plassen så mye spor rundt biten. Blir sporet fjernet, sier plassen fra: velg sporet på nytt.</translation>
     </message>
     <message>
+        <source>Sessions</source>
+        <translation>Økter</translation>
+    </message>
+    <message>
+        <source>A session is one evening of operating: people get roles, jobs go out, and each person moves the cars their role allows.</source>
+        <translation>En økt er en driftskveld: folk får roller, oppdrag går ut, og hver person flytter vognene rollen deres tillater.</translation>
+    </message>
+    <message>
+        <source>Set up the crew, then press Start the session: the track is locked while it runs, and Pause unlocks it. When you end it, leave the cars where they are for next time, or put every car back where the session started. Past sessions keep a log of every move.</source>
+        <translation>Sett sammen mannskapet, og trykk så Start økten: sporet er låst mens den pågår, og Pause låser det opp. Når du avslutter den, lar du vognene stå til neste gang, eller setter hver vogn tilbake der økten begynte. Tidligere økter har en logg over hver flytting.</translation>
+    </message>
+    <message>
+        <source>Crew</source>
+        <translation>Mannskap</translation>
+    </message>
+    <message>
+        <source>The people in a session and their roles; people who only view the layout can be crew too.</source>
+        <translation>Folkene i en økt og rollene deres; de som bare ser på oppsettet, kan også være mannskap.</translation>
+    </message>
+    <message>
+        <source>Add someone from the people the layout is shared with, give them a role, and for a crew, their job; for a yardmaster, their yard. A guest on this device has no account, so they use this computer or phone. Nobody gets more than their role: a crew who views the layout still can’t change the track.</source>
+        <translation>Legg til noen av dem oppsettet er delt med, gi dem en rolle og, for et mannskap, oppdraget; for en skiftemester, stasjonen. En gjest på denne enheten har ingen konto og bruker denne datamaskinen eller telefonen. Ingen får mer enn rollen sin: et mannskap som bare ser på oppsettet, kan fortsatt ikke endre sporet.</translation>
+    </message>
+    <message>
+        <source>Roles</source>
+        <translation>Roller</translation>
+    </message>
+    <message>
+        <source>The dispatcher sets any switch and sends jobs out; a yardmaster works their yard; a crew works their job’s stops once it is out.</source>
+        <translation>Togekspeditøren legger om hvilken som helst sporveksel og sender oppdrag ut; en skiftemester jobber på stasjonen sin; et mannskap ved oppdragets stopp når det er sendt ut.</translation>
+    </message>
+    <message>
+        <source>The host (who started the session) and the layout’s owner may move any car. While a session runs nobody changes the track, and a move outside your role is refused with the reason. The main line between stops is the dispatcher’s.</source>
+        <translation>Verten (den som startet økten) og eieren av oppsettet kan flytte hvilken som helst vogn. Mens en økt pågår, endrer ingen sporet, og en flytting utenfor rollen din blir avvist med grunnen. Hovedlinjen mellom stoppene hører til togekspeditøren.</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>Bord og strøm</translation>
     </message>
@@ -3920,14 +3956,6 @@
         <translation>Et sted kan ha flere plasser. Hver sier hvor mange vogner det er rom til, regnet ut fra sporet om du ikke skriver det.</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>På kartet</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>Vis › Steder viser hver plass og hvor mange vogner den rommer. Steder på sporet til en modul følger modulen.</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>Vogner på sporet</translation>
     </message>
@@ -3950,6 +3978,14 @@
     <message>
         <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
         <translation>Et oppdrag er ett lags arbeid: stedene det stopper. Skiftelisten sier hva som skal settes ut og hentes.</translation>
+    </message>
+    <message>
+        <source>Run a session</source>
+        <translation>Kjør en økt</translation>
+    </message>
+    <message>
+        <source>Give people roles, then start. The track locks, and each person moves only what their role allows.</source>
+        <translation>Gi folk roller, og start. Sporet låses, og hver person flytter bare det rollen tillater.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>

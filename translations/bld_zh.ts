@@ -903,6 +903,42 @@
         <translation>点击一段轨道；停车位是它所在的道岔与端点之间的整条轨道。能停的车辆数由这条轨道的长度得出（普通车辆长 32 凸点）；也可以自己输入数字，停车位就是该部件周围那么长的轨道。如果轨道被移除，停车位会说明：请重新选择轨道。</translation>
     </message>
     <message>
+        <source>Sessions</source>
+        <translation>运营场次</translation>
+    </message>
+    <message>
+        <source>A session is one evening of operating: people get roles, jobs go out, and each person moves the cars their role allows.</source>
+        <translation>一个场次就是一晚的运营：每人分配角色，作业出发，每人只移动其角色允许的车辆。</translation>
+    </message>
+    <message>
+        <source>Set up the crew, then press Start the session: the track is locked while it runs, and Pause unlocks it. When you end it, leave the cars where they are for next time, or put every car back where the session started. Past sessions keep a log of every move.</source>
+        <translation>先安排乘务组，然后按“开始场次”：运行期间轨道被锁定，“暂停”可解除锁定。结束时，可以把车辆留在原处供下次使用，也可以把每辆车放回场次开始时的位置。过去的场次会保留每次移动的记录。</translation>
+    </message>
+    <message>
+        <source>Crew</source>
+        <translation>乘务组</translation>
+    </message>
+    <message>
+        <source>The people in a session and their roles; people who only view the layout can be crew too.</source>
+        <translation>场次中的人员及其角色；只能查看布局的人也可以加入乘务组。</translation>
+    </message>
+    <message>
+        <source>Add someone from the people the layout is shared with, give them a role, and for a crew, their job; for a yardmaster, their yard. A guest on this device has no account, so they use this computer or phone. Nobody gets more than their role: a crew who views the layout still can’t change the track.</source>
+        <translation>从布局共享对象中添加人员并分配角色：乘务组分配作业，调车场主任分配调车场。此设备上的访客没有账户，因此使用这台电脑或手机。任何人都不能超出其角色：只能查看布局的乘务组仍然不能修改轨道。</translation>
+    </message>
+    <message>
+        <source>Roles</source>
+        <translation>角色</translation>
+    </message>
+    <message>
+        <source>The dispatcher sets any switch and sends jobs out; a yardmaster works their yard; a crew works their job’s stops once it is out.</source>
+        <translation>调度员可扳动任何道岔并派出作业；调车场主任负责自己的调车场；乘务组在作业出发后负责其停靠点。</translation>
+    </message>
+    <message>
+        <source>The host (who started the session) and the layout’s owner may move any car. While a session runs nobody changes the track, and a move outside your role is refused with the reason. The main line between stops is the dispatcher’s.</source>
+        <translation>主持人（开始场次的人）和布局所有者可以移动任何车辆。场次运行期间无人可以修改轨道，超出角色的移动会被拒绝并说明原因。停靠点之间的干线归调度员负责。</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>桌子和电源</translation>
     </message>
@@ -3900,14 +3936,6 @@
         <translation>一个地点可以有多个停车位。如果你不填写，每个停车位能停多少辆由轨道算出。</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>在地图上</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>视图 › 地点 显示每个停车位和能停多少辆。模块轨道上的地点会随模块一起走。</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>轨道上的车厢</translation>
     </message>
@@ -3930,6 +3958,14 @@
     <message>
         <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
         <translation>作业是一个班组的工作：停靠的地点。调车单说明要甩下和挂上哪些车厢。</translation>
+    </message>
+    <message>
+        <source>Run a session</source>
+        <translation>主持场次</translation>
+    </message>
+    <message>
+        <source>Give people roles, then start. The track locks, and each person moves only what their role allows.</source>
+        <translation>分配角色后开始。轨道会被锁定，每人只移动其角色允许的内容。</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>

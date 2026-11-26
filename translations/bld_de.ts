@@ -903,6 +903,42 @@
         <translation>Klick auf ein Gleisstück; der Stellplatz ist das ganze Gleis zwischen Weichen und Enden, auf dem es liegt. Wie viele Wagen passen, ergibt sich aus der Länge dieses Gleises (ein üblicher Wagen hat 32 Noppen); gib selbst eine Zahl ein, dann ist der Stellplatz so viel Gleis um das Stück herum. Wird das Gleis entfernt, sagt der Stellplatz das: Wähl sein Gleis neu.</translation>
     </message>
     <message>
+        <source>Sessions</source>
+        <translation>Sitzungen</translation>
+    </message>
+    <message>
+        <source>A session is one evening of operating: people get roles, jobs go out, and each person moves the cars their role allows.</source>
+        <translation>Eine Sitzung ist ein Betriebsabend: Leute bekommen Rollen, Aufträge gehen raus, und jede Person bewegt die Wagen, die ihre Rolle erlaubt.</translation>
+    </message>
+    <message>
+        <source>Set up the crew, then press Start the session: the track is locked while it runs, and Pause unlocks it. When you end it, leave the cars where they are for next time, or put every car back where the session started. Past sessions keep a log of every move.</source>
+        <translation>Stell die Mannschaft zusammen und drück dann „Sitzung starten“: Solange sie läuft, ist das Gleis gesperrt, und „Pause“ gibt es frei. Wenn du sie beendest, lass die Wagen für das nächste Mal stehen, oder stell jeden Wagen dorthin zurück, wo die Sitzung begann. Vergangene Sitzungen behalten ein Protokoll jeder Bewegung.</translation>
+    </message>
+    <message>
+        <source>Crew</source>
+        <translation>Mannschaft</translation>
+    </message>
+    <message>
+        <source>The people in a session and their roles; people who only view the layout can be crew too.</source>
+        <translation>Die Leute in einer Sitzung und ihre Rollen; auch wer das Layout nur ansieht, kann zur Mannschaft gehören.</translation>
+    </message>
+    <message>
+        <source>Add someone from the people the layout is shared with, give them a role, and for a crew, their job; for a yardmaster, their yard. A guest on this device has no account, so they use this computer or phone. Nobody gets more than their role: a crew who views the layout still can’t change the track.</source>
+        <translation>Füg jemanden aus den Leuten hinzu, mit denen das Layout geteilt ist, gib ihm eine Rolle und einer Mannschaft ihren Auftrag, einem Rangiermeister seinen Bahnhof. Ein Gast auf diesem Gerät hat kein Konto und benutzt diesen Computer oder dieses Handy. Niemand bekommt mehr als seine Rolle: Eine Mannschaft, die das Layout nur ansieht, kann das Gleis trotzdem nicht ändern.</translation>
+    </message>
+    <message>
+        <source>Roles</source>
+        <translation>Rollen</translation>
+    </message>
+    <message>
+        <source>The dispatcher sets any switch and sends jobs out; a yardmaster works their yard; a crew works their job’s stops once it is out.</source>
+        <translation>Der Fahrdienstleiter stellt jede Weiche und schickt Aufträge los; ein Rangiermeister arbeitet in seinem Bahnhof; eine Mannschaft an den Halten ihres Auftrags, sobald er läuft.</translation>
+    </message>
+    <message>
+        <source>The host (who started the session) and the layout’s owner may move any car. While a session runs nobody changes the track, and a move outside your role is refused with the reason. The main line between stops is the dispatcher’s.</source>
+        <translation>Der Gastgeber (wer die Sitzung gestartet hat) und der Eigentümer des Layouts dürfen jeden Wagen bewegen. Solange eine Sitzung läuft, ändert niemand das Gleis, und eine Bewegung außerhalb deiner Rolle wird mit Grund abgelehnt. Die Hauptstrecke zwischen den Halten gehört dem Fahrdienstleiter.</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>Tische und Strom</translation>
     </message>
@@ -3920,14 +3956,6 @@
         <translation>Ein Ort kann mehrere Stellplätze haben. Jeder sagt, wie viele Wagen passen: aus dem Gleis berechnet, wenn du nichts eingibst.</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>Auf der Karte</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>Ansicht › Orte zeigt jeden Stellplatz und wie viele Wagen er fasst. Orte auf dem Gleis eines Moduls gehen mit dem Modul mit.</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>Wagen auf dem Gleis</translation>
     </message>
@@ -3950,6 +3978,14 @@
     <message>
         <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
         <translation>Ein Auftrag ist die Arbeit einer Mannschaft: die Orte, an denen sie hält. Die Rangierliste sagt, was abzustellen und abzuholen ist.</translation>
+    </message>
+    <message>
+        <source>Run a session</source>
+        <translation>Eine Sitzung fahren</translation>
+    </message>
+    <message>
+        <source>Give people roles, then start. The track locks, and each person moves only what their role allows.</source>
+        <translation>Gib den Leuten Rollen und starte dann. Das Gleis wird gesperrt, und jede Person bewegt nur, was ihre Rolle erlaubt.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>

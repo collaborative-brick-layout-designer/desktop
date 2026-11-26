@@ -1,0 +1,1585 @@
+{
+  "note": "Who may move and flip what in an operating session (web packages/parts-catalog opsSession.ts, desktop src/track/OpsSession.cpp).",
+  "limits": {
+    "sessions": 50,
+    "crew": 100,
+    "log": 20000,
+    "logSize": 2048,
+    "size": 1048576,
+    "clockFast": 24
+  },
+  "jobs": [
+    {
+      "id": "j1",
+      "name": "Cannery Turn",
+      "kind": "turn",
+      "train": "t-local",
+      "order": 1,
+      "status": "out",
+      "stop_a": {
+        "place": "pl-can",
+        "at": 1
+      },
+      "stop_b": {
+        "place": "pl-mill",
+        "at": 2
+      }
+    },
+    {
+      "id": "j2",
+      "name": "Yard Job",
+      "kind": "yard",
+      "train": "",
+      "order": 2,
+      "stop_a": {
+        "place": "pl-yard",
+        "at": 1
+      }
+    }
+  ],
+  "places": [
+    {
+      "id": "pl-yard",
+      "bricks": [
+        "B-yard1",
+        "B-yard2"
+      ]
+    },
+    {
+      "id": "pl-can",
+      "bricks": [
+        "B-can"
+      ]
+    },
+    {
+      "id": "pl-mill",
+      "bricks": [
+        "B-mill"
+      ]
+    }
+  ],
+  "switches": [
+    "B-yard1/0",
+    "B-can/1",
+    "B-mill/0",
+    "B-main/0",
+    "bad",
+    "/0"
+  ],
+  "positions": {
+    "on the yard": {
+      "brick": "B-yard2",
+      "from": 0,
+      "to": 1,
+      "s": 3
+    },
+    "at the cannery": {
+      "brick": "B-can",
+      "from": 0,
+      "to": 1,
+      "s": 1
+    },
+    "on the main line": {
+      "brick": "B-main",
+      "from": 0,
+      "to": 1,
+      "s": 1
+    },
+    "off the map": null
+  },
+  "trains": [
+    "t-local",
+    "cut-1"
+  ],
+  "reach": [
+    {
+      "name": "one running",
+      "sessions": [
+        {
+          "id": "s1",
+          "name": "Session 1",
+          "status": "running",
+          "seed": 7,
+          "layout": "lay-1",
+          "host": "alice",
+          "crew": [
+            {
+              "userId": "vic",
+              "name": "Vic",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "yan",
+              "name": "Yan",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "dan",
+              "name": "Dan",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            },
+            {
+              "userId": "wes",
+              "name": "Wes",
+              "role": "crew",
+              "places": [],
+              "job": "j2"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "",
+              "name": "Guest 3",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            }
+          ],
+          "clockFast": 4,
+          "clockStart": "06:00",
+          "startedAt": 1,
+          "endedAt": 0,
+          "start": null
+        }
+      ],
+      "layoutId": "lay-1",
+      "owner": "olga",
+      "users": [
+        "alice",
+        "olga",
+        "vic",
+        "yan",
+        "dan",
+        "wes",
+        "amy",
+        "zed",
+        ""
+      ],
+      "expect": {
+        "locked": true,
+        "people": {
+          "alice": {
+            "all": true,
+            "role": "host",
+            "bricks": [],
+            "trains": [],
+            "why": "",
+            "flips": [
+              "B-yard1/0",
+              "B-can/1",
+              "B-mill/0",
+              "B-main/0",
+              "bad",
+              "/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "t-local at the cannery",
+              "t-local on the main line",
+              "t-local off the map",
+              "cut-1 on the yard",
+              "cut-1 at the cannery",
+              "cut-1 on the main line",
+              "cut-1 off the map"
+            ]
+          },
+          "olga": {
+            "all": true,
+            "role": "host",
+            "bricks": [],
+            "trains": [],
+            "why": "",
+            "flips": [
+              "B-yard1/0",
+              "B-can/1",
+              "B-mill/0",
+              "B-main/0",
+              "bad",
+              "/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "t-local at the cannery",
+              "t-local on the main line",
+              "t-local off the map",
+              "cut-1 on the yard",
+              "cut-1 at the cannery",
+              "cut-1 on the main line",
+              "cut-1 off the map"
+            ]
+          },
+          "vic": {
+            "all": false,
+            "role": "crew",
+            "bricks": [
+              "B-can",
+              "B-mill"
+            ],
+            "trains": [
+              "t-local"
+            ],
+            "why": "",
+            "flips": [
+              "B-can/1",
+              "B-mill/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "t-local at the cannery",
+              "t-local on the main line",
+              "t-local off the map",
+              "cut-1 at the cannery"
+            ]
+          },
+          "yan": {
+            "all": false,
+            "role": "yardmaster",
+            "bricks": [
+              "B-yard1",
+              "B-yard2"
+            ],
+            "trains": [],
+            "why": "",
+            "flips": [
+              "B-yard1/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "cut-1 on the yard"
+            ]
+          },
+          "dan": {
+            "all": true,
+            "role": "dispatcher",
+            "bricks": [],
+            "trains": [],
+            "why": "",
+            "flips": [
+              "B-yard1/0",
+              "B-can/1",
+              "B-mill/0",
+              "B-main/0",
+              "bad",
+              "/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "t-local at the cannery",
+              "t-local on the main line",
+              "t-local off the map",
+              "cut-1 on the yard",
+              "cut-1 at the cannery",
+              "cut-1 on the main line",
+              "cut-1 off the map"
+            ]
+          },
+          "wes": {
+            "all": false,
+            "role": "crew",
+            "bricks": [],
+            "trains": [],
+            "why": "Your job isn’t out yet; the dispatcher sends it out.",
+            "flips": [],
+            "moves": []
+          },
+          "amy": {
+            "all": false,
+            "role": "yardmaster",
+            "bricks": [
+              "B-can",
+              "B-mill",
+              "B-yard1",
+              "B-yard2"
+            ],
+            "trains": [
+              "t-local"
+            ],
+            "why": "",
+            "flips": [
+              "B-yard1/0",
+              "B-can/1",
+              "B-mill/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "t-local at the cannery",
+              "t-local on the main line",
+              "t-local off the map",
+              "cut-1 on the yard",
+              "cut-1 at the cannery"
+            ]
+          },
+          "zed": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "You aren’t in this session’s crew.",
+            "flips": [],
+            "moves": []
+          },
+          "(a guest)": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "You aren’t in this session’s crew.",
+            "flips": [],
+            "moves": []
+          }
+        }
+      }
+    },
+    {
+      "name": "paused",
+      "sessions": [
+        {
+          "id": "s1",
+          "name": "Session 1",
+          "status": "paused",
+          "seed": 7,
+          "layout": "lay-1",
+          "host": "alice",
+          "crew": [
+            {
+              "userId": "vic",
+              "name": "Vic",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "yan",
+              "name": "Yan",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "dan",
+              "name": "Dan",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            },
+            {
+              "userId": "wes",
+              "name": "Wes",
+              "role": "crew",
+              "places": [],
+              "job": "j2"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "",
+              "name": "Guest 3",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            }
+          ],
+          "clockFast": 4,
+          "clockStart": "06:00",
+          "startedAt": 1,
+          "endedAt": 0,
+          "start": null
+        }
+      ],
+      "layoutId": "lay-1",
+      "owner": "olga",
+      "users": [
+        "alice",
+        "olga",
+        "vic",
+        "yan",
+        "dan",
+        "wes",
+        "amy",
+        "zed",
+        ""
+      ],
+      "expect": {
+        "locked": false,
+        "people": {
+          "alice": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "No session is running.",
+            "flips": [],
+            "moves": []
+          },
+          "olga": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "No session is running.",
+            "flips": [],
+            "moves": []
+          },
+          "vic": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "No session is running.",
+            "flips": [],
+            "moves": []
+          },
+          "yan": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "No session is running.",
+            "flips": [],
+            "moves": []
+          },
+          "dan": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "No session is running.",
+            "flips": [],
+            "moves": []
+          },
+          "wes": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "No session is running.",
+            "flips": [],
+            "moves": []
+          },
+          "amy": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "No session is running.",
+            "flips": [],
+            "moves": []
+          },
+          "zed": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "No session is running.",
+            "flips": [],
+            "moves": []
+          },
+          "(a guest)": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "No session is running.",
+            "flips": [],
+            "moves": []
+          }
+        }
+      }
+    },
+    {
+      "name": "two running",
+      "sessions": [
+        {
+          "id": "s1",
+          "name": "Session 1",
+          "status": "running",
+          "seed": 7,
+          "layout": "lay-1",
+          "host": "alice",
+          "crew": [
+            {
+              "userId": "vic",
+              "name": "Vic",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "yan",
+              "name": "Yan",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "dan",
+              "name": "Dan",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            },
+            {
+              "userId": "wes",
+              "name": "Wes",
+              "role": "crew",
+              "places": [],
+              "job": "j2"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "",
+              "name": "Guest 3",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            }
+          ],
+          "clockFast": 4,
+          "clockStart": "06:00",
+          "startedAt": 1,
+          "endedAt": 0,
+          "start": null
+        },
+        {
+          "id": "s2",
+          "name": "Session 1",
+          "status": "running",
+          "seed": 7,
+          "layout": "lay-1",
+          "host": "alice",
+          "crew": [
+            {
+              "userId": "vic",
+              "name": "Vic",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "yan",
+              "name": "Yan",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "dan",
+              "name": "Dan",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            },
+            {
+              "userId": "wes",
+              "name": "Wes",
+              "role": "crew",
+              "places": [],
+              "job": "j2"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "",
+              "name": "Guest 3",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            }
+          ],
+          "clockFast": 4,
+          "clockStart": "06:00",
+          "startedAt": 1,
+          "endedAt": 0,
+          "start": null
+        }
+      ],
+      "layoutId": "lay-1",
+      "owner": "olga",
+      "users": [
+        "alice",
+        "olga",
+        "vic",
+        "yan",
+        "dan",
+        "wes",
+        "amy",
+        "zed",
+        ""
+      ],
+      "expect": {
+        "locked": true,
+        "people": {
+          "alice": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "Two sessions are running; the host ends one.",
+            "flips": [],
+            "moves": []
+          },
+          "olga": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "Two sessions are running; the host ends one.",
+            "flips": [],
+            "moves": []
+          },
+          "vic": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "Two sessions are running; the host ends one.",
+            "flips": [],
+            "moves": []
+          },
+          "yan": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "Two sessions are running; the host ends one.",
+            "flips": [],
+            "moves": []
+          },
+          "dan": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "Two sessions are running; the host ends one.",
+            "flips": [],
+            "moves": []
+          },
+          "wes": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "Two sessions are running; the host ends one.",
+            "flips": [],
+            "moves": []
+          },
+          "amy": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "Two sessions are running; the host ends one.",
+            "flips": [],
+            "moves": []
+          },
+          "zed": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "Two sessions are running; the host ends one.",
+            "flips": [],
+            "moves": []
+          },
+          "(a guest)": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "Two sessions are running; the host ends one.",
+            "flips": [],
+            "moves": []
+          }
+        }
+      }
+    },
+    {
+      "name": "copied into another layout",
+      "sessions": [
+        {
+          "id": "s1",
+          "name": "Session 1",
+          "status": "running",
+          "seed": 7,
+          "layout": "lay-1",
+          "host": "alice",
+          "crew": [
+            {
+              "userId": "vic",
+              "name": "Vic",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "yan",
+              "name": "Yan",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "dan",
+              "name": "Dan",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            },
+            {
+              "userId": "wes",
+              "name": "Wes",
+              "role": "crew",
+              "places": [],
+              "job": "j2"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "",
+              "name": "Guest 3",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            }
+          ],
+          "clockFast": 4,
+          "clockStart": "06:00",
+          "startedAt": 1,
+          "endedAt": 0,
+          "start": null
+        }
+      ],
+      "layoutId": "lay-2",
+      "owner": "olga",
+      "users": [
+        "alice",
+        "olga",
+        "vic",
+        "yan",
+        "dan",
+        "wes",
+        "amy",
+        "zed",
+        ""
+      ],
+      "expect": {
+        "locked": true,
+        "people": {
+          "alice": {
+            "all": true,
+            "role": "host",
+            "bricks": [],
+            "trains": [],
+            "why": "",
+            "flips": [
+              "B-yard1/0",
+              "B-can/1",
+              "B-mill/0",
+              "B-main/0",
+              "bad",
+              "/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "t-local at the cannery",
+              "t-local on the main line",
+              "t-local off the map",
+              "cut-1 on the yard",
+              "cut-1 at the cannery",
+              "cut-1 on the main line",
+              "cut-1 off the map"
+            ]
+          },
+          "olga": {
+            "all": true,
+            "role": "host",
+            "bricks": [],
+            "trains": [],
+            "why": "",
+            "flips": [
+              "B-yard1/0",
+              "B-can/1",
+              "B-mill/0",
+              "B-main/0",
+              "bad",
+              "/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "t-local at the cannery",
+              "t-local on the main line",
+              "t-local off the map",
+              "cut-1 on the yard",
+              "cut-1 at the cannery",
+              "cut-1 on the main line",
+              "cut-1 off the map"
+            ]
+          },
+          "vic": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "This session was started in another layout; the host starts it again here.",
+            "flips": [],
+            "moves": []
+          },
+          "yan": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "This session was started in another layout; the host starts it again here.",
+            "flips": [],
+            "moves": []
+          },
+          "dan": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "This session was started in another layout; the host starts it again here.",
+            "flips": [],
+            "moves": []
+          },
+          "wes": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "This session was started in another layout; the host starts it again here.",
+            "flips": [],
+            "moves": []
+          },
+          "amy": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "This session was started in another layout; the host starts it again here.",
+            "flips": [],
+            "moves": []
+          },
+          "zed": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "This session was started in another layout; the host starts it again here.",
+            "flips": [],
+            "moves": []
+          },
+          "(a guest)": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "You aren’t in this session’s crew.",
+            "flips": [],
+            "moves": []
+          }
+        }
+      }
+    },
+    {
+      "name": "an ended one and a running one",
+      "sessions": [
+        {
+          "id": "s0",
+          "name": "Session 1",
+          "status": "ended",
+          "seed": 7,
+          "layout": "lay-1",
+          "host": "alice",
+          "crew": [
+            {
+              "userId": "vic",
+              "name": "Vic",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "yan",
+              "name": "Yan",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "dan",
+              "name": "Dan",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            },
+            {
+              "userId": "wes",
+              "name": "Wes",
+              "role": "crew",
+              "places": [],
+              "job": "j2"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "",
+              "name": "Guest 3",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            }
+          ],
+          "clockFast": 4,
+          "clockStart": "06:00",
+          "startedAt": 1,
+          "endedAt": 0,
+          "start": null
+        },
+        {
+          "id": "s1",
+          "name": "Session 1",
+          "status": "running",
+          "seed": 7,
+          "layout": "lay-1",
+          "host": "dan",
+          "crew": [
+            {
+              "userId": "vic",
+              "name": "Vic",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "yan",
+              "name": "Yan",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "dan",
+              "name": "Dan",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            },
+            {
+              "userId": "wes",
+              "name": "Wes",
+              "role": "crew",
+              "places": [],
+              "job": "j2"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "crew",
+              "places": [],
+              "job": "j1"
+            },
+            {
+              "userId": "amy",
+              "name": "Amy",
+              "role": "yardmaster",
+              "places": [
+                "pl-yard"
+              ],
+              "job": ""
+            },
+            {
+              "userId": "",
+              "name": "Guest 3",
+              "role": "dispatcher",
+              "places": [],
+              "job": ""
+            }
+          ],
+          "clockFast": 4,
+          "clockStart": "06:00",
+          "startedAt": 1,
+          "endedAt": 0,
+          "start": null
+        }
+      ],
+      "layoutId": "lay-1",
+      "owner": "olga",
+      "users": [
+        "alice",
+        "olga",
+        "vic",
+        "yan",
+        "dan",
+        "wes",
+        "amy",
+        "zed",
+        ""
+      ],
+      "expect": {
+        "locked": true,
+        "people": {
+          "alice": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "You aren’t in this session’s crew.",
+            "flips": [],
+            "moves": []
+          },
+          "olga": {
+            "all": true,
+            "role": "host",
+            "bricks": [],
+            "trains": [],
+            "why": "",
+            "flips": [
+              "B-yard1/0",
+              "B-can/1",
+              "B-mill/0",
+              "B-main/0",
+              "bad",
+              "/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "t-local at the cannery",
+              "t-local on the main line",
+              "t-local off the map",
+              "cut-1 on the yard",
+              "cut-1 at the cannery",
+              "cut-1 on the main line",
+              "cut-1 off the map"
+            ]
+          },
+          "vic": {
+            "all": false,
+            "role": "crew",
+            "bricks": [
+              "B-can",
+              "B-mill"
+            ],
+            "trains": [
+              "t-local"
+            ],
+            "why": "",
+            "flips": [
+              "B-can/1",
+              "B-mill/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "t-local at the cannery",
+              "t-local on the main line",
+              "t-local off the map",
+              "cut-1 at the cannery"
+            ]
+          },
+          "yan": {
+            "all": false,
+            "role": "yardmaster",
+            "bricks": [
+              "B-yard1",
+              "B-yard2"
+            ],
+            "trains": [],
+            "why": "",
+            "flips": [
+              "B-yard1/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "cut-1 on the yard"
+            ]
+          },
+          "dan": {
+            "all": true,
+            "role": "host",
+            "bricks": [],
+            "trains": [],
+            "why": "",
+            "flips": [
+              "B-yard1/0",
+              "B-can/1",
+              "B-mill/0",
+              "B-main/0",
+              "bad",
+              "/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "t-local at the cannery",
+              "t-local on the main line",
+              "t-local off the map",
+              "cut-1 on the yard",
+              "cut-1 at the cannery",
+              "cut-1 on the main line",
+              "cut-1 off the map"
+            ]
+          },
+          "wes": {
+            "all": false,
+            "role": "crew",
+            "bricks": [],
+            "trains": [],
+            "why": "Your job isn’t out yet; the dispatcher sends it out.",
+            "flips": [],
+            "moves": []
+          },
+          "amy": {
+            "all": false,
+            "role": "yardmaster",
+            "bricks": [
+              "B-can",
+              "B-mill",
+              "B-yard1",
+              "B-yard2"
+            ],
+            "trains": [
+              "t-local"
+            ],
+            "why": "",
+            "flips": [
+              "B-yard1/0",
+              "B-can/1",
+              "B-mill/0"
+            ],
+            "moves": [
+              "t-local on the yard",
+              "t-local at the cannery",
+              "t-local on the main line",
+              "t-local off the map",
+              "cut-1 on the yard",
+              "cut-1 at the cannery"
+            ]
+          },
+          "zed": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "You aren’t in this session’s crew.",
+            "flips": [],
+            "moves": []
+          },
+          "(a guest)": {
+            "all": false,
+            "role": "",
+            "bricks": [],
+            "trains": [],
+            "why": "You aren’t in this session’s crew.",
+            "flips": [],
+            "moves": []
+          }
+        }
+      }
+    }
+  ],
+  "start": {
+    "trains": [
+      {
+        "id": "t-local",
+        "position": {
+          "brick": "B-main",
+          "from": 0,
+          "to": 1,
+          "s": 1
+        },
+        "units": [
+          {
+            "stock": "c1",
+            "reversed": false
+          }
+        ]
+      },
+      {
+        "id": "cut-1",
+        "position": {
+          "brick": "B-can",
+          "from": 0,
+          "to": 1,
+          "s": 2
+        },
+        "units": [
+          {
+            "stock": "c2",
+            "reversed": false
+          }
+        ]
+      }
+    ],
+    "cars": [
+      {
+        "id": "c1",
+        "opsCut": "t-local"
+      },
+      {
+        "id": "c2",
+        "opsCut": "cut-1"
+      },
+      {
+        "id": "c3"
+      }
+    ]
+  },
+  "now": {
+    "trains": [
+      {
+        "id": "t-local",
+        "position": {
+          "brick": "B-mill",
+          "from": 0,
+          "to": 1,
+          "s": 4
+        },
+        "units": [
+          {
+            "stock": "c1",
+            "reversed": false
+          },
+          {
+            "stock": "c2",
+            "reversed": false
+          }
+        ]
+      },
+      {
+        "id": "cut-1",
+        "position": {
+          "brick": "B-can",
+          "from": 0,
+          "to": 1,
+          "s": 2
+        },
+        "units": []
+      },
+      {
+        "id": "cut-new",
+        "position": {
+          "brick": "B-mill",
+          "from": 0,
+          "to": 1,
+          "s": 9
+        },
+        "units": [
+          {
+            "stock": "c3",
+            "reversed": false
+          }
+        ]
+      }
+    ],
+    "cars": [
+      {
+        "id": "c1",
+        "opsCut": "t-local"
+      },
+      {
+        "id": "c2",
+        "opsCut": "t-local"
+      },
+      {
+        "id": "c3",
+        "opsCut": "cut-new"
+      }
+    ]
+  },
+  "log": [
+    {
+      "id": "l3",
+      "session": "s1",
+      "at": 30,
+      "by": "vic",
+      "kind": "move",
+      "what": "t-local",
+      "from": null,
+      "to": {
+        "brick": "B-mill",
+        "from": 0,
+        "to": 1,
+        "s": 4
+      },
+      "note": ""
+    },
+    {
+      "id": "l1",
+      "session": "s1",
+      "at": 10,
+      "by": "vic",
+      "kind": "move",
+      "what": "t-local",
+      "from": null,
+      "to": {
+        "brick": "B-can",
+        "from": 0,
+        "to": 1,
+        "s": 1
+      },
+      "note": ""
+    },
+    {
+      "id": "l2",
+      "session": "s1",
+      "at": 20,
+      "by": "vic",
+      "kind": "switch",
+      "what": "B-can/1",
+      "from": 0,
+      "to": 1,
+      "note": ""
+    },
+    {
+      "id": "l4",
+      "session": "s0",
+      "at": 5,
+      "by": "dan",
+      "kind": "move",
+      "what": "cut-1",
+      "from": null,
+      "to": {
+        "brick": "B-yard1",
+        "from": 0,
+        "to": 1,
+        "s": 1
+      },
+      "note": ""
+    },
+    {
+      "id": "l5",
+      "session": "s1",
+      "at": 30,
+      "by": "dan",
+      "kind": "move",
+      "what": "cut-1",
+      "from": null,
+      "to": {
+        "brick": "B-can",
+        "from": 0,
+        "to": 1,
+        "s": 2
+      },
+      "note": ""
+    }
+  ],
+  "expect": {
+    "switchBrick": [
+      "B-yard1",
+      "B-can",
+      "B-mill",
+      "B-main",
+      "",
+      ""
+    ],
+    "start": {
+      "trains": {
+        "cut-1": {
+          "position": {
+            "brick": "B-can",
+            "from": 0,
+            "to": 1,
+            "s": 2
+          },
+          "units": [
+            {
+              "stock": "c2",
+              "reversed": false
+            }
+          ]
+        },
+        "t-local": {
+          "position": {
+            "brick": "B-main",
+            "from": 0,
+            "to": 1,
+            "s": 1
+          },
+          "units": [
+            {
+              "stock": "c1",
+              "reversed": false
+            }
+          ]
+        }
+      },
+      "cars": {
+        "c1": "t-local",
+        "c2": "cut-1",
+        "c3": ""
+      }
+    },
+    "putBack": {
+      "trains": [
+        {
+          "id": "cut-1",
+          "position": {
+            "brick": "B-can",
+            "from": 0,
+            "to": 1,
+            "s": 2
+          },
+          "units": [
+            {
+              "stock": "c2",
+              "reversed": false
+            }
+          ]
+        },
+        {
+          "id": "t-local",
+          "position": {
+            "brick": "B-main",
+            "from": 0,
+            "to": 1,
+            "s": 1
+          },
+          "units": [
+            {
+              "stock": "c1",
+              "reversed": false
+            }
+          ]
+        }
+      ],
+      "cars": {
+        "c2": "cut-1",
+        "c3": ""
+      },
+      "emptied": [
+        "cut-new"
+      ]
+    },
+    "replay": {
+      "cut-1": {
+        "brick": "B-can",
+        "from": 0,
+        "to": 1,
+        "s": 2
+      },
+      "t-local": {
+        "brick": "B-mill",
+        "from": 0,
+        "to": 1,
+        "s": 4
+      }
+    },
+    "summary": {
+      "moves": 3,
+      "cuts": 2,
+      "switches": 1,
+      "jobsLeft": [
+        "j1",
+        "j2"
+      ]
+    },
+    "inMotion": [
+      "cut-new",
+      "t-local"
+    ]
+  }
+}

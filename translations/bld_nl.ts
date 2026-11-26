@@ -903,6 +903,42 @@
         <translation>Klik op een stuk spoor; de standplaats is het hele spoor tussen wissels en uiteinden waar het op ligt. Hoeveel wagons passen komt van de lengte van dat spoor (een gewone wagon is 32 noppen); typ een getal om het zelf te zeggen, dan is de standplaats zoveel spoor rond het stuk. Als het spoor weg is, zegt de standplaats dat: kies het opnieuw.</translation>
     </message>
     <message>
+        <source>Sessions</source>
+        <translation>Sessies</translation>
+    </message>
+    <message>
+        <source>A session is one evening of operating: people get roles, jobs go out, and each person moves the cars their role allows.</source>
+        <translation>Een sessie is een avond rijden: mensen krijgen een rol, opdrachten vertrekken en iedereen verplaatst de wagens die zijn rol toestaat.</translation>
+    </message>
+    <message>
+        <source>Set up the crew, then press Start the session: the track is locked while it runs, and Pause unlocks it. When you end it, leave the cars where they are for next time, or put every car back where the session started. Past sessions keep a log of every move.</source>
+        <translation>Stel de bemanning samen en druk dan op Sessie starten: het spoor is vergrendeld zolang ze loopt, en Pauze geeft het vrij. Als je haar beëindigt, laat je de wagens staan voor de volgende keer, of zet je elke wagen terug waar de sessie begon. Eerdere sessies houden een logboek bij van elke beweging.</translation>
+    </message>
+    <message>
+        <source>Crew</source>
+        <translation>Bemanning</translation>
+    </message>
+    <message>
+        <source>The people in a session and their roles; people who only view the layout can be crew too.</source>
+        <translation>De mensen in een sessie en hun rollen; wie de layout alleen bekijkt, kan ook bemanning zijn.</translation>
+    </message>
+    <message>
+        <source>Add someone from the people the layout is shared with, give them a role, and for a crew, their job; for a yardmaster, their yard. A guest on this device has no account, so they use this computer or phone. Nobody gets more than their role: a crew who views the layout still can’t change the track.</source>
+        <translation>Voeg iemand toe uit de mensen met wie de layout gedeeld is, geef een rol en, voor een bemanning, haar opdracht; voor een rangeermeester, zijn emplacement. Een gast op dit apparaat heeft geen account en gebruikt deze computer of telefoon. Niemand krijgt meer dan zijn rol: een bemanning die de layout alleen bekijkt, kan het spoor nog steeds niet wijzigen.</translation>
+    </message>
+    <message>
+        <source>Roles</source>
+        <translation>Rollen</translation>
+    </message>
+    <message>
+        <source>The dispatcher sets any switch and sends jobs out; a yardmaster works their yard; a crew works their job’s stops once it is out.</source>
+        <translation>De treindienstleider zet elke wissel en laat opdrachten vertrekken; een rangeermeester werkt op zijn emplacement; een bemanning bij de stops van haar opdracht zodra die vertrokken is.</translation>
+    </message>
+    <message>
+        <source>The host (who started the session) and the layout’s owner may move any car. While a session runs nobody changes the track, and a move outside your role is refused with the reason. The main line between stops is the dispatcher’s.</source>
+        <translation>De gastheer (wie de sessie startte) en de eigenaar van de layout mogen elke wagen verplaatsen. Tijdens een sessie wijzigt niemand het spoor, en een beweging buiten je rol wordt met de reden geweigerd. De hoofdlijn tussen de stops is van de treindienstleider.</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>Tafels en stroom</translation>
     </message>
@@ -3920,14 +3956,6 @@
         <translation>Een plaats kan meer standplaatsen hebben. Elk zegt hoeveel wagons passen, berekend uit het spoor als je niets typt.</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>Op de kaart</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>Beeld › Plaatsen toont elke standplaats en hoeveel wagons er passen. Plaatsen op het spoor van een module gaan mee met de module.</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>Wagons op het spoor</translation>
     </message>
@@ -3950,6 +3978,14 @@
     <message>
         <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
         <translation>Een dienst is het werk van één ploeg: de plaatsen waar ze stopt. De rangeerlijst zegt wat je uitzet en ophaalt.</translation>
+    </message>
+    <message>
+        <source>Run a session</source>
+        <translation>Een sessie leiden</translation>
+    </message>
+    <message>
+        <source>Give people roles, then start. The track locks, and each person moves only what their role allows.</source>
+        <translation>Geef mensen een rol en start dan. Het spoor wordt vergrendeld en iedereen verplaatst alleen wat zijn rol toestaat.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>

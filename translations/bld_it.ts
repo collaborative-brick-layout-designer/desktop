@@ -903,6 +903,42 @@
         <translation>Fai clic su un pezzo di binario; la postazione è tutto il binario tra scambi ed estremità su cui si trova. Quanti carri ci stanno viene dalla lunghezza di quel binario (un carro tipico è di 32 bottoncini); scrivi un numero per dirlo tu, e la postazione è allora tanto binario attorno al pezzo. Se il binario viene tolto, la postazione lo dice: sceglilo di nuovo.</translation>
     </message>
     <message>
+        <source>Sessions</source>
+        <translation>Sessioni</translation>
+    </message>
+    <message>
+        <source>A session is one evening of operating: people get roles, jobs go out, and each person moves the cars their role allows.</source>
+        <translation>Una sessione è una serata di esercizio: le persone ricevono un ruolo, i servizi partono e ognuno sposta i carri che il suo ruolo consente.</translation>
+    </message>
+    <message>
+        <source>Set up the crew, then press Start the session: the track is locked while it runs, and Pause unlocks it. When you end it, leave the cars where they are for next time, or put every car back where the session started. Past sessions keep a log of every move.</source>
+        <translation>Prepara l’equipaggio, poi premi Avvia la sessione: il binario resta bloccato finché è in corso, e Pausa lo sblocca. Quando la termini, lascia i carri dove sono per la prossima volta, oppure riporta ogni carro dov’era all’inizio della sessione. Le sessioni passate conservano un registro di ogni movimento.</translation>
+    </message>
+    <message>
+        <source>Crew</source>
+        <translation>Equipaggio</translation>
+    </message>
+    <message>
+        <source>The people in a session and their roles; people who only view the layout can be crew too.</source>
+        <translation>Le persone di una sessione e i loro ruoli; anche chi vede soltanto il plastico può far parte dell’equipaggio.</translation>
+    </message>
+    <message>
+        <source>Add someone from the people the layout is shared with, give them a role, and for a crew, their job; for a yardmaster, their yard. A guest on this device has no account, so they use this computer or phone. Nobody gets more than their role: a crew who views the layout still can’t change the track.</source>
+        <translation>Aggiungi qualcuno tra le persone con cui il plastico è condiviso, dagli un ruolo e, per un equipaggio, il suo servizio; per un capo scalo, il suo scalo. Un ospite su questo dispositivo non ha un account, quindi usa questo computer o telefono. Nessuno ha più del suo ruolo: un equipaggio che vede soltanto il plastico non può comunque cambiare il binario.</translation>
+    </message>
+    <message>
+        <source>Roles</source>
+        <translation>Ruoli</translation>
+    </message>
+    <message>
+        <source>The dispatcher sets any switch and sends jobs out; a yardmaster works their yard; a crew works their job’s stops once it is out.</source>
+        <translation>Il dirigente movimento manovra qualsiasi scambio e fa partire i servizi; un capo scalo lavora nel suo scalo; un equipaggio, alle fermate del suo servizio una volta partito.</translation>
+    </message>
+    <message>
+        <source>The host (who started the session) and the layout’s owner may move any car. While a session runs nobody changes the track, and a move outside your role is refused with the reason. The main line between stops is the dispatcher’s.</source>
+        <translation>L’ospitante (chi ha avviato la sessione) e il proprietario del plastico possono spostare qualsiasi carro. Durante una sessione nessuno cambia il binario, e un movimento fuori dal tuo ruolo viene rifiutato con il motivo. La linea principale tra le fermate è del dirigente movimento.</translation>
+    </message>
+    <message>
         <source>Tables and power</source>
         <translation>Tavoli e corrente</translation>
     </message>
@@ -3920,14 +3956,6 @@
         <translation>Un luogo può avere più postazioni. Ognuna dice quanti carri ci stanno, calcolati dal binario se non li scrivi.</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>Sulla mappa</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>Vista › Luoghi mostra ogni postazione e quanti carri tiene. I luoghi sul binario di un modulo seguono il modulo.</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>Vagoni sul binario</translation>
     </message>
@@ -3950,6 +3978,14 @@
     <message>
         <source>A job is one crew&apos;s work: the places it stops at. Its switch list says what to set out and pick up.</source>
         <translation>Un servizio è il lavoro di una squadra: i luoghi in cui si ferma. La lista di manovra dice che cosa lasciare e prendere.</translation>
+    </message>
+    <message>
+        <source>Run a session</source>
+        <translation>Condurre una sessione</translation>
+    </message>
+    <message>
+        <source>Give people roles, then start. The track locks, and each person moves only what their role allows.</source>
+        <translation>Dai i ruoli, poi avvia. Il binario si blocca e ognuno sposta solo ciò che il suo ruolo consente.</translation>
     </message>
     <message>
         <source>A quick car, or your own model</source>

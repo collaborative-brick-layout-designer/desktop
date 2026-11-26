@@ -20,6 +20,8 @@ add_library(bld_track STATIC
     FitChecks.h
     Ops.cpp
     Ops.h
+    OpsSession.cpp
+    OpsSession.h
     OpsView.cpp
     OpsView.h
     PlacesOnTrack.cpp

@@ -58,6 +58,9 @@ ops.switchList
 ops.cantRoute
 ops.places
 ops.spot
+ops.session
+ops.crew
+ops.roles
 module.setupSummary
 module.edit
 module.make

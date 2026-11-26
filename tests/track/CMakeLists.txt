@@ -6,6 +6,7 @@ add_executable(bld_track_tests
     FitChecksTest.cpp
     PlacesOnTrackTest.cpp
     OpsTest.cpp
+    OpsSessionTest.cpp
     AnimationTest.cpp
     StockGuessTest.cpp
 )
