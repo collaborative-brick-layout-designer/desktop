@@ -37,7 +37,7 @@ OpsSession asSession(const QJsonObject& r) {
     s.layout = text(r.value(QLatin1String("layout")));
     s.host = text(r.value(QLatin1String("host")));
     const QJsonArray crew = r.value(QLatin1String("crew")).toArray();
-    for (qsizetype i = 0; i < crew.size() && i < 2 * kMaxCrew; ++i) {
+    for (qsizetype i = 0; i < crew.size() && i < qsizetype{ 2 } * kMaxCrew; ++i) {
         if (!crew[i].isObject()) continue;
         const QJsonObject c = crew[i].toObject();
         const QString role = text(c.value(QLatin1String("role")));
