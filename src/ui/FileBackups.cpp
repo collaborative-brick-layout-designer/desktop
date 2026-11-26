@@ -145,12 +145,25 @@ QList<SavedCopy> FileBackups::copiesOf(const QString& file) {
     QList<SavedCopy> out;
     const QDir dir(folderFor(file));
     if (!dir.exists()) return out;
+    // Two copies can share a millisecond: "<stamp>.ext" is the first, then
+    // "<stamp>-2.ext", "-3"... Newest is the higher number, whatever the
+    // directory order says.
+    QList<int> order;
     for (const QFileInfo& info : dir.entryInfoList(QDir::Files, QDir::Name | QDir::Reversed)) {
         const QString name = info.fileName();
         if (name == QLatin1String(kSourceName) || name.endsWith(QLatin1String(".bld"), Qt::CaseInsensitive)) continue;
         if (name.endsWith(QLatin1String(".tmp"))) continue;
         const QDateTime at = QDateTime::fromString(name.left(kStampFormat.size()), kStampFormat);
         if (!at.isValid()) continue;
+        int n = 1;
+        const QString rest = name.mid(kStampFormat.size());
+        if (rest.startsWith(QLatin1Char('-'))) {
+            const qsizetype dot = rest.indexOf(QLatin1Char('.'));
+            bool ok = false;
+            const int parsed = rest.mid(1, dot < 0 ? -1 : dot - 1).toInt(&ok);
+            if (ok && parsed > 0) n = parsed;
+        }
+        order << n;
         SavedCopy c{ info.absoluteFilePath(), {}, at, info.size() };
         if (isBbm(name)) {
             const QString side = saveload::sidecarPathFor(c.path);
@@ -158,8 +171,16 @@ QList<SavedCopy> FileBackups::copiesOf(const QString& file) {
         }
         out << c;
     }
-    std::stable_sort(out.begin(), out.end(), [](const SavedCopy& a, const SavedCopy& b) { return a.at > b.at; });
-    return out;
+    QList<qsizetype> idx(out.size());
+    for (qsizetype i = 0; i < idx.size(); ++i) idx[i] = i;
+    std::sort(idx.begin(), idx.end(), [&](qsizetype a, qsizetype b) {
+        if (out.at(a).at != out.at(b).at) return out.at(a).at > out.at(b).at;
+        if (order.at(a) != order.at(b)) return order.at(a) > order.at(b);
+        return out.at(a).path > out.at(b).path;
+    });
+    QList<SavedCopy> sorted;
+    for (qsizetype i : idx) sorted << out.at(i);
+    return sorted;
 }
 
 QList<BackedUpFile> FileBackups::files() {
