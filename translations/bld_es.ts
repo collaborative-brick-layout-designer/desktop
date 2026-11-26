@@ -3956,14 +3956,6 @@
         <translation>Un lugar puede tener varios puestos. Cada uno dice cuántos vagones caben, calculado de la vía si no lo escribes.</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>En el mapa</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>Ver › Lugares muestra cada puesto y cuántos vagones caben. Los lugares en la vía de un módulo van con el módulo.</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>Vagones en la vía</translation>
     </message>

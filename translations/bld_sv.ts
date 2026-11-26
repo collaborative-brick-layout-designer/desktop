@@ -3956,14 +3956,6 @@
         <translation>En plats kan ha flera uppställningar. Var och en säger hur många vagnar som ryms, räknat från spåret om du inte skriver det.</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>På kartan</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>Visa › Platser visar varje uppställning och hur många vagnar som ryms. Platser på en moduls spår följer modulen.</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>Vagnar på spåret</translation>
     </message>

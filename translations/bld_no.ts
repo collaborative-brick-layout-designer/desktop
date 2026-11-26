@@ -3956,14 +3956,6 @@
         <translation>Et sted kan ha flere plasser. Hver sier hvor mange vogner det er rom til, regnet ut fra sporet om du ikke skriver det.</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>På kartet</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>Vis › Steder viser hver plass og hvor mange vogner den rommer. Steder på sporet til en modul følger modulen.</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>Vogner på sporet</translation>
     </message>

@@ -3936,14 +3936,6 @@
         <translation>場所には複数の停車位置を置けます。入力しなければ、入る両数は線路から計算されます。</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>地図の上</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>表示 › 場所 で各停車位置と入る両数を表示します。モジュールの線路上の場所はモジュールと一緒に移動します。</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>線路上の車両</translation>
     </message>

@@ -3956,14 +3956,6 @@
         <translation>Ein Ort kann mehrere Stellplätze haben. Jeder sagt, wie viele Wagen passen: aus dem Gleis berechnet, wenn du nichts eingibst.</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>Auf der Karte</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>Ansicht › Orte zeigt jeden Stellplatz und wie viele Wagen er fasst. Orte auf dem Gleis eines Moduls gehen mit dem Modul mit.</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>Wagen auf dem Gleis</translation>
     </message>

@@ -3956,14 +3956,6 @@
         <translation>Um local pode ter várias posições. Cada uma diz quantos vagões cabem, calculado da linha se não escrever.</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>No mapa</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>Ver › Locais mostra cada posição e quantos vagões cabem. Os locais na linha de um módulo vão com o módulo.</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>Carruagens na via</translation>
     </message>

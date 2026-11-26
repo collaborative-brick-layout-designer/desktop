@@ -3956,14 +3956,6 @@
         <translation>Un luogo può avere più postazioni. Ognuna dice quanti carri ci stanno, calcolati dal binario se non li scrivi.</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>Sulla mappa</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>Vista › Luoghi mostra ogni postazione e quanti carri tiene. I luoghi sul binario di un modulo seguono il modulo.</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>Vagoni sul binario</translation>
     </message>

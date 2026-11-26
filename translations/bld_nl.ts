@@ -3956,14 +3956,6 @@
         <translation>Een plaats kan meer standplaatsen hebben. Elk zegt hoeveel wagons passen, berekend uit het spoor als je niets typt.</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>Op de kaart</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>Beeld › Plaatsen toont elke standplaats en hoeveel wagons er passen. Plaatsen op het spoor van een module gaan mee met de module.</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>Wagons op het spoor</translation>
     </message>

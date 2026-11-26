@@ -3956,14 +3956,6 @@
         <translation>Un lieu peut avoir plusieurs emplacements. Chacun dit combien de wagons tiennent, d’après la voie sauf si vous l’écrivez.</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>Sur la carte</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>Affichage › Lieux montre chaque emplacement et combien de wagons il tient. Les lieux sur la voie d’un module le suivent.</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>Wagons sur la voie</translation>
     </message>

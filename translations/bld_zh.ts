@@ -3936,14 +3936,6 @@
         <translation>一个地点可以有多个停车位。如果你不填写，每个停车位能停多少辆由轨道算出。</translation>
     </message>
     <message>
-        <source>On the map</source>
-        <translation>在地图上</translation>
-    </message>
-    <message>
-        <source>View › Places shows each spot and how many cars it holds. Places on a module’s track go along with the module.</source>
-        <translation>视图 › 地点 显示每个停车位和能停多少辆。模块轨道上的地点会随模块一起走。</translation>
-    </message>
-    <message>
         <source>Cars on the track</source>
         <translation>轨道上的车厢</translation>
     </message>
